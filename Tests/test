@@ -1,0 +1,83 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os
+import sys
+import string
+import subprocess
+import shutil
+import time
+
+def parse_args():
+    import argparse
+    from argparse import RawTextHelpFormatter
+    
+    description = """Запуск тестов на тестовый фреймворк
+
+    Запустить тесты:
+    test
+    test SpecificTestCase
+
+    Не билдить:
+    test --wb
+"""
+    parser = argparse.ArgumentParser(description=description, formatter_class=RawTextHelpFormatter)
+    
+    parser.set_defaults(shouldOpenResult=False)
+    parser.set_defaults(withoutBuilding=False)
+        
+    parser.add_argument(
+        '--wb',
+        dest='withoutBuilding',
+        action='store_true',
+        help='Не билдить, только запустить тест')
+        
+    parser.add_argument(
+        'testNames',
+         nargs='*', help='Имена тестов')
+    return parser.parse_args()
+
+def run(args):
+    xcworkspaceRelativeToRepoRoot = "/TestsCore/UI/Demo/Tests.xcworkspace"
+    scheme = "Tests"
+
+    print("Выполняю тесты: " + str(args.testNames))
+    
+    action="test"
+    
+    if args.withoutBuilding:
+    	action="test-without-building"
+    
+    xcodebuildArgs = ["xcodebuild", action]
+    xcodebuildArgs.extend(["-workspace", repo_root() + xcworkspaceRelativeToRepoRoot])
+    xcodebuildArgs.extend(["-scheme", scheme])
+    xcodebuildArgs.extend(["-sdk", "iphonesimulator"])
+    xcodebuildArgs.extend(["-destination", "platform=iOS Simulator,name=iPhone X,OS=11.4"])
+    xcodebuildArgs.extend(["-destination", "platform=iOS Simulator,name=iPhone 7,OS=11.4"])
+    xcodebuildArgs.extend(["-destination", "platform=iOS Simulator,name=iPhone SE,OS=10.3.1"])
+    xcodebuildArgs.extend(["-destination", "platform=iOS Simulator,name=iPhone 6 Plus,OS=9.3"])
+    for testName in args.testNames:
+        xcodebuildArgs.append("-only-testing:FunctionalTests/" + testName)
+    
+    xcodebuildArgs.append("TMCT_DISABLE_REPORT_XCUIACTIVITY=true")
+    
+    subprocess.call(xcodebuildArgs)
+
+def repo_root():
+    return find_vcs_root(os.path.dirname(__file__))
+
+def find_vcs_root(test, dirs=(".git",), default=None):
+    import os
+    prev, test = None, os.path.abspath(test)
+    while prev != test:
+        if any(os.path.isdir(os.path.join(test, d)) for d in dirs):
+            return test
+        prev, test = test, os.path.abspath(os.path.join(test, os.pardir))
+    return default
+
+def main():
+    args = parse_args()
+    run(args)
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,34 @@
+PODS:
+  - GCDWebServer (3.4.2):
+    - GCDWebServer/Core (= 3.4.2)
+  - GCDWebServer/Core (3.4.2)
+  - MixboxBuiltinIpc (0.0.1):
+    - GCDWebServer
+    - MixboxIpc
+  - MixboxFoundation (0.0.1)
+  - MixboxIpc (0.0.1):
+    - MixboxFoundation
+
+DEPENDENCIES:
+  - GCDWebServer
+  - MixboxBuiltinIpc (from `../../BuiltinIpc`)
+  - MixboxFoundation (from `../../Foundation`)
+  - MixboxIpc (from `../../Ipc`)
+
+EXTERNAL SOURCES:
+  MixboxBuiltinIpc:
+    :path: "../../BuiltinIpc"
+  MixboxFoundation:
+    :path: "../../Foundation"
+  MixboxIpc:
+    :path: "../../Ipc"
+
+SPEC CHECKSUMS:
+  GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
+  MixboxBuiltinIpc: 25625387cacbecbe3198df159bc7b06bdb5f0360
+  MixboxFoundation: f402084bd1c48e147c4770bf3e53e0d646873218
+  MixboxIpc: 26550b3121c5ed5789cc449a39ab5b36105b2059
+
+PODFILE CHECKSUM: f000000000000000000000000000000000000000
+
+COCOAPODS: 1.2.1

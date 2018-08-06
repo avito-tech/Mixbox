@@ -1,0 +1,57 @@
+import UIKit
+
+final class ActionsTestsView: UIView {
+    let infoLabel = UILabel()
+    let scrollView = TestStackScrollView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(infoLabel)
+        addSubview(scrollView)
+        
+        infoLabel.accessibilityIdentifier = "info"
+        infoLabel.textAlignment = .center
+        infoLabel.textColor = .black
+        infoLabel.font = UIFont.systemFont(ofSize: 17)
+        
+        backgroundColor = .white
+        
+        scrollView.addLabel(id: "tap") {
+            $0.onTap = { [weak self] in
+                self?.infoLabel.text = "tap"
+            }
+        }
+        scrollView.addLabel(id: "press") {
+            $0.onLongPress = { [weak self] in
+                self?.infoLabel.text = "press"
+            }
+        }
+        scrollView.addTextField(id: "text") {
+            $0.onInput = { [weak self] text in
+                self?.infoLabel.text = "text: \(text ?? "")"
+            }
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        infoLabel.layout(
+            left: bounds.mb_left,
+            right: bounds.mb_right,
+            top: bounds.mb_top,
+            height: 50
+        )
+        scrollView.layout(
+            left: bounds.mb_left,
+            right: bounds.mb_right,
+            top: infoLabel.mb_bottom,
+            bottom: bounds.mb_bottom
+        )
+    }
+}

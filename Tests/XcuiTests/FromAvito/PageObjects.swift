@@ -1,0 +1,2 @@
+final class PageObjects: BasePageObjects {
+}

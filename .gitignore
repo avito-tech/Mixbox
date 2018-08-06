@@ -1,0 +1,29 @@
+# MAC OS
+.DS_Store
+
+# AppCode
+.idea
+
+# Xcode
+xcuserdata
+xcuserdata/
+*.xccheckout
+*.xcuserstate
+*.xcscmblueprint
+*.orig
+IDEWorkspaceChecks.plist
+DerivedData/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/
+
+# Python
+__pycache__/
+build/
+dist/
+.pytest_cache/
+*.egg-info
+*.pyc
