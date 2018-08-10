@@ -1,6 +1,6 @@
 // PageObjectElement with all known functionality.
 // 
-// It is made for hiding implementation of EarlGrey and UIAutomation.
+// It is made for hiding implementation of EarlGrey and XCUI.
 // The protocol is used in UITestsCore and should NEVER be used in tests.
 //
 // Tests should use restricted version of it for every particular type of element:

@@ -1,6 +1,5 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
-import AutoMate
 
 final class VisibleElementCheckInteraction: Interaction {
     let description: InteractionDescription

@@ -1,5 +1,4 @@
 PODS:
-  - AutoMate (1.0)
   - GCDWebServer (3.4.2):
     - GCDWebServer/Core (= 3.4.2)
   - GCDWebServer/Core (3.4.2)
@@ -41,7 +40,6 @@ PODS:
     - MixboxTestsFoundation
     - MixboxUiKit
   - MixboxXcuiDriver (0.0.1):
-    - AutoMate (= 1.0)
     - MixboxIpcClients
     - MixboxUiKit
     - MixboxUiTestsFoundation
@@ -55,28 +53,27 @@ PODS:
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - MixboxArtifacts (from `../Frameworks/Artifacts`)
-  - MixboxBuiltinIpc (from `../Frameworks/BuiltinIpc`)
-  - MixboxFoundation (from `../Frameworks/Foundation`)
-  - MixboxInAppServices (from `../Frameworks/InAppServices`)
-  - MixboxIpc (from `../Frameworks/Ipc`)
-  - MixboxIpcClients (from `../Frameworks/IpcClients`)
-  - MixboxIpcCommon (from `../Frameworks/IpcCommon`)
-  - MixboxIpcSbtuiClient (from `../Frameworks/IpcSbtuiClient`)
-  - MixboxIpcSbtuiHost (from `../Frameworks/IpcSbtuiHost`)
-  - MixboxReporting (from `../Frameworks/Reporting`)
-  - MixboxTestability (from `../Frameworks/Testability`)
-  - MixboxTestsFoundation (from `../Frameworks/TestsFoundation`)
-  - MixboxUiKit (from `../Frameworks/UiKit`)
-  - MixboxUiTestsFoundation (from `../Frameworks/UiTestsFoundation`)
-  - MixboxXcuiDriver (from `../Frameworks/XcuiDriver`)
+  - MixboxArtifacts (from `..`)
+  - MixboxBuiltinIpc (from `..`)
+  - MixboxFoundation (from `..`)
+  - MixboxInAppServices (from `..`)
+  - MixboxIpc (from `..`)
+  - MixboxIpcClients (from `..`)
+  - MixboxIpcCommon (from `..`)
+  - MixboxIpcSbtuiClient (from `..`)
+  - MixboxIpcSbtuiHost (from `..`)
+  - MixboxReporting (from `..`)
+  - MixboxTestability (from `..`)
+  - MixboxTestsFoundation (from `..`)
+  - MixboxUiKit (from `..`)
+  - MixboxUiTestsFoundation (from `..`)
+  - MixboxXcuiDriver (from `..`)
   - SBTUITestTunnel/Client
   - SimulatorRemoteNotifications (~> 0.0.3)
   - SwiftyJSON (= 3.1.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - AutoMate
     - GCDWebServer
     - SBTUITestTunnel
     - SimulatorRemoteNotifications
@@ -85,54 +82,53 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   MixboxArtifacts:
-    :path: "../Frameworks/Artifacts"
+    :path: ".."
   MixboxBuiltinIpc:
-    :path: "../Frameworks/BuiltinIpc"
+    :path: ".."
   MixboxFoundation:
-    :path: "../Frameworks/Foundation"
+    :path: ".."
   MixboxInAppServices:
-    :path: "../Frameworks/InAppServices"
+    :path: ".."
   MixboxIpc:
-    :path: "../Frameworks/Ipc"
+    :path: ".."
   MixboxIpcClients:
-    :path: "../Frameworks/IpcClients"
+    :path: ".."
   MixboxIpcCommon:
-    :path: "../Frameworks/IpcCommon"
+    :path: ".."
   MixboxIpcSbtuiClient:
-    :path: "../Frameworks/IpcSbtuiClient"
+    :path: ".."
   MixboxIpcSbtuiHost:
-    :path: "../Frameworks/IpcSbtuiHost"
+    :path: ".."
   MixboxReporting:
-    :path: "../Frameworks/Reporting"
+    :path: ".."
   MixboxTestability:
-    :path: "../Frameworks/Testability"
+    :path: ".."
   MixboxTestsFoundation:
-    :path: "../Frameworks/TestsFoundation"
+    :path: ".."
   MixboxUiKit:
-    :path: "../Frameworks/UiKit"
+    :path: ".."
   MixboxUiTestsFoundation:
-    :path: "../Frameworks/UiTestsFoundation"
+    :path: ".."
   MixboxXcuiDriver:
-    :path: "../Frameworks/XcuiDriver"
+    :path: ".."
 
 SPEC CHECKSUMS:
-  AutoMate: 1fc893cdedca5e9d97fdc3e311e196a5398f5d1b
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
-  MixboxArtifacts: 0acb5ee6d1983f6c2d82411e6fa72930198d0da4
-  MixboxBuiltinIpc: a898dd780e1b1893137e268c89aef38c7038062a
-  MixboxFoundation: 7c0c090eba6c001474e99ff8ae1218f6f3a12f67
-  MixboxInAppServices: b5fcdb9753b32140c0e64c8e6a74f7acacf6c27a
-  MixboxIpc: 5d7ecea3c1f32dcc166e90ed265bf084705739ce
-  MixboxIpcClients: 4af7cbe46bcd189c5791800e259ea80e71fe78ee
-  MixboxIpcCommon: 5dfd87186847d7ce56f0df9978b03c4dfefbeace
-  MixboxIpcSbtuiClient: 2b5f19877c572f95bfdc4c105482a71bd48f9c19
-  MixboxIpcSbtuiHost: 8c645c035954cb11adccff2183624d787f09bdf5
-  MixboxReporting: 2451c3bf3e80989862203ecc3f8ed684a5b60635
-  MixboxTestability: bf51f0c3affbf45dc9d6af39ef85b25eb9a4591e
-  MixboxTestsFoundation: 9ac9a180bb6e4957e8af614cd53ef1f8032ac8d6
-  MixboxUiKit: 6e21df50606660aed27d311f2d2cf7f3da21020a
-  MixboxUiTestsFoundation: 43fe59ca64ce3d0fd89c76d3e9a018d54d38c088
-  MixboxXcuiDriver: e9af5929b63cf1a4196ac71b47b5add9db09a4e6
+  MixboxArtifacts: c91e67e2d8ad399e4460dd509edccd2d467e1c52
+  MixboxBuiltinIpc: 0a1de598d46d2665709165ac38185aee310a9051
+  MixboxFoundation: d3c5def5457f36c65cd201ab154b78f27ac6bac1
+  MixboxInAppServices: 4301317939b3f182a1c628e1c37c0e5a3b59a6fd
+  MixboxIpc: b1f1c9fb79a48c5dec77a54e38a003bf3e6f6548
+  MixboxIpcClients: e3305981c84deeb90eb331c1f689afe912da183a
+  MixboxIpcCommon: 2776ddfd673cb309adf3a5bb5920b1f9a9e588b0
+  MixboxIpcSbtuiClient: 8c9e87ddc9eaa5b40428756f44322f31e69567d4
+  MixboxIpcSbtuiHost: 301c260ab02834408eede925d944f7b932a5ddd9
+  MixboxReporting: 5e5d4e92e28e4fd97670e38c65c6d20b38939da4
+  MixboxTestability: 99cc756880e03c311788630d9d9ad0d53c762a24
+  MixboxTestsFoundation: 69709227e7a82b543cbc0d9d7aad3ad751ddc632
+  MixboxUiKit: 9d0aa60d4622485145a96d04a63b48ec647eeffd
+  MixboxUiTestsFoundation: 52198b9678c2a563c73be0c3167d83d86fa7e6bc
+  MixboxXcuiDriver: 12563f3005071dd84b0f41a0e0fdf0957788c038
   SBTUITestTunnel: 1ac460e1bbbc0be6fc5ca0747940decd4b16e2d1
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e

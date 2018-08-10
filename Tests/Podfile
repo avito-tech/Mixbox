@@ -9,17 +9,17 @@ inhibit_all_warnings!
 use_frameworks!
 
 def ui_tests_pods
-  pod 'MixboxTestsFoundation', :path => '../Frameworks/TestsFoundation', :inhibit_warnings => false
-  pod 'MixboxUiTestsFoundation', :path => '../Frameworks/UiTestsFoundation', :inhibit_warnings => false
-  pod 'MixboxArtifacts', :path => '../Frameworks/Artifacts', :inhibit_warnings => false
+  pod 'MixboxTestsFoundation', :path => '..', :inhibit_warnings => false
+  pod 'MixboxUiTestsFoundation', :path => '..', :inhibit_warnings => false
+  pod 'MixboxArtifacts', :path => '..', :inhibit_warnings => false
   pod 'SwiftyJSON', '3.1.4'
 end
 
 def application_testability_and_blackbox_testing_common_pods
-  pod 'MixboxIpc', :path => '../Frameworks/Ipc', :inhibit_warnings => false
-  pod 'MixboxIpcCommon', :path => '../Frameworks/IpcCommon', :inhibit_warnings => false
-  pod 'MixboxUiKit', :path => '../Frameworks/UiKit', :inhibit_warnings => false
-  pod 'MixboxBuiltinIpc', :path => '../Frameworks/BuiltinIpc', :inhibit_warnings => false
+  pod 'MixboxIpc', :path => '..', :inhibit_warnings => false
+  pod 'MixboxIpcCommon', :path => '..', :inhibit_warnings => false
+  pod 'MixboxUiKit', :path => '..', :inhibit_warnings => false
+  pod 'MixboxBuiltinIpc', :path => '..', :inhibit_warnings => false
 end
 
 def application_testability_pods
@@ -27,9 +27,9 @@ def application_testability_pods
   
   # pod 'GCDWebServer'
   # pod 'SBTUITestTunnel/Server'
-  pod 'MixboxTestability', :path => '../Frameworks/Testability', :inhibit_warnings => false
-  pod 'MixboxIpcSbtuiHost', :path => '../Frameworks/IpcSbtuiHost', :inhibit_warnings => false
-  pod 'MixboxInAppServices', :path => '../Frameworks/InAppServices', :inhibit_warnings => false
+  pod 'MixboxTestability', :path => '..', :inhibit_warnings => false
+  pod 'MixboxIpcSbtuiHost', :path => '..', :inhibit_warnings => false
+  pod 'MixboxInAppServices', :path => '..', :inhibit_warnings => false
 end
 
 def blackbox_tests_pods
@@ -37,11 +37,11 @@ def blackbox_tests_pods
   application_testability_and_blackbox_testing_common_pods
 
   pod 'SBTUITestTunnel/Client'
-  pod 'MixboxIpcSbtuiClient', :path => '../Frameworks/IpcSbtuiClient', :inhibit_warnings => false
-  pod 'MixboxIpcClients', :path => '../Frameworks/IpcClients', :inhibit_warnings => false
-  pod 'MixboxReporting', :path => '../Frameworks/Reporting', :inhibit_warnings => false
-  pod 'MixboxFoundation', :path => '../Frameworks/Foundation', :inhibit_warnings => false
-  pod 'MixboxXcuiDriver', :path => '../Frameworks/XcuiDriver', :inhibit_warnings => false
+  pod 'MixboxIpcSbtuiClient', :path => '..', :inhibit_warnings => false
+  pod 'MixboxIpcClients', :path => '..', :inhibit_warnings => false
+  pod 'MixboxReporting', :path => '..', :inhibit_warnings => false
+  pod 'MixboxFoundation', :path => '..', :inhibit_warnings => false
+  pod 'MixboxXcuiDriver', :path => '..', :inhibit_warnings => false
   pod 'SimulatorRemoteNotifications', '~> 0.0.3'
 end
 

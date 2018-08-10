@@ -25,7 +25,7 @@ final class ElementFinderImpl: ElementFinder {
     {
         let elementQueryResolvingState = ElementQueryResolvingState()
         
-        let xcuiElementQuery = XCUIApplication().any.matching(
+        let xcuiElementQuery = XCUIApplication().descendants(matching: .any).matching(
             NSPredicate(
                 block: { snapshot, _ -> Bool in
                     if let snapshot = snapshot as? XCElementSnapshot {

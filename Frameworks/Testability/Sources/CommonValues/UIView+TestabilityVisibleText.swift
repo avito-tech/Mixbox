@@ -61,7 +61,6 @@ public extension UITextField {
         } else {
             return placeholder
         }
-        return text ?? ""
     }
 }
 

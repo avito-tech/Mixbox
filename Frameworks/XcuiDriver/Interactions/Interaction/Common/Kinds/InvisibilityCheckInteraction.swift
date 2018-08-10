@@ -1,6 +1,5 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
-import AutoMate
 
 // TODO: I think it doesn't wait if element is not visible. If element is not visible it should wait, because it
 // can appear few moments later. So there is a possibility of false-positive check, which is a very bad thing.

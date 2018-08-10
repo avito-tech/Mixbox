@@ -1,0 +1,33 @@
+#!/bin/bash
+
+style=$1
+
+function push() {
+    if [ "$style" = "debug" ]
+    then
+        pod repo push MixboxSpecRepo "$@" --verbose --local-only --allow-warnings || exit 1
+    elif [ "$style" = "release" ]
+    then
+        pod trunk push "$@" --verbose --allow-warnings || exit 1
+    else
+        echo "Unknown style ($style)"
+        exit 1
+    fi
+}
+
+push MixboxArtifacts.podspec
+push MixboxFoundation.podspec
+push MixboxTestability.podspec
+push MixboxUiKit.podspec
+push MixboxIpc.podspec
+push MixboxBuiltinIpc.podspec
+push MixboxIpcCommon.podspec
+push MixboxIpcClients.podspec
+push MixboxIpcSbtuiClient.podspec
+push MixboxIpcSbtuiHost.podspec
+push MixboxReporting.podspec
+push MixboxTestsFoundation.podspec
+push MixboxUiTestsFoundation.podspec
+push MixboxXcuiDriver.podspec
+#push MixboxEarlGreyDriver.podspec
+push MixboxInAppServices.podspec

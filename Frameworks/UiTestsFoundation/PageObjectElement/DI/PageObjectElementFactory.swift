@@ -1,5 +1,5 @@
-// This protocol is used to make abstraction of EarlGrey and UIAutomation
-// Note that UITestCore know nothing about EarlGrey and UIAutomation,
+// This protocol is used to make abstraction of EarlGrey and XCUI
+// Note that UITestCore know nothing about EarlGrey and XCUI,
 // so it is just an example.
 //
 // Instances should return AlmightyElement (see AlmightyElement)

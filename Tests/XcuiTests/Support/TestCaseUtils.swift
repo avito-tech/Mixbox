@@ -36,7 +36,7 @@ final class TestCaseUtils {
         )
         
         pageObjects = PageObjects(
-            pageObjectsDependenciesFactory: UiAutomationPageObjectsDependenciesFactory(
+            pageObjectsDependenciesFactory: XcuiPageObjectsDependenciesFactory(
                 interactionExecutionLogger: interactionExecutionLogger,
                 testFailureRecorder: testFailureRecorder,
                 ipcClient: lazilyInitializedIpcClient,
