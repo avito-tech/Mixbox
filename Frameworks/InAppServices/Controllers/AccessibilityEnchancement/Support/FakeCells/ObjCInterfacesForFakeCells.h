@@ -3,6 +3,7 @@
 @interface UICollectionViewCell (ObjCInterfacesForFakeCells)
 
 - (BOOL)_isHiddenForReuse;
+- (BOOL)_setHiddenForReuse:(BOOL)isHiddenForReuse;
 
 @end
 

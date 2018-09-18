@@ -10,6 +10,6 @@
 
 Недостаток - приватные хедеры. Но это не проблема, так как в принципе весь наш фреймворк тестов - это абстракция над EarlGrey и XCUI. Тесты не зависят от EarlGrey и XCUI.
 
-Также есть дополнительная абстракция `ElementSnapshot` над `XCElementSnapshot`.
+Также есть дополнительная абстракция `XcuiElementSnapshot` над `XCElementSnapshot`.
 
 Приватные хедеры взяты из <https://github.com/facebook/WebDriverAgent> и поправлены, чтобы хоть как-то компилились.

@@ -26,19 +26,15 @@ final class Scroller {
         resolvedElementQuery: ResolvedElementQuery)
         -> ScrollingResult
     {
-        var status: ScrollingResult.Status?
-        var needToReloadSnapshots = false
-        
-        if snapshot.frame == .zero {
+        if snapshot.frameOnScreen == .zero {
             // Fake cells have .zero accessibilityFrame, even if we set the value of it.
             // Probably, AX Client just ignores it if the element has no superview.
             
             // Need to scroll.
         } else {
-            let application = XCUIApplication()
-            let frame = application.frame // TODO: Cache this value
+            let frame = ApplicationFrameProvider.frame
             
-            if let intersectionWithScreen = frame.mb_intersectionOrNil(snapshot.frame) {
+            if frame.mb_intersectionOrNil(snapshot.frameOnScreen) != nil {
                 // Element intersects screen.
                 // We don't care if it is fully on screen or partially.
                 // We just filter out the case when it is completely off screen.

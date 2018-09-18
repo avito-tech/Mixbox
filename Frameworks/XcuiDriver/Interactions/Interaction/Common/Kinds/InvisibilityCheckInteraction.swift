@@ -6,7 +6,7 @@ import MixboxTestsFoundation
 final class InvisibilityCheckInteraction: Interaction {
     let description: InteractionDescription
     
-    private let elementMatcher: ElementSnapshotMatcher
+    private let elementMatcher: ElementMatcher
     private let settings: ResolvedInteractionSettings
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let scrollingHintsProvider: ScrollingHintsProvider
@@ -19,16 +19,15 @@ final class InvisibilityCheckInteraction: Interaction {
         elementFinder: ElementFinder,
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
-        minimalPercentageOfVisibleArea: CGFloat)
+        minimalPercentageOfVisibleArea: CGFloat,
+        snapshotCaches: SnapshotCaches)
     {
         self.settings = settings
         self.description = InteractionDescription(
             type: .check,
             settings: settings
         )
-        self.elementMatcher = ElementSnapshotMatchers.matcherForPredicate(
-            settings.elementSettings.matcher.rootPredicateNode
-        )
+        self.elementMatcher = settings.elementSettings.matcher
         self.elementFinder = elementFinder
         self.elementVisibilityChecker = elementVisibilityChecker
         self.scrollingHintsProvider = scrollingHintsProvider
@@ -39,7 +38,8 @@ final class InvisibilityCheckInteraction: Interaction {
             scrollingHintsProvider: scrollingHintsProvider,
             elementFinder: elementFinder,
             interactionSettings: description.settings,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            snapshotCaches: snapshotCaches
         )
     }
     
@@ -77,7 +77,7 @@ final class InvisibilityCheckInteraction: Interaction {
         var failedElementsCount = 0
         
         forEach: for var (index, snapshot) in resolvedElementQuery.matchingSnapshots.enumerated() {
-            if snapshot.isDefinitelyHidden {
+            if snapshot.isDefinitelyHidden.value == true {
                 // ok
             } else {
                 let scrollingResult = interactionHelper.scrollIfNeeded(
@@ -100,7 +100,7 @@ final class InvisibilityCheckInteraction: Interaction {
                 case .elementWasLostAfterScroll:
                     // Ok
                     break forEach
-                case .internalError(let message):
+                case .internalError:
                     // Before:
                     // return .error(message)
                     // After:

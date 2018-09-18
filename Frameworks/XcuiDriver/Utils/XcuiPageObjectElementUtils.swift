@@ -8,6 +8,8 @@ private struct PerformResult<Type> {
     let interactionSpecificResult: InteractionSpecificResult
 }
 
+// NOTE: This class should be removed.
+// Page object elements will only contain properties and actions in future.
 final class XcuiPageObjectElementUtils: AlmightyElementUtils {
     private let elementSettings: ElementSettings
     private let isAssertions: Bool
@@ -16,6 +18,7 @@ final class XcuiPageObjectElementUtils: AlmightyElementUtils {
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let snapshotsComparisonUtility: SnapshotsComparisonUtility
     private let stepLogger: StepLogger
+    private let pollingConfiguration: PollingConfiguration
     
     init(
         elementSettings: ElementSettings,
@@ -24,7 +27,8 @@ final class XcuiPageObjectElementUtils: AlmightyElementUtils {
         elementVisibilityChecker: ElementVisibilityChecker,
         snapshotsComparisonUtility: SnapshotsComparisonUtility,
         stepLogger: StepLogger,
-        isAssertions: Bool)
+        isAssertions: Bool,
+        pollingConfiguration: PollingConfiguration)
     {
         self.elementSettings = elementSettings
         self.interactionPerformerFactory = interactionPerformerFactory
@@ -33,6 +37,7 @@ final class XcuiPageObjectElementUtils: AlmightyElementUtils {
         self.snapshotsComparisonUtility = snapshotsComparisonUtility
         self.stepLogger = stepLogger
         self.isAssertions = isAssertions
+        self.pollingConfiguration = pollingConfiguration
     }
     
     // MARK: - Private
@@ -40,13 +45,13 @@ final class XcuiPageObjectElementUtils: AlmightyElementUtils {
     private func perform<Type>(
         utilsSettings: UtilsSettings,
         minimalPercentageOfVisibleArea: CGFloat = 0.2,
-        util: @escaping (_ element: XCUIElement, _ snapshot: ElementSnapshot) -> PerformResult<Type>)
+        util: @escaping (_ snapshot: ElementSnapshot) -> PerformResult<Type>)
         -> Type?
     {
         var result: Type?
     
-        let specificImplementation = InteractionSpecificImplementation { element, snapshot  in
-            let performUtilResult = util(element, snapshot)
+        let specificImplementation = InteractionSpecificImplementation { snapshot in
+            let performUtilResult = util(snapshot)
             
             result = performUtilResult.result
             
@@ -57,7 +62,8 @@ final class XcuiPageObjectElementUtils: AlmightyElementUtils {
             specificImplementation: specificImplementation,
             settings: ResolvedInteractionSettings(
                 interactionSettings: utilsSettings,
-                elementSettings: elementSettings
+                elementSettings: elementSettings,
+                pollingConfiguration: pollingConfiguration
             ),
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
         )
@@ -84,16 +90,17 @@ final class XcuiPageObjectElementUtils: AlmightyElementUtils {
             elementVisibilityChecker: elementVisibilityChecker,
             snapshotsComparisonUtility: snapshotsComparisonUtility,
             stepLogger: stepLogger,
-            isAssertions: isAssertions
+            isAssertions: isAssertions,
+            pollingConfiguration: pollingConfiguration
         )
     }
     
     func takeSnapshot(utilsSettings: UtilsSettings) -> UIImage? {
         return perform(utilsSettings: utilsSettings, minimalPercentageOfVisibleArea: 0.0) {
-            (element: XCUIElement, _: ElementSnapshot) -> PerformResult<UIImage> in
+            (snapshot: ElementSnapshot) -> PerformResult<UIImage> in
             
             PerformResult(
-                result: element.screenshot().image,
+                result: snapshot.image(),
                 interactionSpecificResult: .success
             )
         }

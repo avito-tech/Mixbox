@@ -5,13 +5,14 @@ import XCTest
 final class InteractionHelper {
     private let messagePrefix: String
     private let elementVisibilityChecker: ElementVisibilityChecker
-    private let elementFinder: ElementFinder
     private let elementSettings: ElementSettings
     private let interactionName: String
     private let minimalPercentageOfVisibleArea: CGFloat
     private let searchTimeout: TimeInterval
     private let scroller: Scroller
     private let elementResolver: ElementResolver
+    private let pollingConfiguration: PollingConfiguration
+    private let snapshotCaches: SnapshotCaches
     
     // State:
     private var startDateOfInteraction = Date()
@@ -23,7 +24,8 @@ final class InteractionHelper {
         scrollingHintsProvider: ScrollingHintsProvider,
         elementFinder: ElementFinder,
         interactionSettings: ResolvedInteractionSettings,
-        minimalPercentageOfVisibleArea: CGFloat)
+        minimalPercentageOfVisibleArea: CGFloat,
+        snapshotCaches: SnapshotCaches)
     {
         self.messagePrefix = messagePrefix
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -39,12 +41,13 @@ final class InteractionHelper {
             elementResolver: elementResolver
         )
         
-        self.elementFinder = elementFinder
         self.interactionName = interactionSettings.interactionName
         self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         
-        let defaultTimeout: TimeInterval = 5
+        let defaultTimeout: TimeInterval = 15
         self.searchTimeout = interactionSettings.elementSettings.searchTimeout ?? defaultTimeout
+        self.pollingConfiguration = interactionSettings.pollingConfiguration
+        self.snapshotCaches = snapshotCaches
     }
     
     func retryInteractionUntilTimeout(closure: () -> InteractionResult) -> InteractionResult {
@@ -53,6 +56,9 @@ final class InteractionHelper {
         var result = closure()
         
         while retryingIsPossible, !interactionWasTimedOut(), case .failure = result {
+            XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
+            
+            respectPollingConfiguration()
             result = closure()
         }
         
@@ -87,6 +93,8 @@ final class InteractionHelper {
         while shouldRetryResolvingElement(resolvedElementQuery: resolvedElementQuery)
             && !interactionWasTimedOut()
         {
+            XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
+            respectPollingConfiguration()
             resolvedElementQuery = resolveElement()
         }
         
@@ -130,6 +138,8 @@ final class InteractionHelper {
         }
         
         if elementSettings.searchMode == .scrollBlindly && elementSettings.searchMode != .useCurrentlyVisible {
+            XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
+            
             let scrollingDistance = 8
             
             for _ in 0..<scrollingDistance where needToScroll {
@@ -157,15 +167,17 @@ final class InteractionHelper {
     
     private func gentlyScroll(up: Bool) {
         let application = XCUIApplication()
-        let frame = application.frame // TODO: Cache this value
+        let frame = ApplicationFrameProvider.frame
         
-        application.center.press(
-            forDuration: 0,
-            thenDragTo: application.tappableCoordinate(
-                x: frame.mb_centerX,
-                y: up ? 0 : frame.height
+        snapshotCaches.application.use {
+            application.center.press(
+                forDuration: 0,
+                thenDragTo: application.tappableCoordinate(
+                    x: frame.mb_centerX,
+                    y: up ? 0 : frame.height
+                )
             )
-        )
+        }
     }
     
     func scrollIfNeeded(
@@ -218,7 +230,7 @@ final class InteractionHelper {
                 break
             }
             
-            if snapshot.isDefinitelyHidden {
+            if snapshot.isDefinitelyHidden.value == true {
                 return elementIsHiddenResult()
             }
             
@@ -253,7 +265,6 @@ final class InteractionHelper {
             
             if elementIsSufficientlyVisible {
                 let result = interactionSpecificImplementation.perform(
-                    element: resolvedElementQuery.xcuiElement,
                     snapshot: snapshot
                 )
                 
@@ -338,5 +349,11 @@ final class InteractionHelper {
                 interactionSpecificFailure: interactionSpecificFailure
             )
         )
+    }
+    
+    private func respectPollingConfiguration() {
+        if case PollingConfiguration.reduceWorkload = pollingConfiguration {
+            RunLoop.current.run(until: Date().addingTimeInterval(1.0))
+        }
     }
 }

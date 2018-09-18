@@ -379,7 +379,7 @@ final class ScrollingHintsProvider {
             )
         }
         
-        return [yInstruction, xInstruction].flatMap { $0 }
+        return [yInstruction, xInstruction].compactMap { $0 }
     }
     
     private func draggingInstructionsByPoints(

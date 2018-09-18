@@ -142,7 +142,7 @@ final class ScrollingContext {
                 continue
             } else {
                 if let elementUniqueIdentifier = instruction.elementUniqueIdentifier,
-                    let targetElementIdentifier = snapshot.enhancedAccessibilityValue?.uniqueIdentifier
+                    let targetElementIdentifier = snapshot.uniqueIdentifier.value
                 {
                     let isTargetElement = (elementUniqueIdentifier == targetElementIdentifier)
                     let currentElementMinimalPercentageOfVisibleArea = isTargetElement
@@ -209,6 +209,7 @@ final class ScrollingContext {
     }
     
     private func reloadSnapshots() {
+        XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
         resolvedElementQuery = elementResolver.resolveElement()
         
         let index = expectedIndexOfSnapshotInResolvedElementQuery

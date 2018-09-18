@@ -48,6 +48,10 @@ public final class InteractionExecutionLoggerImpl: InteractionExecutionLogger {
                 before: false
             )
             
+            stepArtifacts.append(
+                fileLineArtifact(fileLine: interactionDescription.settings.fileLineWhereExecuted)
+            )
+            
             switch interactionResult {
                 case .success:
                     wasSuccessful = true
@@ -94,6 +98,13 @@ public final class InteractionExecutionLoggerImpl: InteractionExecutionLogger {
         } else {
             return []
         }
+    }
+    
+    private func fileLineArtifact(fileLine: FileLine) -> Artifact {
+        return Artifact(
+            name: "Строка и файл",
+            content: .text("\(fileLine.file):\(fileLine.line)")
+        )
     }
     
     private func artifacts(

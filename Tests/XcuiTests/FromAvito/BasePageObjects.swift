@@ -1,29 +1,44 @@
 import MixboxUiTestsFoundation
 
-// All utility functions are separated from declaration of page objects in this class.
-//
-// This class can be copypasted to any repository.
-// Note this before adding some specific stuff for PageObjects.
-
-public class BasePageObjects: PageObjectsMarkerProtocol {
-    fileprivate let pageObjectRegistrar: PageObjectRegistrar
+// TODO: Make an abstraction for the app
+final class Apps {
+    var mainRealHierarchy: PageObjectRegistrar
+    var mainXcui: PageObjectRegistrar
     
-    public init(pageObjectsDependenciesFactory: PageObjectsDependenciesFactory) {
-        self.pageObjectRegistrar = PageObjectRegistrarImpl(
-            pageObjectDependenciesFactory: pageObjectsDependenciesFactory.pageObjectDependenciesFactory()
+    var settings: PageObjectRegistrar
+    var springboard: PageObjectRegistrar
+    
+    init(
+        mainRealHierarchy: PageObjectDependenciesFactory,
+        mainXcui: PageObjectDependenciesFactory,
+        settings: PageObjectDependenciesFactory,
+        springboard: PageObjectDependenciesFactory)
+    {
+        self.mainRealHierarchy = PageObjectRegistrarImpl(
+            pageObjectDependenciesFactory: mainRealHierarchy
+        )
+        self.mainXcui = PageObjectRegistrarImpl(
+            pageObjectDependenciesFactory: mainXcui
+        )
+        self.settings = PageObjectRegistrarImpl(
+            pageObjectDependenciesFactory: settings
+        )
+        self.springboard = PageObjectRegistrarImpl(
+            pageObjectDependenciesFactory: springboard
         )
     }
 }
 
-// FIXME: IT CAN NOT BE INTERNAL
+public class BasePageObjects: PageObjectsMarkerProtocol {
+    let apps: Apps
+    fileprivate let defaultPageObjectRegistrar: PageObjectRegistrar
+    
+    init(apps: Apps) {
+        self.apps = apps
+        self.defaultPageObjectRegistrar = apps.mainXcui
+    }
 
-// Internal protection level of functions for registering page objects hides
-// those functions in tests, this is very handy.
-extension BasePageObjects: PageObjectRegistrar {
-    public func pageObject<PageObjectType>(
-        _ initializer: BasePageObjectInitializer<PageObjectType>)
-        -> PageObjectType
-    {
-        return pageObjectRegistrar.pageObject(initializer)
+    func pageObject<PageObjectType: PageObjectWithDefaultInitializer>() -> PageObjectType {
+        return defaultPageObjectRegistrar.pageObject(PageObjectType.init)
     }
 }

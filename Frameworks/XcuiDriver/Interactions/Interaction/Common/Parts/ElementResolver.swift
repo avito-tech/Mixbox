@@ -18,26 +18,10 @@ final class ElementResolverImpl: ElementResolver {
     
     func resolveElement() -> ResolvedElementQuery {
         let elementQuery = elementFinder.query(
-            elementSnapshotMatcher: ElementSnapshotMatchers.and(
-                [
-                    ElementSnapshotMatchers.matcherForPredicate(
-                        elementSettings.matcher.rootPredicateNode
-                    ),
-                    ElementSnapshotMatchers.isNotDefinitelyHidden()
-                ]
-            ),
+            elementMatcher: elementSettings.matcher && IsNotDefinitelyHiddenMatcher(),
             waitForExistence: false
         )
         
-        let xcuiElementQueryResolver: (XCUIElementQuery) -> (XCUIElement)
-        
-        switch elementSettings.interactionMode {
-        case .useUniqueElement:
-            xcuiElementQueryResolver = { query in query.element }
-        case .useElementAtIndexInHierarchy(let index):
-            xcuiElementQueryResolver = { query in query.element(boundBy: index) }
-        }
-        
-        return elementQuery.resolveElement(xcuiElementQueryResolver)
+        return elementQuery.resolveElement(interactionMode: elementSettings.interactionMode)
     }
 }

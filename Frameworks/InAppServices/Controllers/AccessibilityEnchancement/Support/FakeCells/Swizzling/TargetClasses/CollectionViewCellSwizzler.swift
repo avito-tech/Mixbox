@@ -5,30 +5,25 @@ import MixboxFoundation
 // swiftlint:disable missing_spaces_after_colon
 
 final class CollectionViewCellSwizzler {
-    static func swizzle(shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool) -> [FakeCellSwizzlingResult] {
-        var swizzled = [
-            swizzle(
-                #selector(UIView.accessibilityElementCount),
-                #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElementCount)
-            ),
-            swizzle(
-                #selector(UIView.accessibilityElement(at:)),
-                #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElement(at:))
-            ),
-            swizzle(
-                Selector(("isHidden")),
-                shouldAddAssertionForCallingIsHiddenOnFakeCell
-                    ? #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden_withAssertion)
-                    : #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden)
-                
-            )
-        ]
-        
-        return swizzled
+    static func swizzle(shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool) {
+        swizzle(
+            #selector(UIView.accessibilityElementCount),
+            #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElementCount)
+        )
+        swizzle(
+            #selector(UIView.accessibilityElement(at:)),
+            #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElement(at:))
+        )
+        swizzle(
+            #selector(getter: UIView.isHidden),
+            shouldAddAssertionForCallingIsHiddenOnFakeCell
+                ? #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden_withAssertion)
+                : #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden)
+        )
     }
     
-    private static func swizzle(_ originalSelector: Selector, _ swizzledSelector: Selector) -> FakeCellSwizzlingResult {
-        return FakeCellsSwizzlingUtils.swizzle(UICollectionViewCell.self, originalSelector, swizzledSelector)
+    private static func swizzle(_ originalSelector: Selector, _ swizzledSelector: Selector) {
+        AssertingSwizzler().swizzle(UICollectionViewCell.self, originalSelector, swizzledSelector, .instanceMethod)
     }
     
     private init() {
@@ -90,7 +85,7 @@ extension UIView {
         
         if collectionViewCell.isFakeCell() {
             if withAssertion {
-                assertionFailure("isHidden should never be called for a fake cell, use isHidden_consideringFakenessOfCell")
+                assertionFailure("isHidden should never be called for a fake cell")
             }
             
             // We are relatively safe to alter isHidden if the cell is not in hierarchy,

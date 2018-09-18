@@ -12,6 +12,7 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let snapshotsComparisonUtility: SnapshotsComparisonUtility
     private let stepLogger: StepLogger
+    private let pollingConfiguration: PollingConfiguration
     
     init(
         elementSettings: ElementSettings,
@@ -20,7 +21,8 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
         elementVisibilityChecker: ElementVisibilityChecker,
         snapshotsComparisonUtility: SnapshotsComparisonUtility,
         stepLogger: StepLogger,
-        isAssertions: Bool)
+        isAssertions: Bool,
+        pollingConfiguration: PollingConfiguration)
     {
         self.elementSettings = elementSettings
         self.interactionPerformerFactory = interactionPerformerFactory
@@ -29,14 +31,16 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
         self.snapshotsComparisonUtility = snapshotsComparisonUtility
         self.stepLogger = stepLogger
         self.isAssertions = isAssertions
+        self.pollingConfiguration = pollingConfiguration
     }
     
     // MARK: - Private
     
+    @discardableResult
     private func performCheck(
         checkSettings: CheckSettings,
         minimalPercentageOfVisibleArea: CGFloat = 0.2,
-        check: @escaping (_ element: XCUIElement, _ snapshot: ElementSnapshot) -> InteractionSpecificResult)
+        check: @escaping (_ snapshot: ElementSnapshot) -> InteractionSpecificResult)
         -> Bool
     {
         let interaction = interactionFactory.checkInteraction(
@@ -51,7 +55,8 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
     private func resolvedInteractionSettings(interactionSettings: InteractionSettings) -> ResolvedInteractionSettings {
         return ResolvedInteractionSettings(
             interactionSettings: interactionSettings,
-            elementSettings: elementSettings
+            elementSettings: elementSettings,
+            pollingConfiguration: pollingConfiguration
         )
     }
     
@@ -70,6 +75,41 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
         }
     }
     
+    private func checkPositiveHeightDifference(
+        action: @escaping () -> (),
+        differenceCalculation: @escaping ((initial: CGFloat, final: CGFloat)) -> (CGFloat),
+        negativeDifferenceFailureMessage: @escaping (CGFloat) -> (String),
+        checkSettings: CheckSettings) 
+        -> Bool 
+    {
+        return performCheck(
+            checkSettings: checkSettings,
+            check: { [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+                guard let strongSelf = self else {
+                    return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+                }
+
+                let initialHeight = snapshot.frameOnScreen.height
+                action()
+                strongSelf.performCheck(
+                    checkSettings: checkSettings,
+                    check: { (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+                        let heightDifference = differenceCalculation(
+                            (
+                                initial: initialHeight,
+                                final: snapshot.frameOnScreen.height
+                            )
+                        )
+                        return heightDifference > 0
+                            ? .success
+                            : .failureWithMessage(negativeDifferenceFailureMessage(heightDifference))
+                    }
+                )
+                return .success
+            }
+        )
+    }
+    
     // MARK: - AlmightyElementChecks
     
     func with(settings: ElementSettings) -> AlmightyElementChecks {
@@ -80,23 +120,40 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
             elementVisibilityChecker: elementVisibilityChecker,
             snapshotsComparisonUtility: snapshotsComparisonUtility,
             stepLogger: stepLogger,
-            isAssertions: isAssertions
+            isAssertions: isAssertions,
+            pollingConfiguration: pollingConfiguration
         )
     }
     
-    func checkText(checker: @escaping (String) -> (InteractionSpecificResult), checkSettings: CheckSettings) -> Bool {
-        return performCheck(checkSettings: checkSettings) {
-            (_: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
+    func matches(
+        checkSettings: CheckSettings,
+        minimalPercentageOfVisibleArea: CGFloat,
+        matcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
+        -> Bool
+    {
+        return performCheck(checkSettings: checkSettings, minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+            let matcher = ElementMatcherBuilder.build(matcher)
             
-            checker(snapshot.visibleText(fallback: snapshot.label))
+            switch matcher.matches(value: snapshot) {
+            case .match:
+                return .success
+            case let .mismatch(_, mismatchDescription):
+                return .failureWithMessage(
+                    "проверка не прошла: \(mismatchDescription())"
+                )
+            }
+        }
+    }
+    
+    func checkText(checker: @escaping (String) -> (InteractionSpecificResult), checkSettings: CheckSettings) -> Bool {
+        return performCheck(checkSettings: checkSettings) { (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            checker(snapshot.visibleText(fallback: snapshot.accessibilityLabel) ?? "")
         }
     }
     
     func checkAccessibilityLabel(checker: @escaping (String) -> (InteractionSpecificResult), checkSettings: CheckSettings) -> Bool {
-        return performCheck(checkSettings: checkSettings) {
-            (_: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
-            
-            checker(snapshot.label ?? "")
+        return performCheck(checkSettings: checkSettings) { (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            checker(snapshot.accessibilityLabel)
         }
     }
     
@@ -114,16 +171,46 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
     }
     
     func isDisplayed(checkSettings: CheckSettings) -> Bool {
-        return performCheck(checkSettings: checkSettings) { _, _  in
+        return performCheck(checkSettings: checkSettings) { _  in
             .success // без специфики, проверка на видимость встроена по дефолту
         }
     }
     
+    func isInHierarchy(checkSettings: CheckSettings) -> Bool {
+        return performCheck(checkSettings: checkSettings, minimalPercentageOfVisibleArea: 0.0) { _ in
+            .success // без специфики, проверка на видимость встроена по дефолту
+        }
+    }
+
+    func becomesTallerAfter(action: @escaping () -> (), checkSettings: CheckSettings) -> Bool {
+        return checkPositiveHeightDifference(
+            action: action,
+            differenceCalculation: { initial, final in
+                final - initial    
+            }, 
+            negativeDifferenceFailureMessage: { difference in
+                "ожидалось, что элемент увеличится в высоту, но он уменьшился на \(abs(difference))"
+            },
+            checkSettings: checkSettings
+        )
+    }
+    
+    func becomesShorterAfter(action: @escaping () -> (), checkSettings: CheckSettings) -> Bool {
+        return checkPositiveHeightDifference(
+            action: action,
+            differenceCalculation: { initial, final in
+                initial - final
+            },
+            negativeDifferenceFailureMessage: { difference in
+                "ожидалось, что элемент уменьшится в высоту, но он увеличился на \(abs(difference))"
+            },
+            checkSettings: checkSettings
+        )
+    }
+
     func hasValue(_ expectedValue: String, checkSettings: CheckSettings) -> Bool {
-        return performCheck(checkSettings: checkSettings) {
-            (_: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
-            
-            let elementValue = snapshot.originalAccessibilityValue
+        return performCheck(checkSettings: checkSettings) { (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            let elementValue = snapshot.accessibilityValue as? String
             
             if elementValue == expectedValue {
                 return .success
@@ -143,15 +230,14 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
         -> Bool
     {
         return performCheck(checkSettings: checkSettings) {
-            (_: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let hostedValues = snapshot.hostDefinedValues
-            let hostedValue = hostedValues[key]
+            let customValue = snapshot.customValues.value?[key]
             
-            if comparator.compare(hostedValue: hostedValue, referenceValue: referenceValue) {
+            if comparator.compare(hostedValue: customValue, referenceValue: referenceValue) {
                 return .success
             } else {
-                let hostedValueAsString: String = hostedValue ?? "nil"
+                let hostedValueAsString: String = customValue ?? "nil"
                 
                 // TODO: Сообщение должно быть специфично для проверки. Пока подходит только для равенства.
                 return .failureWithMessage(
@@ -162,10 +248,8 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
     }
     
     func isEnabled(checkSettings: CheckSettings) -> Bool {
-        return performCheck(checkSettings: checkSettings) {
-            (_: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
-            
-            if snapshot.enabled {
+        return performCheck(checkSettings: checkSettings) { (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            if snapshot.isEnabled {
                 return .success
             } else {
                 return .failureWithMessage("enabled ожидалось true, актуально false")
@@ -174,10 +258,9 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
     }
     
     func isDisabled(checkSettings: CheckSettings) -> Bool {
-        return performCheck(checkSettings: checkSettings) {
-            (_: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
+        return performCheck(checkSettings: checkSettings) {  (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            if !snapshot.enabled {
+            if !snapshot.isEnabled {
                 return .success
             } else {
                 return .failureWithMessage("enabled ожидалось false, актуально true")
@@ -204,21 +287,24 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
     }
     
     func isScrollable(checkSettings: CheckSettings) -> Bool {
-        return performCheck(checkSettings: checkSettings) {
-            (_: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
-            
+        return performCheck(checkSettings: checkSettings) { (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             // Странная проверка. По факту скроллвью может не скроллиться, а нескроллвью скроллиться.
             if snapshot.elementType == .scrollView {
                 return .success
             } else {
-                return .failureWithMessage("elementType ожидался 'scrollView', актуальный: '\(snapshot.elementType)'")
+                let elementTypeString = snapshot.elementType.flatMap { "\($0)" } ?? "nil"
+                return .failureWithMessage("elementType ожидался 'scrollView', актуальный: '\(elementTypeString)'")
             }
         }
     }
     
     func matchesReference(snapshot snapshotName: String, checkSettings: CheckSettings) -> Bool {
         return performCheck(checkSettings: checkSettings, minimalPercentageOfVisibleArea: 1) {
-            [weak self] (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            
+            guard let strongSelf = self else {
+                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
             
             let filePath = checkSettings.fileLineWhereExecuted.file.description
             
@@ -226,14 +312,14 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
                 return .failureWithMessage("Не обнаружено папки с референсными скриншотами")
             }
             
-            sleep(1)  // Waiting for the animation to be finished (kind of)
-            
-            guard let strongSelf = self else {
-                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            guard let actualImage = snapshot.image() else {
+                return .failureWithMessage("Не удалось создать картинку по элементу \(snapshot)")
             }
             
+            sleep(1)  // Waiting for the animation to be finished (kind of)
+            
             let result = strongSelf.snapshotsComparisonUtility.compare(
-                actual: element.screenshot().image,
+                actual: actualImage,
                 folder: String(folderName),
                 file: snapshotName
             )
@@ -250,14 +336,18 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
     
     func matchesReference(image: UIImage, checkSettings: CheckSettings) -> Bool {
         return performCheck(checkSettings: checkSettings, minimalPercentageOfVisibleArea: 0.0) {
-            [weak self] (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
             guard let strongSelf = self else {
                 return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
             }
             
+            guard let actualImage = snapshot.image() else {
+                return .failureWithMessage("Не удалось создать картинку по элементу \(snapshot)")
+            }
+            
             let result = strongSelf.snapshotsComparisonUtility.compare(
-                actual: element.screenshot().image,
+                actual: actualImage,
                 reference: image
             )
             

@@ -6,7 +6,7 @@ import MixboxTestsFoundation
 // The code is shared in InteractionHelper. However InteractionHelper is bloated and needs to be split.
 final class ActionInteraction: Interaction {
     let description: InteractionDescription
-    let elementMatcher: ElementSnapshotMatcher
+    let elementMatcher: ElementMatcher
     
     private let settings: ResolvedInteractionSettings
     private let elementVisibilityChecker: ElementVisibilityChecker
@@ -14,7 +14,7 @@ final class ActionInteraction: Interaction {
     private let elementFinder: ElementFinder
     private let specificImplementation: InteractionSpecificImplementation
     private let minimalPercentageOfVisibleArea: CGFloat
-    
+    private let snapshotCaches: SnapshotCaches
     private var wasSuccessful = false
     
     init(
@@ -23,21 +23,21 @@ final class ActionInteraction: Interaction {
         elementFinder: ElementFinder,
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
-        minimalPercentageOfVisibleArea: CGFloat)
+        minimalPercentageOfVisibleArea: CGFloat,
+        snapshotCaches: SnapshotCaches)
     {
         self.settings = settings
         self.description = InteractionDescription(
             type: .action,
             settings: settings
         )
-        self.elementMatcher = ElementSnapshotMatchers.matcherForPredicate(
-            settings.elementSettings.matcher.rootPredicateNode
-        )
+        self.elementMatcher = settings.elementSettings.matcher
         self.specificImplementation = specificImplementation
         self.elementFinder = elementFinder
         self.elementVisibilityChecker = elementVisibilityChecker
         self.scrollingHintsProvider = scrollingHintsProvider
         self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
+        self.snapshotCaches = snapshotCaches
     }
     
     func perform() -> InteractionResult {
@@ -53,7 +53,8 @@ final class ActionInteraction: Interaction {
             scrollingHintsProvider: scrollingHintsProvider,
             elementFinder: elementFinder,
             interactionSettings: description.settings,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            snapshotCaches: snapshotCaches
         )
         
         return helper.retryInteractionUntilTimeout {

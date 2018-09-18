@@ -13,19 +13,22 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
     private let interactionFactory: InteractionFactory
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let keyboardEventInjector: KeyboardEventInjector
+    private let pollingConfiguration: PollingConfiguration
     
     init(
         elementSettings: ElementSettings,
         interactionPerformerFactory: InteractionPerformerFactory,
         interactionFactory: InteractionFactory,
         elementVisibilityChecker: ElementVisibilityChecker,
-        keyboardEventInjector: KeyboardEventInjector)
+        keyboardEventInjector: KeyboardEventInjector,
+        pollingConfiguration: PollingConfiguration)
     {
         self.elementSettings = elementSettings
         self.interactionPerformerFactory = interactionPerformerFactory
         self.interactionFactory = interactionFactory
         self.elementVisibilityChecker = elementVisibilityChecker
         self.keyboardEventInjector = keyboardEventInjector
+        self.pollingConfiguration = pollingConfiguration
     }
     
     // MARK: - AlmightyElementActions
@@ -36,7 +39,8 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             interactionPerformerFactory: interactionPerformerFactory,
             interactionFactory: interactionFactory,
             elementVisibilityChecker: elementVisibilityChecker,
-            keyboardEventInjector: keyboardEventInjector
+            keyboardEventInjector: keyboardEventInjector,
+            pollingConfiguration: pollingConfiguration
         )
     }
     
@@ -46,9 +50,9 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = element.tappableWrapper(
+            let tappableWrapper = snapshot.tappableWrapper(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -66,9 +70,9 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = element.tappableWrapper(
+            let tappableWrapper = snapshot.tappableWrapper(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -88,30 +92,33 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         // I am not sure that we should set UIPasteboard.general.string that often.
         UIPasteboard.general.string = text
         
-        return perform(actionSettings: actionSettings) { [weak self]
-            (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+        perform(actionSettings: actionSettings) { [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            guard let strongSelf = self else {
+                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
             
-            guard let strongSelf = self else { return .failureWithMessage("self == nil") }
-            
-            let tappableWrapper = element.tappableWrapper(
+            let tappableWrapper = snapshot.tappableWrapper(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
-
+            
             // Make element focused
             tappableWrapper.tap()
-            
-            // We should type anything. This makes XCUI wait until element gains focus.
-            // We can do it manually by checking `hasFocus` property of snapshot, but... this also works:
-            element.typeText(XCUIKeyboardKey.delete.rawValue)
+        
+            strongSelf.waitUntilKeyboardFocusIsGained(
+                actionSettings: actionSettings,
+                snapshot: snapshot,
+                normalizedCoordinate: normalizedCoordinate,
+                absoluteOffset: absoluteOffset
+            )
             
             // Select all
             strongSelf.keyboardEventInjector.inject { press in press.command(press.a()) }
             
-            // Delete (I think we should try to remove this step, it seems to be not necessary)
-            element.typeText(XCUIKeyboardKey.delete.rawValue)
-            
-            if !text.isEmpty {
+            if text.isEmpty {
+                // TODO: Support different applications
+                XCUIApplication().typeText(XCUIKeyboardKey.delete.rawValue)
+            } else {
                 UIPasteboard.general.string = text
                 
                 // Paste
@@ -129,14 +136,25 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = element.tappableWrapper(
+            guard let strongSelf = self else {
+                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
+            
+            let tappableWrapper = snapshot.tappableWrapper(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
             
             tappableWrapper.tap()
+            
+            strongSelf.waitUntilKeyboardFocusIsGained(
+                actionSettings: actionSettings,
+                snapshot: snapshot,
+                normalizedCoordinate: normalizedCoordinate,
+                absoluteOffset: absoluteOffset
+            )
             
             XCUIApplication().typeText(text)
             
@@ -151,9 +169,13 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = element.tappableWrapper(
+            guard let strongSelf = self else {
+                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
+            
+            let tappableWrapper = snapshot.tappableWrapper(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -161,13 +183,25 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             UIPasteboard.general.string = text
             
             tappableWrapper.tap()
-            tappableWrapper.press(forDuration: 1)
+            
+            strongSelf.perform(actionSettings: actionSettings) {
+                (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+                
+                let tappableWrapper = snapshot.tappableWrapper(
+                    normalizedCoordinate: normalizedCoordinate,
+                    absoluteOffset: absoluteOffset
+                )
+                
+                tappableWrapper.press(forDuration: 1)
+                
+                return .success
+            }
             
             let pasteButton = XcuiPageObjectElementActions.menuItem(
                 possibleTitles: ["Вставить", "Paste"]
             )
             
-            if pasteButton.waitForExistence(timeout: 1) {
+            if pasteButton.waitForExistence(timeout: 5) {
                 // I don't think that it is necessary to set pasteboard again,
                 // I don't think that pasteboard is shared between simulators and can be dirty.
                 // But this can help and removing this require thorough research if it can break something
@@ -188,14 +222,15 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = element.tappableWrapper(
+            let tappableWrapper = snapshot.tappableWrapper(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
             
             tappableWrapper.tap()
+            // TODO: Reload snapshots
             tappableWrapper.press(forDuration: 1)
             
             let selectAllButton = XcuiPageObjectElementActions.menuItem(
@@ -228,16 +263,16 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (element: XCUIElement, snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = element.tappableWrapper(
+            let tappableWrapper = snapshot.tappableWrapper(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
             
             tappableWrapper.tap()
             
-            let value = snapshot.visibleText(fallback: snapshot.originalAccessibilityValue)
+            let value = snapshot.visibleText(fallback: snapshot.accessibilityValue as? String) ?? ""
             
             if !value.isEmpty {
                 let deleteString: String = value.map { _ in XCUIKeyboardKey.delete.rawValue }.joined()
@@ -254,9 +289,9 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (element: XCUIElement, _: ElementSnapshot) -> InteractionSpecificResult in
+            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            element.swipeToDirection(direction)
+            snapshot.swipe(direction: direction)
             
             return .success
         }
@@ -266,13 +301,14 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
     
     private func perform(
         actionSettings: ActionSettings,
-        action: @escaping (_ element: XCUIElement, _ snapshot: ElementSnapshot) -> InteractionSpecificResult)
+        action: @escaping (_ snapshot: ElementSnapshot) -> InteractionSpecificResult)
     {
         let interaction = interactionFactory.actionInteraction(
             specificImplementation: InteractionSpecificImplementation(execute: action),
             settings: ResolvedInteractionSettings(
                 interactionSettings: actionSettings,
-                elementSettings: elementSettings
+                elementSettings: elementSettings,
+                pollingConfiguration: pollingConfiguration
             ),
             // TODO: Configurable percentage of visible area + meaningful default value.
             // 0.53 is more than half, so we can tap center safely. Also one of our buttons in visible only by 53%
@@ -285,6 +321,8 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         )
         
         _ = interactionPerformer.performInteraction(interaction: interaction)
+        
+        XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
     }
     
     private static func menuItem(possibleTitles: [String]) -> XCUIElement {
@@ -303,44 +341,66 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         )
         return xcuiElementQuery.firstMatch
     }
-}
-
-private protocol TappableWrapper {
-    func tap()
-    func press(forDuration duration: TimeInterval)
-}
-
-extension XCUIElement: TappableWrapper {}
-extension XCUICoordinate: TappableWrapper {}
-
-private extension XCUIElement {
-    func tappableWrapper(normalizedCoordinate: CGPoint?, absoluteOffset: CGVector?) -> TappableWrapper {
-        let normalizedCoordinate = normalizedCoordinate ?? CGPoint(x: 0.5, y: 0.5)
-        
-        let xcuiCoordinate = coordinate(
-            withNormalizedOffset: CGVector(
-                dx: normalizedCoordinate.x,
-                dy: normalizedCoordinate.y
-            )
-        )
-        
-        if let absoluteOffset = absoluteOffset {
-            return xcuiCoordinate.withOffset(absoluteOffset)
+    
+    private func waitUntilKeyboardFocusIsGained(
+        actionSettings: ActionSettings,
+        snapshot: ElementSnapshot,
+        normalizedCoordinate: CGPoint? = nil,
+        absoluteOffset: CGVector? = nil,
+        attempts: Int = 50,
+        tapEveryNthAttempt: Int? = 10,
+        timeout: TimeInterval = 5)
+    {
+        if attempts > 0 {
+            let timeoutForOneAttempt = timeout / TimeInterval(attempts)
+            
+            var hasFocus = snapshot.hasKeyboardFocusOrHasDescendantThatHasKeyboardFocus()
+            
+            for attempt in 0..<attempts {
+                if !hasFocus {
+                    XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
+                    perform(actionSettings: actionSettings) { snapshot -> InteractionSpecificResult in
+                        if let tapEveryNthAttempt = tapEveryNthAttempt, tapEveryNthAttempt > 0, attempt % tapEveryNthAttempt == 0 {
+                            snapshot.tappableWrapper(normalizedCoordinate: normalizedCoordinate, absoluteOffset: absoluteOffset).tap()
+                        }
+                        hasFocus = snapshot.hasKeyboardFocusOrHasDescendantThatHasKeyboardFocus()
+                        
+                        return .success
+                    }
+                    Thread.sleep(forTimeInterval: timeoutForOneAttempt)
+                } else {
+                    break
+                }
+            }
         } else {
-            return xcuiCoordinate
+            assertionFailure("attempts should be > 0")
         }
     }
-    
-    func swipeToDirection(_ direction: SwipeDirection) {
-        switch direction {
-        case .up:
-            swipeUp()
-        case .down:
-            swipeDown()
-        case .left:
-            swipeLeft()
-        case .right:
-            swipeRight()
+}
+
+private protocol Tappable {
+    func tap()
+    func press(forDuration: TimeInterval)
+    func press(forDuration: TimeInterval, thenDragTo: XCUICoordinate)
+}
+
+extension XCUICoordinate: Tappable {
+}
+
+private extension ElementSnapshot {
+    func tappableWrapper(normalizedCoordinate: CGPoint?, absoluteOffset: CGVector?) -> Tappable {
+        var tapCoordinate = frameOnScreen.mb_center
+        
+        if let normalizedCoordinate = normalizedCoordinate {
+            tapCoordinate.x += frameOnScreen.width * (normalizedCoordinate.x - 0.5)
+            tapCoordinate.y += frameOnScreen.height * (normalizedCoordinate.y - 0.5)
         }
+        
+        if let absoluteOffset = absoluteOffset {
+            tapCoordinate.x += absoluteOffset.dx
+            tapCoordinate.y += absoluteOffset.dy
+        }
+        
+        return XCUIApplication().tappableCoordinate(point: tapCoordinate)
     }
 }

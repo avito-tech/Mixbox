@@ -19,7 +19,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     
     public func element<T: ElementWithDefaultInitializer>(
         _ name: String,
-        matcherBuilder: (PredicateNodePageObjectElement) -> PredicateNode)
+        matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     {
         let almightyElement = self.almightyElement(
@@ -49,13 +49,13 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     
     private func almightyElement(
         name: String,
-        matcherBuilder: (PredicateNodePageObjectElement) -> PredicateNode)
+        matcherBuilder: ElementMatcherBuilderClosure)
         -> AlmightyElement
     {
         return pageObjectElementFactory.pageObjectElement(
             settings: ElementSettings(
                 name: name,
-                matcher: ElementMatcher(builder: matcherBuilder),
+                matcher: ElementMatcherBuilder.build(matcherBuilder),
                 searchMode: searchMode ?? .default,
                 searchTimeout: nil,
                 interactionMode: interactionMode ?? .default

@@ -19,7 +19,8 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
             interactionFactory: xcuiHelperFactory.interactionFactory(),
             elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
-            keyboardEventInjector: xcuiHelperFactory.keyboardEventInjector()
+            keyboardEventInjector: xcuiHelperFactory.keyboardEventInjector(),
+            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
         )
         
         let checks = XcuiPageObjectElementChecks(
@@ -29,7 +30,8 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
             snapshotsComparisonUtility: xcuiHelperFactory.snapshotsComparisonUtility,
             stepLogger: xcuiHelperFactory.stepLogger(),
-            isAssertions: false
+            isAssertions: false,
+            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
         )
         
         let asserts = XcuiPageObjectElementChecks(
@@ -39,7 +41,8 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
             snapshotsComparisonUtility: xcuiHelperFactory.snapshotsComparisonUtility,
             stepLogger: xcuiHelperFactory.stepLogger(),
-            isAssertions: true
+            isAssertions: true,
+            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
         )
         
         let utils = XcuiPageObjectElementUtils(
@@ -49,7 +52,8 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
             snapshotsComparisonUtility: xcuiHelperFactory.snapshotsComparisonUtility,
             stepLogger: xcuiHelperFactory.stepLogger(),
-            isAssertions: false
+            isAssertions: false,
+            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
         )
         
         return AlmightyElementImpl(

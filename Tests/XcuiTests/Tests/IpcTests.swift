@@ -41,6 +41,21 @@ class IpcTests: TestCase {
         checkEchoingValue(nil as Int?)
     }
     
+    // TODO:
+    func disabled_test_9() {
+        checkEchoingValue(Double.infinity)
+    }
+
+    // TODO:
+    func disabled_test_10() {
+        checkEchoingValue(Double.nan)
+    }
+    
+    // TODO:
+    func disabled_test_11() {
+        checkEchoingValue(-Double.infinity)
+    }
+    
     private func checkEchoingValue<T: Equatable & Codable>(_  value: T, file: StaticString = #file, line: UInt = #line) {
         for useBuiltinIpc in [false, true] {
             launch(environment: [:], useBuiltinIpc: useBuiltinIpc)
@@ -53,7 +68,7 @@ class IpcTests: TestCase {
             XCTAssertEqual(
                 result.data,
                 value,
-                "Failed. Expected \(value), received \(result.data), useBuiltinIpc: \(useBuiltinIpc)",
+                "Failed. Expected \(value), received \(result.data.flatMap { "\($0)" } ?? "error"), useBuiltinIpc: \(useBuiltinIpc)",
                 file: file,
                 line: line
             )

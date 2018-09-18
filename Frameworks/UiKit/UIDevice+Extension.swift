@@ -124,10 +124,11 @@ extension UIDevice {
     }
     
     public static let mb_isSimulator: Bool = {
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
+        #if targetEnvironment(simulator)
         return true
-        #endif
+        #else
         return false
+        #endif
     }()
     
     public static var mb_platform: String {

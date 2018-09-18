@@ -11,6 +11,7 @@ protocol XcuiHelperFactory: class {
     func interactionFactory() -> InteractionFactory
     func elementVisibilityChecker() -> ElementVisibilityChecker
     func keyboardEventInjector() -> KeyboardEventInjector
+    func pollingConfiguration() -> PollingConfiguration
 }
 
 final class XcuiHelperFactoryImpl: XcuiHelperFactory {
@@ -22,6 +23,8 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     private let scrollingHintsProvider: ScrollingHintsProvider
     private let keyboardEventInjectorInstance: KeyboardEventInjector
     let snapshotsComparisonUtility: SnapshotsComparisonUtility
+    private let pollingConfigurationValue: PollingConfiguration
+    private let snapshotCaches: SnapshotCaches
     
     // MARK: - Init
     init(
@@ -31,7 +34,10 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         scrollingHintsProvider: ScrollingHintsProvider,
         keyboardEventInjector: KeyboardEventInjector,
         snapshotsComparisonUtility: SnapshotsComparisonUtility,
-        stepLogger: StepLogger)
+        stepLogger: StepLogger,
+        pollingConfiguration: PollingConfiguration,
+        snapshotCaches: SnapshotCaches,
+        elementFinder: ElementFinder)
     {
         self.interactionExecutionLogger = interactionExecutionLogger
         self.testFailureRecorder = testFailureRecorder
@@ -40,12 +46,12 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         self.snapshotsComparisonUtility = snapshotsComparisonUtility
         self.stepLoggerInstance = stepLogger
         self.keyboardEventInjectorInstance = keyboardEventInjector
-        self.elementFinder = ElementFinderImpl(
-            stepLogger: stepLogger
-        )
+        self.elementFinder = elementFinder
+        self.pollingConfigurationValue = pollingConfiguration
+        self.snapshotCaches = snapshotCaches
     }
     
-    // MARK: - EarlGreyHelperFactory
+    // MARK: - XcuiHelperFactory
     
     func interactionPerformerFactory() -> InteractionPerformerFactory {
         return InteractionPerformerFactoryImpl(
@@ -58,7 +64,8 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         return InteractionFactoryImpl(
             elementFinder: elementFinder,
             elementVisibilityChecker: elementVisibilityCheckerInstance,
-            scrollingHintsProvider: scrollingHintsProvider
+            scrollingHintsProvider: scrollingHintsProvider,
+            snapshotCaches: snapshotCaches
         )
     }
     
@@ -72,5 +79,9 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     
     func stepLogger() -> StepLogger {
         return stepLoggerInstance
+    }
+    
+    func pollingConfiguration() -> PollingConfiguration {
+        return pollingConfigurationValue
     }
 }

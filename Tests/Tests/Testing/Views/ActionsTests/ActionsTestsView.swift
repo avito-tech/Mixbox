@@ -32,6 +32,26 @@ final class ActionsTestsView: UIView {
                 self?.infoLabel.text = "text: \(text ?? "")"
             }
         }
+        scrollView.addLabel(id: "swipeLeft") {
+            $0.onSwipeLeft = { [weak self] in
+                self?.infoLabel.text = "swipeLeft"
+            }
+        }
+        scrollView.addLabel(id: "swipeRight") {
+            $0.onSwipeRight = { [weak self] in
+                self?.infoLabel.text = "swipeRight"
+            }
+        }
+        scrollView.addLabel(id: "swipeUp") {
+            $0.onSwipeUp = { [weak self] in
+                self?.infoLabel.text = "swipeUp"
+            }
+        }
+        scrollView.addLabel(id: "swipeDown") {
+            $0.onSwipeDown = { [weak self] in
+                self?.infoLabel.text = "swipeDown"
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -28,10 +28,12 @@ PODS:
   - MixboxReporting (0.0.1):
     - MixboxArtifacts
     - MixboxFoundation
-  - MixboxTestability (0.0.1)
+  - MixboxTestability (0.0.1):
+    - MixboxFoundation
   - MixboxTestsFoundation (0.0.1):
     - MixboxArtifacts
     - MixboxFoundation
+    - MixboxReporting
     - SQLite.swift
   - MixboxUiKit (0.0.1):
     - MixboxFoundation
@@ -124,8 +126,8 @@ SPEC CHECKSUMS:
   MixboxIpcSbtuiClient: 8c9e87ddc9eaa5b40428756f44322f31e69567d4
   MixboxIpcSbtuiHost: 301c260ab02834408eede925d944f7b932a5ddd9
   MixboxReporting: 5e5d4e92e28e4fd97670e38c65c6d20b38939da4
-  MixboxTestability: 99cc756880e03c311788630d9d9ad0d53c762a24
-  MixboxTestsFoundation: 69709227e7a82b543cbc0d9d7aad3ad751ddc632
+  MixboxTestability: 100d719417588c4d7a1f8010de326747966631c6
+  MixboxTestsFoundation: 242fa23343d2b2235666222dcddc6e4b2317edec
   MixboxUiKit: 9d0aa60d4622485145a96d04a63b48ec647eeffd
   MixboxUiTestsFoundation: 52198b9678c2a563c73be0c3167d83d86fa7e6bc
   MixboxXcuiDriver: 12563f3005071dd84b0f41a0e0fdf0957788c038

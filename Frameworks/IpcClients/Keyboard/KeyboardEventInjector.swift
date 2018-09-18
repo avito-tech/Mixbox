@@ -21,7 +21,8 @@ public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
     }
     
     public func inject(events: [KeyboardEvent]) {
-        ipcClient.call(
+        // TODO: Handle result
+        _ = ipcClient.call(
             method: InjectKeyboardEventsIpcMethod(),
             arguments: events
         )

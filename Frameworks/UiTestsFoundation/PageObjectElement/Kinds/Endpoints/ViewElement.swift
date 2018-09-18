@@ -169,6 +169,50 @@ public extension ViewElementChecks where Self: Element {
     }
     
     @discardableResult
+    func isInHierarchy(
+        file: StaticString = #file,
+        line: UInt = #line,
+        description: HumanReadableInteractionDescriptionBuilder? = nil)
+        -> Bool
+    {
+        let checkSettings = CheckSettings(file: file, line: line, description: description) { info in
+            "\"\(info.elementName)\" присутствует в иерархии"
+        }
+        
+        return implementation.checks.isInHierarchy(checkSettings: checkSettings)
+    }
+    
+    @discardableResult
+    func becomesTallerAfter(
+        file: StaticString = #file,
+        line: UInt = #line,
+        description: HumanReadableInteractionDescriptionBuilder? = nil,
+        action: @escaping () -> ())
+        -> Bool 
+    {
+        let checkSettings = CheckSettings(file: file, line: line, description: description) { info in
+            "увеличился \"\(info.elementName)\""
+        }
+        
+        return implementation.checks.becomesTallerAfter(action: action, checkSettings: checkSettings)
+    }
+
+    @discardableResult
+    func becomesShorterAfter(
+        file: StaticString = #file,
+        line: UInt = #line,
+        description: HumanReadableInteractionDescriptionBuilder? = nil,
+        action: @escaping () -> ()) 
+        -> Bool
+    {
+        let checkSettings = CheckSettings(file: file, line: line, description: description) { info in
+            "уменьшился \"\(info.elementName)\""
+        }
+
+        return implementation.checks.becomesShorterAfter(action: action, checkSettings: checkSettings)
+    }
+    
+    @discardableResult
     func hasValue(
         _ value: String,
         file: StaticString = #file,
@@ -238,6 +282,26 @@ public extension ViewElementChecks where Self: Element {
         return implementation.checks.matchesReference(
             image: image,
             checkSettings: checkSettings
+        )
+    }
+    
+    @discardableResult
+    func matches(
+        minimalPercentageOfVisibleArea: CGFloat = 0.2,
+        file: StaticString = #file,
+        line: UInt = #line,
+        description: HumanReadableInteractionDescriptionBuilder? = nil,
+        matcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
+        -> Bool
+    {
+        let checkSettings = CheckSettings(file: file, line: line, description: description) { info in
+            "в '\(info.elementName)' \(ElementMatcherBuilder.build(matcher).description)"
+        }
+        
+        return implementation.checks.matches(
+            checkSettings: checkSettings,
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            matcher: matcher
         )
     }
 }

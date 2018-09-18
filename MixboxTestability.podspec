@@ -12,5 +12,6 @@ Pod::Spec.new do |s|
   s.swift_version = '4.0'
   s.requires_arc = true
   s.source_files = 'Frameworks/Testability/**/*.{swift,h,m,md}'
+  
+  s.dependency 'MixboxFoundation'
 end
-

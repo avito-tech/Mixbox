@@ -5,43 +5,41 @@ import MixboxFoundation
 // swiftlint:disable missing_spaces_after_colon
 
 final class CollectionViewSwizzler {
-    static func swizzle() -> [FakeCellSwizzlingResult] {
-        return [
-            swizzle(
-                #selector(UICollectionView.reloadData),
-                #selector(UICollectionView.swizzled_CollectionViewSwizzler_reloadData)
-            ),
-            swizzle(
-                #selector(UICollectionView.performBatchUpdates(_:completion:)),
-                #selector(UICollectionView.swizzled_CollectionViewSwizzler_performBatchUpdates(_:completion:))
-            ),
-            // UIAccessibilityContainer:
-            swizzle(
-                #selector(UIView.accessibilityElementCount),
-                #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElementCount)
-            ),
-            swizzle(
-                #selector(UIView.accessibilityElement(at:)),
-                #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElement(at:))
-            ),
-            swizzle(
-                #selector(UIView.index(ofAccessibilityElement:)),
-                #selector(UIView.swizzled_CollectionViewSwizzler_index(ofAccessibilityElement:))
-            ),
-            // Without swizzling that function below (with swizzling of functions of UIAccessibilityContainer only),
-            // XCUI will somehow somethime strangely mix unnecessary cells into AX hierarchy. I didn't understand
-            // how and why it does it. So, the default implementation of _accessibilityUserTestingChildren, which
-            // calls UIAccessibilityContainer, returns an array with extra objects. That function is private,
-            // the hack below was found after some reverse engineering.
-            swizzle(
-                Selector(("_accessibilityUserTestingChildren")),
-                #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren)
-            )
-        ]
+    static func swizzle() {
+        swizzle(
+            #selector(UICollectionView.reloadData),
+            #selector(UICollectionView.swizzled_CollectionViewSwizzler_reloadData)
+        )
+        swizzle(
+            #selector(UICollectionView.performBatchUpdates(_:completion:)),
+            #selector(UICollectionView.swizzled_CollectionViewSwizzler_performBatchUpdates(_:completion:))
+        )
+        // UIAccessibilityContainer:
+        swizzle(
+            #selector(UIView.accessibilityElementCount),
+            #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElementCount)
+        )
+        swizzle(
+            #selector(UIView.accessibilityElement(at:)),
+            #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElement(at:))
+        )
+        swizzle(
+            #selector(UIView.index(ofAccessibilityElement:)),
+            #selector(UIView.swizzled_CollectionViewSwizzler_index(ofAccessibilityElement:))
+        )
+        // Without swizzling that function below (with swizzling of functions of UIAccessibilityContainer only),
+        // XCUI will somehow somethime strangely mix unnecessary cells into AX hierarchy. I didn't understand
+        // how and why it does it. So, the default implementation of _accessibilityUserTestingChildren, which
+        // calls UIAccessibilityContainer, returns an array with extra objects. That function is private,
+        // the hack below was found after some reverse engineering.
+        swizzle(
+            Selector(("_accessibilityUserTestingChildren")),
+            #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren)
+        )
     }
     
-    private static func swizzle(_ originalSelector: Selector, _ swizzledSelector: Selector) -> FakeCellSwizzlingResult {
-        return FakeCellsSwizzlingUtils.swizzle(UICollectionView.self, originalSelector, swizzledSelector)
+    private static func swizzle(_ originalSelector: Selector, _ swizzledSelector: Selector) {
+        AssertingSwizzler().swizzle(UICollectionView.self, originalSelector, swizzledSelector, .instanceMethod)
     }
     
     private init() {
@@ -50,6 +48,12 @@ final class CollectionViewSwizzler {
 
 private var cellsState_associatedObjectKey = "UICollectionView_cellsState_297BF7468EC6"
 private var cachedFakeCells_associatedObjectKey = "UICollectionView_cachedFakeCells_5F3FCE1CB0A0"
+
+extension UICollectionView {
+    @objc override open func testabilityValue_children() -> [UIView] {
+        return collectionViewSwizzler_accessibilityUserTestingChildren().compactMap { $0 as? UIView }
+    }
+}
 
 fileprivate extension UICollectionView {
     private enum CellsState: String {
@@ -287,6 +291,14 @@ fileprivate extension UICollectionView {
                         self,
                         cellForItemAt: indexPath
                     )
+                    
+                    // `collectionView(_:cellForItemAt:)` can add subview to collection view.
+                    // I think there is no logic for that, and I think Apple did it because they thought
+                    // that `collectionView(_:cellForItemAt:)` should always be followed by
+                    // adding cell as subview. Note that this behavior is not constant, in fact
+                    // usually cell is not added to collection view.
+                    fakeCell.removeFromSuperview()
+                    fakeCell._setHidden(forReuse: false)
                     
                     assert(!fakeCell.isNotFakeCellDueToPresenceInViewHierarchy())
                     

@@ -18,7 +18,7 @@ import Foundation
     // The name should make the reasons to use the function obvious.
     // And SRP seems to be violated.
     //
-    // There is multiple reasons to use this property (1 & 2 are quite same though):
+    // There are multiple reasons to use this property (1 & 2 are quite same though):
     // 1. Fast check if view is hidden before performing an expensive check.
     // 2. Ignore temporary cells in collection view that are used for animations.
     // 3. Check if we can scroll to the element and then perform check for visibility.
@@ -31,14 +31,22 @@ import Foundation
             // "Fake cells" are what we instantiate for the cells that are not visible in collection view.
             // Fake cells can be reused, isHidden can be == true (and setting it to false can not work).
             //
-            // We treat them as not directly/or definately hidden, because they (not the exact instances,
+            // We treat them as not directly/or definitely hidden, because they (not the exact instances,
             // but the cells they prepresent) can appear on screen after scrolling.
             //
             // This is how collection view works. So we should ignore isHidden for them.
             let parentCollectionView = (view as? UICollectionViewCell)?.parentCollectionView
             
-            // TODO: Maybe it is a good idea to check the size of the view.
-            let currentViewIsHidden = view.isHidden_consideringFakenessOfCell() && view.alpha < alphaThreshold
+            let currentViewIsHidden: Bool
+            if view.isFakeCell() {
+                // Fake cells can have isHidden = true and have zero size.
+                currentViewIsHidden = view.alpha < alphaThreshold
+            } else {
+                currentViewIsHidden = view.isHidden
+                    || view.alpha < alphaThreshold
+                    || view.frame.width == 0
+                    || view.frame.height == 0
+            }
             
             if currentViewIsHidden {
                 return true

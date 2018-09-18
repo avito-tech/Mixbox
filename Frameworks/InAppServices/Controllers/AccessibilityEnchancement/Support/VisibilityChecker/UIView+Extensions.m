@@ -35,8 +35,14 @@
     UIView *ancestorView = self;
     do {
         // TODO: Use Swift bindings or rewrite everything in Swift.
-        if ([ancestorView performSelector:@selector(isHidden_consideringFakenessOfCell)] || ancestorView.alpha < kGREYMinimumVisibleAlpha) {
-            return NO;
+        if ([ancestorView performSelector:@selector(isFakeCell)]) {
+            if (ancestorView.alpha < kGREYMinimumVisibleAlpha) {
+                return NO;
+            }
+        } else {
+            if (ancestorView.alpha < kGREYMinimumVisibleAlpha || ancestorView.frame.size.height == 0 || ancestorView.frame.size.width == 0) {
+                return NO;
+            }
         }
         ancestorView = ancestorView.superview;
     } while (ancestorView);

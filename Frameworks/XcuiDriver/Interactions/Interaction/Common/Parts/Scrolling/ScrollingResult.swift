@@ -1,3 +1,5 @@
+import MixboxUiTestsFoundation
+
 final class ScrollingResult {
     enum Status {
         case scrolled

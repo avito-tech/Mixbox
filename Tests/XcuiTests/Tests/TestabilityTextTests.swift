@@ -6,9 +6,7 @@ final class TestabilityTextTests: TestCase {
         return pageObjects.screen
     }
     
-    override func setUp() {
-        super.setUp()
-        
+    override func precondition() {
         openScreen(name: "TextTestsView")
     }
     

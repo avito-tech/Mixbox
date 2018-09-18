@@ -87,6 +87,10 @@ public protocol AlmightyElementChecks {
     
     func isNotDisplayed(checkSettings: CheckSettings) -> Bool
     func isDisplayed(checkSettings: CheckSettings) -> Bool
+    func isInHierarchy(checkSettings: CheckSettings) -> Bool
+    
+    func becomesTallerAfter(action: @escaping () -> (), checkSettings: CheckSettings) -> Bool
+    func becomesShorterAfter(action: @escaping () -> (), checkSettings: CheckSettings) -> Bool
     
     func isEnabled(checkSettings: CheckSettings) -> Bool
     func isDisabled(checkSettings: CheckSettings) -> Bool
@@ -99,6 +103,12 @@ public protocol AlmightyElementChecks {
     
     func matchesReference(snapshot: String, checkSettings: CheckSettings) -> Bool
     func matchesReference(image: UIImage, checkSettings: CheckSettings) -> Bool
+    
+    func matches(
+        checkSettings: CheckSettings,
+        minimalPercentageOfVisibleArea: CGFloat,
+        matcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
+        -> Bool
     
     func with(settings: ElementSettings) -> AlmightyElementChecks
 }

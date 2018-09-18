@@ -18,8 +18,8 @@ class TestStackScrollView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addLabel(id: String, configure: (TestStackScrollViewLabel) -> ()) {
-        let view = TestStackScrollViewLabel()
+    func addLabel(id: String, configure: (LabelWithClosures) -> ()) {
+        let view = LabelWithClosures()
         view.textAlignment = .center
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
@@ -27,24 +27,24 @@ class TestStackScrollView: UIScrollView {
         addView(view, id: id)
     }
     
-    func addButton(id: String, configure: (TestStackScrollViewButton) -> ()) {
-        let view = TestStackScrollViewButton()
+    func addButton(id: String, configure: (ButtonWithClosures) -> ()) {
+        let view = ButtonWithClosures()
         view.setTitleColor(.black, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         configure(view)
         addView(view, id: id)
     }
     
-    func addTextField(id: String, configure: (TestStackScrollViewTextField) -> ()) {
-        let view = TestStackScrollViewTextField()
+    func addTextField(id: String, configure: (TextFieldWithClosures) -> ()) {
+        let view = TextFieldWithClosures()
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)
         addView(view, id: id)
     }
     
-    func addTextView(id: String, configure: (TestStackScrollViewTextView) -> ()) {
-        let view = TestStackScrollViewTextView()
+    func addTextView(id: String, configure: (TextViewWithClosures) -> ()) {
+        let view = TextViewWithClosures()
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)

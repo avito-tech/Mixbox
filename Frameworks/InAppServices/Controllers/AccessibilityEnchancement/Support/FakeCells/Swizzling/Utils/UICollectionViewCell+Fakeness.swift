@@ -34,16 +34,8 @@ extension UICollectionViewCell {
         }
     }
     
-    func isFakeCell() -> Bool {
+    override func isFakeCell() -> Bool {
         return parentCollectionView != nil || indexPath != nil
-    }
-    
-    @objc override func isHidden_consideringFakenessOfCell() -> Bool {
-        if isFakeCell() {
-            return false
-        } else {
-            return isHidden
-        }
     }
     
     private func resetFakenessOfCellIfNeeded() {
@@ -63,12 +55,8 @@ extension UICollectionViewCell {
 }
 
 @objc extension UIView {
-    @objc func isHidden_consideringFakenessOfCell() -> Bool {
-        if let cell = self as? UICollectionViewCell {
-            return cell.isHidden_consideringFakenessOfCell()
-        } else {
-            return isHidden
-        }
+    @objc func isFakeCell() -> Bool {
+        return false
     }
 }
 

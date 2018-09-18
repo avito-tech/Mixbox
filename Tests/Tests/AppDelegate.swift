@@ -3,12 +3,12 @@ import MixboxInAppServices
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    var window: TouchDrawingWindow?
     let mixboxInAppServices = MixboxInAppServices()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
+        window = TouchDrawingWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = TestingViewController(
             testingViewControllerSettings: TestingViewControllerSettings(
                 name: ProcessInfo.processInfo.environment["MB_TESTS_screenName"] ?? ""

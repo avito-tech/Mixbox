@@ -124,8 +124,10 @@ public extension CGPoint {
 
 public extension CGVector {
     init(start: CGPoint, end: CGPoint) {
-        dx = end.x - start.x
-        dy = end.y - start.y
+        self.init(
+            dx: end.x - start.x,
+            dy: end.y - start.y
+        )
     }
     
     func mb_length() -> CGFloat {

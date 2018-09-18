@@ -6,69 +6,86 @@ import MixboxUiTestsFoundation
 import XCTest
 
 extension ElementSnapshot {
-    // 1. Возвращает текст (из testabilityVisibleText).
-    // 2. Если не удалось, то берется fallback из аргумента, так как текст может быть либо
-    // в label, либо в value в зависимости от контекста.
-    //
-    // Например, для удаления текста нажатием кнопки удаления символа столько же раз,
-    // сколько символов в тексте, логично брать value, так как в UITextView/UITextField там лежит текст.
-    //
-    // Для валидации текста логичнее брать label, так как value - скорее исключение, чаще текст лежит в label.
-    //
-    // 3. Вместо nil возвращается пустая строка.
-    //
-    public func visibleText(fallback: @autoclosure () -> String?) -> String {
-        if let visibleText = enhancedAccessibilityValue?.visibleText {
-            return visibleText
-        } else {
-            return fallback() ?? ""
-        }
-    }
-    
-    public var uikitClass: String? {
-        return additionalAttributes[5004 as NSObject] as? String
-    }
-    
-    public var customClass: String? {
-        return additionalAttributes[5041 as NSObject] as? String
-    }
-    
-    public var center: XCUICoordinate {
-        return XCUIApplication().tappableCoordinate(point: frame.mb_center)
-    }
-    
-    public var originalAccessibilityValue: String? {
-        if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return enhancedAccessibilityValue.originalAccessibilityValue
-        } else {
-            return value as? String
-        }
-    }
-    
-    public var isDefinitelyHidden: Bool {
-        guard let enhancedAccessibilityValue = enhancedAccessibilityValue else {
-            return false
-        }
-        return enhancedAccessibilityValue.isDefinitelyHidden
-    }
-    
-    public var hostDefinedValues: [String: String] {
-        guard let enhancedAccessibilityValue = enhancedAccessibilityValue else {
-            return [:]
-        }
-        return enhancedAccessibilityValue.customValues
-    }
-    
     public func percentageOfVisibleArea(ipcClient: IpcClient) -> CGFloat? {
-        guard let enhancedAccessibilityValue = enhancedAccessibilityValue else {
+        guard let uniqueIdentifier = uniqueIdentifier.value else {
             return nil
         }
         
         let result = ipcClient.call(
             method: PercentageOfVisibleAreaIpcMethod(),
-            arguments: enhancedAccessibilityValue.uniqueIdentifier
+            arguments: uniqueIdentifier
         )
-            
-        return result.data ?? .none
+        
+        // TODO: Replace nil with 0 in PercentageOfVisibleAreaIpcMethodHandler?
+        return (result.data ?? .none) ?? 0
+    }
+    
+    public func hasKeyboardFocusOrHasDescendantThatHasKeyboardFocus() -> Bool {
+        if hasKeyboardFocus {
+            return true
+        }
+        for child in children {
+            if child.hasKeyboardFocusOrHasDescendantThatHasKeyboardFocus() {
+                return true
+            }
+        }
+        return false
+    }
+    
+    public func image() -> UIImage? {
+        // TODO: Remove singletons
+        let image = XCUIApplication().screenshot().image
+        
+        guard let cgImage = image.cgImage else {
+            return nil
+        }
+        
+        let frameForCropping = CGRect(
+            x: frameOnScreen.origin.x * image.scale,
+            y: frameOnScreen.origin.y * image.scale,
+            width: frameOnScreen.size.width * image.scale,
+            height: frameOnScreen.size.height * image.scale
+        )
+        
+        guard let croppedCgImage = cgImage.cropping(to: frameForCropping) else {
+            return nil
+        }
+        
+        let croppedImage = UIImage(cgImage: croppedCgImage, scale: image.scale, orientation: image.imageOrientation)
+        
+        return croppedImage
+    }
+    
+    func swipe(direction: SwipeDirection) {
+        let swipeLength: CGFloat = 100
+        let delta = normalizedOffsetForSwipe(direction: direction) * swipeLength
+        let origin = frameOnScreen.mb_center
+        
+        EventGenerator.instance.swipe(from: origin, to: origin + delta)
+    }
+    
+    private func normalizedOffsetForSwipe(direction: SwipeDirection) -> CGVector {
+        let dxNormalized: CGFloat
+        let dyNormalized: CGFloat
+        
+        switch direction {
+        case .up:
+            dxNormalized = 0
+            dyNormalized = -1
+        case .down:
+            dxNormalized = 0
+            dyNormalized = 1
+        case .left:
+            dxNormalized = -1
+            dyNormalized = 0
+        case .right:
+            dxNormalized = 1
+            dyNormalized = 0
+        }
+        
+        return CGVector(
+            dx: dxNormalized,
+            dy: dyNormalized
+        )
     }
 }

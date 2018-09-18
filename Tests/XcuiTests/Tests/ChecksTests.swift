@@ -25,12 +25,12 @@ final class ChecksTests: TestCase {
             screen.label("hasValue0").hasValue("Other Accessibility Value")
         )
         
-        screen.label("isNotDisplayed0").assert.isNotDisplayed()
+        screen.label("isNotDisplayed0").withTimeout(1).assert.isNotDisplayed()
         XCTAssertFalse(
             screen.label("isNotDisplayed0").isDisplayed()
         )
         
-        screen.label("isNotDisplayed1").assert.isNotDisplayed()
+        screen.label("isNotDisplayed1").withTimeout(1).assert.isNotDisplayed()
         XCTAssertFalse(
             screen.label("isNotDisplayed1").isDisplayed()
         )

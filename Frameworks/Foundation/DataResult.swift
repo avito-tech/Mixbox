@@ -85,4 +85,28 @@ public enum DataResult<T, E> {
             return .error(try transform(error))
         }
     }
+    
+    public func flatMapData<TNew>(
+        _ transform: (T) throws -> DataResult<TNew, E>) rethrows
+        -> DataResult<TNew, E>
+    {
+        switch self {
+        case .data(let data):
+            return try transform(data)
+        case .error(let error):
+            return .error(error)
+        }
+    }
+    
+    public func flatMapError<ENew>(
+        _ transform: (E) throws -> DataResult<T, ENew>) rethrows
+        -> DataResult<T, ENew>
+    {
+        switch self {
+        case .data(let data):
+            return .data(data)
+        case .error(let error):
+            return try transform(error)
+        }
+    }
 }

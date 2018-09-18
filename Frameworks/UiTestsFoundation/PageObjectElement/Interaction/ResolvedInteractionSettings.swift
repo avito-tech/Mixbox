@@ -6,6 +6,7 @@ import MixboxFoundation
 public final class ResolvedInteractionSettings {
     public let interactionSettings: InteractionSettings
     public let elementSettings: ElementSettings
+    public let pollingConfiguration: PollingConfiguration
     
     public var elementName: String {
         return elementSettings.name
@@ -27,8 +28,13 @@ public final class ResolvedInteractionSettings {
         )
     }
     
-    public init(interactionSettings: InteractionSettings, elementSettings: ElementSettings) {
+    public init(
+        interactionSettings: InteractionSettings,
+        elementSettings: ElementSettings,
+        pollingConfiguration: PollingConfiguration)
+    {
         self.interactionSettings = interactionSettings
         self.elementSettings = elementSettings
+        self.pollingConfiguration = pollingConfiguration
     }
 }

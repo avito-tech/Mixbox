@@ -28,15 +28,18 @@ final class InteractionFactoryImpl: InteractionFactory {
     private let elementFinder: ElementFinder
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let scrollingHintsProvider: ScrollingHintsProvider
+    private let snapshotCaches: SnapshotCaches
     
     init(
         elementFinder: ElementFinder,
         elementVisibilityChecker: ElementVisibilityChecker,
-        scrollingHintsProvider: ScrollingHintsProvider)
+        scrollingHintsProvider: ScrollingHintsProvider,
+        snapshotCaches: SnapshotCaches)
     {
         self.elementFinder = elementFinder
         self.elementVisibilityChecker = elementVisibilityChecker
         self.scrollingHintsProvider = scrollingHintsProvider
+        self.snapshotCaches = snapshotCaches
     }
     
     func actionInteraction(
@@ -51,7 +54,8 @@ final class InteractionFactoryImpl: InteractionFactory {
             elementFinder: elementFinder,
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            snapshotCaches: snapshotCaches
         )
     }
     
@@ -65,7 +69,8 @@ final class InteractionFactoryImpl: InteractionFactory {
             elementFinder: elementFinder,
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            snapshotCaches: snapshotCaches
         )
     }
     
@@ -81,7 +86,8 @@ final class InteractionFactoryImpl: InteractionFactory {
             elementFinder: elementFinder,
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            snapshotCaches: snapshotCaches
         )
     }
 }

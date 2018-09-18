@@ -4,9 +4,11 @@ import XCTest
 // swiftlint:disable force_unwrapping
 
 final class FakeCellsTests: TestCase {
-    override func setUp() {
-        super.setUp()
-        
+    override var reuseState: Bool {
+        return false
+    }
+    
+    override func precondition() {
         openScreen(name: "FakeCellsTestsView")
     }
     

@@ -1,6 +1,7 @@
 import MixboxIpcCommon
 import MixboxIpcClients
 import MixboxIpc
+import MixboxUiTestsFoundation
 
 protocol ScrollingHintsProvider {
     func scrollingHint(element: ElementSnapshot) -> ScrollingHint
@@ -14,13 +15,13 @@ final class ScrollingHintsProviderImpl: ScrollingHintsProvider {
     }
     
     func scrollingHint(element: ElementSnapshot) -> ScrollingHint {
-        guard let enhancedAccessibilityValue = element.enhancedAccessibilityValue else {
-            return .internalError("Не удалось получить улучшенное accessibilityValue")
+        guard let uniqueIdentifier = element.uniqueIdentifier.value else {
+            return .internalError("Не удалось получить uniqueIdentifier")
         }
         
         let result = ipcClient.call(
             method: ScrollingHintIpcMethod(),
-            arguments: enhancedAccessibilityValue.uniqueIdentifier
+            arguments: uniqueIdentifier
         )
         
         switch result {

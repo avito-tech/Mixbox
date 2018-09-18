@@ -8,21 +8,38 @@ import MixboxIpcSbtuiClient
 import MixboxReporting
 import MixboxBuiltinIpc
 import MixboxIpc
+import MixboxFoundation
 
-class TestCase: XCTestCase {
+class TestCase: XCTestCase, FailureGatherer {
     // Prototype of fast launching, see usage:
+    // UPD: Implemented in Avito. TODO: Sync with Mixbox.
     static var everLaunched = false
     
-    let testCaseUtils = TestCaseUtils()
+    private(set) lazy var testCaseUtils: TestCaseUtils = self.reuseState { TestCaseUtils() }
+    
+    var testRunnerPermissions: ApplicationPermissionsSetter {
+        return testCaseUtils.testRunnerPermissions
+    }
+    
+    var permissions: ApplicationPermissionsSetter {
+        return testCaseUtils.permissions
+    }
     
     var pageObjects: PageObjects {
         return testCaseUtils.pageObjects
+    }
+    
+    func precondition() {
     }
     
     override func setUp() {
         super.setUp()
         
         testCaseUtils.currentTestCaseProvider.setCurrentTestCase(self)
+        
+        reuseState {
+            precondition()
+        }
     }
     
     func launch(environment: [String: String], useBuiltinIpc: Bool = false) {
@@ -51,11 +68,6 @@ class TestCase: XCTestCase {
         return [
             "MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL": "true"
         ]
-    }
-    
-    override func recordFailure(withDescription description: String, inFile filePath: String, atLine lineNumber: Int, expected: Bool) {
-        // For breakpoints:
-        super.recordFailure(withDescription: description, inFile: filePath, atLine: lineNumber, expected: expected)
     }
     
     private func launchUsingBuiltinIpc(environment: [String: String]) {
@@ -102,4 +114,78 @@ class TestCase: XCTestCase {
             ]
         )
     }
+    
+    // MARK: - Gathering failures
+    
+    private enum RecordFailureMode {
+        case failTest
+        case gatherFailures
+    }
+    
+    private var recordFailureMode = RecordFailureMode.failTest
+    private var gatheredFailures = [XcTestFailure]()
+    func gatherFailures(_ body: () -> ()) -> [XcTestFailure] {
+        let saved_recordFailureMode = recordFailureMode
+        let saved_gatheredFailures = gatheredFailures
+        
+        recordFailureMode = .gatherFailures
+        gatheredFailures = []
+        
+        body()
+        
+        let valueToReturn = gatheredFailures
+        
+        gatheredFailures = saved_gatheredFailures + gatheredFailures
+        recordFailureMode = saved_recordFailureMode
+        
+        return valueToReturn
+    }
+    
+    override func recordFailure(
+        withDescription description: String,
+        inFile filePath: String,
+        atLine lineNumber: Int,
+        expected: Bool)
+    {
+        let fileLine = testCaseUtils.fileLineForFailureProvider.fileLineForFailure()
+            ?? HeapFileLine(file: filePath, line: UInt64(lineNumber))
+        
+        let failure = XcTestFailure(
+            description: description,
+            file: fileLine.file,
+            line: Int(fileLine.line),
+            expected: expected
+        )
+        
+        switch recordFailureMode {
+        case .failTest:
+            // Note that you can set a breakpoint here (it is very convenient):
+            super.recordFailure(
+                withDescription: failure.description,
+                inFile: failure.file,
+                atLine: failure.line,
+                expected: failure.expected
+            )
+        case .gatherFailures:
+            gatheredFailures.append(failure)
+        }
+    }
+    
+    // MARK: - Reusing state
+    
+    var reuseState: Bool {
+        return true
+    }
+    
+    private func reuseState<T>(file: StaticString = #file, line: UInt = #line, block: () -> (T)) -> T {
+        if reuseState {
+            let fileLine = FileLine(file: file, line: line)
+            return TestStateRecycling.instance.reuseState(testCase: type(of: self), fileLine: fileLine) {
+                block()
+            }
+        } else  {
+            return block()
+        }
+    }
+    
 }

@@ -19,7 +19,7 @@
 public protocol PageObjectElementRegistrar: class {
     func element<T: ElementWithDefaultInitializer>(
         _ name: String,
-        matcherBuilder: (PredicateNodePageObjectElement) -> PredicateNode)
+        matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     
     func with(searchMode: SearchMode) -> PageObjectElementRegistrar

@@ -140,8 +140,8 @@ final class AccessibilityValueSwizzler {
             originalAccessibilityValue: originalAccessibilityValue as String,
             uniqueIdentifier: view.uniqueIdentifier,
             isDefinitelyHidden: view.isDefinitelyHidden,
-            visibleText: view.testabilityVisibleText(),
-            customValues: view.testabilityCustomValues
+            visibleText: view.testabilityValue_visibleText(),
+            customValues: view.testability_customValues.dictionary
         )
         
         AccessibilityUniqueObjectMap.shared.register(object: view)

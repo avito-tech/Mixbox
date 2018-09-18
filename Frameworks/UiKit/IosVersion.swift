@@ -18,7 +18,7 @@ public struct IosVersion: Comparable {
     }
     
     public init(_ versionString: String) {
-        version = versionString.components(separatedBy: ".").map { $0.mb_toInt() }.flatMap { $0 }
+        version = versionString.components(separatedBy: ".").compactMap { $0.mb_toInt() }
     }
 }
 

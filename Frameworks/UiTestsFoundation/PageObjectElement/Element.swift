@@ -40,15 +40,11 @@ extension Element {
     //     ...
     // }
     
-    public func matching(_ matcherBuilder: (PredicateNodePageObjectElement) -> PredicateNode) -> Self {
-        let oldPredicate = implementation.settings.matcher.rootPredicateNode
-        let additionalPredicate = ElementMatcher(builder: matcherBuilder).rootPredicateNode
+    public func matching(_ matcherBuilder: ElementMatcherBuilderClosure) -> Self {
+        let old = implementation.settings.matcher
+        let additional = ElementMatcherBuilder.build(matcherBuilder)
         
-        let newMatcher = ElementMatcher(
-            rootPredicateNode: oldPredicate && additionalPredicate
-        )
-        
-        return with(matcher: newMatcher)
+        return with(matcher: old && additional)
     }
     
     public func with(name: String) -> Self {

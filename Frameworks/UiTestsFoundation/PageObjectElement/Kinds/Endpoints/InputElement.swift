@@ -12,4 +12,4 @@ public final class InputElement:
 
 public protocol InputElementActions: ViewElementActions, ElementWithTextActions {}
 
-public protocol InputElementChecks: ViewElementChecks, ElementWithTextChecks {}
+public protocol InputElementChecks: ViewElementChecks, ElementWithTextChecks, ElementWithEnabledStateChecks {}

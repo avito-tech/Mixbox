@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import XCTest
 
 final class InteractionFailureMaker {
     static func interactionFailure(

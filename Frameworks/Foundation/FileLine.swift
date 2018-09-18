@@ -18,7 +18,7 @@
 // We cant use function with same signature in protocol extension, because
 // it would cause stack overflow. So FileLine is useful also for this case.
 
-public final class FileLine: Equatable {
+public final class FileLine: Hashable {
     public let file: StaticString
     public let line: UInt
     
@@ -33,6 +33,13 @@ public final class FileLine: Equatable {
     public static func ==(left: FileLine, right: FileLine) -> Bool {
         return String(describing: left.file) == String(describing: right.file)
             && left.line == right.line
+    }
+    
+    public var hashValue: Int {
+        return HashMath
+            .combine(String(describing: file))
+            .combine(line)
+            .reduce
     }
 }
 

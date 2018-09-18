@@ -1,6 +1,7 @@
 import MixboxIpcClients
 import MixboxIpcCommon
 import MixboxIpc
+import MixboxUiTestsFoundation
 
 protocol ElementVisibilityChecker {
     func percentageOfVisibleArea(snapshot: ElementSnapshot) -> CGFloat
@@ -23,7 +24,7 @@ final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     }
     
     func percentageOfVisibleArea(snapshot: ElementSnapshot) -> CGFloat {
-        guard !snapshot.isDefinitelyHidden else {
+        if let isDefinitelyHidden = snapshot.isDefinitelyHidden.value, isDefinitelyHidden {
             return VisibilityPercentage.definitelyHidden
         }
         
@@ -31,8 +32,8 @@ final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
         while let parent = parentPointer {
             parentPointer = parent.parent
         }
-        if let topSnapshotFrame = parentPointer?.frame {
-            if !topSnapshotFrame.intersects(snapshot.frame) {
+        if let topSnapshotFrame = parentPointer?.frameOnScreen {
+            if !topSnapshotFrame.intersects(snapshot.frameOnScreen) {
                 return VisibilityPercentage.definitelyHidden
             }
         }
@@ -50,6 +51,7 @@ final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
             arguments: elementUniqueIdentifier
         )
         
+        // TODO: Replace nil with 0 in PercentageOfVisibleAreaIpcMethodHandler?
         return (result.data ?? .none) ?? 0
     }
 }

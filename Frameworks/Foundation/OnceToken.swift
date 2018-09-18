@@ -14,11 +14,15 @@ public final class OnceToken {
     }
     
     public func wasExecuted() -> Bool {
-        semaphore.wait()
-        defer {
-            semaphore.signal()
+        if wasExecutedUnsafeValue {
+            return true
+        } else {
+            semaphore.wait()
+            defer {
+                semaphore.signal()
+            }
+            return wasExecutedUnsafeValue
         }
-        return wasExecutedUnsafeValue
     }
     
     public func executeOnce(_ closure: () -> ()) {
