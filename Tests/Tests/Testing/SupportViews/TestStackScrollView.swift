@@ -35,6 +35,13 @@ class TestStackScrollView: UIScrollView {
         addView(view, id: id)
     }
     
+    func addButton(idAndText: String, configure: (ButtonWithClosures) -> ()) {
+        addButton(id: idAndText) {
+            $0.setTitle(idAndText, for: .normal)
+            configure($0)
+        }
+    }
+    
     func addTextField(id: String, configure: (TextFieldWithClosures) -> ()) {
         let view = TextFieldWithClosures()
         view.textColor = .black

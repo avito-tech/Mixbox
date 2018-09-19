@@ -319,9 +319,14 @@ final class InteractionHelper {
         resolvedElementQuery: ResolvedElementQuery)
         -> InteractionResult
     {
+        let applicationState = XCUIApplication().state
+        let applicationStateNotice: String = applicationState == .runningForeground
+            ? ""
+            : ", на это могло повлиять то, что приложение не запущено, либо закрешилось (state = \(applicationState))"
+        
         return failureResult(
             resolvedElementQuery: resolvedElementQuery,
-            message: "элемент не найден в иерархии"
+            message: "элемент не найден в иерархии\(applicationStateNotice)"
         )
     }
     
@@ -354,6 +359,23 @@ final class InteractionHelper {
     private func respectPollingConfiguration() {
         if case PollingConfiguration.reduceWorkload = pollingConfiguration {
             RunLoop.current.run(until: Date().addingTimeInterval(1.0))
+        }
+    }
+}
+
+extension XCUIApplication.State: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .unknown:
+            return "unknown" // 0
+        case .notRunning:
+            return "notRunning" // 1
+        case .runningBackgroundSuspended:
+            return "runningBackgroundSuspended" // 2
+        case .runningBackground:
+            return "runningBackground" // 3
+        case .runningForeground:
+            return "runningForeground" // 4
         }
     }
 }

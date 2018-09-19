@@ -20,9 +20,9 @@ final class FailuresTestsView: UIView {
         bloodView.backgroundColor = .red
         
         // To have multiple match error
-        purityView.accessibilityIdentifier = "view"
-        faithView.accessibilityIdentifier = "view"
-        bloodView.accessibilityIdentifier = "view"
+        purityView.accessibilityIdentifier = "multipleMatchesFailureView"
+        faithView.accessibilityIdentifier = "multipleMatchesFailureView"
+        bloodView.accessibilityIdentifier = "multipleMatchesFailureView"
     }
     
     required init?(coder aDecoder: NSCoder) {

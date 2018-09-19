@@ -107,11 +107,12 @@ class TestCase: XCTestCase, FailureGatherer {
         testCaseUtils.lazilyInitializedIpcClient.ipcClient = handshaking.waitForHandshake()
     }
     
-    func openScreen(name: String) {
+    func openScreen(name: String, useBuiltinIpc: Bool = false) {
         launch(
             environment: [
                 "MB_TESTS_screenName": name
-            ]
+            ],
+            useBuiltinIpc: useBuiltinIpc
         )
     }
     

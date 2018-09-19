@@ -9,5 +9,6 @@ int main(int argc, char * argv[]) {
         }
     } @catch (NSException *exception) {
         NSLog(@"%@", exception);
+        @throw exception;
     }
 }
