@@ -1,28 +1,23 @@
 import UIKit
 
-final class FakeCellsTestsView:
-    UICollectionView,
-    UICollectionViewDelegate,
-    UICollectionViewDataSource
-{
-    private var cellModels = [FakeCellModel]()
+final class FakeCellsTestsView: CollectionView {
     private var generation: Int = -1
     
     private let nonCellSubviewOfCollectionView = UILabel()
     private let notFromDatasourceCellSubviewOfCollectionView = SingleViewCell<UILabel>()
     private let notFromDatasourceViewsHeight: CGFloat = FakeCellsTestsConstants.itemHeight
     
-    init() {
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        layout.sectionInset = UIEdgeInsets(
-            top: notFromDatasourceViewsHeight,
-            bottom: notFromDatasourceViewsHeight
+    @objc init() {
+        super.init(
+            itemSize: CGSize(
+                width: UIScreen.main.bounds.width,
+                height: FakeCellsTestsConstants.itemHeight
+            ),
+            sectionInset: UIEdgeInsets(
+                top: notFromDatasourceViewsHeight,
+                bottom: notFromDatasourceViewsHeight
+            )
         )
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: FakeCellsTestsConstants.itemHeight)
-        
-        super.init(frame: .zero, collectionViewLayout: layout)
         
         nonCellSubviewOfCollectionView.backgroundColor = .purple
         nonCellSubviewOfCollectionView.text = "I'm added via addSubview"
@@ -34,11 +29,6 @@ final class FakeCellsTestsView:
         notFromDatasourceCellSubviewOfCollectionView.view.accessibilityIdentifier = "notFromDatasourceCellSubviewOfCollectionViewSubview"
         notFromDatasourceCellSubviewOfCollectionView.view.text = "I'm added via addSubview"
         addSubview(notFromDatasourceCellSubviewOfCollectionView)
-        
-        dataSource = self
-        delegate = self
-        
-        register(UICollectionViewCell.self, forCellWithReuseIdentifier: "blank")
         
         FakeCellsReloadIpcMethodHandler.instance.onHandle = { [weak self] type, completion in
             guard let strongSelf = self else {
@@ -65,8 +55,6 @@ final class FakeCellsTestsView:
         }
         
         setUpCellModels()
-        
-        backgroundColor = .white
     }
     
     private func regenerate(type: FakeCellsReloadType, completion: @escaping (Int) -> ()) {
@@ -109,6 +97,7 @@ final class FakeCellsTestsView:
             top: 0,
             height: notFromDatasourceViewsHeight
         )
+        
         notFromDatasourceCellSubviewOfCollectionView.frame = CGRect(
             left: bounds.mb_left,
             right: bounds.mb_right,
@@ -118,7 +107,8 @@ final class FakeCellsTestsView:
     }
     
     private func setUpCellModels() {
-        cellModels = []
+        removeCells()
+        
         generation += 1
         
         for setId in 0..<FakeCellsTestsConstants.setsCount {
@@ -204,38 +194,5 @@ final class FakeCellsTestsView:
                 }
             }
         }
-    }
-    
-    private func addCell<C: UICollectionViewCell>(_ updateFunction: @escaping (_ cell: C) -> ()) {
-        let cellModel = GenericFakeCellModel<C>(updateFunction: updateFunction)
-        let cellClass = C.self
-        register(cellClass, forCellWithReuseIdentifier: fakeCellReuseIdentifier(cellClass: cellClass))
-        cellModels.append(cellModel)
-    }
-    
-    // MARK: - UICollectionViewDelegate / UICollectionViewDataSource
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellModels.count
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath)
-        -> UICollectionViewCell
-    {
-        guard let model = cellModels.mb_elementAtIndex(indexPath.row) else {
-            return collectionView.dequeueReusableCell(withReuseIdentifier: "blank", for: indexPath)
-        }
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.reuseIdentifier, for: indexPath)
-        
-        model.update(cell: cell)
-        
-        return cell
     }
 }

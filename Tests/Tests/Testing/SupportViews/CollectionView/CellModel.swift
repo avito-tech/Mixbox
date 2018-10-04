@@ -3,23 +3,23 @@ import UIKit
 // Easy way to store array of cell models for collection view,
 // Suitable for testing tests, not suitable for real app.
 
-protocol FakeCellModel {
+protocol CellModel {
     var cellClass: UICollectionViewCell.Type { get }
     func update(cell: UICollectionViewCell)
 }
 
-extension FakeCellModel {
+extension CellModel {
     var reuseIdentifier: String {
-        return fakeCellReuseIdentifier(cellClass: cellClass)
+        return cellReuseIdentifier(cellClass: cellClass)
     }
 }
 
-// OOP is no my best
-func fakeCellReuseIdentifier(cellClass: UICollectionViewCell.Type) -> String {
+// Not the best example of software architecture:
+func cellReuseIdentifier(cellClass: UICollectionViewCell.Type) -> String {
     return "\(cellClass)"
 }
 
-struct GenericFakeCellModel<T: UICollectionViewCell>: FakeCellModel {
+struct GenericCellModel<T: UICollectionViewCell>: CellModel {
     let updateFunction: (T) -> ()
     
     var cellClass: UICollectionViewCell.Type {
