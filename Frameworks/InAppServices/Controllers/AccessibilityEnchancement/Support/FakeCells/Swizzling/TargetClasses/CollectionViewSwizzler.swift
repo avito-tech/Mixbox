@@ -62,12 +62,14 @@ fileprivate extension UICollectionView {
         case realCellsAreUpdated_fakeCellsCacheDoesNotExist // to update cache
         case realCellsAreUpdated_fakeCellsCacheIsUpdating // basically to prevent stackoverflow
         case realCellsAreUpdated_fakeCellsCacheIsUpdated // to use cache
+        case fakeCellsCacheCanNotBeObtained // to not use cache
         
         var needToUpdateCache: Bool {
             switch self {
             case .realCellsAreUpdated_fakeCellsCacheDoesNotExist:
                 return true
             case .realCellsAreUpdating_fakeCellsCacheDoesNotExist,
+                 .fakeCellsCacheCanNotBeObtained,
                  .realCellsAreUpdated_fakeCellsCacheIsUpdating,
                  .realCellsAreUpdated_fakeCellsCacheIsUpdated:
                 return false
@@ -76,7 +78,8 @@ fileprivate extension UICollectionView {
         
         var needToIgnoreCache: Bool {
             switch self {
-            case .realCellsAreUpdating_fakeCellsCacheDoesNotExist:
+            case .realCellsAreUpdating_fakeCellsCacheDoesNotExist,
+                 .fakeCellsCacheCanNotBeObtained:
                 return true
             case .realCellsAreUpdated_fakeCellsCacheDoesNotExist,
                  .realCellsAreUpdated_fakeCellsCacheIsUpdating,
@@ -275,53 +278,73 @@ fileprivate extension UICollectionView {
         // Without calling `reuseCell` dequeueing of cells will lead to leaks, new cells will
         // appear hidden in real view hierarchy.
         for fakeCell in self.cachedFakeCells {
-            _reuse(fakeCell)
+            ObjectiveCExceptionCatcher.catch(
+                try: {
+                    _reuse(fakeCell)
+                },
+                catch: { _ in }
+            )
         }
         
         var cachedFakeCells = [UICollectionViewCell]()
         
-        if let dataSource = dataSource {
-            for sectionId in 0..<numberOfSections {
-                for itemId in 0..<numberOfItems(inSection: sectionId) {
-                    let indexPath = IndexPath(row: itemId, section: sectionId)
-                    
-                    // Usage of native function to create cell for a specific index path.
-                    // It has some problems that were solved via swizzling of UICollectionViewCell.
-                    let fakeCell = dataSource.collectionView(
-                        self,
-                        cellForItemAt: indexPath
-                    )
-                    
-                    // `collectionView(_:cellForItemAt:)` can add subview to collection view.
-                    // I think there is no logic for that, and I think Apple did it because they thought
-                    // that `collectionView(_:cellForItemAt:)` should always be followed by
-                    // adding cell as subview. Note that this behavior is not constant, in fact
-                    // usually cell is not added to collection view.
-                    fakeCell.removeFromSuperview()
-                    fakeCell._setHidden(forReuse: false)
-                    
-                    assert(!fakeCell.isNotFakeCellDueToPresenceInViewHierarchy())
-                    
-                    fakeCell.indexPath = indexPath
-                    fakeCell.parentCollectionView = self
-                    
-                    #if TEST
-                    fakeCell.configureAsFakeCell?()
-                    #endif
-                    
-                    // It wouldn't be called without a parent.
-                    // But it is needed to set a frame. Elements with zero frame are not shown in AX hierarchy.
-                    fakeCell.setNeedsLayout()
-                    fakeCell.layoutIfNeeded()
-                    
-                    cachedFakeCells.append(fakeCell)
+        ObjectiveCExceptionCatcher.catch(
+            try: {
+                if let dataSource = dataSource {
+                    for sectionId in 0..<numberOfSections {
+                        for itemId in 0..<numberOfItems(inSection: sectionId) {
+                            let indexPath = IndexPath(row: itemId, section: sectionId)
+                            
+                            // Usage of native function to create cell for a specific index path.
+                            // It has some problems that were solved via swizzling of UICollectionViewCell.
+                            let fakeCell = dataSource.collectionView(
+                                self,
+                                cellForItemAt: indexPath
+                            )
+                            
+                            // `collectionView(_:cellForItemAt:)` can add subview to collection view.
+                            // I think there is no logic for that, and I think Apple did it because they thought
+                            // that `collectionView(_:cellForItemAt:)` should always be followed by
+                            // adding cell as subview. Note that this behavior is not constant, in fact
+                            // usually cell is not added to collection view.
+                            fakeCell.removeFromSuperview()
+                            fakeCell._setHidden(forReuse: false)
+                            
+                            assert(!fakeCell.isNotFakeCellDueToPresenceInViewHierarchy())
+                            
+                            fakeCell.indexPath = indexPath
+                            fakeCell.parentCollectionView = self
+                            
+                            #if TEST
+                            fakeCell.configureAsFakeCell?()
+                            #endif
+                            
+                            // It wouldn't be called without a parent.
+                            // But it is needed to set a frame. Elements with zero frame are not shown in AX hierarchy.
+                            fakeCell.setNeedsLayout()
+                            fakeCell.layoutIfNeeded()
+                            
+                            cachedFakeCells.append(fakeCell)
+                        }
+                    }
                 }
+                
+                self.cachedFakeCells = cachedFakeCells
+                cellsState = .realCellsAreUpdated_fakeCellsCacheIsUpdated
+            },
+            catch: { _ in
+                for fakeCell in cachedFakeCells {
+                    ObjectiveCExceptionCatcher.catch(
+                        try: {
+                            _reuse(fakeCell)
+                        },
+                        catch: { _ in }
+                    )
+                }
+                
+                cellsState = .fakeCellsCacheCanNotBeObtained
             }
-        }
-        
-        self.cachedFakeCells = cachedFakeCells
-        
-        cellsState = .realCellsAreUpdated_fakeCellsCacheIsUpdated
+        )
     }
 }
 
@@ -337,7 +360,14 @@ private extension UIView {
             return swizzled_CollectionViewSwizzler_accessibilityElementCount()
         }
         
-        return collectionView.collectionViewSwizzler_accessibilityElementCount()
+        return ObjectiveCExceptionCatcher.catch(
+            try: {
+                collectionView.collectionViewSwizzler_accessibilityElementCount()
+            },
+            catch: { _ in
+                swizzled_CollectionViewSwizzler_accessibilityElementCount()
+            }
+        )
     }
     
     @objc func swizzled_CollectionViewSwizzler_accessibilityElement(at index: Int) -> Any? {
@@ -345,7 +375,14 @@ private extension UIView {
             return swizzled_CollectionViewSwizzler_accessibilityElement(at: index)
         }
         
-        return collectionView.collectionViewSwizzler_accessibilityElement(at: index)
+        return ObjectiveCExceptionCatcher.catch(
+            try: {
+                collectionView.collectionViewSwizzler_accessibilityElement(at: index)
+            },
+            catch: { _ in
+                swizzled_CollectionViewSwizzler_accessibilityElement(at: index)
+            }
+        )
     }
     
     @objc func swizzled_CollectionViewSwizzler_index(ofAccessibilityElement element: Any) -> Int {
@@ -353,7 +390,14 @@ private extension UIView {
             return swizzled_CollectionViewSwizzler_index(ofAccessibilityElement: element)
         }
         
-        return collectionView.collectionViewSwizzler_index(ofAccessibilityElement: element)
+        return ObjectiveCExceptionCatcher.catch(
+            try: {
+                collectionView.collectionViewSwizzler_index(ofAccessibilityElement: element)
+            },
+            catch: { _ in
+                swizzled_CollectionViewSwizzler_index(ofAccessibilityElement: element)
+            }
+        )
     }
     
     @objc func swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren() -> NSArray {
@@ -361,6 +405,13 @@ private extension UIView {
             return swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren()
         }
         
-        return collectionView.collectionViewSwizzler_accessibilityUserTestingChildren()
+        return ObjectiveCExceptionCatcher.catch(
+            try: {
+                collectionView.collectionViewSwizzler_accessibilityUserTestingChildren()
+            },
+            catch: { _ in
+                swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren()
+            }
+        )
     }
 }
