@@ -55,6 +55,7 @@
 		F839A80A215124C2009F77AB /* CrashTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A809215124C2009F77AB /* CrashTestsView.swift */; };
 		F84C4F3320E68FCA00DB35F2 /* FakeCellsReloadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C4F3020E68D7500DB35F2 /* FakeCellsReloadType.swift */; };
 		F84C4F3420E68FCA00DB35F2 /* FakeCellsReloadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84C4F3020E68D7500DB35F2 /* FakeCellsReloadType.swift */; };
+		F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D12692166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift */; };
 		F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */; };
 		F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */; };
 		F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D004214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift */; };
@@ -183,6 +184,7 @@
 		F839A806215124A9009F77AB /* CrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashTests.swift; sourceTree = "<group>"; };
 		F839A809215124C2009F77AB /* CrashTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashTestsView.swift; sourceTree = "<group>"; };
 		F84C4F3020E68D7500DB35F2 /* FakeCellsReloadType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsReloadType.swift; sourceTree = "<group>"; };
+		F84D12692166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveCExceptionCatcherTests.swift; sourceTree = "<group>"; };
 		F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift; sourceTree = "<group>"; };
 		F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceProviderImplTests.swift; sourceTree = "<group>"; };
 		F853D004214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				F8208737214196C700DCBA2D /* Domain */,
 				F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */,
 				F86675712121E81E00396F02 /* Info.plist */,
+				F84D12692166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -932,10 +935,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
@@ -946,10 +946,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
@@ -1187,6 +1184,7 @@
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
+				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
 				F820873421418DEE00DCBA2D /* MatchersTests.swift in Sources */,
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* MatcherBuilderTests.swift in Sources */,
