@@ -1,10 +1,24 @@
 public final class ObjectiveCExceptionCatcher {
-    public static func `catch`(
-        try: () -> (),
-        catch: (NSException) -> (),
-        finally: () -> ())
+    public static func `catch`<T>(
+        try: () -> (T),
+        catch: (NSException) -> (T),
+        finally: () -> () = {})
+        -> T
     {
-        ObjectiveCExceptionCatcherHelper_try(`try`, `catch`, finally)
+        var result: T?
+        
+        ObjectiveCExceptionCatcherHelper_try(
+            {
+                result = `try`()
+            },
+            { e in
+                result = `catch`(e)
+            },
+            finally
+        )
+        
+        // swiftlint:disable:next force_unwrap
+        return result!
     }
     
     private init() {
