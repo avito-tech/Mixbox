@@ -5,7 +5,7 @@ import MixboxIpcSbtuiHost
 final class SbtuiIpcStarter: IpcStarter {
     private let router = SbtuiIpcRouter()
     
-    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> IpcRouter {
+    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> (IpcRouter, IpcClient?) {
         SBTUITestTunnelServer.takeOff()
         
         // https://github.com/Subito-it/SBTUITestTunnel/blob/master/Documentation/Setup.md
@@ -23,7 +23,7 @@ final class SbtuiIpcStarter: IpcStarter {
         
         commandsForAddingRoutes.forEach { $0(router) }
         
-        return router
+        return (router, nil)
     }
     
     func handleUiBecomeVisible() {

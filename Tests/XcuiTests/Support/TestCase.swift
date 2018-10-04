@@ -81,8 +81,8 @@ class TestCase: XCTestCase, FailureGatherer {
         }
         
         // Initialize client/server pairs
-        let handshaking = Handshaker()
-        guard let port = handshaking.start() else {
+        let handshaker = Handshaker()
+        guard let port = handshaker.start() else {
             preconditionFailure("Не удалось стартовать сервер.")
         }
         
@@ -104,7 +104,8 @@ class TestCase: XCTestCase, FailureGatherer {
         TestCase.everLaunched = true
         
         // Wait for handshake
-        testCaseUtils.lazilyInitializedIpcClient.ipcClient = handshaking.waitForHandshake()
+        testCaseUtils.lazilyInitializedIpcClient.ipcClient = handshaker.waitForHandshake()
+        testCaseUtils.ipcRouter = handshaker.server
     }
     
     func openScreen(name: String, useBuiltinIpc: Bool = false) {

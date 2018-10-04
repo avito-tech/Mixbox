@@ -7,7 +7,7 @@ public enum IpcClientError {
     case decodingError
 }
 
-public protocol IpcClient {
+public protocol IpcClient: class {
     func call<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,

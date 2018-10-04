@@ -10,7 +10,7 @@
 //     }
 // }
 //
-public protocol IpcMethodHandler {
+public protocol IpcMethodHandler: class {
     associatedtype Method: IpcMethod
     
     var method: Method { get }

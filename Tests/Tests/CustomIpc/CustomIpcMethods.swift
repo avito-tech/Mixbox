@@ -10,6 +10,10 @@ final class CustomIpcMethods {
         mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<[String]>())
         mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<[String: String]>())
         
+        mixboxInAppServices.register(methodHandler: CallbackFromAppIpcMethodHandler<Int>())
+        mixboxInAppServices.register(methodHandler: CallbackToAppIpcMethodHandler<Int, String>())
+        mixboxInAppServices.register(methodHandler: NestedCallbacksToAppIpcMethodHandler())
+        
         mixboxInAppServices.register(methodHandler: FakeCellsReloadIpcMethodHandler.instance)
         mixboxInAppServices.register(methodHandler: FakeCellsSubviewsInfoIpcMethodHandler.instance)
     }

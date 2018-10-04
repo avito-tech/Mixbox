@@ -3,7 +3,7 @@ import MixboxIpc
 import XCTest
 import MixboxFoundation
 
-class IpcTests: TestCase {
+class IpcEchoingTests: TestCase {
     func test_0() {
         checkEchoingValue("string")
     }

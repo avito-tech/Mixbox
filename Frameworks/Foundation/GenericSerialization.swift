@@ -12,6 +12,10 @@ public final class GenericSerialization {
             nan: "nan"
         )
         
+        return serialize(value: value, encoder: encoder)
+    }
+    
+    public static func serialize<T: Codable>(value: T, encoder: JSONEncoder) -> String? {
         guard let data = try? encoder.encode(Container(value: value)) else {
             return nil
         }
@@ -23,10 +27,6 @@ public final class GenericSerialization {
     }
     
     public static func deserialize<T: Codable>(string: String) -> T? {
-        guard let data = string.data(using: .utf8) else {
-            return nil
-        }
-        
         let decoder = JSONDecoder()
         
         decoder.nonConformingFloatDecodingStrategy = .convertFromString(
@@ -34,6 +34,14 @@ public final class GenericSerialization {
             negativeInfinity: "-inf",
             nan: "nan"
         )
+        
+        return deserialize(string: string, decoder: decoder)
+    }
+    
+    public static func deserialize<T: Codable>(string: String, decoder: JSONDecoder) -> T? {
+        guard let data = string.data(using: .utf8) else {
+            return nil
+        }
         
         return try? decoder.decode(Container<T>.self, from: data).value
     }

@@ -6,15 +6,22 @@ public final class BuiltinIpcServer: IpcRouter {
     
     private let server = GCDWebServer()
     private var handlers = [String: Handler]()
-    
-    public init() {
+    private let encoderFactory: EncoderFactory
+    private let decoderFactory: DecoderFactory
+
+    public init(
+        encoderFactory: EncoderFactory,
+        decoderFactory: DecoderFactory)
+    {
+        self.encoderFactory = encoderFactory
+        self.decoderFactory = decoderFactory
+        
         let kGCDWebServerLoggingLevel_Warning: Int32 = 3 // it is private in GCDWebServer module
         GCDWebServer.setLogLevel(kGCDWebServerLoggingLevel_Warning)
         
         server.addDefaultHandler(forMethod: "POST", request: GCDWebServerDataRequest.self) { [weak self] request, completion in
             guard let strongSelf = self else {
-                completion(GCDWebServerResponse(statusCode: 500))
-                return
+                return completion(error("strongSelf == nil"))
             }
             
             strongSelf.handle(
@@ -46,8 +53,12 @@ public final class BuiltinIpcServer: IpcRouter {
     }
     
     public func register<MethodHandler: IpcMethodHandler>(methodHandler: MethodHandler) {
-        handlers[methodHandler.method.name] = { data, completion in
-            BuiltinIpcServer.handle(
+        handlers[methodHandler.method.name] = { [weak self] data, completion in
+            guard let strongSelf = self else {
+                return completion(error("strongSelf == nil"))
+            }
+            
+            strongSelf.handle(
                 data: data,
                 methodHandler: methodHandler,
                 completion: completion
@@ -61,8 +72,7 @@ public final class BuiltinIpcServer: IpcRouter {
         completion: @escaping (GCDWebServerResponse) -> ())
     {
         guard let request = request as? GCDWebServerDataRequest else {
-            completion(GCDWebServerResponse(statusCode: 500))
-            return
+            return completion(error("request is not GCDWebServerDataRequest"))
         }
         
         let pathComponents = request.path
@@ -70,23 +80,19 @@ public final class BuiltinIpcServer: IpcRouter {
             .components(separatedBy: "/")
         
         guard pathComponents.count == 1 else {
-            completion(GCDWebServerResponse(statusCode: 500))
-            return
+            return completion(error("pathComponents.count != 1: \(pathComponents.count) != 1"))
         }
         
         guard pathComponents.first == Routes.ipcMethod else {
-            completion(GCDWebServerResponse(statusCode: 500))
-            return
+            return completion(error("pathComponents.first != Routes.ipcMethod: \(String(describing: pathComponents.first)) != \(Routes.ipcMethod)"))
         }
         
         guard let container = try? JSONDecoder().decode(MethodNameContainer.self, from: request.data) else {
-            completion(GCDWebServerResponse(statusCode: 500))
-            return
+            return completion(error("decoding failed"))
         }
         
         guard let handler = handlers[container.method] else {
-            completion(GCDWebServerResponse(statusCode: 500))
-            return
+            return completion(error("method \(container.method) was not registered"))
         }
         
         handler(request.data) { response in
@@ -94,26 +100,39 @@ public final class BuiltinIpcServer: IpcRouter {
         }
     }
     
-    private static func handle<MethodHandler: IpcMethodHandler>(
+    private func handle<MethodHandler: IpcMethodHandler>(
         data: Data,
         methodHandler: MethodHandler,
         completion: @escaping (GCDWebServerResponse) -> ())
     {
-        let container = try? JSONDecoder().decode(RequestContainer<MethodHandler.Method.Arguments>.self, from: data)
+        let container = try? decoderFactory
+            .decoder()
+            .decode(RequestContainer<MethodHandler.Method.Arguments>.self, from: data)
         
         guard let arguments = container?.value else {
-            completion(GCDWebServerResponse(statusCode: 500))
-            return
+            return completion(error("container?.value == nil"))
         }
         
-        methodHandler.handle(arguments: arguments) { returnValue in
-            guard let data = try? JSONEncoder().encode(ResponseContainer(value: returnValue)) else {
-                completion(GCDWebServerResponse(statusCode: 500))
-                return
+        methodHandler.handle(arguments: arguments) { [weak self] returnValue in
+            guard let strongSelf = self else {
+                return completion(error("self == nil"))
             }
             
-            let contentType = "application/json"
-            completion(GCDWebServerDataResponse(data: data, contentType: contentType))
+            do {
+                let data = try strongSelf.encoderFactory.encoder().encode(ResponseContainer(value: returnValue))
+                
+                let contentType = "application/json"
+                completion(GCDWebServerDataResponse(data: data, contentType: contentType))
+            } catch (let e) {
+                completion(error("encoding failed: \(e)"))
+            }
         }
     }
+}
+
+private func error(_ text: String, file: StaticString = #file, line: UInt = #line) -> GCDWebServerResponse {
+    return GCDWebServerErrorResponse(
+        serverError: .httpStatusCode_InternalServerError,
+        text: "\(text) \(#file):\(#line)"
+    )
 }

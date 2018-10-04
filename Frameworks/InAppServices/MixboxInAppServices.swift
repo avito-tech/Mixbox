@@ -8,6 +8,7 @@ import MixboxIpc
 //
 public final class MixboxInAppServices {
     private var router: IpcRouter?
+    private var client: IpcClient?
     private var ipcStarter: IpcStarter
     private var commandsForAddingRoutes = [(IpcRouter) -> ()]()
     private let shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool
@@ -66,9 +67,12 @@ public final class MixboxInAppServices {
     }
     
     public func start() {
-        assert(router == nil, "MixboxInAppServices are already started")
+        assert(self.router == nil, "MixboxInAppServices are already started")
         
-        router = ipcStarter.start(commandsForAddingRoutes: commandsForAddingRoutes)
+        let (client, router) = ipcStarter.start(commandsForAddingRoutes: commandsForAddingRoutes)
+        
+        self.router = client
+        self.client = router
         
         AccessibilityEnchancer.takeOff(
             shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell

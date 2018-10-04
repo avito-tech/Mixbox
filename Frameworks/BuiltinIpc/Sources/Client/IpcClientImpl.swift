@@ -4,10 +4,19 @@ import MixboxIpc
 public final class BuiltinIpcClient: IpcClient {
     private let port: UInt
     private let host: String
+    private let encoderFactory: EncoderFactory
+    private let decoderFactory: DecoderFactory
     
-    public init(host: String, port: UInt) {
+    public init(
+        host: String,
+        port: UInt,
+        encoderFactory: EncoderFactory,
+        decoderFactory: DecoderFactory)
+    {
         self.host = host
         self.port = port
+        self.encoderFactory = encoderFactory
+        self.decoderFactory = decoderFactory
     }
     
     public func handshake(localPort: UInt) {
@@ -27,7 +36,7 @@ public final class BuiltinIpcClient: IpcClient {
     {
         let container = RequestContainer(method: method.name, value: arguments)
         
-        guard let data = try? JSONEncoder().encode(container) else {
+        guard let data = try? encoderFactory.encoder().encode(container) else {
             completion(.error(.encodingError))
             return
         }
@@ -77,7 +86,7 @@ public final class BuiltinIpcClient: IpcClient {
             return
         }
         
-        let container = try? JSONDecoder().decode(ResponseContainer<ReturnValue>.self, from: data)
+        let container = try? decoderFactory.decoder().decode(ResponseContainer<ReturnValue>.self, from: data)
         
         guard let decodedResponse: ReturnValue = container?.value else {
             completion(.error(.decodingError))

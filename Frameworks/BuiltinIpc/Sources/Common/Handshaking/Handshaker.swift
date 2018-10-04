@@ -11,19 +11,48 @@ import MixboxIpc
 // use_your_client(client)
 //
 public final class Handshaker {
-    public let server = BuiltinIpcServer()
+    public let server: BuiltinIpcServer
+    
     private var client: IpcClient?
     private let dispatchGroup = DispatchGroup()
     
     public init() {
+        let ipcCallbackStorage = IpcCallbackStorageImpl()
+        let ipcClientHolder = IpcClientHolderImpl()
+        let decoderFactory = DecoderFactoryImpl(
+            ipcClientHolder: ipcClientHolder
+        )
+        let encoderFactory = EncoderFactoryImpl(
+            ipcCallbackStorage: ipcCallbackStorage
+        )
+        encoderFactory.decoderFactory = decoderFactory
+        decoderFactory.encoderFactory = encoderFactory
+        
+        server = BuiltinIpcServer(
+            encoderFactory: encoderFactory,
+            decoderFactory: decoderFactory
+        )
+        
         dispatchGroup.enter()
-        let handler = HandshakeIpcMethodHandler()
-        handler.onHandshake = { [weak self, dispatchGroup] port in
-            self?.client = BuiltinIpcClient(host: "localhost", port: port)
+        let handshakeIpcMethodHandler = HandshakeIpcMethodHandler()
+        handshakeIpcMethodHandler.onHandshake = { [weak self, dispatchGroup] port in
+            let client = BuiltinIpcClient(
+                host: "localhost",
+                port: port,
+                encoderFactory: encoderFactory,
+                decoderFactory: decoderFactory
+            )
+            ipcClientHolder.ipcClient = client
+            self?.client = client
             
             dispatchGroup.leave()
         }
-        server.register(methodHandler: handler)
+        server.register(methodHandler: handshakeIpcMethodHandler)
+        
+        let callIpcCallbackIpcMethodHandler = CallIpcCallbackIpcMethodHandler(
+            ipcCallbackStorage: ipcCallbackStorage
+        )
+        server.register(methodHandler: callIpcCallbackIpcMethodHandler)
     }
     
     public func start() -> UInt? {

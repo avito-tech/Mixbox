@@ -45,8 +45,8 @@ PODS:
     - MixboxIpcClients
     - MixboxUiKit
     - MixboxUiTestsFoundation
-  - SBTUITestTunnel/Client (3.0.13)
-  - SBTUITestTunnel/Server (3.0.13):
+  - SBTUITestTunnel/Client (3.0.14)
+  - SBTUITestTunnel/Server (3.0.14):
     - GCDWebServer (~> 3.0)
   - SimulatorRemoteNotifications (0.0.3)
   - SQLite.swift (0.11.5):
@@ -119,7 +119,7 @@ SPEC CHECKSUMS:
   MixboxArtifacts: c91e67e2d8ad399e4460dd509edccd2d467e1c52
   MixboxBuiltinIpc: 0a1de598d46d2665709165ac38185aee310a9051
   MixboxFoundation: d3c5def5457f36c65cd201ab154b78f27ac6bac1
-  MixboxInAppServices: 4301317939b3f182a1c628e1c37c0e5a3b59a6fd
+  MixboxInAppServices: a9b973703ea5ce85243afa9299b7428ada8187f9
   MixboxIpc: b1f1c9fb79a48c5dec77a54e38a003bf3e6f6548
   MixboxIpcClients: e3305981c84deeb90eb331c1f689afe912da183a
   MixboxIpcCommon: 2776ddfd673cb309adf3a5bb5920b1f9a9e588b0
@@ -131,7 +131,7 @@ SPEC CHECKSUMS:
   MixboxUiKit: 9d0aa60d4622485145a96d04a63b48ec647eeffd
   MixboxUiTestsFoundation: 52198b9678c2a563c73be0c3167d83d86fa7e6bc
   MixboxXcuiDriver: 12563f3005071dd84b0f41a0e0fdf0957788c038
-  SBTUITestTunnel: 1ac460e1bbbc0be6fc5ca0747940decd4b16e2d1
+  SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220

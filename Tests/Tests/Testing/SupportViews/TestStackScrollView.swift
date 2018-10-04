@@ -18,44 +18,53 @@ class TestStackScrollView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addLabel(id: String, configure: (LabelWithClosures) -> ()) {
+    @discardableResult
+    func addLabel(id: String, configure: (LabelWithClosures) -> ()) -> LabelWithClosures {
         let view = LabelWithClosures()
         view.textAlignment = .center
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)
         addView(view, id: id)
+        return view
     }
     
-    func addButton(id: String, configure: (ButtonWithClosures) -> ()) {
+    @discardableResult
+    func addButton(id: String, configure: (ButtonWithClosures) -> ()) -> ButtonWithClosures {
         let view = ButtonWithClosures()
         view.setTitleColor(.black, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         configure(view)
         addView(view, id: id)
+        return view
     }
     
-    func addButton(idAndText: String, configure: (ButtonWithClosures) -> ()) {
-        addButton(id: idAndText) {
+    @discardableResult
+    func addButton(idAndText: String, configure: (ButtonWithClosures) -> ()) -> ButtonWithClosures {
+        return addButton(id: idAndText) {
             $0.setTitle(idAndText, for: .normal)
             configure($0)
         }
     }
     
-    func addTextField(id: String, configure: (TextFieldWithClosures) -> ()) {
+    @discardableResult
+    func addTextField(id: String, configure: (TextFieldWithClosures) -> ()) -> TextFieldWithClosures {
         let view = TextFieldWithClosures()
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)
         addView(view, id: id)
+        return view
     }
     
-    func addTextView(id: String, configure: (TextViewWithClosures) -> ()) {
+    @discardableResult
+    func addTextView(id: String, configure: (TextViewWithClosures) -> ()) -> TextViewWithClosures {
         let view = TextViewWithClosures()
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)
         addView(view, id: id)
+        return view
     }
     
     private func addView(_ view: UIView, id: String) {

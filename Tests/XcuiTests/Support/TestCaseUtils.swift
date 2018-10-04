@@ -4,6 +4,7 @@ import MixboxXcuiDriver
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpcSbtuiClient
+import MixboxIpc
 
 // Сборник утилок для TestCase с их настройками. Может сильно вырасти.
 final class TestCaseUtils {
@@ -28,6 +29,7 @@ final class TestCaseUtils {
             ".+?\\..+?\\.parametrizedTest.*?\\(\\)" // XcuiTests.FailuresTests.parametrizedTest() -> ()
         ]
     )
+    var ipcRouter: IpcRouter? // Just to store server (to not let him die during test)
     
     private let interactionExecutionLogger: InteractionExecutionLogger
     private let screenshotTaker = XcuiScreenshotTaker()

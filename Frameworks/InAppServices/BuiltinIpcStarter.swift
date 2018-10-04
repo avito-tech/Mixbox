@@ -13,18 +13,34 @@ final class BuiltinIpcStarter: IpcStarter {
         self.testRunnerPort = testRunnerPort
     }
     
-    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> IpcRouter {
+    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> (IpcRouter, IpcClient?) {
+        let ipcCallbackStorage = IpcCallbackStorageImpl()
+        let ipcClientHolder = IpcClientHolderImpl()
+        let decoderFactory = DecoderFactoryImpl(ipcClientHolder: ipcClientHolder)
+        let encoderFactory = EncoderFactoryImpl(ipcCallbackStorage: ipcCallbackStorage)
+        encoderFactory.decoderFactory = decoderFactory
+        decoderFactory.encoderFactory = encoderFactory
+        
         let client = BuiltinIpcClient(
             host: testRunnerHost,
-            port: testRunnerPort
+            port: testRunnerPort,
+            encoderFactory: encoderFactory,
+            decoderFactory: decoderFactory
         )
+        ipcClientHolder.ipcClient = client
         
-        let server = BuiltinIpcServer()
+        let callIpcCallbackIpcMethodHandler = CallIpcCallbackIpcMethodHandler(ipcCallbackStorage: ipcCallbackStorage)
+        
+        let server = BuiltinIpcServer(
+            encoderFactory: encoderFactory,
+            decoderFactory: decoderFactory
+        )
+        server.register(methodHandler: callIpcCallbackIpcMethodHandler)
         if let localPort = server.start() {
             commandsForAddingRoutes.forEach { $0(server) }
             client.handshake(localPort: localPort)
         }
-        return server
+        return (server, client)
     }
     
     func handleUiBecomeVisible() {
