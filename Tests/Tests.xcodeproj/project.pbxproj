@@ -62,6 +62,7 @@
 		F84D12772166B28100A178B4 /* CrashingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D12762166B28100A178B4 /* CrashingCell.swift */; };
 		F84D12792166B37400A178B4 /* CellThatCrashesAtInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D12782166B37400A178B4 /* CellThatCrashesAtInit.swift */; };
 		F84D127B2166B3A700A178B4 /* CrashingCellException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D127A2166B3A700A178B4 /* CrashingCellException.swift */; };
+		F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */; };
 		F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */; };
 		F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */; };
 		F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D004214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift */; };
@@ -197,6 +198,7 @@
 		F84D12762166B28100A178B4 /* CrashingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashingCell.swift; sourceTree = "<group>"; };
 		F84D12782166B37400A178B4 /* CellThatCrashesAtInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellThatCrashesAtInit.swift; sourceTree = "<group>"; };
 		F84D127A2166B3A700A178B4 /* CrashingCellException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashingCellException.swift; sourceTree = "<group>"; };
+		F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticCurrentTestCaseProvider.swift; sourceTree = "<group>"; };
 		F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift; sourceTree = "<group>"; };
 		F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceProviderImplTests.swift; sourceTree = "<group>"; };
 		F853D004214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift; sourceTree = "<group>"; };
@@ -612,6 +614,7 @@
 				F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */,
 				F86675712121E81E00396F02 /* Info.plist */,
 				F84D12692166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift */,
+				F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1233,6 +1236,7 @@
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
 				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
+				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F820873421418DEE00DCBA2D /* MatchersTests.swift in Sources */,
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* MatcherBuilderTests.swift in Sources */,
