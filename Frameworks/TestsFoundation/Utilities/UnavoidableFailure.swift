@@ -5,12 +5,11 @@ import XCTest
 public final class UnavoidableFailure {
     public static func fail(
         _ message: String = "",
-        testCase: XCTestCase? = nil,
         file: StaticString = #file,
         line: UInt = #line)
         -> Never
     {
-        testCase?.continueAfterFailure = false
+        AutomaticCurrentTestCaseProvider().currentTestCase()?.continueAfterFailure = false
         XCTFail(message, file: file, line: line)
         NSException(name: UnavoidableFailureException, reason: message).raise()
         
