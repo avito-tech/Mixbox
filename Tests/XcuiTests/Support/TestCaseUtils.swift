@@ -16,7 +16,6 @@ final class TestCaseUtils {
     
     // Private in TestCase
     
-    let currentTestCaseProvider = ManuallySetCurrentTestCaseProvider()
     let testFailureRecorder: TestFailureRecorder
     let lazilyInitializedIpcClient: LazilyInitializedIpcClient
     let fileLineForFailureProvider: FileLineForFailureProvider = LastCallOfCurrentTestFileLineForFailureProvider(
@@ -44,7 +43,7 @@ final class TestCaseUtils {
         self.stepLogger = stepLogger
         
         let testFailureRecorder = XcTestFailureRecorder(
-            currentTestCaseProvider: currentTestCaseProvider
+            currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
         )
         self.testFailureRecorder = testFailureRecorder
         

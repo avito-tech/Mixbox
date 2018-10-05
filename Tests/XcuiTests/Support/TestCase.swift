@@ -35,8 +35,6 @@ class TestCase: XCTestCase, FailureGatherer {
     override func setUp() {
         super.setUp()
         
-        testCaseUtils.currentTestCaseProvider.setCurrentTestCase(self)
-        
         reuseState {
             precondition()
         }
