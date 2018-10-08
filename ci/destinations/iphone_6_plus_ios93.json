@@ -1,0 +1,10 @@
+[{
+		"testDestination": {
+			"deviceType": "iPhone 6 Plus",
+			"iOSVersion": "9.3"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/iphone_6_plus_ios_93.xml",
+			"tracingReport": "tests-artifacts/iphone_6_plus_ios_93.trace"
+		}
+	}]

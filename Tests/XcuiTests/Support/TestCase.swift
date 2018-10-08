@@ -49,6 +49,10 @@ class TestCase: XCTestCase, FailureGatherer {
     }
     
     private func launchUsingSbtui(environment: [String: String]) {
+        // Note that setting it to a value > Int32.max would lead to an error.
+        let timeoutValueThatReallyDisablesTimeout: TimeInterval = 100000
+        SBTUITunneledApplication.setConnectionTimeout(timeoutValueThatReallyDisablesTimeout)
+        
         let app = SBTUITunneledApplication()
         for (key, value) in commonEnvironment {
             app.launchEnvironment[key] = value
@@ -178,7 +182,10 @@ class TestCase: XCTestCase, FailureGatherer {
     }
     
     private func reuseState<T>(file: StaticString = #file, line: UInt = #line, block: () -> (T)) -> T {
-        if reuseState {
+        // TODO: Make it work!
+        let itWorksAsExpectedEvenOnCi = false
+        
+        if itWorksAsExpectedEvenOnCi && reuseState {
             let fileLine = FileLine(file: file, line: line)
             return TestStateRecycling.instance.reuseState(testCase: type(of: self), fileLine: fileLine) {
                 block()

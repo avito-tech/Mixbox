@@ -1,0 +1,10 @@
+[{
+		"testDestination": {
+			"deviceType": "iPhone X",
+			"iOSVersion": "11.4"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/iphone_x_ios_114.xml",
+			"tracingReport": "tests-artifacts/iphone_x_ios_114.trace"
+		}
+	}]

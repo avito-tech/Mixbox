@@ -1,0 +1,10 @@
+[{
+		"testDestination": {
+			"deviceType": "iPhone SE",
+			"iOSVersion": "10.3"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/iphone_se_ios_103.xml",
+			"tracingReport": "tests-artifacts/iphone_se_ios_103.trace"
+		}
+	}]
