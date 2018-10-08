@@ -8,7 +8,7 @@ final class MovingElementTests: TestCase {
     
     // TODO: Add assertions,
     // make it able to hit moving element.
-    func test() {
+    func disabled_test() {
         for _ in 0..<10 {
             pageObjects.xcui.movingElement.tap()
         }
