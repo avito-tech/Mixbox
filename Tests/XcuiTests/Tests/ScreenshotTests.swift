@@ -2,6 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import XCTest
 import MixboxFoundation
+import CocoaImageHashing
 
 class ScreenshotTests: TestCase {
     func test() {

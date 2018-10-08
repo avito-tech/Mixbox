@@ -1,4 +1,5 @@
 PODS:
+  - CocoaImageHashing (1.6.1)
   - GCDWebServer (3.4.2):
     - GCDWebServer/Core (= 3.4.2)
   - GCDWebServer/Core (3.4.2)
@@ -38,6 +39,7 @@ PODS:
   - MixboxUiKit (0.0.1):
     - MixboxFoundation
   - MixboxUiTestsFoundation (0.0.1):
+    - CocoaImageHashing
     - MixboxReporting
     - MixboxTestsFoundation
     - MixboxUiKit
@@ -76,6 +78,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - CocoaImageHashing
     - GCDWebServer
     - SBTUITestTunnel
     - SimulatorRemoteNotifications
@@ -115,6 +118,7 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
+  CocoaImageHashing: d7d3813c5aeb6ddcf4e57219dc63c741b8a16e0a
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
   MixboxArtifacts: c91e67e2d8ad399e4460dd509edccd2d467e1c52
   MixboxBuiltinIpc: 0a1de598d46d2665709165ac38185aee310a9051
@@ -129,7 +133,7 @@ SPEC CHECKSUMS:
   MixboxTestability: 100d719417588c4d7a1f8010de326747966631c6
   MixboxTestsFoundation: 242fa23343d2b2235666222dcddc6e4b2317edec
   MixboxUiKit: 9d0aa60d4622485145a96d04a63b48ec647eeffd
-  MixboxUiTestsFoundation: 52198b9678c2a563c73be0c3167d83d86fa7e6bc
+  MixboxUiTestsFoundation: 32ed1b0413d672665c3395c1108f45412d1bfb9d
   MixboxXcuiDriver: 12563f3005071dd84b0f41a0e0fdf0957788c038
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86

@@ -11,11 +11,13 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "9.0"
   s.swift_version = '4.0'
   s.requires_arc = true
-  s.source_files = 'Frameworks/UiTestsFoundation/**/*.{swift}'
+  s.source_files = 'Frameworks/UiTestsFoundation/**/*.{swift,h,m,md}'
   
   s.dependency 'MixboxTestsFoundation'
   s.dependency 'MixboxReporting'
   s.dependency 'MixboxUiKit'
+  s.dependency 'MixboxUiKit'
+  s.dependency 'CocoaImageHashing'
 
   s.framework = "XCTest"
   s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }

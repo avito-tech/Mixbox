@@ -13,13 +13,16 @@ public protocol InteractionExecutionLogger: class  {
 public final class InteractionExecutionLoggerImpl: InteractionExecutionLogger {
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
+    private let imageHashCalculator: ImageHashCalculator
     
     public init(
         stepLogger: StepLogger,
-        screenshotTaker: ScreenshotTaker)
+        screenshotTaker: ScreenshotTaker,
+        imageHashCalculator: ImageHashCalculator)
     {
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
+        self.imageHashCalculator = imageHashCalculator
     }
     
     // MARK: - InteractionExecutionLogger
@@ -29,46 +32,17 @@ public final class InteractionExecutionLoggerImpl: InteractionExecutionLogger {
         body: () -> InteractionResult)
         -> InteractionResult
     {
-        let stepLogBefore = StepLogBefore(
-            identifyingDescription: interactionDescription.settings.interactionName,
-            detailedDescription: interactionDescription.settings.interactionName,
-            stepType: .interaction,
-            artifacts: takeScreenshot(
-                interactionDescription: interactionDescription,
-                before: true
-            )
+        let stepLogBefore = self.stepLogBefore(
+            interactionDescription: interactionDescription
         )
         
         return stepLogger.logStep(stepLogBefore: stepLogBefore) {
             let interactionResult = body()
             
-            let wasSuccessful: Bool
-            var stepArtifacts: [Artifact] = takeScreenshot(
-                interactionDescription: interactionDescription,
-                before: false
-            )
-            
-            stepArtifacts.append(
-                fileLineArtifact(fileLine: interactionDescription.settings.fileLineWhereExecuted)
-            )
-            
-            switch interactionResult {
-                case .success:
-                    wasSuccessful = true
-                case .failure(let interactionFailure):
-                    stepArtifacts.append(
-                        contentsOf: artifacts(
-                            interactionFailure: interactionFailure,
-                            fileLine: interactionDescription.settings.fileLineWhereExecuted
-                        )
-                    )
-                    wasSuccessful = false
-            }
-            
             return StepLoggerWrappedResult(
-                stepLogAfter: StepLogAfter(
-                    wasSuccessful: wasSuccessful,
-                    artifacts: stepArtifacts
+                stepLogAfter: stepLogAfter(
+                    interactionDescription: interactionDescription,
+                    interactionResult: interactionResult
                 ),
                 wrappedResult: interactionResult
             )
@@ -77,7 +51,103 @@ public final class InteractionExecutionLoggerImpl: InteractionExecutionLogger {
     
     // MARK: - Private
     
-    private func takeScreenshot(interactionDescription: InteractionDescription, before: Bool) -> [Artifact] {
+    private func stepLogBefore(interactionDescription: InteractionDescription) -> StepLogBefore {
+        return StepLogBefore(
+            identifyingDescription: interactionDescription.settings.interactionName,
+            detailedDescription: interactionDescription.settings.interactionName,
+            stepType: .interaction,
+            artifacts: makeScreenshotArtifacts(
+                interactionDescription: interactionDescription,
+                beforeStep: true,
+                includeHash: false
+            )
+        )
+    }
+    
+    private func stepLogAfter(
+        interactionDescription: InteractionDescription,
+        interactionResult: InteractionResult)
+        -> StepLogAfter
+    {
+        
+        let wasSuccessful: Bool
+        var stepArtifacts = [Artifact]()
+        
+        stepArtifacts.append(
+            fileLineArtifact(fileLine: interactionDescription.settings.fileLineWhereExecuted)
+        )
+        
+        switch interactionResult {
+        case .success:
+            wasSuccessful = true
+        case .failure(let interactionFailure):
+            stepArtifacts.append(
+                contentsOf: artifacts(
+                    interactionFailure: interactionFailure,
+                    fileLine: interactionDescription.settings.fileLineWhereExecuted
+                )
+            )
+            wasSuccessful = false
+        }
+        
+        stepArtifacts.append(
+            contentsOf: makeScreenshotArtifacts(
+                interactionDescription: interactionDescription,
+                beforeStep: false,
+                includeHash: !wasSuccessful
+            )
+        )
+        
+        return StepLogAfter(
+            wasSuccessful: wasSuccessful,
+            artifacts: stepArtifacts
+        )
+    }
+    
+    private func makeScreenshotArtifacts(
+        interactionDescription: InteractionDescription,
+        beforeStep: Bool,
+        includeHash: Bool)
+        -> [Artifact]
+    {
+        var artifacts = [Artifact]()
+        
+        if let screenshot = screenshotTaker.takeScreenshot() {
+            let screenshotArtifact = Artifact(
+                name: artifactNameAndCircumstances(
+                    artifactName: "Скриншот",
+                    interactionDescription: interactionDescription,
+                    beforeStep: beforeStep
+                ),
+                content: .screenshot(screenshot)
+            )
+            
+            artifacts.append(screenshotArtifact)
+            
+            // Simplifies error classification
+            if includeHash {
+                let screenshotHash = imageHashCalculator.imageHash(image: screenshot)
+                let screenshotHashArtifact = Artifact(
+                    name: artifactNameAndCircumstances(
+                        artifactName: "hash скриншота \(type(of: imageHashCalculator))",
+                        interactionDescription: interactionDescription,
+                        beforeStep: beforeStep
+                    ),
+                    content: .text("\(screenshotHash)")
+                )
+                artifacts.append(screenshotHashArtifact)
+            }
+        }
+        
+        return artifacts
+    }
+    
+    private func artifactNameAndCircumstances(
+        artifactName: String,
+        interactionDescription: InteractionDescription,
+        beforeStep: Bool)
+        -> String
+    {
         let interactionTypeGenitiveCase: String
         
         switch interactionDescription.type {
@@ -87,17 +157,9 @@ public final class InteractionExecutionLoggerImpl: InteractionExecutionLogger {
             interactionTypeGenitiveCase = "проверки"
         }
         
-        let interactionTime = before ? "до" : "после"
-    
-        if let screenshot = screenshotTaker.takeScreenshot() {
-            let artifact = Artifact(
-                name: "Скриншот \(interactionTime) \(interactionTypeGenitiveCase)",
-                content: .screenshot(screenshot)
-            )
-            return [artifact]
-        } else {
-            return []
-        }
+        let interactionTime = beforeStep ? "до" : "после"
+        
+        return "\(artifactName) \(interactionTime) \(interactionTypeGenitiveCase)"
     }
     
     private func fileLineArtifact(fileLine: FileLine) -> Artifact {

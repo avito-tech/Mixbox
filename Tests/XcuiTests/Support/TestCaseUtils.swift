@@ -49,7 +49,8 @@ final class TestCaseUtils {
         
         let interactionExecutionLogger = InteractionExecutionLoggerImpl(
             stepLogger: stepLogger,
-            screenshotTaker: screenshotTaker
+            screenshotTaker: screenshotTaker,
+            imageHashCalculator: DHashV0ImageHashCalculator()
         )
         self.interactionExecutionLogger = interactionExecutionLogger
         

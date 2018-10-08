@@ -89,6 +89,9 @@
 		F8A395B9214701FE000E9E44 /* ChangingHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* ChangingHierarchyTests.swift */; };
 		F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */; };
 		F8A395BF2147E4FC000E9E44 /* MovingElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BE2147E4FC000E9E44 /* MovingElementTests.swift */; };
+		F8A9D32E2168057300EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
+		F8A9D32F216805C500EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
+		F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */; };
 		F8AC35C820E2AE7B0094204C /* FakeCellsIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC35C720E2AE7B0094204C /* FakeCellsIpcMethod.swift */; };
 		F8AC35C920E2B1310094204C /* FakeCellsIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC35C720E2AE7B0094204C /* FakeCellsIpcMethod.swift */; };
 		F8AC35CB20E2B9090094204C /* FakeCellsReloadIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC35CA20E2B9090094204C /* FakeCellsReloadIpcMethodHandler.swift */; };
@@ -114,6 +117,7 @@
 		F8EBBCBB213AB83F00D320A4 /* HierarchySourcesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBBCBA213AB83F00D320A4 /* HierarchySourcesTestsView.swift */; };
 		F8EBBCE5213D4EEE00D320A4 /* ScreenshotTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBBCE4213D4EEE00D320A4 /* ScreenshotTestsView.swift */; };
 		F8EBBCE7213D541300D320A4 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBBCE6213D541300D320A4 /* ScreenshotTests.swift */; };
+		F8FC39812159133D00A9C922 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +228,7 @@
 		F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingHierarchyTestsView.swift; sourceTree = "<group>"; };
 		F8A395BD2147C599000E9E44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F8A395BE2147E4FC000E9E44 /* MovingElementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTests.swift; sourceTree = "<group>"; };
+		F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHashCalculatorTests.swift; sourceTree = "<group>"; };
 		F8AC35C720E2AE7B0094204C /* FakeCellsIpcMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsIpcMethod.swift; sourceTree = "<group>"; };
 		F8AC35CA20E2B9090094204C /* FakeCellsReloadIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsReloadIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStubberTests.swift; sourceTree = "<group>"; };
@@ -248,6 +253,7 @@
 		F8EBBCE4213D4EEE00D320A4 /* ScreenshotTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTestsView.swift; sourceTree = "<group>"; };
 		F8EBBCE6213D541300D320A4 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		F8EC421E20C83B7800BD8DA2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		F8FC39802159133D00A9C922 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FCAE82DF924A1C5A4F000C9C /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -358,6 +364,7 @@
 				F8D5391E20A086F500733C93 /* FromAvito */,
 				F813CB00209CC5D700E6A27C /* Info.plist */,
 				F813CB2A209CDF3200E6A27C /* XcuiTests-Bridging-Header.h */,
+				F8FC39802159133D00A9C922 /* Media.xcassets */,
 			);
 			path = XcuiTests;
 			sourceTree = "<group>";
@@ -615,6 +622,7 @@
 				F86675712121E81E00396F02 /* Info.plist */,
 				F84D12692166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift */,
 				F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */,
+				F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -916,6 +924,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F813CAF4209CC5D700E6A27C /* LaunchScreen.storyboard in Resources */,
+				F8A9D32F216805C500EC5D24 /* Media.xcassets in Resources */,
 				F813CAF1209CC5D700E6A27C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -924,6 +933,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8FC39812159133D00A9C922 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,6 +941,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A9D32E2168057300EC5D24 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -982,6 +993,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
@@ -993,6 +1005,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
@@ -1037,6 +1050,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
@@ -1057,6 +1071,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
@@ -1231,6 +1246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
