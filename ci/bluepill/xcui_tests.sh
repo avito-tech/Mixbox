@@ -82,11 +82,6 @@ bluepill \
 --headless \
 --xctestrun-path "$(ls -1 "$derivedDataPath"/Build/Products/XcuiTests_iphonesimulator*.xctestrun|head -1)" \
 --num-sims 2 \
---include "ActionsTests/test_tap" \
---include "ActionsTests/test_press" \
---include "ActionsTests/test_setText" \
---include "AssertingCustomValuesTests/test_equals" \
---include "IpcEchoingTests/test_0" \
 --junit-output \
 -o "$reportsPath/junit.xml"
 
