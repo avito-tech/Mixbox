@@ -54,16 +54,12 @@ final class PhotoStubberTests: TestCase {
     }
     
     private func removeAllImagesFromSimulator() {
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        
-        var thereArePhotosToDelete = false
+        var thereArePhotosToDelete: Bool?
         PHPhotoLibrary.shared().performChanges(
             {
                 let allPhotos = PHAsset.fetchAssets(with: .image, options: PHFetchOptions())
                 thereArePhotosToDelete = allPhotos.count > 0
                 PHAssetChangeRequest.deleteAssets(allPhotos)
-                dispatchGroup.leave()
             }, completionHandler: { _, error in
                 if let error = error {
                     XCTFail("Error while deleting photos: \(error)")
@@ -71,10 +67,14 @@ final class PhotoStubberTests: TestCase {
             }
         )
         
-        dispatchGroup.wait()
+        while thereArePhotosToDelete == nil {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
+        }
         
-        if thereArePhotosToDelete {
-            allowDeletingPhotos()
+        if let thereArePhotosToDelete = thereArePhotosToDelete {
+            if thereArePhotosToDelete {
+                allowDeletingPhotos()
+            }
         }
     }
     
