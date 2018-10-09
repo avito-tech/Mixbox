@@ -1,7 +1,7 @@
 [{
 		"testDestination": {
 			"deviceType": "iPhone SE",
-			"iOSVersion": "10.3"
+			"iOSVersion": "10.3.1"
 		},
 		"reportOutput": {
 			"junit": "tests-artifacts/iphone_se_ios_103.xml",
