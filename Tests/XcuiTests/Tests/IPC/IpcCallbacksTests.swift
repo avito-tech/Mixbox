@@ -7,7 +7,7 @@ import MixboxBuiltinIpc
 // NOTE: IpcCallback is an experimental feature.
 class IpcCallbacksTests: TestCase {
     override func precondition() {
-        launch(environment: [:])
+        launch(environment: [:], useBuiltinIpc: true)
     }
     
     func test_incoming() {
