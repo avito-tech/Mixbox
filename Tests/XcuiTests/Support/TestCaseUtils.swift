@@ -39,7 +39,14 @@ final class TestCaseUtils {
         let lazilyInitializedIpcClient = LazilyInitializedIpcClient()
         self.lazilyInitializedIpcClient = lazilyInitializedIpcClient
         
-        let stepLogger = XcuiActivityStepLogger(originalStepLogger: StepLoggerImpl())
+        let stepLogger: StepLogger
+        // TODO: Get rid of usage of ProcessInfo singleton here
+        if ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true" {
+            // Usage of XCTActivity crashes fbxctest, so we have to not use it.
+            stepLogger = StepLoggerImpl()
+        } else {
+            stepLogger = XcuiActivityStepLogger(originalStepLogger: StepLoggerImpl())
+        }
         self.stepLogger = stepLogger
         
         let testFailureRecorder = XcTestFailureRecorder(

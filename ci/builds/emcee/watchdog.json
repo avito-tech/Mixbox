@@ -1,0 +1,4 @@
+{
+  "bundle_ids": ["mixbox.XcuiTests.app", "mixbox.XcuiTests"],
+  "timeout": 500
+}

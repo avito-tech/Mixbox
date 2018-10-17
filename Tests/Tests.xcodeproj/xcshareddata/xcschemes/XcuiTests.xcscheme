@@ -73,6 +73,18 @@
             ReferencedContainer = "container:Tests.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "AVITO_TEST_RUNNER_RUNTIME_TESTS_EXPORT_PATH"
+            value = "$(AVITO_TEST_RUNNER_RUNTIME_TESTS_EXPORT_PATH)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "MIXBOX_CI_USES_FBXCTEST"
+            value = "$(MIXBOX_CI_USES_FBXCTEST)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
