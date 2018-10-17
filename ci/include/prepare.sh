@@ -16,22 +16,13 @@ prepareForTesting() {
         mkdir -p "$MIXBOX_CI_TEMPORARY_DIRECTORY"
     fi
     
+    # Improves stability of launching tests
+    shutdownDevices
+    
     setUpDeviceIfNeeded
     
+    # This is done in background and prepares simulator
+    bootDevice
+    
     mkdir -p "$MIXBOX_CI_REPORTS_PATH"
-}
-
-setUpDeviceIfNeeded() {
-    local name=`destination | jq -r .[0].testDestination.deviceType`
-    local os=`destination | jq -r .[0].testDestination.iOSVersionShort`
-        
-    if ! xcrun simctl list -j|jq -e ".devices.\"iOS $os\"?|.[]?|select(.name == \"$name\")" 1>/dev/null
-    then
-        echo "Creating device $name."
-        
-        local deviceTypeId=`destination | jq -r .[0].testDestination.deviceTypeId`
-        local runtimeId=`destination | jq -r .[0].testDestination.runtimeId`
-        
-        xcrun simctl create "$name" "$deviceTypeId" "$runtimeId"
-    fi
 }
