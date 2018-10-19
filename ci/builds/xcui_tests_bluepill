@@ -20,7 +20,7 @@ testUsingBluepill() {
     --reuse-simulator \
     --headless \
     --xctestrun-path "$(ls -1 "$(derivedDataPath)"/Build/Products/XcuiTests_iphonesimulator*.xctestrun|head -1)" \
-    --num-sims 2 \
+    --num-sims 4 \
     --junit-output \
     -o "$MIXBOX_CI_REPORTS_PATH/junit.xml"
 }
