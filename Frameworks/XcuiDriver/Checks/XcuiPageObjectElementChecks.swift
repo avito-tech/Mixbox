@@ -2,6 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxReporting
+import MixboxArtifacts
 
 // TODO: Split the class
 final class XcuiPageObjectElementChecks: AlmightyElementChecks {
@@ -324,12 +325,11 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
                 file: snapshotName
             )
             
-            if case .passed = result {
+            switch result {
+            case .passed:
                 return .success
-            } else {
-                // TODO: в snapshotsComparisonUtility добавить поддержку отчетов со скринами,
-                // показывающими разницу
-                return .failureWithMessage("Скриншот не совпадает с референсным")
+            case .failed(let failure):
+                return interactionSpecificResult(failure)
             }
         }
     }
@@ -351,13 +351,41 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
                 reference: image
             )
             
-            if case .passed = result {
+            switch result {
+            case .passed:
                 return .success
-            } else {
-                // TODO: в snapshotsComparisonUtility добавить поддержку отчетов со скринами,
-                // показывающими разницу
-                return .failureWithMessage("Скриншот не совпадает с референсным")
+            case .failed(let failure):
+                return interactionSpecificResult(failure)
             }
         }
     }
+}
+
+private func interactionSpecificResult(
+    _ failure: SnapshotsComparisonFailure)
+    -> InteractionSpecificResult
+{
+    var artifacts = [Artifact]()
+    
+    func add(_ image: UIImage?, _ name: String) {
+        if let image = image {
+            artifacts.append(
+                Artifact(
+                    name: name,
+                    content: .screenshot(image)
+                )
+            )
+        }
+    }
+    
+    add(failure.expectedImage, "Ожидаемое изображение")
+    add(failure.actualImage, "Актуальное изображение")
+    add(failure.differenceImage, "Разница между актуальным и ожидаемым изображением")
+    
+    return .failure(
+        InteractionSpecificFailure(
+            message: "Скриншот не совпадает с референсным",
+            artifacts: artifacts
+        )
+    )
 }
