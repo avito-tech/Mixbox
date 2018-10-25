@@ -70,6 +70,6 @@ testUsingEmcee() {
 
 prepareForTesting
 installAdditionalDependencies
-buildWith_action_scheme "build-for-testing" "XcuiTests"
+buildWith_action_scheme_xcodebuildPipeFilter "build-for-testing" "XcuiTests" "xcpretty"
 testUsingEmcee
 cleanUpAfterTesting

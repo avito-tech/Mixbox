@@ -1,0 +1,12 @@
+os: osx
+language: objective-c
+sudo: false
+osx_image: xcode9.4
+matrix:
+  include:
+    {%- for build in builds %}
+    - name: "{{ build.name }}"
+      env: MIXBOX_CI_DESTINATION="{{ build.destination }}" MIXBOX_CI_TRAVIS_BUILD="{{ build.script }}" MIXBOX_CI_REPORTS_PATH="."
+    {%- endfor %}
+script:
+    ci/travis

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set +x
+
+env
+
+$MIXBOX_CI_TRAVIS_BUILD
