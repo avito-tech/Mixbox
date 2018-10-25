@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-final class CrashTests: TestCase {
+final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {
     override func precondition() {
         // Tests rely on the fact that app process will not be debugged.
         // That's why we are installing app to not install it later in tests and to not start debugging it.

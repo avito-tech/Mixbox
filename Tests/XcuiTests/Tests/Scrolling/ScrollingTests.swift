@@ -1,6 +1,6 @@
 import MixboxUiTestsFoundation
 
-final class XcuiScrollerTests: TestCase {
+final class ScrollingTests: TestCase {
     private struct DataSet {
         let viewName: String
     }

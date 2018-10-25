@@ -1,7 +1,9 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-final class ChangingHierarchyTests: TestCase {
+// Test verifies that testing framework is tolerant to changes of hierarchy within
+// some time interval. For example, if it doesn't see the view it waits.
+final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: TestCase {
     override func precondition() {
         openScreen(name: "ChangingHierarchyTestsView")
         

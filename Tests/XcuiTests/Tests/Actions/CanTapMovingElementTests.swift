@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-final class MovingElementTests: TestCase {
+final class CanTapMovingElementTests: TestCase {
     override func precondition() {
         openScreen(name: "MovingElementTestsView")
     }

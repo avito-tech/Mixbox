@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-final class FailureHighlightingTests: TestCase {
+final class FailuresAreHighlightedInCorrectPlacesInIdeTests: TestCase {
     func test_whenCallingFromTest() {
         assertFails(description: "failed - message", expected: true) { fails in
             XCTFail("message", file: "fallback", line: 1); fails.here()

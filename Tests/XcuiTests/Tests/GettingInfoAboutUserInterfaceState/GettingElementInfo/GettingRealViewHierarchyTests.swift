@@ -4,7 +4,7 @@ import XCTest
 
 // swiftlint:disable force_unwrapping
 
-final class HierarchyTests: TestCase {
+final class GettingRealViewHierarchyTests: TestCase {
     override func precondition() {
         openScreen(name: "HierarchyTestsView")
     }

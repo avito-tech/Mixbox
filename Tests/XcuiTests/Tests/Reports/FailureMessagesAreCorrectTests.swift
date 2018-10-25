@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-final class FailuresTests: TestCase {
+final class FailureMessagesAreCorrectTests: TestCase {
     override func precondition() {
         openScreen(name: "FailuresTestsView")
     }
