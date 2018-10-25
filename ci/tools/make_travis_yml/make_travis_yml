@@ -32,8 +32,8 @@ def travis_builds():
     ]
     builds=[
         Build(script="ci/builds/logic_tests", name="Logic Tests {destination}"),
-        #Build(script="ci/builds/xcui_tests_bluepill", name="UI Tests {destination} using Bluepill"),
-        #Build(script="ci/builds/xcui_tests_emcee", name="UI Tests {destination} using Emcee"),
+        Build(script="ci/builds/xcui_tests_bluepill", name="UI Tests {destination} using Bluepill"),
+        Build(script="ci/builds/xcui_tests_emcee", name="UI Tests {destination} using Emcee"),
     ]
     for build in builds:
         for destination in destinations:

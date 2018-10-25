@@ -53,7 +53,7 @@ testUsingEmcee() {
     --environment "$MIXBOX_CI_SCRIPT_DIRECTORY/emcee/environment.json" \
     --test-destinations "$(destinationFile)" \
     --number-of-retries 5 \
-    --number-of-simulators 4 \
+    --number-of-simulators "$MIXBOX_CI_SIMULATORS_COUNT" \
     --schedule-strategy "progressive" \
     --single-test-timeout 600 \
     --fbxctest-bundle-ready-timeout 600 \

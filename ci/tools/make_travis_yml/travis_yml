@@ -6,7 +6,7 @@ matrix:
   include:
     {%- for build in builds %}
     - name: "{{ build.name }}"
-      env: MIXBOX_CI_DESTINATION="{{ build.destination }}" MIXBOX_CI_TRAVIS_BUILD="{{ build.script }}" MIXBOX_CI_REPORTS_PATH="."
+      env: MIXBOX_CI_DESTINATION="{{ build.destination }}" MIXBOX_CI_SIMULATORS_COUNT=1 MIXBOX_CI_TRAVIS_BUILD="{{ build.script }}" MIXBOX_CI_REPORTS_PATH="."
     {%- endfor %}
 script:
     ci/travis

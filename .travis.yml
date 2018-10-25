@@ -5,6 +5,10 @@ osx_image: xcode9.4
 matrix:
   include:
     - name: "Logic Tests iPhone 7 iOS 11.4"
-      env: MIXBOX_CI_DESTINATION="iphone_7_ios114.json" MIXBOX_CI_TRAVIS_BUILD="ci/builds/logic_tests" MIXBOX_CI_REPORTS_PATH="."
+      env: MIXBOX_CI_DESTINATION="iphone_7_ios114.json" MIXBOX_CI_SIMULATORS_COUNT=1 MIXBOX_CI_TRAVIS_BUILD="ci/builds/logic_tests" MIXBOX_CI_REPORTS_PATH="."
+    - name: "UI Tests iPhone 7 iOS 11.4 using Bluepill"
+      env: MIXBOX_CI_DESTINATION="iphone_7_ios114.json" MIXBOX_CI_SIMULATORS_COUNT=1 MIXBOX_CI_TRAVIS_BUILD="ci/builds/xcui_tests_bluepill" MIXBOX_CI_REPORTS_PATH="."
+    - name: "UI Tests iPhone 7 iOS 11.4 using Emcee"
+      env: MIXBOX_CI_DESTINATION="iphone_7_ios114.json" MIXBOX_CI_SIMULATORS_COUNT=1 MIXBOX_CI_TRAVIS_BUILD="ci/builds/xcui_tests_emcee" MIXBOX_CI_REPORTS_PATH="."
 script:
     ci/travis
