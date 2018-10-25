@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+
+import jinja2
+import os
+
+# TODO: Maybe it is possible to make 2D matrix of "env" in travis. Docs didn't explain that.
+# Also I don't think that making good looking name from "env" is possible.
+
+def generate():
+    dict_to_render = {
+        "builds": travis_builds()
+    }
+    yml_string = render(dict_to_render=dict_to_render)
+    print(yml_string)
+    
+def render(dict_to_render):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    template_name = "travis_yml"
+
+    loader = jinja2.FileSystemLoader(script_dir)
+    jinja_environment = jinja2.Environment(loader=loader)
+    template = jinja_environment.get_template(template_name)
+
+    return template.render(dict_to_render)
+
+def travis_builds():
+    travis_builds=[]
+    destinations=[
+        Destination(file_name="iphone_7_ios114.json", human_name="iPhone 7 iOS 11.4"),
+        #Destination(file_name="iphone_7_ios114.json", human_name="iPhone 7 iOS 11.4"),
+        #Destination(file_name="iphone_7_ios114.json", human_name="iPhone 7 iOS 11.4"),
+    ]
+    builds=[
+        Build(script="ci/builds/logic_tests", name="Logic Tests {destination}"),
+        #Build(script="ci/builds/xcui_tests_bluepill", name="UI Tests {destination} using Bluepill"),
+        #Build(script="ci/builds/xcui_tests_emcee", name="UI Tests {destination} using Emcee"),
+    ]
+    for build in builds:
+        for destination in destinations:
+            travis_builds.append(
+                TravisBuild(
+                    name=build.name.format(destination=destination.human_name),
+                    destination=destination.file_name,
+                    script=build.script,
+                )
+            )
+    return travis_builds
+
+class Build:
+    def __init__(self, script, name):
+        self.name = name
+        self.script = script
+    
+class TravisBuild:
+    def __init__(self, name, destination, script):
+        self.name = name
+        self.destination = destination
+        self.script = script
+        
+class Destination:
+    def __init__(self, file_name, human_name):
+        self.file_name = file_name
+        self.human_name = human_name
+        
+generate()

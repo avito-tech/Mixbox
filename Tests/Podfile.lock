@@ -57,6 +57,7 @@ PODS:
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
+  - CocoaImageHashing (= 1.6.1)
   - MixboxArtifacts (from `..`)
   - MixboxBuiltinIpc (from `..`)
   - MixboxFoundation (from `..`)

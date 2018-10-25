@@ -1,0 +1,10 @@
+os: osx
+language: objective-c
+sudo: false
+osx_image: xcode9.4
+matrix:
+  include:
+    - name: "Logic Tests iPhone 7 iOS 11.4"
+      env: MIXBOX_CI_DESTINATION="iphone_7_ios114.json" MIXBOX_CI_TRAVIS_BUILD="ci/builds/logic_tests" MIXBOX_CI_REPORTS_PATH="."
+script:
+    ci/travis

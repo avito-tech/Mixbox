@@ -29,7 +29,7 @@ buildWith_action_scheme_xcodebuildPipeFilter() {
     then
         : # skip
     else
-        pod install
+        pod install || pod install --repo-update
     fi
     
     echo "Building for testing. Build is log path: $xcodebuildLogPath"

@@ -1,4 +1,8 @@
-# Mixbox
+## Overview
+
+![Version](https://cocoapod-badges.herokuapp.com/v/MixboxFoundation/badge.png)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Build Status](https://travis-ci.org/avito-tech/Mixbox.svg?branch=master)](https://travis-ci.org/avito-tech/Mixbox)
 
 Code for E2E/Functional/UI/Blackbox testing. It is called Mixbox, because we want to share code across tests of every type (blackbox/greybox/whitebox).
 
