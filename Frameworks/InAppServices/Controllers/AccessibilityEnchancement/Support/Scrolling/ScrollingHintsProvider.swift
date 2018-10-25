@@ -153,7 +153,7 @@ final class ScrollingHintsProvider {
         
         while let viewFromPointer = pointer {
             if let cell = viewFromPointer as? UICollectionViewCell,
-                let parentCollectionView = cell.parentCollectionView
+                let parentCollectionView = cell.mb_fakeCellInfo?.parentCollectionView
             {
                 // Handle fake cell
                 if parentCollectionView.xScrollIsPossible || parentCollectionView.yScrollIsPossible {
@@ -213,7 +213,7 @@ final class ScrollingHintsProvider {
             if let superview = viewFromPointer.superview {
                 frame = superview.convert(frame, from: viewFromPointer)
                 pointer = superview
-            } else if let parentCollectionView = (viewFromPointer as? UICollectionViewCell)?.parentCollectionView {
+            } else if let parentCollectionView = (viewFromPointer as? UICollectionViewCell)?.mb_fakeCellInfo?.parentCollectionView {
                 // Naive, but sufficient implementation of convert(:from:) for current cases
                 frame = CGRect(
                     x: frame.origin.x + viewFromPointer.frame.origin.x,

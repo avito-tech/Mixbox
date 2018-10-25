@@ -1,3 +1,5 @@
+#if TEST
+
 import UIKit
 
 extension UIView {
@@ -5,3 +7,5 @@ extension UIView {
         return subviews
     }
 }
+
+#endif

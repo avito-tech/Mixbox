@@ -5,7 +5,7 @@ final class FakeCellsDoNotCrashAppTestsView: CollectionView {
         super.init(
             itemSize: CGSize(
                 width: UIScreen.main.bounds.width,
-                height: FakeCellsTestsConstants.itemHeight
+                height: 100
             ),
             sectionInset: UIEdgeInsets(
                 top: 0,
@@ -30,7 +30,7 @@ final class FakeCellsDoNotCrashAppTestsView: CollectionView {
                 cell.accessibilityIdentifier = "GoodCell"
                 cell.testability_customValues["index"] = i
                 
-                cell.view.text = "I am a good cell. I do not crash apps."
+                cell.view.text = "I am a good cell #\(i). I do not crash apps."
                 cell.view.backgroundColor = .green
             }
         }

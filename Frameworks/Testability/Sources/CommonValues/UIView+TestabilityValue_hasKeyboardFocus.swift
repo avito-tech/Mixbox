@@ -1,3 +1,5 @@
+#if TEST
+
 import UIKit
 
 extension UITextField {
@@ -11,3 +13,5 @@ extension UITextView {
         return isFirstResponder
     }
 }
+
+#endif

@@ -35,7 +35,7 @@
     UIView *ancestorView = self;
     do {
         // TODO: Use Swift bindings or rewrite everything in Swift.
-        if ([ancestorView performSelector:@selector(isFakeCell)]) {
+        if ([ancestorView isKindOfClass:[UICollectionViewCell class]] && [ancestorView performSelector:@selector(mb_isFakeCell)]) {
             if (ancestorView.alpha < kGREYMinimumVisibleAlpha) {
                 return NO;
             }

@@ -1,3 +1,5 @@
+#if TEST
+
 import UIKit
 
 // TODO: find a method that returns the type for XCUI and use it.
@@ -212,3 +214,5 @@ extension UIStepper {
  touchBar
  valueIndicator
  */
+
+#endif

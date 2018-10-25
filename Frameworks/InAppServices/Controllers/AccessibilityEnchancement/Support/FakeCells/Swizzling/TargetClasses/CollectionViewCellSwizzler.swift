@@ -41,7 +41,7 @@ extension UIView {
             return swizzled_CollectionViewCellSwizzler_accessibilityElementCount()
         }
         
-        if collectionViewCell.isFakeCell() {
+        if collectionViewCell.mb_isFakeCell() {
             return collectionViewCell.subviews.count
         } else {
             return swizzled_CollectionViewCellSwizzler_accessibilityElementCount()
@@ -53,7 +53,7 @@ extension UIView {
             return swizzled_CollectionViewCellSwizzler_accessibilityElement(at: index)
         }
         
-        if collectionViewCell.isFakeCell() {
+        if collectionViewCell.mb_isFakeCell() {
             return collectionViewCell.subviews[index]
         } else {
             return swizzled_CollectionViewCellSwizzler_accessibilityElement(at: index)
@@ -83,7 +83,7 @@ extension UIView {
             return originalImplementation()
         }
         
-        if collectionViewCell.isFakeCell() {
+        if collectionViewCell.mb_isFakeCell() {
             if withAssertion {
                 assertionFailure("isHidden should never be called for a fake cell")
             }

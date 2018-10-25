@@ -1,3 +1,5 @@
+#if TEST
+
 import UIKit
 
 extension UILabel {
@@ -35,3 +37,5 @@ extension UIButton {
         return label.testabilityValue_visibleText()
     }
 }
+
+#endif

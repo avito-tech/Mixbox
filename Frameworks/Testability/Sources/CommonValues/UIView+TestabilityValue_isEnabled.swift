@@ -1,3 +1,5 @@
+#if TEST
+
 import UIKit
 
 extension UIView {
@@ -11,3 +13,5 @@ extension UIControl {
         return isEnabled
     }
 }
+
+#endif

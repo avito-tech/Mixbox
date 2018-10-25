@@ -1,4 +1,5 @@
 import Foundation
+import MixboxTestability
 
 @nonobjc extension UIView {
     var isDefinitelyHidden: Bool {
@@ -35,10 +36,10 @@ import Foundation
             // but the cells they prepresent) can appear on screen after scrolling.
             //
             // This is how collection view works. So we should ignore isHidden for them.
-            let parentCollectionView = (view as? UICollectionViewCell)?.parentCollectionView
+            let parentCollectionView = (view as? UICollectionViewCell)?.mb_fakeCellInfo?.parentCollectionView
             
             let currentViewIsHidden: Bool
-            if view.isFakeCell() {
+            if let cell = view as? UICollectionViewCell, cell.mb_isFakeCell() {
                 // Fake cells can have isHidden = true and have zero size.
                 currentViewIsHidden = view.alpha < alphaThreshold
             } else {

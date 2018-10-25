@@ -53,10 +53,35 @@ extension UICollectionView {
     @objc override open func testabilityValue_children() -> [UIView] {
         return collectionViewSwizzler_accessibilityUserTestingChildren().compactMap { $0 as? UIView }
     }
+    
+    private func changeStateInEverySuperview(cellsState: UICollectionView.CellsState) {
+        var pointer: UIView? = self
+        
+        while let view = pointer {
+            if let collectionView = view as? UICollectionView {
+                collectionView.cellsState = cellsState
+            }
+            
+            if let collectionView = (view as? UICollectionViewCell)?.mb_fakeCellInfo?.parentCollectionView {
+                pointer = collectionView
+            } else {
+                pointer = superview
+            }
+        }
+    }
+    
+    func startCollectionViewUpdates() {
+        changeStateInEverySuperview(cellsState: .realCellsAreUpdating_fakeCellsCacheDoesNotExist)
+
+    }
+    
+    func completeCollectionViewUpdates() {
+        changeStateInEverySuperview(cellsState: .realCellsAreUpdated_fakeCellsCacheDoesNotExist)
+    }
 }
 
 fileprivate extension UICollectionView {
-    private enum CellsState: String {
+    enum CellsState: String {
         // TODO: Make better structure of the state and put cache inside one of the cases to make state consistent.
         case realCellsAreUpdating_fakeCellsCacheDoesNotExist // to not do anything, because state is not consistent
         case realCellsAreUpdated_fakeCellsCacheDoesNotExist // to update cache
@@ -79,10 +104,10 @@ fileprivate extension UICollectionView {
         var needToIgnoreCache: Bool {
             switch self {
             case .realCellsAreUpdating_fakeCellsCacheDoesNotExist,
+                 .realCellsAreUpdated_fakeCellsCacheIsUpdating,
                  .fakeCellsCacheCanNotBeObtained:
                 return true
             case .realCellsAreUpdated_fakeCellsCacheDoesNotExist,
-                 .realCellsAreUpdated_fakeCellsCacheIsUpdating,
                  .realCellsAreUpdated_fakeCellsCacheIsUpdated:
                 return false
             }
@@ -167,9 +192,11 @@ fileprivate extension UICollectionView {
         for fakeCell in cachedFakeCells {
             let cell: UIView
             
-            assert(fakeCell.indexPath != nil)
+            assert(fakeCell.mb_fakeCellInfo != nil)
             
-            if let indexPath = fakeCell.indexPath, let visibleCell = cellForItem(at: indexPath) {
+            if let indexPath = fakeCell.mb_fakeCellInfo?.indexPath,
+                let visibleCell = cellForItem(at: indexPath)
+            {
                 cell = visibleCell
                 visibleCells.insert(visibleCell)
             } else {
@@ -261,7 +288,7 @@ fileprivate extension UICollectionView {
         }
         
         if let cell = element as? UICollectionViewCell {
-            if let indexPath = cell.indexPath {
+            if let indexPath = cell.mb_fakeCellInfo?.indexPath {
                 if let visibleCell = cellForItem(at: indexPath) {
                     return visibleCell
                 }
@@ -280,11 +307,14 @@ fileprivate extension UICollectionView {
         for fakeCell in self.cachedFakeCells {
             ObjectiveCExceptionCatcher.catch(
                 try: {
+                    fakeCell.mb_fakeCellInfo = nil
                     _reuse(fakeCell)
                 },
                 catch: { _ in }
             )
         }
+        
+        self.cachedFakeCells = []
         
         var cachedFakeCells = [UICollectionViewCell]()
         
@@ -295,12 +325,14 @@ fileprivate extension UICollectionView {
                         for itemId in 0..<numberOfItems(inSection: sectionId) {
                             let indexPath = IndexPath(row: itemId, section: sectionId)
                             
-                            // Usage of native function to create cell for a specific index path.
-                            // It has some problems that were solved via swizzling of UICollectionViewCell.
-                            let fakeCell = dataSource.collectionView(
-                                self,
-                                cellForItemAt: indexPath
-                            )
+                            let fakeCell = FakeCellManagerImpl.instance.createFakeCellInside {
+                                // Usage of native function to create cell for a specific index path.
+                                // It has some problems that were solved via swizzling of UICollectionViewCell.
+                                dataSource.collectionView(
+                                    self,
+                                    cellForItemAt: indexPath
+                                )
+                            }
                             
                             // `collectionView(_:cellForItemAt:)` can add subview to collection view.
                             // I think there is no logic for that, and I think Apple did it because they thought
@@ -312,12 +344,11 @@ fileprivate extension UICollectionView {
                             
                             assert(!fakeCell.isNotFakeCellDueToPresenceInViewHierarchy())
                             
-                            fakeCell.indexPath = indexPath
-                            fakeCell.parentCollectionView = self
-                            
-                            #if TEST
-                            fakeCell.configureAsFakeCell?()
-                            #endif
+                            fakeCell.mb_fakeCellInfo = FakeCellInfo(
+                                indexPath: indexPath,
+                                parentCollectionView: self
+                            )
+                            fakeCell.mb_configureAsFakeCell?()
                             
                             // It wouldn't be called without a parent.
                             // But it is needed to set a frame. Elements with zero frame are not shown in AX hierarchy.
@@ -333,15 +364,19 @@ fileprivate extension UICollectionView {
                 cellsState = .realCellsAreUpdated_fakeCellsCacheIsUpdated
             },
             catch: { _ in
-                for fakeCell in cachedFakeCells {
+                for fakeCell in self.cachedFakeCells {
                     ObjectiveCExceptionCatcher.catch(
                         try: {
+                            fakeCell.mb_fakeCellInfo = nil
                             _reuse(fakeCell)
                         },
-                        catch: { _ in }
+                        catch: { _ in
+                            // TODO: Notify via assertion failure.
+                        }
                     )
                 }
                 
+                self.cachedFakeCells = []
                 cellsState = .fakeCellsCacheCanNotBeObtained
             }
         )

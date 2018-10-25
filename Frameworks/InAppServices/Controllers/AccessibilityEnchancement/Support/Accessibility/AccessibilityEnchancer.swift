@@ -1,3 +1,5 @@
+import MixboxTestability
+
 final class AccessibilityEnchancer: NSObject {
     @objc static func takeOff(
         shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool)
@@ -8,5 +10,6 @@ final class AccessibilityEnchancer: NSObject {
             // in that case you can disable it and use it only in tests on this feature
             shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell
         )
+        FakeCellManagerProvider.fakeCellManager = FakeCellManagerImpl.instance
     }
 }

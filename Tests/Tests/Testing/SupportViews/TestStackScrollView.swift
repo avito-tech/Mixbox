@@ -25,7 +25,7 @@ class TestStackScrollView: UIScrollView {
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)
-        addView(view, id: id)
+        add(view: view, id: id)
         return view
     }
     
@@ -35,7 +35,7 @@ class TestStackScrollView: UIScrollView {
         view.setTitleColor(.black, for: .normal)
         view.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         configure(view)
-        addView(view, id: id)
+        add(view: view, id: id)
         return view
     }
     
@@ -53,7 +53,7 @@ class TestStackScrollView: UIScrollView {
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)
-        addView(view, id: id)
+        add(view: view, id: id)
         return view
     }
     
@@ -63,11 +63,11 @@ class TestStackScrollView: UIScrollView {
         view.textColor = .black
         view.font = UIFont.systemFont(ofSize: 17)
         configure(view)
-        addView(view, id: id)
+        add(view: view, id: id)
         return view
     }
     
-    private func addView(_ view: UIView, id: String) {
+    func add(view: UIView, id: String) {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lightGray.cgColor
         view.accessibilityIdentifier = id

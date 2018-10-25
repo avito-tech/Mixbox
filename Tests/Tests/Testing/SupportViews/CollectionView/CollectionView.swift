@@ -63,7 +63,15 @@ class CollectionView:
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: model.reuseIdentifier, for: indexPath)
         
-        model.update(cell: cell)
+        if cell.mb_isFakeCell() {
+            cell.mb_configureAsFakeCell = { [weak cell] in
+                if let cell = cell {
+                    model.update(cell: cell)
+                }
+            }
+        } else {
+            model.update(cell: cell)
+        }
         
         return cell
     }
