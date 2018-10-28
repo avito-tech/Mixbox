@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
 import MixboxIpcCommon
 
@@ -26,3 +28,5 @@ public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
         }
     }
 }
+
+#endif

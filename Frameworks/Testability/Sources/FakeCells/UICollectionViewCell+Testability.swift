@@ -1,6 +1,6 @@
 import Foundation
 
-#if TEST
+#if MIXBOX_ENABLE_IN_APP_SERVICES
 
 // Extension that allows you to tune Fake Cells for your specific implementation of collection view.
 //
@@ -20,7 +20,7 @@ import Foundation
 //
 //  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //      ...
-//      #if TEST
+//      #if MIXBOX_ENABLE_IN_APP_SERVICES
 //      // To not update fake cell instead of a real one:
 //      if !cell.mb_isFakeCell() {
 //          someService.someCallback = { cell.someUpdateFunction() }
@@ -33,7 +33,7 @@ import Foundation
 //
 //  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //      ...
-//      #if TEST
+//      #if MIXBOX_ENABLE_IN_APP_SERVICES
 //      if cell.mb_isFakeCell() {
 //          cell.mb_configureAsFakeCell = { [weak cell] in cell?.someUpdateFunction() }
 //      }

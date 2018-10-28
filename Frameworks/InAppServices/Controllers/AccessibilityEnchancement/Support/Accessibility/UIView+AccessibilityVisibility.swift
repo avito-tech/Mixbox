@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import Foundation
 import MixboxTestability
 
@@ -58,3 +60,5 @@ import MixboxTestability
         return false
     }
 }
+
+#endif

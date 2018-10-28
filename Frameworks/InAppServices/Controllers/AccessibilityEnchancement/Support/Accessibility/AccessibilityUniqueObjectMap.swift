@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import Foundation
 
 final class AccessibilityUniqueObjectMap {
@@ -14,3 +16,5 @@ final class AccessibilityUniqueObjectMap {
         return values.object(forKey: uniqueIdentifier as NSString)
     }
 }
+
+#endif

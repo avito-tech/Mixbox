@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import MixboxBuiltinIpc
 
@@ -47,3 +49,5 @@ final class BuiltinIpcStarter: IpcStarter {
         // not needed
     }
 }
+
+#endif

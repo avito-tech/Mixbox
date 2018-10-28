@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import Foundation
 
 public protocol AccessibilityUniqulyIdentifiable: NSObjectProtocol {
@@ -16,3 +18,5 @@ private var associatedAccessibilityUniqueIdentifier = "associatedAccessibilityUn
         return value
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxTestability
 
 final class AccessibilityEnchancer: NSObject {
@@ -13,3 +15,5 @@ final class AccessibilityEnchancer: NSObject {
         FakeCellManagerProvider.fakeCellManager = FakeCellManagerImpl.instance
     }
 }
+
+#endif

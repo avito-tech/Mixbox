@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import Foundation
 import MixboxIpc
 import MixboxIpcCommon
@@ -26,3 +28,5 @@ final class PushNotificationIpcMethodHandler: IpcMethodHandler {
         }
     }
 }
+
+#endif

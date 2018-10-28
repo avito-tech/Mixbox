@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 
 extension UICollectionViewCell {
@@ -34,3 +36,5 @@ extension UICollectionViewCell {
 }
 
 private var fakeCellInfo_associatedObjectKey = "UICollectionViewCell_fakeCellInfo_928CE5104F8B"
+
+#endif

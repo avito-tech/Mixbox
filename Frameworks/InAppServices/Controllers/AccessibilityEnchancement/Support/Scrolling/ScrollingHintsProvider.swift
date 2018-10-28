@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
 import MixboxIpcCommon
 import MixboxUiKit
@@ -502,3 +504,5 @@ private extension UIScrollView {
         }
     }
 }
+
+#endif

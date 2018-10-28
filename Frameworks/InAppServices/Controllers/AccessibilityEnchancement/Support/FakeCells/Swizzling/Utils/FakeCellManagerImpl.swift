@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxTestability
 
 public final class FakeCellManagerImpl: FakeCellManager {
@@ -52,3 +54,5 @@ public final class FakeCellManagerImpl: FakeCellManager {
 }
 
 private var configureAsFakeCell_associatedObjectKey = "BEFC4E9F9161_configureAsFakeCell"
+
+#endif

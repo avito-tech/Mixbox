@@ -4,7 +4,10 @@ import MixboxInAppServices
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: TouchDrawingWindow?
+    
+    #if DEBUG
     let mixboxInAppServices = MixboxInAppServices()
+    #endif
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -16,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         window?.makeKeyAndVisible()
         
+        #if DEBUG
         if let mixboxInAppServices = mixboxInAppServices {
             mixboxInAppServices.start()
             mixboxInAppServices.handleUiBecomeVisible()
@@ -23,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // TODO: add environment to be able to disable registration of methods?
             CustomIpcMethods.registerIn(mixboxInAppServices)
         }
+        #endif
         
         return true
     }
