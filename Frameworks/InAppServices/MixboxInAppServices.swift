@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 // Facade for starting everything for tests, on the side of the app.
@@ -102,3 +104,5 @@ public final class MixboxInAppServices {
         ipcStarter.handleUiBecomeVisible()
     }
 }
+
+#endif

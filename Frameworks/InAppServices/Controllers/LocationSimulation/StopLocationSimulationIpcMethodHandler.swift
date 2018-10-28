@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import MixboxIpcCommon
 import CoreLocation
@@ -36,3 +38,5 @@ final class StopLocationSimulationIpcMethodHandler: IpcMethodHandler {
         }
     }
 }
+
+#endif

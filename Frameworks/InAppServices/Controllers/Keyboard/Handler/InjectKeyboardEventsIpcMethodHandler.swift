@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import MixboxIpcCommon
 
@@ -16,3 +18,5 @@ final class InjectKeyboardEventsIpcMethodHandler: IpcMethodHandler {
         }
     }
 }
+
+#endif

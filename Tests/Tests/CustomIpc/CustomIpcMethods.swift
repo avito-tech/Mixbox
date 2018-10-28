@@ -1,3 +1,5 @@
+#if DEBUG
+
 import MixboxInAppServices
 import MixboxIpc
 
@@ -18,3 +20,5 @@ final class CustomIpcMethods {
         mixboxInAppServices.register(methodHandler: FakeCellsSubviewsInfoIpcMethodHandler.instance)
     }
 }
+
+#endif

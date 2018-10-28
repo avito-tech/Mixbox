@@ -67,15 +67,12 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      if target.name == 'AutoMate'
-
-         config.build_settings['SWIFT_VERSION'] = '3.2'
+      if config.name == 'Debug'
+        config.build_settings['ENABLE_BITCODE'] = 'NO' # To support testing on devices
+        config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'MIXBOX_ENABLE_IN_APP_SERVICES', '-Onone']
+        config.build_settings['ENABLE_TESTABILITY'] = 'YES'
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1', 'ENABLE_UITUNNEL=1']
       end
-
-      config.build_settings['ENABLE_BITCODE'] = 'NO' # To support testing on devices
-      config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'DEBUG', '-D', 'TEST', '-Onone']
-      config.build_settings['ENABLE_TESTABILITY'] = 'YES'
-      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'DEBUG=1', 'TEST=1', 'ENABLE_UITUNNEL=1']
     end
   end
 end

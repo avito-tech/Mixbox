@@ -1,3 +1,5 @@
+#if DEBUG
+
 import UIKit
 
 class FakeCellsDoNotCauseSideEffectsTestsCollectionView:
@@ -97,3 +99,5 @@ class FakeCellsDoNotCauseSideEffectsTestsCollectionView:
         cell.view.text = "\(ObjectIdentifier(cell))"
     }
 }
+
+#endif

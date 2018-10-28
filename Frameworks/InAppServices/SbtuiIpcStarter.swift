@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import SBTUITestTunnel
 import MixboxIpcSbtuiHost
@@ -30,3 +32,5 @@ final class SbtuiIpcStarter: IpcStarter {
         SBTUITestTunnelServer.takeOffCompleted(true)
     }
 }
+
+#endif

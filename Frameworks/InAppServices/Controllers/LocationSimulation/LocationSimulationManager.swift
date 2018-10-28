@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import Foundation
 import CoreLocation
 
@@ -29,3 +31,5 @@ final class LocationSimulationManager {
         manager.flush()
     }
 }
+
+#endif

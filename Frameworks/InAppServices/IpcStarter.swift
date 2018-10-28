@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 protocol IpcStarter {
@@ -7,3 +9,5 @@ protocol IpcStarter {
     // For SBTUI only. TODO: remove.
     func handleUiBecomeVisible()
 }
+
+#endif

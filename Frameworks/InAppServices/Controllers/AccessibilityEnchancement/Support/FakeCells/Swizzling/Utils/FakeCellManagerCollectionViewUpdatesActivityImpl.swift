@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxTestability
 
 public final class MixboxCollectionViewUpdatesActivityImpl: MixboxCollectionViewUpdatesActivity {
@@ -17,3 +19,5 @@ public final class MixboxCollectionViewUpdatesActivityImpl: MixboxCollectionView
         assert(completeWasCalled, "You have to call complete() on object returned from startCollectionViewUpdates")
     }
 }
+
+#endif

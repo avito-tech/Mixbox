@@ -1,3 +1,5 @@
+#if DEBUG
+
 import UIKit
 
 final class FakeCellsDoNotCauseSideEffectsTestsView: TestStackScrollView {
@@ -50,3 +52,4 @@ final class FakeCellsDoNotCauseSideEffectsTestsView: TestStackScrollView {
     }
 }
 
+#endif

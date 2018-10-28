@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxTestability
 import MixboxFoundation
 
@@ -100,3 +102,5 @@ extension UIView {
         return originalImplementation()
     }
 }
+
+#endif

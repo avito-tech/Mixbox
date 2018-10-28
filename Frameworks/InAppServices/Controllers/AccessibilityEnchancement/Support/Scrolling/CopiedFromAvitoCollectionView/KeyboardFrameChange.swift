@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
 
 // Copypasted from other app. TODO: Share?
@@ -46,3 +48,5 @@ public struct KeyboardFrameChange {
         }
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
 
 // Copypasted from other app. TODO: Share?
@@ -18,3 +20,5 @@ public protocol KeyboardFrameProvider: class {
     func keyboardFrameInView(_ view: UIView) -> CGRect
     func nextKeyboardFrameInView(_ view: UIView) -> CGRect
 }
+
+#endif
