@@ -19,7 +19,7 @@ public final class SimulatorFileSystemRoot {
     private static func makeCurrent() -> SimulatorFileSystemRoot? {
         let anyExistingFile = "data/Library/TCC/TCC.db"
         
-        guard let applicationDirectory = CurrentApplicationDirectoryProvider.currentApplicationDirectory else {
+        guard let applicationDirectory = currentApplicationDirectory else {
             return nil
         }
         
@@ -38,6 +38,12 @@ public final class SimulatorFileSystemRoot {
         
         return SimulatorFileSystemRoot(osxRoot: osxRoot)
     }
+    
+    private static var currentApplicationDirectory: String? = {
+        NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            .first?
+            .mb_deletingLastPathComponent
+    }()
     
     private static func find(file: String, inParentDirectoryOf sourceDirectory: String) -> String? {
         var directoryPointer = sourceDirectory

@@ -112,6 +112,8 @@
 		F8D5392220A0877300733C93 /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D5392120A0877300733C93 /* BasePageObjects.swift */; };
 		F8D5392420A0878400733C93 /* PageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D5392320A0878400733C93 /* PageObjects.swift */; };
 		F8E6CC792180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */; };
+		F8E6CC902187858E00D7A0C1 /* ApplicationBundleProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */; };
+		F8E6CC9321878BF900D7A0C1 /* ApplicationBundleProviderTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC9221878BF900D7A0C1 /* ApplicationBundleProviderTestsView.swift */; };
 		F8E8BAE320DD752200524185 /* FakeCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAE220DD752200524185 /* FakeCellsTests.swift */; };
 		F8E8BAE520DD752F00524185 /* FakeCellsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAE420DD752F00524185 /* FakeCellsTestsView.swift */; };
 		F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAED20DFD20800524185 /* SingleViewCell.swift */; };
@@ -256,6 +258,8 @@
 		F8D5392120A0877300733C93 /* BasePageObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePageObjects.swift; sourceTree = "<group>"; };
 		F8D5392320A0878400733C93 /* PageObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageObjects.swift; sourceTree = "<group>"; };
 		F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift; sourceTree = "<group>"; };
+		F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationBundleProviderTests.swift; sourceTree = "<group>"; };
+		F8E6CC9221878BF900D7A0C1 /* ApplicationBundleProviderTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationBundleProviderTestsView.swift; sourceTree = "<group>"; };
 		F8E8BAE220DD752200524185 /* FakeCellsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsTests.swift; sourceTree = "<group>"; };
 		F8E8BAE420DD752F00524185 /* FakeCellsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsTestsView.swift; sourceTree = "<group>"; };
 		F8E8BAED20DFD20800524185 /* SingleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewCell.swift; sourceTree = "<group>"; };
@@ -408,6 +412,7 @@
 		F813CB11209CD82A00E6A27C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F8E6CC9121878BF100D7A0C1 /* ApplicationBundleProviderTests */,
 				F8AA6FFF217E06B8007D8208 /* FakeCells */,
 				F8C7090D2153E3650015A10B /* NetworkStubbingTests */,
 				F839A808215124B3009F77AB /* CrashTests */,
@@ -871,6 +876,7 @@
 		F8E6CC7E2181ED3000D7A0C1 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */,
 				F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */,
 			);
 			path = Tools;
@@ -901,6 +907,14 @@
 				F813CB2E209CDF3400E6A27C /* ScrollingTests.swift */,
 			);
 			path = Scrolling;
+			sourceTree = "<group>";
+		};
+		F8E6CC9121878BF100D7A0C1 /* ApplicationBundleProviderTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6CC9221878BF900D7A0C1 /* ApplicationBundleProviderTestsView.swift */,
+			);
+			path = ApplicationBundleProviderTests;
 			sourceTree = "<group>";
 		};
 		F8E8BAE120DD751000524185 /* FakeCellsTests */ = {
@@ -1270,6 +1284,7 @@
 				F8E8BAFA20E13D3900524185 /* FakeCellsTestsConstants.swift in Sources */,
 				F813CB1F209CD82A00E6A27C /* TextFieldWithClosures.swift in Sources */,
 				F813CB1D209CD82A00E6A27C /* TestStackScrollView.swift in Sources */,
+				F8E6CC9321878BF900D7A0C1 /* ApplicationBundleProviderTestsView.swift in Sources */,
 				F84D12752166AFB100A178B4 /* CollectionView.swift in Sources */,
 				F813CB1C209CD82A00E6A27C /* TestingViewController.swift in Sources */,
 				F8AA7003217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift in Sources */,
@@ -1361,6 +1376,7 @@
 				F8274A492143110D00A72C41 /* FailureGatherer.swift in Sources */,
 				F813CB2F209CDF3400E6A27C /* TestabilityTextTests.swift in Sources */,
 				F8676EDE21553203007DDB7C /* CallbackFromAppIpcMethod.swift in Sources */,
+				F8E6CC902187858E00D7A0C1 /* ApplicationBundleProviderTests.swift in Sources */,
 				F82087402141B49700DCBA2D /* LocatorsTests.swift in Sources */,
 				F839A8052151020A009F77AB /* FailureMessagesAreCorrectTests.swift in Sources */,
 				F857C9DD20CF8F9900E8BFF5 /* EchoIpcMethod.swift in Sources */,
