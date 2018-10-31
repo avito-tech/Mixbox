@@ -25,14 +25,14 @@ public final class OnceToken {
         }
     }
     
-    public func executeOnce(_ closure: () -> ()) {
+    public func executeOnce(_ closure: () throws -> ()) rethrows {
         if !wasExecutedUnsafeValue {
             semaphore.wait()
             
             if !wasExecutedUnsafeValue {
                 wasExecutedUnsafeValue = true
                 semaphore.signal()
-                closure()
+                try closure()
             } else {
                 semaphore.signal()
             }
