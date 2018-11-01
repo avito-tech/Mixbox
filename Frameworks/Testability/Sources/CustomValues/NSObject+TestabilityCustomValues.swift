@@ -5,7 +5,7 @@ private var testability_customValues_associatedObjectKey = "testabilityCusomValu
 public final class TestabilityCustomValues {
     public static let dummy = TestabilityCustomValues()
     
-    #if DEBUG || BUILD_CONFIGURATION_ENTERPRISE
+    #if MIXBOX_ENABLE_IN_APP_SERVICES
     public private(set) var dictionary = [String: String]()
     #endif
     
@@ -14,7 +14,7 @@ public final class TestabilityCustomValues {
     
     public subscript <T: Codable>(_ key: String) -> T? {
         get {
-            #if DEBUG
+            #if MIXBOX_ENABLE_IN_APP_SERVICES
             return dictionary[key].flatMap {
                 GenericSerialization.deserialize(string: $0)
             }
@@ -23,7 +23,7 @@ public final class TestabilityCustomValues {
             #endif
         }
         set {
-            #if DEBUG
+            #if MIXBOX_ENABLE_IN_APP_SERVICES
             dictionary[key] = GenericSerialization.serialize(value: newValue)
             #else
             #endif
@@ -33,7 +33,7 @@ public final class TestabilityCustomValues {
 
 extension NSObject {
     public var testability_customValues: TestabilityCustomValues {
-        #if DEBUG
+        #if MIXBOX_ENABLE_IN_APP_SERVICES
         if let value = objc_getAssociatedObject(self, &testability_customValues_associatedObjectKey) as? TestabilityCustomValues {
             return value
         } else {
