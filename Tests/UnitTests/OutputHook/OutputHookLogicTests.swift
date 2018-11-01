@@ -1,21 +1,30 @@
 import XCTest
-import MixboxTestsFoundation
+@testable import MixboxTestsFoundation
 import Darwin
 
-// Note: OutputHook is not reliable. See its file for more comments.
-final class OutputHookTests: XCTestCase {
-    let hook = OutputHook()
+final class OutputHookLogicTests: XCTestCase {
+    let hook = OutputHook.instance
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        try? hook.uninstallHook()
+    }
+    
+    override func setUp() {
+        try? hook.installHook()
+    }
     
     func test_outputBeforeStartIsNotHandled() {
         shouldNotThrowException {
             print("not handled")
             
-            try hook.start()
+            try hook.resume()
             
             let stdout = hook.stdout
             let stderr = hook.stderr
             
-            try hook.stop()
+            try hook.suspend()
             
             XCTAssertEqual(stdout, "")
             XCTAssertEqual(stderr, "")
@@ -24,12 +33,12 @@ final class OutputHookTests: XCTestCase {
     
     func test_outputIsEmptyIfThereWereNoOutput() {
         shouldNotThrowException {
-            try hook.start()
+            try hook.resume()
             
             let stdout = hook.stdout
             let stderr = hook.stderr
             
-            try hook.stop()
+            try hook.suspend()
             
             XCTAssertEqual(stdout, "")
             XCTAssertEqual(stderr, "")
@@ -38,30 +47,48 @@ final class OutputHookTests: XCTestCase {
     
     func test_handlesWritingToStdout() {
         shouldNotThrowException {
-            try hook.start()
+            try hook.resume()
             
             print("foo")
+            
+            write(
+                1,
+                "bar\n".cString(using: .utf8),
+                4
+            )
+            
+            FileHandle(fileDescriptor: 1)
+                .write("baz\n".data(using: .utf8) ?? Data())
+            
+            _ = withVaList([]) { vaArgs in
+                vfprintf(
+                    Darwin.stdout,
+                    "qux\n".cString(using: .utf8)!.map { Int8($0) },
+                    vaArgs
+                )
+            }
+            
             
             let stdout = hook.stdout
             let stderr = hook.stderr
             
-            try hook.stop()
+            try hook.suspend()
             
-            XCTAssertEqual(stdout, "foo\n")
+            XCTAssertEqual(stdout, "foo\nbar\nbaz\nqux\n")
             XCTAssertEqual(stderr, "")
         }
     }
     
     func test_handlesWritingToStderr() {
         shouldNotThrowException {
-            try hook.start()
+            try hook.resume()
             
             fputs("foo\n", Darwin.stderr)
             
             let stdout = hook.stdout
             let stderr = hook.stderr
             
-            try hook.stop()
+            try hook.suspend()
             
             XCTAssertEqual(stdout, "")
             XCTAssertEqual(stderr, "foo\n")
@@ -70,13 +97,11 @@ final class OutputHookTests: XCTestCase {
     
     func test_doesntResetAfterStop() {
         shouldNotThrowException {
-            try hook.start()
+            try hook.resume()
             
             print("foo")
-
-            sleep(1)
             
-            try hook.stop()
+            try hook.suspend()
             
             let stdout = hook.stdout
             let stderr = hook.stderr
@@ -88,18 +113,20 @@ final class OutputHookTests: XCTestCase {
     
     func test_resetsAfterStart() {
         shouldNotThrowException {
-            try hook.start()
+            try hook.resume()
             
             print("foo")
             
-            try hook.stop()
-            try hook.start()
+            try hook.suspend()
+            try hook.resume()
             
             let stdout = hook.stdout
             let stderr = hook.stderr
             
             XCTAssertEqual(stdout, "")
             XCTAssertEqual(stderr, "")
+            
+            try hook.suspend()
         }
     }
     

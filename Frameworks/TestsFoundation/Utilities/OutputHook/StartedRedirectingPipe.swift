@@ -2,12 +2,13 @@ import MixboxFoundation
 
 final class StartedRedirectingPipe {
     private let redirectedFileDescriptor: Int32
-    private let readQueue = DispatchQueue(label: "RedirectingPipe.readSyncQueue")
-    private let backgroundQueue = DispatchQueue(label: "RedirectingPipe.backgroundQueue")
+    private let dataPollingQueue = DispatchQueue(label: "StartedRedirectingPipe.dataPollingQueue")
+    private let dataGrabbingQueue = DispatchQueue(label: "StartedRedirectingPipe.dataGrabbingQueue")
     private let posixFunctions = PosixFunctions()
     private var duplicatedRedirectedFileDescriptor: Int32
     private var pipeReadEndFileDescriptor: Int32
     private var data = Data()
+    private var suspended = true
     
     init(redirectedFileDescriptor: Int32) throws {
         let (readEnd, writeEnd) = try posixFunctions.openPipe()
@@ -24,79 +25,100 @@ final class StartedRedirectingPipe {
             to: writeEnd
         )
         
-        backgroundQueue.async { [weak self] in
-            self?.read()
-        }
+        // To not supsend thread when reading from file descriptor that has no data to read,
+        // read() will return EAGAIN instead.
+        let flags = fcntl(readEnd, F_GETFL, 0)
+        _ = fcntl(readEnd, F_SETFL, flags | O_NONBLOCK)
     }
     
     // MARK: - Functions
     
     var writtenData: Data {
-        waitForData()
+        if !suspended {
+            grabAllData()
+        }
         
         return data
     }
     
-    func stop() throws {
-        waitForData()
+    func resume() {
+        dataPollingQueue.sync {}
         
-        try? posixFunctions.close(fileDescriptor: pipeReadEndFileDescriptor)
+        suspended = false
+        dataPollingQueue.async { [weak self] in
+            self?.pollForData()
+        }
         
-        backgroundQueue.sync {}
+        grabAllData()
+        data = Data()
+    }
+    
+    func suspend() {
+        grabAllData()
+        
+        suspended = true
     }
     
     // MARK: - Private
     
-    private func read() {
-        // Read all of the data from the output pipe.
-        let bufferLength = 4096
-        var buffer = [UInt8](repeating: 0, count: bufferLength + 1)
-        
-        while true {
-            do {
-                let readResult = try posixFunctions.read(
-                    fileDescriptor: pipeReadEndFileDescriptor,
-                    buffer: &buffer,
-                    count: bufferLength
-                )
-                
-                if readResult > 0 {
-                    let data = buffer[0..<readResult]
-                    handleData(uint8data: Array(data))
-                } else {
-                    break
-                }
-            } catch let e as PosixFunctionError {
-                if e.errno == EINTR {
-                    continue
-                } else {
-                    break
-                }
-            } catch {
-                break
-            }
-        }
-        
-        do {
-            try rollback()
-        } catch let e {
-            // TODO: handle somehow
+    private func grabAllData() {
+        dataGrabbingQueue.sync {
+            grabAllDataWhileSyncronized()
         }
     }
     
-    // VERY stupid solution for waiting data (uses sleep)
-    private func waitForData() {
-        var rfds = fd_set(
-            fds_bits: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        )
-        var tv = timeval(tv_sec: 0, tv_usec: 500)
-        rfds.fds_bits.0 = 1
-        
-        let result = select(pipeReadEndFileDescriptor, &rfds, nil, nil, &tv)
-        let hasData = result > 0
-        
-        if hasData {
-            sleep(1)
+    private func grabAllDataWhileSyncronized() {
+        if !suspended {
+            var hasData = true
+            let bufferLength = 4096
+            var buffer = [UInt8](repeating: 0, count: bufferLength + 1)
+            
+            // Read all of the data from the output pipe.
+            while hasData && !suspended {
+                do {
+                    let readResult = try posixFunctions.read(
+                        fileDescriptor: pipeReadEndFileDescriptor,
+                        buffer: &buffer,
+                        count: bufferLength
+                    )
+                    
+                    if readResult > 0 {
+                        let data = buffer[0..<readResult]
+                        handleData(uint8data: Array(data))
+                    } else {
+                        hasData = false
+                    }
+                } catch let e as PosixFunctionError {
+                    switch e.errno {
+                    case EINTR:
+                        // I just found on the internet that we should continue reading in this case
+                        continue
+                    case EAGAIN:
+                        // There is no data to read
+                        hasData = false
+                    default:
+                        // Some error occured
+                        hasData = false
+                    }
+                } catch {
+                    // Posix function finished successfully, but other error occured
+                    hasData = false
+                }
+            }
+        }
+    }
+    
+    private func pollForData() {
+        while !suspended {
+            let events = Int16(POLLOUT | POLLWRBAND)
+            var pollfds = [pollfd(fd: pipeReadEndFileDescriptor, events: events, revents: 0)]
+            let timeoutInMilliseconds: Int32 = 1000
+            
+            let result = poll(&pollfds, nfds_t(pollfds.count), timeoutInMilliseconds)
+            
+            if result > 0 && (pollfds[0].revents & events > 0) {
+                grabAllData()
+            }
         }
     }
     
@@ -117,12 +139,26 @@ final class StartedRedirectingPipe {
         data.append(UnsafePointer<UInt8>(uint8data), count: uint8data.count)
     }
     
-    private func rollback() throws {
+    // TODO: Implement reverting the hook properly and change interfaces of related classes.
+    // The code below is causing SIGPIPE when something was printed in a background thread.
+    // Maybe it is not possible. In that case we should add documentation with recommendation to
+    // not use hooks in the process or made a process started by other process, which will get all logs properly.
+    //
+    // Despite it is unstable, we use this method in tests to remove side effects of one tests to others and it
+    // doesn't crash inside LogicTests (at the moment) and allows CI to parse xcodebuild's output properly.
+    internal func uninstallHook() throws {
+        suspended = true
+        dataGrabbingQueue.sync {}
+        dataPollingQueue.sync {}
+        
+        signal(SIGPIPE, SIG_IGN) // doesn't help if lldb is attached
+        
         try posixFunctions.dup2(
             oldFileDescriptor: duplicatedRedirectedFileDescriptor,
             newFileDescriptor: redirectedFileDescriptor
         )
-        
+
         try posixFunctions.close(fileDescriptor: duplicatedRedirectedFileDescriptor)
+        try posixFunctions.close(fileDescriptor: pipeReadEndFileDescriptor)
     }
 }

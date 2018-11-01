@@ -3,16 +3,16 @@ import MixboxFoundation
 final class RedirectingPipe {
     private enum State {
         case initial
-        case started(StartedRedirectingPipe)
-        case stopped(StartedRedirectingPipe)
+        case resumed(StartedRedirectingPipe)
+        case suspended(StartedRedirectingPipe)
         
         var pipe: StartedRedirectingPipe? {
             switch self {
             case .initial:
                 return nil
-            case .started(let pipe):
+            case .resumed(let pipe):
                 return pipe
-            case .stopped(let pipe):
+            case .suspended(let pipe):
                 return pipe
             }
         }
@@ -29,30 +29,44 @@ final class RedirectingPipe {
         self.redirectedFileDescriptor = redirectedFileDescriptor
     }
     
-    func start() throws {
+    func installHook() throws {
         switch state {
-        case .initial, .stopped:
-            break
-        case .started:
-            throw ErrorString("Can not start() RedirectingPipe: already started")
+        case .initial:
+            let pipe = try StartedRedirectingPipe(
+                redirectedFileDescriptor: redirectedFileDescriptor
+            )
+            state = .suspended(pipe)
+        case .suspended, .resumed:
+            throw ErrorString("Can not installHook() RedirectingPipe: already installed")
         }
-        
-        let pipe = try StartedRedirectingPipe(
-            redirectedFileDescriptor: redirectedFileDescriptor
-        )
-        
-        state = .started(pipe)
     }
     
-    func stop() throws {
+    func resume() throws {
+        switch state {
+        case .initial:
+            throw ErrorString("Can not start() RedirectingPipe: hook was not installed")
+        case .suspended(let pipe):
+            pipe.resume()
+            state = .resumed(pipe)
+        case .resumed:
+            throw ErrorString("Can not start() RedirectingPipe: already started")
+        }
+    }
+    
+    func suspend() throws {
         switch state {
         case .initial:
             throw ErrorString("Can not stop() RedirectingPipe: never started")
-        case .stopped:
+        case .suspended:
             throw ErrorString("Can not stop() RedirectingPipe: already stopped")
-        case .started(let pipe):
-            try pipe.stop()
-            self.state = .stopped(pipe)
+        case .resumed(let pipe):
+            pipe.suspend()
+            self.state = .suspended(pipe)
         }
+    }
+    
+    func uninstallHook() throws {
+        try state.pipe?.uninstallHook()
+        state = .initial
     }
 }

@@ -11,7 +11,7 @@ final class PhotoStubberTests: TestCase {
     )
     
     // TODO: Fix running on CI
-    func disable_test() {
+    func disabled_test() {
         setUpPhotosPermissions()
         
         removeAllImagesFromSimulator()
