@@ -4,45 +4,24 @@ import MixboxIpc
 import MixboxBuiltinIpc
 
 final class BuiltinIpcStarter: IpcStarter {
-    private let testRunnerHost: String
-    private let testRunnerPort: UInt
+    private let knownPortHandshakeSender: KnownPortHandshakeSender
     
     init(
         testRunnerHost: String,
         testRunnerPort: UInt)
     {
-        self.testRunnerHost = testRunnerHost
-        self.testRunnerPort = testRunnerPort
+        self.knownPortHandshakeSender = KnownPortHandshakeSender(
+            handshakeWaiterHost: testRunnerHost,
+            handshakeWaiterPort: testRunnerPort
+        )
     }
     
     func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> (IpcRouter, IpcClient?) {
-        let ipcCallbackStorage = IpcCallbackStorageImpl()
-        let ipcClientHolder = IpcClientHolderImpl()
-        let decoderFactory = DecoderFactoryImpl(ipcClientHolder: ipcClientHolder)
-        let encoderFactory = EncoderFactoryImpl(ipcCallbackStorage: ipcCallbackStorage)
-        encoderFactory.decoderFactory = decoderFactory
-        decoderFactory.encoderFactory = encoderFactory
-        
-        let client = BuiltinIpcClient(
-            host: testRunnerHost,
-            port: testRunnerPort,
-            encoderFactory: encoderFactory,
-            decoderFactory: decoderFactory
+        return knownPortHandshakeSender.start(
+            beforeHandshake: { router in
+                commandsForAddingRoutes.forEach { $0(router) }
+            }
         )
-        ipcClientHolder.ipcClient = client
-        
-        let callIpcCallbackIpcMethodHandler = CallIpcCallbackIpcMethodHandler(ipcCallbackStorage: ipcCallbackStorage)
-        
-        let server = BuiltinIpcServer(
-            encoderFactory: encoderFactory,
-            decoderFactory: decoderFactory
-        )
-        server.register(methodHandler: callIpcCallbackIpcMethodHandler)
-        if let localPort = server.start() {
-            commandsForAddingRoutes.forEach { $0(server) }
-            client.handshake(localPort: localPort)
-        }
-        return (server, client)
     }
     
     func handleUiBecomeVisible() {

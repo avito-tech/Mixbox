@@ -1,0 +1,645 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0BB59518F672D3E6297E43E4 /* Pods_MixboxHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06ABFAD53E5A346207FC3BD /* Pods_MixboxHelper.framework */; };
+		F8E6CCBD2191A78500D7A0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CCBC2191A78500D7A0C1 /* AppDelegate.swift */; };
+		F8E6CCBF2191A78500D7A0C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CCBE2191A78500D7A0C1 /* ViewController.swift */; };
+		F8E6CCC12191A78700D7A0C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E6CCC02191A78700D7A0C1 /* Assets.xcassets */; };
+		F8E6CCC42191A78700D7A0C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8E6CCC22191A78700D7A0C1 /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F8E6CCCC2191A78700D7A0C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E6CCB12191A78500D7A0C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E6CCB82191A78500D7A0C1;
+			remoteInfo = MixboxHelper;
+		};
+		F8E6CCD72191A78700D7A0C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E6CCB12191A78500D7A0C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E6CCB82191A78500D7A0C1;
+			remoteInfo = MixboxHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		23BC4A854FC47509BF18585F /* Pods-MixboxHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MixboxHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-MixboxHelper/Pods-MixboxHelper.release.xcconfig"; sourceTree = "<group>"; };
+		6D6D33C6EC220CEA7876C222 /* Pods-MixboxHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MixboxHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MixboxHelper/Pods-MixboxHelper.debug.xcconfig"; sourceTree = "<group>"; };
+		B06ABFAD53E5A346207FC3BD /* Pods_MixboxHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MixboxHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E6CCB92191A78500D7A0C1 /* MixboxHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixboxHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E6CCBC2191A78500D7A0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F8E6CCBE2191A78500D7A0C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F8E6CCC02191A78700D7A0C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F8E6CCC32191A78700D7A0C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F8E6CCC52191A78700D7A0C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E6CCC62191A78700D7A0C1 /* MixboxHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MixboxHelper.entitlements; sourceTree = "<group>"; };
+		F8E6CCCB2191A78700D7A0C1 /* MixboxHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MixboxHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E6CCD12191A78700D7A0C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E6CCD62191A78700D7A0C1 /* MixboxHelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MixboxHelperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E6CCDC2191A78700D7A0C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F8E6CCB62191A78500D7A0C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BB59518F672D3E6297E43E4 /* Pods_MixboxHelper.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E6CCC82191A78700D7A0C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E6CCD32191A78700D7A0C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		45D13F509C7EDE2BFAD7EE5D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6D6D33C6EC220CEA7876C222 /* Pods-MixboxHelper.debug.xcconfig */,
+				23BC4A854FC47509BF18585F /* Pods-MixboxHelper.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4C9C00E4E80F8301208127DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B06ABFAD53E5A346207FC3BD /* Pods_MixboxHelper.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8E6CCB02191A78500D7A0C1 = {
+			isa = PBXGroup;
+			children = (
+				F8E6CCBB2191A78500D7A0C1 /* MixboxHelper */,
+				F8E6CCCE2191A78700D7A0C1 /* MixboxHelperTests */,
+				F8E6CCD92191A78700D7A0C1 /* MixboxHelperUITests */,
+				F8E6CCBA2191A78500D7A0C1 /* Products */,
+				45D13F509C7EDE2BFAD7EE5D /* Pods */,
+				4C9C00E4E80F8301208127DB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F8E6CCBA2191A78500D7A0C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6CCB92191A78500D7A0C1 /* MixboxHelper.app */,
+				F8E6CCCB2191A78700D7A0C1 /* MixboxHelperTests.xctest */,
+				F8E6CCD62191A78700D7A0C1 /* MixboxHelperUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8E6CCBB2191A78500D7A0C1 /* MixboxHelper */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6CCBC2191A78500D7A0C1 /* AppDelegate.swift */,
+				F8E6CCBE2191A78500D7A0C1 /* ViewController.swift */,
+				F8E6CCC02191A78700D7A0C1 /* Assets.xcassets */,
+				F8E6CCC22191A78700D7A0C1 /* Main.storyboard */,
+				F8E6CCC52191A78700D7A0C1 /* Info.plist */,
+				F8E6CCC62191A78700D7A0C1 /* MixboxHelper.entitlements */,
+			);
+			path = MixboxHelper;
+			sourceTree = "<group>";
+		};
+		F8E6CCCE2191A78700D7A0C1 /* MixboxHelperTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6CCD12191A78700D7A0C1 /* Info.plist */,
+			);
+			path = MixboxHelperTests;
+			sourceTree = "<group>";
+		};
+		F8E6CCD92191A78700D7A0C1 /* MixboxHelperUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6CCDC2191A78700D7A0C1 /* Info.plist */,
+			);
+			path = MixboxHelperUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F8E6CCB82191A78500D7A0C1 /* MixboxHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E6CCDF2191A78700D7A0C1 /* Build configuration list for PBXNativeTarget "MixboxHelper" */;
+			buildPhases = (
+				4E6B0F27AD75AB25C2894854 /* [CP] Check Pods Manifest.lock */,
+				F8E6CCB52191A78500D7A0C1 /* Sources */,
+				F8E6CCB62191A78500D7A0C1 /* Frameworks */,
+				F8E6CCB72191A78500D7A0C1 /* Resources */,
+				C5091A3AFCA811D9BCE847CA /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MixboxHelper;
+			productName = MixboxHelper;
+			productReference = F8E6CCB92191A78500D7A0C1 /* MixboxHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F8E6CCCA2191A78700D7A0C1 /* MixboxHelperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E6CCE22191A78700D7A0C1 /* Build configuration list for PBXNativeTarget "MixboxHelperTests" */;
+			buildPhases = (
+				F8E6CCC72191A78700D7A0C1 /* Sources */,
+				F8E6CCC82191A78700D7A0C1 /* Frameworks */,
+				F8E6CCC92191A78700D7A0C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E6CCCD2191A78700D7A0C1 /* PBXTargetDependency */,
+			);
+			name = MixboxHelperTests;
+			productName = MixboxHelperTests;
+			productReference = F8E6CCCB2191A78700D7A0C1 /* MixboxHelperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F8E6CCD52191A78700D7A0C1 /* MixboxHelperUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E6CCE52191A78700D7A0C1 /* Build configuration list for PBXNativeTarget "MixboxHelperUITests" */;
+			buildPhases = (
+				F8E6CCD22191A78700D7A0C1 /* Sources */,
+				F8E6CCD32191A78700D7A0C1 /* Frameworks */,
+				F8E6CCD42191A78700D7A0C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E6CCD82191A78700D7A0C1 /* PBXTargetDependency */,
+			);
+			name = MixboxHelperUITests;
+			productName = MixboxHelperUITests;
+			productReference = F8E6CCD62191A78700D7A0C1 /* MixboxHelperUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F8E6CCB12191A78500D7A0C1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = Avito;
+				TargetAttributes = {
+					F8E6CCB82191A78500D7A0C1 = {
+						CreatedOnToolsVersion = 9.4;
+					};
+					F8E6CCCA2191A78700D7A0C1 = {
+						CreatedOnToolsVersion = 9.4;
+						TestTargetID = F8E6CCB82191A78500D7A0C1;
+					};
+					F8E6CCD52191A78700D7A0C1 = {
+						CreatedOnToolsVersion = 9.4;
+						TestTargetID = F8E6CCB82191A78500D7A0C1;
+					};
+				};
+			};
+			buildConfigurationList = F8E6CCB42191A78500D7A0C1 /* Build configuration list for PBXProject "MixboxHelper" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F8E6CCB02191A78500D7A0C1;
+			productRefGroup = F8E6CCBA2191A78500D7A0C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F8E6CCB82191A78500D7A0C1 /* MixboxHelper */,
+				F8E6CCCA2191A78700D7A0C1 /* MixboxHelperTests */,
+				F8E6CCD52191A78700D7A0C1 /* MixboxHelperUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F8E6CCB72191A78500D7A0C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E6CCC12191A78700D7A0C1 /* Assets.xcassets in Resources */,
+				F8E6CCC42191A78700D7A0C1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E6CCC92191A78700D7A0C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E6CCD42191A78700D7A0C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4E6B0F27AD75AB25C2894854 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MixboxHelper-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5091A3AFCA811D9BCE847CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MixboxHelper/Pods-MixboxHelper-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MixboxHelper/Pods-MixboxHelper-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F8E6CCB52191A78500D7A0C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E6CCBF2191A78500D7A0C1 /* ViewController.swift in Sources */,
+				F8E6CCBD2191A78500D7A0C1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E6CCC72191A78700D7A0C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E6CCD22191A78700D7A0C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F8E6CCCD2191A78700D7A0C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E6CCB82191A78500D7A0C1 /* MixboxHelper */;
+			targetProxy = F8E6CCCC2191A78700D7A0C1 /* PBXContainerItemProxy */;
+		};
+		F8E6CCD82191A78700D7A0C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E6CCB82191A78500D7A0C1 /* MixboxHelper */;
+			targetProxy = F8E6CCD72191A78700D7A0C1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F8E6CCC22191A78700D7A0C1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8E6CCC32191A78700D7A0C1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F8E6CCDD2191A78700D7A0C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F8E6CCDE2191A78700D7A0C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		F8E6CCE02191A78700D7A0C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D6D33C6EC220CEA7876C222 /* Pods-MixboxHelper.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MixboxHelper/MixboxHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P85XYZ9GHJ;
+				INFOPLIST_FILE = MixboxHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.avito.MixboxHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		F8E6CCE12191A78700D7A0C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23BC4A854FC47509BF18585F /* Pods-MixboxHelper.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MixboxHelper/MixboxHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P85XYZ9GHJ;
+				INFOPLIST_FILE = MixboxHelper/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.avito.MixboxHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		F8E6CCE32191A78700D7A0C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P85XYZ9GHJ;
+				INFOPLIST_FILE = MixboxHelperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.avito.MixboxHelperTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MixboxHelper.app/Contents/MacOS/MixboxHelper";
+			};
+			name = Debug;
+		};
+		F8E6CCE42191A78700D7A0C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P85XYZ9GHJ;
+				INFOPLIST_FILE = MixboxHelperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.avito.MixboxHelperTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MixboxHelper.app/Contents/MacOS/MixboxHelper";
+			};
+			name = Release;
+		};
+		F8E6CCE62191A78700D7A0C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P85XYZ9GHJ;
+				INFOPLIST_FILE = MixboxHelperUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.avito.MixboxHelperUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = MixboxHelper;
+			};
+			name = Debug;
+		};
+		F8E6CCE72191A78700D7A0C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = P85XYZ9GHJ;
+				INFOPLIST_FILE = MixboxHelperUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.avito.MixboxHelperUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = MixboxHelper;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F8E6CCB42191A78500D7A0C1 /* Build configuration list for PBXProject "MixboxHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E6CCDD2191A78700D7A0C1 /* Debug */,
+				F8E6CCDE2191A78700D7A0C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E6CCDF2191A78700D7A0C1 /* Build configuration list for PBXNativeTarget "MixboxHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E6CCE02191A78700D7A0C1 /* Debug */,
+				F8E6CCE12191A78700D7A0C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E6CCE22191A78700D7A0C1 /* Build configuration list for PBXNativeTarget "MixboxHelperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E6CCE32191A78700D7A0C1 /* Debug */,
+				F8E6CCE42191A78700D7A0C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E6CCE52191A78700D7A0C1 /* Build configuration list for PBXNativeTarget "MixboxHelperUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E6CCE62191A78700D7A0C1 /* Debug */,
+				F8E6CCE72191A78700D7A0C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F8E6CCB12191A78500D7A0C1 /* Project object */;
+}

@@ -4,17 +4,20 @@ import GCDWebServer
 public final class BuiltinIpcServer: IpcRouter {
     typealias Handler = (_ data: Data, _ completion: @escaping (GCDWebServerResponse) -> ()) -> ()
     
+    private let bonjourServiceSettings: BonjourServiceSettings?
     private let server = GCDWebServer()
     private var handlers = [String: Handler]()
     private let encoderFactory: EncoderFactory
     private let decoderFactory: DecoderFactory
 
     public init(
+        bonjourServiceSettings: BonjourServiceSettings? = nil,
         encoderFactory: EncoderFactory,
         decoderFactory: DecoderFactory)
     {
         self.encoderFactory = encoderFactory
         self.decoderFactory = decoderFactory
+        self.bonjourServiceSettings = bonjourServiceSettings
         
         let kGCDWebServerLoggingLevel_Warning: Int32 = 3 // it is private in GCDWebServer module
         GCDWebServer.setLogLevel(kGCDWebServerLoggingLevel_Warning)
@@ -33,23 +36,28 @@ public final class BuiltinIpcServer: IpcRouter {
     
     public func start() -> UInt? {
         do {
-            let options: [AnyHashable: Any]
-            
-            #if os(iOS)
-            options = [
-                GCDWebServerOption_AutomaticallySuspendInBackground: false,
-            ]
-            #else
-            options = [:]
-            #endif
-            
             try server.start(
-                options: options
+                options: gcdWebServerOptions()
             )
             return server.port
         } catch {
             return nil
         }
+    }
+    
+    private func gcdWebServerOptions() -> [AnyHashable: Any] {
+        var options = [AnyHashable: Any]()
+        
+        #if os(iOS)
+        options[GCDWebServerOption_AutomaticallySuspendInBackground] = false
+        #endif
+        
+        if let bonjourServiceSettings = bonjourServiceSettings {
+            options[GCDWebServerOption_BonjourName] = bonjourServiceSettings.name
+            options[GCDWebServerOption_BonjourType] = "_http._tcp."
+        }
+        
+        return options
     }
     
     public func register<MethodHandler: IpcMethodHandler>(methodHandler: MethodHandler) {

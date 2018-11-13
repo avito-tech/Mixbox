@@ -83,7 +83,7 @@ class TestCase: XCTestCase, FailureGatherer {
         }
         
         // Initialize client/server pairs
-        let handshaker = Handshaker()
+        let handshaker = KnownPortHandshakeWaiter()
         guard let port = handshaker.start() else {
             preconditionFailure("Не удалось стартовать сервер.")
         }

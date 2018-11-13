@@ -35,7 +35,13 @@ final class TestCaseUtils {
     private let stepLogger: StepLogger
     private let applicationPermissionsSetterFactory: ApplicationPermissionsSetterFactory
     
+    private let mixboxHelperClient = MixboxHelperClient()
+    
     init() {
+        // TODO: Implement Mixbox Helper
+        // mixboxHelperClient.start()
+        // CFRunLoopRun()
+        
         let lazilyInitializedIpcClient = LazilyInitializedIpcClient()
         self.lazilyInitializedIpcClient = lazilyInitializedIpcClient
         

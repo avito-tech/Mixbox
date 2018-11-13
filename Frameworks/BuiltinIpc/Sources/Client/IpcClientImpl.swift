@@ -19,16 +19,6 @@ public final class BuiltinIpcClient: IpcClient {
         self.decoderFactory = decoderFactory
     }
     
-    public func handshake(localPort: UInt) {
-        call(
-            method: HandshakeIpcMethod(),
-            arguments: localPort,
-            completion: { _ in
-                // no handling yet
-            }
-        )
-    }
-    
     public func call<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,
