@@ -61,10 +61,19 @@ final class ActionsTestsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        let insets: UIEdgeInsets
+        if #available(iOS 11.0, *) {
+            insets = safeAreaInsets
+        } else {
+            insets = .zero
+        }
+        
+        scrollView.contentInset = insets
+        
         infoLabel.layout(
             left: bounds.mb_left,
             right: bounds.mb_right,
-            top: bounds.mb_top,
+            top: bounds.mb_top + insets.bottom,
             height: 50
         )
         scrollView.layout(
