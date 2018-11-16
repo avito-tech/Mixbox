@@ -131,10 +131,10 @@ SPEC CHECKSUMS:
   MixboxIpcSbtuiHost: 301c260ab02834408eede925d944f7b932a5ddd9
   MixboxReporting: 5e5d4e92e28e4fd97670e38c65c6d20b38939da4
   MixboxTestability: e69bc2fa54c6f3a990a1a4461fe92e18ed78962e
-  MixboxTestsFoundation: 242fa23343d2b2235666222dcddc6e4b2317edec
+  MixboxTestsFoundation: 19abbbc5f26de4ee29f839af962a6522bb7d9031
   MixboxUiKit: 9d0aa60d4622485145a96d04a63b48ec647eeffd
   MixboxUiTestsFoundation: 32ed1b0413d672665c3395c1108f45412d1bfb9d
-  MixboxXcuiDriver: 12563f3005071dd84b0f41a0e0fdf0957788c038
+  MixboxXcuiDriver: a00e746508ca97dbd997edcbd601a736683501af
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e

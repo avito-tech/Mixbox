@@ -1,0 +1,16 @@
+[
+    {
+		"testDestination": {
+			"deviceType": "iPhone XR",
+			"iOSVersion": "12.0",
+			"iOSVersionShort": "12.0",
+			"iOSVersionLong": "12.0",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-XR",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-12-0"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/iphone_xr_ios_120.xml",
+			"tracingReport": "tests-artifacts/iphone_xr_ios_120.trace"
+		}
+	}
+]

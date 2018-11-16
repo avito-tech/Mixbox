@@ -4,16 +4,13 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 [![Build Status](https://travis-ci.org/avito-tech/Mixbox.svg?branch=master)](https://travis-ci.org/avito-tech/Mixbox)
 
-Code for E2E/Functional/UI/Blackbox testing. It is called Mixbox, because we want to share code across tests of every type (blackbox/greybox/whitebox).
+Powerful E2E UI testing framework for iOS.
 
-## For English Speakers
+Currently it is used in Avito, where we have 900+ UI tests, 95% of them are green, 10% of them are run on PR and we are working towards executing 100% of tests on pull request. We are running those tests on 3 platforms and it takes 1 hour (total duration of tests is 40+ hours), because we are using [Emcee](https://github.com/avito-tech/Emcee), a test runner that runs tests on multiple machines.
 
-English is coming soon.
+If you are enthusiastic about using it in your company, file us an issue. We are making it to be usable by community, however, it is not our main focus now.
 
-## Для русскоязычных пользователей
+## Other docs
 
-Репозиторий только что выкорчеван из Авито. Есть проект `Demo`, можно посмотреть как коннектить инструмент в приложение. Часть кода не вынесена, так как я еще не придумал как зашарить, например, сервисное приложение для настроек доступа, оно у нас просто как target dependency в основном проекте. Пока еще не вынесена очистка стейта, не особо все хорошо с конфигурацией зависимостей (скорее всего будет Dip и возможности по настройке. Интерфейсы будут меняться (я надеюсь), например, ассерты может быть вынесен из PageObjectElement наружу.
-
-Планы по развитию: в зависимости от реакции сообщества медленно подпиливаем опенсурсную версию инструмента. Фокусируемся конкретно на своих тестах, достигаем максимального качества тестов. Избавляемся от техдолга.
-
-[Почему так много фреймворков](Docs/Frameworks.md)
+- [Why so many frameworks?](Docs/Frameworks.md)
+- [How-To Private API](Docs/PrivateApi.md)

@@ -33,7 +33,7 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
             }
         }
         
-        if let record = (XCTestCase()._symbolicationRecordForTestCode(inAddressStack: NSArray(array: [NSNumber(value: stackTraceEntry.address)])) as? XCSymbolicationRecord) ?? XCSymbolicationRecord(forAddress: stackTraceEntry.address) {
+        if let record = (XCTestCase()._symbolicationRecordForTestCode(inAddressStack: NSArray(array: [NSNumber(value: stackTraceEntry.address)])) as? XCSymbolicationRecord) ?? (XCSymbolicationRecord.symbolicationRecord(forAddress: stackTraceEntry.address) as? XCSymbolicationRecord) {
             file = record.filePath == "<unknown>" ? file : record.filePath
             line = record.lineNumber == 0 ? line : record.lineNumber
             owner = record.symbolOwner == "<unknown>" ? owner : record.symbolOwner

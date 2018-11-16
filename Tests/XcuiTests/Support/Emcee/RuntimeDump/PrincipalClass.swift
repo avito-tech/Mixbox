@@ -10,7 +10,7 @@ final class PrincipalClass: NSObject {
 
     func main() {
         // TODO: Get rid of usage of ProcessInfo singleton here
-        let exportPath = ProcessInfo.processInfo.environment["AVITO_TEST_RUNNER_RUNTIME_TESTS_EXPORT_PATH"]
+        let exportPath: String? = ProcessInfo.processInfo.environment["AVITO_TEST_RUNNER_RUNTIME_TESTS_EXPORT_PATH"]
 
         if let exportPath = exportPath, !exportPath.isEmpty {
             TestQuery(outputPath: exportPath).export()

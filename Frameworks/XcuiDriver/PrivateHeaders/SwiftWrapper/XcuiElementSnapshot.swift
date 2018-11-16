@@ -14,7 +14,7 @@ final class XcuiElementSnapshot: ElementSnapshot {
     }
     
     var isEnabled: Bool {
-        return xcElementSnapshot.isEnabled
+        return xcElementSnapshot.enabled
     }
     
     var visibleText: OptionalAvailability<String?> {
@@ -74,7 +74,7 @@ final class XcuiElementSnapshot: ElementSnapshot {
     }
     
     var accessibilityIdentifier: String {
-        return xcElementSnapshot.identifier
+        return xcElementSnapshot.identifier ?? ""
     }
     
     var frameOnScreen: CGRect {

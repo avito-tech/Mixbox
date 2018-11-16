@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target  = "9.0"
   s.swift_version = '4.0'
   s.requires_arc           = true
-  s.source_files           = 'Frameworks/TestsFoundation/**/*.{swift,h,m}'
+  s.source_files           = 'Frameworks/TestsFoundation/**/*.{swift,h,m,md,sh}'
   s.framework              = 'CoreLocation'
   
   s.dependency 'MixboxArtifacts'
@@ -19,6 +19,8 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxReporting'
   s.dependency 'SQLite.swift'
   
-  s.framework = "XCTest"
-  s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }
+  s.frameworks = 'XCTest', 'XCTAutomationSupport'
+  s.xcconfig = {
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
+  }
 end

@@ -14,7 +14,7 @@ final class EventGenerator {
                 forDuration: 0,
                 liftAt: to,
                 velocity: 1000,
-                orientation: UIInterfaceOrientation.portrait, // TODO: How to use it? TODO: Test rotation.
+                orientation: Int64(UIInterfaceOrientation.portrait.rawValue), // TODO: How to use it? TODO: Test rotation.
                 name: "swipe",
                 handler: { (_ record: XCSynthesizedEventRecord?, _ error: Error?) in
                     completion(record, error)

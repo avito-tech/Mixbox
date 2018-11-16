@@ -5,21 +5,20 @@ workspace 'Tests.xcworkspace'
 
 platform :ios, :deployment_target => '9.0'
 
-inhibit_all_warnings!
 use_frameworks!
 
 def ui_tests_pods
-  pod 'MixboxTestsFoundation', :path => '..', :inhibit_warnings => false
-  pod 'MixboxUiTestsFoundation', :path => '..', :inhibit_warnings => false
-  pod 'MixboxArtifacts', :path => '..', :inhibit_warnings => false
-  pod 'SwiftyJSON', '3.1.4'
+  pod 'MixboxTestsFoundation', :path => '..'
+  pod 'MixboxUiTestsFoundation', :path => '..'
+  pod 'MixboxArtifacts', :path => '..'
+  pod 'SwiftyJSON', '3.1.4', :inhibit_warnings => true
 end
 
 def application_testability_and_blackbox_testing_common_pods
-  pod 'MixboxIpc', :path => '..', :inhibit_warnings => false
-  pod 'MixboxIpcCommon', :path => '..', :inhibit_warnings => false
-  pod 'MixboxUiKit', :path => '..', :inhibit_warnings => false
-  pod 'MixboxBuiltinIpc', :path => '..', :inhibit_warnings => false
+  pod 'MixboxIpc', :path => '..'
+  pod 'MixboxIpcCommon', :path => '..'
+  pod 'MixboxUiKit', :path => '..'
+  pod 'MixboxBuiltinIpc', :path => '..'
 end
 
 def application_testability_pods
@@ -27,23 +26,23 @@ def application_testability_pods
   
   # pod 'GCDWebServer'
   # pod 'SBTUITestTunnel/Server'
-  pod 'MixboxTestability', :path => '..', :inhibit_warnings => false
-  pod 'MixboxIpcSbtuiHost', :path => '..', :inhibit_warnings => false
-  pod 'MixboxInAppServices', :path => '..', :inhibit_warnings => false
+  pod 'MixboxTestability', :path => '..'
+  pod 'MixboxIpcSbtuiHost', :path => '..'
+  pod 'MixboxInAppServices', :path => '..'
 end
 
 def blackbox_tests_pods
   ui_tests_pods
   application_testability_and_blackbox_testing_common_pods
 
-  pod 'CocoaImageHashing', '1.6.1'
-  pod 'SBTUITestTunnel/Client'
-  pod 'MixboxIpcSbtuiClient', :path => '..', :inhibit_warnings => false
-  pod 'MixboxIpcClients', :path => '..', :inhibit_warnings => false
-  pod 'MixboxReporting', :path => '..', :inhibit_warnings => false
-  pod 'MixboxFoundation', :path => '..', :inhibit_warnings => false
-  pod 'MixboxXcuiDriver', :path => '..', :inhibit_warnings => false
-  pod 'SimulatorRemoteNotifications', '~> 0.0.3'
+  pod 'CocoaImageHashing', '1.6.1', :inhibit_warnings => true
+  pod 'SBTUITestTunnel/Client', :inhibit_warnings => true
+  pod 'MixboxIpcSbtuiClient', :path => '..'
+  pod 'MixboxIpcClients', :path => '..'
+  pod 'MixboxReporting', :path => '..'
+  pod 'MixboxFoundation', :path => '..'
+  pod 'MixboxXcuiDriver', :path => '..'
+  pod 'SimulatorRemoteNotifications', '~> 0.0.3', :inhibit_warnings => true
 end
 
 ### TARGETS

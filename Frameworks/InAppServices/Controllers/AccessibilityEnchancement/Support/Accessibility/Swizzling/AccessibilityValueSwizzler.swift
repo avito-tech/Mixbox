@@ -9,10 +9,10 @@ final class AccessibilityValueSwizzler {
         switch os {
         case 9, 10:
             swizzleForIos9or10()
-        case 11:
-            swizzleForIos11()
+        case 11, 12:
+            swizzleForIos11or12()
         default:
-            assertionFailure("Неизвестная iOS \(os), убедитесь, что accessibilityValue корректно свизлится")
+            assertionFailure("Unknown iOS \(os), make sure that accessibilityValue is swizzled correctly")
         }
     }
     
@@ -52,7 +52,7 @@ final class AccessibilityValueSwizzler {
         }
     }
     
-    private static func swizzleForIos11() {
+    private static func swizzleForIos11or12() {
         // Unlike iOS 9 or 10, there's a way to swizzle only few methods.
         // Pros: much much faster
         // Cons: We are not sure that it is enough. However, it worked for 6+ month without any problem.
