@@ -44,8 +44,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
             let resolvedElementQuery: ResolvedElementQuery
             
             if let viewHierarchy = result.data {
-                // We don't actually need start/stop/reset. TODO!
-                elementQueryResolvingState.reset()
+                // We don't actually need start/stop. TODO!
                 elementQueryResolvingState.start()
                 
                 for element in viewHierarchy.rootElements {

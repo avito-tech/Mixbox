@@ -15,6 +15,7 @@ private extension UIView {
 //     Application remains still for \(applicationIdlingDuration) seconds
 //     Animation is happening for \(animationDuration) seconds
 //     Then one become hidden in some way
+//
 final class ChangingHierarchyTestsView: UIView {
     private var buttons = [ButtonWithClosures]()
     

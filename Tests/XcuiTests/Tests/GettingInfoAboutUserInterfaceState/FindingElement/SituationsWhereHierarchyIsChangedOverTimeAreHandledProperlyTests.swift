@@ -3,6 +3,12 @@ import XCTest
 
 // Test verifies that testing framework is tolerant to changes of hierarchy within
 // some time interval. For example, if it doesn't see the view it waits.
+//
+// We experienced bugs with some iOS version (9, 10 or 11) and just recently on iOS 12.
+// When XCUIElement (was XCUIApplication) was instantiated and stored into a variable
+// and then we used it to find elements with predicate it was iterating some element snapshots,
+// then UI was changed, but element snapshot were not. The solution was in instantiating XCUIApplication
+// for every query.
 final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: TestCase {
     override func precondition() {
         openScreen(name: "ChangingHierarchyTestsView")

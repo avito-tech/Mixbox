@@ -7,33 +7,17 @@ import MixboxReporting
 public final class XcuiElementFinder: ElementFinder {
     private let stepLogger: StepLogger
     private let snapshotCaches: SnapshotCaches
-    private let rootElement: XCUIElement
     // See ChangingHierarchyTests if you want to know why it is needed.
-    private let rootElementCachesDroppingFunction: () -> ()
+    private let rootElementGetterThatDropsCaches: () -> (XCUIElement)
     
     public init(
         stepLogger: StepLogger,
         snapshotCaches: SnapshotCaches,
-        rootElement: XCUIElement,
-        rootElementCachesDroppingFunction: @escaping () -> ())
+        rootElementGetterThatDropsCaches: @escaping () -> (XCUIElement))
     {
         self.stepLogger = stepLogger
         self.snapshotCaches = snapshotCaches
-        self.rootElement = rootElement
-        self.rootElementCachesDroppingFunction = rootElementCachesDroppingFunction
-    }
-    
-    public convenience init(
-        stepLogger: StepLogger,
-        snapshotCaches: SnapshotCaches,
-        rootElementGetterThatDropsCaches: @escaping () -> (XCUIElement))
-    {
-        self.init(
-            stepLogger: stepLogger,
-            snapshotCaches: snapshotCaches,
-            rootElement: rootElementGetterThatDropsCaches(),
-            rootElementCachesDroppingFunction: { _ = rootElementGetterThatDropsCaches() }
-        )
+        self.rootElementGetterThatDropsCaches = rootElementGetterThatDropsCaches
     }
     
     public func query(
@@ -43,8 +27,7 @@ public final class XcuiElementFinder: ElementFinder {
     {
         let elementQueryResolvingState = ElementQueryResolvingState()
         
-        rootElementCachesDroppingFunction()
-        let xcuiElementQuery = rootElement.descendants(matching: .any).matching(
+        let xcuiElementQuery = rootElementGetterThatDropsCaches().descendants(matching: .any).matching(
             NSPredicate(
                 block: { snapshot, _ -> Bool in
                     if let snapshot = snapshot as? XCElementSnapshot {

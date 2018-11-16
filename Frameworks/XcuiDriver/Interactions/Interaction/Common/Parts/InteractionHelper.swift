@@ -72,9 +72,21 @@ final class InteractionHelper {
     func resolveElementWithRetries() -> ResolvedElementQuery {
         var resolvedElementQuery = resolveElement()
         
-        resolvedElementQuery = reresolveElementWithRetriesIfNeeded(
-            resolvedElementQuery: resolvedElementQuery
-        )
+        if UIDevice.current.mb_iosVersion.majorVersion >= 12 {
+            // XCUIElement somehow stores and do not drop caches,
+            // and somehow they are dropped when interaction is failed (maybe this is because of
+            // working with XCUIActivity).
+            // We can safely skip reresolving, because interaction will be retried.
+            //
+            // However, for iOS 11 and lower we would try to reresolve element. It is slightly faster than
+            // retrying interaction from scratch. See below.
+            //
+            // TODO: Find a way to drop caches on iOS 12.
+        } else {
+            resolvedElementQuery = reresolveElementWithRetriesIfNeeded(
+                resolvedElementQuery: resolvedElementQuery
+            )
+        }
         resolvedElementQuery = reresolveElementWithScrollingIfNeeded(
             resolvedElementQuery: resolvedElementQuery
         )

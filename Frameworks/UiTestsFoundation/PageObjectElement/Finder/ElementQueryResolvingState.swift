@@ -30,18 +30,13 @@ public final class ElementQueryResolvingState {
     }
     
     public func start() {
-        reset()
+        assert(state == .undefined, "ElementQueryResolvingState (\(self)) was used twice, it should not be reused")
+        
         state = .resolving
     }
     
     public func stop() {
         state = .resolved
-    }
-    
-    public func reset() {
-        state = .undefined
-        matchingResults.removeAll()
-        elementSnapshots.removeAll()
     }
     
     public func append(matchingResult: MatchingResult, elementSnapshot: ElementSnapshot) {
