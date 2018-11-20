@@ -10,7 +10,5 @@ destinationFile() {
 }
 
 xcodeDestination() {
-    local name=`destination | jq -r .[0].testDestination.deviceType`
-    local os=`destination | jq -r .[0].testDestination.iOSVersionLong`
-    echo "platform=iOS Simulator,name=$name,OS=$os"
+    echo "id=$(destinationDeviceUdid)"
 }
