@@ -5,13 +5,15 @@ struct ViewAndLabel {
     let label: UILabel
 }
 
-class TestStackScrollView: UIScrollView {
+class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
     private var views = [ViewAndLabel]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .white
+        
+        panGestureRecognizer.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -117,5 +119,9 @@ class TestStackScrollView: UIScrollView {
                 height: labelHeight
             )
         }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

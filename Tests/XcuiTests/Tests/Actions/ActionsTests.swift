@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import XCTest
 
 final class ActionsTests: TestCase {
     private var screen: ActionsTestsScreen {
@@ -62,14 +63,6 @@ final class ActionsTests: TestCase {
     }
     
     func test_swipes() {
-        // Kludge! TODO: Enable this test
-        let notIos11 = UIDevice.current.mb_iosVersion.majorVersion < 11
-        let isRunningUsingEmcee = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
-        if notIos11 && isRunningUsingEmcee {
-            return
-        }
-        // End of kludge
-        
         for _ in 0..<numberOfSubsequentActions {
             screen.label("swipeUp").swipeUp()
             screen.info.withoutTimeout.assert.hasText("swipeUp")
