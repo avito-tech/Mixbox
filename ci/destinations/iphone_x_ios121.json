@@ -1,0 +1,16 @@
+[
+    {
+		"testDestination": {
+			"deviceType": "iPhone X",
+			"iOSVersion": "12.1",
+			"iOSVersionShort": "12.1",
+			"iOSVersionLong": "12.1",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-X",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-12-1"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/iphone_x_ios_121.xml",
+			"tracingReport": "tests-artifacts/iphone_x_ios_121.trace"
+		}
+	}
+]
