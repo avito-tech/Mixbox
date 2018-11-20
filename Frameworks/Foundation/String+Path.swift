@@ -10,4 +10,8 @@ extension String {
     public var mb_lastPathComponent: String {
         return (self as NSString).lastPathComponent
     }
+    
+    public var mb_resolvingSymlinksInPath: String {
+        return (self as NSString).resolvingSymlinksInPath
+    }
 }

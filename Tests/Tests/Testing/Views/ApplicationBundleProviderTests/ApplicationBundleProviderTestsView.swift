@@ -1,11 +1,12 @@
 import UIKit
+import MixboxFoundation
 
 final class ApplicationBundleProviderTestsView: TestStackScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addLabel(id: "bundlePath") {
-            $0.text = Bundle.main.bundlePath
+            $0.text = Bundle.main.bundlePath.mb_resolvingSymlinksInPath
         }
     }
     

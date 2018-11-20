@@ -20,7 +20,9 @@ final class ApplicationBundleProviderTests: TestCase {
         XCTAssertEqual(builtApplicationBundle.bundleIdentifier, "mixbox.XcuiTests.app")
         
         // Test path of installed bundle
-        pageObjects.screen.bundlePath.withoutTimeout.assert.hasText(installedApplicationBundle.bundlePath)
+        pageObjects.screen.bundlePath.withoutTimeout.assert.hasText(
+            installedApplicationBundle.bundlePath.mb_resolvingSymlinksInPath
+        )
         
         // Test path of built bundle (kind of)
         XCTAssertNotEqual(builtApplicationBundle.bundlePath, installedApplicationBundle.bundlePath)
