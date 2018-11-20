@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxFoundation
 import XCTest
 
 // TODO: We must split this in parts.
@@ -72,21 +73,24 @@ final class InteractionHelper {
     func resolveElementWithRetries() -> ResolvedElementQuery {
         var resolvedElementQuery = resolveElement()
         
-        if UIDevice.current.mb_iosVersion.majorVersion >= 12 {
+        switch XcodeVersion.xcodeVersion {
+        case .v10orHigher:
             // XCUIElement somehow stores and do not drop caches,
             // and somehow they are dropped when interaction is failed (maybe this is because of
             // working with XCUIActivity).
             // We can safely skip reresolving, because interaction will be retried.
             //
-            // However, for iOS 11 and lower we would try to reresolve element. It is slightly faster than
-            // retrying interaction from scratch. See below.
+            // However, for Xcode 9 we would try to reresolve element.
+            // It is slightly faster than retrying interaction from scratch. See below.
             //
-            // TODO: Find a way to drop caches on iOS 12.
-        } else {
+            // TODO: Find a way to drop caches for XCTest from Xcode 10
+            break
+        case .v9orLower:
             resolvedElementQuery = reresolveElementWithRetriesIfNeeded(
                 resolvedElementQuery: resolvedElementQuery
             )
         }
+        
         resolvedElementQuery = reresolveElementWithScrollingIfNeeded(
             resolvedElementQuery: resolvedElementQuery
         )
