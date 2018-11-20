@@ -4,75 +4,197 @@ import XCTest
 import MixboxFoundation
 
 class IpcEchoingTests: TestCase {
-    func test_0() {
-        checkEchoingValue("string")
+    func test_0_0() {
+        checkEchoingValue(
+            value: "string",
+            useBuiltinIpc: false
+        )
     }
     
-    func test_1() {
-        checkEchoingValue("������")
+    func test_0_1() {
+        checkEchoingValue(
+            value: "string",
+            useBuiltinIpc: true
+        )
     }
     
-    func test_2() {
-        checkEchoingValue(-12345)
+    func test_1_0() {
+        checkEchoingValue(
+            value: "������",
+            useBuiltinIpc: false
+        )
     }
     
-    func test_3() {
-        checkEchoingValue(IpcVoid())
+    func test_1_1() {
+        checkEchoingValue(
+            value: "������",
+            useBuiltinIpc: true
+        )
     }
     
-    func test_4() {
-        checkEchoingValue(true)
+    func test_2_0() {
+        checkEchoingValue(
+            value: -12345,
+            useBuiltinIpc: false
+        )
     }
     
-    func test_5() {
-        checkEchoingValue(false)
+    func test_2_1() {
+        checkEchoingValue(
+            value: -12345,
+            useBuiltinIpc: true
+        )
     }
     
-    func test_6() {
-        checkEchoingValue(["string"])
+    func test_3_0() {
+        checkEchoingValue(
+            value: IpcVoid(),
+            useBuiltinIpc: false
+        )
     }
     
-    func test_7() {
-        checkEchoingValue(["������"])
+    func test_3_1() {
+        checkEchoingValue(
+            value: IpcVoid(),
+            useBuiltinIpc: true
+        )
+    }
+    
+    func test_4_0() {
+        checkEchoingValue(
+            value: true,
+            useBuiltinIpc: false
+        )
+    }
+    
+    func test_4_1() {
+        checkEchoingValue(
+            value: true,
+            useBuiltinIpc: true
+        )
+    }
+    
+    func test_5_0() {
+        checkEchoingValue(
+            value: false,
+            useBuiltinIpc: false
+        )
+    }
+    
+    func test_5_1() {
+        checkEchoingValue(
+            value: false,
+            useBuiltinIpc: true
+        )
+    }
+    
+    func test_6_0() {
+        checkEchoingValue(
+            value: ["string"],
+            useBuiltinIpc: false
+        )
+    }
+    
+    func test_6_1() {
+        checkEchoingValue(
+            value: ["string"],
+            useBuiltinIpc: true
+        )
+    }
+    
+    func test_7_0() {
+        checkEchoingValue(
+            value: ["������"],
+            useBuiltinIpc: false
+        )
+    }
+    
+    func test_7_1() {
+        checkEchoingValue(
+            value: ["������"],
+            useBuiltinIpc: true
+        )
     }
     
     // TODO:
-    func disabled_test_8() {
-        checkEchoingValue(nil as Int?)
+    func disabled_test_8_0() {
+        checkEchoingValue(
+            value: nil as Int?,
+            useBuiltinIpc: false
+        )
     }
     
     // TODO:
-    func disabled_test_9() {
-        checkEchoingValue(Double.infinity)
+    func disabled_test_8_1() {
+        checkEchoingValue(
+            value: nil as Int?,
+            useBuiltinIpc: true
+        )
+    }
+    
+    // TODO:
+    func disabled_test_9_0() {
+        checkEchoingValue(
+            value: Double.infinity,
+            useBuiltinIpc: false
+        )
+    }
+    
+    // TODO:
+    func disabled_test_9_1() {
+        checkEchoingValue(
+            value: Double.infinity,
+            useBuiltinIpc: true
+        )
+    }
+    
+    // TODO:
+    func disabled_test_10_0() {
+        checkEchoingValue(
+            value: Double.nan,
+            useBuiltinIpc: false
+        )
     }
 
     // TODO:
-    func disabled_test_10() {
-        checkEchoingValue(Double.nan)
+    func disabled_test_10_1() {
+        checkEchoingValue(
+            value: Double.nan,
+            useBuiltinIpc: true
+        )
     }
     
     // TODO:
-    func disabled_test_11() {
-        checkEchoingValue(-Double.infinity)
+    func disabled_test_11_0() {
+        checkEchoingValue(
+            value: -Double.infinity,
+            useBuiltinIpc: false
+        )
     }
     
-    private func checkEchoingValue<T: Equatable & Codable>(_  value: T, file: StaticString = #file, line: UInt = #line) {
-        for useBuiltinIpc in [false, true] {
-            launch(environment: [:], useBuiltinIpc: useBuiltinIpc)
-            
-            let result: DataResult<T, IpcClientError> = testCaseUtils.lazilyInitializedIpcClient.call(
-                method: EchoIpcMethod<T>(),
-                arguments: value
-            )
-            
-            XCTAssertEqual(
-                result.data,
-                value,
-                "Failed. Expected \(value), received \(result.data.flatMap { "\($0)" } ?? "error: \(result.error!)"), useBuiltinIpc: \(useBuiltinIpc)",
-                file: file,
-                line: line
-            )
-        }
+    // TODO:
+    func disabled_test_11_1() {
+        checkEchoingValue(
+            value: -Double.infinity,
+            useBuiltinIpc: true
+        )
+    }
+    
+    private func checkEchoingValue<T: Equatable & Codable>(value: T, useBuiltinIpc: Bool, file: StaticString = #file, line: UInt = #line) {
+        launch(environment: [:], useBuiltinIpc: useBuiltinIpc)
+        
+        let result: DataResult<T, IpcClientError> = testCaseUtils.lazilyInitializedIpcClient.call(
+            method: EchoIpcMethod<T>(),
+            arguments: value
+        )
+        
+        XCTAssertEqual(
+            result.data,
+            value,
+            "Failed. Expected \(value), received \(result.data.flatMap { "\($0)" } ?? "error: \(result.error!)"), useBuiltinIpc: \(useBuiltinIpc)",
+            file: file,
+            line: line
+        )
     }
 }
 

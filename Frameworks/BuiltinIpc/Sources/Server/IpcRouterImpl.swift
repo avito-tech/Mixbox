@@ -1,6 +1,7 @@
 import MixboxIpc
 import GCDWebServer
 
+// TODO: Pass error string in case of error
 public final class BuiltinIpcServer: IpcRouter {
     typealias Handler = (_ data: Data, _ completion: @escaping (GCDWebServerResponse) -> ()) -> ()
     

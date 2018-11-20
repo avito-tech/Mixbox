@@ -79,7 +79,12 @@ public final class BuiltinIpcClient: IpcClient {
         let container = try? decoderFactory.decoder().decode(ResponseContainer<ReturnValue>.self, from: data)
         
         guard let decodedResponse: ReturnValue = container?.value else {
-            completion(.error(.decodingError))
+            let statusCode = (urlResponse as? HTTPURLResponse)?.statusCode
+            if let statusCode = statusCode, statusCode != 200 {
+                completion(.error(.customError("statusCode == \(statusCode)")))
+            } else {
+                completion(.error(.decodingError))
+            }
             return
         }
         

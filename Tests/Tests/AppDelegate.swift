@@ -21,11 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
         if let mixboxInAppServices = mixboxInAppServices {
-            mixboxInAppServices.start()
-            mixboxInAppServices.handleUiBecomeVisible()
-            
             // TODO: add environment to be able to disable registration of methods?
             CustomIpcMethods.registerIn(mixboxInAppServices)
+            
+            mixboxInAppServices.start()
+            mixboxInAppServices.handleUiBecomeVisible()
         }
         #endif
         
