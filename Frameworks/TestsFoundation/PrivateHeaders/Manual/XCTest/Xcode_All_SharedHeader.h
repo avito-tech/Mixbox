@@ -1,9 +1,10 @@
 #ifndef XC_ALL_SharedHeader_h
 #define XC_ALL_SharedHeader_h
 
-@class XCSynthesizedEventRecord;
+@class XCSynthesizedEventRecord, XCElementSnapshot;
 
 typedef void (^XCEventGeneratorHandler)(XCSynthesizedEventRecord *record, NSError *error);
+typedef double (^XCUIElementDispatchEventBlock)(XCElementSnapshot *snapshot, XCEventGeneratorHandler handler);
 
 struct __va_list_tag {
     unsigned int _field1;

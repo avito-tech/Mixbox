@@ -50,7 +50,7 @@
 - (id)screenshot;
 - (id)_screen;
 - (_Bool)_shouldDispatchEvent:(id *)arg1;
-- (void)_dispatchEvent:(id)arg1 block:(CDUnknownBlockType)arg2;
+- (void)_dispatchEvent:(id)arg1 block:(XCUIElementDispatchEventBlock)arg2;
 
 - (void)swipeRight;
 - (void)swipeLeft;

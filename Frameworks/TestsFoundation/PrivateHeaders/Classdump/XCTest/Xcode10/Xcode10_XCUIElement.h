@@ -60,7 +60,7 @@
 - (id)_screen;
 - (id)snapshotWithError:(id *)arg1;
 - (_Bool)_shouldDispatchEvent:(id *)arg1;
-- (void)_dispatchEvent:(id)arg1 block:(CDUnknownBlockType)arg2;
+- (void)_dispatchEvent:(id)arg1 block:(XCUIElementDispatchEventBlock)arg2;
 - (_Bool)_dispatchEvent:(CDUnknownBlockType)arg1 error:(id *)arg2;
 
 - (void)swipeRight;

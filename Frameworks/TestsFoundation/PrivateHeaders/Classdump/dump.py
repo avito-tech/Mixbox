@@ -533,6 +533,11 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
             contents = f'#import <XCTest/XCUIElementTypes.h>\n\n{contents}'
             contents = contents.replace("unsigned long long elementType;", "XCUIElementType elementType;")
             contents = contents.replace("unsigned long long _elementType;", "XCUIElementType _elementType;")
+        elif basename == "XCUIElement.h":
+            contents = contents.replace(
+                "- (void)_dispatchEvent:(id)arg1 block:(CDUnknownBlockType)arg2;",
+                "- (void)_dispatchEvent:(id)arg1 block:(XCUIElementDispatchEventBlock)arg2;"
+            )
             
         return contents
         
