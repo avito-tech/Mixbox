@@ -63,21 +63,22 @@ final class ActionsTests: TestCase {
     }
     
     func test_swipes() {
+        let numberOfSubsequentActions = 30
         for _ in 0..<numberOfSubsequentActions {
             screen.label("swipeUp").swipeUp()
-            screen.info.withoutTimeout.assert.hasText("swipeUp")
+            screen.info.assert.hasText("swipeUp")
             resetInfo()
 
             screen.label("swipeDown").swipeDown()
-            screen.info.withoutTimeout.assert.hasText("swipeDown")
+            screen.info.assert.hasText("swipeDown")
             resetInfo()
 
             screen.label("swipeLeft").swipeLeft()
-            screen.info.withoutTimeout.assert.hasText("swipeLeft")
+            screen.info.assert.hasText("swipeLeft")
             resetInfo()
 
             screen.label("swipeRight").swipeRight()
-            screen.info.withoutTimeout.assert.hasText("swipeRight")
+            screen.info.assert.hasText("swipeRight")
             resetInfo()
         }
     }
