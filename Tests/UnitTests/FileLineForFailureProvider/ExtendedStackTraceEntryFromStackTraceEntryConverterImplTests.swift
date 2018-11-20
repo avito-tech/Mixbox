@@ -1,5 +1,6 @@
 import XCTest
 import MixboxTestsFoundation
+import MixboxFoundation
 
 final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTestCase {
     private let converter = ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
@@ -7,8 +8,8 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
     func test() {
         let entry = converter.extendedStackTraceEntry(
             stackTraceEntry: StackTraceEntry(
-                symbol: "0   ???                                 0x000000011b5041b2 0x0 + 4753211826",
-                address: 0x000000011b5041b2
+                symbol: "0   ???                                 0x123456789abcdef0 0x0 + 123456789",
+                address: 0x123456789abcdef0
             )
         )
         
@@ -19,7 +20,7 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
             owner: nil,
             symbol: nil,
             demangledSymbol: nil,
-            address: 0x000000011b5041b2
+            address: 0x123456789abcdef0
         )
     }
     
@@ -101,7 +102,8 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
             file: file,
             line: line,
             owner: "UnitTests",
-            symbol: "_T09UnitTests027ExtendedStackTraceEntryFromdef13ConverterImplB0C21test_onRealTestMethodyyF",
+            symbolInXcode9: "_T09UnitTests027ExtendedStackTraceEntryFromdef13ConverterImplB0C21test_onRealTestMethodyyF",
+            symbolInXcode10: "$S9UnitTests027ExtendedStackTraceEntryFromdef13ConverterImplB0C21test_onRealTestMethodyyF",
             demangledSymbol: "UnitTests.ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.test_onRealTestMethod() -> ()",
             address: simpleEntry.address
         )
@@ -114,6 +116,33 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
         owner: String?,
         symbol: String?,
         demangledSymbol: String?,
+        address: UInt64,
+        fileWhereExecuted: StaticString = #file,
+        lineWhereExecuted: UInt = #line)
+    {
+        check(
+            entry: entry,
+            file: file,
+            line: line,
+            owner: owner,
+            symbolInXcode9: symbol,
+            symbolInXcode10: symbol,
+            demangledSymbol: demangledSymbol,
+            address: address,
+            fileWhereExecuted: fileWhereExecuted,
+            lineWhereExecuted: lineWhereExecuted
+        )
+    }
+    
+    // TODO: Invent a way to check Xcode version in Swift or somehow deal with different symbols in different Xcodes
+    private func check(
+        entry: ExtendedStackTraceEntry,
+        file: String?,
+        line: UInt64?,
+        owner: String?,
+        symbolInXcode9: String?,
+        symbolInXcode10: String?,
+        demangledSymbol: String?,
         address expectedAddress: UInt64,
         fileWhereExecuted: StaticString = #file,
         lineWhereExecuted: UInt = #line)
@@ -121,7 +150,16 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
         XCTAssert(entry.file == file, "Expected file: \(file), actual: \(entry.file)", file: fileWhereExecuted, line: lineWhereExecuted)
         XCTAssert(entry.line == line, "Expected line: \(line), actual: \(entry.line)", file: fileWhereExecuted, line: lineWhereExecuted)
         XCTAssert(entry.owner == owner, "Expected owner: \(owner), actual: \(entry.owner)", file: fileWhereExecuted, line: lineWhereExecuted)
-        XCTAssert(entry.symbol == symbol, "Expected symbol: \(symbol), actual: \(entry.symbol)", file: fileWhereExecuted, line: lineWhereExecuted)
+        
+        let expectedSymbol: String?
+        switch XcodeVersion.xcodeVersion {
+        case .v10orHigher:
+            expectedSymbol = symbolInXcode10
+        case .v9orLower:
+            expectedSymbol = symbolInXcode9
+        }
+        XCTAssert(entry.symbol == expectedSymbol , "Expected symbol: \(expectedSymbol), actual: \(entry.symbol)", file: fileWhereExecuted, line: lineWhereExecuted)
+        
         XCTAssert(entry.demangledSymbol == demangledSymbol, "Expected demangledSymbol: \(demangledSymbol), actual: \(entry.demangledSymbol)", file: fileWhereExecuted, line: lineWhereExecuted)
         XCTAssert(entry.address == expectedAddress, "Expected address: \(expectedAddress), actual: \(entry.address)", file: fileWhereExecuted, line: lineWhereExecuted)
     }

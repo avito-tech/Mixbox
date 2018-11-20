@@ -1,5 +1,6 @@
 import XCTest
 import MixboxTestsFoundation
+import MixboxFoundation
 
 final class ExtendedStackTraceProviderImplTests: XCTestCase {
     private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> HeapFileLine {
@@ -35,7 +36,20 @@ final class ExtendedStackTraceProviderImplTests: XCTestCase {
         XCTAssertEqual(trace[5].file?.mb_lastPathComponent, "FileForStacktraceTestsWithFixedNameAndLineNumbers.swift")
         XCTAssertEqual(trace[5].line, 10)
         XCTAssertEqual(trace[5].owner, "UnitTests")
-        XCTAssertEqual(trace[5].symbol, "_T09UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF")
+        
+        let expectedSymbol: String
+        switch XcodeVersion.xcodeVersion {
+        case .v10orHigher:
+            expectedSymbol = "$S9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
+        case .v9orLower:
+            expectedSymbol = "_T09UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
+        }
+        
+        XCTAssert(
+            trace[5].symbol == expectedSymbol,
+            "Expected symbol: \(expectedSymbol), actual: \(String(describing: trace[5].symbol))"
+        )
+        
         XCTAssertEqual(trace[5].demangledSymbol, "UnitTests.FileForStacktraceTestsWithFixedNameAndLineNumbers.func_line10() -> ()")
     }
 }
