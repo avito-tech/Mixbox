@@ -35,6 +35,10 @@ class TestCase: XCTestCase, FailureGatherer {
     override func setUp() {
         super.setUp()
         
+        // Fail faster on CI
+        let isCiBuild = ProcessInfo.processInfo.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
+        continueAfterFailure = !isCiBuild
+        
         reuseState {
             precondition()
         }

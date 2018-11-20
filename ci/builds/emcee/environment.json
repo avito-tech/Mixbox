@@ -1,3 +1,4 @@
 {
-    "MIXBOX_CI_USES_FBXCTEST": "true"
+    "MIXBOX_CI_USES_FBXCTEST": "true",
+    "MIXBOX_CI_IS_CI_BUILD": "true"
 }
