@@ -89,12 +89,11 @@ final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: Te
         button.tap()
         
         // Check if test is correct:
-        screen.progressIndicator.withoutTimeout.assert.hasText("Idling")
+        screen.progressIndicator.assert.hasText("Idling")
         assertFails {
             // Multiple matches
             screen.duplicatedView.withoutTimeout.assert.isDisplayed()
         }
-        screen.progressIndicator.withoutTimeout.assert.hasText("Idling")
         
         // Will wait until condition is met
         screen.duplicatedView.assert.isDisplayed()
