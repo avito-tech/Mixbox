@@ -6,7 +6,7 @@ destinationDeviceUdid() {
     local name=`destination | jq -r .[0].testDestination.deviceType`
     local os=`destination | jq -r .[0].testDestination.iOSVersionShort`
     
-    xcrun simctl list -j|jq -re ".devices.\"iOS $os\"?|.[]?|select(.name == \"$name\")?|.udid"
+    xcrun simctl list -j | jq -re ".devices.\"iOS $os\"?|map(select(.name == \"$name\"))?|.[0]?|.udid?" | perl -pe 's/null//'
 }
 
 bootDevice() {
