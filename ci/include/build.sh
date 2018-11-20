@@ -46,6 +46,6 @@ buildWith_action_scheme_xcodebuildPipeFilter() {
         
     # Work around a bug when xcodebuild puts Build and Indexes folders to a pwd instead of dd/
 
-    [ -d "Build" ] && echo "Moving Build/ -> $derivedDataPath/" && mv -f "Build" "$derivedDataPath"
-    [ -d "Index" ] && echo "Moving Index/ -> $derivedDataPath/" && mv -f "Index" "$derivedDataPath"
+    [ -d "Build" ] && echo "Moving Build/ -> $derivedDataPath/" && mv -f "Build" "$derivedDataPath" || true
+    [ -d "Index" ] && echo "Moving Index/ -> $derivedDataPath/" && mv -f "Index" "$derivedDataPath" || true
 }
