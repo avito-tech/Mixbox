@@ -15,6 +15,11 @@ final class ChecksTests: TestCase {
             screen.label("checkText0").checkAccessibilityLabel { $0 != "Полное соответствие" }
         )
         
+        XCTAssertEqual(
+            screen.label("checkText0").assert.visibleText(),
+            "Полное соответствие"
+        )
+        
         screen.label("checkText1").assert.checkAccessibilityLabel { $0.starts(with: "Частичное соотве") }
         XCTAssertFalse(
             screen.label("checkText1").checkAccessibilityLabel { !$0.starts(with: "Частичное соотве") }
