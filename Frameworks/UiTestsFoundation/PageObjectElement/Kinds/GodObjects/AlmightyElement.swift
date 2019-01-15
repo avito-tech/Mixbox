@@ -82,6 +82,7 @@ public protocol AlmightyElementChecks {
     func checkAccessibilityLabel(checker: @escaping (String) -> (InteractionSpecificResult), checkSettings: CheckSettings) -> Bool
     
     func hasValue(_ value: String, checkSettings: CheckSettings) -> Bool
+    func visibleText(checkSettings: CheckSettings) -> String
     
     func hasHostDefinedValue(forKey key: String, referenceValue: String, checkSettings: CheckSettings, comparator: HostDefinedValueComparator) -> Bool
     

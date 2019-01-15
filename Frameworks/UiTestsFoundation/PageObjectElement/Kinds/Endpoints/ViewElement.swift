@@ -227,6 +227,19 @@ public extension ViewElementChecks where Self: Element {
         return implementation.checks.hasValue(value, checkSettings: checkSettings)
     }
     
+    func visibleText(
+        file: StaticString = #file,
+        line: UInt = #line,
+        description: HumanReadableInteractionDescriptionBuilder? = nil)
+        -> String
+    {
+        let checkSettings = CheckSettings(file: file, line: line, description: description) { info in
+            "Значение видимого элемента \"\(info.elementName)\""
+        }
+        
+        return implementation.checks.visibleText(checkSettings: checkSettings)
+    }
+    
     @discardableResult
     func hasHostDefinedValue(
         forKey key: String,
