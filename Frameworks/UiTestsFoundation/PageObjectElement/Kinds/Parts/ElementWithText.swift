@@ -188,6 +188,19 @@ public extension ElementWithTextChecks where Self: Element {
             checkSettings: checkSettings
         )
     }
+    
+    func visibleText(
+        file: StaticString = #file,
+        line: UInt = #line,
+        description: HumanReadableInteractionDescriptionBuilder? = nil)
+        -> String
+    {
+        let checkSettings = CheckSettings(file: file, line: line, description: description) { info in
+            "Значение видимого элемента \"\(info.elementName)\""
+        }
+        
+        return implementation.checks.visibleText(checkSettings: checkSettings)
+    }
 }
 
 public protocol ElementWithTextActions: class {}
