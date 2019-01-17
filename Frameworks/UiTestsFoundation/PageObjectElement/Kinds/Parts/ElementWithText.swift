@@ -199,7 +199,19 @@ public extension ElementWithTextChecks where Self: Element {
             "Значение видимого элемента \"\(info.elementName)\""
         }
         
-        return implementation.checks.visibleText(checkSettings: checkSettings)
+        var value: String? = nil
+        _ = implementation.checks.checkText(
+            checker: {
+                value = $0
+                return .success
+            },
+            checkSettings: checkSettings
+        )
+        
+        guard let text = value else {
+            UnavoidableFailure.fail("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+        }
+        return text
     }
 }
 

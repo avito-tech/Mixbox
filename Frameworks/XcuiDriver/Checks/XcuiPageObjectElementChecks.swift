@@ -146,23 +146,10 @@ final class XcuiPageObjectElementChecks: AlmightyElementChecks {
         }
     }
     
-    @discardableResult
     func checkText(checker: @escaping (String) -> (InteractionSpecificResult), checkSettings: CheckSettings) -> Bool {
         return performCheck(checkSettings: checkSettings) { (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             checker(snapshot.visibleText(fallback: snapshot.accessibilityLabel) ?? "")
         }
-    }
-    
-    func visibleText(checkSettings: CheckSettings) -> String {
-        var value = ""
-        checkText(
-            checker: {
-                value = $0
-                return .success
-            },
-            checkSettings: checkSettings
-        )
-        return value
     }
     
     func checkAccessibilityLabel(checker: @escaping (String) -> (InteractionSpecificResult), checkSettings: CheckSettings) -> Bool {
