@@ -62,7 +62,7 @@ final class XcuiElementSnapshot: ElementSnapshot {
     }
     
     var accessibilityLabel: String {
-        return xcElementSnapshot.label
+        return xcElementSnapshot.label ?? ""
     }
     
     var accessibilityValue: Any? {
