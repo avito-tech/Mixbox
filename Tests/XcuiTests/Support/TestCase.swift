@@ -72,7 +72,8 @@ class TestCase: XCTestCase, FailureGatherer {
     
     private var commonEnvironment: [String: String] {
         return [
-            "MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL": "true"
+            "MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL": "true",
+            "MB_TESTS_screenName": "DummyForLaunchingUiTestsView"
         ]
     }
     
