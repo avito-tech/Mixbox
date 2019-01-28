@@ -49,7 +49,7 @@ public extension ViewElementActions where Self: Element {
         description: HumanReadableInteractionDescriptionBuilder? = nil)
     {
         let actionSettings = ActionSettings(file: file, line: line, description: description) { info in
-            "тапнуть по \"\(info.elementName)\""
+            "нажать \"\(info.elementName)\" и удерживать \(duration) секунд"
         }
         
         implementation.actions.press(
