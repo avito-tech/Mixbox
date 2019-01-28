@@ -75,8 +75,8 @@ testUsingEmcee() {
     --trace "$MIXBOX_CI_REPORTS_PATH/trace.combined.json" \
     --environment "$environment" \
     --test-destinations "$(destinationFile)" \
-    --number-of-retries 1 \
-    --number-of-simulators 4 \
+    --number-of-retries 2 \
+    --number-of-simulators 3 \
     --schedule-strategy "progressive" \
     --single-test-timeout 1200 \
     --fbxctest-bundle-ready-timeout 600 \

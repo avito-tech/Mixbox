@@ -6,7 +6,7 @@ final class ActionsTests: TestCase {
         return pageObjects.actionsTests
     }
     
-    private let numberOfSubsequentActions = 10
+    private let numberOfSubsequentActions = 3
     
     override func precondition() {
         openScreen(name: "ActionsTestsView")
