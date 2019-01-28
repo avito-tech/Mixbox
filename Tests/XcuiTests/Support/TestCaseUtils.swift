@@ -24,8 +24,15 @@ final class TestCaseUtils {
             extendedStackTraceEntryFromCallStackSymbolsConverter: ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
         ),
         testSymbolPatterns: [
-            ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)", // XcuiTests.FailuresTests.test_multipleMatchesFailure() -> ()
-            ".+?\\..+?\\.parametrizedTest.*?\\(\\)" // XcuiTests.FailuresTests.parametrizedTest() -> ()
+            // Example: TargetName.ClassName.test_withOptionalSuffix() -> ()
+            ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)",
+            
+            // Example: TargetName.ClassName.parametrizedTest_withOptionalSuffix(message: Swift.String) -> ()
+            ".+?\\..+?\\.parametrizedTest.*?\\(\\)",
+            
+            // Example: closure #2 () -> () in TargetName.ClassName.(parametrizedTest in _FA5631F8141319A712430582B52492D9)(fooArg: Swift.String) -> ()
+            "\\(parametrizedTest in",
+            "\\(test in"
         ]
     )
     var ipcRouter: IpcRouter? // Just to store server (to not let him die during test)
