@@ -95,7 +95,7 @@ final class ScrollingHintsProvider {
                 return .shouldScroll(hints)
             }
         } else {
-            return .canNotProvideHint
+            return .canNotProvideHintForCurrentRequest
         }
     }
     

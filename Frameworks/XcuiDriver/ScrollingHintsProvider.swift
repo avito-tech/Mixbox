@@ -16,7 +16,7 @@ final class ScrollingHintsProviderImpl: ScrollingHintsProvider {
     
     func scrollingHint(element: ElementSnapshot) -> ScrollingHint {
         guard let uniqueIdentifier = element.uniqueIdentifier.value else {
-            return .internalError("Не удалось получить uniqueIdentifier")
+            return .hintsAreNotAvailableForCurrentElement // "Не удалось получить uniqueIdentifier"
         }
         
         let result = ipcClient.call(
@@ -28,6 +28,11 @@ final class ScrollingHintsProviderImpl: ScrollingHintsProvider {
         case .data(let data):
             return data
         case .error:
+            // TODO: use hintsAreNotAvailableForCurrentElement?
+            // Maybe we should add more cases to the enum.
+            // Maybe we should add String describing reason.
+            // Maybe we should merge hintsAreNotAvailableForCurrentElement with canNotProvideHintForCurrentRequest.
+            // When we'll experience any bug, we should fix it.
             return .internalError("Не удалось получить scrollingHint")
         }
     }

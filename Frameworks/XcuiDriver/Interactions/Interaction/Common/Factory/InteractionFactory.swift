@@ -29,17 +29,23 @@ final class InteractionFactoryImpl: InteractionFactory {
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let scrollingHintsProvider: ScrollingHintsProvider
     private let snapshotCaches: SnapshotCaches
+    private let applicationProvider: ApplicationProvider
+    private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     
     init(
         elementFinder: ElementFinder,
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
-        snapshotCaches: SnapshotCaches)
+        snapshotCaches: SnapshotCaches,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
         self.elementFinder = elementFinder
         self.elementVisibilityChecker = elementVisibilityChecker
         self.scrollingHintsProvider = scrollingHintsProvider
         self.snapshotCaches = snapshotCaches
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
     }
     
     func actionInteraction(
@@ -55,7 +61,9 @@ final class InteractionFactoryImpl: InteractionFactory {
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            snapshotCaches: snapshotCaches
+            snapshotCaches: snapshotCaches,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider
         )
     }
     
@@ -70,7 +78,9 @@ final class InteractionFactoryImpl: InteractionFactory {
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            snapshotCaches: snapshotCaches
+            snapshotCaches: snapshotCaches,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider
         )
     }
     
@@ -87,7 +97,9 @@ final class InteractionFactoryImpl: InteractionFactory {
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            snapshotCaches: snapshotCaches
+            snapshotCaches: snapshotCaches,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider
         )
     }
 }

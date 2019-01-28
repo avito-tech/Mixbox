@@ -20,7 +20,10 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             interactionFactory: xcuiHelperFactory.interactionFactory(),
             elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
             keyboardEventInjector: xcuiHelperFactory.keyboardEventInjector(),
-            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
+            pollingConfiguration: xcuiHelperFactory.pollingConfiguration(),
+            applicationProvider: xcuiHelperFactory.applicationProvider,
+            applicationCoordinatesProvider: xcuiHelperFactory.applicationCoordinatesProvider,
+            eventGenerator: xcuiHelperFactory.eventGenerator
         )
         
         let checks = XcuiPageObjectElementChecks(

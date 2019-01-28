@@ -11,19 +11,22 @@ final class XcuiElementQuery: ElementQuery {
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker = XcuiScreenshotTaker()
     private let snapshotCaches: SnapshotCaches
+    private let applicationProvider: ApplicationProvider
     
     init(
         xcuiElementQuery: XCUIElementQuery,
         elementQueryResolvingState: ElementQueryResolvingState,
         waitForExistence: Bool,
         stepLogger: StepLogger,
-        snapshotCaches: SnapshotCaches)
+        snapshotCaches: SnapshotCaches,
+        applicationProvider: ApplicationProvider)
     {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
         self.waitForExistence = waitForExistence
         self.stepLogger = stepLogger
         self.snapshotCaches = snapshotCaches
+        self.applicationProvider = applicationProvider
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
@@ -65,7 +68,7 @@ final class XcuiElementQuery: ElementQuery {
                         name: "Иерархия вьюх",
                         content: .text(
                             snapshotCaches.descendantsFromRoot.use {
-                                XCUIApplication().debugDescription
+                                applicationProvider.application.debugDescription
                             }
                         )
                     )

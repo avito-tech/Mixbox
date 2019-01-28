@@ -88,6 +88,7 @@
 		F8676EE2215533D2007DDB7C /* NestedCallbacksToAppIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE1215533D2007DDB7C /* NestedCallbacksToAppIpcMethod.swift */; };
 		F8676EE4215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */; };
 		F8676EE52155370D007DDB7C /* NestedCallbacksToAppIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE1215533D2007DDB7C /* NestedCallbacksToAppIpcMethod.swift */; };
+		F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */; };
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
 		F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */; };
@@ -250,6 +251,7 @@
 		F8676EDB21552D74007DDB7C /* CallbackToAppIpcMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackToAppIpcMethod.swift; sourceTree = "<group>"; };
 		F8676EE1215533D2007DDB7C /* NestedCallbacksToAppIpcMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethod.swift; sourceTree = "<group>"; };
 		F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
+		F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppsTests.swift; sourceTree = "<group>"; };
 		F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTestsView.swift; sourceTree = "<group>"; };
 		F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift; sourceTree = "<group>"; };
 		F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingHierarchyTestsView.swift; sourceTree = "<group>"; };
@@ -850,6 +852,7 @@
 		F8D5392520A087A600733C93 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */,
 				F8E6CC812181EEA800D7A0C1 /* Scrolling */,
 				F8E6CC7E2181ED3000D7A0C1 /* Tools */,
 				F8E6CC7D2181ED2300D7A0C1 /* Actions */,
@@ -1498,6 +1501,7 @@
 				F8AC35C920E2B1310094204C /* FakeCellsIpcMethod.swift in Sources */,
 				F8E8BAFB20E13D4400524185 /* FakeCellsTestsConstants.swift in Sources */,
 				F8EBBCA6213AA8FF00D320A4 /* HierarchySourcesTests.swift in Sources */,
+				F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */,
 				CC78DE2F21395BFE00599258 /* GettingRealViewHierarchyTests.swift in Sources */,
 				F8A9D342216B894800EC5D24 /* TestSuiteInfo.m in Sources */,
 				F8D5392020A0870900733C93 /* BasePageObject.swift in Sources */,

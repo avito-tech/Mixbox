@@ -14,6 +14,8 @@ final class InteractionHelper {
     private let elementResolver: ElementResolver
     private let pollingConfiguration: PollingConfiguration
     private let snapshotCaches: SnapshotCaches
+    private let applicationProvider: ApplicationProvider
+    private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     
     // State:
     private var startDateOfInteraction = Date()
@@ -26,7 +28,9 @@ final class InteractionHelper {
         elementFinder: ElementFinder,
         interactionSettings: ResolvedInteractionSettings,
         minimalPercentageOfVisibleArea: CGFloat,
-        snapshotCaches: SnapshotCaches)
+        snapshotCaches: SnapshotCaches,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
         self.messagePrefix = messagePrefix
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -39,7 +43,9 @@ final class InteractionHelper {
             scrollingHintsProvider: scrollingHintsProvider,
             elementVisibilityChecker: elementVisibilityChecker,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            elementResolver: elementResolver
+            elementResolver: elementResolver,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider
         )
         
         self.interactionName = interactionSettings.interactionName
@@ -49,6 +55,8 @@ final class InteractionHelper {
         self.searchTimeout = interactionSettings.elementSettings.searchTimeout ?? defaultTimeout
         self.pollingConfiguration = interactionSettings.pollingConfiguration
         self.snapshotCaches = snapshotCaches
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
     }
     
     func retryInteractionUntilTimeout(closure: () -> InteractionResult) -> InteractionResult {
@@ -182,13 +190,12 @@ final class InteractionHelper {
     }
     
     private func gentlyScroll(up: Bool) {
-        let application = XCUIApplication()
-        let frame = ApplicationFrameProvider.frame
+        let frame = applicationCoordinatesProvider.frame
         
         snapshotCaches.application.use {
-            application.center.press(
+            applicationProvider.application.center.press(
                 forDuration: 0,
-                thenDragTo: application.tappableCoordinate(
+                thenDragTo: applicationCoordinatesProvider.tappableCoordinate(
                     x: frame.mb_centerX,
                     y: up ? 0 : frame.height
                 )
@@ -335,7 +342,7 @@ final class InteractionHelper {
         resolvedElementQuery: ResolvedElementQuery)
         -> InteractionResult
     {
-        let applicationState = XCUIApplication().state
+        let applicationState = applicationProvider.application.state
         let applicationStateNotice: String = applicationState == .runningForeground
             ? ""
             : ", на это могло повлиять то, что приложение не запущено, либо закрешилось (state = \(applicationState))"
@@ -364,6 +371,7 @@ final class InteractionHelper {
     {
         return .failure(
             InteractionFailureMaker.interactionFailure(
+                applicationProvider: applicationProvider,
                 message: "\(messagePrefix) (\(interactionName)) - \(message)",
                 elementFindingFailure: resolvedElementQuery?.candidatesDescription(),
                 currentElementSnapshots: resolvedElementQuery?.knownSnapshots,

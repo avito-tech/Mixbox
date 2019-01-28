@@ -33,8 +33,8 @@ extension ElementSnapshot {
     }
     
     public func image() -> UIImage? {
-        // TODO: Remove singletons
-        let image = XCUIApplication().screenshot().image
+        // TODO: Remove singletons, use ScreenshotTaker
+        let image = XCUIScreen.main.screenshot().image
         
         guard let cgImage = image.cgImage else {
             return nil
@@ -54,38 +54,5 @@ extension ElementSnapshot {
         let croppedImage = UIImage(cgImage: croppedCgImage, scale: image.scale, orientation: image.imageOrientation)
         
         return croppedImage
-    }
-    
-    func swipe(direction: SwipeDirection) {
-        let swipeLength: CGFloat = 100
-        let delta = normalizedOffsetForSwipe(direction: direction) * swipeLength
-        let origin = frameOnScreen.mb_center
-        
-        EventGenerator.instance.swipe(from: origin, to: origin + delta)
-    }
-    
-    private func normalizedOffsetForSwipe(direction: SwipeDirection) -> CGVector {
-        let dxNormalized: CGFloat
-        let dyNormalized: CGFloat
-        
-        switch direction {
-        case .up:
-            dxNormalized = 0
-            dyNormalized = -1
-        case .down:
-            dxNormalized = 0
-            dyNormalized = 1
-        case .left:
-            dxNormalized = -1
-            dyNormalized = 0
-        case .right:
-            dxNormalized = 1
-            dyNormalized = 0
-        }
-        
-        return CGVector(
-            dx: dxNormalized,
-            dy: dyNormalized
-        )
     }
 }

@@ -15,6 +15,11 @@ final class ActionInteraction: Interaction {
     private let specificImplementation: InteractionSpecificImplementation
     private let minimalPercentageOfVisibleArea: CGFloat
     private let snapshotCaches: SnapshotCaches
+    private let applicationProvider: ApplicationProvider
+    private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
+    
+    // MARK: - State
+    
     private var wasSuccessful = false
     
     init(
@@ -24,7 +29,9 @@ final class ActionInteraction: Interaction {
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
         minimalPercentageOfVisibleArea: CGFloat,
-        snapshotCaches: SnapshotCaches)
+        snapshotCaches: SnapshotCaches,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
         self.settings = settings
         self.description = InteractionDescription(
@@ -38,12 +45,17 @@ final class ActionInteraction: Interaction {
         self.scrollingHintsProvider = scrollingHintsProvider
         self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         self.snapshotCaches = snapshotCaches
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
     }
     
     func perform() -> InteractionResult {
         if wasSuccessful {
             return .failure(
-                InteractionFailureMaker.interactionFailure(message: "Attempted to run successful action twice")
+                InteractionFailureMaker.interactionFailure(
+                    applicationProvider: applicationProvider,
+                    message: "Attempted to run successful action twice"
+                )
             )
         }
         
@@ -54,7 +66,9 @@ final class ActionInteraction: Interaction {
             elementFinder: elementFinder,
             interactionSettings: description.settings,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            snapshotCaches: snapshotCaches
+            snapshotCaches: snapshotCaches,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider
         )
         
         return helper.retryInteractionUntilTimeout {

@@ -96,7 +96,7 @@ final class TestCaseUtils {
         
         let snapshotCaches = SnapshotCachesImpl.create(cachingEnabled: false)
         
-        let app: (_ elementFinder: ElementFinder) -> XcuiPageObjectDependenciesFactory = { elementFinder in
+        let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder) -> XcuiPageObjectDependenciesFactory = { applicationProvider, elementFinder in
             return XcuiPageObjectDependenciesFactory(
                 interactionExecutionLogger: interactionExecutionLogger,
                 testFailureRecorder: testFailureRecorder,
@@ -105,13 +105,34 @@ final class TestCaseUtils {
                 stepLogger: stepLogger,
                 pollingConfiguration: .reduceLatency,
                 snapshotCaches: SnapshotCachesImpl.create(cachingEnabled: false),
-                elementFinder: elementFinder
+                elementFinder: elementFinder,
+                applicationProvider: applicationProvider,
+                applicationCoordinatesProvider: ApplicationCoordinatesProviderImpl(
+                    applicationProvider: applicationProvider
+                ),
+                eventGenerator: EventGeneratorImpl(
+                    applicationProvider: applicationProvider
+                )
+            )
+        }
+        
+        let xcuiApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { application in
+            let provider = ApplicationProviderImpl(closure: application)
+            
+            return app(
+                provider,
+                XcuiElementFinder(
+                    stepLogger: stepLogger,
+                    snapshotCaches: snapshotCaches,
+                    applicationProviderThatDropsCaches: provider
+                )
             )
         }
         
         pageObjects = PageObjects(
             apps: Apps(
                 mainRealHierarchy: app(
+                    ApplicationProviderImpl { XCUIApplication() },
                     RealViewHierarchyElementFinder(
                         ipcClient: lazilyInitializedIpcClient,
                         testFailureRecorder: testFailureRecorder,
@@ -119,27 +140,9 @@ final class TestCaseUtils {
                         screenshotTaker: screenshotTaker
                     )
                 ),
-                mainXcui: app(
-                    XcuiElementFinder(
-                        stepLogger: stepLogger,
-                        snapshotCaches: snapshotCaches,
-                        rootElementGetterThatDropsCaches: { XCUIApplication() }
-                    )
-                ),
-                settings: app(
-                    XcuiElementFinder(
-                        stepLogger: stepLogger,
-                        snapshotCaches: snapshotCaches,
-                        rootElementGetterThatDropsCaches: { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") }
-                    )
-                ),
-                springboard: app(
-                    XcuiElementFinder(
-                        stepLogger: stepLogger,
-                        snapshotCaches: snapshotCaches,
-                        rootElementGetterThatDropsCaches: { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.springboard") }
-                    )
-                )
+                mainXcui: xcuiApp { XCUIApplication() },
+                settings: xcuiApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") },
+                springboard: xcuiApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.springboard") }
             )
         )
     }

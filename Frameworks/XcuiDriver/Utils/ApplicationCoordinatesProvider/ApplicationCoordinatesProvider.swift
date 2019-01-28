@@ -1,11 +1,27 @@
-import MixboxTestsFoundation
+import XCTest
 
-public extension XCUIApplication {
+public protocol ApplicationCoordinatesProvider {
+    var frame: CGRect { get }
+    
+    func tappableCoordinate(x: CGFloat, y: CGFloat) -> XCUICoordinate
+}
+
+public extension ApplicationCoordinatesProvider {
     func tappableCoordinate(point: CGPoint) -> XCUICoordinate {
         return tappableCoordinate(x: point.x, y: point.y)
     }
+}
+
+public final class ApplicationCoordinatesProviderImpl: ApplicationCoordinatesProvider {
+    public lazy var frame: CGRect = applicationProvider.application.frame
     
-    func tappableCoordinate(x: CGFloat, y: CGFloat) -> XCUICoordinate {
+    private let applicationProvider: ApplicationProvider
+    
+    public init(applicationProvider: ApplicationProvider) {
+        self.applicationProvider = applicationProvider
+    }
+    
+    public func tappableCoordinate(x: CGFloat, y: CGFloat) -> XCUICoordinate {
         // If you try to create XCUICoordinate from XCUIApplication, with absolute offset from normalized offset {0, 0}
         // that is greater or equals screen size at least at one axis and none of coordinates are negative,
         // then coordinates will be kindly divided by 2 for you by XCUI.
@@ -33,9 +49,7 @@ public extension XCUIApplication {
         var x = x
         var y = y
         
-        let frame = ApplicationFrameProvider.frame
-        // can trigger reloading AX hierarchy, polling for "idle" state of the app and maybe something else
-        
+        // TODO: DI. Constructing ApplicationCoordinatesProviderImpl means that cache is not used.
         let minX: CGFloat = 0 // same effect for any negative number
         let minY: CGFloat = 20 // doesn't work with 19 or lower
         let maxX: CGFloat = frame.width - 1 // without `- 1` it is divided by 2
@@ -47,7 +61,8 @@ public extension XCUIApplication {
         if y < minY { y = minY }
         
         // Alternative: We can normalize x and y and do not use withOffset. However, it doesn't give us anything.
-        return coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+        return applicationProvider.application
+            .coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
             .withOffset(CGVector(dx: x, dy: y))
     }
 }

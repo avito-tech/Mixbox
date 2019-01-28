@@ -13,6 +13,9 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let pollingConfiguration: PollingConfiguration
     private let snapshotCaches: SnapshotCaches
     private let elementFinder: ElementFinder
+    private let applicationProvider: ApplicationProvider
+    private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
+    private let eventGenerator: EventGenerator
     
     public init(
         interactionExecutionLogger: InteractionExecutionLogger,
@@ -22,7 +25,10 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         snapshotCaches: SnapshotCaches,
-        elementFinder: ElementFinder)
+        elementFinder: ElementFinder,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider,
+        eventGenerator: EventGenerator)
     {
         self.interactionExecutionLogger = interactionExecutionLogger
         self.testFailureRecorder = testFailureRecorder
@@ -32,6 +38,9 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.pollingConfiguration = pollingConfiguration
         self.snapshotCaches = snapshotCaches
         self.elementFinder = elementFinder
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
+        self.eventGenerator = eventGenerator
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
@@ -52,7 +61,10 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
                 stepLogger: stepLogger,
                 pollingConfiguration: pollingConfiguration,
                 snapshotCaches: snapshotCaches,
-                elementFinder: elementFinder
+                elementFinder: elementFinder,
+                applicationProvider: applicationProvider,
+                applicationCoordinatesProvider: applicationCoordinatesProvider,
+                eventGenerator: eventGenerator
             )
         )
     }

@@ -20,7 +20,9 @@ final class InvisibilityCheckInteraction: Interaction {
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
         minimalPercentageOfVisibleArea: CGFloat,
-        snapshotCaches: SnapshotCaches)
+        snapshotCaches: SnapshotCaches,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
         self.settings = settings
         self.description = InteractionDescription(
@@ -39,7 +41,9 @@ final class InvisibilityCheckInteraction: Interaction {
             elementFinder: elementFinder,
             interactionSettings: description.settings,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            snapshotCaches: snapshotCaches
+            snapshotCaches: snapshotCaches,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider
         )
     }
     
@@ -115,7 +119,7 @@ final class InvisibilityCheckInteraction: Interaction {
                     //
                     // So it should be a normal situation. We should not fail test if we can't scroll to something invisible.
                     //
-                    // Scrolling hints provider returned `.canNotProvideHint`, then it was converted to `.internalError`
+                    // Scrolling hints provider returned `.canNotProvideHintForCurrentRequest`, then it was converted to `.internalError`
                     // and led to test failure. The name may be misleading. There might be problems somewhere near
                     // that code.
                 }

@@ -7,17 +7,17 @@ import MixboxReporting
 public final class XcuiElementFinder: ElementFinder {
     private let stepLogger: StepLogger
     private let snapshotCaches: SnapshotCaches
-    // See ChangingHierarchyTests if you want to know why it is needed.
-    private let rootElementGetterThatDropsCaches: () -> (XCUIElement)
+    // See ChangingHierarchyTests if you want to know why dropping cache is needed.
+    private let applicationProviderThatDropsCaches: ApplicationProvider
     
     public init(
         stepLogger: StepLogger,
         snapshotCaches: SnapshotCaches,
-        rootElementGetterThatDropsCaches: @escaping () -> (XCUIElement))
+        applicationProviderThatDropsCaches: ApplicationProvider)
     {
         self.stepLogger = stepLogger
         self.snapshotCaches = snapshotCaches
-        self.rootElementGetterThatDropsCaches = rootElementGetterThatDropsCaches
+        self.applicationProviderThatDropsCaches = applicationProviderThatDropsCaches
     }
     
     public func query(
@@ -27,7 +27,7 @@ public final class XcuiElementFinder: ElementFinder {
     {
         let elementQueryResolvingState = ElementQueryResolvingState()
         
-        let xcuiElementQuery = rootElementGetterThatDropsCaches().descendants(matching: .any).matching(
+        let xcuiElementQuery = applicationProviderThatDropsCaches.application.descendants(matching: .any).matching(
             NSPredicate(
                 block: { snapshot, _ -> Bool in
                     if let snapshot = snapshot as? XCElementSnapshot {
@@ -52,7 +52,8 @@ public final class XcuiElementFinder: ElementFinder {
             elementQueryResolvingState: elementQueryResolvingState,
             waitForExistence: waitForExistence,
             stepLogger: stepLogger,
-            snapshotCaches: snapshotCaches
+            snapshotCaches: snapshotCaches,
+            applicationProvider: applicationProviderThatDropsCaches
         )
     }
 }

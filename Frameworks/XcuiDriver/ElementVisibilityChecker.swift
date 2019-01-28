@@ -29,10 +29,13 @@ final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
         }
         
         var parentPointer = snapshot.parent
+        var lastParent = snapshot.parent
+        
         while let parent = parentPointer {
+            lastParent = parent
             parentPointer = parent.parent
         }
-        if let topSnapshotFrame = parentPointer?.frameOnScreen {
+        if let topSnapshotFrame = lastParent?.frameOnScreen {
             if !topSnapshotFrame.intersects(snapshot.frameOnScreen) {
                 return VisibilityPercentage.definitelyHidden
             }

@@ -3,6 +3,12 @@ import MixboxTestsFoundation
 import XCTest
 import MixboxFoundation
 import MixboxIpcClients
+import MixboxIpcCommon
+import MixboxIpcClients
+import MixboxIpc
+import MixboxUiKit
+import MixboxUiTestsFoundation
+import XCTest
 
 private let waitForExistenceTimeoutForMenuItems: TimeInterval = 3
 
@@ -14,6 +20,9 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let keyboardEventInjector: KeyboardEventInjector
     private let pollingConfiguration: PollingConfiguration
+    private let applicationProvider: ApplicationProvider
+    private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
+    private let eventGenerator: EventGenerator
     
     init(
         elementSettings: ElementSettings,
@@ -21,7 +30,10 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         interactionFactory: InteractionFactory,
         elementVisibilityChecker: ElementVisibilityChecker,
         keyboardEventInjector: KeyboardEventInjector,
-        pollingConfiguration: PollingConfiguration)
+        pollingConfiguration: PollingConfiguration,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider,
+        eventGenerator: EventGenerator)
     {
         self.elementSettings = elementSettings
         self.interactionPerformerFactory = interactionPerformerFactory
@@ -29,6 +41,9 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         self.elementVisibilityChecker = elementVisibilityChecker
         self.keyboardEventInjector = keyboardEventInjector
         self.pollingConfiguration = pollingConfiguration
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
+        self.eventGenerator = eventGenerator
     }
     
     // MARK: - AlmightyElementActions
@@ -40,7 +55,10 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             interactionFactory: interactionFactory,
             elementVisibilityChecker: elementVisibilityChecker,
             keyboardEventInjector: keyboardEventInjector,
-            pollingConfiguration: pollingConfiguration
+            pollingConfiguration: pollingConfiguration,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider,
+            eventGenerator: eventGenerator
         )
     }
     
@@ -50,9 +68,14 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = snapshot.tappableWrapper(
+            guard let strongSelf = self else {
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
+            
+            let tappableWrapper = try strongSelf.tappableWrapper(
+                elementSnapshot: snapshot,
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -70,9 +93,14 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = snapshot.tappableWrapper(
+            guard let strongSelf = self else {
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
+            
+            let tappableWrapper = try strongSelf.tappableWrapper(
+                elementSnapshot: snapshot,
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -92,12 +120,15 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         // I am not sure that we should set UIPasteboard.general.string that often.
         UIPasteboard.general.string = text
         
-        perform(actionSettings: actionSettings) { [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+        perform(actionSettings: actionSettings) {
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            
             guard let strongSelf = self else {
-                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
             }
             
-            let tappableWrapper = snapshot.tappableWrapper(
+            let tappableWrapper = try strongSelf.tappableWrapper(
+                elementSnapshot: snapshot,
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -116,8 +147,7 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             strongSelf.keyboardEventInjector.inject { press in press.command(press.a()) }
             
             if text.isEmpty {
-                // TODO: Support different applications
-                XCUIApplication().typeText(XCUIKeyboardKey.delete.rawValue)
+                strongSelf.applicationProvider.application.typeText(XCUIKeyboardKey.delete.rawValue)
             } else {
                 UIPasteboard.general.string = text
                 
@@ -139,10 +169,11 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
             guard let strongSelf = self else {
-                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
             }
             
-            let tappableWrapper = snapshot.tappableWrapper(
+            let tappableWrapper = try strongSelf.tappableWrapper(
+                elementSnapshot: snapshot,
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -156,7 +187,7 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
                 absoluteOffset: absoluteOffset
             )
             
-            XCUIApplication().typeText(text)
+            strongSelf.applicationProvider.application.typeText(text)
             
             return .success
         }
@@ -172,10 +203,11 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
             guard let strongSelf = self else {
-                return .failureWithMessage("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
             }
             
-            let tappableWrapper = snapshot.tappableWrapper(
+            let tappableWrapper = try strongSelf.tappableWrapper(
+                elementSnapshot: snapshot,
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -187,7 +219,8 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             strongSelf.perform(actionSettings: actionSettings) {
                 (snapshot: ElementSnapshot) -> InteractionSpecificResult in
                 
-                let tappableWrapper = snapshot.tappableWrapper(
+                let tappableWrapper = try strongSelf.tappableWrapper(
+                    elementSnapshot: snapshot,
                     normalizedCoordinate: normalizedCoordinate,
                     absoluteOffset: absoluteOffset
                 )
@@ -197,7 +230,7 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
                 return .success
             }
             
-            let pasteButton = XcuiPageObjectElementActions.menuItem(
+            let pasteButton = strongSelf.menuItem(
                 possibleTitles: ["Вставить", "Paste"]
             )
             
@@ -209,7 +242,7 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
                 UIPasteboard.general.string = text
                 pasteButton.tap()
             } else {
-                return .failureWithMessage("Не удалось найти кнопку 'Вставить'")
+                throw ErrorString("Не удалось найти кнопку 'Вставить'")
             }
             
             return .success
@@ -222,9 +255,14 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = snapshot.tappableWrapper(
+            guard let strongSelf = self else {
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
+            
+            let tappableWrapper = try strongSelf.tappableWrapper(
+                elementSnapshot: snapshot,
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -233,22 +271,22 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             // TODO: Reload snapshots
             tappableWrapper.press(forDuration: 1)
             
-            let selectAllButton = XcuiPageObjectElementActions.menuItem(
+            let selectAllButton = strongSelf.menuItem(
                 possibleTitles: ["Выбрать все"]
             )
             
             guard selectAllButton.waitForExistence(timeout: waitForExistenceTimeoutForMenuItems) else {
-                return  .failureWithMessage("Не удалось найти кнопку 'Выбрать все'")
+                throw ErrorString("Не удалось найти кнопку 'Выбрать все'")
             }
             
             selectAllButton.tap()
             
-            let cutButton = XcuiPageObjectElementActions.menuItem(
+            let cutButton = strongSelf.menuItem(
                 possibleTitles: ["Вырезать"]
             )
             
             guard cutButton.waitForExistence(timeout: waitForExistenceTimeoutForMenuItems) else {
-                return .failureWithMessage("Не удалось найти кнопку 'Вырезать'")
+                throw ErrorString("Не удалось найти кнопку 'Вырезать'")
             }
             
             cutButton.tap()
@@ -263,9 +301,14 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            let tappableWrapper = snapshot.tappableWrapper(
+            guard let strongSelf = self else {
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
+            
+            let tappableWrapper = try strongSelf.tappableWrapper(
+                elementSnapshot: snapshot,
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             )
@@ -277,7 +320,7 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             if !value.isEmpty {
                 let deleteString: String = value.map { _ in XCUIKeyboardKey.delete.rawValue }.joined()
                 
-                XCUIApplication().typeText(deleteString)
+                strongSelf.applicationProvider.application.typeText(deleteString)
             }
             
             return .success
@@ -289,9 +332,17 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         actionSettings: ActionSettings)
     {
         return perform(actionSettings: actionSettings) {
-            (snapshot: ElementSnapshot) -> InteractionSpecificResult in
+            [weak self] (snapshot: ElementSnapshot) -> InteractionSpecificResult in
             
-            snapshot.swipe(direction: direction)
+            guard let strongSelf = self else {
+                throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+            }
+            
+            let swipeLength: CGFloat = 100
+            let delta = snapshot.normalizedOffsetForSwipe(direction: direction) * swipeLength
+            let origin = snapshot.frameOnScreen.mb_center
+            
+            strongSelf.eventGenerator.swipe(from: origin, to: origin + delta)
             
             return .success
         }
@@ -301,10 +352,16 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
     
     private func perform(
         actionSettings: ActionSettings,
-        action: @escaping (_ snapshot: ElementSnapshot) -> InteractionSpecificResult)
+        action: @escaping (_ snapshot: ElementSnapshot) throws -> InteractionSpecificResult)
     {
         let interaction = interactionFactory.actionInteraction(
-            specificImplementation: InteractionSpecificImplementation(execute: action),
+            specificImplementation: InteractionSpecificImplementation {
+                do {
+                    return try action($0)
+                } catch let error {
+                    return .failureWithMessage("\(error)")
+                }
+            },
             settings: ResolvedInteractionSettings(
                 interactionSettings: actionSettings,
                 elementSettings: elementSettings,
@@ -325,8 +382,8 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
     }
     
-    private static func menuItem(possibleTitles: [String]) -> XCUIElement {
-        let xcuiElementQuery = XCUIApplication().menuItems.matching(
+    private func menuItem(possibleTitles: [String]) -> XCUIElement {
+        let xcuiElementQuery = applicationProvider.application.menuItems.matching(
             NSPredicate(
                 block: { [possibleTitles] snapshot, _ -> Bool in
                     if let snapshot = snapshot as? XCElementSnapshot {
@@ -359,9 +416,21 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             for attempt in 0..<attempts {
                 if !hasFocus {
                     XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
-                    perform(actionSettings: actionSettings) { snapshot -> InteractionSpecificResult in
+                    perform(actionSettings: actionSettings) {
+                        [weak self] snapshot -> InteractionSpecificResult in
+                        
+                        guard let strongSelf = self else {
+                            throw ErrorString("Внутренняя ошибка, смотри код: \(#file):\(#line)")
+                        }
+                        
                         if let tapEveryNthAttempt = tapEveryNthAttempt, tapEveryNthAttempt > 0, attempt % tapEveryNthAttempt == 0 {
-                            snapshot.tappableWrapper(normalizedCoordinate: normalizedCoordinate, absoluteOffset: absoluteOffset).tap()
+                            let tappableWrapper = try strongSelf.tappableWrapper(
+                                elementSnapshot: snapshot,
+                                normalizedCoordinate: normalizedCoordinate,
+                                absoluteOffset: absoluteOffset
+                            )
+                            
+                            tappableWrapper.tap()
                         }
                         hasFocus = snapshot.hasKeyboardFocusOrHasDescendantThatHasKeyboardFocus()
                         
@@ -376,6 +445,89 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             assertionFailure("attempts should be > 0")
         }
     }
+    
+    private func tappableWrapper(
+        elementSnapshot: ElementSnapshot,
+        normalizedCoordinate: CGPoint?,
+        absoluteOffset: CGVector?)
+        throws
+        -> Tappable
+    {
+        var tapCoordinate = elementSnapshot.frameOnScreen.mb_center
+        
+        if let normalizedCoordinate = normalizedCoordinate {
+            tapCoordinate.x += elementSnapshot.frameOnScreen.width * (normalizedCoordinate.x - 0.5)
+            tapCoordinate.y += elementSnapshot.frameOnScreen.height * (normalizedCoordinate.y - 0.5)
+        }
+        
+        if let absoluteOffset = absoluteOffset {
+            tapCoordinate.x += absoluteOffset.dx
+            tapCoordinate.y += absoluteOffset.dy
+        }
+        
+        // Kludge to fix tapping on "com.apple.springboard"'s alerts.
+        // They can not be tapped by coordinate (even with private XCEventGenerator).
+        // If there is an alert every tap by coordinate results in alert being dismissed.
+        // If you want to tap "Proceed"/"OK" button it will tap "Cancel" button.
+        // However, it is possible to interact with XCUIElement inside the alert.
+        // We don't want to use XCUIElement for interacting with an element,
+        // because it will require to remove abstraction of interfaces
+        // that are designed to work with black-box and grey-box testing.
+        //
+        // But we can find an alert and tap the coordinate relative to it.
+        //
+        // Note: every action is working this way.
+        //
+        let uiInterruptionStatus = self.uiInterruptionStatus(snapshot: elementSnapshot)
+        
+        if uiInterruptionStatus.actionWouldNotWorkDueToUiInterruptionHandling {
+            // WARNING: It may use other alert! There may be bugs. Ideally we should find same alert.
+            let alert = applicationProvider.application.alerts.element(boundBy: 0)
+            
+            let alertFrame = alert.frame
+            
+            if alertFrame.contains(tapCoordinate) {
+                let applicationFrame = applicationCoordinatesProvider.frame
+                
+                tapCoordinate.x -= alertFrame.origin.x - applicationFrame.origin.x
+                tapCoordinate.y -= alertFrame.origin.y - applicationFrame.origin.y
+            
+                return alert
+                    .coordinate(withNormalizedOffset: CGVector.zero)
+                    .withOffset(CGVector(dx: tapCoordinate.x, dy: tapCoordinate.y))
+            } else {
+                throw ErrorString("Can not reliably tap system alert by coordinate."
+                    + " Try to use pure XCUI functions or use addUIInterruptionMonitor function of XCTestCase")
+            }
+        } else {
+            return applicationCoordinatesProvider.tappableCoordinate(point: tapCoordinate)
+        }
+    }
+    
+    // Workaround. See usage for more comments.
+    private struct UiInterruptionStatus {
+        var actionWouldNotWorkDueToUiInterruptionHandling: Bool {
+            return interruptingAlert != nil
+        }
+        
+        // Now only alerts treated as interruptions. Maybe we can reverse engineer XCTest and find
+        // the exact algorithm, and maybe we can make more reliable workaround after reverse engineering.
+        let interruptingAlert: ElementSnapshot?
+    }
+    
+    private func uiInterruptionStatus(snapshot: ElementSnapshot) -> UiInterruptionStatus {
+        var pointer: ElementSnapshot? = snapshot
+        while let snapshot = pointer, snapshot.elementType != .alert {
+            pointer = snapshot.parent
+        }
+        
+        // Maybe just a comparison of "com.apple.springboard" will work.
+        if let snapshot = pointer, snapshot.elementType == .alert && applicationProvider.application.bundleID.starts(with: "com.apple.") {
+            return UiInterruptionStatus(interruptingAlert: snapshot)
+        } else {
+            return UiInterruptionStatus(interruptingAlert: nil)
+        }
+    }
 }
 
 private protocol Tappable {
@@ -388,19 +540,28 @@ extension XCUICoordinate: Tappable {
 }
 
 private extension ElementSnapshot {
-    func tappableWrapper(normalizedCoordinate: CGPoint?, absoluteOffset: CGVector?) -> Tappable {
-        var tapCoordinate = frameOnScreen.mb_center
+    func normalizedOffsetForSwipe(direction: SwipeDirection) -> CGVector {
+        let dxNormalized: CGFloat
+        let dyNormalized: CGFloat
         
-        if let normalizedCoordinate = normalizedCoordinate {
-            tapCoordinate.x += frameOnScreen.width * (normalizedCoordinate.x - 0.5)
-            tapCoordinate.y += frameOnScreen.height * (normalizedCoordinate.y - 0.5)
+        switch direction {
+        case .up:
+            dxNormalized = 0
+            dyNormalized = -1
+        case .down:
+            dxNormalized = 0
+            dyNormalized = 1
+        case .left:
+            dxNormalized = -1
+            dyNormalized = 0
+        case .right:
+            dxNormalized = 1
+            dyNormalized = 0
         }
         
-        if let absoluteOffset = absoluteOffset {
-            tapCoordinate.x += absoluteOffset.dx
-            tapCoordinate.y += absoluteOffset.dy
-        }
-        
-        return XCUIApplication().tappableCoordinate(point: tapCoordinate)
+        return CGVector(
+            dx: dxNormalized,
+            dy: dyNormalized
+        )
     }
 }

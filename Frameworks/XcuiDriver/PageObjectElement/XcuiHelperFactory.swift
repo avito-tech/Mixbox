@@ -5,7 +5,10 @@ import MixboxReporting
 
 protocol XcuiHelperFactory: class {
     var snapshotsComparisonUtility: SnapshotsComparisonUtility { get }
-
+    var eventGenerator: EventGenerator { get }
+    var applicationProvider: ApplicationProvider { get }
+    var applicationCoordinatesProvider: ApplicationCoordinatesProvider { get }
+    
     func stepLogger() -> StepLogger
     func interactionPerformerFactory() -> InteractionPerformerFactory
     func interactionFactory() -> InteractionFactory
@@ -15,6 +18,11 @@ protocol XcuiHelperFactory: class {
 }
 
 final class XcuiHelperFactoryImpl: XcuiHelperFactory {
+    let snapshotsComparisonUtility: SnapshotsComparisonUtility
+    let applicationProvider: ApplicationProvider
+    let applicationCoordinatesProvider: ApplicationCoordinatesProvider
+    let eventGenerator: EventGenerator
+    
     private let interactionExecutionLogger: InteractionExecutionLogger
     private let testFailureRecorder: TestFailureRecorder
     private let elementVisibilityCheckerInstance: ElementVisibilityChecker
@@ -22,7 +30,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     private let elementFinder: ElementFinder
     private let scrollingHintsProvider: ScrollingHintsProvider
     private let keyboardEventInjectorInstance: KeyboardEventInjector
-    let snapshotsComparisonUtility: SnapshotsComparisonUtility
     private let pollingConfigurationValue: PollingConfiguration
     private let snapshotCaches: SnapshotCaches
     
@@ -37,7 +44,10 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         snapshotCaches: SnapshotCaches,
-        elementFinder: ElementFinder)
+        elementFinder: ElementFinder,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider,
+        eventGenerator: EventGenerator)
     {
         self.interactionExecutionLogger = interactionExecutionLogger
         self.testFailureRecorder = testFailureRecorder
@@ -49,6 +59,9 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         self.elementFinder = elementFinder
         self.pollingConfigurationValue = pollingConfiguration
         self.snapshotCaches = snapshotCaches
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
+        self.eventGenerator = eventGenerator
     }
     
     // MARK: - XcuiHelperFactory
@@ -65,7 +78,9 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
             elementFinder: elementFinder,
             elementVisibilityChecker: elementVisibilityCheckerInstance,
             scrollingHintsProvider: scrollingHintsProvider,
-            snapshotCaches: snapshotCaches
+            snapshotCaches: snapshotCaches,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider
         )
     }
     

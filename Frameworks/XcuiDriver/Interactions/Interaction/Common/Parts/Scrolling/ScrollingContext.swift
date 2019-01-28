@@ -11,7 +11,10 @@ final class ScrollingContext {
     private let minimalPercentageOfVisibleArea: CGFloat
     private let elementResolver: ElementResolver
     private let expectedIndexOfSnapshotInResolvedElementQuery: Int
+    private let applicationProvider: ApplicationProvider
+    private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     
+    // MARK: - State
     private var status: ScrollingResult.Status?
 
     private var snapshot: ElementSnapshot
@@ -25,6 +28,14 @@ final class ScrollingContext {
     // This stores views that are already visible, or if scroll to them was stucked.
     private var viewIdsToSkip = Set<String>()
     
+    // TODO: Share with swipe direction. Including calculation of normalized offsets.
+    private enum Direction {
+        case up
+        case down
+        case left
+        case right
+    }
+    
     init(
         snapshot: ElementSnapshot,
         expectedIndexOfSnapshotInResolvedElementQuery: Int,
@@ -32,6 +43,8 @@ final class ScrollingContext {
         scrollingHintsProvider: ScrollingHintsProvider,
         elementVisibilityChecker: ElementVisibilityChecker,
         minimalPercentageOfVisibleArea: CGFloat,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider,
         elementResolver: ElementResolver)
     {
         self.snapshot = snapshot
@@ -40,6 +53,8 @@ final class ScrollingContext {
         self.scrollingHintsProvider = scrollingHintsProvider
         self.elementVisibilityChecker = elementVisibilityChecker
         self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.elementResolver = elementResolver
     }
     
@@ -67,14 +82,75 @@ final class ScrollingContext {
         case .shouldReloadSnapshots:
             status = .scrolled
             reloadSnapshots()
-        case .canNotProvideHint:
-            // TODO: fallback?
-            status = .internalError("ошибка получения подсказки по скроллу: ничего не вышло")
+        case .canNotProvideHintForCurrentRequest:
+            // TODO: use fallback?
+            status = .internalError("ошибка получения подсказки по скроллу, не удалось понять как доскроллить до элемента")
+        case .hintsAreNotAvailableForCurrentElement:
+            // Fallback:
+            scrollUsingInformationFromSnapshot(snapshot: snapshot)
         case .internalError(let message):
             status = .internalError("ошибка получения подсказки по скроллу: \(message)")
         }
         
         scrollingAttempts += 1
+    }
+    
+    // Fallback when scrolling hint can not be retrieved from application (e.g. third party application)
+    private func scrollUsingInformationFromSnapshot(snapshot: ElementSnapshot) {
+        let draggingInstructions: [DraggingInstruction]
+        
+        if snapshot.frameOnScreen.mb_left > applicationCoordinatesProvider.frame.mb_right {
+            draggingInstructions = draggingInstructionsForScrolling(direction: .right)
+        } else if snapshot.frameOnScreen.mb_right < applicationCoordinatesProvider.frame.mb_left {
+            draggingInstructions = draggingInstructionsForScrolling(direction: .left)
+        } else if snapshot.frameOnScreen.mb_top > applicationCoordinatesProvider.frame.mb_bottom {
+            draggingInstructions = draggingInstructionsForScrolling(direction: .down)
+        } else if snapshot.frameOnScreen.mb_bottom < applicationCoordinatesProvider.frame.mb_top {
+            draggingInstructions = draggingInstructionsForScrolling(direction: .up)
+        } else {
+            draggingInstructions = []
+            
+            reloadSnapshots()
+        }
+        
+        followDraggingInstructions(draggingInstructions)
+    }
+    
+    private func draggingInstructionsForScrolling(dx: CGFloat, dy: CGFloat) -> [DraggingInstruction] {
+        let frame = applicationCoordinatesProvider.frame
+        
+        let initialTouchPoint = CGPoint(
+            x: frame.mb_center.x - 0.3 * frame.width * dx,
+            y: frame.mb_center.y - 0.3 * frame.width * dy
+        )
+        
+        let targetTouchPoint = CGPoint(
+            x: frame.mb_center.x + 0.45 * frame.width * dx,
+            y: frame.mb_center.y + 0.45 * frame.width * dy
+        )
+        
+        let instruction = DraggingInstruction(
+            initialTouchPoint: initialTouchPoint,
+            targetTouchPoint: targetTouchPoint,
+            targetTouchPointExceedingScreenBounds: targetTouchPoint,
+            elementIntersectsWithScreen: false,
+            elementUniqueIdentifier: "fake"
+        )
+        
+        return [instruction]
+    }
+    
+    private func draggingInstructionsForScrolling(direction: Direction) -> [DraggingInstruction] {
+        switch direction {
+        case .up:
+            return draggingInstructionsForScrolling(dx: 0, dy: 1)
+        case .down:
+            return draggingInstructionsForScrolling(dx: 0, dy: -1)
+        case .left:
+            return draggingInstructionsForScrolling(dx: 1, dy: 0)
+        case .right:
+            return draggingInstructionsForScrolling(dx: -1, dy: 0)
+        }
     }
     
     private func followDraggingInstructions(_ draggingInstructions: [DraggingInstruction]) {
@@ -198,10 +274,10 @@ final class ScrollingContext {
     }
     
     private func useDraggingInstruction(_ draggingInstruction: DraggingInstruction) {
-        let coordinateFrom = XCUIApplication().tappableCoordinate(
+        let coordinateFrom = applicationCoordinatesProvider.tappableCoordinate(
             point: draggingInstruction.initialTouchPoint
         )
-        let coordinateTo = XCUIApplication().tappableCoordinate(
+        let coordinateTo = applicationCoordinatesProvider.tappableCoordinate(
             point: draggingInstruction.targetTouchPoint
         )
         
@@ -209,6 +285,15 @@ final class ScrollingContext {
     }
     
     private func reloadSnapshots() {
+        // The following line is crucial. Without it snapshots can be reloaded
+        // during the animation, and taps will miss their targets.
+        // NOTE: It only produced bugs with "com.apple.springboard" app,
+        // maybe with other third-party apps too. Maybe I am wrong and it is also
+        // helpful for the main app. Otherwise we should move _waitForQuiescence to
+        // the place where it is needed, because it is quite slow.
+        // TODO: Write tests to checl that?
+        applicationProvider.application._waitForQuiescence()
+        
         XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
         resolvedElementQuery = elementResolver.resolveElement()
         

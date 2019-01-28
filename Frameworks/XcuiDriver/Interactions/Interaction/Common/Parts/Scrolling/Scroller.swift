@@ -7,17 +7,23 @@ final class Scroller {
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let minimalPercentageOfVisibleArea: CGFloat
     private let elementResolver: ElementResolver
+    private let applicationProvider: ApplicationProvider
+    private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     
     init(
         scrollingHintsProvider: ScrollingHintsProvider,
         elementVisibilityChecker: ElementVisibilityChecker,
         minimalPercentageOfVisibleArea: CGFloat,
-        elementResolver: ElementResolver)
+        elementResolver: ElementResolver,
+        applicationProvider: ApplicationProvider,
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
         self.scrollingHintsProvider = scrollingHintsProvider
         self.elementVisibilityChecker = elementVisibilityChecker
         self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         self.elementResolver = elementResolver
+        self.applicationProvider = applicationProvider
+        self.applicationCoordinatesProvider = applicationCoordinatesProvider
     }
     
     func scrollIfNeeded(
@@ -32,7 +38,7 @@ final class Scroller {
             
             // Need to scroll.
         } else {
-            let frame = ApplicationFrameProvider.frame
+            let frame = applicationCoordinatesProvider.frame
             
             if frame.mb_intersectionOrNil(snapshot.frameOnScreen) != nil {
                 // Element intersects screen.
@@ -72,6 +78,8 @@ final class Scroller {
             scrollingHintsProvider: scrollingHintsProvider,
             elementVisibilityChecker: elementVisibilityChecker,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider,
             elementResolver: elementResolver
         )
         

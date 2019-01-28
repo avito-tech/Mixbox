@@ -3,6 +3,7 @@ import XCTest
 
 final class InteractionFailureMaker {
     static func interactionFailure(
+        applicationProvider: ApplicationProvider,
         message: String,
         elementFindingFailure: String? = nil,
         currentElementSnapshots: [ElementSnapshot]? = nil,
@@ -17,7 +18,7 @@ final class InteractionFailureMaker {
             )
         }
         
-        let application = XCUIApplication()
+        let application = applicationProvider.application
         let applicationUiHierarchy = application.exists ? application.debugDescription : nil
         
         return InteractionFailure(

@@ -7,7 +7,10 @@ public enum ScrollingHint: Codable {
     // Poorly designed case: do nothing, do not scroll. What is poorly designed: how it is handled, there was
     // at least one bug when this case was converted to an error case. And maybe this is because we should rename
     // the case or split it in two. TODO: Review usages, improve if needed.
-    case canNotProvideHint
+    case canNotProvideHintForCurrentRequest
+    
+    // Should use some kind of fallback
+    case hintsAreNotAvailableForCurrentElement
     
     // Negative case: error that should fail test
     case internalError(String)
@@ -21,7 +24,8 @@ public enum ScrollingHint: Codable {
     private enum CaseId: String, Codable {
         case shouldScroll
         case shouldReloadSnapshots
-        case canNotProvideHint
+        case canNotProvideHintForCurrentRequest
+        case hintsAreNotAvailableForCurrentElement
         case internalError
     }
     
@@ -34,8 +38,10 @@ public enum ScrollingHint: Codable {
             try container.encode(nested, forKey: .shouldScroll)
         case .shouldReloadSnapshots:
             try container.encode(CaseId.shouldReloadSnapshots, forKey: .caseId)
-        case .canNotProvideHint:
-            try container.encode(CaseId.canNotProvideHint, forKey: .caseId)
+        case .canNotProvideHintForCurrentRequest:
+            try container.encode(CaseId.canNotProvideHintForCurrentRequest, forKey: .caseId)
+        case .hintsAreNotAvailableForCurrentElement:
+            try container.encode(CaseId.hintsAreNotAvailableForCurrentElement, forKey: .caseId)
         case .internalError(let nested):
             try container.encode(CaseId.internalError, forKey: .caseId)
             try container.encode(nested, forKey: .internalError)
@@ -52,8 +58,10 @@ public enum ScrollingHint: Codable {
             self = .shouldScroll(nested)
         case .shouldReloadSnapshots:
             self = .shouldReloadSnapshots
-        case .canNotProvideHint:
-            self = .canNotProvideHint
+        case .canNotProvideHintForCurrentRequest:
+            self = .canNotProvideHintForCurrentRequest
+        case .hintsAreNotAvailableForCurrentElement:
+            self = .hintsAreNotAvailableForCurrentElement
         case .internalError:
             let nested = try container.decode(String.self, forKey: .internalError)
             self = .internalError(nested)
