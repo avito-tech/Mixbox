@@ -56,9 +56,9 @@ final class TestCaseUtils {
         // TODO: Get rid of usage of ProcessInfo singleton here
         if ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true" {
             // Usage of XCTActivity crashes fbxctest, so we have to not use it.
-            stepLogger = StepLoggerImpl()
+            stepLogger = Singletons.stepLogger
         } else {
-            stepLogger = XcuiActivityStepLogger(originalStepLogger: StepLoggerImpl())
+            stepLogger = XcuiActivityStepLogger(originalStepLogger: Singletons.stepLogger)
         }
         self.stepLogger = stepLogger
         

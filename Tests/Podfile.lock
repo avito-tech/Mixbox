@@ -3,6 +3,8 @@ PODS:
   - GCDWebServer (3.4.2):
     - GCDWebServer/Core (= 3.4.2)
   - GCDWebServer/Core (3.4.2)
+  - MixboxAllure (0.0.1):
+    - MixboxArtifacts
   - MixboxArtifacts (0.0.1)
   - MixboxBuiltinIpc (0.0.1):
     - GCDWebServer
@@ -57,6 +59,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaImageHashing (= 1.6.1)
+  - MixboxAllure (from `..`)
   - MixboxArtifacts (from `..`)
   - MixboxBuiltinIpc (from `..`)
   - MixboxFoundation (from `..`)
@@ -86,6 +89,8 @@ SPEC REPOS:
     - SwiftyJSON
 
 EXTERNAL SOURCES:
+  MixboxAllure:
+    :path: ".."
   MixboxArtifacts:
     :path: ".."
   MixboxBuiltinIpc:
@@ -120,6 +125,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CocoaImageHashing: d7d3813c5aeb6ddcf4e57219dc63c741b8a16e0a
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
+  MixboxAllure: 32ec8a1f0559a3d73b5b9cab2c02d3abe5aee393
   MixboxArtifacts: c91e67e2d8ad399e4460dd509edccd2d467e1c52
   MixboxBuiltinIpc: 0a1de598d46d2665709165ac38185aee310a9051
   MixboxFoundation: d3c5def5457f36c65cd201ab154b78f27ac6bac1

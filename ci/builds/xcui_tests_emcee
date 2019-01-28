@@ -39,10 +39,10 @@ installEmcee() {
 }
 
 testUsingEmcee() {
-    appName=Tests.app
-    testsTarget=XcuiTests
-    runnerAppName=$testsTarget-Runner.app
-    derivedDataPath=`derivedDataPath`
+    local appName=Tests.app
+    local testsTarget=XcuiTests
+    local runnerAppName=$testsTarget-Runner.app
+    local derivedDataPath=`derivedDataPath`
 
     mkdir -p "$MIXBOX_CI_REPORTS_PATH"
 
@@ -50,15 +50,30 @@ testUsingEmcee() {
 
     cd "$MIXBOX_CI_SCRIPT_DIRECTORY"
     
-    fbxctestUrl="http://artifactory.msk.avito.ru/artifactory/ios-ci/fb/fbxctest/fbxctest_20181120T145305.zip"
-    fbsimctlUrl="http://artifactory.msk.avito.ru/artifactory/ios-ci/fb/fbsimctl/fbsimctl_20181120T145356.zip"
+    local fbxctestUrl="http://artifactory.msk.avito.ru/artifactory/ios-ci/fb/fbxctest/fbxctest_20181120T145305.zip"
+    local fbsimctlUrl="http://artifactory.msk.avito.ru/artifactory/ios-ci/fb/fbsimctl/fbsimctl_20181120T145356.zip"
+    
+    local sourceEnvironment="$MIXBOX_CI_SCRIPT_DIRECTORY/emcee/environment.json"
+    local environment="$derivedDataPath/environment.json"
+    
+    if [ -z "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" ]
+    then
+        cp "$sourceEnvironment" "$environment"
+    else
+        rm -rf "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"
+        mkdir -p "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"
+        
+        cat "$sourceEnvironment" \
+            | jq ". + {\"MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\": \"$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\"}" \
+            > "$environment"
+    fi
     
     "$avitoRunnerBinaryPath" runTests \
     --fbsimctl "$fbsimctlUrl" \
     --fbxctest "$fbxctestUrl" \
     --junit "$MIXBOX_CI_REPORTS_PATH/junit.xml" \
     --trace "$MIXBOX_CI_REPORTS_PATH/trace.combined.json" \
-    --environment "$MIXBOX_CI_SCRIPT_DIRECTORY/emcee/environment.json" \
+    --environment "$environment" \
     --test-destinations "$(destinationFile)" \
     --number-of-retries 1 \
     --number-of-simulators 4 \
@@ -76,8 +91,21 @@ testUsingEmcee() {
     --xctest-bundle "$derivedDataPath/Build/Products/Debug-iphonesimulator/$testsTarget-Runner.app/PlugIns/$testsTarget.xctest"
 }
 
+generateReports() {
+    if ! [ -z "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" ]
+    then
+        which allure || brew install allure
+
+        local results="$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY/results"
+        local report="$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY/report"
+        
+        allure generate "$results" -o "$report"
+    fi
+}
+
 prepareForTesting
 installAdditionalDependencies
 buildWith_action_scheme_xcodebuildPipeFilter "build-for-testing" "XcuiTests" "xcpretty"
 testUsingEmcee
+generateReports
 cleanUpAfterTesting

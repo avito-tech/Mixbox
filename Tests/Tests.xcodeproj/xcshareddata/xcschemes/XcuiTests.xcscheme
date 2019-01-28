@@ -80,6 +80,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"
+            value = "$(MIXBOX_CI_ALLURE_REPORTS_DIRECTORY)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "MIXBOX_CI_IS_CI_BUILD"
             value = "$(MIXBOX_CI_IS_CI_BUILD)"
             isEnabled = "YES">

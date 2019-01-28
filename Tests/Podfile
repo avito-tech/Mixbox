@@ -55,6 +55,8 @@ target 'XcuiTests' do
   inherit! :search_paths
 
   blackbox_tests_pods
+  
+  pod 'MixboxAllure', :path => '..'
 end
 
 target 'UnitTests' do
