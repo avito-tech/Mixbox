@@ -342,7 +342,12 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             let delta = snapshot.normalizedOffsetForSwipe(direction: direction) * swipeLength
             let origin = snapshot.frameOnScreen.mb_center
             
-            strongSelf.eventGenerator.swipe(from: origin, to: origin + delta)
+            strongSelf.eventGenerator.pressAndDrag(
+                from: origin,
+                to: origin + delta,
+                duration: 0,
+                velocity: 1000 // TODO: Do it faster?
+            )
             
             return .success
         }

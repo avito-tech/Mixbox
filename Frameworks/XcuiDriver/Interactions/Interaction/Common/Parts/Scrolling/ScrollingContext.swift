@@ -120,8 +120,8 @@ final class ScrollingContext {
         let frame = applicationCoordinatesProvider.frame
         
         let initialTouchPoint = CGPoint(
-            x: frame.mb_center.x - 0.3 * frame.width * dx,
-            y: frame.mb_center.y - 0.3 * frame.width * dy
+            x: frame.mb_center.x - 0.45 * frame.width * dx,
+            y: frame.mb_center.y - 0.45 * frame.width * dy
         )
         
         let targetTouchPoint = CGPoint(
@@ -281,6 +281,7 @@ final class ScrollingContext {
             point: draggingInstruction.targetTouchPoint
         )
         
+        // TODO: Use event generator to drag faster?
         coordinateFrom.press(forDuration: 0, thenDragTo: coordinateTo)
     }
     

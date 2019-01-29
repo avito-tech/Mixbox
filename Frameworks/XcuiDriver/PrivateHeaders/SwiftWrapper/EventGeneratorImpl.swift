@@ -9,15 +9,15 @@ public final class EventGeneratorImpl: EventGenerator {
             = applicationProvider
     }
     
-    public func swipe(from: CGPoint, to: CGPoint) {
-        let actionName = "Swipe"
+    public func pressAndDrag(from: CGPoint, to: CGPoint, duration: TimeInterval, velocity: Double) {
+        let actionName = "Press \(from) for \(duration)s and drag to \(to) with velocity \(velocity)"
         self.perform(actionName: actionName) { generator, completion in
             // Interesting fact: the method returns duration of the event + 30 seconds.
             return generator.press(
                 at: from,
-                forDuration: 0,
+                forDuration: duration,
                 liftAt: to,
-                velocity: 1000,
+                velocity: velocity,
                 orientation: Int64(UIInterfaceOrientation.portrait.rawValue), // TODO: How to use it? TODO: Test rotation.
                 name: actionName,
                 handler: { (_ record: XCSynthesizedEventRecord?, _ error: Error?) in
@@ -27,12 +27,12 @@ public final class EventGeneratorImpl: EventGenerator {
         }
     }
     
-    public func tap(point: CGPoint) {
-        let actionName = "Tap"
+    public func tap(point: CGPoint, numberOfTaps: UInt) {
+        let actionName = "Tap \(point)"
         self.perform(actionName: actionName) { generator, completion in
             return generator.tap(
                 atTouchLocations: NSArray(array: [NSValue(cgPoint: point)]),
-                numberOfTaps: 1,
+                numberOfTaps: UInt64(numberOfTaps),
                 orientation: Int64(UIInterfaceOrientation.portrait.rawValue),
                 handler: { (_ record: XCSynthesizedEventRecord?, _ error: Error?) in
                     completion(record, error)

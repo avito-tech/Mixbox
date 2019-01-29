@@ -3,12 +3,17 @@ import XCTest
 public protocol ApplicationCoordinatesProvider {
     var frame: CGRect { get }
     
-    func tappableCoordinate(x: CGFloat, y: CGFloat) -> XCUICoordinate
+    func tappablePoint(point: CGPoint) -> CGPoint
+    func coordinate(tappablePoint: CGPoint) -> XCUICoordinate
 }
 
 public extension ApplicationCoordinatesProvider {
     func tappableCoordinate(point: CGPoint) -> XCUICoordinate {
-        return tappableCoordinate(x: point.x, y: point.y)
+        return coordinate(tappablePoint: tappablePoint(point: point))
+    }
+    
+    func tappableCoordinate(x: CGFloat, y: CGFloat) -> XCUICoordinate {
+        return tappableCoordinate(point: CGPoint(x: x, y: y))
     }
 }
 
@@ -21,7 +26,7 @@ public final class ApplicationCoordinatesProviderImpl: ApplicationCoordinatesPro
         self.applicationProvider = applicationProvider
     }
     
-    public func tappableCoordinate(x: CGFloat, y: CGFloat) -> XCUICoordinate {
+    public func tappablePoint(point: CGPoint) -> CGPoint {
         // If you try to create XCUICoordinate from XCUIApplication, with absolute offset from normalized offset {0, 0}
         // that is greater or equals screen size at least at one axis and none of coordinates are negative,
         // then coordinates will be kindly divided by 2 for you by XCUI.
@@ -46,8 +51,8 @@ public final class ApplicationCoordinatesProviderImpl: ApplicationCoordinatesPro
         // TODO: add an error for that case, it might be useful. Maybe it is possible to tap on a view at that
         // coordinates, so in order to tap on status bar we can place a transparent view and tap over it).
         
-        var x = x
-        var y = y
+        var x = point.x
+        var y = point.y
         
         // TODO: DI. Constructing ApplicationCoordinatesProviderImpl means that cache is not used.
         let minX: CGFloat = 0 // same effect for any negative number
@@ -60,9 +65,13 @@ public final class ApplicationCoordinatesProviderImpl: ApplicationCoordinatesPro
         if x < minX { x = minX }
         if y < minY { y = minY }
         
+        return CGPoint(x: x, y: y)
+    }
+    
+    public func coordinate(tappablePoint: CGPoint) -> XCUICoordinate {
         // Alternative: We can normalize x and y and do not use withOffset. However, it doesn't give us anything.
         return applicationProvider.application
             .coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
-            .withOffset(CGVector(dx: x, dy: y))
+            .withOffset(CGVector(dx: tappablePoint.x, dy: tappablePoint.y))
     }
 }
