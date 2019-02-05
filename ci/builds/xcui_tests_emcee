@@ -39,8 +39,8 @@ installEmcee() {
 }
 
 testUsingEmcee() {
-    local appName=Tests.app
-    local testsTarget=XcuiTests
+    local appName=TestedApp.app
+    local testsTarget=BlackBoxUiTests
     local runnerAppName=$testsTarget-Runner.app
     local derivedDataPath=`derivedDataPath`
 
@@ -105,7 +105,7 @@ generateReports() {
 
 prepareForTesting
 installAdditionalDependencies
-buildWith_action_scheme_xcodebuildPipeFilter "build-for-testing" "XcuiTests" "xcpretty"
+buildWith_action_scheme_xcodebuildPipeFilter "build-for-testing" "BlackBoxUiTests" "xcpretty"
 testUsingEmcee
 generateReports
 cleanUpAfterTesting

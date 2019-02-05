@@ -10,6 +10,10 @@ PODS:
     - GCDWebServer
     - MixboxIpc
   - MixboxFoundation (0.0.1)
+  - MixboxGrey (0.0.1):
+    - MixboxIpcClients
+    - MixboxUiKit
+    - MixboxUiTestsFoundation
   - MixboxInAppServices (0.0.1):
     - MixboxBuiltinIpc
     - MixboxIpcCommon
@@ -63,6 +67,7 @@ DEPENDENCIES:
   - MixboxArtifacts (from `..`)
   - MixboxBuiltinIpc (from `..`)
   - MixboxFoundation (from `..`)
+  - MixboxGrey (from `..`)
   - MixboxInAppServices (from `..`)
   - MixboxIpc (from `..`)
   - MixboxIpcClients (from `..`)
@@ -97,6 +102,8 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxFoundation:
     :path: ".."
+  MixboxGrey:
+    :path: ".."
   MixboxInAppServices:
     :path: ".."
   MixboxIpc:
@@ -129,6 +136,7 @@ SPEC CHECKSUMS:
   MixboxArtifacts: c91e67e2d8ad399e4460dd509edccd2d467e1c52
   MixboxBuiltinIpc: 0a1de598d46d2665709165ac38185aee310a9051
   MixboxFoundation: d3c5def5457f36c65cd201ab154b78f27ac6bac1
+  MixboxGrey: 9327bf2f171166c99c20e112f7712cd36179da02
   MixboxInAppServices: a9b973703ea5ce85243afa9299b7428ada8187f9
   MixboxIpc: b1f1c9fb79a48c5dec77a54e38a003bf3e6f6548
   MixboxIpcClients: e3305981c84deeb90eb331c1f689afe912da183a

@@ -70,7 +70,7 @@ final class ThirdPartyAppsTests: TestCase {
 }
 
 private class Springboard: BasePageObjectWithDefaultInitializer {
-    private let applicationName = "Tests"
+    private let applicationName = ApplicationNameProvider.applicationName
     
     var mainAppIcon: ViewElement {
         return element("Main app icon") { element in

@@ -12,6 +12,16 @@ def ui_tests_pods
   pod 'MixboxUiTestsFoundation', :path => '..'
   pod 'MixboxArtifacts', :path => '..'
   pod 'SwiftyJSON', '3.1.4', :inhibit_warnings => true
+  pod 'MixboxIpcClients', :path => '..'
+  pod 'MixboxReporting', :path => '..'
+  pod 'MixboxFoundation', :path => '..'
+end
+
+def application_testability_and_blackbox_testing_common_pods
+  pod 'MixboxIpc', :path => '..'
+  pod 'MixboxIpcCommon', :path => '..'
+  pod 'MixboxUiKit', :path => '..'
+  pod 'MixboxBuiltinIpc', :path => '..'
 end
 
 def application_testability_and_blackbox_testing_common_pods
@@ -38,22 +48,40 @@ def blackbox_tests_pods
   pod 'CocoaImageHashing', '1.6.1', :inhibit_warnings => true
   pod 'SBTUITestTunnel/Client', :inhibit_warnings => true
   pod 'MixboxIpcSbtuiClient', :path => '..'
-  pod 'MixboxIpcClients', :path => '..'
-  pod 'MixboxReporting', :path => '..'
-  pod 'MixboxFoundation', :path => '..'
   pod 'MixboxXcuiDriver', :path => '..'
   pod 'SimulatorRemoteNotifications', '~> 0.0.3', :inhibit_warnings => true
 end
 
+def greybox_tests_pods
+  ui_tests_pods
+  
+  pod 'MixboxGrey', :path => '..'
+  pod 'MixboxIpc', :path => '..'
+  pod 'MixboxIpcCommon', :path => '..'
+  pod 'MixboxUiKit', :path => '..'
+end
+
+def whitebox_tests_pods
+  # nothing is here yet
+end
+
 ### TARGETS
 
-target 'Tests' do
+target 'TestedApp' do
   application_testability_pods
 end
 
-target 'XcuiTests' do
+target 'GreyBoxUiTests' do
   inherit! :search_paths
+  
+  greybox_tests_pods
+  
+  pod 'MixboxAllure', :path => '..'
+end
 
+target 'BlackBoxUiTests' do
+  inherit! :search_paths
+  
   blackbox_tests_pods
   
   pod 'MixboxAllure', :path => '..'
@@ -62,12 +90,18 @@ end
 target 'UnitTests' do
   inherit! :search_paths
 
+  whitebox_tests_pods
+  
+  # Code being tested:
   ui_tests_pods
 end
 
 target 'HostedAppLogicTests' do
   inherit! :search_paths
 
+  whitebox_tests_pods
+  
+  # Code being tested:
   ui_tests_pods
 end
 

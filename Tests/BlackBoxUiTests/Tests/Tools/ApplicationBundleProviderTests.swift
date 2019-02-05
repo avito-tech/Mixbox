@@ -16,8 +16,8 @@ final class ApplicationBundleProviderTests: TestCase {
             .applicationBundle()
         
         // Test if they are proper bundles
-        XCTAssertEqual(installedApplicationBundle.bundleIdentifier, "mixbox.XcuiTests.app")
-        XCTAssertEqual(builtApplicationBundle.bundleIdentifier, "mixbox.XcuiTests.app")
+        XCTAssertEqual(installedApplicationBundle.bundleIdentifier, "mixbox.Tests.TestedApp")
+        XCTAssertEqual(builtApplicationBundle.bundleIdentifier, "mixbox.Tests.TestedApp")
         
         // Test path of installed bundle
         pageObjects.screen.bundlePath.withoutTimeout.assert.hasText(

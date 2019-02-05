@@ -22,7 +22,7 @@ final class TestingViewController: UIViewController {
     }
     
     override func loadView() {
-        let prefix = "Tests." // TODO: remove hardcode
+        let prefix = "\(ApplicationNameProvider.applicationName)." // TODO: get module name properly
         let className = testingViewControllerSettings.name
         
         if let metaclass = NSClassFromString(prefix + className) as? UIView.Type {

@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-#import "Tests-Swift.h"
+#import "TestedApp-Swift.h"
 
 int main(int argc, char * argv[]) {
     @try {

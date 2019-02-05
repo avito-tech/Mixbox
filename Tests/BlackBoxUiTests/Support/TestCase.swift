@@ -84,7 +84,7 @@ class TestCase: XCTestCase, FailureGatherer {
         if !TestCase.everLaunched {
             app = XCUIApplication()
         } else {
-            app = XCUIApplication(privateWithPath: nil, bundleID: "mixbox.XcuiTests.app")
+            app = XCUIApplication(privateWithPath: nil, bundleID: "mixbox.Tests.TestedApp")
         }
         
         // Initialize client/server pairs

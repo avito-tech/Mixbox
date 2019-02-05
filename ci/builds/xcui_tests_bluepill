@@ -37,7 +37,7 @@ testUsingBluepill() {
     --headless \
     --device "$(destination | jq -r .[0].testDestination.deviceType)" \
     --runtime "iOS $(destination | jq -r .[0].testDestination.iOSVersionShort)" \
-    --xctestrun-path "$(ls -1 "$(derivedDataPath)"/Build/Products/XcuiTests_iphonesimulator*.xctestrun|head -1)" \
+    --xctestrun-path "$(ls -1 "$(derivedDataPath)"/Build/Products/BlackBoxUiTests_iphonesimulator*.xctestrun|head -1)" \
     --error-retries 1 \
     --failure-tolerance 1 \
     --stuck-timeout 600 \
@@ -50,6 +50,6 @@ testUsingBluepill() {
 
 prepareForTesting
 installAdditionalDependencies
-buildWith_action_scheme_xcodebuildPipeFilter "build-for-testing" "XcuiTests" "xcpretty"
+buildWith_action_scheme_xcodebuildPipeFilter "build-for-testing" "BlackBoxUiTests" "xcpretty"
 testUsingBluepill
 cleanUpAfterTesting

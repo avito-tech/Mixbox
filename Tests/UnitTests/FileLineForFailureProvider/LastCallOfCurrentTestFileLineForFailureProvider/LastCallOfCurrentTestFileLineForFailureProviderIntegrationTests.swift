@@ -15,7 +15,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests: XCT
             extendedStackTraceEntryFromCallStackSymbolsConverter: ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
         ),
         testSymbolPatterns: [
-            ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)", // XcuiTests.FailuresTests.test_multipleMatchesFailure() -> ()
+            ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)", // BlackBoxUiTests.FailuresTests.test_multipleMatchesFailure() -> ()
             "_thePaTteRn_"
         ]
     )

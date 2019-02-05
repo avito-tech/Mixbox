@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name                   = 'MixboxEarlGreyDriver'
+  s.name                   = 'MixboxGrey'
   s.module_name            = s.name
   s.version                = '0.0.1'
   s.summary                = s.name
@@ -11,8 +11,15 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "9.0"
   s.swift_version = '4.0'
   s.requires_arc = true
-  s.source_files = 'Frameworks/EarlGreyDriver/**/*.{swift}'
+  s.source_files = 'Frameworks/Grey/**/*.{swift}'
 
   s.dependency 'MixboxUiTestsFoundation'
-  s.dependency 'EarlGrey'
+  s.dependency 'MixboxIpcClients'
+  s.dependency 'MixboxUiKit'
+  
+  s.frameworks = 'XCTest', 'XCTAutomationSupport'
+  s.xcconfig = {
+    'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'
+  }
 end
