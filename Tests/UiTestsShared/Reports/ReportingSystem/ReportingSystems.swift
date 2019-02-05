@@ -1,3 +1,5 @@
+import Foundation
+
 public final class ReportingSystems: ReportingSystem {
     private let reportingSystems: [ReportingSystem]
     

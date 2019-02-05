@@ -1,3 +1,5 @@
+import Foundation
+
 public final class TestMethodReport {
     public let uuid: NSUUID
     

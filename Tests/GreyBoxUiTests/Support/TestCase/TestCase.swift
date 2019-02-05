@@ -1,25 +1,14 @@
 import XCTest
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxXcuiDriver
 import MixboxArtifacts
-import SBTUITestTunnel
-import MixboxIpcSbtuiClient
 import MixboxReporting
-import MixboxBuiltinIpc
 import MixboxIpc
 import MixboxFoundation
+@testable import TestedApp
 
 class TestCase: XCTestCase, FailureGatherer {
-    // Prototype of fast launching, see usage:
-    // UPD: Implemented in Avito. TODO: Sync with Mixbox.
-    static var everLaunched = false
-    
     private(set) lazy var testCaseUtils: TestCaseUtils = self.reuseState { TestCaseUtils() }
-    
-    var testRunnerPermissions: ApplicationPermissionsSetter {
-        return testCaseUtils.testRunnerPermissions
-    }
     
     var permissions: ApplicationPermissionsSetter {
         return testCaseUtils.permissions
@@ -44,89 +33,17 @@ class TestCase: XCTestCase, FailureGatherer {
         }
     }
     
-    func launch(environment: [String: String], useBuiltinIpc: Bool = false) {
-        if useBuiltinIpc {
-            launchUsingBuiltinIpc(environment: environment)
-        } else {
-            launchUsingSbtui(environment: environment)
-        }
-    }
-    
-    private func launchUsingSbtui(environment: [String: String]) {
-        // Note that setting it to a value > Int32.max would lead to an error.
-        let timeoutValueThatReallyDisablesTimeout: TimeInterval = 100000
-        SBTUITunneledApplication.setConnectionTimeout(timeoutValueThatReallyDisablesTimeout)
-        
-        let app = SBTUITunneledApplication()
-        for (key, value) in commonEnvironment {
-            app.launchEnvironment[key] = value
-        }
-        for (key, value) in environment {
-            app.launchEnvironment[key] = value
-        }
-        app.launchTunnel()
-        testCaseUtils.lazilyInitializedIpcClient.ipcClient = SbtuiIpcClient(
-            application: app
+    func openScreen(name: String) {
+        let viewController = TestingViewController(
+            testingViewControllerSettings: TestingViewControllerSettings(
+                name: name
+            )
         )
-    }
-    
-    private var commonEnvironment: [String: String] {
-        return [
-            "MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL": "true",
-            "MB_TESTS_screenName": "DummyForLaunchingUiTestsView"
-        ]
-    }
-    
-    private func launchUsingBuiltinIpc(environment: [String: String]) {
-        let app: XCUIApplication
         
-        // Prototype of fast launching
-        if !TestCase.everLaunched {
-            app = XCUIApplication()
-        } else {
-            app = XCUIApplication(privateWithPath: nil, bundleID: "mixbox.Tests.TestedApp")
-        }
-        
-        // Initialize client/server pairs
-        let handshaker = KnownPortHandshakeWaiter()
-        guard let port = handshaker.start() else {
-            preconditionFailure("Не удалось стартовать сервер.")
-        }
-        
-        // Set up environment
-        for (key, value) in commonEnvironment {
-            app.launchEnvironment[key] = value
-        }
-        
-        app.launchEnvironment["MIXBOX_HOST"] = "localhost"
-        app.launchEnvironment["MIXBOX_PORT"] = "\(port)"
-        app.launchEnvironment["MIXBOX_USE_BUILTIN_IPC"] = "true"
-        
-        for (key, value) in environment {
-            app.launchEnvironment[key] = value
-        }
-        
-        // Launch
-        app.launch()
-        TestCase.everLaunched = true
-        
-        // Wait for handshake
-        testCaseUtils.lazilyInitializedIpcClient.ipcClient = handshaker.waitForHandshake()
-        testCaseUtils.ipcRouter = handshaker.server
-    }
-    
-    func openScreen(name: String, useBuiltinIpc: Bool = false) {
-        launch(
-            environment: [
-                "MB_TESTS_screenName": name
-            ],
-            useBuiltinIpc: useBuiltinIpc
-        )
+        UIApplication.shared.keyWindow?.rootViewController = viewController
     }
     
     // MARK: - Gathering failures
-    
-    // TODO: Share by moving to Mixbox?
     
     private enum RecordFailureMode {
         case failTest

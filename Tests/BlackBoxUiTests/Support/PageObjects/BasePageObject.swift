@@ -4,6 +4,8 @@ import MixboxUiTestsFoundation
 //
 // This class can be copypasted to any repository.
 // Note this before adding some specific stuff for PageObject.
+//
+// TODO: Move some code somewhere to Mixbox?
 
 open class BasePageObject: PageObject, PageObjectElementRegistrar {
     fileprivate let pageObjectElementRegistrar: PageObjectElementRegistrar

@@ -1,3 +1,5 @@
+import Foundation
+
 public final class TestCaseReport {
     // Identification
     public let uuid: NSUUID
