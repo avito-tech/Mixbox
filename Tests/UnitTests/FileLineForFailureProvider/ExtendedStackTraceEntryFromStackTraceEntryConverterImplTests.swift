@@ -5,7 +5,7 @@ import MixboxFoundation
 final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTestCase {
     private let converter = ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
     
-    func test() {
+    func test_fallback_0() {
         let entry = converter.extendedStackTraceEntry(
             stackTraceEntry: StackTraceEntry(
                 symbol: "0   ???                                 0x123456789abcdef0 0x0 + 123456789",
@@ -24,11 +24,11 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
         )
     }
     
-    func test2() {
+    func test_fallback_1() {
         let entry = converter.extendedStackTraceEntry(
             stackTraceEntry: StackTraceEntry(
                 symbol: "2   xctest                              0x000000010e7a0069 main + 0",
-                address: 0x000000010e7a0069
+                address: 0x123456789abcdef0
             )
         )
         
@@ -39,43 +39,7 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
             owner: "xctest",
             symbol: "main",
             demangledSymbol: "main",
-            address: 0x000000010e7a0069
-        )
-    }
-    
-    func test3() {
-        // THIS TEST IS FLAKY (success rate ~99.5%)
-        //
-        // The test was run 4 times in the build, 4 failures
-        //
-        // ======= Failed test run #1 ==========
-        // XCTAssertTrue failed - Expected file: nil, actual: Optional("*****/Frameworks/TestsFoundation/Reporting/FileLineForFailureProvider/StackTrace/ExtendedStackTraceEntryFromStackTraceEntryConverterImpl.swift")
-        // UnitTests/FileLineForFailureProvider/ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift:53
-        // ======= Failed test run #2 ==========
-        // XCTAssertTrue failed - Expected owner: Optional("XCTest"), actual: Optional("MixboxTestsFoundation")
-        // UnitTests/FileLineForFailureProvider/ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift:53
-        // ======= Failed test run #3 ==========
-        // XCTAssertTrue failed - Expected symbol: Optional("+[XCTestCase(Failures) performFailableBlock:shouldInterruptTest:]"), actual: Optional("_T0So19NSRegularExpressionC7OptionsVs10SetAlgebra10FoundationsAEP7isEmptySbvgTW")
-        // UnitTests/FileLineForFailureProvider/ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift:53
-        // ======= Failed test run #4 ==========
-        // XCTAssertTrue failed - Expected demangledSymbol: Optional("+[XCTestCase(Failures) performFailableBlock:shouldInterruptTest:]"), actual: Optional("protocol witness for Swift.SetAlgebra.isEmpty.getter : Swift.Bool in conformance __ObjC.NSRegularExpression.Options : Swift.SetAlgebra in Foundation")
-        // UnitTests/FileLineForFailureProvider/ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift:53
-        
-        let entry = converter.extendedStackTraceEntry(
-            stackTraceEntry: StackTraceEntry(
-                symbol: "7   XCTest                              0x000000010ed67ae3 +[XCTestCase(Failures) performFailableBlock:shouldInterruptTest:] + 36",
-                address: 0x000000010ed67ae3
-            )
-        )
-        
-        check(
-            entry: entry,
-            file: nil,
-            line: nil,
-            owner: "XCTest",
-            symbol: "+[XCTestCase(Failures) performFailableBlock:shouldInterruptTest:]",
-            demangledSymbol: "+[XCTestCase(Failures) performFailableBlock:shouldInterruptTest:]",
-            address: 0x000000010ed67ae3
+            address: 0x123456789abcdef0
         )
     }
     
