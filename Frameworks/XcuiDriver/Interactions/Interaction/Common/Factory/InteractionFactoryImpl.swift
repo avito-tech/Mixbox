@@ -2,29 +2,7 @@ import MixboxUiTestsFoundation
 import XCTest
 import MixboxTestsFoundation
 
-// TODO: Make `minimalPercentageOfVisibleArea` customizable (from tests/from page object definitions).
-//       Now it depends only on the type of a check (it is hardcoded per each check). For example
-//       it is 100% for snapshot assertion, because we need all view to be visible.
-protocol InteractionFactory {
-    func actionInteraction(
-        specificImplementation: InteractionSpecificImplementation,
-        settings: ResolvedInteractionSettings,
-        minimalPercentageOfVisibleArea: CGFloat)
-        -> Interaction
-    
-    func checkForNotDisplayedInteraction(
-        settings: ResolvedInteractionSettings,
-        minimalPercentageOfVisibleArea: CGFloat)
-        -> Interaction
-    
-    func checkInteraction(
-        specificImplementation: InteractionSpecificImplementation,
-        settings: ResolvedInteractionSettings,
-        minimalPercentageOfVisibleArea: CGFloat)
-        -> Interaction
-}
-
-final class InteractionFactoryImpl: InteractionFactory {
+public final class InteractionFactoryImpl: InteractionFactory {
     private let elementFinder: ElementFinder
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let scrollingHintsProvider: ScrollingHintsProvider
@@ -32,7 +10,7 @@ final class InteractionFactoryImpl: InteractionFactory {
     private let applicationProvider: ApplicationProvider
     private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     
-    init(
+    public init(
         elementFinder: ElementFinder,
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
@@ -48,7 +26,7 @@ final class InteractionFactoryImpl: InteractionFactory {
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
     }
     
-    func actionInteraction(
+    public func actionInteraction(
         specificImplementation: InteractionSpecificImplementation,
         settings: ResolvedInteractionSettings,
         minimalPercentageOfVisibleArea: CGFloat)
@@ -67,7 +45,7 @@ final class InteractionFactoryImpl: InteractionFactory {
         )
     }
     
-    func checkForNotDisplayedInteraction(
+    public func checkForNotDisplayedInteraction(
         settings: ResolvedInteractionSettings,
         minimalPercentageOfVisibleArea: CGFloat)
         -> Interaction
@@ -84,7 +62,7 @@ final class InteractionFactoryImpl: InteractionFactory {
         )
     }
     
-    func checkInteraction(
+    public func checkInteraction(
         specificImplementation: InteractionSpecificImplementation,
         settings: ResolvedInteractionSettings,
         minimalPercentageOfVisibleArea: CGFloat)

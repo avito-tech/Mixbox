@@ -1,18 +1,11 @@
-import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxReporting
 
-protocol InteractionPerformerFactory {
-    func performerForInteraction(
-        shouldReportResultToObserver: Bool)
-        -> InteractionPerformer
-}
-
-final class InteractionPerformerFactoryImpl: InteractionPerformerFactory {
+public final class InteractionPerformerFactoryImpl: InteractionPerformerFactory {
     private let interactionExecutionLogger: InteractionExecutionLogger
     private let testFailureRecorder: TestFailureRecorder
     
-    init(
+    public init(
         interactionExecutionLogger: InteractionExecutionLogger,
         testFailureRecorder: TestFailureRecorder)
     {
@@ -20,7 +13,7 @@ final class InteractionPerformerFactoryImpl: InteractionPerformerFactory {
         self.testFailureRecorder = testFailureRecorder
     }
     
-    func performerForInteraction(
+    public func performerForInteraction(
         shouldReportResultToObserver: Bool)
         -> InteractionPerformer
     {

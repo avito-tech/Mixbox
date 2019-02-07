@@ -26,24 +26,18 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             eventGenerator: xcuiHelperFactory.eventGenerator
         )
         
-        let checks = XcuiPageObjectElementChecks(
+        let checks = AlmightyElementChecksImpl(
             elementSettings: settings,
             interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
             interactionFactory: xcuiHelperFactory.interactionFactory(),
-            elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
-            snapshotsComparisonUtility: xcuiHelperFactory.snapshotsComparisonUtility,
-            stepLogger: xcuiHelperFactory.stepLogger(),
             isAssertions: false,
             pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
         )
         
-        let asserts = XcuiPageObjectElementChecks(
+        let asserts = AlmightyElementChecksImpl(
             elementSettings: settings,
             interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
             interactionFactory: xcuiHelperFactory.interactionFactory(),
-            elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
-            snapshotsComparisonUtility: xcuiHelperFactory.snapshotsComparisonUtility,
-            stepLogger: xcuiHelperFactory.stepLogger(),
             isAssertions: true,
             pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
         )

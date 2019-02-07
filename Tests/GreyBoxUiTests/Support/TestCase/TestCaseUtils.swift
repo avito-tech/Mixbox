@@ -63,12 +63,7 @@ final class TestCaseUtils {
         )
         self.interactionExecutionLogger = interactionExecutionLogger
         
-        let snapshotsComparisonUtility = SnapshotsComparisonUtilityImpl(
-            // TODO
-            basePath: "/tmp/01A2DABE-6D10-45D7-B48E-4AC1153712A9/UITests/Screenshots"
-        )
-        
-        let bundleId = Bundle.main.bundlePath.mb_resolvingSymlinksInPath
+        let bundleId = Bundle.main.bundleIdentifier.unwrapOrFail()
         
         permissions = applicationPermissionsSetter(
             bundleId: bundleId,
@@ -76,7 +71,14 @@ final class TestCaseUtils {
         )
         
         pageObjects = PageObjects(
-            pageObjectDependenciesFactory: GreyPageObjectDependenciesFactory()
+            pageObjectDependenciesFactory: GreyPageObjectDependenciesFactory(
+                interactionPerformerFactory: InteractionPerformerFactoryImpl(
+                    interactionExecutionLogger: interactionExecutionLogger,
+                    testFailureRecorder: testFailureRecorder
+                ),
+                interactionFactory: NotImplementedInteractionFactory(),
+                pollingConfiguration: .reduceLatency
+            )
         )
     }
 }

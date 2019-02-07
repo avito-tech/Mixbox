@@ -8,8 +8,8 @@ final class ChecksTests: TestCase {
         // A lot of things aren't implemented at the moment.
         // TODO: Uncomment, run tests, comment, write code & unit tests
         
-        // let screen = pageObjects.checksTests
-        //
+        let screen = pageObjects.checksTests
+        
         // screen.label("isNotDisplayed0").withoutTimeout.assert.isNotDisplayed()
         // XCTAssertFalse(
         //     screen.label("isNotDisplayed0").isDisplayed()

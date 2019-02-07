@@ -3,18 +3,18 @@ import MixboxIpcClients
 import MixboxIpc
 import MixboxUiTestsFoundation
 
-protocol ScrollingHintsProvider {
+public protocol ScrollingHintsProvider {
     func scrollingHint(element: ElementSnapshot) -> ScrollingHint
 }
 
-final class ScrollingHintsProviderImpl: ScrollingHintsProvider {
+public final class ScrollingHintsProviderImpl: ScrollingHintsProvider {
     private let ipcClient: IpcClient
     
     init(ipcClient: IpcClient) {
         self.ipcClient = ipcClient
     }
     
-    func scrollingHint(element: ElementSnapshot) -> ScrollingHint {
+    public func scrollingHint(element: ElementSnapshot) -> ScrollingHint {
         guard let uniqueIdentifier = element.uniqueIdentifier.value else {
             return .hintsAreNotAvailableForCurrentElement // "Не удалось получить uniqueIdentifier"
         }

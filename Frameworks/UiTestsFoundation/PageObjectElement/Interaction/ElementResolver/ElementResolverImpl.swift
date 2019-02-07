@@ -1,14 +1,8 @@
-import MixboxUiTestsFoundation
-
-protocol ElementResolver {
-    func resolveElement() -> ResolvedElementQuery
-}
-
-final class ElementResolverImpl: ElementResolver {
+public final class ElementResolverImpl: ElementResolver {
     private let elementFinder: ElementFinder
     private let elementSettings: ElementSettings
     
-    init(
+    public init(
         elementFinder: ElementFinder,
         elementSettings: ElementSettings)
     {
@@ -16,7 +10,7 @@ final class ElementResolverImpl: ElementResolver {
         self.elementSettings = elementSettings
     }
     
-    func resolveElement() -> ResolvedElementQuery {
+    public func resolveElement() -> ResolvedElementQuery {
         let elementQuery = elementFinder.query(
             elementMatcher: elementSettings.matcher && IsNotDefinitelyHiddenMatcher(),
             waitForExistence: false

@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxReporting'
   s.dependency 'MixboxUiKit'
   s.dependency 'CocoaImageHashing'
+  s.dependency 'MixboxIpcCommon'
 
   s.frameworks = 'XCTest'
   s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }

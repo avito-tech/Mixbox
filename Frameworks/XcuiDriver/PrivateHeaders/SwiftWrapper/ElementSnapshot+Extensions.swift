@@ -6,19 +6,6 @@ import MixboxUiTestsFoundation
 import XCTest
 
 extension ElementSnapshot {
-    public func percentageOfVisibleArea(ipcClient: IpcClient) -> CGFloat? {
-        guard let uniqueIdentifier = uniqueIdentifier.value else {
-            return nil
-        }
-        
-        let result = ipcClient.call(
-            method: PercentageOfVisibleAreaIpcMethod(),
-            arguments: uniqueIdentifier
-        )
-        
-        // TODO: Replace nil with 0 in PercentageOfVisibleAreaIpcMethodHandler?
-        return (result.data ?? .none) ?? 0
-    }
     
     public func hasKeyboardFocusOrHasDescendantThatHasKeyboardFocus() -> Bool {
         if hasKeyboardFocus {
