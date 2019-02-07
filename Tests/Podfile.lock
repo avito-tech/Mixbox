@@ -147,7 +147,7 @@ SPEC CHECKSUMS:
   MixboxTestability: e69bc2fa54c6f3a990a1a4461fe92e18ed78962e
   MixboxTestsFoundation: c21e68a10d51e78f1a8fa351e947fd66c98eafba
   MixboxUiKit: 9d0aa60d4622485145a96d04a63b48ec647eeffd
-  MixboxUiTestsFoundation: 32ed1b0413d672665c3395c1108f45412d1bfb9d
+  MixboxUiTestsFoundation: dda32c5cc5c59b00187b0bf35df447837fc30136
   MixboxXcuiDriver: a760e233fe61dc60f7e6997a1b4ade1dc665b831
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86

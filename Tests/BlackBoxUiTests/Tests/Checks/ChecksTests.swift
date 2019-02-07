@@ -56,10 +56,6 @@ final class ChecksTests: TestCase {
         )
         
         // TODO:
-//        func hasImage(_ image: UIImage, checkSettings: CheckSettings) -> Bool
-//        func hasAnyImage(checkSettings: CheckSettings) -> Bool
-//        func hasNoImage(checkSettings: CheckSettings) -> Bool
-//
 //        func isScrollable(checkSettings: CheckSettings) -> Bool
 //
 //        func matchesReference(snapshot: String, checkSettings: CheckSettings) -> Bool

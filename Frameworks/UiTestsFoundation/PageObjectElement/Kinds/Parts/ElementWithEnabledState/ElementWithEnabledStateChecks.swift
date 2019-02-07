@@ -13,7 +13,13 @@ public extension ElementWithEnabledStateChecks where Self: Element {
             "\"\(info.elementName)\" доступно для нажатия"
         }
         
-        return implementation.checks.isEnabled(checkSettings: checkSettings)
+        return implementation.checks.isDisplayedAndMatches(
+            checkSettings: checkSettings,
+            minimalPercentageOfVisibleArea: 0.2,
+            matcher: { element in
+                element.isEnabled == true
+            }
+        )
     }
     
     @discardableResult
@@ -27,9 +33,12 @@ public extension ElementWithEnabledStateChecks where Self: Element {
             "\"\(info.elementName)\" недоступно для нажатия"
         }
         
-        return implementation.checks.isDisabled(checkSettings: checkSettings)
+        return implementation.checks.isDisplayedAndMatches(
+            checkSettings: checkSettings,
+            minimalPercentageOfVisibleArea: 0.2,
+            matcher: { element in
+                element.isEnabled == false
+            }
+        )
     }
-}
-
-public protocol ElementWithEnabledStateActions: class {
 }

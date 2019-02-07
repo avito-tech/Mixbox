@@ -29,6 +29,7 @@ final class ThirdPartyAppsTests: TestCase {
         XCUIDevice.shared.press(.home)
     }
     
+    // TODO: There might be multiple apps with same name! (e.g.: different bundle ids)
     private func deleteApp() {
         // Note: there was a bug. Snapshots were wrong after scrolling
         // when action was executed (it used wrong coordinates).

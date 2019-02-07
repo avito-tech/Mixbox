@@ -48,23 +48,11 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
         )
         
-        let utils = XcuiPageObjectElementUtils(
-            elementSettings: settings,
-            interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
-            interactionFactory: xcuiHelperFactory.interactionFactory(),
-            elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
-            snapshotsComparisonUtility: xcuiHelperFactory.snapshotsComparisonUtility,
-            stepLogger: xcuiHelperFactory.stepLogger(),
-            isAssertions: false,
-            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
-        )
-        
         return AlmightyElementImpl(
             settings: settings,
             actions: actions,
             checks: checks,
-            asserts: asserts,
-            utils: utils
+            asserts: asserts
         )
     }
 }

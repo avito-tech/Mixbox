@@ -1,4 +1,4 @@
-public class MappingMatcherBuilderImpl<TargetMatcherArgumentT, SourceMatcherArgumentT>: MappingMatcherBuilder {
+open class MappingMatcherBuilderImpl<TargetMatcherArgumentT, SourceMatcherArgumentT>: MappingMatcherBuilder {
     public typealias TargetMatcherArgument = TargetMatcherArgumentT
     public typealias SourceMatcherArgument = SourceMatcherArgumentT
     

@@ -10,6 +10,15 @@ public final class InputElement:
     }
 }
 
-public protocol InputElementActions: ViewElementActions, ElementWithTextActions {}
+public protocol InputElementActions:
+    ViewElementActions,
+    ElementWithTextActions
+{
+}
 
-public protocol InputElementChecks: ViewElementChecks, ElementWithTextChecks, ElementWithEnabledStateChecks {}
+public protocol InputElementChecks:
+    ViewElementChecks,
+    ElementWithTextChecks,
+    ElementWithEnabledStateChecks
+{
+}

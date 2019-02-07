@@ -26,26 +26,34 @@ public final class ElementMatcherBuilder {
     // We were comparing `String` to `String?` before, this is a temporary kludge to achieve same behavior.
     // Before: func a(b: String, c: String?) { return b == c } // if c == nil, then false is returned
     // After: func a(b: String, c: String) { return b == c } // if c is uuid, then false is returned
-    private static let valueToMimicComparisonOfStringToNil = "ACD2E838-5F3E-4971-BAE9-0087D9A864FB"
+    private static let valueToMimicComparisonOfStringToNil = "(actually nil) ACD2E838-5F3E-4971-BAE9-0087D9A864FB (actually nil)"
+    
+    public let frameOnScreen = CGRectPropertyMatcherBuilder("frameOnScreen", \ElementSnapshot.frameOnScreen)
     
     public let id = PropertyMatcherBuilder("id", \ElementSnapshot.accessibilityIdentifier)
+    
     public let label = PropertyMatcherBuilder("label", \ElementSnapshot.accessibilityLabel)
+    
     public let value = PropertyMatcherBuilder<ElementSnapshot, String>("value") { (snapshot: ElementSnapshot) -> String in
-        (snapshot.accessibilityValue as? String) ?? valueToMimicComparisonOfStringToNil // TODO: Support nils and other types
+        // TODO: Support nils and other types
+        (snapshot.accessibilityValue as? String) ?? ElementMatcherBuilder.valueToMimicComparisonOfStringToNil
     }
+    
     public let placeholderValue = PropertyMatcherBuilder<ElementSnapshot, String>("placeholderValue") {
-        $0.accessibilityPlaceholderValue ?? valueToMimicComparisonOfStringToNil // TODO: Support nils
+        // TODO: Support nils
+        $0.accessibilityPlaceholderValue ?? ElementMatcherBuilder.valueToMimicComparisonOfStringToNil
     }
+    
     public let visibleText = PropertyMatcherBuilder<ElementSnapshot, String>("visibleText") {
-        $0.visibleText(fallback: $0.accessibilityLabel) ?? "" // TODO: Support nils, remove fallbacks
+        // TODO: Support nils, remove fallbacks
+        $0.visibleText(fallback: $0.accessibilityLabel) ?? ""
     }
+    
     public let isEnabled = PropertyMatcherBuilder("isEnabled", \ElementSnapshot.isEnabled)
+    
     public let type = PropertyMatcherBuilder("type", \ElementSnapshot.elementType)
     
     public let customValues = CustomValuesMatcherBuilder()
-    
-    public init() {
-    }
     
     public func isInstanceOf(_ class: AnyClass) -> ElementMatcher {
         return IsInstanceMatcher("\(`class`)")
@@ -60,6 +68,9 @@ public final class ElementMatcherBuilder {
         -> ElementMatcher
     {
         return IsSubviewMatcher(ElementMatcherBuilder.build(matcher))
+    }
+    
+    public init() {
     }
     
     public static func build(_ closure: ElementMatcherBuilderClosure) -> ElementMatcher {
