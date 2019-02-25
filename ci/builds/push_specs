@@ -1,0 +1,95 @@
+#!/bin/bash
+
+MIXBOX_CI_TEMPORARY_DIRECTORY="/tmp/D6BB0251-5D64-4AB5-9C27-386B3D6DE2C9"
+for include in "$(dirname $0)/../include/"*; do source "$include"; done
+
+[ -z "$MIXBOX_PUSHSPEC_STYLE" ] && echo "MIXBOX_PUSHSPEC_STYLE is not set (e.g. debug)" && exit 1
+[ -z "$MIXBOX_PUSHSPEC_VERSION" ] && echo "MIXBOX_PUSHSPEC_STYLE is not set (e.g. 0.0.1)" && exit 1
+[ -z "$MIXBOX_PUSHSPEC_ORIGIN" ] && echo "MIXBOX_PUSHSPEC_STYLE is not set (e.g. origin)" && exit 1
+
+# Optional:
+#
+# MIXBOX_PUSHSPEC_SKIP_UNTIL, e.g.: MixboxIpc.podspec
+
+patch_spec_tmpfile=/tmp/`uuidgen`
+function patchPodspecFile() {
+    local podspecFile=$1
+    cat "$podspecFile" | perl -pe "s/(s.version.*?= )'.*'/\1'$MIXBOX_PUSHSPEC_VERSION'/" > "$patch_spec_tmpfile"
+    cat "$patch_spec_tmpfile" > "$podspecFile"
+}
+
+function pushSpec() {
+    case "$MIXBOX_PUSHSPEC_STYLE" in
+    debug)
+        pod repo push MixboxSpecRepo "$@" --verbose --local-only --allow-warnings || exit 1
+        ;;
+    release)
+        pod trunk push "$@" --verbose --allow-warnings || exit 1
+        ;;
+    *)
+        echo "Unknown MIXBOX_PUSHSPEC_STYLE ($MIXBOX_PUSHSPEC_STYLE)"
+        exit 1
+        ;;
+    esac
+}
+
+IFS=$'\n'
+
+sequence=()
+sequence=("${sequence[@]}" MixboxFakeSettingsAppMain.podspec)
+sequence=("${sequence[@]}" MixboxArtifacts.podspec)
+sequence=("${sequence[@]}" MixboxAllure.podspec)
+sequence=("${sequence[@]}" MixboxFoundation.podspec)
+sequence=("${sequence[@]}" MixboxTestability.podspec)
+sequence=("${sequence[@]}" MixboxUiKit.podspec)
+sequence=("${sequence[@]}" MixboxIpc.podspec)
+sequence=("${sequence[@]}" MixboxBuiltinIpc.podspec)
+sequence=("${sequence[@]}" MixboxIpcCommon.podspec)
+sequence=("${sequence[@]}" MixboxIpcClients.podspec)
+sequence=("${sequence[@]}" MixboxIpcSbtuiClient.podspec)
+sequence=("${sequence[@]}" MixboxIpcSbtuiHost.podspec)
+sequence=("${sequence[@]}" MixboxReporting.podspec)
+sequence=("${sequence[@]}" MixboxTestsFoundation.podspec)
+sequence=("${sequence[@]}" MixboxUiTestsFoundation.podspec)
+sequence=("${sequence[@]}" MixboxGrey.podspec)
+sequence=("${sequence[@]}" MixboxXcuiDriver.podspec)
+sequence=("${sequence[@]}" MixboxInAppServices.podspec)
+
+actualFilesFile=/tmp/`uuidgen`
+expectedFilesFile=/tmp/`uuidgen`
+
+find "$MIXBOX_CI_REPO_ROOT" -depth 1 -name "*.podspec" | perl -pe "s#$MIXBOX_CI_REPO_ROOT/##" | sort > "$actualFilesFile"
+echo "${sequence[@]}" | tr ' ' $'\n' | sort > "$expectedFilesFile"
+
+if ! diff "$actualFilesFile" "$expectedFilesFile"
+then
+    echo "^ - Error: you must have ordered podspec list, starting with podspecs with least dependencies"
+    echo "           or algorithm that will do it automatically. The lines above is diff between expected podspecs and actual."
+    exit 1
+fi
+
+tag="Mixbox-$MIXBOX_PUSHSPEC_VERSION"
+
+git tag -d "$tag"
+git tag "$tag"
+git push --force "$MIXBOX_PUSHSPEC_ORIGIN" "$tag"
+
+shouldSkip=true
+
+for podspecFile in "${sequence[@]}"
+do
+    if ! [ -z "$MIXBOX_PUSHSPEC_SKIP_UNTIL" ]
+    then
+        [ "$MIXBOX_PUSHSPEC_SKIP_UNTIL" == "$podspecFile" ] && shouldSkip=false
+        
+        if "$shouldSkip"
+        then
+            continue
+        fi
+    fi
+    
+    echo $podspecFile
+    
+    patchPodspecFile "$MIXBOX_CI_REPO_ROOT/$podspecFile"
+    pushSpec "$MIXBOX_CI_REPO_ROOT/$podspecFile"
+done
