@@ -15,8 +15,6 @@
 {
 }
 
-+ (_Bool)isTesting;
-
 @end
 
 #endif

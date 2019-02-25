@@ -357,7 +357,9 @@ class Dump:
             ),
             PublicType(
                 name="XCTestProbe",
-                kind=DeclarationKind.objc_class
+                kind=DeclarationKind.objc_class,
+                public_declarations=
+f"""+ (_Bool)isTesting;"""
             ),
             PublicType(
                 name="XCTestRun",
