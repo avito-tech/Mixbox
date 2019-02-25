@@ -18,7 +18,7 @@ open class BasePageObject: PageObject, PageObjectElementRegistrar {
     
     public func element<T: ElementWithDefaultInitializer>(
         _ name: String,
-        matcherBuilder: (PredicateNodePageObjectElement) -> PredicateNode)
+        matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     {
         return pageObjectElementRegistrar.element(name, matcherBuilder: matcherBuilder)

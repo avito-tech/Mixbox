@@ -8,6 +8,7 @@ class TestCase: XCTestCase {
     }
     
     func launch() {
+        testCaseDependencies.application.launchEnvironment["MIXBOX_ENABLE_IN_APP_SERVICES"] = "true"
         testCaseDependencies.application.launchTunnel()
     }
 }

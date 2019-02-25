@@ -3,9 +3,9 @@ import MixboxUiTestsFoundation
 class BasePageObjects: PageObjectRegistrar {
     private let pageObjectRegistrar: PageObjectRegistrar
     
-    init(pageObjectsDependenciesFactory: PageObjectsDependenciesFactory) {
+    init(pageObjectDependenciesFactory: PageObjectDependenciesFactory) {
         self.pageObjectRegistrar = PageObjectRegistrarImpl(
-            pageObjectDependenciesFactory: pageObjectsDependenciesFactory.pageObjectDependenciesFactory()
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory
         )
     }
     

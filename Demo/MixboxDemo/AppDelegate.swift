@@ -12,16 +12,20 @@ import MixboxInAppServices
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    let mixboxInAppServices = MixboxInAppServices()
+    var mixboxInAppServices: MixboxInAppServices?
     
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
         -> Bool
     {
-        if let mixboxInAppServices = mixboxInAppServices {
-            mixboxInAppServices.start()
-            mixboxInAppServices.handleUiBecomeVisible()
+        if ProcessInfo.processInfo.environment["MIXBOX_ENABLE_IN_APP_SERVICES"] == "true" {
+            let mixboxInAppServices = MixboxInAppServices()
+            
+            self.mixboxInAppServices = mixboxInAppServices
+            
+            mixboxInAppServices?.start()
+            mixboxInAppServices?.handleUiBecomeVisible()
         }
         
         return true
