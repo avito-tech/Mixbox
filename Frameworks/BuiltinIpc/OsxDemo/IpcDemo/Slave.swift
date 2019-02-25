@@ -4,20 +4,15 @@ import MixboxBuiltinIpc
 func mainForSlave(_ port: UInt) {
     // This is how to use this project:
     
-    let client = BuiltinIpcClient(
-        host: "localhost",
-        port: port
+    let knownPortHandshakeSender = KnownPortHandshakeSender(
+        handshakeWaiterHost: "localhost",
+        handshakeWaiterPort: port
     )
-    
-    let server = BuiltinIpcServer()
-    
-    server.register(methodHandler: HelloIpcMethodHandler())
-    
-    if let localPort = server.start() {
-        client.handshake(localPort: localPort)
-    } else {
-        exit(1)
+    let (server, client) = knownPortHandshakeSender.start { server in
+        server.register(methodHandler: HelloIpcMethodHandler())
     }
+    
+    print("An imitation of usage of server and client (printing them): \(server), \(client)")
     
     // An imitation of running app:
     CFRunLoopRun()

@@ -2,33 +2,37 @@ PODS:
   - GCDWebServer (3.4.2):
     - GCDWebServer/Core (= 3.4.2)
   - GCDWebServer/Core (3.4.2)
-  - MixboxBuiltinIpc (0.0.1):
+  - MixboxBuiltinIpc (0.0.2):
     - GCDWebServer
     - MixboxIpc
-  - MixboxFoundation (0.0.1)
-  - MixboxIpc (0.0.1):
+  - MixboxFoundation (0.0.2)
+  - MixboxIpc (0.0.2):
     - MixboxFoundation
 
 DEPENDENCIES:
   - GCDWebServer
-  - MixboxBuiltinIpc (from `../../BuiltinIpc`)
-  - MixboxFoundation (from `../../Foundation`)
-  - MixboxIpc (from `../../Ipc`)
+  - MixboxBuiltinIpc (from `../../..`)
+  - MixboxFoundation (from `../../..`)
+  - MixboxIpc (from `../../..`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - GCDWebServer
 
 EXTERNAL SOURCES:
   MixboxBuiltinIpc:
-    :path: "../../BuiltinIpc"
+    :path: "../../.."
   MixboxFoundation:
-    :path: "../../Foundation"
+    :path: "../../.."
   MixboxIpc:
-    :path: "../../Ipc"
+    :path: "../../.."
 
 SPEC CHECKSUMS:
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
-  MixboxBuiltinIpc: 25625387cacbecbe3198df159bc7b06bdb5f0360
-  MixboxFoundation: f402084bd1c48e147c4770bf3e53e0d646873218
-  MixboxIpc: 26550b3121c5ed5789cc449a39ab5b36105b2059
+  MixboxBuiltinIpc: 4bb2a89013f69382eac2fbbd3380fb6c607ed48a
+  MixboxFoundation: 2eae63315c42804efa47a4d493c252eb3ead677d
+  MixboxIpc: 6d9a3ae272712b285e47b9bb504b74d9623693b5
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.3

@@ -5,33 +5,31 @@ import MixboxBuiltinIpc
 // This is how to use this project:
 
 func mainForMaster() {
-    let handshaker = Handshaker()
+    let knownPortHandshakeWaiter = KnownPortHandshakeWaiter()
     
-    guard let port = handshaker.start() else {
-        print("Failed to start the server.")
+    guard let port = knownPortHandshakeWaiter.start() else {
         exit(1)
     }
     
-    launchYourApp(port)
+    launch_child_process_that_will_send_handshake_back(port)
     
-    guard let client = handshaker.waitForHandshake() else {
-        print("Failed to handshake.")
+    guard let client = knownPortHandshakeWaiter.waitForHandshake() else {
         exit(1)
     }
     
-    communicateWithYourApp(client)
+    use_your_client(client)
 }
 
 // This is what you should implement differently:
 
-func launchYourApp(_ port: UInt) {
+func launch_child_process_that_will_send_handshake_back(_ port: UInt) {
     let child = Process()
     child.launchPath = ProcessInfo.processInfo.arguments[0] // launch itself
     child.environment = ["PORT": "\(port)"]
     child.launch()
 }
 
-func communicateWithYourApp(_ client: IpcClient) {
+func use_your_client(_ client: IpcClient) {
     print("Here will be either successful response or error:\n\n")
     
     switch client.call(method: HelloIpcMethod(), arguments: IpcVoid()) {

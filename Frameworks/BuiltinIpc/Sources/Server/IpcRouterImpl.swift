@@ -46,8 +46,8 @@ public final class BuiltinIpcServer: IpcRouter {
         }
     }
     
-    private func gcdWebServerOptions() -> [AnyHashable: Any] {
-        var options = [AnyHashable: Any]()
+    private func gcdWebServerOptions() -> [String: Any] {
+        var options = [String: Any]()
         
         #if os(iOS)
         options[GCDWebServerOption_AutomaticallySuspendInBackground] = false
