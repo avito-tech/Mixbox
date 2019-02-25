@@ -4,6 +4,8 @@ final class ChecksTestsView: TestStackScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        accessibilityIdentifier = "ChecksTestsView"
+        
         addLabel(id: "checkText0") {
             $0.text = "Полное соответствие"
         }
@@ -33,6 +35,8 @@ final class ChecksTestsView: TestStackScrollView {
         addButton(id: "isDisabled0") {
             $0.isEnabled = false
         }
+        
+        add(view: ExpandingView(), id: "expandingView")
     }
     
     required init?(coder aDecoder: NSCoder) {

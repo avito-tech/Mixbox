@@ -89,6 +89,7 @@
 		F8676EE4215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */; };
 		F8676EE52155370D007DDB7C /* NestedCallbacksToAppIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE1215533D2007DDB7C /* NestedCallbacksToAppIpcMethod.swift */; };
 		F870C66B21FF43FB006F643B /* AllureReportingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */; };
+		F8951E45222463120033885C /* ExpandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8951E44222463120033885C /* ExpandingView.swift */; };
 		F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */; };
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
@@ -304,6 +305,7 @@
 		F8676EE1215533D2007DDB7C /* NestedCallbacksToAppIpcMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethod.swift; sourceTree = "<group>"; };
 		F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllureReportingSystem.swift; sourceTree = "<group>"; };
+		F8951E44222463120033885C /* ExpandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingView.swift; sourceTree = "<group>"; };
 		F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppsTests.swift; sourceTree = "<group>"; };
 		F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTestsView.swift; sourceTree = "<group>"; };
 		F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 			isa = PBXGroup;
 			children = (
 				F813CB13209CD82A00E6A27C /* ChecksTestsView.swift */,
+				F8951E44222463120033885C /* ExpandingView.swift */,
 			);
 			path = ChecksTests;
 			sourceTree = "<group>";
@@ -1778,6 +1781,7 @@
 				F8AC35CB20E2B9090094204C /* FakeCellsReloadIpcMethodHandler.swift in Sources */,
 				F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */,
 				F813CAEA209CC5D400E6A27C /* AppDelegate.swift in Sources */,
+				F8951E45222463120033885C /* ExpandingView.swift in Sources */,
 				F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */,
 				F84D12772166B28100A178B4 /* CrashingCell.swift in Sources */,
 				F853D027214BF6C100EAFBCE /* FailuresTestsView.swift in Sources */,

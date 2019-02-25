@@ -154,12 +154,14 @@ extension ViewElementChecks where Self: Element {
         var snapshotBefore: ElementSnapshot? = nil
         
         // Kind of a kludge. Actually gets value.
-        var gotValue = implementation.checks.isDisplayedAndMatches(checkSettings: checkSettings, minimalPercentageOfVisibleArea: 0.2) { _ in
+        _ = implementation.checks.isDisplayedAndMatches(checkSettings: checkSettings, minimalPercentageOfVisibleArea: 0.2) { _ in
             Matcher<ElementSnapshot>(description: { "kludge to get value" }) { snapshot in
                 snapshotBefore = snapshot
                 return .match
             }
         }
+        
+        action()
         
         return implementation.checks.isDisplayedAndMatches(checkSettings: checkSettings, minimalPercentageOfVisibleArea: 0.2) { element in
             Matcher<ElementSnapshot>(description: { "checkPositiveHeightDifference, main matcher" }) { snapshot in
