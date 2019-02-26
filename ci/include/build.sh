@@ -1,11 +1,43 @@
-buildWith_action_scheme() {
-    buildWith_action_scheme_xcodebuildPipeFilter $1 $2
+buildIosWith_folder_action_scheme_workspace_xcodebuildPipeFilter() {
+    local folder=$1
+    local action=$2
+    local scheme=$3
+    local workspace=$4
+    local xcodebuildPipeFilter=${5:-tee}
+    local derivedDataPath=`derivedDataPath`
+    
+    cd "$MIXBOX_CI_REPO_ROOT/$folder"
+    
+    buildWith_xcodebuildPipeFilter_xcodebuildArgs "$xcodebuildPipeFilter" \
+        "$action" \
+        -workspace "$workspace".xcworkspace \
+        -scheme "$scheme" \
+        -sdk iphonesimulator \
+        -derivedDataPath "$derivedDataPath" \
+        -destination "$(xcodeDestination)"
 }
 
-buildWith_action_scheme_xcodebuildPipeFilter() {
-    local action=$1
-    local scheme=$2
-    local xcodebuildPipeFilter=${3:-tee}
+
+buildMacOsWith_folder_action_scheme_workspace() {
+    local folder=$1 # Tests
+    local action=$2 # build-for-testing
+    local scheme=$3 # XcuiTests
+    local workspace=$4 # Tests
+    local derivedDataPath=`derivedDataPath`
+    
+    cd "$MIXBOX_CI_REPO_ROOT/$folder"
+    
+    buildWith_xcodebuildPipeFilter_xcodebuildArgs tee \
+        "$action" \
+        -workspace "$workspace".xcworkspace \
+        -scheme "$scheme" \
+        -derivedDataPath "$derivedDataPath"
+}
+
+buildWith_xcodebuildPipeFilter_xcodebuildArgs() {
+    local xcodebuildPipeFilter=$1
+    shift
+    local xcodebuildArgs=$@
     
     [ -z "$action" ] && fatalError "\$action is not set"
     [ -z "$scheme" ] && fatalError "\$scheme is not set"
@@ -13,8 +45,6 @@ buildWith_action_scheme_xcodebuildPipeFilter() {
     [ -z "$MIXBOX_CI_REPO_ROOT" ] && fatalError "\$MIXBOX_CI_REPO_ROOT is not set"
     
     echo "Building using xcodebuild..."
-
-    local derivedDataPath=`derivedDataPath`
     
     if [ "$MIXBOX_CI_CACHE" == "regenerate" ]
     then
@@ -22,8 +52,6 @@ buildWith_action_scheme_xcodebuildPipeFilter() {
     fi
     
     mkdir -p "$derivedDataPath"
-    
-    cd "$MIXBOX_CI_REPO_ROOT/Tests"
     
     if [ "$MIXBOX_CI_CACHE" == "use" ] && cmp Podfile.lock Pods/Manifest.lock
     then
@@ -33,14 +61,8 @@ buildWith_action_scheme_xcodebuildPipeFilter() {
     fi
     
     echo "Building for testing. Build is log path: $xcodebuildLogPath"
-
-    xcodebuild \
-        "$action" \
-        -workspace Tests.xcworkspace \
-        -scheme "$scheme" \
-        -sdk iphonesimulator \
-        -derivedDataPath "$derivedDataPath" \
-        -destination "$(xcodeDestination)" \
+    
+    xcodebuild "$@" \
         | "$xcodebuildPipeFilter" \
         || fatalError "Error in xcodebuild"
         

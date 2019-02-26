@@ -11,5 +11,5 @@ xcodebuildFilter() {
 }
 
 prepareForIosTesting
-buildIosWith_folder_action_scheme_workspace_xcodebuildPipeFilter "Tests" "test" "UnitTests" "Tests" "xcodebuildFilter"
+buildIosWith_folder_action_scheme_workspace_xcodebuildPipeFilter "Demo" "build-for-testing" "MixboxDemo" "MixboxDemo" "xcodebuildFilter"
 cleanUpAfterIosTesting

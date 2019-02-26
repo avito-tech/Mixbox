@@ -15,14 +15,14 @@ use_frameworks!
 ### TARGETS
 
 target 'MixboxDemo' do
-  pod 'MixboxInAppServices'
+  pod 'MixboxInAppServices', '0.0.2'
 end
 
 target 'MixboxDemoUITests' do
   inherit! :search_paths
 
-  pod 'MixboxXcuiDriver'
-  pod 'MixboxIpcSbtuiClient'
+  pod 'MixboxXcuiDriver', '0.0.2'
+  pod 'MixboxIpcSbtuiClient', '0.0.2'
 end
 
 post_install do |installer|

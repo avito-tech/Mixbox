@@ -1,7 +1,7 @@
 PODS:
-  - GCDWebServer (3.4.2):
-    - GCDWebServer/Core (= 3.4.2)
-  - GCDWebServer/Core (3.4.2)
+  - GCDWebServer (3.5.2):
+    - GCDWebServer/Core (= 3.5.2)
+  - GCDWebServer/Core (3.5.2)
   - MixboxBuiltinIpc (0.0.2):
     - GCDWebServer
     - MixboxIpc
@@ -28,7 +28,7 @@ EXTERNAL SOURCES:
     :path: "../../.."
 
 SPEC CHECKSUMS:
-  GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
+  GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
   MixboxBuiltinIpc: 4bb2a89013f69382eac2fbbd3380fb6c607ed48a
   MixboxFoundation: 2eae63315c42804efa47a4d493c252eb3ead677d
   MixboxIpc: 6d9a3ae272712b285e47b9bb504b74d9623693b5

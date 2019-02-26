@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                   = 'MixboxIpcSbtuiClient'
   s.module_name            = s.name
-  s.version                = '0.0.1'
+  s.version                = '0.0.2'
   s.summary                = s.name
   s.homepage               = 'https://github.com/avito-tech/Mixbox'
   s.license                = 'MIT'
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source_files           = 'Frameworks/IpcSbtuiClient/**/*.{swift,h,m,md}'
   
   s.dependency 'MixboxIpc'
-  s.dependency 'SBTUITestTunnel/Client'
+  s.dependency 'SBTUITestTunnel/Client', '~> 3.0.6'
   
   s.framework = "XCTest"
   s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }

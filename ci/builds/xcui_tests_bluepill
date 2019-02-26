@@ -4,7 +4,6 @@
 # MIXBOX_CI_REPORTS_PATH - where to store reports (junit.xml will be stored), e.g. "/tmp/123"
 # MIXBOX_CI_DESTINATION - basename of json in `di/destinations` directory, e.g. "iphone_7_ios114.json"
 
-MIXBOX_CI_TEMPORARY_DIRECTORY="/tmp/DC4E823A-63CE-443D-96CA-F53A67C14289"
 for include in "$(dirname $0)/../include/"*; do source "$include"; done
 
 installAdditionalDependencies() {
@@ -48,8 +47,8 @@ testUsingBluepill() {
 }
 
 
-prepareForTesting
+prepareForIosTesting
 installAdditionalDependencies
-buildWith_action_scheme_xcodebuildPipeFilter "build-for-testing" "BlackBoxUiTests" "xcpretty"
+buildIosWith_folder_action_scheme_workspace_xcodebuildPipeFilter "Tests" "build-for-testing" "BlackBoxUiTests" "Tests" "xcpretty"
 testUsingBluepill
-cleanUpAfterTesting
+cleanUpAfterIosTesting
