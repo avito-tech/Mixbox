@@ -91,14 +91,14 @@ final class FakeCellsTestsView: CollectionView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        nonCellSubviewOfCollectionView.frame = CGRect(
+        nonCellSubviewOfCollectionView.frame = CGRect.mb_init(
             left: bounds.mb_left,
             right: bounds.mb_right,
             top: 0,
             height: notFromDatasourceViewsHeight
         )
         
-        notFromDatasourceCellSubviewOfCollectionView.frame = CGRect(
+        notFromDatasourceCellSubviewOfCollectionView.frame = CGRect.mb_init(
             left: bounds.mb_left,
             right: bounds.mb_right,
             bottom: contentSize.height,

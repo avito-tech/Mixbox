@@ -105,14 +105,14 @@ class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
         
         for (index, viewAndLabel) in views.enumerated() {
             let viewTop = CGFloat(index) * (viewHeight + spaceBeforeAndAfter * 2 + labelHeight) + spaceBeforeAndAfter
-            viewAndLabel.view.frame = CGRect(
+            viewAndLabel.view.frame = CGRect.mb_init(
                 left: bounds.mb_left,
                 right: bounds.mb_right,
                 top: viewTop,
                 height: viewHeight
             )
             
-            viewAndLabel.label.frame = CGRect(
+            viewAndLabel.label.frame = CGRect.mb_init(
                 left: bounds.mb_left,
                 right: bounds.mb_right,
                 top: viewTop + viewHeight,

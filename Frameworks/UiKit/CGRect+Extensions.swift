@@ -38,28 +38,28 @@ public extension CGRect {
         set { mb_top = newValue - height }
     }
     
-    init(left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) {
-        self.init(x: left, y: top, width: right - left, height: bottom - top)
+    static func mb_init(left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) -> CGRect {
+        return self.init(x: left, y: top, width: right - left, height: bottom - top)
     }
     
-    init(left: CGFloat, right: CGFloat, top: CGFloat, height: CGFloat) {
-        self.init(x: left, y: top, width: right - left, height: height)
+    static func mb_init(left: CGFloat, right: CGFloat, top: CGFloat, height: CGFloat) -> CGRect {
+        return self.init(x: left, y: top, width: right - left, height: height)
     }
     
-    init(left: CGFloat, right: CGFloat, bottom: CGFloat, height: CGFloat) {
-        self.init(x: left, y: bottom - height, width: right - left, height: height)
+    static func mb_init(left: CGFloat, right: CGFloat, bottom: CGFloat, height: CGFloat) -> CGRect {
+        return self.init(x: left, y: bottom - height, width: right - left, height: height)
     }
     
-    init(left: CGFloat, right: CGFloat, centerY: CGFloat, height: CGFloat) {
-        self.init(x: left, y: centerY - height / 2, width: right - left, height: height)
+    static func mb_init(left: CGFloat, right: CGFloat, centerY: CGFloat, height: CGFloat) -> CGRect {
+        return self.init(x: left, y: centerY - height / 2, width: right - left, height: height)
     }
     
-    init(right: CGFloat, centerY: CGFloat, width: CGFloat, height: CGFloat) {
-        self.init(x: right - width, y: centerY - height / 2, width: width, height: height)
+    static func mb_init(right: CGFloat, centerY: CGFloat, width: CGFloat, height: CGFloat) -> CGRect {
+        return self.init(x: right - width, y: centerY - height / 2, width: width, height: height)
     }
     
-    init(bottom: CGFloat, centerX: CGFloat, size: CGSize) {
-        self.init(x: centerX - size.width / 2, y: bottom - size.height, width: size.width, height: size.height)
+    static func mb_init(bottom: CGFloat, centerX: CGFloat, size: CGSize) -> CGRect {
+        return self.init(x: centerX - size.width / 2, y: bottom - size.height, width: size.width, height: size.height)
     }
     
     // MARK: - Insets
@@ -80,7 +80,7 @@ public extension CGRect {
     // MARK: -
     
     func mb_inverted() -> CGRect {
-        return CGRect(left: mb_right, right: mb_left, top: mb_bottom, bottom: mb_top)
+        return CGRect.mb_init(left: mb_right, right: mb_left, top: mb_bottom, bottom: mb_top)
     }
     
     func mb_intersectionOrNil(_ other: CGRect) -> CGRect? {
@@ -106,7 +106,7 @@ public extension CGRect {
     // Gets intersection with other rect, and cuts it off
     func mb_cutTop(_ other: CGRect) -> CGRect {
         if let intersection = self.mb_intersectionOrNil(other) {
-            return CGRect(left: mb_left, right: mb_right, top: intersection.mb_bottom, bottom: mb_bottom)
+            return CGRect.mb_init(left: mb_left, right: mb_right, top: intersection.mb_bottom, bottom: mb_bottom)
         } else {
             return self // nothing to cut
         }
@@ -114,7 +114,7 @@ public extension CGRect {
     
     func mb_cutBottom(_ other: CGRect) -> CGRect {
         if let intersection = self.mb_intersectionOrNil(other) {
-            return CGRect(left: mb_left, right: mb_right, top: mb_top, bottom: intersection.mb_top)
+            return CGRect.mb_init(left: mb_left, right: mb_right, top: mb_top, bottom: intersection.mb_top)
         } else {
             return self // nothing to cut
         }
@@ -122,7 +122,7 @@ public extension CGRect {
     
     func mb_cutLeft(_ other: CGRect) -> CGRect {
         if let intersection = self.mb_intersectionOrNil(other) {
-            return CGRect(left: intersection.mb_right, right: mb_right, top: mb_top, bottom: mb_bottom)
+            return CGRect.mb_init(left: intersection.mb_right, right: mb_right, top: mb_top, bottom: mb_bottom)
         } else {
             return self // nothing to cut
         }
@@ -130,7 +130,7 @@ public extension CGRect {
     
     func mb_cutRight(_ other: CGRect) -> CGRect {
         if let intersection = self.mb_intersectionOrNil(other) {
-            return CGRect(left: mb_left, right: intersection.mb_left, top: mb_top, bottom: mb_bottom)
+            return CGRect.mb_init(left: mb_left, right: intersection.mb_left, top: mb_top, bottom: mb_bottom)
         } else {
             return self // nothing to cut
         }

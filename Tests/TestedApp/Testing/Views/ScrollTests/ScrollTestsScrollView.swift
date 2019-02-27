@@ -30,21 +30,21 @@ final class ScrollTestsScrollView: UIScrollView {
             height: frame.height * CGFloat(ScrollTests.contentHeightInScreens)
         )
         
-        firstView.frame = CGRect(
+        firstView.frame = CGRect.mb_init(
             left: frame.mb_left,
             right: frame.mb_right,
             centerY: frame.mb_centerY,
             height: ScrollTests.viewHeight
         )
         
-        secondView.frame = CGRect(
+        secondView.frame = CGRect.mb_init(
             left: frame.mb_left,
             right: frame.mb_right,
             centerY: frame.mb_centerY + frame.height * CGFloat((ScrollTests.contentHeightInScreens - 1) / 2),
             height: ScrollTests.viewHeight
         )
         
-        thirdView.frame = CGRect(
+        thirdView.frame = CGRect.mb_init(
             left: frame.mb_left,
             right: frame.mb_right,
             centerY: frame.mb_centerY + frame.height * CGFloat(ScrollTests.contentHeightInScreens - 1),
