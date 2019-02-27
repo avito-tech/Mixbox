@@ -10,7 +10,6 @@ final class XcuiElementQuery: ElementQuery {
     private let waitForExistence: Bool
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker = XcuiScreenshotTaker()
-    private let snapshotCaches: SnapshotCaches
     private let applicationProvider: ApplicationProvider
     
     init(
@@ -18,14 +17,12 @@ final class XcuiElementQuery: ElementQuery {
         elementQueryResolvingState: ElementQueryResolvingState,
         waitForExistence: Bool,
         stepLogger: StepLogger,
-        snapshotCaches: SnapshotCaches,
         applicationProvider: ApplicationProvider)
     {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
         self.waitForExistence = waitForExistence
         self.stepLogger = stepLogger
-        self.snapshotCaches = snapshotCaches
         self.applicationProvider = applicationProvider
     }
     
@@ -48,7 +45,7 @@ final class XcuiElementQuery: ElementQuery {
             let element = closure(xcuiElementQuery)
             
             elementQueryResolvingState.start()
-            let elementExists = snapshotCaches.descendantsFromRoot.use { element.exists }
+            let elementExists = element.exists
             elementQueryResolvingState.stop()
             
             let resolvedElementQuery = ResolvedElementQuery(
@@ -67,9 +64,7 @@ final class XcuiElementQuery: ElementQuery {
                     Artifact(
                         name: "Иерархия вьюх",
                         content: .text(
-                            snapshotCaches.descendantsFromRoot.use {
-                                applicationProvider.application.debugDescription
-                            }
+                            applicationProvider.application.debugDescription
                         )
                     )
                 )

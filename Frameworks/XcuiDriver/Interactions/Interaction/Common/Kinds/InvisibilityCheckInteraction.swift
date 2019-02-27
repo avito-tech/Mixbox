@@ -20,7 +20,6 @@ final class InvisibilityCheckInteraction: Interaction {
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
         minimalPercentageOfVisibleArea: CGFloat,
-        snapshotCaches: SnapshotCaches,
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
@@ -41,7 +40,6 @@ final class InvisibilityCheckInteraction: Interaction {
             elementFinder: elementFinder,
             interactionSettings: description.settings,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            snapshotCaches: snapshotCaches,
             applicationProvider: applicationProvider,
             applicationCoordinatesProvider: applicationCoordinatesProvider
         )

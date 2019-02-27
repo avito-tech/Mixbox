@@ -383,8 +383,6 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         )
         
         _ = interactionPerformer.performInteraction(interaction: interaction)
-        
-        XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
     }
     
     private func menuItem(possibleTitles: [String]) -> XCUIElement {
@@ -420,7 +418,6 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             
             for attempt in 0..<attempts {
                 if !hasFocus {
-                    XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
                     perform(actionSettings: actionSettings) {
                         [weak self] snapshot -> InteractionSpecificResult in
                         

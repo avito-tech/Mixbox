@@ -13,7 +13,6 @@ final class InteractionHelper {
     private let scroller: Scroller
     private let elementResolver: ElementResolver
     private let pollingConfiguration: PollingConfiguration
-    private let snapshotCaches: SnapshotCaches
     private let applicationProvider: ApplicationProvider
     private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     
@@ -28,7 +27,6 @@ final class InteractionHelper {
         elementFinder: ElementFinder,
         interactionSettings: ResolvedInteractionSettings,
         minimalPercentageOfVisibleArea: CGFloat,
-        snapshotCaches: SnapshotCaches,
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
@@ -54,7 +52,6 @@ final class InteractionHelper {
         let defaultTimeout: TimeInterval = 15
         self.searchTimeout = interactionSettings.elementSettings.searchTimeout ?? defaultTimeout
         self.pollingConfiguration = interactionSettings.pollingConfiguration
-        self.snapshotCaches = snapshotCaches
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
     }
@@ -65,8 +62,6 @@ final class InteractionHelper {
         var result = closure()
         
         while retryingIsPossible, !interactionWasTimedOut(), case .failure = result {
-            XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
-            
             respectPollingConfiguration()
             result = closure()
         }
@@ -117,7 +112,6 @@ final class InteractionHelper {
         while shouldRetryResolvingElement(resolvedElementQuery: resolvedElementQuery)
             && !interactionWasTimedOut()
         {
-            XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
             respectPollingConfiguration()
             resolvedElementQuery = resolveElement()
         }
@@ -162,8 +156,6 @@ final class InteractionHelper {
         }
         
         if elementSettings.searchMode == .scrollBlindly && elementSettings.searchMode != .useCurrentlyVisible {
-            XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
-            
             let scrollingDistance = 8
             
             for _ in 0..<scrollingDistance where needToScroll {
@@ -192,15 +184,13 @@ final class InteractionHelper {
     private func gentlyScroll(up: Bool) {
         let frame = applicationCoordinatesProvider.frame
         
-        snapshotCaches.application.use {
-            applicationProvider.application.center.press(
-                forDuration: 0,
-                thenDragTo: applicationCoordinatesProvider.tappableCoordinate(
-                    x: frame.mb_centerX,
-                    y: up ? 0 : frame.height
-                )
+        applicationProvider.application.center.press(
+            forDuration: 0,
+            thenDragTo: applicationCoordinatesProvider.tappableCoordinate(
+                x: frame.mb_centerX,
+                y: up ? 0 : frame.height
             )
-        }
+        )
     }
     
     func scrollIfNeeded(

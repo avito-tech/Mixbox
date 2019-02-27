@@ -31,7 +31,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     private let scrollingHintsProvider: ScrollingHintsProvider
     private let keyboardEventInjectorInstance: KeyboardEventInjector
     private let pollingConfigurationValue: PollingConfiguration
-    private let snapshotCaches: SnapshotCaches
     
     // MARK: - Init
     init(
@@ -43,7 +42,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         snapshotsComparisonUtility: SnapshotsComparisonUtility,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
-        snapshotCaches: SnapshotCaches,
         elementFinder: ElementFinder,
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider,
@@ -58,7 +56,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         self.keyboardEventInjectorInstance = keyboardEventInjector
         self.elementFinder = elementFinder
         self.pollingConfigurationValue = pollingConfiguration
-        self.snapshotCaches = snapshotCaches
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.eventGenerator = eventGenerator
@@ -78,7 +75,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
             elementFinder: elementFinder,
             elementVisibilityChecker: elementVisibilityCheckerInstance,
             scrollingHintsProvider: scrollingHintsProvider,
-            snapshotCaches: snapshotCaches,
             applicationProvider: applicationProvider,
             applicationCoordinatesProvider: applicationCoordinatesProvider
         )

@@ -295,7 +295,6 @@ final class ScrollingContext {
         // TODO: Write tests to checl that?
         applicationProvider.application._waitForQuiescence()
         
-        XcElementSnapshotCacheSyncronizationImpl.instance.dropCaches()
         resolvedElementQuery = elementResolver.resolveElement()
         
         let index = expectedIndexOfSnapshotInResolvedElementQuery

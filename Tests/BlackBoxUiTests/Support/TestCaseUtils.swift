@@ -101,8 +101,6 @@ final class TestCaseUtils {
             testFailureRecorder: testFailureRecorder
         )
         
-        let snapshotCaches = SnapshotCachesImpl.create(cachingEnabled: false)
-        
         let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder) -> XcuiPageObjectDependenciesFactory = { applicationProvider, elementFinder in
             return XcuiPageObjectDependenciesFactory(
                 interactionExecutionLogger: interactionExecutionLogger,
@@ -111,7 +109,6 @@ final class TestCaseUtils {
                 snapshotsComparisonUtility: snapshotsComparisonUtility,
                 stepLogger: stepLogger,
                 pollingConfiguration: .reduceLatency,
-                snapshotCaches: SnapshotCachesImpl.create(cachingEnabled: false),
                 elementFinder: elementFinder,
                 applicationProvider: applicationProvider,
                 applicationCoordinatesProvider: ApplicationCoordinatesProviderImpl(
@@ -130,7 +127,6 @@ final class TestCaseUtils {
                 provider,
                 XcuiElementFinder(
                     stepLogger: stepLogger,
-                    snapshotCaches: snapshotCaches,
                     applicationProviderThatDropsCaches: provider
                 )
             )

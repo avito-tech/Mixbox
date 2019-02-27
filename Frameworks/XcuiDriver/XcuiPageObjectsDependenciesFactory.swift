@@ -11,7 +11,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let snapshotsComparisonUtility: SnapshotsComparisonUtility
     private let stepLogger: StepLogger
     private let pollingConfiguration: PollingConfiguration
-    private let snapshotCaches: SnapshotCaches
     private let elementFinder: ElementFinder
     private let applicationProvider: ApplicationProvider
     private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
@@ -24,7 +23,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         snapshotsComparisonUtility: SnapshotsComparisonUtility,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
-        snapshotCaches: SnapshotCaches,
         elementFinder: ElementFinder,
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider,
@@ -36,7 +34,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.snapshotsComparisonUtility = snapshotsComparisonUtility
         self.stepLogger = stepLogger
         self.pollingConfiguration = pollingConfiguration
-        self.snapshotCaches = snapshotCaches
         self.elementFinder = elementFinder
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
@@ -60,7 +57,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
                 snapshotsComparisonUtility: snapshotsComparisonUtility,
                 stepLogger: stepLogger,
                 pollingConfiguration: pollingConfiguration,
-                snapshotCaches: snapshotCaches,
                 elementFinder: elementFinder,
                 applicationProvider: applicationProvider,
                 applicationCoordinatesProvider: applicationCoordinatesProvider,

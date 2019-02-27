@@ -6,17 +6,14 @@ import MixboxReporting
 
 public final class XcuiElementFinder: ElementFinder {
     private let stepLogger: StepLogger
-    private let snapshotCaches: SnapshotCaches
     // See ChangingHierarchyTests if you want to know why dropping cache is needed.
     private let applicationProviderThatDropsCaches: ApplicationProvider
     
     public init(
         stepLogger: StepLogger,
-        snapshotCaches: SnapshotCaches,
         applicationProviderThatDropsCaches: ApplicationProvider)
     {
         self.stepLogger = stepLogger
-        self.snapshotCaches = snapshotCaches
         self.applicationProviderThatDropsCaches = applicationProviderThatDropsCaches
     }
     
@@ -52,7 +49,6 @@ public final class XcuiElementFinder: ElementFinder {
             elementQueryResolvingState: elementQueryResolvingState,
             waitForExistence: waitForExistence,
             stepLogger: stepLogger,
-            snapshotCaches: snapshotCaches,
             applicationProvider: applicationProviderThatDropsCaches
         )
     }
