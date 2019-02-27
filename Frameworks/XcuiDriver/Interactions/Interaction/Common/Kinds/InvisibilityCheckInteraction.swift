@@ -33,7 +33,7 @@ final class InvisibilityCheckInteraction: Interaction {
         self.elementVisibilityChecker = elementVisibilityChecker
         self.scrollingHintsProvider = scrollingHintsProvider
         self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
-        self.interactionHelper = InteractionHelper(
+        self.interactionHelper = InteractionHelperImpl(
             messagePrefix: "Проверка не прошла",
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,
@@ -61,6 +61,8 @@ final class InvisibilityCheckInteraction: Interaction {
                 )
             case .error(let message):
                 return interactionHelper.failureResult(
+                    resolvedElementQuery: nil,
+                    interactionSpecificFailure: nil,
                     message: message
                 )
             }
@@ -151,6 +153,7 @@ final class InvisibilityCheckInteraction: Interaction {
             
             return interactionHelper.failureResult(
                 resolvedElementQuery: resolvedElementQuery,
+                interactionSpecificFailure: nil,
                 message: message
             )
         } else {

@@ -40,7 +40,7 @@ final class VisibleElementCheckInteraction: Interaction {
     }
     
     func perform() -> InteractionResult {
-        let helper = InteractionHelper(
+        let helper = InteractionHelperImpl(
             messagePrefix: "Проверка не прошла",
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,

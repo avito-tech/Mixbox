@@ -56,7 +56,7 @@ final class ActionInteraction: Interaction {
             )
         }
         
-        let helper = InteractionHelper(
+        let helper = InteractionHelperImpl(
             messagePrefix: "Действие неуспешно",
             elementVisibilityChecker: elementVisibilityChecker,
             scrollingHintsProvider: scrollingHintsProvider,

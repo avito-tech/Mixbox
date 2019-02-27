@@ -2,8 +2,33 @@ import MixboxUiTestsFoundation
 import MixboxFoundation
 import XCTest
 
+protocol InteractionHelper {
+    func retryInteractionUntilTimeout(closure: () -> InteractionResult) -> InteractionResult
+    
+    func resolveElementWithRetries() -> ResolvedElementQuery
+    
+    func scrollIfNeeded(
+        snapshot: ElementSnapshot,
+        expectedIndexOfSnapshotInResolvedElementQuery: Int,
+        resolvedElementQuery: ResolvedElementQuery)
+        -> ScrollingResult
+    
+    func performInteractionForVisibleElement(
+        resolvedElementQuery: ResolvedElementQuery,
+        interactionSpecificImplementation: InteractionSpecificImplementation,
+        performingSpecificImplementationCanBeRepeated: Bool,
+        closureFailureMessage: String)
+        -> InteractionResult
+    
+    func failureResult(
+        resolvedElementQuery: ResolvedElementQuery?,
+        interactionSpecificFailure: InteractionSpecificFailure?,
+        message: String)
+        -> InteractionResult
+}
+
 // TODO: We must split this in parts.
-final class InteractionHelper {
+final class InteractionHelperImpl: InteractionHelper {
     private let messagePrefix: String
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let elementSettings: ElementSettings
@@ -69,10 +94,6 @@ final class InteractionHelper {
         return result
     }
     
-    func resolveElement() -> ResolvedElementQuery {
-        return elementResolver.resolveElement()
-    }
-    
     func resolveElementWithRetries() -> ResolvedElementQuery {
         var resolvedElementQuery = resolveElement()
         
@@ -99,6 +120,10 @@ final class InteractionHelper {
         )
         
         return resolvedElementQuery
+    }
+    
+    private func resolveElement() -> ResolvedElementQuery {
+        return elementResolver.resolveElement()
     }
     
     private func reresolveElementWithRetriesIfNeeded(
