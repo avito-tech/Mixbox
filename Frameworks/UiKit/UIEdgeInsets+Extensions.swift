@@ -1,11 +1,12 @@
 import UIKit
 
 public extension UIEdgeInsets {
-    init(top: CGFloat) {
-        self.init(top: top, left: 0, bottom: 0, right: 0)
+    static func mb_init(top: CGFloat) -> UIEdgeInsets {
+        return self.init(top: top, left: 0, bottom: 0, right: 0)
     }
-    init(top: CGFloat, bottom: CGFloat) {
-        self.init(top: top, left: 0, bottom: bottom, right: 0)
+    
+    static func mb_init(top: CGFloat, bottom: CGFloat) -> UIEdgeInsets {
+        return self.init(top: top, left: 0, bottom: bottom, right: 0)
     }
     
     func mb_inverted() -> UIEdgeInsets {

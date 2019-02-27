@@ -13,7 +13,7 @@ final class FakeCellsTestsView: CollectionView {
                 width: UIScreen.main.bounds.width,
                 height: FakeCellsTestsConstants.itemHeight
             ),
-            sectionInset: UIEdgeInsets(
+            sectionInset: UIEdgeInsets.mb_init(
                 top: notFromDatasourceViewsHeight,
                 bottom: notFromDatasourceViewsHeight
             )

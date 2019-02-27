@@ -105,14 +105,14 @@ public extension CGPoint {
     }
     
     func mb_distanceTo(_ other: CGPoint) -> CGFloat {
-        return CGVector(start: self, end: other).mb_length()
+        return CGVector.mb_init(start: self, end: other).mb_length()
     }
     
     func mb_angleTo(endPoint: CGPoint, anchorPoint: CGPoint) -> CGFloat {
         let startPoint = self
         
-        let startAngle = CGVector(start: anchorPoint, end: startPoint).mb_angle()
-        let endAngle = CGVector(start: anchorPoint, end: endPoint).mb_angle()
+        let startAngle = CGVector.mb_init(start: anchorPoint, end: startPoint).mb_angle()
+        let endAngle = CGVector.mb_init(start: anchorPoint, end: endPoint).mb_angle()
         
         return CGFloat(endAngle - startAngle)
     }
@@ -123,8 +123,8 @@ public extension CGPoint {
 }
 
 public extension CGVector {
-    init(start: CGPoint, end: CGPoint) {
-        self.init(
+    static func mb_init(start: CGPoint, end: CGPoint) -> CGVector {
+        return self.init(
             dx: end.x - start.x,
             dy: end.y - start.y
         )

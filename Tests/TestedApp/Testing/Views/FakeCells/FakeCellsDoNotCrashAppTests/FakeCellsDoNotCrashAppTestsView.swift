@@ -7,7 +7,7 @@ final class FakeCellsDoNotCrashAppTestsView: CollectionView {
                 width: UIScreen.main.bounds.width,
                 height: 100
             ),
-            sectionInset: UIEdgeInsets(
+            sectionInset: UIEdgeInsets.mb_init(
                 top: 0,
                 bottom: 0
             )
