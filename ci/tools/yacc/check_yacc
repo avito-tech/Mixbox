@@ -1,0 +1,147 @@
+#!/bin/bash
+
+main() {
+    ERRORS=0
+    
+    ## BAD EXAMPLES ##
+    
+    # Is JIRA task
+    checkIsBad 'ABC-123: xx'
+    checkIsBad 'ABC-123 xx'
+    checkIsBad 'ABC-123'
+    checkIsBad ' ABC-123: xx'
+    checkIsBad ' ABC-123 xx'
+    checkIsBad ' ABC-123'
+    
+    # Is a merge commit
+    checkIsBad 'Merge branch develop into master'
+    checkIsBad 'Merge branch'
+    checkIsBad 'merge branch'
+    checkIsBad ' Merge branch develop into master'
+    checkIsBad ' Merge branch'
+    checkIsBad ' merge branch'
+    
+    # Is lowercase
+    checkIsBad 'lowercase commit'
+    
+    # Is past simple
+    checkIsBad 'Fixed xxx'
+    checkIsBad 'Added xxx'
+    checkIsBad 'Deleted xxx'
+    checkIsBad 'Improved xxx'
+    
+    # Is too short
+    checkIsBad 'Fixes'
+    
+    # Is too long
+    checkIsBad 'First line in the commit message is very very long because I broke "Enter" on my keyboard, but still I want to express all my feelings in the commit message. I think every idea I express is the most important to be in the first line of the commit message.'
+    
+    # Is a single word
+    checkIsBad 'Improve'
+    checkIsBad 'Oneword'
+    
+    # If from hate-list
+    checkIsBad 'WIP'
+    checkIsBad 'Fix bug'
+    checkIsBad 'Work'
+    checkIsBad 'More fixes'
+    checkIsBad 'More anything'
+    checkIsBad 'New code'
+    
+    # Starts with spaces
+    checkIsBad '    '
+    checkIsBad '    Starts with spaces'
+    
+    ## GOOD EXAMPLES ##
+    
+    # Technically good:
+    checkIsGood 'ABC123: xx'
+    checkIsGood 'ABC123 xx'
+    checkIsGood 'Fix xxxx'
+    checkIsGood 'Improve xxx'
+    
+    # Real examples:
+    checkIsGood 'Fix ApplicationBundleProviderTests for iOS 12'
+    checkIsGood 'Add `set -e` to ci build'
+
+    checkIsGood 'Remove SnapshotCaches
+
+It never worked perfectly, we had few percent of tests failed. Yes, it boosted speed of tests 2 times in some cases, but there is a better option - do not use XCTest for finding and checking elements (there is Real View Hierarchy feature, it doesn'\''t work perfectly either, but it is just not finished yet).'
+    
+    if [ $ERRORS == 0 ]
+    then
+        echo "Test succeeded"
+    fi
+    
+    echo '
+------
+
+Enter the following message to YACC (including regex):
+
+------
+    
+Commit message doesn'\''t match guidelines.
+
+Guidelines:
+1. Should not be a merge commit. Please do not abuse this check with changing merge commit message from "Merge" to something else.
+2. Should start with uppercase letter.
+3. Should be in imperative. Example: "Fix scrolling" or "Improve performance of scrolling". Bad example: "Fixed bug"
+4. Be descriptive (>1 word). Bad examples: "Fixes"
+5. Avoid messages like "More fixes", "New code" or "WIP"
+6. First line should be short (80 characters max). You always can write a novel in other lines.
+7. Should not start with JIRA task, because repo is mirrored to github.
+
+Regex: '$(regex)'
+'
+}
+
+checkIsGood() {
+    local commitMessage=$1
+    
+    if ! matchesRegex "$commitMessage"
+    then
+        echo "Should match (because is a good message): $commitMessage" 
+        ERRORS=$((ERRORS+1))
+    fi
+}
+
+checkIsBad() {
+    local commitMessage=$1
+    
+    if matchesRegex "$commitMessage"
+    then
+        echo "Should not match (because is a bad message): $commitMessage" 
+        ERRORS=$((ERRORS+1))
+    fi
+}
+
+regex() {
+    
+    # Bad (inside negative lookahead):
+    local hasJiraTask="[A-Za-z]+-[0-9]+"
+    local isMergeCommit="Merge"
+    local startsWithLowercase="[a-z]"
+    local inPastSimple="[a-zA-Z]+ed "
+    local isShort=".{1,5}$"
+    local isOnlyOneWord="[^\s]+$"
+    local isJustHated="More|New|WIP|Fix bug$|Work$"
+    local withVeryLongFirstLine="[^\n]{80}"
+    
+    # Good:
+    local startsWithUppercaseLetter="[A-Z]"
+    
+    echo "^(?!(^\s*(?:$hasJiraTask|$isMergeCommit|$startsWithLowercase|$inPastSimple|$isShort|$isOnlyOneWord|$isJustHated|$withVeryLongFirstLine)))$startsWithUppercaseLetter(.|\n)+$"
+}
+
+matchesRegex() {
+    local commitMessage=$1
+    local regex=$(regex)
+    #                  not jira task    
+    #                  v                not merge
+    #                                   v     not lowercase
+    
+    # I don't know a good way of just checking if string matches perl regex.
+    [ "$(echo "$commitMessage" | perl -pe "s/$regex//g")" != "$commitMessage" ]
+}
+
+main
