@@ -1,5 +1,6 @@
 public protocol PageObjectDependenciesFactory: class {
     func pageObjectElementFactory() -> PageObjectElementFactory
+    func matcherBuilder() -> ElementMatcherBuilder
 }
 
 public extension PageObjectDependenciesFactory {
@@ -19,5 +20,9 @@ final class PageObjectDependenciesFactoryToPageObjectElementDependenciesFactory:
     
     func pageObjectElementFactory() -> PageObjectElementFactory {
         return pageObjectDependenciesFactory.pageObjectElementFactory()
+    }
+    
+    func matcherBulder() -> ElementMatcherBuilder {
+        return pageObjectDependenciesFactory.matcherBuilder()
     }
 }

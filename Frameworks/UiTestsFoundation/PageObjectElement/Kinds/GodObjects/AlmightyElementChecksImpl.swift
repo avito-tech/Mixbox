@@ -8,19 +8,22 @@ public final class AlmightyElementChecksImpl: AlmightyElementChecks {
     private let interactionPerformerFactory: InteractionPerformerFactory
     private let interactionFactory: InteractionFactory
     private let pollingConfiguration: PollingConfiguration
+    private let elementMatcherBuilder: ElementMatcherBuilder
     
     public init(
         elementSettings: ElementSettings,
         interactionPerformerFactory: InteractionPerformerFactory,
         interactionFactory: InteractionFactory,
         isAssertions: Bool,
-        pollingConfiguration: PollingConfiguration)
+        pollingConfiguration: PollingConfiguration,
+        elementMatcherBuilder: ElementMatcherBuilder)
     {
         self.elementSettings = elementSettings
         self.interactionPerformerFactory = interactionPerformerFactory
         self.interactionFactory = interactionFactory
         self.isAssertions = isAssertions
         self.pollingConfiguration = pollingConfiguration
+        self.elementMatcherBuilder = elementMatcherBuilder
     }
     
     // MARK: - AlmightyElementChecks
@@ -31,7 +34,8 @@ public final class AlmightyElementChecksImpl: AlmightyElementChecks {
             interactionPerformerFactory: interactionPerformerFactory,
             interactionFactory: interactionFactory,
             isAssertions: isAssertions,
-            pollingConfiguration: pollingConfiguration
+            pollingConfiguration: pollingConfiguration,
+            elementMatcherBuilder: elementMatcherBuilder
         )
     }
     
@@ -42,8 +46,8 @@ public final class AlmightyElementChecksImpl: AlmightyElementChecks {
         -> Bool
     {
         let interaction = interactionFactory.checkInteraction(
-            specificImplementation: InteractionSpecificImplementation { snapshot in
-                let matcher = ElementMatcherBuilder.build(matcher)
+            specificImplementation: InteractionSpecificImplementation { [elementMatcherBuilder] snapshot in
+                let matcher = matcher(elementMatcherBuilder)
                 
                 switch matcher.matches(value: snapshot) {
                 case .match:

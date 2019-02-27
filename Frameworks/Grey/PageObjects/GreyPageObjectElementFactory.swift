@@ -28,7 +28,8 @@ public final class GreyPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: interactionPerformerFactory,
             interactionFactory: interactionFactory,
             isAssertions: false,
-            pollingConfiguration: pollingConfiguration
+            pollingConfiguration: pollingConfiguration,
+            elementMatcherBuilder: ElementMatcherBuilder()
         )
         
         let asserts = AlmightyElementChecksImpl(
@@ -36,7 +37,8 @@ public final class GreyPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: interactionPerformerFactory,
             interactionFactory: interactionFactory,
             isAssertions: true,
-            pollingConfiguration: pollingConfiguration
+            pollingConfiguration: pollingConfiguration,
+            elementMatcherBuilder: ElementMatcherBuilder()
         )
         
         return AlmightyElementImpl(

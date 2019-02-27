@@ -32,7 +32,8 @@ final class ViewHierarchyBuilder {
             isEnabled: view.testabilityValue_isEnabled(),
             hasKeyboardFocus: view.testabilityValue_hasKeyboardFocus(),
             customValues: view.testability_customValues.dictionary,
-            children: view.testabilityValue_children().map(buildRootViewHierarchyElement)
+            children: view.testabilityValue_children().map(buildRootViewHierarchyElement),
+            image: view.snapshot
         )
     }
 }

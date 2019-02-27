@@ -31,7 +31,8 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
             interactionFactory: xcuiHelperFactory.interactionFactory(),
             isAssertions: false,
-            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
+            pollingConfiguration: xcuiHelperFactory.pollingConfiguration(),
+            elementMatcherBuilder: xcuiHelperFactory.elementMatcherBuilder()
         )
         
         let asserts = AlmightyElementChecksImpl(
@@ -39,7 +40,8 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
             interactionFactory: xcuiHelperFactory.interactionFactory(),
             isAssertions: true,
-            pollingConfiguration: xcuiHelperFactory.pollingConfiguration()
+            pollingConfiguration: xcuiHelperFactory.pollingConfiguration(),
+            elementMatcherBuilder: xcuiHelperFactory.elementMatcherBuilder()
         )
         
         return AlmightyElementImpl(

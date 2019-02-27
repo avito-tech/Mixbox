@@ -67,13 +67,28 @@ public final class ElementMatcherBuilder {
         _ matcher: ElementMatcherBuilderClosure)
         -> ElementMatcher
     {
-        return IsSubviewMatcher(ElementMatcherBuilder.build(matcher))
+        return IsSubviewMatcher(matcher(ElementMatcherBuilder(snapshotsComparisonUtitlity: snapshotsComparisonUtitlity)))
     }
     
-    public init() {
+    public func matchesReference(
+        image: UIImage,
+        comparator: SnapshotsComparator)
+        -> ElementMatcher
+    {
+        if let snapshotsComparisonUtitlity = snapshotsComparisonUtitlity {
+            return ReferenceImageMatcher(
+                snapshotsComparisonUtility: snapshotsComparisonUtitlity,
+                reference: image,
+                comparator: comparator
+            )
+        } else {
+            return AlwaysFalseMatcher()
+        }
     }
     
-    public static func build(_ closure: ElementMatcherBuilderClosure) -> ElementMatcher {
-        return closure(ElementMatcherBuilder())
+    private let snapshotsComparisonUtitlity: SnapshotsComparisonUtility?
+    
+    public init(snapshotsComparisonUtitlity: SnapshotsComparisonUtility? = nil) {
+        self.snapshotsComparisonUtitlity = snapshotsComparisonUtitlity
     }
 }

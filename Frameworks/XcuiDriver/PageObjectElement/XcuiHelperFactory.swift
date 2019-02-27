@@ -15,6 +15,7 @@ protocol XcuiHelperFactory: class {
     func elementVisibilityChecker() -> ElementVisibilityChecker
     func keyboardEventInjector() -> KeyboardEventInjector
     func pollingConfiguration() -> PollingConfiguration
+    func elementMatcherBuilder() -> ElementMatcherBuilder
 }
 
 final class XcuiHelperFactoryImpl: XcuiHelperFactory {
@@ -94,5 +95,9 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     
     func pollingConfiguration() -> PollingConfiguration {
         return pollingConfigurationValue
+    }
+    
+    func elementMatcherBuilder() -> ElementMatcherBuilder {
+        return ElementMatcherBuilder(snapshotsComparisonUtitlity: snapshotsComparisonUtility)
     }
 }

@@ -34,4 +34,8 @@ public final class GreyPageObjectDependenciesFactory: PageObjectDependenciesFact
             pollingConfiguration: pollingConfiguration
         )
     }
+    
+    public func matcherBuilder() -> ElementMatcherBuilder {
+        return ElementMatcherBuilder()
+    }
 }

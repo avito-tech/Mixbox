@@ -40,10 +40,8 @@ extension Element {
     //     ...
     // }
     
-    public func matching(_ matcherBuilder: ElementMatcherBuilderClosure) -> Self {
+    public func matching(_ additional: ElementMatcher) -> Self {
         let old = implementation.settings.matcher
-        let additional = ElementMatcherBuilder.build(matcherBuilder)
-        
         return with(matcher: old && additional)
     }
     

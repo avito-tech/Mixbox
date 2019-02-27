@@ -64,4 +64,8 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             )
         )
     }
+    
+    public func matcherBuilder() -> ElementMatcherBuilder {
+        return ElementMatcherBuilder(snapshotsComparisonUtitlity: snapshotsComparisonUtility)
+    }
 }

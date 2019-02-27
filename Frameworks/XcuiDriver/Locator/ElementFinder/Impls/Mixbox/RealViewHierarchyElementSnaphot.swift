@@ -89,4 +89,8 @@ final class RealViewHierarchyElementSnaphot: ElementSnapshot {
     var customClass: String? {
         return data.customClass
     }
+    
+    var image: UIImage? {
+        return data.image.value
+    }
 }

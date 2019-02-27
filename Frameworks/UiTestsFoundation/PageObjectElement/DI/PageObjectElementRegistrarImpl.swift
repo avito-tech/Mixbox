@@ -3,6 +3,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory
     private let searchMode: SearchMode?
     private let interactionMode: InteractionMode?
+    private let elementMatcherBuilder: ElementMatcherBuilder
     
     public init(
         pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
@@ -11,6 +12,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     {
         self.pageObjectElementDependenciesFactory = pageObjectElementDependenciesFactory
         self.pageObjectElementFactory = pageObjectElementDependenciesFactory.pageObjectElementFactory()
+        self.elementMatcherBuilder = pageObjectElementDependenciesFactory.matcherBulder()
         self.searchMode = searchMode
         self.interactionMode = interactionMode
     }
@@ -55,7 +57,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
         return pageObjectElementFactory.pageObjectElement(
             settings: ElementSettings(
                 name: name,
-                matcher: ElementMatcherBuilder.build(matcherBuilder),
+                matcher: matcherBuilder(elementMatcherBuilder),
                 searchMode: searchMode ?? .default,
                 searchTimeout: nil,
                 interactionMode: interactionMode ?? .default

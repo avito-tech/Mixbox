@@ -137,4 +137,8 @@ final class XcuiElementSnapshot: ElementSnapshot {
         }
         return fields.joined(separator: "\n")
     }
+    
+    var image: UIImage? {
+        return xcuiImage()
+    }
 }

@@ -19,7 +19,7 @@ extension ElementSnapshot {
         return false
     }
     
-    public func image() -> UIImage? {
+    public func xcuiImage() -> UIImage? {
         // TODO: Remove singletons, use ScreenshotTaker
         let image = XCUIScreen.main.screenshot().image
         
@@ -27,9 +27,10 @@ extension ElementSnapshot {
             return nil
         }
         
+        // x and y have to be rounded because CGImage.cropping doesn't handle
         let frameForCropping = CGRect(
-            x: frameOnScreen.origin.x * image.scale,
-            y: frameOnScreen.origin.y * image.scale,
+            x: (frameOnScreen.origin.x * image.scale).rounded(.down),
+            y: (frameOnScreen.origin.y * image.scale).rounded(.up),
             width: frameOnScreen.size.width * image.scale,
             height: frameOnScreen.size.height * image.scale
         )

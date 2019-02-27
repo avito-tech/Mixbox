@@ -85,7 +85,7 @@ extension ViewElementChecks where Self: Element {
         -> Bool
     {
         let checkSettings = CheckSettings(file: file, line: line, description: description) { info in
-            "в '\(info.elementName)' \(ElementMatcherBuilder.build(matcher).description)"
+            "в '\(info.elementName)' \(matcher(ElementMatcherBuilder()).description)"
         }
         
         return implementation.checks.isDisplayedAndMatches(
@@ -93,6 +93,30 @@ extension ViewElementChecks where Self: Element {
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             matcher: matcher
         )
+    }
+    
+    @discardableResult
+    public func matchesReference(
+        image: UIImage,
+        comparator: SnapshotsComparator = PerPixelSnapshotsComparator(),
+        file: StaticString = #file,
+        line: UInt = #line)
+        -> Bool
+    {
+        return matches(matcher: { element in
+            element.matchesReference(image: image, comparator: comparator)
+        })
+    }
+    
+    @discardableResult
+    public func matchesReference(
+        image: UIImage,
+        comparatorSelection: SnapshotsComparators,
+        file: StaticString = #file,
+        line: UInt = #line)
+        -> Bool
+    {
+        return matchesReference(image: image, comparator: comparatorSelection)
     }
 
     @discardableResult
