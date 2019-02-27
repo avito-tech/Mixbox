@@ -12,7 +12,13 @@ public final class SnapshotsComparisonUtilityImpl: SnapshotsComparisonUtility {
     }
     
     // MARK: - Interface
-    public func compare(actual: UIImage, folder: String, file: String) -> SnapshotsComparisonResult {
+    public func compare(
+        actual: UIImage,
+        folder: String,
+        file: String,
+        comparator: SnapshotsComparator)
+        -> SnapshotsComparisonResult
+    {
         let paths = self.paths(folder: folder, file: file)
         
         func failure(
@@ -49,7 +55,7 @@ public final class SnapshotsComparisonUtilityImpl: SnapshotsComparisonUtility {
             return failure("Could not load reference image for snapshot named \(file), error: \(error)")
         }
         
-        if reference.perPixelEquals(to: actual) {
+        if comparator.equals(actual: actual, reference: reference) {
             return .passed
         } else {
             let difference = reference.difference(with: actual)
@@ -70,8 +76,13 @@ public final class SnapshotsComparisonUtilityImpl: SnapshotsComparisonUtility {
         }
     }
     
-    public func compare(actual: UIImage, reference: UIImage) -> SnapshotsComparisonResult {
-        if reference.perPixelEquals(to: actual) {
+    public func compare(
+        actual: UIImage,
+        reference: UIImage,
+        comparator: SnapshotsComparator)
+        -> SnapshotsComparisonResult
+    {
+        if comparator.equals(actual: actual, reference: reference) {
             return .passed
         } else {
             let difference = reference.difference(with: actual)

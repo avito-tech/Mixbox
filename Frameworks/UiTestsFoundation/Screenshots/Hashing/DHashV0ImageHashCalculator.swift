@@ -44,4 +44,14 @@ public final class DHashV0ImageHashCalculator: ImageHashCalculator {
             bitPattern: OSImageHashing.sharedInstance().hashImage(image, with: .dHash)
         )
     }
+    
+    public func hashDistance(lhs: UIImage, rhs: UIImage) -> Int64 {
+        let hashing = OSImageHashing.sharedInstance()
+        let algorithm = OSImageHashingProviderId.dHash
+        return hashing.hashDistance(
+            hashing.hashImage(lhs, with: algorithm),
+            to: hashing.hashImage(rhs, with: algorithm),
+            with: algorithm
+        )
+    }
 }
