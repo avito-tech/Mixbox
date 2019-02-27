@@ -6,8 +6,8 @@ import CocoaImageHashing
 
 class ScreenshotTests: TestCase {
     // Snapshot testing is temporarily (or permanently) removed from Mixbox
-    func disabled_test() {
-        /*
+    func test() {
+        
         // Kludge! TODO: Enable this test
         let notIos11 = UIDevice.current.mb_iosVersion.majorVersion < 11
         let isRunningUsingEmcee = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
@@ -32,7 +32,7 @@ class ScreenshotTests: TestCase {
             pageObjects.screenXcui.view(index: index).withoutTimeout.assert.matchesReference(image: image)
             pageObjects.screen.view(index: index).withoutTimeout.assert.matchesReference(image: image)
         }
-        */
+        
     }
 }
 
