@@ -6,7 +6,7 @@ final class ActionsTests: TestCase {
         return pageObjects.actionsTests
     }
     
-    private let numberOfSubsequentActions = 3
+    private let numberOfSubsequentActions = 5
     
     override func precondition() {
         openScreen(name: "ActionsTestsView")
@@ -63,7 +63,6 @@ final class ActionsTests: TestCase {
     }
     
     func test_swipes() {
-        let numberOfSubsequentActions = 30
         for _ in 0..<numberOfSubsequentActions {
             screen.label("swipeUp").swipeUp()
             screen.info.assert.hasText("swipeUp")
