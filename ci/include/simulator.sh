@@ -6,7 +6,7 @@ destinationDeviceUdid() {
     local name=`destination | jq -r .[0].testDestination.deviceType`
     local os=`destination | jq -r .[0].testDestination.iOSVersionShort`
     
-    xcrun simctl list -j | jq -re ".devices.\"iOS $os\"?|map(select(.name == \"$name\"))?|.[0]?|.udid?" | perl -pe 's/null//'
+    xcrun simctl list -j | jq -r ".devices.\"iOS $os\"?|map(select(.name == \"$name\"))?|.[0]?|.udid?" | perl -pe 's/null//'
 }
 
 bootDevice() {
@@ -22,10 +22,11 @@ setUpDeviceIfNeeded() {
     
     if [ -z "$destinationDeviceUdid" ]
     then
-        echo "Creating device $name."
-        
+        local name=`destination | jq -r .[0].testDestination.deviceType`
         local deviceTypeId=`destination | jq -r .[0].testDestination.deviceTypeId`
         local runtimeId=`destination | jq -r .[0].testDestination.runtimeId`
+        
+        echo "Creating device $name."
         
         xcrun simctl create "$name" "$deviceTypeId" "$runtimeId"
     fi
