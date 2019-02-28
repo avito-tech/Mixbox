@@ -4,7 +4,6 @@ import MixboxIpcClients
 import MixboxReporting
 
 protocol XcuiHelperFactory: class {
-    var snapshotsComparisonUtility: SnapshotsComparisonUtility { get }
     var eventGenerator: EventGenerator { get }
     var applicationProvider: ApplicationProvider { get }
     var applicationCoordinatesProvider: ApplicationCoordinatesProvider { get }
@@ -19,7 +18,6 @@ protocol XcuiHelperFactory: class {
 }
 
 final class XcuiHelperFactoryImpl: XcuiHelperFactory {
-    let snapshotsComparisonUtility: SnapshotsComparisonUtility
     let applicationProvider: ApplicationProvider
     let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     let eventGenerator: EventGenerator
@@ -41,7 +39,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
         keyboardEventInjector: KeyboardEventInjector,
-        snapshotsComparisonUtility: SnapshotsComparisonUtility,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
@@ -54,7 +51,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityCheckerInstance = elementVisibilityChecker
         self.scrollingHintsProvider = scrollingHintsProvider
-        self.snapshotsComparisonUtility = snapshotsComparisonUtility
         self.stepLoggerInstance = stepLogger
         self.keyboardEventInjectorInstance = keyboardEventInjector
         self.elementFinder = elementFinder
@@ -101,9 +97,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     }
     
     func elementMatcherBuilder() -> ElementMatcherBuilder {
-        return ElementMatcherBuilder(
-            screenshotTaker: screenshotTaker,
-            snapshotsComparisonUtitlity: snapshotsComparisonUtility
-        )
+        return ElementMatcherBuilder(screenshotTaker: screenshotTaker)
     }
 }

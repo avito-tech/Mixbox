@@ -82,12 +82,7 @@ final class TestCaseUtils {
             tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactoryImpl()
         )
         self.applicationPermissionsSetterFactory = applicationPermissionsSetterFactory
-        
-        let snapshotsComparisonUtility = SnapshotsComparisonUtilityImpl(
-            // TODO
-            basePath: "/tmp/01A2DABE-6D10-45D7-B48E-4AC1153712A9/UITests/Screenshots"
-        )
-        
+
         permissions = applicationPermissionsSetterFactory.applicationPermissionsSetter(
             bundleId: XCUIApplication().bundleID,
             displayName: "We don't care at the moment",
@@ -106,7 +101,6 @@ final class TestCaseUtils {
                 interactionExecutionLogger: interactionExecutionLogger,
                 testFailureRecorder: testFailureRecorder,
                 ipcClient: lazilyInitializedIpcClient,
-                snapshotsComparisonUtility: snapshotsComparisonUtility,
                 stepLogger: stepLogger,
                 pollingConfiguration: .reduceLatency,
                 elementFinder: elementFinder,

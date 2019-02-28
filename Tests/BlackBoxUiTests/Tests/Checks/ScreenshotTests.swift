@@ -5,7 +5,6 @@ import MixboxFoundation
 import CocoaImageHashing
 
 class ScreenshotTests: TestCase {
-    // Snapshot testing is temporarily (or permanently) removed from Mixbox
     func test() {
         
         // Kludge! TODO: Enable this test

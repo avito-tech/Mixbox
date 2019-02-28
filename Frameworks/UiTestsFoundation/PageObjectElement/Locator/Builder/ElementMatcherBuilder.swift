@@ -68,12 +68,7 @@ public final class ElementMatcherBuilder {
         -> ElementMatcher
     {
         return IsSubviewMatcher(
-            matcher(
-                ElementMatcherBuilder(
-                    screenshotTaker: screenshotTaker,
-                    snapshotsComparisonUtitlity: snapshotsComparisonUtitlity
-                )
-            )
+            matcher(ElementMatcherBuilder(screenshotTaker: screenshotTaker))
         )
     }
     
@@ -82,12 +77,9 @@ public final class ElementMatcherBuilder {
         comparator: SnapshotsComparator)
         -> ElementMatcher
     {
-        if
-            let screenshotTaker = screenshotTaker,
-            let snapshotsComparisonUtitlity = snapshotsComparisonUtitlity {
+        if let screenshotTaker = screenshotTaker {
             return ReferenceImageMatcher(
                 screenshotTaker: screenshotTaker,
-                snapshotsComparisonUtility: snapshotsComparisonUtitlity,
                 reference: image,
                 comparator: comparator
             )
@@ -97,13 +89,8 @@ public final class ElementMatcherBuilder {
     }
     
     private let screenshotTaker: ScreenshotTaker?
-    private let snapshotsComparisonUtitlity: SnapshotsComparisonUtility?
     
-    public init(
-        screenshotTaker: ScreenshotTaker? = nil,
-        snapshotsComparisonUtitlity: SnapshotsComparisonUtility? = nil)
-    {
+    public init(screenshotTaker: ScreenshotTaker? = nil) {
         self.screenshotTaker = screenshotTaker
-        self.snapshotsComparisonUtitlity = snapshotsComparisonUtitlity
     }
 }

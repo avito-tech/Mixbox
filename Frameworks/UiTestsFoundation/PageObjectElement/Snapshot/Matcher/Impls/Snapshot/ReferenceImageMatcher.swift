@@ -3,7 +3,6 @@ import MixboxFoundation
 public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
     public init(
         screenshotTaker: ScreenshotTaker,
-        snapshotsComparisonUtility: SnapshotsComparisonUtility,
         reference: UIImage,
         comparator: SnapshotsComparator)
     {
@@ -19,16 +18,14 @@ public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
                         }
                     )
                 }
-                switch snapshotsComparisonUtility.compare(
-                    actual: actual,
-                    reference: reference,
-                    comparator: comparator
-                ) {
-                case .passed:
+                // TODO: Display the actual and diff screenshots in the report in case of a mismatch
+                if comparator.equals(actual: actual, reference: reference) {
                     return .match
-                case let .failed(failure):
+                } else {
                     return MatchingResult.exactMismatch(
-                        mismatchDescription: { failure.message }
+                        mismatchDescription: {
+                            "Актуальное и референсное изображения не совпадают"
+                        }
                     )
                 }
             }

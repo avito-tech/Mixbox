@@ -8,7 +8,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let interactionExecutionLogger: InteractionExecutionLogger
     private let testFailureRecorder: TestFailureRecorder
     private let ipcClient: IpcClient
-    private let snapshotsComparisonUtility: SnapshotsComparisonUtility
     private let stepLogger: StepLogger
     private let pollingConfiguration: PollingConfiguration
     private let elementFinder: ElementFinder
@@ -21,7 +20,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         interactionExecutionLogger: InteractionExecutionLogger,
         testFailureRecorder: TestFailureRecorder,
         ipcClient: IpcClient,
-        snapshotsComparisonUtility: SnapshotsComparisonUtility,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
@@ -33,7 +31,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.interactionExecutionLogger = interactionExecutionLogger
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
-        self.snapshotsComparisonUtility = snapshotsComparisonUtility
         self.stepLogger = stepLogger
         self.pollingConfiguration = pollingConfiguration
         self.elementFinder = elementFinder
@@ -57,7 +54,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
                 keyboardEventInjector: KeyboardEventInjectorImpl(
                     ipcClient: ipcClient
                 ),
-                snapshotsComparisonUtility: snapshotsComparisonUtility,
                 stepLogger: stepLogger,
                 pollingConfiguration: pollingConfiguration,
                 elementFinder: elementFinder,
@@ -70,9 +66,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     }
     
     public func matcherBuilder() -> ElementMatcherBuilder {
-        return ElementMatcherBuilder(
-            screenshotTaker: screenshotTaker,
-            snapshotsComparisonUtitlity: snapshotsComparisonUtility
-        )
+        return ElementMatcherBuilder(screenshotTaker: screenshotTaker)
     }
 }
