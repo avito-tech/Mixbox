@@ -101,7 +101,7 @@ final class TestCaseUtils {
             testFailureRecorder: testFailureRecorder
         )
         
-        let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder) -> XcuiPageObjectDependenciesFactory = { applicationProvider, elementFinder in
+        let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] applicationProvider, elementFinder in
             return XcuiPageObjectDependenciesFactory(
                 interactionExecutionLogger: interactionExecutionLogger,
                 testFailureRecorder: testFailureRecorder,
@@ -116,7 +116,8 @@ final class TestCaseUtils {
                 ),
                 eventGenerator: EventGeneratorImpl(
                     applicationProvider: applicationProvider
-                )
+                ),
+                screenshotTaker: screenshotTaker
             )
         }
         

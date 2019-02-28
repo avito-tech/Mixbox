@@ -32,6 +32,7 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     private let scrollingHintsProvider: ScrollingHintsProvider
     private let keyboardEventInjectorInstance: KeyboardEventInjector
     private let pollingConfigurationValue: PollingConfiguration
+    private let screenshotTaker: ScreenshotTaker
     
     // MARK: - Init
     init(
@@ -46,7 +47,8 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         elementFinder: ElementFinder,
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider,
-        eventGenerator: EventGenerator)
+        eventGenerator: EventGenerator,
+        screenshotTaker: ScreenshotTaker)
     {
         self.interactionExecutionLogger = interactionExecutionLogger
         self.testFailureRecorder = testFailureRecorder
@@ -60,6 +62,7 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.eventGenerator = eventGenerator
+        self.screenshotTaker = screenshotTaker
     }
     
     // MARK: - XcuiHelperFactory
@@ -98,6 +101,9 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     }
     
     func elementMatcherBuilder() -> ElementMatcherBuilder {
-        return ElementMatcherBuilder(snapshotsComparisonUtitlity: snapshotsComparisonUtility)
+        return ElementMatcherBuilder(
+            screenshotTaker: screenshotTaker,
+            snapshotsComparisonUtitlity: snapshotsComparisonUtility
+        )
     }
 }

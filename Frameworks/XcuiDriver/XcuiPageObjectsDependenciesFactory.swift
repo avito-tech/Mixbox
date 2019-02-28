@@ -15,6 +15,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let applicationProvider: ApplicationProvider
     private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     private let eventGenerator: EventGenerator
+    private let screenshotTaker: ScreenshotTaker
     
     public init(
         interactionExecutionLogger: InteractionExecutionLogger,
@@ -26,7 +27,8 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         elementFinder: ElementFinder,
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider,
-        eventGenerator: EventGenerator)
+        eventGenerator: EventGenerator,
+        screenshotTaker: ScreenshotTaker)
     {
         self.interactionExecutionLogger = interactionExecutionLogger
         self.testFailureRecorder = testFailureRecorder
@@ -38,6 +40,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.eventGenerator = eventGenerator
+        self.screenshotTaker = screenshotTaker
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
@@ -60,12 +63,16 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
                 elementFinder: elementFinder,
                 applicationProvider: applicationProvider,
                 applicationCoordinatesProvider: applicationCoordinatesProvider,
-                eventGenerator: eventGenerator
+                eventGenerator: eventGenerator,
+                screenshotTaker: screenshotTaker
             )
         )
     }
     
     public func matcherBuilder() -> ElementMatcherBuilder {
-        return ElementMatcherBuilder(snapshotsComparisonUtitlity: snapshotsComparisonUtility)
+        return ElementMatcherBuilder(
+            screenshotTaker: screenshotTaker,
+            snapshotsComparisonUtitlity: snapshotsComparisonUtility
+        )
     }
 }

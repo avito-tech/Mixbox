@@ -21,8 +21,6 @@ public protocol ElementSnapshot: class, CustomDebugStringConvertible {
     var isDefinitelyHidden: OptionalAvailability<Bool> { get }
     var visibleText: OptionalAvailability<String?> { get }
     var customValues: OptionalAvailability<[String: String]> { get }
-    
-    var image: UIImage? { get }
 }
 
 extension ElementSnapshot {

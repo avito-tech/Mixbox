@@ -1,17 +1,4 @@
 public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
-    public final class NonCodable<T>: Codable {
-        public let value: T?
-        init(value: T?) {
-            self.value = value
-        }
-        
-        public init(from decoder: Decoder) throws {
-            self.value = nil
-        }
-        
-        public func encode(to encoder: Encoder) throws {}
-    }
-    
     public let frame: CGRect
     public let customClass: String
     public let elementType: ViewHierarchyElementType
@@ -46,8 +33,6 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
     
     public let children: [ViewHierarchyElement]
     
-    public let image: NonCodable<UIImage>
-    
     // MARK: - Init
 
 // sourcery:inline:auto:ViewHierarchyElement.Init
@@ -65,8 +50,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
         isEnabled: Bool,
         hasKeyboardFocus: Bool,
         customValues: [String: String],
-        children: [ViewHierarchyElement],
-        image: UIImage?)
+        children: [ViewHierarchyElement])
     {
         self.frame = frame
         self.customClass = customClass
@@ -82,7 +66,6 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
         self.hasKeyboardFocus = hasKeyboardFocus
         self.customValues = customValues
         self.children = children
-        self.image = NonCodable(value: image)
     }
 // sourcery:end
     

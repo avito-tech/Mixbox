@@ -67,7 +67,14 @@ public final class ElementMatcherBuilder {
         _ matcher: ElementMatcherBuilderClosure)
         -> ElementMatcher
     {
-        return IsSubviewMatcher(matcher(ElementMatcherBuilder(snapshotsComparisonUtitlity: snapshotsComparisonUtitlity)))
+        return IsSubviewMatcher(
+            matcher(
+                ElementMatcherBuilder(
+                    screenshotTaker: screenshotTaker,
+                    snapshotsComparisonUtitlity: snapshotsComparisonUtitlity
+                )
+            )
+        )
     }
     
     public func matchesReference(
@@ -75,8 +82,11 @@ public final class ElementMatcherBuilder {
         comparator: SnapshotsComparator)
         -> ElementMatcher
     {
-        if let snapshotsComparisonUtitlity = snapshotsComparisonUtitlity {
+        if
+            let screenshotTaker = screenshotTaker,
+            let snapshotsComparisonUtitlity = snapshotsComparisonUtitlity {
             return ReferenceImageMatcher(
+                screenshotTaker: screenshotTaker,
                 snapshotsComparisonUtility: snapshotsComparisonUtitlity,
                 reference: image,
                 comparator: comparator
@@ -86,9 +96,14 @@ public final class ElementMatcherBuilder {
         }
     }
     
+    private let screenshotTaker: ScreenshotTaker?
     private let snapshotsComparisonUtitlity: SnapshotsComparisonUtility?
     
-    public init(snapshotsComparisonUtitlity: SnapshotsComparisonUtility? = nil) {
+    public init(
+        screenshotTaker: ScreenshotTaker? = nil,
+        snapshotsComparisonUtitlity: SnapshotsComparisonUtility? = nil)
+    {
+        self.screenshotTaker = screenshotTaker
         self.snapshotsComparisonUtitlity = snapshotsComparisonUtitlity
     }
 }
