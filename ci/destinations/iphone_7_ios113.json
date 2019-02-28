@@ -1,14 +1,16 @@
-[{
-		"testDestination": {
-			"deviceType": "iPhone 7",
-			"iOSVersion": "11.3",
-			"iOSVersionShort": "11.3",
-			"iOSVersionLong": "11.3",
+[
+    {
+        "testDestination": {
+            "deviceType": "iPhone 7",
+            "iOSVersion": "11.3",
+            "iOSVersionShort": "11.3",
+            "iOSVersionLong": "11.3",
             "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-7",
             "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-11-3"
-		},
-		"reportOutput": {
-			"junit": "tests-artifacts/iphone_7_ios_113.xml",
-			"tracingReport": "tests-artifacts/iphone_7_ios_113.trace"
-		}
-	}]
+        },
+        "reportOutput": {
+            "junit": "tests-artifacts/iphone_7_ios_113.xml",
+            "tracingReport": "tests-artifacts/iphone_7_ios_113.trace"
+        }
+    }
+]

@@ -1,14 +1,16 @@
-[{
-		"testDestination": {
-			"deviceType": "iPhone SE",
-			"iOSVersion": "10.3",
-			"iOSVersionShort": "10.3",
-			"iOSVersionLong": "10.3.1",
+[
+    {
+        "testDestination": {
+            "deviceType": "iPhone SE",
+            "iOSVersion": "10.3",
+            "iOSVersionShort": "10.3",
+            "iOSVersionLong": "10.3.1",
             "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-SE",
             "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-10-3"
-		},
-		"reportOutput": {
-			"junit": "tests-artifacts/iphone_se_ios_103.xml",
-			"tracingReport": "tests-artifacts/iphone_se_ios_103.trace"
-		}
-	}]
+        },
+        "reportOutput": {
+            "junit": "tests-artifacts/iphone_se_ios_103.xml",
+            "tracingReport": "tests-artifacts/iphone_se_ios_103.trace"
+        }
+    }
+]
