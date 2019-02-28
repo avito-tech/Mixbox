@@ -10,10 +10,9 @@ extension ScreenshotTaker {
             return nil
         }
 
-        // x and y have to be rounded because CGImage.cropping doesn't handle
         let frameForCropping = CGRect(
-            x: (elementShanpshot.frameOnScreen.origin.x * image.scale).rounded(.down),
-            y: (elementShanpshot.frameOnScreen.origin.y * image.scale).rounded(.up),
+            x: elementShanpshot.frameOnScreen.origin.x * image.scale,
+            y: elementShanpshot.frameOnScreen.origin.y * image.scale,
             width: elementShanpshot.frameOnScreen.size.width * image.scale,
             height: elementShanpshot.frameOnScreen.size.height * image.scale
         )

@@ -98,7 +98,7 @@ extension ViewElementChecks where Self: Element {
     @discardableResult
     public func matchesReference(
         image: UIImage,
-        comparator: SnapshotsComparator = PerPixelSnapshotsComparator(),
+        comparator: SnapshotsComparator = DHashSnapshotsComparator(),
         file: StaticString = #file,
         line: UInt = #line)
         -> Bool
