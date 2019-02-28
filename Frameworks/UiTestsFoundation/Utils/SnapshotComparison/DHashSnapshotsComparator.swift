@@ -7,9 +7,10 @@ public final class DHashSnapshotsComparator: SnapshotsComparator {
     }
     
     public func equals(actual: UIImage, reference: UIImage) -> Bool {
-        return calculator.hashDistance(
+        let hashDistance = calculator.hashDistance(
             lhsHash: calculator.imageHash(image: actual),
             rhsHash: calculator.imageHash(image: reference)
-        ) <= tolerance
+        )
+        return hashDistance <= tolerance
     }
 }
