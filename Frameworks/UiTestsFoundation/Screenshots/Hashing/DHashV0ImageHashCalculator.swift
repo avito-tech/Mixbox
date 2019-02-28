@@ -39,19 +39,15 @@ public final class DHashV0ImageHashCalculator: ImageHashCalculator {
     public init() {
     }
     
-    public func imageHash(image: UIImage) -> UInt64 {
-        return UInt64(
-            bitPattern: OSImageHashing.sharedInstance().hashImage(image, with: .dHash)
-        )
+    public func imageHash(image: UIImage) -> Int64 {
+        return OSImageHashing.sharedInstance().hashImage(image, with: .dHash)
     }
     
-    public func hashDistance(lhs: UIImage, rhs: UIImage) -> Int64 {
-        let hashing = OSImageHashing.sharedInstance()
-        let algorithm = OSImageHashingProviderId.dHash
-        return hashing.hashDistance(
-            hashing.hashImage(lhs, with: algorithm),
-            to: hashing.hashImage(rhs, with: algorithm),
-            with: algorithm
+    public func hashDistance(lhsHash: Int64, rhsHash: Int64) -> Int64 {
+        return OSImageHashing.sharedInstance().hashDistance(
+            lhsHash,
+            to: rhsHash,
+            with: OSImageHashingProviderId.dHash
         )
     }
 }
