@@ -23,3 +23,8 @@ derivedDataPath() {
     
     echo "$MIXBOX_CI_TEMPORARY_DIRECTORY/dd"
 }
+
+echo "Reproduce this build:"
+echo
+echo "$(env | grep -E "^(MIXBOX_|EMCEE_)" | tr "\n" " ") $0"
+echo

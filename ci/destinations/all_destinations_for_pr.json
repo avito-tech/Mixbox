@@ -1,0 +1,44 @@
+[
+    {
+        "testDestination": {
+            "deviceType": "iPhone 7",
+            "iOSVersion": "11.3",
+            "iOSVersionShort": "11.3",
+            "iOSVersionLong": "11.3",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-7",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-11-3"
+        },
+        "reportOutput": {
+            "junit": "tests-artifacts/iphone_7_ios_113.xml",
+            "tracingReport": "tests-artifacts/iphone_7_ios_113.trace"
+        }
+    },
+    {
+        "testDestination": {
+            "deviceType": "iPhone 6 Plus",
+            "iOSVersion": "9.3",
+            "iOSVersionShort": "9.3",
+            "iOSVersionLong": "9.3",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-6-Plus",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-9-3"
+        },
+        "reportOutput": {
+            "junit": "tests-artifacts/iphone_6_plus_ios_93.xml",
+            "tracingReport": "tests-artifacts/iphone_6_plus_ios_93.trace"
+        }
+    },
+    {
+        "testDestination": {
+            "deviceType": "iPhone SE",
+            "iOSVersion": "10.3",
+            "iOSVersionShort": "10.3",
+            "iOSVersionLong": "10.3.1",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-SE",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-10-3"
+        },
+        "reportOutput": {
+            "junit": "tests-artifacts/iphone_se_ios_103.xml",
+            "tracingReport": "tests-artifacts/iphone_se_ios_103.trace"
+        }
+    }
+]

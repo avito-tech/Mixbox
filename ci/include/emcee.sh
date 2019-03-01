@@ -34,6 +34,8 @@ testUsingEmceeWith_appName_testsTarget() {
     local testsTarget=$2
     local runnerAppName=$testsTarget-Runner.app
     local derivedDataPath=`derivedDataPath`
+    
+    [ -z "$MIXBOX_CI_EMCEE_FBXCTEST_URL" ] && fatalError "\$MIXBOX_CI_EMCEE_FBXCTEST_URL is not set"
 
     mkdir -p "$MIXBOX_CI_REPORTS_PATH"
 
@@ -41,45 +43,128 @@ testUsingEmceeWith_appName_testsTarget() {
 
     cd "$MIXBOX_CI_SCRIPT_DIRECTORY"
     
-    local fbxctestUrl="http://artifactory.msk.avito.ru/artifactory/ios-ci/fb/fbxctest/fbxctest_20181120T145305.zip"
-    local fbsimctlUrl="http://artifactory.msk.avito.ru/artifactory/ios-ci/fb/fbsimctl/fbsimctl_20181120T145356.zip"
+    local emceeAction=
+    local emceeArgs=()
+
+    local destinationFile="$(destinationFile)"
+    local xctestBundle="$derivedDataPath/Build/Products/Debug-iphonesimulator/$testsTarget-Runner.app/PlugIns/$testsTarget.xctest"
+    local runnerPath="$derivedDataPath/Build/Products/Debug-iphonesimulator/$testsTarget-Runner.app"
+    local appPath="$derivedDataPath/Build/Products/Debug-iphonesimulator/$appName"
     
+    if isDistRun
+    then
+        emceeAction=runTestsOnRemoteQueue
+        
+        # Simple args
+        emceeArgs=("${emceeArgs[@]}" --priority "750") # TODO: 500
+        emceeArgs=("${emceeArgs[@]}" --run-id "$(uuidgen)")
+        
+        # Configs
+        emceeArgs=("${emceeArgs[@]}" --destinations "$(download $MIXBOX_CI_EMCEE_WORKER_DEPLOYMENT_DESTINATIONS_URL)")
+        emceeArgs=("${emceeArgs[@]}" --test-arg-file "$(testArgsFile)")
+        emceeArgs=("${emceeArgs[@]}" --queue-server-destination "$(download $MIXBOX_CI_EMCEE_SHARED_QUEUE_DEPLOYMENT_DESTINATIONS_URL)")
+        emceeArgs=("${emceeArgs[@]}" --queue-server-run-configuration-location "$MIXBOX_CI_EMCEE_QUEUE_SERVER_RUN_CONFIGURATION_URL")
+        
+        # Tested code
+        emceeArgs=("${emceeArgs[@]}" --runner "$(upload_hashed_zipped_for_emcee "$runnerPath")")
+        emceeArgs=("${emceeArgs[@]}" --app "$(upload_hashed_zipped_for_emcee "$appPath")")
+        emceeArgs=("${emceeArgs[@]}" --xctest-bundle "$(upload_hashed_zipped_for_emcee "$xctestBundle")")
+    else
+        [ -z "$MIXBOX_CI_EMCEE_FBSIMCTL_URL" ] && fatalError "\$MIXBOX_CI_EMCEE_FBSIMCTL_URL is not set"
+    
+        emceeAction=runTests
+        
+        # Simple args
+        emceeArgs=("${emceeArgs[@]}" --number-of-simulators "2")
+        emceeArgs=("${emceeArgs[@]}" --schedule-strategy "progressive")
+        emceeArgs=("${emceeArgs[@]}" --temp-folder "$derivedDataPath")
+        emceeArgs=("${emceeArgs[@]}" --environment "$(environment)")
+        emceeArgs=("${emceeArgs[@]}" --number-of-retries "3")
+        emceeArgs=("${emceeArgs[@]}" --single-test-timeout "1200")
+        emceeArgs=("${emceeArgs[@]}" --fbxctest-bundle-ready-timeout "600")
+        emceeArgs=("${emceeArgs[@]}" --fbxctest-crash-check-timeout "600")
+        emceeArgs=("${emceeArgs[@]}" --fbxctest-fast-timeout "600")
+        emceeArgs=("${emceeArgs[@]}" --fbxctest-regular-timeout "600")
+        emceeArgs=("${emceeArgs[@]}" --fbxctest-silence-timeout "600")
+        emceeArgs=("${emceeArgs[@]}" --fbxctest-slow-timeout "1200")
+        
+        # Dependencies
+        emceeArgs=("${emceeArgs[@]}" --fbsimctl "$MIXBOX_CI_EMCEE_FBSIMCTL_URL")
+        
+        # Tested code
+        emceeArgs=("${emceeArgs[@]}" --runner "$runnerPath")
+        emceeArgs=("${emceeArgs[@]}" --app "$appPath")
+        emceeArgs=("${emceeArgs[@]}" --xctest-bundle "$xctestBundle")
+    fi
+    
+    # Common
+    emceeArgs=("${emceeArgs[@]}" --fbxctest "$MIXBOX_CI_EMCEE_FBXCTEST_URL")
+    emceeArgs=("${emceeArgs[@]}" --junit "$MIXBOX_CI_REPORTS_PATH/junit.xml")
+    emceeArgs=("${emceeArgs[@]}" --trace "$MIXBOX_CI_REPORTS_PATH/trace.combined.json")
+    emceeArgs=("${emceeArgs[@]}" --test-destinations "$destinationFile")
+    
+    "$avitoRunnerBinaryPath" "$emceeAction" "${emceeArgs[@]}"
+}
+
+isDistRun() {
+    ! [ -z "$MIXBOX_CI_EMCEE_QUEUE_SERVER_RUN_CONFIGURATION_URL" ] \
+        && ! [ -z "$MIXBOX_CI_EMCEE_SHARED_QUEUE_DEPLOYMENT_DESTINATIONS_URL" ] \
+        && ! [ -z "$MIXBOX_CI_EMCEE_WORKER_DEPLOYMENT_DESTINATIONS_URL" ]
+}
+
+testArgsFile() {
+    local derivedDataPath=$(derivedDataPath)
+    local runtimeDump="$derivedDataPath/runtime_dump.json"
+    local destinationFile="$(destinationFile)"
+    
+    "$avitoRunnerBinaryPath" dump \
+                    --test-destinations "$destinationFile" \
+                    --fbxctest "$MIXBOX_CI_EMCEE_FBXCTEST_URL" \
+                    --xctest-bundle "$xctestBundle" \
+                    --output "$runtimeDump" >/dev/null
+    
+    local testArgsFile="$derivedDataPath/test_args_file.json"
+    
+    jq -s '{
+        entries: [
+            {
+                runtimeDumpJson: .[0],
+                destinationsJson: .[1][].testDestination,
+                environment: .[2]
+            } |
+            {
+                testToRun: .runtimeDumpJson[] | {c: .className, m: .testMethods[]} | join("/"),
+                testDestination: {
+                    deviceType: .destinationsJson.deviceType,
+                    runtime: .destinationsJson.iOSVersion
+                },
+                numberOfRetries: 4,
+                environment: .environment
+            }
+        ]
+    }' "$runtimeDump" "$destinationFile" "$(environment)" > "$testArgsFile";
+    
+    echo "$testArgsFile"
+}
+
+environment() {
+    local derivedDataPath=`derivedDataPath`
     local sourceEnvironment="$MIXBOX_CI_SCRIPT_DIRECTORY/emcee/environment.json"
     local environment="$derivedDataPath/environment.json"
-    
+
     if [ -z "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" ]
     then
-        cp "$sourceEnvironment" "$environment"
+        cp "$sourceEnvironment" "$environment" > /dev/null
     else
-        rm -rf "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"
-        mkdir -p "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"
-        
+        rm -rf "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" > /dev/null
+        mkdir -p "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" > /dev/null
+
         cat "$sourceEnvironment" \
-            | jq ". + {\"MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\": \"$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\"}" \
+            | jq ". + {\"MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\":  \"$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\"}" \
             > "$environment"
     fi
     
-    "$avitoRunnerBinaryPath" runTests \
-    --fbsimctl "$fbsimctlUrl" \
-    --fbxctest "$fbxctestUrl" \
-    --junit "$MIXBOX_CI_REPORTS_PATH/junit.xml" \
-    --trace "$MIXBOX_CI_REPORTS_PATH/trace.combined.json" \
-    --environment "$environment" \
-    --test-destinations "$(destinationFile)" \
-    --number-of-retries 2 \
-    --number-of-simulators 3 \
-    --schedule-strategy "progressive" \
-    --single-test-timeout 1200 \
-    --fbxctest-bundle-ready-timeout 600 \
-    --fbxctest-crash-check-timeout 600 \
-    --fbxctest-fast-timeout 600 \
-    --fbxctest-regular-timeout 600 \
-    --fbxctest-silence-timeout 600 \
-    --fbxctest-slow-timeout 1200 \
-    --temp-folder "$derivedDataPath" \
-    --runner "$derivedDataPath/Build/Products/Debug-iphonesimulator/$testsTarget-Runner.app" \
-    --app "$derivedDataPath/Build/Products/Debug-iphonesimulator/$appName" \
-    --xctest-bundle "$derivedDataPath/Build/Products/Debug-iphonesimulator/$testsTarget-Runner.app/PlugIns/$testsTarget.xctest"
+    echo "$environment"
 }
 
 generateReports() {
