@@ -16,11 +16,17 @@ final class FailsHereFunctionProvider {
 
 // TODO: Remove singletons (XCTAssert)
 extension FailureGatherer {
-    func assertFails(body: () -> ()) {
+    func assertFails(
+        fileOfThisAssertion: StaticString = #file,
+        lineOfThisAssertion: UInt = #line,
+        body: () -> ())
+    {
         let failures = gatherFailures(body)
         XCTAssert(
             failures.count > 0,
-            "The code is expected to produce failures, but it didn't produce any failure"
+            "The code is expected to produce failures, but it didn't produce any failure",
+            file: fileOfThisAssertion,
+            line: lineOfThisAssertion
         )
     }
     
@@ -29,23 +35,30 @@ extension FailureGatherer {
         file: String? = nil,
         line: Int? = nil,
         expected: Bool? = nil,
+        fileOfThisAssertion: StaticString = #file,
+        lineOfThisAssertion: UInt = #line,
         body: () -> ())
     {
         let failures = gatherFailures {
             body()
         }
+        
         assertFails(
             description: description,
             file: file,
             line: line,
             expected: expected,
-            failures: failures
+            failures: failures,
+            fileOfThisAssertion: fileOfThisAssertion,
+            lineOfThisAssertion: lineOfThisAssertion
         )
     }
     
     func assertFails(
         description: String? = nil,
         expected: Bool? = nil,
+        fileOfThisAssertion: StaticString = #file,
+        lineOfThisAssertion: UInt = #line,
         body: (_ fails: FailsHereFunctionProvider) -> ())
     {
         let failsHereFunctionProvider = FailsHereFunctionProvider()
@@ -58,23 +71,44 @@ extension FailureGatherer {
             file: failsHereFunctionProvider.file,
             line: failsHereFunctionProvider.line,
             expected: expected,
-            failures: failures
+            failures: failures,
+            fileOfThisAssertion: fileOfThisAssertion,
+            lineOfThisAssertion: lineOfThisAssertion
         )
     }
     
-    func assertPasses(body: () -> ()) {
+    func assertPasses(
+        fileOfThisAssertion: StaticString = #file,
+        lineOfThisAssertion: UInt = #line,
+        body: () -> ())
+    {
         let failures = gatherFailures(body)
         XCTAssert(
             failures.count == 0,
-            "The code is expected to not produce failures, but it produced failures: \(failures)"
+            "The code is expected to not produce failures, but it produced failures: \(failures)",
+            file: fileOfThisAssertion,
+            line: lineOfThisAssertion
         )
     }
     
-    func assert(passes: Bool, body: () -> ()) {
+    func assert(
+        passes: Bool,
+        fileOfThisAssertion: StaticString = #file,
+        lineOfThisAssertion: UInt = #line,
+        body: () -> ())
+    {
         if passes {
-            assertPasses(body: body)
+            assertPasses(
+                fileOfThisAssertion: fileOfThisAssertion,
+                lineOfThisAssertion: lineOfThisAssertion,
+                body: body
+            )
         } else {
-            assertFails(body: body)
+            assertFails(
+                fileOfThisAssertion: fileOfThisAssertion,
+                lineOfThisAssertion: lineOfThisAssertion,
+                body: body
+            )
         }
     }
     
@@ -83,24 +117,53 @@ extension FailureGatherer {
         file: String?,
         line: Int?,
         expected: Bool?,
-        failures: [XcTestFailure])
+        failures: [XcTestFailure],
+        fileOfThisAssertion: StaticString,
+        lineOfThisAssertion: UInt)
     {
         guard failures.count == 1 else {
-            XCTFail("failures.count (\(failures.count)) != 1")
+            XCTFail(
+                "failures.count (\(failures.count)) != 1",
+                file: fileOfThisAssertion,
+                line: lineOfThisAssertion
+            )
             return
         }
         
         if let description = description {
-            XCTAssertEqual(failures[0].description, description)
+            XCTAssertEqual(
+                failures[0].description,
+                description,
+                file: fileOfThisAssertion,
+                line: lineOfThisAssertion
+            )
         }
+        
         if let file = file {
-            XCTAssertEqual(failures[0].file, file)
+            XCTAssertEqual(
+                failures[0].file,
+                file,
+                file: fileOfThisAssertion,
+                line: lineOfThisAssertion
+            )
         }
+        
         if let line = line {
-            XCTAssertEqual(failures[0].line, line)
+            XCTAssertEqual(
+                failures[0].line,
+                line,
+                file: fileOfThisAssertion,
+                line: lineOfThisAssertion
+            )
         }
+        
         if let expected = expected {
-            XCTAssertEqual(failures[0].expected, expected)
+            XCTAssertEqual(
+                failures[0].expected,
+                expected,
+                file: fileOfThisAssertion,
+                line: lineOfThisAssertion
+            )
         }
     }
 }
