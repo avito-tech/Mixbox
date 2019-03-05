@@ -26,7 +26,7 @@ final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {
         
         assertFails(
             description: """
-                Проверка не прошла (отображается "view") - элемент не найден в иерархии, на это могло повлиять то, что приложение не запущено, либо закрешилось (state = notRunning)
+                Проверка неуспешна (отображается "view") - элемент не найден в иерархии, на это могло повлиять то, что приложение не запущено, либо закрешилось (state = notRunning)
                 """)
         {
             element.tap()

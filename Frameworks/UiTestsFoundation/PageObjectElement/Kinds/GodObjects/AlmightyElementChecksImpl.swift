@@ -50,7 +50,7 @@ public final class AlmightyElementChecksImpl: AlmightyElementChecks {
                     return .success
                 case let .mismatch(_, mismatchDescription):
                     return .failureWithMessage(
-                        "проверка не прошла: \(mismatchDescription())"
+                        "Проверка неуспешна: \(mismatchDescription())"
                     )
                 }
             },

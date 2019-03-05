@@ -6,48 +6,40 @@ import MixboxTestsFoundation
 final class InvisibilityCheckInteraction: Interaction {
     let description: InteractionDescription
     
-    private let elementMatcher: ElementMatcher
-    private let settings: ResolvedInteractionSettings
+    private let interactionRetrier: InteractionRetrier
+    private let interactionFailureResultFactory: InteractionFailureResultFactory
+    private let elementResolverWithScrollingAndRetries: ElementResolverWithScrollingAndRetries
+    private let scroller: Scroller
     private let elementVisibilityChecker: ElementVisibilityChecker
-    private let scrollingHintsProvider: ScrollingHintsProvider
-    private let elementFinder: ElementFinder
     private let minimalPercentageOfVisibleArea: CGFloat
-    private let interactionHelper: InteractionHelper
     
     init(
         settings: ResolvedInteractionSettings,
-        elementFinder: ElementFinder,
+        interactionRetrier: InteractionRetrier,
+        interactionFailureResultFactory: InteractionFailureResultFactory,
+        elementResolverWithScrollingAndRetries: ElementResolverWithScrollingAndRetries,
+        scroller: Scroller,
         elementVisibilityChecker: ElementVisibilityChecker,
-        scrollingHintsProvider: ScrollingHintsProvider,
-        minimalPercentageOfVisibleArea: CGFloat,
-        applicationProvider: ApplicationProvider,
-        applicationCoordinatesProvider: ApplicationCoordinatesProvider)
+        minimalPercentageOfVisibleArea: CGFloat)
     {
-        self.settings = settings
         self.description = InteractionDescription(
             type: .check,
             settings: settings
         )
-        self.elementMatcher = settings.elementSettings.matcher
-        self.elementFinder = elementFinder
+        self.interactionRetrier = interactionRetrier
+        self.interactionFailureResultFactory = interactionFailureResultFactory
+        self.elementResolverWithScrollingAndRetries = elementResolverWithScrollingAndRetries
+        self.scroller = scroller
         self.elementVisibilityChecker = elementVisibilityChecker
-        self.scrollingHintsProvider = scrollingHintsProvider
         self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
-        self.interactionHelper = InteractionHelperImpl(
-            messagePrefix: "Проверка не прошла",
-            elementVisibilityChecker: elementVisibilityChecker,
-            scrollingHintsProvider: scrollingHintsProvider,
-            elementFinder: elementFinder,
-            interactionSettings: description.settings,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            applicationProvider: applicationProvider,
-            applicationCoordinatesProvider: applicationCoordinatesProvider
-        )
     }
     
     func perform() -> InteractionResult {
-        return interactionHelper.retryInteractionUntilTimeout {
-            var resolvedElementQuery = interactionHelper.resolveElementWithRetries()
+        return interactionRetrier.retryInteractionUntilTimeout { retriableTimedInteractionState in
+            // TODO: let
+            var resolvedElementQuery = elementResolverWithScrollingAndRetries.resolveElementWithRetries(
+                isPossibleToRetryProvider: retriableTimedInteractionState
+            )
             
             let failedElementsCountResult = checkForFailedElementsAndReturnCount(
                 resolvedElementQuery: &resolvedElementQuery
@@ -60,7 +52,7 @@ final class InvisibilityCheckInteraction: Interaction {
                     resolvedElementQuery: resolvedElementQuery
                 )
             case .error(let message):
-                return interactionHelper.failureResult(
+                return interactionFailureResultFactory.failureResult(
                     resolvedElementQuery: nil,
                     interactionSpecificFailure: nil,
                     message: message
@@ -84,7 +76,7 @@ final class InvisibilityCheckInteraction: Interaction {
             if snapshot.isDefinitelyHidden.value == true {
                 // ok
             } else {
-                let scrollingResult = interactionHelper.scrollIfNeeded(
+                let scrollingResult = scroller.scrollIfNeeded(
                     snapshot: snapshot,
                     expectedIndexOfSnapshotInResolvedElementQuery: index,
                     resolvedElementQuery: resolvedElementQuery
@@ -151,7 +143,7 @@ final class InvisibilityCheckInteraction: Interaction {
                 message = "\(failedElementsCount) из \(totalCount) подходящих элементов являются видимыми"
             }
             
-            return interactionHelper.failureResult(
+            return interactionFailureResultFactory.failureResult(
                 resolvedElementQuery: resolvedElementQuery,
                 interactionSpecificFailure: nil,
                 message: message

@@ -1,0 +1,3 @@
+protocol MarkableAsImpossibleToRetry {
+    func markAsImpossibleToRetry()
+}

@@ -9,7 +9,7 @@ final class FailureMessagesAreCorrectTests: TestCase {
     func test_multipleMatchesFailure() {
         assertFails(
             description: """
-                Проверка не прошла (отображается "multipleMatchesFailureView") - найдено несколько элементов по заданным критериям
+                Проверка неуспешна (отображается "multipleMatchesFailureView") - найдено несколько элементов по заданным критериям
                 """)
         {
             pageObjects.screen.multipleMatchesFailureView.withTimeout(1).assert.isDisplayed()

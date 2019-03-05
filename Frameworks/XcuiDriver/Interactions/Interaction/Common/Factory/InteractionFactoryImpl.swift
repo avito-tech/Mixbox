@@ -29,15 +29,53 @@ public final class InteractionFactoryImpl: InteractionFactory {
         minimalPercentageOfVisibleArea: CGFloat)
         -> Interaction
     {
+        let interactionFailureResultFactory = actionInteractionFailureResultFactory(
+            interactionName: settings.interactionName
+        )
+        
         return ActionInteraction(
-            specificImplementation: specificImplementation,
             settings: settings,
-            elementFinder: elementFinder,
-            elementVisibilityChecker: elementVisibilityChecker,
-            scrollingHintsProvider: scrollingHintsProvider,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            applicationProvider: applicationProvider,
-            applicationCoordinatesProvider: applicationCoordinatesProvider
+            specificImplementation: specificImplementation,
+            interactionRetrier: interactionRetrier(
+                settings: settings
+            ),
+            performerOfSpecificImplementationOfInteractionForVisibleElement: performerOfSpecificImplementationOfInteractionForVisibleElement(
+                elementSettings: settings.elementSettings,
+                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                interactionFailureResultFactory: interactionFailureResultFactory
+            ),
+            interactionFailureResultFactory: interactionFailureResultFactory,
+            elementResolverWithScrollingAndRetries: elementResolverWithScrollingAndRetries(
+                settings: settings
+            )
+        )
+    }
+    
+    public func checkInteraction(
+        specificImplementation: InteractionSpecificImplementation,
+        settings: ResolvedInteractionSettings,
+        minimalPercentageOfVisibleArea: CGFloat)
+        -> Interaction
+    {
+        let interactionFailureResultFactory = checkInteractionFailureResultFactory(
+            interactionName: settings.interactionName
+        )
+        
+        return VisibleElementCheckInteraction(
+            settings: settings,
+            specificImplementation: specificImplementation,
+            interactionRetrier: interactionRetrier(
+                settings: settings
+            ),
+            performerOfSpecificImplementationOfInteractionForVisibleElement: performerOfSpecificImplementationOfInteractionForVisibleElement(
+                elementSettings: settings.elementSettings,
+                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                interactionFailureResultFactory: interactionFailureResultFactory
+            ),
+            interactionFailureResultFactory: interactionFailureResultFactory,
+            elementResolverWithScrollingAndRetries: elementResolverWithScrollingAndRetries(
+                settings: settings
+            )
         )
     }
     
@@ -48,30 +86,144 @@ public final class InteractionFactoryImpl: InteractionFactory {
     {
         return InvisibilityCheckInteraction(
             settings: settings,
-            elementFinder: elementFinder,
+            interactionRetrier: interactionRetrier(
+                settings: settings
+            ),
+            interactionFailureResultFactory: checkInteractionFailureResultFactory(
+                interactionName: settings.interactionName
+            ),
+            elementResolverWithScrollingAndRetries: elementResolverWithScrollingAndRetries(
+                settings: settings
+            ),
+            scroller: scroller(
+                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                elementSettings: settings.elementSettings
+            ),
             elementVisibilityChecker: elementVisibilityChecker,
-            scrollingHintsProvider: scrollingHintsProvider,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            applicationProvider: applicationProvider,
-            applicationCoordinatesProvider: applicationCoordinatesProvider
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
         )
     }
     
-    public func checkInteraction(
-        specificImplementation: InteractionSpecificImplementation,
-        settings: ResolvedInteractionSettings,
-        minimalPercentageOfVisibleArea: CGFloat)
-        -> Interaction
+    // MARK: - Private
+    
+    private func performerOfSpecificImplementationOfInteractionForVisibleElement(
+        elementSettings: ElementSettings,
+        minimalPercentageOfVisibleArea: CGFloat,
+        interactionFailureResultFactory: InteractionFailureResultFactory)
+        -> PerformerOfSpecificImplementationOfInteractionForVisibleElement
     {
-        return VisibleElementCheckInteraction(
-            specificImplementation: specificImplementation,
-            settings: settings,
-            elementFinder: elementFinder,
+        return PerformerOfSpecificImplementationOfInteractionForVisibleElementImpl(
             elementVisibilityChecker: elementVisibilityChecker,
-            scrollingHintsProvider: scrollingHintsProvider,
+            elementSettings: elementSettings,
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-            applicationProvider: applicationProvider,
-            applicationCoordinatesProvider: applicationCoordinatesProvider
+            interactionFailureResultFactory: interactionFailureResultFactory,
+            scroller: scroller(
+                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                elementSettings: elementSettings
+            )
         )
+    }
+    
+    private func elementResolverWithScrollingAndRetries(
+        settings: ResolvedInteractionSettings)
+        -> ElementResolverWithScrollingAndRetries
+    {
+        return ElementResolverWithScrollingAndRetriesImpl(
+            elementResolver: elementResolver(
+                elementSettings: settings.elementSettings
+            ),
+            elementSettings: settings.elementSettings,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider,
+            retrier: retrier(settings: settings)
+        )
+    }
+    
+private func interactionRetrier(
+        settings: ResolvedInteractionSettings)
+        -> InteractionRetrier
+    {
+        let defaultTimeout: TimeInterval = 15
+        
+        return InteractionRetrierImpl(
+            dateProvider: dateProvider(),
+            timeout: settings.elementSettings.searchTimeout ?? defaultTimeout,
+            retrier: retrier(
+                settings: settings
+            )
+        )
+    }
+    
+    private func retrier(
+        settings: ResolvedInteractionSettings)
+        -> Retrier
+    {
+        return RetrierImpl(
+            pollingConfiguration: settings.pollingConfiguration
+        )
+    }
+    
+    private func actionInteractionFailureResultFactory(
+        interactionName: String)
+        -> InteractionFailureResultFactory
+    {
+        return interactionFailureResultFactory(
+            messagePrefix: "Действие неуспешно",
+            interactionName: interactionName
+        )
+    }
+    
+    private func checkInteractionFailureResultFactory(
+        interactionName: String)
+        -> InteractionFailureResultFactory
+    {
+        return interactionFailureResultFactory(
+            messagePrefix: "Проверка неуспешна",
+            interactionName: interactionName
+        )
+    }
+    
+    private func interactionFailureResultFactory(
+        messagePrefix: String,
+        interactionName: String)
+        -> InteractionFailureResultFactory
+    {
+        return InteractionFailureResultFactoryImpl(
+            applicationProvider: applicationProvider,
+            messagePrefix: messagePrefix,
+            interactionName: interactionName
+        )
+    }
+    
+    private func elementResolver(
+        elementSettings: ElementSettings)
+        -> ElementResolver
+    {
+        return ElementResolverImpl(
+            elementFinder: elementFinder,
+            elementSettings: elementSettings
+        )
+    }
+    
+    private func scroller(
+        minimalPercentageOfVisibleArea: CGFloat,
+        elementSettings: ElementSettings)
+        -> Scroller
+    {
+        return ScrollerImpl(
+            scrollingHintsProvider: scrollingHintsProvider,
+            elementVisibilityChecker: elementVisibilityChecker,
+            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            elementResolver: elementResolver(
+                elementSettings: elementSettings
+            ),
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider,
+            elementSettings: elementSettings
+        )
+    }
+    
+    private func dateProvider() -> DateProvider {
+        return SystemClockDateProvider()
     }
 }

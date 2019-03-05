@@ -6,7 +6,7 @@ import MixboxFoundation
 public final class ResolvedInteractionSettings {
     public let interactionSettings: InteractionSettings
     public let elementSettings: ElementSettings
-    public let pollingConfiguration: PollingConfiguration
+    public let pollingConfiguration: PollingConfiguration // TODO: Remove from here!
     
     public var elementName: String {
         return elementSettings.name
