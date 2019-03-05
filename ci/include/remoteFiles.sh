@@ -30,16 +30,16 @@ upload_zipped_for_emcee() {
     echo "${remoteZip}#${basename}"
 }
 
-MIXBOX_CI_UPLOADER_EXECUTABLE=
+__MIXBOX_CI_UPLOADER_EXECUTABLE=
 upload() {
-    if [ -z "$MIXBOX_CI_UPLOADER_EXECUTABLE" ]
+    if [ -z "$__MIXBOX_CI_UPLOADER_EXECUTABLE" ]
     then
         [ -z "$MIXBOX_CI_FILE_UPLOADER_URL" ] && fatalError "MIXBOX_CI_FILE_UPLOADER_URL is not set"
-        MIXBOX_CI_UPLOADER_EXECUTABLE=`download $MIXBOX_CI_FILE_UPLOADER_URL`
+        __MIXBOX_CI_UPLOADER_EXECUTABLE=`download $MIXBOX_CI_FILE_UPLOADER_URL`
     fi
     
-    chmod +x "$MIXBOX_CI_UPLOADER_EXECUTABLE"
-    "$MIXBOX_CI_UPLOADER_EXECUTABLE" "$@"
+    chmod +x "$__MIXBOX_CI_UPLOADER_EXECUTABLE"
+    "$__MIXBOX_CI_UPLOADER_EXECUTABLE" "$@"
 }
 
 download() {

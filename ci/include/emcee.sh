@@ -7,26 +7,42 @@ installLibssh() {
     brew ls --versions libssh2 > /dev/null || brew install libssh2
 }
 
+__MIXBOX_CI_EMCEE_PATH=
 installEmcee() {
     echo "Installing Emcee..."
     
-    avitoRunnerBinaryPath=`ls -1 "$MIXBOX_CI_TEMPORARY_DIRECTORY"/Emcee/.build/x86_64-*/debug/AvitoRunner|head -1` || true
-    
-    if [ -e "$avitoRunnerBinaryPath" ]
+    if [ "$MIXBOX_CI_EMCEE_URL" ]
     then
-        : # skip
+        __MIXBOX_CI_EMCEE_PATH=`download "$MIXBOX_CI_EMCEE_URL"`
+        
+        chmod +x "$__MIXBOX_CI_EMCEE_PATH"
     else
-        cd "$MIXBOX_CI_TEMPORARY_DIRECTORY"
+        __MIXBOX_CI_EMCEE_PATH=`ls -1 "$MIXBOX_CI_TEMPORARY_DIRECTORY"/Emcee/.build/x86_64-*/debug/AvitoRunner|head -1` || true
+    
+        if [ -e "$__MIXBOX_CI_EMCEE_PATH" ]
+        then
+            : # skip
+        else
+            cd "$MIXBOX_CI_TEMPORARY_DIRECTORY"
             
-        git clone https://github.com/avito-tech/Emcee
-        cd Emcee
-        make generate
-        make build
+            git clone https://github.com/avito-tech/Emcee
+            cd Emcee
+            
+            local emceeVersion="25b6a7662a69d2965eee26010d69468ac86ccfde"
+            git checkout "$emceeVersion"
+            
+            make build
+            
+            __MIXBOX_CI_EMCEE_PATH=`ls -1 "$MIXBOX_CI_TEMPORARY_DIRECTORY"/Emcee/.build/x86_64-*/debug/AvitoRunner|head -1`
+        fi
     fi
         
-    avitoRunnerBinaryPath=`ls -1 "$MIXBOX_CI_TEMPORARY_DIRECTORY"/Emcee/.build/x86_64-*/debug/AvitoRunner|head -1`
     
-    [ -e "$avitoRunnerBinaryPath" ] || fatalError "Failed to install Emcee"
+    [ -x "$__MIXBOX_CI_EMCEE_PATH" ] || fatalError "Failed to install Emcee"
+}
+
+emcee() {
+    "$__MIXBOX_CI_EMCEE_PATH" "$@"
 }
 
 testUsingEmceeWith_appName_testsTarget() {
@@ -56,7 +72,7 @@ testUsingEmceeWith_appName_testsTarget() {
         emceeAction=runTestsOnRemoteQueue
         
         # Simple args
-        emceeArgs=("${emceeArgs[@]}" --priority "750") # TODO: 500
+        emceeArgs=("${emceeArgs[@]}" --priority "500")
         emceeArgs=("${emceeArgs[@]}" --run-id "$(uuidgen)")
         
         # Configs
@@ -103,7 +119,7 @@ testUsingEmceeWith_appName_testsTarget() {
     emceeArgs=("${emceeArgs[@]}" --trace "$MIXBOX_CI_REPORTS_PATH/trace.combined.json")
     emceeArgs=("${emceeArgs[@]}" --test-destinations "$destinationFile")
     
-    "$avitoRunnerBinaryPath" "$emceeAction" "${emceeArgs[@]}"
+    emcee "$emceeAction" "${emceeArgs[@]}"
 }
 
 isDistRun() {
@@ -117,11 +133,11 @@ testArgsFile() {
     local runtimeDump="$derivedDataPath/runtime_dump.json"
     local destinationFile="$(destinationFile)"
     
-    "$avitoRunnerBinaryPath" dump \
-                    --test-destinations "$destinationFile" \
-                    --fbxctest "$MIXBOX_CI_EMCEE_FBXCTEST_URL" \
-                    --xctest-bundle "$xctestBundle" \
-                    --output "$runtimeDump" >/dev/null
+    emcee dump \
+        --test-destinations "$destinationFile" \
+        --fbxctest "$MIXBOX_CI_EMCEE_FBXCTEST_URL" \
+        --xctest-bundle "$xctestBundle" \
+        --output "$runtimeDump" >/dev/null
     
     local testArgsFile="$derivedDataPath/test_args_file.json"
     
