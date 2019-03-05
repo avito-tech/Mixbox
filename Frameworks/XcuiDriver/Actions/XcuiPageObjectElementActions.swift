@@ -19,7 +19,6 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
     private let interactionFactory: InteractionFactory
     private let elementVisibilityChecker: ElementVisibilityChecker
     private let keyboardEventInjector: KeyboardEventInjector
-    private let pollingConfiguration: PollingConfiguration
     private let applicationProvider: ApplicationProvider
     private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     private let eventGenerator: EventGenerator
@@ -30,7 +29,6 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         interactionFactory: InteractionFactory,
         elementVisibilityChecker: ElementVisibilityChecker,
         keyboardEventInjector: KeyboardEventInjector,
-        pollingConfiguration: PollingConfiguration,
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider,
         eventGenerator: EventGenerator)
@@ -40,7 +38,6 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
         self.interactionFactory = interactionFactory
         self.elementVisibilityChecker = elementVisibilityChecker
         self.keyboardEventInjector = keyboardEventInjector
-        self.pollingConfiguration = pollingConfiguration
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.eventGenerator = eventGenerator
@@ -55,7 +52,6 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             interactionFactory: interactionFactory,
             elementVisibilityChecker: elementVisibilityChecker,
             keyboardEventInjector: keyboardEventInjector,
-            pollingConfiguration: pollingConfiguration,
             applicationProvider: applicationProvider,
             applicationCoordinatesProvider: applicationCoordinatesProvider,
             eventGenerator: eventGenerator
@@ -369,8 +365,7 @@ final class XcuiPageObjectElementActions: AlmightyElementActions {
             },
             settings: ResolvedInteractionSettings(
                 interactionSettings: actionSettings,
-                elementSettings: elementSettings,
-                pollingConfiguration: pollingConfiguration
+                elementSettings: elementSettings
             ),
             // TODO: Configurable percentage of visible area + meaningful default value.
             // 0.53 is more than half, so we can tap center safely. Also one of our buttons in visible only by 53%

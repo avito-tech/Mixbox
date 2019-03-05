@@ -2,11 +2,11 @@ import MixboxTestsFoundation
 import MixboxFoundation
 
 // Настройки взаимодействия (действия, проверки) с примененными настройками элемента.
-// Настройки элемента менее приоритетны. На 27.02.2018 они не пересекались, но могут пересекаться в будущем.
+// Настройки элемента менее приоритетны (замещаются настройками взаимодействия).
+// На 05.03.2019 они не пересекались, но могут пересекаться в будущем и нужно учесь описанные выше приоритеты.
 public final class ResolvedInteractionSettings {
     public let interactionSettings: InteractionSettings
     public let elementSettings: ElementSettings
-    public let pollingConfiguration: PollingConfiguration // TODO: Remove from here!
     
     public var elementName: String {
         return elementSettings.name
@@ -30,11 +30,9 @@ public final class ResolvedInteractionSettings {
     
     public init(
         interactionSettings: InteractionSettings,
-        elementSettings: ElementSettings,
-        pollingConfiguration: PollingConfiguration)
+        elementSettings: ElementSettings)
     {
         self.interactionSettings = interactionSettings
         self.elementSettings = elementSettings
-        self.pollingConfiguration = pollingConfiguration
     }
 }

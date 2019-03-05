@@ -28,7 +28,6 @@ public final class GreyPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: interactionPerformerFactory,
             interactionFactory: interactionFactory,
             isAssertions: false,
-            pollingConfiguration: pollingConfiguration,
             elementMatcherBuilder: ElementMatcherBuilder()
         )
         
@@ -37,7 +36,6 @@ public final class GreyPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: interactionPerformerFactory,
             interactionFactory: interactionFactory,
             isAssertions: true,
-            pollingConfiguration: pollingConfiguration,
             elementMatcherBuilder: ElementMatcherBuilder()
         )
         

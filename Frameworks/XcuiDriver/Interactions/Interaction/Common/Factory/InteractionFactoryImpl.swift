@@ -8,19 +8,22 @@ public final class InteractionFactoryImpl: InteractionFactory {
     private let scrollingHintsProvider: ScrollingHintsProvider
     private let applicationProvider: ApplicationProvider
     private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
+    private let pollingConfiguration: PollingConfiguration
     
     public init(
         elementFinder: ElementFinder,
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
         applicationProvider: ApplicationProvider,
-        applicationCoordinatesProvider: ApplicationCoordinatesProvider)
+        applicationCoordinatesProvider: ApplicationCoordinatesProvider,
+        pollingConfiguration: PollingConfiguration)
     {
         self.elementFinder = elementFinder
         self.elementVisibilityChecker = elementVisibilityChecker
         self.scrollingHintsProvider = scrollingHintsProvider
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
+        self.pollingConfiguration = pollingConfiguration
     }
     
     public func actionInteraction(
@@ -135,11 +138,13 @@ public final class InteractionFactoryImpl: InteractionFactory {
             elementSettings: settings.elementSettings,
             applicationProvider: applicationProvider,
             applicationCoordinatesProvider: applicationCoordinatesProvider,
-            retrier: retrier(settings: settings)
+            retrier: retrier(
+                pollingConfiguration: pollingConfiguration
+            )
         )
     }
     
-private func interactionRetrier(
+    private func interactionRetrier(
         settings: ResolvedInteractionSettings)
         -> InteractionRetrier
     {
@@ -149,17 +154,17 @@ private func interactionRetrier(
             dateProvider: dateProvider(),
             timeout: settings.elementSettings.searchTimeout ?? defaultTimeout,
             retrier: retrier(
-                settings: settings
+                pollingConfiguration: pollingConfiguration
             )
         )
     }
     
     private func retrier(
-        settings: ResolvedInteractionSettings)
+        pollingConfiguration: PollingConfiguration)
         -> Retrier
     {
         return RetrierImpl(
-            pollingConfiguration: settings.pollingConfiguration
+            pollingConfiguration: pollingConfiguration
         )
     }
     

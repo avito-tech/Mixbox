@@ -13,7 +13,6 @@ protocol XcuiHelperFactory: class {
     func interactionFactory() -> InteractionFactory
     func elementVisibilityChecker() -> ElementVisibilityChecker
     func keyboardEventInjector() -> KeyboardEventInjector
-    func pollingConfiguration() -> PollingConfiguration
     func elementMatcherBuilder() -> ElementMatcherBuilder
 }
 
@@ -29,8 +28,8 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     private let elementFinder: ElementFinder
     private let scrollingHintsProvider: ScrollingHintsProvider
     private let keyboardEventInjectorInstance: KeyboardEventInjector
-    private let pollingConfigurationValue: PollingConfiguration
     private let screenshotTaker: ScreenshotTaker
+    private let pollingConfiguration: PollingConfiguration
     
     // MARK: - Init
     init(
@@ -54,7 +53,7 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
         self.stepLoggerInstance = stepLogger
         self.keyboardEventInjectorInstance = keyboardEventInjector
         self.elementFinder = elementFinder
-        self.pollingConfigurationValue = pollingConfiguration
+        self.pollingConfiguration = pollingConfiguration
         self.applicationProvider = applicationProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.eventGenerator = eventGenerator
@@ -76,7 +75,8 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
             elementVisibilityChecker: elementVisibilityCheckerInstance,
             scrollingHintsProvider: scrollingHintsProvider,
             applicationProvider: applicationProvider,
-            applicationCoordinatesProvider: applicationCoordinatesProvider
+            applicationCoordinatesProvider: applicationCoordinatesProvider,
+            pollingConfiguration: pollingConfiguration
         )
     }
     
@@ -90,10 +90,6 @@ final class XcuiHelperFactoryImpl: XcuiHelperFactory {
     
     func stepLogger() -> StepLogger {
         return stepLoggerInstance
-    }
-    
-    func pollingConfiguration() -> PollingConfiguration {
-        return pollingConfigurationValue
     }
     
     func elementMatcherBuilder() -> ElementMatcherBuilder {

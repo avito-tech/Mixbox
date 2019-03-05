@@ -20,7 +20,6 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             interactionFactory: xcuiHelperFactory.interactionFactory(),
             elementVisibilityChecker: xcuiHelperFactory.elementVisibilityChecker(),
             keyboardEventInjector: xcuiHelperFactory.keyboardEventInjector(),
-            pollingConfiguration: xcuiHelperFactory.pollingConfiguration(),
             applicationProvider: xcuiHelperFactory.applicationProvider,
             applicationCoordinatesProvider: xcuiHelperFactory.applicationCoordinatesProvider,
             eventGenerator: xcuiHelperFactory.eventGenerator
@@ -31,7 +30,6 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
             interactionFactory: xcuiHelperFactory.interactionFactory(),
             isAssertions: false,
-            pollingConfiguration: xcuiHelperFactory.pollingConfiguration(),
             elementMatcherBuilder: xcuiHelperFactory.elementMatcherBuilder()
         )
         
@@ -40,7 +38,6 @@ final class XcuiPageObjectElementFactory: PageObjectElementFactory {
             interactionPerformerFactory: xcuiHelperFactory.interactionPerformerFactory(),
             interactionFactory: xcuiHelperFactory.interactionFactory(),
             isAssertions: true,
-            pollingConfiguration: xcuiHelperFactory.pollingConfiguration(),
             elementMatcherBuilder: xcuiHelperFactory.elementMatcherBuilder()
         )
         
