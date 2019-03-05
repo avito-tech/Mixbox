@@ -142,7 +142,6 @@
 		F8B0A260220A0EF40089C1EE /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* BasePageObjects.swift */; };
 		F8B0A261220A0EF40089C1EE /* PageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23A220A0E040089C1EE /* PageObjects.swift */; };
 		F8B0A262220A0EF40089C1EE /* BasePageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23B220A0E040089C1EE /* BasePageObject.swift */; };
-		F8B0A263220A0F480089C1EE /* XcuiActivityStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAF720E13BE600524185 /* XcuiActivityStepLogger.swift */; };
 		F8B0A268220A0FDF0089C1EE /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A265220A0FDF0089C1EE /* BasePageObjects.swift */; };
 		F8B0A269220A0FDF0089C1EE /* PageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A266220A0FDF0089C1EE /* PageObjects.swift */; };
 		F8B0A26A220A0FDF0089C1EE /* BasePageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A267220A0FDF0089C1EE /* BasePageObject.swift */; };
@@ -167,7 +166,6 @@
 		F8E8BAE520DD752F00524185 /* FakeCellsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAE420DD752F00524185 /* FakeCellsTestsView.swift */; };
 		F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAED20DFD20800524185 /* SingleViewCell.swift */; };
 		F8E8BAF620E1235E00524185 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAF520E1235E00524185 /* main.m */; };
-		F8E8BAF820E13BE600524185 /* XcuiActivityStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAF720E13BE600524185 /* XcuiActivityStepLogger.swift */; };
 		F8E8BAFA20E13D3900524185 /* FakeCellsTestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAF920E13D3900524185 /* FakeCellsTestsConstants.swift */; };
 		F8E8BAFB20E13D4400524185 /* FakeCellsTestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAF920E13D3900524185 /* FakeCellsTestsConstants.swift */; };
 		F8E8BB2620E2A00300524185 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BB2220E29A6800524185 /* CellModel.swift */; };
@@ -367,7 +365,6 @@
 		F8E8BAED20DFD20800524185 /* SingleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewCell.swift; sourceTree = "<group>"; };
 		F8E8BAF420E1235D00524185 /* TestedApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestedApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		F8E8BAF520E1235E00524185 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F8E8BAF720E13BE600524185 /* XcuiActivityStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcuiActivityStepLogger.swift; sourceTree = "<group>"; };
 		F8E8BAF920E13D3900524185 /* FakeCellsTestsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsTestsConstants.swift; sourceTree = "<group>"; };
 		F8E8BB2220E29A6800524185 /* CellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
 		F8EBBCA5213AA8FF00D320A4 /* HierarchySourcesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchySourcesTests.swift; sourceTree = "<group>"; };
@@ -886,7 +883,6 @@
 		F8B010CD21FF30250026360D /* Reports */ = {
 			isa = PBXGroup;
 			children = (
-				F8E8BAF720E13BE600524185 /* XcuiActivityStepLogger.swift */,
 				F8B010D121FF31880026360D /* ReportingSystem */,
 				F8B010CE21FF30340026360D /* README.md */,
 				F8B010CF21FF30450026360D /* ReportingTestLifecycleManager.swift */,
@@ -1837,7 +1833,6 @@
 				F8C7091D2153F3F70015A10B /* IpcCallbacksTests.swift in Sources */,
 				F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */,
 				F813CB30209CDF3400E6A27C /* ChecksTests.swift in Sources */,
-				F8E8BAF820E13BE600524185 /* XcuiActivityStepLogger.swift in Sources */,
 				F8B010DD21FF319D0026360D /* ReportingSystem.swift in Sources */,
 				F857C9DC20CF8CD600E8BFF5 /* IpcEchoingTests.swift in Sources */,
 				F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */,
@@ -1918,7 +1913,6 @@
 				F8B0A253220A0EF30089C1EE /* FailureGatherer.swift in Sources */,
 				F8B0A257220A0EF30089C1EE /* TestReportAttachment.swift in Sources */,
 				F8B0A24D220A0E040089C1EE /* Singletons.swift in Sources */,
-				F8B0A263220A0F480089C1EE /* XcuiActivityStepLogger.swift in Sources */,
 				F8B0A24C220A0E040089C1EE /* TestObservationEntryPoint.swift in Sources */,
 				F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */,
 				F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */,

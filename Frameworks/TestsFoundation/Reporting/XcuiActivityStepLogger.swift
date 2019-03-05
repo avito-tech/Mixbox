@@ -1,19 +1,17 @@
 import XCTest
-import MixboxTestsFoundation
 import MixboxArtifacts
 import MixboxReporting
 
-// TODO: Share with Avito
-// Добавляет к StepLogger еще отчеты в Xcode IDE (слева, show the report navigator).
-// Они могут помочь посмотреть ход выполнения теста при разработке.
-final class XcuiActivityStepLogger: StepLogger {
+// Adds Xcode reports to StepLogger (View -> Navigators -> Show Report Navigator).
+// They help to debug tests.
+public final class XcuiActivityStepLogger: StepLogger {
     private let originalStepLogger: StepLogger
     
-    init(originalStepLogger: StepLogger) {
+    public init(originalStepLogger: StepLogger) {
         self.originalStepLogger = originalStepLogger
     }
     
-    func logStep<T>(
+    public func logStep<T>(
         stepLogBefore: StepLogBefore,
         body: () -> StepLoggerWrappedResult<T>)
         -> T
