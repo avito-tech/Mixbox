@@ -46,7 +46,7 @@ class ScreenshotTests: TestCase {
     func testCatWithTextDoesntMatchCatWithoutText() {
         openScreen(name: "ScreenshotDHashLabelsTestsView")
         
-        let catWithText = UIImage(named: "imagehash_cat_text", in: Bundle(for: TestCase.self), compatibleWith: nil)!
+        let catWithText = UIImage(named: "imagehash_cat_lots_of_text", in: Bundle(for: TestCase.self), compatibleWith: nil)!
         
         pageObjects.screen.catView.assert.matches {
             !$0.matchesReference(image: catWithText, comparator: DHashSnapshotsComparator())

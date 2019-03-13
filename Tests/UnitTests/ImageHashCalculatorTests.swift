@@ -9,7 +9,7 @@ class ImageHashCalculatorTests: XCTestCase {
     func test_hashes_should_be_always_same() {
         let calculator = DHashV0ImageHashCalculator()
         
-        let images = ["size", "text", "color", "original", "aspect", "borders", "not_cat"].map {
+        let images = ["size", "text", "color", "original", "aspect", "borders", "not_cat", "lots_of_text"].map {
             UIImage(named: "imagehash_cat_\($0)", in: Bundle(for: type(of: self)), compatibleWith: nil)!
         }
         
@@ -18,22 +18,24 @@ class ImageHashCalculatorTests: XCTestCase {
         }
         let expectedHashesForIosLesserOrEqual120: [Int64] = [
             2170628984350433018,
-            -7629144429980879112,
+            -7629203804808290566,
             2170628984358756090,
             2170628984349908730,
             1012762419733077534,
             3956103203127296,
-            -1881985158994644237
+            -1881985158994644237,
+            -7629144429980879112
         ]
         
         let expectedHashesForIosGreaterOrEqual121: [Int64] = [
             2170628984349908730,
-            -7629144429980879112,
+            -7629203804807766278,
             2170628984358756090,
             2170628984350433018,
             1012762419733077534,
             3956103203127296,
-            -1881985158994644237
+            -1881985158994644237,
+            -7629144429980879112,
         ]
         
         if UIDevice.current.mb_iosVersion >= 12.1 {
