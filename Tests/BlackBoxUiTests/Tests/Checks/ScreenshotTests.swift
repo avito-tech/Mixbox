@@ -35,29 +35,28 @@ class ScreenshotTests: TestCase {
         
     }
     
-    func testEqualImagesWithDifferentResolutionsMatch() {
+    // TODO: Test with exact hash distances for `matchesReference` check
+    func testCatImageMatching() {
         openScreen(name: "ScreenshotDHashLabelsTestsView")
-        
+        assertEqualImagesWithDifferentResolutionsMatch()
+        assertCatWithTextDoesntMatchCatWithoutText()
+        assertCatDoesntMatchDog()
+    }
+    
+    private func assertEqualImagesWithDifferentResolutionsMatch() {
         let downsampledCat = UIImage(named: "imagehash_cat_size", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        
         pageObjects.screen.catView.assert.matchesReference(image: downsampledCat)
     }
     
-    func testCatWithTextDoesntMatchCatWithoutText() {
-        openScreen(name: "ScreenshotDHashLabelsTestsView")
-        
+    private func assertCatWithTextDoesntMatchCatWithoutText() {
         let catWithText = UIImage(named: "imagehash_cat_lots_of_text", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        
         pageObjects.screen.catView.assert.matches {
             !$0.matchesReference(image: catWithText, comparator: DHashSnapshotsComparator())
         }
     }
     
-    func testCatDoesntMatchDog() {
-        openScreen(name: "ScreenshotDHashLabelsTestsView")
-        
+    private func assertCatDoesntMatchDog() {
         let dog = UIImage(named: "imagehash_cat_not_cat", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        
         pageObjects.screen.catView.assert.matches {
             !$0.matchesReference(image: dog, comparator: DHashSnapshotsComparator())
         }
