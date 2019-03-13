@@ -4,6 +4,7 @@ import XCTest
 import MixboxFoundation
 import CocoaImageHashing
 
+// TODO: Add real world example tests of the screen reference matching
 class ScreenshotTests: TestCase {
     func testExpectedColoredBoxesMatchActualColoredBoxes() {
         
