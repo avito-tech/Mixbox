@@ -2,7 +2,7 @@ import MixboxFoundation
 
 public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
     public init(
-        screenshotTaker: ScreenshotTaker,
+        screenshotTaker: ScreenshotTaker?,
         reference: UIImage,
         comparator: SnapshotsComparator)
     {
@@ -11,7 +11,9 @@ public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
                 "Совпадает с референсным скрином"
             },
             matchingFunction: { snapshot -> MatchingResult in
-                guard let actual = screenshotTaker.elementImage(elementShanpshot: snapshot) else {
+                guard
+                    let screenshotTaker = screenshotTaker,
+                    let actual = screenshotTaker.elementImage(elementShanpshot: snapshot) else {
                     return MatchingResult.exactMismatch(
                         mismatchDescription: {
                             "Не удалось создать скрин элемента"

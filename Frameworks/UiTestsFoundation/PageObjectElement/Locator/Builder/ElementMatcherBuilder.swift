@@ -77,15 +77,11 @@ public final class ElementMatcherBuilder {
         comparator: SnapshotsComparator)
         -> ElementMatcher
     {
-        if let screenshotTaker = screenshotTaker {
-            return ReferenceImageMatcher(
-                screenshotTaker: screenshotTaker,
-                reference: image,
-                comparator: comparator
-            )
-        } else {
-            return AlwaysFalseMatcher()
-        }
+        return ReferenceImageMatcher(
+            screenshotTaker: screenshotTaker,
+            reference: image,
+            comparator: comparator
+        )
     }
     
     private let screenshotTaker: ScreenshotTaker?
