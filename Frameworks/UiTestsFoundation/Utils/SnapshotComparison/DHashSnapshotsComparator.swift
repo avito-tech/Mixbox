@@ -2,7 +2,7 @@ public final class DHashSnapshotsComparator: SnapshotsComparator {
     private let calculator = DHashV0ImageHashCalculator()
     private let tolerance: Int
     
-    public init(tolerance: Int = 15) {
+    public init(tolerance: Int = 10) {
         self.tolerance = tolerance
     }
     
