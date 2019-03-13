@@ -16,24 +16,24 @@ class ImageHashCalculatorTests: XCTestCase {
         let hashes = images.map {
             calculator.imageHash(image: $0)
         }
-        let expectedHashesForIosLesserOrEqual120: [UInt64] = [
+        let expectedHashesForIosLesserOrEqual120: [Int64] = [
             2170628984350433018,
-            10817540268901261050,
+            -7629144429980879112,
             2170628984358756090,
             2170628984349908730,
             1012762419733077534,
             3956103203127296,
-            16564758914714907379
+            -1881985158994644237
         ]
         
-        let expectedHashesForIosGreaterOrEqual121: [UInt64] = [
+        let expectedHashesForIosGreaterOrEqual121: [Int64] = [
             2170628984349908730,
-            10817540268901785338,
+            -7629144429980879112,
             2170628984358756090,
             2170628984350433018,
             1012762419733077534,
             3956103203127296,
-            16564758914714907379
+            -1881985158994644237
         ]
         
         if UIDevice.current.mb_iosVersion >= 12.1 {

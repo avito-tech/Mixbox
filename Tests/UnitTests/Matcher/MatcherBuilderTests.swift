@@ -389,7 +389,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = ElementMatcherBuilder.build(check)
+        let matcher = check(ElementMatcherBuilder())
         
         assertMatches(matcher: matcher, value: snapshot)
     }
@@ -405,7 +405,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = ElementMatcherBuilder.build(check)
+        let matcher = check(ElementMatcherBuilder())
         
         assertMismatches(matcher: matcher, value: snapshot)
     }
