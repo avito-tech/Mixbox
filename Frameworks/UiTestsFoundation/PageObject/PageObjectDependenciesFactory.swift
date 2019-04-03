@@ -11,6 +11,7 @@ public extension PageObjectDependenciesFactory {
     }
 }
 
+// TODO: Remove
 final class PageObjectDependenciesFactoryToPageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory {
     private let pageObjectDependenciesFactory: PageObjectDependenciesFactory
     

@@ -2,10 +2,6 @@ import MixboxTestsFoundation
 
 public final class ViewElement:
     BaseElementWithDefaultInitializer,
-    ViewElementActions,
-    ViewElementChecks
+    ElementWithUi
 {
-    public var assert: ViewElementChecks & Element {
-        return ViewElement(implementation: implementation.withAssertsInsteadOfChecks())
-    }
 }

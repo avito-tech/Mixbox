@@ -3,19 +3,19 @@
 import UIKit
 
 extension UILabel {
-    override open func testabilityValue_visibleText() -> String? {
+    override open func testabilityValue_text() -> String? {
         return text ?? ""
     }
 }
 
 extension UITextView {
-    override open func testabilityValue_visibleText() -> String? {
+    override open func testabilityValue_text() -> String? {
         return text ?? ""
     }
 }
 
 extension UITextField {
-    override open func testabilityValue_visibleText() -> String? {
+    override open func testabilityValue_text() -> String? {
         if let text = text, !text.isEmpty {
             return text
         } else {
@@ -25,7 +25,7 @@ extension UITextField {
 }
 
 extension UIButton {
-    override open func testabilityValue_visibleText() -> String? {
+   override open func testabilityValue_text() -> String? {
         guard let label = titleLabel else {
             return ""
         }
@@ -34,7 +34,7 @@ extension UIButton {
             return ""
         }
         
-        return label.testabilityValue_visibleText()
+        return label.testabilityValue_text()
     }
 }
 

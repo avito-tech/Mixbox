@@ -72,7 +72,7 @@ final class TestCaseUtils {
         
         pageObjects = PageObjects(
             pageObjectDependenciesFactory: GreyPageObjectDependenciesFactory(
-                interactionPerformerFactory: InteractionPerformerFactoryImpl(
+                interactionPerformerFactory: ElementInteractionWithDependenciesPerformerFactoryImpl(
                     interactionExecutionLogger: interactionExecutionLogger,
                     testFailureRecorder: testFailureRecorder
                 ),

@@ -9,7 +9,7 @@ final class XcuiElementQuery: ElementQuery {
     private let elementQueryResolvingState: ElementQueryResolvingState
     private let waitForExistence: Bool
     private let stepLogger: StepLogger
-    private let screenshotTaker: ScreenshotTaker = XcuiScreenshotTaker()
+    private let screenshotTaker: ScreenshotTaker
     private let applicationProvider: ApplicationProvider
     
     init(
@@ -17,12 +17,14 @@ final class XcuiElementQuery: ElementQuery {
         elementQueryResolvingState: ElementQueryResolvingState,
         waitForExistence: Bool,
         stepLogger: StepLogger,
+        screenshotTaker: ScreenshotTaker,
         applicationProvider: ApplicationProvider)
     {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
         self.waitForExistence = waitForExistence
         self.stepLogger = stepLogger
+        self.screenshotTaker = screenshotTaker
         self.applicationProvider = applicationProvider
     }
     
@@ -38,13 +40,14 @@ final class XcuiElementQuery: ElementQuery {
     private func resolveElement(_ closure: (XCUIElementQuery) -> (XCUIElement)) -> ResolvedElementQuery {
         let stepLogBefore = StepLogBefore.other("Поиск элемента")
         
-        let resolvedElementQuery = stepLogger.logStep(stepLogBefore: stepLogBefore) {
-            () -> StepLoggerWrappedResult<ResolvedElementQuery>
+        let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
+            () -> StepLoggerResultWrapper<ResolvedElementQuery>
             in
             
             let element = closure(xcuiElementQuery)
             
             elementQueryResolvingState.start()
+            // TODO?: Optimize logging. Do not log if element is found.
             let elementExists = element.exists
             elementQueryResolvingState.stop()
             
@@ -53,7 +56,7 @@ final class XcuiElementQuery: ElementQuery {
             )
             
             var artifacts = [Artifact]()
-            if !elementExists, let failureDescription = resolvedElementQuery.candidatesDescription() {
+            if let failureDescription = resolvedElementQuery.candidatesDescription() {
                 artifacts.append(
                     Artifact(
                         name: "Кандидаты",
@@ -78,15 +81,15 @@ final class XcuiElementQuery: ElementQuery {
                 }
             }
             
-            return StepLoggerWrappedResult(
+            return StepLoggerResultWrapper(
                 stepLogAfter: StepLogAfter(
-                    wasSuccessful: true,
+                    wasSuccessful: elementExists,
                     artifacts: artifacts
                 ),
                 wrappedResult: resolvedElementQuery
             )
         }
         
-        return resolvedElementQuery
+        return wrapper.wrappedResult
     }
 }

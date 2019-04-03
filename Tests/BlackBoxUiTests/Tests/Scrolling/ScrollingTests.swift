@@ -30,13 +30,13 @@ final class ScrollingTests: TestCase {
         // second     v | | | ^ |
         // third        v | v |
         
-        pageObjects.scrollerTests.first.assert.hasAccessibilityLabel("First")
-        pageObjects.scrollerTests.second.assert.hasAccessibilityLabel("Second")
-        pageObjects.scrollerTests.third.assert.hasAccessibilityLabel("Third")
-        pageObjects.scrollerTests.first.assert.hasAccessibilityLabel("First")
-        pageObjects.scrollerTests.third.assert.hasAccessibilityLabel("Third")
-        pageObjects.scrollerTests.second.assert.hasAccessibilityLabel("Second")
-        pageObjects.scrollerTests.first.assert.hasAccessibilityLabel("First")
+        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First")
+        pageObjects.scrollerTests.second.assertHasAccessibilityLabel("Second")
+        pageObjects.scrollerTests.third.assertHasAccessibilityLabel("Third")
+        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First")
+        pageObjects.scrollerTests.third.assertHasAccessibilityLabel("Third")
+        pageObjects.scrollerTests.second.assertHasAccessibilityLabel("Second")
+        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First")
     }
 }
 

@@ -14,7 +14,7 @@
     return NO;
 }
 
-- (nullable NSString *)testabilityValue_visibleText {
+- (nullable NSString *)testabilityValue_text {
     return nil;
 }
 

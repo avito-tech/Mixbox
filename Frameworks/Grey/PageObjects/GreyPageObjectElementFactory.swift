@@ -1,49 +1,33 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
-public final class GreyPageObjectElementFactory: PageObjectElementFactory {
-    private let interactionPerformerFactory: InteractionPerformerFactory
-    private let interactionFactory: InteractionFactory
-    private let pollingConfiguration: PollingConfiguration
+final class GrayPageObjectElementFactory: PageObjectElementFactory {
+    // MARK: - Private properties
+    private let grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory
     
-    public init(
-        interactionPerformerFactory: InteractionPerformerFactory,
-        interactionFactory: InteractionFactory,
-        pollingConfiguration: PollingConfiguration)
-    {
-        self.interactionPerformerFactory = interactionPerformerFactory
-        self.interactionFactory = interactionFactory
-        self.pollingConfiguration = pollingConfiguration
+    // MARK: - Init
+    init(grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory) {
+        self.grayBoxTestsDependenciesFactory = grayBoxTestsDependenciesFactory
     }
     
-    public func pageObjectElement(
-        settings: ElementSettings)
-        -> AlmightyElement
+    // MARK: - PageObjectElementFactory
+    func pageObjectElement(
+        settings elementSettings: ElementSettings)
+        -> PageObjectElement
     {
-        let actions = GreyPageObjectElementActions(
-            elementSettings: settings
-        )
-        
-        let checks = AlmightyElementChecksImpl(
-            elementSettings: settings,
-            interactionPerformerFactory: interactionPerformerFactory,
-            interactionFactory: interactionFactory,
-            isAssertions: false,
-            elementMatcherBuilder: ElementMatcherBuilder()
-        )
-        
-        let asserts = AlmightyElementChecksImpl(
-            elementSettings: settings,
-            interactionPerformerFactory: interactionPerformerFactory,
-            interactionFactory: interactionFactory,
-            isAssertions: true,
-            elementMatcherBuilder: ElementMatcherBuilder()
-        )
-        
-        return AlmightyElementImpl(
-            settings: settings,
-            actions: actions,
-            checks: checks,
-            asserts: asserts
+        return PageObjectElementImpl(
+            settings: elementSettings,
+            interactionPerformer: PageObjectElementInteractionPerformerImpl(
+                testFailureRecorder: grayBoxTestsDependenciesFactory.testFailureRecorder,
+                screenshotAttachmentsMaker: xcuiBasedTestsDependenciesFactory.screenshotAttachmentsMaker,
+                stepLogger: xcuiBasedTestsDependenciesFactory.stepLogger,
+                dateProvider: xcuiBasedTestsDependenciesFactory.dateProvider,
+                elementInteractionDependenciesFactory: XcuiElementInteractionDependenciesFactory(
+                    elementSettings: elementSettings,
+                    xcuiBasedTestsDependenciesFactory: xcuiBasedTestsDependenciesFactory
+                ),
+                elementSettings: elementSettings
+            )
         )
     }
 }

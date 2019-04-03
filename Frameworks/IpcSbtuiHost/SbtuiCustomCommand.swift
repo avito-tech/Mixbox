@@ -16,9 +16,17 @@ final class SbtuiCustomCommand {
     }
     
     func register() {
-        SBTUITestTunnelServer.registerCustomCommandNamed("customCommand:\(name)") { [weak self] request in
+        SBTUITestTunnelServer.registerCustomCommandNamed(sbtuiTestTunnelCommandName()) { [weak self] request in
             self?.handleFunction(request)
         }
+    }
+    
+    func unregister() {
+        SBTUITestTunnelServer.unregisterCommandNamed(sbtuiTestTunnelCommandName())
+    }
+    
+    private func sbtuiTestTunnelCommandName() -> String {
+        return "customCommand:\(name)"
     }
     
     private static func handle<MethodHandler: IpcMethodHandler>(

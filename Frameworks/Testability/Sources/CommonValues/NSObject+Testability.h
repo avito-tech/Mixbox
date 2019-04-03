@@ -47,9 +47,9 @@
 // case text(String)
 //
 // NOTE: Swift signature:
-// public func testabilityValue_visibleText() -> String?
+// public func testabilityValue_text() -> String?
 
-- (nullable NSString *)testabilityValue_visibleText;
+- (nullable NSString *)testabilityValue_text;
 
 - (TestabilityElementType)testabilityValue_elementType;
 

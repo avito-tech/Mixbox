@@ -1,4 +1,5 @@
-public final class Artifact {
+// TODO: Rename to attachment or something
+public final class Artifact: Equatable {
     public let name: String
     public let content: ArtifactContent
     
@@ -9,9 +10,14 @@ public final class Artifact {
         self.name = name
         self.content = content
     }
+    
+    public static func ==(left: Artifact, right: Artifact) -> Bool {
+        return left.name == right.name
+            && left.content == right.content
+    }
 }
 
-public enum ArtifactContent {
+public enum ArtifactContent: Equatable {
     case screenshot(UIImage)
     case text(String)
     case json(String)
@@ -24,6 +30,22 @@ public enum ArtifactContent {
         {
             return nil
         }
+        
         return .json(string)
+    }
+    
+    public static func ==(left: ArtifactContent, right: ArtifactContent) -> Bool {
+        switch (left, right) {
+        case let (.screenshot(left), .screenshot(right)):
+            return left == right
+        case let (.text(left), .text(right)):
+            return left == right
+        case let (.json(left), .json(right)):
+            return left == right
+        case let (.artifacts(left), .artifacts(right)):
+            return left == right
+        default:
+            return false
+        }
     }
 }

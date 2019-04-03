@@ -4,7 +4,7 @@
 // func doMagic() -> String?
 // func doMagic() -> ErrorString? // looks better
 //
-public final class ErrorString: Error, ExpressibleByStringLiteral, CustomStringConvertible {
+public final class ErrorString: Error, Codable, ExpressibleByStringLiteral, CustomStringConvertible {
     public let value: String
     
     public init(_ value: String) {

@@ -32,8 +32,8 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
         let stepLogBefore = StepLogBefore.other("Поиск элемента")
         
-        return stepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerWrappedResult<ResolvedElementQuery> in
-            
+        // TODO: Extract code to functions
+        let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<ResolvedElementQuery> in
             let result = ipcClient.call(
                 method: VeiwHierarchyIpcMethod()
             )
@@ -55,7 +55,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
                 
                 resolvedElementQuery = ResolvedElementQuery(elementQueryResolvingState: elementQueryResolvingState)
                 
-                if resolvedElementQuery.matchingSnapshots.isEmpty, let failureDescription = resolvedElementQuery.candidatesDescription() {
+                if let failureDescription = resolvedElementQuery.candidatesDescription() {
                     artifacts.append(
                         Artifact(
                             name: "Кандидаты",
@@ -90,7 +90,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
                 )
             }
             
-            return StepLoggerWrappedResult(
+            return StepLoggerResultWrapper(
                 stepLogAfter: StepLogAfter(
                     wasSuccessful: true,
                     artifacts: artifacts
@@ -98,6 +98,8 @@ final class RealViewHierarchyElementQuery: ElementQuery {
                 wrappedResult: resolvedElementQuery
             )
         }
+        
+        return wrapper.wrappedResult
     }
     
     private func matchRecursively(

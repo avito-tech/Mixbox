@@ -3,24 +3,22 @@ import MixboxUiTestsFoundation
 final class InteractionFailureResultFactoryImpl: InteractionFailureResultFactory {
     private let applicationProvider: ApplicationProvider
     private let messagePrefix: String
-    private let interactionName: String
+    private let interactionResultMaker: InteractionResultMaker
     
     init(
         applicationProvider: ApplicationProvider,
         messagePrefix: String,
-        interactionName: String)
+        interactionResultMaker: InteractionResultMaker)
     {
         self.applicationProvider = applicationProvider
         self.messagePrefix = messagePrefix
-        self.interactionName = interactionName
+        self.interactionResultMaker = interactionResultMaker
     }
     
     func elementIsHiddenResult()
         -> InteractionResult
     {
         return failureResult(
-            resolvedElementQuery: nil,
-            interactionSpecificFailure: nil,
             message: "элемент есть в иерархии, но спрятан"
         )
     }
@@ -36,8 +34,6 @@ final class InteractionFailureResultFactoryImpl: InteractionFailureResultFactory
         }
         
         return failureResult(
-            resolvedElementQuery: nil,
-            interactionSpecificFailure: nil,
             message: "элемент не полностью видим"
                 + " (видимая площадь: \(percentageOfVisibleArea),"
                 + " ожидалось: \(minimalPercentageOfVisibleArea))"
@@ -45,8 +41,7 @@ final class InteractionFailureResultFactoryImpl: InteractionFailureResultFactory
         )
     }
     
-    func elementIsNotFoundResult(
-        resolvedElementQuery: ResolvedElementQuery)
+    func elementIsNotFoundResult()
         -> InteractionResult
     {
         let applicationState = applicationProvider.application.state
@@ -55,37 +50,22 @@ final class InteractionFailureResultFactoryImpl: InteractionFailureResultFactory
             : ", на это могло повлиять то, что приложение не запущено, либо закрешилось (state = \(applicationState))"
         
         return failureResult(
-            resolvedElementQuery: resolvedElementQuery,
-            interactionSpecificFailure: nil,
             message: "элемент не найден в иерархии\(applicationStateNotice)"
         )
     }
     
-    func elementIsNotUniqueResult(
-        resolvedElementQuery: ResolvedElementQuery)
+    func elementIsNotUniqueResult()
         -> InteractionResult
     {
         return failureResult(
-            resolvedElementQuery: resolvedElementQuery,
-            interactionSpecificFailure: nil,
             message: "найдено несколько элементов по заданным критериям"
         )
     }
     
     func failureResult(
-        resolvedElementQuery: ResolvedElementQuery?,
-        interactionSpecificFailure: InteractionSpecificFailure?,
-        message: String)
+        interactionFailure: InteractionFailure)
         -> InteractionResult
     {
-        return .failure(
-            InteractionFailureMaker.interactionFailure(
-                applicationProvider: applicationProvider,
-                message: "\(messagePrefix) (\(interactionName)) - \(message)",
-                elementFindingFailure: resolvedElementQuery?.candidatesDescription(),
-                currentElementSnapshots: resolvedElementQuery?.knownSnapshots,
-                interactionSpecificFailure: interactionSpecificFailure
-            )
-        )
+        return interactionResultMaker.decorateFailure(interactionFailure: interactionFailure)
     }
 }

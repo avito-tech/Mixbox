@@ -15,19 +15,19 @@ final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: Te
         
         // Wait & check UI:
         
-        let elementAsserts: [(Screen) -> Element & ViewElementChecks] = [
-            { $0.duplicatedView0.assert },
-            { $0.duplicatedView1.assert },
-            { $0.duplicatedView.any.assert },
-            { $0.hiddenButton.assert },
-            { $0.frameButton.assert },
-            { $0.alphaButton.assert },
-            { $0.progressIndicator.assert }
+        let elementAsserts: [(Screen) -> ElementWithUi] = [
+            { $0.duplicatedView0 },
+            { $0.duplicatedView1 },
+            { $0.duplicatedView.any },
+            { $0.hiddenButton },
+            { $0.frameButton },
+            { $0.alphaButton },
+            { $0.progressIndicator }
         ]
         
         for screen in [pageObjects.xcui, pageObjects.real] {
             for element in elementAsserts {
-                element(screen).isDisplayed()
+                element(screen).assertIsDisplayed()
             }
         }
     }
@@ -76,27 +76,28 @@ final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: Te
     {
         let button = buttonClosure(screen)
         
-        screen.progressIndicator.assert.hasText("Ready")
+        screen.progressIndicator.assertHasText("Ready")
         
         assertFails {
             // Multiple matches
-            screen.duplicatedView.withoutTimeout.assert.isDisplayed()
+            screen.duplicatedView.withoutTimeout.assertIsDisplayed()
         }
         
-        screen.duplicatedView0.withoutTimeout.assert.isDisplayed()
-        screen.duplicatedView1.withoutTimeout.assert.isDisplayed()
+        screen.duplicatedView0.withoutTimeout.assertIsDisplayed()
+        screen.duplicatedView1.withoutTimeout.assertIsDisplayed()
         
         button.tap()
         
         // Check if test is correct:
-        screen.progressIndicator.assert.hasText("Idling")
+        screen.progressIndicator.assertHasText("Idling")
+        
         assertFails {
             // Multiple matches
-            screen.duplicatedView.withoutTimeout.assert.isDisplayed()
+            screen.duplicatedView.withoutTimeout.assertIsDisplayed()
         }
         
         // Will wait until condition is met
-        screen.duplicatedView.assert.isDisplayed()
+        screen.duplicatedView.assertIsDisplayed()
         
         screen.resetButton.tap()
     }

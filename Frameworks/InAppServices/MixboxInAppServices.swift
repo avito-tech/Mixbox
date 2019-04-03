@@ -8,7 +8,7 @@ import MixboxIpc
 //  start()
 //  handleUiBecomeVisible() // somewhere where you feel your tests can start validate te UI
 //
-public final class MixboxInAppServices {
+public final class MixboxInAppServices: IpcRouter {
     private var router: IpcRouter?
     private var client: IpcClient?
     private var ipcStarter: IpcStarter
@@ -42,9 +42,14 @@ public final class MixboxInAppServices {
                 return nil
             }
             
-            ipcStarterOrNil = BuiltinIpcStarter(testRunnerHost: testRunnerHost, testRunnerPort: testRunnerPort)
+            ipcStarterOrNil = BuiltinIpcStarter(
+                testRunnerHost: testRunnerHost,
+                testRunnerPort: testRunnerPort
+            )
         } else {
-            ipcStarterOrNil = SbtuiIpcStarter()
+            ipcStarterOrNil = SbtuiIpcStarter(
+                reregisterMethodHandlersAutomatically: environment["MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY"] == "true"
+            )
         }
             
         guard let ipcStarter = ipcStarterOrNil else {

@@ -20,8 +20,7 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
     }
     
     private func setUpObservation() {
-        let allureReportsDirectoryEnv = ProcessInfo.processInfo.environment["MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"]
-        guard let allureReportsDirectory = allureReportsDirectoryEnv, !allureReportsDirectory.isEmpty else {
+        guard let artifactStorage = self.artifactStorage() else {
             return
         }
         
@@ -32,9 +31,7 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
         let reportingTestLifecycleManager = ReportingTestLifecycleManager(
             reportingSystem: AllureReportingSystem(
                 allureResultsStorage: AllureResultsStorageImpl(
-                    artifactStorage: ArtifactStorageImpl(
-                        artifactsRootDirectory: allureReportsDirectory
-                    )
+                    artifactStorage: artifactStorage
                 )
             ),
             stepLogsProvider: Singletons.stepLogsProvider,
@@ -46,5 +43,29 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
                 reportingTestLifecycleManager
             ]
         )
+    }
+    
+    private func artifactStorage() -> ArtifactStorage? {
+        if let storage = localArtifactStorage() {
+            return storage
+        }
+        
+        return nil
+    }
+    
+    private func localArtifactStorage() -> ArtifactStorage? {
+        guard let directory = env("MIXBOX_CI_ALLURE_REPORTS_DIRECTORY") else {
+            return nil
+        }
+        
+        return LocalArtifactStorage(artifactsRootDirectory: directory)
+    }
+    
+    private func env(_ envName: String) -> String? {
+        guard let value = ProcessInfo.processInfo.environment[envName], !value.isEmpty else {
+            return nil
+        }
+        
+        return value
     }
 }

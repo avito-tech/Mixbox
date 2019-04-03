@@ -9,11 +9,11 @@ final class FakeCellsDoNotCrashAppTests: TestCase {
         openScreen(name: "FakeCellsDoNotCrashAppTestsView")
         
         // Fallback: visible cells are present in hierarchy
-        pageObjects.screen.goodCell(index: 0).assert.isDisplayed()
+        pageObjects.screen.goodCell(index: 0).assertIsDisplayed()
         
         // Crashing fake cells are obviously not present in hierarchy
-        pageObjects.screen.crashingCell(index: 0).withoutTimeout.assert.isNotDisplayed()
-        pageObjects.screen.cellThatCrashesAtInit(index: 0).withoutTimeout.assert.isNotDisplayed()
+        pageObjects.screen.crashingCell(index: 0).withoutTimeout.assertIsNotDisplayed()
+        pageObjects.screen.cellThatCrashesAtInit(index: 0).withoutTimeout.assertIsNotDisplayed()
     }
 }
 

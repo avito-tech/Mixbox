@@ -8,7 +8,7 @@ public final class OptionalMatcher<T>: Matcher<T?> {
                     return matcher.description.mb_wrapAndIndent(
                         prefix: "является не nil и {",
                         postfix: "}",
-                        skipIfEmpty: false
+                        ifEmpty: nil
                     )
                 } else {
                     return "является nil"

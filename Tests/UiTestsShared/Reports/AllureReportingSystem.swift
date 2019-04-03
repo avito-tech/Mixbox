@@ -24,16 +24,27 @@ public final class AllureReportingSystem: ReportingSystem {
             stop: AllureTimestamp(date: testCaseReport.stopDate)
         )
         
-        allureResultsStorage.store(allureContainer: container)
+        let dispatchGroup = DispatchGroup()
         
-        for testMethodReport in testCaseReport.testMethods {
-            reportTestMethod(testMethodReport: testMethodReport)
+        dispatchGroup.enter()
+        allureResultsStorage.store(allureContainer: container) {
+            dispatchGroup.leave()
         }
         
-        completion()
+        for testMethodReport in testCaseReport.testMethods {
+            dispatchGroup.enter()
+            reportTestMethod(testMethodReport: testMethodReport) {
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.wait()
     }
     
-    private func reportTestMethod(testMethodReport: TestMethodReport) {
+    private func reportTestMethod(
+        testMethodReport: TestMethodReport,
+        completion: @escaping () -> ())
+    {
         let allureResult = AllureResult(
             uuid: AllureUuid(uuid: testMethodReport.uuid),
             fullName: testMethodReport.uniqueName,
@@ -59,13 +70,13 @@ public final class AllureReportingSystem: ReportingSystem {
             parameters: []
         )
         
-        allureResultsStorage.store(allureResult: allureResult)
+        allureResultsStorage.store(allureResult: allureResult, completion: completion)
     }
     
     private func step(testStepReport: TestStepReport)
-        -> AllureStepResult
+        -> AllureExecutableItem
     {
-        return AllureStepResult(
+        return LazyAllureExecutableItem(
             name: testStepReport.name,
             status: status(testReportStatus: testStepReport.status),
             statusDetails: nil,
@@ -75,7 +86,7 @@ public final class AllureReportingSystem: ReportingSystem {
             steps: testStepReport.steps.map(step),
             start: AllureTimestamp(date: testStepReport.startDate),
             stop: AllureTimestamp(date: testStepReport.stopDate),
-            attachments: testStepReport.attachments.compactMap(attachment),
+            lazyAttachments: testStepReport.attachments.compactMap(attachment),
             parameters: []
         )
     }
@@ -93,8 +104,15 @@ public final class AllureReportingSystem: ReportingSystem {
         }
     }
     
-    private func attachment(testReportAttachment: TestReportAttachment) -> AllureAttachment? {
-        return allureResultsStorage.store(artifact: testReportAttachment.artifact)
+    private func attachment(testReportAttachment: TestReportAttachment) -> LazyLoader<AllureAttachment?> {
+        let loader = LazyLoader { [allureResultsStorage] completion in
+            allureResultsStorage.store(
+                artifact: testReportAttachment.artifact,
+                completion: completion
+            )
+        }
+        loader.preload()
+        return loader
     }
     
     private func labels(

@@ -18,7 +18,7 @@ public final class EnhancedAccessibilityValue: Codable {
     
     // Text that user will see if the view is visible. Can be calculated from different propeties.
     // For example, it can be `var placeholder` for UITextView if placeholder is displayed, or `var text` otherwise.
-    public let visibleText: String?
+    public let text: String?
     
     // Custom values that can be set in the application for testing. Example: you can set coordinates of the map
     // inside a property in the app and validate them in tests.
@@ -28,13 +28,13 @@ public final class EnhancedAccessibilityValue: Codable {
         originalAccessibilityValue: String?,
         uniqueIdentifier: String,
         isDefinitelyHidden: Bool,
-        visibleText: String?,
+        text: String?,
         customValues: [String: String])
     {
         self.originalAccessibilityValue = originalAccessibilityValue
         self.uniqueIdentifier = uniqueIdentifier
         self.isDefinitelyHidden = isDefinitelyHidden
-        self.visibleText = visibleText
+        self.text = text
         self.customValues = customValues
     }
     

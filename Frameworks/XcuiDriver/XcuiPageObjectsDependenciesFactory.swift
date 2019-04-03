@@ -5,7 +5,6 @@ import MixboxIpcClients
 import MixboxReporting
 
 public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFactory {
-    private let interactionExecutionLogger: InteractionExecutionLogger
     private let testFailureRecorder: TestFailureRecorder
     private let ipcClient: IpcClient
     private let stepLogger: StepLogger
@@ -17,7 +16,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let screenshotTaker: ScreenshotTaker
     
     public init(
-        interactionExecutionLogger: InteractionExecutionLogger,
         testFailureRecorder: TestFailureRecorder,
         ipcClient: IpcClient,
         stepLogger: StepLogger,
@@ -28,7 +26,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker)
     {
-        self.interactionExecutionLogger = interactionExecutionLogger
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
         self.stepLogger = stepLogger
@@ -41,31 +38,43 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
-        return XcuiPageObjectElementFactory(
-            xcuiHelperFactory: XcuiHelperFactoryImpl(
-                interactionExecutionLogger: interactionExecutionLogger,
-                testFailureRecorder: testFailureRecorder,
-                elementVisibilityChecker: ElementVisibilityCheckerImpl(
-                    ipcClient: ipcClient
-                ),
-                scrollingHintsProvider: ScrollingHintsProviderImpl(
-                    ipcClient: ipcClient
-                ),
-                keyboardEventInjector: KeyboardEventInjectorImpl(
-                    ipcClient: ipcClient
-                ),
-                stepLogger: stepLogger,
-                pollingConfiguration: pollingConfiguration,
-                elementFinder: elementFinder,
-                applicationProvider: applicationProvider,
-                applicationCoordinatesProvider: applicationCoordinatesProvider,
-                eventGenerator: eventGenerator,
-                screenshotTaker: screenshotTaker
-            )
+        let xcuiBasedTestsDependenciesFactory = XcuiBasedTestsDependenciesFactoryImpl(
+            testFailureRecorder: testFailureRecorder,
+            elementVisibilityChecker: ElementVisibilityCheckerImpl(
+                ipcClient: ipcClient
+            ),
+            scrollingHintsProvider: ScrollingHintsProviderImpl(
+                ipcClient: ipcClient
+            ),
+            keyboardEventInjector: KeyboardEventInjectorImpl(
+                ipcClient: ipcClient
+            ),
+            stepLogger: stepLogger,
+            pollingConfiguration: pollingConfiguration,
+            elementFinder: elementFinder,
+            applicationProvider: applicationProvider,
+            applicationCoordinatesProvider: applicationCoordinatesProvider,
+            eventGenerator: eventGenerator,
+            screenshotTaker: screenshotTaker
+        )
+        
+        return PageObjectElementFactoryImpl(
+            testFailureRecorder: xcuiBasedTestsDependenciesFactory.testFailureRecorder,
+            screenshotAttachmentsMaker: xcuiBasedTestsDependenciesFactory.screenshotAttachmentsMaker,
+            stepLogger: xcuiBasedTestsDependenciesFactory.stepLogger,
+            dateProvider: xcuiBasedTestsDependenciesFactory.dateProvider,
+            elementInteractionDependenciesFactory: { elementSettings in
+                XcuiElementInteractionDependenciesFactory(
+                    elementSettings: elementSettings,
+                    xcuiBasedTestsDependenciesFactory: xcuiBasedTestsDependenciesFactory
+                )
+            }
         )
     }
     
     public func matcherBuilder() -> ElementMatcherBuilder {
-        return ElementMatcherBuilder(screenshotTaker: screenshotTaker)
+        return ElementMatcherBuilder(
+            screenshotTaker: screenshotTaker
+        )
     }
 }

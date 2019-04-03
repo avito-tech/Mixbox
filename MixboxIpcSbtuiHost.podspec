@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                   = 'MixboxIpcSbtuiHost'
   s.module_name            = s.name
-  s.version                = '0.0.2'
+  s.version                = '0.1.0'
   s.summary                = s.name
   s.homepage               = 'https://github.com/avito-tech/Mixbox'
   s.license                = 'MIT'

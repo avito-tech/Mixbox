@@ -15,7 +15,9 @@ class TestCase: XCTestCase, FailureGatherer {
     // UPD: Implemented in Avito. TODO: Sync with Mixbox.
     static var everLaunched = false
     
-    private(set) lazy var testCaseUtils: TestCaseUtils = self.reuseState { TestCaseUtils() }
+    private(set) lazy var testCaseUtils: TestCaseUtils = self.reuseState {
+        TestCaseUtils()
+    }
     
     var testRunnerPermissions: ApplicationPermissionsSetter {
         return testCaseUtils.testRunnerPermissions
@@ -29,6 +31,10 @@ class TestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.pageObjects
     }
     
+    var ipcClient: IpcClient {
+        return testCaseUtils.lazilyInitializedIpcClient
+    }
+    
     func precondition() {
     }
     
@@ -38,6 +44,8 @@ class TestCase: XCTestCase, FailureGatherer {
         // Fail faster on CI
         let isCiBuild = ProcessInfo.processInfo.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
         continueAfterFailure = !isCiBuild
+        
+        logEnvironment()
         
         reuseState {
             precondition()
@@ -72,8 +80,12 @@ class TestCase: XCTestCase, FailureGatherer {
     
     private var commonEnvironment: [String: String] {
         return [
+            // Just an assertion
             "MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL": "true",
-            "MB_TESTS_screenName": "DummyForLaunchingUiTestsView"
+            // Fixes assertion failure when view is loaded multiple times and uses ViewIpc
+            "MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY": "true",
+            // TODO: What is it for? Is it just a default screen?
+            "MB_TESTS_screenName": "DummyForLaunchingUiTestsView",
         ]
     }
     
@@ -124,6 +136,26 @@ class TestCase: XCTestCase, FailureGatherer {
         )
     }
     
+    private func logEnvironment() {
+        let device = UIDevice.mb_platformType.rawValue
+        let os = UIDevice.current.mb_iosVersion.majorAndMinor
+        
+        testCaseUtils.stepLogger.logEntry(
+            description: "Started test with environment",
+            artifacts: [
+                Artifact(
+                    name: "Environment",
+                    content: .text(
+                        """
+                        Device: \(device)
+                        OS: iOS \(os)
+                        """
+                    )
+                )
+            ]
+        )
+    }
+    
     // MARK: - Gathering failures
     
     // TODO: Share by moving to Mixbox?
@@ -135,21 +167,38 @@ class TestCase: XCTestCase, FailureGatherer {
     
     private var recordFailureMode = RecordFailureMode.failTest
     private var gatheredFailures = [XcTestFailure]()
-    func gatherFailures(_ body: () -> ()) -> [XcTestFailure] {
+    
+    func gatherFailures<T>(body: () -> (T)) -> GatherFailuresResult<T> {
         let saved_recordFailureMode = recordFailureMode
         let saved_gatheredFailures = gatheredFailures
         
         recordFailureMode = .gatherFailures
         gatheredFailures = []
         
-        body()
+        let bodyResult: GatherFailuresResult<T>.BodyResult = ObjectiveCExceptionCatcher.catch(
+            try: {
+                return .finished(body())
+            },
+            catch: { exception in
+                if exception is TestCanNotBeContinuedException {
+                    return .testFailedAndCannotBeContinued
+                } else {
+                    return .caughtException(exception)
+                }
+            },
+            finally: {
+            }
+        )
         
-        let valueToReturn = gatheredFailures
+        let failures = gatheredFailures
         
         gatheredFailures = saved_gatheredFailures + gatheredFailures
         recordFailureMode = saved_recordFailureMode
         
-        return valueToReturn
+        return GatherFailuresResult(
+            bodyResult: bodyResult,
+            failures: failures
+        )
     }
     
     override func recordFailure(
@@ -170,16 +219,55 @@ class TestCase: XCTestCase, FailureGatherer {
         
         switch recordFailureMode {
         case .failTest:
+            // Helpful addition for JUnit:
+            let device = UIDevice.mb_platformType.rawValue
+            let os = UIDevice.current.mb_iosVersion.majorAndMinor
+            let environment = "\(device), iOS \(os)"
+            
             // Note that you can set a breakpoint here (it is very convenient):
             super.recordFailure(
-                withDescription: failure.description,
+                withDescription: "\(environment): \(failure.description)",
                 inFile: failure.file,
                 atLine: failure.line,
                 expected: failure.expected
             )
         case .gatherFailures:
             gatheredFailures.append(failure)
+            
+            if !continueAfterFailure {
+                TestCanNotBeContinuedException().raise()
+            }
         }
+    }
+    
+    // MARK: - Recording logs & failures
+    
+    func recordLogsAndFailuresWithBodyResult<T>(body: () -> (T)) -> LogsAndFailuresWithBodyResult<T> {
+        let gatheredData = recordLogs {
+            gatherFailures(body: body)
+        }
+        
+        return LogsAndFailuresWithBodyResult<T>(
+            bodyResult: gatheredData.bodyResult.bodyResult,
+            logs: gatheredData.logs,
+            failures: gatheredData.bodyResult.failures
+        )
+    }
+    
+    func recordLogsAndFailures(body: () -> ()) -> LogsAndFailures {
+        return recordLogsAndFailuresWithBodyResult(body: body).withoutBodyResult()
+    }
+    
+    // MARK: - Recording logs
+    
+    func recordLogs<T>(body: () -> (T)) -> (bodyResult: T, logs: [StepLog]) {
+        let recording = Singletons.stepLoggerRecordingStarter.startRecording()
+        
+        let bodyResult = body()
+        
+        recording.stopRecording()
+        
+        return (bodyResult: bodyResult, logs: recording.stepLogs)
     }
     
     // MARK: - Reusing state
@@ -190,9 +278,14 @@ class TestCase: XCTestCase, FailureGatherer {
     
     private func reuseState<T>(file: StaticString = #file, line: UInt = #line, block: () -> (T)) -> T {
         // TODO: Make it work!
-        let itWorksAsExpectedEvenOnCi = false
+        let itWorksAsExpectedOnCi = false
         
-        if itWorksAsExpectedEvenOnCi && reuseState {
+        // TODO: Class for envs
+        let isCiBuild = ProcessInfo.processInfo.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
+
+        let reusingStateIsImpossible = isCiBuild && !itWorksAsExpectedOnCi
+        
+        if reuseState && !reusingStateIsImpossible {
             let fileLine = FileLine(file: file, line: line)
             return TestStateRecycling.instance.reuseState(testCase: type(of: self), fileLine: fileLine) {
                 block()

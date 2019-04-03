@@ -17,9 +17,9 @@ final class XcuiElementSnapshot: ElementSnapshot {
         return xcElementSnapshot.enabled
     }
     
-    var visibleText: OptionalAvailability<String?> {
+    var text: OptionalAvailability<String?> {
         if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return .available(enhancedAccessibilityValue.visibleText)
+            return .available(enhancedAccessibilityValue.text)
         } else {
             return .unavailable
         }

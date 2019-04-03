@@ -9,7 +9,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
     
     // Text that user will see if the view is visible. Can be calculated from different propeties.
     // For example, it can be `var placeholder` for UITextView if placeholder is displayed, or `var text` otherwise.
-    public let visibleText: String?
+    public let text: String?
     
     // Unique identifier of the element. Can be used to request info about the element,
     // for example, percentage of visible area of the view, etc.
@@ -44,7 +44,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
         accessibilityLabel: String?,
         accessibilityValue: String?,
         accessibilityPlaceholderValue: String?,
-        visibleText: String?,
+        text: String?,
         uniqueIdentifier: String,
         isDefinitelyHidden: Bool,
         isEnabled: Bool,
@@ -59,7 +59,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
         self.accessibilityLabel = accessibilityLabel
         self.accessibilityValue = accessibilityValue
         self.accessibilityPlaceholderValue = accessibilityPlaceholderValue
-        self.visibleText = visibleText
+        self.text = text
         self.uniqueIdentifier = uniqueIdentifier
         self.isDefinitelyHidden = isDefinitelyHidden
         self.isEnabled = isEnabled
@@ -78,7 +78,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
                 postfix: "}"
             )
                 
-        return [customClass, accessibilityIdentifier, visibleText ?? accessibilityLabel ?? accessibilityValue, childrenDescription]
+        return [customClass, accessibilityIdentifier, text ?? accessibilityLabel ?? accessibilityValue, childrenDescription]
                 .compactMap { $0 }
                 .joined(separator: ", ")
     }

@@ -7,8 +7,8 @@ class HierarchySourcesTests: TestCase {
     func test() {
         openScreen(name: "HierarchySourcesTestsView")
         
-        pageObjects.app.label("label").hasText("The text of the label")
-        pageObjects.appXcui.label("label").hasText("The text of the label")
+        pageObjects.app.label("label").assertHasText("The text of the label")
+        pageObjects.appXcui.label("label").assertHasText("The text of the label")
         
         // There are currently lots of calls to XCUIApplication() and other usages of singletons
         //

@@ -30,7 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             viewController = TestingViewController(
                 testingViewControllerSettings: TestingViewControllerSettings(
-                    name: screenNameForUiTests
+                    name: screenNameForUiTests,
+                    mixboxInAppServices: mixboxInAppServices
                 )
             )
         } else {

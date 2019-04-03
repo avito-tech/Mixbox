@@ -65,7 +65,7 @@ final class LocatorsTests: TestCase {
     {
         let element: ViewElement = pageObjects.screen.element("element") { matcher($0) }
             
-        element.withoutTimeout.assert.isInHierarchy(file: file, line: line)
+        element.withoutTimeout.assertIsInHierarchy(file: file, line: line)
     }
     
     private func assertDoesNotExist(
@@ -75,14 +75,17 @@ final class LocatorsTests: TestCase {
     {
         let element: ViewElement = pageObjects.screen.element("element") { matcher($0) }
         
-        XCTAssert(!element.withoutTimeout.isInHierarchy(), file: file, line: line)
+        // TODO: Ability to easily negate asserts
+        assertFails(fileOfThisAssertion: file, lineOfThisAssertion: line) {
+            element.withoutTimeout.assertIsInHierarchy(file: file, line: line)
+        }
     }
 }
 
 private final class Screen: BasePageObjectWithDefaultInitializer {
     func wait() {
         let element: ViewElement = self.element("element") { $0.id == "label0" }
-        element.assert.isDisplayed()
+        element.assertIsDisplayed()
     }
 }
 

@@ -37,9 +37,8 @@ final class TestCaseUtils {
     )
     var ipcRouter: IpcRouter? // Just to store server (to not let him die during test)
     
-    private let interactionExecutionLogger: InteractionExecutionLogger
     private let screenshotTaker = XcuiScreenshotTaker()
-    private let stepLogger: StepLogger
+    let stepLogger: StepLogger
     private let applicationPermissionsSetterFactory: ApplicationPermissionsSetterFactory
     
     private let mixboxHelperClient = MixboxHelperClient()
@@ -66,14 +65,7 @@ final class TestCaseUtils {
             currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
         )
         self.testFailureRecorder = testFailureRecorder
-        
-        let interactionExecutionLogger = InteractionExecutionLoggerImpl(
-            stepLogger: stepLogger,
-            screenshotTaker: screenshotTaker,
-            imageHashCalculator: DHashV0ImageHashCalculator()
-        )
-        self.interactionExecutionLogger = interactionExecutionLogger
-        
+                
         let applicationPermissionsSetterFactory = ApplicationPermissionsSetterFactory(
             // TODO: Tests & demo:
             notificationsApplicationPermissionSetterFactory: AlwaysFailingNotificationsApplicationPermissionSetterFactory(
@@ -98,7 +90,6 @@ final class TestCaseUtils {
         
         let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] applicationProvider, elementFinder in
             return XcuiPageObjectDependenciesFactory(
-                interactionExecutionLogger: interactionExecutionLogger,
                 testFailureRecorder: testFailureRecorder,
                 ipcClient: lazilyInitializedIpcClient,
                 stepLogger: stepLogger,
@@ -108,21 +99,22 @@ final class TestCaseUtils {
                 applicationCoordinatesProvider: ApplicationCoordinatesProviderImpl(
                     applicationProvider: applicationProvider
                 ),
-                eventGenerator: EventGeneratorImpl(
+                eventGenerator: XcuiEventGenerator(
                     applicationProvider: applicationProvider
                 ),
                 screenshotTaker: screenshotTaker
             )
         }
         
-        let xcuiApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { application in
+        let xcuiApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] application in
             let provider = ApplicationProviderImpl(closure: application)
             
             return app(
                 provider,
                 XcuiElementFinder(
                     stepLogger: stepLogger,
-                    applicationProviderThatDropsCaches: provider
+                    applicationProviderThatDropsCaches: provider,
+                    screenshotTaker: screenshotTaker
                 )
             )
         }

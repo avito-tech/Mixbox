@@ -5,8 +5,12 @@ struct ViewAndLabel {
     let label: UILabel
 }
 
+typealias AddViewHandler = (_ defaultConfig: () -> (), _ setId: () -> (), _ userConfig: () -> (), _ addSubview: () -> ()) -> ()
+
 class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
     private var views = [ViewAndLabel]()
+    
+    var addViewHandler: AddViewHandler = defaultAddViewHandler()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,28 +25,46 @@ class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
     }
     
     @discardableResult
-    func addLabel(id: String, configure: (LabelWithClosures) -> ()) -> LabelWithClosures {
+    final func addLabel(id: String, configure: (LabelWithClosures) -> ()) -> LabelWithClosures {
         let view = LabelWithClosures()
-        view.textAlignment = .center
-        view.textColor = .black
-        view.font = UIFont.systemFont(ofSize: 17)
-        configure(view)
-        add(view: view, id: id)
+        
+        add(
+            view: view,
+            id: id,
+            userConfig: {
+                configure(view)
+            },
+            defaultConfig: {
+                view.textAlignment = .center
+                view.textColor = .black
+                view.font = UIFont.systemFont(ofSize: 17)
+            }
+        )
+        
         return view
     }
     
     @discardableResult
-    func addButton(id: String, configure: (ButtonWithClosures) -> ()) -> ButtonWithClosures {
+    final func addButton(id: String, configure: (ButtonWithClosures) -> ()) -> ButtonWithClosures {
         let view = ButtonWithClosures()
-        view.setTitleColor(.black, for: .normal)
-        view.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        configure(view)
-        add(view: view, id: id)
+        
+        add(
+            view: view,
+            id: id,
+            userConfig: {
+                configure(view)
+            },
+            defaultConfig: {
+                view.setTitleColor(.black, for: .normal)
+                view.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+            }
+        )
+        
         return view
     }
     
     @discardableResult
-    func addButton(idAndText: String, configure: (ButtonWithClosures) -> ()) -> ButtonWithClosures {
+    final func addButton(idAndText: String, configure: (ButtonWithClosures) -> ()) -> ButtonWithClosures {
         return addButton(id: idAndText) {
             $0.setTitle(idAndText, for: .normal)
             configure($0)
@@ -50,38 +72,91 @@ class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
     }
     
     @discardableResult
-    func addTextField(id: String, configure: (TextFieldWithClosures) -> ()) -> TextFieldWithClosures {
+    final func addTextField(id: String, configure: (TextFieldWithClosures) -> ()) -> TextFieldWithClosures {
         let view = TextFieldWithClosures()
-        view.textColor = .black
-        view.font = UIFont.systemFont(ofSize: 17)
-        configure(view)
-        add(view: view, id: id)
+        
+        add(
+            view: view,
+            id: id,
+            userConfig: {
+                configure(view)
+            },
+            defaultConfig: {
+                view.textColor = .black
+                view.font = UIFont.systemFont(ofSize: 17)
+            }
+        )
+        
         return view
     }
     
     @discardableResult
-    func addTextView(id: String, configure: (TextViewWithClosures) -> ()) -> TextViewWithClosures {
+    final func addTextView(id: String, configure: (TextViewWithClosures) -> ()) -> TextViewWithClosures {
         let view = TextViewWithClosures()
-        view.textColor = .black
-        view.font = UIFont.systemFont(ofSize: 17)
-        configure(view)
-        add(view: view, id: id)
+        
+        add(
+            view: view,
+            id: id,
+            userConfig: {
+                configure(view)
+            },
+            defaultConfig: {
+                view.textColor = .black
+                view.font = UIFont.systemFont(ofSize: 17)
+            }
+        )
+        
         return view
     }
     
-    func add(view: UIView, id: String) {
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.lightGray.cgColor
-        view.accessibilityIdentifier = id
-        addSubview(view)
-        
+    final func add(
+        view: UIView,
+        id: String,
+        userConfig: () -> (),
+        defaultConfig: () -> ())
+    {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 11)
         label.text = id
         label.textColor = UIColor.gray
         addSubview(label)
         
+        addViewHandler(
+            {
+                view.layer.borderWidth = 1
+                view.layer.borderColor = UIColor.lightGray.cgColor
+            },
+            {
+                view.accessibilityIdentifier = id
+            },
+            userConfig,
+            {
+                addSubview(view)
+            }
+        )
+        
         views.append(ViewAndLabel(view: view, label: label))
+    }
+    
+    final func removeAllViews() {
+        for viewAndLabel in views {
+            viewAndLabel.view.removeFromSuperview()
+            viewAndLabel.label.removeFromSuperview()
+        }
+        views = []
+    }
+    
+    final func defaultAddViewHandler() ->AddViewHandler {
+        return TestStackScrollView.defaultAddViewHandler()
+    }
+    
+    private static func defaultAddViewHandler() -> AddViewHandler {
+        return { defaultConfig, setId, userConfig, addSubview in
+            defaultConfig()
+            setId()
+            userConfig()
+            addSubview()
+        }
     }
     
     override func layoutSubviews() {
@@ -89,13 +164,6 @@ class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
         
         let viewHeight: CGFloat = 50
         let labelHeight: CGFloat = 20
-        //            // Эта вьюшка используется в тестах на проверки и действия.
-        //            // Вообще тесты на скролл должны быть отдельно от тестов на действия и чеки.
-        //            // Но так как тестов мало, мы немного реюзаем тесты на чеки как тесты еще и на скролл.
-        //            // Поэтому делаем большое расстояние между элементами:
-        //            let spaceBeforeAndAfter: CGFloat = 400
-        // FIXME
-        
         let spaceBeforeAndAfter: CGFloat = 8
         
         contentSize = CGSize(
@@ -121,7 +189,7 @@ class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
         }
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    final func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }

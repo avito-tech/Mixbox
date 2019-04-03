@@ -11,13 +11,11 @@ final class GettingRealViewHierarchyTests: TestCase {
     
     // TODO: Fails at getting accessibilityValue and testability_customValues
     func disabled_test() {
-        let result = testCaseUtils.lazilyInitializedIpcClient.call(
+        let result = ipcClient.callOrFail(
             method: VeiwHierarchyIpcMethod()
         )
         
-        guard let data = result.data else { return XCTFail("Did not get view hierarchy") }
-        
-        let rootElements = data.rootElements
+        let rootElements = result.rootElements
         
         var uniqueIdentifiers = [String]()
         fillIdentifiersFrom(viewHierarchyElements: rootElements, in: &uniqueIdentifiers)
@@ -51,7 +49,7 @@ final class GettingRealViewHierarchyTests: TestCase {
             XCTAssertEqual(label.customClass, "UILabel")
             XCTAssertEqual(label.accessibilityValue, "label.accessibilityValue")
             XCTAssertEqual(label.accessibilityLabel, "label.accessibilityLabel")
-            XCTAssertEqual(label.visibleText, "label.text")
+            XCTAssertEqual(label.text, "label.text")
             XCTAssertEqual(label.isDefinitelyHidden, false)
             XCTAssertEqual(label.isEnabled, false)
             XCTAssertEqual(label.hasKeyboardFocus, false)
@@ -66,7 +64,7 @@ final class GettingRealViewHierarchyTests: TestCase {
             XCTAssertEqual(hiddenLabel.customClass, "UILabel")
             XCTAssertEqual(hiddenLabel.accessibilityValue, "hiddenLabel.accessibilityValue")
             XCTAssertEqual(hiddenLabel.accessibilityLabel, "hiddenLabel.accessibilityLabel")
-            XCTAssertEqual(hiddenLabel.visibleText, "hiddenLabel.text")
+            XCTAssertEqual(hiddenLabel.text, "hiddenLabel.text")
             XCTAssertEqual(hiddenLabel.isDefinitelyHidden, true)
             XCTAssertEqual(hiddenLabel.isEnabled, true)
             XCTAssertEqual(hiddenLabel.hasKeyboardFocus, false)
@@ -82,7 +80,7 @@ final class GettingRealViewHierarchyTests: TestCase {
             XCTAssertEqual(button.customClass, "CustomButton")
             XCTAssertEqual(button.accessibilityValue, "button.accessibilityValue")
             XCTAssertEqual(button.accessibilityLabel, "button.accessibilityLabel")
-            XCTAssertEqual(button.visibleText, "button.text")
+            XCTAssertEqual(button.text, "button.text")
             XCTAssertEqual(button.isDefinitelyHidden, false)
             XCTAssertEqual(button.isEnabled, false)
             XCTAssertEqual(button.hasKeyboardFocus, false)
@@ -98,7 +96,7 @@ final class GettingRealViewHierarchyTests: TestCase {
             XCTAssertEqual(hiddenButton.customClass, "UIButton")
             XCTAssertEqual(hiddenButton.accessibilityValue, "hiddenButton.accessibilityValue")
             XCTAssertEqual(hiddenButton.accessibilityLabel, "hiddenButton.accessibilityLabel")
-            XCTAssertEqual(hiddenButton.visibleText, "hiddenButton.text")
+            XCTAssertEqual(hiddenButton.text, "hiddenButton.text")
             XCTAssertEqual(hiddenButton.isDefinitelyHidden, true)
             XCTAssertEqual(hiddenButton.isEnabled, true)
             XCTAssertEqual(hiddenButton.hasKeyboardFocus, false)
@@ -115,7 +113,7 @@ final class GettingRealViewHierarchyTests: TestCase {
             XCTAssertEqual(focusedTextField.accessibilityValue, "focusedTextField.accessibilityValue")
             XCTAssertEqual(focusedTextField.accessibilityLabel, "focusedTextField.accessibilityLabel")
             XCTAssertEqual(focusedTextField.accessibilityPlaceholderValue, "focusedTextField.placeholder")
-            XCTAssertEqual(focusedTextField.visibleText, "focusedTextField.placeholder")
+            XCTAssertEqual(focusedTextField.text, "focusedTextField.placeholder")
             XCTAssertEqual(focusedTextField.isDefinitelyHidden, true)
             XCTAssertEqual(focusedTextField.isEnabled, true)
             XCTAssertEqual(focusedTextField.hasKeyboardFocus, true)
@@ -131,7 +129,7 @@ final class GettingRealViewHierarchyTests: TestCase {
             XCTAssertEqual(notFocusedTextField.customClass, "UITextView")
             XCTAssertEqual(notFocusedTextField.accessibilityValue, "notFocusedTextView.accessibilityValue")
             XCTAssertEqual(notFocusedTextField.accessibilityLabel, "notFocusedTextView.accessibilityLabel")
-            XCTAssertEqual(notFocusedTextField.visibleText, "notFocusedTextView.text")
+            XCTAssertEqual(notFocusedTextField.text, "notFocusedTextView.text")
             XCTAssertEqual(notFocusedTextField.isDefinitelyHidden, true)
             XCTAssertEqual(notFocusedTextField.isEnabled, true)
             XCTAssertEqual(notFocusedTextField.hasKeyboardFocus, false)

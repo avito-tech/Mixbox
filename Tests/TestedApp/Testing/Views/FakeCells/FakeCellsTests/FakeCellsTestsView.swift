@@ -1,13 +1,13 @@
 import UIKit
 
-final class FakeCellsTestsView: CollectionView {
+final class FakeCellsTestsView: CollectionView, InitializableWithTestingViewControllerSettings {
     private var generation: Int = -1
     
     private let nonCellSubviewOfCollectionView = UILabel()
     private let notFromDatasourceCellSubviewOfCollectionView = SingleViewCell<UILabel>()
     private let notFromDatasourceViewsHeight: CGFloat = FakeCellsTestsConstants.itemHeight
     
-    @objc init() {
+    init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(
             itemSize: CGSize(
                 width: UIScreen.main.bounds.width,
@@ -19,38 +19,47 @@ final class FakeCellsTestsView: CollectionView {
             )
         )
         
+        let viewIpc = testingViewControllerSettings.viewIpc
+        
         nonCellSubviewOfCollectionView.backgroundColor = .purple
-        nonCellSubviewOfCollectionView.text = "I'm added via addSubview"
+        nonCellSubviewOfCollectionView.text = "I'm added via addSubview (top)"
         nonCellSubviewOfCollectionView.accessibilityIdentifier = "nonCellSubviewOfCollectionView"
         addSubview(nonCellSubviewOfCollectionView)
         
         notFromDatasourceCellSubviewOfCollectionView.backgroundColor = .purple
         notFromDatasourceCellSubviewOfCollectionView.accessibilityIdentifier = "notFromDatasourceCellSubviewOfCollectionView"
         notFromDatasourceCellSubviewOfCollectionView.view.accessibilityIdentifier = "notFromDatasourceCellSubviewOfCollectionViewSubview"
-        notFromDatasourceCellSubviewOfCollectionView.view.text = "I'm added via addSubview"
+        notFromDatasourceCellSubviewOfCollectionView.view.isAccessibilityElement = true
+        notFromDatasourceCellSubviewOfCollectionView.view.text = "I'm added via addSubview (bottom)"
         addSubview(notFromDatasourceCellSubviewOfCollectionView)
         
-        FakeCellsReloadIpcMethodHandler.instance.onHandle = { [weak self] type, completion in
+        viewIpc.register(method: FakeCellsReloadIpcMethod()) { [weak self] type, completion in
             guard let strongSelf = self else {
                 completion(0)
                 assertionFailure("self is nil")
                 return
             }
             
-            strongSelf.regenerate(type: type, completion: completion)
+            DispatchQueue.main.async {
+                strongSelf.regenerate(type: type, completion: completion)
+            }
         }
         
-        FakeCellsSubviewsInfoIpcMethodHandler.instance.subviewsInfoGetter = { [weak self] in
+        viewIpc.register(method: FakeCellsSubviewsInfoIpcMethod()) { [weak self] _, completion in
             guard let strongSelf = self else {
                 assertionFailure("self is nil")
-                return []
+                completion([])
+                return
             }
             
-            return strongSelf.subviews.map {
-                FakeCellsSubviewsInfoIpcMethod.SubviewInfo(
-                    accessibilityIdentifier: $0.accessibilityIdentifier,
-                    isHidden: $0.isHidden
-                )
+            DispatchQueue.main.async {
+                let subviewsInfo = strongSelf.subviews.map {
+                    FakeCellsSubviewsInfoIpcMethod.SubviewInfo(
+                        accessibilityIdentifier: $0.accessibilityIdentifier,
+                        isHidden: $0.isHidden
+                    )
+                }
+                completion(subviewsInfo)
             }
         }
         

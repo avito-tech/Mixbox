@@ -52,7 +52,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     private func almightyElement(
         name: String,
         matcherBuilder: ElementMatcherBuilderClosure)
-        -> AlmightyElement
+        -> PageObjectElement
     {
         return pageObjectElementFactory.pageObjectElement(
             settings: ElementSettings(

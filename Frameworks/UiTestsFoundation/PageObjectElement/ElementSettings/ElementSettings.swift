@@ -1,8 +1,8 @@
 public final class ElementSettings {
-    public let name: String
+    public let name: String // TODO: rename to elementName
     public let matcher: ElementMatcher
     public let searchMode: SearchMode
-    public let searchTimeout: TimeInterval?
+    public let searchTimeout: TimeInterval // TODO: Rename to interactionTimeout
     public let interactionMode: InteractionMode
     
     public init(
@@ -15,7 +15,7 @@ public final class ElementSettings {
         self.name = name
         self.matcher = matcher
         self.searchMode = searchMode
-        self.searchTimeout = searchTimeout
+        self.searchTimeout = searchTimeout ?? 15
         self.interactionMode = interactionMode
     }
     
@@ -67,5 +67,11 @@ public final class ElementSettings {
             searchTimeout: searchTimeout,
             interactionMode: interactionMode
         )
+    }
+}
+
+extension ElementSettings {
+    public var shouldAutoScroll: Bool {
+        return searchMode == .scrollUntilFound
     }
 }

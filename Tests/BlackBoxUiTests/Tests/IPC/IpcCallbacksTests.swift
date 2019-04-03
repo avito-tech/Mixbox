@@ -11,7 +11,7 @@ class IpcCallbacksTests: TestCase {
     }
     
     func test_incoming() {
-        let result: DataResult<String?, IpcClientError> = testCaseUtils.lazilyInitializedIpcClient.call(
+        let result: DataResult<String?, IpcClientError> = ipcClient.call(
             method: CallbackToAppIpcMethod<Int, String>(),
             arguments: CallbackToAppIpcMethod<Int, String>.Arguments(
                 value: 4,
@@ -29,14 +29,10 @@ class IpcCallbacksTests: TestCase {
     }
     
     func test_outgoing() {
-        let callResult = testCaseUtils.lazilyInitializedIpcClient.call(
+        let callback: IpcCallback<Int, [Int]> = ipcClient.callOrFail(
             method: CallbackFromAppIpcMethod<Int>(),
             arguments: 4
         )
-        
-        guard let callback: IpcCallback<Int, [Int]> = callResult.data else {
-            return XCTFail("result is error: \(callResult)")
-        }
         
         var result: [Int]?
         
@@ -54,7 +50,7 @@ class IpcCallbacksTests: TestCase {
         
         let sleepInterval: TimeInterval = 0.1
         
-        let result = testCaseUtils.lazilyInitializedIpcClient.call(
+        _ = ipcClient.callOrFail(
             method: NestedCallbacksToAppIpcMethod(),
             arguments: NestedCallbacksToAppIpcMethod.Arguments(
                 sleepInterval: sleepInterval,
@@ -70,8 +66,6 @@ class IpcCallbacksTests: TestCase {
                 }
             )
         )
-        
-        XCTAssertNotNil(result.data, "result is error: \(result)")
         
         Thread.sleep(forTimeInterval: 1)
         

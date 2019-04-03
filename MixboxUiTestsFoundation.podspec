@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                   = 'MixboxUiTestsFoundation'
   s.module_name            = s.name
-  s.version                = '0.0.2'
+  s.version                = '0.1.0'
   s.summary                = s.name
   s.homepage               = 'https://github.com/avito-tech/Mixbox'
   s.license                = 'MIT'
@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxUiKit'
   s.dependency 'CocoaImageHashing'
   s.dependency 'MixboxIpcCommon'
+  s.dependency 'MixboxIpcClients'
 
   s.frameworks = 'XCTest'
   s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }

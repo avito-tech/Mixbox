@@ -168,7 +168,7 @@ environment() {
     local sourceEnvironment="$MIXBOX_CI_SCRIPT_DIRECTORY/emcee/environment.json"
     local environment="$derivedDataPath/environment.json"
 
-    if [ -z "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" ]
+    if [ -z "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" ] || isDistRun
     then
         cp "$sourceEnvironment" "$environment" > /dev/null
     else
@@ -176,8 +176,9 @@ environment() {
         mkdir -p "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY" > /dev/null
 
         cat "$sourceEnvironment" \
-            | jq ". + {\"MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\":  \"$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY\"}" \
-            > "$environment"
+            | jq '. + {
+                "MIXBOX_CI_ALLURE_REPORTS_DIRECTORY": "'"$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"'"
+            }' > "$environment"
     fi
     
     echo "$environment"
@@ -192,5 +193,7 @@ generateReports() {
         local report="$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY/report"
         
         allure generate "$results" -o "$report"
+        
+        rm -rf "$MIXBOX_CI_ALLURE_REPORTS_DIRECTORY/results"
     fi
 }

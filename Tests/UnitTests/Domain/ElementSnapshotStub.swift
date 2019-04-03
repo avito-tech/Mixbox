@@ -115,12 +115,12 @@ final class ElementSnapshotStub: ElementSnapshot {
             return _isDefinitelyHidden ?? failAndFallback("isDefinitelyHidden", .unavailable)
         }
     }
-    var visibleText: OptionalAvailability<String?> {
+    var text: OptionalAvailability<String?> {
         set {
-            _visibleText = newValue
+            _text = newValue
         }
         get {
-            return _visibleText ?? failAndFallback("visibleText", .unavailable)
+            return _text ?? failAndFallback("text", .unavailable)
         }
     }
     var customValues: OptionalAvailability<[String: String]> {
@@ -146,7 +146,7 @@ final class ElementSnapshotStub: ElementSnapshot {
     private var _customClass: String??
     private var _uniqueIdentifier: OptionalAvailability<String>?
     private var _isDefinitelyHidden: OptionalAvailability<Bool>?
-    private var _visibleText: OptionalAvailability<String?>?
+    private var _text: OptionalAvailability<String?>?
     private var _customValues: OptionalAvailability<[String: String]>?
     
     private func failAndFallback<T>(_ propertyName: String, _ value: T) -> T {

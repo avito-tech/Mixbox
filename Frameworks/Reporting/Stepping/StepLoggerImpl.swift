@@ -32,18 +32,16 @@ public final class StepLoggerImpl: StepLogger, StepLogsProvider {
     
     public func logStep<T>(
         stepLogBefore: StepLogBefore,
-        body: () -> StepLoggerWrappedResult<T>)
-        -> T
+        body: () -> StepLoggerResultWrapper<T>)
+        -> StepLoggerResultWrapper<T>
     {
         return stepper.step(beforeResult: stepLogBefore) {
             let result = body()
             
             return Stepper.WrappedResultWithAfterResult(
                 afterResult: result.stepLogAfter,
-                wrappedResult: result.wrappedResult
+                wrappedResult: result
             )
         }
     }
-    
-    // MARK: -
 }

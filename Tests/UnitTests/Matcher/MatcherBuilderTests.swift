@@ -142,38 +142,38 @@ final class MatcherBuilderTests: BaseMatcherTests {
         )
     }
     
-    func test_visibleText() {
+    func test_text() {
         assertMatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { $0.visibleText == "FOO" }
+            stub: { $0.text = .available("FOO") },
+            check: { $0.text == "FOO" }
         )
         assertMismatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { $0.visibleText == "BAR" }
+            stub: { $0.text = .available("FOO") },
+            check: { $0.text == "BAR" }
         )
         assertMatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { $0.visibleText != "BAR" }
+            stub: { $0.text = .available("FOO") },
+            check: { $0.text != "BAR" }
         )
         assertMismatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { $0.visibleText != "FOO" }
+            stub: { $0.text = .available("FOO") },
+            check: { $0.text != "FOO" }
         )
         assertMatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { "FOO" == $0.visibleText }
+            stub: { $0.text = .available("FOO") },
+            check: { "FOO" == $0.text }
         )
         assertMismatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { "BAR" == $0.visibleText }
+            stub: { $0.text = .available("FOO") },
+            check: { "BAR" == $0.text }
         )
         assertMatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { "BAR" != $0.visibleText }
+            stub: { $0.text = .available("FOO") },
+            check: { "BAR" != $0.text }
         )
         assertMismatches(
-            stub: { $0.visibleText = .available("FOO") },
-            check: { "FOO" != $0.visibleText }
+            stub: { $0.text = .available("FOO") },
+            check: { "FOO" != $0.text }
         )
     }
     
@@ -389,7 +389,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = check(ElementMatcherBuilder())
+        let matcher = check(ElementMatcherBuilder(screenshotTaker: FakeScreenshotTaker()))
         
         assertMatches(matcher: matcher, value: snapshot)
     }
@@ -405,8 +405,15 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = check(ElementMatcherBuilder())
+        let matcher = check(ElementMatcherBuilder(screenshotTaker: FakeScreenshotTaker()))
         
         assertMismatches(matcher: matcher, value: snapshot)
+    }
+}
+
+private final class FakeScreenshotTaker: ScreenshotTaker {
+    func takeScreenshot() -> UIImage? {
+        XCTFail("Unexpected usage of FakeScreenshotTaker")
+        return nil
     }
 }

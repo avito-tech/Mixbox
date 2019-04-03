@@ -20,11 +20,11 @@ final class ThirdPartyAppsTests: TestCase {
         
         // Assert that we are on the page that doesn't contain app icon.
         // This also checks that visibility check works (there was a bug!).
-        pageObjects.springboard.mainAppIcon.currentlyVisible.assert.isNotDisplayed()
+        pageObjects.springboard.mainAppIcon.currentlyVisible.assertIsNotDisplayed()
         
         deleteApp()
         
-        pageObjects.springboard.mainAppIcon.assert.isNotDisplayed()
+        pageObjects.springboard.mainAppIcon.assertIsNotDisplayed()
         
         XCUIDevice.shared.press(.home)
     }
@@ -49,7 +49,7 @@ final class ThirdPartyAppsTests: TestCase {
             // Workaround. We can live with this workaround in other apps.
             
             // This will trigger scroll
-            pageObjects.springboard.mainAppIcon.assert.isDisplayed()
+            pageObjects.springboard.mainAppIcon.assertIsDisplayed()
             
             Thread.sleep(forTimeInterval: 1)
             

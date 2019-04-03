@@ -5,7 +5,7 @@ import MixboxFoundation
 final class ApplicationBundleProviderTests: TestCase {
     func test() throws {
         openScreen(name: "ApplicationBundleProviderTestsView")
-        pageObjects.screen.bundlePath.assert.isDisplayed()
+        pageObjects.screen.bundlePath.assertIsDisplayed()
         
         let application = XCUIApplication()
         
@@ -20,7 +20,7 @@ final class ApplicationBundleProviderTests: TestCase {
         XCTAssertEqual(builtApplicationBundle.bundleIdentifier, "mixbox.Tests.TestedApp")
         
         // Test path of installed bundle
-        pageObjects.screen.bundlePath.withoutTimeout.assert.hasText(
+        pageObjects.screen.bundlePath.withoutTimeout.assertHasText(
             installedApplicationBundle.bundlePath.mb_resolvingSymlinksInPath
         )
         

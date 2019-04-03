@@ -42,7 +42,9 @@ final class FakeCellsDoNotCauseSideEffectsTestsView: TestStackScrollView {
                         }
                     }
                 ),
-                id: "\(cellConfigurationTime)"
+                id: "\(cellConfigurationTime)",
+                userConfig: {},
+                defaultConfig: {}
             )
         }
     }

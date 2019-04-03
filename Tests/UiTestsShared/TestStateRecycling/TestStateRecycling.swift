@@ -3,25 +3,23 @@ import MixboxFoundation
 // Enables fast execution of tests with same precondition.
 final class TestStateRecycling {
     static let instance = TestStateRecycling()
-    private var lastTestCase: TestCase.Type?
-    private var stateByFileLine = [FileLine: Any]()
+    private var stateByFileLineByTestCaseTypeName = [String: [FileLine: Any]]()
     
     func reuseState<T>(testCase: TestCase.Type, fileLine: FileLine, block: () -> (T)) -> T {
         let state: T
+        let testCaseTypeName = "\(testCase)"
         
-        if lastTestCase == testCase {
-            if let reusedState = stateByFileLine[fileLine] as? T {
-                state = reusedState
-            } else {
-                state = block()
-                stateByFileLine[fileLine] = state
-            }
+        if let reusedState = stateByFileLineByTestCaseTypeName[testCaseTypeName]?[fileLine] as? T {
+            state = reusedState
         } else {
             state = block()
-            stateByFileLine = [fileLine: state]
+            
+            if stateByFileLineByTestCaseTypeName[testCaseTypeName] == nil {
+                stateByFileLineByTestCaseTypeName[testCaseTypeName] = [:]
+            }
+            
+            stateByFileLineByTestCaseTypeName[testCaseTypeName]?[fileLine] = state
         }
-        
-        lastTestCase = testCase
         
         return state
     }

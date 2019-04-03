@@ -26,7 +26,7 @@ final class ViewHierarchyBuilder {
             accessibilityLabel: view.accessibilityLabel,
             accessibilityValue: view.accessibilityValue,
             accessibilityPlaceholderValue: view.accessibilityPlaceholderValue() as? String,
-            visibleText: view.testabilityValue_visibleText(),
+            text: view.testabilityValue_text(),
             uniqueIdentifier: view.uniqueIdentifier,
             isDefinitelyHidden: view.isDefinitelyHidden,
             isEnabled: view.testabilityValue_isEnabled(),

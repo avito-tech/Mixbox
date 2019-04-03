@@ -13,12 +13,12 @@ public final class XcuiActivityStepLogger: StepLogger {
     
     public func logStep<T>(
         stepLogBefore: StepLogBefore,
-        body: () -> StepLoggerWrappedResult<T>)
-        -> T
+        body: () -> StepLoggerResultWrapper<T>)
+        -> StepLoggerResultWrapper<T>
     {
-        return originalStepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerWrappedResult<T> in
+        return originalStepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<T> in
             let name = stepLogBefore.detailedDescription
-            return XCTContext.runActivity(named: name) { (activity: XCTActivity) -> StepLoggerWrappedResult<T> in
+            return XCTContext.runActivity(named: name) { (activity: XCTActivity) -> StepLoggerResultWrapper<T> in
                 stepLogBefore.artifacts.forEach { addAttachment(artifact: $0, activity: activity) }
                 
                 let result = body()

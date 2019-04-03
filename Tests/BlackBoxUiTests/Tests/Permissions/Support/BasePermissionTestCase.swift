@@ -15,7 +15,7 @@ class BasePermissionTestCase: TestCase {
         
         openScreen(name: "PermissionsTestsView")
         
-        pageObjects.generic.label(specification.identifier).assert.matches { [specification] element in
+        pageObjects.generic.label(specification.identifier).assertMatches { [specification] element in
             let expectedStatus = specification.authorizationStatusString(state: state)
             return element.customValues["authorizationStatus"] == expectedStatus
         }

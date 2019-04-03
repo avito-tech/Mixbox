@@ -142,7 +142,7 @@ final class AccessibilityValueSwizzler {
             originalAccessibilityValue: originalAccessibilityValue as String,
             uniqueIdentifier: view.uniqueIdentifier,
             isDefinitelyHidden: view.isDefinitelyHidden,
-            visibleText: view.testabilityValue_visibleText(),
+            text: view.testabilityValue_text(),
             customValues: view.testability_customValues.dictionary
         )
         

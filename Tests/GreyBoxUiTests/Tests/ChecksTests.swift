@@ -10,35 +10,19 @@ final class ChecksTests: TestCase {
         
         let screen = pageObjects.checksTests
         
-        // screen.label("isNotDisplayed0").withoutTimeout.assert.isNotDisplayed()
+        screen.isNotDisplayed0.withoutTimeout.assertIsNotDisplayed()
+        XCTAssertFalse(
+            screen.isNotDisplayed0.isDisplayed()
+        )
+        //
+        // screen.isNotDisplayed1.withoutTimeout.assertIsNotDisplayed()
         // XCTAssertFalse(
-        //     screen.label("isNotDisplayed0").isDisplayed()
+        //     screen.isNotDisplayed1.isDisplayed()
         // )
         //
-        // screen.label("isNotDisplayed1").withoutTimeout.assert.isNotDisplayed()
+        // screen.isDisplayed0.assertIsDisplayed()
         // XCTAssertFalse(
-        //     screen.label("isNotDisplayed1").isDisplayed()
+        //     screen.isDisplayed0.withoutTimeout.isNotDisplayed()
         // )
-        //
-        // screen.label("isDisplayed0").assert.isDisplayed()
-        // XCTAssertFalse(
-        //     screen.label("isDisplayed0").withoutTimeout.isNotDisplayed()
-        // )
-    }
-}
-
-private final class ChecksTestsScreen: BasePageObjectWithDefaultInitializer {
-    func label(_ id: String) -> LabelElement {
-        return element("label \(id)") { element in element.id == id }
-    }
-    
-    func button(_ id: String) -> ButtonElement {
-        return element("button \(id)") { element in element.id == id }
-    }
-}
-
-private extension PageObjects {
-    var checksTests: ChecksTestsScreen {
-        return pageObject()
     }
 }

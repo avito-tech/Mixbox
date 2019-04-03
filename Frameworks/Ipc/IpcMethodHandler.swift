@@ -15,5 +15,7 @@ public protocol IpcMethodHandler: class {
     
     var method: Method { get }
     
-    func handle(arguments: Method.Arguments, completion: @escaping (_ returnValue: Method.ReturnValue) -> ())
+    func handle(
+        arguments: Method.Arguments,
+        completion: @escaping (_ returnValue: Method.ReturnValue) -> ())
 }

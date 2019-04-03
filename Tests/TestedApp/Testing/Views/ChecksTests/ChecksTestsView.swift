@@ -1,14 +1,80 @@
 import UIKit
+import MixboxIpc
+import MixboxFoundation
 
-final class ChecksTestsView: TestStackScrollView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewControllerSettings {
+    init(testingViewControllerSettings: TestingViewControllerSettings) {
+        super.init(frame: .zero)
         
         accessibilityIdentifier = "ChecksTestsView"
+        
+        setUpViews()
+        
+        let viewIpc = testingViewControllerSettings.viewIpc
+        
+        viewIpc.register(method: ConfigureChecksTestsViewIpcMethod()) { [weak self] config, completion in
+            self?.handleConfigureChecksTestsViewIpcMethod(
+                config: config,
+                completion: {
+                    completion(IpcVoid())
+                }
+            )
+        }
+    }
+    
+    private func handleConfigureChecksTestsViewIpcMethod(config: ChecksTestsViewConfiguration, completion: @escaping () -> ()) {
+        // If reload in "synchronous", without delay, completion is called after reload.
+        // Otherwise completion is called before first action.
+        // If there is no actions, completion is also called.
+        let callCompletionOnce = OnceToken()
+        func uiTestsCanStartCheckingUi() {
+            callCompletionOnce.executeOnce {
+                completion()
+            }
+        }
+        
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            for action in config.actions {
+                if action.delay > 0 {
+                    uiTestsCanStartCheckingUi()
+                }
+                
+                Thread.sleep(forTimeInterval: action.delay)
+                
+                DispatchQueue.main.async {
+                    self?.addViewHandler = { defaultConfig, setId, userConfig, addSubview in
+                        if action.reloadSettings.defaultConfig {
+                            defaultConfig()
+                        }
+                        if action.reloadSettings.setId {
+                            setId()
+                        }
+                        if action.reloadSettings.userConfig {
+                            userConfig()
+                        }
+                        if action.reloadSettings.addSubview {
+                            addSubview()
+                        }
+                    }
+                    
+                    self?.setUpViews()
+                    
+                    uiTestsCanStartCheckingUi()
+                }
+            }
+            DispatchQueue.main.async {
+                uiTestsCanStartCheckingUi()
+            }
+        }
+    }
+    
+    private func setUpViews() {
+        removeAllViews()
         
         addLabel(id: "checkText0") {
             $0.text = "Полное соответствие"
         }
+        
         addLabel(id: "checkText1") {
             $0.text = "Частичное соответствие"
         }
@@ -36,7 +102,24 @@ final class ChecksTestsView: TestStackScrollView {
             $0.isEnabled = false
         }
         
-        add(view: ExpandingView(), id: "expandingView")
+        add(view: ExpandingView(), id: "expandingView", userConfig: {}, defaultConfig: {})
+        
+        addLabel(id: "duplicated_but_one_is_hidden") { label in
+            label.isHidden = true
+            label.text = "I am hidden"
+        }
+        
+        addLabel(id: "duplicated_but_one_is_hidden") { label in
+            label.text = "I am visible"
+        }
+        
+        addLabel(id: "duplicated_and_both_are_visible") { label in
+            label.text = "I am visible"
+        }
+        
+        addLabel(id: "duplicated_and_both_are_visible") { label in
+            label.text = "I am visible"
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

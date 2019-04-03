@@ -13,12 +13,12 @@ public final class GreyPageObjectDependenciesFactory: PageObjectDependenciesFact
      elementFinder
      */
     
-    private let interactionPerformerFactory: InteractionPerformerFactory
+    private let interactionPerformerFactory: ElementInteractionWithDependenciesPerformerFactory
     private let interactionFactory: InteractionFactory
     private let pollingConfiguration: PollingConfiguration
     
     public init(
-        interactionPerformerFactory: InteractionPerformerFactory,
+        interactionPerformerFactory: ElementInteractionWithDependenciesPerformerFactory,
         interactionFactory: InteractionFactory,
         pollingConfiguration: PollingConfiguration)
     {

@@ -1,6 +1,6 @@
 import MixboxArtifacts
 
-public final class StepLog {
+public final class StepLog: CustomDebugStringConvertible, Equatable {
     // TODO: Explain the difference:
     public let identifyingDescription: String // For identifying a step
     public let detailedDescription: String // Anything
@@ -33,5 +33,38 @@ public final class StepLog {
         self.artifactsBefore = artifactsBefore
         self.artifactsAfter = artifactsAfter
         self.steps = steps
+    }
+    
+    public var debugDescription: String {
+        let stepsDescription = steps
+            .map { $0.debugDescription }
+            .joined(separator: "\n")
+            .mb_wrapAndIndent(prefix: "[", postfix: "    ]", indentation: String(repeating: " ", count: 8), ifEmpty: "[]")
+        
+        return """
+            StepLog(
+                identifyingDescription: \(identifyingDescription.debugDescription),
+                detailedDescription: \(detailedDescription.debugDescription),
+                stepType: \(stepType),
+                startDate: \(startDate.debugDescription),
+                stopDate: \(stopDate.debugDescription),
+                wasSuccessful: \(wasSuccessful),
+                artifactsBefore: \(artifactsBefore.debugDescription),
+                artifactsAfter: \(artifactsAfter.debugDescription),
+                steps: \(stepsDescription),
+            )
+            """
+    }
+    
+    public static func ==(lhs: StepLog, rhs: StepLog) -> Bool {
+        return lhs.identifyingDescription == rhs.identifyingDescription
+            && lhs.detailedDescription == rhs.detailedDescription
+            && lhs.stepType == rhs.stepType
+            && lhs.startDate == rhs.startDate
+            && lhs.stopDate == rhs.stopDate
+            && lhs.wasSuccessful == rhs.wasSuccessful
+            && lhs.artifactsBefore == rhs.artifactsBefore
+            && lhs.artifactsAfter == rhs.artifactsAfter
+            && lhs.steps == rhs.steps
     }
 }

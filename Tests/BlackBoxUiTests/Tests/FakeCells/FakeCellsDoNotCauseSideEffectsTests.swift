@@ -23,15 +23,7 @@ final class FakeCellsDoNotCauseSideEffectsTests: TestCase {
 
 private extension LabelElement {
     var text: String {
-        var text: String?
-        
-        withoutTimeout.assert.checkText {
-            text = $0
-            
-            return !$0.isEmpty
-        }
-        
-        return text ?? ""
+        return withoutTimeout.text()
     }
 }
 

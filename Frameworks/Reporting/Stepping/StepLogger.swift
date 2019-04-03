@@ -1,6 +1,6 @@
 import MixboxArtifacts
 
-public final class StepLoggerWrappedResult<T> {
+public final class StepLoggerResultWrapper<T> {
     public let stepLogAfter: StepLogAfter
     public let wrappedResult: T
     
@@ -32,11 +32,14 @@ public final class StepLoggerWrappedResult<T> {
 //
 // На выходе получаем то, что и раньше, при том что вклинились в процесс со своим логгированием
 //
-public protocol StepLogger {
+public protocol StepLogger: class {
+    // Returns StepLoggerResultWrapper<T> instead of T, because it is easier to nest one logger into another
+    // and intercept all data.
+    
     func logStep<T>(
         stepLogBefore: StepLogBefore,
-        body: () -> StepLoggerWrappedResult<T>)
-        -> T
+        body: () -> StepLoggerResultWrapper<T>)
+        -> StepLoggerResultWrapper<T>
 }
 
 public extension StepLogger {
@@ -47,8 +50,8 @@ public extension StepLogger {
         artifacts: [Artifact])
     {
         let stepLogBefore = StepLogBefore.other(description, artifacts: artifacts, date: date)
-        logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerWrappedResult<()> in
-            StepLoggerWrappedResult(
+        _ = logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<()> in
+            StepLoggerResultWrapper(
                 stepLogAfter: StepLogAfter(
                     wasSuccessful: true,
                     artifacts: []
@@ -60,17 +63,21 @@ public extension StepLogger {
 }
 
 public enum StepType {
+    // TODO: Remove these types:
     case testWarehouseStep
     case testWarehouseAssertion
     case testWarehousePrecondition
+    // Maybe remove types at all and introduce tags or custom dictionaries/codable objects
+    
+    
     case interaction
     case other
 }
 
 public final class StepLogBefore {
     public let date: Date
-    public let identifyingDescription: String // Для идентификации шага
-    public let detailedDescription: String // Произвольное описание
+    public let identifyingDescription: String // TODO: Remove this
+    public let detailedDescription: String
     public let stepType: StepType
     public let artifacts: [Artifact]
     

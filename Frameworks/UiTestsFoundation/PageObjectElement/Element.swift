@@ -1,6 +1,11 @@
+import MixboxTestsFoundation
+
 // Page Object Element
+// TODO: Names are MESS!!!! I think we should separate different layers of abstractions to different modules.
+// `Element` is page object element for tests.
+// `PageObjectElement` is page object element for Mixbox internals.
 public protocol Element: class {
-    var implementation: AlmightyElement { get }
+    var implementation: PageObjectElement { get }
     
     func with(settings: ElementSettings) -> Self
 }

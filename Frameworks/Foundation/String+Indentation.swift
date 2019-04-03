@@ -9,12 +9,18 @@ extension String {
             .joined(separator: String.newLine)
     }
     
-    public func mb_wrapAndIndent(prefix: String = "", postfix: String = "", skipIfEmpty: Bool = true) -> String {
-        if isEmpty && skipIfEmpty {
-            return ""
+    public func mb_wrapAndIndent(
+        prefix: String = "",
+        postfix: String = "",
+        indentation: String = "    ",
+        ifEmpty stringIfEmpty: String? = "[]")
+        -> String
+    {
+        if isEmpty, let stringIfEmpty = stringIfEmpty {
+            return stringIfEmpty
         } else {
             return prefix + String.newLine
-                + mb_indent() + String.newLine
+                + mb_indent(indentation) + String.newLine
                 + postfix
         }
     }

@@ -1,0 +1,33 @@
+import MixboxUiTestsFoundation
+import XCTest
+
+extension TestCase {
+    func assert<T>(
+        value: T,
+        matches matcher: Matcher<T>,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        let result = matcher.matches(value: value)
+        
+        switch result {
+        case .match:
+            break
+        case .mismatch(_, let mismatchDescription):
+            XCTFail(mismatchDescription(), file: file, line: line)
+        }
+    }
+    
+    func assert(
+        logsAndFailures: LogsAndFailures,
+        file: StaticString = #file,
+        line: UInt = #line,
+        matches buildMatcher: (LogsAndFailuresMatcherBuilder) -> (Matcher<LogsAndFailures>))
+    {
+        assert(
+            value: logsAndFailures,
+            matches: buildMatcher(LogsAndFailuresMatcherBuilder())
+        )
+    }
+    
+}

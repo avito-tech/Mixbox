@@ -1,16 +1,16 @@
 public protocol ElementWithDefaultInitializer: Element {
     // Если сделать инициализатор в протоколе, то он не сможет сделать нам Self в protocol extension.
-    // Код: init(implementation: AlmightyElement)
+    // Код: init(implementation: PageObjectElement)
     // При использовании инита пишет:
     // Method 'with(settings:)' in non-final class 'BaseElementWithDefaultInitializer' must return `Self` to conform to protocol 'Element'
     // При попытки форскаста, пишет, что форскаст из Self в Self бессмысленнен.
     // Пока так.
-    init(implementation: AlmightyElement)
+    init(implementation: PageObjectElement)
 }
 
 open class BaseElementWithDefaultInitializer: BaseElement, ElementWithDefaultInitializer {
     override public required init(
-        implementation: AlmightyElement)
+        implementation: PageObjectElement)
     {
         super.init(implementation: implementation)
     }
@@ -23,10 +23,10 @@ open class BaseElementWithDefaultInitializer: BaseElement, ElementWithDefaultIni
 }
 
 open class BaseElement {
-    public let implementation: AlmightyElement
+    public let implementation: PageObjectElement
     
     public init(
-        implementation: AlmightyElement)
+        implementation: PageObjectElement)
     {
         self.implementation = implementation
     }

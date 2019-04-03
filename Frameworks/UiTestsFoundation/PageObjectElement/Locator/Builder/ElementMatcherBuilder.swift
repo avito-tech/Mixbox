@@ -33,7 +33,7 @@ public final class ElementMatcherBuilder {
     public let id = PropertyMatcherBuilder("id", \ElementSnapshot.accessibilityIdentifier)
     
     public let label = PropertyMatcherBuilder("label", \ElementSnapshot.accessibilityLabel)
-    
+
     public let value = PropertyMatcherBuilder<ElementSnapshot, String>("value") { (snapshot: ElementSnapshot) -> String in
         // TODO: Support nils and other types
         (snapshot.accessibilityValue as? String) ?? ElementMatcherBuilder.valueToMimicComparisonOfStringToNil
@@ -44,9 +44,9 @@ public final class ElementMatcherBuilder {
         $0.accessibilityPlaceholderValue ?? ElementMatcherBuilder.valueToMimicComparisonOfStringToNil
     }
     
-    public let visibleText = PropertyMatcherBuilder<ElementSnapshot, String>("visibleText") {
+    public let text = PropertyMatcherBuilder<ElementSnapshot, String>("text") {
         // TODO: Support nils, remove fallbacks
-        $0.visibleText(fallback: $0.accessibilityLabel) ?? ""
+        $0.text(fallback: $0.accessibilityLabel) ?? ""
     }
     
     public let isEnabled = PropertyMatcherBuilder("isEnabled", \ElementSnapshot.isEnabled)
@@ -84,9 +84,9 @@ public final class ElementMatcherBuilder {
         )
     }
     
-    private let screenshotTaker: ScreenshotTaker?
+    private let screenshotTaker: ScreenshotTaker
     
-    public init(screenshotTaker: ScreenshotTaker? = nil) {
+    public init(screenshotTaker: ScreenshotTaker) {
         self.screenshotTaker = screenshotTaker
     }
 }

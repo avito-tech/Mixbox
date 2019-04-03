@@ -1,5 +1,6 @@
 public protocol ElementSnapshot: class, CustomDebugStringConvertible {
-    // Common:
+    // Common (can be retrieved via Apple's Accessibility feature):
+    
     var frameOnScreen: CGRect { get }
     var elementType: ElementType? { get }
     var hasKeyboardFocus: Bool { get }
@@ -16,15 +17,16 @@ public protocol ElementSnapshot: class, CustomDebugStringConvertible {
     var uikitClass: String? { get }
     var customClass: String? { get }
     
-    // Mixbox:
+    // Mixbox specific (for apps with Mixbox support):
+    
     var uniqueIdentifier: OptionalAvailability<String> { get }
     var isDefinitelyHidden: OptionalAvailability<Bool> { get }
-    var visibleText: OptionalAvailability<String?> { get }
+    var text: OptionalAvailability<String?> { get }
     var customValues: OptionalAvailability<[String: String]> { get }
 }
 
 extension ElementSnapshot {
-    // 1. Возвращает текст (из testabilityValue_visibleText).
+    // 1. Возвращает текст (из testabilityValue_text).
     // 2. Если не удалось, то берется fallback из аргумента, так как текст может быть либо
     // в label, либо в value в зависимости от контекста.
     //
@@ -35,8 +37,8 @@ extension ElementSnapshot {
     //
     // 3. Вместо nil возвращается пустая строка.
     //
-    public func visibleText(fallback: @autoclosure () -> String?) -> String? {
-        switch visibleText {
+    public func text(fallback: @autoclosure () -> String?) -> String? {
+        switch text {
         case .available(let text):
             if let nonNilText = text {
                 return nonNilText

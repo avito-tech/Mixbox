@@ -18,7 +18,7 @@ final class ElementSnapshotStubTests: XCTestCase {
                 $0.customClass = "customClass"
                 $0.uniqueIdentifier = .available("uniqueIdentifier")
                 $0.isDefinitelyHidden = .available(true)
-                $0.visibleText = .available("visibleText")
+                $0.text = .available("text")
                 $0.customValues = .available(["customValues": "customValues"])
             }
         )
@@ -37,7 +37,7 @@ final class ElementSnapshotStubTests: XCTestCase {
         XCTAssertEqual(stub.customClass, "customClass")
         XCTAssertEqual(stub.uniqueIdentifier.value, "uniqueIdentifier")
         XCTAssertEqual(stub.isDefinitelyHidden.value, true)
-        XCTAssertEqual(stub.visibleText.value, "visibleText")
+        XCTAssertEqual(stub.text.value, "text")
         XCTAssertEqual(stub.customValues.value?["customValues"], "customValues")
     }
     
@@ -105,8 +105,8 @@ final class ElementSnapshotStubTests: XCTestCase {
         XCTAssertEqual(failedProperties, ["isDefinitelyHidden"])
         failedProperties.removeAll()
         
-        _ = stub.visibleText.value
-        XCTAssertEqual(failedProperties, ["visibleText"])
+        _ = stub.text.value
+        XCTAssertEqual(failedProperties, ["text"])
         failedProperties.removeAll()
         
         _ = stub.customValues.value?["customValues"]

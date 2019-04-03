@@ -18,8 +18,8 @@ final class RealViewHierarchyElementSnaphot: ElementSnapshot {
         return data.isEnabled
     }
     
-    var visibleText: OptionalAvailability<String?> {
-        return .available(data.visibleText)
+    var text: OptionalAvailability<String?> {
+        return .available(data.text)
     }
     
     var isDefinitelyHidden: OptionalAvailability<Bool> {
