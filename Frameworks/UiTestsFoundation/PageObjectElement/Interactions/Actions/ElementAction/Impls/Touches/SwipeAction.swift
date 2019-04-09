@@ -67,20 +67,22 @@ public final class SwipeAction: ElementInteraction {
         }
         
         public func perform() -> InteractionResult {
-            return dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { [direction, dependencies] snapshot in
-                let swipeLength: CGFloat = 100
-                let delta = WithDependencies.normalizedOffsetForSwipe(direction: direction) * swipeLength
-                let origin = snapshot.frameOnScreen.mb_center
-                
-                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                dependencies.eventGenerator.pressAndDrag(
-                    from: origin,
-                    to: origin + delta,
-                    duration: 0,
-                    velocity: 1000 // TODO: Do it faster?
-                )
-                
-                return .success
+            return dependencies.interactionRetrier.retryInteractionUntilTimeout { [direction, dependencies] _ in
+                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                    let swipeLength: CGFloat = 100
+                    let delta = WithDependencies.normalizedOffsetForSwipe(direction: direction) * swipeLength
+                    let origin = snapshot.frameOnScreen.mb_center
+                    
+                    dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                    dependencies.eventGenerator.pressAndDrag(
+                        from: origin,
+                        to: origin + delta,
+                        duration: 0,
+                        velocity: 1000 // TODO: Do it faster?
+                    )
+                    
+                    return .success
+                }
             }
         }
         

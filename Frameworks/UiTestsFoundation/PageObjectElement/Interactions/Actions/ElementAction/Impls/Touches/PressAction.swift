@@ -52,19 +52,21 @@ public class PressAction: ElementInteraction {
         }
         
         public func perform() -> InteractionResult {
-            return dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { [interactionCoordinates, duration, dependencies] snapshot in
-                do {
-                    let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
-                        elementSnapshot: snapshot,
-                        interactionCoordinates: interactionCoordinates
-                    )
-                    
-                    dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                    elementSimpleGestures.press(duration: duration)
-                    
-                    return .success
-                } catch let e {
-                    return dependencies.interactionResultMaker.failure(message: "\(e)")
+            return dependencies.interactionRetrier.retryInteractionUntilTimeout { [interactionCoordinates, duration, dependencies] _ in
+                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                    do {
+                        let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
+                            elementSnapshot: snapshot,
+                            interactionCoordinates: interactionCoordinates
+                        )
+                        
+                        dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                        elementSimpleGestures.press(duration: duration)
+                        
+                        return .success
+                    } catch let e {
+                        return dependencies.interactionResultMaker.failure(message: "\(e)")
+                    }
                 }
             }
         }

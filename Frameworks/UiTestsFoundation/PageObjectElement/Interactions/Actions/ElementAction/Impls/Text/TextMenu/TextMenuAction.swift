@@ -46,22 +46,24 @@ public final class TextMenuAction: ElementInteraction {
         }
         
         public func perform() -> InteractionResult {
-            let selectAllButton = dependencies.menuItemProvider.menuItem(
-                possibleTitles: possibleMenuTitles
-            )
-            
-            guard selectAllButton.waitForExistence() else {
-                let titlesDescription = possibleMenuTitlesDescription()
-                
-                return dependencies.interactionResultMaker.failure(
-                    message: "Не удалось найти кнопку с одним из следующих вариантов названий: \(titlesDescription)"
+            return dependencies.interactionRetrier.retryInteractionUntilTimeout { _ in
+                let selectAllButton = dependencies.menuItemProvider.menuItem(
+                    possibleTitles: possibleMenuTitles
                 )
+                
+                guard selectAllButton.waitForExistence() else {
+                    let titlesDescription = possibleMenuTitlesDescription()
+                    
+                    return dependencies.interactionResultMaker.failure(
+                        message: "Не удалось найти кнопку с одним из следующих вариантов названий: \(titlesDescription)"
+                    )
+                }
+                
+                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                selectAllButton.tap()
+                
+                return .success
             }
-            
-            dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-            selectAllButton.tap()
-            
-            return .success
         }
         
         private func possibleMenuTitlesDescription() -> String {

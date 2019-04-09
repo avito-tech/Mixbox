@@ -66,7 +66,7 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
         public func perform()
             -> InteractionResult
         {
-            if !waitUntilMenuIsShown(timeout: 0)  {
+            if !waitUntilMenuIsShown(timeout: 0) {
                 let result = dependencies.interactionPerformer.perform(
                     interaction: OpenTextMenuAction(
                         interactionCoordinates: interactionCoordinates,

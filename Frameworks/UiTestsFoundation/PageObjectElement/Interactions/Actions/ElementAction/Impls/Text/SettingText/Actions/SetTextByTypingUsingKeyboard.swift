@@ -57,8 +57,6 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
         }
         
         public func perform() -> InteractionResult {
-            dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-            
             switch textEditingActionMode {
             case .append:
                 break
@@ -71,24 +69,28 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
                 }
             }
             
+            dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
             dependencies.textTyper.type(text: text)
             
             return .success
         }
         
         private func clearText() -> InteractionResult {
-            return dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { [weak self, dependencies] snapshot in
-                let value = snapshot.text(fallback: snapshot.accessibilityValue as? String) ?? ""
-                
-                if !value.isEmpty {
-                    let deleteString: String = value
-                        .map { _ in dependencies.textTyper.keys.delete }
-                        .joined()
+            return dependencies.interactionRetrier.retryInteractionUntilTimeout { [dependencies] _ in
+                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                    let value = snapshot.text(fallback: snapshot.accessibilityValue as? String) ?? ""
                     
-                    dependencies.textTyper.type(text: deleteString)
+                    if !value.isEmpty {
+                        let deleteString: String = value
+                            .map { _ in dependencies.textTyper.keys.delete }
+                            .joined()
+                        
+                        dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                        dependencies.textTyper.type(text: deleteString)
+                    }
+                    
+                    return .success
                 }
-                
-                return .success
             }
         }
     }
