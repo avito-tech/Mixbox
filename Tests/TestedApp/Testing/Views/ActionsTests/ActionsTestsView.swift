@@ -4,6 +4,7 @@ import MixboxIpc
 
 final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSettings {
     let infoLabel = UILabel()
+    let overlappingView = UILabel()
     let scrollView = TestStackScrollView()
     let actionTestsViewViewRegistrar = ActionTestsViewViewRegistrar()
     
@@ -13,7 +14,13 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         }
     }
     
-    var viewModel: ActionsTestsViewModel = ActionsTestsViewModel(showInfo: false, viewNames: [])
+    var viewModel: ActionsTestsViewModel = ActionsTestsViewModel(
+        showInfo: false,
+        viewNames: [],
+        alpha: 1,
+        isHidden: false,
+        overlapping: 0
+    )
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
@@ -21,6 +28,8 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         let viewIpc = testingViewControllerSettings.viewIpc
         
         addSubview(scrollView)
+        addSubview(overlappingView)
+        addSubview(infoLabel)
         
         accessibilityIdentifier = "ActionsTestsView"
         
@@ -28,6 +37,10 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         infoLabel.textAlignment = .center
         infoLabel.textColor = .black
         infoLabel.font = UIFont.systemFont(ofSize: 17)
+        
+        overlappingView.text = String(repeating: "overlapping view ", count: 500)
+        overlappingView.backgroundColor = .red
+        overlappingView.numberOfLines = 0
         
         backgroundColor = .white
         
@@ -73,30 +86,18 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
     private func setViewModel(viewModel: ActionsTestsViewModel) -> ErrorString? {
         self.viewModel = viewModel
         
-        // This was wrong:
-        //
-        // > if viewModel.viewNames != oldValue.viewNames {
-        // >    let error = updateViews(viewNames: viewModel.viewNames)
-        //
-        // Because we want to reset views. Because we want to reset texts in inputs for example.
-            
+        scrollView.alpha = viewModel.alpha
+        scrollView.isHidden = viewModel.isHidden
+        
         if let error = updateViews(viewNames: viewModel.viewNames) {
             return error
         }
         
-        updateShowInfo(showInfo: viewModel.showInfo)
+        infoLabel.isHidden = !viewModel.showInfo
         
         setNeedsLayout()
         
         return nil
-    }
-    
-    private func updateShowInfo(showInfo: Bool) {
-        infoLabel.removeFromSuperview()
-        
-        if viewModel.showInfo {
-            addSubview(infoLabel)
-        }
     }
     
     private func updateViews(viewNames: [String]) -> ErrorString? {
@@ -136,6 +137,10 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         }
         
         scrollView.contentInset = insets
+        
+        overlappingView.frame = bounds
+        overlappingView.frame.size.width *= viewModel.overlapping
+        overlappingView.isHidden = viewModel.overlapping <= 0
         
         if viewModel.showInfo {
             infoLabel.layout(
