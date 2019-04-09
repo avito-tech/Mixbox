@@ -72,7 +72,9 @@ class TestCase: XCTestCase, FailureGatherer {
         for (key, value) in environment {
             app.launchEnvironment[key] = value
         }
-        app.launchTunnel()
+        app.launchTunnel { [applicationDidLaunchObservable=testCaseUtils.applicationDidLaunchObservable] in
+            applicationDidLaunchObservable.applicationDidLaunch()
+        }
         testCaseUtils.lazilyInitializedIpcClient.ipcClient = SbtuiIpcClient(
             application: app
         )
@@ -121,6 +123,7 @@ class TestCase: XCTestCase, FailureGatherer {
         // Launch
         app.launch()
         TestCase.everLaunched = true
+        testCaseUtils.applicationDidLaunchObservable.applicationDidLaunch()
         
         // Wait for handshake
         testCaseUtils.lazilyInitializedIpcClient.ipcClient = handshaker.waitForHandshake()

@@ -36,6 +36,7 @@ final class TestCaseUtils {
         ]
     )
     var ipcRouter: IpcRouter? // Just to store server (to not let him die during test)
+    let applicationDidLaunchObservable = ApplicationDidLaunchObservableImpl()
     
     private let screenshotTaker = XcuiScreenshotTaker()
     let stepLogger: StepLogger
@@ -52,26 +53,42 @@ final class TestCaseUtils {
         self.lazilyInitializedIpcClient = lazilyInitializedIpcClient
         
         let stepLogger: StepLogger
+        
         // TODO: Get rid of usage of ProcessInfo singleton here
-        if ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true" {
+        let mixboxCiUsesFbxctest = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
+        
+        if mixboxCiUsesFbxctest {
             // Usage of XCTActivity crashes fbxctest, so we have to not use it.
             stepLogger = Singletons.stepLogger
         } else {
             stepLogger = XcuiActivityStepLogger(originalStepLogger: Singletons.stepLogger)
         }
+        
         self.stepLogger = stepLogger
         
         let testFailureRecorder = XcTestFailureRecorder(
             currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
         )
         self.testFailureRecorder = testFailureRecorder
-                
+        
+        let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
+        
+        if mixboxCiUsesFbxctest {
+            // Fbxctest resets tcc.db on its own (very unfortunately)
+            // TODO: Test both branches of this `if`
+            tccDbApplicationPermissionSetterFactory = AtApplicationLaunchTccDbApplicationPermissionSetterFactory(
+                applicationDidLaunchObservable: applicationDidLaunchObservable
+            )
+        } else {
+            tccDbApplicationPermissionSetterFactory = TccDbApplicationPermissionSetterFactoryImpl()
+        }
+        
         let applicationPermissionsSetterFactory = ApplicationPermissionsSetterFactory(
             // TODO: Tests & demo:
             notificationsApplicationPermissionSetterFactory: AlwaysFailingNotificationsApplicationPermissionSetterFactory(
                 testFailureRecorder: testFailureRecorder
             ),
-            tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactoryImpl()
+            tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory
         )
         self.applicationPermissionsSetterFactory = applicationPermissionsSetterFactory
 
