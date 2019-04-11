@@ -3,8 +3,8 @@
 import MixboxIpc
 import MixboxIpcCommon
 
-final class VeiwHierarchyIpcMethodHandler: IpcMethodHandler {
-    let method = VeiwHierarchyIpcMethod()
+final class ViewHierarchyIpcMethodHandler: IpcMethodHandler {
+    let method = ViewHierarchyIpcMethod()
     
     func handle(arguments: IpcVoid, completion: @escaping (ViewHierarchy) -> ()) {
         DispatchQueue.main.async {

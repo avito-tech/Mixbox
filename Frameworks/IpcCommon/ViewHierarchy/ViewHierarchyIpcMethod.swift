@@ -1,7 +1,6 @@
 import MixboxIpc
 
-// TODO: Rename
-public final class VeiwHierarchyIpcMethod: IpcMethod {
+public final class ViewHierarchyIpcMethod: IpcMethod {
     public typealias Arguments = IpcVoid
     public typealias ReturnValue = ViewHierarchy
     

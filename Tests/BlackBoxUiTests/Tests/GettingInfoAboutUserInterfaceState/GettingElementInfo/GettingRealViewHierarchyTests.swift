@@ -12,7 +12,7 @@ final class GettingRealViewHierarchyTests: TestCase {
     // TODO: Fails at getting accessibilityValue and testability_customValues
     func disabled_test() {
         let result = ipcClient.callOrFail(
-            method: VeiwHierarchyIpcMethod()
+            method: ViewHierarchyIpcMethod()
         )
         
         let rootElements = result.rootElements

@@ -35,7 +35,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
         // TODO: Extract code to functions
         let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<ResolvedElementQuery> in
             let result = ipcClient.call(
-                method: VeiwHierarchyIpcMethod()
+                method: ViewHierarchyIpcMethod()
             )
             
             let elementQueryResolvingState = ElementQueryResolvingState()
