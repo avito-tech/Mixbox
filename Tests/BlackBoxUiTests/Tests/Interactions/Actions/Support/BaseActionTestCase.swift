@@ -93,7 +93,8 @@ class BaseActionTestCase: TestCase {
             tapActionSpecification,
             pressActionSpecification,
             setTextActionSpecification(text: text, inputMethod: .paste),
-            setTextActionSpecification(text: text, inputMethod: .pasteUsingPopupMenus),
+            // TODO: Fix, pasting is flaky
+            // setTextActionSpecification(text: text, inputMethod: .pasteUsingPopupMenus),
             setTextActionSpecification(text: text, inputMethod: .type),
             swipeUpActionSpecification,
             swipeDownActionSpecification,

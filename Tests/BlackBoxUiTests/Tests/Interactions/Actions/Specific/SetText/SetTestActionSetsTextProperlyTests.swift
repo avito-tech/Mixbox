@@ -88,6 +88,8 @@ final class SetTestActionSetsTextProperlyTests: BaseActionTestCase {
         )
     }
     
+    // TODO: Fix, pasting is flaky
+    /*
     func test_setText_withPasteUsingPopupMenusInputMethod_setsTextProperly_0() {
         checkTextActionSetsTextProperly(
             inputMethod: .pasteUsingPopupMenus,
@@ -129,6 +131,7 @@ final class SetTestActionSetsTextProperlyTests: BaseActionTestCase {
             testDataId: 5
         )
     }
+    */
     
     // MARK: - Test Logic
     

@@ -15,11 +15,14 @@ final class SetTextActionCanBeRunSubsequentlyWithSameResultTests: BaseActionTest
         )
     }
     
+    // TODO: Fix, pasting is flaky
+    /*
     func test_setText_withPasteUsingPopupMenusInputMethod_canBeRunSubsequentlyWithSameResult() {
         checkTextActionCanBeRunSubsequentlyWithSameResult(
             inputMethod: .pasteUsingPopupMenus
         )
     }
+    */
     
     // MARK: - Actual logic of tests
     
