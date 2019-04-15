@@ -36,7 +36,8 @@ final class TestCaseUtils {
         ]
     )
     var ipcRouter: IpcRouter? // Just to store server (to not let him die during test)
-    let applicationDidLaunchObservable = ApplicationDidLaunchObservableImpl()
+    private let applicationDidLaunchObservableImpl = ApplicationDidLaunchObservableImpl()
+    let launchableApplicationProvider: LaunchableApplicationProvider
     
     private let screenshotTaker = XcuiScreenshotTaker()
     let stepLogger: StepLogger
@@ -69,7 +70,13 @@ final class TestCaseUtils {
         let testFailureRecorder = XcTestFailureRecorder(
             currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
         )
+        
         self.testFailureRecorder = testFailureRecorder
+        
+        launchableApplicationProvider = LaunchableApplicationProvider(
+            applicationDidLaunchObserver: applicationDidLaunchObservableImpl,
+            testFailureRecorder: testFailureRecorder
+        )
         
         let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
         
@@ -77,7 +84,7 @@ final class TestCaseUtils {
             // Fbxctest resets tcc.db on its own (very unfortunately)
             // TODO: Test both branches of this `if`
             tccDbApplicationPermissionSetterFactory = AtApplicationLaunchTccDbApplicationPermissionSetterFactory(
-                applicationDidLaunchObservable: applicationDidLaunchObservable
+                applicationDidLaunchObservable: applicationDidLaunchObservableImpl
             )
         } else {
             tccDbApplicationPermissionSetterFactory = TccDbApplicationPermissionSetterFactoryImpl()

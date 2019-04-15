@@ -9,7 +9,7 @@ public protocol ApplicationDidLaunchObserver: class {
 }
 
 // Stupid implementation of observable, use carefully.
-public final class ApplicationDidLaunchObservableImpl: ApplicationDidLaunchObservable {
+public final class ApplicationDidLaunchObservableImpl: ApplicationDidLaunchObservable, ApplicationDidLaunchObserver {
     private var observers = [WeakApplicationDidLaunchObserverBox]()
     
     public init() {

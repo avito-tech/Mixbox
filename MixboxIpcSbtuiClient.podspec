@@ -15,6 +15,8 @@ Pod::Spec.new do |s|
   
   s.dependency 'MixboxIpc'
   s.dependency 'SBTUITestTunnel/Client', '~> 3.0.6'
+  s.dependency 'MixboxTestsFoundation' # for network mocks,  kind of a kludge, but SBTUITestTunnel should be removed soon
+  s.dependency 'MixboxUiTestsFoundation' # for network mocks,  kind of a kludge, but SBTUITestTunnel should be removed soon
   
   s.framework = "XCTest"
   s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }

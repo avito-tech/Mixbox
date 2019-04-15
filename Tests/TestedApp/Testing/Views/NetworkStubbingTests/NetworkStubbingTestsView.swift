@@ -33,8 +33,8 @@ final class NetworkStubbingTestsView: TestStackScrollView {
                 }
             }
         }
+        
         addButton(idAndText: "localhost") {
-            
             $0.onTap = { [weak self] in
                 if let port = self?.server.port {
                     string("http://localhost:\(port)") { string in
@@ -57,9 +57,15 @@ final class NetworkStubbingTestsView: TestStackScrollView {
     }
     
     private func startServer() {
+        let notStubbedText = "This is NOT a stubbed string"
         server.addDefaultHandler(forMethod: "GET", request: GCDWebServerDataRequest.self) { request, completion in
             let contentType = "application/json"
-            completion(GCDWebServerDataResponse(data: "test".data(using: .utf8) ?? Data(), contentType: contentType))
+            completion(
+                GCDWebServerDataResponse(
+                    data: notStubbedText.data(using: .utf8) ?? Data(),
+                    contentType: contentType
+                )
+            )
         }
         
         (try? server.start(options: [:])) ?? setInfo(nil)

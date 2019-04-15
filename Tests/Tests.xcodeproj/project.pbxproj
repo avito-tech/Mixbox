@@ -137,10 +137,19 @@
 		F88ADFAE223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFAD223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift */; };
 		F88ADFB3223BD6A70024CCBE /* RecodableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */; };
 		F8951E45222463120033885C /* ExpandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8951E44222463120033885C /* ExpandingView.swift */; };
+		F8971CDA2264A8A6001741C1 /* LaunchableApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CD92264A8A6001741C1 /* LaunchableApplication.swift */; };
+		F8971CDC2264A8B7001741C1 /* SbtuiLaunchableApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CDB2264A8B7001741C1 /* SbtuiLaunchableApplication.swift */; };
+		F8971CDE2264A8C2001741C1 /* BuiltinIpcLaunchableApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CDD2264A8C2001741C1 /* BuiltinIpcLaunchableApplication.swift */; };
+		F8971CE12264AF9B001741C1 /* LaunchableApplicationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE02264AF9B001741C1 /* LaunchableApplicationProvider.swift */; };
+		F8971CE42264B81A001741C1 /* LaunchedApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE32264B81A001741C1 /* LaunchedApplication.swift */; };
+		F8971CE62264B822001741C1 /* LaunchedApplicationImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE52264B821001741C1 /* LaunchedApplicationImpl.swift */; };
+		F8971CE92264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */; };
+		F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */; };
 		F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */; };
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
 		F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */; };
+		F8A753102260E13D00396A89 /* NetworkStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A7530F2260E13D00396A89 /* NetworkStubbingTests.swift */; };
 		F8A9D32E2168057300EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D32F216805C500EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */; };
@@ -420,12 +429,21 @@
 		F88ADFAD223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTestActionSetsTextProperlyTests.swift; sourceTree = "<group>"; };
 		F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecodableStepLogger.swift; sourceTree = "<group>"; };
 		F8951E44222463120033885C /* ExpandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingView.swift; sourceTree = "<group>"; };
+		F8971CD92264A8A6001741C1 /* LaunchableApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchableApplication.swift; sourceTree = "<group>"; };
+		F8971CDB2264A8B7001741C1 /* SbtuiLaunchableApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SbtuiLaunchableApplication.swift; sourceTree = "<group>"; };
+		F8971CDD2264A8C2001741C1 /* BuiltinIpcLaunchableApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltinIpcLaunchableApplication.swift; sourceTree = "<group>"; };
+		F8971CE02264AF9B001741C1 /* LaunchableApplicationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchableApplicationProvider.swift; sourceTree = "<group>"; };
+		F8971CE32264B81A001741C1 /* LaunchedApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchedApplication.swift; sourceTree = "<group>"; };
+		F8971CE52264B821001741C1 /* LaunchedApplicationImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchedApplicationImpl.swift; sourceTree = "<group>"; };
+		F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsViewPageObject.swift; sourceTree = "<group>"; };
+		F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasePageObject+Extension.swift"; sourceTree = "<group>"; };
 		F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppsTests.swift; sourceTree = "<group>"; };
 		F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTestsView.swift; sourceTree = "<group>"; };
 		F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift; sourceTree = "<group>"; };
 		F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingHierarchyTestsView.swift; sourceTree = "<group>"; };
 		F8A395BD2147C599000E9E44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F8A395BE2147E4FC000E9E44 /* CanTapMovingElementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanTapMovingElementTests.swift; sourceTree = "<group>"; };
+		F8A7530F2260E13D00396A89 /* NetworkStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTests.swift; sourceTree = "<group>"; };
 		F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHashCalculatorTests.swift; sourceTree = "<group>"; };
 		F8A9D33A216B894800EC5D24 /* TestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuery.swift; sourceTree = "<group>"; };
 		F8A9D33B216B894800EC5D24 /* TestObservationEntryPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObservationEntryPoint.swift; sourceTree = "<group>"; };
@@ -1177,6 +1195,35 @@
 			path = Logs;
 			sourceTree = "<group>";
 		};
+		F8971CD82264A895001741C1 /* LaunchableApplication */ = {
+			isa = PBXGroup;
+			children = (
+				F8971CD92264A8A6001741C1 /* LaunchableApplication.swift */,
+				F8971CDB2264A8B7001741C1 /* SbtuiLaunchableApplication.swift */,
+				F8971CDD2264A8C2001741C1 /* BuiltinIpcLaunchableApplication.swift */,
+			);
+			path = LaunchableApplication;
+			sourceTree = "<group>";
+		};
+		F8971CDF2264AF8A001741C1 /* LaunchingApplication */ = {
+			isa = PBXGroup;
+			children = (
+				F8971CE22264B814001741C1 /* LaunchedApplication */,
+				F8971CD82264A895001741C1 /* LaunchableApplication */,
+				F8971CE02264AF9B001741C1 /* LaunchableApplicationProvider.swift */,
+			);
+			path = LaunchingApplication;
+			sourceTree = "<group>";
+		};
+		F8971CE22264B814001741C1 /* LaunchedApplication */ = {
+			isa = PBXGroup;
+			children = (
+				F8971CE32264B81A001741C1 /* LaunchedApplication.swift */,
+				F8971CE52264B821001741C1 /* LaunchedApplicationImpl.swift */,
+			);
+			path = LaunchedApplication;
+			sourceTree = "<group>";
+		};
 		F8A395BC2147C549000E9E44 /* ViewsWithClosures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1203,6 +1250,14 @@
 				F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */,
 			);
 			path = ChangingHierarchyTests;
+			sourceTree = "<group>";
+		};
+		F8A7530E2260E12B00396A89 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F8A7530F2260E13D00396A89 /* NetworkStubbingTests.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		F8A9D338216B881500EC5D24 /* Emcee */ = {
@@ -1379,6 +1434,7 @@
 				F8B0A239220A0E040089C1EE /* BasePageObjects.swift */,
 				F8B0A23A220A0E040089C1EE /* PageObjects.swift */,
 				F8B0A23B220A0E040089C1EE /* BasePageObject.swift */,
+				F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */,
 			);
 			path = PageObjects;
 			sourceTree = "<group>";
@@ -1504,6 +1560,7 @@
 		F8B34118224E56BF00AA1EB9 /* PageObjects */ = {
 			isa = PBXGroup;
 			children = (
+				F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */,
 				F8B34119224E56C800AA1EB9 /* GenericPageObject.swift */,
 			);
 			path = PageObjects;
@@ -1611,6 +1668,7 @@
 		F8D5392520A087A600733C93 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8A7530E2260E12B00396A89 /* Network */,
 				F879832222493082004DD770 /* Interactions */,
 				F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */,
 				F8B34112224E52FA00AA1EB9 /* Permissions */,
@@ -1627,6 +1685,7 @@
 		F8D5392620A087AF00733C93 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				F8971CDF2264AF8A001741C1 /* LaunchingApplication */,
 				F879833D2249544E004DD770 /* TestCase+Matching */,
 				F8B0A238220A0E040089C1EE /* PageObjects */,
 				F8E0B50F2199E17200C66BA9 /* MixboxHelperPrototype */,
@@ -2051,6 +2110,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
@@ -2066,6 +2126,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
@@ -2109,6 +2170,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
@@ -2124,6 +2186,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
@@ -2170,6 +2233,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
@@ -2192,6 +2256,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
@@ -2239,6 +2304,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGrey/MixboxGrey.framework",
@@ -2256,6 +2322,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGrey.framework",
@@ -2371,20 +2438,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8A753102260E13D00396A89 /* NetworkStubbingTests.swift in Sources */,
 				F8AD079A2250D5DD00D5FB93 /* MicrophoneApplicationPermissionSpecification.swift in Sources */,
 				F820305E2238511D006D2F70 /* IpcClient+CallOrFail.swift in Sources */,
 				F8676EE52155370D007DDB7C /* NestedCallbacksToAppIpcMethod.swift in Sources */,
 				F879832C22494B8F004DD770 /* BaseChecksTestCase.swift in Sources */,
+				F8971CDA2264A8A6001741C1 /* LaunchableApplication.swift in Sources */,
 				F820307A22385E0A006D2F70 /* ClearTextActionTests.swift in Sources */,
 				F8274A4E21454ECF00A72C41 /* TestStateRecycling.swift in Sources */,
 				F8B010E121FF319D0026360D /* TestStepReport.swift in Sources */,
 				F8AD079D2250D5DD00D5FB93 /* GeolocationApplicationPermissionSpecification.swift in Sources */,
 				F8B0A262220A0EF40089C1EE /* BasePageObject.swift in Sources */,
 				F820305F22385427006D2F70 /* CanTapMovingElementTests.swift in Sources */,
+				F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */,
 				F8B33B10224ACF2500AA1EB9 /* AssertIsNotDisplayedInteractionTests.swift in Sources */,
 				F82030672238548E006D2F70 /* BaseActionTestCase.swift in Sources */,
 				F813CB32209CDF3400E6A27C /* ScrollingTests.swift in Sources */,
 				F8A9D343216B894800EC5D24 /* TestGetter.m in Sources */,
+				F8971CE92264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift in Sources */,
 				F88ADFB3223BD6A70024CCBE /* RecodableStepLogger.swift in Sources */,
 				F88ADF592239821C0024CCBE /* ActionSpecification.swift in Sources */,
 				F88ADF5B223982570024CCBE /* ActionsTestsScreen.swift in Sources */,
@@ -2397,8 +2468,10 @@
 				F813CB34209CDF4700E6A27C /* TestCase.swift in Sources */,
 				F853D024214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift in Sources */,
 				F8B010E221FF319D0026360D /* TestCaseReport.swift in Sources */,
+				F8971CE12264AF9B001741C1 /* LaunchableApplicationProvider.swift in Sources */,
 				F8B33B0A224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift in Sources */,
 				F801CC152254F9C60074F0E9 /* GatherFailuresResult.swift in Sources */,
+				F8971CE42264B81A001741C1 /* LaunchedApplication.swift in Sources */,
 				F84C4F3420E68FCA00DB35F2 /* FakeCellsReloadType.swift in Sources */,
 				F8798326224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift in Sources */,
 				F8B0A261220A0EF40089C1EE /* PageObjects.swift in Sources */,
@@ -2430,6 +2503,8 @@
 				F8AD07A422535DB500D5FB93 /* AssertTextMatchesInteractionTests.swift in Sources */,
 				F879832F22494BE3004DD770 /* ChecksTestsScreen.swift in Sources */,
 				F8203069223854A3006D2F70 /* TapActionTests.swift in Sources */,
+				F8971CDE2264A8C2001741C1 /* BuiltinIpcLaunchableApplication.swift in Sources */,
+				F8971CE62264B822001741C1 /* LaunchedApplicationImpl.swift in Sources */,
 				F879832A224949ED004DD770 /* LogsAndFailures.swift in Sources */,
 				F8EBBCA6213AA8FF00D320A4 /* HierarchySourcesTests.swift in Sources */,
 				F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */,
@@ -2473,6 +2548,7 @@
 				F88ADFAE223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift in Sources */,
 				F879833722494F07004DD770 /* StepLogMatcherBuilder.swift in Sources */,
 				F857C9DD20CF8F9900E8BFF5 /* EchoIpcMethod.swift in Sources */,
+				F8971CDC2264A8B7001741C1 /* SbtuiLaunchableApplication.swift in Sources */,
 				F8AA6FFD217E0681007D8208 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */,
 				F8B33B2A224BBE7100AA1EB9 /* ConfigureChecksTestsViewIpcMethod.swift in Sources */,
 				F8B010E621FF319D0026360D /* TestReportFailure.swift in Sources */,

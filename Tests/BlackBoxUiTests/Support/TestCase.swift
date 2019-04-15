@@ -35,6 +35,10 @@ class TestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.lazilyInitializedIpcClient
     }
     
+    var networking: Networking {
+        return testCaseUtils.launchableApplicationProvider.launchableApplication.networking
+    }
+    
     func precondition() {
     }
     
@@ -53,35 +57,7 @@ class TestCase: XCTestCase, FailureGatherer {
     }
     
     func launch(environment: [String: String], useBuiltinIpc: Bool = false) {
-        if useBuiltinIpc {
-            launchUsingBuiltinIpc(environment: environment)
-        } else {
-            launchUsingSbtui(environment: environment)
-        }
-    }
-    
-    private func launchUsingSbtui(environment: [String: String]) {
-        // Note that setting it to a value > Int32.max would lead to an error.
-        let timeoutValueThatReallyDisablesTimeout: TimeInterval = 100000
-        SBTUITunneledApplication.setConnectionTimeout(timeoutValueThatReallyDisablesTimeout)
-        
-        let app = SBTUITunneledApplication()
-        for (key, value) in commonEnvironment {
-            app.launchEnvironment[key] = value
-        }
-        for (key, value) in environment {
-            app.launchEnvironment[key] = value
-        }
-        app.launchTunnel { [applicationDidLaunchObservable=testCaseUtils.applicationDidLaunchObservable] in
-            applicationDidLaunchObservable.applicationDidLaunch()
-        }
-        testCaseUtils.lazilyInitializedIpcClient.ipcClient = SbtuiIpcClient(
-            application: app
-        )
-    }
-    
-    private var commonEnvironment: [String: String] {
-        return [
+        let commonEnvironment = [
             // Just an assertion
             "MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL": "true",
             // Fixes assertion failure when view is loaded multiple times and uses ViewIpc
@@ -89,46 +65,24 @@ class TestCase: XCTestCase, FailureGatherer {
             // TODO: What is it for? Is it just a default screen?
             "MB_TESTS_screenName": "DummyForLaunchingUiTestsView",
         ]
-    }
-    
-    private func launchUsingBuiltinIpc(environment: [String: String]) {
-        let app: XCUIApplication
         
-        // Prototype of fast launching
-        if !TestCase.everLaunched {
-            app = XCUIApplication()
-        } else {
-            app = XCUIApplication(privateWithPath: nil, bundleID: "mixbox.Tests.TestedApp")
-        }
-        
-        // Initialize client/server pairs
-        let handshaker = KnownPortHandshakeWaiter()
-        guard let port = handshaker.start() else {
-            preconditionFailure("Не удалось стартовать сервер.")
-        }
-        
-        // Set up environment
-        for (key, value) in commonEnvironment {
-            app.launchEnvironment[key] = value
-        }
-        
-        app.launchEnvironment["MIXBOX_HOST"] = "localhost"
-        app.launchEnvironment["MIXBOX_PORT"] = "\(port)"
-        app.launchEnvironment["MIXBOX_USE_BUILTIN_IPC"] = "true"
+        var mergedEnvironment = commonEnvironment
         
         for (key, value) in environment {
-            app.launchEnvironment[key] = value
+            mergedEnvironment[key] = value
         }
         
-        // Launch
-        app.launch()
-        TestCase.everLaunched = true
-        testCaseUtils.applicationDidLaunchObservable.applicationDidLaunch()
+        testCaseUtils.launchableApplicationProvider.shouldCreateLaunchableApplicationWithBuiltinIpc = useBuiltinIpc
         
-        // Wait for handshake
-        testCaseUtils.lazilyInitializedIpcClient.ipcClient = handshaker.waitForHandshake()
-        testCaseUtils.ipcRouter = handshaker.server
+        let launchedApplication = testCaseUtils
+            .launchableApplicationProvider
+            .launchableApplication
+            .launch(environment: mergedEnvironment)
+        
+        testCaseUtils.lazilyInitializedIpcClient.ipcClient = launchedApplication.ipcClient
+        testCaseUtils.ipcRouter = launchedApplication.ipcRouter
     }
+    
     
     func openScreen(name: String, useBuiltinIpc: Bool = false) {
         launch(
