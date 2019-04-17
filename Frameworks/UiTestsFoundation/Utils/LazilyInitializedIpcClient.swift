@@ -4,6 +4,9 @@ import MixboxIpc
 public final class LazilyInitializedIpcClient: IpcClient {
     public var ipcClient: IpcClient?
     
+    public init() {
+    }
+    
     public func call<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,

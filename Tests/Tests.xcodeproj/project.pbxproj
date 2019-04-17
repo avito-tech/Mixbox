@@ -72,7 +72,6 @@
 		F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820873D2141AD8400DCBA2D /* ElementSnapshotStubTests.swift */; };
 		F82087402141B49700DCBA2D /* LocatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820873F2141B49700DCBA2D /* LocatorsTests.swift */; };
 		F8222D7020D194CD009FB7B6 /* TestCaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */; };
-		F8222D8B20D2B4A9009FB7B6 /* LazilyInitializedIpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8222D8A20D2B4A9009FB7B6 /* LazilyInitializedIpcClient.swift */; };
 		F8274A432142DA7A00A72C41 /* AssertingCustomValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A422142DA7A00A72C41 /* AssertingCustomValuesTests.swift */; };
 		F8274A462142DBE000A72C41 /* AssertingCustomValuesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A452142DBE000A72C41 /* AssertingCustomValuesTestsView.swift */; };
 		F8274A492143110D00A72C41 /* FailureGatherer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A482143110D00A72C41 /* FailureGatherer.swift */; };
@@ -393,7 +392,6 @@
 		F820873D2141AD8400DCBA2D /* ElementSnapshotStubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementSnapshotStubTests.swift; sourceTree = "<group>"; };
 		F820873F2141B49700DCBA2D /* LocatorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsTests.swift; sourceTree = "<group>"; };
 		F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseUtils.swift; sourceTree = "<group>"; };
-		F8222D8A20D2B4A9009FB7B6 /* LazilyInitializedIpcClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazilyInitializedIpcClient.swift; sourceTree = "<group>"; };
 		F8274A422142DA7A00A72C41 /* AssertingCustomValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertingCustomValuesTests.swift; sourceTree = "<group>"; };
 		F8274A452142DBE000A72C41 /* AssertingCustomValuesTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertingCustomValuesTestsView.swift; sourceTree = "<group>"; };
 		F8274A482143110D00A72C41 /* FailureGatherer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureGatherer.swift; sourceTree = "<group>"; };
@@ -1885,7 +1883,6 @@
 				F8E0B50F2199E17200C66BA9 /* MixboxHelperPrototype */,
 				F8A9D338216B881500EC5D24 /* Emcee */,
 				F8BCA9DD213D55D300592068 /* Extensions */,
-				F8222D8A20D2B4A9009FB7B6 /* LazilyInitializedIpcClient.swift */,
 				F813CB33209CDF4700E6A27C /* TestCase.swift */,
 				F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */,
 			);
@@ -2684,7 +2681,6 @@
 				F84C4F3420E68FCA00DB35F2 /* FakeCellsReloadType.swift in Sources */,
 				F8798326224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift in Sources */,
 				F8B0A261220A0EF40089C1EE /* PageObjects.swift in Sources */,
-				F8222D8B20D2B4A9009FB7B6 /* LazilyInitializedIpcClient.swift in Sources */,
 				F8AD079F2250D5DD00D5FB93 /* PhotosApplicationPermissionTests.swift in Sources */,
 				F8AD079C2250D5DD00D5FB93 /* CameraApplicationPermissionSpecification.swift in Sources */,
 				F8B010DF21FF319D0026360D /* ReportingSystems.swift in Sources */,
