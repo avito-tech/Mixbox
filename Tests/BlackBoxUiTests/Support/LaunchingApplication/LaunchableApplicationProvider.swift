@@ -12,13 +12,16 @@ public final class LaunchableApplicationProvider {
     
     private let applicationDidLaunchObserver: ApplicationDidLaunchObserver
     private let testFailureRecorder: TestFailureRecorder
+    private let bundleResourcePathProvider: BundleResourcePathProvider
     
     public init(
         applicationDidLaunchObserver: ApplicationDidLaunchObserver,
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        bundleResourcePathProvider: BundleResourcePathProvider)
     {
         self.applicationDidLaunchObserver = applicationDidLaunchObserver
         self.testFailureRecorder = testFailureRecorder
+        self.bundleResourcePathProvider = bundleResourcePathProvider
     }
     
     private var launchableApplicationWasCreatedWithBuiltinIpc = false
@@ -52,7 +55,8 @@ public final class LaunchableApplicationProvider {
         } else {
             launchableApplication = SbtuiLaunchableApplication(
                 applicationDidLaunchObserver: applicationDidLaunchObserver,
-                testFailureRecorder: testFailureRecorder
+                testFailureRecorder: testFailureRecorder,
+                bundleResourcePathProvider: bundleResourcePathProvider
             )
         }
         

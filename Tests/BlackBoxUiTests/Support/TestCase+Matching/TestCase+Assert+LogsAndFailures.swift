@@ -29,5 +29,4 @@ extension TestCase {
             matches: buildMatcher(LogsAndFailuresMatcherBuilder())
         )
     }
-    
 }

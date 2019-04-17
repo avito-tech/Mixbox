@@ -1,4 +1,5 @@
 import XCTest
+import MixboxUiTestsFoundation
 
 protocol FailureGatherer {
     func gatherFailures<T>(body: () -> (T)) -> GatherFailuresResult<T>
@@ -34,7 +35,7 @@ extension FailureGatherer {
         }
         
         assertFails(
-            description: description,
+            descriptionMatcher: description.flatMap { EqualsMatcher($0) },
             file: file,
             line: line,
             expected: expected,
@@ -57,7 +58,7 @@ extension FailureGatherer {
         }
         
         assertFails(
-            description: description,
+            descriptionMatcher: description.flatMap { EqualsMatcher($0) },
             file: failsHereFunctionProvider.file,
             line: failsHereFunctionProvider.line,
             expected: expected,
@@ -103,7 +104,7 @@ extension FailureGatherer {
     }
     
     func assertFails(
-        description: String? = nil,
+        descriptionMatcher: Matcher<String>? = nil,
         file: String? = nil,
         line: Int? = nil,
         expected: Bool? = nil,
@@ -111,22 +112,35 @@ extension FailureGatherer {
         fileOfThisAssertion: StaticString = #file,
         lineOfThisAssertion: UInt = #line)
     {
-        guard failures.count == 1 else {
+        guard let firstFailure = failures.first else {
             XCTFail(
-                "failures.count (\(failures.count)) != 1",
+                "Code was expected to fail test, but it didn't",
                 file: fileOfThisAssertion,
                 line: lineOfThisAssertion
             )
             return
         }
         
-        if let description = description {
-            XCTAssertEqual(
-                failures[0].description,
-                description,
+        guard failures.count == 1 else {
+            XCTFail(
+                "failures.count \(failures.count) doesn't equal expected count 1",
                 file: fileOfThisAssertion,
                 line: lineOfThisAssertion
             )
+            return
+        }
+        
+        if let descriptionMatcher = descriptionMatcher {
+            switch descriptionMatcher.matches(value: failures[0].description) {
+            case .match:
+                break
+            case .mismatch(_, let mismatchDescription):
+                XCTFail(
+                    "Failure mismatches: \(mismatchDescription())",
+                    file: fileOfThisAssertion,
+                    line: lineOfThisAssertion
+                )
+            }
         }
         
         if let file = file {
@@ -155,5 +169,29 @@ extension FailureGatherer {
                 line: lineOfThisAssertion
             )
         }
+    }
+    
+    func assertFails(
+        failureDescriptionMatchesRegularExpression regularExpression: String,
+        file: String? = nil,
+        line: Int? = nil,
+        expected: Bool? = nil,
+        fileOfThisAssertion: StaticString = #file,
+        lineOfThisAssertion: UInt = #line,
+        body: () -> ())
+    {
+        let failures = gatherFailures {
+            body()
+        }
+        
+        assertFails(
+            descriptionMatcher: RegularExpressionMatcher(regularExpression: regularExpression),
+            file: file,
+            line: line,
+            expected: expected,
+            failures: failures.failures,
+            fileOfThisAssertion: fileOfThisAssertion,
+            lineOfThisAssertion: lineOfThisAssertion
+        )
     }
 }

@@ -17,30 +17,19 @@ public final class SbtuiStubRequestBuilder: StubRequestBuilder {
     }
     
     public func withRequestStub(
-        urlRegexPattern: String,
+        urlPattern: String,
         query: [String]?,
         httpMethod: HttpMethod?)
         -> StubResponseBuilder
     {
         let requestMatch = self.requestMatch(
-            urlRegexPattern: urlRegexPattern,
+            urlPattern: urlPattern,
             query: query,
             httpMethod: httpMethod
         )
         
         return SbtuiStubResponseBuilder(
             stubResponseBuilderArgumentsBefore: .requestMatch(requestMatch),
-            sbtuiStubApplier: sbtuiStubApplier,
-            testFailureRecorder: testFailureRecorder
-        )
-    }
-    
-    public func withError(
-        message: String)
-        -> StubResponseBuilder
-    {
-        return SbtuiStubResponseBuilder(
-            stubResponseBuilderArgumentsBefore: .error(message),
             sbtuiStubApplier: sbtuiStubApplier,
             testFailureRecorder: testFailureRecorder
         )
@@ -53,7 +42,7 @@ public final class SbtuiStubRequestBuilder: StubRequestBuilder {
     // TODO: Поправить nullability в SBTUITestTunnel.
     // Нужно сделать конструктор с nullable полями, так как внутри все nullable
     private func requestMatch(
-        urlRegexPattern: String,
+        urlPattern: String,
         query: [String]?,
         httpMethod: HttpMethod?)
         -> SBTRequestMatch
@@ -61,23 +50,23 @@ public final class SbtuiStubRequestBuilder: StubRequestBuilder {
         switch (query, httpMethod) {
         case let (.some(query), .some(httpMethod)):
             return SBTRequestMatch(
-                url: urlRegexPattern,
+                url: urlPattern,
                 query: query,
                 method: httpMethod.value
             )
         case let (.none, .some(httpMethod)):
             return SBTRequestMatch(
-                url: urlRegexPattern,
+                url: urlPattern,
                 method: httpMethod.value
             )
         case let (.some(query), .none):
             return SBTRequestMatch(
-                url: urlRegexPattern,
+                url: urlPattern,
                 query: query
             )
         case (.none, .none):
             return SBTRequestMatch(
-                url: urlRegexPattern
+                url: urlPattern
             )
         }
     }

@@ -1,16 +1,7 @@
 import SwiftyJSON
 
-final class NetworkStubbingTests: TestCase {
-    override var reuseState: Bool {
-        return false
-    }
-    
-    var screen: NetworkStubbingTestsViewPageObject {
-        return pageObjects.networkStubbingTestsViewPageObject
-    }
-    
+final class NetworkStubbingTests: BaseNetworkMockingTestCase {
     private let stubbedText = "This is a stubbed string"
-    private let notStubbedText = "This is NOT a stubbed string"
     
     func test_networkIsStubbed_ifUrlPatternMatches_anything() {
         checkStubbing(
@@ -53,7 +44,7 @@ final class NetworkStubbingTests: TestCase {
             .stub(urlPattern: urlPattern)
             .thenReturn(string: stubbedText)
         
-        openScreen(name: "NetworkStubbingTestsView")
+        openScreen(name: screen.view)
         
         tapAction()
         

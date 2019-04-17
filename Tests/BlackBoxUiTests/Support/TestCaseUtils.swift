@@ -36,11 +36,12 @@ final class TestCaseUtils {
         ]
     )
     var ipcRouter: IpcRouter? // Just to store server (to not let him die during test)
-    private let applicationDidLaunchObservableImpl = ApplicationDidLaunchObservableImpl()
+    let fileSystem: FileSystem
     let launchableApplicationProvider: LaunchableApplicationProvider
-    
-    private let screenshotTaker = XcuiScreenshotTaker()
     let stepLogger: StepLogger
+    
+    private let applicationDidLaunchObservableImpl = ApplicationDidLaunchObservableImpl()
+    private let screenshotTaker = XcuiScreenshotTaker()
     private let applicationPermissionsSetterFactory: ApplicationPermissionsSetterFactory
     
     private let mixboxHelperClient = MixboxHelperClient()
@@ -65,6 +66,11 @@ final class TestCaseUtils {
             stepLogger = XcuiActivityStepLogger(originalStepLogger: Singletons.stepLogger)
         }
         
+        fileSystem = FileSystemImpl(
+            fileManager: FileManager(),
+            temporaryDirectoryPathProvider: NsTemporaryDirectoryPathProvider()
+        )
+        
         self.stepLogger = stepLogger
         
         let testFailureRecorder = XcTestFailureRecorder(
@@ -75,7 +81,10 @@ final class TestCaseUtils {
         
         launchableApplicationProvider = LaunchableApplicationProvider(
             applicationDidLaunchObserver: applicationDidLaunchObservableImpl,
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: testFailureRecorder,
+            bundleResourcePathProvider: BundleResourcePathProviderImpl(
+                bundle: Bundle(for: TestCaseUtils.self)
+            )
         )
         
         let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory

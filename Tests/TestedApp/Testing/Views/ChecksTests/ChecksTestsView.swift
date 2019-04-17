@@ -26,7 +26,7 @@ final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewCo
         // If reload in "synchronous", without delay, completion is called after reload.
         // Otherwise completion is called before first action.
         // If there is no actions, completion is also called.
-        let callCompletionOnce = OnceToken()
+        let callCompletionOnce = ThreadSafeOnceToken()
         func uiTestsCanStartCheckingUi() {
             callCompletionOnce.executeOnce {
                 completion()

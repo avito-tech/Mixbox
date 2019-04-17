@@ -6,4 +6,9 @@ final class FailsHereFunctionProvider {
         self.file = file
         self.line = line
     }
+    
+    func onNextLine(file: String = #file, line: Int = #line) {
+        self.file = file
+        self.line = line + 1
+    }
 }

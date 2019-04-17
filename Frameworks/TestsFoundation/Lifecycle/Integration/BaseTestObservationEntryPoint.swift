@@ -40,7 +40,7 @@ import MixboxFoundation
 open class BaseTestObservationEntryPoint: NSObject {
     private var testLifecycleManagers = [TestLifecycleManager]()
     private var testLifecycleObservable: TestLifecycleObservable?
-    private let startObservingOnceToken = OnceToken()
+    private let startObservingOnceToken = ThreadSafeOnceToken()
     
     // Entry point of Principal Class.
     // It is ugly. Use main() for entry point in your class.

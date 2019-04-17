@@ -1,30 +1,89 @@
 import SBTUITestTunnel
 import MixboxUiTestsFoundation
+import MixboxReporting
 
 // TODO: Нормально абстрагироваться от SBTMonitoredNetworkRequest
 public final class SbtuiNetworkRecordsProvider: NetworkRecordsProvider, NetworkRecorderLifecycle {
+    private let testFailureRecorder: TestFailureRecorder
     private let tunneledApplication: SBTUITunneledApplication
     
-    public init(tunneledApplication: SBTUITunneledApplication) {
+    // MARK: - State
+    
+    private var recordingShouldBeStarted: Bool = false {
+        didSet {
+            handleChangeOfStateThatAffectsStartingOfRecording()
+        }
+    }
+    
+    private var tunnelWasLaunched: Bool = false {
+        didSet {
+            handleChangeOfStateThatAffectsStartingOfRecording()
+        }
+    }
+    
+    private var recordingWasStarted: Bool = false
+    
+    public init(
+        tunneledApplication: SBTUITunneledApplication,
+        testFailureRecorder: TestFailureRecorder)
+    {
         self.tunneledApplication = tunneledApplication
+        self.testFailureRecorder = testFailureRecorder
+    }
+    
+    // MARK: - SbtuiNetworkRecordsProvider
+    
+    public func handleTunnelIsLaunched() {
+        tunnelWasLaunched = true
     }
     
     // MARK: - NetworkRecordsProvider
     
     public var allRequests: [MonitoredNetworkRequest] {
+        if !recordingShouldBeStarted {
+            testFailureRecorder.recordFailure(
+                description: "`allRequests` is called, but `startRecording()` was not. Call `startRecording()` to be able to get requests",
+                shouldContinueTest: true
+            )
+        }
+        
         return tunneledApplication.monitoredRequestsPeekAll().map { $0 as MonitoredNetworkRequest }
     }
     
     // MARK: - NetworkRecorderLifecycle
     
     public func startRecording() {
-        _ = tunneledApplication.monitorRequests(
-            matching: SBTRequestMatch(url: ".*")
-        )
+        recordingShouldBeStarted = true
     }
     
     public func stopRecording() {
-        tunneledApplication.monitorRequestRemoveAll()
+        recordingShouldBeStarted = false
+    }
+    
+    // MARK: - Private
+    
+    private func handleChangeOfStateThatAffectsStartingOfRecording() {
+        if tunnelWasLaunched {
+            if recordingShouldBeStarted && !recordingWasStarted {
+                let requestId = tunneledApplication.monitorRequests(
+                    matching: SBTRequestMatch(url: ".*")
+                )
+                
+                if requestId == nil {
+                    testFailureRecorder.recordFailure(
+                        description: "Failed to startRecording: tunneledApplication.monitorRequests returned nil",
+                        shouldContinueTest: false
+                    )
+                    recordingWasStarted = false
+                } else {
+                    recordingWasStarted = true
+                }
+            }
+            if !recordingShouldBeStarted && recordingWasStarted {
+                tunneledApplication.monitorRequestRemoveAll()
+                recordingWasStarted = false
+            }
+        }
     }
 }
 

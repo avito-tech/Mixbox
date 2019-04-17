@@ -1,13 +1,17 @@
 import MixboxUiTestsFoundation
 
 public final class NetworkStubbingTestsViewPageObject: BasePageObjectWithDefaultInitializer {
-    var info: LabelElement {
+    public let view = "NetworkStubbingTestsView"
+    
+    public var info: LabelElement {
         return byId("info")
     }
-    var exampleCom: ButtonElement {
+    
+    public var exampleCom: ButtonElement {
         return byId("example.com")
     }
-    var localhost: LabelElement {
+    
+    public var localhost: LabelElement {
         return byId("localhost")
     }
 }

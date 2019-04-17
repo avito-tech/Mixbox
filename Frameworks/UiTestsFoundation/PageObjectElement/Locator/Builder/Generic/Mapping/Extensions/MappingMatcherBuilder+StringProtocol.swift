@@ -8,6 +8,10 @@ extension MappingMatcherBuilder where SourceMatcherArgument: StringProtocol {
         return matcher(ContainsMatcher(string: string))
     }
     
+    public func startsWith<U: StringProtocol>(_ string: U) -> Matcher<TargetMatcherArgument> {
+        return matcher(StartsWithMatcher(string: string))
+    }
+    
     public var isEmpty: Matcher<TargetMatcherArgument> {
         return matcher(EqualsMatcher(""))
     }

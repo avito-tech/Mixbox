@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import MixboxXcuiDriver
 import SBTUITestTunnel
 import MixboxIpcSbtuiClient
@@ -11,10 +12,12 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
     private let applicationDidLaunchObserver: ApplicationDidLaunchObserver
     private let testFailureRecorder: TestFailureRecorder
     private let sbtuiStubApplier: SbtuiStubApplier
+    private let sbtuiNetworkRecordsProvider: SbtuiNetworkRecordsProvider
     
     public init(
         applicationDidLaunchObserver: ApplicationDidLaunchObserver,
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        bundleResourcePathProvider: BundleResourcePathProvider)
     {
         self.applicationDidLaunchObserver = applicationDidLaunchObserver
         self.testFailureRecorder = testFailureRecorder
@@ -22,13 +25,33 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
             tunneledApplication: tunneledApplication
         )
         
+        sbtuiNetworkRecordsProvider = SbtuiNetworkRecordsProvider(
+            tunneledApplication: tunneledApplication,
+            testFailureRecorder: testFailureRecorder
+        )
+        
+        let stubRequestBuilder = SbtuiStubRequestBuilder(
+            sbtuiStubApplier: sbtuiStubApplier,
+            testFailureRecorder: testFailureRecorder
+        )
+        
         networking = NetworkingImpl(
-            stubbing: SbtuiStubRequestBuilder(
-                sbtuiStubApplier: sbtuiStubApplier,
-                testFailureRecorder: testFailureRecorder
+            stubbing: NetworkStubbingImpl(
+                stubRequestBuilder: stubRequestBuilder
             ),
-            recording: SbtuiNetworkRecordsProvider(
-                tunneledApplication:  tunneledApplication
+            recording: NetworkRecordingImpl(
+                networkRecordsProvider: sbtuiNetworkRecordsProvider,
+                networkRecorderLifecycle: sbtuiNetworkRecordsProvider,
+                networkAutomaticRecorderAndReplayerProvider: NetworkAutomaticRecorderAndReplayerProviderImpl(
+                    automaticRecorderAndReplayerCreationSettingsProvider: AutomaticRecorderAndReplayerCreationSettingsProviderImpl(
+                        bundleResourcePathProvider: bundleResourcePathProvider,
+                        recordedNetworkSessionFileLoader: RecordedNetworkSessionFileLoaderImpl()
+                    ),
+                    stubRequestBuilder: stubRequestBuilder,
+                    networkRecordsProvider: sbtuiNetworkRecordsProvider,
+                    networkRecorderLifecycle: sbtuiNetworkRecordsProvider,
+                    testFailureRecorder: testFailureRecorder
+                )
             )
         )
     }
@@ -42,9 +65,10 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
             tunneledApplication.launchEnvironment[key] = value
         }
         
-        tunneledApplication.launchTunnel { [applicationDidLaunchObserver, sbtuiStubApplier] in
+        tunneledApplication.launchTunnel { [applicationDidLaunchObserver, sbtuiStubApplier, sbtuiNetworkRecordsProvider] in
             applicationDidLaunchObserver.applicationDidLaunch()
             sbtuiStubApplier.handleTunnelIsLaunched()
+            sbtuiNetworkRecordsProvider.handleTunnelIsLaunched()
         }
         
         return LaunchedApplicationImpl(

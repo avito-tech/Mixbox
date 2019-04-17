@@ -39,6 +39,10 @@ class TestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.launchableApplicationProvider.launchableApplication.networking
     }
     
+    var fileSystem: FileSystem {
+        return testCaseUtils.fileSystem
+    }
+    
     func precondition() {
     }
     
@@ -251,5 +255,4 @@ class TestCase: XCTestCase, FailureGatherer {
             return block()
         }
     }
-    
 }
