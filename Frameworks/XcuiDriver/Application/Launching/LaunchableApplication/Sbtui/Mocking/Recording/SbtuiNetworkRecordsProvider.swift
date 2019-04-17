@@ -1,6 +1,5 @@
 import SBTUITestTunnel
 import MixboxUiTestsFoundation
-import MixboxXcuiDriver
 import MixboxReporting
 
 // TODO: Нормально абстрагироваться от SBTMonitoredNetworkRequest

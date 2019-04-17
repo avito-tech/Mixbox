@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Frameworks/XcuiDriver/**/*.{swift,h,m,md}'
 
   s.dependency 'MixboxUiTestsFoundation'
+  s.dependency 'MixboxIpcSbtuiClient'
   
   s.frameworks = 'XCTest', 'XCTAutomationSupport'
   s.xcconfig = {

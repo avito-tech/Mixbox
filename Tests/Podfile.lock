@@ -32,7 +32,6 @@ PODS:
     - MixboxIpc
     - MixboxTestsFoundation
     - MixboxUiTestsFoundation
-    - MixboxXcuiDriver
     - SBTUITestTunnel/Client (~> 3.0.6)
   - MixboxIpcSbtuiHost (0.1.0):
     - MixboxIpc
@@ -57,6 +56,7 @@ PODS:
     - MixboxTestsFoundation
     - MixboxUiKit
   - MixboxXcuiDriver (0.1.0):
+    - MixboxIpcSbtuiClient
     - MixboxUiTestsFoundation
   - SBTUITestTunnel/Client (3.0.14)
   - SBTUITestTunnel/Server (3.0.14):
@@ -150,14 +150,14 @@ SPEC CHECKSUMS:
   MixboxIpc: d91828e6d80a76ea61ec77af762c17510f59d321
   MixboxIpcClients: 09c700dc094d149c0ea9982dd1c5c855fac9877f
   MixboxIpcCommon: 3b16bf9f463f358093e20a79dc7c38c198d89e4b
-  MixboxIpcSbtuiClient: 5e3f0b911a5b6f0b9e63fd31c10bf4aed003d63c
+  MixboxIpcSbtuiClient: b7a46320156162ede7ce5704b4178a0c00aa7cb8
   MixboxIpcSbtuiHost: ad66f177e17fb1f9a7ee62911b55d3aec686949e
   MixboxReporting: 9a63996e2b03143115fbf23ca6d20b23c244bb97
   MixboxTestability: 6106fecdc30b4c2944bac1e479e631e657f61fd9
   MixboxTestsFoundation: 17f031f57b7d4ec1d00709ea604ef465c9a0f743
   MixboxUiKit: 653f7eed1c8772699cc57caf73f62091452b2157
   MixboxUiTestsFoundation: 64d664ff328cb5931aa8442949ff717509ea9881
-  MixboxXcuiDriver: 5d13f3390e583f178633a5ddbac6b765b1716e72
+  MixboxXcuiDriver: 320d935fc2380af74b47848e886c833da570e0e3
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e

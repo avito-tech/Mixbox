@@ -19,7 +19,6 @@ Pod::Spec.new do |s|
   # for network mocks,  kind of a kludge, but SBTUITestTunnel should be removed soon:
   s.dependency 'MixboxTestsFoundation' 
   s.dependency 'MixboxUiTestsFoundation'
-  s.dependency 'MixboxXcuiDriver'
   
   s.framework = "XCTest"
   s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }
