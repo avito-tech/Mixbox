@@ -39,8 +39,9 @@ final class TestCaseUtils {
     let fileSystem: FileSystem
     let launchableApplicationProvider: LaunchableApplicationProvider
     let stepLogger: StepLogger
+    let bundleResourcePathProviderForTestTarget: BundleResourcePathProvider
     
-    private let applicationDidLaunchObservableImpl = ApplicationDidLaunchObservableImpl()
+    private let applicationLifecycleObservableImpl = ApplicationLifecycleObservableImpl()
     private let screenshotTaker = XcuiScreenshotTaker()
     private let applicationPermissionsSetterFactory: ApplicationPermissionsSetterFactory
     
@@ -79,12 +80,14 @@ final class TestCaseUtils {
         
         self.testFailureRecorder = testFailureRecorder
         
+        self.bundleResourcePathProviderForTestTarget = BundleResourcePathProviderImpl(
+            bundle: Bundle(for: TestCaseUtils.self)
+        )
+        
         launchableApplicationProvider = LaunchableApplicationProvider(
-            applicationDidLaunchObserver: applicationDidLaunchObservableImpl,
+            applicationLifecycleObservable: applicationLifecycleObservableImpl,
             testFailureRecorder: testFailureRecorder,
-            bundleResourcePathProvider: BundleResourcePathProviderImpl(
-                bundle: Bundle(for: TestCaseUtils.self)
-            )
+            bundleResourcePathProvider: bundleResourcePathProviderForTestTarget
         )
         
         let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
@@ -93,7 +96,7 @@ final class TestCaseUtils {
             // Fbxctest resets tcc.db on its own (very unfortunately)
             // TODO: Test both branches of this `if`
             tccDbApplicationPermissionSetterFactory = AtApplicationLaunchTccDbApplicationPermissionSetterFactory(
-                applicationDidLaunchObservable: applicationDidLaunchObservableImpl
+                applicationLifecycleObservable: applicationLifecycleObservableImpl
             )
         } else {
             tccDbApplicationPermissionSetterFactory = TccDbApplicationPermissionSetterFactoryImpl()

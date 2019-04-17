@@ -169,6 +169,12 @@
 		F8971DCB226746AD001741C1 /* BundleResourcePathProviderImplTests_with_extension.json in Resources */ = {isa = PBXBuildFile; fileRef = F8971DC8226746AD001741C1 /* BundleResourcePathProviderImplTests_with_extension.json */; };
 		F8971DCC226746AD001741C1 /* BundleResourcePathProviderImplTests_without_extension_json in Resources */ = {isa = PBXBuildFile; fileRef = F8971DC9226746AD001741C1 /* BundleResourcePathProviderImplTests_without_extension_json */; };
 		F8971DCD226746AD001741C1 /* BundleResourcePathProviderImplTests.with.lots.of.dots.json in Resources */ = {isa = PBXBuildFile; fileRef = F8971DCA226746AD001741C1 /* BundleResourcePathProviderImplTests.with.lots.of.dots.json */; };
+		F8971DE92267715A001741C1 /* LaunchingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DE82267715A001741C1 /* LaunchingAppTests.swift */; };
+		F8971DEC226772CD001741C1 /* ProcessInfoIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DEB226772CD001741C1 /* ProcessInfoIpcMethod.swift */; };
+		F8971DEE226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DED226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift */; };
+		F8971DF0226773E3001741C1 /* IpcProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DEF226773E3001741C1 /* IpcProcessInfo.swift */; };
+		F8971DF12267743F001741C1 /* ProcessInfoIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DEB226772CD001741C1 /* ProcessInfoIpcMethod.swift */; };
+		F8971DF22267751C001741C1 /* IpcProcessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DEF226773E3001741C1 /* IpcProcessInfo.swift */; };
 		F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */; };
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
@@ -485,6 +491,10 @@
 		F8971DC8226746AD001741C1 /* BundleResourcePathProviderImplTests_with_extension.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BundleResourcePathProviderImplTests_with_extension.json; sourceTree = "<group>"; };
 		F8971DC9226746AD001741C1 /* BundleResourcePathProviderImplTests_without_extension_json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BundleResourcePathProviderImplTests_without_extension_json; sourceTree = "<group>"; };
 		F8971DCA226746AD001741C1 /* BundleResourcePathProviderImplTests.with.lots.of.dots.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BundleResourcePathProviderImplTests.with.lots.of.dots.json; sourceTree = "<group>"; };
+		F8971DE82267715A001741C1 /* LaunchingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingAppTests.swift; sourceTree = "<group>"; };
+		F8971DEB226772CD001741C1 /* ProcessInfoIpcMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfoIpcMethod.swift; sourceTree = "<group>"; };
+		F8971DED226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfoIpcMethodHandler.swift; sourceTree = "<group>"; };
+		F8971DEF226773E3001741C1 /* IpcProcessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcProcessInfo.swift; sourceTree = "<group>"; };
 		F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppsTests.swift; sourceTree = "<group>"; };
 		F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTestsView.swift; sourceTree = "<group>"; };
 		F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift; sourceTree = "<group>"; };
@@ -1090,6 +1100,7 @@
 		F857C9D420CD8BAB00E8BFF5 /* CustomIpc */ = {
 			isa = PBXGroup;
 			children = (
+				F8971DEA226772BE001741C1 /* ProcessInfo */,
 				F8203043223827DD006D2F70 /* IpcBetweenViewAndTest */,
 				F8C709172153F3990015A10B /* Callback */,
 				F8C709162153F3860015A10B /* Echo */,
@@ -1409,6 +1420,24 @@
 				F8971DC1226672B3001741C1 /* NetworkRecordingTests.swift */,
 			);
 			path = Recording;
+			sourceTree = "<group>";
+		};
+		F8971DE722677150001741C1 /* LaunchingApp */ = {
+			isa = PBXGroup;
+			children = (
+				F8971DE82267715A001741C1 /* LaunchingAppTests.swift */,
+			);
+			path = LaunchingApp;
+			sourceTree = "<group>";
+		};
+		F8971DEA226772BE001741C1 /* ProcessInfo */ = {
+			isa = PBXGroup;
+			children = (
+				F8971DEB226772CD001741C1 /* ProcessInfoIpcMethod.swift */,
+				F8971DED226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift */,
+				F8971DEF226773E3001741C1 /* IpcProcessInfo.swift */,
+			);
+			path = ProcessInfo;
 			sourceTree = "<group>";
 		};
 		F8A395BC2147C549000E9E44 /* ViewsWithClosures */ = {
@@ -1858,6 +1887,7 @@
 		F8D5392520A087A600733C93 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8971DE722677150001741C1 /* LaunchingApp */,
 				F8A7530E2260E12B00396A89 /* Network */,
 				F879832222493082004DD770 /* Interactions */,
 				F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */,
@@ -2585,6 +2615,7 @@
 				F813CB26209CD82A00E6A27C /* ScrollTests.swift in Sources */,
 				CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */,
 				F8E8BAE520DD752F00524185 /* FakeCellsTestsView.swift in Sources */,
+				F8971DF0226773E3001741C1 /* IpcProcessInfo.swift in Sources */,
 				F84D127B2166B3A700A178B4 /* CrashingCellException.swift in Sources */,
 				F8E8BAF620E1235E00524185 /* main.m in Sources */,
 				F8B34117224E530F00AA1EB9 /* PermissionsTestsView.swift in Sources */,
@@ -2614,6 +2645,7 @@
 				F8676ED621552D27007DDB7C /* CallbackFromAppIpcMethod.swift in Sources */,
 				F813CB23209CD82A00E6A27C /* ActionsTestsView.swift in Sources */,
 				F84D12722166AC3D00A178B4 /* FakeCellsDoNotCrashAppTestsView.swift in Sources */,
+				F8971DEC226772CD001741C1 /* ProcessInfoIpcMethod.swift in Sources */,
 				F8203045223827E7006D2F70 /* ViewIpc.swift in Sources */,
 				F813CB25209CD82A00E6A27C /* ScrollTestsScrollView.swift in Sources */,
 				F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */,
@@ -2627,6 +2659,7 @@
 				F8676EE4215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift in Sources */,
 				BCB072EB2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift in Sources */,
 				F8B33B27224BBE6400AA1EB9 /* ChecksTestsViewConfiguration.swift in Sources */,
+				F8971DEE226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift in Sources */,
 				F820304722382CD9006D2F70 /* ClosureMethodHandler.swift in Sources */,
 				F8676ED821552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift in Sources */,
 				F8E6CC792180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift in Sources */,
@@ -2658,6 +2691,7 @@
 				F8971DAC22666218001741C1 /* BaseNetworkMockingTestCase.swift in Sources */,
 				F8971D2422651DF5001741C1 /* TemporaryDirectory.swift in Sources */,
 				F8A9D343216B894800EC5D24 /* TestGetter.m in Sources */,
+				F8971DF12267743F001741C1 /* ProcessInfoIpcMethod.swift in Sources */,
 				F8971CE92264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift in Sources */,
 				F88ADFB3223BD6A70024CCBE /* RecodableStepLogger.swift in Sources */,
 				F88ADF592239821C0024CCBE /* ActionSpecification.swift in Sources */,
@@ -2711,6 +2745,7 @@
 				F8AC35C920E2B1310094204C /* FakeCellsReloadIpcMethod.swift in Sources */,
 				F8AD07A422535DB500D5FB93 /* AssertTextMatchesInteractionTests.swift in Sources */,
 				F879832F22494BE3004DD770 /* ChecksTestsScreen.swift in Sources */,
+				F8971DF22267751C001741C1 /* IpcProcessInfo.swift in Sources */,
 				F8203069223854A3006D2F70 /* TapActionTests.swift in Sources */,
 				F8971CDE2264A8C2001741C1 /* BuiltinIpcLaunchableApplication.swift in Sources */,
 				F8971CE62264B822001741C1 /* LaunchedApplicationImpl.swift in Sources */,
@@ -2731,6 +2766,7 @@
 				F8971D1422650AF1001741C1 /* TemporaryFile.swift in Sources */,
 				F8971D0822650A90001741C1 /* EnvironmentProvider.swift in Sources */,
 				F88ADFAA223BCF1E0024CCBE /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift in Sources */,
+				F8971DE92267715A001741C1 /* LaunchingAppTests.swift in Sources */,
 				F88ADF66223AEDAB0024CCBE /* BaseActionTestCaseTests.swift in Sources */,
 				F879833F22495469004DD770 /* TestCase+Assert+LogsAndFailures.swift in Sources */,
 				F8B33B2B224BBE7100AA1EB9 /* ChecksTestsViewConfiguration.swift in Sources */,

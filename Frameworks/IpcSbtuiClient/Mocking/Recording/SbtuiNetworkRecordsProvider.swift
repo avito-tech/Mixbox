@@ -1,9 +1,14 @@
 import SBTUITestTunnel
 import MixboxUiTestsFoundation
+import MixboxXcuiDriver
 import MixboxReporting
 
 // TODO: Нормально абстрагироваться от SBTMonitoredNetworkRequest
-public final class SbtuiNetworkRecordsProvider: NetworkRecordsProvider, NetworkRecorderLifecycle {
+public final class SbtuiNetworkRecordsProvider:
+    NetworkRecordsProvider,
+    NetworkRecorderLifecycle,
+    ApplicationLifecycleObserver
+{
     private let testFailureRecorder: TestFailureRecorder
     private let tunneledApplication: SBTUITunneledApplication
     
@@ -25,16 +30,22 @@ public final class SbtuiNetworkRecordsProvider: NetworkRecordsProvider, NetworkR
     
     public init(
         tunneledApplication: SBTUITunneledApplication,
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        applicationLifecycleObservable: ApplicationLifecycleObservable)
     {
         self.tunneledApplication = tunneledApplication
         self.testFailureRecorder = testFailureRecorder
+        
+        applicationLifecycleObservable.addObserver(self)
+        tunnelWasLaunched = applicationLifecycleObservable.applicationIsLaunched
+        
+        handleChangeOfStateThatAffectsStartingOfRecording()
     }
     
-    // MARK: - SbtuiNetworkRecordsProvider
+    // MARK: - ApplicationLifecycleObserver
     
-    public func handleTunnelIsLaunched() {
-        tunnelWasLaunched = true
+    public func applicationStateChanged(applicationIsLaunched: Bool) {
+        tunnelWasLaunched = applicationIsLaunched
     }
     
     // MARK: - NetworkRecordsProvider

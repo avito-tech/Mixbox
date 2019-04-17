@@ -10,13 +10,20 @@ public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
     }
     
     private static var everLaunched: Bool = false
-    private let applicationDidLaunchObserver: ApplicationDidLaunchObserver
+    private let applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver
+    private var launchedXcuiApplication: XCUIApplication?
     
-    public init(applicationDidLaunchObserver: ApplicationDidLaunchObserver) {
-        self.applicationDidLaunchObserver = applicationDidLaunchObserver
+    public init(
+        applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver)
+    {
+        self.applicationLifecycleObservable = applicationLifecycleObservable
     }
     
-    public func launch(environment: [String: String]) -> LaunchedApplication {
+    public func launch(
+        arguments: [String],
+        environment: [String: String])
+        -> LaunchedApplication
+    {
         let application: XCUIApplication
         
         // Prototype of fast launching
@@ -32,6 +39,7 @@ public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
             preconditionFailure("Не удалось стартовать сервер.")
         }
         
+        application.launchArguments = arguments
         application.launchEnvironment["MIXBOX_HOST"] = "localhost"
         application.launchEnvironment["MIXBOX_PORT"] = "\(port)"
         application.launchEnvironment["MIXBOX_USE_BUILTIN_IPC"] = "true"
@@ -42,15 +50,21 @@ public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
         
         // Launch
         application.launch()
+        launchedXcuiApplication = application
         BuiltinIpcLaunchableApplication.everLaunched = true
-        applicationDidLaunchObserver.applicationDidLaunch()
+        applicationLifecycleObservable.applicationStateChanged(applicationIsLaunched: true)
         
         // Wait for handshake
         let ipcClient = handshaker.waitForHandshake()
         
         return LaunchedApplicationImpl(
-            ipcClient: handshaker.waitForHandshake(),
+            ipcClient: ipcClient,
             ipcRouter: handshaker.server
         )
+    }
+    
+    public func terminate() {
+        launchedXcuiApplication?.terminate()
+        applicationLifecycleObservable.applicationStateChanged(applicationIsLaunched: false)
     }
 }

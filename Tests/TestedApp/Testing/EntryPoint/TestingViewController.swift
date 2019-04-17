@@ -18,17 +18,17 @@ final class TestingViewController: UIViewController {
         let prefix = "\(ApplicationNameProvider.applicationName)." // TODO: get module name properly
         let className = testingViewControllerSettings.name
         
+        var viewToLoad: UIView? = nil
+        
         if let anyClass = NSClassFromString(prefix + className) {
             if let view = instantiateAsViewInitializableWithTestingViewControllerSettings(anyClass) {
-                self.view = view
+                viewToLoad = view
             } else if let view = instantiateAsView(anyClass) {
-                self.view = view
+                viewToLoad = view
             }
         }
         
-        if view == nil {
-            self.view = instantiateFallbackView()
-        }
+        self.view = viewToLoad ?? instantiateFallbackView()
     }
     
     private func instantiateFallbackView() -> UIView? {

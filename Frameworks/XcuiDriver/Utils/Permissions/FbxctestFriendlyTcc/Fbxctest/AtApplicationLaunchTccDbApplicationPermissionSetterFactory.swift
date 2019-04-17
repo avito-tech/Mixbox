@@ -4,10 +4,10 @@ import MixboxReporting
 // Use this with TccDbApplicationPermissionSetter if you are running tests via fbxctest
 // For running with Xcode and xcodebuild use TccDbApplicationPermissionSetterFactory
 public final class AtApplicationLaunchTccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory {
-    private let applicationDidLaunchObservable: ApplicationDidLaunchObservable
+    private let applicationLifecycleObservable: ApplicationLifecycleObservable
     
-    public init(applicationDidLaunchObservable: ApplicationDidLaunchObservable) {
-        self.applicationDidLaunchObservable = applicationDidLaunchObservable
+    public init(applicationLifecycleObservable: ApplicationLifecycleObservable) {
+        self.applicationLifecycleObservable = applicationLifecycleObservable
     }
     
     public func tccDbApplicationPermissionSetter(
@@ -26,7 +26,7 @@ public final class AtApplicationLaunchTccDbApplicationPermissionSetterFactory: T
             applicationPermissionSetter: wrappedSetter
         )
         
-        applicationDidLaunchObservable.addObserver(setter)
+        applicationLifecycleObservable.addObserver(setter)
         
         return setter
     }

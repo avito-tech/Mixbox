@@ -81,7 +81,7 @@ class TestCase: XCTestCase, FailureGatherer {
         let launchedApplication = testCaseUtils
             .launchableApplicationProvider
             .launchableApplication
-            .launch(environment: mergedEnvironment)
+            .launch(arguments: [], environment: mergedEnvironment)
         
         testCaseUtils.lazilyInitializedIpcClient.ipcClient = launchedApplication.ipcClient
         testCaseUtils.ipcRouter = launchedApplication.ipcRouter

@@ -32,6 +32,7 @@ PODS:
     - MixboxIpc
     - MixboxTestsFoundation
     - MixboxUiTestsFoundation
+    - MixboxXcuiDriver
     - SBTUITestTunnel/Client (~> 3.0.6)
   - MixboxIpcSbtuiHost (0.1.0):
     - MixboxIpc
@@ -149,7 +150,7 @@ SPEC CHECKSUMS:
   MixboxIpc: d91828e6d80a76ea61ec77af762c17510f59d321
   MixboxIpcClients: 09c700dc094d149c0ea9982dd1c5c855fac9877f
   MixboxIpcCommon: 3b16bf9f463f358093e20a79dc7c38c198d89e4b
-  MixboxIpcSbtuiClient: ed46a2d389a7b9376b1e554458d7ccfe890a63b2
+  MixboxIpcSbtuiClient: 5e3f0b911a5b6f0b9e63fd31c10bf4aed003d63c
   MixboxIpcSbtuiHost: ad66f177e17fb1f9a7ee62911b55d3aec686949e
   MixboxReporting: 9a63996e2b03143115fbf23ca6d20b23c244bb97
   MixboxTestability: 6106fecdc30b4c2944bac1e479e631e657f61fd9

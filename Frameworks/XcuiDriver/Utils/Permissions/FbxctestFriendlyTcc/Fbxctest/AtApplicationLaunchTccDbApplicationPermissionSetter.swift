@@ -12,7 +12,7 @@ import MixboxTestsFoundation
 
 public final class AtApplicationLaunchApplicationPermissionSetter:
     ApplicationPermissionSetter,
-    ApplicationDidLaunchObserver
+    ApplicationLifecycleObserver
 {
     private var codeToExecuteAfterLaunch: (() -> ())?
     private let applicationPermissionSetter: ApplicationPermissionSetter
@@ -42,9 +42,11 @@ public final class AtApplicationLaunchApplicationPermissionSetter:
         applicationPermissionSetter.set(state)
     }
     
-    // MARK: - ApplicationDidLaunchObserver
+    // MARK: - ApplicationLifecycleObserver
     
-    public func applicationDidLaunch() {
-        codeToExecuteAfterLaunch?()
+    public func applicationStateChanged(applicationIsLaunched: Bool) {
+        if applicationIsLaunched {
+            codeToExecuteAfterLaunch?()
+        }
     }
 }
