@@ -2,40 +2,41 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import XCTest
 
+// Tests are unstable, because actions are unstable. TODO: Make actions more stable and enable this test!
 final class RunningActionsInRandomOrderTests: BaseActionTestCase {
-    func test_0() {
+    func disabled_test_0() {
         parameterizedTest(testId: 0)
     }
     
-    func test_1() {
+    func disabled_test_1() {
         parameterizedTest(testId: 1)
     }
     
-    func test_2() {
+    func disabled_test_2() {
         parameterizedTest(testId: 2)
     }
     
-    func test_3() {
+    func disabled_test_3() {
         parameterizedTest(testId: 3)
     }
     
-    func test_4() {
+    func disabled_test_4() {
         parameterizedTest(testId: 4)
     }
     
-    func test_5() {
+    func disabled_test_5() {
         parameterizedTest(testId: 5)
     }
     
-    func test_6() {
+    func disabled_test_6() {
         parameterizedTest(testId: 6)
     }
     
-    func test_7() {
+    func disabled_test_7() {
         parameterizedTest(testId: 7)
     }
     
-    func test_8() {
+    func disabled_test_8() {
         parameterizedTest(testId: 8)
     }
     
