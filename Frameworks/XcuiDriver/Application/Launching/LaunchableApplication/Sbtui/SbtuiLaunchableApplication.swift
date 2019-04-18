@@ -77,16 +77,16 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         tunneledApplication.launchEnvironment = environment
         
         tunneledApplication.launchTunnel { [tunneledApplication, applicationLifecycleObservable] in
-            // I do not really know it is neccessary:
-            if !tunneledApplication.exists {
-                let totalTimeout: TimeInterval = 60
-                let attempts = 10
-                let timeout: TimeInterval = totalTimeout / TimeInterval(attempts)
-                
-                for _ in 0..<attempts where !tunneledApplication.waitForExistence(timeout: timeout) {}
-            }
-            
             applicationLifecycleObservable.applicationStateChanged(applicationIsLaunched: true)
+        }
+        
+        // I do not really know it is neccessary:
+        if !tunneledApplication.exists {
+            let totalTimeout: TimeInterval = 60
+            let attempts = 10
+            let timeout: TimeInterval = totalTimeout / TimeInterval(attempts)
+            
+            for _ in 0..<attempts where !tunneledApplication.waitForExistence(timeout: timeout) {}
         }
         
         return LaunchedApplicationImpl(

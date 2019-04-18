@@ -1,11 +1,3 @@
-// TODO: Remove this enum after removing SBTUITestTunnel dependency.
-// The interface is not ideal, it was made based on current implementation of SBTUITestTunnel
-public enum StubResponseBuilderResponseValue {
-    case data(Data)
-    case string(String)
-    case file(String)
-}
-
 public protocol StubResponseBuilder {
     // Do not use directly, use functions from extensions.
     // This function should be used only for implementing basic functionality.

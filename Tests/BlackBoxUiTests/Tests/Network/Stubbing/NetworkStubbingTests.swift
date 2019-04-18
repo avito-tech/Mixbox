@@ -35,6 +35,45 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
         )
     }
     
+    func test___requests_are_stubbed_in_correct_order() {
+        openScreen(name: screen.view)
+        
+        networking.stubbing
+            .stub(urlPattern: "localhost")
+            .thenReturn(string: "1")
+        
+        screen.localhost.tap()
+        screen.info.assertHasText("1")
+        
+        networking.stubbing
+            .stub(urlPattern: "localho")
+            .thenReturn(string: "2")
+        
+        screen.localhost.tap()
+        screen.info.assertHasText("2")
+        
+        networking.stubbing
+            .stub(urlPattern: ".*")
+            .thenReturn(string: "3")
+        
+        screen.localhost.tap()
+        screen.info.assertHasText("3")
+        
+        networking.stubbing
+            .stub(urlPattern: "localho")
+            .thenReturn(string: "4")
+        
+        screen.localhost.tap()
+        screen.info.assertHasText("4")
+        
+        networking.stubbing
+            .stub(urlPattern: "localho")
+            .thenReturn(string: "5")
+        
+        screen.localhost.tap()
+        screen.info.assertHasText("5")
+    }
+    
     private func checkStubbing(
         urlPattern: String,
         tapAction: () -> (),

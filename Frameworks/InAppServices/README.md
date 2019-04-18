@@ -9,7 +9,6 @@ Example usage:
 let mixboxInAppServices = MixboxInAppServices()
 if let mixboxInAppServices = mixboxInAppServices {
 	mixboxInAppServices.start()
-	mixboxInAppServices.handleUiBecomeVisible() // this will be removed in future
 }
 ```
 

@@ -1,12 +1,15 @@
 import UIKit
 import GCDWebServer
+import MixboxIpc
 
-final class NetworkStubbingTestsView: TestStackScrollView {
+final class NetworkStubbingTestsView: TestStackScrollView, InitializableWithTestingViewControllerSettings {
+    
     private let server = GCDWebServer()
     private var infoLabel: UILabel?
+    private var message: String = "This is NOT a stubbed string"
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(testingViewControllerSettings: TestingViewControllerSettings) {
+        super.init(frame: .zero)
         
         accessibilityIdentifier = "view"
         
@@ -19,6 +22,22 @@ final class NetworkStubbingTestsView: TestStackScrollView {
         }
         
         addRequestButtons()
+        
+        testingViewControllerSettings.viewIpc.register(
+            method: NetworkStubbingTestsViewSetResponseIpcMethod(),
+            closure:  { [weak self] message, completion in
+                guard let strongSelf = self else {
+                    completion(IpcVoid())
+                    assertionFailure("self is nil")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    strongSelf.message = message
+                    completion(IpcVoid())
+                }
+            }
+        )
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,12 +76,11 @@ final class NetworkStubbingTestsView: TestStackScrollView {
     }
     
     private func startServer() {
-        let notStubbedText = "This is NOT a stubbed string"
-        server.addDefaultHandler(forMethod: "GET", request: GCDWebServerDataRequest.self) { request, completion in
+        server.addDefaultHandler(forMethod: "GET", request: GCDWebServerDataRequest.self) { [weak self] request, completion in
             let contentType = "application/json"
             completion(
                 GCDWebServerDataResponse(
-                    data: notStubbedText.data(using: .utf8) ?? Data(),
+                    data: self?.message.data(using: .utf8) ?? Data(),
                     contentType: contentType
                 )
             )

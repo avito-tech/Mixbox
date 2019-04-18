@@ -289,6 +289,9 @@
 		F8EBBCBB213AB83F00D320A4 /* HierarchySourcesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBBCBA213AB83F00D320A4 /* HierarchySourcesTestsView.swift */; };
 		F8EBBCE5213D4EEE00D320A4 /* ScreenshotTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBBCE4213D4EEE00D320A4 /* ScreenshotTestsView.swift */; };
 		F8EBBCE7213D541300D320A4 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EBBCE6213D541300D320A4 /* ScreenshotTests.swift */; };
+		F8FC281522693876009E4982 /* NetworkStubbingTestsSetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FC281422693876009E4982 /* NetworkStubbingTestsSetResponse.swift */; };
+		F8FC2816226938A2009E4982 /* NetworkStubbingTestsSetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FC281422693876009E4982 /* NetworkStubbingTestsSetResponse.swift */; };
+		F8FC281922693D2E009E4982 /* MoreComplexExample.recordedNetworkSession.json in Resources */ = {isa = PBXBuildFile; fileRef = F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */; };
 		F8FC39812159133D00A9C922 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -590,6 +593,8 @@
 		F8EBBCE4213D4EEE00D320A4 /* ScreenshotTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTestsView.swift; sourceTree = "<group>"; };
 		F8EBBCE6213D541300D320A4 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		F8EC421E20C83B7800BD8DA2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		F8FC281422693876009E4982 /* NetworkStubbingTestsSetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsSetResponse.swift; sourceTree = "<group>"; };
+		F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MoreComplexExample.recordedNetworkSession.json; sourceTree = "<group>"; };
 		F8FC39802159133D00A9C922 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		FD9F80D7EE4414E4F09E6CF0 /* Pods_BlackBoxUiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlackBoxUiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1372,6 +1377,7 @@
 				F8971D2E2265331C001741C1 /* NetworkPlayerShowcaseTests.swift */,
 				F8971D422265FED7001741C1 /* NetworkPlayerShowcaseTests.recordedNetworkSession.json */,
 				F8971D9E22663BF6001741C1 /* NetworkPlayerShowcaseTests.alwaysEmpty.json */,
+				F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */,
 			);
 			path = Showcase;
 			sourceTree = "<group>";
@@ -1846,6 +1852,7 @@
 		F8C7090D2153E3650015A10B /* NetworkStubbingTests */ = {
 			isa = PBXGroup;
 			children = (
+				F8FC281322693855009E4982 /* SharedCode */,
 				F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */,
 			);
 			path = NetworkStubbingTests;
@@ -2032,6 +2039,14 @@
 			path = ScreenshotTests;
 			sourceTree = "<group>";
 		};
+		F8FC281322693855009E4982 /* SharedCode */ = {
+			isa = PBXGroup;
+			children = (
+				F8FC281422693876009E4982 /* NetworkStubbingTestsSetResponse.swift */,
+			);
+			path = SharedCode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2214,6 +2229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8971D9F22663BF6001741C1 /* NetworkPlayerShowcaseTests.alwaysEmpty.json in Resources */,
+				F8FC281922693D2E009E4982 /* MoreComplexExample.recordedNetworkSession.json in Resources */,
 				F8971D432265FED7001741C1 /* NetworkPlayerShowcaseTests.recordedNetworkSession.json in Resources */,
 				F8FC39812159133D00A9C922 /* Media.xcassets in Resources */,
 			);
@@ -2629,6 +2645,7 @@
 				F84C4F3320E68FCA00DB35F2 /* FakeCellsReloadType.swift in Sources */,
 				F8EBBCBB213AB83F00D320A4 /* HierarchySourcesTestsView.swift in Sources */,
 				F8676EDA21552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift in Sources */,
+				F8FC281522693876009E4982 /* NetworkStubbingTestsSetResponse.swift in Sources */,
 				F8B34124224E5C5200AA1EB9 /* PermissionInfo.swift in Sources */,
 				F820304C22382DAF006D2F70 /* InitializableWithTestingViewControllerSettings.swift in Sources */,
 				F813CB1E209CD82A00E6A27C /* ButtonWithClosures.swift in Sources */,
@@ -2733,6 +2750,7 @@
 				F8A9D341216B894800EC5D24 /* TestObservationEntryPoint.swift in Sources */,
 				F8971CFF22650287001741C1 /* RecordingNetworkPlayerTests.swift in Sources */,
 				F8A9D340216B894800EC5D24 /* TestQuery.swift in Sources */,
+				F8FC2816226938A2009E4982 /* NetworkStubbingTestsSetResponse.swift in Sources */,
 				F8B010E321FF319D0026360D /* TestReportAttachment.swift in Sources */,
 				F8B3411B224E572100AA1EB9 /* GenericPageObject.swift in Sources */,
 				F8B33B2D224C068B00AA1EB9 /* AssertSpec.swift in Sources */,

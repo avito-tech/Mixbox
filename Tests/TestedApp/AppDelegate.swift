@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 CustomIpcMethods.registerIn(mixboxInAppServices)
                 
                 mixboxInAppServices.start()
-                mixboxInAppServices.handleUiBecomeVisible()
             }
             #endif
             

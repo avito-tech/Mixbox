@@ -4,6 +4,8 @@ public final class RecordedNetworkSessionPath {
     public let resourceName: String // e.g.: "session.json"
     public let sourceCodePath: String // e.g.: "/path/to/session.json"
     
+    public static let defaultExtension = "recordedNetworkSession.json"
+    
     public init(
         resourceName: String,
         sourceCodePath: String)
@@ -21,22 +23,27 @@ public final class RecordedNetworkSessionPath {
         )
     }
     
+    public func addDefaultExtension() -> RecordedNetworkSessionPath {
+        return RecordedNetworkSessionPath(
+            resourceName: resourceName + ".\(RecordedNetworkSessionPath.defaultExtension)",
+            sourceCodePath: sourceCodePath + ".\(RecordedNetworkSessionPath.defaultExtension)"
+        )
+    }
+    
     public static func nearHere(
         file: StaticString = #file)
         -> RecordedNetworkSessionDirectoryWithDefaultName
     {
-        let suffix = "recordedNetworkSession.json"
-        
         let defaultName = "\(file)"
             .mb_lastPathComponent
             .split(separator: ".", maxSplits: 1, omittingEmptySubsequences: true)
             .first
             .map(String.init)
-            .map { "\($0).\(suffix)" }
+            .map { "\($0).\(defaultExtension)" }
         
         return RecordedNetworkSessionDirectoryWithDefaultName(
             directoryPath: "\(file)".mb_deletingLastPathComponent,
-            defaultName: defaultName ?? suffix
+            defaultName: defaultName ?? defaultExtension
         )
     }
     

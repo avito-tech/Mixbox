@@ -3,11 +3,6 @@
 import MixboxIpc
 
 // Facade for starting everything for tests, on the side of the app.
-// Usage:
-//
-//  start()
-//  handleUiBecomeVisible() // somewhere where you feel your tests can start validate te UI
-//
 public final class MixboxInAppServices: IpcRouter {
     private var router: IpcRouter?
     private var client: IpcClient?
@@ -103,10 +98,6 @@ public final class MixboxInAppServices: IpcRouter {
                 keyboardEventInjector: KeyboardEventInjectorImpl(application: UIApplication.shared)
             )
         )
-    }
-    
-    public func handleUiBecomeVisible() {
-        ipcStarter.handleUiBecomeVisible()
     }
 }
 

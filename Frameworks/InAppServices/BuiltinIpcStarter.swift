@@ -23,10 +23,6 @@ final class BuiltinIpcStarter: IpcStarter {
             }
         )
     }
-    
-    func handleUiBecomeVisible() {
-        // not needed
-    }
 }
 
 #endif

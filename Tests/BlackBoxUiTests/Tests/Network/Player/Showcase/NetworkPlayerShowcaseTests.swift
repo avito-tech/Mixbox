@@ -2,7 +2,7 @@ import MixboxUiTestsFoundation
 
 final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
     // Note: use this test to record session for other tests!
-    func test_player_inReplayingMode_replays() {
+    func test___player_replays_network_in_replaying_mode___basic_case() {
         let player = networking.recording.player(session: .default())
         
         player.checkpoint(id: "ADB86909-6DD5-4056-86F7-784FD286FD7C")
@@ -18,6 +18,53 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
         screen.info.assertMatches { element in
             element.text.startsWith("<!doctype html>")
         }
+    }
+    
+    // Note that test will fail in recording mode (see comments in test function body)
+    func test___player_replays_network_in_replaying_mode___complex_case() {
+        let player = networking.recording.player(
+            session: RecordedNetworkSessionPath
+                .nearHere()
+                .withName("MoreComplexExample")
+                .addDefaultExtension()
+        )
+        
+        player.checkpoint(id: "initial")
+        
+        openScreen(name: screen.view)
+        
+        setResponse("1")
+        screen.localhost.tap()
+        screen.info.assertHasText("1")
+        
+        player.checkpoint(id: "afterOneAction")
+        
+        setResponse("2")
+        screen.localhost.tap()
+        screen.info.assertHasText("4") // Last matching stub in bucket will be applied and this is OK for now.
+        
+        setResponse("3")
+        screen.localhost.tap()
+        screen.info.assertHasText("4") // Last matching stub in bucket will be applied and this is OK for now.
+        
+        setResponse("4")
+        screen.localhost.tap()
+        screen.info.assertHasText("4")
+        
+        player.checkpoint(id: "afterMultipleActions")
+        
+        setResponse("5")
+        screen.localhost.tap()
+        screen.info.assertHasText("5")
+        
+        player.checkpoint(id: "afterLastAction")
+    }
+    
+    private func setResponse(_ string: String) {
+        ipcClient.callOrFail(
+            method: NetworkStubbingTestsViewSetResponseIpcMethod(),
+            arguments: string
+        )
     }
     
     func test_player_inReplayingMode_fails_ifCheckpointsDoesntHaveId() {

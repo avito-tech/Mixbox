@@ -23,11 +23,22 @@ public final class RecordedSessionStubberImpl: RecordedSessionStubber {
             )
     }
     
+    public func stubAllNetworkInitially() {
+        stubRequestBuilder
+            .stub(urlPattern: ".*")
+            .thenReturn(
+                string: "All network is stubbed with error by default. If you see this then current request was not stubbed.",
+                headers: [:],
+                statusCode: 500,
+                responseTime: 0
+        )
+    }
+    
     // Very stupid regular expression! TODO: Improve! Add more things other than path and host.
     private func urlPattern(request: RecordedStubRequest) -> String {
         let trimmedPath = request.url.path.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         let pathAndQueryPattern: String
-        let queryPattern: String = "(?:$|\\?.*)"
+        let queryPattern: String = "($|\\?.*)"
         
         if trimmedPath.isEmpty {
             pathAndQueryPattern = "\\/?" + queryPattern
@@ -46,17 +57,6 @@ public final class RecordedSessionStubberImpl: RecordedSessionStubber {
             }
             ?? ".*?"
         
-        return "\(hostPattern)\(pathAndQueryPattern)"
-    }
-    
-    public func stubAllNetworkInitially() {
-        stubRequestBuilder
-            .stub(urlPattern: ".*")
-            .thenReturn(
-                string: "All network is stubbed with error by default. If you see this then current request was not stubbed.",
-                headers: [:],
-                statusCode: 500,
-                responseTime: 0
-        )
+        return "\(hostPattern)(:[0-9]+)?\(pathAndQueryPattern)"
     }
 }

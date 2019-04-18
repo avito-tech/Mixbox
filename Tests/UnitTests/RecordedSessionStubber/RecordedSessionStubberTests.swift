@@ -59,35 +59,91 @@ final class RecordedSessionStubberTests: XCTestCase {
     func test___with_empty_path___scheme_makes_no_difference() {
         assert(
             stubWithUrl: "http://example.com",
-            willMatch: "https//example.com"
+            willMatch: "https://example.com"
         )
     }
     
     func test___with_path___backslash_at_end_makes_no_difference_0() {
         assert(
             stubWithUrl: "http://example.com/path",
-            willMatch: "https//example.com/path/"
+            willMatch: "https://example.com/path/"
         )
     }
     
     func test___with_path___backslash_at_end_makes_no_difference_1() {
         assert(
             stubWithUrl: "http://example.com/path/",
-            willMatch: "https//example.com/path/"
+            willMatch: "https://example.com/path/"
         )
     }
     
     func test___with_path___backslash_at_end_makes_no_difference_2() {
         assert(
             stubWithUrl: "http://example.com/path/",
-            willMatch: "https//example.com/path"
+            willMatch: "https://example.com/path"
         )
     }
     
     func test___with_path___backslash_at_end_makes_no_difference_3() {
         assert(
             stubWithUrl: "http://example.com/path",
-            willMatch: "https//example.com/path"
+            willMatch: "https://example.com/path"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_0() {
+        assert(
+            stubWithUrl: "http://example.com:80/path",
+            willMatch: "https://example.com/path"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_1() {
+        assert(
+            stubWithUrl: "http://example.com/path",
+            willMatch: "https://example.com:80/path"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_2() {
+        assert(
+            stubWithUrl: "http://example.com:80/path",
+            willMatch: "https://example.com:80/path"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_3() {
+        assert(
+            stubWithUrl: "http://example.com:80",
+            willMatch: "https://example.com:80"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_4() {
+        assert(
+            stubWithUrl: "http://example.com",
+            willMatch: "https://example.com:80"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_5() {
+        assert(
+            stubWithUrl: "http://example.com:80",
+            willMatch: "https://example.com"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_6() {
+        assert(
+            stubWithUrl: "http://example.com:80/",
+            willMatch: "https://example.com"
+        )
+    }
+    
+    func test___with_path___port_makes_no_difference_7() {
+        assert(
+            stubWithUrl: "http://example.com:80",
+            willMatch: "https://example.com/"
         )
     }
     

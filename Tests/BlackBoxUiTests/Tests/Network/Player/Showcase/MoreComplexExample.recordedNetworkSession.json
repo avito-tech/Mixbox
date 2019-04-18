@@ -1,0 +1,130 @@
+{
+  "buckets" : [
+    {
+      "id" : "initial",
+      "recordedStubs" : [
+
+      ]
+    },
+    {
+      "id" : "afterOneAction",
+      "recordedStubs" : [
+        {
+          "request" : {
+            "url" : "http:\/\/localhost:59493",
+            "httpMethod" : "get"
+          },
+          "response" : {
+            "headers" : {
+              "Connection" : "Close",
+              "Cache-Control" : "no-cache",
+              "Server" : "GCDWebServer",
+              "Date" : "Thu, 18 Apr 2019 23:18:37 GMT",
+              "Content-Type" : "application\/json",
+              "Content-Length" : "1"
+            },
+            "data" : {
+              "type" : "data",
+              "value" : "MQ=="
+            },
+            "statusCode" : 200
+          }
+        }
+      ]
+    },
+    {
+      "id" : "afterMultipleActions",
+      "recordedStubs" : [
+        {
+          "request" : {
+            "url" : "http:\/\/localhost:59493",
+            "httpMethod" : "get"
+          },
+          "response" : {
+            "headers" : {
+              "Connection" : "Close",
+              "Cache-Control" : "no-cache",
+              "Server" : "GCDWebServer",
+              "Date" : "Thu, 18 Apr 2019 23:18:43 GMT",
+              "Content-Type" : "application\/json",
+              "Content-Length" : "1"
+            },
+            "data" : {
+              "type" : "data",
+              "value" : "Mg=="
+            },
+            "statusCode" : 200
+          }
+        },
+        {
+          "request" : {
+            "url" : "http:\/\/localhost:59493",
+            "httpMethod" : "get"
+          },
+          "response" : {
+            "headers" : {
+              "Connection" : "Close",
+              "Cache-Control" : "no-cache",
+              "Server" : "GCDWebServer",
+              "Date" : "Thu, 18 Apr 2019 23:18:45 GMT",
+              "Content-Type" : "application\/json",
+              "Content-Length" : "1"
+            },
+            "data" : {
+              "type" : "data",
+              "value" : "Mw=="
+            },
+            "statusCode" : 200
+          }
+        },
+        {
+          "request" : {
+            "url" : "http:\/\/localhost:59493",
+            "httpMethod" : "get"
+          },
+          "response" : {
+            "headers" : {
+              "Connection" : "Close",
+              "Cache-Control" : "no-cache",
+              "Server" : "GCDWebServer",
+              "Date" : "Thu, 18 Apr 2019 23:18:46 GMT",
+              "Content-Type" : "application\/json",
+              "Content-Length" : "1"
+            },
+            "data" : {
+              "type" : "data",
+              "value" : "NA=="
+            },
+            "statusCode" : 200
+          }
+        }
+      ]
+    },
+    {
+      "id" : "afterLastAction",
+      "recordedStubs" : [
+        {
+          "request" : {
+            "url" : "http:\/\/localhost:59493",
+            "httpMethod" : "get"
+          },
+          "response" : {
+            "headers" : {
+              "Connection" : "Close",
+              "Cache-Control" : "no-cache",
+              "Server" : "GCDWebServer",
+              "Date" : "Thu, 18 Apr 2019 23:18:52 GMT",
+              "Content-Type" : "application\/json",
+              "Content-Length" : "1"
+            },
+            "data" : {
+              "type" : "data",
+              "value" : "NQ=="
+            },
+            "statusCode" : 200
+          }
+        }
+      ]
+    }
+  ]
+}

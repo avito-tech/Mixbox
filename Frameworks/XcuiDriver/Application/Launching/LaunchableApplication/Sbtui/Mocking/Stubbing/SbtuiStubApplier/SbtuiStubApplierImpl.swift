@@ -1,11 +1,19 @@
 import SBTUITestTunnel
-import MixboxXcuiDriver
+import MixboxFoundation
 
 public final class SbtuiStubApplierImpl: SbtuiStubApplier, ApplicationLifecycleObserver {
     private let tunneledApplication: SBTUITunneledApplication
+    private var stubsToApply: [SbtuiStub] = [] {
+        didSet {
+            subscribeToApplicationLifecycleOnce()
+        }
+    }
+    
     private let applicationLifecycleObservable: ApplicationLifecycleObservable
-    private var stubsToApply: [SbtuiStub] = []
-    private var tunnelIsLaunched = false
+    private let subscribeToApplicationLifecycleOnceToken = ThreadUnsafeOnceToken()
+    
+    // Unfortunately SBTUITestTunnel doesn't overwrite stubs, so we make every stub unique
+    private var indexToMakeRegularExpressionUnique: Int = 0
     
     public init(
         tunneledApplication: SBTUITunneledApplication,
@@ -13,43 +21,56 @@ public final class SbtuiStubApplierImpl: SbtuiStubApplier, ApplicationLifecycleO
     {
         self.tunneledApplication = tunneledApplication
         self.applicationLifecycleObservable = applicationLifecycleObservable
-        
-        applicationLifecycleObservable.addObserver(self)
     }
     
-    // MARK: - ApplicationLifecycleObserver
+    // MARK: - SbtuiStubApplier
     
     public func apply(stub: SbtuiStub) {
-        if applicationLifecycleObservable.applicationIsLaunched {
-            stubRequestsInTunneledApplication(stub: stub)
-        }
-        
         stubsToApply.append(stub)
+        flush()
     }
     
     public func removeAllStubs() {
         stubsToApply = []
-        tunneledApplication.stubRequestsRemoveAll()
+        
+        if applicationLifecycleObservable.applicationIsLaunched {
+            tunneledApplication.stubRequestsRemoveAll()
+        }
+    }
+    
+    private func flush() {
+        if applicationLifecycleObservable.applicationIsLaunched {
+            stubsToApply
+                .forEach { stub in
+                    let request = SbtuiStubRequest(
+                        urlPattern: stub.request.urlPattern + "(\(indexToMakeRegularExpressionUnique)){0}",
+                        query: stub.request.query,
+                        httpMethod: stub.request.httpMethod
+                    )
+                    indexToMakeRegularExpressionUnique += 1
+                    tunneledApplication.stubRequests(
+                        matching: request.requestMatch,
+                        response: stub.response.stubResponse
+                    )
+                }
+            
+            stubsToApply = []
+        }
     }
     
     // MARK: - ApplicationLifecycleObserver
     
     public func applicationStateChanged(applicationIsLaunched: Bool) {
-        tunnelIsLaunched = applicationIsLaunched
-        
         if applicationIsLaunched {
-            stubsToApply.forEach { stub in
-                stubRequestsInTunneledApplication(stub: stub)
-            }
+            flush()
         }
     }
     
     // MARK: - Private
     
-    private func stubRequestsInTunneledApplication(stub: SbtuiStub) {
-        tunneledApplication.stubRequests(
-            matching: stub.requestMatch,
-            response: stub.stubResponse
-        )
+    private func subscribeToApplicationLifecycleOnce() {
+        subscribeToApplicationLifecycleOnceToken.executeOnce {
+            applicationLifecycleObservable.addObserver(self)
+        }
     }
 }
