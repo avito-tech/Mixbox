@@ -1,11 +1,5 @@
-// MARK: - Mocks generated from file: ../../../../../Mixbox/Frameworks/UiTestsFoundation/NetworkMocking/Stubbing/Request/StubRequestBuilder.swift at 2019-04-18 16:16:32 +0000
-
-// Do not use functions declared in protocol directly, use functions from extensions.
-// This function should be used only for implementing basic functionality.
-
 import Cuckoo
 import MixboxUiTestsFoundation
-
 
 public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
     public typealias MocksType = StubRequestBuilder
@@ -21,41 +15,31 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
         cuckoo_manager.enableDefaultStubImplementation()
     }
 
-    
-
-    
-
-    
-    
-    
     public func withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?)  -> StubResponseBuilder {
-        
+
             return cuckoo_manager.call("withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?) -> StubResponseBuilder",
                 parameters: (urlPattern, query, httpMethod),
                 escapingParameters: (urlPattern, query, httpMethod),
                 superclassCall:
-                    
+
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.withRequestStub(urlPattern: urlPattern, query: query, httpMethod: httpMethod))
-        
+
     }
-    
-    
-    
+
     public func removeAllStubs()  {
-        
+
             return cuckoo_manager.call("removeAllStubs()",
                 parameters: (),
                 escapingParameters: (),
                 superclassCall:
-                    
+
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.removeAllStubs())
-        
+
     }
-    
 
 	public struct __StubbingProxy_StubRequestBuilder: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
@@ -108,30 +92,19 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
 }
 
 public class StubRequestBuilderStub: StubRequestBuilder {
-    
 
-    
-
-    
     public func withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?)  -> StubResponseBuilder {
         return DefaultValueRegistry.defaultValue(for: StubResponseBuilder.self)
     }
-    
+
     public func removeAllStubs()  {
         return DefaultValueRegistry.defaultValue(for: Void.self)
     }
-    
+
 }
-
-
-// MARK: - Mocks generated from file: ../../../../../Mixbox/Frameworks/UiTestsFoundation/NetworkMocking/Stubbing/Response/StubResponseBuilder.swift at 2019-04-18 16:16:32 +0000
-
-// TODO: Remove this enum after removing SBTUITestTunnel dependency.
-// The interface is not ideal, it was made based on current implementation of SBTUITestTunnel
 
 import Cuckoo
 import MixboxUiTestsFoundation
-
 
 public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
     public typealias MocksType = StubResponseBuilder
@@ -147,26 +120,18 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
         cuckoo_manager.enableDefaultStubImplementation()
     }
 
-    
-
-    
-
-    
-    
-    
     public func withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)  {
-        
+
             return cuckoo_manager.call("withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)",
                 parameters: (value, headers, statusCode, responseTime),
                 escapingParameters: (value, headers, statusCode, responseTime),
                 superclassCall:
-                    
+
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
                 defaultCall: __defaultImplStub!.withResponse(value: value, headers: headers, statusCode: statusCode, responseTime: responseTime))
-        
+
     }
-    
 
 	public struct __StubbingProxy_StubResponseBuilder: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
@@ -208,14 +173,9 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
 }
 
 public class StubResponseBuilderStub: StubResponseBuilder {
-    
 
-    
-
-    
     public func withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)  {
         return DefaultValueRegistry.defaultValue(for: Void.self)
     }
-    
-}
 
+}

@@ -14,7 +14,7 @@ main() {
     
     # Note: caching rocks: real 0m1.936s => real 0m0.078s
     local shasumFile="${MOCKS_ROOT}/cuckoo.shasum.ignored"
-    currentChecksum=$(shasum "${ALL_FILES_TO_MOCK[@]}" | shasum)
+    currentChecksum=$(shasum "${ALL_FILES_TO_MOCK[@]}" "$0" | shasum)
     cachedChecksum=$(cat ${shasumFile})
     
     if [ "$currentChecksum" != "$cachedChecksum" ]
@@ -35,8 +35,17 @@ runCuckoo() {
         --output "${tmpfile}" \
         "${ALL_FILES_TO_MOCK[@]}"
 
+    # Remove @testable
+    # Remove comments
+    # Only spaces => empty lines
+    # Trim empty lines
+    # Remove double empty lines
     cat "${tmpfile}" \
         | sed 's/@testable import/import/' \
+        | sed 's|^//.*$||' \
+        | sed 's/^[\t ]*$//' \
+        | sed -e :a -e '/./,$!d;/^\n*$/{$d;N;};/\n$/ba' \
+        | cat -s \
         > "${outputFile}"
     
     rm "${tmpfile}"
