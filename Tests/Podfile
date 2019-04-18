@@ -68,6 +68,8 @@ end
 
 def whitebox_tests_pods
   # nothing is here yet
+  
+  pod 'Cuckoo'
 end
 
 ### TARGETS

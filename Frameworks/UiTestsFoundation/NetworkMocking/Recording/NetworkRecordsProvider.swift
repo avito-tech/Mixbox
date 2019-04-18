@@ -37,6 +37,11 @@ extension MonitoredNetworkRequest {
             return false
         }
         
-        return regex.firstMatch(in: absoluteString, range: NSRange(location: 0, length: absoluteString.count)) != nil
+        let firstMatch = regex.firstMatch(
+            in: absoluteString,
+            range: NSRange(location: 0, length: (absoluteString as NSString).length)
+        )
+        
+        return firstMatch != nil
     }
 }

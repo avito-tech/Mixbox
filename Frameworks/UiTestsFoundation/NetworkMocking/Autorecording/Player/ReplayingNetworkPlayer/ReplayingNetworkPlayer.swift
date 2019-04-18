@@ -4,19 +4,18 @@ import MixboxReporting
 public final class ReplayingNetworkPlayer: NetworkPlayer {
     private let startOnceToken = ThreadUnsafeOnceToken()
     private let recordedNetworkSession: RecordedNetworkSession
-    private let stubRequestBuilder: StubRequestBuilder
+    private let recordedSessionStubber: RecordedSessionStubber
     private let testFailureRecorder: TestFailureRecorder
     private var bucketsLeftToStub = [RecordedStubBucket]()
     
     public init(
         recordedNetworkSession: RecordedNetworkSession,
-        stubRequestBuilder: StubRequestBuilder,
+        recordedSessionStubber: RecordedSessionStubber,
         testFailureRecorder: TestFailureRecorder)
     {
         self.recordedNetworkSession = recordedNetworkSession
-        self.stubRequestBuilder = stubRequestBuilder
+        self.recordedSessionStubber = recordedSessionStubber
         self.testFailureRecorder = testFailureRecorder
-        
     }
     
     public func checkpointImpl(
@@ -44,7 +43,7 @@ public final class ReplayingNetworkPlayer: NetworkPlayer {
         
         do {
             try bucketToStub.recordedStubs.forEach {
-                try stubRequestBuilder.stub(recordedStub: $0)
+                try recordedSessionStubber.stub(recordedStub: $0)
             }
         } catch let error {
             testFailureRecorder.recordFailure(
@@ -102,20 +101,9 @@ public final class ReplayingNetworkPlayer: NetworkPlayer {
     }
     
     private func start() {
-        stubAllNetworkWithError()
+        recordedSessionStubber.stubAllNetworkInitially()
         validateRecordedNetworkSession()
         bucketsLeftToStub = recordedNetworkSession.buckets
-    }
-    
-    private func stubAllNetworkWithError() {
-        stubRequestBuilder
-            .stub(urlPattern: ".*")
-            .thenReturn(
-                string: "All network is stubbed with error by default. If you see this then current request was not stubbed.",
-                headers: [:],
-                statusCode: 500,
-                responseTime: 0
-        )
     }
     
     private func validateRecordedNetworkSession() {

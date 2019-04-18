@@ -30,36 +30,4 @@ extension StubRequestBuilder {
             httpMethod: httpMethod
         )
     }
-    
-    public func stub(
-        recordedStub: RecordedStub)
-        throws
-    {
-        self
-            .stub(
-                urlPattern: urlPattern(
-                    request: recordedStub.request
-                ),
-                httpMethod: recordedStub.request.httpMethod
-            )
-            .thenReturn(
-                data: try recordedStub.response.data.data(),
-                headers: recordedStub.response.headers,
-                statusCode: recordedStub.response.statusCode
-            )
-    }
-    
-    // Very stupid regular expression! TODO: Improve! Add more things other than path and host.
-    private func urlPattern(request: RecordedStubRequest) -> String {
-        let path = request.url.path
-        let pathAndQueryPattern: String
-        if path.isEmpty {
-            pathAndQueryPattern = "/?(?:$|\\?.*)"
-        } else {
-            pathAndQueryPattern = "/" + NSRegularExpression.escapedPattern(for: path) + "(?:$|\\?.*)"
-        }
-        let hostPattern = request.url.host.flatMap { NSRegularExpression.escapedPattern(for: $0) } ?? ".*?"
-        
-        return "\(hostPattern)\(pathAndQueryPattern)"
-    }
 }

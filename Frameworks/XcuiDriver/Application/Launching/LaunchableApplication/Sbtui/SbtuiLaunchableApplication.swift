@@ -37,6 +37,10 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
             testFailureRecorder: testFailureRecorder
         )
         
+        let recordedSessionStubber = RecordedSessionStubberImpl(
+            stubRequestBuilder: stubRequestBuilder
+        )
+        
         networking = NetworkingImpl(
             stubbing: NetworkStubbingImpl(
                 stubRequestBuilder: stubRequestBuilder
@@ -49,7 +53,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
                         bundleResourcePathProvider: bundleResourcePathProvider,
                         recordedNetworkSessionFileLoader: RecordedNetworkSessionFileLoaderImpl()
                     ),
-                    stubRequestBuilder: stubRequestBuilder,
+                    recordedSessionStubber: recordedSessionStubber,
                     networkRecordsProvider: sbtuiNetworkRecordsProvider,
                     networkRecorderLifecycle: sbtuiNetworkRecordsProvider,
                     testFailureRecorder: testFailureRecorder

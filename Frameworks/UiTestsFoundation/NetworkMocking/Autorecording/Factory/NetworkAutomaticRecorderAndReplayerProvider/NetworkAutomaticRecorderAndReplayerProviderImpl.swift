@@ -6,20 +6,20 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
     NetworkAutomaticRecorderAndReplayerProvider
 {
     private let automaticRecorderAndReplayerCreationSettingsProvider: AutomaticRecorderAndReplayerCreationSettingsProvider
-    private let stubRequestBuilder: StubRequestBuilder
+    private let recordedSessionStubber: RecordedSessionStubber
     private let networkRecordsProvider: NetworkRecordsProvider
     private let networkRecorderLifecycle: NetworkRecorderLifecycle
     private let testFailureRecorder: TestFailureRecorder
     
     public init(
         automaticRecorderAndReplayerCreationSettingsProvider: AutomaticRecorderAndReplayerCreationSettingsProvider,
-        stubRequestBuilder: StubRequestBuilder,
+        recordedSessionStubber: RecordedSessionStubber,
         networkRecordsProvider: NetworkRecordsProvider,
         networkRecorderLifecycle: NetworkRecorderLifecycle,
         testFailureRecorder: TestFailureRecorder)
     {
         self.automaticRecorderAndReplayerCreationSettingsProvider = automaticRecorderAndReplayerCreationSettingsProvider
-        self.stubRequestBuilder = stubRequestBuilder
+        self.recordedSessionStubber = recordedSessionStubber
         self.networkRecordsProvider = networkRecordsProvider
         self.networkRecorderLifecycle = networkRecorderLifecycle
         self.testFailureRecorder = testFailureRecorder
@@ -47,7 +47,7 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
         case .createForReplaying(let recordedNetworkSession):
             return ReplayingNetworkPlayer(
                 recordedNetworkSession: recordedNetworkSession,
-                stubRequestBuilder: stubRequestBuilder,
+                recordedSessionStubber: recordedSessionStubber,
                 testFailureRecorder: testFailureRecorder
             )
         }

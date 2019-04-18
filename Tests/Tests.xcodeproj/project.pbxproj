@@ -27,6 +27,9 @@
 		F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */; };
 		F801CC1C2254F9C80074F0E9 /* StepLoggerRecordingStarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */; };
 		F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */; };
+		F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */; };
+		F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.swift */; };
+		F81144D12268D39C00ED519B /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F81144CF2268D39C00ED519B /* generate_mocks */; };
 		F813CAEA209CC5D400E6A27C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F813CAE9209CC5D400E6A27C /* AppDelegate.swift */; };
 		F813CAF1209CC5D700E6A27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F813CAF0209CC5D700E6A27C /* Assets.xcassets */; };
 		F813CAF4209CC5D700E6A27C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F813CAF2209CC5D700E6A27C /* LaunchScreen.storyboard */; };
@@ -345,6 +348,9 @@
 		F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedStepLoggerRecording.swift; sourceTree = "<group>"; };
 		F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepLoggerRecordingStarter.swift; sourceTree = "<group>"; };
 		F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStepLoggerImpl.swift; sourceTree = "<group>"; };
+		F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedSessionStubberTests.swift; sourceTree = "<group>"; };
+		F81144CE2268D39C00ED519B /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
+		F81144CF2268D39C00ED519B /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
 		F813CAE6209CC5D400E6A27C /* TestedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F813CAE9209CC5D400E6A27C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F813CAF0209CC5D700E6A27C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -668,6 +674,23 @@
 				CC78DE3121395C6000599258 /* HierarchyTestsView.swift */,
 			);
 			path = HierarchyTests;
+			sourceTree = "<group>";
+		};
+		F81144CA2268D15D00ED519B /* RecordedSessionStubber */ = {
+			isa = PBXGroup;
+			children = (
+				F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */,
+			);
+			path = RecordedSessionStubber;
+			sourceTree = "<group>";
+		};
+		F81144CD2268D39C00ED519B /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				F81144CE2268D39C00ED519B /* GeneratedMocks.swift */,
+				F81144CF2268D39C00ED519B /* generate_mocks */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		F813CADD209CC5D400E6A27C = {
@@ -1102,6 +1125,8 @@
 		F866756E2121E81E00396F02 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				F81144CD2268D39C00ED519B /* Mocks */,
+				F81144CA2268D15D00ED519B /* RecordedSessionStubber */,
 				F8971DA022665D8C001741C1 /* ThreadUnsafeOnceToken */,
 				F8971D8722661A85001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProvider */,
 				F8971D6D22660FF6001741C1 /* BundleResourcePathProvider */,
@@ -2209,6 +2234,7 @@
 				F8971DCC226746AD001741C1 /* BundleResourcePathProviderImplTests_without_extension_json in Resources */,
 				F8971D8B22661B06001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.recordedNetworkSession.json in Resources */,
 				F8971D8D226620EF001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.empty.json in Resources */,
+				F81144D12268D39C00ED519B /* generate_mocks in Resources */,
 				F8971DCB226746AD001741C1 /* BundleResourcePathProviderImplTests_with_extension.json in Resources */,
 				F8971DCD226746AD001741C1 /* BundleResourcePathProviderImplTests.with.lots.of.dots.json in Resources */,
 			);
@@ -2316,6 +2342,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2332,6 +2359,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2376,6 +2404,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2392,6 +2421,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2797,9 +2827,11 @@
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
 				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
+				F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */,
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F820873421418DEE00DCBA2D /* MatchersTests.swift in Sources */,
+				F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */,
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* MatcherBuilderTests.swift in Sources */,
 				F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */,

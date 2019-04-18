@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -x
+
+mocks() {
+    mock StubRequestBuilder
+    mock StubResponseBuilder
+}
+
+main() {
+    MOCKS_ROOT="${PROJECT_DIR}/UnitTests/Mocks"
+    ALL_FILES_TO_MOCK=()
+    mocks
+    
+    # Note: caching rocks: real 0m1.936s => real 0m0.078s
+    local shasumFile="${MOCKS_ROOT}/cuckoo.shasum.ignored"
+    currentChecksum=$(shasum "${ALL_FILES_TO_MOCK[@]}" | shasum)
+    cachedChecksum=$(cat ${shasumFile})
+    
+    if [ "$currentChecksum" != "$cachedChecksum" ]
+    then
+        runCuckoo
+    
+        echo "$currentChecksum" > "$shasumFile"
+    fi
+}
+
+runCuckoo() {
+    local outputFile="${MOCKS_ROOT}/GeneratedMocks.swift"
+    local tmpfile="${outputFile}.tmp"
+    
+    "${PODS_ROOT}/Cuckoo/run" \
+        generate \
+        --testable "MixboxUiTestsFoundation" \
+        --output "${tmpfile}" \
+        "${ALL_FILES_TO_MOCK[@]}"
+
+    cat "${tmpfile}" \
+        | sed 's/@testable import/import/' \
+        > "${outputFile}"
+    
+    rm "${tmpfile}"
+    
+    echo "Generated Mocks File = ${outputFile}"
+    
+}
+
+mock() {
+    local class=$1
+    local fileToMock=$(find "${PROJECT_DIR}/../Frameworks/" -name "${class}.swift")
+
+    ALL_FILES_TO_MOCK=("${ALL_FILES_TO_MOCK[@]}" "${fileToMock}")
+}
+
+main

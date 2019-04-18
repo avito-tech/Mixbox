@@ -1,5 +1,6 @@
 PODS:
   - CocoaImageHashing (1.6.1)
+  - Cuckoo (0.12.1)
   - DynamicCodable (1.0)
   - GCDWebServer (3.4.2):
     - GCDWebServer/Core (= 3.4.2)
@@ -69,6 +70,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaImageHashing (= 1.6.1)
+  - Cuckoo
   - DynamicCodable (= 1.0)
   - MixboxAllure (from `..`)
   - MixboxArtifacts (from `..`)
@@ -94,6 +96,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CocoaImageHashing
+    - Cuckoo
     - DynamicCodable
     - GCDWebServer
     - SBTUITestTunnel
@@ -139,6 +142,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaImageHashing: d7d3813c5aeb6ddcf4e57219dc63c741b8a16e0a
+  Cuckoo: 2f10364798baa4b0d4aacabfa475249cf29977bc
   DynamicCodable: 2cf558d057b3e6540552943254e1c9eeb706dde2
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
   MixboxAllure: 165b63fb951cf69938a7a958c8e2687245e9d440
