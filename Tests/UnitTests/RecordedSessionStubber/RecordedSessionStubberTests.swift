@@ -28,126 +28,165 @@ final class RecordedSessionStubberTests: XCTestCase {
         )
     }
     
-    func test___with_empty_path___backslash_at_end_makes_no_difference_0() {
+    func test___backslash_at_end_makes_no_difference___with_empty_path_0() {
         assert(
             stubWithUrl: "http://example.com/",
             willMatch: "http://example.com/"
         )
     }
     
-    func test___with_empty_path___backslash_at_end_makes_no_difference_1() {
+    func test___backslash_at_end_makes_no_difference___with_empty_path_1() {
         assert(
             stubWithUrl: "http://example.com",
             willMatch: "http://example.com/"
         )
     }
     
-    func test___with_empty_path___backslash_at_end_makes_no_difference_2() {
+    func test___backslash_at_end_makes_no_difference___with_empty_path_2() {
         assert(
             stubWithUrl: "http://example.com/",
             willMatch: "http://example.com"
         )
     }
     
-    func test___with_empty_path___backslash_at_end_makes_no_difference_3() {
+    func test___backslash_at_end_makes_no_difference___with_empty_path_3() {
         assert(
             stubWithUrl: "http://example.com",
             willMatch: "http://example.com"
         )
     }
     
-    func test___with_empty_path___scheme_makes_no_difference() {
+    func test___scheme_makes_no_difference___with_empty_path() {
         assert(
             stubWithUrl: "http://example.com",
             willMatch: "https://example.com"
         )
     }
     
-    func test___with_path___backslash_at_end_makes_no_difference_0() {
+    func test___backslash_at_end_makes_no_difference___with_path_0() {
         assert(
             stubWithUrl: "http://example.com/path",
             willMatch: "https://example.com/path/"
         )
     }
     
-    func test___with_path___backslash_at_end_makes_no_difference_1() {
+    func test___backslash_at_end_makes_no_difference___with_path_1() {
         assert(
             stubWithUrl: "http://example.com/path/",
             willMatch: "https://example.com/path/"
         )
     }
     
-    func test___with_path___backslash_at_end_makes_no_difference_2() {
+    func test___backslash_at_end_makes_no_difference___with_path_2() {
         assert(
             stubWithUrl: "http://example.com/path/",
             willMatch: "https://example.com/path"
         )
     }
     
-    func test___with_path___backslash_at_end_makes_no_difference_3() {
+    func test___backslash_at_end_makes_no_difference___with_path_3() {
         assert(
             stubWithUrl: "http://example.com/path",
             willMatch: "https://example.com/path"
         )
     }
     
-    func test___with_path___port_makes_no_difference_0() {
+    func test___port_makes_no_difference___with_path_0() {
         assert(
             stubWithUrl: "http://example.com:80/path",
             willMatch: "https://example.com/path"
         )
     }
     
-    func test___with_path___port_makes_no_difference_1() {
+    func test___port_makes_no_difference___with_path_1() {
         assert(
             stubWithUrl: "http://example.com/path",
             willMatch: "https://example.com:80/path"
         )
     }
     
-    func test___with_path___port_makes_no_difference_2() {
+    func test___port_makes_no_difference___with_path_2() {
         assert(
             stubWithUrl: "http://example.com:80/path",
             willMatch: "https://example.com:80/path"
         )
     }
     
-    func test___with_path___port_makes_no_difference_3() {
+    func test___port_makes_no_difference___with_empty_path_0() {
         assert(
             stubWithUrl: "http://example.com:80",
             willMatch: "https://example.com:80"
         )
     }
     
-    func test___with_path___port_makes_no_difference_4() {
+    func test___port_makes_no_difference___with_empty_path_1() {
         assert(
             stubWithUrl: "http://example.com",
             willMatch: "https://example.com:80"
         )
     }
     
-    func test___with_path___port_makes_no_difference_5() {
+    func test___port_makes_no_difference___with_empty_path_2() {
         assert(
             stubWithUrl: "http://example.com:80",
             willMatch: "https://example.com"
         )
     }
     
-    func test___with_path___port_makes_no_difference_6() {
+    func test___port_makes_no_difference___with_empty_path_3() {
         assert(
             stubWithUrl: "http://example.com:80/",
             willMatch: "https://example.com"
         )
     }
     
-    func test___with_path___port_makes_no_difference_7() {
+    func test___port_makes_no_difference___with_empty_path_4() {
         assert(
             stubWithUrl: "http://example.com:80",
             willMatch: "https://example.com/"
         )
     }
     
-    func assert(
+    func test___port_makes_no_difference___with_empty_path_5() {
+        assert(
+            stubWithUrl: "http://example.com:80",
+            willMatch: "https://example.com/"
+        )
+    }
+    
+    func test___stub_is_stubbed_correctly() {
+        assertNoThrow {
+            let actualUrl = "http://qwerty.com/path/to/resource?query1=1&query2=2"
+            
+            try recordedSessionStubber.stub(
+                recordedStub: RecordedStub(
+                    request: RecordedStubRequest(
+                        url: URL(string: actualUrl).unwrapOrFail(),
+                        httpMethod: .put
+                    ),
+                    response: RecordedStubResponse(
+                        data: .json(["data_key": "data_value"]),
+                        headers: ["headers_key": "headers_value"],
+                        statusCode: 418
+                    )
+                )
+            )
+            
+            verify(stubRequestBuilder).withRequestStub(
+                urlPattern: regexIsMatchedBy(actualUrl),
+                query: equal(to: nil),
+                httpMethod: equal(to: .put)
+            )
+            verify(stubResponseBuilder).withResponse(
+                value: isDataThatIsJson(["data_key": "data_value"]),
+                headers: equal(to: ["headers_key": "headers_value"]),
+                statusCode: 418,
+                responseTime: 0
+            )
+        }
+    }
+    
+    private func assert(
         stubWithUrl stubUrl: String,
         willMatch actualUrl: String,
         file: StaticString = #file,
@@ -173,7 +212,26 @@ final class RecordedSessionStubberTests: XCTestCase {
     }
 }
 
-public func regexIsMatchedBy(_ string: String) -> ParameterMatcher<String> {
+private func isDataThatIsJson(_ json: [String: Any]) -> ParameterMatcher<StubResponseBuilderResponseValue> {
+    return ParameterMatcher<StubResponseBuilderResponseValue> { value in
+        switch value {
+        case .data(let data):
+            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+                let jsonObjectAsDictionary = jsonObject as? NSDictionary
+            {
+                return jsonObjectAsDictionary.isEqual(to: json)
+            } else {
+                return false
+            }
+        case .string:
+            return false
+        case .file:
+            return false
+        }
+    }
+}
+
+private func regexIsMatchedBy(_ string: String) -> ParameterMatcher<String> {
     return ParameterMatcher<String> { pattern in
         let regex = (try? NSRegularExpression(pattern: pattern, options: [])).unwrapOrFail()
         
