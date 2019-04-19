@@ -2,7 +2,7 @@
 
 set -x
 
-mocks() {
+applyMocks() {
     mock StubRequestBuilder
     mock StubResponseBuilder
 }
@@ -10,7 +10,7 @@ mocks() {
 main() {
     MOCKS_ROOT="${PROJECT_DIR}/UnitTests/Mocks"
     ALL_FILES_TO_MOCK=()
-    mocks
+    applyMocks
     
     # Note: caching rocks: real 0m1.936s => real 0m0.078s
     local shasumFile="${MOCKS_ROOT}/cuckoo.shasum.ignored"

@@ -31,7 +31,7 @@ public final class RecordedSessionStubberImpl: RecordedSessionStubber {
                 headers: [:],
                 statusCode: 500,
                 responseTime: 0
-        )
+            )
     }
     
     // Very stupid regular expression! TODO: Improve! Add more things other than path and host.
