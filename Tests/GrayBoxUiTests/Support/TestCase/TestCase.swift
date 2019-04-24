@@ -18,6 +18,10 @@ class TestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.pageObjects
     }
     
+    var ipcClient: IpcClient {
+        return testCaseUtils.lazilyInitializedIpcClient
+    }
+    
     func precondition() {
     }
     
@@ -114,6 +118,36 @@ class TestCase: XCTestCase, FailureGatherer {
         case .gatherFailures:
             gatheredFailures.append(failure)
         }
+    }
+    
+    // MARK: - Recording logs & failures
+    
+    func recordLogsAndFailuresWithBodyResult<T>(body: () -> (T)) -> LogsAndFailuresWithBodyResult<T> {
+        let gatheredData = recordLogs {
+            gatherFailures(body: body)
+        }
+        
+        return LogsAndFailuresWithBodyResult<T>(
+            bodyResult: gatheredData.bodyResult.bodyResult,
+            logs: gatheredData.logs,
+            failures: gatheredData.bodyResult.failures
+        )
+    }
+    
+    func recordLogsAndFailures(body: () -> ()) -> LogsAndFailures {
+        return recordLogsAndFailuresWithBodyResult(body: body).withoutBodyResult()
+    }
+    
+    // MARK: - Recording logs
+    
+    func recordLogs<T>(body: () -> (T)) -> (bodyResult: T, logs: [StepLog]) {
+        let recording = Singletons.stepLoggerRecordingStarter.startRecording()
+        
+        let bodyResult = body()
+        
+        recording.stopRecording()
+        
+        return (bodyResult: bodyResult, logs: recording.stepLogs)
     }
     
     // MARK: - Reusing state

@@ -245,9 +245,3 @@ class BaseChecksTestCase: TestCase {
         )
     }
 }
-
-private extension PageObjects {
-    var checksTestsScreen: ChecksTestsScreen {
-        return pageObject()
-    }
-}

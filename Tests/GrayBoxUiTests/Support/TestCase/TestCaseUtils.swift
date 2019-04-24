@@ -64,20 +64,28 @@ final class TestCaseUtils {
         
         let screenshotTaker = GrayScreenshotTaker()
         
-        pageObjects = PageObjects(
-            pageObjectDependenciesFactory: GrayPageObjectDependenciesFactory(
-                testFailureRecorder: testFailureRecorder,
+        let mainRealHierarchy = GrayPageObjectDependenciesFactory(
+            testFailureRecorder: testFailureRecorder,
+            ipcClient: ipcClient,
+            stepLogger: stepLogger,
+            pollingConfiguration: .reduceLatency,
+            elementFinder: RealViewHierarchyElementFinder(
                 ipcClient: ipcClient,
+                testFailureRecorder: testFailureRecorder,
                 stepLogger: stepLogger,
-                pollingConfiguration: .reduceLatency,
-                elementFinder: RealViewHierarchyElementFinder(
-                    ipcClient: ipcClient,
-                    testFailureRecorder: testFailureRecorder,
-                    stepLogger: stepLogger,
-                    screenshotTaker: screenshotTaker
-                ),
-                eventGenerator: GrayEventGenerator(),
                 screenshotTaker: screenshotTaker
+            ),
+            eventGenerator: GrayEventGenerator(),
+            screenshotTaker: screenshotTaker
+        )
+        
+        pageObjects = PageObjects(
+            apps: Apps(
+                mainRealHierarchy: mainRealHierarchy,
+                // TODO: This is wrong!
+                mainXcui: mainRealHierarchy,
+                settings: mainRealHierarchy,
+                springboard: mainRealHierarchy
             )
         )
     }

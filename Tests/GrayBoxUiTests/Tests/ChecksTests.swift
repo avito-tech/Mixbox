@@ -1,18 +1,18 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-final class ChecksTests: TestCase {
+final class ChecksTests: BaseChecksTestCase {
     func test() {
         openScreen(name: "ChecksTestsView")
         
-        // screen.isNotDisplayed1.withoutTimeout.assertIsNotDisplayed()
-        // XCTAssertFalse(
-        //     screen.isNotDisplayed1.isDisplayed()
-        // )
-        //
-        // screen.isDisplayed0.assertIsDisplayed()
-        // XCTAssertFalse(
-        //     screen.isDisplayed0.withoutTimeout.isNotDisplayed()
-        // )
+        screen.isNotDisplayed1.withoutTimeout.assertIsNotDisplayed()
+        assertFails {
+            screen.isNotDisplayed1.assertIsDisplayed()
+        }
+        
+        screen.isDisplayed0.assertIsDisplayed()
+        assertFails {
+            screen.isDisplayed0.withoutTimeout.assertIsNotDisplayed()
+        }
     }
 }
