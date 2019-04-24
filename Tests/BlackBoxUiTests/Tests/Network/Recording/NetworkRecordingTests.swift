@@ -4,7 +4,7 @@ final class NetworkRecordingTests: BaseNetworkMockingTestCase {
     func test_networkRecording_works() {
         networking.recording.startRecording()
         
-        openScreen(name: screen.view)
+        openScreen(screen)
         
         screen.localhost.tap()
         

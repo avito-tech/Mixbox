@@ -36,7 +36,7 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
     }
     
     func test___requests_are_stubbed_in_correct_order() {
-        openScreen(name: screen.view)
+        openScreen(screen)
         
         networking.stubbing
             .stub(urlPattern: "localhost")
@@ -83,7 +83,7 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
             .stub(urlPattern: urlPattern)
             .thenReturn(string: stubbedText)
         
-        openScreen(name: screen.view)
+        openScreen(screen)
         
         tapAction()
         

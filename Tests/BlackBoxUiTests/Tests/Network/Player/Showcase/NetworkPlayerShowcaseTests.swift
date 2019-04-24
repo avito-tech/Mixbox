@@ -7,7 +7,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
         
         player.checkpoint(id: "ADB86909-6DD5-4056-86F7-784FD286FD7C")
         
-        openScreen(name: screen.view)
+        openScreen(screen)
         
         player.checkpoint(id: "FFA9231E-29A9-4646-9B70-91278E6FFC31")
         
@@ -31,7 +31,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
         
         player.checkpoint(id: "initial")
         
-        openScreen(name: screen.view)
+        openScreen(screen)
         
         setResponse("1")
         screen.localhost.tap()
@@ -112,7 +112,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
                 
                 player.checkpoint()
                 
-                openScreen(name: screen.view)
+                openScreen(screen)
             }
         )
     }
@@ -134,7 +134,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
                 
                 player.checkpoint()
                 
-                openScreen(name: screen.view)
+                openScreen(screen)
             }
         )
     }
@@ -152,7 +152,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
             
             player.checkpoint(id: "9D73E577-8699-48DF-867D-B2C0A9709109")
             
-            openScreen(name: screen.view)
+            openScreen(screen)
         }
     }
     

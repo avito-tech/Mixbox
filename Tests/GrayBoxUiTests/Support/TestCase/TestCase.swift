@@ -37,6 +37,20 @@ class TestCase: XCTestCase, FailureGatherer {
         }
     }
     
+    func image(name: String) -> UIImage {
+        guard let path = Bundle(for: type(of: self)).path(forResource: name, ofType: nil),
+            let image = UIImage(contentsOfFile: path) else
+        {
+            UnavoidableFailure.fail("Couldn't load image '\(name)'")
+        }
+        
+        return image
+    }
+    
+    func openScreen(_ screen: OpenableScreen) {
+        openScreen(name: screen.viewName)
+    }
+    
     func openScreen(name: String) {
         let viewController = TestingViewController(
             testingViewControllerSettings: TestingViewControllerSettings(

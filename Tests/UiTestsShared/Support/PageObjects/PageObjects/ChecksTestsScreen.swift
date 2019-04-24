@@ -1,20 +1,7 @@
 import MixboxUiTestsFoundation
 
-public final class ChecksTestsScreen: BasePageObjectWithDefaultInitializer {
-    private func label(_ id: String) -> LabelElement {
-        let element: LabelElement = self.element(id) { element in element.id == id }
-        return element.withoutTimeout
-    }
-    
-    private func button(_ id: String) -> ButtonElement {
-        let element: ButtonElement = self.element(id) { element in element.id == id }
-        return element.withoutTimeout
-    }
-    
-    private func view(_ id: String) -> ViewElement {
-        let element: ViewElement = self.element(id) { element in element.id == id }
-        return element.withoutTimeout
-    }
+public final class ChecksTestsScreen: BasePageObjectWithDefaultInitializer, OpenableScreen {
+    public let viewName = "ChecksTestsView"
     
     public var checkText0: LabelElement {
         return label("checkText0")
@@ -68,9 +55,18 @@ public final class ChecksTestsScreen: BasePageObjectWithDefaultInitializer {
         return label("duplicated_and_both_are_visible")
     }
     
-    public func waitUntilUiIsLoaded() {
-        let id = "ChecksTestsView"
-        let view: ViewElement = element(id) { element in element.id == id }
-        view.assertIsDisplayed()
+    private func label(_ id: String) -> LabelElement {
+        let element: LabelElement = self.element(id) { element in element.id == id }
+        return element.withoutTimeout
+    }
+    
+    private func button(_ id: String) -> ButtonElement {
+        let element: ButtonElement = self.element(id) { element in element.id == id }
+        return element.withoutTimeout
+    }
+    
+    private func view(_ id: String) -> ViewElement {
+        let element: ViewElement = self.element(id) { element in element.id == id }
+        return element.withoutTimeout
     }
 }

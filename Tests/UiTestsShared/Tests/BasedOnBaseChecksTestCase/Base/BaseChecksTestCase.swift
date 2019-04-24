@@ -15,8 +15,8 @@ class BaseChecksTestCase: TestCase {
     }
     
     override func precondition() {
-        openScreen(name: "ChecksTestsView")
-        screen.waitUntilUiIsLoaded()
+        openScreen(screen)
+        screen.waitUntilViewIsLoaded()
     }
     
     var screen: ChecksTestsScreen {

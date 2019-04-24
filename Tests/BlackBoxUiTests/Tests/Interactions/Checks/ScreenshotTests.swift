@@ -6,6 +6,10 @@ import CocoaImageHashing
 
 // TODO: Add real world example tests of the screen reference matching
 class ScreenshotTests: TestCase {
+    private var screen: MainAppScreen<ScreenshotTestsViewPageObject> {
+        return pageObjects.screenshotTestsView
+    }
+    
     func testExpectedColoredBoxesMatchActualColoredBoxes() {
         
         // Kludge! TODO: Enable this test
@@ -16,9 +20,9 @@ class ScreenshotTests: TestCase {
         }
         // End of kludge
         
-        openScreen(name: "ScreenshotTestsView")
+        openScreen(screen.xcui)
         
-        pageObjects.screen.view(index: 0).assertIsDisplayed()
+        screen.xcui.view(index: 0).assertIsDisplayed()
         
         for index in 0..<ScreenshotTestsConstants.viewsCount {
             let imageOrNil = UIImage.image(
@@ -29,8 +33,10 @@ class ScreenshotTests: TestCase {
                 XCTFail("Can not create image")
                 return
             }
-            pageObjects.screenXcui.view(index: index).withoutTimeout.assertMatchesReference(image: image)
-            pageObjects.screen.view(index: index).withoutTimeout.assertMatchesReference(image: image)
+            
+            screen.forEveryHierarchy { screen in
+                screen.view(index: index).withoutTimeout.assertMatchesReference(image: image)
+            }
         }
         
     }
@@ -45,42 +51,20 @@ class ScreenshotTests: TestCase {
     
     private func assertEqualImagesWithDifferentResolutionsMatch() {
         let downsampledCat = UIImage(named: "imagehash_cat_size", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        pageObjects.screen.catView.assertMatchesReference(image: downsampledCat)
+        screen.xcui.catView.assertMatchesReference(image: downsampledCat)
     }
     
     private func assertCatWithTextDoesntMatchCatWithoutText() {
         let catWithText = UIImage(named: "imagehash_cat_lots_of_text", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        pageObjects.screen.catView.assertMatches {
+        screen.xcui.catView.assertMatches {
             !$0.matchesReference(image: catWithText, comparator: DHashSnapshotsComparator())
         }
     }
     
     private func assertCatDoesntMatchDog() {
         let dog = UIImage(named: "imagehash_cat_not_cat", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        pageObjects.screen.catView.assertMatches {
+        screen.xcui.catView.assertMatches {
             !$0.matchesReference(image: dog, comparator: DHashSnapshotsComparator())
         }
-    }
-}
-
-private final class Screen: BasePageObjectWithDefaultInitializer {
-    func view(index: Int) -> ViewElement {
-        let id = ScreenshotTestsConstants.viewId(index: index)
-        return element(id) { element in element.id == id }
-    }
-    
-    var catView: ImageElement {
-        return element("catView") { element in
-            element.id == "catView"
-        }
-    }
-}
-
-private extension PageObjects {
-    var screen: Screen {
-        return pageObject()
-    }
-    var screenXcui: Screen {
-        return apps.mainXcui.pageObject()
     }
 }

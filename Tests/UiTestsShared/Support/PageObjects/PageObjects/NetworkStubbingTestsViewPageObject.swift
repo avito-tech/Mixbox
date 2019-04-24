@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 
-public final class NetworkStubbingTestsViewPageObject: BasePageObjectWithDefaultInitializer {
-    public let view = "NetworkStubbingTestsView"
+public final class NetworkStubbingTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
+    public let viewName = "NetworkStubbingTestsView"
     
     public var info: LabelElement {
         return byId("info")

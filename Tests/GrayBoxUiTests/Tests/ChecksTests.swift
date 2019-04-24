@@ -3,7 +3,7 @@ import XCTest
 
 final class ChecksTests: BaseChecksTestCase {
     func test() {
-        openScreen(name: "ChecksTestsView")
+        openScreen(screen)
         
         screen.isNotDisplayed1.withoutTimeout.assertIsNotDisplayed()
         assertFails {

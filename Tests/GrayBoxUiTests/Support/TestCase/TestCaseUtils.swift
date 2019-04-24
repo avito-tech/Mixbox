@@ -33,7 +33,7 @@ final class TestCaseUtils {
         ]
     )
     
-    private let screenshotTaker = GrayScreenshotTaker()
+    private let screenshotTaker: ScreenshotTaker
     private let stepLogger: StepLogger
     
     init() {
@@ -62,7 +62,13 @@ final class TestCaseUtils {
             testFailureRecorder: testFailureRecorder
         )
         
-        let screenshotTaker = GrayScreenshotTaker()
+        screenshotTaker = GrayScreenshotTaker(
+            windowsProvider: WindowsProviderImpl(
+                application: UIApplication.shared,
+                shouldIncludeStatusBarWindow: true
+            ),
+            screen: UIScreen.main
+        )
         
         let mainRealHierarchy = GrayPageObjectDependenciesFactory(
             testFailureRecorder: testFailureRecorder,

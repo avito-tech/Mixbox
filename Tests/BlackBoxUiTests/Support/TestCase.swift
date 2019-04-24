@@ -87,6 +87,9 @@ class TestCase: XCTestCase, FailureGatherer {
         testCaseUtils.ipcRouter = launchedApplication.ipcRouter
     }
     
+    func openScreen(_ screen: OpenableScreen) {
+        openScreen(name: screen.viewName)
+    }
     
     func openScreen(name: String, useBuiltinIpc: Bool = false) {
         launch(
