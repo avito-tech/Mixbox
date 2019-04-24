@@ -1,5 +1,5 @@
+// Not really a good abstraction. It duplicates SBTMonitoredNetworkRequest interface.
 public protocol MonitoredNetworkRequest {
-    //func matches(_ match: SBTRequestMatch) -> Bool
     func requestJson() -> [String: Any]?
     func requestString() -> String?
     func responseJson() -> [String: Any]?
