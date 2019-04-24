@@ -197,9 +197,3 @@ class IpcEchoingTests: TestCase {
         )
     }
 }
-
-extension IpcVoid: Equatable {
-    public static func ==(_: IpcVoid, _: IpcVoid) -> Bool {
-        return true
-    }
-}

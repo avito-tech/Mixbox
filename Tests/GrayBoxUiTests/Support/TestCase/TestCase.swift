@@ -5,6 +5,7 @@ import MixboxArtifacts
 import MixboxReporting
 import MixboxIpc
 import MixboxFoundation
+import MixboxGray
 @testable import TestedApp
 
 class TestCase: XCTestCase, FailureGatherer {
@@ -52,10 +53,18 @@ class TestCase: XCTestCase, FailureGatherer {
     }
     
     func openScreen(name: String) {
+        let starter = GrayBoxInAppServicesStarter.instance
+            
+        let startedInAppServices = starter.startOnce { mixboxInAppServices in
+            CustomIpcMethods.registerIn(mixboxInAppServices)
+        }
+        
+        testCaseUtils.lazilyInitializedIpcClient.ipcClient = startedInAppServices.ipcClient
+        
         let viewController = TestingViewController(
             testingViewControllerSettings: TestingViewControllerSettings(
                 name: name,
-                mixboxInAppServices: nil // FIXME
+                mixboxInAppServices: startedInAppServices.mixboxInAppServices
             )
         )
         

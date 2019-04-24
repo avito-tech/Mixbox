@@ -10,7 +10,7 @@ public final class MixboxInAppServices: IpcRouter {
     private var commandsForAddingRoutes = [(IpcRouter) -> ()]()
     private let shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool
     
-    init(
+    public init(
         ipcStarter: IpcStarter,
         shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool)
     {

@@ -2,7 +2,11 @@
 //
 // Example:
 // typealias Arguments = IpcVoid
-public final class IpcVoid: Codable {
+public final class IpcVoid: Codable, Equatable {
     public init() {
+    }
+    
+    public static func ==(_: IpcVoid, _: IpcVoid) -> Bool {
+        return true
     }
 }

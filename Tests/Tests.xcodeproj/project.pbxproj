@@ -201,6 +201,9 @@
 		F8A837CD2270F5EC00145140 /* ScreenshotTestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9E1213D566400592068 /* ScreenshotTestsConstants.swift */; };
 		F8A837CE2270F8F500145140 /* MainAppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A837CB2270F5CD00145140 /* MainAppScreen.swift */; };
 		F8A837CF2270F90600145140 /* ScreenshotTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A837C82270F2B300145140 /* ScreenshotTestsViewPageObject.swift */; };
+		F8A837D12270FCF000145140 /* MixboxInAppServicesStarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A837D02270FCF000145140 /* MixboxInAppServicesStarter.swift */; };
+		F8A837EF22711E1800145140 /* IpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A837EE22711E1800145140 /* IpcTests.swift */; };
+		F8A837F022711EB800145140 /* EchoIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D720CD8BF700E8BFF5 /* EchoIpcMethod.swift */; };
 		F8A9D32E2168057300EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D32F216805C500EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */; };
@@ -528,6 +531,8 @@
 		F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshotTestsView_screenshot.png; sourceTree = "<group>"; };
 		F8A837C82270F2B300145140 /* ScreenshotTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8A837CB2270F5CD00145140 /* MainAppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppScreen.swift; sourceTree = "<group>"; };
+		F8A837D02270FCF000145140 /* MixboxInAppServicesStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxInAppServicesStarter.swift; sourceTree = "<group>"; };
+		F8A837EE22711E1800145140 /* IpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcTests.swift; sourceTree = "<group>"; };
 		F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHashCalculatorTests.swift; sourceTree = "<group>"; };
 		F8A9D33A216B894800EC5D24 /* TestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuery.swift; sourceTree = "<group>"; };
 		F8A9D33B216B894800EC5D24 /* TestObservationEntryPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObservationEntryPoint.swift; sourceTree = "<group>"; };
@@ -1693,6 +1698,7 @@
 				F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */,
 				F8B0A230220A0E040089C1EE /* ChecksTests.swift */,
 				F8A837C12270ED8E00145140 /* GrayScreenshotTakerTests.swift */,
+				F8A837EE22711E1800145140 /* IpcTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1711,6 +1717,7 @@
 			children = (
 				F8B0A233220A0E040089C1EE /* TestCase.swift */,
 				F8B0A234220A0E040089C1EE /* TestCaseUtils.swift */,
+				F8A837D02270FCF000145140 /* MixboxInAppServicesStarter.swift */,
 			);
 			path = TestCase;
 			sourceTree = "<group>";
@@ -2582,10 +2589,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
@@ -2599,10 +2612,16 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
@@ -2935,6 +2954,7 @@
 				F8B0A256220A0EF30089C1EE /* TestCaseReport.swift in Sources */,
 				F8A837A52270D40B00145140 /* PageObjects.swift in Sources */,
 				F8B340F0224D3FD700AA1EB9 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
+				F8A837F022711EB800145140 /* EchoIpcMethod.swift in Sources */,
 				F8A837C22270ED8E00145140 /* GrayScreenshotTakerTests.swift in Sources */,
 				F8B0A253220A0EF30089C1EE /* FailureGatherer.swift in Sources */,
 				F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */,
@@ -2946,10 +2966,12 @@
 				F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */,
 				F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */,
 				F8B0A246220A0E040089C1EE /* TestCaseUtils.swift in Sources */,
+				F8A837EF22711E1800145140 /* IpcTests.swift in Sources */,
 				F8A837CC2270F5CD00145140 /* MainAppScreen.swift in Sources */,
 				F8A837B12270DAE300145140 /* Singletons.swift in Sources */,
 				F8A837A72270D40B00145140 /* BasePageObject+Extension.swift in Sources */,
 				F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
+				F8A837D12270FCF000145140 /* MixboxInAppServicesStarter.swift in Sources */,
 				F801CC192254F9C80074F0E9 /* FailsHereFunctionProvider.swift in Sources */,
 				F8B0A25B220A0EF30089C1EE /* AsyncReportingSystem.swift in Sources */,
 			);

@@ -1,5 +1,6 @@
 import MixboxFoundation
 
+// TODO: Replace with just ErrorString or something like that
 public enum IpcClientError {
     case customError(String)
     case noResponse

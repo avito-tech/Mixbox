@@ -14,7 +14,7 @@ final class TestCaseUtils {
     // Private in TestCase
     
     let testFailureRecorder: TestFailureRecorder
-    let lazilyInitializedIpcClient: IpcClient
+    let lazilyInitializedIpcClient: LazilyInitializedIpcClient
     let fileLineForFailureProvider: FileLineForFailureProvider = LastCallOfCurrentTestFileLineForFailureProvider(
         extendedStackTraceProvider: ExtendedStackTraceProviderImpl(
             stackTraceProvider: StackTraceProviderImpl(),
@@ -37,8 +37,7 @@ final class TestCaseUtils {
     private let stepLogger: StepLogger
     
     init() {
-        let ipcClient = SameProcessIpcClient()
-        self.lazilyInitializedIpcClient = ipcClient
+        self.lazilyInitializedIpcClient = LazilyInitializedIpcClient()
         
         let stepLogger: StepLogger
         // TODO: Get rid of usage of ProcessInfo singleton here
@@ -72,11 +71,11 @@ final class TestCaseUtils {
         
         let mainRealHierarchy = GrayPageObjectDependenciesFactory(
             testFailureRecorder: testFailureRecorder,
-            ipcClient: ipcClient,
+            ipcClient: lazilyInitializedIpcClient,
             stepLogger: stepLogger,
             pollingConfiguration: .reduceLatency,
             elementFinder: RealViewHierarchyElementFinder(
-                ipcClient: ipcClient,
+                ipcClient: lazilyInitializedIpcClient,
                 testFailureRecorder: testFailureRecorder,
                 stepLogger: stepLogger,
                 screenshotTaker: screenshotTaker
