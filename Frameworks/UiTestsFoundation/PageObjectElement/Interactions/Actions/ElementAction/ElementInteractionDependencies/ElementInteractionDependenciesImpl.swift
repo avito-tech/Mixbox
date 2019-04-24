@@ -1,7 +1,4 @@
-import MixboxIpcClients
-
-public final class ElementInteractionDependenciesImpl: ElementInteractionDependencies {
-    
+public final class ElementInteractionDependenciesImpl: ElementInteractionDependencies {    
     public let snapshotResolver: SnapshotForInteractionResolver
     public let textTyper: TextTyper
     public let menuItemProvider: MenuItemProvider

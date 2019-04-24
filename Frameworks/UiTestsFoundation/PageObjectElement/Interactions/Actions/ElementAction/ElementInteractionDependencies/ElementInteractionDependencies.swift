@@ -1,4 +1,3 @@
-import MixboxIpcClients
 import MixboxFoundation
 
 // Isolates Actions of testing technology (XCTest vs GrayBox).

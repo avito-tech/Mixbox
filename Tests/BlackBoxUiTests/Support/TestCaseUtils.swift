@@ -132,9 +132,6 @@ final class TestCaseUtils {
                 pollingConfiguration: .reduceLatency,
                 elementFinder: elementFinder,
                 applicationProvider: applicationProvider,
-                applicationCoordinatesProvider: ApplicationCoordinatesProviderImpl(
-                    applicationProvider: applicationProvider
-                ),
                 eventGenerator: XcuiEventGenerator(
                     applicationProvider: applicationProvider
                 ),

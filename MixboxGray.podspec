@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name                   = 'MixboxUiTestsFoundation'
+  s.name                   = 'MixboxGray'
   s.module_name            = s.name
   s.version                = '0.1.0'
   s.summary                = s.name
@@ -11,15 +11,14 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "9.0"
   s.swift_version = '4.0'
   s.requires_arc = true
-  s.source_files = 'Frameworks/UiTestsFoundation/**/*.{swift,h,m,md}'
-  
-  s.dependency 'MixboxTestsFoundation'
-  s.dependency 'MixboxReporting'
-  s.dependency 'MixboxUiKit'
-  s.dependency 'DynamicCodable'
-  s.dependency 'CocoaImageHashing'
-  s.dependency 'MixboxIpcCommon'
+  s.source_files = 'Frameworks/Gray/**/*.{swift}'
 
-  s.frameworks = 'XCTest'
-  s.user_target_xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks' }
+  s.dependency 'MixboxUiTestsFoundation'
+  s.dependency 'MixboxUiKit'
+  
+  s.frameworks = 'XCTest', 'XCTAutomationSupport'
+  s.xcconfig = {
+    'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'
+  }
 end

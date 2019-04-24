@@ -1,3 +1,5 @@
+import Foundation
+
 struct GatherFailuresResult<T> {
     enum BodyResult {
         case finished(T)

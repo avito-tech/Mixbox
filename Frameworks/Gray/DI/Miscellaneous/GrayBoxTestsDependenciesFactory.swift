@@ -2,11 +2,10 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
 
-protocol XcuiBasedTestsDependenciesFactory: class {
+// TODO: Share code between black-box and gray-box.
+protocol GrayBoxTestsDependenciesFactory: class {
     var eventGenerator: EventGenerator { get }
-    var applicationProvider: ApplicationProvider { get }
     var applicationFrameProvider: ApplicationFrameProvider { get }
-    var applicationCoordinatesProvider: ApplicationCoordinatesProvider { get }
     var testFailureRecorder: TestFailureRecorder { get }
     var stepLogger: StepLogger { get }
     var elementVisibilityChecker: ElementVisibilityChecker { get }
@@ -20,4 +19,3 @@ protocol XcuiBasedTestsDependenciesFactory: class {
     var scrollingHintsProvider: ScrollingHintsProvider { get }
     var screenshotTaker: ScreenshotTaker { get }
 }
-

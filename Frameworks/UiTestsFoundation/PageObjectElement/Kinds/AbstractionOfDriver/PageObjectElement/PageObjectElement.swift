@@ -2,7 +2,7 @@ import MixboxFoundation
 
 // PageObjectElement with all known functionality.
 // 
-// It is made for hiding implementation of XCUI/GreyBox tests.
+// It is made for hiding implementation of XCUI/GrayBox tests.
 // The protocol should be NEVER used in tests.
 //
 // Tests should use restricted version of it for every particular type of element:
@@ -17,7 +17,7 @@ import MixboxFoundation
 // is just actions of a user (tapping on element, waiting for keyboard and tapping on letters),
 // there is no connection between element type in tests and element type inside app (UIButton/UIView/etc).
 //
-// TODO: Rename. It is actually (XCUI/GreyBox) implementation independent interface for making page object elements
+// TODO: Rename. It is actually (XCUI/GrayBox) implementation independent interface for making page object elements
 public protocol PageObjectElement {
     var settings: ElementSettings { get }
     var interactionPerformer: PageObjectElementInteractionPerformer { get }

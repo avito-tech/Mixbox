@@ -3,16 +3,17 @@ import MixboxTestsFoundation
 import MixboxReporting
 import MixboxFoundation
 
-public final class XcuiElementInteractionDependenciesFactory: ElementInteractionDependenciesFactory {
+// TODO: Share code between black-box and gray-box.
+public final class GrayElementInteractionDependenciesFactory: ElementInteractionDependenciesFactory {
     private let elementSettings: ElementSettings
-    private let xcuiBasedTestsDependenciesFactory: XcuiBasedTestsDependenciesFactory
+    private let grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory
     
     init(
         elementSettings: ElementSettings,
-        xcuiBasedTestsDependenciesFactory: XcuiBasedTestsDependenciesFactory)
+        grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory)
     {
         self.elementSettings = elementSettings
-        self.xcuiBasedTestsDependenciesFactory = xcuiBasedTestsDependenciesFactory
+        self.grayBoxTestsDependenciesFactory = grayBoxTestsDependenciesFactory
     }
     
     public func elementInteractionDependencies(
@@ -49,13 +50,9 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
                     elementSettings: elementSettings
                 )
             ),
-            textTyper: XcuiTextTyper(
-                applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
-            ),
-            menuItemProvider: XcuiMenuItemProvider(
-                applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
-            ),
-            keyboardEventInjector: xcuiBasedTestsDependenciesFactory.keyboardEventInjector,
+            textTyper: GrayTextTyper(),
+            menuItemProvider: GrayMenuItemProvider(),
+            keyboardEventInjector: grayBoxTestsDependenciesFactory.keyboardEventInjector,
             pasteboard: UikitPasteboard(),
             interactionPerformer: NestedInteractionPerformerImpl(
                 elementInteractionDependenciesFactory: self,
@@ -64,25 +61,17 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
                 elementSettings: elementSettings,
                 fileLine: fileLine
             ),
-            elementSimpleGesturesProvider: XcuiElementSimpleGesturesProvider(
-                applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider,
-                applicationFrameProvider: xcuiBasedTestsDependenciesFactory.applicationFrameProvider,
-                applicationCoordinatesProvider: xcuiBasedTestsDependenciesFactory.applicationCoordinatesProvider
-            ),
-            eventGenerator: XcuiEventGenerator(
-                applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
-            ),
+            elementSimpleGesturesProvider: GrayElementSimpleGesturesProvider(),
+            eventGenerator: GrayEventGenerator(),
             interactionRetrier: interactionRetrier,
             interactionResultMaker: InteractionResultMakerImpl(
-                elementHierarchyDescriptionProvider: XcuiElementHierarchyDescriptionProvider(
-                    applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
-                ),
-                screenshotTaker: xcuiBasedTestsDependenciesFactory.screenshotTaker,
+                elementHierarchyDescriptionProvider: elementHierarchyDescriptionProvider(),
+                screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker,
                 extendedStackTraceProvider: extendedStackTraceProvider(),
                 fileLine: fileLine
             ),
             elementMatcherBuilder: ElementMatcherBuilder(
-                screenshotTaker: xcuiBasedTestsDependenciesFactory.screenshotTaker
+                screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker
             ),
             elementInfo: elementInfo,
             retriableTimedInteractionState: retriableTimedInteractionState
@@ -91,13 +80,17 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
     
     // MARK: - Private
     
+    private func elementHierarchyDescriptionProvider() -> ElementHierarchyDescriptionProvider {
+        return GrayElementHierarchyDescriptionProvider()
+    }
+    
     private func performerOfSpecificImplementationOfInteractionForVisibleElement(
         elementSettings: ElementSettings,
         interactionFailureResultFactory: InteractionFailureResultFactory)
         -> PerformerOfSpecificImplementationOfInteractionForVisibleElement
     {
         return PerformerOfSpecificImplementationOfInteractionForVisibleElementImpl(
-            elementVisibilityChecker: xcuiBasedTestsDependenciesFactory.elementVisibilityChecker,
+            elementVisibilityChecker: grayBoxTestsDependenciesFactory.elementVisibilityChecker,
             elementSettings: elementSettings,
             interactionFailureResultFactory: interactionFailureResultFactory,
             scroller: scroller(
@@ -115,10 +108,10 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
                 elementSettings: elementSettings
             ),
             elementSettings: elementSettings,
-            applicationFrameProvider: xcuiBasedTestsDependenciesFactory.applicationFrameProvider,
-            eventGenerator: xcuiBasedTestsDependenciesFactory.eventGenerator,
+            applicationFrameProvider: grayBoxTestsDependenciesFactory.applicationFrameProvider,
+            eventGenerator: grayBoxTestsDependenciesFactory.eventGenerator,
             retrier: retrier(
-                pollingConfiguration: xcuiBasedTestsDependenciesFactory.pollingConfiguration
+                pollingConfiguration: grayBoxTestsDependenciesFactory.pollingConfiguration
             )
         )
     }
@@ -132,7 +125,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
             dateProvider: dateProvider(),
             timeout: elementSettings.searchTimeout,
             retrier: retrier(
-                pollingConfiguration: xcuiBasedTestsDependenciesFactory.pollingConfiguration
+                pollingConfiguration: grayBoxTestsDependenciesFactory.pollingConfiguration
             ),
             retriableTimedInteractionState: retriableTimedInteractionState
         )
@@ -163,15 +156,11 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
         -> InteractionFailureResultFactory
     {
         return InteractionFailureResultFactoryImpl(
-            applicationStateProvider: XcuiApplicationStateProvider(
-                applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
-            ),
+            applicationStateProvider: GrayApplicationStateProvider(),
             messagePrefix: messagePrefix,
             interactionResultMaker: InteractionResultMakerImpl(
-                elementHierarchyDescriptionProvider: XcuiElementHierarchyDescriptionProvider(
-                    applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
-                ),
-                screenshotTaker: xcuiBasedTestsDependenciesFactory.screenshotTaker,
+                elementHierarchyDescriptionProvider: elementHierarchyDescriptionProvider(),
+                screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker,
                 extendedStackTraceProvider: extendedStackTraceProvider(),
                 fileLine: fileLine
             )
@@ -183,7 +172,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
         -> ElementResolver
     {
         return ElementResolverImpl(
-            elementFinder: xcuiBasedTestsDependenciesFactory.elementFinder,
+            elementFinder: grayBoxTestsDependenciesFactory.elementFinder,
             elementSettings: elementSettings
         )
     }
@@ -193,16 +182,13 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
         -> Scroller
     {
         return ScrollerImpl(
-            scrollingHintsProvider: xcuiBasedTestsDependenciesFactory.scrollingHintsProvider,
-            elementVisibilityChecker: xcuiBasedTestsDependenciesFactory.elementVisibilityChecker,
-            elementResolver: WaitingForQuiescenceElementResolver(
-                elementResolver: elementResolver(
-                    elementSettings: elementSettings
-                ),
-                applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
+            scrollingHintsProvider: grayBoxTestsDependenciesFactory.scrollingHintsProvider,
+            elementVisibilityChecker: grayBoxTestsDependenciesFactory.elementVisibilityChecker,
+            elementResolver: elementResolver(
+                elementSettings: elementSettings
             ),
-            applicationFrameProvider: xcuiBasedTestsDependenciesFactory.applicationFrameProvider,
-            eventGenerator: xcuiBasedTestsDependenciesFactory.eventGenerator,
+            applicationFrameProvider: grayBoxTestsDependenciesFactory.applicationFrameProvider,
+            eventGenerator: grayBoxTestsDependenciesFactory.eventGenerator,
             elementSettings: elementSettings
         )
     }

@@ -1,5 +1,4 @@
 import MixboxIpcCommon
-import MixboxIpcClients
 import MixboxIpc
 import Foundation
 import XCTest

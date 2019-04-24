@@ -2,10 +2,9 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
 
-final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFactory {
-    let applicationProvider: ApplicationProvider
+// TODO: Share code between black-box and gray-box.
+final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory {
     let applicationFrameProvider: ApplicationFrameProvider
-    let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     let eventGenerator: EventGenerator
     let testFailureRecorder: TestFailureRecorder
     let elementVisibilityChecker: ElementVisibilityChecker
@@ -26,8 +25,6 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
-        applicationProvider: ApplicationProvider,
-        applicationCoordinatesProvider: ApplicationCoordinatesProvider,
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker)
     {
@@ -38,14 +35,10 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.keyboardEventInjector = keyboardEventInjector
         self.elementFinder = elementFinder
         self.pollingConfiguration = pollingConfiguration
-        self.applicationProvider = applicationProvider
-        self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
         
-        applicationFrameProvider = XcuiApplicationFrameProvider(
-            applicationProvider: applicationProvider
-        )
+        applicationFrameProvider = GrayApplicationFrameProvider()
     }
     
     // MARK: - XcuiBasedTestsDependenciesFactory

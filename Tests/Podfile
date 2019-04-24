@@ -11,7 +11,6 @@ def ui_tests_pods
   pod 'MixboxTestsFoundation', :path => '..'
   pod 'MixboxUiTestsFoundation', :path => '..'
   pod 'MixboxArtifacts', :path => '..'
-  pod 'MixboxIpcClients', :path => '..'
   pod 'MixboxReporting', :path => '..'
   pod 'MixboxFoundation', :path => '..'
   
@@ -50,10 +49,10 @@ def blackbox_tests_pods
   pod 'SBTUITestTunnel/Client', :inhibit_warnings => true
 end
 
-def greybox_tests_pods
+def graybox_tests_pods
   ui_tests_pods
   
-  pod 'MixboxGrey', :path => '..'
+  pod 'MixboxGray', :path => '..'
   pod 'MixboxIpc', :path => '..'
   pod 'MixboxIpcCommon', :path => '..'
   pod 'MixboxUiKit', :path => '..'
@@ -71,10 +70,10 @@ target 'TestedApp' do
   application_testability_pods
 end
 
-target 'GreyBoxUiTests' do
+target 'GrayBoxUiTests' do
   inherit! :search_paths
   
-  greybox_tests_pods
+  graybox_tests_pods
   
   pod 'MixboxAllure', :path => '..'
 end

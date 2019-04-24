@@ -15,6 +15,8 @@ import XCTest
 // For example, when you create XCUIApplication snapshot caches are cleared properly.
 // If you use it by reference, there will be problems with caches (snapshhot will
 // not represent actual UI state).
+//
+// TODO: Rename to XcuiApplicationProvider
 public protocol ApplicationProvider {
     var application: XCUIApplication { get }
 }

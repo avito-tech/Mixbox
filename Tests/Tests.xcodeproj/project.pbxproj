@@ -11,6 +11,7 @@
 		4FC7ED4B0508738260A11AB5 /* Pods_HostedAppLogicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC077741AD161DD56DC5B7D /* Pods_HostedAppLogicTests.framework */; };
 		BB4999C802E921BA5BEE00D7 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */; };
 		BCB072EB2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB072EA2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift */; };
+		C76EBBF8BA7417AA04206F85 /* Pods_GrayBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18519616178849C303E04D80 /* Pods_GrayBoxUiTests.framework */; };
 		CC78DE2F21395BFE00599258 /* GettingRealViewHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */; };
 		CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE3121395C6000599258 /* HierarchyTestsView.swift */; };
 		E770ACA880DA7C520CB00A31 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9F80D7EE4414E4F09E6CF0 /* Pods_BlackBoxUiTests.framework */; };
@@ -327,13 +328,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18519616178849C303E04D80 /* Pods_GrayBoxUiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrayBoxUiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B84656CC8F6C3B65E3F6900 /* Pods-GreyBoxUiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GreyBoxUiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GreyBoxUiTests/Pods-GreyBoxUiTests.release.xcconfig"; sourceTree = "<group>"; };
 		31ACCD7CC26A1C3B958F5B84 /* Pods-GreyBoxUiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GreyBoxUiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GreyBoxUiTests/Pods-GreyBoxUiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		517D85C0521499C8E4AB2111 /* Pods-TestedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig"; sourceTree = "<group>"; };
 		5CC077741AD161DD56DC5B7D /* Pods_HostedAppLogicTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HostedAppLogicTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		661ABC2C9AE48647D964AFD2 /* Pods_TestedApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestedApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72DD6D3BA9D4021684C09A68 /* Pods-HostedAppLogicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.release.xcconfig"; sourceTree = "<group>"; };
+		93339C64EF052A658DCA7A07 /* Pods-GrayBoxUiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrayBoxUiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests.release.xcconfig"; sourceTree = "<group>"; };
 		A2F798A081CF2F02F94B4503 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		AD6545DB5ED220762DE66EFB /* Pods-GrayBoxUiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrayBoxUiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B4F99074F3C19CE71945A894 /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BCB072EA2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotDHashLabelsTestsView.swift; sourceTree = "<group>"; };
 		C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -532,7 +536,7 @@
 		F8B010DB21FF319C0026360D /* TestMethodReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMethodReport.swift; sourceTree = "<group>"; };
 		F8B010DC21FF319C0026360D /* TestReportFailure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestReportFailure.swift; sourceTree = "<group>"; };
 		F8B010E821FF32710026360D /* Singletons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singletons.swift; sourceTree = "<group>"; };
-		F8B0A2002209C44A0089C1EE /* GreyBoxUiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GreyBoxUiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8B0A2002209C44A0089C1EE /* GrayBoxUiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrayBoxUiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B0A2042209C44A0089C1EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8B0A230220A0E040089C1EE /* ChecksTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecksTests.swift; sourceTree = "<group>"; };
 		F8B0A233220A0E040089C1EE /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -637,6 +641,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2983DC74E35362C04080061C /* Pods_GreyBoxUiTests.framework in Frameworks */,
+				C76EBBF8BA7417AA04206F85 /* Pods_GrayBoxUiTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +661,8 @@
 				517D85C0521499C8E4AB2111 /* Pods-TestedApp.release.xcconfig */,
 				B4F99074F3C19CE71945A894 /* Pods-UnitTests.debug.xcconfig */,
 				A2F798A081CF2F02F94B4503 /* Pods-UnitTests.release.xcconfig */,
+				AD6545DB5ED220762DE66EFB /* Pods-GrayBoxUiTests.debug.xcconfig */,
+				93339C64EF052A658DCA7A07 /* Pods-GrayBoxUiTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -669,6 +676,7 @@
 				5CC077741AD161DD56DC5B7D /* Pods_HostedAppLogicTests.framework */,
 				661ABC2C9AE48647D964AFD2 /* Pods_TestedApp.framework */,
 				C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */,
+				18519616178849C303E04D80 /* Pods_GrayBoxUiTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -706,7 +714,7 @@
 				F813CAFD209CC5D700E6A27C /* BlackBoxUiTests */,
 				F866756E2121E81E00396F02 /* UnitTests */,
 				F82A05AF21F6745F0008C2BB /* HostedAppLogicTests */,
-				F8B0A2012209C44A0089C1EE /* GreyBoxUiTests */,
+				F8B0A2012209C44A0089C1EE /* GrayBoxUiTests */,
 				F813CAE7209CC5D400E6A27C /* Products */,
 				AB15AD35FB63246BDD8CE9FB /* Frameworks */,
 				0C0717C6E91AE9966F9A4B0C /* Pods */,
@@ -720,7 +728,7 @@
 				F813CAFA209CC5D700E6A27C /* BlackBoxUiTests.xctest */,
 				F866756D2121E81E00396F02 /* UnitTests.xctest */,
 				F82A05AE21F6745F0008C2BB /* HostedAppLogicTests.xctest */,
-				F8B0A2002209C44A0089C1EE /* GreyBoxUiTests.xctest */,
+				F8B0A2002209C44A0089C1EE /* GrayBoxUiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1610,14 +1618,14 @@
 			path = Lifecycle;
 			sourceTree = "<group>";
 		};
-		F8B0A2012209C44A0089C1EE /* GreyBoxUiTests */ = {
+		F8B0A2012209C44A0089C1EE /* GrayBoxUiTests */ = {
 			isa = PBXGroup;
 			children = (
 				F8B0A231220A0E040089C1EE /* Support */,
 				F8B0A22F220A0E040089C1EE /* Tests */,
 				F8B0A2042209C44A0089C1EE /* Info.plist */,
 			);
-			path = GreyBoxUiTests;
+			path = GrayBoxUiTests;
 			sourceTree = "<group>";
 		};
 		F8B0A22F220A0E040089C1EE /* Tests */ = {
@@ -2130,9 +2138,9 @@
 			productReference = F866756D2121E81E00396F02 /* UnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F8B0A1FF2209C44A0089C1EE /* GreyBoxUiTests */ = {
+		F8B0A1FF2209C44A0089C1EE /* GrayBoxUiTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8B0A2072209C44A0089C1EE /* Build configuration list for PBXNativeTarget "GreyBoxUiTests" */;
+			buildConfigurationList = F8B0A2072209C44A0089C1EE /* Build configuration list for PBXNativeTarget "GrayBoxUiTests" */;
 			buildPhases = (
 				0E3EB567AFEEBE8CFAE34ADC /* [CP] Check Pods Manifest.lock */,
 				F8B0A1FC2209C44A0089C1EE /* Sources */,
@@ -2145,9 +2153,9 @@
 			dependencies = (
 				F8B0A2062209C44A0089C1EE /* PBXTargetDependency */,
 			);
-			name = GreyBoxUiTests;
+			name = GrayBoxUiTests;
 			productName = GreyBoxUiTests;
-			productReference = F8B0A2002209C44A0089C1EE /* GreyBoxUiTests.xctest */;
+			productReference = F8B0A2002209C44A0089C1EE /* GrayBoxUiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -2208,7 +2216,7 @@
 				F813CAF9209CC5D700E6A27C /* BlackBoxUiTests */,
 				F866756C2121E81E00396F02 /* UnitTests */,
 				F82A05AD21F6745F0008C2BB /* HostedAppLogicTests */,
-				F8B0A1FF2209C44A0089C1EE /* GreyBoxUiTests */,
+				F8B0A1FF2209C44A0089C1EE /* GrayBoxUiTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2277,7 +2285,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GreyBoxUiTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GrayBoxUiTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2352,7 +2360,6 @@
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
@@ -2369,7 +2376,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
@@ -2414,7 +2420,6 @@
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
@@ -2431,7 +2436,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
@@ -2480,7 +2484,6 @@
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
@@ -2503,7 +2506,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
@@ -2542,7 +2544,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GreyBoxUiTests/Pods-GreyBoxUiTests-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
@@ -2551,8 +2553,7 @@
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxGrey/MixboxGrey.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
@@ -2569,8 +2570,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGrey.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
@@ -2579,7 +2579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GreyBoxUiTests/Pods-GreyBoxUiTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8E8BB2420E29F5B00524185 /* Lint */ = {
@@ -3184,15 +3184,15 @@
 		};
 		F8B0A2082209C44A0089C1EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31ACCD7CC26A1C3B958F5B84 /* Pods-GreyBoxUiTests.debug.xcconfig */;
+			baseConfigurationReference = AD6545DB5ED220762DE66EFB /* Pods-GrayBoxUiTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = GreyBoxUiTests/Info.plist;
+				INFOPLIST_FILE = GrayBoxUiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.GreyBoxUiTests;
+				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.GrayBoxUiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestedApp.app/TestedApp";
 			};
@@ -3200,14 +3200,14 @@
 		};
 		F8B0A2092209C44A0089C1EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B84656CC8F6C3B65E3F6900 /* Pods-GreyBoxUiTests.release.xcconfig */;
+			baseConfigurationReference = 93339C64EF052A658DCA7A07 /* Pods-GrayBoxUiTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = GreyBoxUiTests/Info.plist;
+				INFOPLIST_FILE = GrayBoxUiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.GreyBoxUiTests;
+				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.GrayBoxUiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestedApp.app/TestedApp";
 			};
@@ -3261,7 +3261,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8B0A2072209C44A0089C1EE /* Build configuration list for PBXNativeTarget "GreyBoxUiTests" */ = {
+		F8B0A2072209C44A0089C1EE /* Build configuration list for PBXNativeTarget "GrayBoxUiTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8B0A2082209C44A0089C1EE /* Debug */,

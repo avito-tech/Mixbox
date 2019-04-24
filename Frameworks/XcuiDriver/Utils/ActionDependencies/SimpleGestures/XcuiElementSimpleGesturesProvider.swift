@@ -3,13 +3,16 @@ import MixboxUiTestsFoundation
 
 public final class XcuiElementSimpleGesturesProvider: ElementSimpleGesturesProvider {
     private let applicationProvider: ApplicationProvider
+    private let applicationFrameProvider: ApplicationFrameProvider
     private let applicationCoordinatesProvider: ApplicationCoordinatesProvider
     
     public init(
         applicationProvider: ApplicationProvider,
+        applicationFrameProvider: ApplicationFrameProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider)
     {
         self.applicationProvider = applicationProvider
+        self.applicationFrameProvider = applicationFrameProvider
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
     }
     
@@ -28,7 +31,7 @@ public final class XcuiElementSimpleGesturesProvider: ElementSimpleGesturesProvi
         // However, it is possible to interact with XCUIElement inside the alert.
         // We don't want to use XCUIElement for interacting with an element,
         // because it will require to remove abstraction of interfaces
-        // that are designed to work with black-box and grey-box testing.
+        // that are designed to work with black-box and gray-box testing.
         //
         // But we can find an alert and tap the coordinate relative to it.
         //
@@ -43,7 +46,7 @@ public final class XcuiElementSimpleGesturesProvider: ElementSimpleGesturesProvi
             let alertFrame = alert.frame
             
             if alertFrame.contains(tapCoordinate) {
-                let applicationFrame = applicationCoordinatesProvider.frame
+                let applicationFrame = applicationFrameProvider.frame
                 
                 tapCoordinate.x -= alertFrame.origin.x - applicationFrame.origin.x
                 tapCoordinate.y -= alertFrame.origin.y - applicationFrame.origin.y
