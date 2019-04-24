@@ -27,13 +27,6 @@ def application_testability_and_blackbox_testing_common_pods
   pod 'MixboxBuiltinIpc', :path => '..'
 end
 
-def application_testability_and_blackbox_testing_common_pods
-  pod 'MixboxIpc', :path => '..'
-  pod 'MixboxIpcCommon', :path => '..'
-  pod 'MixboxUiKit', :path => '..'
-  pod 'MixboxBuiltinIpc', :path => '..'
-end
-
 def application_testability_pods
   application_testability_and_blackbox_testing_common_pods
   
