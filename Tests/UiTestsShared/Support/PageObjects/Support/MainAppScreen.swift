@@ -1,16 +1,16 @@
-final class MainAppScreen<T: BasePageObjectWithDefaultInitializer> {
-    let real: T // real hierarchy
-    let xcui: T // xcui hierarchy
+final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer> {
+    let real: PageObjectType // page object with real hierarchy
+    let xcui: PageObjectType // page object with xcui hierarchy
     
-    var everyHierarchy: [T] {
+    var everyKindOfHierarchy: [PageObjectType] {
         return [real, xcui]
     }
     
-    func forEveryHierarchy(body: (T) -> ()) {
-        everyHierarchy.forEach(body)
+    func forEveryKindOfHierarchy(body: (PageObjectType) -> ()) {
+        everyKindOfHierarchy.forEach(body)
     }
     
-    init(real: T, xcui: T) {
+    init(real: PageObjectType, xcui: PageObjectType) {
         self.real = real
         self.xcui = real
     }

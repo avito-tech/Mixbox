@@ -34,7 +34,7 @@ class ScreenshotTests: TestCase {
                 return
             }
             
-            screen.forEveryHierarchy { screen in
+            screen.forEveryKindOfHierarchy { screen in
                 screen.view(index: index).withoutTimeout.assertMatchesReference(image: image)
             }
         }

@@ -32,11 +32,11 @@ public final class GrayScreenshotTaker: ScreenshotTaker {
             afterScreenUpdates: afterScreenUpdates
         )
         
-        let orientedScreenshot: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        return orientedScreenshot
+        return screenshot
     }
     
     private func drawScreen(context: CGContext, afterScreenUpdates: Bool) {
@@ -48,11 +48,7 @@ public final class GrayScreenshotTaker: ScreenshotTaker {
         let xOffset: CGFloat = (contextWidth - screenRect.size.width) / 2
         let yOffset: CGFloat = (contextHeight - screenRect.size.height) / 2
         
-        for window in windowsProvider.windowsFromTopMostToBottomMost() {
-            if window.isHidden || window.alpha == 0 {
-                continue
-            }
-            
+        for window in windowsInRenderingOrderSkippingInvisible() {
             context.saveGState()
             
             let windowRect: CGRect = window.bounds
@@ -70,6 +66,7 @@ public final class GrayScreenshotTaker: ScreenshotTaker {
             } else {
                 let success: Bool = window.drawHierarchy(in: windowRect, afterScreenUpdates: afterScreenUpdates)
                 if !success {
+                    // TODO: Better error handling?
                     print("Failed to drawViewHierarchyInRect for window: \(window)")
                 }
             }
@@ -78,6 +75,20 @@ public final class GrayScreenshotTaker: ScreenshotTaker {
         }
     }
     
+    private func windowsInRenderingOrderSkippingInvisible() -> [UIWindow] {
+        return windowsProvider
+            .windowsFromBottomMostToTopMost()
+            .filter { window in !isDefinitelyNotVisible(window: window) }
+    }
+    
+    private func isDefinitelyNotVisible(window: UIWindow) -> Bool {
+        return window.isHidden
+            || window.alpha == 0
+            || window.frame.width == 0
+            || window.frame.height == 0
+    }
+    
+    // TODO: Write test. This logic is intricate.
     private func isAlertWindowThatForSomeReasonDoesntRenderCorrectly(window: UIWindow) -> Bool {
         let alertWindowClassNames = [
             "_UIAlertControllerShimPresenterWindow",

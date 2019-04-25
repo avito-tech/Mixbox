@@ -12,6 +12,8 @@ final class GrayScreenshotTakerTests: TestCase {
     )
     
     func test() {
+        // TODO: Make specific view for this test. Reusing view with potentially
+        // dynamic subviews for other kind of tests is not a good solution.
         let screen = pageObjects.screenshotTestsView.real
         
         openScreen(screen)
@@ -21,8 +23,8 @@ final class GrayScreenshotTakerTests: TestCase {
             return
         }
         
-        
-        let comparator = DHashSnapshotsComparator(tolerance: 20)
+        // Note: tested only on iPhone 7 iOS 11.3. TODO: test on every device.
+        let comparator = DHashSnapshotsComparator(tolerance: 4)
         
         let equals = comparator.equals(
             actual: screenshot,

@@ -13,11 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
-/**
- *  @file GREYAppleInternals.h
- *  @brief Exposes interfaces, structs and methods that are otherwise private.
- */
+// -----
+//
+// Exposes interfaces, structs and methods that are otherwise private.
+//
+// Copypasted from: https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Common/GREYAppleInternals.h
 
 #import <UIKit/UIKit.h>
 

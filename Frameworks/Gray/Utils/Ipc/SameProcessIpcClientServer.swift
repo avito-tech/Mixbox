@@ -4,7 +4,7 @@ import MixboxFoundation
 public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
     typealias AnyHandler = (Any, @escaping (DataResult<Any, IpcClientError>) -> ()) -> ()
     
-    private var anyHandlers = [String: AnyHandler]()
+    private var anyHandlersByMethodName = [String: AnyHandler]()
     
     public init() {
     }
@@ -15,7 +15,7 @@ public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
         completion: @escaping (DataResult<Method.ReturnValue, IpcClientError>) -> ())
         where Method : IpcMethod
     {
-        guard let anyHandler = anyHandlers[method.name] else {
+        guard let anyHandler = anyHandlersByMethodName[method.name] else {
             completion(.error(.customError("Method is not registered")))
             return
         }
@@ -63,6 +63,6 @@ public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
         }
         
         // TODO: What to do if method is getting overwritten?
-        anyHandlers[methodHandler.method.name] = anyHandler
+        anyHandlersByMethodName[methodHandler.method.name] = anyHandler
     }
 }
