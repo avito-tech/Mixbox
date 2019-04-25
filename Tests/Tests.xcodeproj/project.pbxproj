@@ -206,6 +206,20 @@
 		F8A8381D2271F2D700145140 /* ElementHierarchyDescriptionProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A8381C2271F2D700145140 /* ElementHierarchyDescriptionProviderTests.swift */; };
 		F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A8381E2271F35600145140 /* HierarchyTestsViewPageObject.swift */; };
 		F8A838202272024D00145140 /* HierarchyTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A8381E2271F35600145140 /* HierarchyTestsViewPageObject.swift */; };
+		F8A83821227215C300145140 /* AssertHasTextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B09224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift */; };
+		F8A83822227215C300145140 /* AssertContainsTextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B0B224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift */; };
+		F8A83823227215C300145140 /* AssertHasAccessibilityValueInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B0D224ACF1600AA1EB9 /* AssertHasAccessibilityValueInteractionTests.swift */; };
+		F8A83824227215C300145140 /* AssertIsNotDisplayedInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B0F224ACF2500AA1EB9 /* AssertIsNotDisplayedInteractionTests.swift */; };
+		F8A83825227215C300145140 /* AssertIsDisplayedInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B11224ACF3900AA1EB9 /* AssertIsDisplayedInteractionTests.swift */; };
+		F8A83826227215C300145140 /* AssertIsEnabledInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B13224ACF4800AA1EB9 /* AssertIsEnabledInteractionTests.swift */; };
+		F8A83827227215C300145140 /* AssertIsDisabledInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B15224ACF5B00AA1EB9 /* AssertIsDisabledInteractionTests.swift */; };
+		F8A83828227215C300145140 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B17224ACF6C00AA1EB9 /* AssertBecomesTallerAfterInteractionTests.swift */; };
+		F8A83829227215C300145140 /* AssertBecomesShorterAfterInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B19224ACFA500AA1EB9 /* AssertBecomesShorterAfterInteractionTests.swift */; };
+		F8A8382A227215C300145140 /* AssertTextMatchesInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AD07A322535DB500D5FB93 /* AssertTextMatchesInteractionTests.swift */; };
+		F8A8382B227215C300145140 /* TextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC062254E3120074F0E9 /* TextInteractionTests.swift */; };
+		F8A8382C227215C300145140 /* IsDisplayedInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC082254EBF30074F0E9 /* IsDisplayedInteractionTests.swift */; };
+		F8A8382D227215C300145140 /* ContinueAfterFailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8798323224930B1004DD770 /* ContinueAfterFailureTests.swift */; };
+		F8A8382E227215C300145140 /* IgnoringDefinitelyHiddenElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8798325224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift */; };
 		F8A9D32E2168057300EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D32F216805C500EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */; };
@@ -1248,14 +1262,6 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		F879833022494D4C004DD770 /* BasedOnBaseChecksTestCase */ = {
-			isa = PBXGroup;
-			children = (
-				F879833122494D59004DD770 /* Tests */,
-			);
-			path = BasedOnBaseChecksTestCase;
-			sourceTree = "<group>";
-		};
 		F879833122494D59004DD770 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1539,6 +1545,7 @@
 		F8A837AB2270D4D100145140 /* BasedOnBaseChecksTestCase */ = {
 			isa = PBXGroup;
 			children = (
+				F879833122494D59004DD770 /* Tests */,
 				F879832D22494BD2004DD770 /* Base */,
 			);
 			path = BasedOnBaseChecksTestCase;
@@ -1995,7 +2002,6 @@
 		F8E6CC7A2181ECB700D7A0C1 /* Checks */ = {
 			isa = PBXGroup;
 			children = (
-				F879833022494D4C004DD770 /* BasedOnBaseChecksTestCase */,
 				F8274A422142DA7A00A72C41 /* AssertingCustomValuesTests.swift */,
 				F8EBBCE6213D541300D320A4 /* ScreenshotTests.swift */,
 			);
@@ -2941,6 +2947,7 @@
 				F8B340F1224D3FD700AA1EB9 /* LogsAndFailures.swift in Sources */,
 				F8B0A252220A0EF30089C1EE /* TestStateRecycling.swift in Sources */,
 				F801CC1A2254F9C80074F0E9 /* GatherFailuresResult.swift in Sources */,
+				F8A83825227215C300145140 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F8A837C42270EE9800145140 /* OpenableScreen.swift in Sources */,
 				F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
@@ -2954,10 +2961,12 @@
 				F8B0A244220A0E040089C1EE /* ChecksTests.swift in Sources */,
 				F8B0A255220A0EF30089C1EE /* TestStepReport.swift in Sources */,
 				F8A837AF2270D9E200145140 /* ConfigureChecksTestsViewIpcMethod.swift in Sources */,
+				F8A8382A227215C300145140 /* AssertTextMatchesInteractionTests.swift in Sources */,
 				F8B0A25A220A0EF30089C1EE /* TestReportFailure.swift in Sources */,
 				F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */,
 				F8B0A25F220A0EF30089C1EE /* AllureReportingSystem.swift in Sources */,
 				F8A837A42270D40B00145140 /* GenericPageObject.swift in Sources */,
+				F8A8382B227215C300145140 /* TextInteractionTests.swift in Sources */,
 				F8A837CD2270F5EC00145140 /* ScreenshotTestsConstants.swift in Sources */,
 				F8A837C92270F2B300145140 /* ScreenshotTestsViewPageObject.swift in Sources */,
 				F8A837A32270D40B00145140 /* NetworkStubbingTestsViewPageObject.swift in Sources */,
@@ -2965,16 +2974,22 @@
 				F8A837AD2270D57F00145140 /* BaseChecksTestCase.swift in Sources */,
 				F8B0A25C220A0EF30089C1EE /* ReportingSystem.swift in Sources */,
 				F8B0A258220A0EF30089C1EE /* TestReportStatus.swift in Sources */,
+				F8A83829227215C300145140 /* AssertBecomesShorterAfterInteractionTests.swift in Sources */,
 				F8B0A256220A0EF30089C1EE /* TestCaseReport.swift in Sources */,
+				F8A83822227215C300145140 /* AssertContainsTextInteractionTests.swift in Sources */,
 				F8A837A52270D40B00145140 /* PageObjects.swift in Sources */,
 				F8B340F0224D3FD700AA1EB9 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
 				F8A837F022711EB800145140 /* EchoIpcMethod.swift in Sources */,
 				F8A837C22270ED8E00145140 /* GrayScreenshotTakerTests.swift in Sources */,
 				F8B0A253220A0EF30089C1EE /* FailureGatherer.swift in Sources */,
 				F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */,
+				F8A83828227215C300145140 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */,
 				F8B0A257220A0EF30089C1EE /* TestReportAttachment.swift in Sources */,
 				F8A837A82270D40B00145140 /* BasePageObjects.swift in Sources */,
+				F8A83823227215C300145140 /* AssertHasAccessibilityValueInteractionTests.swift in Sources */,
 				F8A837AE2270D57F00145140 /* AssertSpec.swift in Sources */,
+				F8A8382E227215C300145140 /* IgnoringDefinitelyHiddenElementsTests.swift in Sources */,
+				F8A83821227215C300145140 /* AssertHasTextInteractionTests.swift in Sources */,
 				F8A837B22270DB8200145140 /* TestCase+AssertLogsAndFailures.swift in Sources */,
 				F8B0A24C220A0E040089C1EE /* TestObservationEntryPoint.swift in Sources */,
 				F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */,
@@ -2986,7 +3001,12 @@
 				F8A837B12270DAE300145140 /* Singletons.swift in Sources */,
 				F8A837A72270D40B00145140 /* BasePageObject+Extension.swift in Sources */,
 				F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
+				F8A8382D227215C300145140 /* ContinueAfterFailureTests.swift in Sources */,
+				F8A83826227215C300145140 /* AssertIsEnabledInteractionTests.swift in Sources */,
+				F8A83827227215C300145140 /* AssertIsDisabledInteractionTests.swift in Sources */,
 				F801CC192254F9C80074F0E9 /* FailsHereFunctionProvider.swift in Sources */,
+				F8A83824227215C300145140 /* AssertIsNotDisplayedInteractionTests.swift in Sources */,
+				F8A8382C227215C300145140 /* IsDisplayedInteractionTests.swift in Sources */,
 				F8B0A25B220A0EF30089C1EE /* AsyncReportingSystem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

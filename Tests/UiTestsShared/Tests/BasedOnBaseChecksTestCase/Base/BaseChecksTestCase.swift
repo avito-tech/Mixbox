@@ -65,6 +65,8 @@ class BaseChecksTestCase: TestCase {
         additionalLogs: ((StepLogMatcherBuilder) -> Matcher<StepLog>)? = nil,
         body: () -> ())
     {
+        reloadViewAndWaitUntilItIsLoaded()
+        
         let logsAndFailures = recordLogsAndFailures {
             body()
         }
@@ -90,6 +92,51 @@ class BaseChecksTestCase: TestCase {
             logsAndFailures.failures.map { $0.description } == [failureMessage]
         }
     }
+    
+    func checkAssert<T: Element>(
+        passes: Bool,
+        immediately: Bool,
+        uiAppearsImmediately: Bool,
+        assertSpec: AssertSpecification<T>)
+    {
+        checkAssert(
+            passes: passes,
+            immediately: immediately,
+            uiLoadingActions: uiAppearsImmediately
+                ? nil
+                : sequenceOfActionsWhenUiAppears(),
+            assertSpec: assertSpec
+        )
+    }
+    
+    func checkAssert<T: Element>(
+        passes: Bool,
+        immediately: Bool,
+        uiLoadingActions: [ChecksTestsViewConfiguration.Action]?,
+        assertSpec: AssertSpecification<T>)
+    {
+        if let uiLoadingActions = uiLoadingActions {
+            reloadView(uiLoadingActions: uiLoadingActions)
+        } else {
+            reloadViewAndWaitUntilItIsLoaded()
+        }
+        
+        Thread.sleep(forTimeInterval: 1)
+        
+        assert(passes: passes) {
+            let element: T
+            
+            if immediately {
+                element = assertSpec.element(screen).withoutTimeout
+            } else {
+                element = assertSpec.element(screen).withTimeout(30)
+            }
+            
+            assertSpec.assert(element)
+        }
+    }
+    
+    // MARK: - Mathing
     
     func hasDefaultSearchLogs(
         log: StepLogMatcherBuilder,
@@ -152,6 +199,20 @@ class BaseChecksTestCase: TestCase {
     
     // MARK: - Sequence of actions
     
+    func sequenceOfActionsWhenUiAppearsImmediately() -> [ChecksTestsViewConfiguration.Action] {
+        let action = ChecksTestsViewConfiguration.Action(
+            reloadSettings: ChecksTestsViewConfiguration.ReloadSettings(
+                defaultConfig: true,
+                setId: true,
+                userConfig: true,
+                addSubview: true
+            ),
+            delay: 0
+        )
+        
+        return [action]
+    }
+    
     func sequenceOfActionsWhenUiDisappears() -> [ChecksTestsViewConfiguration.Action] {
         let delay: TimeInterval = 4
         
@@ -192,52 +253,9 @@ class BaseChecksTestCase: TestCase {
         return (0...4).map { action(step: $0) }
     }
     
-    // MARK: - Private
+    // MARK: - Reloading view
     
-    func checkAssert<T: Element>(
-        passes: Bool,
-        immediately: Bool,
-        uiAppearsImmediately: Bool,
-        assertSpec: AssertSpecification<T>)
-    {
-        checkAssert(
-            passes: passes,
-            immediately: immediately,
-            uiLoadingActions: uiAppearsImmediately
-                ? nil
-                : sequenceOfActionsWhenUiAppears(),
-            assertSpec: assertSpec
-        )
-    }
-    
-    func checkAssert<T: Element>(
-        passes: Bool,
-        immediately: Bool,
-        uiLoadingActions: [ChecksTestsViewConfiguration.Action]?,
-        assertSpec: AssertSpecification<T>)
-    {
-        if let uiLoadingActions = uiLoadingActions {
-            reloadViewWithDelays(uiLoadingActions: uiLoadingActions)
-        } else {
-            reloadViewWithoutDelays()
-        }
-        
-        Thread.sleep(forTimeInterval: 1)
-        
-        assert(passes: passes) {
-            let element: T
-            
-            if immediately {
-                element = assertSpec.element(screen).withoutTimeout
-            } else {
-                element = assertSpec.element(screen).withTimeout(30)
-            }
-            
-            assertSpec.assert(element)
-        }
-    }
-    
-    private func reloadViewWithDelays(uiLoadingActions: [ChecksTestsViewConfiguration.Action]) {
+    func reloadView(uiLoadingActions: [ChecksTestsViewConfiguration.Action]) {
         _ = ipcClient.call(
             method: ConfigureChecksTestsViewIpcMethod(),
             arguments: ChecksTestsViewConfiguration(
@@ -246,10 +264,10 @@ class BaseChecksTestCase: TestCase {
         )
     }
     
-    private func reloadViewWithoutDelays() {
-        _ = ipcClient.call(
-            method: ConfigureChecksTestsViewIpcMethod(),
-            arguments: ChecksTestsViewConfiguration.default
-        )
+    func reloadViewAndWaitUntilItIsLoaded() {
+        reloadView(uiLoadingActions: [.default])
+        
+        // Wait until UI is loaded:
+        screen.isDisplayed0.assertIsDisplayed()
     }
 }

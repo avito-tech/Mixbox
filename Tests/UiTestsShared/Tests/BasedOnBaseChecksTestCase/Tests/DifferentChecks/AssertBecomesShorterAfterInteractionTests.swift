@@ -2,6 +2,8 @@ import MixboxUiTestsFoundation
 
 final class AssertBecomesShorterAfterInteractionTests: BaseChecksTestCase {
     func test_assertBecomesShorterAfter_passesProperly() {
+        reloadViewAndWaitUntilItIsLoaded()
+        
         screen.expandButton.withoutTimeout.tap()
         
         screen.expandingLabel.assertBecomesShorterAfter { [weak self] in

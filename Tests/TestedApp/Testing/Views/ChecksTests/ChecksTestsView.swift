@@ -8,6 +8,9 @@ final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewCo
         
         accessibilityIdentifier = "ChecksTestsView"
         
+        // Set up nothing by default.
+        addViewHandler = { _,_,_,_ in }
+        
         setUpViews()
         
         let viewIpc = testingViewControllerSettings.viewIpc

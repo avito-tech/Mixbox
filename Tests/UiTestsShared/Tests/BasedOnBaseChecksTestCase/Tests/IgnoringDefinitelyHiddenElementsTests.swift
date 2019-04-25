@@ -4,6 +4,8 @@ import MixboxReporting
 
 final class IgnoringDefinitelyHiddenElementsTests: BaseChecksTestCase {
     func test_assertIsDisplayed_doesntFailWithMultipleMatchesError_ifOneOfDuplicatedViewsIsDefinitelyHidden() {
+        reloadViewAndWaitUntilItIsLoaded()
+        
         assertPasses {
             screen.duplicated_but_one_is_hidden.assertIsDisplayed()
         }

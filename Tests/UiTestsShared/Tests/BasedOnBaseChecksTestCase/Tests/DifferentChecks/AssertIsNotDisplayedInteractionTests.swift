@@ -73,6 +73,8 @@ final class AssertIsNotDisplayedInteractionTests: BaseChecksTestCase {
     
     // TODO: Fix description of check. Failure message is far from perfect.
     func test_assert_failsProperlyIfElementIsDisplayed() {
+        reloadViewAndWaitUntilItIsLoaded()
+        
         let logsAndFailures = recordLogsAndFailures {
             screen.isDisplayed0.withoutTimeout.assertIsNotDisplayed()
         }

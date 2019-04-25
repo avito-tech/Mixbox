@@ -2,6 +2,8 @@ import MixboxUiTestsFoundation
 
 final class AssertBecomesTallerAfterInteractionTests: BaseChecksTestCase {
     func test_assertBecomesTallerAfter_passesProperly() {
+        reloadViewAndWaitUntilItIsLoaded()
+        
         screen.collapseButton.withoutTimeout.tap()
         
         screen.expandingLabel.assertBecomesTallerAfter { [weak self] in
