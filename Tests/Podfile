@@ -75,6 +75,11 @@ def tests_report_pods
   pod 'MixboxAllure', :path => '..'
 end
 
+# TODO: Support mock generation for every test target
+def tests_testing_helpers
+  pod 'Cuckoo', '0.12.1'
+end
+
 ### Tests-specific facades
 
 def tests_black_box_pods
@@ -93,9 +98,8 @@ end
 
 def tests_white_box_pods
   mixbox_whitebox_tests_pods
-  
-  # Helpers
-  pod 'Cuckoo'
+
+  tests_testing_helpers
   
   # Code being tested:
   mixbox_ui_tests_pods

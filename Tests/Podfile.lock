@@ -69,7 +69,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaImageHashing (= 1.6.1)
-  - Cuckoo
+  - Cuckoo (= 0.12.1)
   - DynamicCodable (= 1.0)
   - MixboxAllure (from `..`)
   - MixboxArtifacts (from `..`)

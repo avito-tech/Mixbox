@@ -313,6 +313,7 @@
 		F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */; };
 		F8DB34D9227223B000EE0FB8 /* UIImage+WithColorAndSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */; };
 		F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */; };
+		F8DB350622725E8C00EE0FB8 /* RunLoopSpinnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */; };
 		F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */; };
 		F8E6CC792180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */; };
 		F8E6CC902187858E00D7A0C1 /* ApplicationBundleProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */; };
@@ -614,6 +615,7 @@
 		F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsView.swift; sourceTree = "<group>"; };
 		F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcCallbacksTests.swift; sourceTree = "<group>"; };
 		F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunLoopSpinnerTests.swift; sourceTree = "<group>"; };
 		F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxHelperClient.swift; sourceTree = "<group>"; };
 		F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift; sourceTree = "<group>"; };
 		F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationBundleProviderTests.swift; sourceTree = "<group>"; };
@@ -1711,6 +1713,7 @@
 		F8B0A22F220A0E040089C1EE /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8DB350422725E8200EE0FB8 /* RunLoopSpinner */,
 				F8A8381B2271F2CF00145140 /* ElementHierarchyDescriptionProvider */,
 				F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */,
 				F8B0A230220A0E040089C1EE /* ChecksTests.swift */,
@@ -1935,6 +1938,14 @@
 				F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		F8DB350422725E8200EE0FB8 /* RunLoopSpinner */ = {
+			isa = PBXGroup;
+			children = (
+				F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */,
+			);
+			path = RunLoopSpinner;
 			sourceTree = "<group>";
 		};
 		F8E0B50F2199E17200C66BA9 /* MixboxHelperPrototype */ = {
@@ -2366,6 +2377,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
@@ -2373,7 +2385,6 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2382,6 +2393,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
@@ -2389,7 +2401,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2426,6 +2437,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
@@ -2433,7 +2445,6 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2442,6 +2453,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
@@ -2449,7 +2461,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2490,6 +2501,7 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
@@ -2513,6 +2525,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
@@ -2567,6 +2580,7 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicCodable/DynamicCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
@@ -2591,6 +2605,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicCodable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
@@ -2909,6 +2924,7 @@
 				F8A837A32270D40B00145140 /* NetworkStubbingTestsViewPageObject.swift in Sources */,
 				F8B0A254220A0EF30089C1EE /* XcTestFailure.swift in Sources */,
 				F8A837AD2270D57F00145140 /* BaseChecksTestCase.swift in Sources */,
+				F8DB350622725E8C00EE0FB8 /* RunLoopSpinnerTests.swift in Sources */,
 				F8B0A25C220A0EF30089C1EE /* ReportingSystem.swift in Sources */,
 				F8A83E842272223700145140 /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift in Sources */,
 				F8B0A258220A0EF30089C1EE /* TestReportStatus.swift in Sources */,
