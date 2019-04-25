@@ -1,5 +1,3 @@
-import MixboxUiTestsFoundation
-
 public final class PerformerOfSpecificImplementationOfInteractionForVisibleElementImpl:
     PerformerOfSpecificImplementationOfInteractionForVisibleElement
 {

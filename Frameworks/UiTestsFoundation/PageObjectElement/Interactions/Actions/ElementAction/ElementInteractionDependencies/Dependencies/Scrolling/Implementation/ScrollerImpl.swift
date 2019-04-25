@@ -1,4 +1,3 @@
-import MixboxUiTestsFoundation
 import XCTest
 import MixboxIpcCommon
 

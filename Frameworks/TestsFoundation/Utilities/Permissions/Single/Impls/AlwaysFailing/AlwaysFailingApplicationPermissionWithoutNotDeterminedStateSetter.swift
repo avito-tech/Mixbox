@@ -1,5 +1,4 @@
 import MixboxFoundation
-import MixboxTestsFoundation
 import MixboxReporting
 
 public final class AlwaysFailingApplicationPermissionWithoutNotDeterminedStateSetter:

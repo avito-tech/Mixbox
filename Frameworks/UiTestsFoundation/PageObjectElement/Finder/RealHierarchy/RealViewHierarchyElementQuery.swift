@@ -1,4 +1,3 @@
-import MixboxUiTestsFoundation
 import MixboxFoundation
 import MixboxReporting
 import MixboxIpc

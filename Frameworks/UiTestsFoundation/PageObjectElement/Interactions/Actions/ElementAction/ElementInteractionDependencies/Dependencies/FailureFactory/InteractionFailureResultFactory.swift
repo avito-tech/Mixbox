@@ -1,5 +1,3 @@
-import MixboxUiTestsFoundation
-
 public protocol InteractionFailureResultFactory {
     func elementIsHiddenResult()
         -> InteractionResult

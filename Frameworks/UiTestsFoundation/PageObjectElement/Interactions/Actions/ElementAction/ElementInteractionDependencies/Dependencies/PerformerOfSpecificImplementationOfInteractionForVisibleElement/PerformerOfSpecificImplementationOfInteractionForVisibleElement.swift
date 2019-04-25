@@ -1,5 +1,3 @@
-import MixboxUiTestsFoundation
-
 public protocol PerformerOfSpecificImplementationOfInteractionForVisibleElement {
     func performInteractionForVisibleElement(
         minimalPercentageOfVisibleArea: CGFloat,
