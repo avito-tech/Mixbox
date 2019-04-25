@@ -60,9 +60,7 @@ public final class GrayScreenshotTaker: ScreenshotTaker {
             context.translateBy(x: -windowRect.width * windowAnchor.x, y: -windowRect.height * windowAnchor.y)
             
             if isAlertWindowThatForSomeReasonDoesntRenderCorrectly(window: window) {
-                if let context = UIGraphicsGetCurrentContext() {
-                    window.layer.render(in: context)
-                }
+                window.layer.render(in: context)
             } else {
                 let success: Bool = window.drawHierarchy(in: windowRect, afterScreenUpdates: afterScreenUpdates)
                 if !success {
