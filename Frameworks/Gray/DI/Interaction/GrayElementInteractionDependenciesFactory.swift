@@ -2,6 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxReporting
 import MixboxFoundation
+import MixboxInAppServices
 
 // TODO: Share code between black-box and gray-box.
 public final class GrayElementInteractionDependenciesFactory: ElementInteractionDependenciesFactory {
@@ -81,7 +82,9 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
     // MARK: - Private
     
     private func elementHierarchyDescriptionProvider() -> ElementHierarchyDescriptionProvider {
-        return GrayElementHierarchyDescriptionProvider()
+        return GrayElementHierarchyDescriptionProvider(
+            viewHierarchyProvider: ViewHierarchyProviderImpl()
+        )
     }
     
     private func performerOfSpecificImplementationOfInteractionForVisibleElement(

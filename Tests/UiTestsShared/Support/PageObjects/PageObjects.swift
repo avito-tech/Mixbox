@@ -7,6 +7,8 @@ final class PageObjects: BasePageObjects {
     
     var screenshotTestsView: MainAppScreen<ScreenshotTestsViewPageObject> { return mainAppScreen() }
     
+    var hierarchyTestsView:  MainAppScreen<HierarchyTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<T>() -> MainAppScreen<T> {
         return MainAppScreen(
             real: apps.mainRealHierarchy.pageObject(),

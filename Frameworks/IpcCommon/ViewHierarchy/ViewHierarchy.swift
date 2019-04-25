@@ -12,7 +12,7 @@ public final class ViewHierarchy: Codable, CustomDebugStringConvertible {
             .map { $0.debugDescription }
             .joined(separator: ",\n")
             .mb_wrapAndIndent(
-                prefix: "Окна: {",
+                prefix: "{",
                 postfix: "}"
             )
     }

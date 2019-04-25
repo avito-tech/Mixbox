@@ -84,7 +84,11 @@ public final class MixboxInAppServices: IpcRouter {
     private static func registerDefaultMethods(router: IpcRouter) {
         router.register(methodHandler: ScrollingHintIpcMethodHandler())
         router.register(methodHandler: PercentageOfVisibleAreaIpcMethodHandler())
-        router.register(methodHandler: ViewHierarchyIpcMethodHandler())
+        router.register(
+            methodHandler: ViewHierarchyIpcMethodHandler(
+                viewHierarchyProvider: ViewHierarchyProviderImpl()
+            )
+        )
         
         router.register(methodHandler: OpenUrlIpcMethodHandler())
         

@@ -77,9 +77,54 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
                 prefix: "{",
                 postfix: "}"
             )
-                
-        return [customClass, accessibilityIdentifier, text ?? accessibilityLabel ?? accessibilityValue, childrenDescription]
-                .compactMap { $0 }
-                .joined(separator: ", ")
+        
+        let hardcodedOptionalFields: [(key: String, value: String?)] = [
+            (key: "frame", value: frame.debugDescription),
+            (key: "customClass", value: customClass),
+            (key: "elementType", value: elementType.debugDescription),
+            (key: "accessibilityIdentifier", value: accessibilityIdentifier),
+            (key: "accessibilityLabel", value: accessibilityLabel),
+            (key: "accessibilityValue", value: accessibilityValue),
+            (key: "accessibilityPlaceholderValue", value: accessibilityPlaceholderValue),
+            (key: "text", value: text),
+            (key: "uniqueIdentifier", value: uniqueIdentifier),
+            (key: "isDefinitelyHidden", value: isDefinitelyHidden.description),
+            (key: "isEnabled", value: isEnabled.description),
+            (key: "hasKeyboardFocus", value: hasKeyboardFocus.description)
+        ]
+        
+        let hardcodedFields = hardcodedOptionalFields.compactMap { (key: String, value: String?) -> (key: String, value: String)? in
+            if let value = value {
+                return (key: key, value: value)
+            } else {
+                return nil
+            }
+        }
+        
+        let customFields = customValues.map { (key: String, value: String) in
+            return (key: "customValue[\(key)]", value: value)
+        }
+        
+        let fieldDescriptions = (hardcodedFields + customFields + [(key: "children", value: childrenDescription)])
+            .map { pair in "\(pair.key)=\(pair.value)" }
+            .joined(separator: ", ")
+        
+        return fieldDescriptions
     }
 }
+
+//private extension Dictionary {
+//    func mb_compactMapValues<ElementOfResult>(
+//        _ transform: (Element) throws -> ElementOfResult?)
+//        rethrows
+//        -> [Dictionary<Key, ElementOfResult>]
+//    {
+//        var result = [Dictionary<Key, ElementOfResult>]()
+//        for (key, value) in self {
+//            if let transformed = transform(value) {
+//                result[key] = transformed
+//            }
+//        }
+//        return result
+//    }
+//}

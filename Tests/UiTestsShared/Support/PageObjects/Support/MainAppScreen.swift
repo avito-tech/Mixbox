@@ -1,4 +1,6 @@
-final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer> {
+final class MainAppScreen<T: BasePageObjectWithDefaultInitializer> {
+    typealias PageObjectType = T
+    
     let real: PageObjectType // page object with real hierarchy
     let xcui: PageObjectType // page object with xcui hierarchy
     
@@ -12,6 +14,13 @@ final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer> 
     
     init(real: PageObjectType, xcui: PageObjectType) {
         self.real = real
-        self.xcui = real
+        self.xcui = xcui
+    }
+}
+
+extension MainAppScreen: OpenableScreen where T: OpenableScreen {
+    var viewName: String {
+        assert(real.viewName == xcui.viewName)
+        return real.viewName
     }
 }

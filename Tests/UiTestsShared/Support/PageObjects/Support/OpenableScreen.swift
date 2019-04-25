@@ -1,15 +1,15 @@
 import MixboxUiTestsFoundation
 
-protocol OpenableScreen: PageObjectElementRegistrar {
+protocol OpenableScreen {
     var viewName: String { get }
 }
 
-extension OpenableScreen {
-    public var view: ViewElement {
+extension OpenableScreen where Self: PageObjectElementRegistrar {
+    var view: ViewElement {
         return element(viewName) { element in element.id == viewName }
     }
     
-    public func waitUntilViewIsLoaded() {
+    func waitUntilViewIsLoaded() {
         view.assertIsDisplayed()
     }
 }

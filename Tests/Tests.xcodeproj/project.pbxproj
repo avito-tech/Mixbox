@@ -203,6 +203,9 @@
 		F8A837CF2270F90600145140 /* ScreenshotTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A837C82270F2B300145140 /* ScreenshotTestsViewPageObject.swift */; };
 		F8A837EF22711E1800145140 /* IpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A837EE22711E1800145140 /* IpcTests.swift */; };
 		F8A837F022711EB800145140 /* EchoIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D720CD8BF700E8BFF5 /* EchoIpcMethod.swift */; };
+		F8A8381D2271F2D700145140 /* ElementHierarchyDescriptionProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A8381C2271F2D700145140 /* ElementHierarchyDescriptionProviderTests.swift */; };
+		F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A8381E2271F35600145140 /* HierarchyTestsViewPageObject.swift */; };
+		F8A838202272024D00145140 /* HierarchyTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A8381E2271F35600145140 /* HierarchyTestsViewPageObject.swift */; };
 		F8A9D32E2168057300EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D32F216805C500EC5D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */; };
@@ -531,6 +534,8 @@
 		F8A837C82270F2B300145140 /* ScreenshotTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8A837CB2270F5CD00145140 /* MainAppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppScreen.swift; sourceTree = "<group>"; };
 		F8A837EE22711E1800145140 /* IpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcTests.swift; sourceTree = "<group>"; };
+		F8A8381C2271F2D700145140 /* ElementHierarchyDescriptionProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementHierarchyDescriptionProviderTests.swift; sourceTree = "<group>"; };
+		F8A8381E2271F35600145140 /* HierarchyTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHashCalculatorTests.swift; sourceTree = "<group>"; };
 		F8A9D33A216B894800EC5D24 /* TestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuery.swift; sourceTree = "<group>"; };
 		F8A9D33B216B894800EC5D24 /* TestObservationEntryPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObservationEntryPoint.swift; sourceTree = "<group>"; };
@@ -1551,6 +1556,14 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		F8A8381B2271F2CF00145140 /* ElementHierarchyDescriptionProvider */ = {
+			isa = PBXGroup;
+			children = (
+				F8A8381C2271F2D700145140 /* ElementHierarchyDescriptionProviderTests.swift */,
+			);
+			path = ElementHierarchyDescriptionProvider;
+			sourceTree = "<group>";
+		};
 		F8A9D338216B881500EC5D24 /* Emcee */ = {
 			isa = PBXGroup;
 			children = (
@@ -1693,6 +1706,7 @@
 		F8B0A22F220A0E040089C1EE /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8A8381B2271F2CF00145140 /* ElementHierarchyDescriptionProvider */,
 				F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */,
 				F8B0A230220A0E040089C1EE /* ChecksTests.swift */,
 				F8A837C12270ED8E00145140 /* GrayScreenshotTakerTests.swift */,
@@ -1832,6 +1846,7 @@
 				F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */,
 				F8B34119224E56C800AA1EB9 /* GenericPageObject.swift */,
 				F8A837C82270F2B300145140 /* ScreenshotTestsViewPageObject.swift */,
+				F8A8381E2271F35600145140 /* HierarchyTestsViewPageObject.swift */,
 			);
 			path = PageObjects;
 			sourceTree = "<group>";
@@ -2845,6 +2860,7 @@
 				F8A837C52270EE9F00145140 /* OpenableScreen.swift in Sources */,
 				F8AD07992250D5DD00D5FB93 /* MicrophoneApplicationPermissionTests.swift in Sources */,
 				F8B34130224E5EA600AA1EB9 /* BasePermissionTestCase.swift in Sources */,
+				F8A838202272024D00145140 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F813CB2F209CDF3400E6A27C /* TestabilityTextTests.swift in Sources */,
 				F820306E22385B43006D2F70 /* PressActionTests.swift in Sources */,
 				F879833522494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
@@ -2926,6 +2942,7 @@
 				F8B0A252220A0EF30089C1EE /* TestStateRecycling.swift in Sources */,
 				F801CC1A2254F9C80074F0E9 /* GatherFailuresResult.swift in Sources */,
 				F8A837C42270EE9800145140 /* OpenableScreen.swift in Sources */,
+				F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
 				F8A837B02270D9E200145140 /* ChecksTestsViewConfiguration.swift in Sources */,
 				F879831F22492D44004DD770 /* RecodableStepLogger.swift in Sources */,
@@ -2962,6 +2979,7 @@
 				F8B0A24C220A0E040089C1EE /* TestObservationEntryPoint.swift in Sources */,
 				F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */,
 				F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */,
+				F8A8381D2271F2D700145140 /* ElementHierarchyDescriptionProviderTests.swift in Sources */,
 				F8B0A246220A0E040089C1EE /* TestCaseUtils.swift in Sources */,
 				F8A837EF22711E1800145140 /* IpcTests.swift in Sources */,
 				F8A837CC2270F5CD00145140 /* MainAppScreen.swift in Sources */,

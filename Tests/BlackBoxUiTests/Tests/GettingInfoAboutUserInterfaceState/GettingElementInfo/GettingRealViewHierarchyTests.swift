@@ -6,7 +6,7 @@ import XCTest
 
 final class GettingRealViewHierarchyTests: TestCase {
     override func precondition() {
-        openScreen(name: "HierarchyTestsView")
+        openScreen(pageObjects.hierarchyTestsView)
     }
     
     // TODO: Fails at getting accessibilityValue and testability_customValues

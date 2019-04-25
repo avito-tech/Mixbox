@@ -3,8 +3,12 @@
 import MixboxIpcCommon
 import UIKit
 
-final class ViewHierarchyBuilder {
-    func buildViewHierarchy() -> ViewHierarchy {
+// TODO: Remove singletons
+public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {
+    public init() {
+    }
+    
+    public func viewHierarchy() -> ViewHierarchy {
         return ViewHierarchy(rootElements: buildRootViewHierarchyElements())
     }
     

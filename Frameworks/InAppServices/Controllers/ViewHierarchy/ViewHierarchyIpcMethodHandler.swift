@@ -6,9 +6,17 @@ import MixboxIpcCommon
 final class ViewHierarchyIpcMethodHandler: IpcMethodHandler {
     let method = ViewHierarchyIpcMethod()
     
+    private let viewHierarchyProvider: ViewHierarchyProvider
+    
+    init(
+        viewHierarchyProvider: ViewHierarchyProvider)
+    {
+        self.viewHierarchyProvider = viewHierarchyProvider
+    }
+    
     func handle(arguments: IpcVoid, completion: @escaping (ViewHierarchy) -> ()) {
-        DispatchQueue.main.async {
-            let viewHieherarchy = ViewHierarchyBuilder().buildViewHierarchy()
+        DispatchQueue.main.async { [viewHierarchyProvider] in
+            let viewHieherarchy = viewHierarchyProvider.viewHierarchy()
             completion(viewHieherarchy)
         }
     }
