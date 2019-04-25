@@ -3,6 +3,7 @@ import MixboxUiTestsFoundation
 
 // TODO: Test fails.
 // TODO: Test that LoggingElementInteractionWithDependenciesPerformer reports attachments in nestedFailures in InteractionFailure.
+// TODO: Test touchesAreBlocked == true. Lost touches are a major problem at the moment.
 class BaseActionTestCase: TestCase {
     
     // MARK: - Screen
@@ -200,7 +201,8 @@ class BaseActionTestCase: TestCase {
             viewNames: Array(repeating: repeating, count: count).map { $0.elementId },
             alpha: alpha,
             isHidden: isHidden,
-            overlapping: overlapping
+            overlapping: overlapping,
+            touchesAreBlocked: false
         )
     }
     
@@ -241,7 +243,8 @@ class BaseActionTestCase: TestCase {
                 viewNames: actionSpecifications.map { $0.elementId },
                 alpha: 1,
                 isHidden: false,
-                overlapping: 0
+                overlapping: 0,
+                touchesAreBlocked: false
             )
         )
     }
@@ -285,6 +288,8 @@ class BaseActionTestCase: TestCase {
     private func setViews(
         ui: ActionsTestsViewModel)
     {
+        XCTAssert(ui.touchesAreBlocked == false, "touchesAreBlocked==true is not implemented")
+        
         let error = ipcClient.callOrFail(
             method: SetViewsIpcMethod(),
             arguments: ui

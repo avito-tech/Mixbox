@@ -19,7 +19,8 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         viewNames: [],
         alpha: 1,
         isHidden: false,
-        overlapping: 0
+        overlapping: 0,
+        touchesAreBlocked: false
     )
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {
@@ -94,6 +95,10 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         }
         
         infoLabel.isHidden = !viewModel.showInfo
+        
+        if viewModel.touchesAreBlocked {
+            assertionFailure("touchesAreBlocked==true is not implemented")
+        }
         
         setNeedsLayout()
         

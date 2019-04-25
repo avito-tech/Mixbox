@@ -1,5 +1,22 @@
 import MixboxUiTestsFoundation
 
+// TODO: Check tapping on overlapping views:
+//
+//   +-----------------------------------+
+//   |a                                  |
+//   |              +-----+              |
+//   |              |b    |              |
+//   |              |     |              |
+//   |              +-----+              |
+//   |                                   |
+//   +-----------------------------------+
+//
+// Steps to reproduce: a.tap()
+// Expected result: `a` tapped
+// Actual result: `b` tapped
+//
+// It is possible to detect visible area of `a`, or that center of `a` is not visible.
+//
 final class TapActionTests: BaseActionTestCase {
     func test_action_canBeRunSubsequentlyWithSameResult() {
         checkActionCanBeRunSubsequentlyWithSameResult(

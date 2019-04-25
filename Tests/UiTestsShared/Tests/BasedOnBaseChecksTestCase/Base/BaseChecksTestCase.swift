@@ -2,13 +2,21 @@ import MixboxUiTestsFoundation
 import MixboxReporting
 import MixboxArtifacts
 
+// todos by methods:
+//
 // TODO: Test `assertMatchesReference`. Test that it generates image attachments.
-// TODO: Test isDisplayed (without `assert`).
+// TODO: Test `isDisplayed` (without `assert`).
 // TODO: Test `matches`.
 // TODO: Test `value`.
 // TODO: Test `text`.
 // TODO: Test `accessibilityLabel`.
 // TODO: Test `assertMatches`.
+//
+// todos by conditions:
+//
+// TODO: Test WebView
+// TODO: Test different UI hierarchies.
+//
 class BaseChecksTestCase: TestCase {
     override var reuseState: Bool {
         return false
