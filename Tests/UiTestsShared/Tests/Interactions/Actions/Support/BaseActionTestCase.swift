@@ -1,5 +1,6 @@
 import XCTest
 import MixboxUiTestsFoundation
+import TestsIpc
 
 // TODO: Test fails.
 // TODO: Test that LoggingElementInteractionWithDependenciesPerformer reports attachments in nestedFailures in InteractionFailure.

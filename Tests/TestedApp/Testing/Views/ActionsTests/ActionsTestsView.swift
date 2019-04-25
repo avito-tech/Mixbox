@@ -1,6 +1,7 @@
 import UIKit
 import MixboxFoundation
 import MixboxIpc
+import TestsIpc
 
 final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSettings {
     let infoLabel = UILabel()

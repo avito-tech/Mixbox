@@ -1,6 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxReporting
 import MixboxArtifacts
+import TestsIpc
 
 // todos by methods:
 //

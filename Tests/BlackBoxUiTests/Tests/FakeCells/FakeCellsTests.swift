@@ -1,5 +1,6 @@
 import MixboxUiTestsFoundation
 import XCTest
+import TestsIpc
 
 final class FakeCellsTests: TestCase {
     override var reuseState: Bool {

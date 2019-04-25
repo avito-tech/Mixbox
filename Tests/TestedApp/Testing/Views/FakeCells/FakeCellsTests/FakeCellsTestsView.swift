@@ -1,4 +1,5 @@
 import UIKit
+import TestsIpc
 
 final class FakeCellsTestsView: CollectionView, InitializableWithTestingViewControllerSettings {
     private var generation: Int = -1

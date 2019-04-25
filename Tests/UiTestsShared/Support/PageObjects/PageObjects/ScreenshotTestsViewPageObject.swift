@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import TestsIpc
 
 public final class ScreenshotTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
     public let viewName = "ScreenshotTestsView"

@@ -1,7 +1,7 @@
 import Foundation
 
-public struct ChecksTestsViewConfiguration: Codable {
-    public struct ReloadSettings: Codable {
+public final class ChecksTestsViewConfiguration: Codable {
+    public final class ReloadSettings: Codable {
         public let defaultConfig: Bool
         public let setId: Bool
         public let userConfig: Bool
@@ -15,9 +15,21 @@ public struct ChecksTestsViewConfiguration: Codable {
                 addSubview: true
             )
         }
+        
+        public init(
+            defaultConfig: Bool,
+            setId: Bool,
+            userConfig: Bool,
+            addSubview: Bool)
+        {
+            self.defaultConfig = defaultConfig
+            self.setId = setId
+            self.userConfig = userConfig
+            self.addSubview = addSubview
+        }
     }
     
-    public struct Action: Codable {
+    public final class Action: Codable {
         public let reloadSettings: ReloadSettings
         public let delay: TimeInterval
         
@@ -27,6 +39,14 @@ public struct ChecksTestsViewConfiguration: Codable {
                 delay: 0
             )
         }
+        
+        public init(
+            reloadSettings: ReloadSettings,
+            delay: TimeInterval)
+        {
+            self.reloadSettings = reloadSettings
+            self.delay = delay
+        }
     }
     
     public let actions: [Action]
@@ -35,5 +55,11 @@ public struct ChecksTestsViewConfiguration: Codable {
         return ChecksTestsViewConfiguration(
             actions: [.default]
         )
+    }
+    
+    public init(
+        actions: [Action])
+    {
+        self.actions = actions
     }
 }

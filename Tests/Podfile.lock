@@ -64,6 +64,8 @@ PODS:
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
   - SwiftyJSON (3.1.4)
+  - TestsIpc (0.1.0):
+    - MixboxIpc
 
 DEPENDENCIES:
   - CocoaImageHashing (= 1.6.1)
@@ -88,6 +90,7 @@ DEPENDENCIES:
   - SBTUITestTunnel/Client
   - SimulatorRemoteNotifications (~> 0.0.3)
   - SwiftyJSON (= 3.1.4)
+  - TestsIpc (from `Frameworks/TestsIpc`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -133,6 +136,8 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxXcuiDriver:
     :path: ".."
+  TestsIpc:
+    :path: "Frameworks/TestsIpc"
 
 SPEC CHECKSUMS:
   CocoaImageHashing: d7d3813c5aeb6ddcf4e57219dc63c741b8a16e0a
@@ -159,6 +164,7 @@ SPEC CHECKSUMS:
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TestsIpc: bc6cbc0931aa4d08fe8d1b79de377bf2f723226d
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 

@@ -3,6 +3,7 @@ import MixboxIpc
 import XCTest
 import MixboxFoundation
 import CocoaImageHashing
+import TestsIpc
 
 // TODO: Add real world example tests of the screen reference matching
 class ScreenshotTests: TestCase {

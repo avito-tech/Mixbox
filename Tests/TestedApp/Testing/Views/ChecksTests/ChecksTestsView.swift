@@ -1,6 +1,7 @@
 import UIKit
 import MixboxIpc
 import MixboxFoundation
+import TestsIpc
 
 final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewControllerSettings {
     init(testingViewControllerSettings: TestingViewControllerSettings) {

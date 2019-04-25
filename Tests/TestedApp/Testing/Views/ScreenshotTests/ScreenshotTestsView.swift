@@ -1,5 +1,6 @@
 import UIKit
 import MixboxUiKit
+import TestsIpc
 
 final class ScreenshotTestsView: UIView {
     private let views: [UIView]
