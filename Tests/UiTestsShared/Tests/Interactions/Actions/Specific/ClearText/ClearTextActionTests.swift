@@ -21,6 +21,6 @@ final class ClearTextActionTests: BaseActionTestCase {
     }
     
     private var actionSpecification: ActionSpecification<InputElement> {
-        return clearTextActionSpecification
+        return ActionSpecifications.clearText
     }
 }

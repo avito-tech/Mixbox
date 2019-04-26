@@ -21,6 +21,6 @@ final class PressActionTests: BaseActionTestCase {
     }
     
     private var actionSpecification: ActionSpecification<ButtonElement> {
-        return pressActionSpecification
+        return ActionSpecifications.press
     }
 }

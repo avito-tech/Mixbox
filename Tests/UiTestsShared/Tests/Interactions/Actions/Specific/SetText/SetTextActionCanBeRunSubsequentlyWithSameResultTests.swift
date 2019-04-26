@@ -30,7 +30,7 @@ final class SetTextActionCanBeRunSubsequentlyWithSameResultTests: BaseActionTest
         inputMethod: SetTextActionFactory.InputMethod)
     {
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: setTextActionSpecification(
+            actionSpecification: ActionSpecifications.setText(
                 text: "Text that is set",
                 inputMethod: inputMethod
             ),

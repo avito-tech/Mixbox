@@ -2,7 +2,7 @@ final class BaseActionTestCaseTests: BaseActionTestCase {
     func test_uiResetsProperly() {
         let text = "Some text"
         
-        let actionSpecification = setTextActionSpecification(
+        let actionSpecification = ActionSpecifications.setText(
             text: text
         )
         

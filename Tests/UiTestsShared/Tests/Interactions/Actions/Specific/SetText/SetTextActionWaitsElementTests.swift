@@ -14,7 +14,7 @@ final class SetTextActionWaitsElementTests: BaseActionTestCase {
     }
     
     private var actionSpecification: ActionSpecification<InputElement> {
-        return setTextActionSpecification(
+        return ActionSpecifications.setText(
             text: "Text that is set",
             inputMethod: .paste
         )

@@ -141,7 +141,7 @@ final class SetTestActionSetsTextProperlyTests: BaseActionTestCase {
         testDataId: Int)
     {
         func actionSpecification(text: String) -> ActionSpecification<InputElement> {
-            return setTextActionSpecification(text: text, inputMethod: inputMethod)
+            return ActionSpecifications.setText(text: text, inputMethod: inputMethod)
         }
         
         setViews(

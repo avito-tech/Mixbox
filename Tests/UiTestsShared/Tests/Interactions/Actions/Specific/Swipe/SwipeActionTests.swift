@@ -3,13 +3,13 @@ final class SwipeActionTests: BaseActionTestCase {
     
     func test_swipeUp_waitsElementToAppear() {
         checkActionWaitsElementToAppear(
-            actionSpecification: swipeUpActionSpecification
+            actionSpecification: ActionSpecifications.swipeUp
         )
     }
     
     func test_swipeUp_waitsUntilElementIsNotDuplicated() {
         checkActionWaitsUntilElementIsNotDuplicated(
-            actionSpecification: swipeUpActionSpecification
+            actionSpecification: ActionSpecifications.swipeUp
         )
     }
     
@@ -17,28 +17,28 @@ final class SwipeActionTests: BaseActionTestCase {
     
     func test_swipeUp_canBeRunSubsequentlyWithSameResult() {
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeUpActionSpecification,
+            actionSpecification: ActionSpecifications.swipeUp,
             resetViewsForCurrentActionSpecification: true
         )
     }
     
     func test_swipeDown_canBeRunSubsequentlyWithSameResult() {
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeDownActionSpecification,
+            actionSpecification: ActionSpecifications.swipeDown,
             resetViewsForCurrentActionSpecification: true
         )
     }
     
     func test_swipeLeft_canBeRunSubsequentlyWithSameResult() {
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeLeftActionSpecification,
+            actionSpecification: ActionSpecifications.swipeLeft,
             resetViewsForCurrentActionSpecification: true
         )
     }
     
     func test_swipeRight_canBeRunSubsequentlyWithSameResult() {
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeRightActionSpecification,
+            actionSpecification: ActionSpecifications.swipeRight,
             resetViewsForCurrentActionSpecification: true
         )
     }
@@ -46,22 +46,22 @@ final class SwipeActionTests: BaseActionTestCase {
     // TODO: Fix
     func disabled_test_swipeDown_canBeRunSubsequentlyWithSameResult_ifViewIsAtTheBottomOfTheScreen() {
         setLotsOfViewsWithoutInfo(
-            bottom: [swipeDownActionSpecification]
+            bottom: [ActionSpecifications.swipeDown]
         )
         
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeDownActionSpecification,
+            actionSpecification: ActionSpecifications.swipeDown,
             resetViewsForCurrentActionSpecification: false
         )
     }
     
     func disabled_test_swipeDown_canBeRunSubsequentlyWithSameResult_ifViewIsAtTheTopOfTheScreen() {
         setLotsOfViewsWithoutInfo(
-            top: [swipeDownActionSpecification]
+            top: [ActionSpecifications.swipeDown]
         )
         
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeDownActionSpecification,
+            actionSpecification: ActionSpecifications.swipeDown,
             resetViewsForCurrentActionSpecification: false
         )
     }
@@ -69,11 +69,11 @@ final class SwipeActionTests: BaseActionTestCase {
     // TODO: Fix
     func disabled_test_swipeUp_canBeRunSubsequentlyWithSameResult_ifViewIsAtTheTopOfTheScreen() {
         setLotsOfViewsWithoutInfo(
-            top: [swipeUpActionSpecification]
+            top: [ActionSpecifications.swipeUp]
         )
         
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeDownActionSpecification,
+            actionSpecification: ActionSpecifications.swipeDown,
             resetViewsForCurrentActionSpecification: false
         )
     }
@@ -81,11 +81,11 @@ final class SwipeActionTests: BaseActionTestCase {
     // TODO: Fix
     func disabled_test_swipeUp_canBeRunSubsequentlyWithSameResult_ifViewIsAtTheBottomOfTheScreen() {
         setLotsOfViewsWithoutInfo(
-            bottom: [swipeUpActionSpecification]
+            bottom: [ActionSpecifications.swipeUp]
         )
         
         checkActionCanBeRunSubsequentlyWithSameResult(
-            actionSpecification: swipeDownActionSpecification,
+            actionSpecification: ActionSpecifications.swipeDown,
             resetViewsForCurrentActionSpecification: false
         )
     }
@@ -125,7 +125,7 @@ final class SwipeActionTests: BaseActionTestCase {
         setViews(
             showInfo: false,
             actionSpecifications: override(
-                allActionSpecifications
+                ActionSpecifications.all
             )
         )
     }

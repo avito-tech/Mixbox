@@ -25,7 +25,7 @@ final class TapActionTests: BaseActionTestCase {
             actionSpecifications: [actionSpecification]
         )
         
-        let uiEventHistory = recordTouches {
+        let uiEventHistory = recordUiEvents {
             actionSpecification.element(screen).tap()
             sleep(2) // TODO: Remove sleep, e.g.: add polling
         }
@@ -93,6 +93,6 @@ final class TapActionTests: BaseActionTestCase {
     }
     
     private var actionSpecification: ActionSpecification<ButtonElement> {
-        return tapActionSpecification
+        return ActionSpecifications.tap
     }
 }

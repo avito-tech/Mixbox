@@ -59,7 +59,7 @@ final class RunningActionsInRandomOrderTests: BaseActionTestCase {
         // T is numberOfTestsPerTestMethod
         // N is numberOfTestsPerTestMethod
         
-        let maxTestId = UInt(allActionSpecifications.count * allActionSpecifications.count) / numberOfTestsPerTestMethod
+        let maxTestId = UInt(ActionSpecifications.all.count * ActionSpecifications.all.count) / numberOfTestsPerTestMethod
         guard testId <= maxTestId else {
             UnavoidableFailure.fail("testId exceeds maxTestId=\(maxTestId)")
         }
@@ -67,7 +67,7 @@ final class RunningActionsInRandomOrderTests: BaseActionTestCase {
         for i in 0..<numberOfTestsPerTestMethod {
             let variationId = testId * numberOfTestsPerTestMethod + i
             
-            if variationId < allActionSpecifications.count * allActionSpecifications.count {
+            if variationId < ActionSpecifications.all.count * ActionSpecifications.all.count {
                 parameterizedTest(
                     variationId: variationId
                 )
@@ -102,14 +102,14 @@ final class RunningActionsInRandomOrderTests: BaseActionTestCase {
     }
     
     func variationOf2Actions(variationId: UInt) -> (first: AnyActionSpecification, second: AnyActionSpecification)  {
-        let maxVariationId = allActionSpecifications.count * allActionSpecifications.count - 1
+        let maxVariationId = ActionSpecifications.all.count * ActionSpecifications.all.count - 1
         
         guard variationId <= maxVariationId else {
             UnavoidableFailure.fail("variationId=\(variationId) exceeds maxVariationId=\(maxVariationId)")
         }
         
-        let first = allActionSpecifications[Int(variationId) % allActionSpecifications.count]
-        let second = allActionSpecifications[Int(variationId) / allActionSpecifications.count]
+        let first = ActionSpecifications.all[Int(variationId) % ActionSpecifications.all.count]
+        let second = ActionSpecifications.all[Int(variationId) / ActionSpecifications.all.count]
         
         return (first: first, second: second)
     }
