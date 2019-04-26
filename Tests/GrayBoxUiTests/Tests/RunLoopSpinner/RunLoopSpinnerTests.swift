@@ -3,11 +3,16 @@ import XCTest
 
 final class RunLoopSpinnerTests: TestCase {
     func test() {
+        var conditionMetHandlerIsCalled = false
+        
         let runLoopSpinner = RunLoopSpinnerImpl(
             timeout: TimeInterval.greatestFiniteMagnitude,
             minRunLoopDrains: 0,
             maxSleepInterval: TimeInterval.greatestFiniteMagnitude,
-            runLoopModesStackProvider: RunLoopModesStackProviderImpl()
+            runLoopModesStackProvider: RunLoopModesStackProviderImpl(),
+            conditionMetHandler: {
+                conditionMetHandlerIsCalled = true
+            }
         )
         
         var shouldStopSpinning = false
@@ -31,6 +36,8 @@ final class RunLoopSpinnerTests: TestCase {
         XCTAssertEqual(metCondition, true)
         XCTAssertEqual(shouldStopSpinning, true)
         XCTAssertEqual(spinned, true)
+        XCTAssertEqual(conditionMetHandlerIsCalled, true)
+        
         XCTAssertGreaterThanOrEqual(
             stoppedDate.timeIntervalSinceNow,
             startedDate.timeIntervalSinceNow + timeIntervalToStopSpinning

@@ -1,4 +1,4 @@
-protocol TouchInjector {
+public protocol TouchInjector {
     func enqueueForDelivery(touchInfo: TouchInfo)
     func waitUntilAllTouchesAreDeliveredUsingInjector()
 }

@@ -16,7 +16,7 @@ public class TouchInfo {
     
     // Indicates that this touch can be dropped if system delivering the touches experiences a
     // lag causing it to miss the expected delivery time
-    public let expendable: Bool
+    public let expendable: Bool // TODO: Rename to isExpendable
     
     public init(
         points: [CGPoint],

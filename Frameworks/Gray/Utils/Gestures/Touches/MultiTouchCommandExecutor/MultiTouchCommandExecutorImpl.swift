@@ -1,10 +1,16 @@
+import MixboxUiTestsFoundation
+
 public final class MultiTouchCommandExecutorImpl: MultiTouchCommandExecutor {
-    public init() {
+    private let touchInjectorFactory: TouchInjectorFactory
+    
+    public init(
+        touchInjectorFactory: TouchInjectorFactory)
+    {
+        self.touchInjectorFactory = touchInjectorFactory
     }
     
     public func execute(command: MultiTouchCommand) {
-        // FIXME: Impl => Factory
-        let touchInjector = TouchInjectorImpl(
+        let touchInjector =  touchInjectorFactory.touchInjector(
             window: command.beginCommand.relativeToWindow
         )
         

@@ -7,7 +7,7 @@
 // TODO: Can it be completely replaced with EventsGenerator? Anyway, gestures are too limited now. We should use
 // more customizable things.
 public protocol ElementSimpleGestures: class {
-    func tap()
+    func tap() throws
     func doubleTap()
     func press(duration: TimeInterval)
 }

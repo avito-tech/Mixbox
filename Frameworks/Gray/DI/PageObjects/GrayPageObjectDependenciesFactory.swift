@@ -12,6 +12,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let elementFinder: ElementFinder
     private let eventGenerator: EventGenerator
     private let screenshotTaker: ScreenshotTaker
+    private let windowsProvider: WindowsProvider
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -20,7 +21,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
         eventGenerator: EventGenerator,
-        screenshotTaker: ScreenshotTaker)
+        screenshotTaker: ScreenshotTaker,
+        windowsProvider: WindowsProvider)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -29,6 +31,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.elementFinder = elementFinder
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
+        self.windowsProvider = windowsProvider
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
@@ -47,7 +50,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             pollingConfiguration: pollingConfiguration,
             elementFinder: elementFinder,
             eventGenerator: eventGenerator,
-            screenshotTaker: screenshotTaker
+            screenshotTaker: screenshotTaker,
+            windowsProvider: windowsProvider
         )
         
         return PageObjectElementFactoryImpl(

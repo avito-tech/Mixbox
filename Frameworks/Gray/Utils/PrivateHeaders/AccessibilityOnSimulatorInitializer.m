@@ -40,6 +40,34 @@
                                          value:kCFBooleanTrue
                                   notification:(CFStringRef)@"com.apple.accessibility.cache.ax"];
     
+    return [self waitUntilAccessibilityIsSetUpOrReturnError];
+}
+
+// TODO: Maybe there is a reliable private API for waiting for enabling accessibility.
+// Note that it doesn't reproduce in EarlGrey, maybe because there is always a lag
+// between enabling AX and using AX APIs.
+//
+// NOTE: Steps to reproduce the issue with AX not being set:
+// - Close simulator
+// - Run any Grey Box test
+// - See crash
+- (NSString *)waitUntilAccessibilityIsSetUpOrReturnError {
+    UIView *view = [UIView new];
+    NSTimeInterval pollingTimeout = 1;
+    NSTimeInterval pollingInterval = 1;
+    NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:pollingTimeout];
+    
+    SEL selectorThatIsOnlyAvailableIfAxIsSetUp = NSSelectorFromString(@"_accessibilityUserTestingChildren");
+    
+    while ([stopDate timeIntervalSinceNow] > 0 && ![view respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
+        [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:pollingInterval]];
+    }
+    
+    if (![view respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
+        return @"Failed to enable AX";
+    }
+    
     return nil;
 }
+
 @end

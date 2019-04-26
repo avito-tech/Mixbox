@@ -54,7 +54,7 @@ public final class TapAction: ElementInteraction {
                         )
                         
                         dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                        elementSimpleGestures.tap()
+                        try elementSimpleGestures.tap()
                         
                         return .success
                     } catch let e {

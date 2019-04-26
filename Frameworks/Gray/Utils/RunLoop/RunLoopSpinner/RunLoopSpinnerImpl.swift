@@ -41,7 +41,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
         minRunLoopDrains: Int,
         maxSleepInterval: TimeInterval,
         runLoopModesStackProvider: RunLoopModesStackProvider,
-        conditionMetHandler: @escaping () -> () = {})
+        conditionMetHandler: @escaping () -> ())
     {
         self.timeout = timeout
         self.minRunLoopDrains = minRunLoopDrains

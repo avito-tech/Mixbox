@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxUiKit'
   s.dependency 'MixboxInAppServices'
   
-  s.frameworks = 'XCTest', 'XCTAutomationSupport'
+  s.frameworks = 'XCTest', 'IOKit', 'XCTAutomationSupport'
   s.xcconfig = {
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'

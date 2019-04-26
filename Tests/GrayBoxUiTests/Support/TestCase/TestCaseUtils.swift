@@ -61,11 +61,13 @@ final class TestCaseUtils {
             testFailureRecorder: testFailureRecorder
         )
         
+        let windowsProvider = WindowsProviderImpl(
+            application: UIApplication.shared,
+            shouldIncludeStatusBarWindow: true
+        )
+        
         screenshotTaker = GrayScreenshotTaker(
-            windowsProvider: WindowsProviderImpl(
-                application: UIApplication.shared,
-                shouldIncludeStatusBarWindow: true
-            ),
+            windowsProvider: windowsProvider,
             screen: UIScreen.main
         )
         
@@ -81,7 +83,8 @@ final class TestCaseUtils {
                 screenshotTaker: screenshotTaker
             ),
             eventGenerator: GrayEventGenerator(),
-            screenshotTaker: screenshotTaker
+            screenshotTaker: screenshotTaker,
+            windowsProvider: windowsProvider
         )
         
         pageObjects = PageObjects(

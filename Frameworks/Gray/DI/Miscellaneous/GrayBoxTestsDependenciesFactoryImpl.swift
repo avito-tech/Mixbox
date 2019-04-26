@@ -14,6 +14,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let keyboardEventInjector: KeyboardEventInjector
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
+    let windowsProvider: WindowsProvider
     
     // MARK: - Init
     
@@ -26,7 +27,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
         eventGenerator: EventGenerator,
-        screenshotTaker: ScreenshotTaker)
+        screenshotTaker: ScreenshotTaker,
+        windowsProvider: WindowsProvider)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -37,6 +39,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.pollingConfiguration = pollingConfiguration
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
+        self.windowsProvider = windowsProvider
         
         applicationFrameProvider = GrayApplicationFrameProvider()
     }

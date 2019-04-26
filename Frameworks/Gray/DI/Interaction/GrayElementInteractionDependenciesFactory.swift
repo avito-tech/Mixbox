@@ -62,7 +62,21 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
                 elementSettings: elementSettings,
                 fileLine: fileLine
             ),
-            elementSimpleGesturesProvider: GrayElementSimpleGesturesProvider(),
+            elementSimpleGesturesProvider: GrayElementSimpleGesturesProvider(
+                touchPerformer: TouchPerformerImpl(
+                    multiTouchCommandExecutor: MultiTouchCommandExecutorImpl(
+                        touchInjectorFactory: TouchInjectorFactoryImpl(
+                            currentAbsoluteTimeProvider: MachCurrentAbsoluteTimeProvider(),
+                            runLoopSpinnerFactory: RunLoopSpinnerFactoryImpl(
+                                runLoopModesStackProvider: RunLoopModesStackProviderImpl()
+                            )
+                        ) 
+                    )
+                ),
+                windowForPointProvider: WindowForPointProviderImpl(
+                    windowsProvider: grayBoxTestsDependenciesFactory.windowsProvider
+                )
+            ),
             eventGenerator: GrayEventGenerator(),
             interactionRetrier: interactionRetrier,
             interactionResultMaker: InteractionResultMakerImpl(

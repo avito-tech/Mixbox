@@ -2,14 +2,14 @@ import MixboxFoundation
 
 // Translated from Objective-C to Swift.
 // Source: https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Event/GREYSyntheticEvents.m
-final class SyntheticEvents {
+public final class TouchPerformerImpl: TouchPerformer {
     private let multiTouchCommandExecutor: MultiTouchCommandExecutor
     
-    init(multiTouchCommandExecutor: MultiTouchCommandExecutor) {
+    public init(multiTouchCommandExecutor: MultiTouchCommandExecutor) {
         self.multiTouchCommandExecutor = multiTouchCommandExecutor
     }
     
-    func touch(
+    public func touch(
         touchPaths: [[CGPoint]],
         relativeToWindow window: UIWindow,
         duration: TimeInterval,
@@ -84,7 +84,7 @@ final class SyntheticEvents {
         multiTouchCommandExecutor.execute(command: command)
     }
     
-    func objects<T>(index: Int, arrays: [[T]]) throws -> [T] {
+    private func objects<T>(index: Int, arrays: [[T]]) throws -> [T] {
         guard arrays.count > 0 else {
             throw ErrorString("arrayOfArrays must contain at least one element.")
         }
