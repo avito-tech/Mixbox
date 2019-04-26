@@ -2,8 +2,21 @@ import UIKit
 
 class TouchDrawingWindow: UIWindow {
     private var fadeOutViews = [FadeOutView]()
+    private let uiEventObserver: UiEventObserver
+    
+    init(frame: CGRect, uiEventObserver: UiEventObserver) {
+        self.uiEventObserver = uiEventObserver
+        
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func sendEvent(_ event: UIEvent) {
+        uiEventObserver.eventWasSent(event: event)
+        
         super.sendEvent(event)
         
         guard let touches = event.allTouches

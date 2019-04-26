@@ -62,7 +62,7 @@ class TestCase: XCTestCase, FailureGatherer {
         let starter = GrayBoxInAppServicesStarter.instance
             
         let startedInAppServices = starter.startOnce { mixboxInAppServices in
-            CustomIpcMethods.registerIn(mixboxInAppServices)
+            // TODO: Why do we need this callback?
         }
         
         testCaseUtils.lazilyInitializedIpcClient.ipcClient = startedInAppServices.ipcClient

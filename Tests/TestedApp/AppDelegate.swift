@@ -11,7 +11,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = TouchDrawingWindow(frame: UIScreen.main.bounds)
+        let uiEventHistoryTracker = UiEventHistoryTracker()
+        
+        window = TouchDrawingWindow(
+            frame: UIScreen.main.bounds,
+            uiEventObserver: uiEventHistoryTracker
+        )
         
         let viewController: UIViewController
         
@@ -20,8 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             #if DEBUG
             if let mixboxInAppServices = mixboxInAppServices {
+                let customIpcMethods = CustomIpcMethods(
+                    uiEventHistoryProvider: uiEventHistoryTracker
+                )
+                
                 // TODO: add environment to be able to disable registration of methods?
-                CustomIpcMethods.registerIn(mixboxInAppServices)
+                customIpcMethods.registerIn(mixboxInAppServices)
                 
                 mixboxInAppServices.start()
             }

@@ -314,6 +314,10 @@
 		F8DB34D9227223B000EE0FB8 /* UIImage+WithColorAndSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */; };
 		F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */; };
 		F8DB350622725E8C00EE0FB8 /* RunLoopSpinnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */; };
+		F8DB358422735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358322735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift */; };
+		F8DB358722735E0900EE0FB8 /* UiEventHistoryTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358622735E0900EE0FB8 /* UiEventHistoryTracker.swift */; };
+		F8DB358922735FB700EE0FB8 /* UiEventHistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358822735FB700EE0FB8 /* UiEventHistoryProvider.swift */; };
+		F8DB358B22735FC100EE0FB8 /* UiEventObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358A22735FC100EE0FB8 /* UiEventObserver.swift */; };
 		F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */; };
 		F8E6CC792180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */; };
 		F8E6CC902187858E00D7A0C1 /* ApplicationBundleProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */; };
@@ -616,6 +620,10 @@
 		F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcCallbacksTests.swift; sourceTree = "<group>"; };
 		F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunLoopSpinnerTests.swift; sourceTree = "<group>"; };
+		F8DB358322735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUiEventHistoryIpcMethodHandler.swift; sourceTree = "<group>"; };
+		F8DB358622735E0900EE0FB8 /* UiEventHistoryTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventHistoryTracker.swift; sourceTree = "<group>"; };
+		F8DB358822735FB700EE0FB8 /* UiEventHistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventHistoryProvider.swift; sourceTree = "<group>"; };
+		F8DB358A22735FC100EE0FB8 /* UiEventObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventObserver.swift; sourceTree = "<group>"; };
 		F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxHelperClient.swift; sourceTree = "<group>"; };
 		F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift; sourceTree = "<group>"; };
 		F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationBundleProviderTests.swift; sourceTree = "<group>"; };
@@ -854,7 +862,6 @@
 		F813CB14209CD82A00E6A27C /* ActionsTests */ = {
 			isa = PBXGroup;
 			children = (
-				F820305522384AF7006D2F70 /* Support */,
 				F813CB15209CD82A00E6A27C /* ActionsTestsView.swift */,
 				F88ADF62223AA4330024CCBE /* ActionTestsViewViewRegistrar.swift */,
 			);
@@ -906,13 +913,6 @@
 				F820304E223831E8006D2F70 /* Optional+UnwrapOrThrow.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		F820305522384AF7006D2F70 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Support;
 			sourceTree = "<group>";
 		};
 		F820306122385450006D2F70 /* Support */ = {
@@ -1149,6 +1149,7 @@
 		F857C9D420CD8BAB00E8BFF5 /* CustomIpc */ = {
 			isa = PBXGroup;
 			children = (
+				F8DB358222735B2D00EE0FB8 /* UiEventHistory */,
 				F8971DEA226772BE001741C1 /* ProcessInfo */,
 				F8203043223827DD006D2F70 /* IpcBetweenViewAndTest */,
 				F8C709172153F3990015A10B /* Callback */,
@@ -1948,6 +1949,33 @@
 			path = RunLoopSpinner;
 			sourceTree = "<group>";
 		};
+		F8DB358222735B2D00EE0FB8 /* UiEventHistory */ = {
+			isa = PBXGroup;
+			children = (
+				F8DB358D2273603500EE0FB8 /* Handlers */,
+				F8DB358C2273602F00EE0FB8 /* Support */,
+			);
+			path = UiEventHistory;
+			sourceTree = "<group>";
+		};
+		F8DB358C2273602F00EE0FB8 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F8DB358622735E0900EE0FB8 /* UiEventHistoryTracker.swift */,
+				F8DB358822735FB700EE0FB8 /* UiEventHistoryProvider.swift */,
+				F8DB358A22735FC100EE0FB8 /* UiEventObserver.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		F8DB358D2273603500EE0FB8 /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				F8DB358322735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift */,
+			);
+			path = Handlers;
+			sourceTree = "<group>";
+		};
 		F8E0B50F2199E17200C66BA9 /* MixboxHelperPrototype */ = {
 			isa = PBXGroup;
 			children = (
@@ -2639,6 +2667,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F813CB24209CD82A00E6A27C /* TextTestsView.swift in Sources */,
+				F8DB358422735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift in Sources */,
 				F8E8BAFA20E13D3900524185 /* FakeCellsTestsConstants.swift in Sources */,
 				F813CB1F209CD82A00E6A27C /* TextFieldWithClosures.swift in Sources */,
 				F813CB1D209CD82A00E6A27C /* TestStackScrollView.swift in Sources */,
@@ -2677,6 +2706,7 @@
 				F8676EDA21552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift in Sources */,
 				F8FC281522693876009E4982 /* NetworkStubbingTestsSetResponse.swift in Sources */,
 				F8B34124224E5C5200AA1EB9 /* PermissionInfo.swift in Sources */,
+				F8DB358B22735FC100EE0FB8 /* UiEventObserver.swift in Sources */,
 				F820304C22382DAF006D2F70 /* InitializableWithTestingViewControllerSettings.swift in Sources */,
 				F813CB1E209CD82A00E6A27C /* ButtonWithClosures.swift in Sources */,
 				F82A05B921F755950008C2BB /* DummyForLaunchingUiTestsView.swift in Sources */,
@@ -2694,6 +2724,7 @@
 				F813CB25209CD82A00E6A27C /* ScrollTestsScrollView.swift in Sources */,
 				F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */,
 				F813CAEA209CC5D400E6A27C /* AppDelegate.swift in Sources */,
+				F8DB358922735FB700EE0FB8 /* UiEventHistoryProvider.swift in Sources */,
 				F8B34139224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift in Sources */,
 				F8B34128224E5C9800AA1EB9 /* GeolocationPermissionInfo.swift in Sources */,
 				F8951E45222463120033885C /* ExpandingView.swift in Sources */,
@@ -2705,6 +2736,7 @@
 				F8971DEE226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift in Sources */,
 				F820304722382CD9006D2F70 /* ClosureMethodHandler.swift in Sources */,
 				F8676ED821552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift in Sources */,
+				F8DB358722735E0900EE0FB8 /* UiEventHistoryTracker.swift in Sources */,
 				F8E6CC792180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,6 +6,7 @@ import TestsIpc
 // TODO: Test that LoggingElementInteractionWithDependenciesPerformer reports attachments in nestedFailures in InteractionFailure.
 // TODO: Test touchesAreBlocked == true. Lost touches are a major problem at the moment.
 // TODO: Test coordinates.
+// TODO: Split. This class is too bloated.
 class BaseActionTestCase: TestCase {
     
     // MARK: - Screen
@@ -248,6 +249,19 @@ class BaseActionTestCase: TestCase {
                 overlapping: 0,
                 touchesAreBlocked: false
             )
+        )
+    }
+    
+    // MARK: - Touches
+    
+    func recordTouches(body: () -> ()) -> UiEventHistory {
+        let sinceDate = Date()
+        
+        body()
+        
+        return ipcClient.callOrFail(
+            method: GetUiEventHistoryIpcMethod(),
+            arguments: sinceDate
         )
     }
     

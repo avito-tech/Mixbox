@@ -4,7 +4,13 @@ import MixboxInAppServices
 import MixboxIpc
 
 final class CustomIpcMethods {
-    static func registerIn(_ mixboxInAppServices: MixboxInAppServices) {
+    private let uiEventHistoryProvider: UiEventHistoryProvider
+    
+    init(uiEventHistoryProvider: UiEventHistoryProvider) {
+        self.uiEventHistoryProvider = uiEventHistoryProvider
+    }
+    
+    func registerIn(_ mixboxInAppServices: MixboxInAppServices) {
         // For Echo tests
         mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<String>())
         mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<Int>())
@@ -20,6 +26,13 @@ final class CustomIpcMethods {
         
         // For Launching tests
         mixboxInAppServices.register(methodHandler: ProcessInfoIpcMethodHandler())
+        
+        // For Actions tests
+        mixboxInAppServices.register(
+            methodHandler: GetUiEventHistoryIpcMethodHandler(
+                uiEventHistoryProvider: uiEventHistoryProvider
+            )
+        )
     }
 }
 

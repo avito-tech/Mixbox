@@ -24,6 +24,7 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         touchesAreBlocked: false
     )
     
+    
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
