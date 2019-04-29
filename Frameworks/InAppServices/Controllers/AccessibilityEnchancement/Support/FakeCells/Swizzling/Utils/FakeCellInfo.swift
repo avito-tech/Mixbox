@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 import UIKit
 
@@ -17,3 +19,5 @@ final class FakeCellInfo {
         self.parentCollectionViewBox = WeakBox<UICollectionView>(parentCollectionView)
     }
 }
+
+#endif

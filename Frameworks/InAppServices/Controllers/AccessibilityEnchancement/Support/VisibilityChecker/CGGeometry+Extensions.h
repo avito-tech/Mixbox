@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import <Foundation/Foundation.h>
 
 static const CGPoint GREYCGPointNull = {NAN, NAN};
@@ -56,3 +58,5 @@ CGRect CGRectFixedToVariableScreenCoordinates(CGRect rectInFixedCoordinates);
  *  @return The transformed status bar orientation for variable coordinate system.
  */
 CGAffineTransform CGAffineTransformForFixedToVariable(UIInterfaceOrientation statusBarOrientation);
+
+#endif

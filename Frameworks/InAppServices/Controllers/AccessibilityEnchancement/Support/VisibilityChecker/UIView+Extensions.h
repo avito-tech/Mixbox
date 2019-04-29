@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 @interface UIView (GREYAdditions)
 
 /**
@@ -36,3 +38,5 @@
 - (void)grey_keepSubviewOnTopAndFrameFixed:(UIView *)view;
 
 @end
+
+#endif

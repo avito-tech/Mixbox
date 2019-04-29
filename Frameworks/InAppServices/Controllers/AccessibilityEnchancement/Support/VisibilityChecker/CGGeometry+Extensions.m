@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import "CGGeometry+Extensions.h"
 #import "Defines.h"
 
@@ -94,3 +96,5 @@ CGAffineTransform CGAffineTransformForFixedToVariable(UIInterfaceOrientation ori
     }
     return transform;
 }
+
+#endif

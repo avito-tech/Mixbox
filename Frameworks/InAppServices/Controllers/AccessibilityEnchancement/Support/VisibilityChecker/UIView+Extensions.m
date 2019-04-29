@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import "UIView+Extensions.h"
 #import "Defines.h"
 #include <objc/runtime.h>
@@ -81,3 +83,5 @@
 }
 
 @end
+
+#endif

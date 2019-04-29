@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import "WindowProvider.h"
 
 @implementation WindowProvider
@@ -36,3 +38,5 @@
 }
 
 @end
+
+#endif

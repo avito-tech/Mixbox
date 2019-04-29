@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import "ScreenshotUtil.h"
 #import "Defines.h"
 #import "WindowProvider.h"
@@ -93,3 +95,5 @@
 }
 
 @end
+
+#endif

@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import "VisibilityChecker.h"
 #import "CGGeometry+Extensions.h"
 #import "UIView+Extensions.h"
@@ -615,3 +617,5 @@ unsigned char *grey_createImagePixelDataFromCGImageRef(CGImageRef imageRef,
 
 
 @end
+
+#endif

@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import <Foundation/Foundation.h>
 
 typedef struct __IOHIDEvent *IOHIDEventRef;
@@ -8,3 +10,5 @@ typedef struct __IOHIDEvent *IOHIDEventRef;
 + (IOHIDEventRef)eventWithTime:(AbsoluteTime)time usagePage:(uint16_t)usagePage usage:(uint16_t)usage down:(BOOL)down;
 
 @end
+
+#endif

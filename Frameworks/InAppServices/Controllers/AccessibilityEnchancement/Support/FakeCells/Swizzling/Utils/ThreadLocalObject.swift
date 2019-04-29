@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 class ThreadLocalObject<T> {
     private let key: String
     private var valueToBeSetAtGet: T?
@@ -23,3 +25,5 @@ class ThreadLocalObject<T> {
         }
     }
 }
+
+#endif

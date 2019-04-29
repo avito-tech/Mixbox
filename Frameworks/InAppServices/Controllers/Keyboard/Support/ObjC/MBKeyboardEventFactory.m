@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import "MBKeyboardEventFactory.h"
 
 #include <mach/mach_time.h>
@@ -34,3 +36,5 @@ IOHIDEventRef IOHIDEventCreateKeyboardEvent(
 }
 
 @end
+
+#endif
