@@ -14,7 +14,7 @@ final class SbtuiIpcStarter: IpcStarter {
         )
     }
     
-    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> (IpcRouter, IpcClient?) {
+    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) throws -> (IpcRouter, IpcClient?) {
         SBTUITestTunnelServer.takeOff()
         
         commandsForAddingRoutes.forEach { $0(router) }

@@ -59,18 +59,16 @@ class TestCase: XCTestCase, FailureGatherer {
     }
     
     func openScreen(name: String) {
-        let starter = GrayBoxInAppServicesStarter.instance
-            
-        let startedInAppServices = starter.startOnce { mixboxInAppServices in
-            // TODO: Why do we need this callback?
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            UnavoidableFailure.fail("UIApplication.shared.delegate is not AppDelegate")
         }
         
-        testCaseUtils.lazilyInitializedIpcClient.ipcClient = startedInAppServices.ipcClient
+        testCaseUtils.lazilyInitializedIpcClient.ipcClient = appDelegate.ipcClient
         
         let viewController = TestingViewController(
             testingViewControllerSettings: TestingViewControllerSettings(
                 name: name,
-                mixboxInAppServices: startedInAppServices.mixboxInAppServices
+                mixboxInAppServices: appDelegate.mixboxInAppServices
             )
         )
         

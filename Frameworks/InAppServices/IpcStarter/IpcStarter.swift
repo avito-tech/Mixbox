@@ -4,7 +4,9 @@ import MixboxIpc
 
 public protocol IpcStarter {
     // TODO: IpcClient should not be nil
-    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> (IpcRouter, IpcClient?)
+    func start(commandsForAddingRoutes: [(IpcRouter) -> ()])
+        throws
+        -> (IpcRouter, IpcClient?)
 }
 
 #endif

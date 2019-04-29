@@ -16,7 +16,7 @@ final class BuiltinIpcStarter: IpcStarter {
         )
     }
     
-    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) -> (IpcRouter, IpcClient?) {
+    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) throws -> (IpcRouter, IpcClient?) {
         return knownPortHandshakeSender.start(
             beforeHandshake: { router in
                 commandsForAddingRoutes.forEach { $0(router) }

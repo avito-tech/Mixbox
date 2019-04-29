@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import "AccessibilityOnSimulatorInitializer.h"
 #import "AppleInternals.h"
 
@@ -71,3 +73,5 @@
 }
 
 @end
+
+#endif

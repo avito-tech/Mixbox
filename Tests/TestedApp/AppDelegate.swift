@@ -1,9 +1,11 @@
 import UIKit
 import MixboxInAppServices
+import MixboxIpc
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: TouchDrawingWindow?
+    var ipcClient: IpcClient?
     
     #if DEBUG
     let mixboxInAppServices = MixboxInAppServices()
@@ -21,21 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewController: UIViewController
         
         if let screenNameForUiTests = ProcessInfo.processInfo.environment["MB_TESTS_screenName"] {
-            // Inside UI tests
-            
-            #if DEBUG
-            if let mixboxInAppServices = mixboxInAppServices {
-                let customIpcMethods = CustomIpcMethods(
-                    uiEventHistoryProvider: uiEventHistoryTracker
-                )
-                
-                // TODO: add environment to be able to disable registration of methods?
-                customIpcMethods.registerIn(mixboxInAppServices)
-                
-                mixboxInAppServices.start()
-            }
-            #endif
-            
             viewController = TestingViewController(
                 testingViewControllerSettings: TestingViewControllerSettings(
                     name: screenNameForUiTests,
@@ -46,6 +33,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             viewController = UIViewController()
             viewController.view.backgroundColor = .white
         }
+        
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["MIXBOX_IPC_STARTER_TYPE"] != nil {
+            if let mixboxInAppServices = mixboxInAppServices {
+                let customIpcMethods = CustomIpcMethods(
+                    uiEventHistoryProvider: uiEventHistoryTracker
+                )
+                
+                // TODO: add environment to be able to disable registration of methods?
+                customIpcMethods.registerIn(mixboxInAppServices)
+                
+                (_, ipcClient) = mixboxInAppServices.start()
+            }
+        }
+        #endif
         
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()

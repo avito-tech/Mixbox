@@ -42,7 +42,7 @@ public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
         application.launchArguments = arguments
         application.launchEnvironment["MIXBOX_HOST"] = "localhost"
         application.launchEnvironment["MIXBOX_PORT"] = "\(port)"
-        application.launchEnvironment["MIXBOX_USE_BUILTIN_IPC"] = "true"
+        application.launchEnvironment["MIXBOX_IPC_STARTER_TYPE"] = "blackbox"
         
         for (key, value) in environment {
             application.launchEnvironment[key] = value

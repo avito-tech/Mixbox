@@ -73,8 +73,12 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         // Timeouts really don't work well. One global timeout for a test is enough.
         SBTUITunneledApplication.setConnectionTimeout(timeoutValueThatReallyDisablesTimeout)
         
+        var environment = environment
+        environment["MIXBOX_IPC_STARTER_TYPE"] = "sbtui"
+        
         tunneledApplication.launchArguments = arguments
         tunneledApplication.launchEnvironment = environment
+        
         
         tunneledApplication.launchTunnel { [tunneledApplication, applicationLifecycleObservable] in
             applicationLifecycleObservable.applicationStateChanged(applicationIsLaunched: true)

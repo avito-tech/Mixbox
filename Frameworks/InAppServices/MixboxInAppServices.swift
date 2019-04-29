@@ -24,27 +24,35 @@ public final class MixboxInAppServices: IpcRouter {
         ]
     }
     
+    enum IpcStarterType: String {
+        case blackbox
+        case graybox
+        case sbtui
+    }
+    
     public convenience init?(environment: [String: String] = ProcessInfo.processInfo.environment) {
         let ipcStarterOrNil: IpcStarter?
         
-        // TODO: Replace env variables with single variable with config
-        if environment["MIXBOX_USE_BUILTIN_IPC"] == "true" {
-            guard let testRunnerHost = environment["MIXBOX_HOST"] else {
-                return nil
+        switch MixboxInAppServices.ipcStarterType(environment: environment) {
+        case .blackbox?:
+            if let testRunnerHost = environment["MIXBOX_HOST"],
+                let testRunnerPort = environment["MIXBOX_PORT"].flatMap({ UInt($0) })
+            {
+                ipcStarterOrNil = BuiltinIpcStarter(
+                    testRunnerHost: testRunnerHost,
+                    testRunnerPort: testRunnerPort
+                )
+            } else {
+                ipcStarterOrNil = nil
             }
-            
-            guard let testRunnerPort = environment["MIXBOX_PORT"].flatMap({ UInt($0) }) else {
-                return nil
-            }
-            
-            ipcStarterOrNil = BuiltinIpcStarter(
-                testRunnerHost: testRunnerHost,
-                testRunnerPort: testRunnerPort
-            )
-        } else {
+        case .sbtui?:
             ipcStarterOrNil = SbtuiIpcStarter(
                 reregisterMethodHandlersAutomatically: environment["MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY"] == "true"
             )
+        case .graybox?:
+            ipcStarterOrNil = GrayBoxIpcStarter()
+        case nil:
+            ipcStarterOrNil = nil
         }
             
         guard let ipcStarter = ipcStarterOrNil else {
@@ -68,17 +76,24 @@ public final class MixboxInAppServices: IpcRouter {
         }
     }
     
-    public func start() {
+    public func start() -> (IpcRouter, IpcClient?) {
         assert(self.router == nil, "MixboxInAppServices are already started")
         
-        let (client, router) = ipcStarter.start(commandsForAddingRoutes: commandsForAddingRoutes)
-        
-        self.router = client
-        self.client = router
-        
-        AccessibilityEnchancer.takeOff(
-            shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell
-        )
+        do {
+            let (client, router) = try ipcStarter.start(commandsForAddingRoutes: commandsForAddingRoutes)
+            
+            self.router = client
+            self.client = router
+            
+            AccessibilityEnchancer.takeOff(
+                shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell
+            )
+            
+            return (client, router)
+        } catch let error {
+            // TODO: Better error handling for tests (fail test instead of crashing app)
+            preconditionFailure(String(describing: error))
+        }
     }
     
     private static func registerDefaultMethods(router: IpcRouter) {
@@ -102,6 +117,22 @@ public final class MixboxInAppServices: IpcRouter {
                 keyboardEventInjector: KeyboardEventInjectorImpl(application: UIApplication.shared)
             )
         )
+    }
+    
+    private static func ipcStarterType(environment: [String: String]) -> IpcStarterType? {
+        if let typeString = environment["MIXBOX_IPC_STARTER_TYPE"],
+            let type = IpcStarterType(rawValue: typeString)
+        {
+            return type
+        }
+        
+        // Fallback for earlier version. TODO: Remove on Oct 2019.
+        
+        if environment["MIXBOX_USE_BUILTIN_IPC"] == "true" {
+            return .blackbox
+        } else {
+            return .sbtui
+        }
     }
 }
 

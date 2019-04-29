@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import MixboxFoundation
 
@@ -66,3 +68,5 @@ public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
         anyHandlersByMethodName[methodHandler.method.name] = anyHandler
     }
 }
+
+#endif

@@ -80,6 +80,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "MIXBOX_IPC_STARTER_TYPE"
+            value = "graybox"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "MIXBOX_CI_ALLURE_REPORTS_DIRECTORY"
             value = "$(MIXBOX_CI_ALLURE_REPORTS_DIRECTORY)"
             isEnabled = "YES">
