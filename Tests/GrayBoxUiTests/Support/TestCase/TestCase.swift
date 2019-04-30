@@ -42,6 +42,8 @@ class TestCase: XCTestCase, FailureGatherer {
         if !reuseState {
             UIApplication.shared.keyWindow?.rootViewController = UIViewController()
         }
+        
+        super.tearDown()
     }
     
     func image(name: String) -> UIImage {

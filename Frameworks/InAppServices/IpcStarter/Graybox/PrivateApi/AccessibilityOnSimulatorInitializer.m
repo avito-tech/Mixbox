@@ -10,6 +10,7 @@
 
 @implementation AccessibilityOnSimulatorInitializer
 
+// Note: AccessibilityUtilities is a private framework in iOS, it can not be linked during the build.
 - (NSString *)setupAccessibilityOrReturnError {
     NSLog(@"Enabling accessibility for automation on Simulator.");
     static NSString *path = @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities";

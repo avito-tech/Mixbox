@@ -1,6 +1,8 @@
 import MixboxGray
 import XCTest
 
+// TODO: Test different runloop modes
+// TODO: Add more tests
 final class RunLoopSpinnerTests: TestCase {
     func test() {
         var conditionMetHandlerIsCalled = false

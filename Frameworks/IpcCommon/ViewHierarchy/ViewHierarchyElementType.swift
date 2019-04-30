@@ -1,3 +1,6 @@
+// TODO: Do not use UInt. There is no reason to match XCUIElementType.
+// It can produce errors if rawValue is used for conversion.
+// Note that `debugDescription` can be removed after removing UInt as enum type.
 public enum ViewHierarchyElementType: UInt, Codable, CustomDebugStringConvertible {
     case other = 1
     case application

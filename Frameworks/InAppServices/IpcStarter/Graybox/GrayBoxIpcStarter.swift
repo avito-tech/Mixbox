@@ -3,10 +3,13 @@
 import MixboxFoundation
 import MixboxIpc
 
-final class GrayBoxIpcStarter: IpcStarter {
-    let sameProcessIpcClientServer = SameProcessIpcClientServer()
+public final class GrayBoxIpcStarter: IpcStarter {
+    private let sameProcessIpcClientServer = SameProcessIpcClientServer()
     
-    func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) throws -> (IpcRouter, IpcClient?) {
+    public init() {
+    }
+    
+    public func start(commandsForAddingRoutes: [(IpcRouter) -> ()]) throws -> (IpcRouter, IpcClient?) {
         // TODO: Remove from IpcStarter. It has nothing to do with IPC.
         try setUpAccessibilityForSimulator()
         

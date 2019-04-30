@@ -122,8 +122,6 @@ class BaseChecksTestCase: TestCase {
             reloadViewAndWaitUntilItIsLoaded()
         }
         
-        Thread.sleep(forTimeInterval: 1)
-        
         assert(passes: passes) {
             let element: T
             
