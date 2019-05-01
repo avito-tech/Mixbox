@@ -146,6 +146,10 @@ class TestCase: XCTestCase, FailureGatherer {
             )
         case .gatherFailures:
             gatheredFailures.append(failure)
+            
+            if !continueAfterFailure {
+                TestCanNotBeContinuedException().raise()
+            }
         }
     }
     
