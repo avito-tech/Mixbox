@@ -8,6 +8,5 @@
 // more customizable things.
 public protocol ElementSimpleGestures: class {
     func tap() throws
-    func doubleTap()
-    func press(duration: TimeInterval)
+    func press(duration: TimeInterval) throws
 }

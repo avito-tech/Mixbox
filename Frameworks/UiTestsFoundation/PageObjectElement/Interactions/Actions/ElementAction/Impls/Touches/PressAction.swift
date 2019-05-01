@@ -61,7 +61,7 @@ public class PressAction: ElementInteraction {
                         )
                         
                         dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                        elementSimpleGestures.press(duration: duration)
+                        try elementSimpleGestures.press(duration: duration)
                         
                         return .success
                     } catch let e {

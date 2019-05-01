@@ -12,11 +12,7 @@ public final class XcuiCoordinateElementSimpleGestures: ElementSimpleGestures {
         xcuiCoordinate.tap()
     }
     
-    public func doubleTap() {
-        xcuiCoordinate.tap()
-    }
-    
-    public func press(duration: TimeInterval) {
+    public func press(duration: TimeInterval) throws {
         xcuiCoordinate.press(forDuration: duration)
     }
     

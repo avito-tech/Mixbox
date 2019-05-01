@@ -20,19 +20,26 @@ public final class GrayElementSimpleGestures: ElementSimpleGestures {
         try touchPerformer.touch(
             touchPaths: [[point]],
             relativeToWindow: window().unwrapOrThrow(
-                error: ErrorString("Failed to get window for synthesizing tap() for point \(point)")
+                error: failedToGetWindowError(eventName: "tap()")
             ),
             duration: 0,
             expendable: false
         )
     }
     
-    public func doubleTap() {
-        grayNotImplemented()
+    public func press(duration: TimeInterval) throws {
+        try touchPerformer.touch(
+            touchPaths: [[point]],
+            relativeToWindow: window().unwrapOrThrow(
+                error: failedToGetWindowError(eventName: "press(duration:)")
+            ),
+            duration: duration,
+            expendable: false
+        )
     }
     
-    public func press(duration: TimeInterval) {
-        grayNotImplemented()
+    private func failedToGetWindowError(eventName: String) -> Error {
+        return ErrorString("Failed to get window for synthesizing \(eventName) for point \(point)")
     }
     
     // MARK: - Private

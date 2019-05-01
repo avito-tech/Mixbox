@@ -12,11 +12,7 @@ public final class XcuiElementElementSimpleGestures: ElementSimpleGestures {
         xcuiElement.tap()
     }
     
-    public func doubleTap() {
-        xcuiElement.tap()
-    }
-    
-    public func press(duration: TimeInterval) {
+    public func press(duration: TimeInterval) throws {
         xcuiElement.press(forDuration: duration)
     }
 }
