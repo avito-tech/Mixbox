@@ -268,7 +268,6 @@
 		F8B010E621FF319D0026360D /* TestReportFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010DC21FF319C0026360D /* TestReportFailure.swift */; };
 		F8B010E921FF32710026360D /* Singletons.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010E821FF32710026360D /* Singletons.swift */; };
 		F8B0A2122209F6940089C1EE /* HostedAppLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82A05B021F6745F0008C2BB /* HostedAppLogicTests.swift */; };
-		F8B0A244220A0E040089C1EE /* ChecksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A230220A0E040089C1EE /* ChecksTests.swift */; };
 		F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A233220A0E040089C1EE /* TestCase.swift */; };
 		F8B0A246220A0E040089C1EE /* TestCaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A234220A0E040089C1EE /* TestCaseUtils.swift */; };
 		F8B0A24C220A0E040089C1EE /* TestObservationEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23D220A0E040089C1EE /* TestObservationEntryPoint.swift */; };
@@ -606,7 +605,6 @@
 		F8B010E821FF32710026360D /* Singletons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singletons.swift; sourceTree = "<group>"; };
 		F8B0A2002209C44A0089C1EE /* GrayBoxUiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrayBoxUiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B0A2042209C44A0089C1EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8B0A230220A0E040089C1EE /* ChecksTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecksTests.swift; sourceTree = "<group>"; };
 		F8B0A233220A0E040089C1EE /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		F8B0A234220A0E040089C1EE /* TestCaseUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCaseUtils.swift; sourceTree = "<group>"; };
 		F8B0A239220A0E040089C1EE /* BasePageObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageObjects.swift; sourceTree = "<group>"; };
@@ -1763,7 +1761,6 @@
 				F8DB350422725E8200EE0FB8 /* RunLoopSpinner */,
 				F8A8381B2271F2CF00145140 /* ElementHierarchyDescriptionProvider */,
 				F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */,
-				F8B0A230220A0E040089C1EE /* ChecksTests.swift */,
 				F8A837C12270ED8E00145140 /* GrayScreenshotTakerTests.swift */,
 				F8A837EE22711E1800145140 /* IpcTests.swift */,
 			);
@@ -3007,7 +3004,6 @@
 				F8B340F2224D3FD700AA1EB9 /* StepLogMatcherBuilder.swift in Sources */,
 				F801CC1C2254F9C80074F0E9 /* StepLoggerRecordingStarter.swift in Sources */,
 				F8B0A259220A0EF30089C1EE /* TestMethodReport.swift in Sources */,
-				F8B0A244220A0E040089C1EE /* ChecksTests.swift in Sources */,
 				F8B0A255220A0EF30089C1EE /* TestStepReport.swift in Sources */,
 				F8A83E8C2272223700145140 /* ActionSpecification.swift in Sources */,
 				F8A8382A227215C300145140 /* AssertTextMatchesInteractionTests.swift in Sources */,
