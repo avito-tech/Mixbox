@@ -163,11 +163,17 @@ final class ScrollingContext {
             )
             
             if let indexOfInstructionToUse = indexOfInstructionToUse, let instructionToUse = instructionToUse {
-                useDraggingInstruction(instructionToUse)
+                do {
+                    try useDraggingInstruction(instructionToUse)
                 
-                lastUsedInstructionIndex = indexOfInstructionToUse
+                    lastUsedInstructionIndex = indexOfInstructionToUse
                 
-                reloadSnapshots()
+                    reloadSnapshots()
+                } catch let error {
+                    status = .internalError(
+                        "произошла ошибка при скрроллинге: \(error)"
+                    )
+                }
             } else {
                 let joined = stuckedTouchesDescriptions.joined(separator: ", ")
                 status = .internalError(
@@ -272,8 +278,8 @@ final class ScrollingContext {
         return usedInstruction == instruction
     }
     
-    private func useDraggingInstruction(_ draggingInstruction: DraggingInstruction) {
-        eventGenerator.pressAndDrag(
+    private func useDraggingInstruction(_ draggingInstruction: DraggingInstruction) throws {
+        try eventGenerator.pressAndDrag(
             from: draggingInstruction.initialTouchPoint,
             to: draggingInstruction.targetTouchPoint,
             duration: 0,

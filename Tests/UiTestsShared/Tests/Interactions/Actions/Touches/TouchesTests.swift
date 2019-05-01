@@ -1,5 +1,7 @@
 import XCTest
 
+// TODO: Test press&drag. Check `duration` argument. And all other too.
+// TODO: Test swipes. Check cancelling inertia (both on/off, search for `cancelInertia`).
 final class TouchesTests: BaseTouchesTestCase {
     func test_tapping() {
         openScreen(screen)

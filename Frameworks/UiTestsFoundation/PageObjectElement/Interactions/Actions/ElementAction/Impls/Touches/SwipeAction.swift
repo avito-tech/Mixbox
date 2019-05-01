@@ -74,14 +74,19 @@ public final class SwipeAction: ElementInteraction {
                     let origin = snapshot.frameOnScreen.mb_center
                     
                     dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                    dependencies.eventGenerator.pressAndDrag(
-                        from: origin,
-                        to: origin + delta,
-                        duration: 0,
-                        velocity: 1000 // TODO: Do it faster?
-                    )
                     
-                    return .success
+                    do {
+                        try dependencies.eventGenerator.pressAndDrag(
+                            from: origin,
+                            to: origin + delta,
+                            duration: 0,
+                            velocity: 1000 // TODO: Do it faster?
+                        )
+                        
+                        return .success
+                    } catch let error {
+                        return dependencies.interactionResultMaker.failure(message: "\(error)")
+                    }
                 }
             }
         }

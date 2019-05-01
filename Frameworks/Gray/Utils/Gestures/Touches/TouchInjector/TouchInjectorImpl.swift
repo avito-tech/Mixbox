@@ -18,7 +18,7 @@ public final class TouchInjectorImpl: TouchInjector {
         case stopped
     }
     
-    private final class Constants {
+    public final class Constants {
         static let injectionFrequency: TimeInterval = 60
         
         /**

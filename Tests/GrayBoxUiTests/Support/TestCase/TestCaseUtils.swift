@@ -82,7 +82,6 @@ final class TestCaseUtils {
                 stepLogger: stepLogger,
                 screenshotTaker: screenshotTaker
             ),
-            eventGenerator: GrayEventGenerator(),
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider
         )

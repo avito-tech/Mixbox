@@ -57,8 +57,8 @@ public final class TapAction: ElementInteraction {
                         try elementSimpleGestures.tap()
                         
                         return .success
-                    } catch let e {
-                        return dependencies.interactionResultMaker.failure(message: "\(e)")
+                    } catch let error {
+                        return dependencies.interactionResultMaker.failure(message: "\(error)")
                     }
                 }
             }

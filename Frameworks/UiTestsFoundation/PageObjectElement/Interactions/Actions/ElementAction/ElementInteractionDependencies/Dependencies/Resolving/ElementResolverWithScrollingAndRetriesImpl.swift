@@ -90,40 +90,45 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
         
         var resolvedElementQuery = resolvedElementQuery
         
-        var needToScroll: Bool {
-            return resolvedElementQuery.matchingSnapshots.isEmpty
-        }
-        
-        if elementSettings.searchMode == .scrollBlindly && elementSettings.searchMode != .useCurrentlyVisible {
-            let scrollingDistance = 8
-            
-            for _ in 0..<scrollingDistance where needToScroll {
-                scrollBlindly(up: true)
-                resolvedElementQuery = resolveElement()
+        do {
+            var needToScroll: Bool {
+                return resolvedElementQuery.matchingSnapshots.isEmpty
             }
             
-            // We must scroll and scroll back twice as much to cover a certain radius (== scrollingDistance):
-            // ---------------------------------------------
-            //                               . <- enough
-            //                              .
-            // .   . <- not enough     .   .
-            //  . .                     . .
-            //   .                       .
-            // ---------------------------------------------
-            
-            for _ in 0..<(scrollingDistance * 2) where needToScroll {
-                scrollBlindly(up: false)
-                resolvedElementQuery = resolveElement()
+            if elementSettings.searchMode == .scrollBlindly && elementSettings.searchMode != .useCurrentlyVisible {
+                let scrollingDistance = 8
+                
+                for _ in 0..<scrollingDistance where needToScroll {
+                    try scrollBlindly(up: true)
+                    resolvedElementQuery = resolveElement()
+                }
+                
+                // We must scroll and scroll back twice as much to cover a certain radius (== scrollingDistance):
+                // ---------------------------------------------
+                //                               . <- enough
+                //                              .
+                // .   . <- not enough     .   .
+                //  . .                     . .
+                //   .                       .
+                // ---------------------------------------------
+                
+                for _ in 0..<(scrollingDistance * 2) where needToScroll {
+                    try scrollBlindly(up: false)
+                    resolvedElementQuery = resolveElement()
+                }
             }
+        } catch let error {
+            // TODO: Better error handling
+            resolvedElementQuery = resolveElement()
         }
         
         return resolvedElementQuery
     }
     
-    private func scrollBlindly(up: Bool) {
+    private func scrollBlindly(up: Bool) throws {
         let frame = applicationFrameProvider.frame
         
-        eventGenerator.pressAndDrag(
+        try eventGenerator.pressAndDrag(
             from: frame.mb_center,
             to: CGPoint(
                 x: frame.mb_centerX,

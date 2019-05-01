@@ -10,7 +10,6 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let stepLogger: StepLogger
     private let pollingConfiguration: PollingConfiguration
     private let elementFinder: ElementFinder
-    private let eventGenerator: EventGenerator
     private let screenshotTaker: ScreenshotTaker
     private let windowsProvider: WindowsProvider
     
@@ -20,7 +19,6 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
-        eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider)
     {
@@ -29,7 +27,6 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.stepLogger = stepLogger
         self.pollingConfiguration = pollingConfiguration
         self.elementFinder = elementFinder
-        self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
     }
@@ -49,7 +46,6 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             stepLogger: stepLogger,
             pollingConfiguration: pollingConfiguration,
             elementFinder: elementFinder,
-            eventGenerator: eventGenerator,
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider
         )

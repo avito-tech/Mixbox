@@ -5,6 +5,7 @@ import MixboxReporting
 // TODO: Share code between black-box and gray-box.
 protocol GrayBoxTestsDependenciesFactory: class {
     var eventGenerator: EventGenerator { get }
+    var elementSimpleGesturesProvider: ElementSimpleGesturesProvider { get }
     var applicationFrameProvider: ApplicationFrameProvider { get }
     var testFailureRecorder: TestFailureRecorder { get }
     var stepLogger: StepLogger { get }

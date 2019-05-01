@@ -15,6 +15,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
     let windowsProvider: WindowsProvider
+    let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
     
     // MARK: - Init
     
@@ -26,7 +27,6 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
-        eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider)
     {
@@ -37,11 +37,36 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.keyboardEventInjector = keyboardEventInjector
         self.elementFinder = elementFinder
         self.pollingConfiguration = pollingConfiguration
-        self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
         
+        let touchPerformer = TouchPerformerImpl(
+            multiTouchCommandExecutor: MultiTouchCommandExecutorImpl(
+                touchInjectorFactory: TouchInjectorFactoryImpl(
+                    currentAbsoluteTimeProvider: MachCurrentAbsoluteTimeProvider(),
+                    runLoopSpinnerFactory: RunLoopSpinnerFactoryImpl(
+                        runLoopModesStackProvider: RunLoopModesStackProviderImpl()
+                    )
+                )
+            )
+        )
+        
+        let windowForPointProvider = WindowForPointProviderImpl(
+            windowsProvider: windowsProvider
+        )
+        
+        elementSimpleGesturesProvider = GrayElementSimpleGesturesProvider(
+            touchPerformer: touchPerformer,
+            windowForPointProvider: windowForPointProvider
+        )
+        
         applicationFrameProvider = GrayApplicationFrameProvider()
+        
+        eventGenerator = GrayEventGenerator(
+            touchPerformer: touchPerformer,
+            windowForPointProvider: windowForPointProvider,
+            pathGestureUtils: PathGestureUtilsFactoryImpl().pathGestureUtils()
+        )
     }
     
     // MARK: - XcuiBasedTestsDependenciesFactory
