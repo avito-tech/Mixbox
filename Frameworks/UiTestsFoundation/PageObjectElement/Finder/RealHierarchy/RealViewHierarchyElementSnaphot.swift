@@ -57,18 +57,7 @@ final class RealViewHierarchyElementSnaphot: ElementSnapshot {
     }
     
     var frameOnScreen: CGRect {
-        var frame = data.frame
-        
-        if let parent = parent {
-            frame = CGRect(
-                x: frame.origin.x + parent.frameOnScreen.origin.x,
-                y: frame.origin.y + parent.frameOnScreen.origin.y,
-                width: frame.size.width,
-                height: frame.size.height
-            )
-        }
-        
-        return frame
+        return data.frameOnScreen
     }
     
     var children: [ElementSnapshot] {

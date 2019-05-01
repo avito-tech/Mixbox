@@ -7,9 +7,11 @@ final class PageObjects: BasePageObjects {
     
     var screenshotTestsView: MainAppScreen<ScreenshotTestsViewPageObject> { return mainAppScreen() }
     
-    var hierarchyTestsView:  MainAppScreen<HierarchyTestsViewPageObject> { return mainAppScreen() }
+    var hierarchyTestsView: MainAppScreen<HierarchyTestsViewPageObject> { return mainAppScreen() }
     
-    private func mainAppScreen<T>() -> MainAppScreen<T> {
+    var touchesTestsView: MainAppScreen<TouchesTestsViewPageObject> { return mainAppScreen() }
+    
+    private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainRealHierarchy.pageObject(),
             xcui: apps.mainXcui.pageObject()

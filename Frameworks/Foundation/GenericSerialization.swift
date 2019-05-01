@@ -2,6 +2,7 @@
 // Converts anything to string and back.
 // Note that serialization method is not specified. The only thing
 // you should expect is that you can decode encoded object and get the same object.
+// TODO: Use Decodable and Encodable separately.
 public final class GenericSerialization {
     public static func serialize<T: Codable>(value: T) -> String? {
         let encoder = JSONEncoder()

@@ -1,5 +1,10 @@
 public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
     public let frame: CGRect
+    
+    // Note that there is no way to calculate this from fields, because the logic of coordinates conversion
+    // is not constant for every view (and is proprietary for many views).
+    public let frameOnScreen: CGRect
+    
     public let customClass: String
     public let elementType: ViewHierarchyElementType
     public let accessibilityIdentifier: String?
@@ -38,6 +43,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
 // sourcery:inline:auto:ViewHierarchyElement.Init
     public init(
         frame: CGRect,
+        frameOnScreen: CGRect,
         customClass: String,
         elementType: ViewHierarchyElementType,
         accessibilityIdentifier: String?,
@@ -53,6 +59,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
         children: [ViewHierarchyElement])
     {
         self.frame = frame
+        self.frameOnScreen = frameOnScreen
         self.customClass = customClass
         self.elementType = elementType
         self.accessibilityIdentifier = accessibilityIdentifier
@@ -80,6 +87,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
         
         let hardcodedOptionalFields: [(key: String, value: String?)] = [
             (key: "frame", value: frame.debugDescription),
+            (key: "frameOnScreen", value: frameOnScreen.debugDescription),
             (key: "customClass", value: customClass),
             (key: "elementType", value: elementType.debugDescription),
             (key: "accessibilityIdentifier", value: accessibilityIdentifier),

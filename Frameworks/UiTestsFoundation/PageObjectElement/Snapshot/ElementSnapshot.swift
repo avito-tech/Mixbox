@@ -1,3 +1,5 @@
+import MixboxFoundation
+
 public protocol ElementSnapshot: class, CustomDebugStringConvertible {
     // Common (can be retrieved via Apple's Accessibility feature):
     
@@ -26,26 +28,42 @@ public protocol ElementSnapshot: class, CustomDebugStringConvertible {
 }
 
 extension ElementSnapshot {
-    // 1. Возвращает текст (из testabilityValue_text).
-    // 2. Если не удалось, то берется fallback из аргумента, так как текст может быть либо
-    // в label, либо в value в зависимости от контекста.
-    //
-    // Например, для удаления текста нажатием кнопки удаления символа столько же раз,
-    // сколько символов в тексте, логично брать value, так как в UITextView/UITextField там лежит текст.
-    //
-    // Для валидации текста логичнее брать label, так как value - скорее исключение, чаще текст лежит в label.
-    //
-    // 3. Вместо nil возвращается пустая строка.
-    //
+    // TODO: Throw exception with exact description what went wrong?
+    public func customValue<T: Codable>(key: String) -> T? {
+        guard let customValues = customValues.value else {
+            // customValues is unavailable
+            return nil
+        }
+        
+        guard let stringValue = customValues[key] else {
+            // no value for key
+            return nil
+        }
+        
+        guard let typedValue: T = GenericSerialization.deserialize(string: stringValue) else {
+            // couldn't convert value to T
+            return nil
+        }
+        
+        return typedValue
+    }
+    
+    // 1. Returns text (from testabilityValue_text).
+    // 2. If this is not possible, `fallback` argument is used, `fallback` can use `label` or `value`.
+    //    Different views store text in different accessibility properties.
+    //    For example, UITextView/UITextField store text in accessibilityValue.
+    //    UILabel store text in accessibilityLabel.
     public func text(fallback: @autoclosure () -> String?) -> String? {
         switch text {
         case .available(let text):
             if let nonNilText = text {
                 return nonNilText
             } else {
-                // НЕПРАВИЛЬНО!!! Если доступен нормальный текст, то надо вернуть именно его,
-                // даже если он nil. Почему возвращаем fallback? Потому что тесты уже написаны на это поведение...
-                // Текущие изменения слишком большие, чтобы изменить еще и это поведение. TODO: убрать это поведение.
+                // THIS IS WRONG! If we have `.available` text why not to return it event if it is nil?
+                // Why this is not implemented (now I don't know for sure really, the comment was written by past-me):
+                // because tests are written for this behavior. I mean, tests on production app. It is not easy to
+                // change the behavior of an existing framework.
+                // TODO: Remove this behavior.
                 return fallback()
             }
         case .unavailable:

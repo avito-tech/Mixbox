@@ -1,6 +1,6 @@
 import TestsIpc
 
-extension BaseActionTestCase {
+extension BaseTouchesTestCase {
     func recordUiEvents(body: () -> ()) -> UiEventHistory {
         let sinceDate = Date()
         

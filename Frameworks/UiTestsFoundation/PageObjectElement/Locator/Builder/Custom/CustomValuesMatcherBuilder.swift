@@ -33,7 +33,7 @@ public final class CustomValueMatcher<ValueType: Codable>: Matcher<ElementSnapsh
                 switch snapshot.customValues {
                 case .available(let customValues):
                     if let stringValue = customValues[key] {
-                        if let value: ValueType = GenericSerialization.deserialize(string: stringValue) {
+                        if let value: ValueType = snapshot.customValue(key: key) {
                             return matcher.matches(value: value)
                         } else {
                             return .exactMismatch {
