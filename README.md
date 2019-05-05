@@ -40,7 +40,7 @@ Coming soon (is not open sourced yet):
 
 ## Supported iOS/Xcode/Swift versions
 
-- Xcode 9, Xcode 10
+- Xcode 10.1, Xcode 10.2
 - Swift 4.1, Swift 4.2
 - iOS 9.3.2, iOS 10.3, iOS 11.3, iOS 11.4, iOS 12.0, intermediate versions may work or may not, the mentioned versions are tested on CI
 

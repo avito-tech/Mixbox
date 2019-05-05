@@ -148,6 +148,7 @@ class Dump:
     def dumpAll(self):
         args = self.parse_args()
         
+        # TODO: Xcode10_1 => Xcode_10_1, looks better.
         xcodes = [
             Xcode(
                 name="Xcode10_1",
@@ -590,9 +591,15 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
             contents = contents.replace("unsigned long long elementType;", "XCUIElementType elementType;")
             contents = contents.replace("unsigned long long _elementType;", "XCUIElementType _elementType;")
         elif basename == "XCUIElement.h":
+            # Xcode 10.1:
             contents = contents.replace(
                 "- (void)_dispatchEvent:(id)arg1 block:(CDUnknownBlockType)arg2;",
                 "- (void)_dispatchEvent:(id)arg1 block:(XCUIElementDispatchEventBlock)arg2;"
+            )
+            # Xcode 10.2:
+            contents = contents.replace(
+                "- (void)_dispatchEvent:(id)arg1 eventBuilder:(CDUnknownBlockType)arg2;",
+                "- (void)_dispatchEvent:(id)arg1 eventBuilder:(DispatchEventEventBuilder)arg2;"
             )
             
         return contents

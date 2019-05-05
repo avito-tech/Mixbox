@@ -62,7 +62,7 @@
 - (id)screenshot;
 
 - (_Bool)_shouldDispatchEvent:(id *)arg1;
-- (void)_dispatchEvent:(id)arg1 eventBuilder:(CDUnknownBlockType)arg2;
+- (void)_dispatchEvent:(id)arg1 eventBuilder:(DispatchEventEventBuilder)arg2;
 - (_Bool)_dispatchEventWithEventBuilder:(CDUnknownBlockType)arg1 error:(id *)arg2;
 
 - (void)swipeRight;
