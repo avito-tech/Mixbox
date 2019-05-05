@@ -33,6 +33,8 @@ final class RealViewHierarchyElementQuery: ElementQuery {
         
         // TODO: Extract code to functions
         let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<ResolvedElementQuery> in
+            let elementWasFound: Bool
+            
             let result = ipcClient.call(
                 method: ViewHierarchyIpcMethod()
             )
@@ -53,6 +55,8 @@ final class RealViewHierarchyElementQuery: ElementQuery {
                 elementQueryResolvingState.stop()
                 
                 resolvedElementQuery = ResolvedElementQuery(elementQueryResolvingState: elementQueryResolvingState)
+                
+                elementWasFound = resolvedElementQuery.matchingSnapshots.count > 0
                 
                 if let failureDescription = resolvedElementQuery.candidatesDescription() {
                     artifacts.append(
@@ -81,6 +85,8 @@ final class RealViewHierarchyElementQuery: ElementQuery {
             } else {
                 resolvedElementQuery = ResolvedElementQuery(elementQueryResolvingState: elementQueryResolvingState)
                 
+                elementWasFound = false
+                
                 // TODO: better FileLine
                 testFailureRecorder.recordFailure(
                     description: "Не удалось получить иерархию вьюх из приложения",
@@ -91,7 +97,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
             
             return StepLoggerResultWrapper(
                 stepLogAfter: StepLogAfter(
-                    wasSuccessful: true,
+                    wasSuccessful: elementWasFound,
                     artifacts: artifacts
                 ),
                 wrappedResult: resolvedElementQuery
