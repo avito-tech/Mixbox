@@ -63,7 +63,6 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
             case .replace:
                 let result = clearText()
                 
-                // TODO: result.wasFailed - wrap result?
                 if result.wasFailed {
                     return result
                 }

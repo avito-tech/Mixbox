@@ -74,7 +74,6 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
                     )
                 )
                 
-                // TODO: result.wasFailed - wrap result?
                 if result.wasFailed {
                     return result
                 }
@@ -98,19 +97,18 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
         {
             let result: InteractionResult = tapSelectAllButton()
             
-            // TODO: result.wasFailed - wrap result?
             if result.wasFailed {
                 return result
-            }
-            
-            if text.isEmpty {
-                return dependencies.interactionPerformer.perform(
-                    interaction: cutAction
-                )
             } else {
-                return dependencies.interactionPerformer.perform(
-                    interaction: pasteAction
-                )
+                if text.isEmpty {
+                    return dependencies.interactionPerformer.perform(
+                        interaction: cutAction
+                    )
+                } else {
+                    return dependencies.interactionPerformer.perform(
+                        interaction: pasteAction
+                    )
+                }
             }
         }
         
@@ -122,7 +120,6 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
                     interaction: pasteAction
                 )
                 
-                // TODO: result.wasFailed - wrap result?
                 if result.wasFailed {
                     return result
                 }
@@ -140,15 +137,12 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
                     interaction: selectAllAction
                 )
                 
-                // TODO: result.wasFailed - wrap result?
-                if result.wasFailed {
-                    return result
-                }
+                return result
             } else {
                 // If there is no text then there is no "Select All" button and that's okay.
+                
+                return .success
             }
-            
-            return .success
         }
         
         private func waitUntilMenuIsShown(timeout: TimeInterval = 5) -> Bool {

@@ -63,17 +63,16 @@ public final class FocusKeyboardOnElementAction: ElementInteraction {
                     )
                 )
                 
-                // TODO: result.wasFailed - wrap result?
                 if result.wasFailed {
                     return result
-                }
-                
-                return dependencies.interactionPerformer.perform(
-                    interaction: IsDisplayedAndMatchesCheck(
-                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-                        matcher: HasKeyboardFocusOrHasDescendantThatHasKeyboardFocusElementSnapshotMatcher()
+                } else {
+                    return dependencies.interactionPerformer.perform(
+                        interaction: IsDisplayedAndMatchesCheck(
+                            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                            matcher: HasKeyboardFocusOrHasDescendantThatHasKeyboardFocusElementSnapshotMatcher()
+                        )
                     )
-                )
+                }
             }
         }
     }
