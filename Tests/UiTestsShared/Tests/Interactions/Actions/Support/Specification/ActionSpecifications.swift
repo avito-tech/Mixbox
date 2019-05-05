@@ -30,7 +30,7 @@ final class ActionSpecifications {
                 } else {
                     element.setText(text)
                 }
-        },
+            },
             expectedResult: "text: \(text)"
         )
     }
@@ -40,7 +40,7 @@ final class ActionSpecifications {
         action: { element in
             element.setText("Введенная строка")
             element.clearText()
-    },
+        },
         expectedResult: "text: "
     )
     
