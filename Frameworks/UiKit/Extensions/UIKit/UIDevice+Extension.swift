@@ -27,6 +27,9 @@ public enum UIDevicePlatform: String {
     case iPhone8 = "iPhone 8"
     case iPhone8Plus = "iPhone 8 Plus"
     case iPhoneX = "iPhone X"
+    case iPhoneXS = "iPhone XS"
+    case iPhoneXSMax = "iPhone XS Max"
+    case iPhoneXR = "iPhone XR"
     
     case iPad1 = "iPad 1"
     case iPad2 = "iPad 2"
@@ -86,6 +89,12 @@ extension UIDevice {
             return .iPhone8Plus
         case "iPhone10,3", "iPhone10,6":
             return .iPhoneX
+        case "iPhone11,2":
+            return .iPhoneXS
+        case "iPhone11,4", "iPhone11,6":
+            return .iPhoneXSMax
+        case "iPhone11,8":
+            return .iPhoneXR
         case "iPad1,1":
             return .iPad1
         case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":
