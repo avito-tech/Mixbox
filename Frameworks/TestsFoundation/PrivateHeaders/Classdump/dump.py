@@ -2,7 +2,7 @@
 
 # How-To:
 # Try to run this script.
-# Example: ./dump.py --xcode9 /Applications/Xcode9.app/ --xcode10 /Applications/Xcode.app
+# Example: ./dump.py --xcode10_1 /Applications/Xcode_10_1.app/ --xcode10_2 /Applications/Xcode.app
 #
 # In case of errors (either in this script or Xcode when you try to compile the code) see Dump.
 # 
@@ -62,17 +62,26 @@ class Xcode:
     #   Will be used as folder name and a part of header names.
     #   Example: "Xcode9", "Xcode10".
     #
-    # conditional_compilation_if_clause:
-    #   Will be added to the beginning of every header.
-    #   Example: "#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000 && __IPHONE_OS_VERSION_MAX_ALLOWED < 120000"
-    #
     # path:
     #   Example: /Applications/Xcode.app
     #
-    def __init__(self, name, path, conditional_compilation_if_clause):
+    # ios_min_version:
+    #   As in __IPHONE_OS_VERSION_MAX_ALLOWED
+    #   Example (for iOS 12.2): 120200
+    # 
+    #
+    def __init__(self, name, path, ios_min_version, ios_max_version):
         self.name = name
-        self.conditional_compilation_if_clause = conditional_compilation_if_clause
         self.path = path
+        self.ios_min_version = ios_min_version
+        self.ios_max_version = ios_max_version
+
+    # Will be added to the beginning of every header.
+    # Example: "#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000 && __IPHONE_OS_VERSION_MAX_ALLOWED < 120000"
+    @property
+    def conditional_compilation_if_clause(self):
+        return f"#if __IPHONE_OS_VERSION_MAX_ALLOWED >= {self.ios_min_version} && __IPHONE_OS_VERSION_MAX_ALLOWED < {self.ios_max_version}"
+        
 
 class BasenamePatcher:
     def __init__(self, framework_name, xcode, format):
@@ -104,19 +113,27 @@ class BasenamePatcher:
         )
 
 class PublicTypeWithFramework:
-    def __init__(self, name, kind, public_declarations, framework):
+    def __init__(self, name, kind, public_declarations, framework, header):
         self.name = name
         self.kind = kind
         self.public_declarations = public_declarations
         self.framework = framework
+        self.header = header
         
 class PublicType:
     # `declarations` can be either a list of strings or a newline-separated string.
     # It is easy to copy-paste newline-separated list right from Xcode.
     # See usage.
-    def __init__(self, name, kind, public_declarations=[]):
+    def __init__(self, name, kind, header=None, public_declarations=[], ios_min_version=0, ios_max_version=2147483647):
         self.name = name
         self.kind = kind
+        self.ios_min_version = ios_min_version
+        self.ios_max_version = ios_max_version
+        
+        if header is None:
+            self.header = f'{name}.h'
+        else:
+            self.header = header
         
         if isinstance(public_declarations, str):
             self.public_declarations = list(filter(None, public_declarations.split("\n")))
@@ -133,14 +150,16 @@ class Dump:
         
         xcodes = [
             Xcode(
-                name="Xcode9",
-                conditional_compilation_if_clause="#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000 && __IPHONE_OS_VERSION_MAX_ALLOWED < 120000",
-                path=args.xcode9
+                name="Xcode10_1",
+                path=args.xcode10_1,
+                ios_min_version=120100,
+                ios_max_version=120200,
             ),
             Xcode(
-                name="Xcode10",
-                conditional_compilation_if_clause="#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120000",
-                path=args.xcode10
+                name="Xcode10_2",
+                path=args.xcode10_2,
+                ios_min_version=120200,
+                ios_max_version=130000, # this is subject to change when new xcode is released
             )
         ]
         
@@ -158,14 +177,14 @@ class Dump:
         parser = argparse.ArgumentParser()
         
         parser.add_argument(
-            '--xcode9',
-            dest='xcode9',
+            '--xcode10_1',
+            dest='xcode10_1',
             required=True
         )
         
         parser.add_argument(
-            '--xcode10',
-            dest='xcode10',
+            '--xcode10_2',
+            dest='xcode10_2',
             required=True
         )
     
@@ -186,6 +205,8 @@ class Dump:
         os.system(f'class-dump -o "{destination_dir}" -H "{framework_dir}"')
     
         for entry in os.listdir(destination_dir):
+            print(entry)
+            
             target_basename = BasenamePatcher.patch_basename(
                 basename=entry,
                 framework_name=framework_name,
@@ -200,6 +221,10 @@ class Dump:
                 os.unlink(source_path)
                 continue
             self.already_generated_files.add(target_basename)
+
+            if entry in self.entries_to_ignore():
+                os.unlink(source_path)
+                continue
             
             # We don't need public headers in our private headers.
             public_protocol_files = set([f'{t.name}-Protocol.h' for (n, t) in self.dumped_public_types.items() if t.kind == DeclarationKind.objc_protocol])
@@ -410,7 +435,8 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly, copy) NSString *title;
 @property(readonly) struct CGRect frame;
 @property(readonly) id value;
-@property(readonly) XCUIElement *firstMatch;""",
+@property(readonly) XCUIElement *firstMatch;
+@property(readonly, copy) XCUIElementQuery *disclosedChildRows;""",
             ),
             PublicType(
                 name="XCUIApplication",
@@ -483,8 +509,32 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly) XCTestRun *testRun;
 @property(readonly) Class testRunClass;
 @property(readonly, copy) NSString *name;
-@property(readonly) unsigned long long testCaseCount;"""
+@property(readonly) unsigned long long testCaseCount;
+@property(readonly, copy) XCUIElementQuery *disclosedChildRows;"""
             ),
+            PublicType(
+                name="XCTActivity",
+                kind=DeclarationKind.objc_protocol
+            ),
+            PublicType(
+                name="XCUIElementSnapshot",
+                kind=DeclarationKind.objc_protocol
+            ),
+            PublicType(
+                name="XCTestObservation",
+                kind=DeclarationKind.objc_protocol
+            ),
+            PublicType(
+                name="XCTWaiterDelegate",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTWaiter.h"
+            )
+            
+            # PublicType(
+#                 name="XCUIElementTypeQueryProvider",
+#                 kind=DeclarationKind.objc_protocol,
+#                 ios_min_version=120200
+#             ),
         ]
         
         types_by_name = {}
@@ -494,10 +544,14 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
                 name=t.name,
                 kind=t.kind,
                 public_declarations=t.public_declarations,
-                framework="XCTest"
+                framework="XCTest",
+                header=t.header
             )
             
         return types_by_name
+        
+    def entries_to_ignore(self):
+        return ["XCElementSnapshot-XCUIElementSnapshot.h"]
         
     def patch(self, contents, basename, framework_name, xcode):
         contents = self.patch_removing_strings(contents=contents, xcode=xcode)
@@ -513,7 +567,7 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
         contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, xcode=xcode)
 
         contents = self.patch_specific_methods(contents=contents, basename=basename, xcode=xcode)
-        
+
         contents = self.patch_adding_shared_header(contents=contents, xcode=xcode)
 
         contents = self.patch_making_forward_declarations_more_beautiful(contents=contents, xcode=xcode)
@@ -554,7 +608,10 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
             "@property(readonly) unsigned long long hash;",
             "@property(readonly) Class superclass;"
         ]
-
+        
+        if class_name == "XCTElementSetCodableTransformer" or class_name == "XCTElementDisclosedChildRowsTransformer":
+            contents = re.sub(fr"    _Bool _stopsOnFirstMatch;\n", "", contents)
+            contents = re.sub(fr"    NSString \*_transformationDescription;\n", "", contents)
 
         if class_name in self.dumped_public_types:
             declarations_to_remove = self.dumped_public_types[class_name].public_declarations + common_declarations_to_remove
@@ -563,7 +620,7 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
                 contents = contents.replace(declaration_to_remove + "\n", "")
                 
             try:
-                public_header = File(path=f"/Applications/Xcode941.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/{class_name}.h")
+                public_header = File(path=f"{xcode.path}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/{class_name}.h")
                 public_header_contents = public_header.read()
             except:
                 return contents
@@ -776,7 +833,7 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
         for (name, public_class) in self.dumped_public_types.items():
             contents = re.sub(
                 fr'#import "{public_class.name}\.h"', 
-                f'#import <{public_class.framework}/{public_class.name}.h>', 
+                f'#import <{public_class.framework}/{public_class.header}>', 
                 contents
             )
             

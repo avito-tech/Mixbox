@@ -1,3 +1,5 @@
+import XCTest
+
 public protocol TestLifecycleObservable: class {
     func addObserver(_ testLifecycleObserver: TestLifecycleObserver)
 }
