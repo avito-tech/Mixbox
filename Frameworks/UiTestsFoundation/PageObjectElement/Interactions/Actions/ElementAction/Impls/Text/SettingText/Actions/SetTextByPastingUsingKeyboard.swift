@@ -50,19 +50,23 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
         public func perform() -> InteractionResult {
             dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
             
-            switch textEditingActionMode {
-            case .replace:
-                selectAll()
-                
-                if text.isEmpty {
-                    clear()
-                } else {
-                    paste(text: text)
+            do {
+                switch textEditingActionMode {
+                case .replace:
+                    selectAll()
+                    
+                    if text.isEmpty {
+                        try clear()
+                    } else {
+                        paste(text: text)
+                    }
+                case .append:
+                    if !text.isEmpty {
+                        paste(text: text)
+                    }
                 }
-            case .append:
-                if !text.isEmpty {
-                    paste(text: text)
-                }
+            } catch let error {
+                return dependencies.interactionResultMaker.failure(message: "\(error)")
             }
             
             return .success
@@ -80,8 +84,8 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
             dependencies.keyboardEventInjector.inject { press in press.command(press.v()) }
         }
         
-        private func clear() {
-            dependencies.textTyper.type(text: dependencies.textTyper.keys.delete)
+        private func clear() throws {
+            try dependencies.textTyper.type(key: .delete)
         }
     }
 }

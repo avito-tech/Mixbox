@@ -70,7 +70,12 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
             }
             
             dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-            dependencies.textTyper.type(text: text)
+            
+            do {
+                try dependencies.textTyper.type(text: text)
+            } catch let error {
+                return dependencies.interactionResultMaker.failure(message: "\(error)")
+            }
             
             return .success
         }
@@ -81,12 +86,15 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
                     let value = snapshot.text(fallback: snapshot.accessibilityValue as? String) ?? ""
                     
                     if !value.isEmpty {
-                        let deleteString: String = value
-                            .map { _ in dependencies.textTyper.keys.delete }
-                            .joined()
-                        
-                        dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                        dependencies.textTyper.type(text: deleteString)
+                        do {
+                            let textTyperInstruction: [TextTyperInstruction] = value
+                                .map { _ in .key(.delete) }
+                            
+                            dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                            try dependencies.textTyper.type(instructions: textTyperInstruction)
+                        } catch let error {
+                            return dependencies.interactionResultMaker.failure(message: "\(error)")
+                        }
                     }
                     
                     return .success
