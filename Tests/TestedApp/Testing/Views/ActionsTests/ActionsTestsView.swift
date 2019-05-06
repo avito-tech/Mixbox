@@ -9,9 +9,9 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
     let scrollView = TestStackScrollView()
     let actionTestsViewViewRegistrar = ActionTestsViewViewRegistrar()
     
-    var info: String? {
+    var info: ActionsTestsViewActionResult = .uiWasNotTriggered {
         didSet {
-            infoLabel.text = info
+            infoLabel.text = info.description
         }
     }
     
@@ -51,7 +51,7 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         
         viewIpc.register(method: GetActionResultIpcMethod()) { [weak self] _, completion in
             guard let strongSelf = self else {
-                completion("ERROR: self is nil")
+                completion(.error("self is nil"))
                 return
             }
             
@@ -67,7 +67,7 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
             }
             
             DispatchQueue.main.async {
-                strongSelf.info = nil
+                strongSelf.info = .uiWasNotTriggered
                 completion(nil)
             }
         }
@@ -117,7 +117,7 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
                         scrollView: scrollView,
                         id: specification.id,
                         reportResultClosure: { [weak self] result in
-                            self?.info = result
+                            self?.info = .uiWasTriggered(result)
                         }
                     )
                 )

@@ -34,8 +34,8 @@ extension BaseActionTestCase {
                 let iterationInfo = numberOfSubsequentActions > 1 ? " at iteration \(iteration)" : ""
                 
                 return """
-                Result of action is unexpected: expected \(prettyPrintedResult(expectedResult)), \
-                got \(prettyPrintedResult(actualResult))\(iterationInfo)\(errorMessageSuffix())
+                Result of action is unexpected: expected \(expectedResult), \
+                got \(actualResult)\(iterationInfo)\(errorMessageSuffix())
                 """
             }
         }
@@ -124,14 +124,5 @@ extension BaseActionTestCase {
         // Should fail and retry
         let element = actionSpecification.element(screen).withTimeout(timeout)
         actionSpecification.action(element)
-    }
-    
-    private func prettyPrintedResult(_ result: String?) -> String {
-        if let result = result {
-            return "\"\(result)\""
-        } else {
-            // TODO: Enum dedicated to a result, to replace "nil" with a meaningful case.
-            return "<UI was not triggered>"
-        }
     }
 }

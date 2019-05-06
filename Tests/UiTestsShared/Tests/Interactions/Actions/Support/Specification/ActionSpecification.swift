@@ -1,16 +1,17 @@
 import MixboxUiTestsFoundation
+import TestsIpc
 
 class ActionSpecification<T: Element>: AnyActionSpecification {
     let elementId: String
     let element: (ActionsTestsScreen) -> (T)
     let action: (T) -> ()
-    let expectedResult: String
+    let expectedResult: ActionsTestsViewActionResult
     
     init(
         elementId: String,
         element: @escaping (ActionsTestsScreen) -> (T),
         action: @escaping (T) -> (),
-        expectedResult: String)
+        expectedResult: ActionsTestsViewActionResult)
     {
         self.elementId = elementId
         self.element = element
@@ -27,7 +28,7 @@ extension ActionSpecification where T: ElementWithDefaultInitializer {
     convenience init(
         elementId: String,
         action: @escaping (T) -> (),
-        expectedResult: String)
+        expectedResult: ActionsTestsViewActionResult)
     {
         self.init(
             elementId: elementId,

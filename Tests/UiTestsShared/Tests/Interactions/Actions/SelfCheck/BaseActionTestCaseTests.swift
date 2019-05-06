@@ -3,7 +3,8 @@ final class BaseActionTestCaseTests: BaseActionTestCase {
         let text = "Some text"
         
         let actionSpecification = ActionSpecifications.setText(
-            text: text
+            text: text,
+            inputMethod: .default
         )
         
         // Nothing is displayed initially

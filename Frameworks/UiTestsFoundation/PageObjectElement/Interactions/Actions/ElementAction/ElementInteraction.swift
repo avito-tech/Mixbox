@@ -1,4 +1,4 @@
-// The high level logic of interation that doesn't know anything about how to perform low-level access to UI,
+// The high level logic of interaction that doesn't know anything about how to perform low-level access to UI,
 // perform touches, etc. Is used to share logic between XCUI/GrayBox testing.
 //
 // TODO: Rename?

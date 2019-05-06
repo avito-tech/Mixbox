@@ -46,8 +46,6 @@ final class TouchesTests: BaseTouchesTestCase {
         
         XCTAssertEqual(secondTouch.phase, .ended)
         
-        XCTAssertEqual(secondTouch.phase, .ended)
-        
         let center = frame.mb_center
         
         let accuracy: CGFloat = 0.2

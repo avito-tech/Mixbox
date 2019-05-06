@@ -8,30 +8,26 @@ final class ActionSpecifications {
     static let tap = ActionSpecification<ButtonElement>(
         elementId: "tap",
         action: { $0.tap() },
-        expectedResult: "tap"
+        expectedResult: .uiWasTriggered("tap")
     )
     
     static let press = ActionSpecification<ButtonElement>(
         elementId: "press",
         action: { $0.press(duration: 1.2) },
-        expectedResult: "press"
+        expectedResult: .uiWasTriggered("press")
     )
     
     static func setText(
         text: String,
-        inputMethod: SetTextActionFactory.InputMethod? = nil)
+        inputMethod: SetTextActionFactory.InputMethod)
         -> ActionSpecification<InputElement>
     {
         return ActionSpecification(
             elementId: "text",
             action: { element in
-                if let inputMethod = inputMethod {
-                    element.setText(text, inputMethod: inputMethod)
-                } else {
-                    element.setText(text)
-                }
+                element.setText(text, inputMethod: inputMethod)
             },
-            expectedResult: "text: \(text)"
+            expectedResult: .uiWasTriggered("text: \(text)")
         )
     }
     
@@ -41,31 +37,31 @@ final class ActionSpecifications {
             element.setText("Введенная строка")
             element.clearText()
         },
-        expectedResult: "text: "
+        expectedResult: .uiWasTriggered("text: ")
     )
     
     static let swipeUp = ActionSpecification<LabelElement>(
         elementId: "swipeUp",
         action: { $0.swipeUp() },
-        expectedResult: "swipeUp"
+        expectedResult: .uiWasTriggered("swipeUp")
     )
     
     static let swipeDown = ActionSpecification<LabelElement>(
         elementId: "swipeDown",
         action: { $0.swipeDown() },
-        expectedResult: "swipeDown"
+        expectedResult: .uiWasTriggered("swipeDown")
     )
     
     static let swipeLeft = ActionSpecification<LabelElement>(
         elementId: "swipeLeft",
         action: { $0.swipeLeft() },
-        expectedResult: "swipeLeft"
+        expectedResult: .uiWasTriggered("swipeLeft")
     )
     
     static let swipeRight = ActionSpecification<LabelElement>(
         elementId: "swipeRight",
         action: { $0.swipeRight() },
-        expectedResult: "swipeRight"
+        expectedResult: .uiWasTriggered("swipeRight")
     )
     
     static var all: [AnyActionSpecification] {

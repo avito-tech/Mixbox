@@ -112,7 +112,7 @@ public final class TouchInjectorImpl: TouchInjector {
     private func startInjecting() {
         assertIsOnMainThread()
         
-        if state == .started {
+        guard state != .started else {
             return
         }
         
@@ -157,7 +157,7 @@ public final class TouchInjectorImpl: TouchInjector {
         currentMediaTime: TimeInterval)
         -> TouchInfo?
     {
-        if enqueuedTouchInfoList.count == 0 {
+        guard enqueuedTouchInfoList.count > 0 else {
             return nil
         }
         
@@ -186,9 +186,10 @@ public final class TouchInjectorImpl: TouchInjector {
         if expectedTouchDeliveryTime > currentMediaTime {
             // This touch is scheduled to be delivered in the future.
             return nil
+        } else {
+            enqueuedTouchInfoList.remove(at: 0)
+            return dequeuedTouchInfo
         }
-        enqueuedTouchInfoList.remove(at: 0)
-        return dequeuedTouchInfo
     }
     
     private func stopTouchInjection() {
@@ -199,14 +200,16 @@ public final class TouchInjectorImpl: TouchInjector {
     }
     
     private func extractAndChangeTouchToStartPhase(touchInfo: TouchInfo) {
-        for point in touchInfo.points {
-            let touch = uiTouch(
-                point: point,
-                relativeToWindow: window
-            )
-            touch.setPhase(UITouch.Phase.began)
-            ongoingTouches.append(touch)
-        }
+        ongoingTouches.append(
+            contentsOf: touchInfo.points.map { point in
+                let touch = uiTouch(
+                    point: point,
+                    relativeToWindow: window
+                )
+                touch.setPhase(UITouch.Phase.began)
+                return touch
+            }
+        )
     }
     
     private func changeTouchToEndPhase(touchInfo: TouchInfo) {
@@ -406,6 +409,10 @@ public final class TouchInjectorImpl: TouchInjector {
         return touch
     }
 
+    // TODO: Remove? Understand, add docs and write tests?
+    // The logic is very complex, there is no real examples of how it works and why it is needed.
+    // Also the logic seems like reinvented round() function.
+    // TODO: Try to remove or simplify after Gray Box tests will be implemented.
     private func pointAfterRemovingFractionalPixels(cgPointInPoints: CGPoint) -> CGPoint {
         return CGPoint(
             x: floatAfterRemovingFractionalPixels(floatInPoints: cgPointInPoints.x),
