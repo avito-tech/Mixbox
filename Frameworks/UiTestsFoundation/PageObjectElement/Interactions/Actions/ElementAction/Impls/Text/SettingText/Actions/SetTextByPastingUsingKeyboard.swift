@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 public final class SetTextByPastingUsingKeyboard: ElementInteraction {
     private let text: String
     private let textEditingActionMode: TextEditingActionMode
@@ -50,38 +52,28 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
         public func perform() -> InteractionResult {
             dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
             
+            dependencies.pasteboard.string = text
+            
             switch textEditingActionMode {
             case .replace:
-                selectAll()
-                
                 if text.isEmpty {
-                    clear()
+                    dependencies.keyboardEventInjector.inject { press in
+                        press.command(press.a()) + press.backspace()
+                    }
                 } else {
-                    paste(text: text)
+                    dependencies.keyboardEventInjector.inject { press in
+                        press.command(press.a() + press.v())
+                    }
                 }
             case .append:
                 if !text.isEmpty {
-                    paste(text: text)
+                    dependencies.keyboardEventInjector.inject { press in
+                        press.command(press.v())
+                    }
                 }
             }
             
             return .success
-        }
-        
-        // TODO: Reuse SelectAllTextUsingHardwareKeyboardAction?
-        // Drawbacks: can be slower due to a lot of overhead such as taking screenshot of action.
-        private func selectAll() {
-            dependencies.keyboardEventInjector.inject { press in press.command(press.a()) }
-        }
-        
-        private func paste(text: String) {
-            dependencies.pasteboard.string = text
-            
-            dependencies.keyboardEventInjector.inject { press in press.command(press.v()) }
-        }
-        
-        private func clear() {
-            dependencies.keyboardEventInjector.inject { press in press.command(press.backspace()) }
         }
     }
 }
