@@ -313,6 +313,7 @@
 		F8B34139224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34138224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift */; };
 		F8B34145224E662D00AA1EB9 /* MicrophonePermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34144224E662D00AA1EB9 /* MicrophonePermissionInfo.swift */; };
 		F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */; };
+		F8B9649922808AE90054CE08 /* AlwaysFailingIpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */; };
 		F8BCA9DF213D55E400592068 /* UIImage+WithColorAndSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */; };
 		F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */; };
 		F8C7091D2153F3F70015A10B /* IpcCallbacksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */; };
@@ -631,6 +632,7 @@
 		F8B34138224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvCaptureDevicePermissionInfo.swift; sourceTree = "<group>"; };
 		F8B34144224E662D00AA1EB9 /* MicrophonePermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionInfo.swift; sourceTree = "<group>"; };
 		F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStubberTests.swift; sourceTree = "<group>"; };
+		F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysFailingIpcClient.swift; sourceTree = "<group>"; };
 		F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+WithColorAndSize.swift"; sourceTree = "<group>"; };
 		F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsView.swift; sourceTree = "<group>"; };
 		F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcCallbacksTests.swift; sourceTree = "<group>"; };
@@ -1359,6 +1361,7 @@
 			isa = PBXGroup;
 			children = (
 				F8971D0922650A92001741C1 /* EnvironmentProvider */,
+				F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2810,6 +2813,7 @@
 				F8B0A262220A0EF40089C1EE /* BasePageObject.swift in Sources */,
 				F820305F22385427006D2F70 /* CanTapMovingElementTests.swift in Sources */,
 				F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */,
+				F8B9649922808AE90054CE08 /* AlwaysFailingIpcClient.swift in Sources */,
 				F8B33B10224ACF2500AA1EB9 /* AssertIsNotDisplayedInteractionTests.swift in Sources */,
 				F82030672238548E006D2F70 /* BaseActionTestCase.swift in Sources */,
 				F813CB32209CDF3400E6A27C /* ScrollingTests.swift in Sources */,

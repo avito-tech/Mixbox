@@ -124,10 +124,10 @@ final class TestCaseUtils {
             testFailureRecorder: testFailureRecorder
         )
         
-        let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] applicationProvider, elementFinder in
+        let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder, _ ipcClient: IpcClient?) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] applicationProvider, elementFinder, ipcClient in
             return XcuiPageObjectDependenciesFactory(
                 testFailureRecorder: testFailureRecorder,
-                ipcClient: lazilyInitializedIpcClient,
+                ipcClient: ipcClient ?? AlwaysFailingIpcClient(),
                 stepLogger: stepLogger,
                 pollingConfiguration: .reduceLatency,
                 elementFinder: elementFinder,
@@ -135,7 +135,8 @@ final class TestCaseUtils {
                 eventGenerator: XcuiEventGenerator(
                     applicationProvider: applicationProvider
                 ),
-                screenshotTaker: screenshotTaker
+                screenshotTaker: screenshotTaker,
+                pasteboard: ipcClient.flatMap { IpcPasteboard(ipcClient: $0) } ?? UikitPasteboard()
             )
         }
         
@@ -148,7 +149,22 @@ final class TestCaseUtils {
                     stepLogger: stepLogger,
                     applicationProviderThatDropsCaches: provider,
                     screenshotTaker: screenshotTaker
-                )
+                ),
+                lazilyInitializedIpcClient
+            )
+        }
+        
+        let thirdPartyApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] application in
+            let provider = ApplicationProviderImpl(closure: application)
+            
+            return app(
+                provider,
+                XcuiElementFinder(
+                    stepLogger: stepLogger,
+                    applicationProviderThatDropsCaches: provider,
+                    screenshotTaker: screenshotTaker
+                ),
+                nil
             )
         }
         
@@ -161,11 +177,12 @@ final class TestCaseUtils {
                         testFailureRecorder: testFailureRecorder,
                         stepLogger: stepLogger,
                         screenshotTaker: screenshotTaker
-                    )
+                    ),
+                    lazilyInitializedIpcClient
                 ),
                 mainXcui: xcuiApp { XCUIApplication() },
-                settings: xcuiApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") },
-                springboard: xcuiApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.springboard") }
+                settings: thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") },
+                springboard: thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.springboard") }
             )
         )
     }

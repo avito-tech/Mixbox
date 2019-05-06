@@ -56,7 +56,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
                 applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
             ),
             keyboardEventInjector: xcuiBasedTestsDependenciesFactory.keyboardEventInjector,
-            pasteboard: UikitPasteboard(),
+            pasteboard: xcuiBasedTestsDependenciesFactory.pasteboard,
             interactionPerformer: NestedInteractionPerformerImpl(
                 elementInteractionDependenciesFactory: self,
                 elementInteractionWithDependenciesPerformer: elementInteractionWithDependenciesPerformer,

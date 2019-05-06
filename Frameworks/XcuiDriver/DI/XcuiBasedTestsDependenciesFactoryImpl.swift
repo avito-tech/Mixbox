@@ -15,6 +15,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     let keyboardEventInjector: KeyboardEventInjector
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
+    let pasteboard: Pasteboard
     
     // MARK: - Init
     
@@ -29,7 +30,8 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         applicationProvider: ApplicationProvider,
         applicationCoordinatesProvider: ApplicationCoordinatesProvider,
         eventGenerator: EventGenerator,
-        screenshotTaker: ScreenshotTaker)
+        screenshotTaker: ScreenshotTaker,
+        pasteboard: Pasteboard)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -42,6 +44,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.applicationCoordinatesProvider = applicationCoordinatesProvider
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
+        self.pasteboard = pasteboard
         
         applicationFrameProvider = XcuiApplicationFrameProvider(
             applicationProvider: applicationProvider

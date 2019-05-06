@@ -117,6 +117,9 @@ public final class MixboxInAppServices: IpcRouter {
                 keyboardEventInjector: KeyboardEventInjectorImpl(application: UIApplication.shared)
             )
         )
+        
+        router.register(methodHandler: GetPasteboardStringIpcMethodHandler())
+        router.register(methodHandler: SetPasteboardStringIpcMethodHandler())
     }
     
     private static func ipcStarterType(environment: [String: String]) -> IpcStarterType? {
