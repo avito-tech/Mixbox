@@ -33,11 +33,11 @@ extension Element {
     }
     
     public var withoutTimeout: Self {
-        return with(searchTimeout: 0)
+        return with(interactionTimeout: 0)
     }
     
     public func withTimeout(_ timeout: TimeInterval) -> Self {
-        return with(searchTimeout: timeout)
+        return with(interactionTimeout: timeout)
     }
     
     // Возможное расширение.
@@ -66,7 +66,7 @@ extension Element {
         return with(settings: implementation.settings.with(interactionMode: interactionMode))
     }
     
-    public func with(searchTimeout: TimeInterval?) -> Self {
-        return with(settings: implementation.settings.with(searchTimeout: searchTimeout))
+    public func with(interactionTimeout: TimeInterval?) -> Self {
+        return with(settings: implementation.settings.with(interactionTimeout: interactionTimeout))
     }
 }

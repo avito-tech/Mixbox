@@ -59,7 +59,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
                 elementName: name,
                 matcher: matcherBuilder(elementMatcherBuilder),
                 searchMode: searchMode ?? .default,
-                searchTimeout: nil,
+                interactionTimeout: nil,
                 interactionMode: interactionMode ?? .default
             )
         )

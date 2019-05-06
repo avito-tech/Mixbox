@@ -2,20 +2,20 @@ public final class ElementSettings {
     public let elementName: String
     public let matcher: ElementMatcher
     public let searchMode: SearchMode
-    public let searchTimeout: TimeInterval // TODO: Rename to interactionTimeout
+    public let interactionTimeout: TimeInterval
     public let interactionMode: InteractionMode
     
     public init(
         elementName: String,
         matcher: ElementMatcher,
         searchMode: SearchMode,
-        searchTimeout: TimeInterval?, // nil == default
+        interactionTimeout: TimeInterval?, // nil == default
         interactionMode: InteractionMode)
     {
         self.elementName = elementName
         self.matcher = matcher
         self.searchMode = searchMode
-        self.searchTimeout = searchTimeout ?? 15
+        self.interactionTimeout = interactionTimeout ?? 15
         self.interactionMode = interactionMode
     }
     
@@ -24,7 +24,7 @@ public final class ElementSettings {
             elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
-            searchTimeout: searchTimeout,
+            interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
     }
@@ -34,7 +34,7 @@ public final class ElementSettings {
             elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
-            searchTimeout: searchTimeout,
+            interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
     }
@@ -44,17 +44,17 @@ public final class ElementSettings {
             elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
-            searchTimeout: searchTimeout,
+            interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
     }
     
-    func with(searchTimeout: TimeInterval?) -> ElementSettings {
+    func with(interactionTimeout: TimeInterval?) -> ElementSettings {
         return ElementSettings(
             elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
-            searchTimeout: searchTimeout,
+            interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
     }
@@ -64,7 +64,7 @@ public final class ElementSettings {
             elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
-            searchTimeout: searchTimeout,
+            interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
     }

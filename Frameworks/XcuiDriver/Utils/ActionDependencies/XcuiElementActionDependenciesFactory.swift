@@ -130,7 +130,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
     {
         return InteractionRetrierImpl(
             dateProvider: dateProvider(),
-            timeout: elementSettings.searchTimeout,
+            timeout: elementSettings.interactionTimeout,
             retrier: retrier(
                 pollingConfiguration: xcuiBasedTestsDependenciesFactory.pollingConfiguration
             ),

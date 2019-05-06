@@ -126,7 +126,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
     {
         return InteractionRetrierImpl(
             dateProvider: dateProvider(),
-            timeout: elementSettings.searchTimeout,
+            timeout: elementSettings.interactionTimeout,
             retrier: retrier(
                 pollingConfiguration: grayBoxTestsDependenciesFactory.pollingConfiguration
             ),

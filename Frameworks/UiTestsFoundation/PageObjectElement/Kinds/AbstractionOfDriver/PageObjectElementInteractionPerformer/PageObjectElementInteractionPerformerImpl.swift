@@ -53,7 +53,7 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
         
         let retriableTimedInteractionState = RetriableTimedInteractionStateImpl(
             dateProvider: dateProvider,
-            timeout: elementSettings.searchTimeout,
+            timeout: elementSettings.interactionTimeout,
             startDateOfInteraction: dateProvider.currentDate()
         )
         
