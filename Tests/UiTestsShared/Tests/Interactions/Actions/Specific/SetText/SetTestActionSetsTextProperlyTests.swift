@@ -150,8 +150,8 @@ final class SetTestActionSetsTextProperlyTests: BaseActionTestCase {
         )
         
         let testDataSet = [
-            [""],
             ["", "Non-empty string"],
+            [""],
             ["Non-empty string", ""],
             ["Non-empty string", "Non-empty string"],
             ["Non-empty string", "Another non-empty string"],
