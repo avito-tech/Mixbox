@@ -1,4 +1,4 @@
-// Not only inverts `isNotDiaplayed` check. Also waits element to disappear.
+// Not only inverts `isNotDisplayed` check. Also waits element to disappear.
 // TODO: Rename?
 public final class IsNotDisplayedCheck: ElementInteraction {
     private let maximumAllowedPercentageOfVisibleArea: CGFloat
