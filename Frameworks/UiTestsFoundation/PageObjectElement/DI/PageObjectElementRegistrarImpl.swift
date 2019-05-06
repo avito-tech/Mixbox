@@ -20,12 +20,12 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     // MARK: - PageObjectElementRegistrar
     
     public func element<T: ElementWithDefaultInitializer>(
-        _ name: String,
+        _ elementName: String,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     {
         let pageObjectElement = self.pageObjectElement(
-            name: name,
+            elementName: elementName,
             matcherBuilder: matcherBuilder
         )
         return T(implementation: pageObjectElement)
@@ -50,13 +50,13 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     // MARK: - Private
     
     private func pageObjectElement(
-        name: String,
+        elementName: String,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> PageObjectElement
     {
         return pageObjectElementFactory.pageObjectElement(
             settings: ElementSettings(
-                elementName: name,
+                elementName: elementName,
                 matcher: matcherBuilder(elementMatcherBuilder),
                 searchMode: searchMode ?? .default,
                 interactionTimeout: nil,
