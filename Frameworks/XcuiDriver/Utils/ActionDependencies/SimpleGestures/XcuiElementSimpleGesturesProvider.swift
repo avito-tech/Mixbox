@@ -46,7 +46,7 @@ public final class XcuiElementSimpleGesturesProvider: ElementSimpleGesturesProvi
             let alertFrame = alert.frame
             
             if alertFrame.contains(tapCoordinate) {
-                let applicationFrame = applicationFrameProvider.frame
+                let applicationFrame = applicationFrameProvider.applicationFrame
                 
                 tapCoordinate.x -= alertFrame.origin.x - applicationFrame.origin.x
                 tapCoordinate.y -= alertFrame.origin.y - applicationFrame.origin.y

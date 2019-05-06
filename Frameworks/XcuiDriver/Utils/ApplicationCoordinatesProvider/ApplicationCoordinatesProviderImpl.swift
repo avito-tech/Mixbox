@@ -41,7 +41,7 @@ public final class ApplicationCoordinatesProviderImpl: ApplicationCoordinatesPro
         var x = point.x
         var y = point.y
         
-        let frame = applicationFrameProvider.frame
+        let frame = applicationFrameProvider.applicationFrame
         
         let minX: CGFloat = 0 // same effect for any negative number
         let minY: CGFloat = 20 // doesn't work with 19 or lower

@@ -1,4 +1,3 @@
 public protocol ApplicationFrameProvider {
-    // TODO: Rename to `applicationFrame`
-    var frame: CGRect { get }
+    var applicationFrame: CGRect { get }
 }

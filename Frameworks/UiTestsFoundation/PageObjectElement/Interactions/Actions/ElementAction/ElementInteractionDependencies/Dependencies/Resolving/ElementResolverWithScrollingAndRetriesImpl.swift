@@ -126,7 +126,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
     }
     
     private func scrollBlindly(up: Bool) throws {
-        let frame = applicationFrameProvider.frame
+        let frame = applicationFrameProvider.applicationFrame
         
         try eventGenerator.pressAndDrag(
             from: frame.mb_center,

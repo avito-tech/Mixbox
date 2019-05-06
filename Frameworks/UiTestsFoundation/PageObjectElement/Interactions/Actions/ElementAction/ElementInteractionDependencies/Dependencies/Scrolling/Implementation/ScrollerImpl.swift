@@ -48,7 +48,7 @@ public final class ScrollerImpl: Scroller {
             
             // Need to scroll.
         } else {
-            let frame = applicationFrameProvider.frame
+            let frame = applicationFrameProvider.applicationFrame
             
             if frame.mb_intersectionOrNil(snapshot.frameOnScreen) != nil {
                 // Element intersects screen.
