@@ -1,13 +1,15 @@
 public final class UikitPasteboard: Pasteboard {
-    public init() {
+    private let uiPasteboard: UIPasteboard
+    
+    public init(uiPasteboard: UIPasteboard) {
+        self.uiPasteboard = uiPasteboard
     }
     
-    public var string: String? {
-        get {
-            return UIPasteboard.general.string
-        }
-        set {
-            UIPasteboard.general.string = newValue
-        }
+    public func setString(_ string: String?) throws {
+        uiPasteboard.string = string
+    }
+    
+    public func getString() throws -> String? {
+        return uiPasteboard.string
     }
 }

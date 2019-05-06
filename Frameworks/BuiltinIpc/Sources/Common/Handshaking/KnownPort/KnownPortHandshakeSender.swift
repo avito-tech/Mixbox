@@ -36,6 +36,7 @@ public final class KnownPortHandshakeSender {
             // TODO: Check if we can deal with synchronous waiting when this class is used to
             // setup connections between iOS app and UI tests runner. Maybe if we really want generic solution
             // we have to add parameter that controls whether to wait synchronously or not.
+            // TODO: Handle result.
             client.call(
                 method: HandshakeIpcMethod(),
                 arguments: localPort

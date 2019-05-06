@@ -75,7 +75,7 @@ public final class SwipeAction: ElementInteraction {
                     
                     dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
                     
-                    do {
+                    return dependencies.interactionResultMaker.makeResultCatchingErrors {
                         try dependencies.eventGenerator.pressAndDrag(
                             from: origin,
                             to: origin + delta,
@@ -84,8 +84,6 @@ public final class SwipeAction: ElementInteraction {
                         )
                         
                         return .success
-                    } catch let error {
-                        return dependencies.interactionResultMaker.failure(message: "\(error)")
                     }
                 }
             }

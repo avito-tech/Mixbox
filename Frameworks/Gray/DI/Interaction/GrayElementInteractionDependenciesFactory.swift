@@ -54,7 +54,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
             textTyper: GrayTextTyper(),
             menuItemProvider: GrayMenuItemProvider(),
             keyboardEventInjector: grayBoxTestsDependenciesFactory.keyboardEventInjector,
-            pasteboard: UikitPasteboard(),
+            pasteboard: UikitPasteboard(uiPasteboard: .general),
             interactionPerformer: NestedInteractionPerformerImpl(
                 elementInteractionDependenciesFactory: self,
                 elementInteractionWithDependenciesPerformer: elementInteractionWithDependenciesPerformer,

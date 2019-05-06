@@ -20,4 +20,15 @@ extension InteractionResultMaker {
             )
         )
     }
+    
+    public func makeResultCatchingErrors(
+        body: () throws -> (InteractionResult))
+        -> InteractionResult
+    {
+        do {
+            return try body()
+        } catch let error {
+            return failure(message: "\(error)")
+        }
+    }
 }

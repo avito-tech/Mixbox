@@ -47,7 +47,7 @@ public final class TapAction: ElementInteraction {
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [interactionCoordinates, dependencies] _ in
                 dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
-                    do {
+                    return dependencies.interactionResultMaker.makeResultCatchingErrors {
                         let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
                             elementSnapshot: snapshot,
                             interactionCoordinates: interactionCoordinates
@@ -56,9 +56,7 @@ public final class TapAction: ElementInteraction {
                         dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
                         try elementSimpleGestures.tap()
                         
-                        return .success
-                    } catch let error {
-                        return dependencies.interactionResultMaker.failure(message: "\(error)")
+                        return  .success
                     }
                 }
             }

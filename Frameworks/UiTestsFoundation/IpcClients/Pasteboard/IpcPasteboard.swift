@@ -10,12 +10,11 @@ public final class IpcPasteboard: Pasteboard {
         self.ipcClient = ipcClient
     }
     
-    public var string: String? {
-        get {
-            return ipcClient.call(method: GetPasteboardStringIpcMethod()).data ?? nil
-        }
-        set {
-            _ = ipcClient.call(method: SetPasteboardStringIpcMethod(), arguments: newValue)
-        }
+    public func setString(_ string: String?) throws {
+        try ipcClient.callOrThrow(method: SetPasteboardStringIpcMethod(), arguments: string)
+    }
+    
+    public func getString() throws -> String? {
+        return try ipcClient.callOrThrow(method: GetPasteboardStringIpcMethod())
     }
 }

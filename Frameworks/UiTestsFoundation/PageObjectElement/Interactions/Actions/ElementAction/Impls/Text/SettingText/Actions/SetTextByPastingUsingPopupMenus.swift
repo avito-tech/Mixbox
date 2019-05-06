@@ -79,16 +79,18 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
                 }
             }
             
-            dependencies.pasteboard.string = text
-            
-            // Ignore result. If waiting is faile, next actions will fail and provide proper result.
-            _ = waitUntilMenuIsShown()
-            
-            switch textEditingActionMode {
-            case .replace:
-                return replace()
-            case .append:
-                return append()
+            return dependencies.interactionResultMaker.makeResultCatchingErrors {
+                try dependencies.pasteboard.setString(text)
+                
+                // Ignore result. If waiting is faile, next actions will fail and provide proper result.
+                _ = waitUntilMenuIsShown()
+                
+                switch textEditingActionMode {
+                case .replace:
+                    return replace()
+                case .append:
+                    return append()
+                }
             }
         }
         

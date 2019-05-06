@@ -136,7 +136,7 @@ final class TestCaseUtils {
                     applicationProvider: applicationProvider
                 ),
                 screenshotTaker: screenshotTaker,
-                pasteboard: ipcClient.flatMap { IpcPasteboard(ipcClient: $0) } ?? UikitPasteboard()
+                pasteboard: ipcClient.flatMap { IpcPasteboard(ipcClient: $0) } ?? UikitPasteboard(uiPasteboard: .general)
             )
         }
         

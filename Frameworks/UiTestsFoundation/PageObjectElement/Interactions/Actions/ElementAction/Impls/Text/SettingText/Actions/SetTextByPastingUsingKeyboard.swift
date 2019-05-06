@@ -52,28 +52,42 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
         public func perform() -> InteractionResult {
             dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
             
-            dependencies.pasteboard.string = text
-            
-            switch textEditingActionMode {
-            case .replace:
-                if text.isEmpty {
-                    dependencies.keyboardEventInjector.inject { press in
-                        press.command(press.a()) + press.backspace()
+            return dependencies.interactionResultMaker.makeResultCatchingErrors {
+                try dependencies.pasteboard.setString(text)
+                
+                switch textEditingActionMode {
+                case .replace:
+                    if text.isEmpty {
+                        selectAllAndClear()
+                    } else {
+                        selectAllAndPaste()
                     }
-                } else {
-                    dependencies.keyboardEventInjector.inject { press in
-                        press.command(press.a() + press.v())
-                    }
-                }
-            case .append:
-                if !text.isEmpty {
-                    dependencies.keyboardEventInjector.inject { press in
-                        press.command(press.v())
+                case .append:
+                    if !text.isEmpty {
+                        pasteWithoutSelectingAll()
                     }
                 }
+                
+                return  .success
             }
-            
-            return .success
+        }
+        
+        private func selectAllAndClear() {
+            dependencies.keyboardEventInjector.inject { press in
+                press.command(press.a()) + press.backspace()
+            }
+        }
+        
+        private func selectAllAndPaste() {
+            dependencies.keyboardEventInjector.inject { press in
+                press.command(press.a() + press.v())
+            }
+        }
+        
+        private func pasteWithoutSelectingAll() {
+            dependencies.keyboardEventInjector.inject { press in
+                press.command(press.v())
+            }
         }
     }
 }
