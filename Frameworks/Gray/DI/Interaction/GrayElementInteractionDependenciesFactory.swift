@@ -26,7 +26,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
         -> ElementInteractionDependencies
     {
         let elementInfo = HumanReadableInteractionDescriptionBuilderSource(
-            elementName: elementSettings.name
+            elementName: elementSettings.elementName
         )
         
         let interactionFailureResultFactory = actionInteractionFailureResultFactory(

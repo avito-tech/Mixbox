@@ -24,7 +24,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
         -> ElementInteractionDependencies
     {
         let elementInfo = HumanReadableInteractionDescriptionBuilderSource(
-            elementName: elementSettings.name
+            elementName: elementSettings.elementName
         )
         
         let interactionFailureResultFactory = actionInteractionFailureResultFactory(

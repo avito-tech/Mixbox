@@ -24,11 +24,11 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     {
-        let almightyElement = self.almightyElement(
+        let pageObjectElement = self.pageObjectElement(
             name: name,
             matcherBuilder: matcherBuilder
         )
-        return T(implementation: almightyElement)
+        return T(implementation: pageObjectElement)
     }
     
     public func with(searchMode: SearchMode) -> PageObjectElementRegistrar {
@@ -49,14 +49,14 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     
     // MARK: - Private
     
-    private func almightyElement(
+    private func pageObjectElement(
         name: String,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> PageObjectElement
     {
         return pageObjectElementFactory.pageObjectElement(
             settings: ElementSettings(
-                name: name,
+                elementName: name,
                 matcher: matcherBuilder(elementMatcherBuilder),
                 searchMode: searchMode ?? .default,
                 searchTimeout: nil,

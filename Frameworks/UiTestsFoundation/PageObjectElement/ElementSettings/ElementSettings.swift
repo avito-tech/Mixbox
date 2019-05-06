@@ -1,18 +1,18 @@
 public final class ElementSettings {
-    public let name: String // TODO: rename to elementName
+    public let elementName: String
     public let matcher: ElementMatcher
     public let searchMode: SearchMode
     public let searchTimeout: TimeInterval // TODO: Rename to interactionTimeout
     public let interactionMode: InteractionMode
     
     public init(
-        name: String,
+        elementName: String,
         matcher: ElementMatcher,
         searchMode: SearchMode,
         searchTimeout: TimeInterval?, // nil == default
         interactionMode: InteractionMode)
     {
-        self.name = name
+        self.elementName = elementName
         self.matcher = matcher
         self.searchMode = searchMode
         self.searchTimeout = searchTimeout ?? 15
@@ -21,7 +21,7 @@ public final class ElementSettings {
     
     func with(name: String) -> ElementSettings {
         return ElementSettings(
-            name: name,
+            elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
             searchTimeout: searchTimeout,
@@ -31,7 +31,7 @@ public final class ElementSettings {
     
     func with(matcher: ElementMatcher) -> ElementSettings {
         return ElementSettings(
-            name: name,
+            elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
             searchTimeout: searchTimeout,
@@ -41,7 +41,7 @@ public final class ElementSettings {
     
     func with(searchMode: SearchMode) -> ElementSettings {
         return ElementSettings(
-            name: name,
+            elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
             searchTimeout: searchTimeout,
@@ -51,7 +51,7 @@ public final class ElementSettings {
     
     func with(searchTimeout: TimeInterval?) -> ElementSettings {
         return ElementSettings(
-            name: name,
+            elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
             searchTimeout: searchTimeout,
@@ -61,7 +61,7 @@ public final class ElementSettings {
     
     func with(interactionMode: InteractionMode) -> ElementSettings {
         return ElementSettings(
-            name: name,
+            elementName: elementName,
             matcher: matcher,
             searchMode: searchMode,
             searchTimeout: searchTimeout,
