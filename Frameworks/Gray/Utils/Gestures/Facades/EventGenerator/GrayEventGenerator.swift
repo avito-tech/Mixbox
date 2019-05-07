@@ -53,8 +53,9 @@ public final class GrayEventGenerator: EventGenerator {
         let path = pathGestureUtils.touchPath(
             startPoint: from,
             endPoint: to,
-            duration: durarionOfMoving,
-            shouldCancelInertia: true
+            touchPathLengths: .optimizedForDuration(durarionOfMoving),
+            cancelInertia: true,
+            skipUndetectableScroll: false
         )
         
         try touchPerformer.touch(
