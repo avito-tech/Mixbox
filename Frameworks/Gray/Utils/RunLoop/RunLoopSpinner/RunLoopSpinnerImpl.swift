@@ -52,8 +52,8 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
     }
     
     // TODO: Is it possible to get rid of `@escaping` attribute?
-    public func spin(
-        until stopConditionBlock: @escaping () -> Bool)
+    public func spinUntil(
+        stopConditionBlock: @escaping () -> Bool)
         -> Bool
     {
         // TODO: Compile-time check + remove state
@@ -157,14 +157,14 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
      *
      *  @return The time in seconds from now until @c time.
      */
-    func seconds(untilTime time: CFTimeInterval) -> CFTimeInterval {
+    private func seconds(untilTime time: CFTimeInterval) -> CFTimeInterval {
         return time - CACurrentMediaTime()
     }
     
     /**
      *  @return The active mode for the current runloop.
      */
-    func activeRunLoopMode() -> CFRunLoopMode {
+    private func activeRunLoopMode() -> CFRunLoopMode {
         if let activeRunLoopMode = runLoopModesStackProvider.activeRunLoopMode {
             return activeRunLoopMode
         } else {
@@ -177,7 +177,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
         }
     }
 
-    func setupObserver(
+    private func setupObserver(
         inMode mode: CFRunLoopMode,
         withBeforeSourcesBlock beforeSourcesBlock: @escaping () -> Void,
         beforeWaitingBlock: @escaping () -> Void)
@@ -233,7 +233,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
      *  @param observer The observer to be removed and released.
      *  @param mode     The mode from which the observer should be removed.
      */
-    func teardownObserver(_ observer: CFRunLoopObserver?, inMode mode: CFRunLoopMode) {
+    private func teardownObserver(_ observer: CFRunLoopObserver?, inMode mode: CFRunLoopMode) {
         CFRunLoopRemoveObserver(
             CFRunLoopGetCurrent(),
             observer,
@@ -247,7 +247,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
      *  @param timer The time to be removed and released.
      *  @param mode  The mode from which the timer should be removed.
      */
-    func teardownTimer(_ timer: CFRunLoopTimer?, inMode mode: CFRunLoopMode) {
+    private func teardownTimer(_ timer: CFRunLoopTimer?, inMode mode: CFRunLoopMode) {
         CFRunLoopRemoveTimer(
             CFRunLoopGetCurrent(),
             timer,
@@ -255,7 +255,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
         )
     }
     
-    func drainRunLoop(
+    private func drainRunLoop(
         inActiveModeAndCheckCondition stopConditionBlock: @escaping () -> Bool,
         forTime time: CFTimeInterval)
         -> Bool
@@ -328,7 +328,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
         return conditionMet
     }
     
-    func setupWakeUpTimer(inMode mode: CFRunLoopMode) -> CFRunLoopTimer? {
+    private func setupWakeUpTimer(inMode mode: CFRunLoopMode) -> CFRunLoopTimer? {
         let noopTimerHandler: (CFRunLoopTimer?) -> () = { _ in }
         
         if maxSleepInterval > 0 {

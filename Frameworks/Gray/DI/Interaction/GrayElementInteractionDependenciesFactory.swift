@@ -38,6 +38,10 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
             retriableTimedInteractionState: retriableTimedInteractionState
         )
         
+        let elementMatcherBuilder = ElementMatcherBuilder(
+            screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker
+        )
+        
         return ElementInteractionDependenciesImpl(
             snapshotResolver: SnapshotForInteractionResolverImpl(
                 retriableTimedInteractionState: retriableTimedInteractionState,
@@ -52,7 +56,12 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
                 )
             ),
             textTyper: GrayTextTyper(),
-            menuItemProvider: GrayMenuItemProvider(),
+            menuItemProvider: GrayMenuItemProvider(
+                elementMatcherBuilder: elementMatcherBuilder,
+                elementFinder: grayBoxTestsDependenciesFactory.elementFinder,
+                elementSimpleGesturesProvider: grayBoxTestsDependenciesFactory.elementSimpleGesturesProvider,
+                runLoopSpinnerFactory: grayBoxTestsDependenciesFactory.runLoopSpinnerFactory
+            ),
             keyboardEventInjector: grayBoxTestsDependenciesFactory.keyboardEventInjector,
             pasteboard: UikitPasteboard(uiPasteboard: .general),
             interactionPerformer: NestedInteractionPerformerImpl(
@@ -71,9 +80,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
                 extendedStackTraceProvider: extendedStackTraceProvider(),
                 fileLine: fileLine
             ),
-            elementMatcherBuilder: ElementMatcherBuilder(
-                screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker
-            ),
+            elementMatcherBuilder: elementMatcherBuilder,
             elementInfo: elementInfo,
             retriableTimedInteractionState: retriableTimedInteractionState
         )

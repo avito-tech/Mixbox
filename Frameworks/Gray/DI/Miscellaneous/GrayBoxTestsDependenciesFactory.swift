@@ -20,4 +20,5 @@ protocol GrayBoxTestsDependenciesFactory: class {
     var scrollingHintsProvider: ScrollingHintsProvider { get }
     var screenshotTaker: ScreenshotTaker { get }
     var windowsProvider: WindowsProvider { get }
+    var runLoopSpinnerFactory: RunLoopSpinnerFactory { get }
 }

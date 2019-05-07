@@ -15,8 +15,7 @@ final class FailingElementFinder: ElementFinder {
     }
     
     func query(
-        elementMatcher: ElementMatcher,
-        waitForExistence: Bool)
+        elementMatcher: ElementMatcher)
         -> ElementQuery
     {
         return FailingElementQuery(

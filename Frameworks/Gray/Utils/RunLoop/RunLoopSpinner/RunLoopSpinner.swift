@@ -14,18 +14,19 @@ public protocol RunLoopSpinner {
      *  @param stopConditionBlock The condition block used by the spinner to determine if it should
      *                            keep spinning the active run loop.
      *
-     *  @return @c YES if the spinner evaluated the @c stopConditionBlock to @c YES; @c NO otherwise.
+     *  @return @c true if the spinner evaluated the @c stopConditionBlock to @c true; @c false otherwise.
      */
-    func spin(
-        until: @escaping () -> Bool)
+    func spinUntil(
+        stopConditionBlock: @escaping () -> Bool)
         -> Bool
 }
 
 extension RunLoopSpinner {
-    public func spin(
-        while: @escaping () -> Bool)
+    // returns `true` if condition was met.
+    public func spinWhile(
+        continueConditionBlock: @escaping () -> Bool)
         -> Bool
     {
-        return spin(until: { !`while`() })
+        return spinUntil(stopConditionBlock: { !continueConditionBlock() })
     }
 }

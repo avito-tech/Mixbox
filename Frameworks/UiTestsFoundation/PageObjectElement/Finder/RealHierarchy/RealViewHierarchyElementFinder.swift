@@ -22,8 +22,7 @@ public final class RealViewHierarchyElementFinder: ElementFinder {
     }
     
     public func query(
-        elementMatcher: ElementMatcher,
-        waitForExistence: Bool)
+        elementMatcher: ElementMatcher)
         -> ElementQuery
     {
         return RealViewHierarchyElementQuery(
@@ -31,8 +30,7 @@ public final class RealViewHierarchyElementFinder: ElementFinder {
             elementMatcher: elementMatcher,
             testFailureRecorder: testFailureRecorder,
             stepLogger: stepLogger,
-            screenshotTaker: screenshotTaker,
-            waitForExistence: waitForExistence
+            screenshotTaker: screenshotTaker
         )
     }
 }

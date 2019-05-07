@@ -1,6 +1,5 @@
 public protocol ElementFinder {
     func query(
-        elementMatcher: ElementMatcher,
-        waitForExistence: Bool)
+        elementMatcher: ElementMatcher)
         -> ElementQuery
 }

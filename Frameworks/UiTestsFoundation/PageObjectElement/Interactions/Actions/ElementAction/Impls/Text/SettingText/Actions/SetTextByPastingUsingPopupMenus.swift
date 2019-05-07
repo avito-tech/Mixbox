@@ -66,22 +66,22 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
         public func perform()
             -> InteractionResult
         {
-            if !waitUntilMenuIsShown(timeout: 0) {
-                let result = dependencies.interactionPerformer.perform(
-                    interaction: OpenTextMenuAction(
-                        interactionCoordinates: interactionCoordinates,
-                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
-                    )
-                )
-                
-                if result.wasFailed {
-                    return result
-                }
-            }
-            
             return dependencies.interactionResultMaker.makeResultCatchingErrors {
                 try dependencies.pasteboard.setString(text)
                 
+                if !waitUntilMenuIsShown(timeout: 0) {
+                    let result = dependencies.interactionPerformer.perform(
+                        interaction: OpenTextMenuAction(
+                            interactionCoordinates: interactionCoordinates,
+                            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                        )
+                    )
+                    
+                    if result.wasFailed {
+                        return result
+                    }
+                }
+            
                 // Ignore result. If waiting is faile, next actions will fail and provide proper result.
                 _ = waitUntilMenuIsShown()
                 
@@ -133,18 +133,19 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
         private func tapSelectAllButton() -> InteractionResult {
             let selectAllMenuItem = dependencies.menuItemProvider.menuItem(possibleTitles: TextMenuTitles.selectAll)
             
-            let thereIsSelectAllButton = selectAllMenuItem.waitForExistence(timeout: 0)
-            if thereIsSelectAllButton {
-                let result = dependencies.interactionPerformer.perform(
-                    interaction: selectAllAction
-                )
-                
-                return result
-            } else {
+            do {
+                try selectAllMenuItem.waitForExistence(timeout: 0)
+            } catch {
                 // If there is no text then there is no "Select All" button and that's okay.
                 
                 return .success
             }
+                
+            let result = dependencies.interactionPerformer.perform(
+                interaction: selectAllAction
+            )
+            
+            return result
         }
         
         private func waitUntilMenuIsShown(timeout: TimeInterval = 5) -> Bool {
@@ -152,7 +153,12 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
                 possibleTitles: TextMenuTitles.selectAll + TextMenuTitles.paste + TextMenuTitles.cut
             )
             
-            return anyMenuItem.waitForExistence(timeout: timeout)
+            do {
+                try anyMenuItem.waitForExistence(timeout: timeout)
+                return true
+            } catch {
+                return false
+            }
         }
         
         private var selectAllAction: ElementInteraction {

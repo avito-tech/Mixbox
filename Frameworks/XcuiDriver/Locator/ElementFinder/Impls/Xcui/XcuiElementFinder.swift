@@ -21,8 +21,7 @@ public final class XcuiElementFinder: ElementFinder {
     }
     
     public func query(
-        elementMatcher: ElementMatcher,
-        waitForExistence: Bool)
+        elementMatcher: ElementMatcher)
         -> ElementQuery
     {
         let elementQueryResolvingState = ElementQueryResolvingState()
@@ -50,7 +49,6 @@ public final class XcuiElementFinder: ElementFinder {
         return XcuiElementQuery(
             xcuiElementQuery: xcuiElementQuery,
             elementQueryResolvingState: elementQueryResolvingState,
-            waitForExistence: waitForExistence,
             stepLogger: stepLogger,
             screenshotTaker: screenshotTaker,
             applicationProvider: applicationProviderThatDropsCaches

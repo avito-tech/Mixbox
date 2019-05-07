@@ -16,6 +16,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let screenshotTaker: ScreenshotTaker
     let windowsProvider: WindowsProvider
     let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
+    let runLoopSpinnerFactory: RunLoopSpinnerFactory
     
     // MARK: - Init
     
@@ -40,13 +41,15 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
         
+        self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
+            runLoopModesStackProvider: RunLoopModesStackProviderImpl()
+        )
+        
         let touchPerformer = TouchPerformerImpl(
             multiTouchCommandExecutor: MultiTouchCommandExecutorImpl(
                 touchInjectorFactory: TouchInjectorFactoryImpl(
                     currentAbsoluteTimeProvider: MachCurrentAbsoluteTimeProvider(),
-                    runLoopSpinnerFactory: RunLoopSpinnerFactoryImpl(
-                        runLoopModesStackProvider: RunLoopModesStackProviderImpl()
-                    )
+                    runLoopSpinnerFactory: runLoopSpinnerFactory
                 )
             )
         )

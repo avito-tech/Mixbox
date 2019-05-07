@@ -8,7 +8,6 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     private let ipcClient: IpcClient
     private let elementMatcher: ElementMatcher
     private let testFailureRecorder: TestFailureRecorder
-    private let waitForExistence: Bool
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
     
@@ -17,13 +16,11 @@ final class RealViewHierarchyElementQuery: ElementQuery {
         elementMatcher: ElementMatcher,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
-        screenshotTaker: ScreenshotTaker,
-        waitForExistence: Bool)
+        screenshotTaker: ScreenshotTaker)
     {
         self.ipcClient = ipcClient
         self.elementMatcher = elementMatcher
         self.testFailureRecorder = testFailureRecorder
-        self.waitForExistence = waitForExistence
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
     }

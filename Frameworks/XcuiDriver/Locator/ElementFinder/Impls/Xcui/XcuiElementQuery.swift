@@ -7,7 +7,6 @@ import MixboxReporting
 final class XcuiElementQuery: ElementQuery {
     private let xcuiElementQuery: XCUIElementQuery
     private let elementQueryResolvingState: ElementQueryResolvingState
-    private let waitForExistence: Bool
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
     private let applicationProvider: ApplicationProvider
@@ -15,14 +14,12 @@ final class XcuiElementQuery: ElementQuery {
     init(
         xcuiElementQuery: XCUIElementQuery,
         elementQueryResolvingState: ElementQueryResolvingState,
-        waitForExistence: Bool,
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
         applicationProvider: ApplicationProvider)
     {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
-        self.waitForExistence = waitForExistence
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
         self.applicationProvider = applicationProvider

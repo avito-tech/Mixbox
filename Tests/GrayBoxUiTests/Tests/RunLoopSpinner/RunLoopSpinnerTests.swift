@@ -26,12 +26,10 @@ final class RunLoopSpinnerTests: TestCase {
             shouldStopSpinning = true
         }
         
-        let metCondition = runLoopSpinner.spin(
-            until: {
-                spinned = true
-                return shouldStopSpinning
-            }
-        )
+        let metCondition = runLoopSpinner.spinUntil {
+            spinned = true
+            return shouldStopSpinning
+        }
         
         let stoppedDate = Date()
     

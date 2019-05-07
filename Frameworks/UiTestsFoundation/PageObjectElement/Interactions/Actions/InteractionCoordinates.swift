@@ -16,6 +16,8 @@ public final class InteractionCoordinatesImpl: InteractionCoordinates {
         self.absoluteOffset = absoluteOffset
     }
     
+    public static let center = InteractionCoordinatesImpl(normalizedCoordinate: nil, absoluteOffset: nil)
+    
     // MARK: - InteractionCoordinates
     
     public func interactionCoordinatesOnScreen(elementSnapshot: ElementSnapshot) -> CGPoint {

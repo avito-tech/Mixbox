@@ -92,21 +92,19 @@ public final class TouchInjectorImpl: TouchInjector {
         }
         
         // Now wait for it to finish.
-        let runLoopSpinner = runLoopSpinnerFactory.runLoopSpinner(
+        let runLoopSpinner = runLoopSpinnerFactory.spinner(
             timeout: TimeInterval.greatestFiniteMagnitude,
             minRunLoopDrains: 0,
             maxSleepInterval: TimeInterval.greatestFiniteMagnitude
         )
         
-        _ = runLoopSpinner.spin(
-            until: { [weak self] in
-                guard let strongSelf = self else {
-                    return true
-                }
-                
-                return strongSelf.state == .stopped
+        _ = runLoopSpinner.spinUntil { [weak self] in
+            guard let strongSelf = self else {
+                return true
             }
-        )
+            
+            return strongSelf.state == .stopped
+        }
     }
     
     private func startInjecting() {

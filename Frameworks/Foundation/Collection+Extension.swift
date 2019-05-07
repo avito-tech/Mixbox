@@ -24,4 +24,8 @@ extension Collection {
             return nil
         }
     }
+    
+    public var mb_only: Iterator.Element? {
+        return count == 1 ? first : nil
+    }
 }

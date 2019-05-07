@@ -7,11 +7,11 @@ public final class RunLoopSpinnerFactoryImpl: RunLoopSpinnerFactory {
         self.runLoopModesStackProvider = runLoopModesStackProvider
     }
     
-    public func runLoopSpinner(
+    public func spinnerImpl(
         timeout: TimeInterval,
         minRunLoopDrains: Int,
         maxSleepInterval: TimeInterval,
-        conditionMetHandler: @escaping () -> () = {})
+        conditionMetHandler: @escaping () -> ())
         -> RunLoopSpinner
     {
         return RunLoopSpinnerImpl(

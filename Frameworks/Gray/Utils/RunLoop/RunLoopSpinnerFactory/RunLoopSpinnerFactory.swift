@@ -1,5 +1,5 @@
 public protocol RunLoopSpinnerFactory {
-    func runLoopSpinner(
+    func spinnerImpl(
         timeout: TimeInterval,
         minRunLoopDrains: Int,
         maxSleepInterval: TimeInterval,
@@ -8,17 +8,18 @@ public protocol RunLoopSpinnerFactory {
 }
 
 extension RunLoopSpinnerFactory {
-    public func runLoopSpinner(
+    public func spinner(
         timeout: TimeInterval,
-        minRunLoopDrains: Int,
-        maxSleepInterval: TimeInterval)
+        minRunLoopDrains: Int = 0,
+        maxSleepInterval: TimeInterval = .greatestFiniteMagnitude,
+        conditionMetHandler: @escaping () -> () = {})
         -> RunLoopSpinner
     {
-        return runLoopSpinner(
+        return spinnerImpl(
             timeout: timeout,
             minRunLoopDrains: minRunLoopDrains,
             maxSleepInterval: maxSleepInterval,
-            conditionMetHandler: {}
+            conditionMetHandler: conditionMetHandler
         )
     }
 }

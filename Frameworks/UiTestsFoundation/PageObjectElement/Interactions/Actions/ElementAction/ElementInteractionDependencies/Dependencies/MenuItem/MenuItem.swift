@@ -5,12 +5,12 @@
 
 // See also: MenuItemProvider
 public protocol MenuItem {
-    func tap()
-    func waitForExistence(timeout: TimeInterval) -> Bool
+    func tap() throws
+    func waitForExistence(timeout: TimeInterval) throws
 }
 
 extension MenuItem {
-    public func waitForExistence() -> Bool {
-        return waitForExistence(timeout: 5)
+    public func waitForExistence() throws {
+        return try waitForExistence(timeout: 5)
     }
 }
