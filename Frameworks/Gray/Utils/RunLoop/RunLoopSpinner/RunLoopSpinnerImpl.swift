@@ -1,34 +1,16 @@
 public final class RunLoopSpinnerImpl: RunLoopSpinner {
     private var spinning: Bool
     
-    /**
-     *  The maximum time in seconds that the spinner will spin the run loop. Default is 0.
-     *
-     *  The spinner will not initiate any run loop drains after @c timeout seconds, but it is possible
-     *  that an ongoing run loop drain will be executing after @c timeout. If @c timeout is 0, then the
-     *  spinner will only drain the run loop for its configured minimum number of run loop drains.
-     */
     private let timeout: TimeInterval
     
-    /**
-     *  The minimum number of times that the run loop should be drained in the active mode before
-     *  checking the stop condition. Default is 2.
-     *
-     *  @remark The default value is 2 because, as per the CFRunLoop implementation, some ports
-     *          (specifically the dispatch port) will only be serviced every other run loop drain.
-     */
+    // The minimum number of times that the run loop should be drained in the active mode before
+    // checking the stop condition.
     private let minRunLoopDrains: Int
     
-    /**
-     *  The maximum time in seconds that the current thread will be allowed to sleep while running in
-     *  the active mode that we started spinning. Default is 0.
-     *
-     *  If set to 0, then the run loop will not be allowed to sleep in the active mode that it started
-     *  spinning.
-     *
-     *  @remark Not allowing the run loop to sleep can be useful for some test scenarios but causes the
-     *          thread to use significantly more CPU.
-     */
+    // The maximum time in seconds that the current thread will be allowed to sleep while running in
+    // the active mode that we started spinning.
+    // Not allowing the run loop to sleep can be useful for some test scenarios but causes the
+    // thread to use significantly more CPU.
     private let maxSleepInterval: TimeInterval
     
     // This block is invoked in the active run loop mode if the stop condition evaluates to YES.
@@ -53,8 +35,8 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
     
     // TODO: Is it possible to get rid of `@escaping` attribute?
     public func spinUntil(
-        stopConditionBlock: @escaping () -> Bool)
-        -> Bool
+        stopCondition: @escaping () -> Bool)
+        -> SpinUntilResult
     {
         // TODO: Compile-time check + remove state
         assert(!spinning, "Should not spin the same run loop spinner instance concurrently.")
@@ -62,13 +44,22 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
         spinning = true
         let timeoutTime: CFTimeInterval = CACurrentMediaTime() + timeout
         drainRunLoopInActiveMode(exitDrainCount: minRunLoopDrains)
-        var stopConditionMet = checkCondition(inActiveMode: stopConditionBlock)
+        
+        var stopConditionWasCalledAtLeastOnce = false
+        
+        let overridenStopCondition: () -> Bool = {
+            let result = stopCondition()
+            stopConditionWasCalledAtLeastOnce = true
+            return result
+        }
+        
+        var stopConditionMet = checkCondition(inActiveMode: overridenStopCondition)
         var remainingTime = seconds(untilTime: timeoutTime)
         
-        while !stopConditionMet && remainingTime > 0 {
+        while (!stopConditionMet && remainingTime > 0) || !stopConditionWasCalledAtLeastOnce {
             autoreleasepool {
                 stopConditionMet = drainRunLoop(
-                    inActiveModeAndCheckCondition: stopConditionBlock,
+                    inActiveModeAndCheckCondition: overridenStopCondition,
                     forTime: remainingTime
                 )
                 remainingTime = seconds(untilTime: timeoutTime)
@@ -76,7 +67,10 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
         }
         
         spinning = false
+        
         return stopConditionMet
+            ? .stopConditionMet
+            : .timedOut
     }
     
     private func drainRunLoopInActiveMode(exitDrainCount: Int) {

@@ -38,31 +38,33 @@ final class GrayMenuItem: MenuItem, CustomStringConvertible {
     func waitForExistence(timeout: TimeInterval) throws {
         var errorToThrow: Error?
         
-        if timeout > 0 {
-            let metCondition = runLoopSpinnerFactory.spinner(timeout: timeout).spinUntil { [weak self] in
-                guard let strongSelf = self else {
-                    errorToThrow = ErrorString("self is nil in GrayMenuItem")
-                    
-                    return true // stop
-                }
+        let spinUntilResult = runLoopSpinnerFactory.spinner(timeout: timeout).spinUntil { [weak self] in
+            guard let strongSelf = self else {
+                errorToThrow = ErrorString("self is nil in GrayMenuItem")
                 
-                do {
-                    _ = try strongSelf.resolveSnapshot()
-                    
-                    return true // stop
-                } catch {
-                    errorToThrow = error
-                    
-                    return false // continue
-                }
+                return true // stop
             }
             
-            if let error = errorToThrow {
-                throw error
-            } else if !metCondition {
-                throw ErrorString("Failed to wait for existence of element - never met condition or get meaningful info about what happened")
+            do {
+                _ = try strongSelf.resolveSnapshot()
+                
+                return true // stop
+            } catch {
+                errorToThrow = error
+                
+                return false // continue
             }
-        } else {
+        }
+        
+        if let error = errorToThrow {
+            throw error
+        } else if spinUntilResult == .timedOut {
+            // This should never happen:
+            // - either true is returned from `stopConditionBlock` of `spinUntil` so `spinUntilResult` will be `stopConditionMet`
+            // - or `errorToThrow` is set inside `stopConditionBlock`
+            //
+            // TODO: Insert not-fatal assertion failure that would only work in Tests on Mixbox.
+            
             _ = try resolveSnapshot()
         }
     }

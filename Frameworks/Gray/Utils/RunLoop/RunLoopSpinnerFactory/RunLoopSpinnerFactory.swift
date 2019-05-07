@@ -10,7 +10,9 @@ public protocol RunLoopSpinnerFactory {
 extension RunLoopSpinnerFactory {
     public func spinner(
         timeout: TimeInterval,
-        minRunLoopDrains: Int = 0,
+        // The default value is 2 because, as per the CFRunLoop implementation, some ports
+        // (specifically the dispatch port) will only be serviced every other run loop drain.
+        minRunLoopDrains: Int = 2,
         maxSleepInterval: TimeInterval = .greatestFiniteMagnitude,
         conditionMetHandler: @escaping () -> () = {})
         -> RunLoopSpinner
