@@ -9,7 +9,7 @@ public final class PathGestureUtilsFactoryImpl: PathGestureUtilsFactory {
             scrollDetectionLength: 10,
             // In practice, this value seems to yield the best results by triggering
             // the gestures more accurately, even on slower machines:
-            distanceBetweenTwoAdjacentPoints: 10,
+            minimalDistanceBetweenTwoAdjacentPoints: 10,
             touchInjectionFrequency: TouchInjectorImpl.Constants.injectionFrequency // TODO: Remove this coupling
         )
     }

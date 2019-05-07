@@ -2,17 +2,21 @@ import MixboxUiKit
 
 public final class PathGestureUtilsImpl: PathGestureUtils {
     private let scrollDetectionLength: CGFloat
-    private let distanceBetweenTwoAdjacentPoints: CGFloat
+    
+    // The minimum distance between any 2 adjacent points in the touch path.
+    private let minimalDistanceBetweenTwoAdjacentPoints: CGFloat
+    
+    // Higher frequency - more events. Should be synchronized with TouchInjector.
+    // TODO: Synchronize automatically via better interfaces.
     private let touchInjectionFrequency: TimeInterval
     
     public init(
         scrollDetectionLength: CGFloat,
-        // The minimum distance between any 2 adjacent points in the touch path.
-        distanceBetweenTwoAdjacentPoints: CGFloat,
+        minimalDistanceBetweenTwoAdjacentPoints: CGFloat,
         touchInjectionFrequency: TimeInterval)
     {
         self.scrollDetectionLength = scrollDetectionLength
-        self.distanceBetweenTwoAdjacentPoints = distanceBetweenTwoAdjacentPoints
+        self.minimalDistanceBetweenTwoAdjacentPoints = minimalDistanceBetweenTwoAdjacentPoints
         self.touchInjectionFrequency = touchInjectionFrequency
     }
     
@@ -35,7 +39,7 @@ public final class PathGestureUtilsImpl: PathGestureUtils {
         if duration.isNaN {
             // After the start point, rest of the path is divided into equal segments and a touch point is
             // created for each segment.
-            let totalPoints = Int(pathLength / distanceBetweenTwoAdjacentPoints)
+            let totalPoints = Int(pathLength / minimalDistanceBetweenTwoAdjacentPoints)
             // Compute delta for each point and create a path with it.
             let deltaX = (endPoint.x - startPoint.x) / CGFloat(totalPoints)
             let deltaY = (endPoint.y - startPoint.y) / CGFloat(totalPoints)
@@ -73,16 +77,16 @@ public final class PathGestureUtilsImpl: PathGestureUtils {
             // Duration is divided into fixed intervals which depends on the frequency at which touches are
             // delivered. The first and last interval are always going to be the start and end touch points.
             // Through experiments, it was discovered that not all gestures trigger until there is a
-            // minimum of `distanceBetweenTwoAdjacentPoints` movement. For that reason, we find the
+            // minimum of `minimalDistanceBetweenTwoAdjacentPoints` movement. For that reason, we find the
             // interval (after first touch point) at which displacement is at least
-            // `distanceBetweenTwoAdjacentPoints` and continue the gesture from there.
+            // `minimalDistanceBetweenTwoAdjacentPoints` and continue the gesture from there.
             // With this approach, touch points after first touch point is at least
-            // `distanceBetweenTwoAdjacentPoints` apart and gesture recognizers can detect them
+            // `minimalDistanceBetweenTwoAdjacentPoints` apart and gesture recognizers can detect them
             // correctly.
             let interval = 1 / CGFloat(touchInjectionFrequency)
             // The last interval is always the last touch point so use 2nd to last as the end of loop below.
             let interval_penultimate: CGFloat = duration - interval
-            var interval_shift: CGFloat = sqrt(((2 * (distanceBetweenTwoAdjacentPoints - initialDisplacement)) / acceleration))
+            var interval_shift: CGFloat = sqrt(((2 * (minimalDistanceBetweenTwoAdjacentPoints - initialDisplacement)) / acceleration))
             // Negative interval can't be shifted.
             if interval_shift < 0 {
                 interval_shift = 0
