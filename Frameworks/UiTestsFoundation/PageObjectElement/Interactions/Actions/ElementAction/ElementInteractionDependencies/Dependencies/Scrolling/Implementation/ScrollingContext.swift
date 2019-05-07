@@ -98,13 +98,13 @@ final class ScrollingContext {
     private func scrollUsingInformationFromSnapshot(snapshot: ElementSnapshot) {
         let draggingInstructions: [DraggingInstruction]
         
-        if snapshot.frameOnScreen.mb_left > applicationFrameProvider.applicationFrame.mb_right {
+        if snapshot.frameRelativeToScreen.mb_left > applicationFrameProvider.applicationFrame.mb_right {
             draggingInstructions = draggingInstructionsForScrolling(direction: .right)
-        } else if snapshot.frameOnScreen.mb_right < applicationFrameProvider.applicationFrame.mb_left {
+        } else if snapshot.frameRelativeToScreen.mb_right < applicationFrameProvider.applicationFrame.mb_left {
             draggingInstructions = draggingInstructionsForScrolling(direction: .left)
-        } else if snapshot.frameOnScreen.mb_top > applicationFrameProvider.applicationFrame.mb_bottom {
+        } else if snapshot.frameRelativeToScreen.mb_top > applicationFrameProvider.applicationFrame.mb_bottom {
             draggingInstructions = draggingInstructionsForScrolling(direction: .down)
-        } else if snapshot.frameOnScreen.mb_bottom < applicationFrameProvider.applicationFrame.mb_top {
+        } else if snapshot.frameRelativeToScreen.mb_bottom < applicationFrameProvider.applicationFrame.mb_top {
             draggingInstructions = draggingInstructionsForScrolling(direction: .up)
         } else {
             draggingInstructions = []

@@ -42,7 +42,7 @@ public final class ScrollerImpl: Scroller {
             )
         }
         
-        if snapshot.frameOnScreen == .zero {
+        if snapshot.frameRelativeToScreen == .zero {
             // Fake cells have .zero accessibilityFrame, even if we set the value of it.
             // Probably, AX Client just ignores it if the element has no superview.
             
@@ -50,7 +50,7 @@ public final class ScrollerImpl: Scroller {
         } else {
             let frame = applicationFrameProvider.applicationFrame
             
-            if frame.mb_intersectionOrNil(snapshot.frameOnScreen) != nil {
+            if frame.mb_intersectionOrNil(snapshot.frameRelativeToScreen) != nil {
                 // Element intersects screen.
                 // We don't care if it is fully on screen or partially.
                 // We just filter out the case when it is completely off screen.

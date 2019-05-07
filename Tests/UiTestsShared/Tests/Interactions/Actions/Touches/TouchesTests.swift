@@ -13,8 +13,8 @@ final class TouchesTests: BaseTouchesTestCase {
             sleep(2) // TODO: Remove sleep, e.g.: add polling
         }
         
-        guard let frame = (targetView.value(valueTitle: "frameOnScreen") { $0.frameOnScreen }) else {
-            XCTFail("Can not get frameOnScreen")
+        guard let frame = (targetView.value(valueTitle: "frameRelativeToScreen") { $0.frameRelativeToScreen }) else {
+            XCTFail("Can not get frameRelativeToScreen")
             return
         }
         

@@ -22,7 +22,7 @@ public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {
         
         return ViewHierarchyElement(
             frame: view.frame,
-            frameOnScreen: view.convert(view.bounds, to: nil),
+            frameRelativeToScreen: view.convert(view.bounds, to: nil),
             customClass: String(describing: type(of: view)),
             elementType: TestabilityElementTypeConverter.covertToViewHierarchyElementType(
                 elementType: view.testabilityValue_elementType()

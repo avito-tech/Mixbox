@@ -11,10 +11,10 @@ extension ScreenshotTaker {
         }
 
         let frameForCropping = CGRect(
-            x: elementShanpshot.frameOnScreen.origin.x * image.scale,
-            y: elementShanpshot.frameOnScreen.origin.y * image.scale,
-            width: elementShanpshot.frameOnScreen.size.width * image.scale,
-            height: elementShanpshot.frameOnScreen.size.height * image.scale
+            x: elementShanpshot.frameRelativeToScreen.origin.x * image.scale,
+            y: elementShanpshot.frameRelativeToScreen.origin.y * image.scale,
+            width: elementShanpshot.frameRelativeToScreen.size.width * image.scale,
+            height: elementShanpshot.frameRelativeToScreen.size.height * image.scale
         )
 
         guard let croppedCgImage = cgImage.cropping(to: frameForCropping) else {

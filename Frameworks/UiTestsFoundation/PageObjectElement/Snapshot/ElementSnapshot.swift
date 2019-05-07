@@ -3,7 +3,7 @@ import MixboxFoundation
 public protocol ElementSnapshot: class, CustomDebugStringConvertible {
     // Common (can be retrieved via Apple's Accessibility feature):
     
-    var frameOnScreen: CGRect { get }
+    var frameRelativeToScreen: CGRect { get }
     var elementType: ElementType? { get }
     var hasKeyboardFocus: Bool { get }
     var isEnabled: Bool { get }

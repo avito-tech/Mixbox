@@ -71,7 +71,7 @@ public final class SwipeAction: ElementInteraction {
                 dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
                     let swipeLength: CGFloat = 100
                     let delta = WithDependencies.normalizedOffsetForSwipe(direction: direction) * swipeLength
-                    let origin = snapshot.frameOnScreen.mb_center
+                    let origin = snapshot.frameRelativeToScreen.mb_center
                     
                     dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
                     

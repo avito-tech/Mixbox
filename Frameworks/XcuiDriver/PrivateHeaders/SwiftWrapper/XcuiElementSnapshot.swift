@@ -77,7 +77,7 @@ final class XcuiElementSnapshot: ElementSnapshot {
         return xcElementSnapshot.identifier ?? ""
     }
     
-    var frameOnScreen: CGRect {
+    var frameRelativeToScreen: CGRect {
         return xcElementSnapshot.frame
     }
 

@@ -82,7 +82,7 @@ private final class FakeViewHierarchyProvider: ViewHierarchyProvider {
     private func removingDynamicInfo(viewHierarchyElement element: ViewHierarchyElement) -> ViewHierarchyElement {
         return ViewHierarchyElement(
             frame: CGRect(x: 12, y: 34, width: 56, height: 78),
-            frameOnScreen: CGRect(x: 12, y: 34, width: 56, height: 78),
+            frameRelativeToScreen: CGRect(x: 12, y: 34, width: 56, height: 78),
             customClass: element.customClass,
             elementType: element.elementType,
             accessibilityIdentifier: element.accessibilityIdentifier,

@@ -203,7 +203,7 @@ extension ElementWithUi {
         line: UInt)
         -> Bool
     {
-        let heightBefore = value(valueTitle: "frameOnScreen.height") { $0.frameOnScreen.height }
+        let heightBefore = value(valueTitle: "frameRelativeToScreen.height") { $0.frameRelativeToScreen.height }
         
         action()
         
@@ -217,7 +217,7 @@ extension ElementWithUi {
                 let heightDifference = differenceCalculation(
                     (
                         initial: heightBefore,
-                        final: snapshot.frameOnScreen.height
+                        final: snapshot.frameRelativeToScreen.height
                     )
                 )
                 return heightDifference > 0

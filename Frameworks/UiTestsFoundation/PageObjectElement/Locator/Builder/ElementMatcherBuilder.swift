@@ -28,7 +28,7 @@ public final class ElementMatcherBuilder {
     // After: func a(b: String, c: String) { return b == c } // if c is uuid, then false is returned
     private static let valueToMimicComparisonOfStringToNil = "(actually nil) ACD2E838-5F3E-4971-BAE9-0087D9A864FB (actually nil)"
     
-    public let frameOnScreen = CGRectPropertyMatcherBuilder("frameOnScreen", \ElementSnapshot.frameOnScreen)
+    public let frameRelativeToScreen = CGRectPropertyMatcherBuilder("frameRelativeToScreen", \ElementSnapshot.frameRelativeToScreen)
     
     public let id = PropertyMatcherBuilder("id", \ElementSnapshot.accessibilityIdentifier)
     

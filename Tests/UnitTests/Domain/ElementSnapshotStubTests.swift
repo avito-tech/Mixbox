@@ -4,7 +4,7 @@ final class ElementSnapshotStubTests: XCTestCase {
     func test_ElementSnapshotStub_values() {
         let stub = ElementSnapshotStub(
             configure: {
-                $0.frameOnScreen = CGRect(x: 1, y: 2, width: 3, height: 4)
+                $0.frameRelativeToScreen = CGRect(x: 1, y: 2, width: 3, height: 4)
                 $0.elementType = .button
                 $0.hasKeyboardFocus = true
                 $0.isEnabled = false
@@ -23,7 +23,7 @@ final class ElementSnapshotStubTests: XCTestCase {
             }
         )
         
-        XCTAssertEqual(stub.frameOnScreen, CGRect(x: 1, y: 2, width: 3, height: 4))
+        XCTAssertEqual(stub.frameRelativeToScreen, CGRect(x: 1, y: 2, width: 3, height: 4))
         XCTAssertEqual(stub.elementType, .button)
         XCTAssertEqual(stub.hasKeyboardFocus, true)
         XCTAssertEqual(stub.isEnabled, false)
@@ -49,8 +49,8 @@ final class ElementSnapshotStubTests: XCTestCase {
             configure: { _ in }
         )
         
-        _ = stub.frameOnScreen
-        XCTAssertEqual(failedProperties, ["frameOnScreen"])
+        _ = stub.frameRelativeToScreen
+        XCTAssertEqual(failedProperties, ["frameRelativeToScreen"])
         failedProperties.removeAll()
         
         _ = stub.elementType

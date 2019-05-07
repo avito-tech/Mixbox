@@ -3,12 +3,12 @@ import UIKit
 import XCTest
 
 final class ElementSnapshotStub: ElementSnapshot {
-    var frameOnScreen: CGRect {
+    var frameRelativeToScreen: CGRect {
         set {
-            _frameOnScreen = newValue
+            _frameRelativeToScreen = newValue
         }
         get {
-            return _frameOnScreen ?? failAndFallback("frameOnScreen", .zero)
+            return _frameRelativeToScreen ?? failAndFallback("frameRelativeToScreen", .zero)
         }
     }
     var elementType: ElementType? {
@@ -132,7 +132,7 @@ final class ElementSnapshotStub: ElementSnapshot {
         }
     }
     
-    private var _frameOnScreen: CGRect?
+    private var _frameRelativeToScreen: CGRect?
     private var _elementType: ElementType??
     private var _hasKeyboardFocus: Bool?
     private var _isEnabled: Bool?

@@ -56,8 +56,8 @@ final class RealViewHierarchyElementSnaphot: ElementSnapshot {
         return data.accessibilityIdentifier ?? "" // TODO: Check if "" is a default value in XCUI
     }
     
-    var frameOnScreen: CGRect {
-        return data.frameOnScreen
+    var frameRelativeToScreen: CGRect {
+        return data.frameRelativeToScreen
     }
     
     var children: [ElementSnapshot] {

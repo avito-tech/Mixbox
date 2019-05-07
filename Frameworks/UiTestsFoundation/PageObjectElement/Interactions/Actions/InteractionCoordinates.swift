@@ -21,11 +21,11 @@ public final class InteractionCoordinatesImpl: InteractionCoordinates {
     // MARK: - InteractionCoordinates
     
     public func interactionCoordinatesOnScreen(elementSnapshot: ElementSnapshot) -> CGPoint {
-        var coordinate = elementSnapshot.frameOnScreen.mb_center
+        var coordinate = elementSnapshot.frameRelativeToScreen.mb_center
         
         if let normalizedCoordinate = normalizedCoordinate {
-            coordinate.x += elementSnapshot.frameOnScreen.width * (normalizedCoordinate.x - 0.5)
-            coordinate.y += elementSnapshot.frameOnScreen.height * (normalizedCoordinate.y - 0.5)
+            coordinate.x += elementSnapshot.frameRelativeToScreen.width * (normalizedCoordinate.x - 0.5)
+            coordinate.y += elementSnapshot.frameRelativeToScreen.height * (normalizedCoordinate.y - 0.5)
         }
         
         if let absoluteOffset = absoluteOffset {
