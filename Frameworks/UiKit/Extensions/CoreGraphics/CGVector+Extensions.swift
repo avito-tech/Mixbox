@@ -10,6 +10,23 @@ extension CGVector {
         return sqrt(dx * dx + dy * dy)
     }
     
+    // An angle between X and Y, counterclockwise.
+    //
+    //    y
+    //
+    //    ^      /
+    //    |     /
+    //    |    /
+    //    |   /.       this angle
+    //    |  /  '.
+    //    | /     \
+    //    |/       ;
+    // ---+---------------> x
+    //    |
+    //    |
+    //
+    // CGVector(dx: 1, dy: 1).mb_angle() == .pi / 4
+    //
     public func mb_angle() -> CGFloat {
         return atan2(dy, dx)
     }

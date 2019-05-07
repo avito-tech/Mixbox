@@ -2,6 +2,7 @@ import MixboxUiTestsFoundation
 import XCTest
 import TestsIpc
 
+// TODO: Test also UITableView.
 final class FakeCellsTests: TestCase {
     override var reuseState: Bool {
         return false

@@ -318,6 +318,8 @@
 		F8B964AC2280A1060054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964A82280A0E00054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift */; };
 		F8B964AD2280A1070054CE08 /* SwipeActionWaitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */; };
 		F8B964AE2280A1070054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964A82280A0E00054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift */; };
+		F8B964CB2281DC9F0054CE08 /* CGVectorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964CA2281DC9F0054CE08 /* CGVectorExtensionsTests.swift */; };
+		F8B964CE2281DCC00054CE08 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964CD2281DCC00054CE08 /* TestCase.swift */; };
 		F8BCA9DF213D55E400592068 /* UIImage+WithColorAndSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */; };
 		F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */; };
 		F8C7091D2153F3F70015A10B /* IpcCallbacksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */; };
@@ -639,6 +641,8 @@
 		F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysFailingIpcClient.swift; sourceTree = "<group>"; };
 		F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionWaitsTests.swift; sourceTree = "<group>"; };
 		F8B964A82280A0E00054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionCanBeRunFromAnyPartOfScreenTests.swift; sourceTree = "<group>"; };
+		F8B964CA2281DC9F0054CE08 /* CGVectorExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGVectorExtensionsTests.swift; sourceTree = "<group>"; };
+		F8B964CD2281DCC00054CE08 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+WithColorAndSize.swift"; sourceTree = "<group>"; };
 		F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsView.swift; sourceTree = "<group>"; };
 		F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcCallbacksTests.swift; sourceTree = "<group>"; };
@@ -1208,6 +1212,8 @@
 		F866756E2121E81E00396F02 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				F8B964CC2281DCB30054CE08 /* Support */,
+				F8B964C92281DC8C0054CE08 /* MixboxUiKit */,
 				F81144CD2268D39C00ED519B /* Mocks */,
 				F81144CA2268D15D00ED519B /* RecordedSessionStubber */,
 				F8971DA022665D8C001741C1 /* ThreadUnsafeOnceToken */,
@@ -1909,6 +1915,22 @@
 				F8B34138224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		F8B964C92281DC8C0054CE08 /* MixboxUiKit */ = {
+			isa = PBXGroup;
+			children = (
+				F8B964CA2281DC9F0054CE08 /* CGVectorExtensionsTests.swift */,
+			);
+			path = MixboxUiKit;
+			sourceTree = "<group>";
+		};
+		F8B964CC2281DCB30054CE08 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F8B964CD2281DCC00054CE08 /* TestCase.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		F8BCA9DD213D55D300592068 /* Extensions */ = {
@@ -2968,6 +2990,7 @@
 				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
+				F8B964CE2281DCC00054CE08 /* TestCase.swift in Sources */,
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
@@ -2975,6 +2998,7 @@
 				F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */,
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
+				F8B964CB2281DC9F0054CE08 /* CGVectorExtensionsTests.swift in Sources */,
 				F820873421418DEE00DCBA2D /* MatchersTests.swift in Sources */,
 				F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */,
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
