@@ -17,7 +17,15 @@ final class TouchesTestsView: UIView, InitializableWithTestingViewControllerSett
         super.init(frame: .zero)
         
         self.backgroundColor = .white
+        
         scrollView.backgroundColor = .green
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
+        scrollView.isScrollEnabled = false
+        
         simpleContainerView.backgroundColor = .gray
         transformedContainerView.backgroundColor = .purple
         targetView.backgroundColor = .blue
@@ -30,7 +38,6 @@ final class TouchesTestsView: UIView, InitializableWithTestingViewControllerSett
         targetView.accessibilityIdentifier = "targetView"
         
         setViewsPositions()
-
     }
     
     private func setViewsPositions() {
@@ -40,21 +47,14 @@ final class TouchesTestsView: UIView, InitializableWithTestingViewControllerSett
         
         simpleContainerView.frame = CGRect(x: 11, y: 13, width: 190, height: 190)
         
-        transformedContainerView.frame = CGRect(x: 71, y: 43, width: 60, height: 60)
-        
-        targetView.frame = CGRect(x: 3, y: 4, width: 3, height: 3)
-        
-        // I have no idea why this magic works. Setting `transform` without `async` produces not intended transform.
-        DispatchQueue.main.async {
-            self.applyTransform()
-        }
-    }
-    
-    private func applyTransform() {
         transformedContainerView.transform = CGAffineTransform.identity
+        transformedContainerView.frame = CGRect(x: 71, y: 43, width: 60, height: 60)
+        transformedContainerView.transform = transformedContainerView.transform
             .rotated(by: .pi / 6)
             .scaledBy(x: 2, y: 2)
             .translatedBy(x: 7, y: 9)
+        
+        targetView.frame = CGRect(x: 3, y: 4, width: 3, height: 3)
         
         targetView.testability_customValues["centerToWindow"] = targetView.convert(targetView.bounds.mb_center, to: nil)
     }
