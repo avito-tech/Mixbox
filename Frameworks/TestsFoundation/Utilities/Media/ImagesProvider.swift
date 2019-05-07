@@ -21,7 +21,7 @@ public final class SortedImagesProvider: ImagesProvider {
                 path.mb_appendingPathComponent($0)
             }
             return .data(sourcePhotos.map { imageProviderFactory($0) })
-        } catch let error {
+        } catch {
             return .error("Failed to FileManager.default.contentsOfDirectory(atPath: \(path)): \(error)")
         }
     }

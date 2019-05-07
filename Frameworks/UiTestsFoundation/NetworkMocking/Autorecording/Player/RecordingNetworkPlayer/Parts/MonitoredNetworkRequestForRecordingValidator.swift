@@ -44,7 +44,7 @@ final class RecordedStubFromMonitoredNetworkRequestConverter {
         } catch let error as InternalError {
             handle(error: error)
             return nil
-        } catch let error {
+        } catch {
             handle(error: error)
             return nil
         }

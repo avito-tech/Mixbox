@@ -50,7 +50,7 @@ final class BundleResourcePathProviderImplTests: XCTestCase {
                 .path(resource: nonExistingResource)
             
             XCTFail("Code was expected to throw exception, but it didn't")
-        } catch let error {
+        } catch {
             let message = "\(error)"
             
             let matcher = RegularExpressionMatcher<String>(

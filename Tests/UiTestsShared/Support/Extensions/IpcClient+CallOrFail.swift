@@ -42,7 +42,7 @@ extension IpcClient {
     {
         do {
             return try body()
-        } catch let error {
+        } catch {
             UnavoidableFailure.fail(
                 "\(error)",
                 file: file,

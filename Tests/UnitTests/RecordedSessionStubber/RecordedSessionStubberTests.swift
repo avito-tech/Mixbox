@@ -206,7 +206,7 @@ final class RecordedSessionStubberTests: XCTestCase {
     private func assertNoThrow(body: () throws -> ()) {
         do {
             try body()
-        } catch let error {
+        } catch {
             XCTFail("Code was expected to not throw error but it threw: \(error)")
         }
     }

@@ -117,7 +117,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
                     resolvedElementQuery = resolveElement()
                 }
             }
-        } catch let error {
+        } catch {
             // TODO: Better error handling
             resolvedElementQuery = resolveElement()
         }

@@ -34,7 +34,7 @@ public final class CustomValueMatcher<ValueType: Codable>: Matcher<ElementSnapsh
                     let value: ValueType = try snapshot.customValue(key: key)
                     
                     return matcher.matches(value: value)
-                } catch let error {
+                } catch {
                     return .exactMismatch { "\(error)" }
                 }
             }

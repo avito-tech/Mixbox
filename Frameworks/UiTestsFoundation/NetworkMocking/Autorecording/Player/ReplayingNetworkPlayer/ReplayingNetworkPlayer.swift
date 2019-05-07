@@ -45,7 +45,7 @@ public final class ReplayingNetworkPlayer: NetworkPlayer {
             try bucketToStub.recordedStubs.forEach {
                 try recordedSessionStubber.stub(recordedStub: $0)
             }
-        } catch let error {
+        } catch {
             testFailureRecorder.recordFailure(
                 description: "Failed to stub bucket: \(error)",
                 shouldContinueTest: false

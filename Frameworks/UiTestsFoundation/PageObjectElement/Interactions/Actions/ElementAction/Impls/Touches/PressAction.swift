@@ -64,8 +64,8 @@ public class PressAction: ElementInteraction {
                         try elementSimpleGestures.press(duration: duration)
                         
                         return .success
-                    } catch let e {
-                        return dependencies.interactionResultMaker.failure(message: "\(e)")
+                    } catch {
+                        return dependencies.interactionResultMaker.failure(message: "\(error)")
                     }
                 }
             }

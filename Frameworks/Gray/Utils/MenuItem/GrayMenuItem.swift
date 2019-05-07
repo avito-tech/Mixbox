@@ -50,7 +50,7 @@ final class GrayMenuItem: MenuItem, CustomStringConvertible {
                     _ = try strongSelf.resolveSnapshot()
                     
                     return true // stop
-                } catch let error {
+                } catch {
                     errorToThrow = error
                     
                     return false // continue

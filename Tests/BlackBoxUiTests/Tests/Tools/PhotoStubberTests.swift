@@ -123,7 +123,7 @@ final class PhotoStubberTests: TestCase {
             let filename = temporaryDirectory.mb_appendingPathComponent("\(index).png")
             do {
                 try data.write(to: URL(fileURLWithPath: filename))
-            } catch let error {
+            } catch {
                 XCTFail("Fail at data.write(to: \(filename)): \(error)")
             }
         }

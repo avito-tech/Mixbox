@@ -50,7 +50,7 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
                 requests: waitForRequests(),
                 id: try manageId(idFromCode: idFromCode, fileLine: fileLine)
             )
-        } catch let error {
+        } catch {
             testFailureRecorder.recordFailure(
                 description: "Failed to record network: \(error)",
                 shouldContinueTest: false

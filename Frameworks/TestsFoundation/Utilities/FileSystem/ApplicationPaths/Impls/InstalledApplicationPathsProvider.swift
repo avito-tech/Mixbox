@@ -79,8 +79,8 @@ public final class InstalledApplicationBundleProvider: ApplicationBundleProvider
         do {
             return try FileManager.default.contentsOfDirectory(atPath: installedAppContainersDirectory)
                 .map { installedAppContainersDirectory.mb_appendingPathComponent($0) }
-        } catch let e {
-            throw ErrorString("Can not get installed application containers in \(installedAppContainersDirectory): \(e)")
+        } catch {
+            throw ErrorString("Can not get installed application containers in \(installedAppContainersDirectory): \(error)")
         }
     }
 }

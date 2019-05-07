@@ -169,7 +169,7 @@ final class ScrollingContext {
                     lastUsedInstructionIndex = indexOfInstructionToUse
                 
                     reloadSnapshots()
-                } catch let error {
+                } catch {
                     status = .internalError(
                         "произошла ошибка при скрроллинге: \(error)"
                     )

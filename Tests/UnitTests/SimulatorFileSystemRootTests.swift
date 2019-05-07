@@ -59,8 +59,8 @@ class SimulatorFileSystemRootTests: XCTestCase {
         currentDirectory = currentDirectory.mb_appendingPathComponent(name)
         do {
             try FileManager.default.createDirectory(atPath: currentDirectory, withIntermediateDirectories: true, attributes: [:])
-        } catch let e {
-            XCTFail("Caught \(e)")
+        } catch {
+            XCTFail("Caught \(error)")
         }
         closure()
         currentDirectory = initialCurrentDir

@@ -23,7 +23,7 @@ public final class AutomaticRecorderAndReplayerCreationSettingsProviderImpl: Aut
                 ),
                 recordedNetworkSessionSourceCodePath: session.sourceCodePath
             )
-        } catch let error {
+        } catch {
             return couldntLoadSessionError(
                 nestedError: "\(error)"
             )

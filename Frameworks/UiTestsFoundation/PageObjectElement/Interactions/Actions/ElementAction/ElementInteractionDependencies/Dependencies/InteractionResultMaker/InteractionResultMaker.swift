@@ -27,7 +27,7 @@ extension InteractionResultMaker {
     {
         do {
             return try body()
-        } catch let error {
+        } catch {
             return failure(message: "\(error)")
         }
     }

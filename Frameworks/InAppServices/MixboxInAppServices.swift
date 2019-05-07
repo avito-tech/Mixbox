@@ -85,7 +85,7 @@ public final class MixboxInAppServices: IpcRouter {
             )
             
             return (client, router)
-        } catch let error {
+        } catch {
             // TODO: Better error handling for tests (fail test instead of crashing app)
             preconditionFailure(String(describing: error))
         }
