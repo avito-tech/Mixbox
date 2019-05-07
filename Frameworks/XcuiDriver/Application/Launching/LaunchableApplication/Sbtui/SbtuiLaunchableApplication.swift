@@ -1,6 +1,6 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
-import MixboxXcuiDriver
+import MixboxIpcCommon
 import SBTUITestTunnel
 import MixboxIpcSbtuiClient
 import MixboxReporting
@@ -74,7 +74,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         SBTUITunneledApplication.setConnectionTimeout(timeoutValueThatReallyDisablesTimeout)
         
         var environment = environment
-        environment["MIXBOX_IPC_STARTER_TYPE"] = "sbtui"
+        environment["MIXBOX_IPC_STARTER_TYPE"] = IpcStarterType.sbtui.rawValue
         
         tunneledApplication.launchArguments = arguments
         tunneledApplication.launchEnvironment = environment

@@ -3,6 +3,7 @@ import MixboxBuiltinIpc
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxXcuiDriver
+import MixboxIpcCommon
 
 public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
     public var networking: Networking {
@@ -42,7 +43,7 @@ public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
         application.launchArguments = arguments
         application.launchEnvironment["MIXBOX_HOST"] = "localhost"
         application.launchEnvironment["MIXBOX_PORT"] = "\(port)"
-        application.launchEnvironment["MIXBOX_IPC_STARTER_TYPE"] = "blackbox"
+        application.launchEnvironment["MIXBOX_IPC_STARTER_TYPE"] = IpcStarterType.blackbox.rawValue
         
         for (key, value) in environment {
             application.launchEnvironment[key] = value

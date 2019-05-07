@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxIpc
+import MixboxIpcCommon
 
 // Facade for starting everything for tests, on the side of the app.
 public final class MixboxInAppServices: IpcRouter {
@@ -22,12 +23,6 @@ public final class MixboxInAppServices: IpcRouter {
                 MixboxInAppServices.registerDefaultMethods(router: router)
             }
         ]
-    }
-    
-    enum IpcStarterType: String {
-        case blackbox
-        case graybox
-        case sbtui
     }
     
     public convenience init?(environment: [String: String] = ProcessInfo.processInfo.environment) {
@@ -54,7 +49,7 @@ public final class MixboxInAppServices: IpcRouter {
         case nil:
             ipcStarterOrNil = nil
         }
-            
+        
         guard let ipcStarter = ipcStarterOrNil else {
             assertionFailure("Can not start IPC")
             return nil
@@ -123,9 +118,12 @@ public final class MixboxInAppServices: IpcRouter {
     }
     
     private static func ipcStarterType(environment: [String: String]) -> IpcStarterType? {
-        if let typeString = environment["MIXBOX_IPC_STARTER_TYPE"],
-            let type = IpcStarterType(rawValue: typeString)
-        {
+        if let typeString = environment["MIXBOX_IPC_STARTER_TYPE"], !typeString.isEmpty {
+            guard let type = IpcStarterType(rawValue: typeString) else {
+                assertionFailure("Unknown IpcStarterType: \(typeString) in MIXBOX_IPC_STARTER_TYPE environment variable")
+                return nil
+            }
+            
             return type
         }
         
