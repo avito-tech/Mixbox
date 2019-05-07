@@ -13,6 +13,8 @@
 #
 # Maybe you will add a class that is new in newer version of some framework, add its public interface (we remove public interface from generated headers
 # to avoid errors in Xcode about code duplication), etc, etc. Enjoy.
+#
+# TODO: Support all Xcode 10 versions (Xcode 10.0, Xcode 10.1, Xcode 10.2, Xcode 10.2.1)
 
 import os
 import shutil
