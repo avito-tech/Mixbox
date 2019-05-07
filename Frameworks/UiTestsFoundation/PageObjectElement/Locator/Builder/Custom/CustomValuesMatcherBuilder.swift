@@ -30,24 +30,12 @@ public final class CustomValueMatcher<ValueType: Codable>: Matcher<ElementSnapsh
                 "customValue['\(key)'] \(matcher.description)"
             },
             matchingFunction: { snapshot in
-                switch snapshot.customValues {
-                case .available(let customValues):
-                    if let stringValue = customValues[key] {
-                        if let value: ValueType = snapshot.customValue(key: key) {
-                            return matcher.matches(value: value)
-                        } else {
-                            return .exactMismatch {
-                                "тип \(ValueType.self) не подходит для значения \(stringValue), либо произошла внутренняя ошибка десериализации"
-                            }
-                        }
-                    } else {
-                        return .exactMismatch {
-                            "customValues не содержит значения по ключу \(key), список всех customValues: "
-                                + "\(customValues)".mb_wrapAndIndent(prefix: "{", postfix: "}")
-                        }
-                    }
-                case .unavailable:
-                    return .exactMismatch { "customValues не доступны для данного элемента" }
+                do {
+                    let value: ValueType = try snapshot.customValue(key: key)
+                    
+                    return matcher.matches(value: value)
+                } catch let error {
+                    return .exactMismatch { "\(error)" }
                 }
             }
         )

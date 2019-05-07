@@ -46,7 +46,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                 break
             }
             
-            if snapshot.isDefinitelyHidden.value == true {
+            if snapshot.isDefinitelyHidden.valueIfAvailable == true {
                 return interactionFailureResultFactory.elementIsHiddenResult()
             }
             

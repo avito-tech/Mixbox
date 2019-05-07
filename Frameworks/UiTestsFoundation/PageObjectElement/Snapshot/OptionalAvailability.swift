@@ -15,8 +15,7 @@ public enum OptionalAvailability<T> {
         }
     }
     
-    // TODO: Rename to `valueIfAvailable`?
-    public var value: T? {
+    public var valueIfAvailable: T? {
         switch self {
         case .available(let value):
             return value

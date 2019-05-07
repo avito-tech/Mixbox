@@ -5,7 +5,7 @@ public final class IsNotDefinitelyHiddenMatcher: Matcher<ElementSnapshot> {
                 "не является явно скрытым"
             },
             matchingFunction: { snapshot in
-                if let isDefinitelyHidden = snapshot.isDefinitelyHidden.value {
+                if let isDefinitelyHidden = snapshot.isDefinitelyHidden.valueIfAvailable {
                     if isDefinitelyHidden {
                         return .exactMismatch(
                             mismatchDescription: { "вьюшка или один из ее родителей скрыты" }
@@ -13,6 +13,8 @@ public final class IsNotDefinitelyHiddenMatcher: Matcher<ElementSnapshot> {
                     } else {
                         return .match
                     }
+                } else {
+                    // TODO: Fallback for third party apps?
                 }
                 
                 return .match

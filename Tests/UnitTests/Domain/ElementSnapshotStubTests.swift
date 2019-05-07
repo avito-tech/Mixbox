@@ -35,10 +35,10 @@ final class ElementSnapshotStubTests: XCTestCase {
         XCTAssertEqual(stub.children.map { $0.accessibilityIdentifier }, ["children"])
         XCTAssertEqual(stub.uikitClass, "uikitClass")
         XCTAssertEqual(stub.customClass, "customClass")
-        XCTAssertEqual(stub.uniqueIdentifier.value, "uniqueIdentifier")
-        XCTAssertEqual(stub.isDefinitelyHidden.value, true)
-        XCTAssertEqual(stub.text.value, "text")
-        XCTAssertEqual(stub.customValues.value?["customValues"], "customValues")
+        XCTAssertEqual(stub.uniqueIdentifier.valueIfAvailable, "uniqueIdentifier")
+        XCTAssertEqual(stub.isDefinitelyHidden.valueIfAvailable, true)
+        XCTAssertEqual(stub.text.valueIfAvailable, "text")
+        XCTAssertEqual(stub.customValues.valueIfAvailable?["customValues"], "customValues")
     }
     
     func test_ElementSnapshotStub_fails() {
@@ -97,19 +97,19 @@ final class ElementSnapshotStubTests: XCTestCase {
         XCTAssertEqual(failedProperties, ["customClass"])
         failedProperties.removeAll()
         
-        _ = stub.uniqueIdentifier.value
+        _ = stub.uniqueIdentifier.valueIfAvailable
         XCTAssertEqual(failedProperties, ["uniqueIdentifier"])
         failedProperties.removeAll()
         
-        _ = stub.isDefinitelyHidden.value
+        _ = stub.isDefinitelyHidden.valueIfAvailable
         XCTAssertEqual(failedProperties, ["isDefinitelyHidden"])
         failedProperties.removeAll()
         
-        _ = stub.text.value
+        _ = stub.text.valueIfAvailable
         XCTAssertEqual(failedProperties, ["text"])
         failedProperties.removeAll()
         
-        _ = stub.customValues.value?["customValues"]
+        _ = stub.customValues.valueIfAvailable?["customValues"]
         XCTAssertEqual(failedProperties, ["customValues"])
         failedProperties.removeAll()
     }

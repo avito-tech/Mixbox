@@ -29,20 +29,32 @@ public protocol ElementSnapshot: class, CustomDebugStringConvertible {
 
 extension ElementSnapshot {
     // TODO: Throw exception with exact description what went wrong?
-    public func customValue<T: Codable>(key: String) -> T? {
-        guard let customValues = customValues.value else {
-            // customValues is unavailable
-            return nil
+    public func customValue<T: Codable>(key: String) throws -> T {
+        guard let customValues = customValues.valueIfAvailable else {
+            throw ErrorString(
+                """
+                customValues is not available for this element. Note that this is expected for third-party apps, because they
+                do not use MixboxInAppServices that provides ability to use customValues.
+                """
+            )
         }
         
         guard let stringValue = customValues[key] else {
-            // no value for key
-            return nil
+            let customValuesString = "\(customValues)".mb_wrapAndIndent(prefix: "{", postfix: "}")
+            throw ErrorString(
+                """
+                customValues has no value for key "\(key)", all values: \(customValuesString)
+                """
+            )
         }
         
         guard let typedValue: T = GenericSerialization.deserialize(string: stringValue) else {
-            // couldn't convert value to T
-            return nil
+            throw ErrorString(
+                """
+                Couldn't convert custom value for key "\(key)" to type "\(T.self)", \
+                value's string representation: "\(stringValue)"
+                """
+            )
         }
         
         return typedValue

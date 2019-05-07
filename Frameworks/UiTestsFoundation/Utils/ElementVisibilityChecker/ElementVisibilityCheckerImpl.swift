@@ -17,7 +17,7 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     }
     
     public func percentageOfVisibleArea(snapshot: ElementSnapshot) -> CGFloat {
-        if let isDefinitelyHidden = snapshot.isDefinitelyHidden.value, isDefinitelyHidden {
+        if let isDefinitelyHidden = snapshot.isDefinitelyHidden.valueIfAvailable, isDefinitelyHidden {
             return VisibilityPercentage.definitelyHidden
         }
         
@@ -48,7 +48,7 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     // MARK: - Private
     
     private func percentageOfVisibleAreaFromIpcClient(snapshot: ElementSnapshot) -> CGFloat? {
-        guard let uniqueIdentifier = snapshot.uniqueIdentifier.value else {
+        guard let uniqueIdentifier = snapshot.uniqueIdentifier.valueIfAvailable else {
             return nil
         }
         

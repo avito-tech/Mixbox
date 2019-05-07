@@ -7,7 +7,7 @@ public extension ElementWithText {
         -> String
     {
         return value(file: file, line: line, valueTitle: "text") { snapshot -> String in
-            (snapshot.text.value ?? "") ?? ""
+            (snapshot.text.valueIfAvailable ?? "") ?? ""
         } ?? ""
     }
     

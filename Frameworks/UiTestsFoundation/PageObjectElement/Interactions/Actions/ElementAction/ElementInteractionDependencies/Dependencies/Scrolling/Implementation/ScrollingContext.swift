@@ -223,7 +223,7 @@ final class ScrollingContext {
                 continue
             } else {
                 if let elementUniqueIdentifier = instruction.elementUniqueIdentifier,
-                    let targetElementIdentifier = snapshot.uniqueIdentifier.value
+                    let targetElementIdentifier = snapshot.uniqueIdentifier.valueIfAvailable
                 {
                     let isTargetElement = (elementUniqueIdentifier == targetElementIdentifier)
                     let currentElementMinimalPercentageOfVisibleArea = isTargetElement
