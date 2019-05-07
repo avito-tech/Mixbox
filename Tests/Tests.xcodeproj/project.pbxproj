@@ -1051,6 +1051,7 @@
 		F820873A2141A7C500DCBA2D /* Matcher */ = {
 			isa = PBXGroup;
 			children = (
+				F8208737214196C700DCBA2D /* Domain */,
 				F8208735214195F900DCBA2D /* MatcherBuilderTests.swift */,
 				F820873321418DEE00DCBA2D /* MatchersTests.swift */,
 				F820873B2141A7D900DCBA2D /* BaseMatcherTests.swift */,
@@ -1212,21 +1213,10 @@
 		F866756E2121E81E00396F02 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				F8B964CF2281E3B20054CE08 /* Tests */,
 				F8B964CC2281DCB30054CE08 /* Support */,
-				F8B964C92281DC8C0054CE08 /* MixboxUiKit */,
 				F81144CD2268D39C00ED519B /* Mocks */,
-				F81144CA2268D15D00ED519B /* RecordedSessionStubber */,
-				F8971DA022665D8C001741C1 /* ThreadUnsafeOnceToken */,
-				F8971D8722661A85001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProvider */,
-				F8971D6D22660FF6001741C1 /* BundleResourcePathProvider */,
-				F853D001214ACCE300EAFBCE /* FileLineForFailureProvider */,
-				F820873A2141A7C500DCBA2D /* Matcher */,
-				F8208737214196C700DCBA2D /* Domain */,
-				F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */,
 				F86675712121E81E00396F02 /* Info.plist */,
-				F84D12692166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift */,
-				F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */,
-				F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1931,6 +1921,48 @@
 				F8B964CD2281DCC00054CE08 /* TestCase.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		F8B964CF2281E3B20054CE08 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F8B964D22281E4000054CE08 /* MixboxTestsFoundation */,
+				F8B964D12281E3E30054CE08 /* MixboxFoundation */,
+				F8B964D02281E3CE0054CE08 /* MixboxUiTestsFoundation */,
+				F8B964C92281DC8C0054CE08 /* MixboxUiKit */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		F8B964D02281E3CE0054CE08 /* MixboxUiTestsFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */,
+				F820873A2141A7C500DCBA2D /* Matcher */,
+				F8971D8722661A85001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProvider */,
+				F81144CA2268D15D00ED519B /* RecordedSessionStubber */,
+			);
+			path = MixboxUiTestsFoundation;
+			sourceTree = "<group>";
+		};
+		F8B964D12281E3E30054CE08 /* MixboxFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				F84D12692166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift */,
+				F8971DA022665D8C001741C1 /* ThreadUnsafeOnceToken */,
+			);
+			path = MixboxFoundation;
+			sourceTree = "<group>";
+		};
+		F8B964D22281E4000054CE08 /* MixboxTestsFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */,
+				F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */,
+				F8971D6D22660FF6001741C1 /* BundleResourcePathProvider */,
+				F853D001214ACCE300EAFBCE /* FileLineForFailureProvider */,
+			);
+			path = MixboxTestsFoundation;
 			sourceTree = "<group>";
 		};
 		F8BCA9DD213D55D300592068 /* Extensions */ = {
