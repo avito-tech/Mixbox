@@ -60,10 +60,8 @@ extension ElementSnapshot {
                 return nonNilText
             } else {
                 // THIS IS WRONG! If we have `.available` text why not to return it event if it is nil?
-                // Why this is not implemented (now I don't know for sure really, the comment was written by past-me):
-                // because tests are written for this behavior. I mean, tests on production app. It is not easy to
-                // change the behavior of an existing framework.
-                // TODO: Remove this behavior.
+                // TODO: Change to just `return text` in this switch case.
+                //       This will change behavior of matching elements. We need to test new behavior thoroughly.
                 return fallback()
             }
         case .unavailable:
