@@ -54,7 +54,7 @@ final class TouchesTestsView: UIView, InitializableWithTestingViewControllerSett
             .scaledBy(x: 2, y: 2)
             .translatedBy(x: 7, y: 9)
         
-        targetView.frame = CGRect(x: 3, y: 4, width: 3, height: 3)
+        targetView.frame = CGRect(x: 30, y: 40, width: 3, height: 3)
         
         targetView.testability_customValues["centerToWindow"] = targetView.convert(targetView.bounds.mb_center, to: nil)
     }
