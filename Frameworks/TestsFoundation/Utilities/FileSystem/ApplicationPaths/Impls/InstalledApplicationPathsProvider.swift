@@ -3,14 +3,19 @@ import MixboxFoundation
 
 public final class InstalledApplicationBundleProvider: ApplicationBundleProvider {
     private let application: XCUIApplication
+    private let currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider
     
-    public init(application: XCUIApplication) {
+    public init(
+        application: XCUIApplication,
+        currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider)
+    {
         self.application = application
+        self.currentSimulatorFileSystemRootProvider = currentSimulatorFileSystemRootProvider
     }
     
     public func applicationBundle() throws -> Bundle {
         guard let bundleId = application.bundleID else {
-            throw ErrorString("Can not get bundle id of application \(application)")
+            throw ErrorString("Failed to get bundle id of application \(application)")
         }
         
         let path = try bundlePath(
@@ -68,9 +73,7 @@ public final class InstalledApplicationBundleProvider: ApplicationBundleProvider
     }
     
     private func installedAppContainersDirectory() throws -> String {
-        guard let root = SimulatorFileSystemRoot.current else {
-            throw ErrorString("Failed to get root directory of simulator")
-        }
+        let root = try currentSimulatorFileSystemRootProvider.currentSimulatorFileSystemRoot()
         
         return root.osxPath("/data/Containers/Bundle/Application/")
     }
@@ -80,7 +83,7 @@ public final class InstalledApplicationBundleProvider: ApplicationBundleProvider
             return try FileManager.default.contentsOfDirectory(atPath: installedAppContainersDirectory)
                 .map { installedAppContainersDirectory.mb_appendingPathComponent($0) }
         } catch {
-            throw ErrorString("Can not get installed application containers in \(installedAppContainersDirectory): \(error)")
+            throw ErrorString("Failed to get installed application containers in \(installedAppContainersDirectory): \(error)")
         }
     }
 }

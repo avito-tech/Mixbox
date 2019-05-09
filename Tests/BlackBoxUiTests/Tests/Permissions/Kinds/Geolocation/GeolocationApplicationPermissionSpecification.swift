@@ -14,7 +14,7 @@ final class GeolocationApplicationPermissionSpecification:
     func authorizationStatusString(state: AllowedDeniedNotDeterminedState) -> String {
         switch state {
         case .allowed:
-            return "authorizedAlways"
+            return "authorizedWhenInUse"
         case .denied:
             return "denied"
         case .notDetermined:

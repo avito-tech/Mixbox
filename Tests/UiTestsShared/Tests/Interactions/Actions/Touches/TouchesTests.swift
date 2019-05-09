@@ -14,7 +14,7 @@ final class TouchesTests: BaseTouchesTestCase {
         }
         
         guard let frame = (targetView.value(valueTitle: "frameRelativeToScreen") { $0.frameRelativeToScreen }) else {
-            XCTFail("Can not get frameRelativeToScreen")
+            XCTFail("Failed to get frameRelativeToScreen")
             return
         }
         

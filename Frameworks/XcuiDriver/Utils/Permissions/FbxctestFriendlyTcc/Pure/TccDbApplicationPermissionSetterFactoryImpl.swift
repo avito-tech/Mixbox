@@ -15,8 +15,13 @@ public final class TccDbApplicationPermissionSetterFactoryImpl: TccDbApplication
     {
         return TccDbApplicationPermissionSetter(
             service: service,
-            bundleId: bundleId,
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: testFailureRecorder,
+            tccPrivacySettingsManager: TccPrivacySettingsManagerImpl(
+                bundleId: bundleId,
+                tccDbFinder: TccDbFinderImpl(
+                    currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
+                )
+            )
         )
     }
 }

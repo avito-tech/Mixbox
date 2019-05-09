@@ -31,7 +31,7 @@ class ScreenshotTests: TestCase {
                 size: ScreenshotTestsConstants.viewSize(index: index)
             )
             guard let image = imageOrNil else {
-                XCTFail("Can not create image")
+                XCTFail("Failed to create image")
                 return
             }
             

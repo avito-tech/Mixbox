@@ -3,13 +3,6 @@ import Photos
 import XCTest
 
 final class PhotoStubberTests: TestCase {
-    private lazy var stubber = PhotoStubberImpl(
-        stubImagesProvider: SortedImagesProvider(
-            path: self.makeFolderWithStubImages(count: 10),
-            imageProviderFactory: { LazyImageProvider(imagePath: $0) }
-        )
-    )
-    
     // TODO: Fix running on CI
     func disabled_test() {
         setUpPhotosPermissions()
@@ -37,8 +30,10 @@ final class PhotoStubberTests: TestCase {
     }
     
     private func stubPhotos(minimalCount: Int) {
-        stubber.stubPhotos(minimalCount: minimalCount).onError { message in
-            XCTFail("Failed to stub photos: \(message)")
+        do {
+            try photoStubber.stubPhotos(minimalCount: minimalCount)
+        } catch {
+            XCTFail("Failed to stub photos: \(error)")
         }
     }
     
@@ -105,33 +100,5 @@ final class PhotoStubberTests: TestCase {
         } else {
             XCTFail("Delete button did not appear")
         }
-    }
-    
-    private func makeFolderWithStubImages(count: Int) -> String {
-        let temporaryDirectory = NSTemporaryDirectory()
-        
-        for index in 0..<count {
-            guard let image = randomImage() else {
-                XCTFail("Failed to create randomImage()")
-                continue
-            }
-            guard let data = UIImagePNGRepresentation(image) else {
-                XCTFail("Fail at UIImagePNGRepresentation")
-                continue
-            }
-                
-            let filename = temporaryDirectory.mb_appendingPathComponent("\(index).png")
-            do {
-                try data.write(to: URL(fileURLWithPath: filename))
-            } catch {
-                XCTFail("Fail at data.write(to: \(filename)): \(error)")
-            }
-        }
-        
-        return temporaryDirectory
-    }
-    
-    private func randomImage() -> UIImage? {
-        return UIImage.image(color: .red, size: CGSize(width: 1, height: 1))
     }
 }

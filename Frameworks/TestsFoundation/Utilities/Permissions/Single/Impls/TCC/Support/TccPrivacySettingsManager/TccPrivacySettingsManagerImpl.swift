@@ -1,47 +1,38 @@
-import Foundation
+import MixboxFoundation
 
-final class TccPrivacySettingsManager {
-    private let tccDbFinder = TccDbFinder()
+public final class TccPrivacySettingsManagerImpl: TccPrivacySettingsManager {
     private let bundleId: String
+    private let tccDbFinder: TccDbFinder
     
-    init(bundleId: String) {
+    public init(bundleId: String, tccDbFinder: TccDbFinder) {
         self.bundleId = bundleId
+        self.tccDbFinder = tccDbFinder
     }
     
-    private func tccDb() -> TccDb? {
-        guard let tccDbPath = tccDbFinder.tccDbPath() else {
-            return nil
-        }
-        
-        return try? TccDb(path: tccDbPath)
-    }
+    // MARK: - TccPrivacySettingsManager
     
-    func fetchPrivacySettingsState(service: TccService) -> TccServicePrivacyState? {
-        guard let db = tccDb() else {
-            return nil
-        }
+    public func fetchPrivacySettingsState(
+        service: TccService)
+        throws
+        -> TccServicePrivacyState
+    {
+        let db = try tccDb()
         
         let serviceId = tccServiceId(service: service)
         
-        do {
-            return try db.getAccess(serviceId: serviceId, bundleId: bundleId)
-        } catch {
-            return nil
-        }
+        return try db.getAccess(serviceId: serviceId, bundleId: bundleId)
     }
     
-    func updatePrivacySettings(
+    public func updatePrivacySettings(
         service: TccService,
         state: TccServicePrivacyState)
-        -> Bool
+        throws
     {
-        guard let db = tccDb() else {
-            return false
-        }
-        
-        let serviceId = tccServiceId(service: service)
-        
         do {
+            let db = try tccDb()
+            
+            let serviceId = tccServiceId(service: service)
+            
             switch state {
             case .allowed:
                 try db.setAccess(serviceId: serviceId, bundleId: bundleId, isAllowed: true)
@@ -50,10 +41,17 @@ final class TccPrivacySettingsManager {
             case .notDetermined:
                 try db.resetAccess(serviceId: serviceId, bundleId: bundleId)
             }
-            return true
         } catch {
-            return false
+            throw ErrorString("Can not updatePrivacySettings: \(error)")
         }
+    }
+    
+    // MARK: - Private
+    
+    private func tccDb() throws -> TccDb {
+        let tccDbPath = try tccDbFinder.tccDbPath()
+        
+        return try TccDb(path: tccDbPath)
     }
     
     private func tccServiceId(service: TccService) -> TccDbServiceId {

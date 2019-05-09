@@ -16,6 +16,8 @@
 		CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE3121395C6000599258 /* HierarchyTestsView.swift */; };
 		E770ACA880DA7C520CB00A31 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9F80D7EE4414E4F09E6CF0 /* Pods_BlackBoxUiTests.framework */; };
 		F07DAB9DCD5A911D5EE2BAEB /* Pods_TestedApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661ABC2C9AE48647D964AFD2 /* Pods_TestedApp.framework */; };
+		F80084AF2284740C00DF1DC6 /* RedImagesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80084AE2284740C00DF1DC6 /* RedImagesProvider.swift */; };
+		F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80084BB228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift */; };
 		F801CC072254E3120074F0E9 /* TextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC062254E3120074F0E9 /* TextInteractionTests.swift */; };
 		F801CC092254EBF30074F0E9 /* IsDisplayedInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC082254EBF30074F0E9 /* IsDisplayedInteractionTests.swift */; };
 		F801CC142254F9C60074F0E9 /* FailsHereFunctionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC0A2254F92F0074F0E9 /* FailsHereFunctionProvider.swift */; };
@@ -427,6 +429,8 @@
 		D8259485A861110726C2979F /* Pods-BlackBoxUiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackBoxUiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests.release.xcconfig"; sourceTree = "<group>"; };
 		DEC19CCFC06CC44E741DA69B /* Pods-FakeSettingsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeSettingsApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FakeSettingsApp/Pods-FakeSettingsApp.release.xcconfig"; sourceTree = "<group>"; };
 		EA08AFA5AA4EBF3409295704 /* Pods-HostedAppLogicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F80084AE2284740C00DF1DC6 /* RedImagesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedImagesProvider.swift; sourceTree = "<group>"; };
+		F80084BB228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift; sourceTree = "<group>"; };
 		F801CC062254E3120074F0E9 /* TextInteractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInteractionTests.swift; sourceTree = "<group>"; };
 		F801CC082254EBF30074F0E9 /* IsDisplayedInteractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsDisplayedInteractionTests.swift; sourceTree = "<group>"; };
 		F801CC0A2254F92F0074F0E9 /* FailsHereFunctionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailsHereFunctionProvider.swift; sourceTree = "<group>"; };
@@ -1994,6 +1998,7 @@
 				F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */,
 				F8971D6D22660FF6001741C1 /* BundleResourcePathProvider */,
 				F853D001214ACCE300EAFBCE /* FileLineForFailureProvider */,
+				F80084BB228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift */,
 			);
 			path = MixboxTestsFoundation;
 			sourceTree = "<group>";
@@ -2072,6 +2077,7 @@
 				F8A9D338216B881500EC5D24 /* Emcee */,
 				F813CB33209CDF4700E6A27C /* TestCase.swift */,
 				F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */,
+				F80084AE2284740C00DF1DC6 /* RedImagesProvider.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -3016,6 +3022,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F80084AF2284740C00DF1DC6 /* RedImagesProvider.swift in Sources */,
 				F8DB359B22738C9A00EE0FB8 /* BaseActionTestCase+Checks.swift in Sources */,
 				F8971DC2226672B3001741C1 /* NetworkRecordingTests.swift in Sources */,
 				F8A753102260E13D00396A89 /* NetworkStubbingTests.swift in Sources */,
@@ -3186,6 +3193,7 @@
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
+				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
 				F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */,
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,

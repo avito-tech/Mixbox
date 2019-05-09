@@ -9,7 +9,12 @@ final class ApplicationBundleProviderTests: TestCase {
         
         let application = XCUIApplication()
         
-        let installedApplicationBundle = try InstalledApplicationBundleProvider(application: application)
+        let installedApplicationBundleProvider = InstalledApplicationBundleProvider(
+            application: application,
+            currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
+        )
+        
+        let installedApplicationBundle = try installedApplicationBundleProvider
             .applicationBundle()
         
         let builtApplicationBundle = try BuiltApplicationBundleProvider(application: application)

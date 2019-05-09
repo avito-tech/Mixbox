@@ -17,6 +17,8 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxArtifacts'
   s.dependency 'MixboxFoundation'
   s.dependency 'MixboxReporting'
+  s.dependency 'MixboxUiKit'
+  
   s.dependency 'SQLite.swift'
   
   s.frameworks = 'XCTest', 'XCTAutomationSupport'

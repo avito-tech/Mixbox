@@ -1,7 +1,6 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 
-// TODO: Support "authorizedAlways" properly
 // TODO: Support "authorizedWhenInUse" properly
 // TODO: Support "restricted"
 final class GeolocationApplicationPermissionTests: BasePermissionTestCase {

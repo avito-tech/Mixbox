@@ -51,7 +51,7 @@ public final class MixboxInAppServices: IpcRouter {
         }
         
         guard let ipcStarter = ipcStarterOrNil else {
-            assertionFailure("Can not start IPC")
+            assertionFailure("Failed to start IPC")
             return nil
         }
         

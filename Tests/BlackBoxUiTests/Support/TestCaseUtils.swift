@@ -40,6 +40,7 @@ final class TestCaseUtils {
     let launchableApplicationProvider: LaunchableApplicationProvider
     let stepLogger: StepLogger
     let bundleResourcePathProviderForTestTarget: BundleResourcePathProvider
+    let photoStubber: PhotoStubber
     
     private let applicationLifecycleObservableImpl = ApplicationLifecycleObservableImpl()
     private let screenshotTaker = XcuiScreenshotTaker()
@@ -101,13 +102,16 @@ final class TestCaseUtils {
         } else {
             tccDbApplicationPermissionSetterFactory = TccDbApplicationPermissionSetterFactoryImpl()
         }
-        
         let applicationPermissionsSetterFactory = ApplicationPermissionsSetterFactory(
             notificationsApplicationPermissionSetterFactory: FakeSettingsAppNotificationsApplicationPermissionSetterFactory(
                 fakeSettingsAppBundleId: "mixbox.Tests.FakeSettingsApp",
                 testFailureRecorder: testFailureRecorder
             ),
-            tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory
+            tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory,
+            geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
+                testFailureRecorder: testFailureRecorder,
+                currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
+            )
         )
         self.applicationPermissionsSetterFactory = applicationPermissionsSetterFactory
 
@@ -121,6 +125,13 @@ final class TestCaseUtils {
             // swiftlint:disable:next force_unwrapping
             bundleId: Bundle.main.bundleIdentifier!,
             displayName: "We don't care at the moment",
+            testFailureRecorder: testFailureRecorder
+        )
+        
+        photoStubber = PhotoStubberImpl(
+            stubImagesProvider: RedImagesProvider(),
+            tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory,
+            photoSaver: PhotoSaverImpl(),
             testFailureRecorder: testFailureRecorder
         )
         

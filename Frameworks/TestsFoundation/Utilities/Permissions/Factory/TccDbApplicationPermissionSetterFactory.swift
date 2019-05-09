@@ -1,5 +1,4 @@
 import MixboxReporting
-import MixboxTestsFoundation
 
 public protocol TccDbApplicationPermissionSetterFactory {
     func tccDbApplicationPermissionSetter(

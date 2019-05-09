@@ -32,17 +32,6 @@ class SimulatorFileSystemRootTests: XCTestCase {
         )
     }
     
-    func test_current_works() {
-        guard let current = SimulatorFileSystemRoot.current else {
-            XCTFail("Can not get current simulator root")
-            return
-        }
-        XCTAssert(
-            FileManager.default.fileExists(atPath: current.osxPath("")),
-            "Current SimulatorFileSystemRoot does not exists on OSX file system"
-        )
-    }
-    
     // Making stubs
     
     private var currentDirectory = ""

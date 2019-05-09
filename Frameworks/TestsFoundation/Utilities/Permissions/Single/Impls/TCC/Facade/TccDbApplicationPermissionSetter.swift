@@ -2,27 +2,29 @@ import MixboxReporting
 import MixboxFoundation
 
 public final class TccDbApplicationPermissionSetter: ApplicationPermissionSetter {
-    private let tccPrivacySettingsManager: TccPrivacySettingsManager
     private let service: TccService
     private let testFailureRecorder: TestFailureRecorder
+    private let tccPrivacySettingsManager: TccPrivacySettingsManager
     
-    public init(service: TccService, bundleId: String, testFailureRecorder: TestFailureRecorder) {
-        tccPrivacySettingsManager = TccPrivacySettingsManager(
-            bundleId: bundleId
-        )
+    public init(
+        service: TccService,
+        testFailureRecorder: TestFailureRecorder,
+        tccPrivacySettingsManager: TccPrivacySettingsManager)
+    {
         self.service = service
         self.testFailureRecorder = testFailureRecorder
+        self.tccPrivacySettingsManager = tccPrivacySettingsManager
     }
     
     public func set(_ state: AllowedDeniedNotDeterminedState) {
-        let success = tccPrivacySettingsManager.updatePrivacySettings(
-            service: service,
-            state: tccServicePrivacyState(state: state)
-        )
-        
-        if !success {
+        do {
+            try tccPrivacySettingsManager.updatePrivacySettings(
+                service: service,
+                state: tccServicePrivacyState(state: state)
+            )
+        } catch {
             testFailureRecorder.recordFailure(
-                description: "Не удалось пропатчить настройки приватности",
+                description: "Не удалось пропатчить настройки приватности: \(error)",
                 shouldContinueTest: false
             )
         }

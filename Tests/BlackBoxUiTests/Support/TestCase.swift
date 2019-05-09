@@ -43,6 +43,10 @@ class TestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.fileSystem
     }
     
+    var photoStubber: PhotoStubber {
+        return testCaseUtils.photoStubber
+    }
+    
     func precondition() {
     }
     

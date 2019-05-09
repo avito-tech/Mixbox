@@ -1,9 +1,9 @@
 import MixboxFoundation
 
 final class PhotoSaverCompletion: NSObject {
-    private let completion: (DataResult<(), String>) -> ()
+    private let completion: (DataResult<(), ErrorString>) -> ()
     
-    init(completion: @escaping (DataResult<(), String>) -> ()) {
+    init(completion: @escaping (DataResult<(), ErrorString>) -> ()) {
         self.completion = completion
     }
     
@@ -18,7 +18,7 @@ final class PhotoSaverCompletion: NSObject {
     @objc(image:didFinishSavingWithError:contextInfo:)
     func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            completion(.error(error.localizedDescription))
+            completion(.error(ErrorString(error.localizedDescription)))
         } else {
             completion(.data(()))
         }

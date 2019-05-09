@@ -103,21 +103,31 @@ private func applicationPermissionsSetter(
     testFailureRecorder: TestFailureRecorder)
     -> ApplicationPermissionsSetter
 {
+    let currentSimulatorFileSystemRootProvider = CurrentApplicationCurrentSimulatorFileSystemRootProvider()
+    
     func tccDbApplicationPermissionSetter(_ service: TccService) -> ApplicationPermissionSetter {
-        return applicationPermissionSetter(
+        return TccDbApplicationPermissionSetter(
             service: service,
-            bundleId: bundleId,
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: testFailureRecorder,
+            tccPrivacySettingsManager: TccPrivacySettingsManagerImpl(
+                bundleId: bundleId,
+                tccDbFinder: TccDbFinderImpl(
+                    currentSimulatorFileSystemRootProvider: currentSimulatorFileSystemRootProvider
+                )
+            )
         )
     }
+    
+    let geo = GeolocationApplicationPermissionSetterFactoryImpl(
+        testFailureRecorder: testFailureRecorder,
+        currentSimulatorFileSystemRootProvider: currentSimulatorFileSystemRootProvider
+    )
     
     return ApplicationPermissionsSetterImpl(
         notifications: AlwaysFailingApplicationPermissionWithoutNotDeterminedStateSetter(
             testFailureRecorder: testFailureRecorder
         ),
-        geolocation: GeolocationApplicationPermissionSetter(
-            bundleId: bundleId
-        ),
+        geolocation: geo.geolocationApplicationPermissionSetter(bundleId: bundleId),
         calendar: tccDbApplicationPermissionSetter(.calendar),
         camera: tccDbApplicationPermissionSetter(.camera),
         mso: tccDbApplicationPermissionSetter(.mso),
@@ -140,18 +150,5 @@ private func applicationPermissionsSetter(
         tencentWeibo: tccDbApplicationPermissionSetter(.tencentWeibo),
         twitter: tccDbApplicationPermissionSetter(.twitter),
         ubiquity: tccDbApplicationPermissionSetter(.ubiquity)
-    )
-}
-
-private func applicationPermissionSetter(
-    service: TccService,
-    bundleId: String,
-    testFailureRecorder: TestFailureRecorder)
-    -> ApplicationPermissionSetter
-{
-    return TccDbApplicationPermissionSetter(
-        service: service,
-        bundleId: bundleId,
-        testFailureRecorder: testFailureRecorder
     )
 }

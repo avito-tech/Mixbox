@@ -18,8 +18,13 @@ public final class AtApplicationLaunchTccDbApplicationPermissionSetterFactory: T
     {
         let wrappedSetter = TccDbApplicationPermissionSetter(
             service: service,
-            bundleId: bundleId,
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: testFailureRecorder,
+            tccPrivacySettingsManager: TccPrivacySettingsManagerImpl(
+                bundleId: bundleId,
+                tccDbFinder: TccDbFinderImpl(
+                    currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
+                )
+            )
         )
         
         let setter = AtApplicationLaunchApplicationPermissionSetter(

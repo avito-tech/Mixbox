@@ -8,6 +8,7 @@ import MixboxReporting
 public final class ApplicationPermissionsSetterFactory {
     private let notificationsApplicationPermissionSetterFactory: NotificationsApplicationPermissionSetterFactory
     private let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
+    private let geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactory
     
     // Your options for NotificationsApplicationPermissionSetterFactory:
     // - FakeSettingsAppNotificationsApplicationPermissionSetterFactory, see README.md in MixboxFakeSettingsAppMain
@@ -19,12 +20,17 @@ public final class ApplicationPermissionsSetterFactory {
     // - For xcodebuild: TccDbApplicationPermissionSetterFactory
     // - For fbxctest: AtApplicationLaunchTccDbApplicationPermissionSetterFactory
     //
+    // Your options for GeolocationApplicationPermissionSetterFactory:
+    // - GeolocationApplicationPermissionSetterFactoryImpl
+    
     public init(
         notificationsApplicationPermissionSetterFactory: NotificationsApplicationPermissionSetterFactory,
-        tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory)
+        tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory,
+        geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactory)
     {
         self.notificationsApplicationPermissionSetterFactory = notificationsApplicationPermissionSetterFactory
         self.tccDbApplicationPermissionSetterFactory = tccDbApplicationPermissionSetterFactory
+        self.geolocationApplicationPermissionSetterFactory = geolocationApplicationPermissionSetterFactory
     }
     
     public func applicationPermissionsSetter(
@@ -46,7 +52,7 @@ public final class ApplicationPermissionsSetterFactory {
                 bundleId: bundleId,
                 displayName: displayName
             ),
-            geolocation: GeolocationApplicationPermissionSetter(
+            geolocation: geolocationApplicationPermissionSetterFactory.geolocationApplicationPermissionSetter(
                 bundleId: bundleId
             ),
             calendar: tccDbApplicationPermissionSetter(.calendar),
