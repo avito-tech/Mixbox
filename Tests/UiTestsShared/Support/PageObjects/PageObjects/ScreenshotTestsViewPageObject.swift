@@ -8,10 +8,4 @@ public final class ScreenshotTestsViewPageObject: BasePageObjectWithDefaultIniti
         let id = ScreenshotTestsConstants.viewId(index: index)
         return element(id) { element in element.id == id }
     }
-    
-    public var catView: ImageElement {
-        return element("catView") { element in
-            element.id == "catView"
-        }
-    }
 }

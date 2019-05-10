@@ -5,6 +5,7 @@ import MixboxFoundation
 import CocoaImageHashing
 import TestsIpc
 
+// TODO: Rename
 // TODO: Add real world example tests of the screen reference matching
 class ScreenshotTests: TestCase {
     private var screen: MainAppScreen<ScreenshotTestsViewPageObject> {
@@ -38,34 +39,6 @@ class ScreenshotTests: TestCase {
             screen.forEveryKindOfHierarchy { screen in
                 screen.view(index: index).withoutTimeout.assertMatchesReference(image: image)
             }
-        }
-        
-    }
-    
-    // TODO: Test with exact hash distances for `matchesReference` check
-    func testCatImageMatching() {
-        openScreen(name: "ScreenshotDHashLabelsTestsView")
-        assertEqualImagesWithDifferentResolutionsMatch()
-        assertCatWithTextDoesntMatchCatWithoutText()
-        assertCatDoesntMatchDog()
-    }
-    
-    private func assertEqualImagesWithDifferentResolutionsMatch() {
-        let downsampledCat = UIImage(named: "imagehash_cat_size", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        screen.xcui.catView.assertMatchesReference(image: downsampledCat)
-    }
-    
-    private func assertCatWithTextDoesntMatchCatWithoutText() {
-        let catWithText = UIImage(named: "imagehash_cat_lots_of_text", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        screen.xcui.catView.assertMatches {
-            !$0.matchesReference(image: catWithText, comparator: DHashSnapshotsComparator())
-        }
-    }
-    
-    private func assertCatDoesntMatchDog() {
-        let dog = UIImage(named: "imagehash_cat_not_cat", in: Bundle(for: TestCase.self), compatibleWith: nil)!
-        screen.xcui.catView.assertMatches {
-            !$0.matchesReference(image: dog, comparator: DHashSnapshotsComparator())
         }
     }
 }

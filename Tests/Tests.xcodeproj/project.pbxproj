@@ -18,6 +18,7 @@
 		F07DAB9DCD5A911D5EE2BAEB /* Pods_TestedApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661ABC2C9AE48647D964AFD2 /* Pods_TestedApp.framework */; };
 		F80084AF2284740C00DF1DC6 /* RedImagesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80084AE2284740C00DF1DC6 /* RedImagesProvider.swift */; };
 		F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80084BB228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift */; };
+		F80084BE2284840A00DF1DC6 /* AssertMatchesReferenceWithDhashComparatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80084BD2284840A00DF1DC6 /* AssertMatchesReferenceWithDhashComparatorTests.swift */; };
 		F801CC072254E3120074F0E9 /* TextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC062254E3120074F0E9 /* TextInteractionTests.swift */; };
 		F801CC092254EBF30074F0E9 /* IsDisplayedInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC082254EBF30074F0E9 /* IsDisplayedInteractionTests.swift */; };
 		F801CC142254F9C60074F0E9 /* FailsHereFunctionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC0A2254F92F0074F0E9 /* FailsHereFunctionProvider.swift */; };
@@ -431,6 +432,7 @@
 		EA08AFA5AA4EBF3409295704 /* Pods-HostedAppLogicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F80084AE2284740C00DF1DC6 /* RedImagesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedImagesProvider.swift; sourceTree = "<group>"; };
 		F80084BB228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift; sourceTree = "<group>"; };
+		F80084BD2284840A00DF1DC6 /* AssertMatchesReferenceWithDhashComparatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertMatchesReferenceWithDhashComparatorTests.swift; sourceTree = "<group>"; };
 		F801CC062254E3120074F0E9 /* TextInteractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInteractionTests.swift; sourceTree = "<group>"; };
 		F801CC082254EBF30074F0E9 /* IsDisplayedInteractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsDisplayedInteractionTests.swift; sourceTree = "<group>"; };
 		F801CC0A2254F92F0074F0E9 /* FailsHereFunctionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailsHereFunctionProvider.swift; sourceTree = "<group>"; };
@@ -2140,6 +2142,7 @@
 			isa = PBXGroup;
 			children = (
 				F8EBBCE6213D541300D320A4 /* ScreenshotTests.swift */,
+				F80084BD2284840A00DF1DC6 /* AssertMatchesReferenceWithDhashComparatorTests.swift */,
 			);
 			path = Checks;
 			sourceTree = "<group>";
@@ -3066,6 +3069,7 @@
 				F813CB34209CDF4700E6A27C /* TestCase.swift in Sources */,
 				F8971D022265049F001741C1 /* FileSystem.swift in Sources */,
 				F853D024214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift in Sources */,
+				F80084BE2284840A00DF1DC6 /* AssertMatchesReferenceWithDhashComparatorTests.swift in Sources */,
 				F8B010E221FF319D0026360D /* TestCaseReport.swift in Sources */,
 				F8971CE12264AF9B001741C1 /* LaunchableApplicationProvider.swift in Sources */,
 				F8B33B0A224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift in Sources */,
