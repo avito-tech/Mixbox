@@ -2,7 +2,9 @@
 // https://github.com/wix/detox/blob/master/detox/ios/DetoxHelper/DetoxHelper/Extension/SetNotificationPermissionOperation.m
 
 @import UIKit;
+
 #import "NotificationPermissionsManager.h"
+#import "Entitlements.h"
 
 // For debugging
 #import "objc/runtime.h"
@@ -16,7 +18,8 @@
 
 @implementation NotificationPermissionsManager
 
-- (instancetype)initWithBundleIdentifier:(NSString *)bundleIdentifier displayName:(NSString *)displayName {
+- (instancetype)initWithBundleIdentifier:(NSString *)bundleIdentifier
+                             displayName:(NSString *)displayName {
     if (self = [super init]) {
         _bundleIdentifier = [bundleIdentifier copy];
         _displayName = [displayName copy];
@@ -24,35 +27,66 @@
     return self;
 }
 
-- (BOOL)setNotificationPermissionsStatus:(NSString *)status {
-    __block NSError *error = nil;
+- (ErrorString *)setNotificationPermissionsStatus:(NSString *)status timeout:(NSTimeInterval)timeout {
+    __block ErrorString *error = nil;
     
     id sectionInfo = nil;
     
     if ([status isEqualToString:@"allowed"]) {
-        sectionInfo = [self sectionInfoForForSettingNotificationsEnabled:true];
+        sectionInfo = [self sectionInfoForForSettingNotificationsEnabled:YES];
     } else if ([status isEqualToString:@"denied"]) {
-        sectionInfo = [self sectionInfoForForSettingNotificationsEnabled:false];
+        sectionInfo = [self sectionInfoForForSettingNotificationsEnabled:NO];
     } else if ([status isEqualToString:@"notDetermined"]) {
         // TODO: notDetermined не работает. Попробовать сделать.
         sectionInfo = nil;
     } else {
-        return NO;
+        return [ErrorString stringWithFormat:@"status is not supported: %@", status];
     }
     
     dispatch_group_t dispatchGroup = dispatch_group_create();
-    
+
     dispatch_group_enter(dispatchGroup);
+    
+    __block BOOL completionHandlerWasCalled = NO;
 
     [self setSectionInfo:sectionInfo completionHandler:^(NSError *localError) {
-        error = localError;
-        
+        error = [localError localizedDescription];
+        completionHandlerWasCalled = YES;
+
         dispatch_group_leave(dispatchGroup);
     }];
+
+    dispatch_group_wait(dispatchGroup, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC)));
     
-    dispatch_group_wait(dispatchGroup, DISPATCH_TIME_FOREVER);
+    if (!completionHandlerWasCalled) {
+        error = [ErrorString stringWithFormat:@"Timed out waiting for setSectionInfo completion (timeout = %@)", @(timeout)];
+        
+        CFStringRef entitlementKey = CFSTR("com.apple.bulletinboard.settings");
+        NSString *nsStringEntitlementKey = (__bridge NSString *)entitlementKey;
+        
+        NSNumber *entitlementValue = (NSNumber *)getEntitlementValue(entitlementKey);
+        
+        if (!entitlementValue) {
+            error = [ErrorString stringWithFormat:
+                     @"%@, note that you probably forgot to set up entitlements for fake settings app in your Xcode project",
+                     error
+                     ];
+        } else if (![entitlementValue respondsToSelector:@selector(boolValue)]) {
+            error = [ErrorString stringWithFormat:
+                     @"%@, note that %@ entitlement value doesn't respond to selector boolValue",
+                     error,
+                     nsStringEntitlementKey
+                     ];
+        } else if ([entitlementValue boolValue] == NO) {
+            error = [ErrorString stringWithFormat:
+                     @"%@, note that %@ entitlement value is NO, which is not expected, it is expected to be YES",
+                     error,
+                     nsStringEntitlementKey
+                     ];
+        }
+    }
     
-    return error == nil;
+    return error;
 }
 
 - (NSBundle *)bulletinBoardFrameworkBundle {
@@ -105,9 +139,7 @@
     
     [invocation retainArguments];
     
-    id completionHandlerCopy = [completionHandler copy];
-    
-    [invocation setArgument:&completionHandlerCopy atIndex:4];
+    [invocation setArgument:&completionHandler atIndex:4];
     [invocation invoke];
 }
 
@@ -212,4 +244,5 @@
     
     NSLog(@"%@", propertyDescriptions);
 }
+
 @end

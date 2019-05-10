@@ -1,6 +1,8 @@
 import MixboxTestsFoundation
 
-final class CameraApplicationPermissionSpecification: ApplicationPermissionSpecification {
+final class CameraApplicationPermissionSpecification:
+    ApplicationPermissionWithAllowedDeniedNotDeterminedStateSpecification
+{
     var identifier: String {
         return "camera"
     }

@@ -103,8 +103,8 @@ final class TestCaseUtils {
         }
         
         let applicationPermissionsSetterFactory = ApplicationPermissionsSetterFactory(
-            // TODO: Tests & demo:
-            notificationsApplicationPermissionSetterFactory: AlwaysFailingNotificationsApplicationPermissionSetterFactory(
+            notificationsApplicationPermissionSetterFactory: FakeSettingsAppNotificationsApplicationPermissionSetterFactory(
+                fakeSettingsAppBundleId: "mixbox.Tests.FakeSettingsApp",
                 testFailureRecorder: testFailureRecorder
             ),
             tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory

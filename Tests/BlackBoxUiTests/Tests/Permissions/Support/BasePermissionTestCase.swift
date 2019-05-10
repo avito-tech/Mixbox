@@ -8,11 +8,14 @@ class BasePermissionTestCase: TestCase {
         return false
     }
     
-    func check(
-        specification: ApplicationPermissionSpecification,
-        state: AllowedDeniedNotDeterminedState)
+    func check<Spec: ApplicationPermissionSpecification>(
+        specification: Spec,
+        state: Spec.PermissionStateType)
     {
-        specification.setter(permissions: permissions).set(state)
+        specification.set(
+            state: state,
+            permissions: permissions
+        )
         
         openScreen(name: "PermissionsTestsView")
         

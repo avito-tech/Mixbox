@@ -12,6 +12,7 @@ PODS:
   - MixboxBuiltinIpc (0.1.0):
     - GCDWebServer
     - MixboxIpc
+  - MixboxFakeSettingsAppMain (0.1.0)
   - MixboxFoundation (0.1.0)
   - MixboxGray (0.1.0):
     - MixboxInAppServices
@@ -74,6 +75,7 @@ DEPENDENCIES:
   - MixboxAllure (from `..`)
   - MixboxArtifacts (from `..`)
   - MixboxBuiltinIpc (from `..`)
+  - MixboxFakeSettingsAppMain (from `..`)
   - MixboxFoundation (from `..`)
   - MixboxGray (from `..`)
   - MixboxInAppServices (from `..`)
@@ -109,6 +111,8 @@ EXTERNAL SOURCES:
   MixboxArtifacts:
     :path: ".."
   MixboxBuiltinIpc:
+    :path: ".."
+  MixboxFakeSettingsAppMain:
     :path: ".."
   MixboxFoundation:
     :path: ".."
@@ -147,6 +151,7 @@ SPEC CHECKSUMS:
   MixboxAllure: 165b63fb951cf69938a7a958c8e2687245e9d440
   MixboxArtifacts: 8aeca18819c73841968da9bf381f6ac560c73719
   MixboxBuiltinIpc: ca42c3d2ccfc053de16890bbeec3ce2489a7a97b
+  MixboxFakeSettingsAppMain: c450a8b78f42bf38bf8eab43d47d18f4c7fd7753
   MixboxFoundation: 49f2fd2cbf51cc05fff03a83820754afcbdc0e85
   MixboxGray: 0f63d24001493d265bbb9399fb80b198dd0ac016
   MixboxInAppServices: fc9bc2cc344857edb6eb76e9fb6ad811ea5ac7b3

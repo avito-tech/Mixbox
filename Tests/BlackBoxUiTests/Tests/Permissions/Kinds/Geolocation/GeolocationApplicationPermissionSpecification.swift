@@ -1,6 +1,8 @@
 import MixboxTestsFoundation
 
-final class GeolocationApplicationPermissionSpecification: ApplicationPermissionSpecification {
+final class GeolocationApplicationPermissionSpecification:
+    ApplicationPermissionWithAllowedDeniedNotDeterminedStateSpecification
+{
     var identifier: String {
         return "geolocation"
     }

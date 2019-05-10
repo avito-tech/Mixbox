@@ -1,6 +1,8 @@
 import MixboxTestsFoundation
 
-final class MicrophoneApplicationPermissionSpecification: ApplicationPermissionSpecification {
+final class MicrophoneApplicationPermissionSpecification:
+    ApplicationPermissionWithAllowedDeniedNotDeterminedStateSpecification
+{
     var identifier: String {
         return "microphone"
     }

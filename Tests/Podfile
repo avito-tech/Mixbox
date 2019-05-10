@@ -117,27 +117,23 @@ target 'TestedApp' do
   tests_tested_app_pods
 end
 
+target 'FakeSettingsApp' do
+  pod 'MixboxFakeSettingsAppMain', :path => '..'
+end
+
 target 'GrayBoxUiTests' do
-  inherit! :search_paths
-  
   tests_gray_box_pods
 end
 
 target 'BlackBoxUiTests' do
-  inherit! :search_paths
-  
   tests_black_box_pods
 end
 
 target 'UnitTests' do
-  inherit! :search_paths
-
   tests_white_box_pods
 end
 
 target 'HostedAppLogicTests' do
-  inherit! :search_paths
-
   tests_white_box_pods
 end
 

@@ -1,14 +1,18 @@
 import MixboxTestsFoundation
+import MixboxReporting
 
 public final class FakeSettingsAppNotificationsApplicationPermissionSetterFactory:
     NotificationsApplicationPermissionSetterFactory
 {
     private let fakeSettingsAppBundleId: String
+    private let testFailureRecorder: TestFailureRecorder
     
     public init(
-        fakeSettingsAppBundleId: String)
+        fakeSettingsAppBundleId: String,
+        testFailureRecorder: TestFailureRecorder)
     {
         self.fakeSettingsAppBundleId = fakeSettingsAppBundleId
+        self.testFailureRecorder = testFailureRecorder
     }
     
     public func notificationsApplicationPermissionSetter(
@@ -19,7 +23,8 @@ public final class FakeSettingsAppNotificationsApplicationPermissionSetterFactor
         return FakeSettingsAppNotificationsApplicationPermissionSetter(
             bundleId: bundleId,
             displayName: displayName,
-            fakeSettingsAppBundleId: fakeSettingsAppBundleId
+            fakeSettingsAppBundleId: fakeSettingsAppBundleId,
+            testFailureRecorder: testFailureRecorder
         )
     }
 }

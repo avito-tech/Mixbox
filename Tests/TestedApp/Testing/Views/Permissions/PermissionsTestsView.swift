@@ -15,7 +15,8 @@ final class PermissionsTestsView: TestStackScrollView {
             PhotosPermissionInfo(),
             GeolocationPermissionInfo(),
             CameraPermissionInfo(),
-            MicrophonePermissionInfo()
+            MicrophonePermissionInfo(),
+            NotificationsPermissionInfo()
         ]
         
         for info in infos {

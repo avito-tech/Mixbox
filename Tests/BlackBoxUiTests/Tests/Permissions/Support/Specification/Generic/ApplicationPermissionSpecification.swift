@@ -1,13 +1,15 @@
 import MixboxTestsFoundation
 
 protocol ApplicationPermissionSpecification {
+    associatedtype PermissionStateType
+    
     var identifier: String { get }
     
-    func setter(
+    func set(
+        state: PermissionStateType,
         permissions: ApplicationPermissionsSetter)
-        -> ApplicationPermissionSetter
     
     func authorizationStatusString(
-        state: AllowedDeniedNotDeterminedState)
+        state: PermissionStateType)
         -> String
 }

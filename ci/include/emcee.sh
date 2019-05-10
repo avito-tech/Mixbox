@@ -45,9 +45,10 @@ emcee() {
     "$__MIXBOX_CI_EMCEE_PATH" "$@"
 }
 
-testUsingEmceeWith_appName_testsTarget() {
+testUsingEmceeWith_appName_testsTarget_additionalApp() {
     local appName=$1
     local testsTarget=$2
+    local additionalApp=$3
     local runnerAppName=$testsTarget-Runner.app
     local derivedDataPath=`derivedDataPath`
     
@@ -66,6 +67,7 @@ testUsingEmceeWith_appName_testsTarget() {
     local xctestBundle="$derivedDataPath/Build/Products/Debug-iphonesimulator/$testsTarget-Runner.app/PlugIns/$testsTarget.xctest"
     local runnerPath="$derivedDataPath/Build/Products/Debug-iphonesimulator/$testsTarget-Runner.app"
     local appPath="$derivedDataPath/Build/Products/Debug-iphonesimulator/$appName"
+    local additionalAppPath="$derivedDataPath/Build/Products/Debug-iphonesimulator/$additionalApp"
     
     if isDistRun
     then
@@ -84,6 +86,7 @@ testUsingEmceeWith_appName_testsTarget() {
         # Tested code
         emceeArgs=("${emceeArgs[@]}" --runner "$(upload_hashed_zipped_for_emcee "$runnerPath")")
         emceeArgs=("${emceeArgs[@]}" --app "$(upload_hashed_zipped_for_emcee "$appPath")")
+        emceeArgs=("${emceeArgs[@]}" --additional-app "$(upload_hashed_zipped_for_emcee "$additionalAppPath")")
         emceeArgs=("${emceeArgs[@]}" --xctest-bundle "$(upload_hashed_zipped_for_emcee "$xctestBundle")")
     else
         [ -z "$MIXBOX_CI_EMCEE_FBSIMCTL_URL" ] && fatalError "\$MIXBOX_CI_EMCEE_FBSIMCTL_URL is not set"

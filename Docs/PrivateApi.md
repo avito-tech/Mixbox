@@ -4,6 +4,23 @@ We used class-dump to generate headers for frameworks, we used disassembler to r
 
 Pure class-dump is not enough to make good headers, we have a script `dump.py` that generates headers of XCTest and patches output of class-dump. It can be used when new Xcode is released and there are changes in APIs. Currently multiple XCode versions are supported.
 
+## Check if anyone already solved the problem
+
+There is a list of open-sourced projects for iOS UI testing, ordered by how much we used from them
+
+- [EarlGrey](https://github.com/google/EarlGrey)
+	- Visibility check
+	- Run loop / waiting utils
+	- Touch injection
+- [Detox](https://github.com/wix/Detox/tree/master/detox/ios)
+	- [Idea to use TCC.db for setting up application permissions.](https://github.com/wix/Detox/blob/016adbb6ec37235b17c4d036fe221daa454d22d1/detox/ios/DetoxHelper/DetoxHelper/Extension/JP/JPSimulatorHacks.m#L72) 
+- [KIF](https://github.com/kif-framework/KIF/tree/master/Classes)
+	- [Idea to use UIKeyboardImpl](https://github.com/kif-framework/KIF/blob/master/Classes/KIFTypist.m)
+- [WebDriverAgent](https://github.com/facebookarchive/WebDriverAgent)
+	- Private headers, long time ago
+- [monkeytalk](https://github.com/alexnauda/monkeytalk/tree/master/monkeytalk-agent-ios)
+	- We got nothing from it yet
+
 ## class-dump
 
 Install:
