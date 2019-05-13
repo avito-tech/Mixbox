@@ -7,8 +7,6 @@ final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewCo
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
-        accessibilityIdentifier = "ChecksTestsView"
-        
         // Set up nothing by default.
         addViewHandler = { _,_,_,_ in }
         

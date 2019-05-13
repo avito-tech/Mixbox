@@ -16,33 +16,26 @@ class ImageHashCalculatorTests: XCTestCase {
         let hashes = images.map {
             calculator.imageHash(image: $0)
         }
-        let expectedHashesForIosLesserOrEqual120: [Int64] = [
-            2170628984350433018,
-            -7629203804808290566,
-            2170628984358756090,
-            2170628984349908730,
-            1012762419733077534,
-            3956103203127296,
-            -1881985158994644237,
-            -7629144429980879112
-        ]
         
-        let expectedHashesForIosGreaterOrEqual121: [Int64] = [
-            2170628984349908730,
-            -7629203804807766278,
-            2170628984358756090,
-            2170628984350433018,
-            1012762419733077534,
-            3956103203127296,
-            -1881985158994644237,
-            -7629144429980879112,
-        ]
-        
-        if UIDevice.current.mb_iosVersion >= 12.1 {
-            XCTAssertEqual(hashes, expectedHashesForIosGreaterOrEqual121)
-        } else {
-            XCTAssertEqual(hashes, expectedHashesForIosLesserOrEqual120)
+        func ios121OrHigher(no: UInt64, yes: UInt64) -> UInt64 {
+            if UIDevice.current.mb_iosVersion >= 12.1 {
+                return yes
+            } else {
+                return no
+            }
         }
         
+        let expectedHashes: [UInt64] = [
+            ios121OrHigher(no: 2170628984350433018, yes: 2170628984349908730),
+            ios121OrHigher(no: 10817540268901261050, yes: 10817540268901785338),
+            2170628984358756090,
+            ios121OrHigher(no: 2170628984349908730, yes: 2170628984350433018),
+            1012762419733077534,
+            3956103203127296,
+            16564758914714907379,
+            10817599643728672504
+        ]
+        
+        XCTAssertEqual(hashes, expectedHashes)
     }
 }

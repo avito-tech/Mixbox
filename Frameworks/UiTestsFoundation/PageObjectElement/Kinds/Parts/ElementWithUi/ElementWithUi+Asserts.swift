@@ -114,7 +114,7 @@ extension ElementWithUi {
     
     public func assertMatchesReference(
         image: UIImage,
-        comparator: SnapshotsComparator = DHashSnapshotsComparator(),
+        comparator: SnapshotsComparator,
         file: StaticString = #file,
         line: UInt = #line)
     {

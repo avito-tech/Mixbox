@@ -79,7 +79,7 @@ public final class ElementMatcherBuilder {
     {
         return ReferenceImageMatcher(
             screenshotTaker: screenshotTaker,
-            reference: image,
+            referenceImage: image,
             comparator: comparator
         )
     }

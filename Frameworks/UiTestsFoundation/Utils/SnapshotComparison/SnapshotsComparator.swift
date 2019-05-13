@@ -1,3 +1,3 @@
 public protocol SnapshotsComparator {
-    func equals(actual: UIImage, reference: UIImage) -> Bool
+    func equals(actual: UIImage, expected: UIImage) -> MatchingResult
 }

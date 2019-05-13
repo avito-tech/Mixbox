@@ -3,7 +3,7 @@ import MixboxFoundation
 public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
     public init(
         screenshotTaker: ScreenshotTaker,
-        reference: UIImage,
+        referenceImage: UIImage,
         comparator: SnapshotsComparator)
     {
         super.init(
@@ -19,15 +19,7 @@ public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
                     )
                 }
                 // TODO: Display the actual and diff screenshots in the report in case of a mismatch
-                if comparator.equals(actual: actual, reference: reference) {
-                    return .match
-                } else {
-                    return MatchingResult.exactMismatch(
-                        mismatchDescription: {
-                            "Актуальное и референсное изображения не совпадают"
-                        }
-                    )
-                }
+                return comparator.equals(actual: actual, expected: referenceImage)
             }
         )
     }

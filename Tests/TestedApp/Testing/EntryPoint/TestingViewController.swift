@@ -26,6 +26,8 @@ final class TestingViewController: UIViewController {
             } else if let view = instantiateAsView(anyClass) {
                 viewToLoad = view
             }
+            
+            viewToLoad?.accessibilityIdentifier = className
         }
         
         self.view = viewToLoad ?? instantiateFallbackView()

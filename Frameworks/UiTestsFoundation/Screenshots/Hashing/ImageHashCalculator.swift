@@ -1,4 +1,4 @@
 public protocol ImageHashCalculator {
-    func imageHash(image: UIImage) -> Int64
-    func hashDistance(lhsHash: Int64, rhsHash: Int64) -> Int64
+    func imageHash(image: UIImage) -> UInt64
+    func hashDistance(lhsHash: UInt64, rhsHash: UInt64) -> UInt8
 }

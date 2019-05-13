@@ -28,7 +28,7 @@ import CocoaImageHashing
 //
 // However, it is slower than aHash and dHash.
 //
-// WARNING! CocoaImageHashing produces bad dHash (espectially for low-detailed images, see
+// WARNING! CocoaImageHashing produces bad pHash (espectially for low-detailed images, see
 // https://github.com/ameingast/cocoaimagehashing/pull/13) so we are using dHash now. Also that library
 // has other problems like failing tests on 32-bit machine and different hash values on different 64-bit devices.
 //
@@ -39,15 +39,18 @@ public final class DHashV0ImageHashCalculator: ImageHashCalculator {
     public init() {
     }
     
-    public func imageHash(image: UIImage) -> Int64 {
-        return OSImageHashing.sharedInstance().hashImage(image, with: .dHash)
+    public func imageHash(image: UIImage) -> UInt64 {
+        return UInt64(bitPattern: OSImageHashing.sharedInstance().hashImage(image, with: .dHash))
     }
     
-    public func hashDistance(lhsHash: Int64, rhsHash: Int64) -> Int64 {
-        return OSImageHashing.sharedInstance().hashDistance(
-            lhsHash,
-            to: rhsHash,
+    public func hashDistance(lhsHash: UInt64, rhsHash: UInt64) -> UInt8 {
+        let hashDistance = OSImageHashing.sharedInstance().hashDistance(
+            Int64(bitPattern: lhsHash),
+            to: Int64(bitPattern: rhsHash),
             with: OSImageHashingProviderId.dHash
         )
+        
+        // Actual range of the number is 0..64, so UInt will suit.
+        return UInt8(hashDistance)
     }
 }

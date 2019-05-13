@@ -34,8 +34,6 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         addSubview(overlappingView)
         addSubview(infoLabel)
         
-        accessibilityIdentifier = "ActionsTestsView"
-        
         infoLabel.accessibilityIdentifier = "info"
         infoLabel.textAlignment = .center
         infoLabel.textColor = .black

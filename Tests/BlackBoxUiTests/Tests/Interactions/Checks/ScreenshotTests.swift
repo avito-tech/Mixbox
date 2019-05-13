@@ -37,7 +37,10 @@ class ScreenshotTests: TestCase {
             }
             
             screen.forEveryKindOfHierarchy { screen in
-                screen.view(index: index).withoutTimeout.assertMatchesReference(image: image)
+                screen.view(index: index).withoutTimeout.assertMatchesReference(
+                    image: image,
+                    comparatorSelection: .perPixel
+                )
             }
         }
     }

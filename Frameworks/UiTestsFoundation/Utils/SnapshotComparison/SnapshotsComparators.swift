@@ -1,9 +1,9 @@
 public enum SnapshotsComparators: SnapshotsComparator {
     case perPixel
-    case dHash(tolerance: Int)
+    case dHash(tolerance: UInt8)
     
-    public func equals(actual: UIImage, reference: UIImage) -> Bool {
-        return comparator.equals(actual: actual, reference: reference)
+    public func equals(actual: UIImage, expected: UIImage) -> MatchingResult {
+        return comparator.equals(actual: actual, expected: expected)
     }
     
     private var comparator: SnapshotsComparator {
@@ -11,7 +11,10 @@ public enum SnapshotsComparators: SnapshotsComparator {
         case .perPixel:
             return PerPixelSnapshotsComparator()
         case let .dHash(tolerance):
-            return DHashSnapshotsComparator(tolerance: tolerance)
+            return ImageHashCalculatorSnapshotsComparator(
+                imageHashCalculator: DHashV0ImageHashCalculator(),
+                hashDistanceTolerance: tolerance
+            )
         }
     }
 }
