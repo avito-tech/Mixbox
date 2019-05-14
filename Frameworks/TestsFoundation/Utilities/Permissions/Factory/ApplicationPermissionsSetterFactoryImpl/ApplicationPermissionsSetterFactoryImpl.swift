@@ -1,11 +1,10 @@
 import Foundation
-import MixboxTestsFoundation
 import MixboxFoundation
 import MixboxReporting
 
 // If you want to customize returned ApplicationPermissionsSetter's
 // do not use this class (I mean it is not required) and implement your own factory.
-public final class ApplicationPermissionsSetterFactory {
+public final class ApplicationPermissionsSetterFactoryImpl: ApplicationPermissionsSetterFactory {
     private let notificationsApplicationPermissionSetterFactory: NotificationsApplicationPermissionSetterFactory
     private let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
     private let geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactory
@@ -17,7 +16,7 @@ public final class ApplicationPermissionsSetterFactory {
     // - maybe an alternative implementation that uses UI of real Settings.app, supports every locale, and is 100% stable
     //
     // Your options for TccDbApplicationPermissionSetterFactory:
-    // - For xcodebuild: TccDbApplicationPermissionSetterFactory
+    // - For xcodebuild: TccDbApplicationPermissionSetterFactoryImpl
     // - For fbxctest: AtApplicationLaunchTccDbApplicationPermissionSetterFactory
     //
     // Your options for GeolocationApplicationPermissionSetterFactory:
