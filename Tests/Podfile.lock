@@ -65,6 +65,7 @@ PODS:
   - SQLite.swift (0.11.5):
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
+  - SwiftLint (0.32.0)
   - SwiftyJSON (3.1.4)
   - TestsIpc (0.1.0):
     - MixboxIpc
@@ -92,6 +93,7 @@ DEPENDENCIES:
   - MixboxXcuiDriver (from `..`)
   - SBTUITestTunnel/Client
   - SimulatorRemoteNotifications (~> 0.0.3)
+  - SwiftLint
   - SwiftyJSON (= 3.1.4)
   - TestsIpc (from `Frameworks/TestsIpc`)
 
@@ -104,6 +106,7 @@ SPEC REPOS:
     - SBTUITestTunnel
     - SimulatorRemoteNotifications
     - SQLite.swift
+    - SwiftLint
     - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -169,6 +172,7 @@ SPEC CHECKSUMS:
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
+  SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TestsIpc: bc6cbc0931aa4d08fe8d1b79de377bf2f723226d
 

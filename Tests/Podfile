@@ -98,7 +98,7 @@ end
 
 def tests_white_box_pods
   mixbox_whitebox_tests_pods
-
+  
   tests_testing_helpers
   
   # Code being tested:
@@ -135,6 +135,10 @@ end
 
 target 'HostedAppLogicTests' do
   tests_white_box_pods
+end
+
+target 'Lint' do
+  pod 'SwiftLint'
 end
 
 post_install do |installer|
