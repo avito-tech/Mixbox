@@ -7,7 +7,7 @@ extension IpcClient {
         arguments: Method.Arguments)
         -> DataResult<Method.ReturnValue, IpcClientError>
     {
-        var result: DataResult<Method.ReturnValue, IpcClientError>? = nil
+        var result: DataResult<Method.ReturnValue, IpcClientError>?
         
         call(method: method, arguments: arguments) { localResult in
             result = localResult

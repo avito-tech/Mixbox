@@ -35,7 +35,7 @@ public class CompoundMatcher<T>: Matcher<T> {
         -> () -> String
     {
         return {
-            return prefix + " " + CompoundMatcher.joined(strings: matchers.map { $0.description })
+            prefix + " " + CompoundMatcher.joined(strings: matchers.map { $0.description })
         }
     }
     
@@ -46,7 +46,7 @@ public class CompoundMatcher<T>: Matcher<T> {
         -> () -> String
     {
         return {
-            return prefix + " " + CompoundMatcher.joined(
+            prefix + " " + CompoundMatcher.joined(
                 strings: zip(matchers, results).map { matcher, result in
                     CompoundMatcher.fail(matcher: matcher, result: result)
                 }

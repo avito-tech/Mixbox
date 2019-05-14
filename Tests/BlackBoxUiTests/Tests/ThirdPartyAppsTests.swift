@@ -147,7 +147,7 @@ private let deleteButtonTitles: [String: String] = [
     "hr": "Obriši",
     "hi": "डिलीट करें",
     "Italian": "Elimina",
-    "ca": "Eliminar",
+    "ca": "Eliminar"
 ]
 
 private extension PageObjects {

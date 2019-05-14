@@ -21,4 +21,3 @@ protocol XcuiBasedTestsDependenciesFactory: class {
     var screenshotTaker: ScreenshotTaker { get }
     var pasteboard: Pasteboard { get }
 }
-

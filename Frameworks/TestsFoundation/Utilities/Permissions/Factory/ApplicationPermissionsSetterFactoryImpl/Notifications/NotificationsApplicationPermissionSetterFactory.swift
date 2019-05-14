@@ -6,4 +6,3 @@ public protocol NotificationsApplicationPermissionSetterFactory {
         displayName: String)
         -> ApplicationPermissionWithoutNotDeterminedStateSetter
 }
-

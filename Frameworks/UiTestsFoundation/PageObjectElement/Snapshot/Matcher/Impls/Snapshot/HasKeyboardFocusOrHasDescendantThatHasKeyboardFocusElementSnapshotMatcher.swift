@@ -10,7 +10,7 @@ public final class HasKeyboardFocusOrHasDescendantThatHasKeyboardFocusElementSna
                 } else {
                     return .exactMismatch(
                         mismatchDescription: {
-                            return "не имеет фокус клавиатуры и ни один из вложенных элементов не имеет фокус клавиатуры"
+                            "не имеет фокус клавиатуры и ни один из вложенных элементов не имеет фокус клавиатуры"
                         }
                     )
                 }

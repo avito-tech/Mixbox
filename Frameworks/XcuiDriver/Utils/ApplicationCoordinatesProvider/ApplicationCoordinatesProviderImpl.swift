@@ -10,7 +10,7 @@ public final class ApplicationCoordinatesProviderImpl: ApplicationCoordinatesPro
         applicationFrameProvider: ApplicationFrameProvider)
     {
         self.applicationProvider = applicationProvider
-        self.applicationFrameProvider =  applicationFrameProvider
+        self.applicationFrameProvider = applicationFrameProvider
     }
     
     public func tappablePoint(point: CGPoint) -> CGPoint {

@@ -8,7 +8,7 @@ import TestsIpc
 // - There should be a view with "targetView" accessibilityIdentifier
 // - "targetView" should be on screen of every supported device.
 final class TouchesTestsView: UIView, InitializableWithTestingViewControllerSettings {
-    let scrollView =  UIScrollView()
+    let scrollView = UIScrollView()
     let simpleContainerView = UIView()
     let transformedContainerView = UIView()
     let targetView = UIView()

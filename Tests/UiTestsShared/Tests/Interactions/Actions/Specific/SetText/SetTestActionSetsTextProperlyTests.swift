@@ -135,7 +135,6 @@ final class SetTestActionSetsTextProperlyTests: BaseActionTestCase {
     
     // MARK: - Test Logic
     
-    
     private func checkTextActionSetsTextProperly(
         inputMethod: SetTextActionFactory.InputMethod,
         testDataId: Int)
@@ -160,7 +159,6 @@ final class SetTestActionSetsTextProperlyTests: BaseActionTestCase {
         
         var resetView = true
         let testData = testDataSet[testDataId]
-        
         
         for text in testData {
             let specification = actionSpecification(text: text)

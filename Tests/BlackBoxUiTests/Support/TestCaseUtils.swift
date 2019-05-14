@@ -136,7 +136,7 @@ final class TestCaseUtils {
         )
         
         let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder, _ ipcClient: IpcClient?) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] applicationProvider, elementFinder, ipcClient in
-            return XcuiPageObjectDependenciesFactory(
+            XcuiPageObjectDependenciesFactory(
                 testFailureRecorder: testFailureRecorder,
                 ipcClient: ipcClient ?? AlwaysFailingIpcClient(),
                 stepLogger: stepLogger,

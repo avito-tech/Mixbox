@@ -13,7 +13,7 @@ public final class RecordedNetworkSessionDirectoryWithDefaultName: RecordedNetwo
         return withName(defaultName)
     }
     
-    public override func inDirectoryWithRelativePath(
+    override public func inDirectoryWithRelativePath(
         relativePath: String)
         -> RecordedNetworkSessionDirectoryWithDefaultName
     {

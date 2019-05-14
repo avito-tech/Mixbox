@@ -34,7 +34,7 @@ public final class SnapshotForInteractionResolverImpl: SnapshotForInteractionRes
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             resolvedElementQuery: resolvedElementQuery,
             interactionSpecificImplementation: InteractionSpecificImplementation {
-                return completion($0)
+                completion($0)
             },
             interactionMarkableAsImpossibleToRetry: retriableTimedInteractionState
         )

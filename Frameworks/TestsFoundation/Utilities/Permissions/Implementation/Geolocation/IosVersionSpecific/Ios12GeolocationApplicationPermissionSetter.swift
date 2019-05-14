@@ -127,7 +127,7 @@ public final class Ios12GeolocationApplicationPermissionSetter: ApplicationPermi
     private func notDeterminedClientsPlistAppSettings() -> [String: Any] {
         return [
             "InUseLevel": 4, // I do not know what it means, but it was on FS in .notDetermined state.
-            "SupportedAuthorizationMask": 3, // I do not know what it means, but it was on FS in .notDetermined state.
+            "SupportedAuthorizationMask": 3 // I do not know what it means, but it was on FS in .notDetermined state.
         ]
     }
 }

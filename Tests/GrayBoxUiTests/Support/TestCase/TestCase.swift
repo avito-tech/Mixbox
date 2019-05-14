@@ -95,17 +95,17 @@ class TestCase: XCTestCase, FailureGatherer {
         
         let bodyResult: GatherFailuresResult<T>.BodyResult = ObjectiveCExceptionCatcher.catch(
             try: {
-                return .finished(body())
-        },
+                .finished(body())
+            },
             catch: { exception in
                 if exception is TestCanNotBeContinuedException {
                     return .testFailedAndCannotBeContinued
                 } else {
                     return .caughtException(exception)
                 }
-        },
+            },
             finally: {
-        }
+            }
         )
         
         let failures = gatheredFailures

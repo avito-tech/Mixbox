@@ -23,4 +23,3 @@ final class HierarchySourcesTestsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

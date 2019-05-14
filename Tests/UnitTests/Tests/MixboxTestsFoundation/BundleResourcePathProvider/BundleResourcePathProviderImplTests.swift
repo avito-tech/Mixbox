@@ -23,7 +23,7 @@ final class BundleResourcePathProviderImplTests: XCTestCase {
     private func check_path_returnsPath_ifResourceExists(resourceName: String) {
         XCTAssertNoThrow(
             try {
-                let bundle = Bundle.init(for: BundleResourcePathProviderImplTests.self)
+                let bundle = Bundle(for: BundleResourcePathProviderImplTests.self)
                 
                 let path = try BundleResourcePathProviderImpl(bundle: bundle)
                     .path(resource: resourceName)

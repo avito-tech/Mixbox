@@ -8,5 +8,3 @@ final class CameraPermissionInfo: AvCaptureDevicePermissionInfo {
         )
     }
 }
-
-

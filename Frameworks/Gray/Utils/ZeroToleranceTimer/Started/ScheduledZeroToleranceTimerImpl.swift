@@ -23,5 +23,3 @@ public final class ScheduledZeroToleranceTimerImpl: ScheduledZeroToleranceTimer 
         invalidate()
     }
 }
-
-

@@ -146,7 +146,7 @@ class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
         views = []
     }
     
-    final func defaultAddViewHandler() ->AddViewHandler {
+    final func defaultAddViewHandler() -> AddViewHandler {
         return TestStackScrollView.defaultAddViewHandler()
     }
     

@@ -76,7 +76,7 @@ final class NetworkStubbingTestsView: TestStackScrollView, InitializableWithTest
     }
     
     private func startServer() {
-        server.addDefaultHandler(forMethod: "GET", request: GCDWebServerDataRequest.self) { [weak self] request, completion in
+        server.addDefaultHandler(forMethod: "GET", request: GCDWebServerDataRequest.self) { [weak self] _, completion in
             let contentType = "application/json"
             completion(
                 GCDWebServerDataResponse(
@@ -93,7 +93,7 @@ final class NetworkStubbingTestsView: TestStackScrollView, InitializableWithTest
 func string(_ url: String, completion: @escaping (String?) -> ()) {
     guard let url = URL(string: url) else { return completion(nil) }
     
-    let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+    let task = URLSession.shared.dataTask(with: url) {(data, _, _) in
         DispatchQueue.main.async {
             guard let data = data else { return completion(nil) }
             guard let string = String(data: data, encoding: .utf8) else { return completion(nil) }

@@ -122,7 +122,7 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
         case .v9orLower:
             expectedSymbol = symbolInXcode9
         }
-        XCTAssert(entry.symbol == expectedSymbol , "Expected symbol: \(expectedSymbol), actual: \(entry.symbol)", file: fileWhereExecuted, line: lineWhereExecuted)
+        XCTAssert(entry.symbol == expectedSymbol, "Expected symbol: \(expectedSymbol), actual: \(entry.symbol)", file: fileWhereExecuted, line: lineWhereExecuted)
         
         XCTAssert(entry.demangledSymbol == demangledSymbol, "Expected demangledSymbol: \(demangledSymbol), actual: \(entry.demangledSymbol)", file: fileWhereExecuted, line: lineWhereExecuted)
         XCTAssert(entry.address == expectedAddress, "Expected address: \(expectedAddress), actual: \(entry.address)", file: fileWhereExecuted, line: lineWhereExecuted)

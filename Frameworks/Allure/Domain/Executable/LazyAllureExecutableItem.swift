@@ -14,7 +14,7 @@ public final class LazyAllureExecutableItem: AllureExecutableItem {
     public var attachments: [AllureAttachment] {
         return lazyAttachments.compactMap {
             switch $0.value() {
-            case .failure(_):
+            case .failure:
                 return nil
             case .loaded(let value):
                 return value

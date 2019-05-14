@@ -17,11 +17,11 @@ extension PageObjectElement {
                     minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
                     buildMatcher: { element in
                         buildMatcher(element)
-                }
+                    }
                 ),
                 descriptionBuilder: { args in
                     "проверить, что \(description(args))"
-            }
+                }
             ),
             interactionPerformingSettings: InteractionPerformingSettings(
                 failTest: failTest,

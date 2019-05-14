@@ -51,5 +51,4 @@ final class SbtuiStubResponseBuilder: StubResponseBuilder {
         }
     }
     
-    
 }

@@ -8,5 +8,3 @@ final class MicrophonePermissionInfo: AvCaptureDevicePermissionInfo {
         )
     }
 }
-
-

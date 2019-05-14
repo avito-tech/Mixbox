@@ -10,7 +10,7 @@ public final class MultiTouchCommandExecutorImpl: MultiTouchCommandExecutor {
     }
     
     public func execute(command: MultiTouchCommand) {
-        let touchInjector =  touchInjectorFactory.touchInjector(
+        let touchInjector = touchInjectorFactory.touchInjector(
             window: command.beginCommand.relativeToWindow
         )
         

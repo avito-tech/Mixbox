@@ -16,7 +16,7 @@ public final class TouchesTestsViewTargetViewElement:
 {
     public var centerToWindow: CGPoint? {
         return value(valueTitle: "centerToWindow") { (snapshot: ElementSnapshot) -> CGPoint? in
-            return try? snapshot.customValue(key: "centerToWindow")
+            try? snapshot.customValue(key: "centerToWindow")
         } ?? nil
     }
 }

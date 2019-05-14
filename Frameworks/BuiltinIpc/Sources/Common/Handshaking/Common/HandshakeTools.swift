@@ -52,7 +52,6 @@ final class HandshakeTools {
         setUpCallIpcCallbackIpcMethodHandler()
     }
     
-    
     func makeClient(host: String, port: UInt) -> BuiltinIpcClient {
         let client = BuiltinIpcClient(
             host: host,

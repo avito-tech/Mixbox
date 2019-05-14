@@ -25,7 +25,6 @@ public final class ZeroToleranceTimerSchedulerImpl: ZeroToleranceTimerScheduler 
         )
     }
     
-    
     func scheduleZeroToleranceDispatchSourceTimer(
         interval: TimeInterval,
         handler: @escaping () -> Void)

@@ -11,7 +11,7 @@ extension ElementWithUi {
         getValue: @escaping (ElementSnapshot) -> (T))
         -> T?
     {
-        var valueOrNil: T? = nil
+        var valueOrNil: T?
         
         _ = implementation.filteringHiddenElement.interactionPerformer.perform(
             interaction: WrappedDescriptionElementInteraction(

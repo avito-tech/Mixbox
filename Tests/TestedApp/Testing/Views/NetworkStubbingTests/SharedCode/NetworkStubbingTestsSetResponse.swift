@@ -7,4 +7,3 @@ public final class NetworkStubbingTestsViewSetResponseIpcMethod: IpcMethod {
     public init() {
     }
 }
-

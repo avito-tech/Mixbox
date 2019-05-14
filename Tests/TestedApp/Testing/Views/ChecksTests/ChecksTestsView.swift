@@ -8,7 +8,7 @@ final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewCo
         super.init(frame: .zero)
         
         // Set up nothing by default.
-        addViewHandler = { _,_,_,_ in }
+        addViewHandler = { _, _, _, _ in }
         
         setUpViews()
         

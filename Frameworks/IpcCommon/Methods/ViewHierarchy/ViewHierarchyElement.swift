@@ -110,7 +110,7 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
         }
         
         let customFields = customValues.map { (key: String, value: String) in
-            return (key: "customValue[\(key)]", value: value)
+            (key: "customValue[\(key)]", value: value)
         }
         
         let fieldDescriptions = (hardcodedFields + customFields + [(key: "children", value: childrenDescription)])

@@ -11,4 +11,3 @@ final class CellThatCrashesAtInit: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

@@ -11,4 +11,3 @@ public protocol AllureExecutableItem: class, Encodable {
     var attachments: [AllureAttachment] { get }
     var parameters: [AllureParameter] { get }
 }
-

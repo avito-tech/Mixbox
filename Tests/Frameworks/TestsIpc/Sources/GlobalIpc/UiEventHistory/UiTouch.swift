@@ -1,7 +1,7 @@
 // Mirrors UIKit.UITouch (incompletely)
 public final class UiTouch: Codable {
     // Mirrors UITouch.Phase (completely)
-    public enum Phase: String,  Codable {
+    public enum Phase: String, Codable {
         case began
         case moved
         case stationary
@@ -10,7 +10,7 @@ public final class UiTouch: Codable {
     }
     
     // Mirrors UITouch.TouchType (completely)
-    public enum TouchType: String,  Codable {
+    public enum TouchType: String, Codable {
         case direct
         case indirect
         case pencil

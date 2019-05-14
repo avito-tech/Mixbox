@@ -24,4 +24,3 @@ public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
         )
     }
 }
-

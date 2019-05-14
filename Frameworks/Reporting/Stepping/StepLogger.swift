@@ -69,7 +69,6 @@ public enum StepType {
     case testWarehousePrecondition
     // Maybe remove types at all and introduce tags or custom dictionaries/codable objects
     
-    
     case interaction
     case other
 }

@@ -46,4 +46,3 @@ final class ScreenshotDHashLabelsTestsView: UIView {
         }
     }
 }
-

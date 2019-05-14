@@ -71,7 +71,7 @@ class TestCase: XCTestCase, FailureGatherer {
             // Fixes assertion failure when view is loaded multiple times and uses ViewIpc
             "MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY": "true",
             // TODO: What is it for? Is it just a default screen?
-            "MB_TESTS_screenName": "DummyForLaunchingUiTestsView",
+            "MB_TESTS_screenName": "DummyForLaunchingUiTestsView"
         ]
         
         var mergedEnvironment = commonEnvironment
@@ -145,7 +145,7 @@ class TestCase: XCTestCase, FailureGatherer {
         
         let bodyResult: GatherFailuresResult<T>.BodyResult = ObjectiveCExceptionCatcher.catch(
             try: {
-                return .finished(body())
+                .finished(body())
             },
             catch: { exception in
                 if exception is TestCanNotBeContinuedException {

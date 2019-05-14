@@ -133,7 +133,7 @@ public extension IpcCallback {
         arguments: Arguments)
         -> DataResult<ReturnValue, IpcClientError>
     {
-        var result: DataResult<ReturnValue, IpcClientError>? = nil
+        var result: DataResult<ReturnValue, IpcClientError>?
         
         call(arguments: arguments) { localResult in
             result = localResult

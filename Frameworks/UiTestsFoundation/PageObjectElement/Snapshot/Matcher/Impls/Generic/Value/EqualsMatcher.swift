@@ -10,7 +10,7 @@ public final class EqualsMatcher<T: Equatable>: Matcher<T> {
                 } else {
                     return .exactMismatch(
                         mismatchDescription: {
-                            return "не равно '\(expectedValue)', актуальное значение: '\(actualValue)')"
+                            "не равно '\(expectedValue)', актуальное значение: '\(actualValue)')"
                         }
                     )
                 }

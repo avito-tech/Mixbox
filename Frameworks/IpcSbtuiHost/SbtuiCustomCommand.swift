@@ -10,7 +10,7 @@ final class SbtuiCustomCommand {
     
     init<MethodHandler: IpcMethodHandler>(ipcMethodHandler: MethodHandler) {
         handleFunction = { request in
-            return SbtuiCustomCommand.handle(request: request, usingIpcMethodHandler: ipcMethodHandler)
+            SbtuiCustomCommand.handle(request: request, usingIpcMethodHandler: ipcMethodHandler)
         }
         name = ipcMethodHandler.method.name
     }

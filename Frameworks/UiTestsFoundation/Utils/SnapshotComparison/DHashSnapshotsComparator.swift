@@ -58,7 +58,7 @@ public final class ImageHashCalculatorSnapshotsComparator: SnapshotsComparator {
 }
 
 private func bitPatternString<T>(_ number: T) -> String where T: FixedWidthInteger {
-    let binaryString = String(number,  radix: 2)
+    let binaryString = String(number, radix: 2)
     
     return binaryString.padding(toLength: T.bitWidth, withPad: "0", startingAt: 0)
 }
