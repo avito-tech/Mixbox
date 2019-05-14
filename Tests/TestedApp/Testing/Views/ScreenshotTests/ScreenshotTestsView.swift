@@ -36,8 +36,9 @@ final class ScreenshotTestsView: UIView {
                 dy: (maxSize.height + 1) * column
             )
             
-            view.mb_size = ScreenshotTestsConstants.viewSize(index: i)
-            view.center = bounds.mb_center - offset
+            view.mb_size = ScreenshotTestsConstants.viewSize(index: i).mb_floor()
+            view.center = (bounds.mb_center - offset)
+            view.mb_origin = view.mb_origin.mb_floor() // avoid blending
         }
     }
     

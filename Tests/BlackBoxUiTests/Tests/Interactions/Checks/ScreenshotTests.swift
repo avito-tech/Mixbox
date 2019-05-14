@@ -13,15 +13,6 @@ class ScreenshotTests: TestCase {
     }
     
     func testExpectedColoredBoxesMatchActualColoredBoxes() {
-        
-        // Kludge! TODO: Enable this test
-        let notIos11 = UIDevice.current.mb_iosVersion.majorVersion < 11
-        let isRunningUsingEmcee = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
-        if notIos11 && isRunningUsingEmcee {
-            return
-        }
-        // End of kludge
-        
         openScreen(screen.xcui)
         
         screen.xcui.view(index: 0).assertIsDisplayed()
@@ -29,7 +20,7 @@ class ScreenshotTests: TestCase {
         for index in 0..<ScreenshotTestsConstants.viewsCount {
             let imageOrNil = UIImage.image(
                 color: ScreenshotTestsConstants.color(index: index),
-                size: ScreenshotTestsConstants.viewSize(index: index)
+                size: ScreenshotTestsConstants.viewSize(index: index).mb_floor()
             )
             guard let image = imageOrNil else {
                 XCTFail("Failed to create image")

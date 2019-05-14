@@ -16,11 +16,23 @@ extension CGPoint {
         return CGFloat(endAngle - startAngle)
     }
     
-    public func mb_ceil() -> CGPoint {
-        return CGPoint(x: CoreGraphics.ceil(x), y: CoreGraphics.ceil(y))
-    }
-    
     public func mb_addVector(point: CGPoint, vector: CGVector) -> CGPoint {
         return CGPoint(x: x + vector.dx, y: y + vector.dy)
+    }
+    
+    // MARK: - Rounding
+    
+    public func mb_ceil() -> CGPoint {
+        return CGPoint(
+            x: CoreGraphics.ceil(x),
+            y: CoreGraphics.ceil(y)
+        )
+    }
+    
+    public func mb_floor() -> CGPoint {
+        return CGPoint(
+            x: CoreGraphics.floor(x),
+            y: CoreGraphics.floor(y)
+        )
     }
 }
