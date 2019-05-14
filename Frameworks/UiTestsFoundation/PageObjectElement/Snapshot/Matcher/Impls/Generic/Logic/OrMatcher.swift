@@ -4,9 +4,9 @@ public class OrMatcher<T>: CompoundMatcher<T> {
             prefix: "Любое из",
             matchers: matchers,
             exactMatch: { matchingResults in
-                matchingResults.reduce(false) { result, matchingResult in
-                    result || matchingResult.matched
-                }
+                matchingResults.contains(where: { (matchingResult) -> Bool in
+                    matchingResult.matched
+                })
             },
             percentageOfMatching: { matchingResults in
                 // [0.1, 0.9, 0.2] => 0.9

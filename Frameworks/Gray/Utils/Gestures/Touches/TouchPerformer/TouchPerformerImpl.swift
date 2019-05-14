@@ -85,11 +85,11 @@ public final class TouchPerformerImpl: TouchPerformer {
     }
     
     private func objects<T>(index: Int, arrays: [[T]]) throws -> [T] {
-        guard arrays.count > 0 else {
+        guard let firstArray = arrays.first else {
             throw ErrorString("arrayOfArrays must contain at least one element.")
         }
         
-        let firstArraySize = arrays[0].count
+        let firstArraySize = firstArray.count
         
         guard index < firstArraySize else {
             throw ErrorString("index must be smaller than the size of the arrays.")

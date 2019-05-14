@@ -1,6 +1,5 @@
 import UIKit
 
-// swiftlint:disable uicolor
 public extension UIImage {
 
     var statusBarFrame: CGRect {

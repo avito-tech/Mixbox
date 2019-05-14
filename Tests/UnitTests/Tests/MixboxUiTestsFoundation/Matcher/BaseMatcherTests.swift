@@ -11,7 +11,7 @@ class BaseMatcherTests {
         switch matcher.matches(value: value) {
         case .match:
             break
-        case .mismatch(let percentageOfMatching, let mismatchDescription):
+        case let .mismatch(percentageOfMatching, mismatchDescription):
             XCTFail("""
                 Expected: match
                 Actual: mismatch
@@ -45,7 +45,7 @@ class BaseMatcherTests {
                 file: file,
                 line: line
             )
-        case .mismatch(let actualPercentageOfMatching, let mismatchDescription):
+        case let .mismatch(actualPercentageOfMatching, mismatchDescription):
             if percentageOfMatching != actualPercentageOfMatching {
                 XCTFail("""
                     Expected percentageOfMatching: \(percentageOfMatching)

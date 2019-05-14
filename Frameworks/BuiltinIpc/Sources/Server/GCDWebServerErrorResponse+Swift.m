@@ -6,7 +6,7 @@
     return [self initWithClientError:code message:@"%@", text];
 }
 
-- (instancetype)initWithServerError:(GCDWebServerClientErrorHTTPStatusCode)code text:(nonnull NSString *)text {
+- (instancetype)initWithServerError:(GCDWebServerServerErrorHTTPStatusCode)code text:(nonnull NSString *)text {
     return [self initWithServerError:code message:@"%@", text];
 }
 

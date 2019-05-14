@@ -164,7 +164,7 @@ final class SetTestActionSetsTextProperlyTests: BaseActionTestCase {
             let specification = actionSpecification(text: text)
             
             let sourceText = screen.input(specification.elementId).text()
-            let emptyStringsIsSetInEmptyInput = text == "" && sourceText == ""
+            let emptyStringsIsSetInEmptyInput = text.isEmpty && sourceText.isEmpty
             let shouldSkipCheckThatEventIsTriggeredBecauseEventMayBeNotTriggeredAndItIsOkay = emptyStringsIsSetInEmptyInput
             if shouldSkipCheckThatEventIsTriggeredBecauseEventMayBeNotTriggeredAndItIsOkay {
                 // Skip check

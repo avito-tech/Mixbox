@@ -17,7 +17,7 @@ public final class ObjectiveCExceptionCatcher {
             finally
         )
         
-        // swiftlint:disable:next force_unwrap
+        // swiftlint:disable:next force_unwrapping
         return result!
     }
     

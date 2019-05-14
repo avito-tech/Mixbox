@@ -1,6 +1,7 @@
 import Foundation
 import MixboxFoundation
 
+// swiftlint:disable closure_parameter_position
 public final class HostDefinedValueComparator {
     
     public static let doubeValueComparator: HostDefinedValueComparator = HostDefinedValueComparator {

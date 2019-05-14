@@ -19,6 +19,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
     }
 
     // TODO: Split function
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     public func performInteractionForVisibleElement(
         minimalPercentageOfVisibleArea: CGFloat,
         resolvedElementQuery: ResolvedElementQuery,

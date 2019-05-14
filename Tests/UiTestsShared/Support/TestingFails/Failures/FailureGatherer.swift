@@ -14,7 +14,7 @@ extension FailureGatherer {
     {
         let failures = gatherFailures(body: body)
         XCTAssert(
-            failures.failures.count > 0,
+            !failures.failures.isEmpty,
             "The code is expected to produce failures, but it didn't produce any failure",
             file: fileOfThisAssertion,
             line: lineOfThisAssertion
@@ -75,7 +75,7 @@ extension FailureGatherer {
     {
         let failures = gatherFailures(body: body)
         XCTAssert(
-            failures.failures.count == 0,
+            failures.failures.isEmpty,
             "The code is expected to not produce failures, but it produced failures: \(failures)",
             file: fileOfThisAssertion,
             line: lineOfThisAssertion

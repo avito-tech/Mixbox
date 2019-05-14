@@ -1,6 +1,5 @@
 import MixboxIpcCommon
 import XCTest
-import MixboxIpcCommon
 
 final class RealViewHierarchyElementSnaphot: ElementSnapshot {
     private let data: ViewHierarchyElement

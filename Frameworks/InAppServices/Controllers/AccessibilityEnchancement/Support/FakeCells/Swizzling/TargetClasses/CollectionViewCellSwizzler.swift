@@ -3,9 +3,6 @@
 import MixboxTestability
 import MixboxFoundation
 
-// TODO: Fix linter rule, it should ignore missing colons inside #selector
-// swiftlint:disable missing_spaces_after_colon
-
 final class CollectionViewCellSwizzler {
     static func swizzle(shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool) {
         swizzle(

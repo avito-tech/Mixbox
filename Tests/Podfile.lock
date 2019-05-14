@@ -74,6 +74,7 @@ DEPENDENCIES:
   - CocoaImageHashing (= 1.6.1)
   - Cuckoo (= 0.12.1)
   - DynamicCodable (= 1.0)
+  - GCDWebServer (= 3.4.2)
   - MixboxAllure (from `..`)
   - MixboxArtifacts (from `..`)
   - MixboxBuiltinIpc (from `..`)
@@ -91,7 +92,8 @@ DEPENDENCIES:
   - MixboxUiKit (from `..`)
   - MixboxUiTestsFoundation (from `..`)
   - MixboxXcuiDriver (from `..`)
-  - SBTUITestTunnel/Client
+  - SBTUITestTunnel/Client (= 3.0.14)
+  - SBTUITestTunnel/Server (= 3.0.14)
   - SimulatorRemoteNotifications (~> 0.0.3)
   - SwiftLint
   - SwiftyJSON (= 3.1.4)

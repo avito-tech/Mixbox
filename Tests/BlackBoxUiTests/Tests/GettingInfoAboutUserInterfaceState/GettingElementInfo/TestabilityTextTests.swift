@@ -94,6 +94,7 @@ final class TestabilityTextTests: TestCase {
             .assertHasText("Текст")
     }
     
+    // swiftlint:disable:next function_body_length
     func test_textFields() {
         screen.element("textField_text:plain_textIsNil_placeholder:plain_textIsNil")
             .assertHasText("")

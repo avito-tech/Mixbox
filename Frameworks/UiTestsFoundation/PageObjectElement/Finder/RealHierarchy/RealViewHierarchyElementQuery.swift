@@ -127,7 +127,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     private func log(resolvedElementQuery: ResolvedElementQuery, viewHierarchy: ViewHierarchy)
         -> StepLoggerResultWrapper<ResolvedElementQuery>
     {
-        let elementWasFound = resolvedElementQuery.matchingSnapshots.count > 0
+        let elementWasFound = !resolvedElementQuery.matchingSnapshots.isEmpty
         
         return StepLoggerResultWrapper(
             stepLogAfter: StepLogAfter(

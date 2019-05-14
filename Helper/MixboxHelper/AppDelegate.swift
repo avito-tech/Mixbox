@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem.menu = menu
         statusBarItem.image = NSImage(
             named: NSImage.Name(
-                rawValue: services.count == 0 ? "menu-icon-grayscale" : "menu-icon-colored"
+                rawValue: services.isEmpty ? "menu-icon-grayscale" : "menu-icon-colored"
             )
         )
     }

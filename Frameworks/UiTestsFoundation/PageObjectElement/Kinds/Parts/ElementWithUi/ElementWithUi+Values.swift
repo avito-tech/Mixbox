@@ -18,11 +18,14 @@ extension ElementWithUi {
                 interaction: IsDisplayedAndMatchesCheck(
                     minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
                     buildMatcher: { _ in
-                        Matcher<ElementSnapshot>(description: { "kludge to get a value" }) { snapshot in
-                            valueOrNil = getValue(snapshot)
-                            
-                            return .match
-                        }
+                        Matcher<ElementSnapshot>(
+                            description: { "kludge to get a value" },
+                            matchingFunction: { snapshot in
+                                valueOrNil = getValue(snapshot)
+                                
+                                return .match
+                            }
+                        )
                     }
                 ),
                 descriptionBuilder: { dependencies in

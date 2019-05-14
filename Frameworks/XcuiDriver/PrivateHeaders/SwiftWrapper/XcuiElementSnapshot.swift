@@ -2,8 +2,6 @@ import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxUiTestsFoundation
 import XCTest
-import MixboxIpcCommon
-import MixboxUiTestsFoundation
 
 // Swift обертка над приватным Obj-C XCElementSnapshot
 final class XcuiElementSnapshot: ElementSnapshot {

@@ -64,7 +64,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
     
     private func shouldRetryResolvingElement(resolvedElementQuery: ResolvedElementQuery) -> Bool {
         // Element may be not found if it just didn't appear if something is not fully loaded. A normal situation.
-        let elementIsFound = resolvedElementQuery.matchingSnapshots.count > 0
+        let elementIsFound = !resolvedElementQuery.matchingSnapshots.isEmpty
         
         // Element may be not unique withing the animation in Collection View.
         // Because Collection View duplicate cells during animation.

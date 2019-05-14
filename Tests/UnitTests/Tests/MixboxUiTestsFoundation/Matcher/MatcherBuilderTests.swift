@@ -1,6 +1,9 @@
 import MixboxUiTestsFoundation
 import XCTest
 
+// TODO: Split to classes
+// swiftlint:disable file_length
+// swiftlint:disable type_body_length
 final class MatcherBuilderTests: BaseMatcherTests {
     func test_id() {
         assertMatches(
@@ -218,6 +221,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
         )
     }
     
+    // swiftlint:disable:next function_body_length
     func test_and() {
         assertMatches(
             stub: {

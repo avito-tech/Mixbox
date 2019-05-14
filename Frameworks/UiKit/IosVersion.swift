@@ -45,6 +45,7 @@ extension UIDevice {
 // [7] == [7, 0]
 public func ==(left: IosVersion, right: IosVersion) -> Bool {
     for (a, b) in zip(left.version, right.version, pad: 0) {
+        // TODO: fix swiftlint:disable:next for_where
         if a != b {
             return false
         }

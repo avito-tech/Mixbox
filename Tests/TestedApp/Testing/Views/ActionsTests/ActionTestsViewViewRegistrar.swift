@@ -40,7 +40,7 @@ final class ActionTestsViewViewRegistrar {
         
         register("text") { context in
             context.scrollView.addTextField(id: context.id) {
-                $0.onInput = { [weak self] text in
+                $0.onInput = { text in
                     context.reportResult("text: \(text ?? "")")
                 }
             }

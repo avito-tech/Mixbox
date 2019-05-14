@@ -33,7 +33,7 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                     switch bestMatch {
                     case .match:
                         return .match
-                    case .mismatch(let percentageOfMatching, let mismatchDescription):
+                    case let .mismatch(percentageOfMatching, mismatchDescription):
                         return MatchingResult.partialMismatch(
                             percentageOfMatching: percentageOfMatching,
                             mismatchDescription: {

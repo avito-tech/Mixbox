@@ -48,6 +48,7 @@ final class TestCaseUtils {
     
     private let mixboxHelperClient = MixboxHelperClient()
     
+    // swiftlint:disable:next function_body_length
     init() {
         // TODO: Implement Mixbox Helper
         // mixboxHelperClient.start()

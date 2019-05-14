@@ -116,6 +116,7 @@ final class FakeCellsTestsView: CollectionView, InitializableWithTestingViewCont
         )
     }
     
+    // swiftlint:disable:next function_body_length
     private func setUpCellModels() {
         removeCells()
         

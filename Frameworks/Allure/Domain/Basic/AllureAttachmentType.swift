@@ -13,6 +13,7 @@ public final class AllureAttachmentType: Encodable {
     }
     
     // https://github.com/onevcat/MimeType/blob/master/Sources/MimeType.swift
+    // swiftlint:disable:next function_body_length
     private static func mimeTypeFromExtension(
         _ fileExtension: String)
         -> String

@@ -61,10 +61,6 @@
 - (id)initWithEndpoint:(id)arg1 pid:(int)arg2 capabilities:(id)arg3;
 
 // Remaining properties
-@property(readonly, copy) NSString *debugDescription;
-@property(readonly, copy) NSString *description;
-@property(readonly) unsigned long long hash;
-@property(readonly) Class superclass;
 
 @end
 

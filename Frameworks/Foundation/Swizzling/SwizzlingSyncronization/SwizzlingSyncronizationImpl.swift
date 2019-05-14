@@ -6,7 +6,7 @@ public final class SwizzlingSyncronizationImpl: SwizzlingSyncronization {
     
     public func append(swizzlingResult: SwizzlingResult) -> ErrorString? {
         switch swizzlingResult {
-        case .swizzledOriginalMethod(let method):
+        case let .swizzledOriginalMethod(method):
             if swizzledMethods.contains(method) {
                 return ErrorString(
                     "Method was swizzled twice! Rewrite swizzling."
@@ -16,13 +16,13 @@ public final class SwizzlingSyncronizationImpl: SwizzlingSyncronization {
                 swizzledMethods.insert(method)
                 return nil
             }
-        case .failedToGetOriginalMethod(let type, let selector):
+        case let .failedToGetOriginalMethod(type, selector):
             return assertionFailureMessageForFailureInGettingMethod(
                 type: type,
                 selector: selector,
                 methodAdjective: "original"
             )
-        case .failedToGetSwizzledMethod(let type, let selector):
+        case let .failedToGetSwizzledMethod(type, selector):
             return assertionFailureMessageForFailureInGettingMethod(
                 type: type,
                 selector: selector,

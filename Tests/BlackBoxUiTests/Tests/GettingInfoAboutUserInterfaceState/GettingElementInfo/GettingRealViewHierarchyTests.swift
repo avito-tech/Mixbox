@@ -2,14 +2,14 @@ import MixboxUiTestsFoundation
 import MixboxIpcCommon
 import XCTest
 
-// swiftlint:disable force_unwrapping
-
 final class GettingRealViewHierarchyTests: TestCase {
     override func precondition() {
         openScreen(pageObjects.hierarchyTestsView)
     }
     
     // TODO: Fails at getting accessibilityValue and testability_customValues
+    // TODO: Fix linter
+    // swiftlint:disable:next function_body_length
     func disabled_test() {
         let result = ipcClient.callOrFail(
             method: ViewHierarchyIpcMethod()

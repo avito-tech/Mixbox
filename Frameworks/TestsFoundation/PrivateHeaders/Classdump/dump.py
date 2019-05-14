@@ -495,6 +495,22 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
                 name="XCTContext",
                 kind=DeclarationKind.objc_class
             ),
+#             PublicType(
+#                 name="XCElementSnapshot",
+#                 kind=DeclarationKind.objc_class,
+#                 public_declarations=
+# """@property(readonly) XCUIElementType elementType;
+# @property(readonly, getter=isEnabled) _Bool enabled;
+# @property(readonly) struct CGRect frame;
+# @property(readonly) long long horizontalSizeClass;
+# @property(readonly) NSString *identifier;
+# @property(readonly, copy) NSString *label;
+# @property(readonly) NSString *placeholderValue;
+# @property(readonly, getter=isSelected) _Bool selected;
+# @property(readonly, copy) NSString *title;
+# @property(readonly) id value;
+# @property(readonly) long long verticalSizeClass;"""
+#             ),
             PublicType(
                 name="XCUIElementAttributes",
                 kind=DeclarationKind.objc_protocol
@@ -624,54 +640,56 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 
         if class_name in self.dumped_public_types:
             declarations_to_remove = self.dumped_public_types[class_name].public_declarations + common_declarations_to_remove
+        else:
+            declarations_to_remove = common_declarations_to_remove
 
-            for declaration_to_remove in declarations_to_remove:
-                contents = contents.replace(declaration_to_remove + "\n", "")
-                
-            try:
-                public_header = File(path=f"{xcode.path}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/{class_name}.h")
-                public_header_contents = public_header.read()
-            except:
-                return contents
-
-            properties = re.findall(r'@property.*?([a-zA-Z0-9_]+)(?: [a-zA-Z0-9_]+\(.*?\))?;$', public_header_contents, flags=re.M)
-            for property in properties:
-                contents = re.sub(fr"@property.*?{property};\n", "", contents)
-                # TODO: Handle class and instance properties correctly.
-                contents = re.sub(fr"\+ \(.*?\){property};\n", "", contents)
-                contents = re.sub(fr"- \(.*?\){property};\n", "", contents)
+        for declaration_to_remove in declarations_to_remove:
+            contents = contents.replace(declaration_to_remove + "\n", "")
             
-            for method_type in ["-", "\+"]:
-                methods = re.findall(fr'(?:^|\n)({method_type} \(.*?;)', public_header_contents, flags=re.S)
-            
-                for method in methods:
-                    method_pattern = method
-                    
-                    # Remove prefix
-                    method_pattern = re.sub(fr"{method_type} \(.*?\)(.*);", "\\1", method_pattern, flags=re.S)
-                    
-                    # Remove newlines
-                    method_pattern = re.sub('\s+', ' ', method_pattern, flags=re.S)
-                
-                    # Remove annotations like: XCT_UNAVAILABLE("Use XCUIElementQuery to create XCUIElement instances.")
-                    method_pattern = re.sub(r"[A-Za-z0-9_]\(.*?\)$", "", method_pattern, flags=re.M)
-                    # Remove annotations like: NS_UNAVAILABLE
-                    method_pattern = re.sub(r" [A-Za-z0-9_]+$", "", method_pattern, flags=re.M)
-                
-                    old_value=None
-                    while "(" in method_pattern and method_pattern != old_value:
-                        old_value = method_pattern
-                        method_pattern = re.sub(r":\(.*?( [a-zA-Z0-9_]+?:|$)", ":.*?\\1", method_pattern)
+        try:
+            public_header = File(path=f"{xcode.path}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/{class_name}.h")
+            public_header_contents = public_header.read()
+        except:
+            return contents
 
-                    method_pattern = re.sub(r":[^:]+$", ":.*", method_pattern)
+        properties = re.findall(r'@property.*?([a-zA-Z0-9_]+)(?: [a-zA-Z0-9_]+\(.*?\))?;$', public_header_contents, flags=re.M)
+        for property in properties:
+            contents = re.sub(fr"@property.*?{property};\n", "", contents)
+            # TODO: Handle class and instance properties correctly.
+            contents = re.sub(fr"\+ \(.*?\){property};\n", "", contents)
+            contents = re.sub(fr"- \(.*?\){property};\n", "", contents)
+        
+        for method_type in ["-", "\+"]:
+            methods = re.findall(fr'(?:^|\n)({method_type} \(.*?;)', public_header_contents, flags=re.S)
+        
+            for method in methods:
+                method_pattern = method
                 
-                    method_pattern = fr'^{method_type} (.*?){method_pattern}$'
+                # Remove prefix
+                method_pattern = re.sub(fr"{method_type} \(.*?\)(.*);", "\\1", method_pattern, flags=re.S)
                 
-                    # Escape
-                    method_pattern = method_pattern.replace("(", "\\(")
-                    method_pattern = method_pattern.replace(")", "\\)")
-                
-                    contents = re.sub(method_pattern, "", contents, flags=re.M)
+                # Remove newlines
+                method_pattern = re.sub('\s+', ' ', method_pattern, flags=re.S)
+            
+                # Remove annotations like: XCT_UNAVAILABLE("Use XCUIElementQuery to create XCUIElement instances.")
+                method_pattern = re.sub(r"[A-Za-z0-9_]\(.*?\)$", "", method_pattern, flags=re.M)
+                # Remove annotations like: NS_UNAVAILABLE
+                method_pattern = re.sub(r" [A-Za-z0-9_]+$", "", method_pattern, flags=re.M)
+            
+                old_value=None
+                while "(" in method_pattern and method_pattern != old_value:
+                    old_value = method_pattern
+                    method_pattern = re.sub(r":\(.*?( [a-zA-Z0-9_]+?:|$)", ":.*?\\1", method_pattern)
+
+                method_pattern = re.sub(r":[^:]+$", ":.*", method_pattern)
+            
+                method_pattern = fr'^{method_type} (.*?){method_pattern}$'
+            
+                # Escape
+                method_pattern = method_pattern.replace("(", "\\(")
+                method_pattern = method_pattern.replace(")", "\\)")
+            
+                contents = re.sub(method_pattern, "", contents, flags=re.M)
     
         return contents
         

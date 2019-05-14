@@ -10,7 +10,7 @@ class ImageHashCalculatorTests: XCTestCase {
         let calculator = DHashV0ImageHashCalculator()
         
         let images = ["size", "text", "color", "original", "aspect", "borders", "not_cat", "lots_of_text"].map {
-            UIImage(named: "imagehash_cat_\($0)", in: Bundle(for: type(of: self)), compatibleWith: nil)!
+            UIImage(named: "imagehash_cat_\($0)", in: Bundle(for: type(of: self)), compatibleWith: nil).unwrapOrFail()
         }
         
         let hashes = images.map {

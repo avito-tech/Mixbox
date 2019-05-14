@@ -32,7 +32,7 @@ public final class ResolvedElementQuery {
                 lines.append("Снепшот \(index), полное соответствие:")
                 let snapshotDescription = elementQueryResolvingState.elementSnapshots[index].debugDescription
                 lines.append(snapshotDescription.mb_indent("    "))
-            case .mismatch(let percentage, let description):
+            case let .mismatch(percentage, description):
                 lines.append("Снепшот \(index), соответствие \(percentage):")
                 lines.append(description())
             }

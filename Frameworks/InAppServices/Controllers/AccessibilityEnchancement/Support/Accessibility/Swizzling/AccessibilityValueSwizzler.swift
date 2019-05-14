@@ -84,6 +84,8 @@ final class AccessibilityValueSwizzler {
     private static func replaceAccessibilityValueMethod(method: Method) {
         // Old implementation
         let originalImplementation = method_getImplementation(method)
+        
+        // swiftlint:disable:next nesting
         typealias OriginalImplementationFunction = @convention(c) (NSObject?, Selector) -> NSString?
         let originalImplementationFunction = unsafeBitCast(
             originalImplementation,

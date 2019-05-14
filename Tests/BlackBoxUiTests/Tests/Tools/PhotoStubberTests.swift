@@ -54,6 +54,7 @@ final class PhotoStubberTests: TestCase {
         PHPhotoLibrary.shared().performChanges(
             {
                 let allPhotos = PHAsset.fetchAssets(with: .image, options: PHFetchOptions())
+                // swiftlint:disable:next empty_count
                 thereArePhotosToDelete = allPhotos.count > 0
                 PHAssetChangeRequest.deleteAssets(allPhotos)
             }, completionHandler: { _, error in

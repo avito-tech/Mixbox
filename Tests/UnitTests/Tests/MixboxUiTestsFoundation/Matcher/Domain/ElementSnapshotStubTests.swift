@@ -41,6 +41,7 @@ final class ElementSnapshotStubTests: XCTestCase {
         XCTAssertEqual(stub.customValues.valueIfAvailable?["customValues"], "customValues")
     }
     
+    // swiftlint:disable:next function_body_length
     func test_ElementSnapshotStub_fails() {
         var failedProperties = [String]()
         

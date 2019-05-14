@@ -14,8 +14,8 @@ public final class XcuiMenuItemProvider: MenuItemProvider {
             NSPredicate(
                 block: { [possibleTitles] snapshot, _ -> Bool in
                     if let snapshot = snapshot as? XCElementSnapshot {
-                        return possibleTitles.reduce(false) { result, element in
-                            result || snapshot.label == element
+                        return possibleTitles.contains { element in
+                            snapshot.label == element
                         }
                     } else {
                         return false

@@ -198,8 +198,10 @@ final class ScrollingContext {
     
     // WARNING: This function may interrupt main loop.
     // Also it is bloated and needs rewriting.
+    // TODO: Rewrite
     func instructionToUse(
         draggingInstructions: [DraggingInstruction])
+        // swiftlint:disable:next large_tuple
         -> (instructionToUse: DraggingInstruction?, indexOfInstructionToUse: Int?, stuckedTouchesDescriptions: [String])
     {
         var stuckedTouchesDescriptions = [String]()

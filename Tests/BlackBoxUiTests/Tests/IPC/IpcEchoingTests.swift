@@ -191,7 +191,7 @@ class IpcEchoingTests: TestCase {
         XCTAssertEqual(
             result.data,
             value,
-            "Failed. Expected \(value), received \(result.data.flatMap { "\($0)" } ?? "error: \(result.error!)"), useBuiltinIpc: \(useBuiltinIpc)",
+            "Failed. Expected \(value), received \(result.data.flatMap { "\($0)" } ?? "error: \(result.error.unwrapOrFail())"), useBuiltinIpc: \(useBuiltinIpc)",
             file: file,
             line: line
         )

@@ -159,7 +159,6 @@ final class EarlGrey {
 }
 
 extension GREYInteraction {
-    // swiftlint:disable assertion
     @discardableResult public func assert(_ matcher: @autoclosure () -> GREYMatcher) -> Self {
         return self.assert(with: matcher())
     }

@@ -32,6 +32,8 @@ public extension UIImage {
         return result
     }
     
+    // TODO: Remove from extension, split, return mismatch description.
+    // swiftlint:disable:next function_body_length cyclomatic_complexity
     func perPixelEquals(to otherUIImage: UIImage, tolerance: CGFloat = 0) -> Bool {
         guard let reference = cgImage else { return false }
         guard let other = otherUIImage.cgImage else { return false }

@@ -5,8 +5,6 @@ extension GREYInteraction {
         -> EarlGreyDisambiguatedInteractionResult<GREYInteraction>
     {
         return performOnDisambiguatedInteraction { (error: inout NSError?) -> (GREYInteraction?) in
-            // TODO: fix assertion rule. It should trigger only on global functions
-            // swiftlint:disable:next assertion
             assert(matcher, error: &error)
         }
     }

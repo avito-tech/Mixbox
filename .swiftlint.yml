@@ -14,6 +14,12 @@ disabled_rules:
   - void_return # I like `()`
   - unneeded_parentheses_in_closure_argument # Has bug with { () -> () in ... }, but sometimes I want to help Swift complile faster.
   - redundant_nil_coalescing # I want to convert double optionals to single optionals with `x ?? nil`. TODO: Maybe to add a function.
+  - identifier_name # i don't like those limits. TODO: Enable partially, configure
+  - type_name # same as with identifier_name
+  - todo # i fix todos sometimes
+  - operator_whitespace # i don't like this rule
+  - function_parameter_count # i like such functions in tests...
+  - legacy_hashing # TODO: Do we support Swift < 4.2?
   
 opt_in_rules:
   - array_init

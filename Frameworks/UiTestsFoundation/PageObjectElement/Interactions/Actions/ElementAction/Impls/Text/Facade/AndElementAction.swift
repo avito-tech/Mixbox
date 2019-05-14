@@ -41,8 +41,8 @@ public final class AndElementInteraction: ElementInteraction {
         }
         
         public func interactionFailureShouldStopTest() -> Bool {
-            return interactions.reduce(false) { result, interaction in
-                result || interaction.with(dependencies: dependencies).interactionFailureShouldStopTest()
+            return interactions.contains { interaction in
+                interaction.with(dependencies: dependencies).interactionFailureShouldStopTest()
             }
         }
         

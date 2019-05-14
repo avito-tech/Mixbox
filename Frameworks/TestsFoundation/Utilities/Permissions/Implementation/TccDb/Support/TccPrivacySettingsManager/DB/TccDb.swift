@@ -1,4 +1,5 @@
 import SQLite
+import MixboxFoundation
 
 final class TccDb {
     private let db: Connection
@@ -17,16 +18,16 @@ final class TccDb {
                 .filter(keys.service == serviceId.rawValue)
         )
         
-        class InvalidValueError: Error {}
-        
         if let column = columnNullable {
-            switch column[keys.allowed] {
+            let columnValue = column[keys.allowed]
+            
+            switch columnValue {
             case 0:
                 return .denied
             case 1:
                 return .allowed
             default:
-                throw InvalidValueError()
+                throw ErrorString("Invalid value for key 'allowed': \(columnValue). Expected: 0 or 1")
             }
         } else {
             return .notDetermined

@@ -55,10 +55,6 @@
 - (_Bool)_supportsFeature:(id)arg1 requiresMacOS:(long long)arg2 iOS:(long long)arg3 tvOS:(long long)arg4 watchOS:(long long)arg5;
 
 // Remaining properties
-@property(readonly, copy) NSString *debugDescription;
-@property(readonly, copy) NSString *description;
-@property(readonly) unsigned long long hash;
-@property(readonly) Class superclass;
 
 @end
 

@@ -87,8 +87,6 @@ final class CheckInteraction: EarlGreyInteraction {
         
         // EarlGrey will failIfMultipleElementsAreMatching itself
         let interaction = EarlGrey.select(elementWithMatcher: elementMatcher)
-        // TODO: fix assertion rule. It should trigger only on global functions
-        // swiftlint:disable:next assertion
         interaction.assert(checkMatcher, error: &earlGreyError)
         
         return earlGreyError

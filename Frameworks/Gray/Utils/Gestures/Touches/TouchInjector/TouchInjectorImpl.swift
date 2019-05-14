@@ -5,6 +5,7 @@ import QuartzCore
 import MixboxFoundation
 import MixboxUiTestsFoundation
 
+// TODO: Split. swiftlint:disable type_body_length file_length
 public final class TouchInjectorImpl: TouchInjector {
     private enum State {
         // Touch injection hasn't started yet.
@@ -134,9 +135,9 @@ public final class TouchInjectorImpl: TouchInjector {
         )
         
         if let touchInfo = touchInfoOrNil {
-            if ongoingTouches.count == 0 {
+            if ongoingTouches.isEmpty {
                 extractAndChangeTouchToStartPhase(touchInfo: touchInfo)
-            } else if (touchInfo.phase == .ended) {
+            } else if touchInfo.phase == .ended {
                 changeTouchToEndPhase(touchInfo: touchInfo)
             } else {
                 changeTouchToMovePhase(touchInfo: touchInfo)
@@ -144,7 +145,7 @@ public final class TouchInjectorImpl: TouchInjector {
             
             injectTouches(touchInfo: touchInfo)
         } else {
-            if (enqueuedTouchInfoList.count == 0) {
+            if enqueuedTouchInfoList.isEmpty {
                 // Queue is empty - we are done delivering touches.
                 stopTouchInjection()
             }
@@ -155,7 +156,7 @@ public final class TouchInjectorImpl: TouchInjector {
         currentMediaTime: TimeInterval)
         -> TouchInfo?
     {
-        guard enqueuedTouchInfoList.count > 0 else {
+        guard !enqueuedTouchInfoList.isEmpty else {
             return nil
         }
         
@@ -248,6 +249,8 @@ public final class TouchInjectorImpl: TouchInjector {
         }
     }
     
+    // TODO: Fix linting
+    // swiftlint:disable:next function_body_length
     private func injectTouches(touchInfo: TouchInfo) {
         guard let event: UITouchesEvent = UIApplication.shared._touchesEvent() else {
             assertionFailure("UIApplication.shared._touchesEvent() is nil")
@@ -442,6 +445,7 @@ public final class TouchInjectorImpl: TouchInjector {
         return CGFloat(wholePixel)
     }
     
+    // swiftlint:disable:next function_parameter_count
     private func createDigitizerFingerEvent(
         allocator: CFAllocator?,
         timeStamp: AbsoluteTime,

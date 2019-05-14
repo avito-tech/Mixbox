@@ -132,7 +132,7 @@ public final class BuiltinIpcServer: IpcRouter {
                 
                 let contentType = "application/json"
                 completion(GCDWebServerDataResponse(data: data, contentType: contentType))
-            } catch (let e) {
+            } catch let e {
                 completion(error("encoding failed: \(e)"))
             }
         }

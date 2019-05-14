@@ -19,6 +19,7 @@ def mixbox_ui_tests_pods
   # Other open-source
   pod 'SwiftyJSON', '3.1.4', :inhibit_warnings => true
   pod 'DynamicCodable', '1.0', :inhibit_warnings => true
+  pod 'CocoaImageHashing', '1.6.1', :inhibit_warnings => true
 end
 
 def mixbox_application_testability_and_blackbox_testing_common_pods
@@ -26,13 +27,13 @@ def mixbox_application_testability_and_blackbox_testing_common_pods
   pod 'MixboxIpcCommon', :path => '..'
   pod 'MixboxUiKit', :path => '..'
   pod 'MixboxBuiltinIpc', :path => '..'
+  pod 'GCDWebServer', '3.4.2', :inhibit_warnings => true
 end
 
 def mixbox_application_testability_pods
   mixbox_application_testability_and_blackbox_testing_common_pods
   
-  # pod 'GCDWebServer'
-  # pod 'SBTUITestTunnel/Server'
+  pod 'SBTUITestTunnel/Server', '3.0.14', :inhibit_warnings => true
   pod 'MixboxTestability', :path => '..'
   pod 'MixboxIpcSbtuiHost', :path => '..'
   pod 'MixboxInAppServices', :path => '..'
@@ -47,8 +48,7 @@ def mixbox_blackbox_tests_pods
   
   # Other open-source
   pod 'SimulatorRemoteNotifications', '~> 0.0.3', :inhibit_warnings => true
-  pod 'CocoaImageHashing', '1.6.1', :inhibit_warnings => true
-  pod 'SBTUITestTunnel/Client', :inhibit_warnings => true
+  pod 'SBTUITestTunnel/Client', '3.0.14', :inhibit_warnings => true
 end
 
 def mixbox_graybox_tests_pods

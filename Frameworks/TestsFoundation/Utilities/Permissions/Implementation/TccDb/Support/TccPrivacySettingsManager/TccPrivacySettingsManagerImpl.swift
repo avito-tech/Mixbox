@@ -54,6 +54,7 @@ public final class TccPrivacySettingsManagerImpl: TccPrivacySettingsManager {
         return try TccDb(path: tccDbPath)
     }
     
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     private func tccServiceId(service: TccService) -> TccDbServiceId {
         switch service {
         case .calendar:

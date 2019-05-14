@@ -3,9 +3,7 @@
 import MixboxTestability
 import MixboxFoundation
 
-// TODO: Fix linter rule, it should ignore missing colons inside #selector
-// swiftlint:disable missing_spaces_after_colon
-
+// TODO: Split. swiftlint:disable file_length
 final class CollectionViewSwizzler {
     static func swizzle() {
         swizzle(
@@ -300,6 +298,7 @@ fileprivate extension UICollectionView {
         return element
     }
     
+    // TODO: Split. swiftlint:disable:next function_body_length
     @nonobjc private func updateAccessibilityElements() {
         assert(cellsState == .realCellsAreUpdated_fakeCellsCacheDoesNotExist)
         cellsState = .realCellsAreUpdated_fakeCellsCacheIsUpdating

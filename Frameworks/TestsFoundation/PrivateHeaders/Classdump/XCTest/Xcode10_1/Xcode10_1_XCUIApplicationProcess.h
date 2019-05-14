@@ -95,14 +95,10 @@
 @property(readonly, copy) XCAccessibilityElement *accessibilityElement;
 @property(readonly, copy) NSString *shortDescription;
 - (id)_queue_description;
-@property(readonly, copy) NSString *description;
 - (id)initWithBundleID:(id)arg1;
 - (id)initWithBundleID:(id)arg1 applicationMonitor:(id)arg2 axInterface:(id)arg3;
 
 // Remaining properties
-@property(readonly, copy) NSString *debugDescription;
-@property(readonly) unsigned long long hash;
-@property(readonly) Class superclass;
 
 @end
 

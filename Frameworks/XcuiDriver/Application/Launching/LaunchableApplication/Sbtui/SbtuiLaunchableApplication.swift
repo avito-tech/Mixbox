@@ -79,7 +79,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         tunneledApplication.launchArguments = arguments
         tunneledApplication.launchEnvironment = environment
         
-        tunneledApplication.launchTunnel { [tunneledApplication, applicationLifecycleObservable] in
+        tunneledApplication.launchTunnel { [applicationLifecycleObservable] in
             applicationLifecycleObservable.applicationStateChanged(applicationIsLaunched: true)
         }
         

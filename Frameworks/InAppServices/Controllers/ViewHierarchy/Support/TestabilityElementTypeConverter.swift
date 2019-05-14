@@ -4,6 +4,7 @@ import MixboxTestability
 import MixboxIpcCommon
 
 final class TestabilityElementTypeConverter {
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     static func covertToViewHierarchyElementType(elementType: TestabilityElementType) -> ViewHierarchyElementType {
         switch elementType {
         case .activityIndicator:

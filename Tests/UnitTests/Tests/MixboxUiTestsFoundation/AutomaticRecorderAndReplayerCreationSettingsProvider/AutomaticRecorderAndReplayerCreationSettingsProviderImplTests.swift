@@ -41,6 +41,7 @@ final class AutomaticRecorderAndReplayerCreationSettingsProviderImplTests: XCTes
                 """
             )
         default:
+            // swiftlint:disable:next xctfail_message
             XCTFail()
         }
     }
@@ -59,6 +60,7 @@ final class AutomaticRecorderAndReplayerCreationSettingsProviderImplTests: XCTes
             XCTAssert(recordedNetworkSessionPath.contains(session.resourceName))
             XCTAssert(FileManager.default.fileExists(atPath: recordedNetworkSessionPath))
         default:
+            // swiftlint:disable:next xctfail_message
             XCTFail()
         }
     }

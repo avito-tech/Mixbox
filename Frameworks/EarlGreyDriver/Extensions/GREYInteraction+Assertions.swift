@@ -1,6 +1,5 @@
 import EarlGrey
 
-// swiftlint:disable assertion
 extension GREYInteraction {
     func performSafeAssertion(_ assertion: GREYMatcher) -> Bool {
         var error: NSError?

@@ -8,6 +8,7 @@ protocol PredicateNodeToEarlGreyMatcherConverter: class {
 final class PredicateNodeToEarlGreyMatcherConverterImpl:
     PredicateNodeToEarlGreyMatcherConverter
 {
+    // swiftlint:disable:next cyclomatic_complexity
     func greyMatcher(predicateNode: PredicateNode) -> GREYMatcher {
         switch predicateNode {
         case .and(let predicateNodes):

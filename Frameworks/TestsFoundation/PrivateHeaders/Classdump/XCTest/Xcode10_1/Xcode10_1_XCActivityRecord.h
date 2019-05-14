@@ -40,8 +40,6 @@
 - (void)_synchronized_ensureValid;
 - (void)invalidate;
 @property(readonly) double duration;
-@property(readonly, copy) NSString *debugDescription;
-@property(readonly, copy) NSString *description;
 @property(readonly, copy) NSArray *attachments; // @synthesize attachments=_attachments;
 - (void)addAttachment:(id)arg1;
 - (void)_synchronized_addAttachment:(id)arg1;
@@ -64,8 +62,6 @@
 - (void)attachAutomaticScreenshot;
 
 // Remaining properties
-@property(readonly) unsigned long long hash;
-@property(readonly) Class superclass;
 
 @end
 

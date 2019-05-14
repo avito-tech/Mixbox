@@ -24,15 +24,11 @@
 @property(readonly) _Bool supportsAttributeKeyPathAnalysis;
 @property(readonly) _Bool supportsRemoteEvaluation;
 - (_Bool)isEqual:(id)arg1;
-@property(readonly) unsigned long long hash;
-@property(readonly, copy) NSString *description;
 - (void)encodeWithCoder:(id)arg1;
 - (id)initWithCoder:(id)arg1;
 - (id)init;
 
 // Remaining properties
-@property(readonly, copy) NSString *debugDescription;
-@property(readonly) Class superclass;
 
 @end
 

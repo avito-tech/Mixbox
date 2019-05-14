@@ -209,21 +209,24 @@ extension ElementWithUi {
         
         return implementation.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
-            matcher: Matcher<ElementSnapshot>(description: { "checkPositiveHeightDifference, main matcher" }) { snapshot in
-                guard let heightBefore = heightBefore else {
-                    return .exactMismatch { "не удалось получить значение высоты до действия" }
-                }
-                
-                let heightDifference = differenceCalculation(
-                    (
-                        initial: heightBefore,
-                        final: snapshot.frameRelativeToScreen.height
+            matcher: Matcher<ElementSnapshot>(
+                description: { "checkPositiveHeightDifference, main matcher" },
+                matchingFunction: { snapshot in
+                    guard let heightBefore = heightBefore else {
+                        return .exactMismatch { "не удалось получить значение высоты до действия" }
+                    }
+                    
+                    let heightDifference = differenceCalculation(
+                        (
+                            initial: heightBefore,
+                            final: snapshot.frameRelativeToScreen.height
+                        )
                     )
-                )
-                return heightDifference > 0
-                    ? .match
-                    : .exactMismatch { negativeDifferenceFailureMessage(heightDifference) }
-            },
+                    return heightDifference > 0
+                        ? .match
+                        : .exactMismatch { negativeDifferenceFailureMessage(heightDifference) }
+                }
+            ),
             description: description,
             file: file,
             line: line

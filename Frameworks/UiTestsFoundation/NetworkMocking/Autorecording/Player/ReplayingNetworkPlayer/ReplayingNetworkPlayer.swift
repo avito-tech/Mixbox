@@ -110,7 +110,7 @@ public final class ReplayingNetworkPlayer: NetworkPlayer {
         let set = NSCountedSet(array: recordedNetworkSession.buckets.map { $0.id })
         let duplicatedIds = set.filter { set.count(for: $0) > 1 }
         
-        if duplicatedIds.count > 0 {
+        if !duplicatedIds.isEmpty {
             testFailureRecorder.recordFailure(
                 description: "Found duplicated ids in recordedNetworkSession: \(duplicatedIds)",
                 shouldContinueTest: false

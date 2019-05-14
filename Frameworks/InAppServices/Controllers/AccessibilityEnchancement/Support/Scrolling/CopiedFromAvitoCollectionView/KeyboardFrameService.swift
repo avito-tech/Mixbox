@@ -94,6 +94,8 @@ public final class KeyboardFrameService: KeyboardFrameProvider {
     }
     
     private func stopObserving() {
+        // TODO: I did not get this swiftlint rule:
+        // swiftlint:disable:next notification_center_detachment
         NotificationCenter.default.removeObserver(self)
     }
     

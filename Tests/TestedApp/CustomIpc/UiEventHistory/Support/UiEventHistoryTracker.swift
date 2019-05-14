@@ -100,6 +100,7 @@ final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvider {
         }
     }
     
+    // swiftlint:disable:next cyclomatic_complexity
     private func eventSubtype(eventType: UIEvent.EventSubtype) -> UiEvent.EventSubtype {
         switch eventType {
         case .none:

@@ -61,7 +61,7 @@ public final class PhotoStubberImpl: PhotoStubber {
     }
     
     private func stubPhotos(range: CountableRange<Int>, images: [ImageProvider]) throws {
-        guard images.count > 0 else {
+        guard !images.isEmpty else {
             throw ErrorString("No photos to stub")
         }
         

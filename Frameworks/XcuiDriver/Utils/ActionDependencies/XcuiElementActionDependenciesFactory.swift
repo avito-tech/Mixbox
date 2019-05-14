@@ -15,6 +15,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
         self.xcuiBasedTestsDependenciesFactory = xcuiBasedTestsDependenciesFactory
     }
     
+    // swiftlint:disable function_body_length
     public func elementInteractionDependencies(
         interaction: ElementInteraction,
         fileLine: FileLine,

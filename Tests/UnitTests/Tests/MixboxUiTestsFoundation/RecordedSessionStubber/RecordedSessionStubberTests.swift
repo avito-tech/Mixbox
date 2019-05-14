@@ -10,6 +10,8 @@ final class RecordedSessionStubberTests: XCTestCase {
     )
     
     override func setUp() {
+        super.setUp()
+        
         stubRequestBuilder
             .getStubbingProxy()
             .withRequestStub(urlPattern: any(), query: any(), httpMethod: any())

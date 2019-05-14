@@ -62,16 +62,17 @@ public final class PathGestureUtilsImpl: PathGestureUtils {
             // of points between the 2nd last and the last point.
             let numSlowTouchesBetweenSecondLastAndLastTouch = 20
             
-            var secondLastToLastVector: CGVector = CGVector.mb_init(
+            let secondLastToLastVector: CGVector = CGVector.mb_init(
                 start: secondLastPoint,
                 end: endPoint
             )
             
-            var slowTouchesVectorScale = 1.0 / CGFloat(numSlowTouchesBetweenSecondLastAndLastTouch)
-            var slowTouchesVector: CGVector = secondLastToLastVector.mb_scaled(scale: slowTouchesVectorScale)
+            let slowTouchesVectorScale = 1.0 / CGFloat(numSlowTouchesBetweenSecondLastAndLastTouch)
+            let slowTouchesVector: CGVector = secondLastToLastVector.mb_scaled(scale: slowTouchesVectorScale)
             
             var slowTouchPoint = secondLastPoint
-            for i in 0..<(numSlowTouchesBetweenSecondLastAndLastTouch - 1) {
+            for _ in 0..<(numSlowTouchesBetweenSecondLastAndLastTouch - 1) {
+                // swiftlint:disable:next shorthand_operator
                 slowTouchPoint = slowTouchPoint + slowTouchesVector
                 touchPath.append(slowTouchPoint)
             }
@@ -184,11 +185,11 @@ public final class PathGestureUtilsImpl: PathGestureUtils {
         var time = interval_shift
         while time < interval_penultimate {
             var displacement: CGFloat = (acceleration * time * time) / 2
-            displacement = displacement + (initialVelocity * time)
+            displacement += initialVelocity * time
             
-            var deltaX: CGFloat = displacement * cosAngle
-            var deltaY: CGFloat = displacement * sinAngle
-            var touchPoint = CGPoint(x: CGFloat(startPoint.x + deltaX), y: CGFloat(startPoint.y + deltaY))
+            let deltaX: CGFloat = displacement * cosAngle
+            let deltaY: CGFloat = displacement * sinAngle
+            let touchPoint = CGPoint(x: CGFloat(startPoint.x + deltaX), y: CGFloat(startPoint.y + deltaY))
             touchPath.append(touchPoint)
             time += interval
         }

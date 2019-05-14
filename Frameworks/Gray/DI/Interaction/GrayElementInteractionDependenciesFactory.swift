@@ -17,6 +17,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
         self.grayBoxTestsDependenciesFactory = grayBoxTestsDependenciesFactory
     }
     
+    // swiftlint:disable:next function_body_length
     public func elementInteractionDependencies(
         interaction: ElementInteraction,
         fileLine: FileLine,
