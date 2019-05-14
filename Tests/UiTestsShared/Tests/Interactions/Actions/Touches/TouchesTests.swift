@@ -70,7 +70,7 @@ final class TouchesTests: BaseTouchesTestCase {
         XCTAssertEqual(firstTouch.preciseLocation, secondTouch.preciseLocation)
         
         // We can afford this test, because frames are fixed in the view.
-        // Ensure to view with your eyes that "target view" (smallest view, is/was blue) is tapped before changing values in test.
+        // Ensure to view with your eyes that "target view" (small blue view) is tapped before changing values in test.
         let hardcodedCoordinatesAccuracy: CGFloat = 1
         XCTAssertEqual(firstTouch.location.x, 106.33332824707031, accuracy: 1)
         XCTAssertEqual(firstTouch.location.y, 130.0, accuracy: 1)
