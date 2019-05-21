@@ -1,0 +1,43 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+
+case "$1" in
+    generate)
+        swift package generate-xcodeproj --xcconfig-overrides Package.xcconfig --enable-code-coverage
+        ;;
+    reopen)
+        xcodeprojRelative=`ls -1|grep ".xcodeproj"`
+        xcodeprojAbsolute=$(pwd)/$xcodeprojRelative
+    	osascript -e '
+            tell application "Xcode"
+               tell workspace document "'$xcodeprojRelative'"
+                   close saving yes
+               end tell
+            end tell'
+        
+        "$0" generate
+        
+        # Ignore "missing value" logs. Quote from Apple:
+        # > KNOWN ISSUE: The open command in Xcode sometimes fails to return the opened document.
+        # > It is recommended to ignore the result of the open command and instead find the opened
+        # > document in the application's documents.
+    	osascript -e '
+            tell application "Xcode"
+               open "'$xcodeprojAbsolute'"
+            end tell'
+
+        ;;
+    clean)
+    	swift package clean
+    	swift package reset
+    	rm -rf .build/
+    	rm *.xcodeproj
+        ;;
+    build)
+        swift build -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13" --static-swift-stdlib
+        ;;
+    test)
+        swift test -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13"
+        ;;
+esac
