@@ -22,7 +22,6 @@ Carthage/
 
 # Python
 __pycache__/
-build/
 dist/
 .pytest_cache/
 *.egg-info
@@ -33,3 +32,6 @@ dist/
 
 # Sourcery
 *.profraw
+
+# Swift package manager
+.build/

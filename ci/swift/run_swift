@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -e
+set -x
+
+SCRIPT_ROOT=$(cd `dirname $0`; pwd)
+REPO_ROOT=$(cd "$SCRIPT_ROOT" cd `git rev-parse --show-toplevel`; pwd)
+
+# The only job of this script is to
+# run swift code with proper dependencies, including proper version of swift
+
+main() {
+    printStatus
+    checkDependencies
+    build
+    execute
+}
+
+printStatus() {
+    echo "##teamcity[progressMessage '$MIXBOX_CI_BUILD_EXECUTABLE']"
+}
+
+checkDependencies() {
+    installCommandLineToolsIfNeeded
+}
+
+installCommandLineToolsIfNeeded() {
+    pkgutil --pkg-info=com.apple.pkg.CLTools_Executables || installCommandLineTools
+}
+
+installCommandLineTools() {
+    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+
+    local savedIFS=$IFS
+    IFS=$'\n'
+    for packageName in $(softwareupdate -l|grep "\*.*Command Line"|awk -F"*" '{print $2}'|sed -e 's/^ *//')
+    do
+        softwareupdate -i "$packageName"
+    done
+    IFS=$savedIFS
+}
+
+build() {
+    cd "$SCRIPT_ROOT"
+    make build
+}
+
+execute() {
+    "./.build/x86_64-apple-macosx10.10/debug/$MIXBOX_CI_BUILD_EXECUTABLE"
+}
+
+
+
+main "$@"

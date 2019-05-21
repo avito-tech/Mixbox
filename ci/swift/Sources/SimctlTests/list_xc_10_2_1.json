@@ -1,0 +1,720 @@
+{
+    "devicetypes" : [
+        {
+            "name" : "iPhone 4s",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 4s.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-4s"
+        },
+        {
+            "name" : "iPhone 5",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 5.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-5"
+        },
+        {
+            "name" : "iPhone 5s",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 5s.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-5s"
+        },
+        {
+            "name" : "iPhone 6",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 6.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-6"
+        },
+        {
+            "name" : "iPhone 6 Plus",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 6 Plus.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-6-Plus"
+        },
+        {
+            "name" : "iPhone 6s",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 6s.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-6s"
+        },
+        {
+            "name" : "iPhone 6s Plus",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 6s Plus.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-6s-Plus"
+        },
+        {
+            "name" : "iPhone 7",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 7.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-7"
+        },
+        {
+            "name" : "iPhone 7 Plus",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 7 Plus.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-7-Plus"
+        },
+        {
+            "name" : "iPhone 8",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 8.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-8"
+        },
+        {
+            "name" : "iPhone 8 Plus",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone 8 Plus.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-8-Plus"
+        },
+        {
+            "name" : "iPhone SE",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone SE.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-SE"
+        },
+        {
+            "name" : "iPhone X",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone X.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-X"
+        },
+        {
+            "name" : "iPhone Xs",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone Xs.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-XS"
+        },
+        {
+            "name" : "iPhone Xs Max",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone Xs Max.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-XS-Max"
+        },
+        {
+            "name" : "iPhone Xʀ",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPhone Xʀ.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPhone-XR"
+        },
+        {
+            "name" : "iPad 2",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad 2.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-2"
+        },
+        {
+            "name" : "iPad Retina",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Retina.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Retina"
+        },
+        {
+            "name" : "iPad Air",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Air.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Air"
+        },
+        {
+            "name" : "iPad Air 2",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Air 2.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Air-2"
+        },
+        {
+            "name" : "iPad (5th generation)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad (5th generation).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad--5th-generation-"
+        },
+        {
+            "name" : "iPad Pro (9.7-inch)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Pro (9.7-inch).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Pro--9-7-inch-"
+        },
+        {
+            "name" : "iPad Pro (12.9-inch)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Pro (12.9-inch).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Pro"
+        },
+        {
+            "name" : "iPad Pro (12.9-inch) (2nd generation)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Pro (12.9-inch) (2nd generation).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Pro--12-9-inch---2nd-generation-"
+        },
+        {
+            "name" : "iPad Pro (10.5-inch)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Pro (10.5-inch).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Pro--10-5-inch-"
+        },
+        {
+            "name" : "iPad (6th generation)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad (6th generation).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad--6th-generation-"
+        },
+        {
+            "name" : "iPad Pro (11-inch)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Pro (11-inch).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Pro--11-inch-"
+        },
+        {
+            "name" : "iPad Pro (12.9-inch) (3rd generation)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/iPad Pro (12.9-inch) (3rd generation).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.iPad-Pro--12-9-inch---3rd-generation-"
+        },
+        {
+            "name" : "Apple TV",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/AppleTVOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple TV.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-TV-1080p"
+        },
+        {
+            "name" : "Apple TV 4K",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/AppleTVOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple TV 4K.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-TV-4K-4K"
+        },
+        {
+            "name" : "Apple TV 4K (at 1080p)",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/AppleTVOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple TV 4K (at 1080p).simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-TV-4K-1080p"
+        },
+        {
+            "name" : "Apple Watch - 38mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch - 38mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-38mm"
+        },
+        {
+            "name" : "Apple Watch - 42mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch - 42mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-42mm"
+        },
+        {
+            "name" : "Apple Watch Series 2 - 38mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch Series 2 - 38mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-2-38mm"
+        },
+        {
+            "name" : "Apple Watch Series 2 - 42mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch Series 2 - 42mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-2-42mm"
+        },
+        {
+            "name" : "Apple Watch Series 3 - 38mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch Series 3 - 38mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-3-38mm"
+        },
+        {
+            "name" : "Apple Watch Series 3 - 42mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch Series 3 - 42mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-3-42mm"
+        },
+        {
+            "name" : "Apple Watch Series 4 - 40mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch Series 4 - 40mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-4-40mm"
+        },
+        {
+            "name" : "Apple Watch Series 4 - 44mm",
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/DeviceTypes\/Apple Watch Series 4 - 44mm.simdevicetype",
+            "identifier" : "com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-4-44mm"
+        }
+    ],
+    "runtimes" : [
+        {
+            "bundlePath" : "\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS 9.3.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "13E233",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-9-3",
+            "version" : "9.3",
+            "name" : "iOS 9.3"
+        },
+        {
+            "bundlePath" : "\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS 10.3.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "14E8301",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-10-3",
+            "version" : "10.3.1",
+            "name" : "iOS 10.3"
+        },
+        {
+            "bundlePath" : "\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS 11.0.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "15A8401",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-11-0",
+            "version" : "11.0.1",
+            "name" : "iOS 11.0"
+        },
+        {
+            "bundlePath" : "\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS 11.2.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "15C107",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-11-2",
+            "version" : "11.2",
+            "name" : "iOS 11.2"
+        },
+        {
+            "bundlePath" : "\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS 11.3.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "15E217",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-11-3",
+            "version" : "11.3",
+            "name" : "iOS 11.3"
+        },
+        {
+            "bundlePath" : "\/Library\/Developer\/CoreSimulator\/Profiles\/Runtimes\/iOS 12.0.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "16A366",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-12-0",
+            "version" : "12.0",
+            "name" : "iOS 12.0"
+        },
+        {
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/iPhoneOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/Runtimes\/iOS.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "16B91",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.iOS-12-1",
+            "version" : "12.1",
+            "name" : "iOS 12.1"
+        },
+        {
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/AppleTVOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/Runtimes\/tvOS.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "16J602",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.tvOS-12-1",
+            "version" : "12.1",
+            "name" : "tvOS 12.1"
+        },
+        {
+            "bundlePath" : "\/Applications\/Xcode_10_1.app\/Contents\/Developer\/Platforms\/WatchOS.platform\/Developer\/Library\/CoreSimulator\/Profiles\/Runtimes\/watchOS.simruntime",
+            "availabilityError" : "",
+            "buildversion" : "16R591",
+            "availability" : "(available)",
+            "isAvailable" : true,
+            "identifier" : "com.apple.CoreSimulator.SimRuntime.watchOS-5-1",
+            "version" : "5.1",
+            "name" : "watchOS 5.1"
+        }
+    ],
+    "devices" : {
+        "com.apple.CoreSimulator.SimRuntime.iOS-10-3" : [
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone SE",
+                "udid" : "E1745208-6E90-462B-8567-DB3A03C3FF87",
+                "availabilityError" : ""
+            },
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone SE iOS 10.3.1",
+                "udid" : "1DA39FA4-FA66-403F-8AAB-1F4B47537A4C",
+                "availabilityError" : ""
+            }
+        ],
+        "com.apple.CoreSimulator.SimRuntime.watchOS-5-1" : [
+            
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-11-0" : [
+            
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-11-2" : [
+            
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-11-3" : [
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone 7 iOS 11.3",
+                "udid" : "D5F0EF5D-C306-4B8C-950C-885329849813",
+                "availabilityError" : ""
+            },
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone 7",
+                "udid" : "6309C752-3877-4B1E-81AC-21E193BF716E",
+                "availabilityError" : ""
+            },
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone 7",
+                "udid" : "A6662613-B8DC-4608-9099-CE771D406D2F",
+                "availabilityError" : ""
+            },
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone 7",
+                "udid" : "AD55D24B-D826-4773-BB14-38E9B9504D20",
+                "availabilityError" : ""
+            },
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "test",
+                "udid" : "388B465B-4ED0-4CDC-AE67-9B5841CA1BF1",
+                "availabilityError" : ""
+            }
+        ],
+        "com.apple.CoreSimulator.SimRuntime.watchOS-5-2" : [
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple Watch Series 2 - 38mm",
+                "udid" : "A444FF8D-B70F-4E1D-9A9D-836D4786F49A",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple Watch Series 2 - 42mm",
+                "udid" : "77260168-E5C4-43AF-AF1A-32D5F1590312",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple Watch Series 3 - 38mm",
+                "udid" : "6324E53D-D67B-4517-A372-8F96CC13A3A4",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple Watch Series 3 - 42mm",
+                "udid" : "D03A5D43-B4AD-4B54-B9CE-44F8D8EC2D0A",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple Watch Series 4 - 40mm",
+                "udid" : "09BEF7F7-1874-48B7-AA58-73982657ADB8",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple Watch Series 4 - 44mm",
+                "udid" : "838328B3-59C6-47B7-A81F-DCC3D5034C2D",
+                "availabilityError" : "runtime profile not found"
+            }
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-11-4" : [
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 7 iOS 11.4",
+                "udid" : "59F989C9-B720-47AD-9FE2-58773581E8A1",
+                "availabilityError" : "runtime profile not found"
+            }
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-12-0" : [
+            
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-9-3" : [
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone 6 Plus",
+                "udid" : "8D437E87-4EDF-42F9-8B73-C0760980D798",
+                "availabilityError" : ""
+            },
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone 6 Plus iOS 9.3",
+                "udid" : "CEB9CFE8-403F-43A9-B8C0-4372797BA1BC",
+                "availabilityError" : ""
+            }
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-12-1" : [
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone X",
+                "udid" : "671F10EE-B787-484F-96F7-A92A6256E813",
+                "availabilityError" : ""
+            },
+            {
+                "availability" : "(available)",
+                "state" : "Shutdown",
+                "isAvailable" : true,
+                "name" : "iPhone X iOS 12.1",
+                "udid" : "0100B799-553D-4DA5-A695-1175EDEAFEFD",
+                "availabilityError" : ""
+            }
+        ],
+        "com.apple.CoreSimulator.SimRuntime.iOS-12-2" : [
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 5s",
+                "udid" : "88699C06-9D14-4100-BF80-194AB8359991",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 6",
+                "udid" : "178912E8-779C-489D-9609-3150FC881493",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 6 Plus",
+                "udid" : "139EA69C-1871-4983-B25C-3DCCAA70A4E9",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 6s",
+                "udid" : "5AB9D6A3-614A-47D0-9956-6F2D85DADF2C",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 6s Plus",
+                "udid" : "31511C22-3A63-465F-B3D1-055C68E535B7",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 7",
+                "udid" : "4EC12236-06AB-416B-87FD-ED022187D91C",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 7 Plus",
+                "udid" : "EBC0A8CF-BC07-4F35-A349-C0A3AA381AAE",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 8",
+                "udid" : "451C42DC-94FE-4716-B1A1-8CFE33D8F4D9",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone 8 Plus",
+                "udid" : "6D9B8FAD-0E3B-4BE6-ABF5-D09641FD0615",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone SE",
+                "udid" : "CED9E546-EFCE-4040-8204-B97A80C123D8",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone X",
+                "udid" : "2446F126-02A5-4CC5-8436-2AB3E1531441",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone Xs",
+                "udid" : "D9C2E57A-0FB6-43DC-8525-74913EA3F994",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone Xs Max",
+                "udid" : "6735AF70-92B4-46BE-9C9C-948615C34DD8",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPhone Xʀ",
+                "udid" : "79F83D53-EE98-4B84-BA83-F0A67B72CE55",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Air",
+                "udid" : "282E3051-0781-40FE-A25E-A862CF2969BA",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Air 2",
+                "udid" : "E0AE3925-6D7D-40B3-88DC-2EAD85D1474E",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad (5th generation)",
+                "udid" : "84664B4A-6C11-4170-A73B-1F3EB3ED8803",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Pro (9.7-inch)",
+                "udid" : "C4F63D95-8FAC-4A91-8F36-5AE541D9595F",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Pro (12.9-inch)",
+                "udid" : "F3361C40-A094-4EB9-8665-4EBCAC107042",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Pro (12.9-inch) (2nd generation)",
+                "udid" : "1F477E8A-74BB-4AB7-A62B-D3EC6876F824",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Pro (10.5-inch)",
+                "udid" : "BB31605B-E5E9-4109-9D28-5CA030C7CE0F",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad (6th generation)",
+                "udid" : "4F563B68-ED8B-42A7-B818-FE5E368D3361",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Pro (11-inch)",
+                "udid" : "DE5AE9D2-85C0-48DD-B060-7C6728CFEDC8",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Pro (12.9-inch) (3rd generation)",
+                "udid" : "0D2FC412-09B1-42AA-ACE6-509A58BB6C4B",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "iPad Air (3rd generation)",
+                "udid" : "950AFE2B-341E-4639-A970-EA8CF4D0C9F8",
+                "availabilityError" : "runtime profile not found"
+            }
+        ],
+        "com.apple.CoreSimulator.SimRuntime.tvOS-12-1" : [
+            
+        ],
+        "com.apple.CoreSimulator.SimRuntime.tvOS-12-2" : [
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple TV",
+                "udid" : "49F3925A-35CC-46F8-A8D2-8CA76227DB78",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple TV 4K",
+                "udid" : "3A7DC9F4-BE6C-4236-9F40-91E223A5781A",
+                "availabilityError" : "runtime profile not found"
+            },
+            {
+                "availability" : "(unavailable, runtime profile not found)",
+                "state" : "Shutdown",
+                "isAvailable" : false,
+                "name" : "Apple TV 4K (at 1080p)",
+                "udid" : "97EF92A8-C294-4704-94BF-CFA3332EED9F",
+                "availabilityError" : "runtime profile not found"
+            }
+        ]
+    },
+    "pairs" : {
+        "4294BACF-F5BA-43C3-856C-4BE4CC441903" : {
+            "watch" : {
+                "name" : "Apple Watch Series 4 - 40mm",
+                "udid" : "09BEF7F7-1874-48B7-AA58-73982657ADB8",
+                "state" : "Shutdown"
+            },
+            "phone" : {
+                "name" : "iPhone Xs",
+                "udid" : "D9C2E57A-0FB6-43DC-8525-74913EA3F994",
+                "state" : "Shutdown"
+            },
+            "state" : "(unavailable)"
+        },
+        "86C5C9F1-A2F2-4530-A3AE-B0CF9882AFC4" : {
+            "watch" : {
+                "name" : "Apple Watch Series 4 - 44mm",
+                "udid" : "838328B3-59C6-47B7-A81F-DCC3D5034C2D",
+                "state" : "Shutdown"
+            },
+            "phone" : {
+                "name" : "iPhone Xs Max",
+                "udid" : "6735AF70-92B4-46BE-9C9C-948615C34DD8",
+                "state" : "Shutdown"
+            },
+            "state" : "(unavailable)"
+        }
+    }
+}

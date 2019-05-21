@@ -60,8 +60,6 @@ buildWith_xcodebuildPipeFilter_xcodebuildArgs() {
         pod install || pod install --repo-update
     fi
     
-    echo "Building for testing. Build is log path: $xcodebuildLogPath"
-    
     xcodebuild "$@" \
         | "$xcodebuildPipeFilter" \
         || fatalError "Error in xcodebuild"
