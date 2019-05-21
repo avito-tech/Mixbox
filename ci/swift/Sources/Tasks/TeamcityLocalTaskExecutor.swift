@@ -10,8 +10,11 @@ public final class TeamcityLocalTaskExecutor: LocalTaskExecutor {
         print("##teamcity[progressMessage '\(localTask.name)']")
         
         func printStatus(success: Bool) {
-            let status = success ? "SUCCESS" : "FAILURE"
-            print("##teamcity[buildStatus status='\(status)' text='\(localTask.name): {build.status.text}']")
+            // Printing status disables "at least one test failed" "Failure condition"
+            // TODO: Fix marking build as failed if test is failed.
+            //
+            // let status = success ? "SUCCESS" : "FAILURE"
+            // print("##teamcity[buildStatus status='\(status)' text='\(localTask.name): {build.status.text}']")
         }
         
         do {
