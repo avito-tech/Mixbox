@@ -7,7 +7,7 @@ public protocol ProcessExecutor: class {
         // Example: "/tmp". If nil is passed, current directory will not be changed.
         currentDirectory: String?,
         // Example: ["PATH": "/bin"]
-        // Note that if you pass empty environment it will be empty, current environment will not be magically used
+        // Note: you can use EnvironmentProvider to get environment.
         environment: [String: String])
         -> ProcessResult
 }

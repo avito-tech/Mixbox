@@ -12,9 +12,7 @@ public final class FoundationProcessExecutor: ProcessExecutor {
         environment: [String: String])
         -> ProcessResult
     {
-        let process = CreatedProcess()
-        
-        process.setUp(
+        let process = Process(
             executable: executable,
             arguments: arguments,
             currentDirectory: currentDirectory,

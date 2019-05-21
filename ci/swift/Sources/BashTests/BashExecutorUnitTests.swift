@@ -2,6 +2,7 @@ import XCTest
 import Bash
 
 final class BashExecutorUnitTests: XCTestCase {
+    // Note: this test can be split
     func test___execute___passes_arguments_to_ProcessExecutor() {
         // Given
         
@@ -31,7 +32,7 @@ final class BashExecutorUnitTests: XCTestCase {
         let result = bashExecutor.execute(
             command: command,
             currentDirectory: "a",
-            environment: ["b": "c"]
+            environment: .custom(["b": "c"])
         )
         
         // Then
@@ -47,7 +48,7 @@ final class BashExecutorUnitTests: XCTestCase {
         XCTAssertEqual(result.stderr.data, stderr)
     }
     
-    func test___execute___uses_environmentProvider___when_environment_is_not_passed() {
+    func test___execute___uses_environmentProvider___if_envitonment_is_current() {
         // Given
         
         let processExecutor = ProcessExecutorMock(
@@ -61,10 +62,10 @@ final class BashExecutorUnitTests: XCTestCase {
         
         // When
         
-        let result = bashExecutor.execute(
+        _ = bashExecutor.execute(
             command: anyString(),
             currentDirectory: anyString(),
-            environment: nil
+            environment: .current
         )
         
         // Then

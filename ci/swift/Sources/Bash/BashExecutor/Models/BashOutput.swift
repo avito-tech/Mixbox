@@ -12,7 +12,7 @@ public final class BashOutput {
     }
     
     public func utf8String() -> String? {
-        return String(data: processOutput.data, encoding: .utf8)
+        return String(data: data, encoding: .utf8)
     }
     
     public func trimmedUtf8String() -> String? {

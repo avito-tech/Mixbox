@@ -1,8 +1,8 @@
 import CiFoundation
 
 public final class DestinationUtils {
-    public static func destination() throws -> Destination {
-        let destinations: [Destination] = try readJson(
+    public static func destination() throws -> TestDestinationConfiguration {
+        let destinations: [TestDestinationConfiguration] = try readJson(
             fileName: destinationFile()
         )
         

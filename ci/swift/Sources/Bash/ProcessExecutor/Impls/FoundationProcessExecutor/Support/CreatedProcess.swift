@@ -1,14 +1,11 @@
 import Foundation
 
-final class CreatedProcess {
-    let process = Process()
+final class Process {
+    let process = Foundation.Process()
     let stdoutPipe = Pipe()
     let stderrPipe = Pipe()
     
-    init() {
-    }
-    
-    func setUp(
+    init(
         executable: String,
         arguments: [String],
         currentDirectory: String?,
@@ -24,10 +21,7 @@ final class CreatedProcess {
             process.currentDirectoryPath = currentDirectory
         }
         
-        stdoutPipe.setUp()
         process.standardOutput = stdoutPipe.pipe
-        
-        stderrPipe.setUp()
         process.standardError = stderrPipe.pipe
     }
     

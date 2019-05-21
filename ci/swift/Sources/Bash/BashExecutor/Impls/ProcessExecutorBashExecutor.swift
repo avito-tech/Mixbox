@@ -15,16 +15,23 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
     public func execute(
         command: String,
         currentDirectory: String?,
-        environment: [String: String]?)
+        environment bashExecutorEnvironment: BashExecutorEnvironment)
         -> BashResult
     {
-        let nonNilEnvironment = environment ?? environmentProvider.environment
+        let environment: [String: String]
+            
+        switch bashExecutorEnvironment {
+        case .current:
+            environment = environmentProvider.environment
+        case .custom(let custom):
+            environment = custom
+        }
         
         let processResult = processExecutor.execute(
             executable: "/bin/bash",
             arguments: ["-l", "-c", command],
             currentDirectory: currentDirectory,
-            environment: nonNilEnvironment
+            environment: environment
         )
         
         return BashResult(

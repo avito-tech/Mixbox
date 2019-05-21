@@ -14,20 +14,16 @@ public final class BashCocoapods: Cocoapods {
     
     public func install() throws {
         do {
-            try print(
-                bashExecutor.executeAndReturnTrimmedOutputOrThrow(
-                    command: "pod install --verbose || pod install --repo-update --verbose",
-                    currentDirectory: projectDirectory
-                )
+            _ = try bashExecutor.executeOrThrow(
+                command: "pod install --verbose || pod install --repo-update --verbose",
+                currentDirectory: projectDirectory
             )
-            return
         } catch _ {
-            print("fallback repo update")
-            try print(
-                bashExecutor.executeAndReturnTrimmedOutputOrThrow(
-                    command: "rm -f ~/.cocoapods/repos/master/.git/index.lock && pod repo update && pod install --verbose",
-                    currentDirectory: projectDirectory
-                )
+            // Fallback
+            
+            _ = try bashExecutor.executeOrThrow(
+                command: "rm -f ~/.cocoapods/repos/master/.git/index.lock && pod repo update && pod install --verbose",
+                currentDirectory: projectDirectory
             )
         }
     }

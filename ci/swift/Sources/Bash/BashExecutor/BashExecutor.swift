@@ -5,15 +5,76 @@ public protocol BashExecutor {
     func execute(
         command: String,
         currentDirectory: String?,
-        environment: [String: String]?)
+        environment: BashExecutorEnvironment)
         -> BashResult
 }
 
 extension BashExecutor {
+    // Q: @tssolonin: It is not obvious when the function named `executeOrThrow` throws error.
+    // Maybe to name it `executeWithSuccess` or make an `extension` to `BashResult` with `success() throws -> BashResult`?
+    // A: @arazinov: it will look bad:
+    // ```
+    // let checksum = bashExecutor.executeAndReturnTrimmedOutputOrThrow(
+    //     command:
+    //     """
+    //     find "\(file)" -type f -print0 \
+    //     | sort -z \
+    //     | xargs -0 shasum \
+    //     | shasum \
+    //     | grep -oE "^\\S+"
+    //     """,
+    //     currentDirectory: projectDirectory
+    // )
+    // ```
+    // vs
+    // ```
+    // let checksum = bashExecutor.execute(
+    //     command:
+    //     """
+    //     find "\(file)" -type f -print0 \
+    //     | sort -z \
+    //     | xargs -0 shasum \
+    //     | shasum \
+    //     | grep -oE "^\\S+"
+    //     """,
+    //     currentDirectory: projectDirectory
+    // ).throwForNonZeroExitCode().stdout.trimmedUtf8StringOrThrow()
+    // ```
+    // which will be auto-indented as:
+    // ```
+    // let checksum = bashExecutor.execute(
+    //     command:
+    //     """
+    //     find "\(file)" -type f -print0 \
+    //     | sort -z \
+    //     | xargs -0 shasum \
+    //     | shasum \
+    //     | grep -oE "^\\S+"
+    //     """,
+    //     currentDirectory: projectDirectory
+    //     ).throwForNonZeroExitCode().stdout.trimmedUtf8StringOrThrow()
+    // ```
+    // which I can not stand, or it will require to write more code:
+    // ```
+    // let checksumBashResult = bashExecutor.execute(
+    //     command:
+    //     """
+    //     find "\(file)" -type f -print0 \
+    //     | sort -z \
+    //     | xargs -0 shasum \
+    //     | shasum \
+    //     | grep -oE "^\\S+"
+    //     """,
+    //     currentDirectory: projectDirectory
+    // )
+    // let checksum = try rmRfCocoapodsBashResult.throwForNonZeroExitCode().stdout.trimmedUtf8StringOrThrow()
+    // ```
+    //
+    // TODO: Better name? Or just docs?
     public func executeOrThrow(
         command: String,
         currentDirectory: String? = nil,
-        environment: [String: String]? = nil)
+        environment: BashExecutorEnvironment = .current)
         throws
         -> BashResult
     {
@@ -39,7 +100,7 @@ extension BashExecutor {
     public func executeAndReturnTrimmedOutputOrThrow(
         command: String,
         currentDirectory: String? = nil,
-        environment: [String: String]? = nil)
+        environment: BashExecutorEnvironment = .current)
         throws
         -> String
     {

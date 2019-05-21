@@ -3,7 +3,7 @@ generate:
 .PHONY: generate
 
 open: generate
-	sleep 1 # To fix "The workspace file at “xxx/ci/swift/MixboxSwiftCI.xcodeproj/project.xcworkspace” has been modified by another application." in Xcode (killing Xcode alone doesn't help; this fix still needs killing Xcode).
+	sleep 2 # To fix "The workspace file at “xxx/ci/swift/MixboxSwiftCI.xcodeproj/project.xcworkspace” has been modified by another application." in Xcode (killing Xcode alone doesn't help; this fix still needs killing Xcode).
 	open *.xcodeproj
 .PHONY: open
 

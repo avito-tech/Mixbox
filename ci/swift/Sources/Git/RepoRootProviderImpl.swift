@@ -5,8 +5,8 @@ public final class RepoRootProviderImpl: RepoRootProvider {
     public init() {
     }
     
-    // TODO: More clever solution. This function just searches for `.git`.
-    // It uses #file и это (I can not speak England)
+    // TODO: More clever solution. This function just searches for `.git`. `git rev-parse --show-toplevel` works better.
+    // TODO: Find a way to not use #file
     public func repoRootPath() throws -> String {
         var root = #file
         

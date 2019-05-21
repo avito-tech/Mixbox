@@ -8,15 +8,6 @@ class Pipe {
     private let queue = DispatchQueue(label: "Bash.Pipe.queue")
     
     init() {
-    }
-    
-    func getDataSynchronously() -> Data {
-        return queue.sync {
-            return dataBox.value
-        }
-    }
-    
-    func setUp() {
         pipe.fileHandleForReading.readabilityHandler = { [queue, weak pipe, dataBox] handler in
             let data = handler.availableData
             
@@ -31,6 +22,12 @@ class Pipe {
             queue.async {
                 dataBox.value.append(data)
             }
+        }
+    }
+    
+    func getDataSynchronously() -> Data {
+        return queue.sync {
+            return dataBox.value
         }
     }
 }

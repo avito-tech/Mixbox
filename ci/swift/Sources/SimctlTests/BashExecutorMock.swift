@@ -28,7 +28,7 @@ final class BashExecutorMock: BashExecutor {
         self.init(bashResult: bashResult)
     }
     
-    func execute(command: String, currentDirectory: String?, environment: [String : String]?) -> BashResult {
+    func execute(command: String, currentDirectory: String?, environment: BashExecutorEnvironment) -> BashResult {
         return bashResult
     }
 }

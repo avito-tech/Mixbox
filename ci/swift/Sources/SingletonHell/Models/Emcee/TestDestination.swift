@@ -1,4 +1,4 @@
-// TODO: Rename. Note that the file with destinations (represented by `Destination`)
+// TODO: Rename. Note that the file with destinations (represented by `TestDestinationConfiguration`)
 // is reused as is for Emcee, which is wrong. We should have configs describing devices,
 // we should generate Emcee specific configs from them.
 public final class TestDestination: Codable {
@@ -23,31 +23,5 @@ public final class TestDestination: Codable {
         self.iOSVersionLong = iOSVersionLong
         self.deviceTypeId = deviceTypeId
         self.runtimeId = runtimeId
-    }
-}
-
-public final class Destination: Codable {
-    public final class ReportOutput: Codable {
-        public let junit: String
-        public let tracingReport: String
-        
-        public init(
-            junit: String,
-            tracingReport: String)
-        {
-            self.junit = junit
-            self.tracingReport = tracingReport
-        }
-    }
-    
-    public let testDestination: TestDestination
-    public let reportOutput: ReportOutput
-    
-    public init(
-        testDestination: TestDestination,
-        reportOutput: ReportOutput)
-    {
-        self.testDestination = testDestination
-        self.reportOutput = reportOutput
     }
 }
