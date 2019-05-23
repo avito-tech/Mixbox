@@ -9,13 +9,16 @@ public final class MixboxInAppServices: IpcRouter {
     private var client: IpcClient?
     private var ipcStarter: IpcStarter
     private var commandsForAddingRoutes = [(IpcRouter) -> ()]()
+    private let shouldEnhanceAccessibilityValue: Bool
     private let shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool
     
     public init(
         ipcStarter: IpcStarter,
+        shouldEnhanceAccessibilityValue: Bool,
         shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool)
     {
         self.ipcStarter = ipcStarter
+        self.shouldEnhanceAccessibilityValue = shouldEnhanceAccessibilityValue
         self.shouldAddAssertionForCallingIsHiddenOnFakeCell = shouldAddAssertionForCallingIsHiddenOnFakeCell
         
         commandsForAddingRoutes = [
@@ -27,8 +30,9 @@ public final class MixboxInAppServices: IpcRouter {
     
     public convenience init?(environment: [String: String] = ProcessInfo.processInfo.environment) {
         let ipcStarterOrNil: IpcStarter?
+        let ipcStarterType = MixboxInAppServices.ipcStarterType(environment: environment)
         
-        switch MixboxInAppServices.ipcStarterType(environment: environment) {
+        switch ipcStarterType {
         case .blackbox?:
             if let testRunnerHost = environment["MIXBOX_HOST"],
                 let testRunnerPort = environment["MIXBOX_PORT"].flatMap({ UInt($0) })
@@ -57,6 +61,7 @@ public final class MixboxInAppServices: IpcRouter {
         
         self.init(
             ipcStarter: ipcStarter,
+            shouldEnhanceAccessibilityValue: ipcStarterType != IpcStarterType.graybox, // FIXME
             shouldAddAssertionForCallingIsHiddenOnFakeCell: environment["MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL"] == "true"
         )
     }
@@ -80,7 +85,8 @@ public final class MixboxInAppServices: IpcRouter {
             self.router = client
             self.client = router
             
-            AccessibilityEnchancer.takeOff(
+            AccessibilityEnhancer.takeOff(
+                shouldEnhanceAccessibilityValue: shouldEnhanceAccessibilityValue,
                 shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell
             )
             

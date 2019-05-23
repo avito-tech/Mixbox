@@ -1,3 +1,5 @@
+import Foundation
+
 public final class LoggingProcessExecutor: ProcessExecutor {
     private let originalProcessExecutor: ProcessExecutor
     
@@ -9,7 +11,10 @@ public final class LoggingProcessExecutor: ProcessExecutor {
         executable: String,
         arguments: [String],
         currentDirectory: String?,
-        environment: [String: String])
+        environment: [String: String],
+        stdoutDataHandler: @escaping (Data) -> (),
+        stderrDataHandler: @escaping (Data) -> ())
+        throws
         -> ProcessResult
     {
         log(
@@ -19,11 +24,13 @@ public final class LoggingProcessExecutor: ProcessExecutor {
             environment: environment
         )
         
-        return originalProcessExecutor.execute(
+        return try originalProcessExecutor.execute(
             executable: executable,
             arguments: arguments,
             currentDirectory: currentDirectory,
-            environment: environment
+            environment: environment,
+            stdoutDataHandler: stdoutDataHandler,
+            stderrDataHandler: stderrDataHandler
         )
     }
     

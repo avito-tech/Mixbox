@@ -38,4 +38,8 @@ public enum Env: String {
         
         return value
     }
+    
+    public func getUrlOrThrow() throws -> URL {
+        return try URL(string: getOrThrow()).unwrapOrThrow()
+    }
 }

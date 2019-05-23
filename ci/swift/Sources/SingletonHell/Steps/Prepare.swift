@@ -8,15 +8,20 @@ public final class Prepare {
         try prepareForTesting()
     }
     
-    public static func prepareForIosTesting() throws {
+    public static func prepareForIosTesting(rebootSimulator: Bool) throws {
         try prepareForTesting()
         
-        // Improves stability of launching tests
-        try SimulatorUtils.shutdownDevices()
+        if rebootSimulator {
+            // Improves stability of launching tests
+            try SimulatorUtils.shutdownDevices()
+        }
+        
         try SimulatorUtils.setUpSimulatorIfNeeded()
         
-        // This is done in background and prepares simulator
-        try SimulatorUtils.bootDevice()
+        if rebootSimulator {
+            // This is done in background and prepares simulator
+            try SimulatorUtils.bootDevice()
+        }
     }
     
     private static func prepareForTesting() throws {

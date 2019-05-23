@@ -20,6 +20,12 @@ let package = Package(
             targets: [
                 "RunBlackBoxTestsTask"
             ]
+        ),
+        .executable(
+            name: "RunGrayBoxTestsTask",
+            targets: [
+                "RunGrayBoxTestsTask"
+            ]
         )
     ],
     dependencies: [
@@ -39,6 +45,18 @@ let package = Package(
             ]
         ),
         .target(
+            name: "RunGrayBoxTestsTask",
+            dependencies: [
+                "BuildDsl"
+            ]
+        ),
+        .target(
+            name: "Brew",
+            dependencies: [
+                "Bash"
+            ]
+        ),
+        .target(
             name: "BuildDsl",
             dependencies: [
                 "Di"
@@ -48,7 +66,8 @@ let package = Package(
             name: "Emcee",
             dependencies: [
                 "Bash",
-                "CiFoundation"
+                "CiFoundation",
+                "Brew"
             ]
         ),
         .target(
@@ -71,21 +90,15 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "SimctlTests",
+            name: "AllTests",
             dependencies: [
-                "Simctl"
+                "BuildDsl" // everything
             ]
         ),
         .target(
             name: "Bash",
             dependencies: [
                 "CiFoundation"
-            ]
-        ),
-        .testTarget(
-            name: "BashTests",
-            dependencies: [
-                "Bash"
             ]
         ),
         .target(
@@ -105,7 +118,8 @@ let package = Package(
                 "Git",
                 "Simctl",
                 "Emcee",
-                "SingletonHell"
+                "SingletonHell",
+                "Brew"
             ]
         ),
         .target(

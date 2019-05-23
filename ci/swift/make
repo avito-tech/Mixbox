@@ -16,17 +16,23 @@ case "$1" in
                end tell
             end tell'
         
-        "$0" generate
+        if ! "$0" generate
+        then
+            open Package.swift
+            exit 1
+        fi
         
-        # Ignore "missing value" logs. Quote from Apple:
-        # > KNOWN ISSUE: The open command in Xcode sometimes fails to return the opened document.
-        # > It is recommended to ignore the result of the open command and instead find the opened
-        # > document in the application's documents.
+        echo "Ignore the following \"missing value\" log:"
     	osascript -e '
             tell application "Xcode"
                open "'$xcodeprojAbsolute'"
             end tell'
 
+        echo "Quote from Apple:"
+        echo "> KNOWN ISSUE: The open command in Xcode sometimes fails to return the opened document."
+        echo "> It is recommended to ignore the result of the open command and instead find the opened"
+        echo "> document in the application's documents."
+        
         ;;
     clean)
     	swift package clean

@@ -29,7 +29,7 @@ final class BashExecutorUnitTests: XCTestCase {
         !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
         """
         
-        let result = bashExecutor.execute(
+        let result = try! bashExecutor.execute(
             command: command,
             currentDirectory: "a",
             environment: .custom(["b": "c"])
@@ -62,7 +62,7 @@ final class BashExecutorUnitTests: XCTestCase {
         
         // When
         
-        _ = bashExecutor.execute(
+        _ = try! bashExecutor.execute(
             command: anyString(),
             currentDirectory: anyString(),
             environment: .current

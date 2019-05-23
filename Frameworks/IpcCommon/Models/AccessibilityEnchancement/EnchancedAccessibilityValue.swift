@@ -39,21 +39,21 @@ public final class EnhancedAccessibilityValue: Codable {
     }
     
     public static func fromAccessibilityValue(_ originalAccessibilityValue: String?) -> EnhancedAccessibilityValue? {
-        let container: EnchancedAccessibilityContainer? = originalAccessibilityValue.flatMap(GenericSerialization.deserialize)
+        let container: EnhancedAccessibilityContainer? = originalAccessibilityValue.flatMap(GenericSerialization.deserialize)
         return container?.enhancedAccessibilityValue
     }
     
     public func toAccessibilityValue() -> String? {
-        let container = EnchancedAccessibilityContainer(
+        let container = EnhancedAccessibilityContainer(
             enhancedAccessibilityValue: self
         )
         return GenericSerialization.serialize(value: container)
     }
 }
 
-// Nesting enhancedAccessibilityValue in EnchancedAccessibilityContainer is needed to mark a JSON that it is
+// Nesting enhancedAccessibilityValue in EnhancedAccessibilityContainer is needed to mark a JSON that it is
 // EnhancedAccessibilityValue and not something else that looks like it.
-public final class EnchancedAccessibilityContainer: Codable {
+public final class EnhancedAccessibilityContainer: Codable {
     public let enhancedAccessibilityValue: EnhancedAccessibilityValue
     
     public init(

@@ -3,10 +3,25 @@ import MixboxTestsFoundation
 import MixboxAllure
 import MixboxArtifacts
 
+final class NonExistingTest: XCTestCase {
+    @objc func fakeTest() {
+    }
+}
+
 @objc(PrincipalClass)
 final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
     override func main() {
+        exportAvailableTestCasesIfNeeded()
         setUpObservation()
+    }
+    
+    private func exportAvailableTestCasesIfNeeded() {
+        // TODO: Get rid of usage of ProcessInfo singleton here
+        let exportPath: String? = ProcessInfo.processInfo.environment["AVITO_TEST_RUNNER_RUNTIME_TESTS_EXPORT_PATH"]
+        
+        if let exportPath = exportPath, !exportPath.isEmpty {
+            TestQuery(outputPath: exportPath).export()
+        }
     }
     
     private func setUpObservation() {

@@ -7,8 +7,8 @@ class Pipe {
     private let dataBox = MutableBox<Data>(value: Data()) // to not use weak self in closures
     private let queue = DispatchQueue(label: "Bash.Pipe.queue")
     
-    init() {
-        pipe.fileHandleForReading.readabilityHandler = { [queue, weak pipe, dataBox] handler in
+    init(dataHandler: @escaping (Data) -> ()) {
+        pipe.fileHandleForReading.readabilityHandler = { [queue, weak pipe, dataBox, dataHandler] handler in
             let data = handler.availableData
             
             if data.isEmpty {
@@ -20,6 +20,7 @@ class Pipe {
             }
             
             queue.async {
+                dataHandler(data)
                 dataBox.value.append(data)
             }
         }

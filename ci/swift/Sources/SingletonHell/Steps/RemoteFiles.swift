@@ -103,7 +103,8 @@ public final class RemoteFiles {
         
         try bash(
             """
-            curl "\(url)" -o "\(tempFile)"
+            set -o pipefail
+            curl "\(url)" -o "\(tempFile)" | cat
             """
         )
         
@@ -114,6 +115,7 @@ public final class RemoteFiles {
     public static func checksum(file: String) throws -> String {
         return try bash(
             """
+            set -o pipefail
             find "\(file)" -type f -print0 \
                 | sort -z \
                 | xargs -0 shasum \

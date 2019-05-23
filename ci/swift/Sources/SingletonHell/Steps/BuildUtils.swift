@@ -63,7 +63,11 @@ public final class BuildUtils {
         
         let argsString = args.map { "\"\($0)\"" }.joined(separator: " ")
         try bash(
-            command: "xcodebuild \(argsString) | \(xcodebuildPipeFilter)",
+            command:
+            """
+            set -o pipefail
+            xcodebuild \(argsString) | \(xcodebuildPipeFilter)
+            """,
             currentDirectory: folder
         )
         

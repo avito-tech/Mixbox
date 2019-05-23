@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol ProcessExecutor: class {
     func execute(
         // Example: "/bin/ls"
@@ -8,6 +10,9 @@ public protocol ProcessExecutor: class {
         currentDirectory: String?,
         // Example: ["PATH": "/bin"]
         // Note: you can use EnvironmentProvider to get environment.
-        environment: [String: String])
+        environment: [String: String],
+        stdoutDataHandler: @escaping (Data) -> (),
+        stderrDataHandler: @escaping (Data) -> ())
+        throws
         -> ProcessResult
 }

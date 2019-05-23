@@ -6,6 +6,7 @@ public protocol BashExecutor {
         command: String,
         currentDirectory: String?,
         environment: BashExecutorEnvironment)
+        throws
         -> BashResult
 }
 
@@ -78,7 +79,7 @@ extension BashExecutor {
         throws
         -> BashResult
     {
-        let bashResult = execute(
+        let bashResult = try execute(
             command: command,
             currentDirectory: currentDirectory,
             environment: environment
@@ -104,7 +105,7 @@ extension BashExecutor {
         throws
         -> String
     {
-        let bashResult = execute(
+        let bashResult = try execute(
             command: command,
             currentDirectory: currentDirectory,
             environment: environment

@@ -137,9 +137,14 @@ class TestCase: XCTestCase, FailureGatherer {
         
         switch recordFailureMode {
         case .failTest:
+            // Helpful addition for JUnit:
+            let device = UIDevice.mb_platformType.rawValue
+            let os = UIDevice.current.mb_iosVersion.majorAndMinor
+            let environment = "\(device), iOS \(os)"
+            
             // Note that you can set a breakpoint here (it is very convenient):
             super.recordFailure(
-                withDescription: failure.description,
+                withDescription: "\(environment): \(failure.description)",
                 inFile: failure.file,
                 atLine: failure.line,
                 expected: failure.expected
@@ -202,5 +207,4 @@ class TestCase: XCTestCase, FailureGatherer {
             return block()
         }
     }
-    
 }

@@ -16,6 +16,7 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
         command: String,
         currentDirectory: String?,
         environment bashExecutorEnvironment: BashExecutorEnvironment)
+        throws
         -> BashResult
     {
         let environment: [String: String]
@@ -27,11 +28,13 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
             environment = custom
         }
         
-        let processResult = processExecutor.execute(
+        let processResult = try processExecutor.execute(
             executable: "/bin/bash",
             arguments: ["-l", "-c", command],
             currentDirectory: currentDirectory,
-            environment: environment
+            environment: environment,
+            stdoutDataHandler: { _ in },
+            stderrDataHandler: { _ in }
         )
         
         return BashResult(

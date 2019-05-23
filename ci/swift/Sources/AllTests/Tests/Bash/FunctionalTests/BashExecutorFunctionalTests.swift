@@ -15,8 +15,15 @@ final class BashExecutorFunctionalTests: XCTestCase {
     
     func test___executeOrThrow___captures_stdout() {
         XCTAssertEqual(
-            try bashExecutor.executeOrThrow(command: "echo 1").stdout.utf8String().unwrapOrThrow(),
-            "1\n"
+            try bashExecutor.executeOrThrow(command: "echo; echo 1").stdout.utf8String().unwrapOrThrow(),
+            "\n1\n"
+        )
+    }
+    
+    func test___executeAndReturnTrimmedOutputOrThrow___trims() {
+        XCTAssertEqual(
+            try bashExecutor.executeAndReturnTrimmedOutputOrThrow(command: "echo; echo 1"),
+            "1"
         )
     }
     

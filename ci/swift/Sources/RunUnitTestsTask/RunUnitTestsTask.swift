@@ -18,7 +18,7 @@ public final class RunUnitTestsTask: LocalTask {
     }
     
     public func execute() throws {
-        try Prepare.prepareForIosTesting()
+        try Prepare.prepareForIosTesting(rebootSimulator: true)
         
         let reportsPath = try Env.MIXBOX_CI_REPORTS_PATH.getOrThrow()
         

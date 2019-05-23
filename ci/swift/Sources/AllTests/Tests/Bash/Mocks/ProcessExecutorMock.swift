@@ -20,7 +20,9 @@ final class ProcessExecutorMock: ProcessExecutor {
         executable: String,
         arguments: [String],
         currentDirectory: String?,
-        environment: [String: String])
+        environment: [String: String],
+        stdoutDataHandler: @escaping (Data) -> (),
+        stderrDataHandler: @escaping (Data) -> ())
         -> ProcessResult
     {
         calls.append(
