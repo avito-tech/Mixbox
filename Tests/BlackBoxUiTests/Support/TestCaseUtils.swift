@@ -13,34 +13,17 @@ final class TestCaseUtils {
     let pageObjects: PageObjects
     let permissions: ApplicationPermissionsSetter
     let testRunnerPermissions: ApplicationPermissionsSetter
+    let photoStubber: PhotoStubber
+    
+    var networking: Networking {
+        return launchableApplicationProvider.launchableApplication.networking
+    }
     
     // Private in TestCase
     
-    let testFailureRecorder: TestFailureRecorder
-    let lazilyInitializedIpcClient: LazilyInitializedIpcClient
-    let fileLineForFailureProvider: FileLineForFailureProvider = LastCallOfCurrentTestFileLineForFailureProvider(
-        extendedStackTraceProvider: ExtendedStackTraceProviderImpl(
-            stackTraceProvider: StackTraceProviderImpl(),
-            extendedStackTraceEntryFromCallStackSymbolsConverter: ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
-        ),
-        testSymbolPatterns: [
-            // Example: TargetName.ClassName.test_withOptionalSuffix() -> ()
-            ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)",
-            
-            // Example: TargetName.ClassName.parametrizedTest_withOptionalSuffix(message: Swift.String) -> ()
-            ".+?\\..+?\\.parametrizedTest.*?\\(\\)",
-            
-            // Example: closure #2 () -> () in TargetName.ClassName.(parametrizedTest in _FA5631F8141319A712430582B52492D9)(fooArg: Swift.String) -> ()
-            "\\(parametrizedTest in",
-            "\\(test in"
-        ]
-    )
     var ipcRouter: IpcRouter? // Just to store server (to not let him die during test)
-    let fileSystem: FileSystem
     let launchableApplicationProvider: LaunchableApplicationProvider
-    let stepLogger: StepLogger
-    let bundleResourcePathProviderForTestTarget: BundleResourcePathProvider
-    let photoStubber: PhotoStubber
+    let baseUiTestCaseUtils = BaseUiTestCaseUtils()
     
     private let applicationLifecycleObservableImpl = ApplicationLifecycleObservableImpl()
     private let screenshotTaker = XcuiScreenshotTaker()
@@ -54,47 +37,15 @@ final class TestCaseUtils {
         // mixboxHelperClient.start()
         // CFRunLoopRun()
         
-        let lazilyInitializedIpcClient = LazilyInitializedIpcClient()
-        self.lazilyInitializedIpcClient = lazilyInitializedIpcClient
-        
-        let stepLogger: StepLogger
-        
-        // TODO: Get rid of usage of ProcessInfo singleton here
-        let mixboxCiUsesFbxctest = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
-        
-        if mixboxCiUsesFbxctest {
-            // Usage of XCTActivity crashes fbxctest, so we have to not use it.
-            stepLogger = Singletons.stepLogger
-        } else {
-            stepLogger = XcuiActivityStepLogger(originalStepLogger: Singletons.stepLogger)
-        }
-        
-        fileSystem = FileSystemImpl(
-            fileManager: FileManager(),
-            temporaryDirectoryPathProvider: NsTemporaryDirectoryPathProvider()
-        )
-        
-        self.stepLogger = stepLogger
-        
-        let testFailureRecorder = XcTestFailureRecorder(
-            currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
-        )
-        
-        self.testFailureRecorder = testFailureRecorder
-        
-        self.bundleResourcePathProviderForTestTarget = BundleResourcePathProviderImpl(
-            bundle: Bundle(for: TestCaseUtils.self)
-        )
-        
         launchableApplicationProvider = LaunchableApplicationProvider(
             applicationLifecycleObservable: applicationLifecycleObservableImpl,
-            testFailureRecorder: testFailureRecorder,
-            bundleResourcePathProvider: bundleResourcePathProviderForTestTarget
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
+            bundleResourcePathProvider: baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget
         )
         
         let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
         
-        if mixboxCiUsesFbxctest {
+        if baseUiTestCaseUtils.mixboxCiUsesFbxctest {
             // Fbxctest resets tcc.db on its own (very unfortunately)
             // TODO: Test both branches of this `if`
             tccDbApplicationPermissionSetterFactory = AtApplicationLaunchTccDbApplicationPermissionSetterFactory(
@@ -103,14 +54,15 @@ final class TestCaseUtils {
         } else {
             tccDbApplicationPermissionSetterFactory = TccDbApplicationPermissionSetterFactoryImpl()
         }
+        
         let applicationPermissionsSetterFactory = ApplicationPermissionsSetterFactoryImpl(
             notificationsApplicationPermissionSetterFactory: FakeSettingsAppNotificationsApplicationPermissionSetterFactory(
                 fakeSettingsAppBundleId: "mixbox.Tests.FakeSettingsApp",
-                testFailureRecorder: testFailureRecorder
+                testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
             ),
             tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory,
             geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
-                testFailureRecorder: testFailureRecorder,
+                testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
             )
         )
@@ -119,28 +71,28 @@ final class TestCaseUtils {
         permissions = applicationPermissionsSetterFactory.applicationPermissionsSetter(
             bundleId: XCUIApplication().bundleID,
             displayName: "We don't care at the moment",
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
         testRunnerPermissions = applicationPermissionsSetterFactory.applicationPermissionsSetter(
             // swiftlint:disable:next force_unwrapping
             bundleId: Bundle.main.bundleIdentifier!,
             displayName: "We don't care at the moment",
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
         photoStubber = PhotoStubberImpl(
             stubImagesProvider: RedImagesProvider(),
             tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory,
             photoSaver: PhotoSaverImpl(),
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
-        let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder, _ ipcClient: IpcClient?) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] applicationProvider, elementFinder, ipcClient in
+        let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder, _ ipcClient: IpcClient?) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker, baseUiTestCaseUtils] applicationProvider, elementFinder, ipcClient in
             XcuiPageObjectDependenciesFactory(
-                testFailureRecorder: testFailureRecorder,
+                testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 ipcClient: ipcClient ?? AlwaysFailingIpcClient(),
-                stepLogger: stepLogger,
+                stepLogger: baseUiTestCaseUtils.stepLogger,
                 pollingConfiguration: .reduceLatency,
                 elementFinder: elementFinder,
                 applicationProvider: applicationProvider,
@@ -152,27 +104,27 @@ final class TestCaseUtils {
             )
         }
         
-        let xcuiApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] application in
+        let xcuiApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker, baseUiTestCaseUtils] application in
             let provider = ApplicationProviderImpl(closure: application)
             
             return app(
                 provider,
                 XcuiElementFinder(
-                    stepLogger: stepLogger,
+                    stepLogger: baseUiTestCaseUtils.stepLogger,
                     applicationProviderThatDropsCaches: provider,
                     screenshotTaker: screenshotTaker
                 ),
-                lazilyInitializedIpcClient
+                baseUiTestCaseUtils.lazilyInitializedIpcClient
             )
         }
         
-        let thirdPartyApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker] application in
+        let thirdPartyApp: (_ application: @escaping () -> XCUIApplication) -> XcuiPageObjectDependenciesFactory = { [screenshotTaker, baseUiTestCaseUtils] application in
             let provider = ApplicationProviderImpl(closure: application)
             
             return app(
                 provider,
                 XcuiElementFinder(
-                    stepLogger: stepLogger,
+                    stepLogger: baseUiTestCaseUtils.stepLogger,
                     applicationProviderThatDropsCaches: provider,
                     screenshotTaker: screenshotTaker
                 ),
@@ -185,12 +137,12 @@ final class TestCaseUtils {
                 mainRealHierarchy: app(
                     ApplicationProviderImpl { XCUIApplication() },
                     RealViewHierarchyElementFinder(
-                        ipcClient: lazilyInitializedIpcClient,
-                        testFailureRecorder: testFailureRecorder,
-                        stepLogger: stepLogger,
+                        ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
+                        testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
+                        stepLogger: baseUiTestCaseUtils.stepLogger,
                         screenshotTaker: screenshotTaker
                     ),
-                    lazilyInitializedIpcClient
+                    baseUiTestCaseUtils.lazilyInitializedIpcClient
                 ),
                 mainXcui: xcuiApp { XCUIApplication() },
                 settings: thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") },

@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import TestsIpc
 
 final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
     // Note: use this test to record session for other tests!

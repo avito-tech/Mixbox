@@ -1,11 +1,12 @@
 import MixboxFoundation
+import XCTest
 
 // Enables fast execution of tests with same precondition.
 final class TestStateRecycling {
     static let instance = TestStateRecycling()
     private var stateByFileLineByTestCaseTypeName = [String: [FileLine: Any]]()
     
-    func reuseState<T>(testCase: TestCase.Type, fileLine: FileLine, block: () -> (T)) -> T {
+    func reuseState<T>(testCase: XCTestCase.Type, fileLine: FileLine, block: () -> (T)) -> T {
         let state: T
         let testCaseTypeName = "\(testCase)"
         

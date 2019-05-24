@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-extension TestCase {
+extension BaseUiTestCase {
     func assert<T>(
         value: T,
         matches matcher: Matcher<T>,

@@ -1,6 +1,7 @@
 import UIKit
 import GCDWebServer
 import MixboxIpc
+import TestsIpc
 
 final class NetworkStubbingTestsView: TestStackScrollView, InitializableWithTestingViewControllerSettings {
     

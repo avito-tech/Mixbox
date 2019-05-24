@@ -1,4 +1,5 @@
 import UIKit
+import TestsIpc
 
 class CollectionView:
     UICollectionView,

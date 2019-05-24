@@ -4,61 +4,25 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxGray
 
-// Сборник утилок для TestCase с их настройками. Может сильно вырасти.
 final class TestCaseUtils {
     // Internal in TestCase
     
     let pageObjects: PageObjects
     let permissions: ApplicationPermissionsSetter
+    let networking: Networking
+    let photoStubber: PhotoStubber
     
     // Private in TestCase
     
-    let testFailureRecorder: TestFailureRecorder
-    let lazilyInitializedIpcClient: LazilyInitializedIpcClient
-    let fileLineForFailureProvider: FileLineForFailureProvider = LastCallOfCurrentTestFileLineForFailureProvider(
-        extendedStackTraceProvider: ExtendedStackTraceProviderImpl(
-            stackTraceProvider: StackTraceProviderImpl(),
-            extendedStackTraceEntryFromCallStackSymbolsConverter: ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
-        ),
-        testSymbolPatterns: [
-            // Example: TargetName.ClassName.test_withOptionalSuffix() -> ()
-            ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)",
-            
-            // Example: TargetName.ClassName.parametrizedTest_withOptionalSuffix(message: Swift.String) -> ()
-            ".+?\\..+?\\.parametrizedTest.*?\\(\\)",
-            
-            // Example: closure #2 () -> () in TargetName.ClassName.(parametrizedTest in _FA5631F8141319A712430582B52492D9)(fooArg: Swift.String) -> ()
-            "\\(parametrizedTest in",
-            "\\(test in"
-        ]
-    )
-    
+    let baseUiTestCaseUtils = BaseUiTestCaseUtils()
     private let screenshotTaker: ScreenshotTaker
-    private let stepLogger: StepLogger
     
     init() {
-        self.lazilyInitializedIpcClient = LazilyInitializedIpcClient()
-        
-        let stepLogger: StepLogger
-        // TODO: Get rid of usage of ProcessInfo singleton here
-        if ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true" {
-            // Usage of XCTActivity crashes fbxctest, so we have to not use it.
-            stepLogger = Singletons.stepLogger
-        } else {
-            stepLogger = XcuiActivityStepLogger(originalStepLogger: Singletons.stepLogger)
-        }
-        self.stepLogger = stepLogger
-        
-        let testFailureRecorder = XcTestFailureRecorder(
-            currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
-        )
-        self.testFailureRecorder = testFailureRecorder
-        
         let bundleId = Bundle.main.bundleIdentifier.unwrapOrFail()
         
         permissions = applicationPermissionsSetter(
             bundleId: bundleId,
-            testFailureRecorder: testFailureRecorder
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
         let windowsProvider = WindowsProviderImpl(
@@ -72,14 +36,14 @@ final class TestCaseUtils {
         )
         
         let mainRealHierarchy = GrayPageObjectDependenciesFactory(
-            testFailureRecorder: testFailureRecorder,
-            ipcClient: lazilyInitializedIpcClient,
-            stepLogger: stepLogger,
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
+            ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
+            stepLogger: baseUiTestCaseUtils.stepLogger,
             pollingConfiguration: .reduceLatency,
             elementFinder: RealViewHierarchyElementFinder(
-                ipcClient: lazilyInitializedIpcClient,
-                testFailureRecorder: testFailureRecorder,
-                stepLogger: stepLogger,
+                ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
+                testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
+                stepLogger: baseUiTestCaseUtils.stepLogger,
                 screenshotTaker: screenshotTaker
             ),
             screenshotTaker: screenshotTaker,
@@ -95,9 +59,24 @@ final class TestCaseUtils {
                 springboard: mainRealHierarchy
             )
         )
+        
+        photoStubber = PhotoStubberImpl(
+            stubImagesProvider: RedImagesProvider(),
+            tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactoryImpl(),
+            photoSaver: PhotoSaverImpl(),
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
+        )
+        
+        class NotImplementedNetworkingImpl: Networking {
+            var stubbing: NetworkStubbing { grayNotImplemented() }
+            var recording: NetworkRecording { grayNotImplemented() }
+        }
+        
+        networking = NotImplementedNetworkingImpl()
     }
 }
 
+// TODO: Reuse factory
 private func applicationPermissionsSetter(
     bundleId: String,
     testFailureRecorder: TestFailureRecorder)
