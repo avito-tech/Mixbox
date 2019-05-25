@@ -380,6 +380,7 @@
 		F8C8ED4922985DDA0009B9A7 /* ScreenOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4422985DD00009B9A7 /* ScreenOpener.swift */; };
 		F8C8ED4F2298650E0009B9A7 /* BaseTestCaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4A22985E200009B9A7 /* BaseTestCaseUtils.swift */; };
 		F8C8ED502298650F0009B9A7 /* BaseTestCaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4A22985E200009B9A7 /* BaseTestCaseUtils.swift */; };
+		F8C8ED5122999A170009B9A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */; };
 		F8DB34D9227223B000EE0FB8 /* UIImage+WithColorAndSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */; };
 		F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */; };
@@ -891,6 +892,7 @@
 		F813CADD209CC5D400E6A27C = {
 			isa = PBXGroup;
 			children = (
+				F8C8ED5222999A340009B9A7 /* AppAndTestsShared */,
 				F813CAE8209CC5D400E6A27C /* TestedApp */,
 				F8B0A251220A0E4D0089C1EE /* UiTestsShared */,
 				F813CAFD209CC5D700E6A27C /* BlackBoxUiTests */,
@@ -943,7 +945,6 @@
 				F8D5392520A087A600733C93 /* Tests */,
 				F813CB00209CC5D700E6A27C /* Info.plist */,
 				F813CB2A209CDF3200E6A27C /* BlackBoxUiTests-Bridging-Header.h */,
-				F8FC39802159133D00A9C922 /* Media.xcassets */,
 			);
 			path = BlackBoxUiTests;
 			sourceTree = "<group>";
@@ -2151,6 +2152,14 @@
 			path = TestCase;
 			sourceTree = "<group>";
 		};
+		F8C8ED5222999A340009B9A7 /* AppAndTestsShared */ = {
+			isa = PBXGroup;
+			children = (
+				F8FC39802159133D00A9C922 /* Media.xcassets */,
+			);
+			path = AppAndTestsShared;
+			sourceTree = "<group>";
+		};
 		F8D5392520A087A600733C93 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2641,6 +2650,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C8ED5122999A170009B9A7 /* Media.xcassets in Resources */,
 				F8C8ED282298505D0009B9A7 /* NetworkPlayerShowcaseTests.alwaysEmpty.json in Resources */,
 				F8C8ED292298505D0009B9A7 /* MoreComplexExample.recordedNetworkSession.json in Resources */,
 				F8A837C72270F25000145140 /* screenshotTestsView_screenshot.png in Resources */,
