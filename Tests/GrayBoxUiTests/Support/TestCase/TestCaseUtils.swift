@@ -14,6 +14,8 @@ final class TestCaseUtils {
     
     // Private in TestCase
     
+    let applicationFrameProvider = GrayApplicationFrameProvider()
+    
     let baseUiTestCaseUtils = BaseUiTestCaseUtils()
     private let screenshotTaker: ScreenshotTaker
     

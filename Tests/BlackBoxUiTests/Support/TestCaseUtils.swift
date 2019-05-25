@@ -25,6 +25,10 @@ final class TestCaseUtils {
     let launchableApplicationProvider: LaunchableApplicationProvider
     let baseUiTestCaseUtils = BaseUiTestCaseUtils()
     
+    let applicationFrameProvider = XcuiApplicationFrameProvider(applicationProvider: ApplicationProviderImpl(closure: { () -> XCUIApplication in
+        XCUIApplication()
+    }))
+    
     private let applicationLifecycleObservableImpl = ApplicationLifecycleObservableImpl()
     private let screenshotTaker = XcuiScreenshotTaker()
     private let applicationPermissionsSetterFactory: ApplicationPermissionsSetterFactory
