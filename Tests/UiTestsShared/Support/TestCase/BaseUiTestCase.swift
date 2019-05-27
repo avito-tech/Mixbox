@@ -11,6 +11,10 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         TestCaseUtils()
     }
     
+    var spinner: Spinner {
+        return testCaseUtils.baseUiTestCaseUtils.spinner
+    }
+    
     var permissions: ApplicationPermissionsSetter {
         return testCaseUtils.permissions
     }

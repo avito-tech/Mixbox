@@ -4,6 +4,7 @@
 import QuartzCore
 import MixboxFoundation
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 // TODO: Split. swiftlint:disable type_body_length file_length
 public final class TouchInjectorImpl: TouchInjector {

@@ -1,4 +1,6 @@
-import MixboxGray
+// TODO: Move to hosted-app logic tests
+
+import MixboxTestsFoundation
 import XCTest
 
 // TODO: Test different runloop modes

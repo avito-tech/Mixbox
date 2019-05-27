@@ -10,7 +10,7 @@ final class TouchesTests: BaseTouchesTestCase {
         
         let uiEventHistory = recordUiEvents {
             targetView.tap()
-            sleep(2) // TODO: Remove sleep, e.g.: add polling
+            spinner.spin(timeout: 2) // TODO: add polling, maybe increase timeout then
         }
         
         guard let frame = (targetView.value(valueTitle: "frameRelativeToScreen") { $0.frameRelativeToScreen }) else {

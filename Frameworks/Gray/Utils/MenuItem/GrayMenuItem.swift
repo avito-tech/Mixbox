@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import MixboxFoundation
 
 final class GrayMenuItem: MenuItem, CustomStringConvertible {

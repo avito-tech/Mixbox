@@ -1,10 +1,15 @@
+import MixboxTestsFoundation
+
 public final class RetrierImpl: Retrier {
     private let pollingConfiguration: PollingConfiguration
+    private let spinner: Spinner
     
     public init(
-        pollingConfiguration: PollingConfiguration)
+        pollingConfiguration: PollingConfiguration,
+        spinner: Spinner)
     {
         self.pollingConfiguration = pollingConfiguration
+        self.spinner = spinner
     }
     
     public func retry<T>(
@@ -15,7 +20,7 @@ public final class RetrierImpl: Retrier {
         -> T
     {
         var result = firstAttempt()
-        
+     
         while isPossibleToRetryProvider.isPossibleToRetry(), shouldRetry(result) {
             waitRespectingPollingConfiguration()
             
@@ -27,7 +32,9 @@ public final class RetrierImpl: Retrier {
     
     private func waitRespectingPollingConfiguration() {
         if case .reduceWorkload = pollingConfiguration {
-            Thread.sleep(forTimeInterval: 1)
+            // TODO: Implement retrying using Spinner functionality.
+            spinner.spin(timeout: 1)
+            // Before May 2019: Thread.sleep(forTimeInterval: 1)
             // Before Feb 2019: RunLoop.current.run(until: Date().addingTimeInterval(1.0))
         }
     }

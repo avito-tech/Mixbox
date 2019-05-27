@@ -91,13 +91,19 @@ final class PhotoStubberTests: TestCase {
         if deleteButton.waitForExistence(timeout: 15) {
             deleteButton.tap()
             
-            for _ in 0..<5 {
-                if deleteButton.exists || photosCount() > 0 {
-                    Thread.sleep(forTimeInterval: 1)
-                } else {
-                    break
+            spinner.spin(
+                timeout: 5,
+                interval: 1,
+                until: { [weak self] in
+                    if deleteButton.exists {
+                        return false
+                    } else if let strongSelf = self {
+                        return strongSelf.photosCount() == 0
+                    } else {
+                        return true
+                    }
                 }
-            }
+            )
         } else {
             XCTFail("Delete button did not appear")
         }

@@ -21,4 +21,5 @@ protocol GrayBoxTestsDependenciesFactory: class {
     var screenshotTaker: ScreenshotTaker { get }
     var windowsProvider: WindowsProvider { get }
     var runLoopSpinnerFactory: RunLoopSpinnerFactory { get }
+    var spinner: Spinner { get }
 }

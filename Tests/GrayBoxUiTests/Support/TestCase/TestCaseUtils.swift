@@ -22,8 +22,21 @@ final class TestCaseUtils {
     init() {
         let bundleId = Bundle.main.bundleIdentifier.unwrapOrFail()
         
-        permissions = applicationPermissionsSetter(
+        let applicationPermissionsSetterFactory = ApplicationPermissionsSetterFactoryImpl(
+            notificationsApplicationPermissionSetterFactory: AlwaysFailingNotificationsApplicationPermissionSetterFactory(
+                testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
+            ),
+            tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactoryImpl(),
+            geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
+                testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
+                currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider(),
+                spinner: baseUiTestCaseUtils.spinner
+            )
+        )
+        
+        permissions = applicationPermissionsSetterFactory.applicationPermissionsSetter(
             bundleId: bundleId,
+            displayName: ApplicationNameProvider.applicationName,
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
@@ -41,7 +54,7 @@ final class TestCaseUtils {
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
             ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
             stepLogger: baseUiTestCaseUtils.stepLogger,
-            pollingConfiguration: .reduceLatency,
+            pollingConfiguration: .reduceWorkload,
             elementFinder: RealViewHierarchyElementFinder(
                 ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
@@ -49,7 +62,8 @@ final class TestCaseUtils {
                 screenshotTaker: screenshotTaker
             ),
             screenshotTaker: screenshotTaker,
-            windowsProvider: windowsProvider
+            windowsProvider: windowsProvider,
+            spinner: baseUiTestCaseUtils.spinner
         )
         
         pageObjects = PageObjects(
@@ -76,60 +90,4 @@ final class TestCaseUtils {
         
         networking = NotImplementedNetworkingImpl()
     }
-}
-
-// TODO: Reuse factory
-private func applicationPermissionsSetter(
-    bundleId: String,
-    testFailureRecorder: TestFailureRecorder)
-    -> ApplicationPermissionsSetter
-{
-    let currentSimulatorFileSystemRootProvider = CurrentApplicationCurrentSimulatorFileSystemRootProvider()
-    
-    func tccDbApplicationPermissionSetter(_ service: TccService) -> ApplicationPermissionSetter {
-        return TccDbApplicationPermissionSetter(
-            service: service,
-            testFailureRecorder: testFailureRecorder,
-            tccPrivacySettingsManager: TccPrivacySettingsManagerImpl(
-                bundleId: bundleId,
-                tccDbFinder: TccDbFinderImpl(
-                    currentSimulatorFileSystemRootProvider: currentSimulatorFileSystemRootProvider
-                )
-            )
-        )
-    }
-    
-    let geo = GeolocationApplicationPermissionSetterFactoryImpl(
-        testFailureRecorder: testFailureRecorder,
-        currentSimulatorFileSystemRootProvider: currentSimulatorFileSystemRootProvider
-    )
-    
-    return ApplicationPermissionsSetterImpl(
-        notifications: AlwaysFailingApplicationPermissionWithoutNotDeterminedStateSetter(
-            testFailureRecorder: testFailureRecorder
-        ),
-        geolocation: geo.geolocationApplicationPermissionSetter(bundleId: bundleId),
-        calendar: tccDbApplicationPermissionSetter(.calendar),
-        camera: tccDbApplicationPermissionSetter(.camera),
-        mso: tccDbApplicationPermissionSetter(.mso),
-        mediaLibrary: tccDbApplicationPermissionSetter(.mediaLibrary),
-        microphone: tccDbApplicationPermissionSetter(.microphone),
-        motion: tccDbApplicationPermissionSetter(.motion),
-        photos: tccDbApplicationPermissionSetter(.photos),
-        reminders: tccDbApplicationPermissionSetter(.reminders),
-        siri: tccDbApplicationPermissionSetter(.siri),
-        willow: tccDbApplicationPermissionSetter(.willow),
-        addressBook: tccDbApplicationPermissionSetter(.addressBook),
-        bluetoothPeripheral: tccDbApplicationPermissionSetter(.bluetoothPeripheral),
-        calls: tccDbApplicationPermissionSetter(.calls),
-        facebook: tccDbApplicationPermissionSetter(.facebook),
-        keyboardNetwork: tccDbApplicationPermissionSetter(.keyboardNetwork),
-        liverpool: tccDbApplicationPermissionSetter(.liverpool),
-        shareKit: tccDbApplicationPermissionSetter(.shareKit),
-        sinaWeibo: tccDbApplicationPermissionSetter(.sinaWeibo),
-        speechRecognition: tccDbApplicationPermissionSetter(.speechRecognition),
-        tencentWeibo: tccDbApplicationPermissionSetter(.tencentWeibo),
-        twitter: tccDbApplicationPermissionSetter(.twitter),
-        ubiquity: tccDbApplicationPermissionSetter(.ubiquity)
-    )
 }

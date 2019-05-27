@@ -7,6 +7,11 @@ final class BaseUiTestCaseUtils {
     // Internal in TestCase
     
     let fileSystem: FileSystem
+    let spinner: Spinner = SpinnerImpl(
+        runLoopSpinnerFactory: RunLoopSpinnerFactoryImpl(
+            runLoopModesStackProvider: RunLoopModesStackProviderImpl()
+        )
+    )
     
     // Private in TestCase
     

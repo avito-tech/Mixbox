@@ -17,7 +17,8 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
     public init(
         applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver,
         testFailureRecorder: TestFailureRecorder,
-        bundleResourcePathProvider: BundleResourcePathProvider)
+        bundleResourcePathProvider: BundleResourcePathProvider,
+        spinner: Spinner)
     {
         self.applicationLifecycleObservable = applicationLifecycleObservable
         self.testFailureRecorder = testFailureRecorder
@@ -56,7 +57,8 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
                     recordedSessionStubber: recordedSessionStubber,
                     networkRecordsProvider: sbtuiNetworkRecordsProvider,
                     networkRecorderLifecycle: sbtuiNetworkRecordsProvider,
-                    testFailureRecorder: testFailureRecorder
+                    testFailureRecorder: testFailureRecorder,
+                    spinner: spinner
                 )
             )
         )

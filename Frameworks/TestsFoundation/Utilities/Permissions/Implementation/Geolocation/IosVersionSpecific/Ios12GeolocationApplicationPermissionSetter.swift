@@ -6,17 +6,19 @@ public final class Ios12GeolocationApplicationPermissionSetter: ApplicationPermi
     private let currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider
     private let testFailureRecorder: TestFailureRecorder
     private let clientsPlistPathRelativePath = "data/Library/Caches/locationd/clients.plist"
-    private let clLocationManagerAuthorizationStatusWaiter = ClLocationManagerAuthorizationStatusWaiter()
+    private let clLocationManagerAuthorizationStatusWaiter: ClLocationManagerAuthorizationStatusWaiter
     private let allowedDeniedNotDeterminedStateToClAuthorizationStatusConverter = AllowedDeniedNotDeterminedStateToClAuthorizationStatusConverter()
     
     public init(
         bundleId: String,
         currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider,
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        spinner: Spinner)
     {
         self.bundleId = bundleId
         self.currentSimulatorFileSystemRootProvider = currentSimulatorFileSystemRootProvider
         self.testFailureRecorder = testFailureRecorder
+        self.clLocationManagerAuthorizationStatusWaiter = ClLocationManagerAuthorizationStatusWaiter(spinner: spinner)
     }
     
     public func set(_ state: AllowedDeniedNotDeterminedState) {

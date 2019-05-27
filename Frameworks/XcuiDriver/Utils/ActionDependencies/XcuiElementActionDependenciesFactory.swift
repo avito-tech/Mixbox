@@ -118,9 +118,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
             elementSettings: elementSettings,
             applicationFrameProvider: xcuiBasedTestsDependenciesFactory.applicationFrameProvider,
             eventGenerator: xcuiBasedTestsDependenciesFactory.eventGenerator,
-            retrier: retrier(
-                pollingConfiguration: xcuiBasedTestsDependenciesFactory.pollingConfiguration
-            )
+            retrier: xcuiBasedTestsDependenciesFactory.retrier
         )
     }
     
@@ -132,19 +130,8 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
         return InteractionRetrierImpl(
             dateProvider: dateProvider(),
             timeout: elementSettings.interactionTimeout,
-            retrier: retrier(
-                pollingConfiguration: xcuiBasedTestsDependenciesFactory.pollingConfiguration
-            ),
+            retrier: xcuiBasedTestsDependenciesFactory.retrier,
             retriableTimedInteractionState: retriableTimedInteractionState
-        )
-    }
-    
-    private func retrier(
-        pollingConfiguration: PollingConfiguration)
-        -> Retrier
-    {
-        return RetrierImpl(
-            pollingConfiguration: pollingConfiguration
         )
     }
     

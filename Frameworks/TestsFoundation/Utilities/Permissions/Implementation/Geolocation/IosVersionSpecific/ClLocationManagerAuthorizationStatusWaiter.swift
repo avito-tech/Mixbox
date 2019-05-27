@@ -1,9 +1,23 @@
 import CoreLocation
 
 final class ClLocationManagerAuthorizationStatusWaiter {
+    private let spinner: Spinner
+    
+    init(spinner: Spinner) {
+        self.spinner = spinner
+    }
+    
     func wait(authorizationStatus: CLAuthorizationStatus, bundleId: String) {
-        for _ in 0..<5 where CLLocationManager.authorizationStatus(forBundleIdentifier: bundleId) == authorizationStatus {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        spinner.spin(
+            timeout: 5,
+            interval: 1,
+            until: {
+                let actualStatus = CLLocationManager.authorizationStatus(
+                    forBundleIdentifier: bundleId
+                )
+                
+                return actualStatus == authorizationStatus
+            }
+        )
     }
 }

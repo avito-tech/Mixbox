@@ -121,9 +121,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
             elementSettings: elementSettings,
             applicationFrameProvider: grayBoxTestsDependenciesFactory.applicationFrameProvider,
             eventGenerator: grayBoxTestsDependenciesFactory.eventGenerator,
-            retrier: retrier(
-                pollingConfiguration: grayBoxTestsDependenciesFactory.pollingConfiguration
-            )
+            retrier: grayBoxTestsDependenciesFactory.retrier
         )
     }
     
@@ -135,22 +133,10 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
         return InteractionRetrierImpl(
             dateProvider: dateProvider(),
             timeout: elementSettings.interactionTimeout,
-            retrier: retrier(
-                pollingConfiguration: grayBoxTestsDependenciesFactory.pollingConfiguration
-            ),
+            retrier: grayBoxTestsDependenciesFactory.retrier,
             retriableTimedInteractionState: retriableTimedInteractionState
         )
     }
-    
-    private func retrier(
-        pollingConfiguration: PollingConfiguration)
-        -> Retrier
-    {
-        return RetrierImpl(
-            pollingConfiguration: pollingConfiguration
-        )
-    }
-    
     private func actionInteractionFailureResultFactory(
         fileLine: FileLine)
         -> InteractionFailureResultFactory

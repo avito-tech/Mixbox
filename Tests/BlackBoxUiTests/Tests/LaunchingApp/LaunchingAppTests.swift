@@ -24,7 +24,8 @@ final class LaunchingAppTests: TestCase {
         let launchableApplication = SbtuiLaunchableApplication(
             applicationLifecycleObservable: applicationLifecycleObservable,
             testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
-            bundleResourcePathProvider: testCaseUtils.baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget
+            bundleResourcePathProvider: testCaseUtils.baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget,
+            spinner: spinner
         )
         
         return launchableApplication

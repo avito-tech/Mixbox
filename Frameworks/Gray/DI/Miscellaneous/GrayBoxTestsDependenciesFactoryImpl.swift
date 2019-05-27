@@ -4,6 +4,7 @@ import MixboxReporting
 
 // TODO: Share code between black-box and gray-box.
 final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory {
+    let retrier: Retrier
     let applicationFrameProvider: ApplicationFrameProvider
     let eventGenerator: EventGenerator
     let testFailureRecorder: TestFailureRecorder
@@ -17,6 +18,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let windowsProvider: WindowsProvider
     let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
+    let spinner: Spinner
     
     // MARK: - Init
     
@@ -29,7 +31,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
         screenshotTaker: ScreenshotTaker,
-        windowsProvider: WindowsProvider)
+        windowsProvider: WindowsProvider,
+        spinner: Spinner)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -41,6 +44,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
         
+        self.spinner = spinner
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
             runLoopModesStackProvider: RunLoopModesStackProviderImpl()
         )
@@ -70,15 +74,14 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
             windowForPointProvider: windowForPointProvider,
             pathGestureUtils: PathGestureUtilsFactoryImpl().pathGestureUtils()
         )
-    }
-    
-    // MARK: - XcuiBasedTestsDependenciesFactory
-    
-    var retrier: Retrier {
-        return RetrierImpl(
-            pollingConfiguration: pollingConfiguration
+        
+        retrier = RetrierImpl(
+            pollingConfiguration: pollingConfiguration,
+            spinner: spinner
         )
     }
+    
+    // MARK: - GrayBoxTestsDependenciesFactory
     
     var elementMatcherBuilder: ElementMatcherBuilder {
         return ElementMatcherBuilder(

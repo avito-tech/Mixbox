@@ -30,7 +30,9 @@ final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {
                 """)
         {
             element.tap()
-            sleep(1)
+            
+            spinner.spin(timeout: 1)
+            
             pageObjects.screen.view.withoutTimeout.assertIsDisplayed()
         }
     }

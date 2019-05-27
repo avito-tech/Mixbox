@@ -9,6 +9,7 @@ final class RecordingNetworkPlayerTests: BaseNetworkMockingTestCase {
         networkRecordsProvider: networking.recording,
         networkRecorderLifecycle: networking.recording,
         testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
+        spinner: spinner,
         recordedNetworkSessionPath: recordedNetworkSessionFile.path
     )
     

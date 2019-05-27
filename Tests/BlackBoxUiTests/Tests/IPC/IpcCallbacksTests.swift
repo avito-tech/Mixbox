@@ -40,7 +40,7 @@ class IpcCallbacksTests: TestCase {
             result = res.data
         }
         
-        sleep(1)
+        spinner.spin(timeout: 1)
         
         XCTAssertEqual(result, [4, 2])
     }
@@ -54,9 +54,11 @@ class IpcCallbacksTests: TestCase {
             method: NestedCallbacksToAppIpcMethod(),
             arguments: NestedCallbacksToAppIpcMethod.Arguments(
                 sleepInterval: sleepInterval,
-                callback: .async { _, completion in
+                callback: .async { [spinner] _, completion in
                     calls.append(1)
-                    Thread.sleep(forTimeInterval: sleepInterval)
+                    
+                    spinner.spin(timeout: sleepInterval)
+                    
                     completion(
                         .async { _, completion in
                             calls.append(2)
@@ -67,7 +69,7 @@ class IpcCallbacksTests: TestCase {
             )
         )
         
-        Thread.sleep(forTimeInterval: 1)
+        spinner.spin(timeout: 1)
         
         XCTAssertEqual(calls, [1, 2])
     }

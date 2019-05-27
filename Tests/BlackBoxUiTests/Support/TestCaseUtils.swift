@@ -44,7 +44,8 @@ final class TestCaseUtils {
         launchableApplicationProvider = LaunchableApplicationProvider(
             applicationLifecycleObservable: applicationLifecycleObservableImpl,
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
-            bundleResourcePathProvider: baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget
+            bundleResourcePathProvider: baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget,
+            spinner: baseUiTestCaseUtils.spinner
         )
         
         let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
@@ -67,14 +68,15 @@ final class TestCaseUtils {
             tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory,
             geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
-                currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
+                currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider(),
+                spinner: baseUiTestCaseUtils.spinner
             )
         )
         self.applicationPermissionsSetterFactory = applicationPermissionsSetterFactory
 
         permissions = applicationPermissionsSetterFactory.applicationPermissionsSetter(
             bundleId: XCUIApplication().bundleID,
-            displayName: "We don't care at the moment",
+            displayName: ApplicationNameProvider.applicationName,
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
@@ -97,14 +99,15 @@ final class TestCaseUtils {
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 ipcClient: ipcClient ?? AlwaysFailingIpcClient(),
                 stepLogger: baseUiTestCaseUtils.stepLogger,
-                pollingConfiguration: .reduceLatency,
+                pollingConfiguration: .reduceWorkload,
                 elementFinder: elementFinder,
                 applicationProvider: applicationProvider,
                 eventGenerator: XcuiEventGenerator(
                     applicationProvider: applicationProvider
                 ),
                 screenshotTaker: screenshotTaker,
-                pasteboard: ipcClient.flatMap { IpcPasteboard(ipcClient: $0) } ?? UikitPasteboard(uiPasteboard: .general)
+                pasteboard: ipcClient.flatMap { IpcPasteboard(ipcClient: $0) } ?? UikitPasteboard(uiPasteboard: .general),
+                spinner: baseUiTestCaseUtils.spinner
             )
         }
         

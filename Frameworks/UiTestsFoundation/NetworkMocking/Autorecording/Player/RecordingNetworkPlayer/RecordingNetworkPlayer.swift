@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 import MixboxReporting
 
 public final class RecordingNetworkPlayer: NetworkPlayer {
@@ -10,6 +11,7 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
     private let recordedStubFromMonitoredNetworkRequestConverter: RecordedStubFromMonitoredNetworkRequestConverter
     private let idForCallOfCheckpointFunctionInserter: IdForCallOfCheckpointFunctionInserter
     private let recordedNetworkSessionWriter: RecordedNetworkSessionWriter
+    private let spinner: Spinner
     
     // MARK: - State
     
@@ -20,12 +22,14 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
         networkRecordsProvider: NetworkRecordsProvider,
         networkRecorderLifecycle: NetworkRecorderLifecycle,
         testFailureRecorder: TestFailureRecorder,
+        spinner: Spinner,
         recordedNetworkSessionPath: String)
     {
         self.networkRecordsProvider = networkRecordsProvider
         self.networkRecorderLifecycle = networkRecorderLifecycle
         self.recordedNetworkSessionPath = recordedNetworkSessionPath
         self.testFailureRecorder = testFailureRecorder
+        self.spinner = spinner
         
         // TODO: DI or am I crazy?
         self.recordedStubFromMonitoredNetworkRequestConverter = RecordedStubFromMonitoredNetworkRequestConverter(
@@ -70,18 +74,22 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
     }
     
     private func waitForRequests() -> [MonitoredNetworkRequest] {
-        // The most stupid implementation possible. Hope it works.
+        // The most stupid implementation possible. Mimics debounce.
         
         var requests = networkRecordsProvider.allRequests
         
-        for _ in 0..<4 {
-            sleep(5)
-            let newRequests = networkRecordsProvider.allRequests
-            if newRequests.count == requests.count {
-                break
+        spinner.spin(
+            timeout: 20,
+            interval: 5,
+            until: { [networkRecordsProvider] in
+                let newRequests = networkRecordsProvider.allRequests
+                let shouldStop = newRequests.count == requests.count
+                
+                requests = newRequests
+                
+                return shouldStop
             }
-            requests = newRequests
-        }
+        )
         
         return requests
     }
