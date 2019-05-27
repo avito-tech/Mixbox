@@ -229,7 +229,17 @@ fileprivate extension UICollectionView {
         // How it should working:
         // subview1 fakeCell1 visibleCell1 subview2 visibleCell2 fakeCell2 fakeCell3 subview3
         
-        return collectionViewCells + allSubviewsThatAreNotCells
+        return (collectionViewCells + allSubviewsThatAreNotCells).map { cell in
+            if let cell = cell as? UICollectionViewCell {
+                if let indexPath = cell.mb_fakeCellInfo?.indexPath {
+                    if let visibleCell = cellForItem(at: indexPath) {
+                        return visibleCell
+                    }
+                }
+            }
+            
+            return cell
+        }
     }
     
     @nonobjc func collectionViewSwizzler_accessibilityElementCount() -> Int {
@@ -249,7 +259,7 @@ fileprivate extension UICollectionView {
         if cellsState.needToUpdateCache {
             updateAccessibilityElements()
         }
-        return accessibilityElementFromCache(index: index)
+        return getAccessibilityElements().mb_elementAtIndex(index)
     }
     
     @nonobjc func collectionViewSwizzler_index(ofAccessibilityElement element: Any) -> Int {
@@ -275,27 +285,7 @@ fileprivate extension UICollectionView {
             updateAccessibilityElements()
         }
         
-        let accessibilityElements = (0..<accessibilityElementCount()).compactMap { index in
-            accessibilityElementFromCache(index: index)
-        }
-        
-        return accessibilityElements as NSArray
-    }
-    
-    @nonobjc private func accessibilityElementFromCache(index: Int) -> Any? {
-        guard let element = getAccessibilityElements().mb_elementAtIndex(index) else {
-            return nil
-        }
-        
-        if let cell = element as? UICollectionViewCell {
-            if let indexPath = cell.mb_fakeCellInfo?.indexPath {
-                if let visibleCell = cellForItem(at: indexPath) {
-                    return visibleCell
-                }
-            }
-        }
-        
-        return element
+        return getAccessibilityElements() as NSArray
     }
     
     // TODO: Split. swiftlint:disable:next function_body_length
