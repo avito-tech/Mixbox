@@ -26,7 +26,7 @@ final class GrayScreenshotTakerTests: TestCase {
         // Note: tested only on iPhone 7 iOS 11.3. TODO: test on every device.
         let comparator = ImageHashCalculatorSnapshotsComparator(
             imageHashCalculator: DHashV0ImageHashCalculator(),
-            hashDistanceTolerance: 4
+            hashDistanceTolerance: 5
         )
         
         let result = comparator.equals(
@@ -37,8 +37,8 @@ final class GrayScreenshotTakerTests: TestCase {
         switch result {
         case .match:
             break
-        case .mismatch:
-            XCTFail("Screenshot doesn't match reference")
+        case .mismatch(_, let description):
+            XCTFail("Screenshot doesn't match reference: \(description())")
         }
     }
 }
