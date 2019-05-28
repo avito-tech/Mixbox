@@ -11,7 +11,10 @@ def generate():
         "builds": travis_builds()
     }
     yml_string = render(dict_to_render=dict_to_render)
-    print(yml_string)
+    
+    f = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".travis.yml"), 'w')
+    f.write(yml_string)
+    f.close()
     
 def render(dict_to_render):
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -32,8 +35,8 @@ def travis_builds():
     ]
     builds=[
         Build(script="ci/builds/logic_tests", name="Logic Tests {destination}"),
-        #Build(script="ci/builds/xcui_tests_bluepill", name="UI Tests {destination} using Bluepill"),
-        #Build(script="ci/builds/xcui_tests_emcee", name="UI Tests {destination} using Emcee"),
+        Build(script="ci/builds/demo_tests", name="Demo {destination}"),
+        Build(script="ci/builds/ipc_demo_tests", name="IPC Demo {destination}"),
     ]
     for build in builds:
         for destination in destinations:

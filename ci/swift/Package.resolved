@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Dip",
+        "repositoryURL": "https://github.com/AliSoftware/Dip",
+        "state": {
+          "branch": null,
+          "revision": "e02f1697155cdcb546ee350e5803ecc6fc66cfa9",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
