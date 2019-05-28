@@ -4,10 +4,6 @@ import PackageDescription
 
 let package = Package(
     name: "MixboxSwiftCI",
-    // TODO: Swift 5.0
-//    platforms: [
-//        .macOS(.v10_13),
-//    ],
     products: [
         .executable(
             name: "RunUnitTestsTask",
@@ -26,10 +22,22 @@ let package = Package(
             targets: [
                 "RunGrayBoxTestsTask"
             ]
+        ),
+        .executable(
+            name: "CheckIpcDemoTask",
+            targets: [
+                "CheckIpcDemoTask"
+            ]
+        ),
+        .executable(
+            name: "CheckDemoTask",
+            targets: [
+                "CheckDemoTask"
+            ]
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/AliSoftware/Dip", .exact("7.0.0"))
+        .package(url: "https://github.com/AliSoftware/Dip", .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9"))
     ],
     targets: [
         .target(
@@ -46,6 +54,18 @@ let package = Package(
         ),
         .target(
             name: "RunGrayBoxTestsTask",
+            dependencies: [
+                "BuildDsl"
+            ]
+        ),
+        .target(
+            name: "CheckIpcDemoTask",
+            dependencies: [
+                "BuildDsl"
+            ]
+        ),
+        .target(
+            name: "CheckDemoTask",
             dependencies: [
                 "BuildDsl"
             ]
@@ -141,7 +161,6 @@ let package = Package(
         )
     ],
     swiftLanguageVersions: [
-        // TODO: Swift 5.0
         .v4_2
     ]
 )

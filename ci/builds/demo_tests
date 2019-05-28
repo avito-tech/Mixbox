@@ -1,15 +1,8 @@
 #!/bin/bash
 
-# Required environment:
-# MIXBOX_CI_REPORTS_PATH - where to store reports (junit.xml will be stored), e.g. "/tmp/123"
-# MIXBOX_CI_DESTINATION - basename of json in `di/destinations` directory, e.g. "iphone_7_ios114.json"
+# For compatibility with CI. TODO: Remove.
 
 for include in "$(dirname $0)/../include/"*; do source "$include"; done
 
-xcodebuildFilter() {
-    xcpretty -r junit -o "$MIXBOX_CI_REPORTS_PATH/junit.xml"
-}
-
-prepareForIosTesting
-buildIosWith_folder_action_scheme_workspace_xcodebuildPipeFilter "Demo" "build-for-testing" "MixboxDemo" "MixboxDemo" "xcodebuildFilter"
-cleanUpAfterIosTesting
+export MIXBOX_CI_BUILD_EXECUTABLE="CheckDemoTask"
+"$MIXBOX_CI_SCRIPT_DIRECTORY"/../swift/run_swift
