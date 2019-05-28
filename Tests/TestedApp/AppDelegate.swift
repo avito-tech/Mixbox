@@ -9,6 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     #if DEBUG
     let mixboxInAppServices = MixboxInAppServices()
+    #else
+    let mixboxInAppServices: IpcRouter? = nil
     #endif
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

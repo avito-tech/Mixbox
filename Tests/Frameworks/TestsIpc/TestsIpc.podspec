@@ -14,4 +14,5 @@ Pod::Spec.new do |s|
   s.source_files = '**/*.{swift,h,m,md}'
   
   s.dependency 'MixboxIpc'
+  s.dependency 'MixboxBuiltinIpc'
 end

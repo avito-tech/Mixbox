@@ -10,16 +10,19 @@ import MixboxBuiltinIpc
 //
 // So if both x and y are present in callback's completion then method worked correctly.
 //
-final class NestedCallbacksToAppIpcMethod: IpcMethod {
-    typealias Arguments = NestedCallbacksToAppIpcMethodArguments
-    typealias ReturnValue = IpcVoid
+public final class NestedCallbacksToAppIpcMethod: IpcMethod {
+    public typealias Arguments = NestedCallbacksToAppIpcMethodArguments
+    public typealias ReturnValue = IpcVoid
+    
+    public init() {
+    }
 }
 
-final class NestedCallbacksToAppIpcMethodArguments: Codable {
-    let sleepInterval: TimeInterval
-    let callback: IpcCallback<IpcVoid, IpcCallback<IpcVoid, IpcVoid>>
+public final class NestedCallbacksToAppIpcMethodArguments: Codable {
+    public let sleepInterval: TimeInterval
+    public let callback: IpcCallback<IpcVoid, IpcCallback<IpcVoid, IpcVoid>>
     
-    init(
+    public init(
         sleepInterval: TimeInterval,
         callback: IpcCallback<IpcVoid, IpcCallback<IpcVoid, IpcVoid>>)
     {

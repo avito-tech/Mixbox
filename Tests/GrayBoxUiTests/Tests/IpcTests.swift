@@ -2,7 +2,9 @@ import MixboxUiTestsFoundation
 import XCTest
 import MixboxIpc
 import MixboxFoundation
+import TestsIpc
 
+// TODO: Share code between black & gray box tests
 final class IpcTests: BaseChecksTestCase {
     func test_0() {
         checkEchoingValue(

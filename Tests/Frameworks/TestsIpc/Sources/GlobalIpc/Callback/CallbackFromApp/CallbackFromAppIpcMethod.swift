@@ -10,7 +10,10 @@ import MixboxBuiltinIpc
 //
 // So if both x and y are present in callback's completion then method worked correctly.
 //
-final class CallbackFromAppIpcMethod<T: Codable>: IpcMethod {
-    typealias Arguments = T
-    typealias ReturnValue = IpcCallback<T, [T]>
+public final class CallbackFromAppIpcMethod<T: Codable>: IpcMethod {
+    public typealias Arguments = T
+    public typealias ReturnValue = IpcCallback<T, [T]>
+    
+    public init() {
+    }
 }

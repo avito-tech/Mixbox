@@ -1,5 +1,10 @@
 import MixboxInAppServices
 
+#if !DEBUG
+import MixboxIpc
+typealias MixboxInAppServices = IpcRouter
+#endif
+
 final class TestingViewControllerSettings {
     let name: String
     let mixboxInAppServices: MixboxInAppServices?

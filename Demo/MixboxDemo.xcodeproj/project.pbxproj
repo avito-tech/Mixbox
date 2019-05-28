@@ -340,46 +340,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MixboxDemoUITests/Pods-MixboxDemoUITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcClients/MixboxIpcClients.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxXcuiDriver/MixboxXcuiDriver.framework",
-				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-MixboxDemoUITests/Pods-MixboxDemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcClients.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxXcuiDriver.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-MixboxDemoUITests/Pods-MixboxDemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MixboxDemoUITests/Pods-MixboxDemoUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MixboxDemoUITests/Pods-MixboxDemoUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ABAAACC3A14F745FB1F8B325 /* [CP] Embed Pods Frameworks */ = {
@@ -388,38 +357,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MixboxDemo/Pods-MixboxDemo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-MixboxDemo/Pods-MixboxDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-MixboxDemo/Pods-MixboxDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MixboxDemo/Pods-MixboxDemo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MixboxDemo/Pods-MixboxDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

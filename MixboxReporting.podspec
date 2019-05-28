@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                   = 'MixboxReporting'
   s.module_name            = s.name
-  s.version                = '0.1.0'
+  s.version                = '0.2.0'
   s.summary                = s.name
   s.homepage               = 'https://github.com/avito-tech/Mixbox'
   s.license                = 'MIT'
@@ -15,5 +15,12 @@ Pod::Spec.new do |s|
 
   s.dependency 'MixboxArtifacts'
   s.dependency 'MixboxFoundation'
+  
+  xcconfig = {}
+  if ENV['MIXBOX_CI_IS_LINTING_PODSPECS'] == 'true'
+    xcconfig['OTHER_SWIFT_FLAGS'] = '$(inherited) -D MIXBOX_CI_IS_LINTING_PODSPECS -D MIXBOX_ENABLE_IN_APP_SERVICES'
+    xcconfig['GCC_PREPROCESSOR_DEFINITIONS'] = '$(inherited) MIXBOX_CI_IS_LINTING_PODSPECS=1 MIXBOX_ENABLE_IN_APP_SERVICES=1'
+  end
+  s.xcconfig = xcconfig
 end
 

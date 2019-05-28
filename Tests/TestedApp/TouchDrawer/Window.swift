@@ -1,4 +1,5 @@
 import UIKit
+import TestsIpc
 
 class TouchDrawingWindow: UIWindow {
     private var fadeOutViews = [FadeOutView]()

@@ -2,6 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import XCTest
 import MixboxFoundation
+import TestsIpc
 
 class IpcEchoingTests: TestCase {
     func test_0_0() {

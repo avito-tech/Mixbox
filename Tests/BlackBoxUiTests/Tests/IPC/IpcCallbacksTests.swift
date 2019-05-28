@@ -3,6 +3,7 @@ import MixboxIpc
 import XCTest
 import MixboxFoundation
 import MixboxBuiltinIpc
+import TestsIpc
 
 // NOTE: IpcCallback is an experimental feature.
 class IpcCallbacksTests: TestCase {

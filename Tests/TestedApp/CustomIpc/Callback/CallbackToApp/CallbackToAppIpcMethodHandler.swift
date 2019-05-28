@@ -1,4 +1,5 @@
 import MixboxIpc
+import TestsIpc
 
 final class CallbackToAppIpcMethodHandler<T: Codable, U: Codable>: IpcMethodHandler {
     let method = CallbackToAppIpcMethod<T, U>()

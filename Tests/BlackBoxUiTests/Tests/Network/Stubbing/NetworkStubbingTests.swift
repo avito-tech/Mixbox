@@ -1,5 +1,3 @@
-import SwiftyJSON
-
 final class NetworkStubbingTests: BaseNetworkMockingTestCase {
     private let stubbedText = "This is a stubbed string"
     

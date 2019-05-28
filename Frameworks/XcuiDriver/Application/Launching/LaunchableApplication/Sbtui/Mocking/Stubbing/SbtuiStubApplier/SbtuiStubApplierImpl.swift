@@ -1,6 +1,10 @@
 import SBTUITestTunnel
 import MixboxFoundation
 
+#if MIXBOX_CI_IS_LINTING_PODSPECS
+import MixboxIpcSbtuiClient
+#endif
+
 public final class SbtuiStubApplierImpl: SbtuiStubApplier, ApplicationLifecycleObserver {
     private let tunneledApplication: SBTUITunneledApplication
     private var stubsToApply: [SbtuiStub] = [] {

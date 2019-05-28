@@ -1,12 +1,12 @@
 import UIKit
 import TestsIpc
 
-final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvider {
+public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvider {
     private var uiEventHistoryRecords = [UiEventHistoryRecord]()
     
     // MARK: - UiEventHistoryProvider
     
-    func uiEventHistory(since startDate: Date) -> UiEventHistory {
+    public func uiEventHistory(since startDate: Date) -> UiEventHistory {
         let currentDate = Date()
         
         return UiEventHistory(
@@ -18,7 +18,7 @@ final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvider {
     
     // MARK: - UiEventHistoryProvider
     
-    func eventWasSent(event: UIEvent) {
+    public func eventWasSent(event: UIEvent) {
         let currentDate = Date()
         
         uiEventHistoryRecords.append(

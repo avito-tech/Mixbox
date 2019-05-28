@@ -1,5 +1,6 @@
 import MixboxXcuiDriver
 import XCTest
+import TestsIpc
 
 final class LaunchingAppTests: TestCase {
     private let applicationLifecycleObservable = ApplicationLifecycleObservableImpl()

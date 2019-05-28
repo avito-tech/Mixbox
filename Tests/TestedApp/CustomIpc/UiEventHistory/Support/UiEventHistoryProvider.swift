@@ -1,6 +1,6 @@
 import Foundation
 import TestsIpc
 
-protocol UiEventHistoryProvider {
+public protocol UiEventHistoryProvider {
     func uiEventHistory(since startDate: Date) -> UiEventHistory
 }

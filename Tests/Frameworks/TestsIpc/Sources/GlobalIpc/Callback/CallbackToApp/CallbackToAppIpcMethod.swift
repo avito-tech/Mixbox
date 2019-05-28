@@ -10,16 +10,19 @@ import MixboxBuiltinIpc
 //
 // Example: if you pass 42 and { $0 / 2 }, then you will receive 21
 //
-final class CallbackToAppIpcMethod<T: Codable, U: Codable>: IpcMethod {
-    typealias Arguments = CallbackToAppIpcMethodArguments<T, U>
-    typealias ReturnValue = U?
+public final class CallbackToAppIpcMethod<T: Codable, U: Codable>: IpcMethod {
+    public typealias Arguments = CallbackToAppIpcMethodArguments<T, U>
+    public typealias ReturnValue = U?
+    
+    public init() {
+    }
 }
 
-final class CallbackToAppIpcMethodArguments<T: Codable, U: Codable>: Codable {
-    let value: T
-    let callback: IpcCallback<T, U?>
+public final class CallbackToAppIpcMethodArguments<T: Codable, U: Codable>: Codable {
+    public let value: T
+    public let callback: IpcCallback<T, U?>
     
-    init(
+    public init(
         value: T,
         callback: IpcCallback<T, U?>)
     {

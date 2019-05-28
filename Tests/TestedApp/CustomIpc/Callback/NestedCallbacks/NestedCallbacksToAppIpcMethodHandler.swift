@@ -1,4 +1,5 @@
 import MixboxIpc
+import TestsIpc
 
 final class NestedCallbacksToAppIpcMethodHandler: IpcMethodHandler {
     let method = NestedCallbacksToAppIpcMethod()
