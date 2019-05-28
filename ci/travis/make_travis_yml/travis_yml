@@ -6,6 +6,7 @@ matrix:
   include:
     {%- for build in builds %}
     - name: "{{ build.name }}"
+      osx_image: "{{ build.osx_image }}"
       env: MIXBOX_CI_DESTINATION="{{ build.destination }}" MIXBOX_CI_TRAVIS_BUILD="{{ build.script }}" MIXBOX_CI_REPORTS_PATH="."
     {%- endfor %}
 script:

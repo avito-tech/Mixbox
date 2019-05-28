@@ -1,16 +1,36 @@
 public final class Runtime: Codable {
-    public let bundlePath: String // Example: "/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 9.3.simruntime"
-    public let availabilityError: String // Example: ""
-    public let buildversion: String // Example: "13E233"
-    public let availability: String // Example: "(available)"
-    public let isAvailable: Bool // Example: true
-    public let identifier: String // Example: "com.apple.CoreSimulator.SimRuntime.iOS-9-3"
-    public let version: String // Example: "9.3"
-    public let name: String // Example: "iOS 9.3"
+    // Always nil in Xcode 10 (or lower)
+    // Always non-nil in Xcode 10.1 and 10.2.1 (maybe other)
+     // Example: "/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 9.3.simruntime"
+    public let bundlePath: String?
+    
+    // Always nil in Xcode 10 (or lower)
+    // Always non-nil in Xcode 10.1 and 10.2.1 (maybe other)
+    // Example: ""
+    public let availabilityError: String?
+    
+     // Example: "13E233"
+    public let buildversion: String
+    
+    // Example: "(available)"
+    public let availability: String
+    
+    // Always nil in Xcode 10 (or lower)
+    // Always non-nil in Xcode 10.1 and 10.2.1 (maybe other)
+    public let isAvailable: Bool?
+    
+    // Example: "com.apple.CoreSimulator.SimRuntime.iOS-9-3"
+    public let identifier: String
+    
+    // Example: "9.3"
+    public let version: String
+    
+    // Example: "iOS 9.3"
+    public let name: String
     
     public init(
-        bundlePath: String,
-        availabilityError: String,
+        bundlePath: String?,
+        availabilityError: String?,
         buildversion: String,
         availability: String,
         isAvailable: Bool,

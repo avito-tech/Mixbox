@@ -46,7 +46,30 @@ build() {
 }
 
 execute() {
-    "./.build/x86_64-apple-macosx10.10/debug/$MIXBOX_CI_BUILD_EXECUTABLE"
+    local executable
+    
+    # The function contains exact paths for different Xcode. It is simple and robust.
+    # If something is changed in new Xcode we will update this script.
+    
+    # Xcode 10.1
+    executable="./.build/x86_64-apple-macosx10.10/debug/$MIXBOX_CI_BUILD_EXECUTABLE"
+    if [ -x "$executable" ]
+    then
+        "$executable"
+        return $?
+    fi
+    
+    # Xcode 10.2.1
+    executable="./.build/x86_64-apple-macosx/debug/$MIXBOX_CI_BUILD_EXECUTABLE"
+    if [ -x "$executable" ]
+    then
+        "$executable"
+        return $?
+    fi
+    
+    echo "Failed to find executable $MIXBOX_CI_BUILD_EXECUTABLE inside .build directory"
+    echo "Note that you may update this script. Here is output of find:"
+    find . -name "$MIXBOX_CI_BUILD_EXECUTABLE"
 }
 
 
