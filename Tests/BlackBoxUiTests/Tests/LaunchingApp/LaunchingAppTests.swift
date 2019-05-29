@@ -1,6 +1,7 @@
 import MixboxXcuiDriver
 import XCTest
 import TestsIpc
+import MixboxUiTestsFoundation
 
 final class LaunchingAppTests: TestCase {
     private let applicationLifecycleObservable = ApplicationLifecycleObservableImpl()
@@ -26,7 +27,8 @@ final class LaunchingAppTests: TestCase {
             applicationLifecycleObservable: applicationLifecycleObservable,
             testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
             bundleResourcePathProvider: testCaseUtils.baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget,
-            spinner: spinner
+            spinner: spinner,
+            networkReplayingObserver: DummyNetworkReplayingObserver()
         )
         
         return launchableApplication

@@ -1,5 +1,6 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import MixboxUiTestsFoundation
 import MixboxReporting
 
 public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
@@ -11,6 +12,7 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
     private let networkRecorderLifecycle: NetworkRecorderLifecycle
     private let testFailureRecorder: TestFailureRecorder
     private let spinner: Spinner
+    private let networkReplayingObserver: NetworkReplayingObserver
     
     public init(
         automaticRecorderAndReplayerCreationSettingsProvider: AutomaticRecorderAndReplayerCreationSettingsProvider,
@@ -18,7 +20,8 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
         networkRecordsProvider: NetworkRecordsProvider,
         networkRecorderLifecycle: NetworkRecorderLifecycle,
         testFailureRecorder: TestFailureRecorder,
-        spinner: Spinner)
+        spinner: Spinner,
+        networkReplayingObserver: NetworkReplayingObserver)
     {
         self.automaticRecorderAndReplayerCreationSettingsProvider = automaticRecorderAndReplayerCreationSettingsProvider
         self.recordedSessionStubber = recordedSessionStubber
@@ -26,6 +29,7 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
         self.networkRecorderLifecycle = networkRecorderLifecycle
         self.spinner = spinner
         self.testFailureRecorder = testFailureRecorder
+        self.networkReplayingObserver = networkReplayingObserver
     }
     
     public func player(
@@ -46,13 +50,19 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
                 networkRecorderLifecycle: networkRecorderLifecycle,
                 testFailureRecorder: testFailureRecorder,
                 spinner: spinner,
-                recordedNetworkSessionPath: recordedNetworkSessionPath
+                recordedNetworkSessionPath: recordedNetworkSessionPath,
+                onStart: { [networkReplayingObserver] in
+                    networkReplayingObserver.networkPlayerStartedRecording()
+                }
             )
         case .createForReplaying(let recordedNetworkSession):
             return ReplayingNetworkPlayer(
                 recordedNetworkSession: recordedNetworkSession,
                 recordedSessionStubber: recordedSessionStubber,
-                testFailureRecorder: testFailureRecorder
+                testFailureRecorder: testFailureRecorder,
+                onStart: { [networkReplayingObserver] in
+                    networkReplayingObserver.networkPlayerStartedReplaying()
+                }
             )
         }
     }

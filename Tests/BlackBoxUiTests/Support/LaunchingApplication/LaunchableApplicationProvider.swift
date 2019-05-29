@@ -1,4 +1,5 @@
 import MixboxTestsFoundation
+import MixboxUiTestsFoundation
 import MixboxXcuiDriver
 import MixboxReporting
 
@@ -60,7 +61,8 @@ public final class LaunchableApplicationProvider {
                 applicationLifecycleObservable: applicationLifecycleObservable,
                 testFailureRecorder: testFailureRecorder,
                 bundleResourcePathProvider: bundleResourcePathProvider,
-                spinner: spinner
+                spinner: spinner,
+                networkReplayingObserver: DummyNetworkReplayingObserver()
             )
         }
         

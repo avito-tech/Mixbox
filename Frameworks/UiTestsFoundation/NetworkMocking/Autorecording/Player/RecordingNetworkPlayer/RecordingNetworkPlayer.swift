@@ -12,6 +12,7 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
     private let idForCallOfCheckpointFunctionInserter: IdForCallOfCheckpointFunctionInserter
     private let recordedNetworkSessionWriter: RecordedNetworkSessionWriter
     private let spinner: Spinner
+    private let onStart: () -> ()
     
     // MARK: - State
     
@@ -23,13 +24,15 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
         networkRecorderLifecycle: NetworkRecorderLifecycle,
         testFailureRecorder: TestFailureRecorder,
         spinner: Spinner,
-        recordedNetworkSessionPath: String)
+        recordedNetworkSessionPath: String,
+        onStart: @escaping () -> ())
     {
         self.networkRecordsProvider = networkRecordsProvider
         self.networkRecorderLifecycle = networkRecorderLifecycle
         self.recordedNetworkSessionPath = recordedNetworkSessionPath
         self.testFailureRecorder = testFailureRecorder
         self.spinner = spinner
+        self.onStart = onStart
         
         // TODO: DI or am I crazy?
         self.recordedStubFromMonitoredNetworkRequestConverter = RecordedStubFromMonitoredNetworkRequestConverter(
@@ -70,6 +73,8 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
                 description: "Failing test in network recording mode. This is totally fine, expected and will happen every time network is recorded. Once network is recorded, network player switches to replaying mode, so if everything went well, you wouldn't see this failure. Note that this failure prevents you to commit code that is records network.",
                 shouldContinueTest: true
             )
+            
+            onStart()
         }
     }
     

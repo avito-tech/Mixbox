@@ -11,7 +11,8 @@ final class RecordingNetworkPlayerTests: BaseNetworkMockingTestCase {
         networkRecorderLifecycle: networking.recording,
         testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
         spinner: spinner,
-        recordedNetworkSessionPath: recordedNetworkSessionFile.path
+        recordedNetworkSessionPath: recordedNetworkSessionFile.path,
+        onStart: {}
     )
     
     private func file(contents: String) -> TemporaryFile {

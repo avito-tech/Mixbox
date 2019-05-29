@@ -2,20 +2,28 @@ import MixboxFoundation
 import MixboxReporting
 
 public final class ReplayingNetworkPlayer: NetworkPlayer {
+    // Dependencies
+    
     private let startOnceToken = ThreadUnsafeOnceToken()
     private let recordedNetworkSession: RecordedNetworkSession
     private let recordedSessionStubber: RecordedSessionStubber
     private let testFailureRecorder: TestFailureRecorder
+    private let onStart: () -> ()
+    
+    // State
+    
     private var bucketsLeftToStub = [RecordedStubBucket]()
     
     public init(
         recordedNetworkSession: RecordedNetworkSession,
         recordedSessionStubber: RecordedSessionStubber,
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        onStart: @escaping () -> ())
     {
         self.recordedNetworkSession = recordedNetworkSession
         self.recordedSessionStubber = recordedSessionStubber
         self.testFailureRecorder = testFailureRecorder
+        self.onStart = onStart
     }
     
     public func checkpointImpl(
@@ -97,6 +105,7 @@ public final class ReplayingNetworkPlayer: NetworkPlayer {
     private func startOnce() {
         startOnceToken.executeOnce {
             start()
+            onStart()
         }
     }
     
