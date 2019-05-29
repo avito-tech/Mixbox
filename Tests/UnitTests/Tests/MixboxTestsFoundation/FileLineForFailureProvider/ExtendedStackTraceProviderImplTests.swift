@@ -37,18 +37,15 @@ final class ExtendedStackTraceProviderImplTests: XCTestCase {
         XCTAssertEqual(trace[5].line, 10)
         XCTAssertEqual(trace[5].owner, "UnitTests")
         
-        let expectedSymbol: String
-        switch XcodeVersion.xcodeVersion {
-        case .v10orHigher:
-            expectedSymbol = "$S9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
-        case .v9orLower:
-            expectedSymbol = "_T09UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
-        }
+        let xcode_10_2_1_expectedSymbol = "$S9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
+        let xcode_10_0_and_10_1_expectedSymbol = "$s9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
         
-        XCTAssert(
-            trace[5].symbol == expectedSymbol,
-            "Expected symbol: \(expectedSymbol), actual: \(String(describing: trace[5].symbol))"
-        )
+        let actualSymbol = trace[5].symbol
+        if actualSymbol != xcode_10_2_1_expectedSymbol && actualSymbol != xcode_10_0_and_10_1_expectedSymbol {
+            XCTFail(
+                "Expected symbol: \(xcode_10_2_1_expectedSymbol) or \(xcode_10_0_and_10_1_expectedSymbol), actual: \(String(describing: actualSymbol))"
+            )
+        }
         
         XCTAssertEqual(trace[5].demangledSymbol, "UnitTests.FileForStacktraceTestsWithFixedNameAndLineNumbers.func_line10() -> ()")
     }

@@ -25,8 +25,7 @@ public final class Prepare {
     }
     
     private static func prepareForTesting() throws {
-        // TODO: Bump to 1.6.1
-        let cocoapodsVersion = "1.5.3"
+        let cocoapodsVersion = "1.7.0"
         
         // Requires "sudo without password" if ruby requires sudo
         try bash(

@@ -29,76 +29,57 @@ def render(dict_to_render):
 def travis_builds():
     travis_builds = []
     
-    default_ios_destination = Destination(file_name="iphone_7_ios114.json", device="iPhone 7", ios="11.4")
-    
-    ios_destinations = [
-        default_ios_destination,
-        Destination(file_name="iphone_x_ios121.json", device="iPhone X", ios="12.1"),
-        Destination(file_name="iphone_6_plus_ios93.json", device="iPhone 6", ios="9.3")
-    ]
+    # iOS devices
+    iphone_6_plus_ios93 = Destination(file_name="iphone_6_plus_ios93.json", device="iPhone 6", ios="9.3")
+    iphone_7_ios114 = Destination(file_name="iphone_7_ios114.json", device="iPhone 7", ios="11.4")
+    iphone_x_ios121 = Destination(file_name="iphone_x_ios121.json", device="iPhone X", ios="12.1")
     
     # https://docs.travis-ci.com/user/reference/osx/
-    xcode_10_2_image = OsxImage(identifier="xcode10.2", xcode_version="10.2.1", xcode_build="10E1001", macos_version="10.14", jdk_version="12+33")
-    xcode_10_1_image = OsxImage(identifier="xcode10.1", xcode_version="10.1", xcode_build="10B61", macos_version="10.13", jdk_version="11.0.1+13")
     xcode_10_0_image = OsxImage(identifier="xcode10", xcode_version="10.0", xcode_build="10A255", macos_version="10.13", jdk_version="10.0.2+13")
+    xcode_10_1_image = OsxImage(identifier="xcode10.1", xcode_version="10.1", xcode_build="10B61", macos_version="10.13", jdk_version="11.0.1+13")
+    xcode_10_2_image = OsxImage(identifier="xcode10.2", xcode_version="10.2.1", xcode_build="10E1001", macos_version="10.14", jdk_version="12+33")
     
-    default_osx_image = xcode_10_1_image
+    # Builds (executables)
+    demo_tests = Build(script="ci/builds/demo_tests", name="OversimplifiedDemo")
+    logic_tests = Build(script="ci/builds/logic_tests", name="Logic Tests")
+    ipc_demo_tests = Build(script="ci/builds/ipc_demo_tests", name="IPC Demo")
     
-    osx_images = [
-        xcode_10_0_image,
-        xcode_10_1_image,
-        xcode_10_2_image
-    ]
-    
-    builds_with_different_osx = [
-        Build(script="ci/builds/demo_tests", name="Demo")
-    ]
-    
-    builds_with_different_ios = [
-        Build(script="ci/builds/logic_tests", name="Logic Tests")
-    ]
-    
-    non_ios_builds = [
-        Build(script="ci/builds/ipc_demo_tests", name="IPC Demo")
-    ]
-    
-    for build in builds_with_different_ios:
-        for destination in ios_destinations:
-            osx_image = default_osx_image
-            travis_builds.append(
-                TravisBuild(
-                    name=f'{build.name} / {destination.device} / iOS {destination.ios} / Xcode {osx_image.xcode_version} / macOS {osx_image.macos_version}',
-                    destination=destination.file_name,
-                    osx_image=osx_image.identifier,
-                    script=build.script,
-                )
-            )
-    
-    for build in builds_with_different_osx:
-        for osx_image in osx_images:
-            destination = default_ios_destination
-            travis_builds.append(
-                TravisBuild(
-                    name=f'{build.name} / {destination.device} / iOS {destination.ios} / Xcode {osx_image.xcode_version} / macOS {osx_image.macos_version}',
-                    destination=destination.file_name,
-                    osx_image=osx_image.identifier,
-                    script=build.script,
-                )
-            )
-            
-    for build in non_ios_builds:
-        # kludge. Mac OS targets don't need iOS destination. The value is ignored.
-        destination = default_ios_destination
-        osx_image = default_osx_image
-        travis_builds.append(
-            TravisBuild(
-                # Note: format doesn't contain iOS info:
-                name=f'{build.name} / Xcode {osx_image.xcode_version} / macOS {osx_image.macos_version}',
-                destination=destination.file_name,
-                osx_image=osx_image.identifier,
-                script=build.script,
-            )
+    def ios_build(build, destination, osx_image):
+        return TravisBuild(
+            name=f'{build.name} / {destination.device} / iOS {destination.ios} / Xcode {osx_image.xcode_version} / macOS {osx_image.macos_version}',
+            destination=destination.file_name,
+            osx_image=osx_image.identifier,
+            script=build.script,
         )
+        
+    def osx_build(build, osx_image):
+        return TravisBuild(
+            # Note: format doesn't contain iOS info:
+            name=f'{build.name} / Xcode {osx_image.xcode_version} / macOS {osx_image.macos_version}',
+            # kludge. Mac OS targets don't need iOS destination. The value is ignored.
+            destination=iphone_7_ios114.file_name,
+            osx_image=osx_image.identifier,
+            script=build.script,
+        )
+    
+    travis_builds.append(ios_build(
+        build=demo_tests, destination=iphone_7_ios114, osx_image=xcode_10_0_image
+    ))
+    travis_builds.append(ios_build(
+        build=demo_tests, destination=iphone_7_ios114, osx_image=xcode_10_1_image
+    ))
+    travis_builds.append(ios_build(
+        build=demo_tests, destination=iphone_x_ios121, osx_image=xcode_10_2_image
+    ))
+    
+    # TODO: More builds
+    travis_builds.append(ios_build(
+        build=logic_tests, destination=iphone_7_ios114, osx_image=xcode_10_1_image
+    ))
+
+    travis_builds.append(osx_build(
+        build=ipc_demo_tests, osx_image=xcode_10_2_image
+    ))
     
     return travis_builds
 

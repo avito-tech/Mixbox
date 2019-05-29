@@ -2,7 +2,7 @@
 
 # How-To:
 # Try to run this script.
-# Example: ./dump.py --xcode10_1 /Applications/Xcode_10_1.app/ --xcode10_2 /Applications/Xcode.app
+# Example: ./dump.py --xcode10_0 /Applications/Xcode_10_0.app/ --xcode10_1 /Applications/Xcode_10_1.app/ --xcode10_2 /Applications/Xcode.app
 #
 # In case of errors (either in this script or Xcode when you try to compile the code) see Dump.
 # 
@@ -150,16 +150,21 @@ class Dump:
     def dumpAll(self):
         args = self.parse_args()
         
-        # TODO: Xcode10_1 => Xcode_10_1, looks better.
         xcodes = [
             Xcode(
-                name="Xcode10_1",
+                name="Xcode_10_0",
+                path=args.xcode10_0,
+                ios_min_version=120000,
+                ios_max_version=120100,
+            ),
+            Xcode(
+                name="Xcode_10_1",
                 path=args.xcode10_1,
                 ios_min_version=120100,
                 ios_max_version=120200,
             ),
             Xcode(
-                name="Xcode10_2",
+                name="Xcode_10_2",
                 path=args.xcode10_2,
                 ios_min_version=120200,
                 ios_max_version=130000, # this is subject to change when new xcode is released
@@ -178,6 +183,12 @@ class Dump:
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
+        
+        parser.add_argument(
+            '--xcode10_0',
+            dest='xcode10_0',
+            required=True
+        )
         
         parser.add_argument(
             '--xcode10_1',

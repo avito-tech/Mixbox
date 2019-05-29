@@ -3,7 +3,7 @@ import Tasks
 import SingletonHell
 
 public final class CheckDemoTask: LocalTask {
-    public let name = "CheckIpcDemoTask"
+    public let name = "CheckDemoTask"
     
     private let bashExecutor: BashExecutor
     
@@ -14,7 +14,7 @@ public final class CheckDemoTask: LocalTask {
     }
     
     public func execute() throws {
-        try Prepare.prepareForIosTesting(rebootSimulator: false)
+        try Prepare.prepareForIosTesting(rebootSimulator: true)
         
         let reportsPath = try Env.MIXBOX_CI_REPORTS_PATH.getOrThrow()
         
@@ -24,10 +24,10 @@ public final class CheckDemoTask: LocalTask {
         """
         
         try BuildUtils.buildIos(
-            folder: "Demo",
-            action: "build-for-testing",
-            scheme: "MixboxDemo",
-            workspace: "MixboxDemo",
+            folder: "Demos/OversimplifiedDemo",
+            action: "test",
+            scheme: "OversimplifiedDemo",
+            workspace: "OversimplifiedDemo",
             xcodeDestination: try DestinationUtils.xcodeDestination(),
             xcodebuildPipeFilter: xcodebuildPipeFilter
         )

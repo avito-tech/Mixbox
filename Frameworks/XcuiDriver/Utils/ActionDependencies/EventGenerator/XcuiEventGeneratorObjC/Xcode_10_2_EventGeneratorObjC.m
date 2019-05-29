@@ -2,11 +2,11 @@
 
 #import "Xcode_10_2_EventGeneratorObjC.h"
 
-#import "Xcode10_2_XCSynthesizedEventRecord.h"
-#import "Xcode10_2_XCUIApplication.h"
-#import "Xcode10_2_XCUIElement.h"
-#import "Xcode10_2_XCPointerEventPath.h"
-#import "Xcode10_2_SharedHeader.h"
+#import "Xcode_10_2_XCSynthesizedEventRecord.h"
+#import "Xcode_10_2_XCUIApplication.h"
+#import "Xcode_10_2_XCUIElement.h"
+#import "Xcode_10_2_XCPointerEventPath.h"
+#import "Xcode_10_2_SharedHeader.h"
 
 static CGFloat sqr(CGFloat x) {
     return x * x;
