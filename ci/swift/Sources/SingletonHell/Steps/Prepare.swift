@@ -25,15 +25,8 @@ public final class Prepare {
     }
     
     private static func prepareForTesting() throws {
-        // Change carefully. We have builds in teamcity without virtualization.
-        let cocoapodsVersion = "1.5.3"
-        
-        // Requires "sudo without password" if ruby requires sudo
         try bash(
             """
-            (which pod && [ `pod --version` == "\(cocoapodsVersion)" ]) \
-            || gem install cocoapods -v "\(cocoapodsVersion)" \
-            || sudo gem install cocoapods -v "\(cocoapodsVersion)"
             which xcpretty || brew install xcpretty
             which jq || brew install jq
             """

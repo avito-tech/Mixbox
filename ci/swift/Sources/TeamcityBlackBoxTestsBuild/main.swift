@@ -1,6 +1,5 @@
 import BuildDsl
 import SingletonHell
-import Foundation
 import RunBlackBoxTestsTask
 
 BuildDsl.teamcity.main { di in

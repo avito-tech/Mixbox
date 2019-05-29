@@ -30,9 +30,21 @@ let package = Package(
             ]
         ),
         .executable(
+            name: "TeamcityIpcDemoBuild",
+            targets: [
+                "TeamcityIpcDemoBuild"
+            ]
+        ),
+        .executable(
             name: "TeamcityLogicTestsBuild",
             targets: [
                 "TeamcityLogicTestsBuild"
+            ]
+        ),
+        .executable(
+            name: "TeamcityOversimplifiedDemoBuild",
+            targets: [
+                "TeamcityOversimplifiedDemoBuild"
             ]
         ),
         .executable(
@@ -50,6 +62,7 @@ let package = Package(
             name: "TeamcityGrayBoxTestsBuild",
             dependencies: [
                 "BuildDsl",
+                "RunGrayBoxTestsTask",
                 "SingletonHell",
             ]
         ),
@@ -57,6 +70,7 @@ let package = Package(
             name: "TeamcityBlackBoxTestsBuild",
             dependencies: [
                 "BuildDsl",
+                "RunBlackBoxTestsTask",
                 "SingletonHell",
             ]
         ),
@@ -117,6 +131,7 @@ let package = Package(
             name: "TravisLogicTestsBuild",
             dependencies: [
                 "BuildDsl",
+                "RunUnitTestsTask",
             ]
         ),
         .target(
@@ -159,7 +174,14 @@ let package = Package(
             name: "TravisOversimplifiedDemoBuild",
             dependencies: [
                 "BuildDsl",
-                "SingletonHell",
+                "CheckDemoTask",
+            ]
+        ),
+        .target(
+            name: "TeamcityIpcDemoBuild",
+            dependencies: [
+                "BuildDsl",
+                "CheckIpcDemoTask",
             ]
         ),
         .target(
@@ -176,6 +198,7 @@ let package = Package(
             name: "TeamcityLogicTestsBuild",
             dependencies: [
                 "BuildDsl",
+                "RunUnitTestsTask",
             ]
         ),
         .target(
@@ -207,10 +230,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "TeamcityOversimplifiedDemoBuild",
+            dependencies: [
+                "BuildDsl",
+                "CheckDemoTask",
+            ]
+        ),
+        .target(
             name: "TravisIpcDemoBuild",
             dependencies: [
                 "BuildDsl",
-                "SingletonHell",
+                "CheckIpcDemoTask",
             ]
         ),
         .target(
