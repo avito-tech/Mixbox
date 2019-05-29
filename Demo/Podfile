@@ -8,6 +8,8 @@ use_frameworks!
 
 target 'MixboxDemo' do
   pod 'MixboxInAppServices', '0.2.2'
+  
+  pod 'SQLite.swift', '0.11.5' # Xcode 10.2: '0.12.0' (lower also suits)
 end
 
 target 'MixboxDemoUITests' do

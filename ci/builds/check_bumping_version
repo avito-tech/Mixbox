@@ -48,4 +48,4 @@ cat "$podfile_backup_path" >> "$podfile_path"
 LOCAL_SPEC_REPO=true pod update
 
 rm "$podfile_path"
-mv"$podfile_backup_path" "$podfile_path"
+mv "$podfile_backup_path" "$podfile_path"
