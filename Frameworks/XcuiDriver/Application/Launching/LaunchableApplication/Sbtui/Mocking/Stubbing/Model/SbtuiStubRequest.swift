@@ -1,10 +1,6 @@
 import SBTUITestTunnel
 import MixboxUiTestsFoundation
 
-#if MIXBOX_CI_IS_LINTING_PODSPECS
-import MixboxIpcSbtuiClient
-#endif
-
 public final class SbtuiStubRequest: Hashable {
     public let urlPattern: String
     public let query: [String]?

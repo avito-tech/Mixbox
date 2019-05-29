@@ -19,14 +19,8 @@ Pod::Spec.new do |s|
   
   s.frameworks = 'XCTest', 'IOKit', 'XCTAutomationSupport'
   
-  xcconfig = {
+  s.xcconfig = {
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'
   }
-  if ENV['MIXBOX_CI_IS_LINTING_PODSPECS'] == 'true'
-    xcconfig['OTHER_SWIFT_FLAGS'] = '$(inherited) -D MIXBOX_CI_IS_LINTING_PODSPECS -D MIXBOX_ENABLE_IN_APP_SERVICES'
-    xcconfig['GCC_PREPROCESSOR_DEFINITIONS'] = '$(inherited) MIXBOX_CI_IS_LINTING_PODSPECS=1 MIXBOX_ENABLE_IN_APP_SERVICES=1'
-  end
-  s.xcconfig = xcconfig
-
 end

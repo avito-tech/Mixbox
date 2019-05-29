@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                   = 'MixboxIpc'
   s.module_name            = s.name
-  s.version                = '0.2.0'
+  s.version                = '0.2.2'
   s.summary                = s.name
   s.homepage               = 'https://github.com/avito-tech/Mixbox'
   s.license                = 'MIT'
@@ -14,11 +14,4 @@ Pod::Spec.new do |s|
   s.source_files           = 'Frameworks/Ipc/**/*.{swift,h,m,md}'
   
   s.dependency 'MixboxFoundation'
-
-  xcconfig = {}
-  if ENV['MIXBOX_CI_IS_LINTING_PODSPECS'] == 'true'
-    xcconfig['OTHER_SWIFT_FLAGS'] = '$(inherited) -D MIXBOX_CI_IS_LINTING_PODSPECS -D MIXBOX_ENABLE_IN_APP_SERVICES'
-    xcconfig['GCC_PREPROCESSOR_DEFINITIONS'] = '$(inherited) MIXBOX_CI_IS_LINTING_PODSPECS=1 MIXBOX_ENABLE_IN_APP_SERVICES=1'
-  end
-  s.xcconfig = xcconfig
 end

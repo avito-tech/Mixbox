@@ -1,10 +1,6 @@
 import SBTUITestTunnel
 import MixboxUiTestsFoundation
 
-#if MIXBOX_CI_IS_LINTING_PODSPECS
-import MixboxIpcSbtuiClient
-#endif
-
 public final class SbtuiStubResponse {
     public let value: StubResponseBuilderResponseValue
     public let headers: [String: String]

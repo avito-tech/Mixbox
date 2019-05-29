@@ -2,10 +2,6 @@ import SBTUITestTunnel
 import MixboxUiTestsFoundation
 import MixboxReporting
 
-#if MIXBOX_CI_IS_LINTING_PODSPECS
-import MixboxIpcSbtuiClient
-#endif
-
 // TODO: Нормально абстрагироваться от SBTMonitoredNetworkRequest
 public final class SbtuiNetworkRecordsProvider:
     NetworkRecordsProvider,

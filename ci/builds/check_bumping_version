@@ -4,7 +4,7 @@
 # MIXBOX_PUSHSPEC_VERSION (e.g. "0.0.1")
 # MIXBOX_PUSHSPEC_ORIGIN (e.g. "origin")
 
-set -e
+set -x
 
 for include in "$(dirname $0)/../include/"*; do source "$include"; done
 
@@ -18,14 +18,34 @@ then
     tag="Mixbox-$MIXBOX_PUSHSPEC_VERSION"
     git tag -d "$tag"
     git tag "$tag"
-    git push --force "$MIXBOX_PUSHSPEC_ORIGIN" "$tag"
-    
-    pod repo add MixboxSpecRepo "file:///$MIXBOX_CI_REPO_ROOT"
-    
+    git push --force "$MIXBOX_PUSHSPEC_ORIGIN" "$tag" || exit 1
+
+    pod repo add MixboxSpecRepo "file:///$MIXBOX_CI_REPO_ROOT" || exit 1
+
     echo "Caches were cleared"
 fi
 
-MIXBOX_PUSHSPEC_STYLE=debug "$MIXBOX_CI_REPO_ROOT/ci/builds/push_specs"
+MIXBOX_PUSHSPEC_STYLE=debug "$MIXBOX_CI_REPO_ROOT/ci/builds/push_specs" || exit 1
 
 cd "$MIXBOX_CI_REPO_ROOT/Demo"
+
+podfile_path="Podfile"
+podfile_backup_path="Podfile.backup.ignored"
+
+sed -i ".backup.ignored" "s/\(Mixbox.*\), '.*'/\1, '"$MIXBOX_PUSHSPEC_VERSION"'/g" "$podfile_path"
+cp "$podfile_path" "$podfile_backup_path"
+
+echo '# TODO: Improve local debug of podspecs
+if ENV["LOCAL_SPEC_REPO"] == "true" 
+  source ENV["HOME"] + "/.cocoapods/repos/MixboxSpecRepo"
+  source "https://github.com/CocoaPods/Specs"
+end
+
+' > "$podfile_path"
+
+cat "$podfile_backup_path" >> "$podfile_path"
+
 LOCAL_SPEC_REPO=true pod update
+
+rm "$podfile_path"
+mv"$podfile_backup_path" "$podfile_path"

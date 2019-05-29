@@ -20,18 +20,42 @@ function patchPodspecFile() {
 }
 
 function pushSpec() {
+    setLintingPodspecsEnabled false
+    
     case "$MIXBOX_PUSHSPEC_STYLE" in
     debug)
-        MIXBOX_CI_IS_LINTING_PODSPECS=true pod repo push MixboxSpecRepo "$@" --verbose --local-only --allow-warnings || exit 1
+        pod repo push MixboxSpecRepo "$@" --verbose --local-only --allow-warnings || exit 1
         ;;
     release)
-        MIXBOX_CI_IS_LINTING_PODSPECS=true pod trunk push "$@" --verbose --allow-warnings || exit 1
+        pod trunk push "$@" --verbose --allow-warnings || exit 1
         ;;
     *)
+        setLintingPodspecsEnabled true
         echo "Unknown MIXBOX_PUSHSPEC_STYLE ($MIXBOX_PUSHSPEC_STYLE)"
         exit 1
         ;;
     esac
+    
+    setLintingPodspecsEnabled true
+}
+
+function setLintingPodspecsEnabled() {
+    local enabled=$1
+    local ruby="$(realpath "$(dirname "$(which pod)")/..")"
+    local regex
+    
+    if [ "$enabled" == "true" ]
+    then
+        regex='s/#validate_podspec\(_files\)*/validate_podspec\1/g'
+    elif [ "$enabled" == "false" ]
+    then
+        regex='s/  validate_podspec\(_files\)*/  #validate_podspec\1/g'
+    else
+        echo "Error in setLintingPodspecsEnabled $@"
+        exit 1
+    fi
+    
+    find "$ruby"/gems/cocoapods* -name push.rb|xargs sed -i '.backup_before_push_specs' "$regex"
 }
 
 IFS=$'\n'
