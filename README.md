@@ -6,7 +6,7 @@
 
 Powerful E2E UI testing framework for iOS.
 
-Currently it is used in Avito, where we have 900+ UI tests, 95% of them are green, 5% of them are run on PR and we are working towards executing 100% of tests on pull request. We are running those tests on 3 platforms and it takes 1 hour (total duration of tests is 40+ hours), because we are using [Emcee](https://github.com/avito-tech/Emcee), a test runner that runs tests on multiple machines.
+Currently it is used in Avito, where we have 900+ UI tests, 95% of them are green, 25% of them we run on PR and we are working towards executing 100% of tests on pull request. We are running those tests on 3 platforms and it takes 1.5 hours (total duration of tests is 55+ hours), because we are using [Emcee](https://github.com/avito-tech/Emcee), a test runner that runs tests on multiple machines (note that Mixbox doesn't reuquired Emcee).
 
 If you are enthusiastic about using it in your company, file us an issue. We are making it to be usable by community, however, it is not our main focus now. Our main focus is on making 100% stable suite.
 
@@ -38,10 +38,20 @@ Coming soon (is not open sourced yet):
 - Reports (including Allure, an open sourced reporting system with web UI)
 - Switching accessibility values between release and test builds
 
+## Intallation
+
+There are two ways to use Mixbox.
+
+First is described in [Demo](Demo), it is oversimplified, basically you just use `pod SomePod`.
+
+The second we use in Avito and it looks like this: [Tests](Tests) (see Podfile there).
+
+There are not enough docs yet, so you can try simple approach of linking Mixbox ([Demo](Demo)), but use code examples from [Tests](Tests).
+
 ## Supported iOS/Xcode/Swift versions
 
-- Xcode 10.1, Xcode 10.2
-- Swift 4.1, Swift 4.2
+- Xcode 10.0, 10.1, 10.2.1
+- Swift 4.0+
 - iOS 9.3.2, iOS 10.3, iOS 11.3, iOS 11.4, iOS 12.0, intermediate versions may work or may not, the mentioned versions are tested on CI
 
 ## Known issues
