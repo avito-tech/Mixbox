@@ -1,11 +1,12 @@
 import BuildDsl
 import SingletonHell
 import Foundation
+import RunGrayBoxTestsTask
 
-BuildDsl.main { di in
-    try RunBlackBoxTestsTask(
+BuildDsl.teamcity.main { di in
+    try RunGrayBoxTestsTask(
         bashExecutor: di.resolve(),
-        blackBoxTestRunner: EmceeBlackBoxTestRunner(
+        grayBoxTestRunner: EmceeGrayBoxTestRunner(
             emceeProvider: di.resolve(),
             temporaryFileProvider: di.resolve(),
             bashExecutor: di.resolve(),

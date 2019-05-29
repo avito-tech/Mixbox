@@ -1,6 +1,7 @@
 import BuildDsl
+import RunUnitTestsTask
 
-BuildDsl.main { di in
+BuildDsl.travis.main { di in
     try RunUnitTestsTask(
         bashExecutor: di.resolve()
     )

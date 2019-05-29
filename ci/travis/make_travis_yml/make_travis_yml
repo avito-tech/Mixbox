@@ -40,18 +40,18 @@ def travis_builds():
     xcode_10_2_image = OsxImage(identifier="xcode10.2", xcode_version="10.2.1", xcode_build="10E1001", macos_version="10.14", jdk_version="12+33")
     
     # Builds (executables)
-    demo_tests = Build(script="ci/builds/demo_tests", name="OversimplifiedDemo")
-    logic_tests = Build(script="ci/builds/logic_tests", name="Logic Tests")
-    ipc_demo_tests = Build(script="ci/builds/ipc_demo_tests", name="IPC Demo")
+    demo_tests = Build(swift_executable="TravisOversimplifiedDemoBuild", name="OversimplifiedDemo")
+    logic_tests = Build(swift_executable="TravisLogicTestsBuild", name="Logic Tests")
+    ipc_demo_tests = Build(swift_executable="TravisIpcDemoBuild", name="IPC Demo")
     
     def ios_build(build, destination, osx_image):
         return TravisBuild(
             name=f'{build.name} / {destination.device} / iOS {destination.ios} / Xcode {osx_image.xcode_version} / macOS {osx_image.macos_version}',
             destination=destination.file_name,
             osx_image=osx_image.identifier,
-            script=build.script,
+            swift_executable=build.swift_executable,
         )
-        
+    
     def osx_build(build, osx_image):
         return TravisBuild(
             # Note: format doesn't contain iOS info:
@@ -59,7 +59,7 @@ def travis_builds():
             # kludge. Mac OS targets don't need iOS destination. The value is ignored.
             destination=iphone_7_ios114.file_name,
             osx_image=osx_image.identifier,
-            script=build.script,
+            swift_executable=build.swift_executable,
         )
     
     travis_builds.append(ios_build(
@@ -84,16 +84,16 @@ def travis_builds():
     return travis_builds
 
 class Build:
-    def __init__(self, script, name):
+    def __init__(self, swift_executable, name):
+        self.swift_executable = swift_executable
         self.name = name
-        self.script = script
     
 class TravisBuild:
-    def __init__(self, name, destination, osx_image, script):
+    def __init__(self, name, destination, osx_image, swift_executable):
         self.name = name
         self.destination = destination
         self.osx_image = osx_image
-        self.script = script
+        self.swift_executable = swift_executable
         
 class Destination:
     def __init__(self, file_name, device, ios):

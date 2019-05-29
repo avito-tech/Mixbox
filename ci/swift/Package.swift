@@ -6,140 +6,97 @@ let package = Package(
     name: "MixboxSwiftCI",
     products: [
         .executable(
-            name: "RunUnitTestsTask",
+            name: "TeamcityGrayBoxTestsBuild",
             targets: [
-                "RunUnitTestsTask"
+                "TeamcityGrayBoxTestsBuild"
             ]
         ),
         .executable(
-            name: "RunBlackBoxTestsTask",
+            name: "TeamcityBlackBoxTestsBuild",
             targets: [
-                "RunBlackBoxTestsTask"
+                "TeamcityBlackBoxTestsBuild"
             ]
         ),
         .executable(
-            name: "RunGrayBoxTestsTask",
+            name: "TravisLogicTestsBuild",
             targets: [
-                "RunGrayBoxTestsTask"
+                "TravisLogicTestsBuild"
             ]
         ),
         .executable(
-            name: "CheckIpcDemoTask",
+            name: "TravisOversimplifiedDemoBuild",
             targets: [
-                "CheckIpcDemoTask"
+                "TravisOversimplifiedDemoBuild"
             ]
         ),
         .executable(
-            name: "CheckDemoTask",
+            name: "TeamcityLogicTestsBuild",
             targets: [
-                "CheckDemoTask"
+                "TeamcityLogicTestsBuild"
             ]
-        )
+        ),
+        .executable(
+            name: "TravisIpcDemoBuild",
+            targets: [
+                "TravisIpcDemoBuild"
+            ]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/AliSoftware/Dip", .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9"))
     ],
     targets: [
         .target(
-            name: "RunUnitTestsTask",
+            name: "TeamcityGrayBoxTestsBuild",
             dependencies: [
-                "BuildDsl"
+                "BuildDsl",
+                "SingletonHell",
             ]
         ),
         .target(
-            name: "RunBlackBoxTestsTask",
+            name: "TeamcityBlackBoxTestsBuild",
             dependencies: [
-                "BuildDsl"
-            ]
-        ),
-        .target(
-            name: "RunGrayBoxTestsTask",
-            dependencies: [
-                "BuildDsl"
-            ]
-        ),
-        .target(
-            name: "CheckIpcDemoTask",
-            dependencies: [
-                "BuildDsl"
-            ]
-        ),
-        .target(
-            name: "CheckDemoTask",
-            dependencies: [
-                "BuildDsl"
-            ]
-        ),
-        .target(
-            name: "Brew",
-            dependencies: [
-                "Bash"
-            ]
-        ),
-        .target(
-            name: "BuildDsl",
-            dependencies: [
-                "Di"
-            ]
-        ),
-        .target(
-            name: "Emcee",
-            dependencies: [
-                "Bash",
-                "CiFoundation",
-                "Brew"
-            ]
-        ),
-        .target(
-            name: "Simctl",
-            dependencies: [
-                "Bash"
-            ]
-        ),
-        .target(
-            name: "SingletonHell",
-            dependencies: [
-                "Dip",
-                "Bash",
-                "CiFoundation",
-                "Tasks",
-                "Cocoapods",
-                "Git",
-                "Simctl",
-                "Emcee"
-            ]
-        ),
-        .testTarget(
-            name: "AllTests",
-            dependencies: [
-                "BuildDsl" // everything
-            ]
-        ),
-        .target(
-            name: "Bash",
-            dependencies: [
-                "CiFoundation"
+                "BuildDsl",
+                "SingletonHell",
             ]
         ),
         .target(
             name: "Tasks",
             dependencies: [
-                "CiFoundation"
+                "CiFoundation",
             ]
         ),
         .target(
             name: "Di",
             dependencies: [
-                "Dip",
                 "Bash",
+                "Brew",
                 "CiFoundation",
-                "Tasks",
                 "Cocoapods",
+                "Dip",
+                "Emcee",
                 "Git",
                 "Simctl",
+                "SingletonHell",
+                "Tasks",
+            ]
+        ),
+        .target(
+            name: "CheckDemoTask",
+            dependencies: [
+                "Bash",
+                "SingletonHell",
+                "Tasks",
+            ]
+        ),
+        .target(
+            name: "RunBlackBoxTestsTask",
+            dependencies: [
+                "Bash",
+                "CiFoundation",
                 "Emcee",
                 "SingletonHell",
-                "Brew"
+                "Tasks",
             ]
         ),
         .target(
@@ -147,18 +104,126 @@ let package = Package(
             dependencies: [
             ]
         ),
-        .target(
-            name: "Git",
+        .testTarget(
+            name: "AllTests",
             dependencies: [
-                "Bash"
+                "Bash",
+                "CiFoundation",
+                "Di",
+                "Simctl",
+            ]
+        ),
+        .target(
+            name: "TravisLogicTestsBuild",
+            dependencies: [
+                "BuildDsl",
+            ]
+        ),
+        .target(
+            name: "Brew",
+            dependencies: [
+                "Bash",
+            ]
+        ),
+        .target(
+            name: "SingletonHell",
+            dependencies: [
+                "Bash",
+                "CiFoundation",
+                "Emcee",
+                "Git",
+                "Simctl",
+            ]
+        ),
+        .target(
+            name: "Bash",
+            dependencies: [
+                "CiFoundation",
+            ]
+        ),
+        .target(
+            name: "BuildDsl",
+            dependencies: [
+                "Di",
+                "Tasks",
+            ]
+        ),
+        .target(
+            name: "Simctl",
+            dependencies: [
+                "Bash",
+                "CiFoundation",
+            ]
+        ),
+        .target(
+            name: "TravisOversimplifiedDemoBuild",
+            dependencies: [
+                "BuildDsl",
+                "SingletonHell",
+            ]
+        ),
+        .target(
+            name: "RunGrayBoxTestsTask",
+            dependencies: [
+                "Bash",
+                "CiFoundation",
+                "Emcee",
+                "SingletonHell",
+                "Tasks",
+            ]
+        ),
+        .target(
+            name: "TeamcityLogicTestsBuild",
+            dependencies: [
+                "BuildDsl",
+            ]
+        ),
+        .target(
+            name: "Emcee",
+            dependencies: [
+                "Bash",
+                "Brew",
+                "CiFoundation",
+            ]
+        ),
+        .target(
+            name: "CheckIpcDemoTask",
+            dependencies: [
+                "Bash",
+                "SingletonHell",
+                "Tasks",
             ]
         ),
         .target(
             name: "Cocoapods",
             dependencies: [
-                "Bash"
+                "Bash",
             ]
-        )
+        ),
+        .target(
+            name: "Git",
+            dependencies: [
+                "CiFoundation",
+            ]
+        ),
+        .target(
+            name: "TravisIpcDemoBuild",
+            dependencies: [
+                "BuildDsl",
+                "SingletonHell",
+            ]
+        ),
+        .target(
+            name: "RunUnitTestsTask",
+            dependencies: [
+                "Bash",
+                "CiFoundation",
+                "Cocoapods",
+                "Git",
+                "SingletonHell",
+                "Tasks",
+            ]
+        ),
     ],
     swiftLanguageVersions: [
         .v4_2

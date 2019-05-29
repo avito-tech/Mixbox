@@ -1,0 +1,35 @@
+// swift-tools-version:4.2
+
+import PackageDescription
+
+let package = Package(
+    name: "MixboxSwiftCI",
+    products: [
+        {%- for executable in executables %}
+        .executable(
+            name: "{{executable.name}}",
+            targets: [
+                "{{executable.name}}"
+            ]
+        ),
+        {%- endfor %}
+    ],
+    dependencies: [
+        .package(url: "https://github.com/AliSoftware/Dip", .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9"))
+    ],
+    targets: [
+        {%- for target in targets %}
+        .{{target.type}}(
+            name: "{{target.name}}",
+            dependencies: [
+                {%- for dependency in target.dependencies %}
+                "{{dependency}}",
+                {%- endfor %}
+            ]
+        ),
+        {%- endfor %}
+    ],
+    swiftLanguageVersions: [
+        .v4_2
+    ]
+)

@@ -15,14 +15,22 @@ import Darwin
 // ```
 //
 public final class BuildDsl {
-    private init() {
+    private init(di: Di) {
     }
     
-    public static func main(makeLocalTask: (Di) throws -> (LocalTask)) {
-        BuildDsl().main(makeLocalTask: makeLocalTask)
+    public static var teamcity: BuildDsl {
+        return BuildDsl(
+            di: TeamcityBuildDi()
+        )
     }
     
-    private func main(makeLocalTask: (Di) throws -> (LocalTask)) {
+    public static var travis: BuildDsl {
+        return BuildDsl(
+            di: TravisBuildDi()
+        )
+    }
+    
+    public func main(makeLocalTask: (Di) throws -> (LocalTask)) {
         do {
             // TODO: Support other CI.
             let di = TeamcityBuildDi()

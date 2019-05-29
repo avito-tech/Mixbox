@@ -1,12 +1,13 @@
 #!/bin/bash
 
-for include in "$(dirname $0)/../include/"*; do source "$include"; done
-
 set -x
 
+MIXBOX_CI_SCRIPT_DIRECTORY=$(cd "$(dirname $0)"; pwd)
+MIXBOX_CI_REPO_ROOT=$(cd "$MIXBOX_CI_SCRIPT_DIRECTORY"; git rev-parse --show-toplevel)
+
 [ -z "$MIXBOX_PUSHSPEC_STYLE" ] && echo "MIXBOX_PUSHSPEC_STYLE is not set (e.g. debug)" && exit 1
-[ -z "$MIXBOX_PUSHSPEC_VERSION" ] && echo "MIXBOX_PUSHSPEC_STYLE is not set (e.g. 0.0.1)" && exit 1
-[ -z "$MIXBOX_PUSHSPEC_ORIGIN" ] && echo "MIXBOX_PUSHSPEC_STYLE is not set (e.g. origin)" && exit 1
+[ -z "$MIXBOX_PUSHSPEC_VERSION" ] && echo "MIXBOX_PUSHSPEC_VERSION is not set (e.g. 0.0.1)" && exit 1
+[ -z "$MIXBOX_PUSHSPEC_ORIGIN" ] && echo "MIXBOX_PUSHSPEC_ORIGIN is not set (e.g. origin)" && exit 1
 
 # Optional:
 #

@@ -7,7 +7,7 @@ matrix:
     {%- for build in builds %}
     - name: "{{ build.name }}"
       osx_image: "{{ build.osx_image }}"
-      env: MIXBOX_CI_DESTINATION="{{ build.destination }}" MIXBOX_CI_TRAVIS_BUILD="{{ build.script }}" MIXBOX_CI_REPORTS_PATH="."
+      env: MIXBOX_CI_DESTINATION="{{ build.destination }}" MIXBOX_CI_BUILD_EXECUTABLE="{{ build.swift_executable }}" MIXBOX_CI_REPORTS_PATH="."
     {%- endfor %}
 script:
-    ci/travis/run_build_with_travis
+    ci/swift/run_swift

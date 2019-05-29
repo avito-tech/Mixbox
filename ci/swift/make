@@ -4,6 +4,7 @@ cd "$(dirname "$0")"
 
 case "$1" in
     generate)
+        ./MakePackage/make_package || exit 1
         swift package generate-xcodeproj --xcconfig-overrides Package.xcconfig --enable-code-coverage
         ;;
     reopen)

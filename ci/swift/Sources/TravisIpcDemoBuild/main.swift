@@ -1,9 +1,10 @@
 import BuildDsl
 import SingletonHell
 import Foundation
+import CheckIpcDemoTask
 
-BuildDsl.main { di in
-    try CheckDemoTask(
+BuildDsl.travis.main { di in
+    try CheckIpcDemoTask(
         bashExecutor: di.resolve()
     )
 }

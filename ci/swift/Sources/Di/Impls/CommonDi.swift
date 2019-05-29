@@ -10,36 +10,8 @@ import Emcee
 import SingletonHell
 import Brew
 
-// TODO: Find a way to switch between CI`s.
-public final class TeamcityBuildDi: Di {
-    private let container = DependencyContainer()
-    
-    public init() {
-    }
-    
-    // MARK: - Di
-    
-    public func bootstrap() throws {
-        registerAll()
-        
-        try container.bootstrap()
-    }
-    
-    public func resolve<T>() throws -> T {
-        return try container.resolve()
-    }
-    
-    // MARK: - Validation
-    
-    public func validate() throws {
-        try container.validate()
-    }
-    
-    // Private
-    
-    private func registerAll() {
-        let container = self.container
-        
+open class CommonDi: BaseDi {
+    override open func registerAll(container: DependencyContainer) {
         container.register(type: BashExecutor.self) {
             ProcessExecutorBashExecutor(
                 processExecutor: try container.resolve(),
@@ -50,9 +22,6 @@ public final class TeamcityBuildDi: Di {
             LoggingProcessExecutor(
                 originalProcessExecutor: FoundationProcessExecutor()
             )
-        }
-        container.register(type: LocalTaskExecutor.self) {
-            TeamcityLocalTaskExecutor()
         }
         container.register(type: TemporaryFileProvider.self) {
             TemporaryFileProviderImpl()

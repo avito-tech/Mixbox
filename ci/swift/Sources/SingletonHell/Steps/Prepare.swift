@@ -25,7 +25,8 @@ public final class Prepare {
     }
     
     private static func prepareForTesting() throws {
-        let cocoapodsVersion = "1.7.0"
+        // Change carefully. We have builds in teamcity without virtualization.
+        let cocoapodsVersion = "1.5.3"
         
         // Requires "sudo without password" if ruby requires sudo
         try bash(
