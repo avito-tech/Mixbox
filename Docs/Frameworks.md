@@ -13,7 +13,7 @@ The way that frameworks are divided may be changed in future.
 White-box tests target (e.g. unit tests) may use this:
 
 * **TestsFoundation**: contains code that can be used for every iOS test, e.g. cleaning system state, working with XCTest, etc.
-* **Reporting**, **Artifacts**: based on the picture alone they can be combined with TestsFoundation, however at Avito we use them separately for other frameworks.
+* **Reporting**, **Artifacts**: based on the picture alone they can be combined with TestsFoundation, however at Avito we use `MixboxArtifacts` for other frameworks (TODO: merge `MixboxReporting` into `MixboxTestsFoundation`).
 * **Foundation**: just very generic utilities that are used in almost every other framework.
 
 Grey-box tests target may use this:
