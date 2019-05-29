@@ -7,13 +7,13 @@ inhibit_all_warnings!
 use_frameworks!
 
 target 'OversimplifiedDemo' do
-  pod 'MixboxInAppServices', '0.2.2'
+  pod 'MixboxInAppServices', '0.2.3'
   
   pod 'SQLite.swift', '0.11.5' # Xcode 10.2: '0.12.0' (lower also suits)
 end
 
 target 'OversimplifiedDemoUITests' do
-  pod 'MixboxXcuiDriver', '0.2.2'
+  pod 'MixboxXcuiDriver', '0.2.3'
 end
   
 post_install do |installer|

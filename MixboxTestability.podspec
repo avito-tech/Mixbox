@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                   = 'MixboxTestability'
   s.module_name            = 'MixboxTestability'
-  s.version                = '0.2.2'
+  s.version                = '0.2.3'
   s.summary                = 'MixboxTestability makes your UI more testable'
   s.homepage               = 'https://github.com/avito-tech/Mixbox'
   s.license                = 'MIT'
