@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target  = "10.13"
   s.swift_version          = '4.0'
   s.requires_arc           = true
-  s.source_files           = 'Frameworks/Ipc/**/*.{swift,h,m,md}'
+  s.source_files           = 'Frameworks/Ipc/**/*.{swift,h,m}'
   
   s.dependency 'MixboxFoundation'
 end
