@@ -1,6 +1,6 @@
 import MixboxReporting
 
-public protocol TccDbApplicationPermissionSetterFactory {
+public protocol TccDbApplicationPermissionSetterFactory: class {
     func tccDbApplicationPermissionSetter(
         service: TccService,
         bundleId: String,

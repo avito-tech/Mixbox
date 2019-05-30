@@ -18,7 +18,7 @@ import MixboxFoundation
 // there is no connection between element type in tests and element type inside app (UIButton/UIView/etc).
 //
 // TODO: Rename. It is actually (XCUI/GrayBox) implementation independent interface for making page object elements
-public protocol PageObjectElement {
+public protocol PageObjectElement: class {
     var settings: ElementSettings { get }
     var interactionPerformer: PageObjectElementInteractionPerformer { get }
     

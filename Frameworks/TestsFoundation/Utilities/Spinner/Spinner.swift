@@ -1,4 +1,4 @@
-public protocol Spinner {
+public protocol Spinner: class {
     @discardableResult
     func spin(
         timeout: TimeInterval,

@@ -1,5 +1,5 @@
 import MixboxFoundation
 
-public protocol ImageProvider {
+public protocol ImageProvider: class {
     func image() throws -> UIImage
 }

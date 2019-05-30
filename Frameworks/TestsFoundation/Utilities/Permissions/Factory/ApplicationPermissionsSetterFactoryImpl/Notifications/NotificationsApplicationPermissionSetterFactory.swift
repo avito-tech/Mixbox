@@ -1,4 +1,4 @@
-public protocol NotificationsApplicationPermissionSetterFactory {
+public protocol NotificationsApplicationPermissionSetterFactory: class {
     func notificationsApplicationPermissionSetter(
         bundleId: String,
         displayName: String)

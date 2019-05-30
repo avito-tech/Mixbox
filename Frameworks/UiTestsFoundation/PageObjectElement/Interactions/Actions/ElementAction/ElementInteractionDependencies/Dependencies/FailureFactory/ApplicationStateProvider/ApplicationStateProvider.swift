@@ -1,3 +1,3 @@
-public protocol ApplicationStateProvider {
+public protocol ApplicationStateProvider: class {
     func applicationState() -> ApplicationState
 }

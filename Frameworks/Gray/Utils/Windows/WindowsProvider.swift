@@ -1,4 +1,4 @@
-public protocol WindowsProvider {
+public protocol WindowsProvider: class {
     func windowsFromTopMostToBottomMost() -> [UIWindow]
     func windowsFromBottomMostToTopMost() -> [UIWindow]
 }

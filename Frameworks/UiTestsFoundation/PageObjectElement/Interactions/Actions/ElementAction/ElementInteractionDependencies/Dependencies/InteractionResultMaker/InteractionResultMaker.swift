@@ -1,6 +1,6 @@
 import MixboxArtifacts
 
-public protocol InteractionResultMaker {
+public protocol InteractionResultMaker: class {
     func decorateFailure(
         interactionFailure: InteractionFailure)
         -> InteractionResult

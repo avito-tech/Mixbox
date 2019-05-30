@@ -1,4 +1,4 @@
-public protocol ElementWithDefaultInitializer: Element {
+public protocol ElementWithDefaultInitializer: class, Element {
     // Если сделать инициализатор в протоколе, то он не сможет сделать нам Self в protocol extension.
     // Код: init(implementation: PageObjectElement)
     // При использовании инита пишет:

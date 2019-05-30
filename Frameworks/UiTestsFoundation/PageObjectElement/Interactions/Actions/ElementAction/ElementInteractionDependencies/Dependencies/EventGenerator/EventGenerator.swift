@@ -1,4 +1,4 @@
-public protocol EventGenerator {
+public protocol EventGenerator: class {
     func pressAndDrag(
         from: CGPoint,
         to: CGPoint,

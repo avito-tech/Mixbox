@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import TestsIpc
 
-protocol AnyActionSpecification {
+protocol AnyActionSpecification: class {
     var elementId: String { get }
     var expectedResult: ActionsTestsViewActionResult { get }
     

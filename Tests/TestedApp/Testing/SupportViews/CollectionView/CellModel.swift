@@ -3,7 +3,7 @@ import UIKit
 // Easy way to store array of cell models for collection view,
 // Suitable for testing tests, not suitable for real app.
 
-protocol CellModel {
+protocol CellModel: class {
     var cellClass: UICollectionViewCell.Type { get }
     func update(cell: UICollectionViewCell)
 }
@@ -19,8 +19,12 @@ func cellReuseIdentifier(cellClass: UICollectionViewCell.Type) -> String {
     return "\(cellClass)"
 }
 
-struct GenericCellModel<T: UICollectionViewCell>: CellModel {
+final class GenericCellModel<T: UICollectionViewCell>: CellModel {
     let updateFunction: (T) -> ()
+    
+    init(updateFunction: @escaping (T) -> ()) {
+        self.updateFunction = updateFunction
+    }
     
     var cellClass: UICollectionViewCell.Type {
         return T.self

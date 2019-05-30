@@ -1,4 +1,4 @@
-public protocol Swizzler {
+public protocol Swizzler: class {
     func swizzle(
         _ class: NSObject.Type,
         _ originalSelector: Selector,

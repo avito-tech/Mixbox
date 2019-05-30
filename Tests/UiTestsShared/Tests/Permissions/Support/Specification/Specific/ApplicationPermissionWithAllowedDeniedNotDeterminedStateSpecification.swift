@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 
 protocol ApplicationPermissionWithAllowedDeniedNotDeterminedStateSpecification:
+    class,
     ApplicationPermissionSpecification where PermissionStateType == AllowedDeniedNotDeterminedState
 {
     func setter(

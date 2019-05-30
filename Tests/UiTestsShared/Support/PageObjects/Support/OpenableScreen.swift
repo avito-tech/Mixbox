@@ -1,6 +1,6 @@
 import MixboxUiTestsFoundation
 
-protocol OpenableScreen {
+protocol OpenableScreen: class {
     var viewName: String { get }
 }
 

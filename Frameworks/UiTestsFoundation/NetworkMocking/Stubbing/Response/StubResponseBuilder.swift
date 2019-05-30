@@ -1,4 +1,4 @@
-public protocol StubResponseBuilder {
+public protocol StubResponseBuilder: class {
     // Do not use directly, use functions from extensions.
     // This function should be used only for implementing basic functionality.
     func withResponse(

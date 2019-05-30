@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 
 protocol ApplicationPermissionWithAllowedDeniedStateSpecification:
+    class,
     ApplicationPermissionSpecification where PermissionStateType == AllowedDeniedState
 {
     var identifier: String { get }

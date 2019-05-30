@@ -1,4 +1,4 @@
-public protocol RunLoopModesStackProvider {
+public protocol RunLoopModesStackProvider: class {
     var runLoopModes: [CFRunLoopMode] { get }
 }
 

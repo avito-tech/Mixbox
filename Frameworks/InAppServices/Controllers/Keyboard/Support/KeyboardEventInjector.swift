@@ -2,7 +2,7 @@
 
 import MixboxIpcCommon
 
-public protocol KeyboardEventInjector {
+public protocol KeyboardEventInjector: class {
     func inject(events: [KeyboardEvent], completion: @escaping () -> ())
 }
 

@@ -1,6 +1,6 @@
 import MixboxIpc
 
-public protocol LaunchedApplication {
+public protocol LaunchedApplication: class {
     var ipcClient: IpcClient? { get }
     var ipcRouter: IpcRouter? { get }
 }

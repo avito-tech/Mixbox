@@ -1,4 +1,4 @@
-public protocol InteractionFailureResultFactory {
+public protocol InteractionFailureResultFactory: class {
     func elementIsHiddenResult()
         -> InteractionResult
     

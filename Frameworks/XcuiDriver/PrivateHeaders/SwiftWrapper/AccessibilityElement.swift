@@ -1,6 +1,6 @@
 // Враппер над приватным XCAccessibilityElement.
 // TODO: Доделать или выпилить. Сейчас не используется.
-protocol AccessibilityElement {
+protocol AccessibilityElement: class {
 }
 
 class XcAccessibilityElement: AccessibilityElement {

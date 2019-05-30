@@ -1,5 +1,5 @@
 // Not really a good abstraction. It duplicates SBTMonitoredNetworkRequest interface.
-public protocol MonitoredNetworkRequest {
+public protocol MonitoredNetworkRequest: class {
     func requestJson() -> [String: Any]?
     func requestString() -> String?
     func responseJson() -> [String: Any]?

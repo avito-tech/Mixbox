@@ -2,7 +2,7 @@ import Foundation
 import MixboxIpc
 import MixboxIpcCommon
 
-public protocol PushNotificationSender {
+public protocol PushNotificationSender: class {
     @discardableResult
     func send(pushNotification: [AnyHashable: Any]) -> IpcMethodCallingResult
 }

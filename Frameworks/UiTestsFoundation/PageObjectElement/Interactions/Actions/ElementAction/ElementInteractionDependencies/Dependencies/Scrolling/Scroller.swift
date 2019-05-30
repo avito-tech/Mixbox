@@ -1,6 +1,6 @@
 import MixboxIpcCommon
 
-public protocol Scroller {
+public protocol Scroller: class {
     func scrollIfNeeded(
         snapshot: ElementSnapshot,
         minimalPercentageOfVisibleArea: CGFloat,

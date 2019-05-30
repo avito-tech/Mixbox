@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol TestFailureRecorder {
+public protocol TestFailureRecorder: class {
     func recordFailure(
         description: String,
         fileLine: FileLine?,

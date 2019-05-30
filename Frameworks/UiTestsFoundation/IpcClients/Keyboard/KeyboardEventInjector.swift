@@ -1,7 +1,7 @@
 import MixboxIpcCommon
 import MixboxIpc
 
-public protocol KeyboardEventInjector {
+public protocol KeyboardEventInjector: class {
     func inject(events: [KeyboardEvent])
 }
 

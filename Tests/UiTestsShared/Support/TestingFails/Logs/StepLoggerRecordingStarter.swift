@@ -1,5 +1,5 @@
 import MixboxReporting
 
-protocol StepLoggerRecordingStarter {
+protocol StepLoggerRecordingStarter: class {
     func startRecording() -> StartedStepLoggerRecording & StepLogsProvider
 }

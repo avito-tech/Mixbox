@@ -1,3 +1,3 @@
-public protocol ExtendedStackTraceProvider {
+public protocol ExtendedStackTraceProvider: class {
     func extendedStackTrace() -> [ExtendedStackTraceEntry]
 }

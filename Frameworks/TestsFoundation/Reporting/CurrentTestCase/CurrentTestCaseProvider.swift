@@ -1,5 +1,5 @@
 import XCTest
 
-public protocol CurrentTestCaseProvider {
+public protocol CurrentTestCaseProvider: class {
     func currentTestCase() -> XCTestCase?
 }

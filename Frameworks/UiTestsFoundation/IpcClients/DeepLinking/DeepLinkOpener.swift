@@ -2,7 +2,7 @@ import Foundation
 import MixboxIpc
 import MixboxIpcCommon
 
-public protocol DeepLinkOpener {
+public protocol DeepLinkOpener: class {
     func openDeepLink(_ deepLinkUri: String) -> IpcMethodCallingResult
 }
 

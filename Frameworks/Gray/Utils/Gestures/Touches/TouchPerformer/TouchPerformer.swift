@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol TouchPerformer {
+public protocol TouchPerformer: class {
     func touch(
         touchPaths: [[CGPoint]],
         relativeToWindow window: UIWindow,

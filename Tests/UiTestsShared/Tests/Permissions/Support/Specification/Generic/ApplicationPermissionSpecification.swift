@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-protocol ApplicationPermissionSpecification {
+protocol ApplicationPermissionSpecification: class {
     associatedtype PermissionStateType
     
     var identifier: String { get }

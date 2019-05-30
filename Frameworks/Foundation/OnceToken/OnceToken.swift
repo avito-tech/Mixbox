@@ -6,7 +6,7 @@
 //  ...
 //  return onceToken.executeOnce { 2 + 2 } // 4
 //
-public protocol OnceToken {
+public protocol OnceToken: class {
     func wasExecuted() -> Bool
     func executeOnce(_ closure: () throws -> ()) rethrows
 }

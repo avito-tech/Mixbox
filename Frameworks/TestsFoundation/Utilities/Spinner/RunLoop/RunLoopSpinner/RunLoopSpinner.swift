@@ -1,4 +1,4 @@
-public protocol RunLoopSpinner {
+public protocol RunLoopSpinner: class {
     // Spins the current thread's run loop in the active mode using the given stop condition.
     //
     // Will always spin the run loop for at least the minimum number of run loop drains. Will always

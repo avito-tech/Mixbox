@@ -4,7 +4,7 @@
 // Should be refactored further during implementation of Gray Box tests.
 
 // See also: MenuItemProvider
-public protocol MenuItem {
+public protocol MenuItem: class {
     func tap() throws
     func waitForExistence(timeout: TimeInterval) throws
 }

@@ -1,6 +1,6 @@
 import MixboxReporting
 
-public protocol ApplicationPermissionsSetterFactory {
+public protocol ApplicationPermissionsSetterFactory: class {
     func applicationPermissionsSetter(
         bundleId: String,
         displayName: String,

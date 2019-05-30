@@ -1,4 +1,4 @@
-public protocol PerformerOfSpecificImplementationOfInteractionForVisibleElement {
+public protocol PerformerOfSpecificImplementationOfInteractionForVisibleElement: class {
     func performInteractionForVisibleElement(
         minimalPercentageOfVisibleArea: CGFloat,
         resolvedElementQuery: ResolvedElementQuery,

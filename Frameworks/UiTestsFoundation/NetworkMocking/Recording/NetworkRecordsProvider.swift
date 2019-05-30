@@ -1,4 +1,4 @@
-public protocol NetworkRecordsProvider {
+public protocol NetworkRecordsProvider: class {
     var allRequests: [MonitoredNetworkRequest] { get }
 }
 

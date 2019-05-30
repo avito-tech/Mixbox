@@ -3,7 +3,7 @@ import Foundation
 import MixboxIpc
 import MixboxIpcCommon
 
-public protocol LocationSimulator {
+public protocol LocationSimulator: class {
     @discardableResult
     func simulate(location: CLLocation) -> Bool
     

@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 
-protocol InteractionPerformerFactory {
+protocol InteractionPerformerFactory: class {
     func performerForInteraction(
         isCheckForNotDisplayed: Bool,
         shouldReportResultToObserver: Bool)

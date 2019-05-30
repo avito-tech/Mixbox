@@ -1,6 +1,6 @@
 import MixboxArtifacts
 
-public protocol ScreenshotAttachmentsMaker {
+public protocol ScreenshotAttachmentsMaker: class {
     func makeScreenshotArtifacts(
         beforeStep: Bool,
         includeHash: Bool)

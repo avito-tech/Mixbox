@@ -5,7 +5,7 @@ public enum TouchPathLengths {
     case fixedMagnitudes
 }
 
-public protocol PathGestureUtils {
+public protocol PathGestureUtils: class {
     func touchPath(
         startPoint: CGPoint,
         endPoint: CGPoint,

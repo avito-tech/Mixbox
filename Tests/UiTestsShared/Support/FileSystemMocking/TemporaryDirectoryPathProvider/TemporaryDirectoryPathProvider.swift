@@ -1,3 +1,3 @@
-protocol TemporaryDirectoryPathProvider {
+protocol TemporaryDirectoryPathProvider: class {
     func temporaryDirectoryPath() -> String
 }

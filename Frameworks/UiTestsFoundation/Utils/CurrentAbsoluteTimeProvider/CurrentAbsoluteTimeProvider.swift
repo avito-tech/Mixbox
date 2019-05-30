@@ -1,3 +1,3 @@
-public protocol CurrentAbsoluteTimeProvider {
+public protocol CurrentAbsoluteTimeProvider: class {
     var currentAbsoluteTime: AbsoluteTime { get }
 }

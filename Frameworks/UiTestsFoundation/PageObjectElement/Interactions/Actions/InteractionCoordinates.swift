@@ -1,4 +1,4 @@
-public protocol InteractionCoordinates {
+public protocol InteractionCoordinates: class {
     func interactionCoordinatesOnScreen(elementSnapshot: ElementSnapshot) -> CGPoint
 }
 

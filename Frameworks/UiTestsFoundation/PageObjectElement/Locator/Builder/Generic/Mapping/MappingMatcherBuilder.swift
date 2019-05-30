@@ -19,7 +19,7 @@
 // // Example in which protocol extensions are used (creates same matcher):
 // x == 1
 //
-public protocol MappingMatcherBuilder {
+public protocol MappingMatcherBuilder: class {
     associatedtype TargetMatcherArgument
     associatedtype SourceMatcherArgument
     

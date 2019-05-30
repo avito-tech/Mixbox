@@ -1,4 +1,4 @@
-public protocol RunLoopSpinnerFactory {
+public protocol RunLoopSpinnerFactory: class {
     func spinnerImpl(
         timeout: TimeInterval,
         minRunLoopDrains: Int,

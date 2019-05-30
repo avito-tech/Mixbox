@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol ElementInteractionDependenciesFactory {
+public protocol ElementInteractionDependenciesFactory: class {
     func elementInteractionDependencies(
         interaction: ElementInteraction,
         fileLine: FileLine,

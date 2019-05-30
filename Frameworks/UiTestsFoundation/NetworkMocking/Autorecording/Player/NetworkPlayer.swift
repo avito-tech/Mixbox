@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol NetworkPlayer {
+public protocol NetworkPlayer: class {
     // TODO: Function for starting and finalizing session!
     
     // Use `checkpoint` from extension in clients of this protocol.

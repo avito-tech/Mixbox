@@ -49,7 +49,7 @@ public enum ArtifactStorageResult {
     case failure
 }
 
-public protocol ArtifactStorage {
+public protocol ArtifactStorage: class {
     func store(
         artifact: Artifact,
         pathComponents: [String],

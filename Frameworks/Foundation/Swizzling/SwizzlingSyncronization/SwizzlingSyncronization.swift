@@ -1,3 +1,3 @@
-public protocol SwizzlingSyncronization {
+public protocol SwizzlingSyncronization: class {
     func append(swizzlingResult: SwizzlingResult) -> ErrorString?
 }

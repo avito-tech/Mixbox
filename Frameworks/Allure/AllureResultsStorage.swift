@@ -1,6 +1,6 @@
 import MixboxArtifacts
 
-public protocol AllureResultsStorage {
+public protocol AllureResultsStorage: class {
     func store(artifact: Artifact, completion: @escaping (AllureAttachment?) -> ())
     func store(allureResult: AllureResult, completion: @escaping () -> ())
     func store(allureContainer: AllureContainer, completion: @escaping () -> ())

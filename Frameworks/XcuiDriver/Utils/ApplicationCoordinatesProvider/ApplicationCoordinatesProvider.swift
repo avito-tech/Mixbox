@@ -1,7 +1,7 @@
 import XCTest
 import MixboxUiTestsFoundation
 
-public protocol ApplicationCoordinatesProvider {
+public protocol ApplicationCoordinatesProvider: class {
     func tappablePoint(point: CGPoint) -> CGPoint
     func coordinate(tappablePoint: CGPoint) -> XCUICoordinate
 }

@@ -2,7 +2,7 @@ import MixboxUiTestsFoundation
 import EarlGrey
 import MixboxTestsFoundation
 
-protocol InteractionFactory {
+protocol InteractionFactory: class {
     func interaction(
         settings: ResolvedInteractionSettings,
         elementMatcher: ElementMatcher,

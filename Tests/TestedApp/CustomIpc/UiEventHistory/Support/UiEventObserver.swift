@@ -1,5 +1,5 @@
 import UIKit
 
-public protocol UiEventObserver {
+public protocol UiEventObserver: class {
     func eventWasSent(event: UIEvent)
 }

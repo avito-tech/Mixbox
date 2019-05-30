@@ -1,4 +1,4 @@
-protocol ScreenOpener {
+protocol ScreenOpener: class {
     func openScreen(name: String)
 }
 

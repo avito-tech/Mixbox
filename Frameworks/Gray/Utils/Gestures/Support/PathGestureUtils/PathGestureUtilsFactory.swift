@@ -1,3 +1,3 @@
-public protocol PathGestureUtilsFactory {
+public protocol PathGestureUtilsFactory: class {
     func pathGestureUtils() -> PathGestureUtils
 }

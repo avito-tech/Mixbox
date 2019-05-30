@@ -1,2 +1,2 @@
-public protocol NetworkStubbing: StubRequestBuilder {
+public protocol NetworkStubbing: class, StubRequestBuilder {
 }

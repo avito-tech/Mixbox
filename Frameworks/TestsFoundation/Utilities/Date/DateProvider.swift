@@ -1,3 +1,3 @@
-public protocol DateProvider {
+public protocol DateProvider: class {
     func currentDate() -> Date
 }

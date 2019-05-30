@@ -1,6 +1,6 @@
 import MixboxIpc
 
-public protocol IpcClientHolder {
+public protocol IpcClientHolder: class {
     var ipcClient: IpcClient? { get }
 }
 

@@ -1,5 +1,5 @@
 import MixboxUiTestsFoundation
 
-protocol InteractionRecorder {
+protocol InteractionRecorder: class {
     func recordInteraction(description: String, interaction: () -> InteractionResult)
 }
