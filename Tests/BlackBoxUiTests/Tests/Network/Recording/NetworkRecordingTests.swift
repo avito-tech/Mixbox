@@ -1,5 +1,6 @@
 import XCTest
 
+// TODO: Share with GrayBoxUiTests
 final class NetworkRecordingTests: BaseNetworkMockingTestCase {
     func test_networkRecording_works() {
         networking.recording.startRecording()

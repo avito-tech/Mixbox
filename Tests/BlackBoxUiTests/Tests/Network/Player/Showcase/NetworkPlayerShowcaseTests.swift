@@ -1,6 +1,7 @@
 import MixboxUiTestsFoundation
 import TestsIpc
 
+// TODO: Share with GrayBoxUiTests
 final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
     // Note: use this test to record session for other tests!
     func test___player_replays_network_in_replaying_mode___basic_case() {

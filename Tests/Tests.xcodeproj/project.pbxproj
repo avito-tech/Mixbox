@@ -328,7 +328,6 @@
 		F8C8ED132298505D0009B9A7 /* LocatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820873F2141B49700DCBA2D /* LocatorsTests.swift */; };
 		F8C8ED142298505D0009B9A7 /* ScrollingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F813CB2E209CDF3400E6A27C /* ScrollingTests.swift */; };
 		F8C8ED152298505D0009B9A7 /* NotificationsApplicationPermissionSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF5822831458007A97E5 /* NotificationsApplicationPermissionSpecification.swift */; };
-		F8C8ED162298505D0009B9A7 /* NotificationsApplicationPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF5922831458007A97E5 /* NotificationsApplicationPermissionTests.swift */; };
 		F8C8ED172298505D0009B9A7 /* MicrophoneApplicationPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AD078B2250D5DD00D5FB93 /* MicrophoneApplicationPermissionTests.swift */; };
 		F8C8ED182298505D0009B9A7 /* MicrophoneApplicationPermissionSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AD078C2250D5DD00D5FB93 /* MicrophoneApplicationPermissionSpecification.swift */; };
 		F8C8ED192298505D0009B9A7 /* CameraApplicationPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AD078E2250D5DD00D5FB93 /* CameraApplicationPermissionTests.swift */; };
@@ -341,10 +340,6 @@
 		F8C8ED202298505D0009B9A7 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF5C22831513007A97E5 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift */; };
 		F8C8ED212298505D0009B9A7 /* ApplicationPermissionSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF5E228316DD007A97E5 /* ApplicationPermissionSpecification.swift */; };
 		F8C8ED222298505D0009B9A7 /* BasePermissionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3412F224E5EA600AA1EB9 /* BasePermissionTestCase.swift */; };
-		F8C8ED232298505D0009B9A7 /* NetworkRecordingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DC1226672B3001741C1 /* NetworkRecordingTests.swift */; };
-		F8C8ED242298505D0009B9A7 /* NetworkStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A7530F2260E13D00396A89 /* NetworkStubbingTests.swift */; };
-		F8C8ED252298505D0009B9A7 /* RecordingNetworkPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CFE22650287001741C1 /* RecordingNetworkPlayerTests.swift */; };
-		F8C8ED262298505D0009B9A7 /* NetworkPlayerShowcaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971D2E2265331C001741C1 /* NetworkPlayerShowcaseTests.swift */; };
 		F8C8ED272298505D0009B9A7 /* NetworkPlayerShowcaseTests.recordedNetworkSession.json in Resources */ = {isa = PBXBuildFile; fileRef = F8971D422265FED7001741C1 /* NetworkPlayerShowcaseTests.recordedNetworkSession.json */; };
 		F8C8ED282298505D0009B9A7 /* NetworkPlayerShowcaseTests.alwaysEmpty.json in Resources */ = {isa = PBXBuildFile; fileRef = F8971D9E22663BF6001741C1 /* NetworkPlayerShowcaseTests.alwaysEmpty.json */; };
 		F8C8ED292298505D0009B9A7 /* MoreComplexExample.recordedNetworkSession.json in Resources */ = {isa = PBXBuildFile; fileRef = F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */; };
@@ -3333,7 +3328,6 @@
 				F8A83825227215C300145140 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F8A83E8F2272223700145140 /* ActionsTestsScreen.swift in Sources */,
 				F8A837C42270EE9800145140 /* OpenableScreen.swift in Sources */,
-				F8C8ED162298505D0009B9A7 /* NotificationsApplicationPermissionTests.swift in Sources */,
 				F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
 				F8C8ED172298505D0009B9A7 /* MicrophoneApplicationPermissionTests.swift in Sources */,
@@ -3353,7 +3347,6 @@
 				F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */,
 				F8B0A25F220A0EF30089C1EE /* AllureReportingSystem.swift in Sources */,
 				F8A837A42270D40B00145140 /* GenericPageObject.swift in Sources */,
-				F8C8ED252298505D0009B9A7 /* RecordingNetworkPlayerTests.swift in Sources */,
 				F8C8ED3D22985B060009B9A7 /* FileSystem.swift in Sources */,
 				F8C8ED0F2298505D0009B9A7 /* FakeCellsDoNotCrashAppTests.swift in Sources */,
 				F8C8ED2E229854580009B9A7 /* BaseUiTestCase.swift in Sources */,
@@ -3363,7 +3356,6 @@
 				F8A837C92270F2B300145140 /* ScreenshotTestsViewPageObject.swift in Sources */,
 				F8A837A32270D40B00145140 /* NetworkStubbingTestsViewPageObject.swift in Sources */,
 				F8B0A254220A0EF30089C1EE /* XcTestFailure.swift in Sources */,
-				F8C8ED242298505D0009B9A7 /* NetworkStubbingTests.swift in Sources */,
 				F8A837AD2270D57F00145140 /* BaseChecksTestCase.swift in Sources */,
 				F8C8ED0E2298505D0009B9A7 /* FakeCellsTests.swift in Sources */,
 				F88915AC2295E211003B8D0A /* TestQuery.swift in Sources */,
@@ -3374,7 +3366,6 @@
 				F88915AE2295E211003B8D0A /* TestSuiteInfo.m in Sources */,
 				F8A83E842272223700145140 /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift in Sources */,
 				F8B0A258220A0EF30089C1EE /* TestReportStatus.swift in Sources */,
-				F8C8ED232298505D0009B9A7 /* NetworkRecordingTests.swift in Sources */,
 				F8A83E852272223700145140 /* SetTextActionFailuresTests.swift in Sources */,
 				F8DB359F22738C9B00EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift in Sources */,
 				F8C8ED122298505D0009B9A7 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */,
@@ -3384,7 +3375,6 @@
 				F8A83822227215C300145140 /* AssertContainsTextInteractionTests.swift in Sources */,
 				F8C8ED502298650F0009B9A7 /* BaseTestCaseUtils.swift in Sources */,
 				F8A837A52270D40B00145140 /* PageObjects.swift in Sources */,
-				F8C8ED262298505D0009B9A7 /* NetworkPlayerShowcaseTests.swift in Sources */,
 				F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */,
 				F8C8ED102298505D0009B9A7 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */,
 				F8A83E7F2272223700145140 /* AssertingCustomValuesTests.swift in Sources */,

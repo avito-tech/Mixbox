@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 
+// TODO: Share with GrayBoxUiTests
 final class NotificationsApplicationPermissionTests: BasePermissionTestCase {
     private let specification = NotificationsApplicationPermissionSpecification()
     
