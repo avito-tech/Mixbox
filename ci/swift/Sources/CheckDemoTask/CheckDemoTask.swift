@@ -11,7 +11,7 @@ public final class CheckDemoTask: LocalTask {
     public init(
         bashExecutor: BashExecutor,
         // WARNING: Do not set cocoapods version for teamcity builds!
-        // Our CI doesn't support vistualization and we have only 1 version of cocoapods.
+        // Our CI doesn't support virtualization and we have only 1 version of cocoapods.
         cocoapodsVersion: String?)
     {
         self.bashExecutor = bashExecutor
