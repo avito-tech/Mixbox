@@ -5,7 +5,7 @@ final class ScrollingTests: TestCase {
         let viewName: String
     }
     
-    // TODO: Добавить TableView и WebView
+    // TODO: Support TableView and WebView
     
     func test_scrolling_works_inScrollView() {
         dataSetTest(dataSet: DataSet(viewName: "ScrollTestsScrollView"))
@@ -18,11 +18,12 @@ final class ScrollingTests: TestCase {
     private func dataSetTest(dataSet: DataSet) {
         openScreen(name: dataSet.viewName)
         
-        // Тестим все комбинации скролла.
-        // На скроллвью first расположена вверху, third внизу.
-        // В первом тесте сразу видно first.
-        // Во втором перемещаемся от first к second (от верха к середине).
-        // Остальное отражено в схеме.
+        // The code tests every combination of scrolling.
+        // There are three views: "first", "second", and "third".
+        // Test case #0: First is already displayed. No scroll needed.
+        // Test case #1: Need to scroll to the center of the scrollview to the bottom.
+        // ...
+        // Other test cases are displayed in this scheme:
         //
         // test no: 0 1 2 3 4 5 6
         //
@@ -30,13 +31,13 @@ final class ScrollingTests: TestCase {
         // second     v | | | ^ |
         // third        v | v |
         
-        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First")
-        pageObjects.scrollerTests.second.assertHasAccessibilityLabel("Second")
-        pageObjects.scrollerTests.third.assertHasAccessibilityLabel("Third")
-        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First")
-        pageObjects.scrollerTests.third.assertHasAccessibilityLabel("Third")
-        pageObjects.scrollerTests.second.assertHasAccessibilityLabel("Second")
-        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First")
+        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First") // #0
+        pageObjects.scrollerTests.second.assertHasAccessibilityLabel("Second") // #1
+        pageObjects.scrollerTests.third.assertHasAccessibilityLabel("Third") // #2
+        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First") // #3
+        pageObjects.scrollerTests.third.assertHasAccessibilityLabel("Third") // #4
+        pageObjects.scrollerTests.second.assertHasAccessibilityLabel("Second") // #5
+        pageObjects.scrollerTests.first.assertHasAccessibilityLabel("First") // #6
     }
 }
 

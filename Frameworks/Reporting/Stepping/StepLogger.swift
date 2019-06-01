@@ -13,24 +13,24 @@ public final class StepLoggerResultWrapper<T> {
     }
 }
 
-// Допустим, есть код:
+// How to add logging to your existing code:
 //
-// let myResult: (MyResult) = getMyResult() // Не optional
+// let myResult: MyResult = getMyResult()
 // return myResult
 //
-// Можно его положить в логируемый шаг:
+// You can wrap it into logged step:
 //
-// let myResult: (MyResult) = stepLogger.logStep {
+// let myResult: MyResult = stepLogger.logStep {
 //     let myResult = getMyResult()
 //     return StepLoggerWrappedCodeResult(
 //         stepLogAfter = StepLogAfter(
-//             wasSuccessful: myResult.someCombinableStuff.reduce(true) { $0 && $1 }
-//             artifacts: myResult.getArtifacts() + makeDefaultArtifacts()
+//             wasSuccessful: youCanHandleYourResult.getWasSuccessful(myResult)
+//             artifacts: youCanHandleYourResult.getArtifacts(myResult)
 //         )
 //     )
 // }
 //
-// На выходе получаем то, что и раньше, при том что вклинились в процесс со своим логгированием
+// Note that the result is still same. No need to change other code.
 //
 public protocol StepLogger: class {
     // Returns StepLoggerResultWrapper<T> instead of T, because it is easier to nest one logger into another
@@ -43,7 +43,7 @@ public protocol StepLogger: class {
 }
 
 public extension StepLogger {
-    // Для простой записи в логе без древовидности
+    // For simple logging (without nested steps)
     func logEntry(
         date: Date = Date(),
         description: String,

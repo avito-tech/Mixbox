@@ -93,7 +93,7 @@ final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewCo
         }
         
         addLabel(id: "isDisplayed0") { _ in
-            // дефолтно
+            // everything is default
         }
         
         addButton(id: "isEnabled0") {

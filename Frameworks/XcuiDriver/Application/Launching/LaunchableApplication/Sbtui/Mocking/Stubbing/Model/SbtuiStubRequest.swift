@@ -16,8 +16,8 @@ public final class SbtuiStubRequest: Hashable {
         self.httpMethod = httpMethod
     }
     
-    // TODO: Поправить nullability в SBTUITestTunnel.
-    // Нужно сделать конструктор с nullable полями, так как внутри все nullable
+    // TODO: Fix nullability in SBTUITestTunnel.
+    // A single init with optional fields will be better, because everything is optional inside this class.
     public var requestMatch: SBTRequestMatch {
         switch (query, httpMethod) {
         case let (.some(query), .some(httpMethod)):

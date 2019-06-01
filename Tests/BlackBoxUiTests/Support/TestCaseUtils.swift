@@ -6,7 +6,7 @@ import MixboxUiTestsFoundation
 import MixboxIpcSbtuiClient
 import MixboxIpc
 
-// Сборник утилок для TestCase с их настройками. Может сильно вырасти.
+// DI for TestCase.
 final class TestCaseUtils {
     // Internal in TestCase
     

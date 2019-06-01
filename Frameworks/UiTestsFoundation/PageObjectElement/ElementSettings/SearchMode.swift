@@ -1,11 +1,12 @@
 public enum SearchMode {
-    // Ничего не делать
+    // Do not scroll
     case useCurrentlyVisible
-    // Скроллить до элемента в иерархии
+    // Scroll
     case scrollUntilFound
     
-    // Временная заглушка для слепого поиска
-    // (когда элементы появляются только после скроллинга и это не collection view)
+    // Temporary (UPD: more than 1 year now) case to scroll "blindly" without knowledge where the element is.
+    // For example, might be useful when element doesn't appear until scroll view is scrolled to it and it can
+    // not be faked out (as in UICollectionView).
     case scrollBlindly
     
     public static let `default`: SearchMode = .scrollUntilFound

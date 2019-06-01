@@ -14,7 +14,7 @@ class HierarchySourcesTests: TestCase {
         //
         // XCUIDevice.shared.press(.home)
         //
-        // pageObjects.springboard.appIcon(possibleTitles: ["Settings", "Настройки"]).tap()
+        // pageObjects.springboard.appIcon(possibleTitles: ["Settings", "सेटिंग्स"]).tap()
         //
         // pageObjects.settings.general().tap()
     }

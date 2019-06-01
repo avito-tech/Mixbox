@@ -1,14 +1,14 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 
-// При запуске приложения из теста из под fbxctest (да, именно вызова XCUIApplication.launch)
-// сбрасываются права (частично). То есть до launch были, например, выставлены права для камеры и галереи,
-// после launch остались только для галереи. В fbxctest есть код, который это делает, я дебажил, но он не выполнялся
-// и права не терлись. Но я дебажил локально, через запуск fbxctest из командной строки, а не в запуске из тимсити.
+// When application is started inside fbxctest (by XCUIApplication.launch) the permissions are being partially reset.
+// For example, access to camera and photos was allowed, but after launch only access to photos is allowed.
+// This is because there is a code in fbxctest that do it. I tried to debug it, but failed to isolate the problem,
+// but it is definitely there. Maybe it is because I tried to debug on my local machine.
 //
-// Это костыль. Если у вас есть желание продолжить мой пятидневный труд, можете выпилить это и отладить запуск на CI,
-// чтобы записи в TCC.db не сбрасывались fbxctest'ом. Это будет правильно, так как нам хочется из теста
-// определять права, и также не хочется зависеть от fbxctest (иметь возможность запускать из Xcode).
+// This is a kludge. If you want to continue my 5-day journey into this problem, you're welcome. It would be better if
+// records in TCC.db will not be affected by fbxctest (or its dependency, or poorly configured XCTest, or something else).
+// We don't want to have kludges, or depend on behavior of fbxctest. We want to set everything from tests.
 
 public final class AtApplicationLaunchApplicationPermissionSetter:
     ApplicationPermissionSetter,

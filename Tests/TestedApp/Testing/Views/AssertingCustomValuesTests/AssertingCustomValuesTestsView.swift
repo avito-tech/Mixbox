@@ -17,17 +17,7 @@ final class AssertingCustomValuesTestsView: TestStackScrollView {
         
         add("double_1.0", Double(1.0))
         
-        // TODO:
-        //
-        //    addLabel(id: "alphanumeric") {
-        //        $0.text = "Частичное соответствие"
-        //    }
-        //    addLabel(id: "startsXXXXX") {
-        //        $0.text = "Частичное соответствие"
-        //    }
-        //    addLabel(id: "XXXXXends") {
-        //        $0.text = "Частичное соответствие"
-        //    }
+        // TODO: test mathing text, startsWith/endsWith/contains/etc
     }
     
     private func add<T: Codable>(_ id: String, _ value: T) {

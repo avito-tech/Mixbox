@@ -38,13 +38,13 @@ public final class AsyncReportingSystem: ReportingSystem {
     public func waitForLastReportBeingSent(timeout: TimeInterval) {
         let expectation = XCTestExpectation(description: "last report was sent")
         
-        // Выглядит немного дико. XCTWaiter прокручивает ранлуп, поэтому мы можем затормозить
-        // этот метод до наступления expectation синхронно прямо в мейнтреде.
-        
+        // A. After last report is sent dispatch group will be leaved.
         dispatchGroup.notify(queue: .main) {
+            // B. Expectation will be fulfilled.
             expectation.fulfill()
         }
         
+        // C. Waiter will syncronously spin runloop, so everything is syncronous.
         _ = XCTWaiter.wait(for: [expectation], timeout: timeout)
     }
 }

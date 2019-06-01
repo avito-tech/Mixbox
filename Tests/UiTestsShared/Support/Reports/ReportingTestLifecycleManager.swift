@@ -87,8 +87,6 @@ public final class ReportingTestLifecycleManager:
         }
         
         testLifecycleObserver.testBundleObserver.onStop = { [weak self] testCase in
-            // Уберем потом логи, хочу знать какой таймаут выбрать. (TODO: Убрать логи)
-            // Результат одного из прогонов: Ожидание загрузки репортов: 3.84899699687958 секунд
             let startDate = Date()
             
             let timeout: TimeInterval = 60
@@ -96,7 +94,7 @@ public final class ReportingTestLifecycleManager:
             
             let stopDate = Date()
             let actualTime = stopDate.timeIntervalSince(startDate)
-            print("Ожидание загрузки репортов: \(actualTime) секунд")
+            print("Waiting for reports being sent: \(actualTime) seconds")
         }
         
         testLifecycleObservable.addObserver(testLifecycleObserver)
@@ -109,18 +107,18 @@ public final class ReportingTestLifecycleManager:
     }
     
     private func handleTestSuiteStopped(testSuite: XCTestSuite) {
-        // XCTestSuite не всегда является представлением XCTestCase, поэтому в конце может
-        // 3 раза прийти стоп тестов
+        // XCTestSuite is not always represents XCTestCase, so at the end of tests "stop" event can
+        // be received 3 times:
         //
-        // Test Suite 'AbuseTest' passed at 2018-01-23 17:53:28.935.
+        // Test Suite 'MyCoolFeatureTests' passed at 2018-01-23 17:53:28.935.
         // Executed 1 test, with 0 failures (0 unexpected) in 46.561 (46.571) seconds
         // Test Suite 'FunctionalTests.xctest' passed at 2018-01-23 17:53:29.218.
         // Executed 3 tests, with 0 failures (0 unexpected) in 139.655 (450.312) seconds
         // Test Suite 'Selected tests' passed at 2018-01-23 18:09:02.690.
         // Executed 3 tests, with 0 failures (0 unexpected) in 139.655 (895.452) seconds
         //
-        // Пока просто записывается последний завершенный (AbuseTests_91943),
-        // сбрасывается стейт текущего сьюта и остальные игнорятся.
+        // Current simple implementation remembers last finished test (MyCoolFeatureTests),
+        // drops state of current test suite and other callbacks are ignored.
         
         guard !currentTestSuiteState.testMethodReports.isEmpty else {
             return
@@ -201,8 +199,9 @@ public final class ReportingTestLifecycleManager:
     }
     
     private func testStepReport(stepLog: StepLog) -> TestStepReport {
-        // Думаю, что если степ зафейлился и управление выкинуло из invokeTest у XCTestCase,
-        // то так можно поставить ему длительность 0. Можно еще подумать.
+        // I think that if step is failed and `invokeTest` didn't finish properly (this is the case
+        // when `stopDate` is nil) then it is okay to set the `stopDate` to `startDate` and thus the duration to nil.
+        // Maybe there is a much better solution.
         let stopDate = stepLog.stopDate ?? stepLog.startDate
         
         return TestStepReport(

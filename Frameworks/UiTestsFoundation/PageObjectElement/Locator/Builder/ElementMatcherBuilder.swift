@@ -18,7 +18,7 @@
 //
 // So this class does nothing except for providing syntactic sugar.
 //
-// TODO: сделать element == otherElement
+// TODO: add ability to compare elements? `{ element == otherElement }`
 
 public typealias ElementMatcherBuilderClosure = (ElementMatcherBuilder) -> ElementMatcher
 

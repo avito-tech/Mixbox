@@ -22,7 +22,8 @@ public final class ResolvedElementQuery {
         }
         
         let sortedResults = elementQueryResolvingState.matchingResults.enumerated().sorted { left, right -> Bool in
-            left.element.percentageOfMatching > right.element.percentageOfMatching // по убыванию соответствия
+            // from more matching to less matching
+            left.element.percentageOfMatching > right.element.percentageOfMatching
         }
         
         var lines = [String]()

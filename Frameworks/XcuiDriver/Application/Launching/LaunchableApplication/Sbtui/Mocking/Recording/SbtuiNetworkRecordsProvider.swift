@@ -2,7 +2,7 @@ import SBTUITestTunnel
 import MixboxUiTestsFoundation
 import MixboxReporting
 
-// TODO: Нормально абстрагироваться от SBTMonitoredNetworkRequest
+// TODO: Proper abstraction from SBTMonitoredNetworkRequest
 public final class SbtuiNetworkRecordsProvider:
     NetworkRecordsProvider,
     NetworkRecorderLifecycle,

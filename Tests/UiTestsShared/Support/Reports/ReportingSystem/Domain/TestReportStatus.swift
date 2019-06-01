@@ -1,11 +1,12 @@
+// TODO: Rename cases and remove comments.
 public enum TestReportStatus {
-    // Автотесты
+    // Auto tests
     case failed
     case passed
     
-    // Ручные тесты
+    // Manual tests
     case manual
     
-    // Инфраструктура
+    // Infrastructure failure
     case error
 }

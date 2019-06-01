@@ -8,7 +8,7 @@ public final class TestMethodReport {
     public let testCaseClassName: String? // "MyTestCase"
     
     public let status: TestReportStatus
-    public let isFlaky: Bool? // точно да, точно нет, неизвестно
+    public let isFlaky: Bool? // true: definitely flaky, false: definitely not, nil: unknown TODO: enum?
     public let startDate: Date
     public let stopDate: Date
     

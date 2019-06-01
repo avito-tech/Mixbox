@@ -62,17 +62,7 @@ final class LocatorsTestsView: TestStackScrollView {
             $0.testability_customValues["double_nan"] = Double.nan
         }
         
-        // TODO:
-        //
-        //    addLabel(id: "alphanumeric") {
-        //        $0.text = "Частичное соответствие"
-        //    }
-        //    addLabel(id: "startsXXXXX") {
-        //        $0.text = "Частичное соответствие"
-        //    }
-        //    addLabel(id: "XXXXXends") {
-        //        $0.text = "Частичное соответствие"
-        //    }
+        // TODO: test mathing text, startsWith/endsWith/contains/etc
     }
     
     required init?(coder aDecoder: NSCoder) {

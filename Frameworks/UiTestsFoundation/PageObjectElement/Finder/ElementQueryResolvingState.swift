@@ -1,23 +1,22 @@
-// UPD/TODO: Изначально класс разрабатывался под XCUI, но потом переюзался для реальной иерархии.
-// Вообще он не нужен для реальной иерархии.
+// The class is needed to collect all found `ElementSnapshot`s and to collect all `MatchingResult` (which can be used
+// for example to say why no elements found or why matcher finds duplicate elements).
 //
-// Класс нужен для сбора всех найденных ElementSnapshot, а также для
-// сбора всех результатов матчинга (может использоваться для объяснения причины того,
-// что ничего не найдено).
+// How iot is used: elements are collected within closure of NSPredicate, which finds elements.
+// Element are appended within `start()` and `stop()` calls.
 //
-// Как юзается: внутри кложура в NSPredicate, которым ищется элемент(ы).
-// Также юзается finalize() для отметки, что поиск завершен.
+// This class is needed because we can not get element hierarchy directly using XCUI.
+// Using this kind of hack requires us to track access to certain properties of XCUIElement, which calls closure
+// of `NSPredicate` that we pass to a private method of `XCUIElement` to not call it more than once and not spoil
+// array of collected snapshots.
 //
-// Мы не вызываем поиск сами напрямую. Поэтому мы должны трекать начало и конец поиска,
-// чтобы не наполнять результаты лишними результатами при повторном поиске. XCUI менеджит
-// поиск в своих кишках, мы лишь можем догадываться о том как он это делает.
-//
+// TODO: Remove from MixboxGray, make it for MixboxXcui only.
+// It is not needed for Real View Hierarchy, because we can get elements properly there.
 public final class ElementQueryResolvingState {
     private(set) var matchingResults = [MatchingResult]()
     private(set) var matchingSnapshots = [ElementSnapshot]()
     private(set) var elementSnapshots = [ElementSnapshot]()
     
-    // TODO: Возвращать ошибку при чтении данный в статусах undefined и resolving.
+    // TODO: Throw error if properties are read while in `.undefined` or `.resolving` states.
     private enum State {
         case undefined
         case resolving

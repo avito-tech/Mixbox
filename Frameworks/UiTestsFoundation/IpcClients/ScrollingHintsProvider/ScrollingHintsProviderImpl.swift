@@ -10,7 +10,7 @@ public final class ScrollingHintsProviderImpl: ScrollingHintsProvider {
     
     public func scrollingHint(element: ElementSnapshot) -> ScrollingHint {
         guard let uniqueIdentifier = element.uniqueIdentifier.valueIfAvailable else {
-            return .hintsAreNotAvailableForCurrentElement // "Не удалось получить uniqueIdentifier"
+            return .hintsAreNotAvailableForCurrentElement // TODO: "unable to get uniqueIdentifier"?
         }
         
         let result = ipcClient.call(

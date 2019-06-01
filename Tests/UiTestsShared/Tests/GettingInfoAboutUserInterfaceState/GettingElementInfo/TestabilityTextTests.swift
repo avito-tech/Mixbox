@@ -54,8 +54,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_disabled_plain_textIsNil")
             .assertHasText("Normal State Text")
         
-        // XCUI врет, в accessibilityLabel будет "Normal State Text",
-        // хотя должно быть по логике "", и по факту текст не виден
+        // Note: in XCUI accessibilityLabel will contain "Normal State Text",
+        // which is wrong, it should be "", because text is not visible in this state.
         screen.element("button_disabled_plain_textIsEmpty")
             .assertHasText("")
         
@@ -76,8 +76,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_selected_plain_textIsNil")
             .assertHasText("Normal State Text")
         
-        // XCUI врет, в accessibilityLabel будет "Normal State Text",
-        // хотя должно быть по логике "", и по факту текст не виден
+        // Note: in XCUI accessibilityLabel will contain "Normal State Text",
+        // which is wrong, it should be "", because text is not visible in this state.
         screen.element("button_selected_plain_textIsEmpty")
             .assertHasText("")
         

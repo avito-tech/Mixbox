@@ -3,7 +3,7 @@ import MixboxIpcCommon
 import MixboxUiTestsFoundation
 import XCTest
 
-// Swift обертка над приватным Obj-C XCElementSnapshot
+// Swift wrapper for private XCTest Obj-C class `XCElementSnapshot`
 final class XcuiElementSnapshot: ElementSnapshot {
     private let xcElementSnapshot: XCElementSnapshot
     

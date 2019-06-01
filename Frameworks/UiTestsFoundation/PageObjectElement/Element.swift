@@ -19,9 +19,14 @@ extension Element {
         return with(interactionMode: .useUniqueElement)
     }
     
-    // Возможное расширение:
+    // Possible extension:
+    //
     // var every: Self {
     //     return with(interactionMode: .useEveryElement)
+    // }
+    //
+    // var count: Int {
+    //     ...
     // }
     
     public func atIndex(_ index: Int) -> Self {
@@ -39,11 +44,6 @@ extension Element {
     public func withTimeout(_ timeout: TimeInterval) -> Self {
         return with(interactionTimeout: timeout)
     }
-    
-    // Возможное расширение.
-    // var count: Int {
-    //     ...
-    // }
     
     public func matching(_ additional: ElementMatcher) -> Self {
         let old = implementation.settings.matcher

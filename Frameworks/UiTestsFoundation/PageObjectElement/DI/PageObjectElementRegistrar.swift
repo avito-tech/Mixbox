@@ -26,34 +26,36 @@ public protocol PageObjectElementRegistrar: class {
     func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar
 }
 
-// Модификаторы.
+// Modifiers.
 public extension PageObjectElementRegistrar {
     
-    // Если локатор указывает на неуникальный элемент,
-    // то подчеркивайте это в названии элемента. Так как это является контрактом.
+    // Selects any element among elements that are matching.
     //
-    // Пример:
+    // If locator points to an ambigous element, please, empasize it in the name of a page object element.
+    // Because it is a contract of this page object element property.
     //
-    //  public var anyAbuseCategory: ViewElement {
-    //      return any.element("Причина жалобы") { element in
-    //          element.id == "labelSelectionMultilineFormItem"
+    // Example:
+    //
+    //  public var anyCell: ViewElement {
+    //      return any.element("Any cell") { element in
+    //          element.id == "myCell"
     //      }
     //  }
     var any: PageObjectElementRegistrar {
         return atIndex(0)
     }
     
-    // Если заведомо известно, что элемент всегда будет на экране, то можно
-    // указать это сразу в Page Object. В общем-то, модификатор пока что довольно
-    // бесполезный при определении в Page Object (более полезен при использовании
-    // в теле теста), так как не влияет на скорость тестирования.
-    // Единственное что он дает - это то, что отключится скролл. И если элемент не виден без скролла,
-    // то проверка или действие зафейлится. Так мы можем проверить, что элемент всегда доступен без скролла.
+    // Disables automatic scroll.
+    // TODO: Rename according to the meaning.
     //
-    // Пример:
+    // The `currentlyVisible` modifier tells that the element should be
+    // always visible, so scrolling should not be done. If element is not visible, but can be visible after scrolling,
+    // scrolling is not done, the check will be failed.
+    //
+    // Example:
     //
     //  public var button: ButtonElement {
-    //      return currentlyVisible.element("кнопка алерта") { element in
+    //      return currentlyVisible.element("Alert button") { element in
     //          element.isInstanceOf(UIButton.self) && element.isSubviewOf { element in
     //              element.id == "alert.button"
     //          }
@@ -63,28 +65,33 @@ public extension PageObjectElementRegistrar {
         return with(searchMode: .useCurrentlyVisible)
     }
     
-    // Для обращения к N-ному элементу в иерархии. Можно подчеркнуть это в названии,
-    // например назвать элемент не saveSearchCell, а firstSaveSearchCell.
-    // Или создать функцию с индексом в качестве аргумента.
+    // To point to N-th element. You may want to emphasize this in the name of a variable,
+    // for example name the element `firstFoobarCell` istead of `foobarCell`.
+    // Or to make a function with an index of element as an argument.
     //
-    // Обратите внимание, что позиция в иерархии не гарантирует визуальное расположение
-    // элемента в иерархии. То есть первый элемент может быть ниже второго.
+    // Note that the index of element is not related to the position of element is view. For example, visually first element
+    // can have higher index than visually second element.
+    // You should avoid using it for the purpose other than accessing "any" element.
     //
-    //  public var firstSaveSearchCell: LabelElement {
-    //      return atIndex(0).element("параметры сохраненного поиска") { element in
-    //          element.id == "TTTAttributedLabel"
+    // If you have an ordered list in the UI, use `customValues` to set index and access it from test.
+    // This will be much more robust than using index of element in hierarchy, which will be a dependence on coincidence.
+    //
+    // Example:
+    //
+    //  public var firstFoobarCell: LabelElement {
+    //      return atIndex(0).element("The first bar of the foo") { element in
+    //          element.id == "foobar"
     //      }
     //  }
     func atIndex(_ index: Int) -> PageObjectElementRegistrar {
         return with(interactionMode: .useElementAtIndexInHierarchy(index))
     }
     
-    // Модификатор заставляет "поискать" элемент двумя свайпами вверх и двумя вниз.
-    // Это оригинальное поведение MVP версии.
+    // This modifier tells to "search" element without knowing where it is.
+    // It makes few swipes up and few swipes down. This is a stupid solution and is deprecated,
+    // however, it can help you if the element can not be accessed using other measures.
     //
-    // ВНИМАНИЕ: Использовать в случае крайней необходимости.
-    // Реализация и поведение изменится.
-    // Тесты, зависящие от этого поведения, будут исправлены.
+    // WARNING: Use in case of emergency. Note that it can be removed from Mixbox.
     var accessibleViaBlindScroll: PageObjectElementRegistrar {
         return with(searchMode: .scrollBlindly)
     }

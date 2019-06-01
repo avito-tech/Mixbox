@@ -1,7 +1,7 @@
-// Эквиваленнтно Optional, просто подчеркивает смысл:
-// Получение значения недоступно, если .unavailable.
-// Наиболее хорошо подчеркивает смысл в ситуации с .available(nil),
-// заменяя двойной Optional.
+// Equivalent to Optional, but emphasizes the meaning:
+// the value can not be get if `.unavailable`. So, there is a difference between "view doesn't contain something" and
+// "view can not contain something". E.g. difference between `.unavailable` and `.available(nil)`. So it matters if
+// there is a double optional.
 public enum OptionalAvailability<T> {
     case available(T)
     case unavailable

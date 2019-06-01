@@ -11,7 +11,7 @@ extension NetworkRecordsProvider {
     
     public func filter(urlPattern: String) -> [MonitoredNetworkRequest] {
         guard let regex = try? NSRegularExpression(pattern: urlPattern, options: []) else {
-            return [] // TODO: Фейл теста
+            return [] // TODO: Fail test
         }
         
         return allRequests.filter {
@@ -32,7 +32,7 @@ extension MonitoredNetworkRequest {
     }
     
     public func urlMatches(regex: NSRegularExpression) -> Bool {
-        // SBTUITestTunnel именно это матчит.
+        // SBTUITestTunnel matches `request?.url?.absoluteString`, we match same.
         guard let absoluteString = originalRequest?.url?.absoluteString else {
             return false
         }
