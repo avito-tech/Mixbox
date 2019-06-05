@@ -27,18 +27,18 @@ If you are enthusiastic about using it in your company, file us an issue. We are
 - Geolocation simulation
 - Hardware keyboard (very few key codes are defined, however it can be easily implemented)
 - Customizable without forking repository
-- Everything can be disabled
 - Swift & Objective-C
-- Tested (not thoroughly though)
+- Tested: 180 UI tests & 70 unit tests on 4 platforms that are run per every pull request to Mixbox
 
-Coming soon (is not open sourced yet):
+Coming soon (in development / is not open sourced yet):
+- Gray box testing - execute UI tests inside application process with access to its memory.
 - Code generation of page objects
 - Getting all assertion failures from app
 - Facade for working with springboard
 - Reports (including Allure, an open sourced reporting system with web UI)
 - Switching accessibility values between release and test builds
 
-## Intallation
+## Installation
 
 There are two ways to use Mixbox.
 
@@ -62,6 +62,91 @@ Xcode 9 and older versions are not supported anymore. Also we don't know if it w
 - Setting permissions doesn't work on physical devices (and maybe something else, we don't test on physical devices; basic things work)
 - Device rotation was not tested, I think we have bugs with it
 - iPads were not tested
+- Russian language in reports (will be fixed soon)
+
+# Examples
+
+Example of test that show basic features:
+
+```
+func test() {
+    // Setting permissions
+    permissions.camera.set(.allowed)
+    permissions.photos.set(.notDetermined)
+
+    // Functions are useful in page objects and allows
+    // reusing code, for example, for transitions between states of the app
+    pageObjects.initial
+        .authorize(user: testUser)
+        .goToCvScreen()
+        
+    // Aliases for simple assertions (you can add your own):
+    pageObjects.simpleCv.view.assertIsDisplayed()
+    pageObjects.simpleCv.title.assertHasText("My CV")
+    
+    // Fully customizable assertions
+    pageObjects.simpleCv.addressField.assertMatches { element in
+        element.text != addressFieldInitialText && element.text.isNotEmpty
+    }
+    
+    // Network stubbing.
+    networking.stubbing
+        .stub(urlPattern: ".*?example.com/api/cv")
+        .thenReturn(file: "cv.json")
+    // There is also a monitoring feature, including recording+replaying feature that
+    // allows to record all network and replay in later, so your tests will not require internet.
+    
+    // Actions
+    pageObjects.simpleCV.occupationField.setText("iOS developer")
+    pageObjects.simpleCV.createCVButton.tap()
+}
+```
+
+Declaring page objects:
+
+```
+public final class MapScreen:
+    BasePageObjectWithDefaultInitializer,
+    ScreenWithNavigationBar // protocol extensions are very useful for sharing code
+{
+    // Basic locator  
+    public var mapView: ViewElement {
+        return element("Map view") { element in
+            element.id == "GoogleMapView"
+        }
+    }
+    
+    // You can use complex checks
+    // Note that you can create your own matchers like `element.isFooBar()`
+    public func pin(coordinates: Coordinates, deltaInMeters: Double = 10) -> ViewElement {
+        return element("Pin with coordinates \(coordinates)") { element in
+            element.id == "pin" && element
+                .customValues["coordinates", Coordinates.self]
+                .isClose(to: coordinates, deltaInMeters: deltaInMeters)
+        }
+    }
+}
+```
+
+Declaring custom page object elements:
+
+```
+public final class RatingStarsElement:
+    BaseElementWithDefaultInitializer,
+    ElementWithUi
+{
+    public func assertRatingEqualsTo(
+        _ number: Int,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        assertMatches(file: file, line: line) { element in
+            element.customValues["rating"] == number
+        }
+    }
+}
+```
+
 
 ## Other docs
 
