@@ -3036,7 +3036,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exit 0\nrepoRoot=$(cd \"$PODS_ROOT\"; git rev-parse --show-toplevel)\n\ncd \"$repoRoot\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "repoRoot=$(cd \"$PODS_ROOT\"; git rev-parse --show-toplevel)\n\ncd \"$repoRoot\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
