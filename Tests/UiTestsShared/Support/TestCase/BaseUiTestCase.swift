@@ -108,16 +108,16 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         let bodyResult: GatherFailuresResult<T>.BodyResult = ObjectiveCExceptionCatcher.catch(
             try: {
                 .finished(body())
-        },
+            },
             catch: { exception in
                 if exception is TestCanNotBeContinuedException {
                     return .testFailedAndCannotBeContinued
                 } else {
                     return .caughtException(exception)
                 }
-        },
+            },
             finally: {
-        }
+            }
         )
         
         let failures = gatheredFailures

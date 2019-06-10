@@ -6,4 +6,3 @@ BuildDsl.travis.main { di in
         bashExecutor: di.resolve()
     )
 }
-

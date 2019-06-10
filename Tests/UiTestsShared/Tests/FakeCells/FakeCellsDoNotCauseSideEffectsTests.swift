@@ -8,7 +8,7 @@ final class FakeCellsDoNotCauseSideEffectsTests: TestCase {
         let allIds = ["cellForItemAt", "willDisplayCell"]
         
         // Wait screen is loaded
-        pageObjects.screen.labelInRealCell(id: allIds[0]).isDisplayed()
+        _ = pageObjects.screen.labelInRealCell(id: allIds[0]).isDisplayed()
         
         for id in ["cellForItemAt", "willDisplayCell"] {
             let realCellText = pageObjects.screen.labelInRealCell(id: id).text

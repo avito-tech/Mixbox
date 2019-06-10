@@ -1,4 +1,5 @@
 // swift-tools-version:4.2
+// swiftlint:disable closure_spacing
 
 import PackageDescription
 

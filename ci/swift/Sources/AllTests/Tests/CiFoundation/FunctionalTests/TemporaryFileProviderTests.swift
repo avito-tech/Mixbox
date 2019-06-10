@@ -15,4 +15,3 @@ final class TemporaryFileProviderTests: XCTestCase {
         try? FileManager.default.removeItem(atPath: path)
     }
 }
-

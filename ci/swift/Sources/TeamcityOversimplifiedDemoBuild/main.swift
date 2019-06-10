@@ -7,4 +7,3 @@ BuildDsl.teamcity.main { di in
         cocoapodsVersion: nil
     )
 }
-

@@ -6,4 +6,3 @@ BuildDsl.teamcity.main { di in
         bashExecutor: di.resolve()
     )
 }
-

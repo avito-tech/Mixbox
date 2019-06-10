@@ -41,7 +41,6 @@ extension ElementWithUi {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        
         _ = implementation.interactionPerformer.perform(
             interaction: IsNotDisplayedCheck(
                 maximumAllowedPercentageOfVisibleArea: CGFloat.leastNonzeroMagnitude

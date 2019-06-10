@@ -28,7 +28,7 @@ class Pipe {
     
     func getDataSynchronously() -> Data {
         return queue.sync {
-            return dataBox.value
+            dataBox.value
         }
     }
 }

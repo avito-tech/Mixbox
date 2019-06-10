@@ -15,7 +15,7 @@ public final class DebugEnvironmentProvider: EnvironmentProvider {
         do {
             return environment.merging(
                 try patch(),
-                uniquingKeysWith: { source, patched in patched }
+                uniquingKeysWith: { _, patched in patched }
             )
         } catch {
             print("Skipping patching environment due to error: \(error)")

@@ -16,4 +16,3 @@ public final class FileDownloaderTests: XCTestCase {
         try? FileManager.default.removeItem(atPath: path)
     }
 }
-
