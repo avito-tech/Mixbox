@@ -46,15 +46,27 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         testCaseUtils.ipcRouter = launchedApplication.ipcRouter
     }
     
-    func openScreen(name: String) {
-        openScreen(name: name, useBuiltinIpc: false)
+    func openScreen(
+        name: String, 
+        additionalEnvironment: [String: String])
+    {
+        openScreen(
+            name: name, 
+            useBuiltinIpc: false, 
+            additionalEnvironment: additionalEnvironment
+        )
     }
     
-    func openScreen(name: String, useBuiltinIpc: Bool) {
+    func openScreen(
+        name: String, 
+        useBuiltinIpc: Bool, 
+        additionalEnvironment: [String: String] = [:])
+    {
+        var additionalEnvironment = additionalEnvironment
+        additionalEnvironment["MB_TESTS_screenName"] = name
+        
         launch(
-            environment: [
-                "MB_TESTS_screenName": name
-            ],
+            environment: additionalEnvironment,
             useBuiltinIpc: useBuiltinIpc
         )
     }

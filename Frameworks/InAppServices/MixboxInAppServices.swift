@@ -10,15 +10,18 @@ public final class MixboxInAppServices: IpcRouter {
     private var ipcStarter: IpcStarter
     private var commandsForAddingRoutes = [(IpcRouter) -> ()]()
     private let shouldEnhanceAccessibilityValue: Bool
+    private let shouldEnableFakeCells: Bool
     private let shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool
     
     public init(
         ipcStarter: IpcStarter,
         shouldEnhanceAccessibilityValue: Bool,
+        shouldEnableFakeCells: Bool,
         shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool)
     {
         self.ipcStarter = ipcStarter
         self.shouldEnhanceAccessibilityValue = shouldEnhanceAccessibilityValue
+        self.shouldEnableFakeCells = shouldEnableFakeCells
         self.shouldAddAssertionForCallingIsHiddenOnFakeCell = shouldAddAssertionForCallingIsHiddenOnFakeCell
         
         commandsForAddingRoutes = [
@@ -62,6 +65,7 @@ public final class MixboxInAppServices: IpcRouter {
         self.init(
             ipcStarter: ipcStarter,
             shouldEnhanceAccessibilityValue: ipcStarterType != IpcStarterType.graybox, // FIXME
+            shouldEnableFakeCells: (environment["MIXBOX_SHOULD_ENABLE_FAKE_CELLS"] ?? "true") == "true",
             shouldAddAssertionForCallingIsHiddenOnFakeCell: environment["MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL"] == "true"
         )
     }
@@ -86,6 +90,7 @@ public final class MixboxInAppServices: IpcRouter {
             self.client = router
             
             AccessibilityEnhancer.takeOff(
+                shouldEnableFakeCells: shouldEnableFakeCells,
                 shouldEnhanceAccessibilityValue: shouldEnhanceAccessibilityValue,
                 shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell
             )

@@ -17,7 +17,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         super.tearDown()
     }
     
-    func openScreen(name: String) {
+    func openScreen(name: String, additionalEnvironment: [String: String]) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             UnavoidableFailure.fail("UIApplication.shared.delegate is not AppDelegate")
         }

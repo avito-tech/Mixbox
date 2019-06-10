@@ -15,6 +15,7 @@
 		C76EBBF8BA7417AA04206F85 /* Pods_GrayBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18519616178849C303E04D80 /* Pods_GrayBoxUiTests.framework */; };
 		CC78DE2F21395BFE00599258 /* GettingRealViewHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */; };
 		CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE3121395C6000599258 /* HierarchyTestsView.swift */; };
+		CCCEA11822AE7C870057F5E0 /* FakeCellsDisablingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEA11622AE7C860057F5E0 /* FakeCellsDisablingTests.swift */; };
 		E770ACA880DA7C520CB00A31 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9F80D7EE4414E4F09E6CF0 /* Pods_BlackBoxUiTests.framework */; };
 		F07DAB9DCD5A911D5EE2BAEB /* Pods_TestedApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661ABC2C9AE48647D964AFD2 /* Pods_TestedApp.framework */; };
 		F80084AF2284740C00DF1DC6 /* RedImagesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80084AE2284740C00DF1DC6 /* RedImagesProvider.swift */; };
@@ -462,6 +463,7 @@
 		C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingRealViewHierarchyTests.swift; sourceTree = "<group>"; };
 		CC78DE3121395C6000599258 /* HierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyTestsView.swift; sourceTree = "<group>"; };
+		CCCEA11622AE7C860057F5E0 /* FakeCellsDisablingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDisablingTests.swift; sourceTree = "<group>"; };
 		D01191CFF95BA6F1CCC9BD9D /* Pods-TestedApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp.debug.xcconfig"; sourceTree = "<group>"; };
 		D3B3CFD7FBABACC8587A503D /* Pods-BlackBoxUiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackBoxUiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D8259485A861110726C2979F /* Pods-BlackBoxUiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackBoxUiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -847,6 +849,14 @@
 				CC78DE3121395C6000599258 /* HierarchyTestsView.swift */,
 			);
 			path = HierarchyTests;
+			sourceTree = "<group>";
+		};
+		CCCEA11922AEB2590057F5E0 /* FakeCells */ = {
+			isa = PBXGroup;
+			children = (
+				CCCEA11622AE7C860057F5E0 /* FakeCellsDisablingTests.swift */,
+			);
+			path = FakeCells;
 			sourceTree = "<group>";
 		};
 		F81144CA2268D15D00ED519B /* RecordedSessionStubber */ = {
@@ -1334,13 +1344,6 @@
 				F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */,
 			);
 			path = NestedCallbacks;
-			sourceTree = "<group>";
-		};
-		F879832222493082004DD770 /* Interactions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Interactions;
 			sourceTree = "<group>";
 		};
 		F8798327224949DB004DD770 /* Failures */ = {
@@ -2134,9 +2137,9 @@
 		F8D5392520A087A600733C93 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CCCEA11922AEB2590057F5E0 /* FakeCells */,
 				F8C8ED0C2298500F0009B9A7 /* DifferentHierarchies */,
 				F8971DE722677150001741C1 /* LaunchingApp */,
-				F879832222493082004DD770 /* Interactions */,
 				F8E6CC7E2181ED3000D7A0C1 /* Tools */,
 				F8E6CC7B2181ECD500D7A0C1 /* Reports */,
 				F8C7091B2153F3E20015A10B /* IPC */,
@@ -3033,7 +3036,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "repoRoot=$(cd \"$PODS_ROOT\"; git rev-parse --show-toplevel)\n\ncd \"$repoRoot\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "exit 0\nrepoRoot=$(cd \"$PODS_ROOT\"; git rev-parse --show-toplevel)\n\ncd \"$repoRoot\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3165,6 +3168,7 @@
 				F801CC152254F9C60074F0E9 /* GatherFailuresResult.swift in Sources */,
 				F8798326224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift in Sources */,
 				F8DB359D22738C9A00EE0FB8 /* BaseActionTestCase+BasicAsserts.swift in Sources */,
+				CCCEA11822AE7C870057F5E0 /* FakeCellsDisablingTests.swift in Sources */,
 				F8C8ED4F2298650E0009B9A7 /* BaseTestCaseUtils.swift in Sources */,
 				F8AD079F2250D5DD00D5FB93 /* PhotosApplicationPermissionTests.swift in Sources */,
 				F8AD079C2250D5DD00D5FB93 /* CameraApplicationPermissionSpecification.swift in Sources */,

@@ -222,9 +222,9 @@ final class FakeCellsTests: TestCase {
 }
 
 // Just a shortcut
-private let lastSetId = FakeCellsTestsConstants.lastSetId
+let lastSetId = FakeCellsTestsConstants.lastSetId
 
-private final class ElementId {
+final class ElementId {
     let caseId: String
     let viewType: String
     let suffix: String?
@@ -243,9 +243,9 @@ private final class ElementId {
 // we use dequeue function of a collection view. And get hidden cells. Hidden cells do not contain any children in
 // AX hierarchy in iOS 11. So we fake isHidden property for our fake cells via swizzling.
 // So the tests also check if the fixed behavior is not broken and we need subview of the cell for that.
-private let firstCellSubviewId = ElementId("Alpha", "view")
+let firstCellSubviewId = ElementId("Alpha", "view")
 
-private let allElementIds: [ElementId] = [
+let allElementIds: [ElementId] = [
     ElementId("Alpha", "cell"),
     firstCellSubviewId,
 
@@ -261,7 +261,7 @@ private let allElementIds: [ElementId] = [
     ElementId("Delta", "view", "3")
 ]
 
-private final class Screen: BasePageObjectWithDefaultInitializer {
+final class ScreenForFakeCellsTesting: BasePageObjectWithDefaultInitializer {
     func element(id: ElementId, set: Int, generation: Int = 0) -> ViewElement {
         let accessibilityId: String = FakeCellsTestsConstants.accessibilityId(
             id.caseId,
@@ -284,7 +284,7 @@ private final class Screen: BasePageObjectWithDefaultInitializer {
 }
 
 private extension PageObjects {
-    var screen: Screen {
+    var screen: ScreenForFakeCellsTesting {
         return pageObject()
     }
 }
