@@ -8,19 +8,21 @@ import MixboxReporting
 public final class SbtuiLaunchableApplication: LaunchableApplication {
     public let networking: Networking
     
-    private let tunneledApplication = SBTUITunneledApplication()
+    private let tunneledApplication: SBTUITunneledApplication
     private let applicationLifecycleObservable: ApplicationLifecycleObserver
     private let testFailureRecorder: TestFailureRecorder
     private let sbtuiStubApplier: SbtuiStubApplier
     private let sbtuiNetworkRecordsProvider: SbtuiNetworkRecordsProvider
     
     public init(
+        tunneledApplication: SBTUITunneledApplication,
         applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver,
         testFailureRecorder: TestFailureRecorder,
         bundleResourcePathProvider: BundleResourcePathProvider,
         spinner: Spinner,
         networkReplayingObserver: NetworkReplayingObserver)
     {
+        self.tunneledApplication = tunneledApplication
         self.applicationLifecycleObservable = applicationLifecycleObservable
         self.testFailureRecorder = testFailureRecorder
         self.sbtuiStubApplier = SbtuiStubApplierImpl(

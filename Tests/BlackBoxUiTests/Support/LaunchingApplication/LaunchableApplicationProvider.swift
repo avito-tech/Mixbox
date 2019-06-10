@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxXcuiDriver
 import MixboxReporting
+import SBTUITestTunnel
 
 public final class LaunchableApplicationProvider {
     public var shouldCreateLaunchableApplicationWithBuiltinIpc = false
@@ -58,6 +59,7 @@ public final class LaunchableApplicationProvider {
             )
         } else {
             launchableApplication = SbtuiLaunchableApplication(
+                tunneledApplication: SBTUITunneledApplication(),
                 applicationLifecycleObservable: applicationLifecycleObservable,
                 testFailureRecorder: testFailureRecorder,
                 bundleResourcePathProvider: bundleResourcePathProvider,

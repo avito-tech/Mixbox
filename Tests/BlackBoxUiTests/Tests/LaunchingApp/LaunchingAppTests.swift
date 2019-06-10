@@ -2,6 +2,7 @@ import MixboxXcuiDriver
 import XCTest
 import TestsIpc
 import MixboxUiTestsFoundation
+import SBTUITestTunnel
 
 final class LaunchingAppTests: TestCase {
     private let applicationLifecycleObservable = ApplicationLifecycleObservableImpl()
@@ -24,6 +25,7 @@ final class LaunchingAppTests: TestCase {
     
     private func sbtuiLaunchableApplication() -> LaunchableApplication {
         let launchableApplication = SbtuiLaunchableApplication(
+            tunneledApplication: SBTUITunneledApplication(),
             applicationLifecycleObservable: applicationLifecycleObservable,
             testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
             bundleResourcePathProvider: testCaseUtils.baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget,
