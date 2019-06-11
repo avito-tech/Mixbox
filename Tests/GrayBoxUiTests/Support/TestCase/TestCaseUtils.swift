@@ -83,11 +83,11 @@ final class TestCaseUtils {
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
-        class NotImplementedNetworkingImpl: Networking {
+        class NotImplementedNetworking: Networking {
             var stubbing: NetworkStubbing { grayNotImplemented() }
             var recording: NetworkRecording { grayNotImplemented() }
         }
         
-        networking = NotImplementedNetworkingImpl()
+        networking = NotImplementedNetworking()
     }
 }
