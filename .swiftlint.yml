@@ -1,7 +1,10 @@
 excluded:
-  # All Pods folders
+  # Cocoapods
   - 'Tests/Pods'
   - 'Demo/Pods'
+  
+  # SPM
+  - 'ci/swift/.build'
 
   # Code generated
   - 'Tests/UnitTests/Mocks'
