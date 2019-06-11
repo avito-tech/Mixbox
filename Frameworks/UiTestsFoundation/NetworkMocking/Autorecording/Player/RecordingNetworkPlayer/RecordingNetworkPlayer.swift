@@ -82,6 +82,7 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
         // The most stupid implementation possible. Mimics debounce.
         
         var requests = networkRecordsProvider.allRequests
+        var sleptAtLeastOnce = false
         
         spinner.spin(
             timeout: 20,
@@ -92,7 +93,11 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
                 
                 requests = newRequests
                 
-                return shouldStop
+                let sleptAtLeastOnceOldValue = sleptAtLeastOnce
+                
+                sleptAtLeastOnce = true
+                
+                return shouldStop && sleptAtLeastOnceOldValue
             }
         )
         
