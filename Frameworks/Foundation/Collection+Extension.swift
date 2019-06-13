@@ -1,5 +1,5 @@
 // Zips 2 arrays, pads arrays if they aren't of same length
-public func zip<T>(_ a: [T], _ b: [T], pad: T) -> Zip2Sequence<[T], [T]> {
+public func mb_zip<T>(_ a: [T], _ b: [T], pad: T) -> Zip2Sequence<[T], [T]> {
     var a = a
     var b = b
     
@@ -27,5 +27,36 @@ extension Collection {
     
     public var mb_only: Iterator.Element? {
         return count == 1 ? first : nil
+    }
+    
+    // Returns array of "chunks" (arrays of size `chunkSize` or lower for last element.
+    // Example: [1, 2, 3].mb_chunked(chunkSize: 2) returns [[1, 2], [3]]
+    //
+    // Edge cases:
+    // - Negative chunkSize is never valid
+    // - chunkSize == 0 is not valid for non-empty collection
+    // - Empty collection can only be chunked to [], chunkSize == 0 is valid for empty collection.
+    // - Empty chunks will never be returned
+    //
+    // Note: chunkSize is Int, because distance between indicies in Collection is Int.
+    //
+    public func mb_chunked(chunkSize: Int) throws -> [[Element]] {
+        if chunkSize < 0 {
+            throw ErrorString("chunkSize should not be negative (chunkSize == \(chunkSize))")
+        } else if chunkSize == 0 {
+            if count == 0 {
+                // Empty collection can be chunked only into zero chunks.
+                return []
+            } else {
+                throw ErrorString("Can not chunk non-empty collection into empty chunks (chunkSize == \(chunkSize))")
+            }
+        } else {
+            return stride(from: 0, to: count, by: chunkSize).map { chunkStartIndex in
+                let start: Self.Index = index(startIndex, offsetBy: chunkStartIndex)
+                let end: Self.Index = index(startIndex, offsetBy: Swift.min(chunkStartIndex + chunkSize, count))
+                
+                return Array(self[start ..< end])
+            }
+        }
     }
 }

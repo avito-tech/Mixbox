@@ -7,11 +7,7 @@ final class BaseUiTestCaseUtils {
     // Internal in TestCase
     
     let fileSystem: FileSystem
-    let spinner: Spinner = SpinnerImpl(
-        runLoopSpinnerFactory: RunLoopSpinnerFactoryImpl(
-            runLoopModesStackProvider: RunLoopModesStackProviderImpl()
-        )
-    )
+    let spinner: Spinner
     
     // Private in TestCase
     
@@ -35,13 +31,19 @@ final class BaseUiTestCaseUtils {
         ]
     )
     let bundleResourcePathProviderForTestTarget: BundleResourcePathProvider
-    
     let stepLogger: StepLogger
-    
     // TODO: Get rid of usage of ProcessInfo singleton here
     let mixboxCiUsesFbxctest = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
+    let runLoopSpinnerFactory: RunLoopSpinnerFactory
     
     init() {
+        self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
+            runLoopModesStackProvider: RunLoopModesStackProviderImpl()
+        )
+        self.spinner = SpinnerImpl(
+            runLoopSpinnerFactory: runLoopSpinnerFactory
+        )
+        
         self.lazilyInitializedIpcClient = LazilyInitializedIpcClient()
         
         let stepLogger: StepLogger

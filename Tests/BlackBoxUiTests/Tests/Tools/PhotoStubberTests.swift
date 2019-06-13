@@ -4,29 +4,29 @@ import XCTest
 
 final class PhotoStubberTests: TestCase {
     // TODO: Fix running on CI
-    func disabled_test() {
+    func test() {
         setUpPhotosPermissions()
         
         removeAllImagesFromSimulator()
         
         // count == 0: Check if previous code drops the state
         // count == 10, 20, 30: Actual test
-        for count in [0, 10, 20, 30] {
+        for count in [0, 100, 200, 300] {
             stubPhotos(minimalCount: count)
             XCTAssertEqual(photosCount(), count)
         }
         
         // If we require minimalCount of photos we don't want to delete exisitng photos
-        stubPhotos(minimalCount: 20)
-        XCTAssertEqual(photosCount(), 30)
+        stubPhotos(minimalCount: 200)
+        XCTAssertEqual(photosCount(), 300)
         
         // Check again if this test drops state correctly.
         // There was a situation when I was running test twice. The following lines are to not run test twice.
         removeAllImagesFromSimulator()
         XCTAssertEqual(photosCount(), 0)
         
-        stubPhotos(minimalCount: 20)
-        XCTAssertEqual(photosCount(), 20)
+        stubPhotos(minimalCount: 200)
+        XCTAssertEqual(photosCount(), 200)
     }
     
     private func stubPhotos(minimalCount: Int) {
@@ -40,9 +40,16 @@ final class PhotoStubberTests: TestCase {
     private func setUpPhotosPermissions() {
         // TODO: Move optimization to PermissionSetter?
         // Note that it is only valid for current process, so it is not generic.
-        if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
-            testRunnerPermissions.photos.set(.allowed)
-        }
+        
+        testRunnerPermissions.photos.set(.allowed)
+        
+        spinner.spin(
+            timeout: 30,
+            interval: 1,
+            until: {
+                return PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized
+            }
+        )
     }
     
     private func photosCount() -> Int {
@@ -51,6 +58,8 @@ final class PhotoStubberTests: TestCase {
     
     private func removeAllImagesFromSimulator() {
         var thereArePhotosToDelete: Bool?
+        var deletionCompleted: Bool = false
+        
         PHPhotoLibrary.shared().performChanges(
             {
                 let allPhotos = PHAsset.fetchAssets(with: .image, options: PHFetchOptions())
@@ -58,21 +67,35 @@ final class PhotoStubberTests: TestCase {
                 thereArePhotosToDelete = allPhotos.count > 0
                 PHAssetChangeRequest.deleteAssets(allPhotos)
             }, completionHandler: { _, error in
+                deletionCompleted = true
+                
                 if let error = error {
                     XCTFail("Error while deleting photos: \(error)")
                 }
             }
         )
         
-        while thereArePhotosToDelete == nil {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
-        }
+        spinner.spin(
+            timeout: 60,
+            interval: 0.1,
+            until: {
+                thereArePhotosToDelete != nil
+            }
+        )
         
         if let thereArePhotosToDelete = thereArePhotosToDelete {
             if thereArePhotosToDelete {
                 allowDeletingPhotos()
             }
         }
+        
+        spinner.spin(
+            timeout: 60,
+            interval: 0.1,
+            until: {
+                deletionCompleted
+            }
+        )
     }
     
     private func allowDeletingPhotos() {

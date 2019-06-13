@@ -1,40 +1,30 @@
 import MixboxTestsFoundation
+import MixboxFoundation
 
-final class RedImagesProvider: ImagesProvider {
-    private lazy var lazyImagesProvider: ImagesProvider = SortedImagesProvider(
-        path: self.makeFolderWithStubImages(count: 10),
-        imageProviderFactory: { LazyImageProvider(imagePath: $0) }
-    )
+final class RedImagesProvider: ImagesProvider, ImagesProviderHolder {
+    let imagesProvider: ImagesProvider
     
-    func images() throws -> [ImageProvider] {
-        return try lazyImagesProvider.images()
+    init() {
+        imagesProvider = StubbedImagesProvider(
+            imageProviders: (0..<10).compactMap { _ in
+                RedImagesProvider.imageProvider()
+            }
+        )
     }
     
-    private func makeFolderWithStubImages(count: Int) -> String {
-        let temporaryDirectory = NSTemporaryDirectory()
-        
-        for index in 0..<count {
-            guard let image = randomImage() else {
-                XCTFail("Failed to create randomImage()")
-                continue
-            }
-            guard let data = UIImagePNGRepresentation(image) else {
-                XCTFail("Fail at UIImagePNGRepresentation")
-                continue
-            }
-            
-            let filename = temporaryDirectory.mb_appendingPathComponent("\(index).png")
-            do {
-                try data.write(to: URL(fileURLWithPath: filename))
-            } catch {
-                XCTFail("Fail at data.write(to: \(filename)): \(error)")
-            }
+    private static func imageProvider() -> ImageProvider {
+        if let image = randomImage() {
+            return StubbedImageProvider(
+                image: image
+            )
+        } else {
+            return StubbedImageProvider(
+                error: ErrorString("Couldn't create randomImage")
+            )
         }
-        
-        return temporaryDirectory
     }
     
-    private func randomImage() -> UIImage? {
+    private static func randomImage() -> UIImage? {
         return UIImage.image(color: .red, size: CGSize(width: 1, height: 1))
     }
 }

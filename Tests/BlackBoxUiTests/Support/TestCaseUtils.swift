@@ -90,7 +90,11 @@ final class TestCaseUtils {
         photoStubber = PhotoStubberImpl(
             stubImagesProvider: RedImagesProvider(),
             tccDbApplicationPermissionSetterFactory: tccDbApplicationPermissionSetterFactory,
-            photoSaver: PhotoSaverImpl(),
+            photoSaver: PhotoSaverImpl(
+                runLoopSpinnerLockFactory: RunLoopSpinnerLockFactoryImpl(
+                    runLoopSpinnerFactory: baseUiTestCaseUtils.runLoopSpinnerFactory
+                )
+            ),
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         

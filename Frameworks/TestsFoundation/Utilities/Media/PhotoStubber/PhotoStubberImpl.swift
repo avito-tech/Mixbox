@@ -41,7 +41,7 @@ public final class PhotoStubberImpl: PhotoStubber {
                 let images = try stubImagesProvider.images()
                 
                 try stubPhotos(
-                    range: existingPhotosCount..<minimalCount,
+                    count: minimalCount - existingPhotosCount,
                     images: images
                 )
             }
@@ -60,31 +60,13 @@ public final class PhotoStubberImpl: PhotoStubber {
         }
     }
     
-    private func stubPhotos(range: CountableRange<Int>, images: [ImageProvider]) throws {
-        guard !images.isEmpty else {
-            throw ErrorString("No photos to stub")
-        }
-        
-        let dispatchGroup = DispatchGroup()
-        
-        var errors = [ErrorString]()
-        
-        for index in range {
-            let image = try images[index % images.count].image()
-            
-            dispatchGroup.enter()
-            photoSaver.save(image: image) { result in
-                result.onError { errors.append($0) }
-                
-                dispatchGroup.leave()
-            }
-        }
-        
-        dispatchGroup.wait()
-        
-        if !errors.isEmpty {
-            throw ErrorString("Saving photos completed with errors: \(errors)")
-        }
+    private func stubPhotos(count: Int, images: [ImageProvider]) throws {
+        try photoSaver.save(
+            imagesProvider: PhotoStubberImagesProvider(
+                count: count,
+                imageProviders: images
+            )
+        )
     }
     
     private func existingPhotosCount() -> Int {
@@ -103,5 +85,28 @@ public final class PhotoStubberImpl: PhotoStubber {
         )
         
         setter.set(.allowed)
+    }
+}
+
+private class PhotoStubberImagesProvider: ImagesProvider {
+    private let count: Int
+    private let imageProviders: [ImageProvider]
+    
+    init(
+        count: Int,
+        imageProviders: [ImageProvider])
+    {
+        self.count = count
+        self.imageProviders = imageProviders
+    }
+    
+    func images() throws -> [ImageProvider] {
+        if count == 0 {
+            return []
+        } else {
+            return (0..<count).map { index in
+                imageProviders[index % imageProviders.count]
+            }
+        }
     }
 }
