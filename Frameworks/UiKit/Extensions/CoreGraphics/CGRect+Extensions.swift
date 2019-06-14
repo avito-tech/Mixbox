@@ -65,10 +65,10 @@ public extension CGRect {
     // MARK: - Insets
     
     func mb_shrinked(_ insets: UIEdgeInsets) -> CGRect {
-        return UIEdgeInsetsInsetRect(self, insets)
+        return inset(by: insets)
     }
     func mb_shrinked(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> CGRect {
-        return UIEdgeInsetsInsetRect(self, UIEdgeInsets(top: top, left: left, bottom: bottom, right: right))
+        return mb_shrinked(UIEdgeInsets(top: top, left: left, bottom: bottom, right: right))
     }
     func mb_extended(_ insets: UIEdgeInsets) -> CGRect {
         return mb_shrinked(insets.mb_inverted())

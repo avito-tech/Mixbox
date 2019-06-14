@@ -67,28 +67,28 @@ public final class KeyboardFrameService: KeyboardFrameProvider {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(onKeyboardWillChangeFrame(_:)),
-            name: NSNotification.Name.UIKeyboardWillChangeFrame,
+            name: UIResponder.keyboardWillChangeFrameNotification,
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(onKeyboardDidChangeFrame(_:)),
-            name: NSNotification.Name.UIKeyboardDidChangeFrame,
+            name: UIResponder.keyboardDidChangeFrameNotification,
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(onKeyboardWillShow(_:)),
-            name: NSNotification.Name.UIKeyboardWillShow,
+            name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(onKeyboardWillHide(_:)),
-            name: NSNotification.Name.UIKeyboardWillHide,
+            name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
     }
@@ -103,11 +103,11 @@ public final class KeyboardFrameService: KeyboardFrameProvider {
         -> KeyboardFrameChange?
     {
         if let info = (notification as NSNotification).userInfo,
-            let animationDuration = (info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue,
-            let keyboardFrameBegin = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
-            let keyboardFrameEnd = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-            let viewAnimationCurveValue = (info[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue,
-            let viewAnimationCurve = UIViewAnimationCurve(rawValue: viewAnimationCurveValue)
+            let animationDuration = (info[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue,
+            let keyboardFrameBegin = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
+            let keyboardFrameEnd = (info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+            let viewAnimationCurveValue = (info[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue,
+            let viewAnimationCurve = UIView.AnimationCurve(rawValue: viewAnimationCurveValue)
         {
             return KeyboardFrameChange(
                 animationDuration: animationDuration,
@@ -134,7 +134,7 @@ public final class KeyboardFrameService: KeyboardFrameProvider {
     
     @objc private func onKeyboardDidChangeFrame(_ notification: Notification) {
         if let info = (notification as NSNotification).userInfo,
-            let keyboardFrameEnd = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let keyboardFrameEnd = (info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         {
             keyboardFrameInWindow = keyboardFrameEnd
             nextKeyboardFrameInWindow = keyboardFrameEnd
@@ -158,7 +158,7 @@ public final class KeyboardFrameService: KeyboardFrameProvider {
     
     @objc private func onKeyboardWillHide(_ notification: Notification) {
         if let info = (notification as NSNotification).userInfo,
-            let keyboardFrameEnd = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let keyboardFrameEnd = (info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         {
             keyboardFrameInWindow = keyboardFrameEnd
             nextKeyboardFrameInWindow = keyboardFrameEnd

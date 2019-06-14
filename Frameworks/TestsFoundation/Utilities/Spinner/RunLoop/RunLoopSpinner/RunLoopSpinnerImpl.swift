@@ -167,7 +167,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
             // spinner is nested within another spinner, we could get stuck spinning the run loop in a
             // mode that was active but shouldn't be anymore.
             // TODO: Do better than just always using the default run loop mode.
-            return CFRunLoopMode(rawValue: RunLoopMode.defaultRunLoopMode.rawValue as CFString)
+            return CFRunLoopMode(rawValue: RunLoop.Mode.default.rawValue as CFString)
         }
     }
 

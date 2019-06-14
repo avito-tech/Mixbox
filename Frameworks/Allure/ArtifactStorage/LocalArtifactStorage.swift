@@ -143,7 +143,7 @@ public final class LocalArtifactStorage: ArtifactStorage {
     
     private func saveImage(image: UIImage, path: String) {
         guard let orientedImage = imageAfterApplyingOrientation(image: image),
-            let pngRepresentation = UIImagePNGRepresentation(orientedImage)
+            let pngRepresentation = orientedImage.pngData()
             else
         {
             return

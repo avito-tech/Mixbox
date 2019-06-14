@@ -7,14 +7,14 @@ public struct KeyboardFrameChange {
     public var animationDuration: TimeInterval
     public var keyboardFrameBegin: CGRect
     public var keyboardFrameEnd: CGRect
-    public var viewAnimationCurve: UIViewAnimationCurve
+    public var viewAnimationCurve: UIView.AnimationCurve
     
     // MARK: - Helpers
     static func animatedFrameChange(
         _ animationDuration: TimeInterval,
         keyboardFrameBegin: CGRect,
         keyboardFrameEnd: CGRect,
-        viewAnimationCurve: UIViewAnimationCurve) -> KeyboardFrameChange {
+        viewAnimationCurve: UIView.AnimationCurve) -> KeyboardFrameChange {
         
         return KeyboardFrameChange(
             animationDuration: animationDuration,

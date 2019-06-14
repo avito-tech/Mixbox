@@ -145,23 +145,23 @@ SPEC CHECKSUMS:
   Cuckoo: 2f10364798baa4b0d4aacabfa475249cf29977bc
   DynamicCodable: 2cf558d057b3e6540552943254e1c9eeb706dde2
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
-  MixboxAllure: 0fbc6cb0da191df7a36a3b74b9e5a4beb6ff9d6b
-  MixboxArtifacts: 022ef3df6ca6ef085a29649240a5d3908e79d6bf
-  MixboxBuiltinIpc: 2b06d41a70362a630a7fba8def875e18a20cc077
-  MixboxFakeSettingsAppMain: 94480ad6c6f8befbb2b72aceb2f97c736e2dcd1d
-  MixboxFoundation: 77d9c5b80c6636144da8c7e232c7f0e8adf2c491
-  MixboxGray: d2a51f8e45070f32ff1f7a0c6929ee323a4aae53
-  MixboxInAppServices: dca9a7c6b82227ebf15db5a10013aa2a0660842a
-  MixboxIpc: 0bf51e737668acf956829a151285849dd2284c0e
-  MixboxIpcCommon: 289c9f2655823b809a88cee0bc83abab639bf140
-  MixboxIpcSbtuiClient: 07478af53ba373e84e12263b09be478f1754f62b
-  MixboxIpcSbtuiHost: 31e1235437068c60dbdf578a25dce6eb1be244d3
-  MixboxReporting: 5e16a16515ce8320eb4404e61b01e990530d235d
-  MixboxTestability: 583fa350375c2fe6fce617ceae2754639607ff45
-  MixboxTestsFoundation: 14f0a229c48e1c719c6abc6bab39793f9edebf91
-  MixboxUiKit: f51cb458caa7e77823541b7ba7de6bd12f3455ab
-  MixboxUiTestsFoundation: d1726dc1e961577679e2408f93a2c405979d1307
-  MixboxXcuiDriver: 54ea8786887faa021bc4831c96a0359be134794f
+  MixboxAllure: e9fdf501d1d0484d444ac2830d50cfb3111d59bf
+  MixboxArtifacts: ac82c3d9ea6dc4e2961a14826c1097744dff19f1
+  MixboxBuiltinIpc: c369cef8c57f2f7a0957b10e3fa54843bc9a038e
+  MixboxFakeSettingsAppMain: ab67bd71b40d4985bc6f8cd6ee9f4def4be523b2
+  MixboxFoundation: 6f1a7b7086a328d66672796f11ed4cbbe28ed271
+  MixboxGray: a1d4eac0d3d3453aa6bfcda447fcc7eae3338dd1
+  MixboxInAppServices: 0691a9a5cdc8bc86809c1cf97c1220bd4c202d48
+  MixboxIpc: d552d0e066f05941b5b8667795554dbfc0783b93
+  MixboxIpcCommon: 90d4814b9b3e73b3129d480f44078ba171c9cdb5
+  MixboxIpcSbtuiClient: adc9520e676a707c02ca95d20865ef2f0d2c9eb8
+  MixboxIpcSbtuiHost: 7fac5c936a2fdb609a5858985bbb8f811fc0fa95
+  MixboxReporting: bf6e233f3ec27fb768740571fe127a4815c06c61
+  MixboxTestability: 98abad1cedc3019ef13473c5455cd7efc7c87d7c
+  MixboxTestsFoundation: b543c030f30074577f065d14dc7c22c0ed686e74
+  MixboxUiKit: 291f5aec228e6fa6b4b00afd0cfdda01c9a2dc32
+  MixboxUiTestsFoundation: aa4bf10dc0c232851048d173f11e2bb319c2daf7
+  MixboxXcuiDriver: 2a84f60a385465ad04092d843a329ef7d10643cc
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
