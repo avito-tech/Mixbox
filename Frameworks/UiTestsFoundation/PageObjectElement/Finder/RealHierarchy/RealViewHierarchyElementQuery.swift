@@ -64,7 +64,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     {
         // TODO: better FileLine (should point to invocation in test)
         testFailureRecorder.recordFailure(
-            description: "Не удалось получить иерархию вьюх из приложения",
+            description: "Не удалось получить иерархию вьюх из приложения: \(error)",
             fileLine: FileLine.current(),
             shouldContinueTest: false
         )

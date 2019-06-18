@@ -8,9 +8,10 @@ public final class SwizzlingSyncronizationImpl: SwizzlingSyncronization {
         switch swizzlingResult {
         case let .swizzledOriginalMethod(method):
             if swizzledMethods.contains(method) {
+                let selector = method_getName(method)
                 return ErrorString(
                     "Method was swizzled twice! Rewrite swizzling."
-                        + " You probalby need to share the implementation. Method: \(method)"
+                        + " You probalby need to share the implementation. Selector: \(selector)"
                 )
             } else {
                 swizzledMethods.insert(method)
