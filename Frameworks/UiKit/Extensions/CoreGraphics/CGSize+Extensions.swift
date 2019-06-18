@@ -160,7 +160,7 @@ public extension CGSize {
     
     // TODO: cmd+f "width > 0", find if this function suits, use this function
     func mb_hasZeroArea() -> Bool {
-        return width == 0 || height == 0 
+        return width == 0 || height == 0
     }
 }
 

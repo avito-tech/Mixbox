@@ -1,7 +1,7 @@
 import MixboxFoundation
 
 // PageObjectElement with all known functionality.
-// 
+//
 // It is made for hiding implementation of XCUI/GrayBox tests.
 // The protocol should be NEVER used in tests.
 //

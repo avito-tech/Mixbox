@@ -47,19 +47,19 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     }
     
     func openScreen(
-        name: String, 
+        name: String,
         additionalEnvironment: [String: String])
     {
         openScreen(
-            name: name, 
-            useBuiltinIpc: false, 
+            name: name,
+            useBuiltinIpc: false,
             additionalEnvironment: additionalEnvironment
         )
     }
     
     func openScreen(
-        name: String, 
-        useBuiltinIpc: Bool, 
+        name: String,
+        useBuiltinIpc: Bool,
         additionalEnvironment: [String: String] = [:])
     {
         var additionalEnvironment = additionalEnvironment
