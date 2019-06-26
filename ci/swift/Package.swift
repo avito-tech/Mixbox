@@ -1,4 +1,5 @@
 // swift-tools-version:4.2
+// swiftlint:disable closure_spacing
 
 import PackageDescription
 
@@ -21,6 +22,12 @@ let package = Package(
             name: "TravisLogicTestsBuild",
             targets: [
                 "TravisLogicTestsBuild"
+            ]
+        ),
+        .executable(
+            name: "TeamcityStaticChecksBuild",
+            targets: [
+                "TeamcityStaticChecksBuild"
             ]
         ),
         .executable(
@@ -114,6 +121,17 @@ let package = Package(
             ]
         ),
         .target(
+            name: "StaticChecksTask",
+            dependencies: [
+                "Bash",
+                "CiFoundation",
+                "Cocoapods",
+                "Git",
+                "SingletonHell",
+                "Tasks",
+            ]
+        ),
+        .target(
             name: "CiFoundation",
             dependencies: [
             ]
@@ -132,6 +150,13 @@ let package = Package(
             dependencies: [
                 "BuildDsl",
                 "RunUnitTestsTask",
+            ]
+        ),
+        .target(
+            name: "TeamcityStaticChecksBuild",
+            dependencies: [
+                "BuildDsl",
+                "StaticChecksTask",
             ]
         ),
         .target(
