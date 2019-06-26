@@ -11,7 +11,7 @@ public final class SwizzlingSyncronizationImpl: SwizzlingSyncronization {
                 let selector = method_getName(method)
                 return ErrorString(
                     "Method was swizzled twice! Rewrite swizzling."
-                        + " You probalby need to share the implementation. Selector: \(selector)"
+                        + " You probably need to share the implementation. Selector: \(selector)"
                 )
             } else {
                 swizzledMethods.insert(method)
