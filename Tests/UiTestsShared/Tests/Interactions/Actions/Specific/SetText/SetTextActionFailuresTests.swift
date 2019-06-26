@@ -60,7 +60,7 @@ final class SetTextActionFailuresTests: BaseActionTestCase {
                                     && log.wasSuccessful == false
                                     && log.steps.contains { log in
                                         log.detailedDescription == "Поиск элемента" && log.wasSuccessful == false
-                                    }
+                                }
                             }
                     }
             }
