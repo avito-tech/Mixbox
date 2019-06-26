@@ -7,25 +7,30 @@ import MixboxFoundation
 final class CollectionViewSwizzler {
     static func swizzle() {
         swizzle(
-            #selector(UICollectionView.reloadData),
-            #selector(UICollectionView.swizzled_CollectionViewSwizzler_reloadData)
+            originalSelector: #selector(UICollectionView.reloadData),
+            swizzledSelector: #selector(UICollectionView.swizzled_CollectionViewSwizzler_reloadData),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
         swizzle(
-            #selector(UICollectionView.performBatchUpdates(_:completion:)),
-            #selector(UICollectionView.swizzled_CollectionViewSwizzler_performBatchUpdates(_:completion:))
+            originalSelector: #selector(UICollectionView.performBatchUpdates(_:completion:)),
+            swizzledSelector: #selector(UICollectionView.swizzled_CollectionViewSwizzler_performBatchUpdates(_:completion:)),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
         // UIAccessibilityContainer:
         swizzle(
-            #selector(UIView.accessibilityElementCount),
-            #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElementCount)
+            originalSelector: #selector(UIView.accessibilityElementCount),
+            swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElementCount),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: false // Also swizzled for UICollectionViewCell
         )
         swizzle(
-            #selector(UIView.accessibilityElement(at:)),
-            #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElement(at:))
+            originalSelector: #selector(UIView.accessibilityElement(at:)),
+            swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityElement(at:)),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: false  // Also swizzled for UICollectionViewCell
         )
         swizzle(
-            #selector(UIView.index(ofAccessibilityElement:)),
-            #selector(UIView.swizzled_CollectionViewSwizzler_index(ofAccessibilityElement:))
+            originalSelector: #selector(UIView.index(ofAccessibilityElement:)),
+            swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_index(ofAccessibilityElement:)),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
         // Without swizzling that function below (with swizzling of functions of UIAccessibilityContainer only),
         // XCUI will somehow somethime strangely mix unnecessary cells into AX hierarchy. I didn't understand
@@ -33,13 +38,24 @@ final class CollectionViewSwizzler {
         // calls UIAccessibilityContainer, returns an array with extra objects. That function is private,
         // the hack below was found after some reverse engineering.
         swizzle(
-            Selector(("_accessibilityUserTestingChildren")),
-            #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren)
+            originalSelector: Selector(("_accessibilityUserTestingChildren")),
+            swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
     }
     
-    private static func swizzle(_ originalSelector: Selector, _ swizzledSelector: Selector) {
-        AssertingSwizzler().swizzle(UICollectionView.self, originalSelector, swizzledSelector, .instanceMethod)
+    private static func swizzle(
+        originalSelector: Selector,
+        swizzledSelector: Selector,
+        shouldAssertIfMethodIsSwizzledOnlyOneTime: Bool)
+    {
+        AssertingSwizzler().swizzle(
+            class: UICollectionView.self,
+            originalSelector: originalSelector,
+            swizzledSelector: swizzledSelector,
+            methodType: .instanceMethod,
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: shouldAssertIfMethodIsSwizzledOnlyOneTime
+        )
     }
     
     private init() {

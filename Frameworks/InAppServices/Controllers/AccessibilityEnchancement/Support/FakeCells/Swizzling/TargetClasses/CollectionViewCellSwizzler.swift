@@ -6,23 +6,36 @@ import MixboxFoundation
 final class CollectionViewCellSwizzler {
     static func swizzle(shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool) {
         swizzle(
-            #selector(UIView.accessibilityElementCount),
-            #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElementCount)
+            originalSelector: #selector(UIView.accessibilityElementCount),
+            swizzledSelector: #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElementCount),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: false
         )
         swizzle(
-            #selector(UIView.accessibilityElement(at:)),
-            #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElement(at:))
+            originalSelector: #selector(UIView.accessibilityElement(at:)),
+            swizzledSelector: #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_accessibilityElement(at:)),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: false
         )
         swizzle(
-            #selector(getter: UIView.isHidden),
-            shouldAddAssertionForCallingIsHiddenOnFakeCell
+            originalSelector: #selector(getter: UIView.isHidden),
+            swizzledSelector: shouldAddAssertionForCallingIsHiddenOnFakeCell
                 ? #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden_withAssertion)
-                : #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden)
+                : #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden),
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
     }
     
-    private static func swizzle(_ originalSelector: Selector, _ swizzledSelector: Selector) {
-        AssertingSwizzler().swizzle(UICollectionViewCell.self, originalSelector, swizzledSelector, .instanceMethod)
+    private static func swizzle(
+        originalSelector: Selector,
+        swizzledSelector: Selector,
+        shouldAssertIfMethodIsSwizzledOnlyOneTime: Bool)
+    {
+        AssertingSwizzler().swizzle(
+            class: UICollectionViewCell.self,
+            originalSelector: originalSelector,
+            swizzledSelector: swizzledSelector,
+            methodType: .instanceMethod,
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: shouldAssertIfMethodIsSwizzledOnlyOneTime
+        )
     }
     
     private init() {
