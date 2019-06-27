@@ -173,11 +173,11 @@ final class FakeCellsTestsView: CollectionView, InitializableWithTestingViewCont
                     $0.removeFromSuperview()
                     //
                     // and this cause some extra views in UIStackView. But resolving of element didn't fail
-                    // because of ambigous locator. It should be ambigous if there are multiple same views.
+                    // because of ambiguous locator. It should be ambiguous if there are multiple same views.
                     // It can be a sign of an issue of this check for ambiguity. Or everything was fine and
-                    // the view somehow wasn't shown in hierarchy or somehow locator was not ambigous.
+                    // the view somehow wasn't shown in hierarchy or somehow locator was not ambiguous.
                     // Anyway, ideally in that situation the framework could detect that something was wrong.
-                    // It did it, but it detected that view is not visible, not that the locator is ambigous.
+                    // It did it, but it detected that view is not visible, not that the locator is ambiguous.
                     // It was kind of misleading.
                 }
                 

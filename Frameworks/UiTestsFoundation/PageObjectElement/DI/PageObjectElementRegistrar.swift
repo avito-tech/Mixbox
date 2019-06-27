@@ -31,7 +31,7 @@ public extension PageObjectElementRegistrar {
     
     // Selects any element among elements that are matching.
     //
-    // If locator points to an ambigous element, please, empasize it in the name of a page object element.
+    // If locator points to an ambiguous element, please, empasize it in the name of a page object element.
     // Because it is a contract of this page object element property.
     //
     // Example:
