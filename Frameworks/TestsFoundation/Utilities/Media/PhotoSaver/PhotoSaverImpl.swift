@@ -108,9 +108,16 @@ public final class PhotoSaverImpl: PhotoSaver {
         //
         // Limit=50 saves 678ms per 100 images (vs Limit=5)
         //
+        let ios12Limit = 50
+        //
+        // Got this error once: `iPhone 7, iOS 11.3: Failed to stub photos: Saving photos completed with errors: [Write busy, Write busy, Write busy]`
+        // which means that only two photos were loaded. I'm afraid I don't know how it works, so I disabled paralellism.
+        // Maybe it's better to have retries/fallbacks.
+        let ios11OrLowerLimit = 1
+        
         let maximumSimultaneousImageWriteToSavedPhotosAlbumOperationsAllowed = UIDevice.current.mb_iosVersion.majorVersion >= 12
-            ? 50
-            : 5
+            ? ios12Limit
+            : ios11OrLowerLimit
         
         chunks = try images.mb_chunked(chunkSize: maximumSimultaneousImageWriteToSavedPhotosAlbumOperationsAllowed)
         
