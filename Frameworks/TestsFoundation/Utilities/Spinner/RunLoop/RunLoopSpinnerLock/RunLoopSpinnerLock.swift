@@ -4,7 +4,7 @@
 //
 // This class is thread safe.
 //
-public protocol RunLoopSpinnerLock {
+public protocol RunLoopSpinnerLock: class {
     func enter()
     func leave() throws
     func wait(timeout: TimeInterval) -> RunLoopSpinnerLockWaitResult

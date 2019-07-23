@@ -1,4 +1,6 @@
-public final class SwizzlingSyncronizationImpl: SwizzlingSyncronization {
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
+public final class SwizzlingSynchronizationImpl: SwizzlingSynchronization {
     private var swizzledMethods = Set<Method>()
     
     public init() {
@@ -53,3 +55,5 @@ public final class SwizzlingSyncronizationImpl: SwizzlingSyncronization {
         return ErrorString("Failed to get \(methodAdjective) method. Type: \(type). Selector: \(selector)")
     }
 }
+
+#endif

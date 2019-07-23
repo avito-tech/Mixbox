@@ -8,7 +8,7 @@ func mainForSlave(_ port: UInt) {
         handshakeWaiterHost: "localhost",
         handshakeWaiterPort: port
     )
-    let (server, client) = knownPortHandshakeSender.start { server in
+    let (server, client) = knownPortHandshakeSender.start { server, client in
         server.register(methodHandler: HelloIpcMethodHandler())
     }
     

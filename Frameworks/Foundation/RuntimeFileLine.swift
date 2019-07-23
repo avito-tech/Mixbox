@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Same as FileLine, but with String instead of StaticString.
 // Sometimes you can't use StaticString (for non-static strings, obviously).
 //
@@ -51,3 +53,5 @@ public final class RuntimeFileLine {
             .reduce
     }
 }
+
+#endif

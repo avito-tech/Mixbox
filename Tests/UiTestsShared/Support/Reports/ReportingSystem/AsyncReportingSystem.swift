@@ -44,7 +44,7 @@ public final class AsyncReportingSystem: ReportingSystem {
             expectation.fulfill()
         }
         
-        // C. Waiter will syncronously spin runloop, so everything is syncronous.
+        // C. Waiter will synchronously spin runloop, so everything is synchronous.
         _ = XCTWaiter.wait(for: [expectation], timeout: timeout)
     }
 }

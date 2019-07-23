@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // TODO: Rename to Result / use third party pod
 public enum DataResult<T, E> {
     case data(T)
@@ -110,3 +112,5 @@ public enum DataResult<T, E> {
         }
     }
 }
+
+#endif

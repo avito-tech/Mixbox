@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Zips 2 arrays, pads arrays if they aren't of same length
 public func mb_zip<T>(_ a: [T], _ b: [T], pad: T) -> Zip2Sequence<[T], [T]> {
     var a = a
@@ -60,3 +62,5 @@ extension Collection {
         }
     }
 }
+
+#endif

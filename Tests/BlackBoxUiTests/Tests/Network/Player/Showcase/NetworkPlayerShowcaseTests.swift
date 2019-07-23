@@ -5,7 +5,7 @@ import TestsIpc
 final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
     // Note: use this test to record session for other tests!
     func test___player_replays_network_in_replaying_mode___basic_case() {
-        let player = networking.recording.player(session: .default())
+        let player = legacyNetworking.recording.player(session: .default())
         
         player.checkpoint(id: "ADB86909-6DD5-4056-86F7-784FD286FD7C")
         
@@ -24,7 +24,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
     
     // Note that test will fail in recording mode (see comments in test function body)
     func test___player_replays_network_in_replaying_mode___complex_case() {
-        let player = networking.recording.player(
+        let player = legacyNetworking.recording.player(
             session: RecordedNetworkSessionPath
                 .nearHere()
                 .withName("MoreComplexExample")
@@ -76,7 +76,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
                 `id` wasn't specified in `checkpoint()` function (or in `checkpointImpl`, which I hope you didn't use directly). You can only skip setting id in recording mode (when file with records is empty). Please, remove all contents of file with records (but not the file) and retry.
                 """,
             body: {
-                let player = networking.recording.player(session: .default())
+                let player = legacyNetworking.recording.player(session: .default())
                 
                 player.checkpoint()
             }
@@ -89,7 +89,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
                 Unexpected bucket id in recordedNetworkSession: FFA9231E-29A9-4646-9B70-91278E6FFC31. Expected bucket id (from source code  that calls `checkpoint`): ADB86909-6DD5-4056-86F7-784FD286FD7C. Maybe recordedNetworkSession is outdated and you need to rerecord it. Example that produce this failure (pseudocode): you have checkpoints [A, B] in code and [A, C] in recordedNetworkSession JSON, in that case C is not expected, B is expected.
                 """,
             body: {
-                let player = networking.recording.player(session: .default())
+                let player = legacyNetworking.recording.player(session: .default())
                 
                 player.checkpoint(id: "ADB86909-6DD5-4056-86F7-784FD286FD7C")
                 player.checkpoint(id: "ADB86909-6DD5-4056-86F7-784FD286FD7C")
@@ -108,7 +108,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
                 " doesn't contain resource named "\(nonExistingResource)"
                 """),
             body: {
-                let player = networking.recording.player(
+                let player = legacyNetworking.recording.player(
                     session: RecordedNetworkSessionPath.nearHere().withName(nonExistingResource)
                 )
                 
@@ -127,7 +127,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
                 Couldn't load session! Session will be created automatically and stored to file if file exists. Otherwise you will see this failure. Nested error: Source code doesn't exist at specified path: "\(nonExistingFilePath)".
                 """,
             body: {
-                let player = networking.recording.player(
+                let player = legacyNetworking.recording.player(
                     session: RecordedNetworkSessionPath(
                         resourceName: alwaysEmptyJson,
                         sourceCodePath: nonExistingFilePath
@@ -145,7 +145,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
         let recordedNetworkSessionFile = fileSystem.temporaryFile()
         
         assertFailsInRecordingMode {
-            let player = networking.recording.player(
+            let player = legacyNetworking.recording.player(
                 session: RecordedNetworkSessionPath(
                     resourceName: alwaysEmptyJson,
                     sourceCodePath: recordedNetworkSessionFile.path

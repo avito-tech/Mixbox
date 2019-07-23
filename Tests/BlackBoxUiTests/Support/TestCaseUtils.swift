@@ -15,8 +15,8 @@ final class TestCaseUtils {
     let testRunnerPermissions: ApplicationPermissionsSetter
     let photoStubber: PhotoStubber
     
-    var networking: Networking {
-        return launchableApplicationProvider.launchableApplication.networking
+    var legacyNetworking: LegacyNetworking {
+        return launchableApplicationProvider.launchableApplication.legacyNetworking
     }
     
     // Private in TestCase

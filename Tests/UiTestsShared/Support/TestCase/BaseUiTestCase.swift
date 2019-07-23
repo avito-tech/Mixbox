@@ -27,8 +27,8 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient
     }
     
-    var networking: Networking {
-        return testCaseUtils.networking
+    var legacyNetworking: LegacyNetworking {
+        return testCaseUtils.legacyNetworking
     }
     
     var fileSystem: FileSystem {

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxTestsFoundation'
   s.dependency 'MixboxReporting'
   s.dependency 'MixboxUiKit'
-  s.dependency 'DynamicCodable'
+  s.dependency 'MixboxAnyCodable'
   s.dependency 'CocoaImageHashing'
   s.dependency 'MixboxIpcCommon'
 

@@ -3,14 +3,14 @@ import XCTest
 // TODO: Share with GrayBoxUiTests
 final class NetworkRecordingTests: BaseNetworkMockingTestCase {
     func test_networkRecording_works() {
-        networking.recording.startRecording()
+        legacyNetworking.recording.startRecording()
         
         openScreen(screen)
         
         screen.localhost.tap()
         
         XCTAssertEqual(
-            networking.recording.lastRequest(urlPattern: "localhost")?.responseString(),
+            legacyNetworking.recording.lastRequest(urlPattern: "localhost")?.responseString(),
             notStubbedText
         )
     }

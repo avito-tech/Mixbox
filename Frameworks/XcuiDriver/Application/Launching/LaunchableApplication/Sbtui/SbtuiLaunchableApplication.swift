@@ -6,13 +6,13 @@ import MixboxIpcSbtuiClient
 import MixboxReporting
 
 public final class SbtuiLaunchableApplication: LaunchableApplication {
-    public let networking: Networking
+    public let legacyNetworking: LegacyNetworking
     
     private let tunneledApplication: SBTUITunneledApplication
     private let applicationLifecycleObservable: ApplicationLifecycleObserver
     private let testFailureRecorder: TestFailureRecorder
     private let sbtuiStubApplier: SbtuiStubApplier
-    private let sbtuiNetworkRecordsProvider: SbtuiNetworkRecordsProvider
+    private let networkRecordsProvider: SbtuiNetworkRecordsProvider
     
     public init(
         tunneledApplication: SBTUITunneledApplication,
@@ -25,12 +25,13 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         self.tunneledApplication = tunneledApplication
         self.applicationLifecycleObservable = applicationLifecycleObservable
         self.testFailureRecorder = testFailureRecorder
+        
         self.sbtuiStubApplier = SbtuiStubApplierImpl(
             tunneledApplication: tunneledApplication,
             applicationLifecycleObservable: applicationLifecycleObservable
         )
         
-        sbtuiNetworkRecordsProvider = SbtuiNetworkRecordsProvider(
+        self.networkRecordsProvider = SbtuiNetworkRecordsProvider(
             tunneledApplication: tunneledApplication,
             testFailureRecorder: testFailureRecorder,
             applicationLifecycleObservable: applicationLifecycleObservable
@@ -40,26 +41,23 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
             sbtuiStubApplier: sbtuiStubApplier,
             testFailureRecorder: testFailureRecorder
         )
-        
         let recordedSessionStubber = RecordedSessionStubberImpl(
             stubRequestBuilder: stubRequestBuilder
         )
         
-        networking = NetworkingImpl(
-            stubbing: NetworkStubbingImpl(
-                stubRequestBuilder: stubRequestBuilder
-            ),
-            recording: NetworkRecordingImpl(
-                networkRecordsProvider: sbtuiNetworkRecordsProvider,
-                networkRecorderLifecycle: sbtuiNetworkRecordsProvider,
+        legacyNetworking = LegacyNetworkingImpl(
+            stubbing: stubRequestBuilder,
+            recording: LegacyNetworkRecordingImpl(
+                networkRecordsProvider: networkRecordsProvider,
+                networkRecorderLifecycle: networkRecordsProvider,
                 networkAutomaticRecorderAndReplayerProvider: NetworkAutomaticRecorderAndReplayerProviderImpl(
                     automaticRecorderAndReplayerCreationSettingsProvider: AutomaticRecorderAndReplayerCreationSettingsProviderImpl(
                         bundleResourcePathProvider: bundleResourcePathProvider,
                         recordedNetworkSessionFileLoader: RecordedNetworkSessionFileLoaderImpl()
                     ),
                     recordedSessionStubber: recordedSessionStubber,
-                    networkRecordsProvider: sbtuiNetworkRecordsProvider,
-                    networkRecorderLifecycle: sbtuiNetworkRecordsProvider,
+                    networkRecordsProvider: networkRecordsProvider,
+                    networkRecorderLifecycle: networkRecordsProvider,
                     testFailureRecorder: testFailureRecorder,
                     spinner: spinner,
                     networkReplayingObserver: networkReplayingObserver
@@ -75,7 +73,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
     {
         // Note that setting it to a value > Int32.max would lead to an error.
         let timeoutValueThatReallyDisablesTimeout: TimeInterval = 100000
-        // Disabling timeout really helps when running tests on CI. On CI everything can be unexpectidly slower.
+        // Disabling timeout really helps when running tests on CI. On CI everything can be unexpectedly slower.
         // Timeouts really don't work well. One global timeout for a test is enough.
         SBTUITunneledApplication.setConnectionTimeout(timeoutValueThatReallyDisablesTimeout)
         

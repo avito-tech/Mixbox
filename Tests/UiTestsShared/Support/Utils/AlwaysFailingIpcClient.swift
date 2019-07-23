@@ -8,6 +8,6 @@ public final class AlwaysFailingIpcClient: IpcClient {
         arguments: Method.Arguments,
         completion: @escaping (DataResult<Method.ReturnValue, IpcClientError>) -> ())
     {
-        completion(.error(IpcClientError.noResponse))
+        completion(.error(ErrorString("noResponse")))
     }
 }

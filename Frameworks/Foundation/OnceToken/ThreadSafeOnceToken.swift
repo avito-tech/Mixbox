@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class ThreadSafeOnceToken: OnceToken {
     private let semaphore = DispatchSemaphore(value: 1)
     private var wasExecutedUnsafeValue = false
@@ -31,3 +33,5 @@ public final class ThreadSafeOnceToken: OnceToken {
         }
     }
 }
+
+#endif

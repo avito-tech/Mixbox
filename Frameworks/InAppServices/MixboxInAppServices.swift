@@ -4,78 +4,40 @@ import MixboxIpc
 import MixboxIpcCommon
 
 // Facade for starting everything for tests, on the side of the app.
-public final class MixboxInAppServices: IpcRouter {
+public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegisterer {
+    // Dependencies
+    private let inAppServicesDependenciesFactory: InAppServicesDependenciesFactory
+    
+    // State
     private var router: IpcRouter?
     private var client: IpcClient?
-    private var ipcStarter: IpcStarter
-    private var commandsForAddingRoutes = [(IpcRouter) -> ()]()
-    private let shouldEnhanceAccessibilityValue: Bool
-    private let shouldEnableFakeCells: Bool
-    private let shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool
+    private var commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure] = []
     
-    public init(
-        ipcStarter: IpcStarter,
-        shouldEnhanceAccessibilityValue: Bool,
-        shouldEnableFakeCells: Bool,
-        shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool)
-    {
-        self.ipcStarter = ipcStarter
-        self.shouldEnhanceAccessibilityValue = shouldEnhanceAccessibilityValue
-        self.shouldEnableFakeCells = shouldEnableFakeCells
-        self.shouldAddAssertionForCallingIsHiddenOnFakeCell = shouldAddAssertionForCallingIsHiddenOnFakeCell
+    public init(inAppServicesDependenciesFactory: InAppServicesDependenciesFactory) {
+        self.inAppServicesDependenciesFactory = inAppServicesDependenciesFactory
         
-        commandsForAddingRoutes = [
-            { router in
-                MixboxInAppServices.registerDefaultMethods(router: router)
+        self.commandsForAddingRoutes = [
+            { dependencies in
+                MixboxInAppServices.registerDefaultMethods(router: dependencies.ipcRouter)
             }
         ]
     }
     
-    public convenience init?(environment: [String: String] = ProcessInfo.processInfo.environment) {
-        let ipcStarterOrNil: IpcStarter?
-        let ipcStarterType = MixboxInAppServices.ipcStarterType(environment: environment)
-        
-        switch ipcStarterType {
-        case .blackbox?:
-            if let testRunnerHost = environment["MIXBOX_HOST"],
-                let testRunnerPort = environment["MIXBOX_PORT"].flatMap({ UInt($0) })
-            {
-                ipcStarterOrNil = BuiltinIpcStarter(
-                    testRunnerHost: testRunnerHost,
-                    testRunnerPort: testRunnerPort
-                )
-            } else {
-                ipcStarterOrNil = nil
-            }
-        case .sbtui?:
-            ipcStarterOrNil = SbtuiIpcStarter(
-                reregisterMethodHandlersAutomatically: environment["MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY"] == "true"
-            )
-        case .graybox?:
-            ipcStarterOrNil = GrayBoxIpcStarter()
-        case nil:
-            ipcStarterOrNil = nil
-        }
-        
-        guard let ipcStarter = ipcStarterOrNil else {
-            assertionFailure("Failed to start IPC")
-            return nil
-        }
-        
-        self.init(
-            ipcStarter: ipcStarter,
-            shouldEnhanceAccessibilityValue: ipcStarterType != IpcStarterType.graybox, // FIXME
-            shouldEnableFakeCells: (environment["MIXBOX_SHOULD_ENABLE_FAKE_CELLS"] ?? "true") == "true",
-            shouldAddAssertionForCallingIsHiddenOnFakeCell: environment["MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL"] == "true"
-        )
-    }
-    
-    public func register<MethodHandler: IpcMethodHandler>(methodHandler: MethodHandler) {
+    public func register<MethodHandler: IpcMethodHandler>(closure: @escaping IpcMethodHandlerRegistrationClosure<MethodHandler>) {
         if let router = router {
-            router.register(methodHandler: methodHandler)
+            let dependencies = IpcMethodHandlerRegistrationDependencies(
+                ipcRouter: router,
+                ipcClient: client
+            )
+            
+            router.register(
+                methodHandler: closure(dependencies)
+            )
         } else {
-            commandsForAddingRoutes.append({ router in
-                router.register(methodHandler: methodHandler)
+            commandsForAddingRoutes.append({ dependencies in
+                dependencies.ipcRouter.register(
+                    methodHandler: closure(dependencies)
+                )
             })
         }
     }
@@ -84,23 +46,33 @@ public final class MixboxInAppServices: IpcRouter {
         assert(self.router == nil, "MixboxInAppServices are already started")
         
         do {
-            let (client, router) = try ipcStarter.start(commandsForAddingRoutes: commandsForAddingRoutes)
-            
-            self.router = client
-            self.client = router
-            
-            AccessibilityEnhancer.takeOff(
-                shouldEnableFakeCells: shouldEnableFakeCells,
-                shouldEnhanceAccessibilityValue: shouldEnhanceAccessibilityValue,
-                shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell
+            let (router, client) = try inAppServicesDependenciesFactory.ipcStarter.start(
+                commandsForAddingRoutes: commandsForAddingRoutes
             )
             
-            return (client, router)
+            self.router = router
+            self.client = client
+            
+            inAppServicesDependenciesFactory.accessibilityEnhancer.enhanceAccessibility()
+            
+            let mixboxUrlProtocolBootstrapper = client.flatMap { client in
+                inAppServicesDependenciesFactory.mixboxUrlProtocolBootstrapper(
+                    ipcRouter: router,
+                    ipcClient: client
+                )
+            }
+            
+            mixboxUrlProtocolBootstrapper?.bootstrapNetworkMocking()
+            
+            commandsForAddingRoutes = []
+            
+            return (router, client)
         } catch {
             // TODO: Better error handling for tests (fail test instead of crashing app)
             preconditionFailure(String(describing: error))
         }
     }
+
     
     private static func registerDefaultMethods(router: IpcRouter) {
         router.register(methodHandler: ScrollingHintIpcMethodHandler())
@@ -126,25 +98,6 @@ public final class MixboxInAppServices: IpcRouter {
         
         router.register(methodHandler: GetPasteboardStringIpcMethodHandler())
         router.register(methodHandler: SetPasteboardStringIpcMethodHandler())
-    }
-    
-    private static func ipcStarterType(environment: [String: String]) -> IpcStarterType? {
-        if let typeString = environment["MIXBOX_IPC_STARTER_TYPE"], !typeString.isEmpty {
-            guard let type = IpcStarterType(rawValue: typeString) else {
-                assertionFailure("Unknown IpcStarterType: \(typeString) in MIXBOX_IPC_STARTER_TYPE environment variable")
-                return nil
-            }
-            
-            return type
-        }
-        
-        // Fallback for earlier version. TODO: Remove on Oct 2019.
-        
-        if environment["MIXBOX_USE_BUILTIN_IPC"] == "true" {
-            return .blackbox
-        } else {
-            return .sbtui
-        }
     }
 }
 

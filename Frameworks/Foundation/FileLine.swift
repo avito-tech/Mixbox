@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // File and line always goes together.
 //
 // It is much simpler to pass one argument through many functions than two arguments.
@@ -63,3 +65,5 @@ public extension FileLine {
         return FileLine(file: file, line: line)
     }
 }
+
+#endif

@@ -7,8 +7,8 @@ final class RecordingNetworkPlayerTests: BaseNetworkMockingTestCase {
     private lazy var recordedNetworkSessionFile = fileSystem.temporaryFile()
     
     private lazy var recordingPlayer = RecordingNetworkPlayer(
-        networkRecordsProvider: networking.recording,
-        networkRecorderLifecycle: networking.recording,
+        networkRecordsProvider: legacyNetworking.recording,
+        networkRecorderLifecycle: legacyNetworking.recording,
         testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
         spinner: spinner,
         recordedNetworkSessionPath: recordedNetworkSessionFile.path,
@@ -27,7 +27,7 @@ final class RecordingNetworkPlayerTests: BaseNetworkMockingTestCase {
         // Given
         let player = recordingPlayer
         
-        networking.recording.startRecording()
+        legacyNetworking.recording.startRecording()
         openScreen(screen)
         
         let sourceCodeFile = file(contents: ".checkpoint()")

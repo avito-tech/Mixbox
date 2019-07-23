@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import <UIKit/UIKit.h>
 
 @interface UICollectionViewCell (ObjCInterfacesForFakeCells)
@@ -12,3 +14,5 @@
 - (void)_reuseCell:(UICollectionViewCell *)cell;
 
 @end
+
+#endif

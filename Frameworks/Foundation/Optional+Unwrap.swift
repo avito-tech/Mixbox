@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 extension Optional {
     public func unwrapOrThrow(
         error: (_ fileLine: FileLine) -> Error,
@@ -31,3 +33,5 @@ extension Optional {
         }
     }
 }
+
+#endif

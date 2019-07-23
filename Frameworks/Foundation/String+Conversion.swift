@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 extension String {
     public func mb_toInt() -> Int? {
         return Int(self)
@@ -7,3 +9,5 @@ extension String {
         return Double(self)
     }
 }
+
+#endif

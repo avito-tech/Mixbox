@@ -3,9 +3,7 @@
 import MixboxTestability
 
 public final class FakeCellManagerImpl: FakeCellManager {
-    public static let instance = FakeCellManagerImpl()
-    
-    private init() {
+    public init() {
     }
     
     // MARK: - FakeCellManager
@@ -38,19 +36,17 @@ public final class FakeCellManagerImpl: FakeCellManager {
         )
     }
     
-    // MARK: - FakeCellManagerImpl
-    
-    private let fakeCellIsBeingCreatedAtTheMoment = ThreadLocalObject<Bool>(
-        key: "897C6980D1EF_fakeCellIsBeingCreatedAtTheMoment",
-        initialValue: false
-    )
-    
     public func createFakeCellInside(closure: () -> (UICollectionViewCell)) -> UICollectionViewCell {
         fakeCellIsBeingCreatedAtTheMoment.value = true
         let value = closure()
         fakeCellIsBeingCreatedAtTheMoment.value = false
         return value
     }
+    
+    private let fakeCellIsBeingCreatedAtTheMoment = ThreadLocalObject<Bool>(
+        key: "897C6980D1EF_fakeCellIsBeingCreatedAtTheMoment",
+        initialValue: false
+    )
 }
 
 private var configureAsFakeCell_associatedObjectKey = "BEFC4E9F9161_configureAsFakeCell"

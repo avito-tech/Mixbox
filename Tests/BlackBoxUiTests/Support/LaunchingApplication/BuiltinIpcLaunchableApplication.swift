@@ -6,8 +6,8 @@ import MixboxXcuiDriver
 import MixboxIpcCommon
 
 public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
-    public var networking: Networking {
-        UnavoidableFailure.fail("Networking is not implemented for Builtin Ipc")
+    public var legacyNetworking: LegacyNetworking {
+        UnavoidableFailure.fail("LegacyNetworking is not implemented for Builtin Ipc")
     }
     
     private static var everLaunched: Bool = false

@@ -7,9 +7,9 @@ Pod::Spec.new do |s|
   s.license                = 'MIT'
   s.author                 = { 'Hive of coders from Avito' => 'avito.ru' }
   s.source                 = { :git => 'https://github.com/avito-tech/Mixbox.git', :tag => "Mixbox-#{s.version}" }
-  s.ios.deployment_target  = "9.0"
-  s.osx.deployment_target  = "10.13"
-  s.swift_version = '4.2'
-  s.requires_arc = true
-  s.source_files = 'Frameworks/Foundation/**/*.{swift,h,m}'
+  s.ios.deployment_target  = '9.0'
+  s.osx.deployment_target  = '10.13'
+  s.swift_version          = '4.2'
+  s.requires_arc           = true
+  s.source_files           = 'Frameworks/Foundation/**/*.{swift,h,m}'
 end

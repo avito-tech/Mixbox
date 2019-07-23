@@ -9,6 +9,17 @@ import MixboxGray
 @testable import TestedApp
 
 class TestCase: BaseUiTestCase, ScreenOpener {
+    override func setUp() {
+        // TODO: Move to DI (when Dip will be used for DI).
+        
+        let appDelegate = self.appDelegate
+        
+        testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient.ipcClient = appDelegate.ipcClient
+        testCaseUtils.ipcRouter = appDelegate.ipcRouter
+        
+        super.setUp()
+    }
+    
     override func tearDown() {
         if !reuseState {
             UIApplication.shared.keyWindow?.rootViewController = UIViewController()
@@ -17,13 +28,11 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         super.tearDown()
     }
     
+    func ensureIpcIsInitiated() {
+        // IPC is always initiated in GrayBox tests (see setUp)
+    }
+    
     func openScreen(name: String, additionalEnvironment: [String: String]) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            UnavoidableFailure.fail("UIApplication.shared.delegate is not AppDelegate")
-        }
-        
-        testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient.ipcClient = appDelegate.ipcClient
-        
         let viewController = TestingViewController(
             testingViewControllerSettings: TestingViewControllerSettings(
                 name: name,
@@ -32,5 +41,15 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         )
         
         UIApplication.shared.keyWindow?.rootViewController = viewController
+    }
+    
+    // MARK: - Private
+    
+    private var appDelegate: AppDelegate {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            UnavoidableFailure.fail("UIApplication.shared.delegate is not AppDelegate")
+        }
+        
+        return appDelegate
     }
 }

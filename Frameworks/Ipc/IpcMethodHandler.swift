@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Method handler is placed on the server side.
 //
 // Example:
@@ -19,3 +21,5 @@ public protocol IpcMethodHandler: class {
         arguments: Method.Arguments,
         completion: @escaping (_ returnValue: Method.ReturnValue) -> ())
 }
+
+#endif

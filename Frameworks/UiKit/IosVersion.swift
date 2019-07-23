@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 
 // MARK: - IosVersion
@@ -136,3 +138,5 @@ public func ~= <T>(pattern: Range<T>, value: IosVersion) -> Bool {
 public func ~=(pattern: IosVersion, value: IosVersion) -> Bool {
     return pattern == value
 }
+
+#endif

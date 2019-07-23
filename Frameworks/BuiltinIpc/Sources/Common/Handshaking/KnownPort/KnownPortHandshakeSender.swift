@@ -24,14 +24,14 @@ public final class KnownPortHandshakeSender {
         handshakeTools = HandshakeTools()
     }
     
-    public func start(beforeHandshake: (IpcRouter) -> ()) -> (IpcRouter, IpcClient?) {
+    public func start(beforeHandshake: (IpcRouter, IpcClient) -> ()) -> (IpcRouter, IpcClient) {
         let client = handshakeTools.makeClient(
             host: handshakeWaiterHost,
             port: handshakeWaiterPort
         )
         
         if let localPort = handshakeTools.startServer() {
-            beforeHandshake(handshakeTools.server)
+            beforeHandshake(handshakeTools.server, client)
             
             // TODO: Check if we can deal with synchronous waiting when this class is used to
             // setup connections between iOS app and UI tests runner. Maybe if we really want generic solution

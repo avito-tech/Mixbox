@@ -9,8 +9,9 @@ final class TestCaseUtils {
     
     let pageObjects: PageObjects
     let permissions: ApplicationPermissionsSetter
-    let networking: Networking
+    let legacyNetworking: LegacyNetworking
     let photoStubber: PhotoStubber
+    var ipcRouter: IpcRouter?
     
     // Private in TestCase
     
@@ -87,11 +88,11 @@ final class TestCaseUtils {
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
-        class NotImplementedNetworking: Networking {
-            var stubbing: NetworkStubbing { grayNotImplemented() }
-            var recording: NetworkRecording { grayNotImplemented() }
+        class NotImplementedLegacyNetworking: LegacyNetworking {
+            var stubbing: LegacyNetworkStubbing { grayNotImplemented() }
+            var recording: LegacyNetworkRecording { grayNotImplemented() }
         }
         
-        networking = NotImplementedNetworking()
+        legacyNetworking = NotImplementedLegacyNetworking()
     }
 }

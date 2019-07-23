@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Silly utility.
 // Converts anything to string and back.
 // Note that serialization method is not specified. The only thing
@@ -55,3 +57,5 @@ private class Container<T: Codable>: Codable {
         self.value = value
     }
 }
+
+#endif

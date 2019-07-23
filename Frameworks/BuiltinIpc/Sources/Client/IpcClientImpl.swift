@@ -27,7 +27,7 @@ public final class BuiltinIpcClient: IpcClient {
         let container = RequestContainer(method: method.name, value: arguments)
         
         guard let data = try? encoderFactory.encoder().encode(container) else {
-            completion(.error(.encodingError))
+            completion(.error(ErrorString("encodingError"))) // TODO: Better error
             return
         }
         
@@ -45,7 +45,7 @@ public final class BuiltinIpcClient: IpcClient {
         completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ())
     {
         guard let url = URL(string: "http://\(host):\(port)/\(Routes.ipcMethod)") else {
-            completion(.error(.customError("URL(string:) failed")))
+            completion(.error(ErrorString("URL(string:) failed"))) // TODO: Better error
             return
         }
         var request = URLRequest(url: url)
@@ -55,7 +55,7 @@ public final class BuiltinIpcClient: IpcClient {
         
         let dataTask = URLSession.shared.dataTask(with: request) { [weak self] data, urlResponse, error in
             guard let strongSelf = self else {
-                completion(.error(.customError("self == nil")))
+                completion(.error(ErrorString("self == nil"))) // TODO: Better error
                 return
             }
             
@@ -72,22 +72,44 @@ public final class BuiltinIpcClient: IpcClient {
         completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ())
     {
         guard let data = data else {
-            completion(.error(.customError("data == nil")))
+            completion(.error(ErrorString("data == nil"))) // TODO: Better error
             return
         }
         
-        let container = try? decoderFactory.decoder().decode(ResponseContainer<ReturnValue>.self, from: data)
+        let typeToDecode = ResponseContainer<ReturnValue>.self
         
-        guard let decodedResponse: ReturnValue = container?.value else {
-            let statusCode = (urlResponse as? HTTPURLResponse)?.statusCode
-            if let statusCode = statusCode, statusCode != 200 {
-                completion(.error(.customError("statusCode == \(statusCode)")))
-            } else {
-                completion(.error(.decodingError))
+        do {
+            let container = try decoderFactory.decoder().decode(typeToDecode, from: data)
+            
+            completion(.data(container.value))
+        } catch {
+            var statusCodeNotice: String {
+                guard let urlResponse = urlResponse else {
+                    return "Note that urlResponse is nil."
+                }
+                
+                guard let httpUrlResponse = urlResponse as? HTTPURLResponse else {
+                    return "Note that urlResponse is not HTTPURLResponse."
+                }
+                
+                let statusCode = httpUrlResponse.statusCode
+                
+                if statusCode != 200 {
+                    return "Note that statusCode != 200 (it is \(statusCode))"
+                } else {
+                    return "Note that statusCode is 200, so it is a pure decoding error"
+                }
             }
-            return
+            
+            completion(
+                .error(
+                    ErrorString(
+                        """
+                        Failed to decode \(typeToDecode): "\(error)". \(statusCodeNotice)
+                        """
+                    )
+                )
+            )
         }
-        
-        completion(.data(decodedResponse))
     }
 }

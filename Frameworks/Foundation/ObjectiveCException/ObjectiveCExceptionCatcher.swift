@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class ObjectiveCExceptionCatcher {
     public static func `catch`<T>(
         try: () -> (T),
@@ -24,3 +26,5 @@ public final class ObjectiveCExceptionCatcher {
     private init() {
     }
 }
+
+#endif

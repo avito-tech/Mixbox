@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // UPDATE: It was implemented in Swift 4.2:
 // https://github.com/apple/swift-evolution/blob/master/proposals/0206-hashable-enhancements.md
 //
@@ -101,3 +103,5 @@ public struct HashCombine {
         return combineHash(HashMath.hashValue(fromOptional: optional))
     }
 }
+
+#endif

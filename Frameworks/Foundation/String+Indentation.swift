@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 extension String {
     // Useful methods for creating CustomDebugStringConvertible
     private static let newLine = "\n"
@@ -25,3 +27,5 @@ extension String {
         }
     }
 }
+
+#endif

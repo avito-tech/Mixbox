@@ -6,12 +6,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: TouchDrawingWindow?
     var ipcClient: IpcClient?
+    var ipcRouter: IpcRouter?
     
     #if DEBUG
-    let mixboxInAppServices = MixboxInAppServices()
+    let mixboxInAppServices: MixboxInAppServices? = createMixboxInAppServices()
     #else
     let mixboxInAppServices: IpcRouter? = nil
     #endif
+    
+    private static func createMixboxInAppServices() -> MixboxInAppServices? {
+        let inAppServicesDependenciesFactory = InAppServicesDependenciesFactoryImpl(
+            environment: ProcessInfo.processInfo.environment
+        )
+        
+        return inAppServicesDependenciesFactory.map {
+            MixboxInAppServices(
+                inAppServicesDependenciesFactory: $0
+            )
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -46,7 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // TODO: add environment to be able to disable registration of methods?
                 customIpcMethods.registerIn(mixboxInAppServices)
                 
-                (_, ipcClient) = mixboxInAppServices.start()
+                // Yes, Swift is stupid sometimes:
+                let (router, client) = mixboxInAppServices.start()
+                (ipcRouter, ipcClient) = (router, client)
             }
         }
         #endif

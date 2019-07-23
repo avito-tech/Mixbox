@@ -15,7 +15,7 @@ public final class SbtuiIpcClient: IpcClient {
         completion: @escaping (DataResult<Method.ReturnValue, IpcClientError>) -> ())
     {
         guard let encodedObject = GenericSerialization.serialize(value: arguments) else {
-            completion(.error(.encodingError))
+            completion(.error(ErrorString("encodingError"))) // TODO: Better error
             return
         }
         
@@ -25,17 +25,17 @@ public final class SbtuiIpcClient: IpcClient {
         )
         
         guard let receivedResponse = response else {
-            completion(.error(.noResponse))
+            completion(.error(ErrorString("noResponse"))) // TODO: Better error
             return
         }
         
         guard let stringResponse = receivedResponse as? String else {
-            completion(.error(.decodingError))
+            completion(.error(ErrorString("decodingError"))) // TODO: Better error
             return
         }
         
         guard let decodedResponse: Method.ReturnValue = GenericSerialization.deserialize(string: stringResponse) else {
-            completion(.error(.decodingError))
+            completion(.error(ErrorString("decodingError"))) // TODO: Better error
             return
         }
         

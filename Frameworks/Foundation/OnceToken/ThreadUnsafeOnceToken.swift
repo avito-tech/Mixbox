@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class ThreadUnsafeOnceToken: OnceToken {
     private var wasExecutedValue = false
     
@@ -15,3 +17,5 @@ public final class ThreadUnsafeOnceToken: OnceToken {
         }
     }
 }
+
+#endif

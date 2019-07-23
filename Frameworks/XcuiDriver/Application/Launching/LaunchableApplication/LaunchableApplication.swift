@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 
 public protocol LaunchableApplication: class {
-    var networking: Networking { get }
+    var legacyNetworking: LegacyNetworking { get }
     
     func launch(
         arguments: [String],

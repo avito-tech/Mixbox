@@ -6,7 +6,7 @@ public protocol ImagesProvider: class {
 
 // Delegation
 
-public protocol ImagesProviderHolder {
+public protocol ImagesProviderHolder: class {
     var imagesProvider: ImagesProvider { get }
 }
 

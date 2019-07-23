@@ -2,6 +2,7 @@
 
 import MixboxInAppServices
 import MixboxIpc
+import TestsIpc
 
 final class CustomIpcMethods {
     private let uiEventHistoryProvider: UiEventHistoryProvider
@@ -11,28 +12,35 @@ final class CustomIpcMethods {
     }
     
     func registerIn(_ mixboxInAppServices: MixboxInAppServices) {
-        // For Echo tests
-        mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<String>())
-        mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<Int>())
-        mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<IpcVoid>())
-        mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<Bool>())
-        mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<[String]>())
-        mixboxInAppServices.register(methodHandler: EchoIpcMethodHandler<[String: String]>())
+        // For Echo Ipc tests
+        mixboxInAppServices.register { _ in EchoIpcMethodHandler<String>() }
+        mixboxInAppServices.register { _ in EchoIpcMethodHandler<Int>() }
+        mixboxInAppServices.register { _ in EchoIpcMethodHandler<IpcVoid>() }
+        mixboxInAppServices.register { _ in EchoIpcMethodHandler<Bool>() }
+        mixboxInAppServices.register { _ in EchoIpcMethodHandler<[String]>() }
+        mixboxInAppServices.register { _ in EchoIpcMethodHandler<[String: String]>() }
+        
+        // For Bidirectional Ipc tests
+        mixboxInAppServices.register { dependencies in
+            BidirectionalIpcPingPongMethodHandler(
+                ipcClient: dependencies.ipcClient
+            )
+        }
         
         // For Callback tests
-        mixboxInAppServices.register(methodHandler: CallbackFromAppIpcMethodHandler<Int>())
-        mixboxInAppServices.register(methodHandler: CallbackToAppIpcMethodHandler<Int, String>())
-        mixboxInAppServices.register(methodHandler: NestedCallbacksToAppIpcMethodHandler())
+        mixboxInAppServices.register { _ in CallbackFromAppIpcMethodHandler<Int>() }
+        mixboxInAppServices.register { _ in CallbackToAppIpcMethodHandler<Int, String>() }
+        mixboxInAppServices.register { _ in NestedCallbacksToAppIpcMethodHandler() }
         
         // For Launching tests
-        mixboxInAppServices.register(methodHandler: ProcessInfoIpcMethodHandler())
+        mixboxInAppServices.register { _ in ProcessInfoIpcMethodHandler() }
         
         // For Actions tests
-        mixboxInAppServices.register(
-            methodHandler: GetUiEventHistoryIpcMethodHandler(
+        mixboxInAppServices.register { [uiEventHistoryProvider] _ in
+            GetUiEventHistoryIpcMethodHandler(
                 uiEventHistoryProvider: uiEventHistoryProvider
             )
-        )
+        }
     }
 }
 

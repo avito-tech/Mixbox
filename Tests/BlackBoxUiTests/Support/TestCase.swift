@@ -46,6 +46,11 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         testCaseUtils.ipcRouter = launchedApplication.ipcRouter
     }
     
+    // For tests of IPC
+    func ensureIpcIsInitiated() {
+        launch(environment: [:], useBuiltinIpc: true)
+    }
+    
     func openScreen(
         name: String,
         additionalEnvironment: [String: String])

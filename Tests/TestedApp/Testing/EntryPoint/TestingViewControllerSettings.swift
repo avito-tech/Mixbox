@@ -20,6 +20,6 @@ final class TestingViewControllerSettings {
 
 extension TestingViewControllerSettings {
     var viewIpc: ViewIpc {
-        return ViewIpc(ipcRouter: mixboxInAppServices)
+        return ViewIpc(ipcMethodHandlerWithDependenciesRegisterer: mixboxInAppServices)
     }
 }

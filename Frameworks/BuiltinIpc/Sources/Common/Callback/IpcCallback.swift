@@ -95,10 +95,10 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
         
         self.closure = { (args: Arguments, completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ()) in
             guard let serializedArgs = GenericSerialization.serialize(value: args, encoder: encoderFactory.encoder()) else {
-                return completion(.error(.customError("GenericSerialization.serialize failed on \(args)")))
+                return completion(.error(ErrorString("GenericSerialization.serialize failed on \(args)"))) // TODO: Better error
             }
             guard let ipcClient = ipcClientHolder.ipcClient else {
-                return completion(.error(.customError("ipcClientHolder.ipcClient is nil")))
+                return completion(.error(ErrorString("ipcClientHolder.ipcClient is nil"))) // TODO: Better error
             }
             
             let method = CallIpcCallbackIpcMethod()
@@ -110,7 +110,7 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
                 switch result {
                 case .data(let string):
                     guard let string = string, let deserialized: ReturnValue = GenericSerialization.deserialize(string: string, decoder: decoderFactory.decoder()) else {
-                        return completion(.error(.customError("TBD")))
+                        return completion(.error(ErrorString("TBD"))) // TODO: Better error
                     }
                     completion(.data(deserialized))
                 case .error(let error):
@@ -144,7 +144,7 @@ public extension IpcCallback {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
         }
         
-        return result ?? .error(.noResponse)
+        return result ?? .error(ErrorString("noResponse")) // TODO: Better error
     }
 }
 

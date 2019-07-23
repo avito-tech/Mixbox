@@ -19,7 +19,7 @@ public final class LazilyInitializedIpcClient: IpcClient {
                 completion: completion
             )
         } else {
-            completion(.error(.customError("ipcClient was not set")))
+            completion(.error(ErrorString("ipcClient was not set"))) // TODO: Better error
         }
     }
 }

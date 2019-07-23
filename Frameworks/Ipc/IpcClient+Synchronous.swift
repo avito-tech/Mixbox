@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 
 extension IpcClient {
@@ -22,7 +24,7 @@ extension IpcClient {
             }
         }
         
-        return result ?? .error(.noResponse)
+        return result ?? .error(ErrorString("noResponse")) // TODO: Better error
     }
     
     // Synchronous version for methods without arguments
@@ -34,3 +36,5 @@ extension IpcClient {
         return call(method: method, arguments: IpcVoid())
     }
 }
+
+#endif

@@ -2,11 +2,11 @@ PODS:
   - GCDWebServer (3.5.2):
     - GCDWebServer/Core (= 3.5.2)
   - GCDWebServer/Core (3.5.2)
-  - MixboxBuiltinIpc (0.0.2):
+  - MixboxBuiltinIpc (0.2.3):
     - GCDWebServer
     - MixboxIpc
-  - MixboxFoundation (0.0.2)
-  - MixboxIpc (0.0.2):
+  - MixboxFoundation (0.2.3)
+  - MixboxIpc (0.2.3):
     - MixboxFoundation
 
 DEPENDENCIES:
@@ -29,9 +29,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
-  MixboxBuiltinIpc: 4bb2a89013f69382eac2fbbd3380fb6c607ed48a
-  MixboxFoundation: 2eae63315c42804efa47a4d493c252eb3ead677d
-  MixboxIpc: 6d9a3ae272712b285e47b9bb504b74d9623693b5
+  MixboxBuiltinIpc: c369cef8c57f2f7a0957b10e3fa54843bc9a038e
+  MixboxFoundation: 2957ed972100de2830e0c300e5c6973c201f6504
+  MixboxIpc: cb0b35b698812b99f51ef8b259eed6e7d2e28e37
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 

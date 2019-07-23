@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Defines an intrface for communication between processes.
 // You can share your defined methods between projects (e.g. via shared library)
 //
@@ -20,3 +22,5 @@ public extension IpcMethod {
         return "\(type(of: self))"
     }
 }
+
+#endif

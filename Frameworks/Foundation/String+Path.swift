@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 extension String {
     public var mb_deletingLastPathComponent: String {
         return (self as NSString).deletingLastPathComponent
@@ -15,3 +17,5 @@ extension String {
         return (self as NSString).resolvingSymlinksInPath
     }
 }
+
+#endif
