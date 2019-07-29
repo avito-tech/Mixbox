@@ -47,7 +47,7 @@ final class PhotoStubberTests: TestCase {
             timeout: 30,
             interval: 1,
             until: {
-                return PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized
+                PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized
             }
         )
     }

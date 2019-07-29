@@ -101,6 +101,7 @@ private class PhotoStubberImagesProvider: ImagesProvider {
     }
     
     func images() throws -> [ImageProvider] {
+        // swiftlint:disable:next empty_count
         if count == 0 {
             return []
         } else {

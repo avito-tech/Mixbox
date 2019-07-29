@@ -73,7 +73,6 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         }
     }
 
-    
     private static func registerDefaultMethods(router: IpcRouter) {
         router.register(methodHandler: ScrollingHintIpcMethodHandler())
         router.register(methodHandler: PercentageOfVisibleAreaIpcMethodHandler())

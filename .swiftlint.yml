@@ -1,13 +1,18 @@
 excluded:
   # Cocoapods
   - 'Tests/Pods'
-  - 'Demo/Pods'
+  - 'Demos/OversimplifiedDemo/Pods'
+  - 'Frameworks/BuiltinIpc/OsxDemo/Pods'
   
-  # SPM
+  # Build
+  - 'Frameworks/BuiltinIpc/OsxDemo/build'
   - 'ci/swift/.build'
 
   # Code generated
   - 'Tests/UnitTests/Mocks'
+  
+  # CI (TODO: enable Swiftlint)
+  - 'ci/swift'
 
 disabled_rules:
   - line_length # "ignores_interpolated_strings" doesn't work for multiline literals.

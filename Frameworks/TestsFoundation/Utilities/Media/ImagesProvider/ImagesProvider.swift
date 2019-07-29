@@ -15,4 +15,3 @@ extension ImagesProvider where Self: ImagesProviderHolder {
         return try imagesProvider.images()
     }
 }
-

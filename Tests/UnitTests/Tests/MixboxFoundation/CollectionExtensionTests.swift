@@ -44,7 +44,6 @@ final class CollectionExtensionTests: TestCase {
         }
     }
     
-    
     // Empty collection
     
     func test___mb_chunked___throws_error__for_empty_collection___if_chunkSize_is_negative() {

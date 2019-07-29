@@ -46,7 +46,7 @@ extension Collection {
         if chunkSize < 0 {
             throw ErrorString("chunkSize should not be negative (chunkSize == \(chunkSize))")
         } else if chunkSize == 0 {
-            if count == 0 {
+            if isEmpty {
                 // Empty collection can be chunked only into zero chunks.
                 return []
             } else {
