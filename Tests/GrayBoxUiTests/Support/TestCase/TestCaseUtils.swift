@@ -2,16 +2,29 @@ import MixboxReporting
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
+import MixboxIpcCommon
 import MixboxGray
 
-final class TestCaseUtils {
+final class IpcRouterHolder: IpcRouterProvider {
+    var ipcRouter: IpcRouter?
+}
+
+final class TestCaseUtils: IpcRouterProvider {
     // Internal in TestCase
     
     let pageObjects: PageObjects
     let permissions: ApplicationPermissionsSetter
     let legacyNetworking: LegacyNetworking
     let photoStubber: PhotoStubber
-    var ipcRouter: IpcRouter?
+    var ipcRouter: IpcRouter? {
+        get {
+            return ipcRouterHolder.ipcRouter
+        }
+        set {
+            ipcRouterHolder.ipcRouter = newValue
+        }
+    }
+    private let ipcRouterHolder = IpcRouterHolder()
     
     // Private in TestCase
     
@@ -88,11 +101,33 @@ final class TestCaseUtils {
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
         
-        class NotImplementedLegacyNetworking: LegacyNetworking {
-            var stubbing: LegacyNetworkStubbing { grayNotImplemented() }
-            var recording: LegacyNetworkRecording { grayNotImplemented() }
-        }
+        let compoundBridgedUrlProtocolClass = CompoundBridgedUrlProtocolClass()
         
-        legacyNetworking = NotImplementedLegacyNetworking()
+        let instancesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolInstance & IpcObjectIdentifiable>()
+        let classesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolClass & IpcObjectIdentifiable>()
+        
+        let urlProtocolStubAdder = UrlProtocolStubAdderImpl(
+            bridgedUrlProtocolRegisterer: IpcBridgedUrlProtocolRegisterer(
+                ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
+                writeableClassesRepository: classesRepository.toStorable()
+            ),
+            rootBridgedUrlProtocolClass: compoundBridgedUrlProtocolClass,
+            bridgedUrlProtocolClassRepository: compoundBridgedUrlProtocolClass,
+            ipcRouterProvider: ipcRouterHolder,
+            ipcMethodHandlersRegisterer: NetworkMockingIpcMethodsRegisterer(
+                readableInstancesRepository: instancesRepository.toStorable { $0 },
+                writeableInstancesRepository: instancesRepository.toStorable(),
+                readableClassesRepository: classesRepository.toStorable { $0 },
+                ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient
+            )
+        )
+        
+        let legacyNetworking = GrayBoxLegacyNetworking(
+            urlProtocolStubAdder: urlProtocolStubAdder,
+            testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
+            spinner: baseUiTestCaseUtils.spinner
+        )
+        
+        self.legacyNetworking = legacyNetworking
     }
 }

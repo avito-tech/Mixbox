@@ -44,7 +44,6 @@ public final class SbtuiStubApplierImpl: SbtuiStubApplier, ApplicationLifecycleO
                 .forEach { stub in
                     let request = SbtuiStubRequest(
                         urlPattern: stub.request.urlPattern + "(\(indexToMakeRegularExpressionUnique)){0}",
-                        query: stub.request.query,
                         httpMethod: stub.request.httpMethod
                     )
                     indexToMakeRegularExpressionUnique += 1

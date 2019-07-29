@@ -15,10 +15,6 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
             name: screen.viewName
         )
         
-        guard let ipcRouter = testCaseUtils.ipcRouter else {
-            return XCTFail("ipcRouter is nil")
-        }
-        
         let networkStubber = UrlProtocolStubAdderImpl(
             bridgedUrlProtocolRegisterer: IpcBridgedUrlProtocolRegisterer(
                 ipcClient: testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient,
@@ -26,7 +22,7 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
             ),
             rootBridgedUrlProtocolClass: compoundBridgedUrlProtocolClass,
             bridgedUrlProtocolClassRepository: compoundBridgedUrlProtocolClass,
-            ipcRouter: ipcRouter,
+            ipcRouterProvider: testCaseUtils,
             ipcMethodHandlersRegisterer: NetworkMockingIpcMethodsRegisterer(
                 readableInstancesRepository: instancesRepository.toStorable { $0 },
                 writeableInstancesRepository: instancesRepository.toStorable(),

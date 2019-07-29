@@ -15,16 +15,16 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
         cuckoo_manager.enableDefaultStubImplementation()
     }
 
-    public func withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?)  -> StubResponseBuilder {
+    public func withRequestStub(urlPattern: String, httpMethod: HttpMethod?)  -> StubResponseBuilder {
 
-            return cuckoo_manager.call("withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?) -> StubResponseBuilder",
-                parameters: (urlPattern, query, httpMethod),
-                escapingParameters: (urlPattern, query, httpMethod),
+            return cuckoo_manager.call("withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder",
+                parameters: (urlPattern, httpMethod),
+                escapingParameters: (urlPattern, httpMethod),
                 superclassCall:
 
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall: __defaultImplStub!.withRequestStub(urlPattern: urlPattern, query: query, httpMethod: httpMethod))
+                defaultCall: __defaultImplStub!.withRequestStub(urlPattern: urlPattern, httpMethod: httpMethod))
 
     }
 
@@ -49,9 +49,9 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(urlPattern: M1, query: M2, httpMethod: M3) -> Cuckoo.ProtocolStubFunction<(String, [String]?, HttpMethod?), StubResponseBuilder> where M1.MatchedType == String, M2.MatchedType == [String]?, M3.MatchedType == HttpMethod? {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, [String]?, HttpMethod?)>] = [wrap(matchable: urlPattern) { $0.0 }, wrap(matchable: query) { $0.1 }, wrap(matchable: httpMethod) { $0.2 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockStubRequestBuilder.self, method: "withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?) -> StubResponseBuilder", parameterMatchers: matchers))
+	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(urlPattern: M1, httpMethod: M2) -> Cuckoo.ProtocolStubFunction<(String, HttpMethod?), StubResponseBuilder> where M1.MatchedType == String, M2.MatchedType == HttpMethod? {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, HttpMethod?)>] = [wrap(matchable: urlPattern) { $0.0 }, wrap(matchable: httpMethod) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockStubRequestBuilder.self, method: "withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder", parameterMatchers: matchers))
 	    }
 	    
 	    func removeAllStubs() -> Cuckoo.ProtocolStubNoReturnFunction<()> {
@@ -76,9 +76,9 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(urlPattern: M1, query: M2, httpMethod: M3) -> Cuckoo.__DoNotUse<StubResponseBuilder> where M1.MatchedType == String, M2.MatchedType == [String]?, M3.MatchedType == HttpMethod? {
-	        let matchers: [Cuckoo.ParameterMatcher<(String, [String]?, HttpMethod?)>] = [wrap(matchable: urlPattern) { $0.0 }, wrap(matchable: query) { $0.1 }, wrap(matchable: httpMethod) { $0.2 }]
-	        return cuckoo_manager.verify("withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?) -> StubResponseBuilder", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(urlPattern: M1, httpMethod: M2) -> Cuckoo.__DoNotUse<StubResponseBuilder> where M1.MatchedType == String, M2.MatchedType == HttpMethod? {
+	        let matchers: [Cuckoo.ParameterMatcher<(String, HttpMethod?)>] = [wrap(matchable: urlPattern) { $0.0 }, wrap(matchable: httpMethod) { $0.1 }]
+	        return cuckoo_manager.verify("withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
@@ -93,7 +93,7 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
 
 public class StubRequestBuilderStub: StubRequestBuilder {
 
-    public func withRequestStub(urlPattern: String, query: [String]?, httpMethod: HttpMethod?)  -> StubResponseBuilder {
+    public func withRequestStub(urlPattern: String, httpMethod: HttpMethod?)  -> StubResponseBuilder {
         return DefaultValueRegistry.defaultValue(for: StubResponseBuilder.self)
     }
 

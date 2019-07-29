@@ -14,7 +14,7 @@ final class RecordedSessionStubberTests: XCTestCase {
         
         stubRequestBuilder
             .getStubbingProxy()
-            .withRequestStub(urlPattern: any(), query: any(), httpMethod: any())
+            .withRequestStub(urlPattern: any(), httpMethod: any())
             .thenReturn(stubResponseBuilder)
         
         stubResponseBuilder
@@ -176,7 +176,6 @@ final class RecordedSessionStubberTests: XCTestCase {
             
             verify(stubRequestBuilder).withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
-                query: equal(to: nil),
                 httpMethod: equal(to: .put)
             )
             verify(stubResponseBuilder).withResponse(
@@ -199,7 +198,6 @@ final class RecordedSessionStubberTests: XCTestCase {
             
             verify(stubRequestBuilder, file: file, line: line).withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
-                query: equal(to: nil),
                 httpMethod: equal(to: .get)
             )
         }

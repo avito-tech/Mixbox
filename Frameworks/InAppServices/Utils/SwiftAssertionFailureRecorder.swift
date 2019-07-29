@@ -10,7 +10,8 @@ public final class StandardLibraryAssertionFailureRecorder: AssertionFailureReco
         message: String,
         fileLine: FileLine)
     {
-        assertionFailure(message, file: fileLine.file, line: fileLine.line)
+        // TODO: Enable after completing network mocking.
+        // assertionFailure(message, file: fileLine.file, line: fileLine.line)
     }
 }
 

@@ -25,6 +25,8 @@ class TestCase: BaseUiTestCase, ScreenOpener {
             UIApplication.shared.keyWindow?.rootViewController = UIViewController()
         }
         
+        testCaseUtils.legacyNetworking.stubbing.removeAllStubs()
+        
         super.tearDown()
     }
     

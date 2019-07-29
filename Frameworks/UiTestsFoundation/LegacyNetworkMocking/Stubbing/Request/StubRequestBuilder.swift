@@ -5,8 +5,6 @@ public protocol StubRequestBuilder: class {
         // Example of urlPattern: ".*?example.com/rest/foo/[^/]+?/bar($|\\?.+$)"
         // urlPattern matches `URL.absoluteString`! So it can access query.
         urlPattern: String,
-        // nil: do not match query, [] - match empty query
-        query: [String]?,
         // nil: do not match httpMethod
         httpMethod: HttpMethod?)
         -> StubResponseBuilder
@@ -18,15 +16,12 @@ extension StubRequestBuilder {
     public func stub(
         // Example of urlPattern: ".*?example.com/rest/foo/[^/]+?/bar($|\\?.+$)"
         urlPattern: String,
-        // nil: do not match query, [] - match empty query
-        query: [String]? = nil,
         // nil: do not match httpMethod
         httpMethod: HttpMethod? = nil)
         -> StubResponseBuilder
     {
         return withRequestStub(
             urlPattern: urlPattern,
-            query: query,
             httpMethod: httpMethod
         )
     }

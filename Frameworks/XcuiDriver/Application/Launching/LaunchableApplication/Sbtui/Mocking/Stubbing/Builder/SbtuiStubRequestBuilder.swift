@@ -18,13 +18,11 @@ public final class SbtuiStubRequestBuilder: StubRequestBuilder {
     
     public func withRequestStub(
         urlPattern: String,
-        query: [String]?,
         httpMethod: HttpMethod?)
         -> StubResponseBuilder
     {
         let sbtuiStubRequest = SbtuiStubRequest(
             urlPattern: urlPattern,
-            query: query,
             httpMethod: httpMethod
         )
         

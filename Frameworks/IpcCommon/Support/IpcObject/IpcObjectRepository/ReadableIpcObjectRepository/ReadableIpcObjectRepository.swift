@@ -20,7 +20,8 @@ extension ReadableIpcObjectRepository {
         return ReadableIpcObjectRepositoryOf(
             objectImpl: { (ipcObjectId) -> U? in
                 self.object(ipcObjectId: ipcObjectId).map(mapping)
-            }
+            },
+            readableIpcObjectRepository: self
         )
     }
     

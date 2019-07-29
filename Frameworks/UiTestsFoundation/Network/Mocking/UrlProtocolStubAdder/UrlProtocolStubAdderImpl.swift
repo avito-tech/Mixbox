@@ -7,7 +7,7 @@ public final class UrlProtocolStubAdderImpl: UrlProtocolStubAdder {
     private let bridgedUrlProtocolRegisterer: BridgedUrlProtocolRegisterer
     private let rootBridgedUrlProtocolClass: BridgedUrlProtocolClass & IpcObjectIdentifiable
     private let bridgedUrlProtocolClassRepository: BridgedUrlProtocolClassRepository
-    private let ipcRouter: IpcRouter
+    private let ipcRouterProvider: IpcRouterProvider
     private let ipcMethodHandlersRegisterer: IpcMethodHandlersRegisterer
     
     // No reason to inject this:
@@ -21,13 +21,13 @@ public final class UrlProtocolStubAdderImpl: UrlProtocolStubAdder {
         bridgedUrlProtocolRegisterer: BridgedUrlProtocolRegisterer,
         rootBridgedUrlProtocolClass: BridgedUrlProtocolClass & IpcObjectIdentifiable,
         bridgedUrlProtocolClassRepository: BridgedUrlProtocolClassRepository,
-        ipcRouter: IpcRouter,
+        ipcRouterProvider: IpcRouterProvider,
         ipcMethodHandlersRegisterer: IpcMethodHandlersRegisterer)
     {
         self.bridgedUrlProtocolRegisterer = bridgedUrlProtocolRegisterer
         self.rootBridgedUrlProtocolClass = rootBridgedUrlProtocolClass
         self.bridgedUrlProtocolClassRepository = bridgedUrlProtocolClassRepository
-        self.ipcRouter = ipcRouter
+        self.ipcRouterProvider = ipcRouterProvider
         self.ipcMethodHandlersRegisterer = ipcMethodHandlersRegisterer
     }
     
@@ -70,6 +70,10 @@ public final class UrlProtocolStubAdderImpl: UrlProtocolStubAdder {
         registeredBridgedUrlProtocolClass = try bridgedUrlProtocolRegisterer.register(
             bridgedUrlProtocolClass: rootBridgedUrlProtocolClass
         )
+        
+        guard let ipcRouter = ipcRouterProvider.ipcRouter else {
+            throw ErrorString("ipcRouter is nil")
+        }
         
         ipcMethodHandlersRegisterer.registerIn(ipcRouter: ipcRouter)
     }
