@@ -38,7 +38,6 @@ def mixbox_application_testability_pods
   pod 'MixboxTestability', :path => '..'
   pod 'MixboxIpcSbtuiHost', :path => '..'
   pod 'MixboxInAppServices', :path => '..'
-  pod 'MixboxOhhttpstubs', :path => '..'
 end
 
 def mixbox_blackbox_tests_pods

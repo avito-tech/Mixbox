@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxFoundation
 
 public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
-    typealias AnyHandler = (Any, @escaping (DataResult<Any, IpcClientError>) -> ()) -> ()
+    typealias AnyHandler = (Any, @escaping (DataResult<Any, Error>) -> ()) -> ()
     
     private var anyHandlersByMethodName = [String: AnyHandler]()
     
@@ -14,7 +14,7 @@ public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
     public func call<Method>(
         method: Method,
         arguments: Method.Arguments,
-        completion: @escaping (DataResult<Method.ReturnValue, IpcClientError>) -> ())
+        completion: @escaping (DataResult<Method.ReturnValue, Error>) -> ())
         where Method : IpcMethod
     {
         guard let anyHandler = anyHandlersByMethodName[method.name] else {
@@ -23,7 +23,7 @@ public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
         }
         
         anyHandler(arguments) { result in
-            let typedResult = result.flatMapData { (anyReturnValue) -> DataResult<Method.ReturnValue, IpcClientError> in
+            let typedResult = result.flatMapData { (anyReturnValue) -> DataResult<Method.ReturnValue, Error> in
                 if let typedReturnValue = anyReturnValue as? Method.ReturnValue {
                     return .data(typedReturnValue)
                 } else {
@@ -32,7 +32,7 @@ public final class SameProcessIpcClientServer: IpcRouter, IpcClient {
                             """
                             ReturnValue of handler of method "\(method.name)" \
                             is unexpected: "\(type(of: anyReturnValue))", \
-                            expected: "\(DataResult<Method.ReturnValue, IpcClientError>.self)"
+                            expected: "\(DataResult<Method.ReturnValue, Error>.self)"
                             """
                         )
                     )

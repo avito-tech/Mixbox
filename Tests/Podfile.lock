@@ -22,7 +22,6 @@ PODS:
     - MixboxBuiltinIpc
     - MixboxIpcCommon
     - MixboxIpcSbtuiHost
-    - MixboxOhhttpstubs
     - MixboxTestability
     - MixboxUiKit
   - MixboxIpc (0.2.3):
@@ -38,7 +37,6 @@ PODS:
   - MixboxIpcSbtuiHost (0.2.3):
     - MixboxIpc
     - SBTUITestTunnel/Server (~> 3.0.6)
-  - MixboxOhhttpstubs (0.2.3)
   - MixboxReporting (0.2.3):
     - MixboxArtifacts
     - MixboxFoundation
@@ -87,7 +85,6 @@ DEPENDENCIES:
   - MixboxIpcCommon (from `..`)
   - MixboxIpcSbtuiClient (from `..`)
   - MixboxIpcSbtuiHost (from `..`)
-  - MixboxOhhttpstubs (from `..`)
   - MixboxReporting (from `..`)
   - MixboxTestability (from `..`)
   - MixboxTestsFoundation (from `..`)
@@ -132,8 +129,6 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxIpcSbtuiHost:
     :path: ".."
-  MixboxOhhttpstubs:
-    :path: ".."
   MixboxReporting:
     :path: ".."
   MixboxTestability:
@@ -160,12 +155,11 @@ SPEC CHECKSUMS:
   MixboxFakeSettingsAppMain: ab67bd71b40d4985bc6f8cd6ee9f4def4be523b2
   MixboxFoundation: 2957ed972100de2830e0c300e5c6973c201f6504
   MixboxGray: c8eca0e0e41d0eb7e72443c63377a2de28cc281b
-  MixboxInAppServices: b6245be49795dab177a37fa9cccc740024a6229f
+  MixboxInAppServices: a93c77b18b8db84e43ee553664ede153e75f7102
   MixboxIpc: cb0b35b698812b99f51ef8b259eed6e7d2e28e37
   MixboxIpcCommon: 83c5b5db05f4d1584a0778e925cab556d39a3c7e
   MixboxIpcSbtuiClient: b632988575b574d49c288e0776e36a064defdb8b
   MixboxIpcSbtuiHost: 7db363ec7c36726a57350daeef1812d3999bf938
-  MixboxOhhttpstubs: b13bfb5e87f7aff9ec58d9cb06b01d802bea76e3
   MixboxReporting: bf6e233f3ec27fb768740571fe127a4815c06c61
   MixboxTestability: 98abad1cedc3019ef13473c5455cd7efc7c87d7c
   MixboxTestsFoundation: b543c030f30074577f065d14dc7c22c0ed686e74

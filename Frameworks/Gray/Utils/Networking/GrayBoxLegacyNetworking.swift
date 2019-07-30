@@ -3,14 +3,14 @@ import MixboxTestsFoundation
 import MixboxGray
 import MixboxReporting
 
-final class GrayBoxLegacyNetworking: LegacyNetworking {
-    let stubbing: LegacyNetworkStubbing
+public final class GrayBoxLegacyNetworking: LegacyNetworking {
+    public let stubbing: LegacyNetworkStubbing
     
-    var recording: LegacyNetworkRecording {
+    public var recording: LegacyNetworkRecording {
         grayNotImplemented()
     }
     
-    init(
+    public init(
         urlProtocolStubAdder: UrlProtocolStubAdder,
         testFailureRecorder: TestFailureRecorder,
         spinner: Spinner)

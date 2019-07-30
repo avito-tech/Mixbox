@@ -12,7 +12,7 @@ public final class SbtuiIpcClient: IpcClient {
     public func call<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,
-        completion: @escaping (DataResult<Method.ReturnValue, IpcClientError>) -> ())
+        completion: @escaping (DataResult<Method.ReturnValue, Error>) -> ())
     {
         guard let encodedObject = GenericSerialization.serialize(value: arguments) else {
             completion(.error(ErrorString("encodingError"))) // TODO: Better error

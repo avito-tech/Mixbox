@@ -2,15 +2,15 @@ import MixboxUiTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
 
-class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlProtocolInstance, IpcObjectIdentifiable {
-    let ipcObjectId: IpcObjectId = .uuid
+public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlProtocolInstance, IpcObjectIdentifiable {
+    public let ipcObjectId: IpcObjectId = .uuid
     
     private let request: BridgedUrlRequest
     private let cachedResponse: BridgedCachedUrlResponse?
     private let client: BridgedUrlProtocolClient
     private let stub: GrayBoxLegacyNetworkStubbingNetworkStub
     
-    init(
+    public init(
         request: BridgedUrlRequest,
         cachedResponse: BridgedCachedUrlResponse?,
         client: BridgedUrlProtocolClient,
@@ -22,7 +22,7 @@ class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlProtocol
         self.stub = stub
     }
     
-    func startLoading() throws {
+    public func startLoading() throws {
         let response = BridgedUrlResponse(
             url: request.url,
             mimeType: nil,
@@ -40,7 +40,7 @@ class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlProtocol
         try client.urlProtocolDidFinishLoading()
     }
     
-    func stopLoading() throws {
+    public func stopLoading() throws {
     }
     
     private func data() throws -> Data {

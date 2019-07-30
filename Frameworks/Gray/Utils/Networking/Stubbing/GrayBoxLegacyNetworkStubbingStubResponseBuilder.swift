@@ -2,14 +2,14 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
 
-class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilder {
+public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilder {
     private let urlPattern: String
     private let httpMethod: HttpMethod?
     private let grayBoxLegacyNetworkStubbingNetworkStubRepository: GrayBoxLegacyNetworkStubbingNetworkStubRepository
     private let testFailureRecorder: TestFailureRecorder
     private let spinner: Spinner
     
-    init(
+    public init(
         urlPattern: String,
         httpMethod: HttpMethod?,
         grayBoxLegacyNetworkStubbingNetworkStubRepository: GrayBoxLegacyNetworkStubbingNetworkStubRepository,
@@ -23,7 +23,7 @@ class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilder {
         self.spinner = spinner
     }
     
-    func withResponse(
+    public func withResponse(
         value: StubResponseBuilderResponseValue,
         headers: [String: String],
         statusCode: Int,

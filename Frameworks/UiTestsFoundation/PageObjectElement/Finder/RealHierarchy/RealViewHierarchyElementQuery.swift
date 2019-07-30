@@ -51,7 +51,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     }
     
     private func viewHierarchy()
-        -> DataResult<ViewHierarchy, IpcClientError>
+        -> DataResult<ViewHierarchy, Error>
     {
         return ipcClient.call(
             method: ViewHierarchyIpcMethod()
@@ -59,7 +59,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     }
     
     private func reportIpcFailedWhileGettingHierarchy(
-        error: IpcClientError)
+        error: Error)
         -> StepLoggerResultWrapper<ResolvedElementQuery>
     {
         // TODO: better FileLine (should point to invocation in test)

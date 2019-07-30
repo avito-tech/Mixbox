@@ -96,13 +96,6 @@
 		F8252DCC2279DD0F003190D0 /* PageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23A220A0E040089C1EE /* PageObjects.swift */; };
 		F8252DCD2279DD10003190D0 /* TouchesTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB82279DAEF003190D0 /* TouchesTestsViewPageObject.swift */; };
 		F826711B22E7622E00B0B02A /* LegacyNetworkStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A7530F2260E13D00396A89 /* LegacyNetworkStubbingTests.swift */; };
-		F826711E22E784C600B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826711D22E784C600B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStub.swift */; };
-		F826712022E784D700B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826711F22E784D700B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass.swift */; };
-		F826712222E784E900B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826712122E784E900B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance.swift */; };
-		F826712422E7850300B0B02A /* GrayBoxLegacyNetworkStubbingStubResponseBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826712322E7850300B0B02A /* GrayBoxLegacyNetworkStubbingStubResponseBuilder.swift */; };
-		F826712622E7851D00B0B02A /* GrayBoxLegacyNetworkStubbing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826712522E7851D00B0B02A /* GrayBoxLegacyNetworkStubbing.swift */; };
-		F826712822E7852C00B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStubRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826712722E7852C00B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStubRepository.swift */; };
-		F826712A22E7853900B0B02A /* GrayBoxLegacyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826712922E7853900B0B02A /* GrayBoxLegacyNetworking.swift */; };
 		F8274A432142DA7A00A72C41 /* AssertingCustomValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A422142DA7A00A72C41 /* AssertingCustomValuesTests.swift */; };
 		F8274A462142DBE000A72C41 /* AssertingCustomValuesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A452142DBE000A72C41 /* AssertingCustomValuesTestsView.swift */; };
 		F8274A492143110D00A72C41 /* FailureGatherer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A482143110D00A72C41 /* FailureGatherer.swift */; };
@@ -546,13 +539,6 @@
 		F8252DB32279D9EB003190D0 /* TouchesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchesTests.swift; sourceTree = "<group>"; };
 		F8252DB82279DAEF003190D0 /* TouchesTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchesTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8252DBA2279DBD8003190D0 /* BaseTouchesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTouchesTestCase.swift; sourceTree = "<group>"; };
-		F826711D22E784C600B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxLegacyNetworkStubbingNetworkStub.swift; sourceTree = "<group>"; };
-		F826711F22E784D700B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass.swift; sourceTree = "<group>"; };
-		F826712122E784E900B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance.swift; sourceTree = "<group>"; };
-		F826712322E7850300B0B02A /* GrayBoxLegacyNetworkStubbingStubResponseBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxLegacyNetworkStubbingStubResponseBuilder.swift; sourceTree = "<group>"; };
-		F826712522E7851D00B0B02A /* GrayBoxLegacyNetworkStubbing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxLegacyNetworkStubbing.swift; sourceTree = "<group>"; };
-		F826712722E7852C00B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStubRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxLegacyNetworkStubbingNetworkStubRepository.swift; sourceTree = "<group>"; };
-		F826712922E7853900B0B02A /* GrayBoxLegacyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayBoxLegacyNetworking.swift; sourceTree = "<group>"; };
 		F8274A422142DA7A00A72C41 /* AssertingCustomValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertingCustomValuesTests.swift; sourceTree = "<group>"; };
 		F8274A452142DBE000A72C41 /* AssertingCustomValuesTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertingCustomValuesTestsView.swift; sourceTree = "<group>"; };
 		F8274A482143110D00A72C41 /* FailureGatherer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureGatherer.swift; sourceTree = "<group>"; };
@@ -1223,20 +1209,6 @@
 				F8252DBA2279DBD8003190D0 /* BaseTouchesTestCase.swift */,
 			);
 			path = Touches;
-			sourceTree = "<group>";
-		};
-		F826711C22E784B600B0B02A /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				F826711D22E784C600B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStub.swift */,
-				F826711F22E784D700B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass.swift */,
-				F826712122E784E900B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance.swift */,
-				F826712322E7850300B0B02A /* GrayBoxLegacyNetworkStubbingStubResponseBuilder.swift */,
-				F826712522E7851D00B0B02A /* GrayBoxLegacyNetworkStubbing.swift */,
-				F826712722E7852C00B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStubRepository.swift */,
-				F826712922E7853900B0B02A /* GrayBoxLegacyNetworking.swift */,
-			);
-			path = Test;
 			sourceTree = "<group>";
 		};
 		F8274A442142DA8000A72C41 /* AssertingCustomValuesTests */ = {
@@ -1936,7 +1908,6 @@
 		F8B0A232220A0E040089C1EE /* TestCase */ = {
 			isa = PBXGroup;
 			children = (
-				F826711C22E784B600B0B02A /* Test */,
 				F8B0A233220A0E040089C1EE /* TestCase.swift */,
 				F8B0A234220A0E040089C1EE /* TestCaseUtils.swift */,
 			);
@@ -3412,8 +3383,6 @@
 				F8A837C42270EE9800145140 /* OpenableScreen.swift in Sources */,
 				F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
-				F826712022E784D700B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass.swift in Sources */,
-				F826712222E784E900B0B02A /* GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance.swift in Sources */,
 				F8C8ED172298505D0009B9A7 /* MicrophoneApplicationPermissionTests.swift in Sources */,
 				F879831F22492D44004DD770 /* RecodableStepLogger.swift in Sources */,
 				F8A837A62270D40B00145140 /* BasePageObject.swift in Sources */,
@@ -3427,7 +3396,6 @@
 				F8A83E8C2272223700145140 /* ActionSpecification.swift in Sources */,
 				F8A8382A227215C300145140 /* AssertTextMatchesInteractionTests.swift in Sources */,
 				F8B0A25A220A0EF30089C1EE /* TestReportFailure.swift in Sources */,
-				F826712622E7851D00B0B02A /* GrayBoxLegacyNetworkStubbing.swift in Sources */,
 				F8A83E8A2272223700145140 /* CanTapMovingElementTests.swift in Sources */,
 				F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */,
 				F8B0A25F220A0EF30089C1EE /* AllureReportingSystem.swift in Sources */,
@@ -3465,7 +3433,6 @@
 				F8C8ED102298505D0009B9A7 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */,
 				F8A83E7F2272223700145140 /* AssertingCustomValuesTests.swift in Sources */,
 				F8B340F0224D3FD700AA1EB9 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
-				F826712422E7850300B0B02A /* GrayBoxLegacyNetworkStubbingStubResponseBuilder.swift in Sources */,
 				F8C8ED3C22985B060009B9A7 /* TemporaryDirectoryPathProviderImpl.swift in Sources */,
 				F8DB35A122738C9B00EE0FB8 /* BaseActionTestCase+SetViews.swift in Sources */,
 				F8A837C22270ED8E00145140 /* GrayScreenshotTakerTests.swift in Sources */,
@@ -3474,7 +3441,6 @@
 				F8A83828227215C300145140 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */,
 				F8B964AD2280A1070054CE08 /* SwipeActionWaitsTests.swift in Sources */,
 				F8B0A257220A0EF30089C1EE /* TestReportAttachment.swift in Sources */,
-				F826712822E7852C00B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStubRepository.swift in Sources */,
 				F8C8ED142298505D0009B9A7 /* ScrollingTests.swift in Sources */,
 				F8A83E812272223700145140 /* RunningActionsInRandomOrderTests.swift in Sources */,
 				F8C8ED3E22985B060009B9A7 /* FileSystemImpl.swift in Sources */,
@@ -3482,7 +3448,6 @@
 				F8A837A82270D40B00145140 /* BasePageObjects.swift in Sources */,
 				F8A83E862272223700145140 /* SetTestActionSetsTextProperlyTests.swift in Sources */,
 				F8A83823227215C300145140 /* AssertHasAccessibilityValueInteractionTests.swift in Sources */,
-				F826712A22E7853900B0B02A /* GrayBoxLegacyNetworking.swift in Sources */,
 				F8A83E892272223700145140 /* PressActionTests.swift in Sources */,
 				F8DB34D9227223B000EE0FB8 /* UIImage+WithColorAndSize.swift in Sources */,
 				F8252DB62279DA03003190D0 /* TouchesTests.swift in Sources */,
@@ -3535,7 +3500,6 @@
 				F8A83824227215C300145140 /* AssertIsNotDisplayedInteractionTests.swift in Sources */,
 				F8A8382C227215C300145140 /* IsDisplayedInteractionTests.swift in Sources */,
 				F8B0A25B220A0EF30089C1EE /* AsyncReportingSystem.swift in Sources */,
-				F826711E22E784C600B0B02A /* GrayBoxLegacyNetworkStubbingNetworkStub.swift in Sources */,
 				F8C8ED1A2298505D0009B9A7 /* CameraApplicationPermissionSpecification.swift in Sources */,
 				F8C8ED192298505D0009B9A7 /* CameraApplicationPermissionTests.swift in Sources */,
 			);

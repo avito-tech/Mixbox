@@ -22,7 +22,7 @@ public final class BuiltinIpcClient: IpcClient {
     public func call<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,
-        completion: @escaping (DataResult<Method.ReturnValue, IpcClientError>) -> ())
+        completion: @escaping (DataResult<Method.ReturnValue, Error>) -> ())
     {
         let container = RequestContainer(method: method.name, value: arguments)
         
@@ -42,7 +42,7 @@ public final class BuiltinIpcClient: IpcClient {
     private func call<ReturnValue: Codable>(
         method: String,
         data: Data,
-        completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ())
+        completion: @escaping (DataResult<ReturnValue, Error>) -> ())
     {
         guard let url = URL(string: "http://\(host):\(port)/\(Routes.ipcMethod)") else {
             completion(.error(ErrorString("URL(string:) failed"))) // TODO: Better error
@@ -69,7 +69,7 @@ public final class BuiltinIpcClient: IpcClient {
         data: Data?,
         urlResponse: URLResponse?,
         error: Error?,
-        completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ())
+        completion: @escaping (DataResult<ReturnValue, Error>) -> ())
     {
         guard let data = data else {
             completion(.error(ErrorString("data == nil"))) // TODO: Better error

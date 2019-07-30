@@ -100,7 +100,7 @@ public final class IpcBridgedUrlProtocolClient: BridgedUrlProtocolClient, IpcObj
         arguments: Method.Arguments)
         throws
     {
-        let result: DataResult<Method.ReturnValue, IpcClientError> = ipcClient.call(
+        let result: DataResult<Method.ReturnValue, Error> = ipcClient.call(
             method: method,
             arguments: arguments
         )

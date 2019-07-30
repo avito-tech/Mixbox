@@ -3,7 +3,7 @@ import MixboxIpcCommon
 import MixboxFoundation
 import MixboxReporting
 
-class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
+public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
     BridgedUrlProtocolClass,
     GrayBoxLegacyNetworkStubbingNetworkStubRepository
 {
@@ -13,7 +13,7 @@ class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
     private var stubs = [GrayBoxLegacyNetworkStubbingNetworkStub]()
     private var addedStub: AddedUrlProtocolStub?
     
-    init(
+    public init(
         urlProtocolStubAdder: UrlProtocolStubAdder,
         testFailureRecorder: TestFailureRecorder)
     {
@@ -23,19 +23,19 @@ class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
     
     // MARK: - BridgedUrlProtocolClass
     
-    func canInit(with request: BridgedUrlRequest) throws -> Bool {
+    public func canInit(with request: BridgedUrlRequest) throws -> Bool {
         return try matchingStub(request: request) != nil
     }
     
-    func canonicalRequest(for request: BridgedUrlRequest) throws -> BridgedUrlRequest {
+    public func canonicalRequest(for request: BridgedUrlRequest) throws -> BridgedUrlRequest {
         return request
     }
     
-    func requestIsCacheEquivalent(_ a: BridgedUrlRequest, to b: BridgedUrlRequest) throws -> Bool {
+    public func requestIsCacheEquivalent(_ a: BridgedUrlRequest, to b: BridgedUrlRequest) throws -> Bool {
         return false
     }
     
-    func createInstance(
+    public func createInstance(
         request: BridgedUrlRequest,
         cachedResponse: BridgedCachedUrlResponse?,
         client: BridgedUrlProtocolClient & IpcObjectIdentifiable)
@@ -73,7 +73,7 @@ class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
     
     // MARK: - GrayBoxLegacyNetworkStubbingNetworkStubRepository
     
-    func add(stub: GrayBoxLegacyNetworkStubbingNetworkStub) {
+    public func add(stub: GrayBoxLegacyNetworkStubbingNetworkStub) {
         do {
             if stubs.isEmpty {
                 addedStub = try urlProtocolStubAdder.addStub(bridgedUrlProtocolClass: self)
@@ -89,9 +89,8 @@ class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
         }
     }
     
-    func removeAllStubs() {
+    public func removeAllStubs() {
         stubs.removeAll()
         addedStub?.remove()
     }
-    
 }

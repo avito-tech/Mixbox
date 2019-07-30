@@ -2,13 +2,13 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
 
-final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
+public final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
     private let testFailureRecorder: TestFailureRecorder
     private let spinner: Spinner
     
     private let bridgedUrlProtocolClass: GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass
     
-    init(
+    public init(
         urlProtocolStubAdder: UrlProtocolStubAdder,
         testFailureRecorder: TestFailureRecorder,
         spinner: Spinner)
@@ -21,7 +21,7 @@ final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
         self.spinner = spinner
     }
     
-    func withRequestStub(
+    public func withRequestStub(
         urlPattern: String,
         httpMethod: HttpMethod?)
         -> StubResponseBuilder
@@ -35,7 +35,7 @@ final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
         )
     }
     
-    func removeAllStubs() {
+    public func removeAllStubs() {
         bridgedUrlProtocolClass.removeAllStubs()
     }
 }

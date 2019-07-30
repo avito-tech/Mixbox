@@ -7,9 +7,9 @@ extension IpcClient {
     public func call<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments)
-        -> DataResult<Method.ReturnValue, IpcClientError>
+        -> DataResult<Method.ReturnValue, Error>
     {
-        var result: DataResult<Method.ReturnValue, IpcClientError>?
+        var result: DataResult<Method.ReturnValue, Error>?
         
         call(method: method, arguments: arguments) { localResult in
             result = localResult
@@ -30,7 +30,7 @@ extension IpcClient {
     // Synchronous version for methods without arguments
     public func call<Method: IpcMethod>(
         method: Method)
-        -> DataResult<Method.ReturnValue, IpcClientError>
+        -> DataResult<Method.ReturnValue, Error>
         where Method.Arguments == IpcVoid
     {
         return call(method: method, arguments: IpcVoid())

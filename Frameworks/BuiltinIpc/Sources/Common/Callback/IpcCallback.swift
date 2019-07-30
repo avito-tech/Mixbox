@@ -5,7 +5,7 @@ public typealias AsyncFunction<Arguments, ReturnValue> = (Arguments, @escaping (
 public typealias SyncFunction<Arguments, ReturnValue> = (Arguments) -> ReturnValue
 
 public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codable {
-    private let closure: AsyncFunction<Arguments, DataResult<ReturnValue, IpcClientError>>
+    private let closure: AsyncFunction<Arguments, DataResult<ReturnValue, Error>>
     
     public static func async(_ closure: @escaping AsyncFunction<Arguments, ReturnValue>) -> IpcCallback {
         return IpcCallback { args, completion in
@@ -21,11 +21,11 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
         }
     }
     
-    public init(_ closure: @escaping AsyncFunction<Arguments, DataResult<ReturnValue, IpcClientError>>) {
+    public init(_ closure: @escaping AsyncFunction<Arguments, DataResult<ReturnValue, Error>>) {
         self.closure = closure
     }
     
-    public func call(arguments: Arguments, completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ()) {
+    public func call(arguments: Arguments, completion: @escaping (DataResult<ReturnValue, Error>) -> ()) {
         closure(arguments, completion)
     }
     
@@ -61,7 +61,7 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
                 return completion(nil)
             }
             
-            closure(deserialized) { (result: DataResult<ReturnValue, IpcClientError>) in
+            closure(deserialized) { (result: DataResult<ReturnValue, Error>) in
                 if let data = result.data {
                     completion(GenericSerialization.serialize(value: data, encoder: encoderFactory.encoder()))
                 } else {
@@ -93,7 +93,7 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
             throw ErrorString("decoder.userInfo[decoderFactoryKey] is not DecoderFactory")
         }
         
-        self.closure = { (args: Arguments, completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ()) in
+        self.closure = { (args: Arguments, completion: @escaping (DataResult<ReturnValue, Error>) -> ()) in
             guard let serializedArgs = GenericSerialization.serialize(value: args, encoder: encoderFactory.encoder()) else {
                 return completion(.error(ErrorString("GenericSerialization.serialize failed on \(args)"))) // TODO: Better error
             }
@@ -106,7 +106,7 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
                 callbackId: callbackId,
                 callbackArguments: serializedArgs
             )
-            let completion: (DataResult<String?, IpcClientError>) -> () = { (result: DataResult<String?, IpcClientError>) -> () in
+            let completion: (DataResult<String?, Error>) -> () = { (result: DataResult<String?, Error>) -> () in
                 switch result {
                 case .data(let string):
                     guard let string = string, let deserialized: ReturnValue = GenericSerialization.deserialize(string: string, decoder: decoderFactory.decoder()) else {
@@ -131,9 +131,9 @@ public extension IpcCallback {
     // Synchronous version
     func call(
         arguments: Arguments)
-        -> DataResult<ReturnValue, IpcClientError>
+        -> DataResult<ReturnValue, Error>
     {
-        var result: DataResult<ReturnValue, IpcClientError>?
+        var result: DataResult<ReturnValue, Error>?
         
         call(arguments: arguments) { localResult in
             result = localResult
@@ -150,7 +150,7 @@ public extension IpcCallback {
 
 public extension IpcCallback where Arguments == IpcVoid {
     // Synchronous version for methods without arguments
-    func call() -> DataResult<ReturnValue, IpcClientError> {
+    func call() -> DataResult<ReturnValue, Error> {
         return call(arguments: IpcVoid())
     }
 }
@@ -158,7 +158,7 @@ public extension IpcCallback where Arguments == IpcVoid {
 public extension IpcCallback where Arguments == IpcVoid {
     // Asynchronous version for methods without arguments
     func call(
-        completion: @escaping (DataResult<ReturnValue, IpcClientError>) -> ())
+        completion: @escaping (DataResult<ReturnValue, Error>) -> ())
     {
         call(arguments: IpcVoid(), completion: completion)
     }

@@ -1,17 +1,17 @@
 import MixboxUiTestsFoundation
 import MixboxIpcCommon
 
-class GrayBoxLegacyNetworkStubbingNetworkStub {
-    let urlPattern: String
-    let httpMethod: HttpMethod?
-    let value: StubResponseBuilderResponseValue
-    let headers: [String: String]
-    let statusCode: Int
-    let responseTime: TimeInterval
+public class GrayBoxLegacyNetworkStubbingNetworkStub {
+    public let urlPattern: String
+    public let httpMethod: HttpMethod?
+    public let value: StubResponseBuilderResponseValue
+    public let headers: [String: String]
+    public let statusCode: Int
+    public let responseTime: TimeInterval
     
-    let urlRegex: NSRegularExpression
+    public let urlRegex: NSRegularExpression
     
-    init(
+    public init(
         urlPattern: String,
         httpMethod: HttpMethod?,
         value: StubResponseBuilderResponseValue,
@@ -33,7 +33,7 @@ class GrayBoxLegacyNetworkStubbingNetworkStub {
         )
     }
     
-    func matches(request: BridgedUrlRequest) -> Bool {
+    public func matches(request: BridgedUrlRequest) -> Bool {
         return urlMatches(request: request)
             && httpMethodMatches(request: request)
     }
