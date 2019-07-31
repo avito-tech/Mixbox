@@ -107,7 +107,7 @@ final class XcuiElementSnapshot: ElementSnapshot {
     }
     
     private var additionalAttributes: [NSObject: Any]  {
-        return xcElementSnapshot.additionalAttributes as [NSObject: Any]
+        return (xcElementSnapshot.additionalAttributes as [NSObject: Any]?) ?? [:]
     }
     
     // MARK: -
