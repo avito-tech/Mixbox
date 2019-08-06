@@ -3,19 +3,27 @@
 import Foundation
 import MixboxIpc
 import MixboxIpcCommon
+import MixboxFoundation
 
 final class PushNotificationIpcMethodHandler: IpcMethodHandler {
     let method = PushNotificationIpcMethod()
     
-    func handle(arguments: String, completion: @escaping (IpcMethodCallingResult) -> ()) {
-        
+    func handle(
+        arguments: PushNotificationIpcMethod.Arguments,
+        completion: @escaping (PushNotificationIpcMethod.ReturnValue) -> ())
+    {
         guard
             let data = arguments.data(using: .utf8),
             let anyNotification = try? JSONSerialization.jsonObject(with: data),
             let notification = anyNotification as? [AnyHashable: Any]
-            else {
-                completion(.failure("Не удалось получить уведомление из полученой строки"))
-                return
+            else
+        {
+            completion(
+                IpcThrowingFunctionResult.threw(
+                    ErrorString("Не удалось получить уведомление из полученой строки")
+                )
+            )
+            return
         }
         
         DispatchQueue.main.async {
@@ -24,7 +32,7 @@ final class PushNotificationIpcMethodHandler: IpcMethodHandler {
                 didReceiveRemoteNotification: notification
             )
             
-            completion(.success)
+            completion(IpcThrowingFunctionResult.returned(IpcVoid()))
         }
     }
 }
