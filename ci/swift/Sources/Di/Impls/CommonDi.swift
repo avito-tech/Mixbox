@@ -12,6 +12,9 @@ import Brew
 
 open class CommonDi: BaseDi {
     override open func registerAll(container: DependencyContainer) {
+        container.register(type: RepoRootProvider.self) {
+            RepoRootProviderImpl()
+        }
         container.register(type: BashExecutor.self) {
             ProcessExecutorBashExecutor(
                 processExecutor: try container.resolve(),

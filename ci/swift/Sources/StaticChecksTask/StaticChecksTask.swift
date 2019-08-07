@@ -9,11 +9,15 @@ import SingletonHell
 public final class StaticChecksTask: LocalTask {
     public let name = "StaticChecksTask"
     
-    public init() {
+    private let swiftLint: SwiftLint
+    
+    public init(swiftLint: SwiftLint) {
+        self.swiftLint = swiftLint
     }
     
     public func execute() throws {
-        // TODO: SwiftLint
+        try swiftLint.lint()
+        
         // TODO: Check that no testing code leaks to production (if it is accidentally linked in release build)
         //       For list of frameworks that are linked in app see: Tests/Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig
         //       Snapshot:
