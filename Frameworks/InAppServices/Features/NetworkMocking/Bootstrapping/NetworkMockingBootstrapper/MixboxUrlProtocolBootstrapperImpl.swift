@@ -73,7 +73,7 @@ fileprivate extension URLSessionConfiguration {
         }
         
         if shouldInsertClass {
-            // Inserting at the beginning is important
+            // Inserting at the beginning is important, because it will override default URLProtocol
             self.protocolClasses = [MixboxUrlProtocol.self] + protocolClasses
         }
         
