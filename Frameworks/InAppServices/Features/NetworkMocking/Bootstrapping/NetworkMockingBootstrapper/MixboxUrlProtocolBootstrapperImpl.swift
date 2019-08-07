@@ -66,7 +66,17 @@ fileprivate extension URLSessionConfiguration {
     }
     
     private func byAddingMixboxUrlProtocol() -> URLSessionConfiguration {
-        self.protocolClasses = (self.protocolClasses ?? []) + [MixboxUrlProtocol.self]
+        let protocolClasses = self.protocolClasses ?? []
+        
+        let shouldInsertClass = !protocolClasses.contains { protocolClass in
+            protocolClass === MixboxUrlProtocol.self
+        }
+        
+        if shouldInsertClass {
+            // Inserting at the beginning is important
+            self.protocolClasses = [MixboxUrlProtocol.self] + protocolClasses
+        }
+        
         return self
     }
 }
