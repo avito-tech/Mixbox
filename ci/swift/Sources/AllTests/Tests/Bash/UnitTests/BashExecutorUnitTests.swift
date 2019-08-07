@@ -29,23 +29,27 @@ final class BashExecutorUnitTests: XCTestCase {
         !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
         """
         
-        let result = try! bashExecutor.execute(
-            command: command,
-            currentDirectory: "a",
-            environment: .custom(["b": "c"])
-        )
-        
-        // Then
-        
-        guard let call = processExecutor.calls.first else { return XCTFail("No calls") }
-        
-        XCTAssertEqual(call.executable, "/bin/bash")
-        XCTAssertEqual(call.arguments, ["-l", "-c", command])
-        XCTAssertEqual(call.currentDirectory, "a")
-        XCTAssertEqual(call.environment, ["b": "c"])
-        XCTAssertEqual(result.code, 33)
-        XCTAssertEqual(result.stdout.data, stdout)
-        XCTAssertEqual(result.stderr.data, stderr)
+        do {
+            let result = try bashExecutor.execute(
+                command: command,
+                currentDirectory: "a",
+                environment: .custom(["b": "c"])
+            )
+            
+            // Then
+            
+            guard let call = processExecutor.calls.first else { return XCTFail("No calls") }
+            
+            XCTAssertEqual(call.executable, "/bin/bash")
+            XCTAssertEqual(call.arguments, ["-l", "-c", command])
+            XCTAssertEqual(call.currentDirectory, "a")
+            XCTAssertEqual(call.environment, ["b": "c"])
+            XCTAssertEqual(result.code, 33)
+            XCTAssertEqual(result.stdout.data, stdout)
+            XCTAssertEqual(result.stderr.data, stderr)
+        } catch {
+            XCTFail("\(error)")
+        }
     }
     
     func test___execute___uses_environmentProvider___if_envitonment_is_current() {
@@ -62,11 +66,15 @@ final class BashExecutorUnitTests: XCTestCase {
         
         // When
         
-        _ = try! bashExecutor.execute(
-            command: anyString(),
-            currentDirectory: anyString(),
-            environment: .current
-        )
+        do {
+            _ = try bashExecutor.execute(
+                command: anyString(),
+                currentDirectory: anyString(),
+                environment: .current
+            )
+        } catch {
+            XCTFail("\(error)")
+        }
         
         // Then
         

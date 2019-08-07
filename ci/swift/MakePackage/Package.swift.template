@@ -1,5 +1,5 @@
 // swift-tools-version:4.2
-// swiftlint:disable closure_spacing
+// swiftlint:disable trailing_comma
 
 import PackageDescription
 
@@ -34,3 +34,4 @@ let package = Package(
         .v4_2
     ]
 )
+

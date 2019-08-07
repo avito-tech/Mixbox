@@ -10,9 +10,6 @@ excluded:
 
   # Code generated
   - 'Tests/UnitTests/Mocks'
-  
-  # CI (TODO: enable Swiftlint)
-  - 'ci/swift'
 
 disabled_rules:
   - line_length # "ignores_interpolated_strings" doesn't work for multiline literals.

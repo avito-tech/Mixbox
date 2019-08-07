@@ -14,10 +14,10 @@ public final class RemoteFiles {
         let basename = (file as NSString).lastPathComponent
         let components = basename.components(separatedBy: ".")
         
-        guard components.count > 1 else {
+        guard let `extension` = components.last else {
             throw ErrorString("upload_hashed_zipped_for_emcee requires file to have an extension. file: \(file)")
         }
-        let `extension` = components.last!
+        
         let filename = components.dropLast().joined(separator: ".")
         
         let sum = try checksum(file: file)
