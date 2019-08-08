@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
 import MixboxReporting
@@ -9,16 +10,19 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
 {
     private let urlProtocolStubAdder: UrlProtocolStubAdder
     private let testFailureRecorder: TestFailureRecorder
+    private let bundleResourcePathProvider: BundleResourcePathProvider
     
     private var stubs = [GrayBoxLegacyNetworkStubbingNetworkStub]()
     private var addedStub: AddedUrlProtocolStub?
     
     public init(
         urlProtocolStubAdder: UrlProtocolStubAdder,
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        bundleResourcePathProvider: BundleResourcePathProvider)
     {
         self.urlProtocolStubAdder = urlProtocolStubAdder
         self.testFailureRecorder = testFailureRecorder
+        self.bundleResourcePathProvider = bundleResourcePathProvider
     }
     
     // MARK: - BridgedUrlProtocolClass
@@ -57,7 +61,8 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
             request: request,
             cachedResponse: cachedResponse,
             client: client,
-            stub: stub
+            stub: stub,
+            bundleResourcePathProvider: bundleResourcePathProvider
         )
     }
     

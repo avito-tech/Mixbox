@@ -125,7 +125,8 @@ final class TestCaseUtils: IpcRouterProvider {
         let legacyNetworking = GrayBoxLegacyNetworking(
             urlProtocolStubAdder: urlProtocolStubAdder,
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
-            spinner: baseUiTestCaseUtils.spinner
+            spinner: baseUiTestCaseUtils.spinner,
+            bundleResourcePathProvider: baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget
         )
         
         self.legacyNetworking = legacyNetworking

@@ -11,14 +11,17 @@ public final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
     public init(
         urlProtocolStubAdder: UrlProtocolStubAdder,
         testFailureRecorder: TestFailureRecorder,
-        spinner: Spinner)
+        spinner: Spinner,
+        bundleResourcePathProvider: BundleResourcePathProvider)
     {
-        self.bridgedUrlProtocolClass = GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass(
-            urlProtocolStubAdder: urlProtocolStubAdder,
-            testFailureRecorder: testFailureRecorder
-        )
         self.testFailureRecorder = testFailureRecorder
         self.spinner = spinner
+        
+        self.bridgedUrlProtocolClass = GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass(
+            urlProtocolStubAdder: urlProtocolStubAdder,
+            testFailureRecorder: testFailureRecorder,
+            bundleResourcePathProvider: bundleResourcePathProvider
+        )
     }
     
     public func withRequestStub(

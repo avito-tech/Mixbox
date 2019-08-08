@@ -13,12 +13,14 @@ public final class GrayBoxLegacyNetworking: LegacyNetworking {
     public init(
         urlProtocolStubAdder: UrlProtocolStubAdder,
         testFailureRecorder: TestFailureRecorder,
-        spinner: Spinner)
+        spinner: Spinner,
+        bundleResourcePathProvider: BundleResourcePathProvider)
     {
         self.stubbing = GrayBoxLegacyNetworkStubbing(
             urlProtocolStubAdder: urlProtocolStubAdder,
             testFailureRecorder: testFailureRecorder,
-            spinner: spinner
+            spinner: spinner,
+            bundleResourcePathProvider: bundleResourcePathProvider
         )
     }
 }

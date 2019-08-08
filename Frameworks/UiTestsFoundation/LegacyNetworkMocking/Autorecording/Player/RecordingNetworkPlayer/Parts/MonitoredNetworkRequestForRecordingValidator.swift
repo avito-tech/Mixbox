@@ -52,7 +52,7 @@ final class RecordedStubFromMonitoredNetworkRequestConverter {
     }
     
     private func payload(data: Data) -> RecordedStubResponseData {
-        if let json = (try? JSONSerialization.jsonObject(with: data, options: [])) as? [String: AnyCodable] {
+        if let json = try? JSONDecoder().decode([String: AnyCodable].self, from: data) {
             return .json(json)
         } else {
             return .data(data)
