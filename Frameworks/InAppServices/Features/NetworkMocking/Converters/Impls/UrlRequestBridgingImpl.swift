@@ -20,15 +20,6 @@ public final class UrlRequestBridgingImpl: UrlRequestBridging {
         throws
         -> BridgedUrlRequest
     {
-        guard urlRequest.httpBodyStream == nil else {
-            throw HttpBodyStreamIsNotSupportedError(
-                """
-                Failed to bridge URLRequest to BridgedUrlRequest: httpBodyStream is not nil, \
-                which is not supported at the moment.
-                """
-            )
-        }
-        
         return BridgedUrlRequest(
             url: urlRequest.url,
             cachePolicy: try urlRequestCachePolicyBridging.bridgedUrlRequestCachePolicy(

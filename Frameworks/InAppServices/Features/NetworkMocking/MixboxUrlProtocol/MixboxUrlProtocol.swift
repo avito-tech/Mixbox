@@ -56,13 +56,6 @@ public class MixboxUrlProtocol: URLProtocol {
             let bridgedUrlRequest = try dependencies.urlRequestBridging.bridgedUrlRequest(urlRequest: request)
             
             return try dependencies.bridgedUrlProtocolClass.canInit(with: bridgedUrlRequest)
-        } catch let error as HttpBodyStreamIsNotSupportedError {
-            // This fixes assertion failure in tests.
-            // TODO: Fix without a kludge.
-            // Options:
-            //  - Support httpBodyStream.
-            //  - Add better way to suppress this error.
-            return false
         } catch {
             recordFailure(
                 fallbackAction: "Returning `false`",
