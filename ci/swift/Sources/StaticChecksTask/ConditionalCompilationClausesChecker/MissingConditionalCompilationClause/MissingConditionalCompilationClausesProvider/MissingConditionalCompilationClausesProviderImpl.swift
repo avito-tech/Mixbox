@@ -4,13 +4,16 @@ import CiFoundation
 public final class MissingConditionalCompilationClausesProviderImpl: MissingConditionalCompilationClausesProvider {
     private let frameworksDirectoryProvider: FrameworksDirectoryProvider
     private let frameworkInfosProvider: FrameworkInfosProvider
+    private let ifClauseInfoByPathProvider: IfClauseInfoByPathProvider
     
     public init(
         frameworksDirectoryProvider: FrameworksDirectoryProvider,
-        frameworkInfosProvider: FrameworkInfosProvider)
+        frameworkInfosProvider: FrameworkInfosProvider,
+        ifClauseInfoByPathProvider: IfClauseInfoByPathProvider)
     {
         self.frameworksDirectoryProvider = frameworksDirectoryProvider
         self.frameworkInfosProvider = frameworkInfosProvider
+        self.ifClauseInfoByPathProvider = ifClauseInfoByPathProvider
     }
     
     public func missingConditionalCompilationClauses()
@@ -107,14 +110,7 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
     }
     
     private func expectedContentsByFileExtension(path: String) -> String? {
-        switch (path as NSString).pathExtension.lowercased() {
-        case "swift":
-            return "#if MIXBOX_ENABLE_IN_APP_SERVICES"
-        case "h", "m", "mm", "c", "cxx", "cpp", "c++", "cc", "hh", "hm", "hpp", "hxx":
-            return "#ifdef MIXBOX_ENABLE_IN_APP_SERVICES"
-        default:
-            return nil
-        }
+        return ifClauseInfoByPathProvider.ifClauseInfo(path: path)?.clauseOpening
     }
     
     private func enumerateFiles(

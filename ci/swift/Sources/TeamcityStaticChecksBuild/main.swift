@@ -2,7 +2,9 @@ import BuildDsl
 import StaticChecksTask
 
 BuildDsl.teamcity.main { di in
-    try StaticChecksTask(
+    let ifClauseInfoByPathProvider = IfClauseInfoByPathProviderImpl()
+    
+    return try StaticChecksTask(
         swiftLint: SwiftLintImpl(
             processExecutor: di.resolve(),
             repoRootProvider: di.resolve()
@@ -12,7 +14,11 @@ BuildDsl.teamcity.main { di in
                 frameworksDirectoryProvider: FrameworksDirectoryProviderImpl(
                     repoRootProvider: di.resolve()
                 ),
-                frameworkInfosProvider: FrameworkInfosProviderImpl()
+                frameworkInfosProvider: FrameworkInfosProviderImpl(),
+                ifClauseInfoByPathProvider: ifClauseInfoByPathProvider
+            ),
+            missingConditionalCompilationClausesAutocorrector: MissingConditionalCompilationClausesAutocorrectorImpl(
+                ifClauseInfoByPathProvider: ifClauseInfoByPathProvider
             )
         )
     )

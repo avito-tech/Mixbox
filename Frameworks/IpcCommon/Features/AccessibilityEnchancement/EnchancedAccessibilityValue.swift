@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 
 public final class EnhancedAccessibilityValue: Codable {
@@ -62,3 +64,5 @@ public final class EnhancedAccessibilityContainer: Codable {
         self.enhancedAccessibilityValue = enhancedAccessibilityValue
     }
 }
+
+#endif

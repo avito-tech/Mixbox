@@ -19,7 +19,8 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
                             needsIfs: true
                         )
                     ]
-                )
+                ),
+                ifClauseInfoByPathProvider: IfClauseInfoByPathProviderImpl()
             )
             
             let missingConditionalCompilationClauses = try missingConditionalCompilationClausesProvider
