@@ -7,9 +7,9 @@ inhibit_all_warnings!
 use_frameworks!
 
 target 'IpcDemo' do
-  pod 'MixboxFoundation', :path => '../../..', :inhibit_warnings => false
-  pod 'MixboxIpc', :path => '../../..', :inhibit_warnings => false
-  pod 'MixboxBuiltinIpc', :path => '../../..', :inhibit_warnings => false
+  pod 'MixboxFoundation', :path => '../..', :inhibit_warnings => false
+  pod 'MixboxIpc', :path => '../..', :inhibit_warnings => false
+  pod 'MixboxBuiltinIpc', :path => '../..', :inhibit_warnings => false
   pod 'GCDWebServer'
 end
 

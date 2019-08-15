@@ -17,7 +17,7 @@ public final class CheckIpcDemoTask: LocalTask {
         try Prepare.prepareForMacOsTesting()
         
         try BuildUtils.buildMacOs(
-            folder: "Frameworks/BuiltinIpc/OsxDemo",
+            folder: "Demos/OsxIpcDemo",
             action: "build",
             scheme: "IpcDemo",
             workspace: "IpcDemo"
