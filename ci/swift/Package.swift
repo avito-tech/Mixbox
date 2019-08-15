@@ -143,6 +143,7 @@ let package = Package(
                 "CiFoundation",
                 "Di",
                 "Simctl",
+                "StaticChecksTask",
             ]
         ),
         .target(

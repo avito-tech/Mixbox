@@ -41,10 +41,16 @@ public final class BuildDsl {
             
             let localTaskExecutor: LocalTaskExecutor = try di.resolve()
             
-            localTaskExecutor.execute(localTask: localTask)
+            execute(localTaskExecutor: localTaskExecutor, localTask: localTask)
         } catch {
             print("Caught error: \(error)")
             abort()
         }
+    }
+    
+    // Suppresses 'Will never be executed' warning, that is happening if Never-returning function
+    // is called inside do-catch block. Probably a bug in Swift.
+    private func execute(localTaskExecutor: LocalTaskExecutor, localTask: LocalTask) {
+        localTaskExecutor.execute(localTask: localTask)
     }
 }

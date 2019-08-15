@@ -6,6 +6,14 @@ BuildDsl.teamcity.main { di in
         swiftLint: SwiftLintImpl(
             processExecutor: di.resolve(),
             repoRootProvider: di.resolve()
+        ),
+        conditionalCompilationClausesChecker: ConditionalCompilationClausesCheckerImpl(
+            missingConditionalCompilationClausesProvider: MissingConditionalCompilationClausesProviderImpl(
+                frameworksDirectoryProvider: FrameworksDirectoryProviderImpl(
+                    repoRootProvider: di.resolve()
+                ),
+                frameworkInfosProvider: FrameworkInfosProviderImpl()
+            )
         )
     )
 }
