@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 
 // Finds services (uses Foundations's NetService type) via Bonjour.
@@ -145,3 +147,5 @@ public final class BonjourBrowser: NSObject, NetServiceBrowserDelegate {
         }
     }
 }
+
+#endif

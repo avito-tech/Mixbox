@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public class KeyboardEvent: Codable {
     public let usagePage: UInt16
     public let usage: UInt16
@@ -13,3 +15,5 @@ public class KeyboardEvent: Codable {
         self.down = down
     }
 }
+
+#endif

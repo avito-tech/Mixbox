@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class DecoderFactoryImpl: DecoderFactory {
     public let ipcClientHolder: IpcClientHolder
     public weak var encoderFactory: EncoderFactory?
@@ -28,3 +30,5 @@ public final class DecoderFactoryImpl: DecoderFactory {
         return decoder
     }
 }
+
+#endif

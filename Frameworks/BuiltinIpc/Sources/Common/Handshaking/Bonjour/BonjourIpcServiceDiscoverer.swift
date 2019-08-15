@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import MixboxFoundation
 
@@ -161,3 +163,5 @@ public final class BonjourIpcServiceDiscoverer {
             && service.type == Constants.bonjourServiceType
     }
 }
+
+#endif

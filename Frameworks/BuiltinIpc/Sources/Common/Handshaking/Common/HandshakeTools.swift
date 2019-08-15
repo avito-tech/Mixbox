@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import MixboxFoundation
 
@@ -111,3 +113,5 @@ final class HandshakeTools {
         server.register(methodHandler: callIpcCallbackIpcMethodHandler)
     }
 }
+
+#endif

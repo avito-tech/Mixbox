@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 
 public final class ViewHierarchy: Codable, CustomDebugStringConvertible {
@@ -17,3 +19,5 @@ public final class ViewHierarchy: Codable, CustomDebugStringConvertible {
             )
     }
 }
+
+#endif

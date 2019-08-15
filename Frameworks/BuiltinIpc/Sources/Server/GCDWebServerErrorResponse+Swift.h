@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #import <GCDWebServer/GCDWebServerErrorResponse.h>
 
 @interface GCDWebServerErrorResponse (Swift)
@@ -6,3 +8,5 @@
 - (instancetype)initWithServerError:(GCDWebServerServerErrorHTTPStatusCode)code text:(nonnull NSString *)text;
 
 @end
+
+#endif

@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 typedef NS_ENUM(NSUInteger, TestabilityElementType) {
     TestabilityElementType_Other = 0,
     TestabilityElementType_Application,
@@ -82,3 +84,12 @@ typedef NS_ENUM(NSUInteger, TestabilityElementType) {
     TestabilityElementType_TouchBar,
     TestabilityElementType_StatusItem
 };
+
+#else
+
+// Swift-to-Objective-C bridging doesn't support modification with #ifdef.
+// I don't know a way to define MIXBOX_ENABLE_IN_APP_SERVICES while bridging header is being made.
+
+typedef int TestabilityElementType;
+
+#endif

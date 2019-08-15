@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // TODO: Do not use UInt. There is no reason to match XCUIElementType.
 // It can produce errors if rawValue is used for conversion.
 // Note that `debugDescription` can be removed after removing UInt as enum type.
@@ -255,3 +257,5 @@ public enum ViewHierarchyElementType: UInt, Codable, CustomDebugStringConvertibl
         }
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 extension CGVector {
     public static func mb_init(start: CGPoint, end: CGPoint) -> CGVector {
         return self.init(
@@ -48,3 +50,5 @@ extension CGVector {
         return mb_scaled(scale: 1.0 / length)
     }
 }
+
+#endif

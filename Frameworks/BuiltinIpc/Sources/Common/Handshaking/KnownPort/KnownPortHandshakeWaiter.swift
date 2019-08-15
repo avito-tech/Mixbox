@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 // Usage:
@@ -29,3 +31,5 @@ public final class KnownPortHandshakeWaiter {
         return handshakeTools.waitForHandshake()
     }
 }
+
+#endif

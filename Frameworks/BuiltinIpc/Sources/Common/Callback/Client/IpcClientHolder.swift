@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 public protocol IpcClientHolder: class {
@@ -10,3 +12,5 @@ public final class IpcClientHolderImpl: IpcClientHolder {
     public init() {
     }
 }
+
+#endif

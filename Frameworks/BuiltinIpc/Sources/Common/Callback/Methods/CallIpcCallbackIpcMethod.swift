@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 public class CallIpcCallbackIpcMethod: IpcMethod {
@@ -17,3 +19,5 @@ public final class CallIpcCallbackIpcMethodArguments: Codable {
         self.callbackArguments = callbackArguments
     }
 }
+
+#endif

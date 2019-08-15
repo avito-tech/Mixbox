@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
 
 public extension CGSize {
@@ -195,3 +197,5 @@ public func /(left: CGSize, right: CGFloat) -> CGSize {
         height: left.height / right
     )
 }
+
+#endif

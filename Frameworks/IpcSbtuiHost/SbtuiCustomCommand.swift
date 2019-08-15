@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import MixboxFoundation
 import SBTUITestTunnel
@@ -65,3 +67,5 @@ final class SbtuiCustomCommand {
         return GenericSerialization.serialize(value: sbtuiResult).flatMap { $0 as NSObject }
     }
 }
+
+#endif

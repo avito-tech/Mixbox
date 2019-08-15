@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 public final class SimulateLocationIpcMethod: IpcMethod {
@@ -20,3 +22,5 @@ public final class SimulateLocationIpcMethod: IpcMethod {
     public init() {
     }
 }
+
+#endif

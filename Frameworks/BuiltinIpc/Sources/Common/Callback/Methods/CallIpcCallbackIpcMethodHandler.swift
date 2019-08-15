@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 public class CallIpcCallbackIpcMethodHandler: IpcMethodHandler {
@@ -18,3 +20,5 @@ public class CallIpcCallbackIpcMethodHandler: IpcMethodHandler {
         }
     }
 }
+
+#endif

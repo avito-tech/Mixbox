@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 #if !MIXBOX_ENABLE_IN_APP_SERVICES
 
 // To prevent this code to be inside your release version of app:
@@ -16,5 +18,7 @@ private class UserOfFunctionThatIsCreatedJustToProduceErrorAtLinking {
         functionThatIsCreatedJustToProduceErrorAtLinking()
     }
 }
+
+#endif
 
 #endif

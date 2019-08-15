@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 // Usage:
@@ -46,3 +48,5 @@ public final class KnownPortHandshakeSender {
         return (handshakeTools.server, client)
     }
 }
+
+#endif

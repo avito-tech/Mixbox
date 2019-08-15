@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Resolves address for NetService.
 //
 // For example, you acquire NetService via Bonjour, it might have port -1.
@@ -36,3 +38,5 @@ public final class NetServiceAddressResolver: NSObject, NetServiceDelegate {
         completion?(netService)
     }
 }
+
+#endif

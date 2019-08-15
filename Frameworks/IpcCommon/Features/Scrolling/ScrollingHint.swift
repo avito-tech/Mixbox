@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public enum ScrollingHint: Codable {
     // Positive case: should scroll using instructions
     case shouldScroll([DraggingInstruction])
@@ -68,3 +70,5 @@ public enum ScrollingHint: Codable {
         }
     }
 }
+
+#endif

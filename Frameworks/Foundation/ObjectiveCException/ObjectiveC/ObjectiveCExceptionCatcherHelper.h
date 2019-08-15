@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 @import Foundation;
@@ -21,5 +23,7 @@ void ObjectiveCExceptionCatcherHelper_try(NS_NOESCAPE void(^tryBlock)(),
 }
 
 NS_ASSUME_NONNULL_END
+
+#endif
 
 #endif

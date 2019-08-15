@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import Foundation
 
 public enum UIDeviceFamily {
@@ -155,3 +157,5 @@ extension UIDevice {
         }
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 import MixboxIpc
 
@@ -163,3 +165,5 @@ public extension IpcCallback where Arguments == IpcVoid {
         call(arguments: IpcVoid(), completion: completion)
     }
 }
+
+#endif

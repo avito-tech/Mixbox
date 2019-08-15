@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 extension CGPoint {
     public func mb_asVector() -> CGVector {
         return CGVector(dx: x, dy: y)
@@ -36,3 +38,5 @@ extension CGPoint {
         )
     }
 }
+
+#endif

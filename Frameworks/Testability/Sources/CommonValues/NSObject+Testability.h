@@ -1,3 +1,5 @@
+#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+
 @import UIKit;
 
 #import "TestabilityElementType.h"
@@ -54,3 +56,5 @@
 - (TestabilityElementType)testabilityValue_elementType;
 
 @end
+
+#endif

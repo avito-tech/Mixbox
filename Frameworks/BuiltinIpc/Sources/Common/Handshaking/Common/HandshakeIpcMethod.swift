@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 public final class HandshakeIpcMethod: IpcMethod {
@@ -7,3 +9,5 @@ public final class HandshakeIpcMethod: IpcMethod {
     public init() {
     }
 }
+
+#endif

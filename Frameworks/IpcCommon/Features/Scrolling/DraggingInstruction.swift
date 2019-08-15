@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Points are in coordinate space of window.
 public final class DraggingInstruction: Codable, Equatable {
     // Point of initial touch
@@ -41,3 +43,5 @@ public final class DraggingInstruction: Codable, Equatable {
             && left.elementUniqueIdentifier == right.elementUniqueIdentifier
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 
 final class HandshakeIpcMethodHandler: IpcMethodHandler {
@@ -10,3 +12,5 @@ final class HandshakeIpcMethodHandler: IpcMethodHandler {
         completion(true)
     }
 }
+
+#endif

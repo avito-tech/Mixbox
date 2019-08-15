@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpc
 import GCDWebServer
 
@@ -145,3 +147,5 @@ private func error(_ text: String, file: StaticString = #file, line: UInt = #lin
         text: "\(text) \(#file):\(#line)"
     )
 }
+
+#endif

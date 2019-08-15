@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
     public let frame: CGRect
     
@@ -136,3 +138,5 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
 //        return result
 //    }
 //}
+
+#endif

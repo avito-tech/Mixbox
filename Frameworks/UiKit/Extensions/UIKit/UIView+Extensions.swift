@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
 
 @objc public extension UIView {
@@ -61,3 +63,5 @@ import UIKit
         @inline(__always) set { mb_top = newValue - mb_height }
     }
 }
+
+#endif

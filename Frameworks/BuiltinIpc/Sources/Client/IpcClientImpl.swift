@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxFoundation
 import MixboxIpc
 
@@ -113,3 +115,5 @@ public final class BuiltinIpcClient: IpcClient {
         }
     }
 }
+
+#endif

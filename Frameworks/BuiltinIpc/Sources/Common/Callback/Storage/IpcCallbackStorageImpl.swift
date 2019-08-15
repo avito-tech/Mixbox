@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class IpcCallbackStorageImpl: IpcCallbackStorage {
     private var storage = [String: AsyncFunction<String, String?>]()
     
@@ -9,3 +11,5 @@ public final class IpcCallbackStorageImpl: IpcCallbackStorage {
         set { storage[key] = newValue }
     }
 }
+
+#endif

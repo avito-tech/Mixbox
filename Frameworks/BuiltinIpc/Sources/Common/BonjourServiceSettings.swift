@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class BonjourServiceSettings {
     // Bonjour service name.
     // Conventions: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/NetServices/Articles/domainnames.html#//apple_ref/doc/uid/TP40002460-SW1
@@ -7,3 +9,5 @@ public final class BonjourServiceSettings {
         self.name = name
     }
 }
+
+#endif

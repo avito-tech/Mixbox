@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // E.g.: For offsetting
 public func +(left: CGPoint, right: CGVector) -> CGPoint {
     return CGPoint(
@@ -98,3 +100,5 @@ public func /(left: CGVector, right: CGSize) -> CGVector {
         dy: left.dy / right.height
     )
 }
+
+#endif

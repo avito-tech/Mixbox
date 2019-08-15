@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class BonjourIpcService {
     public let host: String
     public let port: UInt
@@ -10,3 +12,5 @@ public final class BonjourIpcService {
         self.port = port
     }
 }
+
+#endif
