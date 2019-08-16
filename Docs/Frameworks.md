@@ -1,12 +1,14 @@
 # Frameworks
 
-Mixbox is designed to support multiple kinds of tests. Assume that you have an "Application" target and test targets ("White", "Grey", and "Black").
+Mixbox is designed to support multiple kinds of tests. Assume that you have an "Application" target and test targets ("White", "Gray", and "Black").
 
 Due to high amount of possible targets there are so many frameworks.
 
 (note that currently only "Black" is somehow usable)
 
 The way that frameworks are divided may be changed in future.
+
+The following picture is quite outdated, but the idea is same:
 
 ![Dependencies](Images/Dependencies.png)
 
@@ -18,7 +20,7 @@ White-box tests target (e.g. unit tests) may use this:
 
 Grey-box tests target may use this:
 
-* **EarlGreyDriver**: An implementaion of UI testing based on EarlGrey
+* **Gray**: An implementaion of UI testing when tests are executed within app's process.
 * **UiTestsFoundation**: Shared interfaces for UI testing and tools for UI testing. Shared interfaces allow to share also your code, e.g. your page objects.
 * **UiKit**: Same as Foundation, but requires UIKit
  No newline at end of file

@@ -147,6 +147,12 @@ public final class RatingStarsElement:
 }
 ```
 
+## Copypasted code
+
+This library includes some code copypasted from other libraries. Sometimes it is a single file, some times it is because we need conditional compilation built in in sources to prevent linking the code in release builds.
+
+- EarlGrey (every source file contains `EarlGrey` substring somewhere). [License is here (Apache)](Docs/EarlGreyLicense/LICENSE). It is visibility checker, setting up accessibility, etc.
+- [AnyCodable](Frameworks/AnyCodable). `#if` clauses were added.
 
 ## Other docs
 
