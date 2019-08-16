@@ -87,23 +87,30 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
                 postfix: "}"
             )
         
-        let hardcodedOptionalFields: [(key: String, value: String?)] = [
-            (key: "frame", value: frame.debugDescription),
-            (key: "frameRelativeToScreen", value: frameRelativeToScreen.debugDescription),
-            (key: "customClass", value: customClass),
-            (key: "elementType", value: elementType.debugDescription),
-            (key: "accessibilityIdentifier", value: accessibilityIdentifier),
-            (key: "accessibilityLabel", value: accessibilityLabel),
-            (key: "accessibilityValue", value: accessibilityValue),
-            (key: "accessibilityPlaceholderValue", value: accessibilityPlaceholderValue),
-            (key: "text", value: text),
-            (key: "uniqueIdentifier", value: uniqueIdentifier),
-            (key: "isDefinitelyHidden", value: isDefinitelyHidden.description),
-            (key: "isEnabled", value: isEnabled.description),
-            (key: "hasKeyboardFocus", value: hasKeyboardFocus.description)
-        ]
+        var fields = [(key: String, value: String?)]()
         
-        let hardcodedFields = hardcodedOptionalFields.compactMap { (key: String, value: String?) -> (key: String, value: String)? in
+        let customFields: [(key: String, value: String?)] = customValues.map { (key: String, value: String) in
+            (key: "customValue[\(key)]", value: value)
+        }
+        
+        fields.append((key: "axId", value: accessibilityIdentifier))
+        fields.append((key: "text", value: text))
+        fields.append((key: "class", value: customClass))
+        
+        fields.append(contentsOf: customFields)
+        
+        fields.append((key: "axLabel", value: accessibilityLabel))
+        fields.append((key: "axValue", value: accessibilityValue))
+        fields.append((key: "type", value: elementType.debugDescription))
+        fields.append((key: "frameOnScreen", value: frameRelativeToScreen.debugDescription))
+        fields.append((key: "frame", value: frame.debugDescription))
+        fields.append((key: "axPlaceholderValue", value: accessibilityPlaceholderValue))
+        fields.append((key: "isDefinitelyHidden", value: isDefinitelyHidden.description))
+        fields.append((key: "isEnabled", value: isEnabled.description))
+        fields.append((key: "hasKeyboardFocus", value: hasKeyboardFocus.description))
+        fields.append((key: "uniqueIdentifier", value: uniqueIdentifier))
+        
+        let fieldsWithValues = fields.compactMap { (key: String, value: String?) -> (key: String, value: String)? in
             if let value = value {
                 return (key: key, value: value)
             } else {
@@ -111,12 +118,8 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
             }
         }
         
-        let customFields = customValues.map { (key: String, value: String) in
-            (key: "customValue[\(key)]", value: value)
-        }
-        
-        let fieldDescriptions = (hardcodedFields + customFields + [(key: "children", value: childrenDescription)])
-            .map { pair in "\(pair.key)=\(pair.value)" }
+        let fieldDescriptions = (fieldsWithValues + [(key: "children", value: childrenDescription)])
+            .map { pair in "\(pair.key): \(pair.value)" }
             .joined(separator: ", ")
         
         return fieldDescriptions
