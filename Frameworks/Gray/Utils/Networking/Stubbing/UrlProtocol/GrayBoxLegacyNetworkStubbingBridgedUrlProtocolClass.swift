@@ -58,8 +58,7 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
         }
         
         return GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance(
-            request: request,
-            cachedResponse: cachedResponse,
+            url: request.url,
             client: client,
             stub: stub,
             bundleResourcePathProvider: bundleResourcePathProvider

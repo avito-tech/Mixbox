@@ -82,9 +82,11 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
             func startLoading() throws {
                 let response = BridgedUrlResponse(
                     url: request.url,
-                    mimeType: nil,
-                    expectedContentLength: -1,
-                    textEncodingName: nil
+                    variation: .bare(
+                        mimeType: nil,
+                        expectedContentLength: -1,
+                        textEncodingName: nil
+                    )
                 )
                 
                 try client.urlProtocolDidReceive(

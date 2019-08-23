@@ -6,21 +6,18 @@ import MixboxFoundation
 public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlProtocolInstance, IpcObjectIdentifiable {
     public let ipcObjectId: IpcObjectId = .uuid
     
-    private let request: BridgedUrlRequest
-    private let cachedResponse: BridgedCachedUrlResponse?
+    private let url: URL?
     private let client: BridgedUrlProtocolClient
     private let stub: GrayBoxLegacyNetworkStubbingNetworkStub
     private let bundleResourcePathProvider: BundleResourcePathProvider
     
     public init(
-        request: BridgedUrlRequest,
-        cachedResponse: BridgedCachedUrlResponse?,
+        url: URL?,
         client: BridgedUrlProtocolClient,
         stub: GrayBoxLegacyNetworkStubbingNetworkStub,
         bundleResourcePathProvider: BundleResourcePathProvider)
     {
-        self.request = request
-        self.cachedResponse = cachedResponse
+        self.url = url
         self.client = client
         self.stub = stub
         self.bundleResourcePathProvider = bundleResourcePathProvider
@@ -28,10 +25,8 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlP
     
     public func startLoading() throws {
         let response = BridgedUrlResponse(
-            url: request.url,
-            mimeType: nil,
-            expectedContentLength: -1,
-            textEncodingName: nil
+            url: url,
+            variation: stub.variation
         )
         
         try client.urlProtocolDidReceive(

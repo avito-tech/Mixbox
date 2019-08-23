@@ -5,8 +5,7 @@ public class GrayBoxLegacyNetworkStubbingNetworkStub {
     public let urlPattern: String
     public let httpMethod: HttpMethod?
     public let value: StubResponseBuilderResponseValue
-    public let headers: [String: String]
-    public let statusCode: Int
+    public let variation: UrlProtocolVariation
     public let responseTime: TimeInterval
     
     public let urlRegex: NSRegularExpression
@@ -15,16 +14,14 @@ public class GrayBoxLegacyNetworkStubbingNetworkStub {
         urlPattern: String,
         httpMethod: HttpMethod?,
         value: StubResponseBuilderResponseValue,
-        headers: [String: String],
-        statusCode: Int,
+        variation: UrlProtocolVariation,
         responseTime: TimeInterval)
         throws
     {
         self.urlPattern = urlPattern
         self.httpMethod = httpMethod
         self.value = value
-        self.headers = headers
-        self.statusCode = statusCode
+        self.variation = variation
         self.responseTime = responseTime
         
         urlRegex = try NSRegularExpression(

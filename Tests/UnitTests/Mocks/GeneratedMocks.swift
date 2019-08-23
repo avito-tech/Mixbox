@@ -106,6 +106,8 @@ public class StubRequestBuilderStub: StubRequestBuilder {
 import Cuckoo
 import MixboxUiTestsFoundation
 
+import MixboxIpcCommon
+
 public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
     public typealias MocksType = StubResponseBuilder
     public typealias Stubbing = __StubbingProxy_StubResponseBuilder
@@ -120,16 +122,16 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
         cuckoo_manager.enableDefaultStubImplementation()
     }
 
-    public func withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)  {
+    public func withResponse(value: StubResponseBuilderResponseValue, variation: UrlProtocolVariation, responseTime: TimeInterval)  {
 
-            return cuckoo_manager.call("withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)",
-                parameters: (value, headers, statusCode, responseTime),
-                escapingParameters: (value, headers, statusCode, responseTime),
+            return cuckoo_manager.call("withResponse(value: StubResponseBuilderResponseValue, variation: UrlProtocolVariation, responseTime: TimeInterval)",
+                parameters: (value, variation, responseTime),
+                escapingParameters: (value, variation, responseTime),
                 superclassCall:
 
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall: __defaultImplStub!.withResponse(value: value, headers: headers, statusCode: statusCode, responseTime: responseTime))
+                defaultCall: __defaultImplStub!.withResponse(value: value, variation: variation, responseTime: responseTime))
 
     }
 
@@ -141,9 +143,9 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func withResponse<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(value: M1, headers: M2, statusCode: M3, responseTime: M4) -> Cuckoo.ProtocolStubNoReturnFunction<(StubResponseBuilderResponseValue, [String: String], Int, TimeInterval)> where M1.MatchedType == StubResponseBuilderResponseValue, M2.MatchedType == [String: String], M3.MatchedType == Int, M4.MatchedType == TimeInterval {
-	        let matchers: [Cuckoo.ParameterMatcher<(StubResponseBuilderResponseValue, [String: String], Int, TimeInterval)>] = [wrap(matchable: value) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: statusCode) { $0.2 }, wrap(matchable: responseTime) { $0.3 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockStubResponseBuilder.self, method: "withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)", parameterMatchers: matchers))
+	    func withResponse<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(value: M1, variation: M2, responseTime: M3) -> Cuckoo.ProtocolStubNoReturnFunction<(StubResponseBuilderResponseValue, UrlProtocolVariation, TimeInterval)> where M1.MatchedType == StubResponseBuilderResponseValue, M2.MatchedType == UrlProtocolVariation, M3.MatchedType == TimeInterval {
+	        let matchers: [Cuckoo.ParameterMatcher<(StubResponseBuilderResponseValue, UrlProtocolVariation, TimeInterval)>] = [wrap(matchable: value) { $0.0 }, wrap(matchable: variation) { $0.1 }, wrap(matchable: responseTime) { $0.2 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockStubResponseBuilder.self, method: "withResponse(value: StubResponseBuilderResponseValue, variation: UrlProtocolVariation, responseTime: TimeInterval)", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -163,9 +165,9 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func withResponse<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable, M4: Cuckoo.Matchable>(value: M1, headers: M2, statusCode: M3, responseTime: M4) -> Cuckoo.__DoNotUse<Void> where M1.MatchedType == StubResponseBuilderResponseValue, M2.MatchedType == [String: String], M3.MatchedType == Int, M4.MatchedType == TimeInterval {
-	        let matchers: [Cuckoo.ParameterMatcher<(StubResponseBuilderResponseValue, [String: String], Int, TimeInterval)>] = [wrap(matchable: value) { $0.0 }, wrap(matchable: headers) { $0.1 }, wrap(matchable: statusCode) { $0.2 }, wrap(matchable: responseTime) { $0.3 }]
-	        return cuckoo_manager.verify("withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func withResponse<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(value: M1, variation: M2, responseTime: M3) -> Cuckoo.__DoNotUse<Void> where M1.MatchedType == StubResponseBuilderResponseValue, M2.MatchedType == UrlProtocolVariation, M3.MatchedType == TimeInterval {
+	        let matchers: [Cuckoo.ParameterMatcher<(StubResponseBuilderResponseValue, UrlProtocolVariation, TimeInterval)>] = [wrap(matchable: value) { $0.0 }, wrap(matchable: variation) { $0.1 }, wrap(matchable: responseTime) { $0.2 }]
+	        return cuckoo_manager.verify("withResponse(value: StubResponseBuilderResponseValue, variation: UrlProtocolVariation, responseTime: TimeInterval)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
@@ -174,7 +176,7 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
 
 public class StubResponseBuilderStub: StubResponseBuilder {
 
-    public func withResponse(value: StubResponseBuilderResponseValue, headers: [String: String], statusCode: Int, responseTime: TimeInterval)  {
+    public func withResponse(value: StubResponseBuilderResponseValue, variation: UrlProtocolVariation, responseTime: TimeInterval)  {
         return DefaultValueRegistry.defaultValue(for: Void.self)
     }
 

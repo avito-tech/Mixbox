@@ -3,6 +3,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
 import MixboxReporting
+import MixboxIpcCommon
 
 enum StubResponseBuilderArgumentsBefore {
     case sbtuiStubRequest(SbtuiStubRequest)
@@ -26,8 +27,7 @@ final class SbtuiStubResponseBuilder: StubResponseBuilder {
     
     func withResponse(
         value: StubResponseBuilderResponseValue,
-        headers: [String: String],
-        statusCode: Int,
+        variation: UrlProtocolVariation,
         responseTime: TimeInterval)
     {
         switch stubResponseBuilderArgumentsBefore {
@@ -37,17 +37,22 @@ final class SbtuiStubResponseBuilder: StubResponseBuilder {
                 shouldContinueTest: false
             )
         case .sbtuiStubRequest(let sbtuiStubRequest):
-            let stub = SbtuiStub(
-                request: sbtuiStubRequest,
-                response: SbtuiStubResponse(
-                    value: value,
-                    headers: headers,
-                    statusCode: statusCode,
-                    responseTime: responseTime
+            switch variation {
+            case let .http(headers: headers, statusCode: statusCode):
+                let stub = SbtuiStub(
+                    request: sbtuiStubRequest,
+                    response: SbtuiStubResponse(
+                        value: value,
+                        headers: headers,
+                        statusCode: statusCode,
+                        responseTime: responseTime
+                    )
                 )
-            )
-            
-            sbtuiStubApplier.apply(stub: stub)
+                
+                sbtuiStubApplier.apply(stub: stub)
+            case .bare:
+                fatalError("not supported")
+            }
         }
     }
     

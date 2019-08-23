@@ -1,6 +1,7 @@
 import MixboxUiTestsFoundation
 import Cuckoo
 import XCTest
+import MixboxIpcCommon
 
 final class RecordedSessionStubberTests: XCTestCase {
     private let stubResponseBuilder = MockStubResponseBuilder()
@@ -19,7 +20,11 @@ final class RecordedSessionStubberTests: XCTestCase {
         
         stubResponseBuilder
             .getStubbingProxy()
-            .withResponse(value: any(), headers: any(), statusCode: any(), responseTime: any())
+            .withResponse(
+                value: any(),
+                variation: any(),
+                responseTime: any()
+            )
             .thenDoNothing()
     }
     
@@ -180,8 +185,7 @@ final class RecordedSessionStubberTests: XCTestCase {
             )
             verify(stubResponseBuilder).withResponse(
                 value: isDataThatIsJson(["data_key": "data_value"]),
-                headers: equal(to: ["headers_key": "headers_value"]),
-                statusCode: 418,
+                variation: equal(to: .http(headers: ["headers_key": "headers_value"], statusCode: 418)),
                 responseTime: 0
             )
         }

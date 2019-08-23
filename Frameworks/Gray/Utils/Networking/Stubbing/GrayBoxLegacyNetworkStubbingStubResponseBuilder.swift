@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
+import MixboxIpcCommon
 
 public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilder {
     private let urlPattern: String
@@ -25,8 +26,7 @@ public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilde
     
     public func withResponse(
         value: StubResponseBuilderResponseValue,
-        headers: [String: String],
-        statusCode: Int,
+        variation: UrlProtocolVariation,
         responseTime: TimeInterval)
     {
         do {
@@ -34,8 +34,7 @@ public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilde
                 urlPattern: urlPattern,
                 httpMethod: httpMethod,
                 value: value,
-                headers: headers,
-                statusCode: statusCode,
+                variation: variation,
                 responseTime: responseTime
             )
             
