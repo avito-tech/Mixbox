@@ -2,11 +2,11 @@
 
 public final class BridgedUrlResponse: Codable {
     public let url: URL?
-    public let variation: UrlProtocolVariation
+    public let variation: URLResponseProtocolVariation
     
     public init(
         url: URL?,
-        variation: UrlProtocolVariation)
+        variation: URLResponseProtocolVariation)
     {
         self.url = url
         self.variation = variation

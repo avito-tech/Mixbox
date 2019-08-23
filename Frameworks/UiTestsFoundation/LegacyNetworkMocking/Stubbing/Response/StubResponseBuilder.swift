@@ -5,7 +5,7 @@ public protocol StubResponseBuilder: class {
     // This function should be used only for implementing basic functionality.
     func withResponse(
         value: StubResponseBuilderResponseValue,
-        variation: UrlProtocolVariation,
+        variation: URLResponseProtocolVariation,
         responseTime: TimeInterval)
 }
 
@@ -18,7 +18,12 @@ extension StubResponseBuilder {
     {
         return withResponse(
             value: .file(file),
-            variation: .http(headers: headers, statusCode: statusCode),
+            variation: .http(
+                HTTPURLResponseVariation(
+                    headers: headers,
+                    statusCode: statusCode
+                )
+            ),
             responseTime: responseTime
         )
     }
@@ -31,7 +36,12 @@ extension StubResponseBuilder {
     {
         return withResponse(
             value: .string(string),
-            variation: .http(headers: headers, statusCode: statusCode),
+            variation: .http(
+                HTTPURLResponseVariation(
+                    headers: headers,
+                    statusCode: statusCode
+                )
+            ),
             responseTime: responseTime
         )
     }
@@ -44,7 +54,32 @@ extension StubResponseBuilder {
     {
         return withResponse(
             value: .data(data),
-            variation: .http(headers: headers, statusCode: statusCode),
+            variation: .http(
+                HTTPURLResponseVariation(
+                    headers: headers,
+                    statusCode: statusCode
+                )
+            ),
+            responseTime: responseTime
+        )
+    }
+    
+    public func thenReturn(
+        data: Data,
+        mimeType: String?,
+        expectedContentLength: Int64,
+        textEncodingName: String?,
+        responseTime: TimeInterval = 0
+    ) {
+        return withResponse(
+            value: .data(data),
+            variation: .bare(
+                BareURLResponseVariation(
+                    mimeType: mimeType,
+                    expectedContentLength: expectedContentLength,
+                    textEncodingName: textEncodingName
+                )
+            ),
             responseTime: responseTime
         )
     }

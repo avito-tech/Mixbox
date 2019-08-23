@@ -83,9 +83,11 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
                 let response = BridgedUrlResponse(
                     url: request.url,
                     variation: .bare(
-                        mimeType: nil,
-                        expectedContentLength: -1,
-                        textEncodingName: nil
+                        BareURLResponseVariation(
+                            mimeType: nil,
+                            expectedContentLength: -1,
+                            textEncodingName: nil
+                        )
                     )
                 )
                 

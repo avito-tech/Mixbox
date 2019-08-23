@@ -11,6 +11,7 @@
 		98D85BF2B26C5CCC073FC73F /* Pods_FakeSettingsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A79416B2AFBD317244D261 /* Pods_FakeSettingsApp.framework */; };
 		AB90E753749258EC27F21240 /* Pods_Lint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A47E43BD485E4534CAB3606 /* Pods_Lint.framework */; };
 		BB4999C802E921BA5BEE00D7 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */; };
+		BC6CF99D2310412A003F40C0 /* NetworkStubbingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6CF99C2310412A003F40C0 /* NetworkStubbingTestCase.swift */; };
 		BCB072EB2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB072EA2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift */; };
 		C76EBBF8BA7417AA04206F85 /* Pods_GrayBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18519616178849C303E04D80 /* Pods_GrayBoxUiTests.framework */; };
 		CC78DE2F21395BFE00599258 /* GettingRealViewHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */; };
@@ -464,6 +465,7 @@
 		A2F798A081CF2F02F94B4503 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		AD6545DB5ED220762DE66EFB /* Pods-GrayBoxUiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrayBoxUiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B4F99074F3C19CE71945A894 /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BC6CF99C2310412A003F40C0 /* NetworkStubbingTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestCase.swift; sourceTree = "<group>"; };
 		BCB072EA2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotDHashLabelsTestsView.swift; sourceTree = "<group>"; };
 		C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingRealViewHierarchyTests.swift; sourceTree = "<group>"; };
@@ -850,6 +852,14 @@
 				2A47E43BD485E4534CAB3606 /* Pods_Lint.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC6CF99B231040EE003F40C0 /* Stubbing */ = {
+			isa = PBXGroup;
+			children = (
+				BC6CF99C2310412A003F40C0 /* NetworkStubbingTestCase.swift */,
+			);
+			path = Stubbing;
 			sourceTree = "<group>";
 		};
 		CC78DE3021395C5000599258 /* HierarchyTests */ = {
@@ -1888,6 +1898,7 @@
 		F8B0A22F220A0E040089C1EE /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BC6CF99B231040EE003F40C0 /* Stubbing */,
 				F8DB350422725E8200EE0FB8 /* RunLoopSpinner */,
 				F8A8381B2271F2CF00145140 /* ElementHierarchyDescriptionProvider */,
 				F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */,
@@ -3390,6 +3401,7 @@
 				F8B340F2224D3FD700AA1EB9 /* StepLogMatcherBuilder.swift in Sources */,
 				F8C8ED1D2298505D0009B9A7 /* PhotosApplicationPermissionTests.swift in Sources */,
 				F801CC1C2254F9C80074F0E9 /* StepLoggerRecordingStarter.swift in Sources */,
+				BC6CF99D2310412A003F40C0 /* NetworkStubbingTestCase.swift in Sources */,
 				F8B0A259220A0EF30089C1EE /* TestMethodReport.swift in Sources */,
 				F8B0A255220A0EF30089C1EE /* TestStepReport.swift in Sources */,
 				F8C8ED182298505D0009B9A7 /* MicrophoneApplicationPermissionSpecification.swift in Sources */,

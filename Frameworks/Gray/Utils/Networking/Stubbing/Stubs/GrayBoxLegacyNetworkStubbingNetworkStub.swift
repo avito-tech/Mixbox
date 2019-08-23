@@ -5,7 +5,7 @@ public class GrayBoxLegacyNetworkStubbingNetworkStub {
     public let urlPattern: String
     public let httpMethod: HttpMethod?
     public let value: StubResponseBuilderResponseValue
-    public let variation: UrlProtocolVariation
+    public let variation: URLResponseProtocolVariation
     public let responseTime: TimeInterval
     
     public let urlRegex: NSRegularExpression
@@ -14,7 +14,7 @@ public class GrayBoxLegacyNetworkStubbingNetworkStub {
         urlPattern: String,
         httpMethod: HttpMethod?,
         value: StubResponseBuilderResponseValue,
-        variation: UrlProtocolVariation,
+        variation: URLResponseProtocolVariation,
         responseTime: TimeInterval)
         throws
     {

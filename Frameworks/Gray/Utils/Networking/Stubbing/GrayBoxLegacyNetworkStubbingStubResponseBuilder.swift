@@ -26,7 +26,7 @@ public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilde
     
     public func withResponse(
         value: StubResponseBuilderResponseValue,
-        variation: UrlProtocolVariation,
+        variation: URLResponseProtocolVariation,
         responseTime: TimeInterval)
     {
         do {

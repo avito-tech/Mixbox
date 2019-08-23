@@ -185,7 +185,14 @@ final class RecordedSessionStubberTests: XCTestCase {
             )
             verify(stubResponseBuilder).withResponse(
                 value: isDataThatIsJson(["data_key": "data_value"]),
-                variation: equal(to: .http(headers: ["headers_key": "headers_value"], statusCode: 418)),
+                variation: equal(
+                    to: .http(
+                        HTTPURLResponseVariation(
+                            headers: ["headers_key": "headers_value"],
+                            statusCode: 418
+                        )
+                    )
+                ),
                 responseTime: 0
             )
         }

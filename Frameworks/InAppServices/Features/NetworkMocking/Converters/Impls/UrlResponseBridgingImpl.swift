@@ -11,23 +11,27 @@ public final class UrlResponseBridgingImpl: UrlResponseBridging {
             return BridgedUrlResponse(
                 url: httpResponse.url,
                 variation: .http(
-                    headers: httpResponse.allHeaderFields
-                        .reduce(into: [String: String]()) { headers, keyValue in
-                            if let key = keyValue.key.base as? String,
-                                let value = keyValue.value as? String {
-                                headers[key] = value
-                            }
-                        },
-                    statusCode: httpResponse.statusCode
+                    HTTPURLResponseVariation(
+                        headers: httpResponse.allHeaderFields
+                            .reduce(into: [String: String]()) { headers, keyValue in
+                                if let key = keyValue.key.base as? String,
+                                    let value = keyValue.value as? String {
+                                    headers[key] = value
+                                }
+                            },
+                        statusCode: httpResponse.statusCode
+                    )
                 )
             )
         } else {
             return BridgedUrlResponse(
                 url: urlResponse.url,
                 variation: .bare(
-                    mimeType: urlResponse.mimeType,
-                    expectedContentLength: urlResponse.expectedContentLength,
-                    textEncodingName: urlResponse.textEncodingName
+                    BareURLResponseVariation(
+                        mimeType: urlResponse.mimeType,
+                        expectedContentLength: urlResponse.expectedContentLength,
+                        textEncodingName: urlResponse.textEncodingName
+                    )
                 )
             )
         }
@@ -35,24 +39,19 @@ public final class UrlResponseBridgingImpl: UrlResponseBridging {
     
     public func urlResponse(bridgedUrlResponse: BridgedUrlResponse) -> URLResponse {
         switch bridgedUrlResponse.variation {
-        case let .bare(
-            mimeType: mimeType,
-            expectedContentLength: expectedContentLength,
-            textEncodingName: textEncodingName):
+        case let .bare(variation):
             return UrlResponseWithFixedInit(
                 url: bridgedUrlResponse.url,
-                mimeType: mimeType,
-                expectedContentLength: expectedContentLength,
-                textEncodingName: textEncodingName
+                mimeType: variation.mimeType,
+                expectedContentLength: variation.expectedContentLength,
+                textEncodingName: variation.textEncodingName
             )
-        case let .http(
-            headers: headers,
-            statusCode: statusCode):
+        case let .http(variation):
             return HTTPURLResponse(
                 url: bridgedUrlResponse.url ?? UrlResponseBridgingImpl.urlThatHopefullyDoesntBreakAnything,
-                statusCode: statusCode,
+                statusCode: variation.statusCode,
                 httpVersion: nil,
-                headerFields: headers
+                headerFields: variation.headers
             ) ?? UrlResponseWithFixedInit(
                 url: bridgedUrlResponse.url,
                 mimeType: nil,

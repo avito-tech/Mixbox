@@ -27,7 +27,7 @@ final class SbtuiStubResponseBuilder: StubResponseBuilder {
     
     func withResponse(
         value: StubResponseBuilderResponseValue,
-        variation: UrlProtocolVariation,
+        variation: URLResponseProtocolVariation,
         responseTime: TimeInterval)
     {
         switch stubResponseBuilderArgumentsBefore {
@@ -38,13 +38,13 @@ final class SbtuiStubResponseBuilder: StubResponseBuilder {
             )
         case .sbtuiStubRequest(let sbtuiStubRequest):
             switch variation {
-            case let .http(headers: headers, statusCode: statusCode):
+            case let .http(variation):
                 let stub = SbtuiStub(
                     request: sbtuiStubRequest,
                     response: SbtuiStubResponse(
                         value: value,
-                        headers: headers,
-                        statusCode: statusCode,
+                        headers: variation.headers,
+                        statusCode: variation.statusCode,
                         responseTime: responseTime
                     )
                 )
