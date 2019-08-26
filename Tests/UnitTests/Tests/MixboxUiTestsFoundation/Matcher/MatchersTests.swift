@@ -65,7 +65,7 @@ class MatchersTests: BaseMatcherTests {
         assertMismatches(
             matcher: point10Matcher,
             value: anything,
-            percentageOfMatching: 0.25
+            percentageOfMatching: 0.1
         )
         
         assertMismatches(

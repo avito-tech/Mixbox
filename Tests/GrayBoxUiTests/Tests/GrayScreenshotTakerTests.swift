@@ -37,8 +37,8 @@ final class GrayScreenshotTakerTests: TestCase {
         switch result {
         case .match:
             break
-        case .mismatch(_, let description):
-            XCTFail("Screenshot doesn't match reference: \(description())")
+        case .mismatch(let mismatchResult):
+            XCTFail("Screenshot doesn't match reference: \(mismatchResult.mismatchDescription())")
         }
     }
 }

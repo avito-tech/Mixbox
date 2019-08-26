@@ -1,7 +1,9 @@
 import MixboxUiTestsFoundation
 import XCTest
 
-class BaseMatcherTests {
+class BaseMatcherTests: XCTestCase {
+    let matcherBuilder = ElementMatcherBuilder(screenshotTaker: ScreenshotTakerStub())
+    
     func assertMatches<T>(
         matcher: Matcher<T>,
         value: T,
@@ -11,14 +13,14 @@ class BaseMatcherTests {
         switch matcher.matches(value: value) {
         case .match:
             break
-        case let .mismatch(percentageOfMatching, mismatchDescription):
+        case let .mismatch(mismatchResult):
             XCTFail("""
                 Expected: match
                 Actual: mismatch
                 Matcher: \(matcher.description)
                 Value: \(value)
-                PercentageOfMatching: \(percentageOfMatching)
-                MismatchDescription: \(mismatchDescription)
+                PercentageOfMatching: \(mismatchResult.percentageOfMatching)
+                MismatchDescription: \(mismatchResult.mismatchDescription())
                 """,
                 file: file,
                 line: line
@@ -45,7 +47,9 @@ class BaseMatcherTests {
                 file: file,
                 line: line
             )
-        case let .mismatch(actualPercentageOfMatching, mismatchDescription):
+        case let .mismatch(mismatchResult):
+            let actualPercentageOfMatching = mismatchResult.percentageOfMatching
+            
             if percentageOfMatching != actualPercentageOfMatching {
                 XCTFail("""
                     Expected percentageOfMatching: \(percentageOfMatching)
@@ -57,8 +61,9 @@ class BaseMatcherTests {
                     line: line
                 )
             }
+            
             if let description = description {
-                let actualDescription = mismatchDescription()
+                let actualDescription = mismatchResult.mismatchDescription()
                 
                 if description != actualDescription {
                     XCTFail("""

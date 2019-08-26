@@ -36,6 +36,7 @@
 		F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */; };
 		F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEDE122DE27E9006C804D /* IpcThrowingFunctionResultTests.swift */; };
 		F80CEDE822DE37D6006C804D /* BidirectionalIpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */; };
+		F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */; };
 		F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */; };
 		F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.swift */; };
 		F81144D12268D39C00ED519B /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F81144CF2268D39C00ED519B /* generate_mocks */; };
@@ -488,6 +489,7 @@
 		F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStepLoggerImpl.swift; sourceTree = "<group>"; };
 		F80CEDE122DE27E9006C804D /* IpcThrowingFunctionResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcThrowingFunctionResultTests.swift; sourceTree = "<group>"; };
 		F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalIpcTests.swift; sourceTree = "<group>"; };
+		F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsSubviewMatcherTests.swift; sourceTree = "<group>"; };
 		F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedSessionStubberTests.swift; sourceTree = "<group>"; };
 		F81144CE2268D39C00ED519B /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		F81144CF2268D39C00ED519B /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
@@ -902,6 +904,14 @@
 			path = Ipc;
 			sourceTree = "<group>";
 		};
+		F80D36082313F9610058E118 /* Matchers */ = {
+			isa = PBXGroup;
+			children = (
+				F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */,
+			);
+			path = Matchers;
+			sourceTree = "<group>";
+		};
 		F81144CA2268D15D00ED519B /* RecordedSessionStubber */ = {
 			isa = PBXGroup;
 			children = (
@@ -1195,6 +1205,7 @@
 		F820873A2141A7C500DCBA2D /* Matcher */ = {
 			isa = PBXGroup;
 			children = (
+				F80D36082313F9610058E118 /* Matchers */,
 				F8208737214196C700DCBA2D /* Domain */,
 				F8208735214195F900DCBA2D /* MatcherBuilderTests.swift */,
 				F820873321418DEE00DCBA2D /* MatchersTests.swift */,
@@ -3344,6 +3355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
 				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,

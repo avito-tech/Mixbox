@@ -40,7 +40,7 @@ final class ElementSnapshotStub: ElementSnapshot {
             _accessibilityIdentifier = newValue
         }
         get {
-            return _accessibilityIdentifier ?? failAndFallback("accessibilityIdentifier", "error")
+            return _accessibilityIdentifier ?? failAndFallback("accessibilityIdentifier", "not_stubbed")
         }
     }
     var accessibilityLabel: String {
@@ -48,7 +48,7 @@ final class ElementSnapshotStub: ElementSnapshot {
             _accessibilityLabel = newValue
         }
         get {
-            return _accessibilityLabel ?? failAndFallback("accessibilityLabel", "error")
+            return _accessibilityLabel ?? failAndFallback("accessibilityLabel", "not_stubbed")
         }
     }
     var accessibilityValue: Any? {
@@ -132,6 +132,18 @@ final class ElementSnapshotStub: ElementSnapshot {
         }
     }
     
+    func add(child: ElementSnapshotStub) {
+        if _children == nil {
+            _children = []
+        }
+        
+        child.parent = self
+        children.append(child)
+    }
+    
+    // Will produce failures if some property is not stubbed
+    var failForNotStubbedValues = true
+    
     private var _frameRelativeToScreen: CGRect?
     private var _elementType: ElementType??
     private var _hasKeyboardFocus: Bool?
@@ -150,7 +162,9 @@ final class ElementSnapshotStub: ElementSnapshot {
     private var _customValues: OptionalAvailability<[String: String]>?
     
     private func failAndFallback<T>(_ propertyName: String, _ value: T) -> T {
-        onFail(propertyName)
+        if failForNotStubbedValues {
+            onFail(propertyName)
+        }
         return value
     }
     
@@ -160,7 +174,7 @@ final class ElementSnapshotStub: ElementSnapshot {
         onFail: ((_ propertyName: String) -> ())? = nil,
         file: StaticString = #file,
         line: UInt = #line,
-        configure: (ElementSnapshotStub) -> ())
+        configure: (ElementSnapshotStub) -> () = { _ in })
     {
         self.onFail = onFail ?? { propertyName in
             XCTFail("Property \(propertyName) was read, but not set", file: file, line: line)

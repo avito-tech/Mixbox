@@ -13,8 +13,8 @@ extension BaseUiTestCase {
         switch result {
         case .match:
             break
-        case .mismatch(_, let mismatchDescription):
-            XCTFail(mismatchDescription(), file: file, line: line)
+        case .mismatch(let mismatchResult):
+            XCTFail(mismatchResult.mismatchDescription(), file: file, line: line)
         }
     }
     

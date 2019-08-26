@@ -5,6 +5,7 @@ set -x
 applyMocks() {
     mock StubRequestBuilder
     mock StubResponseBuilder
+    mock ScreenshotTaker
 }
 
 main() {

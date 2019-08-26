@@ -181,3 +181,80 @@ public class StubResponseBuilderStub: StubResponseBuilder {
     }
 
 }
+
+import Cuckoo
+import MixboxUiTestsFoundation
+
+public class MockScreenshotTaker: ScreenshotTaker, Cuckoo.ProtocolMock {
+    public typealias MocksType = ScreenshotTaker
+    public typealias Stubbing = __StubbingProxy_ScreenshotTaker
+    public typealias Verification = __VerificationProxy_ScreenshotTaker
+
+    private var __defaultImplStub: ScreenshotTaker?
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    public func enableDefaultImplementation(_ stub: ScreenshotTaker) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+
+    public func takeScreenshot()  -> UIImage? {
+
+            return cuckoo_manager.call("takeScreenshot() -> UIImage?",
+                parameters: (),
+                escapingParameters: (),
+                superclassCall:
+
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.takeScreenshot())
+
+    }
+
+	public struct __StubbingProxy_ScreenshotTaker: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func takeScreenshot() -> Cuckoo.ProtocolStubFunction<(), Optional<UIImage>> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return .init(stub: cuckoo_manager.createStub(for: MockScreenshotTaker.self, method: "takeScreenshot() -> UIImage?", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_ScreenshotTaker: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func takeScreenshot() -> Cuckoo.__DoNotUse<Optional<UIImage>> {
+	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+	        return cuckoo_manager.verify("takeScreenshot() -> UIImage?", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+
+}
+
+public class ScreenshotTakerStub: ScreenshotTaker {
+
+    public func takeScreenshot()  -> UIImage? {
+        return DefaultValueRegistry.defaultValue(for: Optional<UIImage>.self)
+    }
+
+}

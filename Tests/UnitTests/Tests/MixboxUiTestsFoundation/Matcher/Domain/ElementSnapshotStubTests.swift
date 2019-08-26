@@ -1,27 +1,26 @@
 import XCTest
+import MixboxUiTestsFoundation
 
 final class ElementSnapshotStubTests: XCTestCase {
-    func test_ElementSnapshotStub_values() {
-        let stub = ElementSnapshotStub(
-            configure: {
-                $0.frameRelativeToScreen = CGRect(x: 1, y: 2, width: 3, height: 4)
-                $0.elementType = .button
-                $0.hasKeyboardFocus = true
-                $0.isEnabled = false
-                $0.accessibilityIdentifier = "accessibilityIdentifier"
-                $0.accessibilityLabel = "accessibilityLabel"
-                $0.accessibilityValue = "accessibilityValue"
-                $0.accessibilityPlaceholderValue = "accessibilityPlaceholderValue"
-                $0.parent = ElementSnapshotStub { $0.accessibilityIdentifier = "parent" }
-                $0.children = [ElementSnapshotStub { $0.accessibilityIdentifier = "children" }]
-                $0.uikitClass = "uikitClass"
-                $0.customClass = "customClass"
-                $0.uniqueIdentifier = .available("uniqueIdentifier")
-                $0.isDefinitelyHidden = .available(true)
-                $0.text = .available("text")
-                $0.customValues = .available(["customValues": "customValues"])
-            }
-        )
+    func test___ElementSnapshotStub___return_stubbed_values() {
+        let stub = ElementSnapshotStub {
+            $0.frameRelativeToScreen = CGRect(x: 1, y: 2, width: 3, height: 4)
+            $0.elementType = .button
+            $0.hasKeyboardFocus = true
+            $0.isEnabled = false
+            $0.accessibilityIdentifier = "accessibilityIdentifier"
+            $0.accessibilityLabel = "accessibilityLabel"
+            $0.accessibilityValue = "accessibilityValue"
+            $0.accessibilityPlaceholderValue = "accessibilityPlaceholderValue"
+            $0.parent = ElementSnapshotStub { $0.accessibilityIdentifier = "parent" }
+            $0.children = [ElementSnapshotStub { $0.accessibilityIdentifier = "child" }]
+            $0.uikitClass = "uikitClass"
+            $0.customClass = "customClass"
+            $0.uniqueIdentifier = .available("uniqueIdentifier")
+            $0.isDefinitelyHidden = .available(true)
+            $0.text = .available("text")
+            $0.customValues = .available(["customValues": "customValues"])
+        }
         
         XCTAssertEqual(stub.frameRelativeToScreen, CGRect(x: 1, y: 2, width: 3, height: 4))
         XCTAssertEqual(stub.elementType, .button)
@@ -32,7 +31,7 @@ final class ElementSnapshotStubTests: XCTestCase {
         XCTAssertEqual(stub.accessibilityValue as? String, "accessibilityValue")
         XCTAssertEqual(stub.accessibilityPlaceholderValue, "accessibilityPlaceholderValue")
         XCTAssertEqual(stub.parent?.accessibilityIdentifier, "parent")
-        XCTAssertEqual(stub.children.map { $0.accessibilityIdentifier }, ["children"])
+        XCTAssertEqual(stub.children.map { $0.accessibilityIdentifier }, ["child"])
         XCTAssertEqual(stub.uikitClass, "uikitClass")
         XCTAssertEqual(stub.customClass, "customClass")
         XCTAssertEqual(stub.uniqueIdentifier.valueIfAvailable, "uniqueIdentifier")
@@ -41,13 +40,34 @@ final class ElementSnapshotStubTests: XCTestCase {
         XCTAssertEqual(stub.customValues.valueIfAvailable?["customValues"], "customValues")
     }
     
+    func test___ElementSnapshotStub___provides_default_values___if_failForNotStubbedValues_is_false() {
+        let stub = ElementSnapshotStub()
+        stub.failForNotStubbedValues = false
+        
+        XCTAssertEqual(stub.frameRelativeToScreen, .zero)
+        XCTAssertNil(stub.elementType)
+        XCTAssertEqual(stub.hasKeyboardFocus, false)
+        XCTAssertEqual(stub.isEnabled, false)
+        XCTAssertEqual(stub.accessibilityIdentifier, "not_stubbed")
+        XCTAssertEqual(stub.accessibilityLabel, "not_stubbed")
+        XCTAssertNil(stub.accessibilityValue)
+        XCTAssertEqual(stub.accessibilityPlaceholderValue, nil)
+        XCTAssertNil(stub.parent)
+        XCTAssert(stub.children.isEmpty)
+        XCTAssertNil(stub.uikitClass)
+        XCTAssertNil(stub.customClass)
+        XCTAssertEqual(stub.uniqueIdentifier, .unavailable)
+        XCTAssertEqual(stub.isDefinitelyHidden, .unavailable)
+        XCTAssertEqual(stub.text, .unavailable)
+        XCTAssertEqual(stub.customValues, .unavailable)
+    }
+    
     // swiftlint:disable:next function_body_length
-    func test_ElementSnapshotStub_fails() {
+    func test___ElementSnapshotStub___fails___if_values_are_not_stubbed_and_failForNotStubbedValues_is_true() {
         var failedProperties = [String]()
         
         let stub = ElementSnapshotStub(
-            onFail: { failedProperties.append($0) },
-            configure: { _ in }
+            onFail: { failedProperties.append($0) }
         )
         
         _ = stub.frameRelativeToScreen
@@ -113,5 +133,18 @@ final class ElementSnapshotStubTests: XCTestCase {
         _ = stub.customValues.valueIfAvailable?["customValues"]
         XCTAssertEqual(failedProperties, ["customValues"])
         failedProperties.removeAll()
+    }
+    
+    func test___ElementSnapshotStub___add_child() {
+        let stub = ElementSnapshotStub()
+        
+        stub.add(
+            child: ElementSnapshotStub { $0.accessibilityIdentifier = "child" }
+        )
+        
+        XCTAssertEqual(
+            stub.children.map { $0.accessibilityIdentifier },
+            ["child"]
+        )
     }
 }

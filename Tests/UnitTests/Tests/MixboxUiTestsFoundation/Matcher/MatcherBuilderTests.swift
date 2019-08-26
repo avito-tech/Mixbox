@@ -236,19 +236,23 @@ final class MatcherBuilderTests: BaseMatcherTests {
             stub: {
                 $0.accessibilityIdentifier = "1"
                 $0.accessibilityLabel = "2"
+                $0.failForNotStubbedValues = false
             },
             check: {
                 $0.id == "1" && $0.label == "x"
-            }
+            },
+            percentageOfMatching: 0.5
         )
         assertMismatches(
             stub: {
                 $0.accessibilityIdentifier = "1"
                 $0.accessibilityLabel = "2"
+                $0.failForNotStubbedValues = false
             },
             check: {
                 $0.id == "x" && $0.label == "2"
-            }
+            },
+            percentageOfMatching: 0.5
         )
         assertMismatches(
             stub: {
@@ -274,20 +278,26 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityIdentifier = "1"
                 $0.accessibilityLabel = "2"
                 $0.accessibilityValue = "3"
+                $0.failForNotStubbedValues = false
             },
             check: {
                 $0.id == "1" && $0.label == "x" && $0.value == "3"
-            }
+            },
+            // This is due to && makes two arrays in AndMatcher instead of a single array with 3 elements.
+            // (1 - 0.5 * 0.5) == 0.75
+            percentageOfMatching: 0.75
         )
         assertMismatches(
             stub: {
                 $0.accessibilityIdentifier = "1"
                 $0.accessibilityLabel = "2"
                 $0.accessibilityValue = "3"
+                $0.failForNotStubbedValues = false
             },
             check: {
                 $0.id == "x" && $0.label == "2" && $0.value == "x"
-            }
+            },
+            percentageOfMatching: 0.25
         )
     }
     
@@ -393,7 +403,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = check(ElementMatcherBuilder(screenshotTaker: FakeScreenshotTaker()))
+        let matcher = check(ElementMatcherBuilder(screenshotTaker: ScreenshotTakerStub()))
         
         assertMatches(matcher: matcher, value: snapshot)
     }
@@ -401,6 +411,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
     private func assertMismatches(
         stub: (ElementSnapshotStub) -> (),
         check: ElementMatcherBuilderClosure,
+        percentageOfMatching: Double = 0,
         file: StaticString = #file,
         line: UInt = #line)
     {
@@ -409,15 +420,15 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = check(ElementMatcherBuilder(screenshotTaker: FakeScreenshotTaker()))
+        let matcher = check(ElementMatcherBuilder(screenshotTaker: ScreenshotTakerStub()))
         
-        assertMismatches(matcher: matcher, value: snapshot)
-    }
-}
-
-private final class FakeScreenshotTaker: ScreenshotTaker {
-    func takeScreenshot() -> UIImage? {
-        XCTFail("Unexpected usage of FakeScreenshotTaker")
-        return nil
+        assertMismatches(
+            matcher: matcher,
+            value: snapshot,
+            percentageOfMatching: percentageOfMatching,
+            description: nil,
+            file: file,
+            line: line
+        )
     }
 }

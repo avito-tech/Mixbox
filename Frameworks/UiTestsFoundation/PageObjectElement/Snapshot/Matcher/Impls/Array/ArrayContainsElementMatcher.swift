@@ -11,7 +11,7 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
                 """
             },
             matchingFunction: { (actualArray: [T]) -> MatchingResult in
-                var mismatchDescriptions = [() -> String]()
+                var mismatchResults = [MismatchResult]()
                 
                 for element in actualArray {
                     let result = matcher.matches(value: element)
@@ -19,8 +19,8 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
                     switch result {
                     case .match:
                         return .match
-                    case .mismatch(_, let mismatchDescription):
-                        mismatchDescriptions.append(mismatchDescription)
+                    case .mismatch(let mismatchResult):
+                        mismatchResults.append(mismatchResult)
                     }
                 }
                 
@@ -31,8 +31,8 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
                             .joined(separator: ",\n")
                             .mb_wrapAndIndent(prefix: "[", postfix: "]", ifEmpty: "[]")
                         
-                        let mismatchDescriptionsJoined = mismatchDescriptions
-                            .map { "\($0())" }
+                        let mismatchDescriptionsJoined = mismatchResults
+                            .map { "\($0.mismatchDescription())" }
                             .joined(separator: ",\n")
                             .mb_wrapAndIndent(prefix: "[", postfix: "]", ifEmpty: "[]")
                         

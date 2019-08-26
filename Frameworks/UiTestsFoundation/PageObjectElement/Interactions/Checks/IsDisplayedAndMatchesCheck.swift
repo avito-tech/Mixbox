@@ -66,9 +66,9 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
                     switch matcher.matches(value: snapshot) {
                     case .match:
                         return .success
-                    case let .mismatch(_, mismatchDescription):
+                    case let .mismatch(mismatchResult):
                         return dependencies.interactionResultMaker.failure(
-                            message: "проверка неуспешна (\(matcher.description)): \(mismatchDescription())"
+                            message: "проверка неуспешна (\(matcher.description)): \(mismatchResult.mismatchDescription())"
                         )
                     }
                 }

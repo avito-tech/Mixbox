@@ -73,8 +73,8 @@ public class CompoundMatcher<T>: Matcher<T> {
         switch result {
         case .match:
             return matchDescription(matcherDescription: matcher.description)
-        case .mismatch(_, let mismatchDescription):
-            return self.mismatchDescription(matcherDescription: mismatchDescription())
+        case .mismatch(let mismatchResult):
+            return self.mismatchDescription(matcherDescription: mismatchResult.mismatchDescription())
         }
     }
 }

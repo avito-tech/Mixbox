@@ -134,9 +134,9 @@ extension FailureGatherer {
             switch descriptionMatcher.matches(value: failures[0].description) {
             case .match:
                 break
-            case .mismatch(_, let mismatchDescription):
+            case .mismatch(let mismatchResult):
                 XCTFail(
-                    "Failure mismatches: \(mismatchDescription())",
+                    "Failure mismatches: \(mismatchResult.mismatchDescription())",
                     file: fileOfThisAssertion,
                     line: lineOfThisAssertion
                 )
