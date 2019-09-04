@@ -24,6 +24,9 @@ Carthage/
 __pycache__/
 dist/
 .pytest_cache/
+.python-version
+.mypy_cache/
+.coverage
 *.egg-info
 *.pyc
 
