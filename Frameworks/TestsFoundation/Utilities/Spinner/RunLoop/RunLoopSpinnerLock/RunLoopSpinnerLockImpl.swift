@@ -42,12 +42,12 @@ public final class RunLoopSpinnerLockImpl: RunLoopSpinnerLock {
     }
     
     public func wait(timeout: TimeInterval) -> RunLoopSpinnerLockWaitResult {
-        let spinner = runLoopSpinnerFactory.spinner(
+        let runLoopSpinner = runLoopSpinnerFactory.runLoopSpinner(
             timeout: timeout,
             maxSleepInterval: pollingInterval
         )
         
-        let result = spinner.spinUntil {
+        let result = runLoopSpinner.spinUntil {
             !self.isLocked()
         }
         

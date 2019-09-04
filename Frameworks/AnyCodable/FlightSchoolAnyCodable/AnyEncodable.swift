@@ -1,4 +1,4 @@
-// swiftlint:disable cyclomatic_complexity function_body_length
+// swiftlint:disable cyclomatic_complexity function_body_length switch_case_alignment fatal_error_message
 
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 

@@ -12,7 +12,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let elementFinder: ElementFinder
     private let screenshotTaker: ScreenshotTaker
     private let windowsProvider: WindowsProvider
-    private let spinner: Spinner
+    private let waiter: RunLoopSpinningWaiter
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -22,7 +22,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         elementFinder: ElementFinder,
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -31,7 +31,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.elementFinder = elementFinder
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
-        self.spinner = spinner
+        self.waiter = waiter
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
@@ -51,7 +51,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             elementFinder: elementFinder,
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider,
-            spinner: spinner
+            waiter: waiter
         )
         
         return PageObjectElementFactoryImpl(

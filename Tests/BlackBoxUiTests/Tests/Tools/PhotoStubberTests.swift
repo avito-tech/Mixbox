@@ -43,7 +43,7 @@ final class PhotoStubberTests: TestCase {
         
         testRunnerPermissions.photos.set(.allowed)
         
-        spinner.spin(
+        waiter.wait(
             timeout: 30,
             interval: 1,
             until: {
@@ -75,7 +75,7 @@ final class PhotoStubberTests: TestCase {
             }
         )
         
-        spinner.spin(
+        waiter.wait(
             timeout: 60,
             interval: 0.1,
             until: {
@@ -89,7 +89,7 @@ final class PhotoStubberTests: TestCase {
             }
         }
         
-        spinner.spin(
+        waiter.wait(
             timeout: 60,
             interval: 0.1,
             until: {
@@ -114,7 +114,7 @@ final class PhotoStubberTests: TestCase {
         if deleteButton.waitForExistence(timeout: 15) {
             deleteButton.tap()
             
-            spinner.spin(
+            waiter.wait(
                 timeout: 5,
                 interval: 1,
                 until: { [weak self] in

@@ -51,7 +51,7 @@ final class ThirdPartyAppsTests: TestCase {
             // This will trigger scroll
             pageObjects.springboard.mainAppIcon.assertIsDisplayed()
             
-            spinner.spin(timeout: 1)
+            waiter.wait(timeout: 1)
             
             // At this moment UI will be probably stable:
             pageObjects.springboard.mainAppIcon.press(duration: 1.5)

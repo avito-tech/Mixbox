@@ -29,7 +29,7 @@ final class LaunchingAppTests: TestCase {
             applicationLifecycleObservable: applicationLifecycleObservable,
             testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
             bundleResourcePathProvider: testCaseUtils.baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget,
-            spinner: spinner,
+            waiter: waiter,
             networkReplayingObserver: DummyNetworkReplayingObserver()
         )
         

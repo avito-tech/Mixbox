@@ -8,20 +8,20 @@ public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilde
     private let httpMethod: HttpMethod?
     private let grayBoxLegacyNetworkStubbingNetworkStubRepository: GrayBoxLegacyNetworkStubbingNetworkStubRepository
     private let testFailureRecorder: TestFailureRecorder
-    private let spinner: Spinner
+    private let waiter: RunLoopSpinningWaiter
     
     public init(
         urlPattern: String,
         httpMethod: HttpMethod?,
         grayBoxLegacyNetworkStubbingNetworkStubRepository: GrayBoxLegacyNetworkStubbingNetworkStubRepository,
         testFailureRecorder: TestFailureRecorder,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.urlPattern = urlPattern
         self.httpMethod = httpMethod
         self.grayBoxLegacyNetworkStubbingNetworkStubRepository = grayBoxLegacyNetworkStubbingNetworkStubRepository
         self.testFailureRecorder = testFailureRecorder
-        self.spinner = spinner
+        self.waiter = waiter
     }
     
     public func withResponse(
@@ -47,7 +47,7 @@ public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilde
             // The issue is that we need to spin run loop few times before new stub become active.
             // I don't know why this is happening.  Maybe its because of SBTUITestTunnel/IPC/something else.
             // TODO: Fix properly: synchronize adding stubs. New stub should take effect immediately in same thread.
-            spinner.spin(timeout: 1)
+            waiter.wait(timeout: 1)
         } catch {
             testFailureRecorder.recordFailure(
                 description: "\(error)",

@@ -19,7 +19,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver,
         testFailureRecorder: TestFailureRecorder,
         bundleResourcePathProvider: BundleResourcePathProvider,
-        spinner: Spinner,
+        waiter: RunLoopSpinningWaiter,
         networkReplayingObserver: NetworkReplayingObserver)
     {
         self.tunneledApplication = tunneledApplication
@@ -59,7 +59,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
                     networkRecordsProvider: networkRecordsProvider,
                     networkRecorderLifecycle: networkRecordsProvider,
                     testFailureRecorder: testFailureRecorder,
-                    spinner: spinner,
+                    waiter: waiter,
                     networkReplayingObserver: networkReplayingObserver
                 )
             )

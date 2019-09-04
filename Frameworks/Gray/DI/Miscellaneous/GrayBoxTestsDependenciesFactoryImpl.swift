@@ -18,7 +18,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let windowsProvider: WindowsProvider
     let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
-    let spinner: Spinner
+    let waiter: RunLoopSpinningWaiter
     
     // MARK: - Init
     
@@ -32,7 +32,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         elementFinder: ElementFinder,
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -44,7 +44,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
         
-        self.spinner = spinner
+        self.waiter = waiter
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
             runLoopModesStackProvider: RunLoopModesStackProviderImpl()
         )
@@ -77,7 +77,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         
         retrier = RetrierImpl(
             pollingConfiguration: pollingConfiguration,
-            spinner: spinner
+            waiter: waiter
         )
     }
     

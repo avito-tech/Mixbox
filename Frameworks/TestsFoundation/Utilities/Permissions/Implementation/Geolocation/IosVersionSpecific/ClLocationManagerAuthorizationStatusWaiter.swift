@@ -1,14 +1,14 @@
 import CoreLocation
 
 final class ClLocationManagerAuthorizationStatusWaiter {
-    private let spinner: Spinner
+    private let waiter: RunLoopSpinningWaiter
     
-    init(spinner: Spinner) {
-        self.spinner = spinner
+    init(waiter: RunLoopSpinningWaiter) {
+        self.waiter = waiter
     }
     
     func wait(authorizationStatus: CLAuthorizationStatus, bundleId: String) {
-        spinner.spin(
+        waiter.wait(
             timeout: 5,
             interval: 1,
             until: {

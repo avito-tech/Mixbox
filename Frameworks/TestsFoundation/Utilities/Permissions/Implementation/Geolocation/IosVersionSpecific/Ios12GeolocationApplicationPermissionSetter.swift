@@ -13,12 +13,12 @@ public final class Ios12GeolocationApplicationPermissionSetter: ApplicationPermi
         bundleId: String,
         currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider,
         testFailureRecorder: TestFailureRecorder,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.bundleId = bundleId
         self.currentSimulatorFileSystemRootProvider = currentSimulatorFileSystemRootProvider
         self.testFailureRecorder = testFailureRecorder
-        self.clLocationManagerAuthorizationStatusWaiter = ClLocationManagerAuthorizationStatusWaiter(spinner: spinner)
+        self.clLocationManagerAuthorizationStatusWaiter = ClLocationManagerAuthorizationStatusWaiter(waiter: waiter)
     }
     
     public func set(_ state: AllowedDeniedNotDeterminedState) {

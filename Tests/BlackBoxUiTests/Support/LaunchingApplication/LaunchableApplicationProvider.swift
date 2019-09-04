@@ -15,18 +15,18 @@ public final class LaunchableApplicationProvider {
     private let applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver
     private let testFailureRecorder: TestFailureRecorder
     private let bundleResourcePathProvider: BundleResourcePathProvider
-    private let spinner: Spinner
+    private let waiter: RunLoopSpinningWaiter
     
     public init(
         applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver,
         testFailureRecorder: TestFailureRecorder,
         bundleResourcePathProvider: BundleResourcePathProvider,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.applicationLifecycleObservable = applicationLifecycleObservable
         self.testFailureRecorder = testFailureRecorder
         self.bundleResourcePathProvider = bundleResourcePathProvider
-        self.spinner = spinner
+        self.waiter = waiter
     }
     
     private var launchableApplicationWasCreatedWithBuiltinIpc = false
@@ -63,7 +63,7 @@ public final class LaunchableApplicationProvider {
                 applicationLifecycleObservable: applicationLifecycleObservable,
                 testFailureRecorder: testFailureRecorder,
                 bundleResourcePathProvider: bundleResourcePathProvider,
-                spinner: spinner,
+                waiter: waiter,
                 networkReplayingObserver: DummyNetworkReplayingObserver()
             )
         }

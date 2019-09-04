@@ -1,4 +1,4 @@
-public final class SpinnerImpl: Spinner {
+public final class RunLoopSpinningWaiterImpl: RunLoopSpinningWaiter {
     private let runLoopSpinnerFactory: RunLoopSpinnerFactory
     
     public init(runLoopSpinnerFactory: RunLoopSpinnerFactory) {
@@ -6,17 +6,17 @@ public final class SpinnerImpl: Spinner {
     }
     
     @discardableResult
-    public func spin(
+    public func wait(
         timeout: TimeInterval,
         interval: TimeInterval,
         until stopCondition: @escaping () -> (Bool))
         -> SpinUntilResult
     {
-        let spinner = runLoopSpinnerFactory.spinner(
+        let runLoopSpinner = runLoopSpinnerFactory.runLoopSpinner(
             timeout: timeout,
             maxSleepInterval: interval
         )
         
-        return spinner.spinUntil(stopCondition: stopCondition)
+        return runLoopSpinner.spinUntil(stopCondition: stopCondition)
     }
 }

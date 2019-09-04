@@ -116,8 +116,8 @@ extension BaseActionTestCase {
         }
         
         // Set up UI so action will stop failing after delay
-        dispatchQueue.async { [weak self, spinner] in
-            spinner.spin(timeout: delay)
+        dispatchQueue.async { [weak self, waiter] in
+            waiter.wait(timeout: delay)
             self?.setViews(ui: uiAfterDelay)
         }
         

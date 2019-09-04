@@ -44,7 +44,7 @@ final class TestCaseUtils: IpcRouterProvider {
             geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider(),
-                spinner: baseUiTestCaseUtils.spinner
+                waiter: baseUiTestCaseUtils.waiter
             )
         )
         
@@ -77,7 +77,7 @@ final class TestCaseUtils: IpcRouterProvider {
             ),
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider,
-            spinner: baseUiTestCaseUtils.spinner
+            waiter: baseUiTestCaseUtils.waiter
         )
         
         pageObjects = PageObjects(
@@ -125,7 +125,7 @@ final class TestCaseUtils: IpcRouterProvider {
         let legacyNetworking = GrayBoxLegacyNetworking(
             urlProtocolStubAdder: urlProtocolStubAdder,
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
-            spinner: baseUiTestCaseUtils.spinner,
+            waiter: baseUiTestCaseUtils.waiter,
             bundleResourcePathProvider: baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget
         )
         

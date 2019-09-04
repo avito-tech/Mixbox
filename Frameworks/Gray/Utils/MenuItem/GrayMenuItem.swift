@@ -39,7 +39,7 @@ final class GrayMenuItem: MenuItem, CustomStringConvertible {
     func waitForExistence(timeout: TimeInterval) throws {
         var errorToThrow: Error?
         
-        let spinUntilResult = runLoopSpinnerFactory.spinner(timeout: timeout).spinUntil { [weak self] in
+        let spinUntilResult = runLoopSpinnerFactory.runLoopSpinner(timeout: timeout).spinUntil { [weak self] in
             guard let strongSelf = self else {
                 errorToThrow = ErrorString("self is nil in GrayMenuItem")
                 

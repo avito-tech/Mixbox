@@ -94,7 +94,7 @@ public final class TouchInjectorImpl: TouchInjector {
         }
         
         // Now wait for it to finish.
-        let runLoopSpinner = runLoopSpinnerFactory.spinner(
+        let runLoopSpinner = runLoopSpinnerFactory.runLoopSpinner(
             timeout: TimeInterval.greatestFiniteMagnitude,
             minRunLoopDrains: 0,
             maxSleepInterval: TimeInterval.greatestFiniteMagnitude

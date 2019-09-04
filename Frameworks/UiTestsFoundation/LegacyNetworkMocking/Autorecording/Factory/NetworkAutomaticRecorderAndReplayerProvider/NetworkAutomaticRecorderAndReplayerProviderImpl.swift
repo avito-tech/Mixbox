@@ -11,7 +11,7 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
     private let networkRecordsProvider: NetworkRecordsProvider
     private let networkRecorderLifecycle: NetworkRecorderLifecycle
     private let testFailureRecorder: TestFailureRecorder
-    private let spinner: Spinner
+    private let waiter: RunLoopSpinningWaiter
     private let networkReplayingObserver: NetworkReplayingObserver
     
     public init(
@@ -20,14 +20,14 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
         networkRecordsProvider: NetworkRecordsProvider,
         networkRecorderLifecycle: NetworkRecorderLifecycle,
         testFailureRecorder: TestFailureRecorder,
-        spinner: Spinner,
+        waiter: RunLoopSpinningWaiter,
         networkReplayingObserver: NetworkReplayingObserver)
     {
         self.automaticRecorderAndReplayerCreationSettingsProvider = automaticRecorderAndReplayerCreationSettingsProvider
         self.recordedSessionStubber = recordedSessionStubber
         self.networkRecordsProvider = networkRecordsProvider
         self.networkRecorderLifecycle = networkRecorderLifecycle
-        self.spinner = spinner
+        self.waiter = waiter
         self.testFailureRecorder = testFailureRecorder
         self.networkReplayingObserver = networkReplayingObserver
     }
@@ -49,7 +49,7 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
                 networkRecordsProvider: networkRecordsProvider,
                 networkRecorderLifecycle: networkRecorderLifecycle,
                 testFailureRecorder: testFailureRecorder,
-                spinner: spinner,
+                waiter: waiter,
                 recordedNetworkSessionPath: recordedNetworkSessionPath,
                 onStart: { [networkReplayingObserver] in
                     networkReplayingObserver.networkPlayerStartedRecording()

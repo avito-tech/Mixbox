@@ -31,7 +31,7 @@ final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {
         {
             element.tap()
             
-            spinner.spin(timeout: 1)
+            waiter.wait(timeout: 1)
             
             pageObjects.screen.view.withoutTimeout.assertIsDisplayed()
         }

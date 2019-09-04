@@ -7,10 +7,10 @@ public final class IosFrom9To11GeolocationApplicationPermissionSetter: Applicati
     
     public init(
         bundleId: String,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.bundleId = bundleId
-        self.clLocationManagerAuthorizationStatusWaiter = ClLocationManagerAuthorizationStatusWaiter(spinner: spinner)
+        self.clLocationManagerAuthorizationStatusWaiter = ClLocationManagerAuthorizationStatusWaiter(waiter: waiter)
     }
     
     public func set(_ state: AllowedDeniedNotDeterminedState) {

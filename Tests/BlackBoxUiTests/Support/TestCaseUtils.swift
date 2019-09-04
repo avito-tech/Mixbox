@@ -45,7 +45,7 @@ final class TestCaseUtils {
             applicationLifecycleObservable: applicationLifecycleObservableImpl,
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
             bundleResourcePathProvider: baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget,
-            spinner: baseUiTestCaseUtils.spinner
+            waiter: baseUiTestCaseUtils.waiter
         )
         
         let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
@@ -69,7 +69,7 @@ final class TestCaseUtils {
             geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider(),
-                spinner: baseUiTestCaseUtils.spinner
+                waiter: baseUiTestCaseUtils.waiter
             )
         )
         self.applicationPermissionsSetterFactory = applicationPermissionsSetterFactory
@@ -111,7 +111,7 @@ final class TestCaseUtils {
                 ),
                 screenshotTaker: screenshotTaker,
                 pasteboard: ipcClient.flatMap { IpcPasteboard(ipcClient: $0) } ?? UikitPasteboard(uiPasteboard: .general),
-                spinner: baseUiTestCaseUtils.spinner
+                waiter: baseUiTestCaseUtils.waiter
             )
         }
         

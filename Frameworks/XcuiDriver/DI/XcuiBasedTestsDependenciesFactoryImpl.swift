@@ -16,7 +16,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
     let pasteboard: Pasteboard
-    let spinner: Spinner
+    let waiter: RunLoopSpinningWaiter
     
     // MARK: - Init
     
@@ -33,7 +33,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -47,7 +47,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
-        self.spinner = spinner
+        self.waiter = waiter
         
         applicationFrameProvider = XcuiApplicationFrameProvider(
             applicationProvider: applicationProvider
@@ -59,7 +59,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     var retrier: Retrier {
         return RetrierImpl(
             pollingConfiguration: pollingConfiguration,
-            spinner: spinner
+            waiter: waiter
         )
     }
     

@@ -13,7 +13,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let eventGenerator: EventGenerator
     private let screenshotTaker: ScreenshotTaker
     private let pasteboard: Pasteboard
-    private let spinner: Spinner
+    private let waiter: RunLoopSpinningWaiter
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -25,7 +25,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -36,7 +36,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
-        self.spinner = spinner
+        self.waiter = waiter
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
@@ -64,7 +64,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             eventGenerator: eventGenerator,
             screenshotTaker: screenshotTaker,
             pasteboard: pasteboard,
-            spinner: spinner
+            waiter: waiter
         )
         
         return PageObjectElementFactoryImpl(

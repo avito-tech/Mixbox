@@ -7,7 +7,7 @@ final class BaseUiTestCaseUtils {
     // Internal in TestCase
     
     let fileSystem: FileSystem
-    let spinner: Spinner
+    let waiter: RunLoopSpinningWaiter
     
     // Private in TestCase
     
@@ -40,7 +40,7 @@ final class BaseUiTestCaseUtils {
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
             runLoopModesStackProvider: RunLoopModesStackProviderImpl()
         )
-        self.spinner = SpinnerImpl(
+        self.waiter = RunLoopSpinningWaiterImpl(
             runLoopSpinnerFactory: runLoopSpinnerFactory
         )
         

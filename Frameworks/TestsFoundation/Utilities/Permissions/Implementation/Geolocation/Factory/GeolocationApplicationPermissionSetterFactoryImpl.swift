@@ -4,30 +4,30 @@ import MixboxReporting
 public final class GeolocationApplicationPermissionSetterFactoryImpl: GeolocationApplicationPermissionSetterFactory {
     private let testFailureRecorder: TestFailureRecorder
     private let currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider
-    private let spinner: Spinner
+    private let waiter: RunLoopSpinningWaiter
     
     public init(
         testFailureRecorder: TestFailureRecorder,
         currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider,
-        spinner: Spinner)
+        waiter: RunLoopSpinningWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.currentSimulatorFileSystemRootProvider = currentSimulatorFileSystemRootProvider
-        self.spinner = spinner
+        self.waiter = waiter
     }
     
     public func geolocationApplicationPermissionSetter(bundleId: String) -> ApplicationPermissionSetter {
         if UIDevice.current.mb_iosVersion.majorVersion <= 11 {
             return IosFrom9To11GeolocationApplicationPermissionSetter(
                 bundleId: bundleId,
-                spinner: spinner
+                waiter: waiter
             )
         } else {
             return Ios12GeolocationApplicationPermissionSetter(
                 bundleId: bundleId,
                 currentSimulatorFileSystemRootProvider: currentSimulatorFileSystemRootProvider,
                 testFailureRecorder: testFailureRecorder,
-                spinner: spinner
+                waiter: waiter
             )
         }
     }
