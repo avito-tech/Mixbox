@@ -37,8 +37,10 @@ public prefix func -(vector: CGVector) -> CGVector {
     )
 }
 
-// E.g.: Scaling
-// (100pt, 100pt) * (2,2) = (200pt,200pt)
+// MARK: - Scaling
+
+// E.g.: (100pt, 100pt) * (2,2) = (200pt,200pt)
+
 public func *(left: CGSize, right: CGVector) -> CGSize {
     return CGSize(
         width: left.width * right.dx,
@@ -50,8 +52,6 @@ public func *(left: CGVector, right: CGSize) -> CGSize {
     return right * left
 }
 
-// E.g.: Scaling
-// (100pt, 100pt) * (2,2) = (200pt,200pt)
 public func *(left: CGPoint, right: CGVector) -> CGPoint {
     return CGPoint(
         x: left.x * right.dx,
@@ -63,16 +63,6 @@ public func *(left: CGVector, right: CGPoint) -> CGPoint {
     return right * left
 }
 
-// E.g.: Scaling
-// (200pt, 200pt) / (2,2) = (100pt,100pt)
-public func /(left: CGSize, right: CGVector) -> CGSize {
-    return CGSize(
-        width: left.width / right.dx,
-        height: left.height / right.dy
-    )
-}
-
-// E.g.: Scaling
 public func *(left: CGVector, right: CGFloat) -> CGVector {
     return CGVector(
         dx: left.dx * right,
@@ -84,11 +74,17 @@ public func *(left: CGFloat, right: CGVector) -> CGVector {
     return right * left
 }
 
-// E.g.: Scaling
 public func /(left: CGVector, right: CGFloat) -> CGVector {
     return CGVector(
         dx: left.dx / right,
         dy: left.dy / right
+    )
+}
+
+public func /(left: CGSize, right: CGVector) -> CGSize {
+    return CGSize(
+        width: left.width / right.dx,
+        height: left.height / right.dy
     )
 }
 

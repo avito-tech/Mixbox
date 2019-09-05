@@ -23,6 +23,7 @@ typedef double (^ActionBlock)(XCEventGenerator *, EventGeneratorCompletion);
                            to:(struct CGPoint)to
                      duration:(double)duration
                      velocity:(double)velocity
+                cancelInertia:(BOOL)cancelInertia // WARNING: Not supported!
                   application:(nonnull XCUIApplication *)application
 {
     NSString *actionName = [NSString stringWithFormat:@"Press %@ for %@s and drag to %@ with velocity %@",

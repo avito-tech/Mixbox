@@ -7,16 +7,22 @@ public final class XcuiEventGenerator: EventGenerator {
     private let xcuiEventGeneratorObjC = EventGeneratorObjCProvider.eventGeneratorObjC()
     
     public init(applicationProvider: ApplicationProvider) {
-        self.applicationProvider
-            = applicationProvider
+        self.applicationProvider = applicationProvider
     }
     
-    public func pressAndDrag(from: CGPoint, to: CGPoint, duration: TimeInterval, velocity: Double) {
+    public func pressAndDrag(
+        from: CGPoint,
+        to: CGPoint,
+        durationOfInitialPress: TimeInterval,
+        velocity: Double,
+        cancelInertia: Bool)
+    {
         xcuiEventGeneratorObjC.pressAndDrag(
             from: from,
             to: to,
-            duration: duration,
+            duration: durationOfInitialPress,
             velocity: velocity,
+            cancelInertia: cancelInertia,
             application: applicationProvider.application
         )
     }

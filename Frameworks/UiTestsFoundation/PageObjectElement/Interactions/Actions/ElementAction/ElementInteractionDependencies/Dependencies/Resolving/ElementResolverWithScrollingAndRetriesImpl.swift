@@ -134,8 +134,9 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
                 x: frame.mb_centerX,
                 y: up ? 0 : frame.height
             ),
-            duration: 0,
-            velocity: 500
+            durationOfInitialPress: 0,
+            velocity: 500,
+            cancelInertia: true
         )
     }
 }

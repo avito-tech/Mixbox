@@ -26,10 +26,13 @@ static CGFloat duration(CGFloat distance,  CGFloat velocity) {
 //       but some code can be shared.
 @implementation Xcode_10_2_EventGeneratorObjC
 
+// WARNING: `cancelInertia` is not supported! If you support this, please test cancelling inertia in auto-scrolling,
+// because it is `true` for autoscrolling. It is `false` for swipes.
 - (void)pressAndDragFromPoint:(struct CGPoint)from
                            to:(struct CGPoint)to
                      duration:(double)pressDuration
                      velocity:(double)velocity
+                cancelInertia:(BOOL)cancelInertia // WARNING: Not supported!
                   application:(nonnull XCUIApplication *)application
 {
     NSString *actionName = [NSString stringWithFormat:@"Press %@ for %@s and drag to %@ with velocity %@",

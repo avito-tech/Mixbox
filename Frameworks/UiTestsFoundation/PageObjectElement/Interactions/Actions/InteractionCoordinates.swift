@@ -1,12 +1,6 @@
-public protocol InteractionCoordinates: class {
-    func interactionCoordinatesOnScreen(elementSnapshot: ElementSnapshot) -> CGPoint
-}
-
-// Behaves as in 2018 where there were 2 args in each function.
-// Now is 2019 and we might want to use some kind of builder.
-public final class InteractionCoordinatesImpl: InteractionCoordinates {
-    private let normalizedCoordinate: CGPoint?
-    private let absoluteOffset: CGVector?
+public final class InteractionCoordinates {
+    public let normalizedCoordinate: CGPoint?
+    public let absoluteOffset: CGVector?
     
     public init(
         normalizedCoordinate: CGPoint? = nil,
@@ -16,7 +10,7 @@ public final class InteractionCoordinatesImpl: InteractionCoordinates {
         self.absoluteOffset = absoluteOffset
     }
     
-    public static let center = InteractionCoordinatesImpl(normalizedCoordinate: nil, absoluteOffset: nil)
+    public static let center = InteractionCoordinates(normalizedCoordinate: nil, absoluteOffset: nil)
     
     // MARK: - InteractionCoordinates
     

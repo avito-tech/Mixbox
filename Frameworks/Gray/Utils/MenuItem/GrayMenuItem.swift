@@ -30,7 +30,7 @@ final class GrayMenuItem: MenuItem, CustomStringConvertible {
         
         let elementSimpleGestures = try elementSimpleGesturesProvider.elementSimpleGestures(
             elementSnapshot: elementSnapshot,
-            interactionCoordinates: InteractionCoordinatesImpl.center
+            interactionCoordinates: InteractionCoordinates.center
         )
         
         try elementSimpleGestures.tap()

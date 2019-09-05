@@ -37,11 +37,12 @@ public final class GrayEventGenerator: EventGenerator {
     public func pressAndDrag(
         from: CGPoint,
         to: CGPoint,
-        duration: TimeInterval,
-        velocity: Double)
+        durationOfInitialPress: TimeInterval,
+        velocity: Double,
+        cancelInertia: Bool)
         throws
     {
-        guard duration == 0 else {
+        guard durationOfInitialPress == 0 else {
             grayNotImplemented()
         }
         
@@ -54,7 +55,7 @@ public final class GrayEventGenerator: EventGenerator {
             startPoint: from,
             endPoint: to,
             touchPathLengths: .optimizedForDuration(durarionOfMoving),
-            cancelInertia: true,
+            cancelInertia: cancelInertia,
             skipUndetectableScroll: false
         )
         

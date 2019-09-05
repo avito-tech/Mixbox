@@ -85,8 +85,8 @@
 		F8222D7020D194CD009FB7B6 /* TestCaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */; };
 		F8252DAD22772A47003190D0 /* GettingRealViewHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */; };
 		F8252DB12279D700003190D0 /* TouchesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB02279D700003190D0 /* TouchesTestsView.swift */; };
-		F8252DB52279DA03003190D0 /* TouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB32279D9EB003190D0 /* TouchesTests.swift */; };
-		F8252DB62279DA03003190D0 /* TouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB32279D9EB003190D0 /* TouchesTests.swift */; };
+		F8252DB52279DA03003190D0 /* TapActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB32279D9EB003190D0 /* TapActionTouchesTests.swift */; };
+		F8252DB62279DA03003190D0 /* TapActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB32279D9EB003190D0 /* TapActionTouchesTests.swift */; };
 		F8252DBD2279DCED003190D0 /* BaseTouchesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DBA2279DBD8003190D0 /* BaseTouchesTestCase.swift */; };
 		F8252DBE2279DCEE003190D0 /* BaseTouchesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DBA2279DBD8003190D0 /* BaseTouchesTestCase.swift */; };
 		F8252DC62279DD0F003190D0 /* ChecksTestsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879832E22494BE3004DD770 /* ChecksTestsScreen.swift */; };
@@ -130,6 +130,8 @@
 		F8676ED821552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676ED721552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift */; };
 		F8676EDA21552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676ED921552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift */; };
 		F8676EE4215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */; };
+		F868744223204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */; };
+		F868744323204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */; };
 		F86E60FF229C2D7E00C227CE /* ApplicationNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */; };
 		F870C66B21FF43FB006F643B /* AllureReportingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */; };
 		F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */; };
@@ -142,6 +144,10 @@
 		F879833522494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833422494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift */; };
 		F879833722494F07004DD770 /* StepLogMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833622494F07004DD770 /* StepLogMatcherBuilder.swift */; };
 		F879833F22495469004DD770 /* BaseUiTestCase+AssertLogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833E22495469004DD770 /* BaseUiTestCase+AssertLogsAndFailures.swift */; };
+		F888EE1A23206136009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */; };
+		F888EE1B23206136009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */; };
+		F888EE1C23206137009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */; };
+		F888EE1D23206137009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */; };
 		F88915AB2295E211003B8D0A /* TestQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88915A62295E211003B8D0A /* TestQuery.swift */; };
 		F88915AC2295E211003B8D0A /* TestQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88915A62295E211003B8D0A /* TestQuery.swift */; };
 		F88915AD2295E211003B8D0A /* TestSuiteInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F88915A72295E211003B8D0A /* TestSuiteInfo.m */; };
@@ -156,6 +162,10 @@
 		F88ADFAC223BCF7E0024CCBE /* SetTextActionFailuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFAB223BCF7E0024CCBE /* SetTextActionFailuresTests.swift */; };
 		F88ADFAE223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFAD223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift */; };
 		F88ADFB3223BD6A70024CCBE /* RecodableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */; };
+		F88B33B3232153DB00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
+		F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
+		F88B33BC232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
+		F88B33BD232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
 		F8951E45222463120033885C /* ExpandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8951E44222463120033885C /* ExpandingView.swift */; };
 		F8971CE12264AF9B001741C1 /* LaunchableApplicationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE02264AF9B001741C1 /* LaunchableApplicationProvider.swift */; };
 		F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */; };
@@ -380,12 +390,12 @@
 		F8DB358722735E0900EE0FB8 /* UiEventHistoryTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358622735E0900EE0FB8 /* UiEventHistoryTracker.swift */; };
 		F8DB358922735FB700EE0FB8 /* UiEventHistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358822735FB700EE0FB8 /* UiEventHistoryProvider.swift */; };
 		F8DB358B22735FC100EE0FB8 /* UiEventObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358A22735FC100EE0FB8 /* UiEventObserver.swift */; };
-		F8DB359A22738C9A00EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift */; };
+		F8DB359A22738C9A00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+GetEvents.swift */; };
 		F8DB359B22738C9A00EE0FB8 /* BaseActionTestCase+Checks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359422738BBA00EE0FB8 /* BaseActionTestCase+Checks.swift */; };
 		F8DB359C22738C9A00EE0FB8 /* BaseActionTestCase+SetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359622738BE500EE0FB8 /* BaseActionTestCase+SetViews.swift */; };
 		F8DB359D22738C9A00EE0FB8 /* BaseActionTestCase+BasicAsserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359822738C2700EE0FB8 /* BaseActionTestCase+BasicAsserts.swift */; };
 		F8DB359E22738C9A00EE0FB8 /* ActionSpecifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358F22738AF000EE0FB8 /* ActionSpecifications.swift */; };
-		F8DB359F22738C9B00EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift */; };
+		F8DB359F22738C9B00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+GetEvents.swift */; };
 		F8DB35A022738C9B00EE0FB8 /* BaseActionTestCase+Checks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359422738BBA00EE0FB8 /* BaseActionTestCase+Checks.swift */; };
 		F8DB35A122738C9B00EE0FB8 /* BaseActionTestCase+SetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359622738BE500EE0FB8 /* BaseActionTestCase+SetViews.swift */; };
 		F8DB35A222738C9B00EE0FB8 /* BaseActionTestCase+BasicAsserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359822738C2700EE0FB8 /* BaseActionTestCase+BasicAsserts.swift */; };
@@ -540,7 +550,7 @@
 		F820873F2141B49700DCBA2D /* LocatorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsTests.swift; sourceTree = "<group>"; };
 		F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseUtils.swift; sourceTree = "<group>"; };
 		F8252DB02279D700003190D0 /* TouchesTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchesTestsView.swift; sourceTree = "<group>"; };
-		F8252DB32279D9EB003190D0 /* TouchesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchesTests.swift; sourceTree = "<group>"; };
+		F8252DB32279D9EB003190D0 /* TapActionTouchesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapActionTouchesTests.swift; sourceTree = "<group>"; };
 		F8252DB82279DAEF003190D0 /* TouchesTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchesTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8252DBA2279DBD8003190D0 /* BaseTouchesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTouchesTestCase.swift; sourceTree = "<group>"; };
 		F8274A422142DA7A00A72C41 /* AssertingCustomValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertingCustomValuesTests.swift; sourceTree = "<group>"; };
@@ -581,6 +591,7 @@
 		F8676ED721552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackFromAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8676ED921552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
+		F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeActionTouchesTests.swift; sourceTree = "<group>"; };
 		F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllureReportingSystem.swift; sourceTree = "<group>"; };
 		F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCanNotBeContinuedException.swift; sourceTree = "<group>"; };
 		F8798323224930B1004DD770 /* ContinueAfterFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueAfterFailureTests.swift; sourceTree = "<group>"; };
@@ -591,6 +602,8 @@
 		F879833422494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsAndFailuresMatcherBuilder.swift; sourceTree = "<group>"; };
 		F879833622494F07004DD770 /* StepLogMatcherBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepLogMatcherBuilder.swift; sourceTree = "<group>"; };
 		F879833E22495469004DD770 /* BaseUiTestCase+AssertLogsAndFailures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseUiTestCase+AssertLogsAndFailures.swift"; sourceTree = "<group>"; };
+		F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+AllEvents.swift"; sourceTree = "<group>"; };
+		F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+AllTouches.swift"; sourceTree = "<group>"; };
 		F88915A62295E211003B8D0A /* TestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuery.swift; sourceTree = "<group>"; };
 		F88915A72295E211003B8D0A /* TestSuiteInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSuiteInfo.m; sourceTree = "<group>"; };
 		F88915A82295E211003B8D0A /* TestGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestGetter.h; sourceTree = "<group>"; };
@@ -605,6 +618,8 @@
 		F88ADFAB223BCF7E0024CCBE /* SetTextActionFailuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionFailuresTests.swift; sourceTree = "<group>"; };
 		F88ADFAD223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTestActionSetsTextProperlyTests.swift; sourceTree = "<group>"; };
 		F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecodableStepLogger.swift; sourceTree = "<group>"; };
+		F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Asserts.swift"; sourceTree = "<group>"; };
+		F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Coordinates.swift"; sourceTree = "<group>"; };
 		F8951E44222463120033885C /* ExpandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingView.swift; sourceTree = "<group>"; };
 		F8971CE02264AF9B001741C1 /* LaunchableApplicationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchableApplicationProvider.swift; sourceTree = "<group>"; };
 		F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsViewPageObject.swift; sourceTree = "<group>"; };
@@ -726,7 +741,7 @@
 		F8DB358822735FB700EE0FB8 /* UiEventHistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventHistoryProvider.swift; sourceTree = "<group>"; };
 		F8DB358A22735FC100EE0FB8 /* UiEventObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventObserver.swift; sourceTree = "<group>"; };
 		F8DB358F22738AF000EE0FB8 /* ActionSpecifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSpecifications.swift; sourceTree = "<group>"; };
-		F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+RecordEvents.swift"; sourceTree = "<group>"; };
+		F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+GetEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+GetEvents.swift"; sourceTree = "<group>"; };
 		F8DB359422738BBA00EE0FB8 /* BaseActionTestCase+Checks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseActionTestCase+Checks.swift"; sourceTree = "<group>"; };
 		F8DB359622738BE500EE0FB8 /* BaseActionTestCase+SetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseActionTestCase+SetViews.swift"; sourceTree = "<group>"; };
 		F8DB359822738C2700EE0FB8 /* BaseActionTestCase+BasicAsserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseActionTestCase+BasicAsserts.swift"; sourceTree = "<group>"; };
@@ -1102,9 +1117,9 @@
 		F820306122385450006D2F70 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				F8DB359122738B5700EE0FB8 /* Base */,
+				F888EE0523205631009CF8B7 /* BaseTouchesTestCase */,
+				F8DB359122738B5700EE0FB8 /* BaseActionTestCase */,
 				F8B33B32224CF55C00AA1EB9 /* Specification */,
-				F88ADF5A223982570024CCBE /* ActionsTestsScreen.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -1124,6 +1139,7 @@
 		F82030632238545B006D2F70 /* Tap */ = {
 			isa = PBXGroup;
 			children = (
+				F8252DB32279D9EB003190D0 /* TapActionTouchesTests.swift */,
 				F8A395BE2147E4FC000E9E44 /* CanTapMovingElementTests.swift */,
 				F8203068223854A3006D2F70 /* TapActionTests.swift */,
 			);
@@ -1144,6 +1160,7 @@
 				F820306B223858B9006D2F70 /* SwipeActionCanBeRunSubsequentlyTests.swift */,
 				F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */,
 				F8B964A82280A0E00054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift */,
+				F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */,
 			);
 			path = Swipe;
 			sourceTree = "<group>";
@@ -1218,16 +1235,6 @@
 			isa = PBXGroup;
 			children = (
 				F8252DB02279D700003190D0 /* TouchesTestsView.swift */,
-			);
-			path = Touches;
-			sourceTree = "<group>";
-		};
-		F8252DB22279D9E2003190D0 /* Touches */ = {
-			isa = PBXGroup;
-			children = (
-				F8252DB32279D9EB003190D0 /* TouchesTests.swift */,
-				F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift */,
-				F8252DBA2279DBD8003190D0 /* BaseTouchesTestCase.swift */,
 			);
 			path = Touches;
 			sourceTree = "<group>";
@@ -1454,6 +1461,19 @@
 				F879833422494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift */,
 			);
 			path = Matchers;
+			sourceTree = "<group>";
+		};
+		F888EE0523205631009CF8B7 /* BaseTouchesTestCase */ = {
+			isa = PBXGroup;
+			children = (
+				F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+GetEvents.swift */,
+				F8252DBA2279DBD8003190D0 /* BaseTouchesTestCase.swift */,
+				F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */,
+				F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */,
+				F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */,
+				F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */,
+			);
+			path = BaseTouchesTestCase;
 			sourceTree = "<group>";
 		};
 		F88915A42295E211003B8D0A /* Emcee */ = {
@@ -2003,6 +2023,7 @@
 		F8B34118224E56BF00AA1EB9 /* PageObjects */ = {
 			isa = PBXGroup;
 			children = (
+				F88ADF5A223982570024CCBE /* ActionsTestsScreen.swift */,
 				F879832E22494BE3004DD770 /* ChecksTestsScreen.swift */,
 				F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */,
 				F8B34119224E56C800AA1EB9 /* GenericPageObject.swift */,
@@ -2252,7 +2273,7 @@
 			path = Handlers;
 			sourceTree = "<group>";
 		};
-		F8DB359122738B5700EE0FB8 /* Base */ = {
+		F8DB359122738B5700EE0FB8 /* BaseActionTestCase */ = {
 			isa = PBXGroup;
 			children = (
 				F82030662238548E006D2F70 /* BaseActionTestCase.swift */,
@@ -2260,7 +2281,7 @@
 				F8DB359622738BE500EE0FB8 /* BaseActionTestCase+SetViews.swift */,
 				F8DB359822738C2700EE0FB8 /* BaseActionTestCase+BasicAsserts.swift */,
 			);
-			path = Base;
+			path = BaseActionTestCase;
 			sourceTree = "<group>";
 		};
 		F8E0B50F2199E17200C66BA9 /* MixboxHelperPrototype */ = {
@@ -2299,7 +2320,6 @@
 		F8E6CC7D2181ED2300D7A0C1 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				F8252DB22279D9E2003190D0 /* Touches */,
 				F88ADF64223AEDA20024CCBE /* SelfCheck */,
 				F820306A22385753006D2F70 /* Common */,
 				F820306222385455006D2F70 /* Specific */,
@@ -3206,6 +3226,7 @@
 				F820305F22385427006D2F70 /* CanTapMovingElementTests.swift in Sources */,
 				F8C8ED4022985B790009B9A7 /* TestObservationEntryPoint.swift in Sources */,
 				F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */,
+				F868744223204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */,
 				F8B9649922808AE90054CE08 /* AlwaysFailingIpcClient.swift in Sources */,
 				F8B33B10224ACF2500AA1EB9 /* AssertIsNotDisplayedInteractionTests.swift in Sources */,
 				F82030672238548E006D2F70 /* BaseActionTestCase.swift in Sources */,
@@ -3219,12 +3240,13 @@
 				F88ADF5B223982570024CCBE /* ActionsTestsScreen.swift in Sources */,
 				F8E6EF5D22831513007A97E5 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift in Sources */,
 				F8B33B16224ACF5B00AA1EB9 /* AssertIsDisabledInteractionTests.swift in Sources */,
-				F8DB359A22738C9A00EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift in Sources */,
+				F8DB359A22738C9A00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */,
 				F801CC172254F9C60074F0E9 /* StepLoggerRecordingStarter.swift in Sources */,
 				F8A837CE2270F8F500145140 /* MainAppScreen.swift in Sources */,
 				F820307322385D7C006D2F70 /* SetTextActionCanBeRunSubsequentlyWithSameResultTests.swift in Sources */,
 				F8274A432142DA7A00A72C41 /* AssertingCustomValuesTests.swift in Sources */,
 				F84D126F2166ABF800A178B4 /* FakeCellsDoNotCrashAppTests.swift in Sources */,
+				F88B33BC232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */,
 				F8971D2F2265331C001741C1 /* NetworkPlayerShowcaseTests.swift in Sources */,
 				F8AD07A02250D5DD00D5FB93 /* PhotosApplicationPermissionSpecification.swift in Sources */,
 				F813CB34209CDF4700E6A27C /* TestCase.swift in Sources */,
@@ -3249,10 +3271,12 @@
 				F801CC162254F9C60074F0E9 /* StartedStepLoggerRecording.swift in Sources */,
 				F8252DBD2279DCED003190D0 /* BaseTouchesTestCase.swift in Sources */,
 				F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */,
+				F888EE1D23206137009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
 				F8B33B12224ACF3900AA1EB9 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F8971D2622651E3A001741C1 /* CreatedTemporaryDirectory.swift in Sources */,
 				F8E8BAE320DD752200524185 /* FakeCellsTests.swift in Sources */,
 				F8B33B2F224CEEA900AA1EB9 /* SetTextActionWaitsElementTests.swift in Sources */,
+				F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */,
 				F801CC182254F9C60074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
 				F8B0A260220A0EF40089C1EE /* BasePageObjects.swift in Sources */,
 				F88915AB2295E211003B8D0A /* TestQuery.swift in Sources */,
@@ -3315,6 +3339,7 @@
 				F801CC092254EBF30074F0E9 /* IsDisplayedInteractionTests.swift in Sources */,
 				F8B33B0C224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift in Sources */,
 				F879831A22492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
+				F888EE1C23206137009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */,
 				F8E6CC902187858E00D7A0C1 /* ApplicationBundleProviderTests.swift in Sources */,
 				F82087402141B49700DCBA2D /* LocatorsTests.swift in Sources */,
 				F88ADFAE223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift in Sources */,
@@ -3328,7 +3353,7 @@
 				F801CC142254F9C60074F0E9 /* FailsHereFunctionProvider.swift in Sources */,
 				F8AD079E2250D5DD00D5FB93 /* GeolocationApplicationPermissionTests.swift in Sources */,
 				F813CB31209CDF3400E6A27C /* RunningActionsInRandomOrderTests.swift in Sources */,
-				F8252DB52279DA03003190D0 /* TouchesTests.swift in Sources */,
+				F8252DB52279DA03003190D0 /* TapActionTouchesTests.swift in Sources */,
 				F8B33B0E224ACF1600AA1EB9 /* AssertHasAccessibilityValueInteractionTests.swift in Sources */,
 				F8252DC72279DD0F003190D0 /* NetworkStubbingTestsViewPageObject.swift in Sources */,
 				F801CC072254E3120074F0E9 /* TextInteractionTests.swift in Sources */,
@@ -3417,6 +3442,7 @@
 				F8B0A259220A0EF30089C1EE /* TestMethodReport.swift in Sources */,
 				F8B0A255220A0EF30089C1EE /* TestStepReport.swift in Sources */,
 				F8C8ED182298505D0009B9A7 /* MicrophoneApplicationPermissionSpecification.swift in Sources */,
+				F868744323204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */,
 				F8A83E8C2272223700145140 /* ActionSpecification.swift in Sources */,
 				F8A8382A227215C300145140 /* AssertTextMatchesInteractionTests.swift in Sources */,
 				F8B0A25A220A0EF30089C1EE /* TestReportFailure.swift in Sources */,
@@ -3424,6 +3450,7 @@
 				F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */,
 				F8B0A25F220A0EF30089C1EE /* AllureReportingSystem.swift in Sources */,
 				F8A837A42270D40B00145140 /* GenericPageObject.swift in Sources */,
+				F888EE1B23206136009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
 				F8C8ED3D22985B060009B9A7 /* FileSystem.swift in Sources */,
 				F8C8ED0F2298505D0009B9A7 /* FakeCellsDoNotCrashAppTests.swift in Sources */,
 				F8C8ED2E229854580009B9A7 /* BaseUiTestCase.swift in Sources */,
@@ -3445,7 +3472,7 @@
 				F836C50522DF300900F78C6F /* NetworkStubbingTests.swift in Sources */,
 				F8B0A258220A0EF30089C1EE /* TestReportStatus.swift in Sources */,
 				F8A83E852272223700145140 /* SetTextActionFailuresTests.swift in Sources */,
-				F8DB359F22738C9B00EE0FB8 /* BaseTouchesTestCase+RecordEvents.swift in Sources */,
+				F8DB359F22738C9B00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */,
 				F8C8ED122298505D0009B9A7 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */,
 				F8A83829227215C300145140 /* AssertBecomesShorterAfterInteractionTests.swift in Sources */,
 				F8B0A256220A0EF30089C1EE /* TestCaseReport.swift in Sources */,
@@ -3457,6 +3484,7 @@
 				F8C8ED102298505D0009B9A7 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */,
 				F8A83E7F2272223700145140 /* AssertingCustomValuesTests.swift in Sources */,
 				F8B340F0224D3FD700AA1EB9 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
+				F88B33BD232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */,
 				F8C8ED3C22985B060009B9A7 /* TemporaryDirectoryPathProviderImpl.swift in Sources */,
 				F8DB35A122738C9B00EE0FB8 /* BaseActionTestCase+SetViews.swift in Sources */,
 				F8A837C22270ED8E00145140 /* GrayScreenshotTakerTests.swift in Sources */,
@@ -3474,7 +3502,7 @@
 				F8A83823227215C300145140 /* AssertHasAccessibilityValueInteractionTests.swift in Sources */,
 				F8A83E892272223700145140 /* PressActionTests.swift in Sources */,
 				F8DB34D9227223B000EE0FB8 /* UIImage+WithColorAndSize.swift in Sources */,
-				F8252DB62279DA03003190D0 /* TouchesTests.swift in Sources */,
+				F8252DB62279DA03003190D0 /* TapActionTouchesTests.swift in Sources */,
 				F8A837AE2270D57F00145140 /* AssertSpec.swift in Sources */,
 				F8A83E8B2272223700145140 /* TapActionTests.swift in Sources */,
 				F8C8ED112298505D0009B9A7 /* TestabilityTextTests.swift in Sources */,
@@ -3489,7 +3517,9 @@
 				F8C8ED092298312C0009B9A7 /* ScreenshotTests.swift in Sources */,
 				F80CEDE822DE37D6006C804D /* BidirectionalIpcTests.swift in Sources */,
 				F8B0A24C220A0E040089C1EE /* TestObservationEntryPoint.swift in Sources */,
+				F888EE1A23206136009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */,
 				F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */,
+				F88B33B3232153DB00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */,
 				F8C8ED3422985B060009B9A7 /* EnvironmentProvider.swift in Sources */,
 				F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */,
 				F8C8ED2A2298505D0009B9A7 /* BaseNetworkMockingTestCase.swift in Sources */,

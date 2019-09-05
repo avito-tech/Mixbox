@@ -284,8 +284,9 @@ final class ScrollingContext {
         try eventGenerator.pressAndDrag(
             from: draggingInstruction.initialTouchPoint,
             to: draggingInstruction.targetTouchPoint,
-            duration: 0,
-            velocity: 500
+            durationOfInitialPress: 0,
+            velocity: 500,
+            cancelInertia: true
         )
     }
     

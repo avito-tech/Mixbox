@@ -21,7 +21,7 @@ public extension ElementWithText {
             elementSelectionMethod: elementSelectionMethod,
             inputMethod: inputMethod,
             textEditingActionMode: .replace,
-            interactionCoordinates: InteractionCoordinatesImpl(
+            interactionCoordinates: InteractionCoordinates(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             ),
@@ -69,7 +69,7 @@ public extension ElementWithText {
         -> Bool
     {
         let action = CutTextAction(
-            interactionCoordinates: InteractionCoordinatesImpl(
+            interactionCoordinates: InteractionCoordinates(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
             ),
