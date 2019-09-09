@@ -54,7 +54,7 @@ public final class MixboxUrlProtocolBootstrapperImpl: MixboxUrlProtocolBootstrap
     }
 }
 
-fileprivate extension URLSessionConfiguration {
+extension URLSessionConfiguration {
     @objc fileprivate class func swizzled_MixboxUrlProtocolBootstrapperImpl_default() -> URLSessionConfiguration {
         return swizzled_MixboxUrlProtocolBootstrapperImpl_default()
             .byAddingMixboxUrlProtocol()

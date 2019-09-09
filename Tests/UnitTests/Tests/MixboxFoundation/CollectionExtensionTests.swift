@@ -2,6 +2,15 @@ import MixboxFoundation
 import XCTest
 
 final class CollectionExtensionTests: TestCase {
+    private struct EquatablePair: Equatable {
+        let first: Int
+        let second: Int
+        
+        init(_ tuple: (Int, Int)) {
+            (first, second) = tuple
+        }
+    }
+    
     private let empty = [Int]()
     
     // MARK: - mb_chunked
@@ -89,15 +98,6 @@ final class CollectionExtensionTests: TestCase {
     // MARK: - mb_zip
     
     func test___mb_zip() {
-        struct EquatablePair: Equatable {
-            let first: Int
-            let second: Int
-            
-            init(_ tuple: (Int, Int)) {
-                (first, second) = tuple
-            }
-        }
-        
         XCTAssertEqual(
             mb_zip([1], [2], pad: 0).map { EquatablePair($0) },
             zip([1], [2]).map { EquatablePair($0) }

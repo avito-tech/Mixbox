@@ -18,16 +18,6 @@ extension BaseTouchesTestCase {
         )
     }
     
-    func allTouches(_ event: UiEvent) throws -> (UiTouch, UiTouch, UiTouch) {
-        try require(numberOfTouches: 3, event: event)
-        
-        return (
-            event.allTouches[0],
-            event.allTouches[1],
-            event.allTouches[2]
-        )
-    }
-    
     func require(numberOfTouches: Int, event: UiEvent) throws {
         let actualCount = event.allTouches.count
         

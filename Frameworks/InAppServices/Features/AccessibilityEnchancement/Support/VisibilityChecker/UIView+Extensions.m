@@ -3,6 +3,7 @@
 #import "UIView+Extensions.h"
 #import "Defines.h"
 #include <objc/runtime.h>
+@import MixboxTestability;
 
 @implementation UIView (GREYAdditions)
 

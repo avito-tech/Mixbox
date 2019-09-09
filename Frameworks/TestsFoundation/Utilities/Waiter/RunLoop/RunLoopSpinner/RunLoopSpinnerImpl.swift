@@ -103,7 +103,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
                 
                 let result: CFRunLoopRunResult = CFRunLoopRunInMode(
                     activeMode,
-                    DBL_MAX,
+                    Double.greatestFiniteMagnitude,
                     false
                 )
                 if result == .finished {

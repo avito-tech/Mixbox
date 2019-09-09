@@ -1,3 +1,5 @@
+// swiftlint:disable cyclomatic_complexity
+
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import Foundation

@@ -20,6 +20,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     
     private let networkMockingBootstrappingType: NetworkMockingBootstrappingType
     
+    // TODO: fix swiftlint:disable:next function_body_length
     public init?(environment: [String: String]) {
         // TODO: Fail tests instead of crashing app
         assertionFailureRecorder = StandardLibraryAssertionFailureRecorder()

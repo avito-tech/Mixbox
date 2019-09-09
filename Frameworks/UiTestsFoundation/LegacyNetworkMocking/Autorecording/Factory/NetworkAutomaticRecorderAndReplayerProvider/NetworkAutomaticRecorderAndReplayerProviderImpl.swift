@@ -1,6 +1,5 @@
 import MixboxFoundation
 import MixboxTestsFoundation
-import MixboxUiTestsFoundation
 import MixboxReporting
 
 public final class NetworkAutomaticRecorderAndReplayerProviderImpl:

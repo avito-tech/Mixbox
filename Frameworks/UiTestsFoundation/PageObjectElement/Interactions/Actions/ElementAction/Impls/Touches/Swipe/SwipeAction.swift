@@ -71,6 +71,8 @@ public final class SwipeAction: ElementInteraction {
         
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout {
+                // Unfortunately either the line will be long, either this rule will be violated:
+                // swiftlint:disable:next closure_parameter_position
                 [dependencies, swipeActionPathCalculator, minimalPercentageOfVisibleArea] _ in
                 
                 dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { elementSnapshot in

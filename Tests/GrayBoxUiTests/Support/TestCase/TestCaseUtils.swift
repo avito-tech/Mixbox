@@ -33,6 +33,7 @@ final class TestCaseUtils: IpcRouterProvider {
     let baseUiTestCaseUtils = BaseUiTestCaseUtils()
     private let screenshotTaker: ScreenshotTaker
     
+    // swiftlint:disable:next function_body_length
     init() {
         let bundleId = Bundle.main.bundleIdentifier.unwrapOrFail()
         

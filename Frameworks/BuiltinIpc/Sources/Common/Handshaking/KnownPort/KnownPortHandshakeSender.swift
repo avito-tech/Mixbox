@@ -39,7 +39,7 @@ public final class KnownPortHandshakeSender {
             // setup connections between iOS app and UI tests runner. Maybe if we really want generic solution
             // we have to add parameter that controls whether to wait synchronously or not.
             // TODO: Handle result.
-            client.call(
+            _ = client.call(
                 method: HandshakeIpcMethod(),
                 arguments: localPort
             )

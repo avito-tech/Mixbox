@@ -1,4 +1,4 @@
-public protocol ElementWithDefaultInitializer: class, Element {
+public protocol ElementWithDefaultInitializer: Element {
     init(implementation: PageObjectElement)
 }
 

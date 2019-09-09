@@ -37,15 +37,13 @@ public final class FileLine: Hashable {
             && left.line == right.line
     }
     
-    public var hashValue: Int {
-        return HashMath
-            .combine(String(describing: file))
-            .combine(line)
-            .reduce
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(String(describing: file))
+        hasher.combine(line)
     }
 }
 
-public extension FileLine {
+extension FileLine {
     // Remember that it can not be used as a default argument of a function if you
     // want to store the file and line of where the function was called.
     //

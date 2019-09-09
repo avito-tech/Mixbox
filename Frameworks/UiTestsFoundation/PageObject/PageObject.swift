@@ -1,6 +1,6 @@
 public protocol PageObject: class {
 }
 
-public protocol PageObjectWithDefaultInitializer: class, PageObject {
+public protocol PageObjectWithDefaultInitializer: PageObject {
     init(pageObjectDependenciesFactory: PageObjectDependenciesFactory)
 }
