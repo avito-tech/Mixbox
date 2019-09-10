@@ -5,7 +5,7 @@ import GCDWebServer
 
 // TODO: Pass error string back to client instead of 500 status code in case of error
 public final class BuiltinIpcServer: IpcRouter {
-    typealias Handler = (_ data: Data, _ completion: @escaping (GCDWebServerResponse) -> ()) -> ()
+    typealias Handler = (_ data: Data, _ completion: @escaping (GCDWebServerResponse?) -> ()) -> ()
     
     private let bonjourServiceSettings: BonjourServiceSettings?
     private let server = GCDWebServer()
@@ -80,7 +80,7 @@ public final class BuiltinIpcServer: IpcRouter {
     // TODO: Better error handling before replacing SBTUI with it.
     private func handle(
         request: GCDWebServerRequest,
-        completion: @escaping (GCDWebServerResponse) -> ())
+        completion: @escaping (GCDWebServerResponse?) -> ())
     {
         guard let request = request as? GCDWebServerDataRequest else {
             return completion(error("request is not GCDWebServerDataRequest"))
@@ -114,7 +114,7 @@ public final class BuiltinIpcServer: IpcRouter {
     private func handle<MethodHandler: IpcMethodHandler>(
         data: Data,
         methodHandler: MethodHandler,
-        completion: @escaping (GCDWebServerResponse) -> ())
+        completion: @escaping (GCDWebServerResponse?) -> ())
     {
         let container = try? decoderFactory
             .decoder()
@@ -141,7 +141,7 @@ public final class BuiltinIpcServer: IpcRouter {
     }
 }
 
-private func error(_ text: String, file: StaticString = #file, line: UInt = #line) -> GCDWebServerResponse {
+private func error(_ text: String, file: StaticString = #file, line: UInt = #line) -> GCDWebServerResponse? {
     return GCDWebServerErrorResponse(
         serverError: .httpStatusCode_InternalServerError,
         text: "\(text) \(#file):\(#line)"

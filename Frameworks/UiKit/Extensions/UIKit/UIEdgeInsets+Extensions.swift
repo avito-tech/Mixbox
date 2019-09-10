@@ -37,14 +37,6 @@ public extension UIEdgeInsets {
     }
 }
 
-public func ==(left: UIEdgeInsets, right: UIEdgeInsets) -> Bool {
-    return UIEdgeInsetsEqualToEdgeInsets(left, right)
-}
-
-public func !=(left: UIEdgeInsets, right: UIEdgeInsets) -> Bool {
-    return !UIEdgeInsetsEqualToEdgeInsets(left, right)
-}
-
 public func +(left: UIEdgeInsets, right: UIEdgeInsets) -> UIEdgeInsets {
     var insets = left
     insets.top += right.top

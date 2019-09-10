@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol PageObjectElementInteractionPerformer: class, ElementInteractionPerformer {
+public protocol PageObjectElementInteractionPerformer: ElementInteractionPerformer {
     func with(
         settings: ElementSettings)
         -> PageObjectElementInteractionPerformer

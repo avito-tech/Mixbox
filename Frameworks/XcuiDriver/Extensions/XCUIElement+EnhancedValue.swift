@@ -3,7 +3,7 @@ import MixboxIpc
 import Foundation
 import XCTest
 
-public extension XCUIElement {
+extension XCUIElement {
     
     public var enhancedAccessibilityValueStringRepresentation: String? {
         return self.value as? String

@@ -95,8 +95,6 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
                             return  .success
                         }
                     }
-                    
-                    return .success
                 }
             }
         }

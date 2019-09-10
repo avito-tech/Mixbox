@@ -25,7 +25,7 @@ public protocol WriteableIpcObjectRepository: class {
     func insert(object: IpcObjectType, ipcObjectId: IpcObjectId) -> InsertedIpcObject
 }
 
-public extension WriteableIpcObjectRepository where IpcObjectType: IpcObjectIdentifiable {
+extension WriteableIpcObjectRepository where IpcObjectType: IpcObjectIdentifiable {
     public func insert(object: IpcObjectType) -> InsertedIpcObject {
         return insert(object: object, ipcObjectId: object.ipcObjectId)
     }

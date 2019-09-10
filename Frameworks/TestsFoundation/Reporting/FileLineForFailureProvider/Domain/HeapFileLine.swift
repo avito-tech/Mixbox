@@ -31,11 +31,9 @@ public final class HeapFileLine: Hashable, CustomStringConvertible {
             && left.line == right.line
     }
     
-    public var hashValue: Int {
-        return HashMath
-            .combine(file)
-            .combine(line)
-            .reduce
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(file)
+        hasher.combine(line)
     }
     
     public var description: String {

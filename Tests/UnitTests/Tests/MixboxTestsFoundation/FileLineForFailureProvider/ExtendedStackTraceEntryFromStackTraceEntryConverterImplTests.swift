@@ -111,20 +111,46 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
         fileWhereExecuted: StaticString = #file,
         lineWhereExecuted: UInt = #line)
     {
-        XCTAssert(entry.file == file, "Expected file: \(file), actual: \(entry.file)", file: fileWhereExecuted, line: lineWhereExecuted)
-        XCTAssert(entry.line == line, "Expected line: \(line), actual: \(entry.line)", file: fileWhereExecuted, line: lineWhereExecuted)
-        XCTAssert(entry.owner == owner, "Expected owner: \(owner), actual: \(entry.owner)", file: fileWhereExecuted, line: lineWhereExecuted)
+        XCTAssert(
+            entry.file == file,
+            "Expected file: \(file.descriptionOrNil()), actual: \(entry.file.descriptionOrNil())",
+            file: fileWhereExecuted,
+            line: lineWhereExecuted
+        )
+        XCTAssert(
+            entry.line == line,
+            "Expected line: \(line.descriptionOrNil()), actual: \(entry.line.descriptionOrNil())",
+            file: fileWhereExecuted,
+            line: lineWhereExecuted
+        )
+        XCTAssert(
+            entry.owner == owner,
+            "Expected owner: \(owner.descriptionOrNil()), actual: \(entry.owner.descriptionOrNil())",
+            file: fileWhereExecuted,
+            line: lineWhereExecuted
+        )
         
         let actualSymbol = entry.symbol
         if actualSymbol != symbolInXcode10_2_1 && actualSymbol != symbolInXcode10_1_or_10_0 {
             XCTFail(
-                "Expected symbol: \(symbolInXcode10_2_1) or \(symbolInXcode10_1_or_10_0), actual: \(String(describing: actualSymbol))",
+                "Expected symbol: \(symbolInXcode10_2_1.descriptionOrNil()) or \(symbolInXcode10_1_or_10_0.descriptionOrNil()), actual: \(actualSymbol.descriptionOrNil())",
                 file: fileWhereExecuted,
                 line: lineWhereExecuted
             )
         }
         
-        XCTAssert(entry.demangledSymbol == demangledSymbol, "Expected demangledSymbol: \(demangledSymbol), actual: \(entry.demangledSymbol)", file: fileWhereExecuted, line: lineWhereExecuted)
-        XCTAssert(entry.address == expectedAddress, "Expected address: \(expectedAddress), actual: \(entry.address)", file: fileWhereExecuted, line: lineWhereExecuted)
+        XCTAssert(
+            entry.demangledSymbol == demangledSymbol,
+            "Expected demangledSymbol: \(demangledSymbol.descriptionOrNil()), actual: \(entry.demangledSymbol.descriptionOrNil())",
+            file: fileWhereExecuted,
+            line: lineWhereExecuted
+        )
+        
+        XCTAssert(
+            entry.address == expectedAddress,
+            "Expected address: \(expectedAddress), actual: \(entry.address)",
+            file: fileWhereExecuted,
+            line: lineWhereExecuted
+        )
     }
 }

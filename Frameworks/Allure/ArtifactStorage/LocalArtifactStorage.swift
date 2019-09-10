@@ -114,6 +114,8 @@ public final class LocalArtifactStorage: ArtifactStorage {
         fileName: String)
         -> ArtifactStorageResult
     {
+        var storageFailuresOccured = false
+        
         let path = (directory as NSString).appendingPathComponent(fileName)
         
         switch artifact.content {
@@ -131,14 +133,25 @@ public final class LocalArtifactStorage: ArtifactStorage {
             )
         case .artifacts(let artifacts):
             for artifact in artifacts {
-                store(
+                let result = store(
                     artifact: artifact,
                     pathComponents: pathComponents + [fileName]
                 )
+                
+                switch result {
+                case .failure:
+                    storageFailuresOccured = true
+                case .stored:
+                    break
+                }
             }
         }
         
-        return .stored(path: path)
+        if storageFailuresOccured {
+            return .failure
+        } else {
+            return .stored(path: path)
+        }
     }
     
     private func saveImage(image: UIImage, path: String) {

@@ -1,5 +1,6 @@
 import Foundation
 import XCTest
+import MixboxTestsFoundation
 
 public final class TestQuery {
     private let exceptionName: NSExceptionName = NSExceptionName("TestQueryException")
@@ -47,7 +48,7 @@ public final class TestQuery {
         do {
             try data.write(to: URL(fileURLWithPath: outputPath), options: Data.WritingOptions.atomic)
         } catch {
-            let reason = "Failed to dump runtime tests into '\(output)': \(error)"
+            let reason = "Failed to dump runtime tests into '\(outputPath)': \(error)"
             print(reason)
             NSException(
               name: exceptionName,

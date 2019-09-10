@@ -1,6 +1,5 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
-import MixboxGray
 import MixboxReporting
 
 public final class GrayBoxLegacyNetworking: LegacyNetworking {

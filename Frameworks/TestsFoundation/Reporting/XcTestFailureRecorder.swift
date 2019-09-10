@@ -29,7 +29,17 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
             )
             testCase.continueAfterFailure = previousValue
         } else {
-            XCTFail(description, file: fileLine?.file ?? #file, line: fileLine?.line ?? #line)
+            // TODO: Invent a way to report errors to developers.
+            // Logs can be easily ignored.
+            print(
+                """
+                ERROR: failure was recorded, but current XCTestCase was not found \
+                (e.g. all tests were already executed), \
+                failure description: \(description) \
+                file: \(fileLine?.file ?? #file) \
+                line: \(fileLine?.line ?? #line)
+                """
+            )
         }
     }
 }

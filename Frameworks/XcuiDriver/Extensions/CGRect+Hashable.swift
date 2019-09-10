@@ -1,12 +1,10 @@
 import MixboxFoundation
 
 extension CGRect: Hashable {
-    public var hashValue: Int {
-        return HashMath
-            .combine(origin.x)
-            .combine(origin.y)
-            .combine(size.width)
-            .combine(size.height)
-            .reduce
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(origin.x)
+        hasher.combine(origin.y)
+        hasher.combine(size.width)
+        hasher.combine(size.height)
     }
 }

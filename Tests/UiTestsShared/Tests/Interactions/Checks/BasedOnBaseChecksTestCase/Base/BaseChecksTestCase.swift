@@ -177,11 +177,6 @@ class BaseChecksTestCase: TestCase {
             artifact.name == "File and line"
         }
         
-        let hasErrorAttachment = log.artifactsAfter.contains { artifact in
-            artifact.name == "Сообщение об ошибке"
-                && artifact.content == ArtifactContent.text(failureMessage)
-        }
-        
         var hasAllRequiredAttachments: Matcher<StepLog> = hasScreenshotBeforeAttachment
             && hasScreenshotAfterAttachment
             && hasFileLineAttachment

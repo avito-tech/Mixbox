@@ -1,4 +1,13 @@
-void * SecTaskCopyValueForEntitlement(void *task, CFStringRef entitlement, CFErrorRef _Nullable *error);
-void * SecTaskCreateFromSelf(CFAllocatorRef allocator);
+void * _Nullable SecTaskCopyValueForEntitlement(
+                                                void * _Nullable task,
+                                                _Nullable CFStringRef entitlement,
+                                                CFErrorRef _Nullable * _Nullable error
+                                                );
 
-NSObject * getEntitlementValue(CFStringRef entitlementKey);
+void * _Nullable SecTaskCreateFromSelf(
+                                       _Nullable CFAllocatorRef allocator
+                                       );
+
+NSObject * _Nullable getEntitlementValue(
+                                         _Nullable CFStringRef entitlementKey
+                                         );

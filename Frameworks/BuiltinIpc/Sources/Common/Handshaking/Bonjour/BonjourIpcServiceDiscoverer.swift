@@ -30,8 +30,8 @@ public final class BonjourIpcServiceDiscoverer {
             self.netService = netService
         }
         
-        var hashValue: Int {
-            return netService.name.hashValue
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(netService)
         }
         
         static func ==(left: NetServiceId, right: NetServiceId) -> Bool {
