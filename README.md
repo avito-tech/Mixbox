@@ -42,11 +42,11 @@ Coming soon (in development / is not open sourced yet):
 
 There are two ways to use Mixbox.
 
-First is described in [Demo](Demo), it is oversimplified, basically you just use `pod SomePod`.
+First is described in [Demo](Demos), it is oversimplified, basically you just use `pod SomePod`.
 
 The second we use in Avito and it looks like this: [Tests](Tests) (see Podfile there).
 
-There are not enough docs yet, so you can try simple approach of linking Mixbox ([Demo](Demo)), but use code examples from [Tests](Tests).
+There are not enough docs yet, so you can try simple approach of linking Mixbox ([Demo](Demos)), but use code examples from [Tests](Tests).
 
 ## Supported iOS/Xcode/Swift versions
 
