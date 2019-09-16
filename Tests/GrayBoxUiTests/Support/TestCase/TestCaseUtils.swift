@@ -4,6 +4,7 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxIpcCommon
 import MixboxGray
+import MixboxFoundation
 
 final class IpcRouterHolder: IpcRouterProvider {
     var ipcRouter: IpcRouter?
@@ -74,7 +75,8 @@ final class TestCaseUtils: IpcRouterProvider {
                 ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 stepLogger: baseUiTestCaseUtils.stepLogger,
-                screenshotTaker: screenshotTaker
+                screenshotTaker: screenshotTaker,
+                signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger
             ),
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider,

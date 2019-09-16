@@ -2,6 +2,7 @@ import MixboxReporting
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
+import MixboxFoundation
 
 final class BaseUiTestCaseUtils {
     // Internal in TestCase
@@ -36,6 +37,7 @@ final class BaseUiTestCaseUtils {
     // TODO: Get rid of usage of ProcessInfo singleton here
     let mixboxCiUsesFbxctest = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
+    let signpostActivityLogger: SignpostActivityLogger
     
     init() {
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
@@ -75,5 +77,15 @@ final class BaseUiTestCaseUtils {
         self.bundleResourcePathProviderForTestTarget = BundleResourcePathProviderImpl(
             bundle: Bundle(for: TestCaseUtils.self)
         )
+        
+        if #available(iOS 12.0, *) {
+            self.signpostActivityLogger = SignpostActivityLoggerImpl(
+                signpostLoggerFactory: SignpostLoggerFactoryImpl(),
+                subsystem: "mixbox",
+                category: "mixbox" // TODO: Find a use for it
+            )
+        } else {
+            self.signpostActivityLogger = DisabledSignpostActivityLogger()
+        }
     }
 }

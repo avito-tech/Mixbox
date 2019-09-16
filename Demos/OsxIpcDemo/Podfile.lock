@@ -11,9 +11,9 @@ PODS:
 
 DEPENDENCIES:
   - GCDWebServer
-  - MixboxBuiltinIpc (from `../../..`)
-  - MixboxFoundation (from `../../..`)
-  - MixboxIpc (from `../../..`)
+  - MixboxBuiltinIpc (from `../..`)
+  - MixboxFoundation (from `../..`)
+  - MixboxIpc (from `../..`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -21,11 +21,11 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   MixboxBuiltinIpc:
-    :path: "../../.."
+    :path: "../.."
   MixboxFoundation:
-    :path: "../../.."
+    :path: "../.."
   MixboxIpc:
-    :path: "../../.."
+    :path: "../.."
 
 SPEC CHECKSUMS:
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990

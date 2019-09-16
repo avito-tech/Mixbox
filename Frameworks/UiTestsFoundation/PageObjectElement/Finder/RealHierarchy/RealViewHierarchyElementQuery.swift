@@ -10,29 +10,34 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
+    private let signpostActivityLogger: SignpostActivityLogger
     
     init(
         ipcClient: IpcClient,
         elementMatcher: ElementMatcher,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
-        screenshotTaker: ScreenshotTaker)
+        screenshotTaker: ScreenshotTaker,
+        signpostActivityLogger: SignpostActivityLogger)
     {
         self.ipcClient = ipcClient
         self.elementMatcher = elementMatcher
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
+        self.signpostActivityLogger = signpostActivityLogger
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
-        let stepLogBefore = StepLogBefore.other("Поиск элемента")
-        
-        let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
-            resolveElementWhileBeingLogged(interactionMode: interactionMode)
+        return signpostActivityLogger.log(name: "resolveElement") {
+            let stepLogBefore = StepLogBefore.other("Поиск элемента")
+            
+            let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
+                resolveElementWhileBeingLogged(interactionMode: interactionMode)
+            }
+            
+            return wrapper.wrappedResult
         }
-        
-        return wrapper.wrappedResult
     }
     
     // TODO: interactionMode is unused. This will produce bugs. See XcuiElementQuery for reference.

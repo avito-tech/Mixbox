@@ -151,7 +151,8 @@ final class TestCaseUtils {
                         ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
                         testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                         stepLogger: baseUiTestCaseUtils.stepLogger,
-                        screenshotTaker: screenshotTaker
+                        screenshotTaker: screenshotTaker,
+                        signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger
                     ),
                     baseUiTestCaseUtils.lazilyInitializedIpcClient
                 ),
