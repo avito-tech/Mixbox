@@ -7,7 +7,8 @@ BuildDsl.teamcity.main { di in
     return try StaticChecksTask(
         swiftLint: SwiftLintImpl(
             processExecutor: di.resolve(),
-            repoRootProvider: di.resolve()
+            repoRootProvider: di.resolve(),
+            swiftLintViolationsParser: SwiftLintViolationsParserImpl()
         ),
         conditionalCompilationClausesChecker: ConditionalCompilationClausesCheckerImpl(
             missingConditionalCompilationClausesProvider: MissingConditionalCompilationClausesProviderImpl(
