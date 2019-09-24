@@ -21,6 +21,7 @@ public final class WrappedDescriptionElementInteraction: ElementInteraction {
             interaction: interaction.with(
                 dependencies: dependencies
             ),
+            interactionType: type(of: interaction),
             descriptionBuilder: descriptionBuilder
         )
     }
@@ -28,15 +29,18 @@ public final class WrappedDescriptionElementInteraction: ElementInteraction {
     public final class WithDependencies: ElementInteractionWithDependencies {
         private let dependencies: ElementInteractionDependencies
         private let interaction: ElementInteractionWithDependencies
+        private let interactionType: ElementInteraction.Type
         private let descriptionBuilder: DescriptionBuilder
         
         public init(
             dependencies: ElementInteractionDependencies,
             interaction: ElementInteractionWithDependencies,
+            interactionType: ElementInteraction.Type,
             descriptionBuilder: @escaping DescriptionBuilder)
         {
             self.dependencies = dependencies
             self.interaction = interaction
+            self.interactionType = interactionType
             self.descriptionBuilder = descriptionBuilder
         }
         
@@ -49,7 +53,13 @@ public final class WrappedDescriptionElementInteraction: ElementInteraction {
         }
         
         public func perform() -> InteractionResult {
-            return interaction.perform()
+            return dependencies.signpostActivityLogger.log(
+                name: "perform wrapped interaction with dependencies",
+                message: { "\(interactionType)" },
+                body: {
+                    interaction.perform()
+                }
+            )
         }
     }
 }

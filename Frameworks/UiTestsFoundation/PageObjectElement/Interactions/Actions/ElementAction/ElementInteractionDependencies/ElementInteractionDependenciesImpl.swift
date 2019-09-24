@@ -1,3 +1,5 @@
+import MixboxFoundation
+
 public final class ElementInteractionDependenciesImpl: ElementInteractionDependencies {
     public let snapshotResolver: SnapshotForInteractionResolver
     public let textTyper: TextTyper
@@ -12,6 +14,7 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
     public let elementMatcherBuilder: ElementMatcherBuilder
     public let elementInfo: HumanReadableInteractionDescriptionBuilderSource
     public let retriableTimedInteractionState: RetriableTimedInteractionState
+    public let signpostActivityLogger: SignpostActivityLogger
     
     public init(
         snapshotResolver: SnapshotForInteractionResolver,
@@ -26,7 +29,8 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
         interactionResultMaker: InteractionResultMaker,
         elementMatcherBuilder: ElementMatcherBuilder,
         elementInfo: HumanReadableInteractionDescriptionBuilderSource,
-        retriableTimedInteractionState: RetriableTimedInteractionState)
+        retriableTimedInteractionState: RetriableTimedInteractionState,
+        signpostActivityLogger: SignpostActivityLogger)
     {
         self.snapshotResolver = snapshotResolver
         self.textTyper = textTyper
@@ -41,5 +45,6 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
         self.elementMatcherBuilder = elementMatcherBuilder
         self.elementInfo = elementInfo
         self.retriableTimedInteractionState = retriableTimedInteractionState
+        self.signpostActivityLogger = signpostActivityLogger
     }
 }

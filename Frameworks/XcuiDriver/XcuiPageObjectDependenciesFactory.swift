@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxReporting
+import MixboxFoundation
 
 public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFactory {
     private let testFailureRecorder: TestFailureRecorder
@@ -14,6 +15,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let screenshotTaker: ScreenshotTaker
     private let pasteboard: Pasteboard
     private let waiter: RunLoopSpinningWaiter
+    private let signpostActivityLogger: SignpostActivityLogger
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -25,7 +27,8 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
-        waiter: RunLoopSpinningWaiter)
+        waiter: RunLoopSpinningWaiter,
+        signpostActivityLogger: SignpostActivityLogger)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -37,6 +40,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
         self.waiter = waiter
+        self.signpostActivityLogger = signpostActivityLogger
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
@@ -64,7 +68,8 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             eventGenerator: eventGenerator,
             screenshotTaker: screenshotTaker,
             pasteboard: pasteboard,
-            waiter: waiter
+            waiter: waiter,
+            signpostActivityLogger: signpostActivityLogger
         )
         
         return PageObjectElementFactoryImpl(
@@ -77,7 +82,8 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
                     elementSettings: elementSettings,
                     xcuiBasedTestsDependenciesFactory: xcuiBasedTestsDependenciesFactory
                 )
-            }
+            },
+            signpostActivityLogger: signpostActivityLogger
         )
     }
     

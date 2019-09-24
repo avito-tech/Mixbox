@@ -111,7 +111,8 @@ final class TestCaseUtils {
                 ),
                 screenshotTaker: screenshotTaker,
                 pasteboard: ipcClient.flatMap { IpcPasteboard(ipcClient: $0) } ?? UikitPasteboard(uiPasteboard: .general),
-                waiter: baseUiTestCaseUtils.waiter
+                waiter: baseUiTestCaseUtils.waiter,
+                signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger
             )
         }
         

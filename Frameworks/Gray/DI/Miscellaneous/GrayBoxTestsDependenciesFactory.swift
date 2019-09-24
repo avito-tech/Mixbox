@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
+import MixboxFoundation
 
 // TODO: Share code between black-box and gray-box.
 protocol GrayBoxTestsDependenciesFactory: class {
@@ -22,4 +23,5 @@ protocol GrayBoxTestsDependenciesFactory: class {
     var windowsProvider: WindowsProvider { get }
     var runLoopSpinnerFactory: RunLoopSpinnerFactory { get }
     var waiter: RunLoopSpinningWaiter { get }
+    var signpostActivityLogger: SignpostActivityLogger { get }
 }

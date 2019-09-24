@@ -10,9 +10,9 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                 )
             },
             matchingFunction: { snapshot -> MatchingResult in
-                var mismatchResults = [MismatchResult]()
                 var parentPointer = snapshot.parent
-                var percentageOfMatching: Double = 0
+                var bestPercentageOfMatching: Double = 0
+                var bestMismatchResult: MismatchResult?
                 
                 if parentPointer == nil {
                     return MatchingResult.exactMismatch(
@@ -25,10 +25,10 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                     case .match:
                         return .match
                     case .mismatch(let mismatchResult):
-                        if mismatchResult.percentageOfMatching > percentageOfMatching {
-                            percentageOfMatching = mismatchResult.percentageOfMatching
+                        if mismatchResult.percentageOfMatching > bestPercentageOfMatching {
+                            bestPercentageOfMatching = mismatchResult.percentageOfMatching
+                            bestMismatchResult = mismatchResult
                         }
-                        mismatchResults.append(mismatchResult)
                     }
                     
                     parentPointer = parent.parent
@@ -36,9 +36,9 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                 
                 return MatchingResult.mismatch(
                     IsSubviewMatcher.mismatchResult(
-                        percentageOfMatching: percentageOfMatching,
-                        parentMatcher: parentMatcher,
-                        mismatchResults: mismatchResults
+                        percentageOfMatching: bestPercentageOfMatching,
+                        bestMismatchResult: bestMismatchResult,
+                        parentMatcher: parentMatcher
                     )
                 )
             }
@@ -47,32 +47,27 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
     
     private static func mismatchResult(
         percentageOfMatching: Double,
-        parentMatcher: Matcher<ElementSnapshot>,
-        mismatchResults: [MismatchResult])
+        bestMismatchResult: MismatchResult?,
+        parentMatcher: ElementMatcher)
         -> MismatchResult
     {
         return MismatchResult(
             percentageOfMatching: percentageOfMatching,
             mismatchDescription: {
-                let sortedMismatchResults = mismatchResults.sorted(by: { left, right -> Bool in
-                    left.percentageOfMatching > right.percentageOfMatching
-                })
+                let bestCandidateMismatchDescription: String
                 
-                let mismatchDescriptionsJoined = mismatchResults
-                    .map { $0.mismatchDescription() }
-                    .joined(separator: ",\n")
-                    .mb_wrapAndIndent(prefix: "[", postfix: "]", ifEmpty: "[]")
-                
-                let sortedMismatchResultsMismatchDescriptionsJoined = sortedMismatchResults
-                    .map { $0.mismatchDescription() }
-                    .joined(separator: ",\n")
-                    .mb_wrapAndIndent(prefix: "[", postfix: "]", ifEmpty: "[]")
+                // We can't show mismatches for every superview, because when nesting multiple IsSubviewMatcher`s,
+                // logging it has exponential complexity, O(N^E) where N - number of views, E - number of nested IsSubviewMatcher`s.
+                if let bestMismatchResult = bestMismatchResult {
+                    bestCandidateMismatchDescription = "лучший кандидат зафейлился: \(bestMismatchResult.mismatchDescription())"
+                } else {
+                    bestCandidateMismatchDescription = "произошла внутренняя ошибка в IsSubviewMatcher, не удалось получить описание фейла лучшего кандидата"
+                }
                 
                 return """
                 Является сабвью - нет, ожидалось содержание родителя, \
                 который матчится матчером "\(parentMatcher.description)", \
-                описания ошибок по элементам иерархии (по наибольшему соотвествию): \(sortedMismatchResultsMismatchDescriptionsJoined), \
-                описания ошибок (от сабвью до супервью): \(mismatchDescriptionsJoined)
+                \(bestCandidateMismatchDescription)
                 """
             }
         )

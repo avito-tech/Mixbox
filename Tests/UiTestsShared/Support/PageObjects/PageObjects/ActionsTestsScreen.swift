@@ -21,9 +21,3 @@ final class ActionsTestsScreen: BasePageObjectWithDefaultInitializer {
         return element("ActionsTestsView") { element in element.id == "ActionsTestsView" }
     }
 }
-
-extension PageObjects {
-    var actionsTestsScreen: ActionsTestsScreen {
-        return pageObject()
-    }
-}

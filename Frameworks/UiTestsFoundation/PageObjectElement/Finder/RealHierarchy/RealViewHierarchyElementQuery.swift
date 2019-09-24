@@ -29,11 +29,11 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
-        return signpostActivityLogger.log(name: "resolveElement") {
+        return signpostActivityLogger.log(name: "RVHEQ resolveElement") {
             let stepLogBefore = StepLogBefore.other("Поиск элемента")
             
             let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
-                resolveElementWhileBeingLogged(interactionMode: interactionMode)
+                resolveElementWhileBeingLoggedToStepLogger(interactionMode: interactionMode)
             }
             
             return wrapper.wrappedResult
@@ -43,13 +43,13 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     // TODO: interactionMode is unused. This will produce bugs. See XcuiElementQuery for reference.
     // TODO: Write test. There is no test for that. E.g.: trying to get element #2 from matching element should
     //       produce proper failure if there is only 1 matching element. Maybe there should be also some other logic.
-    private func resolveElementWhileBeingLogged(
+    private func resolveElementWhileBeingLoggedToStepLogger(
         interactionMode: InteractionMode)
         -> StepLoggerResultWrapper<ResolvedElementQuery>
     {
         switch viewHierarchy() {
         case .data(let viewHierarchy):
-            return getResolvedElementQueryWhileBeingLogged(viewHierarchy: viewHierarchy)
+            return getResolvedElementQueryWhileBeingLoggedToStepLogger(viewHierarchy: viewHierarchy)
         case .error(let error):
             return reportIpcFailedWhileGettingHierarchy(error: error)
         }
@@ -58,9 +58,11 @@ final class RealViewHierarchyElementQuery: ElementQuery {
     private func viewHierarchy()
         -> DataResult<ViewHierarchy, Error>
     {
-        return ipcClient.call(
-            method: ViewHierarchyIpcMethod()
-        )
+        return signpostActivityLogger.log(name: "RVHEQ viewHierarchy") {
+            ipcClient.call(
+                method: ViewHierarchyIpcMethod()
+            )
+        }
     }
     
     private func reportIpcFailedWhileGettingHierarchy(
@@ -92,12 +94,16 @@ final class RealViewHierarchyElementQuery: ElementQuery {
         )
     }
     
-    private func getResolvedElementQueryWhileBeingLogged(viewHierarchy: ViewHierarchy)
+    private func getResolvedElementQueryWhileBeingLoggedToStepLogger(viewHierarchy: ViewHierarchy)
         -> StepLoggerResultWrapper<ResolvedElementQuery>
     {
-        let resolvedElementQuery = resolveElementQuery(viewHierarchy: viewHierarchy)
+        let resolvedElementQuery = signpostActivityLogger.log(name: "RVHEQ resolveElementQuery") {
+            resolveElementQuery(viewHierarchy: viewHierarchy)
+        }
         
-        return log(resolvedElementQuery: resolvedElementQuery, viewHierarchy: viewHierarchy)
+        return signpostActivityLogger.log(name: "RVHEQ log to StepLogger") {
+            log(resolvedElementQuery: resolvedElementQuery, viewHierarchy: viewHierarchy)
+        }
     }
     
     private func resolveElementQuery(viewHierarchy: ViewHierarchy) -> ResolvedElementQuery {
@@ -106,8 +112,10 @@ final class RealViewHierarchyElementQuery: ElementQuery {
         // We don't actually need start/stop. It is a kludge for XCUI. TODO: Get rid of it.
         elementQueryResolvingState.start()
         
-        for element in viewHierarchy.rootElements {
-            matchRecursively(element: element, state: elementQueryResolvingState)
+        signpostActivityLogger.log(name: "RVHEQ all matching") {
+            for element in viewHierarchy.rootElements {
+                matchRecursively(element: element, state: elementQueryResolvingState)
+            }
         }
         
         elementQueryResolvingState.stop()
@@ -121,7 +129,9 @@ final class RealViewHierarchyElementQuery: ElementQuery {
         state: ElementQueryResolvingState)
     {
         let snapshot = RealViewHierarchyElementSnaphot(element: element, parent: parent)
-        let matchingResult = elementMatcher.matches(value: snapshot)
+        let matchingResult = signpostActivityLogger.log(name: "RVHEQ elementMatcher.matches") {
+            elementMatcher.matches(value: snapshot)
+        }
         state.append(matchingResult: matchingResult, elementSnapshot: snapshot)
         
         for child in element.children {

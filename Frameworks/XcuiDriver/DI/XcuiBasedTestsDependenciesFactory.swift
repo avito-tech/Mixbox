@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
+import MixboxFoundation
 
 protocol XcuiBasedTestsDependenciesFactory: class {
     var eventGenerator: EventGenerator { get }
@@ -20,4 +21,5 @@ protocol XcuiBasedTestsDependenciesFactory: class {
     var scrollingHintsProvider: ScrollingHintsProvider { get }
     var screenshotTaker: ScreenshotTaker { get }
     var pasteboard: Pasteboard { get }
+    var signpostActivityLogger: SignpostActivityLogger { get }
 }

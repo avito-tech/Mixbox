@@ -52,6 +52,76 @@
                ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F813CAF9209CC5D700E6A27C"
+               BuildableName = "BlackBoxUiTests.xctest"
+               BlueprintName = "BlackBoxUiTests"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F8E6EF4122831233007A97E5"
+               BuildableName = "FakeSettingsApp.app"
+               BlueprintName = "FakeSettingsApp"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F8B0A1FF2209C44A0089C1EE"
+               BuildableName = "GrayBoxUiTests.xctest"
+               BlueprintName = "GrayBoxUiTests"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F82A05AD21F6745F0008C2BB"
+               BuildableName = "HostedAppLogicTests.xctest"
+               BlueprintName = "HostedAppLogicTests"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F813CAE5209CC5D400E6A27C"
+               BuildableName = "TestedApp.app"
+               BlueprintName = "TestedApp"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -60,36 +130,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F813CAF9209CC5D700E6A27C"
-               BuildableName = "BlackBoxUiTests.xctest"
-               BlueprintName = "BlackBoxUiTests"
-               ReferencedContainer = "container:Tests.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8B0A1FF2209C44A0089C1EE"
-               BuildableName = "GrayBoxUiTests.xctest"
-               BlueprintName = "GrayBoxUiTests"
-               ReferencedContainer = "container:Tests.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F82A05AD21F6745F0008C2BB"
-               BuildableName = "HostedAppLogicTests.xctest"
-               BlueprintName = "HostedAppLogicTests"
-               ReferencedContainer = "container:Tests.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference

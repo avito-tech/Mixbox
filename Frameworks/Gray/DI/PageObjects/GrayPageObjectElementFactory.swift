@@ -27,7 +27,8 @@ final class GrayPageObjectElementFactory: PageObjectElementFactory {
                     elementSettings: elementSettings,
                     grayBoxTestsDependenciesFactory: grayBoxTestsDependenciesFactory
                 ),
-                elementSettings: elementSettings
+                elementSettings: elementSettings,
+                signpostActivityLogger: grayBoxTestsDependenciesFactory.signpostActivityLogger
             )
         )
     }

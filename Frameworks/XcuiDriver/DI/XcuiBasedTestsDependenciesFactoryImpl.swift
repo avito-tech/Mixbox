@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
+import MixboxFoundation
 
 final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFactory {
     let applicationProvider: ApplicationProvider
@@ -17,6 +18,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     let screenshotTaker: ScreenshotTaker
     let pasteboard: Pasteboard
     let waiter: RunLoopSpinningWaiter
+    let signpostActivityLogger: SignpostActivityLogger
     
     // MARK: - Init
     
@@ -33,7 +35,8 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
-        waiter: RunLoopSpinningWaiter)
+        waiter: RunLoopSpinningWaiter,
+        signpostActivityLogger: SignpostActivityLogger)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -48,6 +51,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
         self.waiter = waiter
+        self.signpostActivityLogger = signpostActivityLogger
         
         applicationFrameProvider = XcuiApplicationFrameProvider(
             applicationProvider: applicationProvider

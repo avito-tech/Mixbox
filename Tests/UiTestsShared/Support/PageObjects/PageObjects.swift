@@ -11,6 +11,10 @@ final class PageObjects: BasePageObjects {
     
     var touchesTestsView: MainAppScreen<TouchesTestsViewPageObject> { return mainAppScreen() }
     
+    var actionsTestsScreen: ActionsTestsScreen { return pageObject() }
+    
+    var locatorsPerformanceTestsView: LocatorsPerformanceTestsViewPageObject { return pageObject() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainRealHierarchy.pageObject(),

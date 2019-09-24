@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxReporting
+import MixboxFoundation
 
 // TODO: Share code between black-box and gray-box.
 public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFactory {
@@ -13,6 +14,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let screenshotTaker: ScreenshotTaker
     private let windowsProvider: WindowsProvider
     private let waiter: RunLoopSpinningWaiter
+    private let signpostActivityLogger: SignpostActivityLogger
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -22,7 +24,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         elementFinder: ElementFinder,
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider,
-        waiter: RunLoopSpinningWaiter)
+        waiter: RunLoopSpinningWaiter,
+        signpostActivityLogger: SignpostActivityLogger)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -32,6 +35,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
         self.waiter = waiter
+        self.signpostActivityLogger = signpostActivityLogger
     }
     
     public func pageObjectElementFactory() -> PageObjectElementFactory {
@@ -51,7 +55,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             elementFinder: elementFinder,
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider,
-            waiter: waiter
+            waiter: waiter,
+            signpostActivityLogger: signpostActivityLogger
         )
         
         return PageObjectElementFactoryImpl(
@@ -64,7 +69,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
                     elementSettings: elementSettings,
                     grayBoxTestsDependenciesFactory: grayBoxTestsDependenciesFactory
                 )
-            }
+            },
+            signpostActivityLogger: signpostActivityLogger
         )
     }
     

@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxReporting
+import MixboxFoundation
 
 // TODO: Share code between black-box and gray-box.
 final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory {
@@ -19,6 +20,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
     let waiter: RunLoopSpinningWaiter
+    let signpostActivityLogger: SignpostActivityLogger
     
     // MARK: - Init
     
@@ -32,7 +34,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         elementFinder: ElementFinder,
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider,
-        waiter: RunLoopSpinningWaiter)
+        waiter: RunLoopSpinningWaiter,
+        signpostActivityLogger: SignpostActivityLogger)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -43,6 +46,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.pollingConfiguration = pollingConfiguration
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
+        self.signpostActivityLogger = signpostActivityLogger
         
         self.waiter = waiter
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
