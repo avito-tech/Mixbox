@@ -2,12 +2,111 @@
   "object": {
     "pins": [
       {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "75bba56748359f297a83f620d45f72cf4ebee4e7",
+          "version": "4.8.2"
+        }
+      },
+      {
+        "package": "Signals",
+        "repositoryURL": "https://github.com/IBM-Swift/BlueSignals.git",
+        "state": {
+          "branch": null,
+          "revision": "23f62ec7a38a837e1c14acffc2e963b667a88b46",
+          "version": "1.0.16"
+        }
+      },
+      {
+        "package": "Socket",
+        "repositoryURL": "https://github.com/IBM-Swift/BlueSocket",
+        "state": {
+          "branch": null,
+          "revision": "49cab699e9f151eeb870ab93d14642425e824c19",
+          "version": "1.0.49"
+        }
+      },
+      {
+        "package": "CountedSet",
+        "repositoryURL": "https://github.com/0x7fs/CountedSet",
+        "state": {
+          "branch": "master",
+          "revision": "5bdaf31e6f71dcb430e40a0da3ff10ff61bf5368",
+          "version": null
+        }
+      },
+      {
+        "package": "CSSH",
+        "repositoryURL": "https://github.com/jakeheis/CSSH",
+        "state": {
+          "branch": null,
+          "revision": "579a20508ab598f78713a60fed95706efd06bbcb",
+          "version": "1.0.3"
+        }
+      },
+      {
         "package": "Dip",
         "repositoryURL": "https://github.com/AliSoftware/Dip",
         "state": {
           "branch": null,
           "revision": "e02f1697155cdcb546ee350e5803ecc6fc66cfa9",
           "version": null
+        }
+      },
+      {
+        "package": "EmceeTestRunner",
+        "repositoryURL": "https://github.com/avito-tech/Emcee",
+        "state": {
+          "branch": null,
+          "revision": "255650b2d4614cb9926633651875e65ac196c248",
+          "version": null
+        }
+      },
+      {
+        "package": "GraphiteClient",
+        "repositoryURL": "https://github.com/avito-tech/GraphiteClient.git",
+        "state": {
+          "branch": "master",
+          "revision": "2333d2c4a73c19db636939033cbe2b5ba3fc9f8c",
+          "version": null
+        }
+      },
+      {
+        "package": "OrderedSet",
+        "repositoryURL": "https://github.com/Weebly/OrderedSet",
+        "state": {
+          "branch": null,
+          "revision": "07d99831674bca6bf69967b70ced6cc19ca346ec",
+          "version": "5.0.0"
+        }
+      },
+      {
+        "package": "Shout",
+        "repositoryURL": "https://github.com/jakeheis/Shout.git",
+        "state": {
+          "branch": "master",
+          "revision": "2ee35de0411c2e74700dc4bf4b57bf7dc1de2e84",
+          "version": null
+        }
+      },
+      {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
+        "state": {
+          "branch": null,
+          "revision": "ebdc260ea64e68f7569c62e8744b5cd15d3a49d6",
+          "version": "3.0.6"
+        }
+      },
+      {
+        "package": "Swifter",
+        "repositoryURL": "https://github.com/httpswift/swifter.git",
+        "state": {
+          "branch": null,
+          "revision": "57faa5da31c02e035e43e8189f7ae7e8fb7ddc68",
+          "version": "1.4.6"
         }
       }
     ]

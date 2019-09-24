@@ -62,13 +62,26 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/AliSoftware/Dip", .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9"))
+        .package(
+            url: "https://github.com/avito-tech/Emcee", 
+            .revision("255650b2d4614cb9926633651875e65ac196c248")
+        ),
+        .package(
+            url: "https://github.com/AliSoftware/Dip",
+             .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9")
+        ),
+        .package(
+            url: "https://github.com/Alamofire/Alamofire.git",
+            .exact("4.8.2")
+        )
     ],
     targets: [
         .target(
             name: "TeamcityGrayBoxTestsBuild",
             dependencies: [
                 "BuildDsl",
+                "CiFoundation",
+                "Destinations",
                 "RunGrayBoxTestsTask",
                 "SingletonHell",
             ]
@@ -77,6 +90,8 @@ let package = Package(
             name: "TeamcityBlackBoxTestsBuild",
             dependencies: [
                 "BuildDsl",
+                "CiFoundation",
+                "Destinations",
                 "RunBlackBoxTestsTask",
                 "SingletonHell",
             ]
@@ -97,6 +112,7 @@ let package = Package(
                 "Dip",
                 "Emcee",
                 "Git",
+                "RemoteFiles",
                 "Simctl",
                 "SingletonHell",
                 "Tasks",
@@ -115,7 +131,10 @@ let package = Package(
             dependencies: [
                 "Bash",
                 "CiFoundation",
+                "Destinations",
                 "Emcee",
+                "EmceeInterfaces",
+                "RemoteFiles",
                 "SingletonHell",
                 "Tasks",
             ]
@@ -132,6 +151,13 @@ let package = Package(
             ]
         ),
         .target(
+            name: "Destinations",
+            dependencies: [
+                "CiFoundation",
+                "Git",
+            ]
+        ),
+        .target(
             name: "CiFoundation",
             dependencies: [
             ]
@@ -142,6 +168,7 @@ let package = Package(
                 "Bash",
                 "CiFoundation",
                 "Di",
+                "RemoteFiles",
                 "Simctl",
                 "StaticChecksTask",
             ]
@@ -171,7 +198,7 @@ let package = Package(
             dependencies: [
                 "Bash",
                 "CiFoundation",
-                "Emcee",
+                "Destinations",
                 "Git",
                 "Simctl",
             ]
@@ -215,7 +242,10 @@ let package = Package(
             dependencies: [
                 "Bash",
                 "CiFoundation",
+                "Destinations",
                 "Emcee",
+                "EmceeInterfaces",
+                "RemoteFiles",
                 "SingletonHell",
                 "Tasks",
             ]
@@ -233,6 +263,9 @@ let package = Package(
                 "Bash",
                 "Brew",
                 "CiFoundation",
+                "Destinations",
+                "EmceeInterfaces",
+                "RemoteFiles",
             ]
         ),
         .target(
@@ -247,6 +280,14 @@ let package = Package(
             name: "Cocoapods",
             dependencies: [
                 "Bash",
+            ]
+        ),
+        .target(
+            name: "RemoteFiles",
+            dependencies: [
+                "Alamofire",
+                "Bash",
+                "CiFoundation",
             ]
         ),
         .target(
@@ -275,6 +316,7 @@ let package = Package(
                 "Bash",
                 "CiFoundation",
                 "Cocoapods",
+                "Destinations",
                 "Git",
                 "SingletonHell",
                 "Tasks",

@@ -1,4 +1,4 @@
-// Copypasted from Emcee! TODO: Share.
+// As in Emcee
 public struct ReportOutput: Codable {
     /// Absolute path where Junit report should be created. If nil, report won't be created.
     public let junit: String?

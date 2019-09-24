@@ -12,7 +12,7 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
     
     private func exportAvailableTestCasesIfNeeded() {
         // TODO: Get rid of usage of ProcessInfo singleton here
-        let exportPath: String? = ProcessInfo.processInfo.environment["AVITO_TEST_RUNNER_RUNTIME_TESTS_EXPORT_PATH"]
+        let exportPath: String? = ProcessInfo.processInfo.environment["EMCEE_RUNTIME_TESTS_EXPORT_PATH"]
         
         if let exportPath = exportPath, !exportPath.isEmpty {
             TestQuery(outputPath: exportPath).export()

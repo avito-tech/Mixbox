@@ -1,2 +1,9 @@
-// TODO: Structure
-public typealias RuntimeDump = String
+import RuntimeDump
+
+public final class RuntimeDump {
+    public let runtimeTestEntries: [RuntimeTestEntry]
+    
+    public init(runtimeTestEntries: [RuntimeTestEntry]) {
+        self.runtimeTestEntries = runtimeTestEntries
+    }
+}

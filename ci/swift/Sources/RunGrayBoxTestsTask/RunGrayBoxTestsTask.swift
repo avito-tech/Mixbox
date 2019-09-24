@@ -4,19 +4,23 @@ import CiFoundation
 import Tasks
 import SingletonHell
 import Emcee
+import Destinations
 
 public final class RunGrayBoxTestsTask: LocalTask {
     public let name = "RunGrayBoxTestsTask"
     
     private let bashExecutor: BashExecutor
     private let grayBoxTestRunner: GrayBoxTestRunner
+    private let mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider
     
     public init(
         bashExecutor: BashExecutor,
-        grayBoxTestRunner: GrayBoxTestRunner)
+        grayBoxTestRunner: GrayBoxTestRunner,
+        mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider)
     {
         self.bashExecutor = bashExecutor
         self.grayBoxTestRunner = grayBoxTestRunner
+        self.mixboxTestDestinationConfigurationsProvider = mixboxTestDestinationConfigurationsProvider
     }
     
     public func execute() throws {
@@ -53,7 +57,8 @@ public final class RunGrayBoxTestsTask: LocalTask {
         
         try grayBoxTestRunner.runTests(
             xctestBundle: xctestBundle,
-            appPath: appPath
+            appPath: appPath,
+            mixboxTestDestinationConfigurations: try mixboxTestDestinationConfigurationsProvider.mixboxTestDestinationConfigurations()
         )
     }
 }

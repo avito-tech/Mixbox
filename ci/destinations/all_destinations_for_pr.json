@@ -15,20 +15,6 @@
     },
     {
         "testDestination": {
-            "deviceType": "iPhone 6 Plus",
-            "iOSVersion": "9.3",
-            "iOSVersionShort": "9.3",
-            "iOSVersionLong": "9.3",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-6-Plus",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-9-3"
-        },
-        "reportOutput": {
-            "junit": "tests-artifacts/iphone_6_plus_ios_93.xml",
-            "tracingReport": "tests-artifacts/iphone_6_plus_ios_93.trace"
-        }
-    },
-    {
-        "testDestination": {
             "deviceType": "iPhone SE",
             "iOSVersion": "10.3",
             "iOSVersionShort": "10.3",

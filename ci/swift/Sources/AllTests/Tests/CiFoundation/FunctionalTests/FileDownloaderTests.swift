@@ -2,6 +2,7 @@ import XCTest
 import CiFoundation
 import Di
 import Bash
+import RemoteFiles
 
 public final class FileDownloaderTests: XCTestCase {
     func test() {

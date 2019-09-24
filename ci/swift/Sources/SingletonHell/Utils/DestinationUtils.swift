@@ -1,8 +1,9 @@
 import CiFoundation
+import Destinations
 
 public final class DestinationUtils {
-    public static func destination() throws -> TestDestinationConfiguration {
-        let destinations: [TestDestinationConfiguration] = try readJson(
+    public static func destination() throws -> MixboxTestDestinationConfiguration {
+        let destinations: [MixboxTestDestinationConfiguration] = try readJson(
             fileName: destinationFile()
         )
         

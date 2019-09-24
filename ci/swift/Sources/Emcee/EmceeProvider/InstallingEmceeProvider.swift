@@ -1,22 +1,22 @@
 import CiFoundation
 import Bash
 
-public final class EmceeProviderImpl: EmceeProvider {
+public final class InstallingEmceeProvider: EmceeProvider {
     private let temporaryFileProvider: TemporaryFileProvider
     private let processExecutor: ProcessExecutor
     private let emceeInstaller: EmceeInstaller
-    private let runtimeDumpFileLoader: RuntimeDumpFileLoader
+    private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
         processExecutor: ProcessExecutor,
         emceeInstaller: EmceeInstaller,
-        runtimeDumpFileLoader: RuntimeDumpFileLoader)
+        decodableFromJsonFileLoader: DecodableFromJsonFileLoader)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
         self.emceeInstaller = emceeInstaller
-        self.runtimeDumpFileLoader = runtimeDumpFileLoader
+        self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
     }
     
     public func emcee() throws -> Emcee {
@@ -29,7 +29,7 @@ public final class EmceeProviderImpl: EmceeProvider {
             emceeDumpCommand: EmceeDumpCommandImpl(
                 temporaryFileProvider: temporaryFileProvider,
                 emceeExecutable: emceeExecutable,
-                runtimeDumpFileLoader: runtimeDumpFileLoader
+                decodableFromJsonFileLoader: decodableFromJsonFileLoader
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
                 emceeExecutable: emceeExecutable

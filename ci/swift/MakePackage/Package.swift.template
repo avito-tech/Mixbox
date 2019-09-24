@@ -16,7 +16,18 @@ let package = Package(
         {%- endfor %}
     ],
     dependencies: [
-        .package(url: "https://github.com/AliSoftware/Dip", .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9"))
+        .package(
+            url: "https://github.com/avito-tech/Emcee", 
+            .revision("255650b2d4614cb9926633651875e65ac196c248")
+        ),
+        .package(
+            url: "https://github.com/AliSoftware/Dip",
+             .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9")
+        ),
+        .package(
+            url: "https://github.com/Alamofire/Alamofire.git",
+            .exact("4.8.2")
+        )
     ],
     targets: [
         {%- for target in targets %}

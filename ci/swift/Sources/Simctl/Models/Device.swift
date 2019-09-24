@@ -1,6 +1,8 @@
 public final class Device: Codable {
+    // Always nil in Xcode 11 (or higher, maybe)
+    // Always non-nil in Xcode 10
     // Example: "(available)"
-    public let availability: String
+    public let availability: String?
     
     // Example: "Shutdown"
     public let state: String

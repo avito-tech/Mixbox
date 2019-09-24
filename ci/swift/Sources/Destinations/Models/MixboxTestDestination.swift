@@ -1,9 +1,9 @@
-// TODO: Rename. Note that the file with destinations (represented by `TestDestinationConfiguration`)
-// is reused as is for Emcee, which is wrong. We should have configs describing devices,
-// we should generate Emcee specific configs from them.
-public final class TestDestination: Codable {
-    public let deviceType: String // Example: "iPhone 7",
-    public let iOSVersion: String // Example: "11.3",
+public final class MixboxTestDestination: Codable {
+    // For Emcee
+    public let deviceType: String // Example: "iPhone 7", as in Emcee's TestDestination
+    public let iOSVersion: String // Example: "11.3", as in Emcee's TestDestination
+    
+    // For unit tests / simctl:
     public let iOSVersionShort: String // Example: "11.3",
     public let iOSVersionLong: String // Example: "11.3",
     public let deviceTypeId: String // Example: "com.apple.CoreSimulator.SimDeviceType.iPhone-7",

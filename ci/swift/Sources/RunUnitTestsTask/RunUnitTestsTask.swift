@@ -5,6 +5,7 @@ import Tasks
 import Cocoapods
 import Git
 import SingletonHell
+import Destinations
 
 public final class RunUnitTestsTask: LocalTask {
     public let name = "RunUnitTestsTask"

@@ -42,20 +42,28 @@ def get_targets():
             if os.path.isdir(os.path.join(sources, file_name))
     ]
     
-    known_dependencies_names = ['Dip']
-    known_dependencies_names.extend(directory_names)
+    external_library_name_by_module_name = {
+        'Dip': 'Dip',
+        'Models': 'EmceeInterfaces',
+        'Alamofire': 'Alamofire'
+    }
+    
+    library_name_by_module_name = external_library_name_by_module_name.copy()
+    
+    for directory_name in directory_names:
+        library_name_by_module_name[directory_name] = directory_name
     
     return [
         get_target(
             target_name=directory_name,
             directory=os.path.join(sources, directory_name),
-            known_dependencies_names=known_dependencies_names
+            library_name_by_module_name=library_name_by_module_name
         )
         for directory_name in directory_names
     ]
 
-def get_target(target_name, directory, known_dependencies_names):
-    dependencies = []
+def get_target(target_name, directory, library_name_by_module_name):
+    imported_modules = []
     
     for root, subdirs, files in os.walk(directory):
         for file_name in files:
@@ -65,12 +73,13 @@ def get_target(target_name, directory, known_dependencies_names):
                 with open(path, 'r') as f:
                     contents = f.read()
                     file_dependencies = re.findall(r'^import ([a-zA-Z0-9_]+)$', contents, flags=re.M)
-                    dependencies.extend(file_dependencies)
+                    
+                    imported_modules.extend(file_dependencies)
                
     dependencies = list(sorted(set([
-        name
-        for name in dependencies
-            if name in known_dependencies_names
+        library_name_by_module_name[module_name]
+        for module_name in imported_modules
+            if module_name in library_name_by_module_name
     ])))
         
     return Target(

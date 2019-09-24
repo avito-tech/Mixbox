@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Mixbox",
     products: [
-        .library(name: "MixboxAnyCodable", targets: [ "MixboxAnyCodable" ]),
+        .library(name: "MixboxAnyCodable", targets: [ "MixboxAnyCodable" ])
     ],
     targets: [
         .target(
@@ -13,7 +13,7 @@ let package = Package(
             dependencies: [],
             path: "Frameworks/AnyCodable",
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES"),
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
             ]
         )
     ]

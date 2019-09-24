@@ -12,8 +12,10 @@ public final class Runtime: Codable {
      // Example: "13E233"
     public let buildversion: String
     
+    // Always nil in Xcode 11 (or higher, maybe)
+    // Always non-nil in Xcode 10
     // Example: "(available)"
-    public let availability: String
+    public let availability: String?
     
     // Always nil in Xcode 10 (or lower)
     // Always non-nil in Xcode 10.1 and 10.2.1 (maybe other)

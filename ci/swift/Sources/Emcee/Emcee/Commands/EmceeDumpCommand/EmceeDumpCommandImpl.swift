@@ -5,16 +5,16 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     
     private let temporaryFileProvider: TemporaryFileProvider
     private let emceeExecutable: EmceeExecutable
-    private let runtimeDumpFileLoader: RuntimeDumpFileLoader
+    private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
         emceeExecutable: EmceeExecutable,
-        runtimeDumpFileLoader: RuntimeDumpFileLoader)
+        decodableFromJsonFileLoader: DecodableFromJsonFileLoader)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.emceeExecutable = emceeExecutable
-        self.runtimeDumpFileLoader = runtimeDumpFileLoader
+        self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
     }
     
     public func dump(
@@ -22,28 +22,43 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         throws
         -> RuntimeDump
     {
-        let output = temporaryFileProvider.temporaryFilePath()
+        let jsonPath = try generateFile { jsonPath in
+            try emceeExecutable.execute(
+                command: "dump",
+                arguments: asStrings(arguments: arguments, jsonPath: jsonPath)
+            )
+        }
         
+        return RuntimeDump(
+            runtimeTestEntries: try decodableFromJsonFileLoader.load(path: jsonPath)
+        )
+    }
+    
+    private func generateFile(using body: (String) throws -> ()) throws -> String {
+        let jsonPath = temporaryFileProvider.temporaryFilePath()
+        
+        try body(jsonPath)
+        
+        if !FileManager.default.fileExists(atPath: jsonPath, isDirectory: nil) {
+            throw ErrorString("Failed to create runtime dump at \(jsonPath). See Emcee logs.")
+        }
+        
+        return jsonPath
+    }
+    
+    private func asStrings(arguments: EmceeDumpCommandArguments, jsonPath: String) -> [String] {
         let staticArguments = [
             "--test-destinations", arguments.testDestinations,
             "--fbxctest", arguments.fbxctest,
             "--xctest-bundle", arguments.xctestBundle,
-            "--output", output
+            "--temp-folder", arguments.tempFolder,
+            "--output", jsonPath
         ]
         
         let optionalArguments = []
             + arguments.appPath.toArray { ["--app", $0] }
             + arguments.fbsimctl.toArray { ["--fbsimctl", $0] }
         
-        try emceeExecutable.execute(
-            command: "dump",
-            arguments: staticArguments + optionalArguments
-        )
-        
-        if !FileManager.default.fileExists(atPath: output, isDirectory: nil) {
-            throw ErrorString("Failed to create runtime dump at \(output). See Emcee logs.")
-        }
-        
-        return try runtimeDumpFileLoader.load(path: output)
+        return staticArguments + optionalArguments
     }
 }

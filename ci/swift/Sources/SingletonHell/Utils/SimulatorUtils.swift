@@ -1,6 +1,7 @@
 import Simctl
 import Bash
 import CiFoundation
+import Destinations
 
 public final class SimulatorUtils {
     private static let simctl = DelegatingSimctl(
@@ -27,7 +28,7 @@ public final class SimulatorUtils {
             .map { $0.udid }
     }
     
-    private static func devices(matching testDestination: TestDestination) throws -> [Device] {
+    private static func devices(matching testDestination: MixboxTestDestination) throws -> [Device] {
         let list = try simctl.list()
         
         if let devices = list.devices[testDestination.runtimeId] {

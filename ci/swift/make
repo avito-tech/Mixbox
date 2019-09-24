@@ -2,10 +2,25 @@
 
 cd "$(dirname "$0")"
 
+generatePackage() {
+    ./MakePackage/make_package || exit 1
+}
+
+generateProject() {
+    generatePackage
+    swift package generate-xcodeproj --xcconfig-overrides Package.xcconfig --enable-code-coverage
+}
+
+clean() {
+    swift package clean
+    swift package reset
+    rm -rf .build/
+    rm *.xcodeproj
+}
+
 case "$1" in
     generate)
-        ./MakePackage/make_package || exit 1
-        swift package generate-xcodeproj --xcconfig-overrides Package.xcconfig --enable-code-coverage
+        generateProject
         ;;
     reopen)
         xcodeprojRelative=`ls -1|grep ".xcodeproj"`
@@ -17,7 +32,7 @@ case "$1" in
                end tell
             end tell'
         
-        if ! "$0" generate
+        if ! generateProject
         then
             open Package.swift
             exit 1
@@ -36,15 +51,14 @@ case "$1" in
         
         ;;
     clean)
-    	swift package clean
-    	swift package reset
-    	rm -rf .build/
-    	rm *.xcodeproj
+        clean
         ;;
     build)
+        clean
         swift build -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13" --static-swift-stdlib
         ;;
     test)
+        clean
         swift test -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13"
         ;;
 esac

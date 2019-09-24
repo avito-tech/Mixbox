@@ -2,6 +2,7 @@ import Brew
 import CiFoundation
 import Bash
 import Foundation
+import RemoteFiles
 
 public final class EmceeInstallerImpl: EmceeInstaller {
     private let brew: Brew
