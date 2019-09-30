@@ -15,12 +15,14 @@
 # to avoid errors in Xcode about code duplication), etc, etc. Enjoy.
 #
 # TODO: Support all Xcode 10 versions (Xcode 10.0, Xcode 10.1, Xcode 10.2, Xcode 10.2.1)
-
+import errno
 import os
 import shutil
 import argparse
 import re
+from dataclasses import dataclass
 from enum import Enum
+from typing import Union, List, Dict, Optional
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -114,19 +116,66 @@ class BasenamePatcher:
             )
         )
 
-class PublicTypeWithFramework:
-    def __init__(self, name, kind, public_declarations, framework, header):
-        self.name = name
-        self.kind = kind
-        self.public_declarations = public_declarations
-        self.framework = framework
-        self.header = header
-        
+@dataclass
+class PublicTypeXcodeVersionDependentInfo:
+    name: str
+    kind: DeclarationKind
+    framework: str
+    header: str
+    public_declarations: List[str]
+    ios_min_version: int
+    ios_max_version: int
+
+    # self: 13..14, xcode: 13..14 => matches: true
+    # self: 0..100, xcode: 13..14 => matches: true
+    # self: 13..14, xcode: 12..13 => matches: false
+    def matches(self, xcode: Xcode):
+        return self.ios_min_version <= xcode.ios_min_version and self.ios_max_version >= xcode.ios_max_version
+
+@dataclass
 class PublicType:
+    name: str
+    infos: List[PublicTypeXcodeVersionDependentInfo]
+
+@dataclass
+class PublicTypes:
+    types: Dict[str, PublicType]
+
+    def matching(self, xcode: Xcode) -> List[PublicTypeXcodeVersionDependentInfo]:
+        matching = []
+
+        for (_, t) in self.types.items():
+            for info in t.infos:
+                if info.matches(xcode=xcode):
+                    matching.append(info)
+
+        return matching
+
+    def get(self, name: str, xcode: Xcode) -> Optional[PublicTypeXcodeVersionDependentInfo]:
+        if name in self.types:
+            public_type = self.types[name]
+
+            for info in public_type.infos:
+                if info.matches(xcode=xcode):
+                    return info
+
+        return None
+
+
+# List of entries to be easily declared in Python. Actually `PublicType` is used in parsing.
+class PublicTypeEntry:
     # `declarations` can be either a list of strings or a newline-separated string.
     # It is easy to copy-paste newline-separated list right from Xcode.
     # See usage.
-    def __init__(self, name, kind, header=None, public_declarations=[], ios_min_version=0, ios_max_version=2147483647):
+    def __init__(
+        self,
+        name: str,
+        kind: DeclarationKind,
+        header: str = None,
+        public_declarations: Union[str, List[str]] = '',
+        ios_min_version: int = 0,
+        ios_max_version: int = 2147483647
+    ):
         self.name = name
         self.kind = kind
         self.ios_min_version = ios_min_version
@@ -167,19 +216,32 @@ class Dump:
                 name="Xcode_10_2",
                 path=args.xcode10_2,
                 ios_min_version=120200,
-                ios_max_version=130000, # this is subject to change when new xcode is released
-            )
+                ios_max_version=120400,
+            ),
+            Xcode(
+                name="Xcode_10_3",
+                path=args.xcode10_3,
+                ios_min_version=120400,
+                ios_max_version=130000,
+            ),
+            Xcode(
+                name="Xcode_11_0",
+                path=args.xcode11_0,
+                ios_min_version=130000,
+                ios_max_version=140000, # this is subject to change when new xcode is released
+            ),
         ]
         
         for xcode in xcodes:
-            self.dump(
-                framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework",
-                xcode=xcode
-            )
-            self.dump(
-                framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework",
-                xcode=xcode
-            )
+            if xcode.path:
+                self.dump(
+                    framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework",
+                    xcode=xcode
+                )
+                self.dump(
+                    framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework",
+                    xcode=xcode
+                )
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
@@ -187,24 +249,40 @@ class Dump:
         parser.add_argument(
             '--xcode10_0',
             dest='xcode10_0',
-            required=True
+            required=False
         )
         
         parser.add_argument(
             '--xcode10_1',
             dest='xcode10_1',
-            required=True
+            required=False
         )
         
         parser.add_argument(
             '--xcode10_2',
             dest='xcode10_2',
-            required=True
+            required=False
+        )
+        
+        parser.add_argument(
+            '--xcode10_3',
+            dest='xcode10_3',
+            required=False
+        )
+        
+        parser.add_argument(
+            '--xcode11_0',
+            dest='xcode11_0',
+            required=False
         )
     
         return parser.parse_args()
 
-    def dump(self, framework, xcode):
+    def dump(
+        self,
+        framework: str,
+        xcode: Xcode
+    ):
         framework_dir = os.path.join(xcode.path, framework)
         framework_basename = os.path.basename(framework_dir)
         framework_name = re.sub("\.framework$", "", framework_basename)
@@ -219,7 +297,7 @@ class Dump:
         os.system(f'class-dump -o "{destination_dir}" -H "{framework_dir}"')
     
         for entry in os.listdir(destination_dir):
-            print(entry)
+            # print(entry)
             
             target_basename = BasenamePatcher.patch_basename(
                 basename=entry,
@@ -241,7 +319,12 @@ class Dump:
                 continue
             
             # We don't need public headers in our private headers.
-            public_protocol_files = set([f'{t.name}-Protocol.h' for (n, t) in self.dumped_public_types.items() if t.kind == DeclarationKind.objc_protocol])
+            public_protocol_files = set(
+                [
+                    f'{t.name}-Protocol.h'
+                    for t in self.dumped_public_types.matching(xcode=xcode)
+                ]
+            )
             if entry in public_protocol_files:
                 os.unlink(source_path)
                 continue
@@ -284,7 +367,7 @@ class Dump:
         
     # How-To: Run this script. Build. For each class copypaste "red lines" (lines with errors about duplicated declarations) here.
     # Declarations that are already public will be removed from generated headers.
-    def make_dumped_public_types(self):
+    def make_dumped_public_types(self) -> PublicTypes:
         public_declarations_of_XCUIElementTypeQueryProvider = """@property(readonly, copy) XCUIElementQuery *statusItems;
 @property(readonly, copy) XCUIElementQuery *otherElements;
 @property(readonly, copy) XCUIElementQuery *handles;
@@ -368,72 +451,72 @@ class Dump:
 @property(readonly, copy) XCUIElementQuery *touchBars;
 @property(readonly) XCUIElement *firstMatch;"""
         
-        types = [
-            PublicType(
+        public_type_entries = [
+            PublicTypeEntry(
                 name="XCTestCase",
                 kind=DeclarationKind.objc_class,
                 public_declarations="@property(readonly, copy) NSString *name;",
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestRun",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIScreenshot",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestCaseRun",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestSuite",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestObservationCenter",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestProbe",
                 kind=DeclarationKind.objc_class,
                 public_declarations=
 f"""+ (_Bool)isTesting;"""
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestRun",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTWaiter",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestObserver",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestLog",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTKVOExpectation",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestSuiteRun",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTNSNotificationExpectation",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTNSPredicateExpectation",
                 kind=DeclarationKind.objc_class,
                 public_declarations="@property(nonatomic) unsigned long long expectedFulfillmentCount; // @dynamic expectedFulfillmentCount;",
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIElement",
                 kind=DeclarationKind.objc_class,
                 public_declarations=
@@ -452,47 +535,47 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly) XCUIElement *firstMatch;
 @property(readonly, copy) XCUIElementQuery *disclosedChildRows;""",
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIApplication",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUICoordinate",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIDevice",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIScreen",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUISiriService",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="_XCTestCaseInterruptionException",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTAttachment",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTestExpectation",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTDarwinNotificationExpectation",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIElementAttributes",
                 kind=DeclarationKind.objc_class
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTest",
                 kind=DeclarationKind.objc_class,
                 public_declarations=
@@ -502,11 +585,11 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly, copy) NSString *name;
 @property(readonly) unsigned long long testCaseCount;"""
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTContext",
                 kind=DeclarationKind.objc_class
             ),
-#             PublicType(
+#             PublicTypeEntry(
 #                 name="XCElementSnapshot",
 #                 kind=DeclarationKind.objc_class,
 #                 public_declarations=
@@ -522,15 +605,15 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 # @property(readonly) id value;
 # @property(readonly) long long verticalSizeClass;"""
 #             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIElementAttributes",
                 kind=DeclarationKind.objc_protocol
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIElementTypeQueryProvider",
                 kind=DeclarationKind.objc_protocol
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIElementQuery",
                 kind=DeclarationKind.objc_class,
                 public_declarations=
@@ -542,43 +625,165 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly) unsigned long long testCaseCount;
 @property(readonly, copy) XCUIElementQuery *disclosedChildRows;"""
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTActivity",
                 kind=DeclarationKind.objc_protocol
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCUIElementSnapshot",
-                kind=DeclarationKind.objc_protocol
+                kind=DeclarationKind.objc_protocol,
+                header='XCUIElement.h',
+                ios_min_version=130000,
+                ios_max_version=140000
             ),
-            PublicType(
+            PublicTypeEntry(
+                name="XCUIElementSnapshot",
+                kind=DeclarationKind.objc_protocol,
+                ios_min_version=0,
+                ios_max_version=130000
+            ),
+            PublicTypeEntry(
                 name="XCTestObservation",
                 kind=DeclarationKind.objc_protocol
             ),
-            PublicType(
+            PublicTypeEntry(
                 name="XCTWaiterDelegate",
                 kind=DeclarationKind.objc_protocol,
                 header="XCTWaiter.h"
-            )
-            
-            # PublicType(
-#                 name="XCUIElementTypeQueryProvider",
-#                 kind=DeclarationKind.objc_protocol,
-#                 ios_min_version=120200
-#             ),
+            ),
+            PublicTypeEntry(
+                name="XCTMetric",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTClockMetric",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''
+- (id)initWithApplication:(id)arg1;
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTCPUMetric",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''
+- (id)initWithApplication:(id)arg1;
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTMemoryMetric",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''
+- (id)initWithApplication:(id)arg1;
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTStorageMetric",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''
+- (id)initWithApplication:(id)arg1;
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTOSSignpostMetric",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''
+- (id)initWithSubsystem:(id)arg1 category:(id)arg2 name:(id)arg3;
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTPerformanceMeasurementTimestamp",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''@property(readonly, copy) NSDate *date; // @synthesize date=_date;
+@property(readonly) unsigned long long absoluteTime; // @synthesize absoluteTime=_absoluteTime;
+@property(readonly) unsigned long long absoluteTimeNanoSeconds;
+- (id)initWithAbsoluteTime:(unsigned long long)arg1 date:(id)arg2;
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTPerformanceMeasurement",
+                kind=DeclarationKind.objc_protocol,
+                header="XCTMetric.h",
+                public_declarations=
+f'''@property(readonly, copy) NSString *unitSymbol; // @synthesize unitSymbol=_unitSymbol;
+@property(readonly) double doubleValue; // @synthesize doubleValue=_doubleValue;
+@property(readonly, copy) NSMeasurement *value; // @synthesize value=_value;
+@property(readonly, copy) NSString *displayName; // @synthesize displayName=_displayName;
+@property(readonly, copy) NSString *identifier; // @synthesize identifier=_identifier;
+- (id)initWithIdentifier:(id)arg1 displayName:(id)arg2 value:(id)arg3;
+- (id)initWithIdentifier:(id)arg1 displayName:(id)arg2 doubleValue:(double)arg3 unitSymbol:(id)arg4;
+''',
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name="XCTMeasureOptions",
+                kind=DeclarationKind.objc_protocol,
+                ios_min_version=130000
+            ),
+            PublicTypeEntry(
+                name='XCUIElementSnapshotProviding',
+                kind=DeclarationKind.objc_protocol,
+                header="XCUIElement.h",
+                ios_min_version=120400
+            ),
+            PublicTypeEntry(
+                name='XCUIScreenshotProviding',
+                kind=DeclarationKind.objc_protocol,
+                header="XCUIElement.h",
+                ios_min_version=120400
+            ),
         ]
-        
+
         types_by_name = {}
         
-        for t in types:
-            types_by_name[t.name] = PublicTypeWithFramework(
-                name=t.name,
-                kind=t.kind,
-                public_declarations=t.public_declarations,
-                framework="XCTest",
-                header=t.header
+        for entry in public_type_entries:
+            public_type: PublicType
+
+            if entry.name not in types_by_name:
+                public_type = PublicType(
+                    name=entry.name,
+                    infos=[]
+                )
+            else:
+                public_type = types_by_name[entry.name]
+
+            public_type.infos.append(
+                PublicTypeXcodeVersionDependentInfo(
+                    name=entry.name,
+                    kind=entry.kind,
+                    framework='XCTest',
+                    header=entry.header,
+                    public_declarations=entry.public_declarations,
+                    ios_min_version=entry.ios_min_version,
+                    ios_max_version=entry.ios_max_version
+                )
             )
+
+            types_by_name[entry.name] = public_type
             
-        return types_by_name
+        return PublicTypes(types=types_by_name)
         
     def entries_to_ignore(self):
         return ["XCElementSnapshot-XCUIElementSnapshot.h"]
@@ -615,10 +820,13 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
         
         if basename == "XCEventGenerator.h" or basename == "XCUIEventGenerator.h": # 1: Xcode 9, 2: Xcode 10
             contents = contents.replace("handler:(CDUnknownBlockType)", "handler:(XCEventGeneratorHandler)")
-        elif basename == "XCElementSnapshot-XCUIElementAttributes.h" or basename == "XCElementSnapshot.h":
+        elif basename == "XCElementSnapshot-XCUIElementAttributes.h" or basename == "XCElementSnapshot.h" or basename == "XCElementSnapshot-Hitpoint.h":
             contents = f'#import <XCTest/XCUIElementTypes.h>\n\n{contents}'
             contents = contents.replace("unsigned long long elementType;", "XCUIElementType elementType;")
             contents = contents.replace("unsigned long long _elementType;", "XCUIElementType _elementType;")
+
+            contents = contents.replace("long long horizontalSizeClass;", "XCUIUserInterfaceSizeClass horizontalSizeClass;")
+            contents = contents.replace("long long verticalSizeClass;", "XCUIUserInterfaceSizeClass verticalSizeClass;")
         elif basename == "XCUIElement.h":
             # Xcode 10.1:
             contents = contents.replace(
@@ -633,7 +841,12 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
             
         return contents
         
-    def patch_removing_duplicated_declarations(self, contents, basename, xcode):
+    def patch_removing_duplicated_declarations(
+        self,
+        contents: str,
+        basename: str,
+        xcode: Xcode
+    ):
         class_name = re.sub(r"(.*?)\.h", "\\1", basename)
 
         contents = contents + "\n"
@@ -644,13 +857,18 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
             "@property(readonly) unsigned long long hash;",
             "@property(readonly) Class superclass;"
         ]
-        
-        if class_name == "XCTElementSetCodableTransformer" or class_name == "XCTElementDisclosedChildRowsTransformer":
-            contents = re.sub(fr"    _Bool _stopsOnFirstMatch;\n", "", contents)
-            contents = re.sub(fr"    NSString \*_transformationDescription;\n", "", contents)
 
-        if class_name in self.dumped_public_types:
-            declarations_to_remove = self.dumped_public_types[class_name].public_declarations + common_declarations_to_remove
+        if class_name == "XCTElementSetCodableTransformer" or class_name == "XCTElementDisclosedChildRowsTransformer":
+            print(f'class_name: {class_name}, contents: {contents}')
+
+            contents = re.sub(r"_Bool _stopsOnFirstMatch;", "", contents)
+            contents = re.sub(r"NSString \*_transformationDescription;", "", contents)
+
+            print(f'after: {contents}')
+
+        public_type = self.dumped_public_types.get(name=class_name, xcode=xcode)
+        if public_type:
+            declarations_to_remove = public_type.public_declarations + common_declarations_to_remove
         else:
             declarations_to_remove = common_declarations_to_remove
 
@@ -804,11 +1022,15 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
     
         return contents
         
-    def patch_replacing_declarations_of_public_classes_with_categories(self, contents, xcode):
-        for (name, public_class) in self.dumped_public_types.items():
+    def patch_replacing_declarations_of_public_classes_with_categories(
+        self,
+        contents: str,
+        xcode: Xcode
+    ):
+        for info in self.dumped_public_types.matching(xcode=xcode):
             contents = re.sub(
-                fr'(@interface {public_class.name}) : [A-Z].*', 
-                '\\1 ()', 
+                fr'(@interface {info.name}) : [A-Z].*',
+                '\\1 ()',
                 contents
             )
             
@@ -855,7 +1077,11 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
             
         return contents
 
-    def patch_replacing_imports_of_private_headers_with_imports_of_public_headers(self, contents, xcode):
+    def patch_replacing_imports_of_private_headers_with_imports_of_public_headers(
+        self,
+        contents: str,
+        xcode: Xcode
+    ):
         import_by_prefix = {
             "NS": "<Foundation/Foundation.h>",
             "UI": "<UIKit/UIKit.h>",
@@ -868,10 +1094,10 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
                 contents
             )
 
-        for (name, public_class) in self.dumped_public_types.items():
+        for type_info in self.dumped_public_types.matching(xcode=xcode):
             contents = re.sub(
-                fr'#import "{public_class.name}\.h"', 
-                f'#import <{public_class.framework}/{public_class.header}>', 
+                fr'#import "{type_info.name}\.h"',
+                f'#import <{type_info.framework}/{type_info.header}>',
                 contents
             )
             

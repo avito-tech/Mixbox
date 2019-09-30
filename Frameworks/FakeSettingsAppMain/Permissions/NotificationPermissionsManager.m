@@ -16,6 +16,12 @@
 
 @end
 
+@protocol NotificationPermissionManager_declaration_for_suppressing_undeclared_selector_warning
+
+- (void)setSectionInfo:(id)a0 forSectionID:(id)a1 withCompletion:(id)a2;
+
+@end
+
 @implementation NotificationPermissionsManager
 
 - (instancetype)initWithBundleIdentifier:(NSString *)bundleIdentifier

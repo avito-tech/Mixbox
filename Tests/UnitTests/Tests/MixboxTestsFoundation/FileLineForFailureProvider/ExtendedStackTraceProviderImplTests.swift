@@ -33,20 +33,31 @@ final class ExtendedStackTraceProviderImplTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(trace[5].file?.mb_lastPathComponent, "FileForStacktraceTestsWithFixedNameAndLineNumbers.swift")
-        XCTAssertEqual(trace[5].line, 10)
-        XCTAssertEqual(trace[5].owner, "UnitTests")
+        let xcodeVersion = XcodeVersionProvider.xcodeVersionOrFail()
         
-        let xcode_10_2_1_expectedSymbol = "$S9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
-        let xcode_10_0_and_10_1_expectedSymbol = "$s9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
+        let traceEntry: ExtendedStackTraceEntry = xcodeVersion.major >= 11
+            ? trace[4]
+            : trace[5]
         
-        let actualSymbol = trace[5].symbol
-        if actualSymbol != xcode_10_2_1_expectedSymbol && actualSymbol != xcode_10_0_and_10_1_expectedSymbol {
+        XCTAssertEqual(traceEntry.file?.mb_lastPathComponent, "FileForStacktraceTestsWithFixedNameAndLineNumbers.swift")
+        XCTAssertEqual(traceEntry.line, 10)
+        XCTAssertEqual(traceEntry.owner, "UnitTests")
+        
+        let actualSymbol = traceEntry.symbol
+        let expectedSymbol: String
+        
+        if xcodeVersion >= XcodeVersion.xcode_10_2_1 {
+            expectedSymbol = "$s9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
+        } else {
+            expectedSymbol = "$S9UnitTests017FileForStacktraceB27WithFixedNameAndLineNumbersC11func_line10yyF"
+        }
+        
+        if actualSymbol != expectedSymbol {
             XCTFail(
-                "Expected symbol: \(xcode_10_2_1_expectedSymbol) or \(xcode_10_0_and_10_1_expectedSymbol), actual: \(String(describing: actualSymbol))"
+                "Expected symbol: \(expectedSymbol), actual: \(String(describing: actualSymbol))"
             )
         }
         
-        XCTAssertEqual(trace[5].demangledSymbol, "UnitTests.FileForStacktraceTestsWithFixedNameAndLineNumbers.func_line10() -> ()")
+        XCTAssertEqual(traceEntry.demangledSymbol, "UnitTests.FileForStacktraceTestsWithFixedNameAndLineNumbers.func_line10() -> ()")
     }
 }

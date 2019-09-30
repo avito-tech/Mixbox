@@ -38,6 +38,16 @@ def travis_builds():
     xcode_10_0_image = OsxImage(identifier="xcode10", xcode_version="10.0", xcode_build="10A255", macos_version="10.13", jdk_version="10.0.2+13")
     xcode_10_1_image = OsxImage(identifier="xcode10.1", xcode_version="10.1", xcode_build="10B61", macos_version="10.13", jdk_version="11.0.1+13")
     xcode_10_2_image = OsxImage(identifier="xcode10.2", xcode_version="10.2.1", xcode_build="10E1001", macos_version="10.14", jdk_version="12+33")
+    xcode_10_3_image = OsxImage(identifier="xcode10.3", xcode_version="10.3", xcode_build="18E226", macos_version="10.14", jdk_version="")
+    xcode_11_0_image = OsxImage(identifier="xcode11.0", xcode_version="11.0", xcode_build="11A420a", macos_version="10.14", jdk_version="12.0.2")
+    
+    all_osx_images = [
+        xcode_10_0_image,
+        xcode_10_1_image,
+        xcode_10_2_image,
+        xcode_10_3_image,
+        xcode_11_0_image,
+    ]
     
     # Builds (executables)
     demo_tests = Build(swift_executable="TravisOversimplifiedDemoBuild", name="OversimplifiedDemo")
@@ -61,7 +71,8 @@ def travis_builds():
             osx_image=osx_image.identifier,
             swift_executable=build.swift_executable,
         )
-    
+
+    # DEMO
     travis_builds.append(ios_build(
         build=demo_tests, destination=iphone_7_ios114, osx_image=xcode_10_0_image
     ))
@@ -71,12 +82,25 @@ def travis_builds():
     travis_builds.append(ios_build(
         build=demo_tests, destination=iphone_x_ios121, osx_image=xcode_10_2_image
     ))
-    
-    # TODO: More builds
     travis_builds.append(ios_build(
-        build=logic_tests, destination=iphone_7_ios114, osx_image=xcode_10_1_image
+        build=demo_tests, destination=iphone_x_ios121, osx_image=xcode_10_3_image
+    ))
+    travis_builds.append(ios_build(
+        build=demo_tests, destination=iphone_x_ios121, osx_image=xcode_11_0_image
+    ))
+    
+    # LOGIC TESTS
+    travis_builds.append(ios_build(
+        build=logic_tests, destination=iphone_7_ios114, osx_image=xcode_10_0_image
+    ))
+    travis_builds.append(ios_build(
+        build=logic_tests, destination=iphone_x_ios121, osx_image=xcode_10_3_image
+    ))
+    travis_builds.append(ios_build(
+        build=logic_tests, destination=iphone_x_ios121, osx_image=xcode_11_0_image
     ))
 
+    # IPC DEMO
     travis_builds.append(osx_build(
         build=ipc_demo_tests, osx_image=xcode_10_2_image
     ))

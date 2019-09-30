@@ -38,7 +38,6 @@ class IsSubviewMatcherTests: BaseMatcherTests {
         )
     }
     
-    // swiftlint:disable:next function_body_length
     func test___IsSubviewMatcher___produces_correct_mismatch_description() {
         let superview0 = ElementSnapshotStub {
             $0.accessibilityIdentifier = "superview0"

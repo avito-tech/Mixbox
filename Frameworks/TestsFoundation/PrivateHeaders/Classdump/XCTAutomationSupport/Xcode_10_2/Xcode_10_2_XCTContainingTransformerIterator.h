@@ -1,4 +1,4 @@
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120200 && __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120200 && __IPHONE_OS_VERSION_MAX_ALLOWED < 120400
 
 #import "Xcode_10_2_XCTAutomationSupport_CDStructures.h"
 #import "Xcode_10_2_SharedHeader.h"

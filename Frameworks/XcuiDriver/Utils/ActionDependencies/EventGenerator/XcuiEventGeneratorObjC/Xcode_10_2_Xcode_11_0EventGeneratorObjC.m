@@ -1,12 +1,32 @@
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120200
+#import "Xcode_10_2_Xcode_11_0_EventGeneratorObjC.h"
 
-#import "Xcode_10_2_EventGeneratorObjC.h"
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120200 && __IPHONE_OS_VERSION_MAX_ALLOWED < 120400
 
 #import "Xcode_10_2_XCSynthesizedEventRecord.h"
 #import "Xcode_10_2_XCUIApplication.h"
 #import "Xcode_10_2_XCUIElement.h"
 #import "Xcode_10_2_XCPointerEventPath.h"
 #import "Xcode_10_2_SharedHeader.h"
+
+#elif __IPHONE_OS_VERSION_MAX_ALLOWED >= 120400 && __IPHONE_OS_VERSION_MAX_ALLOWED < 130000
+
+#import "Xcode_10_3_XCSynthesizedEventRecord.h"
+#import "Xcode_10_3_XCUIApplication.h"
+#import "Xcode_10_3_XCUIElement.h"
+#import "Xcode_10_3_XCPointerEventPath.h"
+#import "Xcode_10_3_SharedHeader.h"
+
+#elif __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+
+#import "Xcode_11_0_XCSynthesizedEventRecord.h"
+#import "Xcode_11_0_XCUIApplication.h"
+#import "Xcode_11_0_XCUIElement.h"
+#import "Xcode_11_0_XCPointerEventPath.h"
+#import "Xcode_11_0_SharedHeader.h"
+
+#endif
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120200
 
 static CGFloat sqr(CGFloat x) {
     return x * x;
@@ -24,7 +44,7 @@ static CGFloat duration(CGFloat distance,  CGFloat velocity) {
 // TODO: Try to share implementations after some time in production with Xcode 10.2.
 //       Note that API will still be different (there is no _dispatchEvent:eventBuilder: in Xcode 10.1),
 //       but some code can be shared.
-@implementation Xcode_10_2_EventGeneratorObjC
+@implementation Xcode_10_2_Xcode_11_0_EventGeneratorObjC
 
 // WARNING: `cancelInertia` is not supported! If you support this, please test cancelling inertia in auto-scrolling,
 // because it is `true` for autoscrolling. It is `false` for swipes.

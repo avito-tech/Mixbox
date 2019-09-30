@@ -36,6 +36,8 @@ public final class UrlRequestNetworkServiceTypeBridgingImpl: UrlRequestNetworkSe
                     """
                 )
             }
+        default:
+            break
         }
     }
     
@@ -59,6 +61,8 @@ public final class UrlRequestNetworkServiceTypeBridgingImpl: UrlRequestNetworkSe
             return .responsiveData
         case .callSignaling:
             return .callSignaling
+        default:
+            throw ErrorString("Unsupported URLRequest.NetworkServiceType: \(urlRequestNetworkServiceType)")
         }
     }
 }

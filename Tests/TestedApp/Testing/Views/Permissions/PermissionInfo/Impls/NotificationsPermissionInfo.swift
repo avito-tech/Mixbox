@@ -1,5 +1,6 @@
 import Photos
 import UserNotifications
+import UIKit
 
 final class NotificationsPermissionInfo: PermissionInfo {
     func identifier() -> String {
