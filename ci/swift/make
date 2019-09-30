@@ -23,10 +23,11 @@ case "$1" in
         generateProject
         ;;
     reopen)
+        xcodeAppName=`xcode-select -p|grep -oE "([^/]+.app)"|sed 's/\.app//'`
         xcodeprojRelative=`ls -1|grep ".xcodeproj"`
         xcodeprojAbsolute=$(pwd)/$xcodeprojRelative
     	osascript -e '
-            tell application "Xcode"
+            tell application "'$xcodeAppName'"
                tell workspace document "'$xcodeprojRelative'"
                    close saving yes
                end tell
@@ -40,7 +41,7 @@ case "$1" in
         
         echo "Ignore the following \"missing value\" log:"
     	osascript -e '
-            tell application "Xcode"
+            tell application "'$xcodeAppName'"
                open "'$xcodeprojAbsolute'"
             end tell'
 
