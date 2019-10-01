@@ -66,12 +66,12 @@ final class TestCaseUtils: IpcRouterProvider {
             screen: UIScreen.main
         )
         
-        let mainRealHierarchy = GrayPageObjectDependenciesFactory(
+        let mainUiKitHierarchy = GrayPageObjectDependenciesFactory(
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
             ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
             stepLogger: baseUiTestCaseUtils.stepLogger,
             pollingConfiguration: .reduceWorkload,
-            elementFinder: RealViewHierarchyElementFinder(
+            elementFinder: UiKitHierarchyElementFinder(
                 ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 stepLogger: baseUiTestCaseUtils.stepLogger,
@@ -86,11 +86,11 @@ final class TestCaseUtils: IpcRouterProvider {
         
         pageObjects = PageObjects(
             apps: Apps(
-                mainRealHierarchy: mainRealHierarchy,
+                mainUiKitHierarchy: mainUiKitHierarchy,
                 // TODO: This is wrong!
-                mainXcui: mainRealHierarchy,
-                settings: mainRealHierarchy,
-                springboard: mainRealHierarchy
+                mainXcui: mainUiKitHierarchy,
+                settings: mainUiKitHierarchy,
+                springboard: mainUiKitHierarchy
             )
         )
         

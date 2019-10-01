@@ -32,14 +32,14 @@ final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: Te
         }
     }
     
-    func test_hidden_mainRealHierarchy() {
+    func test_hidden_mainUiKitHierarchy() {
         parameterizedTest(
             button: { $0.hiddenButton },
             screen: pageObjects.real
         )
     }
     
-    func test_alpha_mainRealHierarchy() {
+    func test_alpha_mainUiKitHierarchy() {
         parameterizedTest(
             button: { $0.alphaButton },
             screen: pageObjects.real
@@ -151,7 +151,7 @@ private final class Screen: BasePageObjectWithDefaultInitializer {
 
 private extension PageObjects {
     var real: Screen {
-        return apps.mainRealHierarchy.pageObject()
+        return apps.mainUiKitHierarchy.pageObject()
     }
     var xcui: Screen {
         return apps.mainXcui.pageObject()

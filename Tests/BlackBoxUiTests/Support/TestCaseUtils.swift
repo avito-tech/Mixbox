@@ -146,9 +146,9 @@ final class TestCaseUtils {
         
         pageObjects = PageObjects(
             apps: Apps(
-                mainRealHierarchy: app(
+                mainUiKitHierarchy: app(
                     ApplicationProviderImpl { XCUIApplication() },
-                    RealViewHierarchyElementFinder(
+                    UiKitHierarchyElementFinder(
                         ipcClient: baseUiTestCaseUtils.lazilyInitializedIpcClient,
                         testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                         stepLogger: baseUiTestCaseUtils.stepLogger,

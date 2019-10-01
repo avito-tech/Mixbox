@@ -2,20 +2,20 @@ import MixboxUiTestsFoundation
 
 // TODO: Make an abstraction for the app
 final class Apps {
-    var mainRealHierarchy: PageObjectRegistrar
+    var mainUiKitHierarchy: PageObjectRegistrar
     var mainXcui: PageObjectRegistrar
     
     var settings: PageObjectRegistrar
     var springboard: PageObjectRegistrar
     
     init(
-        mainRealHierarchy: PageObjectDependenciesFactory,
+        mainUiKitHierarchy: PageObjectDependenciesFactory,
         mainXcui: PageObjectDependenciesFactory,
         settings: PageObjectDependenciesFactory,
         springboard: PageObjectDependenciesFactory)
     {
-        self.mainRealHierarchy = PageObjectRegistrarImpl(
-            pageObjectDependenciesFactory: mainRealHierarchy
+        self.mainUiKitHierarchy = PageObjectRegistrarImpl(
+            pageObjectDependenciesFactory: mainUiKitHierarchy
         )
         self.mainXcui = PageObjectRegistrarImpl(
             pageObjectDependenciesFactory: mainXcui

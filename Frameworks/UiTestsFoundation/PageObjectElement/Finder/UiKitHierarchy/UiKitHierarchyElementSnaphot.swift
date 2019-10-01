@@ -1,7 +1,7 @@
 import MixboxIpcCommon
 import XCTest
 
-final class RealViewHierarchyElementSnaphot: ElementSnapshot {
+final class UiKitHierarchyElementSnaphot: ElementSnapshot {
     private let data: ViewHierarchyElement
     
     private(set) var parent: ElementSnapshot?
@@ -61,7 +61,7 @@ final class RealViewHierarchyElementSnaphot: ElementSnapshot {
     
     var children: [ElementSnapshot] {
         return data.children.map { child in
-            RealViewHierarchyElementSnaphot(
+            UiKitHierarchyElementSnaphot(
                 element: child,
                 parent: self
             )

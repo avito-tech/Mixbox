@@ -3,7 +3,7 @@ import MixboxReporting
 import MixboxIpc
 import MixboxIpcCommon
 
-public final class RealViewHierarchyElementFinder: ElementFinder {
+public final class UiKitHierarchyElementFinder: ElementFinder {
     private let ipcClient: IpcClient
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
@@ -28,7 +28,7 @@ public final class RealViewHierarchyElementFinder: ElementFinder {
         elementMatcher: ElementMatcher)
         -> ElementQuery
     {
-        return RealViewHierarchyElementQuery(
+        return UiKitHierarchyElementQuery(
             ipcClient: ipcClient,
             elementMatcher: elementMatcher,
             testFailureRecorder: testFailureRecorder,

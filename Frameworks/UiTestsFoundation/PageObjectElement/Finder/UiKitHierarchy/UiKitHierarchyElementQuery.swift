@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 import MixboxArtifacts
 
-final class RealViewHierarchyElementQuery: ElementQuery {
+final class UiKitHierarchyElementQuery: ElementQuery {
     private let ipcClient: IpcClient
     private let elementMatcher: ElementMatcher
     private let testFailureRecorder: TestFailureRecorder
@@ -128,7 +128,7 @@ final class RealViewHierarchyElementQuery: ElementQuery {
         parent: ElementSnapshot? = nil,
         state: ElementQueryResolvingState)
     {
-        let snapshot = RealViewHierarchyElementSnaphot(element: element, parent: parent)
+        let snapshot = UiKitHierarchyElementSnaphot(element: element, parent: parent)
         let matchingResult = signpostActivityLogger.log(name: "RVHEQ elementMatcher.matches") {
             elementMatcher.matches(value: snapshot)
         }

@@ -14,7 +14,7 @@
 		BC6CF99D2310412A003F40C0 /* NetworkStubbingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6CF99C2310412A003F40C0 /* NetworkStubbingTestCase.swift */; };
 		BCB072EB2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB072EA2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift */; };
 		C76EBBF8BA7417AA04206F85 /* Pods_GrayBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18519616178849C303E04D80 /* Pods_GrayBoxUiTests.framework */; };
-		CC78DE2F21395BFE00599258 /* GettingRealViewHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */; };
+		CC78DE2F21395BFE00599258 /* GettingUiKitHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingUiKitHierarchyTests.swift */; };
 		CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE3121395C6000599258 /* HierarchyTestsView.swift */; };
 		CCCEA11822AE7C870057F5E0 /* FakeCellsDisablingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEA11622AE7C860057F5E0 /* FakeCellsDisablingTests.swift */; };
 		E770ACA880DA7C520CB00A31 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD9F80D7EE4414E4F09E6CF0 /* Pods_BlackBoxUiTests.framework */; };
@@ -83,7 +83,7 @@
 		F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820873D2141AD8400DCBA2D /* ElementSnapshotStubTests.swift */; };
 		F82087402141B49700DCBA2D /* LocatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820873F2141B49700DCBA2D /* LocatorsTests.swift */; };
 		F8222D7020D194CD009FB7B6 /* TestCaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */; };
-		F8252DAD22772A47003190D0 /* GettingRealViewHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */; };
+		F8252DAD22772A47003190D0 /* GettingUiKitHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC78DE2E21395BFE00599258 /* GettingUiKitHierarchyTests.swift */; };
 		F8252DB12279D700003190D0 /* TouchesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB02279D700003190D0 /* TouchesTestsView.swift */; };
 		F8252DB52279DA03003190D0 /* TapActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB32279D9EB003190D0 /* TapActionTouchesTests.swift */; };
 		F8252DB62279DA03003190D0 /* TapActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252DB32279D9EB003190D0 /* TapActionTouchesTests.swift */; };
@@ -486,7 +486,7 @@
 		BC6CF99C2310412A003F40C0 /* NetworkStubbingTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestCase.swift; sourceTree = "<group>"; };
 		BCB072EA2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotDHashLabelsTestsView.swift; sourceTree = "<group>"; };
 		C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingRealViewHierarchyTests.swift; sourceTree = "<group>"; };
+		CC78DE2E21395BFE00599258 /* GettingUiKitHierarchyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingUiKitHierarchyTests.swift; sourceTree = "<group>"; };
 		CC78DE3121395C6000599258 /* HierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyTestsView.swift; sourceTree = "<group>"; };
 		CCCEA11622AE7C860057F5E0 /* FakeCellsDisablingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDisablingTests.swift; sourceTree = "<group>"; };
 		D01191CFF95BA6F1CCC9BD9D /* Pods-TestedApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2383,7 +2383,7 @@
 			isa = PBXGroup;
 			children = (
 				F813CB2B209CDF3300E6A27C /* TestabilityTextTests.swift */,
-				CC78DE2E21395BFE00599258 /* GettingRealViewHierarchyTests.swift */,
+				CC78DE2E21395BFE00599258 /* GettingUiKitHierarchyTests.swift */,
 			);
 			path = GettingElementInfo;
 			sourceTree = "<group>";
@@ -3335,7 +3335,7 @@
 				F8EBBCA6213AA8FF00D320A4 /* HierarchySourcesTests.swift in Sources */,
 				F8C8ED4822985DD90009B9A7 /* ScreenOpener.swift in Sources */,
 				F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */,
-				CC78DE2F21395BFE00599258 /* GettingRealViewHierarchyTests.swift in Sources */,
+				CC78DE2F21395BFE00599258 /* GettingUiKitHierarchyTests.swift in Sources */,
 				F8B33B14224ACF4800AA1EB9 /* AssertIsEnabledInteractionTests.swift in Sources */,
 				F8C7091D2153F3F70015A10B /* IpcCallbacksTests.swift in Sources */,
 				F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */,
@@ -3583,7 +3583,7 @@
 				F86E60FF229C2D7E00C227CE /* ApplicationNameProvider.swift in Sources */,
 				F8A837A72270D40B00145140 /* BasePageObject+Extension.swift in Sources */,
 				F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
-				F8252DAD22772A47003190D0 /* GettingRealViewHierarchyTests.swift in Sources */,
+				F8252DAD22772A47003190D0 /* GettingUiKitHierarchyTests.swift in Sources */,
 				F8A83E872272223700145140 /* SetTextActionWaitsElementTests.swift in Sources */,
 				F8A83E8D2272223700145140 /* AnyActionSpecification.swift in Sources */,
 				F8A83E8E2272223700145140 /* BaseActionTestCase.swift in Sources */,

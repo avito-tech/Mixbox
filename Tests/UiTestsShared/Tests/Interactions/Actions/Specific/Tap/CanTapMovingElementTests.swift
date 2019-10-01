@@ -25,7 +25,7 @@ private final class Screen: BasePageObjectWithDefaultInitializer {
 
 private extension PageObjects {
     var real: Screen {
-        return apps.mainRealHierarchy.pageObject()
+        return apps.mainUiKitHierarchy.pageObject()
     }
     var xcui: Screen {
         return apps.mainXcui.pageObject()

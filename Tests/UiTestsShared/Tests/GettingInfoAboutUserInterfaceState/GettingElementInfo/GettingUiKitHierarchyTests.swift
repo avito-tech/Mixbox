@@ -2,7 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxIpcCommon
 import XCTest
 
-final class GettingRealViewHierarchyTests: TestCase {
+final class GettingUiKitHierarchyTests: TestCase {
     override func precondition() {
         openScreen(pageObjects.hierarchyTestsView)
     }
