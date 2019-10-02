@@ -81,6 +81,10 @@ public extension CGRect {
     
     // MARK: -
     
+    func mb_hasZeroArea() -> Bool {
+        return size.mb_hasZeroArea()
+    }
+    
     func mb_inverted() -> CGRect {
         return CGRect.mb_init(left: mb_right, right: mb_left, top: mb_bottom, bottom: mb_top)
     }

@@ -1,5 +1,6 @@
 import MixboxIpcCommon
 import MixboxIpc
+import MixboxUiKit
 
 public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     private let ipcClient: IpcClient
@@ -32,6 +33,10 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
             if !topSnapshotFrame.intersects(snapshot.frameRelativeToScreen) {
                 return VisibilityPercentage.definitelyHidden
             }
+        }
+
+        if snapshot.frameRelativeToScreen.mb_hasZeroArea() {
+            return VisibilityPercentage.definitelyHidden
         }
         
         if let percentageOfVisibleArea = percentageOfVisibleAreaFromIpcClient(snapshot: snapshot) {

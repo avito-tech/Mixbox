@@ -47,8 +47,7 @@ import MixboxTestability
             } else {
                 currentViewIsHidden = view.isHidden
                     || view.alpha < alphaThreshold
-                    || view.frame.width == 0
-                    || view.frame.height == 0
+                    || view.frame.mb_hasZeroArea()
             }
             
             if currentViewIsHidden {

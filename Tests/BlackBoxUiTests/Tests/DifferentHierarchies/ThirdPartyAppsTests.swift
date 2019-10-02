@@ -23,8 +23,8 @@ final class ThirdPartyAppsTests: TestCase {
         pageObjects.springboard.anyWindow.swipeRight()
         
         // Assert that we are on the page that doesn't contain app icon.
-        // This also checks that visibility check works (there was a bug!).
-        pageObjects.springboard.mainAppIcon.currentlyVisible.assertIsNotDisplayed()
+        // This is an important check, it checks if visibility check works (there was a bug! UPD: twice):
+        pageObjects.springboard.mainAppIcon.withoutTimeout.currentlyVisible.assertIsNotDisplayed()
         
         deleteApp()
         
@@ -52,13 +52,28 @@ final class ThirdPartyAppsTests: TestCase {
         } else {
             // Workaround. We can live with this workaround in other apps.
             
-            // This will trigger scroll
-            pageObjects.springboard.mainAppIcon.assertIsDisplayed()
+            if UIDevice.current.mb_iosVersion.majorVersion <= 12 {
+                // This will trigger scroll:
+                pageObjects.springboard.mainAppIcon.assertIsDisplayed()
+            } else {
+                // Since iOS 13 app icons lost their frames.
+                // We can only scroll blindly:
+                
+                while !pageObjects.springboard.mainAppIcon.currentlyVisible.withoutTimeout.isDisplayed() {
+                    pageObjects.springboard.anyWindow.swipeLeft()
+                }
+            }
             
             waiter.wait(timeout: 1)
             
             // At this moment UI will be probably stable:
-            pageObjects.springboard.mainAppIcon.press(duration: 1.5)
+            
+            if UIDevice.current.mb_iosVersion.majorVersion <= 12 {
+                pageObjects.springboard.mainAppIcon.press(duration: 1.5)
+            } else {
+                // iOS 13 introduced and intermediate menu, but longer press works fine (> 3 secs)
+                pageObjects.springboard.mainAppIcon.press(duration: 10)
+            }
         }
         
         pageObjects.springboard.mainAppIconDeleteButton.tap()

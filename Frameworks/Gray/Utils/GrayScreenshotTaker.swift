@@ -82,8 +82,7 @@ public final class GrayScreenshotTaker: ScreenshotTaker {
     private func isDefinitelyNotVisible(window: UIWindow) -> Bool {
         return window.isHidden
             || window.alpha == 0
-            || window.frame.width == 0
-            || window.frame.height == 0
+            || window.frame.mb_hasZeroArea()
     }
     
     // TODO: Write test. This logic is intricate.
