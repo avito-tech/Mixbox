@@ -6,15 +6,17 @@ final class LocatorsPerformanceTests: TestCase {
         return pageObjects.locatorsPerformanceTestsView
     }
     
-    func test___complex_is_subview_matcher___passes_in_timeout___when_matches() {
-        openScreen(screen)
+    override func precondition() {
+        super.precondition()
         
+        openScreen(screen)
+    }
+    
+    func test___complex_is_subview_matcher___passes_in_timeout___when_matches() {
         screen.element(path: [1, 1, 1, 1, 1, 1]).assertHasText("555")
     }
     
     func test___complex_is_subview_matcher___passes_in_timeout___when_it_doesnt_match() {
-        openScreen(screen)
-        
         assertFails {
             screen.element(path: [1, 1, 1, 1, 1, 4]).assertIsDisplayed()
         }
