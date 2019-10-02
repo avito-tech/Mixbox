@@ -39,7 +39,9 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.photoStubber
     }
     
+    private var baseClassPreconditionWasCalled = false
     func precondition() {
+        baseClassPreconditionWasCalled = true
     }
     
     override func setUp() {
@@ -53,6 +55,7 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         
         reuseState {
             precondition()
+            XCTAssertEqual(baseClassPreconditionWasCalled, true)
         }
     }
     
