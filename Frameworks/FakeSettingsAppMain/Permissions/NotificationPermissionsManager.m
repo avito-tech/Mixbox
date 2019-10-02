@@ -159,7 +159,6 @@
     
     [sectionInfo setValue:@NO forKey:@"suppressFromSettings"];
     [sectionInfo setValue:@0 forKey:@"suppressedSettings"];
-    [sectionInfo setValue:@NO forKey:@"displaysCriticalBulletins"];
     [sectionInfo setValue:@0 forKey:@"sectionCategory"];
     [sectionInfo setValue:@0 forKey:@"subsectionPriority"];
     [sectionInfo setValue:@0 forKey:@"sectionType"];
@@ -168,11 +167,16 @@
     [sectionInfo setValue:_bundleIdentifier forKey:@"sectionID"];
     
     switch ([self osMajorVersion]) {
-        case 9: {
+        case 9:
+        case 10:
+        case 11:
+        case 12: {
+            [sectionInfo setValue:@NO forKey:@"displaysCriticalBulletins"];
             break;
         }
+        case 13:
         default: {
-            [sectionInfo setValue:_displayName forKey:@"appName"];
+            // New `spokenNotificationSetting` field appeared, but it is `long` and it is unclear how to set it up.
             break;
         }
     }
@@ -196,6 +200,9 @@
     id showsInLockScreen = @YES;
     id showsInNotificationCenter = @YES;
     id showsOnExternalDevices = @YES;
+    id showsMessagePreview = @NO;
+    id carPlaySetting = @NO;
+    id contentPreviewSetting = @0;
     
     [settings setValue:alertType forKey:@"alertType"];
     [settings setValue:allowsNotifications forKey:@"allowsNotifications"];
@@ -206,15 +213,14 @@
     
     switch ([self osMajorVersion]) {
         case 9: {
-            id showsMessagePreview = @NO;
-            
             [settings setValue:showsMessagePreview forKey:@"showsMessagePreview"];
             break;
         }
+        case 10:
+        case 11:
+        case 12:
+        case 13:
         default: {
-            id carPlaySetting = @NO;
-            id contentPreviewSetting = @0;
-            
             [settings setValue:carPlaySetting forKey:@"carPlaySetting"];
             [settings setValue:contentPreviewSetting forKey:@"contentPreviewSetting"];
             break;
