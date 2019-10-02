@@ -3,6 +3,8 @@ import XCTest
 
 final class CanTapMovingElementTests: TestCase {
     override func precondition() {
+        super.precondition()
+        
         openScreen(name: "MovingElementTestsView")
     }
     

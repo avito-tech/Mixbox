@@ -8,6 +8,8 @@ import TestsIpc
 // NOTE: IpcCallback is an experimental feature.
 class IpcCallbacksTests: TestCase {
     override func precondition() {
+        super.precondition()
+        
         launch(environment: [:], useBuiltinIpc: true)
     }
     

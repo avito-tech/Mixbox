@@ -3,6 +3,8 @@ import XCTest
 
 final class AssertingCustomValuesTests: TestCase {
     override func precondition() {
+        super.precondition()
+        
         openScreen(name: "AssertingCustomValuesTestsView")
     }
     

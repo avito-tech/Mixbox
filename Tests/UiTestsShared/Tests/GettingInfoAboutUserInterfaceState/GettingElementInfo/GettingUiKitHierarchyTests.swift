@@ -4,6 +4,8 @@ import XCTest
 
 final class GettingUiKitHierarchyTests: TestCase {
     override func precondition() {
+        super.precondition()
+        
         openScreen(pageObjects.hierarchyTestsView)
     }
     

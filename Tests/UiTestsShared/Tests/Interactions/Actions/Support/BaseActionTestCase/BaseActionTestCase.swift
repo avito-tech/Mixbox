@@ -12,6 +12,8 @@ class BaseActionTestCase: TestCase {
     // MARK: - Screen
     
     override func precondition() {
+        super.precondition()
+        
         openScreen(name: "ActionsTestsView")
         
         // wait

@@ -11,6 +11,8 @@ import XCTest
 // for every query.
 final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: TestCase {
     override func precondition() {
+        super.precondition()
+        
         openScreen(name: "ChangingHierarchyTestsView")
         
         // Wait & check UI:

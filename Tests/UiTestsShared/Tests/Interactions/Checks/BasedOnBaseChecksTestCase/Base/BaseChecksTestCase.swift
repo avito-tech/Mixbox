@@ -24,6 +24,8 @@ class BaseChecksTestCase: TestCase {
     }
     
     override func precondition() {
+        super.precondition()
+        
         openScreen(screen)
         screen.waitUntilViewIsLoaded()
     }

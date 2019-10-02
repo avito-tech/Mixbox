@@ -20,6 +20,8 @@ class BaseIpcEchoingTests: TestCase {
     }
     
     override func precondition() {
+        super.precondition()
+        
         launch(environment: [:], useBuiltinIpc: useBuiltinIpc)
     }
     

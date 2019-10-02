@@ -9,6 +9,8 @@ final class FakeCellsTests: TestCase {
     }
     
     override func precondition() {
+        super.precondition()
+        
         openScreen(name: "FakeCellsTestsView")
     }
     

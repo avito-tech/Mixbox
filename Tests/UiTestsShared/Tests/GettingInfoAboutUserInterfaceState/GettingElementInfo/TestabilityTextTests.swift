@@ -7,6 +7,8 @@ final class TestabilityTextTests: TestCase {
     }
     
     override func precondition() {
+        super.precondition()
+        
         openScreen(name: "TextTestsView")
     }
     
