@@ -128,9 +128,11 @@
 		F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D021214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift */; };
 		F853D024214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D023214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift */; };
 		F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D02D214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift */; };
+		F854F8252344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */; };
+		F854F8282344D2D1009A715B /* BaseIpcEchoingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */; };
 		F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */; };
 		F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */; };
-		F857C9DC20CF8CD600E8BFF5 /* IpcEchoingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9DB20CF8CD600E8BFF5 /* IpcEchoingTests.swift */; };
+		F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */; };
 		F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */; };
 		F8676ED821552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676ED721552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift */; };
 		F8676EDA21552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676ED921552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift */; };
@@ -590,9 +592,11 @@
 		F853D021214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileForStacktraceTestsWithFixedNameAndLineNumbers.swift; sourceTree = "<group>"; };
 		F853D023214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailuresAreHighlightedInCorrectPlacesInIdeTests.swift; sourceTree = "<group>"; };
 		F853D02D214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift; sourceTree = "<group>"; };
+		F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingBuiltinIpcTests.swift; sourceTree = "<group>"; };
+		F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIpcEchoingTests.swift; sourceTree = "<group>"; };
 		F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIpcMethods.swift; sourceTree = "<group>"; };
-		F857C9DB20CF8CD600E8BFF5 /* IpcEchoingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingTests.swift; sourceTree = "<group>"; };
+		F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingSbtuiTestTunnelTests.swift; sourceTree = "<group>"; };
 		F866756D2121E81E00396F02 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorFileSystemRootTests.swift; sourceTree = "<group>"; };
 		F86675712121E81E00396F02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1374,6 +1378,16 @@
 				F853D004214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift */,
 			);
 			path = FileLineForFailureProvider;
+			sourceTree = "<group>";
+		};
+		F854F8262344D2BB009A715B /* Echoing */ = {
+			isa = PBXGroup;
+			children = (
+				F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */,
+				F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */,
+				F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */,
+			);
+			path = Echoing;
 			sourceTree = "<group>";
 		};
 		F857C9D420CD8BAB00E8BFF5 /* CustomIpc */ = {
@@ -2190,7 +2204,7 @@
 		F8C7091B2153F3E20015A10B /* IPC */ = {
 			isa = PBXGroup;
 			children = (
-				F857C9DB20CF8CD600E8BFF5 /* IpcEchoingTests.swift */,
+				F854F8262344D2BB009A715B /* Echoing */,
 				F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */,
 			);
 			path = IPC;
@@ -3285,6 +3299,7 @@
 				F8AD079F2250D5DD00D5FB93 /* PhotosApplicationPermissionTests.swift in Sources */,
 				F8AD079C2250D5DD00D5FB93 /* CameraApplicationPermissionSpecification.swift in Sources */,
 				F8B010DF21FF319D0026360D /* ReportingSystems.swift in Sources */,
+				F854F8252344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift in Sources */,
 				F8EBBCE7213D541300D320A4 /* ScreenshotTests.swift in Sources */,
 				F8971D0522650A62001741C1 /* FileSystemImpl.swift in Sources */,
 				F8B33B31224CF43400AA1EB9 /* AnyActionSpecification.swift in Sources */,
@@ -3293,6 +3308,7 @@
 				F8252DBD2279DCED003190D0 /* BaseTouchesTestCase.swift in Sources */,
 				F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */,
 				F888EE1D23206137009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
+				F854F8282344D2D1009A715B /* BaseIpcEchoingTests.swift in Sources */,
 				F8B33B12224ACF3900AA1EB9 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F8971D2622651E3A001741C1 /* CreatedTemporaryDirectory.swift in Sources */,
 				F8E8BAE320DD752200524185 /* FakeCellsTests.swift in Sources */,
@@ -3327,7 +3343,7 @@
 				F8B33B18224ACF6C00AA1EB9 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */,
 				F8252DC92279DD0F003190D0 /* ScreenshotTestsViewPageObject.swift in Sources */,
 				F8B010DD21FF319D0026360D /* ReportingSystem.swift in Sources */,
-				F857C9DC20CF8CD600E8BFF5 /* IpcEchoingTests.swift in Sources */,
+				F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */,
 				F8C8ED2D229854570009B9A7 /* BaseUiTestCase.swift in Sources */,
 				F8B3411E224E5B0800AA1EB9 /* ApplicationPermissionWithAllowedDeniedNotDeterminedStateSpecification.swift in Sources */,
 				F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */,
