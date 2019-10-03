@@ -130,6 +130,8 @@
 		F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D02D214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift */; };
 		F854F8252344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */; };
 		F854F8282344D2D1009A715B /* BaseIpcEchoingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */; };
+		F854F86D23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F86C23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift */; };
+		F854F86E23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F86C23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift */; };
 		F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */; };
 		F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */; };
 		F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */; };
@@ -594,6 +596,7 @@
 		F853D02D214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingBuiltinIpcTests.swift; sourceTree = "<group>"; };
 		F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIpcEchoingTests.swift; sourceTree = "<group>"; };
+		F854F86C23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift; sourceTree = "<group>"; };
 		F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIpcMethods.swift; sourceTree = "<group>"; };
 		F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingSbtuiTestTunnelTests.swift; sourceTree = "<group>"; };
@@ -915,12 +918,12 @@
 			path = MixboxIpcCommon;
 			sourceTree = "<group>";
 		};
-		F80CEDE322DE3751006C804D /* Internal */ = {
+		F80CEDE322DE3751006C804D /* SelfCheck */ = {
 			isa = PBXGroup;
 			children = (
-				F80CEDE422DE3769006C804D /* Ipc */,
+				F854F86C23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift */,
 			);
-			path = Internal;
+			path = SelfCheck;
 			sourceTree = "<group>";
 		};
 		F80CEDE422DE3769006C804D /* Ipc */ = {
@@ -1783,7 +1786,8 @@
 		F8A837AA2270D4CC00145140 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F80CEDE322DE3751006C804D /* Internal */,
+				F80CEDE422DE3769006C804D /* Ipc */,
+				F80CEDE322DE3751006C804D /* SelfCheck */,
 				F8C8ED0B229850040009B9A7 /* Reporting */,
 				F84D126B2166AB7C00A178B4 /* FakeCells */,
 				F8E6CC7C2181ECF500D7A0C1 /* GettingInfoAboutUserInterfaceState */,
@@ -3265,6 +3269,7 @@
 				F8B33B10224ACF2500AA1EB9 /* AssertIsNotDisplayedInteractionTests.swift in Sources */,
 				F82030672238548E006D2F70 /* BaseActionTestCase.swift in Sources */,
 				F813CB32209CDF3400E6A27C /* ScrollingTests.swift in Sources */,
+				F854F86D23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift in Sources */,
 				F8252DCC2279DD0F003190D0 /* PageObjects.swift in Sources */,
 				F8971DAC22666218001741C1 /* BaseNetworkMockingTestCase.swift in Sources */,
 				F8971D2422651DF5001741C1 /* TemporaryDirectory.swift in Sources */,
@@ -3575,6 +3580,7 @@
 				F8DB35A022738C9B00EE0FB8 /* BaseActionTestCase+Checks.swift in Sources */,
 				F8C8ED3A22985B060009B9A7 /* CreatedTemporaryFile.swift in Sources */,
 				F8A837CC2270F5CD00145140 /* MainAppScreen.swift in Sources */,
+				F854F86E23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift in Sources */,
 				F8C8ED4922985DDA0009B9A7 /* ScreenOpener.swift in Sources */,
 				F8C8ED3F22985B140009B9A7 /* RedImagesProvider.swift in Sources */,
 				F8A837B12270DAE300145140 /* Singletons.swift in Sources */,

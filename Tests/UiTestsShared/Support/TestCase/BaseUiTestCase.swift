@@ -55,7 +55,8 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         
         reuseState {
             precondition()
-            XCTAssertEqual(baseClassPreconditionWasCalled, true)
+            
+            assertPreconditionInSuperClassIsCalled()
         }
     }
     
@@ -78,6 +79,21 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
             ]
         )
     }
+    
+    private func assertPreconditionInSuperClassIsCalled() {
+        if !baseClassPreconditionWasCalled {
+            testCaseUtils.baseUiTestCaseUtils.testFailureRecorder.recordFailure(
+                description:
+                """
+                You must call super.precondition() from your subclass \
+                of \(BaseUiTestCase.self) (\(type(of: self)))
+                """,
+                shouldContinueTest: false
+            )
+        }
+    }
+    
+    // MARK: - Loading resources
     
     func image(name: String) -> UIImage {
         guard let path = Bundle(for: type(of: self)).path(forResource: name, ofType: nil),
