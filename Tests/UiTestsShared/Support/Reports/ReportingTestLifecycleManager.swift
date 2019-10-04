@@ -206,14 +206,16 @@ public final class ReportingTestLifecycleManager:
         
         return TestStepReport(
             uuid: NSUUID(),
-            name: stepLog.identifyingDescription,
-            description: stepLog.detailedDescription,
-            type: stepLog.stepType,
+            title: stepLog.title,
             status: stepLog.wasSuccessful ? .passed : .failed,
             steps: stepLog.steps.compactMap(testStepReport),
             startDate: stepLog.startDate,
             stopDate: stopDate,
-            attachments: (stepLog.artifactsBefore + stepLog.artifactsAfter).map { TestReportAttachment(artifact: $0) }
+            customDataBefore: stepLog.before.customData,
+            customDataAfter: stepLog.after?.customData,
+            attachments: (stepLog.artifactsBefore + stepLog.artifactsAfter).map {
+                TestReportAttachment(artifact: $0)
+            }
         )
     }
     

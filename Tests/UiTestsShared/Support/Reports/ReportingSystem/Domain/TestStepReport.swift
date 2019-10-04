@@ -1,35 +1,36 @@
 import MixboxReporting
+import MixboxFoundation
 
 public final class TestStepReport {
     public let uuid: NSUUID
-    public let name: String
-    public let description: String?
-    public let type: StepType
+    public let title: String
     public let status: TestReportStatus
     public let steps: [TestStepReport]
     public let startDate: Date
     public let stopDate: Date
+    public let customDataBefore: AnyEquatable
+    public let customDataAfter: AnyEquatable?
     public let attachments: [TestReportAttachment]
     
     public init(
         uuid: NSUUID,
-        name: String,
-        description: String?,
-        type: StepType,
+        title: String,
         status: TestReportStatus,
         steps: [TestStepReport],
         startDate: Date,
         stopDate: Date,
+        customDataBefore: AnyEquatable,
+        customDataAfter: AnyEquatable?,
         attachments: [TestReportAttachment])
     {
         self.uuid = uuid
-        self.name = name
-        self.description = description
-        self.type = type
+        self.title = title
         self.status = status
         self.steps = steps
         self.startDate = startDate
         self.stopDate = stopDate
+        self.customDataBefore = customDataBefore
+        self.customDataAfter = customDataAfter
         self.attachments = attachments
     }
 }

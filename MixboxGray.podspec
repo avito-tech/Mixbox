@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                   = 'MixboxGray'
   s.module_name            = s.name
-  s.version                = '0.2.0'
+  s.version                = '0.2.3'
   s.summary                = s.name
   s.homepage               = 'https://github.com/avito-tech/Mixbox'
   s.license                = 'MIT'

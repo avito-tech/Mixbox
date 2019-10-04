@@ -3,9 +3,7 @@ import MixboxUiTestsFoundation
 import MixboxArtifacts
 
 final class StepLogMatcherBuilder {
-    let identifyingDescription = PropertyMatcherBuilder("identifyingDescription", \StepLog.identifyingDescription)
-    let detailedDescription = PropertyMatcherBuilder("detailedDescription", \StepLog.detailedDescription)
-    let stepType = PropertyMatcherBuilder("stepType", \StepLog.stepType)
+    let title = PropertyMatcherBuilder("title", \StepLog.title)
     let startDate = PropertyMatcherBuilder("startDate", \StepLog.startDate)
     let stopDate = PropertyMatcherBuilder("stopDate", \StepLog.stopDate)
     let wasSuccessful = PropertyMatcherBuilder("wasSuccessful", \StepLog.wasSuccessful)

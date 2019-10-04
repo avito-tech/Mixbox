@@ -50,16 +50,16 @@ final class SetTextActionFailuresTests: BaseActionTestCase {
         // Logs properly
         assert(logsAndFailures: logsAndFailures) { logsAndFailures in
             logsAndFailures.logs.contains { log in
-                log.detailedDescription == "сфокусироваться на элементе и вставить текст 'Text' в 'input non-existing-element' с помощью физической клавиатуры"
+                log.title == "сфокусироваться на элементе и вставить текст 'Text' в 'input non-existing-element' с помощью физической клавиатуры"
                     && log.wasSuccessful == false
                     && log.steps.contains { log in
-                        log.detailedDescription == "сфокусироваться на элементе \"input non-existing-element\""
+                        log.title == "сфокусироваться на элементе \"input non-existing-element\""
                             && log.wasSuccessful == false
                             && log.steps.contains { log in
-                                log.detailedDescription == "тапнуть по \"input non-existing-element\""
+                                log.title == "тапнуть по \"input non-existing-element\""
                                     && log.wasSuccessful == false
                                     && log.steps.contains { log in
-                                        log.detailedDescription == "Поиск элемента" && log.wasSuccessful == false
+                                        log.title == "Поиск элемента" && log.wasSuccessful == false
                                     }
                             }
                     }

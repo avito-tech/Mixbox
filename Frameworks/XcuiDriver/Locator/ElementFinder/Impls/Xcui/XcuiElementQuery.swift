@@ -35,7 +35,7 @@ final class XcuiElementQuery: ElementQuery {
     }
     
     private func resolveElement(_ closure: (XCUIElementQuery) -> (XCUIElement)) -> ResolvedElementQuery {
-        let stepLogBefore = StepLogBefore.other("Поиск элемента")
+        let stepLogBefore = StepLogBefore(title: "Поиск элемента")
         
         let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
             () -> StepLoggerResultWrapper<ResolvedElementQuery>

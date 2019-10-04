@@ -30,7 +30,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
         return signpostActivityLogger.log(name: "RVHEQ resolveElement") {
-            let stepLogBefore = StepLogBefore.other("Поиск элемента")
+            let stepLogBefore = StepLogBefore(title: "Поиск элемента")
             
             let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
                 resolveElementWhileBeingLoggedToStepLogger(interactionMode: interactionMode)

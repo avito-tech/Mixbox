@@ -10,14 +10,8 @@ public final class StepLoggerImpl: StepLogger, StepLogsProvider {
         return stepper.steps(
             combineFunction: { (before: StepLogBefore, after: StepLogAfter?, children: [StepLog]) in
                 StepLog(
-                    identifyingDescription: before.identifyingDescription,
-                    detailedDescription: before.detailedDescription,
-                    stepType: before.stepType,
-                    startDate: before.date,
-                    stopDate: after?.date,
-                    wasSuccessful: after?.wasSuccessful ?? false,
-                    artifactsBefore: before.artifacts,
-                    artifactsAfter: after?.artifacts ?? [],
+                    before: before,
+                    after: after,
                     steps: children
                 )
             }

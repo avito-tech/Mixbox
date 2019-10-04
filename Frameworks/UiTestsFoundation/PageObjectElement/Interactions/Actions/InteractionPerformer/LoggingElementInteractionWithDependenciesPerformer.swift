@@ -65,12 +65,8 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
         interaction: ElementInteractionWithDependencies)
         -> StepLogBefore
     {
-        let description = interaction.description()
-        
         return StepLogBefore(
-            identifyingDescription: description,
-            detailedDescription: description,
-            stepType: .interaction,
+            title: interaction.description(),
             artifacts: screenshotAttachmentsMaker.makeScreenshotArtifacts(
                 beforeStep: true,
                 includeHash: false

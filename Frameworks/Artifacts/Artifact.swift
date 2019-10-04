@@ -1,5 +1,5 @@
 // TODO: Rename to attachment or something
-public final class Artifact: Equatable {
+public final class Artifact: CustomDebugStringConvertible, Equatable {
     public let name: String
     public let content: ArtifactContent
     
@@ -14,6 +14,15 @@ public final class Artifact: Equatable {
     public static func ==(left: Artifact, right: Artifact) -> Bool {
         return left.name == right.name
             && left.content == right.content
+    }
+    
+    public var debugDescription: String {
+        return """
+        Artifact(
+            name: \(name),
+            content: \(content)
+        )
+        """
     }
 }
 

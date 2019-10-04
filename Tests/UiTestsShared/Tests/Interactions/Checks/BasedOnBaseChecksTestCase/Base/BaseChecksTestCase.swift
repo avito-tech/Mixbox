@@ -146,7 +146,7 @@ class BaseChecksTestCase: TestCase {
         -> Matcher<StepLog>
     {
         let hasSearchStep = log.steps.contains { log in
-            let isSearchStep = log.detailedDescription == "Поиск элемента"
+            let isSearchStep = log.title == "Поиск элемента"
             
             let hasCandidatesAttachment = log.artifactsAfter.contains { artifact in
                 artifact.name == "Кандидаты"

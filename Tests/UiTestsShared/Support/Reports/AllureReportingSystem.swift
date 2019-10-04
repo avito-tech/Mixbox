@@ -77,11 +77,11 @@ public final class AllureReportingSystem: ReportingSystem {
         -> AllureExecutableItem
     {
         return LazyAllureExecutableItem(
-            name: testStepReport.name,
+            name: testStepReport.title,
             status: status(testReportStatus: testStepReport.status),
             statusDetails: nil,
             stage: .finished,
-            description: testStepReport.description,
+            description: testStepReport.title,
             descriptionHtml: nil,
             steps: testStepReport.steps.map(step),
             start: AllureTimestamp(date: testStepReport.startDate),

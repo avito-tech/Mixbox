@@ -17,8 +17,7 @@ public final class XcuiActivityStepLogger: StepLogger {
         -> StepLoggerResultWrapper<T>
     {
         return originalStepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<T> in
-            let name = stepLogBefore.detailedDescription
-            return XCTContext.runActivity(named: name) { (activity: XCTActivity) -> StepLoggerResultWrapper<T> in
+            XCTContext.runActivity(named: stepLogBefore.title) { (activity: XCTActivity) -> StepLoggerResultWrapper<T> in
                 stepLogBefore.artifacts.forEach { addAttachment(artifact: $0, activity: activity) }
                 
                 let result = body()

@@ -1,17 +1,5 @@
 import MixboxArtifacts
-
-public final class StepLoggerResultWrapper<T> {
-    public let stepLogAfter: StepLogAfter
-    public let wrappedResult: T
-    
-    public init(
-        stepLogAfter: StepLogAfter,
-        wrappedResult: T)
-    {
-        self.stepLogAfter = stepLogAfter
-        self.wrappedResult = wrappedResult
-    }
-}
+import MixboxFoundation
 
 // How to add logging to your existing code:
 //
@@ -20,13 +8,11 @@ public final class StepLoggerResultWrapper<T> {
 //
 // You can wrap it into logged step:
 //
-// let myResult: MyResult = stepLogger.logStep {
+// let myResult: MyResult = stepLogger.logStep(stepLogBefore: StepLogBefore(...)) {
 //     let myResult = getMyResult()
-//     return StepLoggerWrappedCodeResult(
-//         stepLogAfter = StepLogAfter(
-//             wasSuccessful: youCanHandleYourResult.getWasSuccessful(myResult)
-//             artifacts: youCanHandleYourResult.getArtifacts(myResult)
-//         )
+//     return StepLoggerResultWrapper(
+//         stepLogAfter: StepLogAfter(...),
+//         wrappedResult: myResult
 //     )
 // }
 //
@@ -42,81 +28,31 @@ public protocol StepLogger: class {
         -> StepLoggerResultWrapper<T>
 }
 
-public extension StepLogger {
+extension StepLogger {
     // For simple logging (without nested steps)
-    func logEntry(
+    public func logEntry(
         date: Date = Date(),
-        description: String,
-        artifacts: [Artifact])
+        title: String,
+        customData: AnyEquatable = .void,
+        artifacts: [Artifact] = [])
     {
-        let stepLogBefore = StepLogBefore.other(description, artifacts: artifacts, date: date)
+        let stepLogBefore = StepLogBefore(
+            date: date,
+            title: title,
+            customData: customData,
+            artifacts: artifacts
+        )
+        
         _ = logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<()> in
             StepLoggerResultWrapper(
                 stepLogAfter: StepLogAfter(
+                    date: date,
                     wasSuccessful: true,
+                    customData: .void,
                     artifacts: []
                 ),
                 wrappedResult: ()
             )
         }
-    }
-}
-
-public enum StepType {
-    // TODO: Remove these types:
-    case testWarehouseStep
-    case testWarehouseAssertion
-    case testWarehousePrecondition
-    // Maybe remove types at all and introduce tags or custom dictionaries/codable objects
-    
-    case interaction
-    case other
-}
-
-public final class StepLogBefore {
-    public let date: Date
-    public let identifyingDescription: String // TODO: Remove this
-    public let detailedDescription: String
-    public let stepType: StepType
-    public let artifacts: [Artifact]
-    
-    public init(
-        date: Date = Date(),
-        identifyingDescription: String,
-        detailedDescription: String,
-        stepType: StepType,
-        artifacts: [Artifact])
-    {
-        self.date = date
-        self.identifyingDescription = identifyingDescription
-        self.detailedDescription = detailedDescription
-        self.stepType = stepType
-        self.artifacts = artifacts
-    }
-    
-    public static func other(_ description: String, artifacts: [Artifact] = [], date: Date = Date()) -> StepLogBefore {
-        return StepLogBefore(
-            date: date,
-            identifyingDescription: description,
-            detailedDescription: description,
-            stepType: .other,
-            artifacts: artifacts
-        )
-    }
-}
-
-public final class StepLogAfter {
-    public let date: Date
-    public let wasSuccessful: Bool
-    public let artifacts: [Artifact]
-    
-    public init(
-        date: Date = Date(),
-        wasSuccessful: Bool,
-        artifacts: [Artifact])
-    {
-        self.date = date
-        self.wasSuccessful = wasSuccessful
-        self.artifacts = artifacts
     }
 }
