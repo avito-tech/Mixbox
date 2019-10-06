@@ -3,6 +3,7 @@ import MixboxReporting
 import MixboxIpc
 import MixboxIpcCommon
 import MixboxArtifacts
+import MixboxTestsFoundation
 
 final class UiKitHierarchyElementQuery: ElementQuery {
     private let ipcClient: IpcClient
@@ -11,6 +12,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
     private let signpostActivityLogger: SignpostActivityLogger
+    private let dateProvider: DateProvider
     
     init(
         ipcClient: IpcClient,
@@ -18,7 +20,8 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
-        signpostActivityLogger: SignpostActivityLogger)
+        signpostActivityLogger: SignpostActivityLogger,
+        dateProvider: DateProvider)
     {
         self.ipcClient = ipcClient
         self.elementMatcher = elementMatcher
@@ -26,11 +29,15 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
         self.signpostActivityLogger = signpostActivityLogger
+        self.dateProvider = dateProvider
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
         return signpostActivityLogger.log(name: "RVHEQ resolveElement") {
-            let stepLogBefore = StepLogBefore(title: "Поиск элемента")
+            let stepLogBefore = StepLogBefore(
+                date: dateProvider.currentDate(),
+                title: "Поиск элемента"
+            )
             
             let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
                 resolveElementWhileBeingLoggedToStepLogger(interactionMode: interactionMode)
@@ -87,6 +94,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         
         return StepLoggerResultWrapper(
             stepLogAfter: StepLogAfter(
+                date: dateProvider.currentDate(),
                 wasSuccessful: false,
                 artifacts: []
             ),
@@ -146,6 +154,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         
         return StepLoggerResultWrapper(
             stepLogAfter: StepLogAfter(
+                date: dateProvider.currentDate(),
                 wasSuccessful: elementWasFound,
                 artifacts: artifactsForLog(
                     resolvedElementQuery: resolvedElementQuery,

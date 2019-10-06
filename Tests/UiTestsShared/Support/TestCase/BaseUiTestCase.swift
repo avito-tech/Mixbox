@@ -65,6 +65,7 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         let os = UIDevice.current.mb_iosVersion.majorAndMinor
         
         testCaseUtils.baseUiTestCaseUtils.stepLogger.logEntry(
+            date: testCaseUtils.baseUiTestCaseUtils.dateProvider.currentDate(),
             title: "Started test with environment",
             artifacts: [
                 Artifact(

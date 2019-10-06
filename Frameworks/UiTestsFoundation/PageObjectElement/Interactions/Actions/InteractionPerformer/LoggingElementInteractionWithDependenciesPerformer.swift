@@ -1,23 +1,27 @@
 import MixboxReporting
 import MixboxFoundation
 import MixboxArtifacts
+import MixboxTestsFoundation
 
 public final class LoggingElementInteractionWithDependenciesPerformer: ElementInteractionWithDependenciesPerformer {
     private let nestedInteractionPerformer: ElementInteractionWithDependenciesPerformer
     private let stepLogger: StepLogger
     private let screenshotAttachmentsMaker: ScreenshotAttachmentsMaker
     private let elementSettings: ElementSettings
+    private let dateProvider: DateProvider
     
     public init(
         nestedInteractionPerformer: ElementInteractionWithDependenciesPerformer,
         stepLogger: StepLogger,
         screenshotAttachmentsMaker: ScreenshotAttachmentsMaker,
-        elementSettings: ElementSettings)
+        elementSettings: ElementSettings,
+        dateProvider: DateProvider)
     {
         self.nestedInteractionPerformer = nestedInteractionPerformer
         self.stepLogger = stepLogger
         self.screenshotAttachmentsMaker = screenshotAttachmentsMaker
         self.elementSettings = elementSettings
+        self.dateProvider = dateProvider
     }
     
     public func perform(
@@ -66,6 +70,7 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
         -> StepLogBefore
     {
         return StepLogBefore(
+            date: dateProvider.currentDate(),
             title: interaction.description(),
             artifacts: screenshotAttachmentsMaker.makeScreenshotArtifacts(
                 beforeStep: true,
@@ -110,6 +115,7 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
         )
         
         return StepLogAfter(
+            date: dateProvider.currentDate(),
             wasSuccessful: wasSuccessful,
             artifacts: stepArtifacts
         )

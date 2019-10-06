@@ -95,7 +95,8 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
             nestedInteractionPerformer: PerformingElementInteractionWithDependenciesPerformer(),
             stepLogger: stepLogger,
             screenshotAttachmentsMaker: screenshotAttachmentsMaker,
-            elementSettings: elementSettings
+            elementSettings: elementSettings,
+            dateProvider: dateProvider
         )
     }
     

@@ -76,7 +76,8 @@ final class TestCaseUtils: IpcRouterProvider {
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 stepLogger: baseUiTestCaseUtils.stepLogger,
                 screenshotTaker: screenshotTaker,
-                signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger
+                signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger,
+                dateProvider: baseUiTestCaseUtils.dateProvider
             ),
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider,

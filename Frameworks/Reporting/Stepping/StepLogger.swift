@@ -31,7 +31,7 @@ public protocol StepLogger: class {
 extension StepLogger {
     // For simple logging (without nested steps)
     public func logEntry(
-        date: Date = Date(),
+        date: Date,
         title: String,
         customData: AnyEquatable = .void,
         artifacts: [Artifact] = [])

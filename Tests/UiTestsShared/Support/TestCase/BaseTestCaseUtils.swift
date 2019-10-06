@@ -38,6 +38,7 @@ final class BaseUiTestCaseUtils {
     let mixboxCiUsesFbxctest = ProcessInfo.processInfo.environment["MIXBOX_CI_USES_FBXCTEST"] == "true"
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
     let signpostActivityLogger: SignpostActivityLogger
+    let dateProvider = SystemClockDateProvider()
     
     init() {
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(

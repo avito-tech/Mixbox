@@ -35,6 +35,7 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
                 )
             ),
             stepLogsProvider: Singletons.stepLogsProvider,
+            stepLogsCleaner: Singletons.stepLogsCleaner,
             testFailureRecorder: testFailureRecorder
         )
         

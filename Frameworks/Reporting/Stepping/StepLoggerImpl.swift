@@ -1,4 +1,4 @@
-public final class StepLoggerImpl: StepLogger, StepLogsProvider {
+public final class StepLoggerImpl: StepLogger, StepLogsProvider, StepLogsCleaner {
     private var stepper = Stepper<StepLogBefore, StepLogAfter>()
     
     public init() {
@@ -17,6 +17,8 @@ public final class StepLoggerImpl: StepLogger, StepLogsProvider {
             }
         )
     }
+    
+    // MARK: - StepLogsCleaner
     
     public func cleanLogs() {
         stepper = Stepper<StepLogBefore, StepLogAfter>()

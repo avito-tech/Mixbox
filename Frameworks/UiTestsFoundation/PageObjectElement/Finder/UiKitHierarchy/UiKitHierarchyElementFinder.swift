@@ -2,6 +2,7 @@ import MixboxFoundation
 import MixboxReporting
 import MixboxIpc
 import MixboxIpcCommon
+import MixboxTestsFoundation
 
 public final class UiKitHierarchyElementFinder: ElementFinder {
     private let ipcClient: IpcClient
@@ -9,19 +10,22 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
     private let signpostActivityLogger: SignpostActivityLogger
+    private let dateProvider: DateProvider
     
     public init(
         ipcClient: IpcClient,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
-        signpostActivityLogger: SignpostActivityLogger)
+        signpostActivityLogger: SignpostActivityLogger,
+        dateProvider: DateProvider)
     {
         self.ipcClient = ipcClient
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
         self.signpostActivityLogger = signpostActivityLogger
+        self.dateProvider = dateProvider
     }
     
     public func query(
@@ -34,7 +38,8 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
             testFailureRecorder: testFailureRecorder,
             stepLogger: stepLogger,
             screenshotTaker: screenshotTaker,
-            signpostActivityLogger: signpostActivityLogger
+            signpostActivityLogger: signpostActivityLogger,
+            dateProvider: dateProvider
         )
     }
 }

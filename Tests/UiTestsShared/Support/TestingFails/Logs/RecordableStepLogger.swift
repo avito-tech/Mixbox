@@ -1,11 +1,11 @@
 import MixboxReporting
 import MixboxFoundation
 
-final class RecodableStepLogger: StepLogger, StepLogsProvider, StepLoggerRecordingStarter {
-    private let payloadLogger: StepLogger & StepLogsProvider
+final class RecordableStepLogger: StepLogger, StepLogsProvider, StepLoggerRecordingStarter, StepLogsCleaner {
+    private let payloadLogger: StepLogger & StepLogsProvider & StepLogsCleaner
     private var recordingLoggers = [WeakBox<RecordingStepLoggerImpl>]()
     
-    init(payloadLogger: StepLogger & StepLogsProvider) {
+    init(payloadLogger: StepLogger & StepLogsProvider & StepLogsCleaner) {
         self.payloadLogger = payloadLogger
     }
     
@@ -32,7 +32,7 @@ final class RecodableStepLogger: StepLogger, StepLogsProvider, StepLoggerRecordi
     }
     
     func cleanLogs() {
-        let loggers: [StepLogger & StepLogsProvider] = [payloadLogger] + recordingLoggers.compactMap { $0.value }
+        let loggers: [StepLogger & StepLogsProvider & StepLogsCleaner] = [payloadLogger] + recordingLoggers.compactMap { $0.value }
         loggers.forEach {
             $0.cleanLogs()
         }

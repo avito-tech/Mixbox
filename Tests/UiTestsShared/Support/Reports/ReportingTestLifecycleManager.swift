@@ -7,18 +7,22 @@ public final class ReportingTestLifecycleManager:
     TestLifecycleManager
 {
     public let stepLogsProvider: StepLogsProvider
+    
     private let reportingSystem: AsyncReportingSystem
+    private let stepLogsCleaner: StepLogsCleaner
     private let testFailureRecorder: TestFailureRecorder
     
     public init(
         reportingSystem: ReportingSystem,
         stepLogsProvider: StepLogsProvider,
+        stepLogsCleaner: StepLogsCleaner,
         testFailureRecorder: TestFailureRecorder)
     {
         self.reportingSystem = AsyncReportingSystem(
             reportingSystem: reportingSystem
         )
         self.stepLogsProvider = stepLogsProvider
+        self.stepLogsCleaner = stepLogsCleaner
         self.testFailureRecorder = testFailureRecorder
     }
     
@@ -178,7 +182,7 @@ public final class ReportingTestLifecycleManager:
         
         currentTestSuiteState.testMethodReports.append(testMethodReport)
         
-        stepLogsProvider.cleanLogs()
+        stepLogsCleaner.cleanLogs()
         
         currentTestState.resetBeforeStart()
     }

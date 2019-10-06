@@ -11,11 +11,12 @@ import MixboxAllure
 // Do not add here anything that can be initialized in a single entry point.
 
 final class Singletons {
-    static let stepLogger: StepLogger = recodableStepLogger
-    static let stepLogsProvider: StepLogsProvider = recodableStepLogger
-    static let stepLoggerRecordingStarter: StepLoggerRecordingStarter = recodableStepLogger
+    static let stepLogger: StepLogger = recordableStepLogger
+    static let stepLogsProvider: StepLogsProvider = recordableStepLogger
+    static let stepLoggerRecordingStarter: StepLoggerRecordingStarter = recordableStepLogger
+    static let stepLogsCleaner: StepLogsCleaner = recordableStepLogger
     
-    private static let recodableStepLogger = RecodableStepLogger(
+    private static let recordableStepLogger = RecordableStepLogger(
         payloadLogger: StepLoggerImpl()
     )
 }

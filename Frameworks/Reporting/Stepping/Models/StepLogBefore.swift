@@ -2,13 +2,13 @@ import MixboxArtifacts
 import MixboxFoundation
 
 public final class StepLogBefore: CustomDebugStringConvertible, Equatable {
-    public let title: String
     public let date: Date
+    public let title: String
     public let customData: AnyEquatable
     public let artifacts: [Artifact]
     
     public init(
-        date: Date = Date(),
+        date: Date,
         title: String,
         customData: AnyEquatable = .void,
         artifacts: [Artifact] = [])

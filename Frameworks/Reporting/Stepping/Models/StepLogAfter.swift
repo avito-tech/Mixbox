@@ -8,7 +8,7 @@ public final class StepLogAfter: CustomDebugStringConvertible, Equatable {
     public let artifacts: [Artifact]
     
     public init(
-        date: Date = Date(),
+        date: Date,
         wasSuccessful: Bool,
         customData: AnyEquatable = .void,
         artifacts: [Artifact] = [])

@@ -145,7 +145,7 @@
 		F870C66B21FF43FB006F643B /* AllureReportingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */; };
 		F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */; };
 		F879831A22492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */; };
-		F879831F22492D44004DD770 /* RecodableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */; };
+		F879831F22492D44004DD770 /* RecordableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */; };
 		F8798324224930B1004DD770 /* ContinueAfterFailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8798323224930B1004DD770 /* ContinueAfterFailureTests.swift */; };
 		F8798326224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8798325224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift */; };
 		F879832A224949ED004DD770 /* LogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8798329224949ED004DD770 /* LogsAndFailures.swift */; };
@@ -170,7 +170,7 @@
 		F88ADFAA223BCF1E0024CCBE /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFA9223BCF1E0024CCBE /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift */; };
 		F88ADFAC223BCF7E0024CCBE /* SetTextActionFailuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFAB223BCF7E0024CCBE /* SetTextActionFailuresTests.swift */; };
 		F88ADFAE223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFAD223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift */; };
-		F88ADFB3223BD6A70024CCBE /* RecodableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */; };
+		F88ADFB3223BD6A70024CCBE /* RecordableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */; };
 		F88B33B3232153DB00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
 		F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
 		F88B33BC232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
@@ -633,7 +633,7 @@
 		F88ADFA9223BCF1E0024CCBE /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift; sourceTree = "<group>"; };
 		F88ADFAB223BCF7E0024CCBE /* SetTextActionFailuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionFailuresTests.swift; sourceTree = "<group>"; };
 		F88ADFAD223BD03B0024CCBE /* SetTestActionSetsTextProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTestActionSetsTextProperlyTests.swift; sourceTree = "<group>"; };
-		F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecodableStepLogger.swift; sourceTree = "<group>"; };
+		F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordableStepLogger.swift; sourceTree = "<group>"; };
 		F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Asserts.swift"; sourceTree = "<group>"; };
 		F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Coordinates.swift"; sourceTree = "<group>"; };
 		F8951E44222463120033885C /* ExpandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingView.swift; sourceTree = "<group>"; };
@@ -1544,7 +1544,7 @@
 			isa = PBXGroup;
 			children = (
 				F879833222494E68004DD770 /* Matchers */,
-				F88ADFB2223BD6A70024CCBE /* RecodableStepLogger.swift */,
+				F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */,
 				F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */,
 				F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */,
 				F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */,
@@ -3277,7 +3277,7 @@
 				F8971DAC22666218001741C1 /* BaseNetworkMockingTestCase.swift in Sources */,
 				F8971D2422651DF5001741C1 /* TemporaryDirectory.swift in Sources */,
 				F8E6EF5F228316DD007A97E5 /* ApplicationPermissionSpecification.swift in Sources */,
-				F88ADFB3223BD6A70024CCBE /* RecodableStepLogger.swift in Sources */,
+				F88ADFB3223BD6A70024CCBE /* RecordableStepLogger.swift in Sources */,
 				F8341971232FE74700E9EC3A /* LocatorsPerformanceTests.swift in Sources */,
 				F88ADF592239821C0024CCBE /* ActionSpecification.swift in Sources */,
 				F88ADF5B223982570024CCBE /* ActionsTestsScreen.swift in Sources */,
@@ -3479,7 +3479,7 @@
 				F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
 				F8C8ED172298505D0009B9A7 /* MicrophoneApplicationPermissionTests.swift in Sources */,
-				F879831F22492D44004DD770 /* RecodableStepLogger.swift in Sources */,
+				F879831F22492D44004DD770 /* RecordableStepLogger.swift in Sources */,
 				F8A837A62270D40B00145140 /* BasePageObject.swift in Sources */,
 				F8A837A92270D45800145140 /* ChecksTestsScreen.swift in Sources */,
 				F8B340F2224D3FD700AA1EB9 /* StepLogMatcherBuilder.swift in Sources */,

@@ -9,15 +9,18 @@ public final class XcuiElementFinder: ElementFinder {
     // See ChangingHierarchyTests if you want to know why dropping cache is needed.
     private let applicationProviderThatDropsCaches: ApplicationProvider
     private let screenshotTaker: ScreenshotTaker
+    private let dateProvider: DateProvider
     
     public init(
         stepLogger: StepLogger,
         applicationProviderThatDropsCaches: ApplicationProvider,
-        screenshotTaker: ScreenshotTaker)
+        screenshotTaker: ScreenshotTaker,
+        dateProvider: DateProvider)
     {
         self.stepLogger = stepLogger
         self.applicationProviderThatDropsCaches = applicationProviderThatDropsCaches
         self.screenshotTaker = screenshotTaker
+        self.dateProvider = dateProvider
     }
     
     public func query(
@@ -51,7 +54,8 @@ public final class XcuiElementFinder: ElementFinder {
             elementQueryResolvingState: elementQueryResolvingState,
             stepLogger: stepLogger,
             screenshotTaker: screenshotTaker,
-            applicationProvider: applicationProviderThatDropsCaches
+            applicationProvider: applicationProviderThatDropsCaches,
+            dateProvider: dateProvider
         )
     }
 }

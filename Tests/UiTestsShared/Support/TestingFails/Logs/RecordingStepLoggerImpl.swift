@@ -1,6 +1,6 @@
 import MixboxReporting
 
-final class RecordingStepLoggerImpl: StepLogger, StepLogsProvider, StartedStepLoggerRecording {
+final class RecordingStepLoggerImpl: StepLogger, StepLogsProvider, StepLogsCleaner, StartedStepLoggerRecording {
     private let stepLogger = StepLoggerImpl()
     private let stopRecordingClosure: (RecordingStepLoggerImpl) -> ()
     
@@ -30,6 +30,8 @@ final class RecordingStepLoggerImpl: StepLogger, StepLogsProvider, StartedStepLo
     var stepLogs: [StepLog] {
         return stepLogger.stepLogs
     }
+    
+    // MARK: - StepLogsCleaner
     
     func cleanLogs() {
         stepLogger.cleanLogs()

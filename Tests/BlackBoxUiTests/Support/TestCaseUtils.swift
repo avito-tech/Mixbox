@@ -124,7 +124,8 @@ final class TestCaseUtils {
                 XcuiElementFinder(
                     stepLogger: baseUiTestCaseUtils.stepLogger,
                     applicationProviderThatDropsCaches: provider,
-                    screenshotTaker: screenshotTaker
+                    screenshotTaker: screenshotTaker,
+                    dateProvider: baseUiTestCaseUtils.dateProvider
                 ),
                 baseUiTestCaseUtils.lazilyInitializedIpcClient
             )
@@ -138,7 +139,8 @@ final class TestCaseUtils {
                 XcuiElementFinder(
                     stepLogger: baseUiTestCaseUtils.stepLogger,
                     applicationProviderThatDropsCaches: provider,
-                    screenshotTaker: screenshotTaker
+                    screenshotTaker: screenshotTaker,
+                    dateProvider: baseUiTestCaseUtils.dateProvider
                 ),
                 nil
             )
@@ -153,7 +155,8 @@ final class TestCaseUtils {
                         testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                         stepLogger: baseUiTestCaseUtils.stepLogger,
                         screenshotTaker: screenshotTaker,
-                        signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger
+                        signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger,
+                        dateProvider: baseUiTestCaseUtils.dateProvider
                     ),
                     baseUiTestCaseUtils.lazilyInitializedIpcClient
                 ),

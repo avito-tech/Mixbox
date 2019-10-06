@@ -10,19 +10,22 @@ final class XcuiElementQuery: ElementQuery {
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
     private let applicationProvider: ApplicationProvider
+    private let dateProvider: DateProvider
     
     init(
         xcuiElementQuery: XCUIElementQuery,
         elementQueryResolvingState: ElementQueryResolvingState,
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
-        applicationProvider: ApplicationProvider)
+        applicationProvider: ApplicationProvider,
+        dateProvider: DateProvider)
     {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
         self.applicationProvider = applicationProvider
+        self.dateProvider = dateProvider
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
@@ -35,7 +38,10 @@ final class XcuiElementQuery: ElementQuery {
     }
     
     private func resolveElement(_ closure: (XCUIElementQuery) -> (XCUIElement)) -> ResolvedElementQuery {
-        let stepLogBefore = StepLogBefore(title: "Поиск элемента")
+        let stepLogBefore = StepLogBefore(
+            date: dateProvider.currentDate(),
+            title: "Поиск элемента"
+        )
         
         let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
             () -> StepLoggerResultWrapper<ResolvedElementQuery>
@@ -80,6 +86,7 @@ final class XcuiElementQuery: ElementQuery {
             
             return StepLoggerResultWrapper(
                 stepLogAfter: StepLogAfter(
+                    date: dateProvider.currentDate(),
                     wasSuccessful: elementExists,
                     artifacts: artifacts
                 ),
