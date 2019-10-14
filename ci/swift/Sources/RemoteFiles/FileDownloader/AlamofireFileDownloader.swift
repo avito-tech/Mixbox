@@ -13,12 +13,40 @@ public final class AlamofireFileDownloader: FileDownloader {
     }
     
     public func download(url: URL) throws -> String {
+        let numberOfDownloadingAttempts = 5
+        let timeIntervalBetweenAttempts: TimeInterval = 10
+        var lastErrorOrNil: Error?
+        var lastResultOrNil: String?
+        
+        for attemptIndex in 0..<numberOfDownloadingAttempts {
+            do {
+                lastResultOrNil = try attemptToDownloadOnce(url: url)
+                lastErrorOrNil = nil
+            } catch {
+                lastErrorOrNil = error
+                
+                let lastAttemptIndex = numberOfDownloadingAttempts - 1
+                if attemptIndex < lastAttemptIndex {
+                    Thread.sleep(forTimeInterval: timeIntervalBetweenAttempts)
+                }
+            }
+        }
+        
+        if let lastError = lastErrorOrNil {
+            throw lastError
+        } else if let lastResult = lastResultOrNil {
+            return lastResult
+        } else {
+            throw ErrorString("Internal error in AlamofireFileDownloader, expected to have either result or error")
+        }
+    }
+    
+    private func attemptToDownloadOnce(url: URL) throws -> String {
         let downloadedFilePath = temporaryFileProvider.temporaryFilePath()
         
-        let dispatchGroup = DispatchGroup()
         var errorOrNil: Error?
+        var completed: Bool = false
         
-        dispatchGroup.enter()
         DispatchQueue.global(qos: .background).async {
             Alamofire.request(url).responseData { response in
                 if let error = response.error {
@@ -32,12 +60,14 @@ public final class AlamofireFileDownloader: FileDownloader {
                 } else {
                     errorOrNil = ErrorString("Alamofire didn't return neither error, nor data in responseData")
                 }
-                dispatchGroup.leave()
+                
+                completed = true
             }
         }
         
         let start = Date()
-        while Date().timeIntervalSince(start) < 60, !FileManager.default.fileExists(atPath: downloadedFilePath) {
+        let timeout: TimeInterval = 60
+        while !completed && Date().timeIntervalSince(start) < timeout {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
         }
         
@@ -46,7 +76,12 @@ public final class AlamofireFileDownloader: FileDownloader {
         }
         
         if !FileManager.default.fileExists(atPath: downloadedFilePath) {
-            throw ErrorString("Failed to download file from '\(url)', file doesn't exist")
+            throw ErrorString(
+                """
+                Failed to download file from '\(url)', downloaded file doesn't \
+                exist on file system at path \(downloadedFilePath)
+                """
+            )
         }
         
         return downloadedFilePath
