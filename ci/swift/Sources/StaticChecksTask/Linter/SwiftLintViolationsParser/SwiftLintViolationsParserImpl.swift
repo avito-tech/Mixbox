@@ -13,7 +13,7 @@ public final class SwiftLintViolationsParserImpl: SwiftLintViolationsParser {
         // Example: /path/to/repo/root/Package.swift:8:76: warning: Trailing Comma Violation: Collection literals should not have trailing commas. (trailing_comma)
         let regex = try NSRegularExpression(
             pattern: "^(.*?):(\\d+):(\\d+): (warning|error): (.*?) \\((.*?)\\)$",
-            options: []
+            options: [.anchorsMatchLines]
         )
         
         return try regex.matchesIn(string: stdout).map(violation)
