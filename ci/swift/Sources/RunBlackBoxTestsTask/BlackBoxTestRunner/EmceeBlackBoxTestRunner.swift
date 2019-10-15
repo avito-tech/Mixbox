@@ -15,6 +15,7 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     private let sharedQueueDeploymentDestinationsUrl: URL
     private let testArgFileJsonGenerator: TestArgFileJsonGenerator
     private let fileDownloader: FileDownloader
+    private let environmentProvider: EnvironmentProvider
     
     public init(
         emceeProvider: EmceeProvider,
@@ -23,7 +24,8 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
         queueServerRunConfigurationUrl: URL,
         sharedQueueDeploymentDestinationsUrl: URL,
         testArgFileJsonGenerator: TestArgFileJsonGenerator,
-        fileDownloader: FileDownloader)
+        fileDownloader: FileDownloader,
+        environmentProvider: EnvironmentProvider)
     {
         self.emceeProvider = emceeProvider
         self.temporaryFileProvider = temporaryFileProvider
@@ -32,6 +34,7 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
         self.sharedQueueDeploymentDestinationsUrl = sharedQueueDeploymentDestinationsUrl
         self.testArgFileJsonGenerator = testArgFileJsonGenerator
         self.fileDownloader = fileDownloader
+        self.environmentProvider = environmentProvider
     }
     
     public func runTests(
@@ -44,15 +47,15 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     {
         let emcee = try emceeProvider.emcee()
         
-        let fbxctestUrlString = try Env.MIXBOX_CI_EMCEE_FBXCTEST_URL.getOrThrow()
+        let fbxctestUrlString = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_FBXCTEST_URL)
         
-        let reportsPath = try Env.MIXBOX_CI_REPORTS_PATH.getOrThrow()
+        let reportsPath = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_REPORTS_PATH)
         let junit = "\(reportsPath)/junit.xml"
         let trace = "\(reportsPath)/trace.json"
         
         try emcee.runTestsOnRemoteQueue(
             arguments: EmceeRunTestsOnRemoteQueueCommandArguments(
-                runId: uuidgen(),
+                runId: UUID().uuidString,
                 testArgFile: testArgFile(
                     mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                     fbxctestUrlString: fbxctestUrlString,
@@ -68,7 +71,7 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
                 fbxctest: fbxctestUrlString,
                 junit: junit,
                 trace: trace,
-                fbsimctl: Env.MIXBOX_CI_EMCEE_FBSIMCTL_URL.getOrThrow()
+                fbsimctl: try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_FBSIMCTL_URL)
             )
         )
     }
@@ -90,8 +93,12 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
                 appPath: appPath,
                 additionalAppPaths: additionalAppPaths,
                 xctestBundlePath: xctestBundle,
-                fbsimctlUrl: try URL.from(string: Env.MIXBOX_CI_EMCEE_FBSIMCTL_URL.getOrThrow()),
-                fbxctestUrl: try URL.from(string: fbxctestUrlString),
+                fbsimctlUrl: try URL.from(
+                    string: try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_FBSIMCTL_URL)
+                ),
+                fbxctestUrl: try URL.from(
+                    string: fbxctestUrlString
+                ),
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                 environment: environment(),
                 testType: .uiTest,

@@ -3,6 +3,7 @@ import CheckIpcDemoTask
 
 BuildDsl.teamcity.main { di in
     try CheckIpcDemoTask(
-        bashExecutor: di.resolve()
+        bashExecutor: di.resolve(),
+        macosProjectBuilder: di.resolve()
     )
 }

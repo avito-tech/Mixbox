@@ -2,6 +2,8 @@
 
 cd "$(dirname "$0")"
 
+set -x
+
 generatePackage() {
     ./MakePackage/make_package || exit 1
 }
@@ -15,7 +17,7 @@ clean() {
     swift package clean
     swift package reset
     rm -rf .build/
-    rm *.xcodeproj
+    rm -rf *.xcodeproj
 }
 
 case "$1" in
@@ -56,7 +58,21 @@ case "$1" in
         ;;
     build)
         clean
-        swift build -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13" --static-swift-stdlib
+        args=( \
+            swift build \
+            -c release \
+            -Xswiftc -Onone \
+            -Xswiftc -whole-module-optimization \
+            -Xswiftc -target \
+            -Xswiftc x86_64-apple-macosx10.13 \
+            --static-swift-stdlib \
+        )
+        if ! [ -z "$2" ]
+        then
+            args=("${args[@]}" --product "$2")
+        fi
+        
+        "${args[@]}"
         ;;
     test)
         clean

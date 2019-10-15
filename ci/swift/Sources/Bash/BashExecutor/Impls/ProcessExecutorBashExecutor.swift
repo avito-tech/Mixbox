@@ -1,4 +1,5 @@
 import CiFoundation
+import Foundation
 
 public final class ProcessExecutorBashExecutor: BashExecutor {
     private let processExecutor: ProcessExecutor
@@ -15,7 +16,9 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
     public func execute(
         command: String,
         currentDirectory: String?,
-        environment bashExecutorEnvironment: BashExecutorEnvironment)
+        environment bashExecutorEnvironment: BashExecutorEnvironment,
+        stdoutDataHandler: @escaping (Data) -> (),
+        stderrDataHandler: @escaping (Data) -> ())
         throws
         -> BashResult
     {
@@ -33,8 +36,8 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
             arguments: ["-l", "-c", command],
             currentDirectory: currentDirectory,
             environment: environment,
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
+            stdoutDataHandler: stdoutDataHandler,
+            stderrDataHandler: stderrDataHandler
         )
         
         return BashResult(

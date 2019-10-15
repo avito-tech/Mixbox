@@ -1,5 +1,6 @@
 import Tasks
 import Di
+import Dip
 import Darwin
 
 // Example of main.swift:
@@ -30,12 +31,15 @@ public final class BuildDsl {
         )
     }
     
-    public func main(makeLocalTask: (Di) throws -> (LocalTask)) {
+    public func main(
+        diOverrides: (DependencyContainer) -> () = { _ in },
+        makeLocalTask: (Di) throws -> (LocalTask))
+    {
         do {
             // TODO: Support other CI.
             let di = TeamcityBuildDi()
             
-            try di.bootstrap()
+            try di.bootstrap(overrides: diOverrides)
             
             let localTask = try makeLocalTask(di)
             

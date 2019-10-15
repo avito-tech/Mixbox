@@ -24,8 +24,16 @@ printStatus() {
 printInstructionsToReproduceThisBuild() {
     echo "Reproduce this build:"
     echo
-    echo "$(env | grep -E "^(MIXBOX_|EMCEE_)" | tr "\n" " ") $0"
+    echo "$(printMixboxCiEnvironments) MIXBOX_CI_REPORTS_PATH=/tmp $0"
     echo
+}
+
+printMixboxCiEnvironments() {
+    env \
+        | grep -E "^(MIXBOX_|EMCEE_)" \
+        | grep -v MIXBOX_CI_REPORTS_PATH \
+        | tr "\n" " " \
+        | sed 's/\*\*\*\*\*\*\*/some_password_hidden_by_ci/'
 }
 
 checkDependencies() {
@@ -50,7 +58,28 @@ installCommandLineTools() {
 
 build() {
     cd "$SCRIPT_ROOT"
-    make build
+    
+    lastExitCode=0
+    maxAttempts=3
+    for attempt in `seq 1 $maxAttempts`
+    do
+        # Workaround for this:
+        #   Failed to connect to github.com port 443: Operation timed out
+        # Also this:
+        #   /xxx/yyy/DeveloperDirLocator.swift:2:8: error: no such module 'Models'
+        # The latter is maybe due to some SPM cache problems that can be solved (TODO: solve)
+        if ./make build "$MIXBOX_CI_BUILD_EXECUTABLE"
+        then
+            echo "Build was successful"
+            lastExitCode=0
+            break
+        else
+            lastExitCode=$?
+            echo "Failed to build, attempt #$attempt/$maxAttempts"; sleep 10
+        fi
+    done
+    
+    return $lastExitCode
 }
 
 execute() {
@@ -60,17 +89,19 @@ execute() {
     # If something is changed in new Xcode we will update this script.
     
     # Xcode 10.1
-    executable="./.build/x86_64-apple-macosx10.10/debug/$MIXBOX_CI_BUILD_EXECUTABLE"
+    executable="./.build/x86_64-apple-macosx10.10/release/$MIXBOX_CI_BUILD_EXECUTABLE"
     if [ -x "$executable" ]
     then
+        echo "Executing $executable"
         "$executable"
         return $?
     fi
     
     # Xcode 10.2.1
-    executable="./.build/x86_64-apple-macosx/debug/$MIXBOX_CI_BUILD_EXECUTABLE"
+    executable="./.build/x86_64-apple-macosx/release/$MIXBOX_CI_BUILD_EXECUTABLE"
     if [ -x "$executable" ]
     then
+        echo "Executing $executable"
         "$executable"
         return $?
     fi
@@ -79,7 +110,5 @@ execute() {
     echo "Note that you may update this script. Here is output of find:"
     find . -name "$MIXBOX_CI_BUILD_EXECUTABLE"
 }
-
-
 
 main "$@"

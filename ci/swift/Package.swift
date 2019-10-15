@@ -64,7 +64,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("80d64b848cb7563e5c5c4424d9b0c9216ad5eab3")
+            .revision("23db8e31544f1e49db9b9c64919e7fe92d23d395")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
@@ -107,8 +107,10 @@ let package = Package(
             dependencies: [
                 "Bash",
                 "Brew",
+                "Bundler",
                 "CiFoundation",
                 "Cocoapods",
+                "Destinations",
                 "Dip",
                 "Emcee",
                 "Git",
@@ -116,20 +118,26 @@ let package = Package(
                 "Simctl",
                 "SingletonHell",
                 "Tasks",
+                "Xcodebuild",
             ]
         ),
         .target(
             name: "CheckDemoTask",
             dependencies: [
                 "Bash",
+                "Bundler",
+                "CiFoundation",
+                "Destinations",
                 "SingletonHell",
                 "Tasks",
+                "Xcodebuild",
             ]
         ),
         .target(
             name: "RunBlackBoxTestsTask",
             dependencies: [
                 "Bash",
+                "Bundler",
                 "CiFoundation",
                 "Destinations",
                 "Emcee",
@@ -137,6 +145,7 @@ let package = Package(
                 "RemoteFiles",
                 "SingletonHell",
                 "Tasks",
+                "Xcodebuild",
             ]
         ),
         .target(
@@ -196,11 +205,7 @@ let package = Package(
         .target(
             name: "SingletonHell",
             dependencies: [
-                "Bash",
                 "CiFoundation",
-                "Destinations",
-                "Git",
-                "Simctl",
             ]
         ),
         .target(
@@ -213,6 +218,7 @@ let package = Package(
             name: "BuildDsl",
             dependencies: [
                 "Di",
+                "Dip",
                 "Tasks",
             ]
         ),
@@ -227,7 +233,9 @@ let package = Package(
             name: "TravisOversimplifiedDemoBuild",
             dependencies: [
                 "BuildDsl",
+                "Bundler",
                 "CheckDemoTask",
+                "Cocoapods",
             ]
         ),
         .target(
@@ -241,6 +249,7 @@ let package = Package(
             name: "RunGrayBoxTestsTask",
             dependencies: [
                 "Bash",
+                "Bundler",
                 "CiFoundation",
                 "Destinations",
                 "Emcee",
@@ -248,6 +257,7 @@ let package = Package(
                 "RemoteFiles",
                 "SingletonHell",
                 "Tasks",
+                "Xcodebuild",
             ]
         ),
         .target(
@@ -255,6 +265,18 @@ let package = Package(
             dependencies: [
                 "BuildDsl",
                 "RunUnitTestsTask",
+            ]
+        ),
+        .target(
+            name: "Xcodebuild",
+            dependencies: [
+                "Bash",
+                "CiFoundation",
+                "Cocoapods",
+                "Destinations",
+                "Git",
+                "Simctl",
+                "SingletonHell",
             ]
         ),
         .target(
@@ -274,12 +296,21 @@ let package = Package(
                 "Bash",
                 "SingletonHell",
                 "Tasks",
+                "Xcodebuild",
             ]
         ),
         .target(
             name: "Cocoapods",
             dependencies: [
                 "Bash",
+                "Bundler",
+            ]
+        ),
+        .target(
+            name: "Bundler",
+            dependencies: [
+                "Bash",
+                "Git",
             ]
         ),
         .target(
@@ -314,12 +345,14 @@ let package = Package(
             name: "RunUnitTestsTask",
             dependencies: [
                 "Bash",
+                "Bundler",
                 "CiFoundation",
                 "Cocoapods",
                 "Destinations",
                 "Git",
                 "SingletonHell",
                 "Tasks",
+                "Xcodebuild",
             ]
         ),
     ],

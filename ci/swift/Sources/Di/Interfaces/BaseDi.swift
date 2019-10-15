@@ -6,8 +6,10 @@ open class BaseDi: Di {
     
     // MARK: - Di
     
-    public final func bootstrap() throws {
+    public final func bootstrap(overrides: (DependencyContainer) -> ()) throws {
         registerAll(container: container)
+        
+        overrides(container)
         
         try container.bootstrap()
     }

@@ -3,12 +3,21 @@ import CiFoundation
 import Emcee
 import SingletonHell
 import RemoteFiles
+import Bash
 
 public final class EmceeFileUploaderImpl: EmceeFileUploader {
     private let fileUploader: FileUploader
+    private let temporaryFileProvider: TemporaryFileProvider
+    private let bashExecutor: BashExecutor
     
-    public init(fileUploader: FileUploader) {
+    public init(
+        fileUploader: FileUploader,
+        temporaryFileProvider: TemporaryFileProvider,
+        bashExecutor: BashExecutor)
+    {
         self.fileUploader = fileUploader
+        self.temporaryFileProvider = temporaryFileProvider
+        self.bashExecutor = bashExecutor
     }
     
     public func upload(path: String) throws -> URL {
@@ -46,13 +55,16 @@ public final class EmceeFileUploaderImpl: EmceeFileUploader {
         throws
         -> URL
     {
-        let temporaryDirectory = Variables.newTemporaryDirectory()
-        
-        try mkdirp(temporaryDirectory)
+        let temporaryDirectory = temporaryFileProvider.temporaryFilePath()
+        try FileManager.default.createDirectory(
+            atPath: temporaryDirectory,
+            withIntermediateDirectories: true,
+            attributes: nil
+        )
         
         let basename = (file as NSString).lastPathComponent
         
-        try bash(
+        _ = try bashExecutor.executeOrThrow(
             command: """
             zip -r "\(temporaryDirectory)/\(remoteName).zip" "\(basename)" 1>/dev/null 2>/dev/null
             """,
@@ -69,7 +81,8 @@ public final class EmceeFileUploaderImpl: EmceeFileUploader {
     
     // supports folders
     public func checksum(file: String) throws -> String {
-        return try bash(
+        return try bashExecutor.executeAndReturnTrimmedOutputOrThrow(
+            command:
             """
             set -o pipefail
             find "\(file)" -type f -print0 \

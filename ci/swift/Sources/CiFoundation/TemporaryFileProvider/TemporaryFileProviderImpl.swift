@@ -5,7 +5,7 @@ public final class TemporaryFileProviderImpl: TemporaryFileProvider {
     }
     
     public func temporaryFilePath() -> String {
-        let path = NSTemporaryDirectory() + "/" + UUID().uuidString
-        return path
+        return (NSTemporaryDirectory() as NSString)
+            .appendingPathComponent(UUID().uuidString)
     }
 }

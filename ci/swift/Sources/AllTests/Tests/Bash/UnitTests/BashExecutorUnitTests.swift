@@ -33,7 +33,9 @@ final class BashExecutorUnitTests: XCTestCase {
             let result = try bashExecutor.execute(
                 command: command,
                 currentDirectory: "a",
-                environment: .custom(["b": "c"])
+                environment: .custom(["b": "c"]),
+                stdoutDataHandler: { _ in },
+                stderrDataHandler: { _ in }
             )
             
             // Then
@@ -70,7 +72,9 @@ final class BashExecutorUnitTests: XCTestCase {
             _ = try bashExecutor.execute(
                 command: anyString(),
                 currentDirectory: anyString(),
-                environment: .current
+                environment: .current,
+                stdoutDataHandler: { _ in },
+                stderrDataHandler: { _ in }
             )
         } catch {
             XCTFail("\(error)")

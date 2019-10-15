@@ -8,6 +8,7 @@
 xcuserdata
 xcuserdata/
 *.xccheckout
+*.xcworkspacedata
 *.xcuserstate
 *.xcscmblueprint
 *.orig
@@ -38,3 +39,4 @@ dist/
 
 # Swift package manager
 .build/
+*.d

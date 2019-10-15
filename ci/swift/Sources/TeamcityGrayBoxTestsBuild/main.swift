@@ -6,25 +6,26 @@ import CiFoundation
 import Destinations
 
 BuildDsl.teamcity.main { di in
-    try RunGrayBoxTestsTask(
+    let environmentProvider: EnvironmentProvider = try di.resolve()
+    
+    return try RunGrayBoxTestsTask(
         bashExecutor: di.resolve(),
         grayBoxTestRunner: EmceeGrayBoxTestRunner(
             emceeProvider: di.resolve(),
             temporaryFileProvider: di.resolve(),
             bashExecutor: di.resolve(),
-            queueServerRunConfigurationUrl: URL.from(
-                string: Env.MIXBOX_CI_EMCEE_QUEUE_SERVER_RUN_CONFIGURATION_URL.getOrThrow()
+            queueServerRunConfigurationUrl: environmentProvider.getUrlOrThrow(
+                env: Env.MIXBOX_CI_EMCEE_QUEUE_SERVER_RUN_CONFIGURATION_URL
             ),
-            sharedQueueDeploymentDestinationsUrl: URL.from(
-                string: Env.MIXBOX_CI_EMCEE_SHARED_QUEUE_DEPLOYMENT_DESTINATIONS_URL.getOrThrow()
+            sharedQueueDeploymentDestinationsUrl: environmentProvider.getUrlOrThrow(
+                env: Env.MIXBOX_CI_EMCEE_SHARED_QUEUE_DEPLOYMENT_DESTINATIONS_URL
             ),
             testArgFileJsonGenerator: di.resolve(),
-            fileDownloader: di.resolve()
+            fileDownloader: di.resolve(),
+            environmentProvider: di.resolve()
         ),
-        mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProviderImpl(
-            decodableFromJsonFileLoader: di.resolve(),
-            destinationFileBaseName: Env.MIXBOX_CI_DESTINATION.getOrThrow(),
-            repoRootProvider: di.resolve()
-        )
+        mixboxTestDestinationConfigurationsProvider: di.resolve(),
+        iosProjectBuilder: di.resolve(),
+        bundlerCommandGenerator: di.resolve()
     )
 }

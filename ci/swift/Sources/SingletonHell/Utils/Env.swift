@@ -17,17 +17,20 @@ public enum Env: String {
     case MIXBOX_CI_REPORTS_PATH
     case MIXBOX_CI_TRAVIS_BUILD
     case MIXBOX_CI_UPLOADER_EXECUTABLE
+    case MIXBOX_CI_LOG_LEVEL
     case MIXBOX_CI_USES_FBXCTEST
     case MIXBOX_PUSHSPEC_STYLE
+}
 
-    public func get() -> String? {
-        return try? getOrThrow()
+extension EnvironmentProvider {
+    public func get(env: Env) -> String? {
+        return try? getOrThrow(env: env)
     }
     
-    public func getOrThrow() throws -> String {
-        let key = rawValue
+    public func getOrThrow(env: Env) throws -> String {
+        let key = env.rawValue
         
-        guard let value = EnvironmentSingletons.environmentProvider.environment[key] else {
+        guard let value = environment[key] else {
             throw ErrorString("No environment for key \(key)")
         }
         
@@ -38,7 +41,7 @@ public enum Env: String {
         return value
     }
     
-    public func getUrlOrThrow() throws -> URL {
-        return try URL(string: getOrThrow()).unwrapOrThrow()
+    public func getUrlOrThrow(env: Env) throws -> URL {
+        return try URL(string: getOrThrow(env: env)).unwrapOrThrow()
     }
 }

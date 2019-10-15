@@ -5,6 +5,8 @@ import Tasks
 import SingletonHell
 import Emcee
 import Destinations
+import Xcodebuild
+import Bundler
 
 public final class RunBlackBoxTestsTask: LocalTask {
     public let name = "RunBlackBoxTestsTask"
@@ -12,61 +14,63 @@ public final class RunBlackBoxTestsTask: LocalTask {
     private let bashExecutor: BashExecutor
     private let blackBoxTestRunner: BlackBoxTestRunner
     private let mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider
+    private let iosProjectBuilder: IosProjectBuilder
+    private let bundlerCommandGenerator: BundlerCommandGenerator
     
     public init(
         bashExecutor: BashExecutor,
         blackBoxTestRunner: BlackBoxTestRunner,
-        mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider)
+        mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider,
+        iosProjectBuilder: IosProjectBuilder,
+        bundlerCommandGenerator: BundlerCommandGenerator)
     {
         self.bashExecutor = bashExecutor
         self.blackBoxTestRunner = blackBoxTestRunner
         self.mixboxTestDestinationConfigurationsProvider = mixboxTestDestinationConfigurationsProvider
+        self.iosProjectBuilder = iosProjectBuilder
+        self.bundlerCommandGenerator = bundlerCommandGenerator
     }
     
     public func execute() throws {
-        try Prepare.prepareForIosTesting(rebootSimulator: false)
+        let mixboxTestDestinationConfigurations = try mixboxTestDestinationConfigurationsProvider
+            .mixboxTestDestinationConfigurations()
         
-        try BuildUtils.buildIos(
-            folder: "Tests",
-            action: "build-for-testing",
+        guard let destinationForBuilding = mixboxTestDestinationConfigurations.first?.testDestination else {
+            throw ErrorString("Expected to have at least one destination for building")
+        }
+        
+        let xcodebuildResult = try iosProjectBuilder.build(
+            projectDirectoryFromRepoRoot: "Tests",
+            action: .buildForTesting,
             scheme: "BlackBoxUiTests",
-            workspace: "Tests",
-            xcodeDestination: try DestinationUtils.xcodeDestination(),
-            xcodebuildPipeFilter: "xcpretty"
+            workspaceName: "Tests",
+            testDestination: destinationForBuilding,
+            xcodebuildPipeFilter: try bundlerCommandGenerator.bundlerCommand(command: "xcpretty")
         )
         
         try test(
             appName: "TestedApp.app",
             testsTarget: "BlackBoxUiTests",
-            additionalApp: "FakeSettingsApp.app"
+            additionalApp: "FakeSettingsApp.app",
+            xcodebuildResult: xcodebuildResult,
+            mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations
         )
-        
-        try Cleanup.cleanUpAfterIosTesting()
     }
     
     private func test(
         appName: String,
         testsTarget: String,
-        additionalApp: String)
+        additionalApp: String,
+        xcodebuildResult: XcodebuildResult,
+        mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration])
         throws
     {
-        let runnerAppName = "\(testsTarget)-Runner.app"
-        let derivedDataPath = Variables.derivedDataPath()
-        
-        let products = "\(derivedDataPath)/Build/Products/Debug-iphonesimulator"
-        
-        let xctestBundle = "\(products)/\(testsTarget)-Runner.app/PlugIns/\(testsTarget).xctest"
-        let runnerPath = "\(products)/\(runnerAppName)"
-        let appPath = "\(products)/\(appName)"
-        let additionalAppPath = "\(products)/\(additionalApp)"
-        
         try blackBoxTestRunner.runTests(
-            xctestBundle: xctestBundle,
-            runnerPath: runnerPath,
-            appPath: appPath,
-            additionalAppPaths: [additionalAppPath],
-            mixboxTestDestinationConfigurations: try mixboxTestDestinationConfigurationsProvider
-                .mixboxTestDestinationConfigurations()
+            xctestBundle: xcodebuildResult.uiTestXctestBundlePath(testsTarget: testsTarget),
+            runnerPath: xcodebuildResult.uiTestRunnerAppPath(testsTarget: testsTarget),
+            appPath: xcodebuildResult.testedAppPath(appName: appName),
+            additionalAppPaths: [xcodebuildResult.testedAppPath(appName: additionalApp)],
+            mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations
         )
     }
 }

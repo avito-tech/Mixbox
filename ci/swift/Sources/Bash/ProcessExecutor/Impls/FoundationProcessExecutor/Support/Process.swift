@@ -34,16 +34,6 @@ final class Process {
         // TODO: Catch Objective-C exceptions. How to test: try to execute random binary file (not executable).
         process.launch()
         process.waitUntilExit()
-        
-        // TODO: Logging via abstraction
-        // TODO: Logging during execution. Note: test with `xcrun simctl list -j`, when it was implemented,
-        // it was failing to print > 4096, was making teamcity hang for several minutes, failed to store Data, etc.
-        
-        print("stdout:")
-        FileHandle.standardOutput.write(stdoutPipe.getDataSynchronously())
-        
-        print("stderr:")
-        FileHandle.standardError.write(stderrPipe.getDataSynchronously())
     }
     
     func result() -> ProcessResult {

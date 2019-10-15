@@ -9,6 +9,7 @@ public final class SwiftLintImpl: SwiftLint {
     private let processExecutor: ProcessExecutor
     private let repoRootProvider: RepoRootProvider
     private let swiftLintViolationsParser: SwiftLintViolationsParser
+    private let cocoapodsFactory: CocoapodsFactory
     
     private struct SetUpSwiftLint {
         let swiftlintScriptPath: String
@@ -18,11 +19,13 @@ public final class SwiftLintImpl: SwiftLint {
     public init(
         processExecutor: ProcessExecutor,
         repoRootProvider: RepoRootProvider,
-        swiftLintViolationsParser: SwiftLintViolationsParser)
+        swiftLintViolationsParser: SwiftLintViolationsParser,
+        cocoapodsFactory: CocoapodsFactory)
     {
         self.processExecutor = processExecutor
         self.repoRootProvider = repoRootProvider
         self.swiftLintViolationsParser = swiftLintViolationsParser
+        self.cocoapodsFactory = cocoapodsFactory
     }
     
     public func lint() throws {
@@ -40,10 +43,9 @@ public final class SwiftLintImpl: SwiftLint {
         
         let testsProjectDirectory = "\(repoRootPath)/Tests"
         
-        try bash(
-            command: "pod install || pod install --repo-update",
-            currentDirectory: testsProjectDirectory
-        )
+        let cocoapods = try cocoapodsFactory.cocoapods(projectDirectory: testsProjectDirectory)
+        
+        try cocoapods.install()
         
         return SetUpSwiftLint(
             swiftlintScriptPath: "\(testsProjectDirectory)/Pods/SwiftLint/swiftlint",
@@ -91,6 +93,12 @@ public final class SwiftLintImpl: SwiftLint {
                         """
                     )
                 }
+                
+                throw ErrorString(
+                    """
+                    Linting failed with \(violations.count) violations
+                    """
+                )
             }
         } else if swiftlintResult.code != 0 {
             throw ErrorString(

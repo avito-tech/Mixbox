@@ -5,6 +5,8 @@ import Tasks
 import SingletonHell
 import Emcee
 import Destinations
+import Xcodebuild
+import Bundler
 
 public final class RunGrayBoxTestsTask: LocalTask {
     public let name = "RunGrayBoxTestsTask"
@@ -12,53 +14,53 @@ public final class RunGrayBoxTestsTask: LocalTask {
     private let bashExecutor: BashExecutor
     private let grayBoxTestRunner: GrayBoxTestRunner
     private let mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider
+    private let iosProjectBuilder: IosProjectBuilder
+    private let bundlerCommandGenerator: BundlerCommandGenerator
     
     public init(
         bashExecutor: BashExecutor,
         grayBoxTestRunner: GrayBoxTestRunner,
-        mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider)
+        mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider,
+        iosProjectBuilder: IosProjectBuilder,
+        bundlerCommandGenerator: BundlerCommandGenerator)
     {
         self.bashExecutor = bashExecutor
         self.grayBoxTestRunner = grayBoxTestRunner
         self.mixboxTestDestinationConfigurationsProvider = mixboxTestDestinationConfigurationsProvider
+        self.iosProjectBuilder = iosProjectBuilder
+        self.bundlerCommandGenerator = bundlerCommandGenerator
     }
     
     public func execute() throws {
-        try Prepare.prepareForIosTesting(rebootSimulator: false)
+        let mixboxTestDestinationConfigurations = try mixboxTestDestinationConfigurationsProvider
+            .mixboxTestDestinationConfigurations()
         
-        try BuildUtils.buildIos(
-            folder: "Tests",
-            action: "build-for-testing",
-            scheme: "GrayBoxUiTests",
-            workspace: "Tests",
-            xcodeDestination: try DestinationUtils.xcodeDestination(),
-            xcodebuildPipeFilter: "xcpretty"
+        guard let destinationForBuilding = mixboxTestDestinationConfigurations.first?.testDestination else {
+            throw ErrorString("Expected to have at least one destination for building")
+        }
+        
+        let testsTargetAndSchemeName = "GrayBoxUiTests"
+        
+        let xcodebuildResult = try iosProjectBuilder.build(
+            projectDirectoryFromRepoRoot: "Tests",
+            action: .buildForTesting,
+            scheme: testsTargetAndSchemeName,
+            workspaceName: "Tests",
+            testDestination: destinationForBuilding,
+            xcodebuildPipeFilter: try bundlerCommandGenerator.bundlerCommand(command: "xcpretty")
         )
         
-        try test(
-            appName: "TestedApp.app",
-            testsTarget: "GrayBoxUiTests"
-        )
-        
-        try Cleanup.cleanUpAfterIosTesting()
-    }
-    
-    private func test(
-        appName: String,
-        testsTarget: String)
-        throws
-    {
-        let derivedDataPath = Variables.derivedDataPath()
-        
-        let products = "\(derivedDataPath)/Build/Products/Debug-iphonesimulator"
-        
-        let appPath = "\(products)/\(appName)"
-        let xctestBundle = "\(appPath)/PlugIns/\(testsTarget).xctest"
+        let appName = "TestedApp.app"
         
         try grayBoxTestRunner.runTests(
-            xctestBundle: xctestBundle,
-            appPath: appPath,
-            mixboxTestDestinationConfigurations: try mixboxTestDestinationConfigurationsProvider.mixboxTestDestinationConfigurations()
+            xctestBundle: try xcodebuildResult.unitTestXctestBundlePath(
+                appName: appName,
+                testsTarget: testsTargetAndSchemeName
+            ),
+            appPath: try xcodebuildResult.testedAppPath(
+                appName: appName
+            ),
+            mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations
         )
     }
 }

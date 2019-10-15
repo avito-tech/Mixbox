@@ -1,3 +1,3 @@
 public protocol CocoapodsFactory {
-    func cocoapods(projectDirectory: String) -> Cocoapods
+    func cocoapods(projectDirectory: String) throws -> Cocoapods
 }

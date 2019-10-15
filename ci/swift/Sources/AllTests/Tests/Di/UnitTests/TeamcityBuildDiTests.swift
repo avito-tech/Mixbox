@@ -7,7 +7,7 @@ final class TeamcityBuildDiTests: XCTestCase {
         let di = TeamcityBuildDi()
         
         XCTAssertNoThrow(try {
-            try di.bootstrap()
+            try di.bootstrap(overrides: { _ in })
             try di.validate()
             }())
     }
@@ -16,7 +16,7 @@ final class TeamcityBuildDiTests: XCTestCase {
         let di = TeamcityBuildDi()
         
         XCTAssertNoThrow(try {
-            try di.bootstrap()
+            try di.bootstrap(overrides: { _ in })
             _ = try di.resolve() as BashExecutor
             }())
     }

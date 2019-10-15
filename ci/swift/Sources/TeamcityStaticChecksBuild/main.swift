@@ -8,7 +8,8 @@ BuildDsl.teamcity.main { di in
         swiftLint: SwiftLintImpl(
             processExecutor: di.resolve(),
             repoRootProvider: di.resolve(),
-            swiftLintViolationsParser: SwiftLintViolationsParserImpl()
+            swiftLintViolationsParser: SwiftLintViolationsParserImpl(),
+            cocoapodsFactory: di.resolve()
         ),
         conditionalCompilationClausesChecker: ConditionalCompilationClausesCheckerImpl(
             missingConditionalCompilationClausesProvider: MissingConditionalCompilationClausesProviderImpl(

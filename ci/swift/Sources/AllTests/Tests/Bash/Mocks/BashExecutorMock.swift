@@ -2,6 +2,7 @@ import Bash
 import Foundation
 
 final class BashExecutorMock: BashExecutor {
+    private(set) var executedCommands = [String]()
     private let bashResult: BashResult
     
     init(bashResult: BashResult) {
@@ -28,7 +29,17 @@ final class BashExecutorMock: BashExecutor {
         self.init(bashResult: bashResult)
     }
     
-    func execute(command: String, currentDirectory: String?, environment: BashExecutorEnvironment) -> BashResult {
+    func execute(
+        command: String,
+        currentDirectory: String?,
+        environment: BashExecutorEnvironment,
+        stdoutDataHandler: @escaping (Data) -> (),
+        stderrDataHandler: @escaping (Data) -> ())
+        throws
+        -> BashResult
+    {
+        executedCommands.append(command)
+        
         return bashResult
     }
 }

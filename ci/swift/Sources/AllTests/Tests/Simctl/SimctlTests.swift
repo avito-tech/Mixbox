@@ -3,11 +3,16 @@ import Simctl
 import Bash
 import CiFoundation
 
-private func nearHere(_ fileName: String) -> String {
-    return ("\(#file)" as NSString).deletingLastPathComponent + "/\(fileName)"
-}
-
 final class SimctlTests: XCTestCase {
+    private let bashExecutor = BashExecutorMock(
+        bashResult: BashResult(
+            processResult: ProcessResult(
+                code: 0,
+                stdout: PlainProcessOutput(data: Data()),
+                stderr: PlainProcessOutput(data: Data())
+            )
+        )
+    )
     
     func test___list___works_for_xcode_10_1_0() {
         XCTAssertNoThrow(try {
@@ -62,6 +67,15 @@ final class SimctlTests: XCTestCase {
                 list.runtimes.first?.name,
                 "iOS 9.3"
             )
+            
+            XCTAssertEqual(
+                bashExecutor.executedCommands,
+                [
+                    """
+                    xcrun simctl list -j > "\(nearHere("list_xc_10_1_0.json"))"
+                    """
+                ]
+            )
         }())
     }
     
@@ -75,21 +89,25 @@ final class SimctlTests: XCTestCase {
     func test___list___works_for_xcode_10_0_0() {
         XCTAssertNoThrow(try {
             _ = try simctl("list_xc_10_0_0.json").list()
-            }())
+        }())
     }
     
     func test___list___works_for_xcode_11_0_0() {
         XCTAssertNoThrow(try {
             _ = try simctl("list_xc_11_0_0.json").list()
-            }())
+        }())
     }
     
     private func simctl(_ file: String) throws -> SimctlList {
         return SimctlListImpl(
-            bashExecutor: try BashExecutorMock(
-                code: 0,
-                stdoutFile: nearHere(file)
+            bashExecutor: bashExecutor,
+            temporaryFileProvider: TemporaryFileProviderMock(
+                temporaryFilePath: nearHere(file)
             )
         )
+    }
+    
+    private func nearHere(_ fileName: String) -> String {
+        return ("\(#file)" as NSString).deletingLastPathComponent + "/\(fileName)"
     }
 }
