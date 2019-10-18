@@ -80,8 +80,6 @@ public final class LoggingProcessExecutor: ProcessExecutor {
             """
         )
         
-        if let currentDirectory = currentDirectory {
-            print("inside directory: \(currentDirectory)")
-        }
+        print("inside directory: \(currentDirectory ?? FileManager.default.currentDirectoryPath)")
     }
 }
