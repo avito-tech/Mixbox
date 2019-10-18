@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source                 = { :git => 'https://github.com/avito-tech/Mixbox.git', :tag => "Mixbox-#{s.version}" }
   s.platform               = :ios, '9.0'
   s.ios.deployment_target  = '9.0'
-  s.swift_version          = '4.2'
+  s.swift_version          = '5.0'
   s.requires_arc           = true
   s.source_files           = 'Frameworks/Gray/**/*.{swift,h,m}'
 
@@ -20,6 +20,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'XCTest', 'IOKit', 'XCTAutomationSupport'
   
   s.xcconfig = {
+    'LIBRARY_SEARCH_PATHS' => '$(TOOLCHAIN_DIR)/usr/lib/swift-$(SWIFT_VERSION)/$(PLATFORM_NAME) $(inherited)',
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'
   }

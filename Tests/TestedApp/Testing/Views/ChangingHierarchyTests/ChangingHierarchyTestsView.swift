@@ -181,7 +181,7 @@ final class ChangingHierarchyTestsView: UIView {
         )
         
         let animation = CABasicAnimation(keyPath: "cornerRadius")
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         animation.fromValue = diameter / 2
         animation.toValue = 0
         animation.duration = animationDuration

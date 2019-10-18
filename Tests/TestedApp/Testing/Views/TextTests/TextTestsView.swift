@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIButton {
-    func setText(_ text: String?, isAttributed: Bool, state: UIControlState) {
+    func setText(_ text: String?, isAttributed: Bool, state: UIControl.State) {
         if isAttributed {
             setAttributedTitle(text.flatMap { text in NSAttributedString(string: text) }, for: state)
         } else {

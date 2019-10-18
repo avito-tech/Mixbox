@@ -2793,7 +2793,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-TestedApp/Pods-TestedApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
@@ -2824,7 +2824,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TestedApp/Pods-TestedApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4D42EF3C02EF5BA58CD2D12A /* [CP] Embed Pods Frameworks */ = {
@@ -2833,7 +2833,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-FakeSettingsApp/Pods-FakeSettingsApp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-FakeSettingsApp/Pods-FakeSettingsApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -2842,7 +2842,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FakeSettingsApp/Pods-FakeSettingsApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FakeSettingsApp/Pods-FakeSettingsApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4EA9308968CD395B741E319B /* [CP] Check Pods Manifest.lock */ = {
@@ -2869,7 +2869,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
@@ -2900,7 +2900,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		617630F0AE2AD9B5A4C99DD3 /* [CP] Check Pods Manifest.lock */ = {
@@ -2927,7 +2927,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
@@ -2958,7 +2958,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6AD1E0F3F28D452F133457A5 /* [CP] Check Pods Manifest.lock */ = {
@@ -3029,7 +3029,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
@@ -3072,7 +3072,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ABDDF778897FEE403F2BB43B /* [CP] Check Pods Manifest.lock */ = {
@@ -3099,7 +3099,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
@@ -3146,7 +3146,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F82A53D7228B22C2007CB9F3 /* Run SwiftLint */ = {
@@ -3716,7 +3716,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3770,7 +3770,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3891,7 +3891,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.Lint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3907,7 +3906,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.Lint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -3983,7 +3981,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.FakeSettingsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -4000,7 +3997,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.FakeSettingsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

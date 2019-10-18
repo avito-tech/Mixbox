@@ -21,7 +21,7 @@ public final class ArrayPropertyMatcherBuilder<Container, Element: Equatable, Ma
         self.init(
             propertyName: propertyName,
             propertyGetter: { $0[keyPath: propertyKeyPath] },
-            matcherBuilder: matcherBuilder
+            matcherBuilder: matcherBuilder()
         )
     }
     

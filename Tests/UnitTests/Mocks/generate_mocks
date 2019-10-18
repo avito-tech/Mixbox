@@ -62,4 +62,4 @@ mock() {
     ALL_FILES_TO_MOCK=("${ALL_FILES_TO_MOCK[@]}" "${fileToMock}")
 }
 
-main
+main | tee "${PROJECT_DIR}/generate_mocks_log.ignored"

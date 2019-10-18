@@ -2,42 +2,44 @@ import Cuckoo
 import MixboxUiTestsFoundation
 
 public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
+
     public typealias MocksType = StubRequestBuilder
+
     public typealias Stubbing = __StubbingProxy_StubRequestBuilder
     public typealias Verification = __VerificationProxy_StubRequestBuilder
 
-    private var __defaultImplStub: StubRequestBuilder?
-
     public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    private var __defaultImplStub: StubRequestBuilder?
 
     public func enableDefaultImplementation(_ stub: StubRequestBuilder) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
 
-    public func withRequestStub(urlPattern: String, httpMethod: HttpMethod?)  -> StubResponseBuilder {
+    public func withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder {
 
-            return cuckoo_manager.call("withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder",
-                parameters: (urlPattern, httpMethod),
-                escapingParameters: (urlPattern, httpMethod),
-                superclassCall:
+    return cuckoo_manager.call("withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder",
+            parameters: (urlPattern, httpMethod),
+            escapingParameters: (urlPattern, httpMethod),
+            superclassCall:
 
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.withRequestStub(urlPattern: urlPattern, httpMethod: httpMethod))
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.withRequestStub(urlPattern: urlPattern, httpMethod: httpMethod))
 
     }
 
     public func removeAllStubs()  {
 
-            return cuckoo_manager.call("removeAllStubs()",
-                parameters: (),
-                escapingParameters: (),
-                superclassCall:
+    return cuckoo_manager.call("removeAllStubs()",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
 
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.removeAllStubs())
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.removeAllStubs())
 
     }
 
@@ -49,7 +51,7 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(urlPattern: M1, httpMethod: M2) -> Cuckoo.ProtocolStubFunction<(String, HttpMethod?), StubResponseBuilder> where M1.MatchedType == String, M2.MatchedType == HttpMethod? {
+	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable>(urlPattern: M1, httpMethod: M2) -> Cuckoo.ProtocolStubFunction<(String, HttpMethod?), StubResponseBuilder> where M1.MatchedType == String, M2.OptionalMatchedType == HttpMethod {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, HttpMethod?)>] = [wrap(matchable: urlPattern) { $0.0 }, wrap(matchable: httpMethod) { $0.1 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockStubRequestBuilder.self, method: "withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder", parameterMatchers: matchers))
 	    }
@@ -76,29 +78,28 @@ public class MockStubRequestBuilder: StubRequestBuilder, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(urlPattern: M1, httpMethod: M2) -> Cuckoo.__DoNotUse<StubResponseBuilder> where M1.MatchedType == String, M2.MatchedType == HttpMethod? {
+	    func withRequestStub<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable>(urlPattern: M1, httpMethod: M2) -> Cuckoo.__DoNotUse<(String, HttpMethod?), StubResponseBuilder> where M1.MatchedType == String, M2.OptionalMatchedType == HttpMethod {
 	        let matchers: [Cuckoo.ParameterMatcher<(String, HttpMethod?)>] = [wrap(matchable: urlPattern) { $0.0 }, wrap(matchable: httpMethod) { $0.1 }]
 	        return cuckoo_manager.verify("withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	    @discardableResult
-	    func removeAllStubs() -> Cuckoo.__DoNotUse<Void> {
+	    func removeAllStubs() -> Cuckoo.__DoNotUse<(), Void> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return cuckoo_manager.verify("removeAllStubs()", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
-
 }
 
 public class StubRequestBuilderStub: StubRequestBuilder {
 
-    public func withRequestStub(urlPattern: String, httpMethod: HttpMethod?)  -> StubResponseBuilder {
-        return DefaultValueRegistry.defaultValue(for: StubResponseBuilder.self)
+    public func withRequestStub(urlPattern: String, httpMethod: HttpMethod?) -> StubResponseBuilder  {
+        return DefaultValueRegistry.defaultValue(for: (StubResponseBuilder).self)
     }
 
-    public func removeAllStubs()  {
-        return DefaultValueRegistry.defaultValue(for: Void.self)
+    public func removeAllStubs()   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
 
 }
@@ -109,13 +110,15 @@ import MixboxUiTestsFoundation
 import MixboxIpcCommon
 
 public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
+
     public typealias MocksType = StubResponseBuilder
+
     public typealias Stubbing = __StubbingProxy_StubResponseBuilder
     public typealias Verification = __VerificationProxy_StubResponseBuilder
 
-    private var __defaultImplStub: StubResponseBuilder?
-
     public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    private var __defaultImplStub: StubResponseBuilder?
 
     public func enableDefaultImplementation(_ stub: StubResponseBuilder) {
         __defaultImplStub = stub
@@ -124,14 +127,14 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
 
     public func withResponse(value: StubResponseBuilderResponseValue, variation: URLResponseProtocolVariation, responseTime: TimeInterval)  {
 
-            return cuckoo_manager.call("withResponse(value: StubResponseBuilderResponseValue, variation: URLResponseProtocolVariation, responseTime: TimeInterval)",
-                parameters: (value, variation, responseTime),
-                escapingParameters: (value, variation, responseTime),
-                superclassCall:
+    return cuckoo_manager.call("withResponse(value: StubResponseBuilderResponseValue, variation: URLResponseProtocolVariation, responseTime: TimeInterval)",
+            parameters: (value, variation, responseTime),
+            escapingParameters: (value, variation, responseTime),
+            superclassCall:
 
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.withResponse(value: value, variation: variation, responseTime: responseTime))
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.withResponse(value: value, variation: variation, responseTime: responseTime))
 
     }
 
@@ -165,19 +168,18 @@ public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func withResponse<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(value: M1, variation: M2, responseTime: M3) -> Cuckoo.__DoNotUse<Void> where M1.MatchedType == StubResponseBuilderResponseValue, M2.MatchedType == URLResponseProtocolVariation, M3.MatchedType == TimeInterval {
+	    func withResponse<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable, M3: Cuckoo.Matchable>(value: M1, variation: M2, responseTime: M3) -> Cuckoo.__DoNotUse<(StubResponseBuilderResponseValue, URLResponseProtocolVariation, TimeInterval), Void> where M1.MatchedType == StubResponseBuilderResponseValue, M2.MatchedType == URLResponseProtocolVariation, M3.MatchedType == TimeInterval {
 	        let matchers: [Cuckoo.ParameterMatcher<(StubResponseBuilderResponseValue, URLResponseProtocolVariation, TimeInterval)>] = [wrap(matchable: value) { $0.0 }, wrap(matchable: variation) { $0.1 }, wrap(matchable: responseTime) { $0.2 }]
 	        return cuckoo_manager.verify("withResponse(value: StubResponseBuilderResponseValue, variation: URLResponseProtocolVariation, responseTime: TimeInterval)", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
-
 }
 
 public class StubResponseBuilderStub: StubResponseBuilder {
 
-    public func withResponse(value: StubResponseBuilderResponseValue, variation: URLResponseProtocolVariation, responseTime: TimeInterval)  {
-        return DefaultValueRegistry.defaultValue(for: Void.self)
+    public func withResponse(value: StubResponseBuilderResponseValue, variation: URLResponseProtocolVariation, responseTime: TimeInterval)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
 
 }
@@ -186,29 +188,31 @@ import Cuckoo
 import MixboxUiTestsFoundation
 
 public class MockScreenshotTaker: ScreenshotTaker, Cuckoo.ProtocolMock {
+
     public typealias MocksType = ScreenshotTaker
+
     public typealias Stubbing = __StubbingProxy_ScreenshotTaker
     public typealias Verification = __VerificationProxy_ScreenshotTaker
 
-    private var __defaultImplStub: ScreenshotTaker?
-
     public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    private var __defaultImplStub: ScreenshotTaker?
 
     public func enableDefaultImplementation(_ stub: ScreenshotTaker) {
         __defaultImplStub = stub
         cuckoo_manager.enableDefaultStubImplementation()
     }
 
-    public func takeScreenshot()  -> UIImage? {
+    public func takeScreenshot() -> UIImage? {
 
-            return cuckoo_manager.call("takeScreenshot() -> UIImage?",
-                parameters: (),
-                escapingParameters: (),
-                superclassCall:
+    return cuckoo_manager.call("takeScreenshot() -> UIImage?",
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
 
-                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
-                    ,
-                defaultCall: __defaultImplStub!.takeScreenshot())
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.takeScreenshot())
 
     }
 
@@ -220,7 +224,7 @@ public class MockScreenshotTaker: ScreenshotTaker, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func takeScreenshot() -> Cuckoo.ProtocolStubFunction<(), Optional<UIImage>> {
+	    func takeScreenshot() -> Cuckoo.ProtocolStubFunction<(), UIImage?> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return .init(stub: cuckoo_manager.createStub(for: MockScreenshotTaker.self, method: "takeScreenshot() -> UIImage?", parameterMatchers: matchers))
 	    }
@@ -242,19 +246,18 @@ public class MockScreenshotTaker: ScreenshotTaker, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func takeScreenshot() -> Cuckoo.__DoNotUse<Optional<UIImage>> {
+	    func takeScreenshot() -> Cuckoo.__DoNotUse<(), UIImage?> {
 	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
 	        return cuckoo_manager.verify("takeScreenshot() -> UIImage?", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
-
 }
 
 public class ScreenshotTakerStub: ScreenshotTaker {
 
-    public func takeScreenshot()  -> UIImage? {
-        return DefaultValueRegistry.defaultValue(for: Optional<UIImage>.self)
+    public func takeScreenshot() -> UIImage?  {
+        return DefaultValueRegistry.defaultValue(for: (UIImage?).self)
     }
 
 }

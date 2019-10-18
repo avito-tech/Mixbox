@@ -76,13 +76,12 @@ There are not enough docs yet, so you can try simple approach of linking Mixbox 
 
 ## Supported iOS/Xcode/Swift versions
 
-- Xcode 10.0, 10.1, 10.2.1, 10.3.
-- Swift 4.0+
-- iOS 9.3.2, iOS 10.3, iOS 11.3, iOS 11.4, iOS 12.0, intermediate versions may work or may not, the mentioned versions
+- Xcode 11
+- Swift 5
+- iOS 10.3, iOS 11.4, iOS 12.1, intermediate versions may work or may not, the mentioned versions
   are tested on CI
 
-Xcode 9 and older versions are not supported anymore. Also we don't know if it works on Xcode 10.2.0, it is not tested
-on our CI.
+Xcode 9/10 and older versions are not supported anymore. If you are planning to use the project on different environment and have problems, let us know.
 
 ## Known issues
 
