@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "MixboxSwiftCI",
+    platforms: [
+        .macOS(.v10_14),
+    ],
     products: [
         .executable(
             name: "TeamcityGrayBoxTestsBuild",
