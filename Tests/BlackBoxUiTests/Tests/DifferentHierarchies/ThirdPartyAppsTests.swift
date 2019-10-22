@@ -5,7 +5,7 @@ import XCTest
 final class ThirdPartyAppsTests: TestCase {
     func test() {
         // Kludge! TODO: Enable this test! It fails with Emcee on CI.
-        switch UIDevice.current.mb_iosVersion.majorVersion {
+        switch testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorVersion {
         case 9, 12:
             return
         default:
@@ -52,7 +52,9 @@ final class ThirdPartyAppsTests: TestCase {
         } else {
             // Workaround. We can live with this workaround in other apps.
             
-            if UIDevice.current.mb_iosVersion.majorVersion <= 12 {
+            let iosVersion = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorVersion
+            
+            if iosVersion <= 12 {
                 // This will trigger scroll:
                 pageObjects.springboard.mainAppIcon.assertIsDisplayed()
             } else {
@@ -68,7 +70,7 @@ final class ThirdPartyAppsTests: TestCase {
             
             // At this moment UI will be probably stable:
             
-            if UIDevice.current.mb_iosVersion.majorVersion <= 12 {
+            if iosVersion <= 12 {
                 pageObjects.springboard.mainAppIcon.press(duration: 1.5)
             } else {
                 // iOS 13 introduced and intermediate menu, but longer press works fine (> 3 secs)

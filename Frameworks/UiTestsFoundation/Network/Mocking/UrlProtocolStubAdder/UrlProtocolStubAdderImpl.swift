@@ -11,7 +11,7 @@ public final class UrlProtocolStubAdderImpl: UrlProtocolStubAdder {
     private let ipcMethodHandlersRegisterer: IpcMethodHandlersRegisterer
     
     // No reason to inject this:
-    private let onceToken = ThreadUnsafeOnceToken()
+    private let onceToken = ThreadUnsafeOnceToken<Void>()
     
     // State:
     private var registeredBridgedUrlProtocolClass: RegisteredBridgedUrlProtocolClass?
@@ -61,7 +61,7 @@ public final class UrlProtocolStubAdderImpl: UrlProtocolStubAdder {
     }
     
     private func registerOnce() throws {
-        try onceToken.executeOnce {
+        _ = try onceToken.executeOnce {
             try register()
         }
     }

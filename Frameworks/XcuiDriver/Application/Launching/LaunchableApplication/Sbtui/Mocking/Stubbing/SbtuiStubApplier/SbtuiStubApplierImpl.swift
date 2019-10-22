@@ -10,7 +10,7 @@ public final class SbtuiStubApplierImpl: SbtuiStubApplier, ApplicationLifecycleO
     }
     
     private let applicationLifecycleObservable: ApplicationLifecycleObservable
-    private let subscribeToApplicationLifecycleOnceToken = ThreadUnsafeOnceToken()
+    private let subscribeToApplicationLifecycleOnceToken = ThreadUnsafeOnceToken<Void>()
     
     // Unfortunately SBTUITestTunnel doesn't overwrite stubs, so we make every stub unique
     private var indexToMakeRegularExpressionUnique: Int = 0
@@ -68,7 +68,7 @@ public final class SbtuiStubApplierImpl: SbtuiStubApplier, ApplicationLifecycleO
     // MARK: - Private
     
     private func subscribeToApplicationLifecycleOnce() {
-        subscribeToApplicationLifecycleOnceToken.executeOnce {
+        _ = subscribeToApplicationLifecycleOnceToken.executeOnce {
             applicationLifecycleObservable.addObserver(self)
         }
     }

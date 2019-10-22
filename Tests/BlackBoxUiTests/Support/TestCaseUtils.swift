@@ -69,7 +69,8 @@ final class TestCaseUtils {
             geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider(),
-                waiter: baseUiTestCaseUtils.waiter
+                waiter: baseUiTestCaseUtils.waiter,
+                iosVersionProvider: baseUiTestCaseUtils.iosVersionProvider
             )
         )
         self.applicationPermissionsSetterFactory = applicationPermissionsSetterFactory
@@ -93,7 +94,8 @@ final class TestCaseUtils {
             photoSaver: PhotoSaverImpl(
                 runLoopSpinnerLockFactory: RunLoopSpinnerLockFactoryImpl(
                     runLoopSpinnerFactory: baseUiTestCaseUtils.runLoopSpinnerFactory
-                )
+                ),
+                iosVersionProvider: baseUiTestCaseUtils.iosVersionProvider
             ),
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )
@@ -146,6 +148,8 @@ final class TestCaseUtils {
             )
         }
         
+        let mainAppXcuiHierarchy = xcuiApp { XCUIApplication() }
+        
         pageObjects = PageObjects(
             apps: Apps(
                 mainUiKitHierarchy: app(
@@ -160,7 +164,8 @@ final class TestCaseUtils {
                     ),
                     baseUiTestCaseUtils.lazilyInitializedIpcClient
                 ),
-                mainXcui: xcuiApp { XCUIApplication() },
+                mainXcuiHierarchy: mainAppXcuiHierarchy,
+                mainDefaultHierarchy: mainAppXcuiHierarchy,
                 settings: thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") },
                 springboard: thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.springboard") }
             )

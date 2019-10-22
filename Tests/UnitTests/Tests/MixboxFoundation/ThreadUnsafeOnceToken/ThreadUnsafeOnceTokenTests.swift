@@ -3,22 +3,24 @@ import XCTest
 
 final class OnceTokenTests: XCTestCase {
     func test_ThreadUnsafeOnceToken() {
-        check(onceToken: ThreadUnsafeOnceToken())
+        check(onceToken: ThreadUnsafeOnceToken<Int>())
     }
     
     func test_ThreadSafeOnceToken() {
-        check(onceToken: ThreadSafeOnceToken())
+        check(onceToken: ThreadSafeOnceToken<Int>())
     }
     
-    func check(onceToken: OnceToken) {
-        var x = 1
+    func check<T: OnceToken>(onceToken: T) where T.ReturnValue == Int {
+        let x = onceToken.executeOnce {
+            1
+        }
         
-        onceToken.executeOnce { x += 1 }
+        XCTAssertEqual(x, 1)
         
-        XCTAssertEqual(x, 2)
+        let y = onceToken.executeOnce {
+            2
+        }
         
-        onceToken.executeOnce { x += 1 }
-        
-        XCTAssertEqual(x, 2)
+        XCTAssertEqual(y, 1)
     }
 }

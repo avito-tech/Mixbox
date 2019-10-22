@@ -3,22 +3,27 @@ import MixboxUiTestsFoundation
 // TODO: Make an abstraction for the app
 final class Apps {
     var mainUiKitHierarchy: PageObjectRegistrar
-    var mainXcui: PageObjectRegistrar
+    var mainXcuiHierarchy: PageObjectRegistrar
+    var mainDefaultHierarchy: PageObjectRegistrar
     
     var settings: PageObjectRegistrar
     var springboard: PageObjectRegistrar
     
     init(
         mainUiKitHierarchy: PageObjectDependenciesFactory,
-        mainXcui: PageObjectDependenciesFactory,
+        mainXcuiHierarchy: PageObjectDependenciesFactory,
+        mainDefaultHierarchy: PageObjectDependenciesFactory,
         settings: PageObjectDependenciesFactory,
         springboard: PageObjectDependenciesFactory)
     {
         self.mainUiKitHierarchy = PageObjectRegistrarImpl(
             pageObjectDependenciesFactory: mainUiKitHierarchy
         )
-        self.mainXcui = PageObjectRegistrarImpl(
-            pageObjectDependenciesFactory: mainXcui
+        self.mainXcuiHierarchy = PageObjectRegistrarImpl(
+            pageObjectDependenciesFactory: mainXcuiHierarchy
+        )
+        self.mainDefaultHierarchy = PageObjectRegistrarImpl(
+            pageObjectDependenciesFactory: mainDefaultHierarchy
         )
         self.settings = PageObjectRegistrarImpl(
             pageObjectDependenciesFactory: settings
@@ -31,14 +36,12 @@ final class Apps {
 
 public class BasePageObjects: PageObjectsMarkerProtocol {
     let apps: Apps
-    fileprivate let defaultPageObjectRegistrar: PageObjectRegistrar
     
     init(apps: Apps) {
         self.apps = apps
-        self.defaultPageObjectRegistrar = apps.mainXcui
     }
 
     func pageObject<PageObjectType: PageObjectWithDefaultInitializer>() -> PageObjectType {
-        return defaultPageObjectRegistrar.pageObject(PageObjectType.init)
+        return apps.mainDefaultHierarchy.pageObject(PageObjectType.init)
     }
 }

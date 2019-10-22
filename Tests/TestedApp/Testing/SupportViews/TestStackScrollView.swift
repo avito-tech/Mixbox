@@ -117,7 +117,7 @@ class TestStackScrollView: UIScrollView, UIGestureRecognizerDelegate {
     {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 11)
-        label.text = id
+        label.text = "id: \(id)"
         label.textColor = UIColor.gray
         addSubview(label)
         

@@ -6,7 +6,7 @@ import MixboxFoundation
 public final class CollectionViewCellSwizzlerImpl: CollectionViewCellSwizzler {
     private let assertingSwizzler: AssertingSwizzler
     private let shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool
-    private let onceToken = ThreadUnsafeOnceToken()
+    private let onceToken = ThreadUnsafeOnceToken<Void>()
     
     public init(
         assertingSwizzler: AssertingSwizzler,
@@ -19,7 +19,7 @@ public final class CollectionViewCellSwizzlerImpl: CollectionViewCellSwizzler {
     }
     
     public func swizzle() {
-        onceToken.executeOnce {
+        _ = onceToken.executeOnce {
             swizzleWhileBeingExecutedOnce()
         }
     }

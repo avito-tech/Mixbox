@@ -9,7 +9,7 @@ public final class MixboxUrlProtocolBootstrapperImpl: MixboxUrlProtocolBootstrap
     private let mixboxUrlProtocolDependenciesFactory: MixboxUrlProtocolDependenciesFactory
     private let mixboxUrlProtocolSpecificIpcMethodHandlersRegisterer: IpcMethodHandlersRegisterer
     private let ipcRouter: IpcRouter
-    private let onceToken = ThreadUnsafeOnceToken()
+    private let onceToken = ThreadUnsafeOnceToken<Void>()
     
     public init(
         assertingSwizzler: AssertingSwizzler,
@@ -24,7 +24,7 @@ public final class MixboxUrlProtocolBootstrapperImpl: MixboxUrlProtocolBootstrap
     }
     
     public func bootstrapNetworkMocking() {
-        onceToken.executeOnce {
+        _ = onceToken.executeOnce {
             bootstrapNetworkMockingWhileBeingExecutedOnce()
         }
     }

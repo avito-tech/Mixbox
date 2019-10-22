@@ -156,6 +156,7 @@ private extension PageObjects {
         return apps.mainUiKitHierarchy.pageObject()
     }
     var xcui: Screen {
-        return apps.mainXcui.pageObject()
+        return apps.mainXcuiHierarchy.pageObject()
     }
 }
+ 

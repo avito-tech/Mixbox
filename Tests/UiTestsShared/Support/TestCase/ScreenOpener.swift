@@ -10,7 +10,10 @@ extension ScreenOpener {
         openScreen(name: name, additionalEnvironment: [:])
     }
     
-    func openScreen(_ screen: OpenableScreen) {
+    @discardableResult
+    func openScreen<T: OpenableScreen>(_ screen: T) -> T {
         openScreen(name: screen.viewName)
+        
+        return screen
     }
 }

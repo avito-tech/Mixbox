@@ -4,45 +4,34 @@ import Foundation
 import XCTest
 
 extension XCUIElement {
-    
-    public var enhancedAccessibilityValueStringRepresentation: String? {
-        return self.value as? String
+    public var enhancedAccessibilityLabel: EnhancedAccessibilityLabel? {
+        return EnhancedAccessibilityLabel.fromAccessibilityLabel(label)
     }
     
-    public var enhancedAccessibilityValue: EnhancedAccessibilityValue? {
-        return EnhancedAccessibilityValue.fromAccessibilityValue(self.enhancedAccessibilityValueStringRepresentation)
-    }
-    
-    public var originalAccessibilityValue: String? {
-        if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return enhancedAccessibilityValue.originalAccessibilityValue
+    public var originalAccessibilityLabel: String {
+        if let enhancedAccessibilityLabel = enhancedAccessibilityLabel {
+            let xctestLabelValueIfAccessibilityLabelIsNil = ""
+            return enhancedAccessibilityLabel.originalAccessibilityLabel ?? xctestLabelValueIfAccessibilityLabelIsNil
         } else {
-            return value as? String
+            return label
         }
     }
     
     public var isDefinitelyHidden: Bool {
-        guard let enhancedAccessibilityValue = enhancedAccessibilityValue else {
+        guard let enhancedAccessibilityLabel = enhancedAccessibilityLabel else {
             return false
         }
-        return enhancedAccessibilityValue.isDefinitelyHidden
-    }
-    
-    public var hostDefinedValues: [String: String] {
-        guard let enhancedAccessibilityValue = enhancedAccessibilityValue else {
-            return [:]
-        }
-        return enhancedAccessibilityValue.customValues
+        return enhancedAccessibilityLabel.isDefinitelyHidden
     }
     
     public func percentageOfVisibleArea(ipcClient: IpcClient) -> CGFloat? {
-        guard let enhancedAccessibilityValue = enhancedAccessibilityValue else {
+        guard let enhancedAccessibilityLabel = enhancedAccessibilityLabel else {
             return nil
         }
         
         let result = ipcClient.call(
             method: PercentageOfVisibleAreaIpcMethod(),
-            arguments: enhancedAccessibilityValue.uniqueIdentifier
+            arguments: enhancedAccessibilityLabel.uniqueIdentifier
         )
         
         // TODO: Replace nil with 0 in PercentageOfVisibleAreaIpcMethodHandler?

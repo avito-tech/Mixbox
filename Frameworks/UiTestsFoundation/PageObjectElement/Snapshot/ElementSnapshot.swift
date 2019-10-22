@@ -28,13 +28,13 @@ public protocol ElementSnapshot: class, CustomDebugStringConvertible {
 }
 
 extension ElementSnapshot {
-    // TODO: Throw exception with exact description what went wrong?
     public func customValue<T: Codable>(key: String) throws -> T {
         guard let customValues = customValues.valueIfAvailable else {
             throw ErrorString(
                 """
-                customValues is not available for this element. Note that this is expected for third-party apps, because they
-                do not use MixboxInAppServices that provides ability to use customValues.
+                `customValues` property is not available for this element. Note that this is expected for third-party \
+                apps, because they do not use `MixboxInAppServices` that provides ability to use `customValues`. But it \
+                is expected that apps with `MixboxInAppServices` always have `customValues` for all UIView elements.
                 """
             )
         }

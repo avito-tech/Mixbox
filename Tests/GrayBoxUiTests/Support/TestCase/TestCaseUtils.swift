@@ -46,7 +46,8 @@ final class TestCaseUtils: IpcRouterProvider {
             geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactoryImpl(
                 testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder,
                 currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider(),
-                waiter: baseUiTestCaseUtils.waiter
+                waiter: baseUiTestCaseUtils.waiter,
+                iosVersionProvider: baseUiTestCaseUtils.iosVersionProvider
             )
         )
         
@@ -88,8 +89,8 @@ final class TestCaseUtils: IpcRouterProvider {
         pageObjects = PageObjects(
             apps: Apps(
                 mainUiKitHierarchy: mainUiKitHierarchy,
-                // TODO: This is wrong!
-                mainXcui: mainUiKitHierarchy,
+                mainXcuiHierarchy: mainUiKitHierarchy, // TODO: This is wrong! Add Fake object that produces errors for function calls.
+                mainDefaultHierarchy: mainUiKitHierarchy,
                 settings: mainUiKitHierarchy,
                 springboard: mainUiKitHierarchy
             )
@@ -101,7 +102,8 @@ final class TestCaseUtils: IpcRouterProvider {
             photoSaver: PhotoSaverImpl(
                 runLoopSpinnerLockFactory: RunLoopSpinnerLockFactoryImpl(
                     runLoopSpinnerFactory: baseUiTestCaseUtils.runLoopSpinnerFactory
-                )
+                ),
+                iosVersionProvider: baseUiTestCaseUtils.iosVersionProvider
             ),
             testFailureRecorder: baseUiTestCaseUtils.testFailureRecorder
         )

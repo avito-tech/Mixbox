@@ -6,14 +6,14 @@ import MixboxFoundation
 // TODO: Split. swiftlint:disable file_length
 public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
     private let assertingSwizzler: AssertingSwizzler
-    private let onceToken = ThreadUnsafeOnceToken()
+    private let onceToken = ThreadUnsafeOnceToken<Void>()
     
     public init(assertingSwizzler: AssertingSwizzler) {
         self.assertingSwizzler = assertingSwizzler
     }
     
     public func swizzle() {
-        onceToken.executeOnce {
+        _ = onceToken.executeOnce {
             swizzleWhileBeingExecutedOnce()
         }
     }

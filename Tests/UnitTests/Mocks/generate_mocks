@@ -1,16 +1,29 @@
 #!/bin/bash
 
-set -x
+# DSL
 
 applyMocks() {
-    mock StubRequestBuilder
-    mock StubResponseBuilder
-    mock ScreenshotTaker
+    module "MixboxUiTestsFoundation"
+    mock "StubRequestBuilder"
+    mock "StubResponseBuilder"
+    mock "ScreenshotTaker"
+    
+    module "MixboxInAppServices"
+    mock "AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory"
+    mock "EnhancedAccessibilityLabelMethodSwizzler"
+    mock "ObjcMethodsWithUniqueImplementationProvider"
 }
 
+# Internal
+
 main() {
+    echo "Started generation: $(date)"
+
     MOCKS_ROOT="${PROJECT_DIR}/UnitTests/Mocks"
-    ALL_FILES_TO_MOCK=()
+    OUTPUT_FILE="${MOCKS_ROOT}/GeneratedMocks.swift"
+    
+    resetBeforeApplyingMocks
+    APPLY_MOCKS_MODE="generateAllFilesList"
     applyMocks
     
     # Note: caching rocks: real 0m1.936s => real 0m0.078s
@@ -18,48 +31,97 @@ main() {
     currentChecksum=$(shasum "${ALL_FILES_TO_MOCK[@]}" "$0" | shasum)
     cachedChecksum=$(cat ${shasumFile})
     
-    if [ "$currentChecksum" != "$cachedChecksum" ]
+    if [ "$currentChecksum" != "$cachedChecksum" ] || ! [ -e "$OUTPUT_FILE" ]
     then
-        runCuckoo
+        ignoringAllErrors rm -f "$OUTPUT_FILE"
+    
+        resetBeforeApplyingMocks
+        APPLY_MOCKS_MODE="generateMocks"
+        applyMocks
+        completeGeneration
     
         echo "$currentChecksum" > "$shasumFile"
+        
+        echo "Generated Mocks File = ${OUTPUT_FILE}"
     fi
 }
 
-runCuckoo() {
-    local outputFile="${MOCKS_ROOT}/GeneratedMocks.swift"
-    local tmpfile="${outputFile}.tmp"
+pipeWithDescription() {
+    shift 1
+    "$@"
+}
+
+completeGeneration() {
+    if [ -z "$MODULE_TO_MOCK" ]
+    then
+        return 0
+    fi
+    
+    local tmpfile="$(uuidgen).tmp"
     
     "${PODS_ROOT}/Cuckoo/run" \
         generate \
-        --testable "MixboxUiTestsFoundation" \
+        --testable "$MODULE_TO_MOCK" \
         --output "${tmpfile}" \
         "${ALL_FILES_TO_MOCK[@]}"
-
-    # Remove @testable
-    # Remove comments
-    # Only spaces => empty lines
-    # Trim empty lines
-    # Remove double empty lines
+    
     cat "${tmpfile}" \
-        | sed 's/@testable import/import/' \
-        | sed 's|^//.*$||' \
-        | sed 's/^[\t ]*$//' \
-        | sed -e :a -e '/./,$!d;/^\n*$/{$d;N;};/\n$/ba' \
-        | cat -s \
-        > "${outputFile}"
+        | pipeWithDescription "Remove @testable" sed 's/@testable import/import/' \
+        | pipeWithDescription "Remove comments" sed 's|^//.*$||' \
+        | pipeWithDescription "Only spaces => empty lines" sed 's/^[\t ]*$//' \
+        | pipeWithDescription "Trim empty lines" sed -e :a -e '/./,$!d;/^\n*$/{$d;N;};/\n$/ba' \
+        | pipeWithDescription "Remove double empty lines"  cat -s \
+        >> "${OUTPUT_FILE}"
+    
+    echo >> "$OUTPUT_FILE"
     
     rm "${tmpfile}"
-    
-    echo "Generated Mocks File = ${outputFile}"
-    
 }
 
+fatalError() {
+    echo $@
+    exit 1
+}
+
+ignoringAllErrors() {
+    "$@" 1>/dev/null 2>/dev/null || true
+}
+
+resetBeforeApplyingMocks() {
+    ALL_FILES_TO_MOCK=()
+    MODULE_TO_MOCK=
+}
+
+# DSL functions
+
 mock() {
+    [ -z "$MODULE_TO_MOCK" ] && fatalError "call 'module' before 'mock'"
+
     local class=$1
-    local fileToMock=$(find "${PROJECT_DIR}/../Frameworks/" -name "${class}.swift")
+    local frameworkFolder=$(echo $MODULE_TO_MOCK | sed 's/^Mixbox//')
+    local fileToMock=$(find "${PROJECT_DIR}/../Frameworks/$frameworkFolder" -name "${class}.swift")
 
     ALL_FILES_TO_MOCK=("${ALL_FILES_TO_MOCK[@]}" "${fileToMock}")
 }
 
-main | tee "${PROJECT_DIR}/generate_mocks_log.ignored"
+module() {
+    case "$APPLY_MOCKS_MODE" in
+        generateAllFilesList)
+            MODULE_TO_MOCK=$1
+            ;;
+        generateMocks)
+            completeGeneration
+            
+            ALL_FILES_TO_MOCK=()
+            MODULE_TO_MOCK=$1
+            ;;
+        *)
+            fatalError "Unknown APPLY_MOCKS_MODE: $APPLY_MOCKS_MODE"
+            ;;
+    esac
+}
+
+# Entry point
+
+set -x
+main 2>&1 | tee "${PROJECT_DIR}/generate_mocks.ignored.log"

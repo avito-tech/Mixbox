@@ -2,9 +2,14 @@
 
 import MixboxFoundation
 
-public final class EnhancedAccessibilityValue: Codable {
-    // This is what is set to accessibilityValue in the app.
-    public let originalAccessibilityValue: String?
+public final class EnhancedAccessibilityLabel: Codable {
+    // This is what is set to accessibilityLabel in the app.
+    // It is optional, because in the app it is optional (in XCTest it is not optional)
+    public let originalAccessibilityLabel: String?
+    
+    // This property is faulted in XCElementSnapshot since Xcode 11.
+    // It is not available in private API of XCElementSnapshot
+    public let accessibilityValue: String?
     
     // Unique identifier of the element. Can be used to request info about the element,
     // for example, percentage of visible area of the view, etc.
@@ -27,41 +32,45 @@ public final class EnhancedAccessibilityValue: Codable {
     public let customValues: [String: String]
     
     public init(
-        originalAccessibilityValue: String?,
+        originalAccessibilityLabel: String?,
+        accessibilityValue: String?,
         uniqueIdentifier: String,
         isDefinitelyHidden: Bool,
         text: String?,
         customValues: [String: String])
     {
-        self.originalAccessibilityValue = originalAccessibilityValue
+        self.originalAccessibilityLabel = originalAccessibilityLabel
+        self.accessibilityValue = accessibilityValue
         self.uniqueIdentifier = uniqueIdentifier
         self.isDefinitelyHidden = isDefinitelyHidden
         self.text = text
         self.customValues = customValues
     }
     
-    public static func fromAccessibilityValue(_ originalAccessibilityValue: String?) -> EnhancedAccessibilityValue? {
-        let container: EnhancedAccessibilityContainer? = originalAccessibilityValue.flatMap(GenericSerialization.deserialize)
-        return container?.enhancedAccessibilityValue
+    public static func fromAccessibilityLabel(_ originalAccessibilityLabel: String?) -> EnhancedAccessibilityLabel? {
+        let container: EnhancedAccessibilityContainer? = originalAccessibilityLabel
+            .flatMap(GenericSerialization.deserialize)
+        
+        return container?.enhancedAccessibilityLabel
     }
     
-    public func toAccessibilityValue() -> String? {
+    public func toAccessibilityLabel() -> String? {
         let container = EnhancedAccessibilityContainer(
-            enhancedAccessibilityValue: self
+            enhancedAccessibilityLabel: self
         )
         return GenericSerialization.serialize(value: container)
     }
 }
 
-// Nesting enhancedAccessibilityValue in EnhancedAccessibilityContainer is needed to mark a JSON that it is
-// EnhancedAccessibilityValue and not something else that looks like it.
+// Nesting enhancedAccessibilityLabel in EnhancedAccessibilityContainer is needed to mark a JSON that it is
+// EnhancedAccessibilityLabel and not something else that looks like it.
 public final class EnhancedAccessibilityContainer: Codable {
-    public let enhancedAccessibilityValue: EnhancedAccessibilityValue
+    public let enhancedAccessibilityLabel: EnhancedAccessibilityLabel
     
     public init(
-        enhancedAccessibilityValue: EnhancedAccessibilityValue)
+        enhancedAccessibilityLabel: EnhancedAccessibilityLabel)
     {
-        self.enhancedAccessibilityValue = enhancedAccessibilityValue
+        self.enhancedAccessibilityLabel = enhancedAccessibilityLabel
     }
 }
 

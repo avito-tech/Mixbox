@@ -13,3 +13,13 @@ extension OpenableScreen where Self: PageObjectElementRegistrar {
         view.assertIsDisplayed()
     }
 }
+
+extension OpenableScreen where Self: DefaultPageObjectElementRegistrarProvider  {
+    var view: ViewElement {
+        return defaultPageObjectElementRegistrar.element(viewName) { element in element.id == viewName }
+    }
+    
+    func waitUntilViewIsLoaded() {
+        view.assertIsDisplayed()
+    }
+}

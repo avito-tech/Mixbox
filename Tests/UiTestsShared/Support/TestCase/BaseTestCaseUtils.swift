@@ -3,12 +3,14 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxFoundation
+import MixboxUiKit
 
 final class BaseUiTestCaseUtils {
     // Internal in TestCase
     
     let fileSystem: FileSystem
     let waiter: RunLoopSpinningWaiter
+    let iosVersionProvider: IosVersionProvider = UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
     
     // Private in TestCase
     

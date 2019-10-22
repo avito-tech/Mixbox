@@ -5,6 +5,7 @@ import MixboxArtifacts
 import MixboxReporting
 import MixboxIpc
 import MixboxFoundation
+import MixboxUiKit
 
 class BaseUiTestCase: XCTestCase, FailureGatherer {
     private(set) lazy var testCaseUtils: TestCaseUtils = self.reuseState {
@@ -39,6 +40,10 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         return testCaseUtils.photoStubber
     }
     
+    var iosVersionProvider: IosVersionProvider {
+        return testCaseUtils.baseUiTestCaseUtils.iosVersionProvider
+    }
+    
     private var baseClassPreconditionWasCalled = false
     func precondition() {
         baseClassPreconditionWasCalled = true
@@ -62,7 +67,7 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
     
     private func logEnvironment() {
         let device = UIDevice.mb_platformType.rawValue
-        let os = UIDevice.current.mb_iosVersion.majorAndMinor
+        let os = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorAndMinor
         
         testCaseUtils.baseUiTestCaseUtils.stepLogger.logEntry(
             date: testCaseUtils.baseUiTestCaseUtils.dateProvider.currentDate(),
@@ -171,7 +176,7 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         case .failTest:
             // Helpful addition for JUnit:
             let device = UIDevice.mb_platformType.rawValue
-            let os = UIDevice.current.mb_iosVersion.majorAndMinor
+            let os = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorAndMinor
             let environment = "\(device), iOS \(os)"
             
             // Note that you can set a breakpoint here (it is very convenient):

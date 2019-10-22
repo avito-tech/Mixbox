@@ -4,6 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
 import MixboxTestability
+import MixboxUiKit
 
 public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenciesFactory {
     public let ipcStarter: IpcStarter
@@ -12,7 +13,6 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     public let swizzler: Swizzler
     public let swizzlingSynchronization: SwizzlingSynchronization
     public let accessibilityEnhancer: AccessibilityEnhancer
-    public let accessibilityValueSwizzler: AccessibilityValueSwizzler
     public let fakeCellsSwizzling: FakeCellsSwizzling
     public let collectionViewCellSwizzler: CollectionViewCellSwizzler
     public let collectionViewSwizzler: CollectionViewSwizzler
@@ -79,7 +79,10 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         
         let shouldEnableFakeCells = (environment["MIXBOX_SHOULD_ENABLE_FAKE_CELLS"] ?? "true") == "true"
         
-        accessibilityValueSwizzler = AccessibilityValueSwizzlerImpl()
+        let accessibilityLabelSwizzlerFactory = AccessibilityLabelSwizzlerFactoryImpl(
+            allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactoryImpl(),
+            iosVersionProvider: UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
+        )
         
         collectionViewCellSwizzler = CollectionViewCellSwizzlerImpl(
             assertingSwizzler: assertingSwizzler,
@@ -98,7 +101,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         fakeCellManager = FakeCellManagerImpl()
         
         accessibilityEnhancer = AccessibilityEnhancerImpl(
-            accessibilityValueSwizzler: accessibilityValueSwizzler,
+            accessibilityLabelSwizzlerFactory: accessibilityLabelSwizzlerFactory,
             fakeCellsSwizzling: fakeCellsSwizzling,
             shouldEnableFakeCells: shouldEnableFakeCells,
             shouldEnhanceAccessibilityValue: shouldEnhanceAccessibilityValue,

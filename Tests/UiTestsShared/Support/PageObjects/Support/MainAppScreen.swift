@@ -1,6 +1,14 @@
-final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer> {
+import MixboxUiTestsFoundation
+
+// See extension to OpenableScreen
+protocol DefaultPageObjectElementRegistrarProvider {
+    var defaultPageObjectElementRegistrar: PageObjectElementRegistrar { get }
+}
+
+final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer>: DefaultPageObjectElementRegistrarProvider {
     let real: PageObjectType // page object with real hierarchy
     let xcui: PageObjectType // page object with xcui hierarchy
+    let `default`: PageObjectType // real hierarchy in GrayBox tests, xcui hierarchy in BlackBoxTests
     
     var everyKindOfHierarchy: [PageObjectType] {
         return [real, xcui]
@@ -10,9 +18,14 @@ final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer> 
         everyKindOfHierarchy.forEach(body)
     }
     
-    init(real: PageObjectType, xcui: PageObjectType) {
+    var defaultPageObjectElementRegistrar: PageObjectElementRegistrar {
+        return `default`
+    }
+    
+    init(real: PageObjectType, xcui: PageObjectType, default: PageObjectType) {
         self.real = real
         self.xcui = xcui
+        self.default = `default`
     }
 }
 

@@ -15,10 +15,13 @@ final class PageObjects: BasePageObjects {
     
     var locatorsPerformanceTestsView: LocatorsPerformanceTestsViewPageObject { return pageObject() }
     
+    var locatorsTestsView: MainAppScreen<LocatorsTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainUiKitHierarchy.pageObject(),
-            xcui: apps.mainXcui.pageObject()
+            xcui: apps.mainXcuiHierarchy.pageObject(),
+            default: apps.mainDefaultHierarchy.pageObject()
         )
     }
 }

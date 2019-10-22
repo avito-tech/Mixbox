@@ -101,6 +101,6 @@ private final class Screen: BasePageObjectWithDefaultInitializer {
 
 private extension PageObjects {
     var screen: Screen {
-        return apps.mainXcui.pageObject()
+        return apps.mainDefaultHierarchy.pageObject()
     }
 }

@@ -30,11 +30,10 @@ public final class DebugDescriptionBuilder: CustomDebugStringConvertible {
         value: T)
         -> DebugDescriptionBuilder
     {
-        fields.append(
-            "\(DebugDescriptionBuilder.indentation)\(name): \(value.debugDescription)"
+        return add(
+            name: name,
+            debugDescription: value.debugDescription
         )
-        
-        return self
     }
     
     public func add<T: CustomDebugStringConvertible>(
@@ -52,8 +51,19 @@ public final class DebugDescriptionBuilder: CustomDebugStringConvertible {
                 ifEmpty: "[]"
             )
         
+        return add(
+            name: name,
+            debugDescription: value
+        )
+    }
+    
+    public func add(
+        name: String,
+        debugDescription: String)
+        -> DebugDescriptionBuilder
+    {
         fields.append(
-            "\(DebugDescriptionBuilder.indentation)\(name): \(value)"
+            "\(DebugDescriptionBuilder.indentation)\(name): \(debugDescription)"
         )
         
         return self

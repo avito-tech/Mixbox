@@ -7,8 +7,8 @@ class HierarchySourcesTests: TestCase {
     func test() {
         openScreen(name: "HierarchySourcesTestsView")
         
-        pageObjects.app.label("label").assertHasText("The text of the label")
-        pageObjects.appXcui.label("label").assertHasText("The text of the label")
+        pageObjects.appUiKitHierarchy.label("label").assertHasText("The text of the label")
+        pageObjects.appXcuiHierarchy.label("label").assertHasText("The text of the label")
         
         // There are currently lots of calls to XCUIApplication() and other usages of singletons
         //
@@ -51,11 +51,11 @@ private final class SettingsScreen: BasePageObjectWithDefaultInitializer {
 }
 
 private extension PageObjects {
-    var app: AppScreen {
-        return pageObject()
+    var appUiKitHierarchy: AppScreen {
+        return apps.mainUiKitHierarchy.pageObject()
     }
-    var appXcui: AppScreen {
-        return apps.mainXcui.pageObject()
+    var appXcuiHierarchy: AppScreen {
+        return apps.mainXcuiHierarchy.pageObject()
     }
     var settings: SettingsScreen {
         return apps.settings.pageObject()

@@ -12,7 +12,7 @@ final class CanTapMovingElementTests: TestCase {
     // make it able to hit moving element.
     func disabled_test() {
         for _ in 0..<10 {
-            pageObjects.xcui.movingElement.tap()
+            pageObjects.screen.movingElement.tap()
         }
     }
 }
@@ -26,10 +26,7 @@ private final class Screen: BasePageObjectWithDefaultInitializer {
 }
 
 private extension PageObjects {
-    var real: Screen {
-        return apps.mainUiKitHierarchy.pageObject()
-    }
-    var xcui: Screen {
-        return apps.mainXcui.pageObject()
+    var screen: Screen {
+        return apps.mainDefaultHierarchy.pageObject()
     }
 }

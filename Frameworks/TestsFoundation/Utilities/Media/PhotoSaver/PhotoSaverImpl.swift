@@ -1,10 +1,16 @@
 import MixboxFoundation
+import MixboxUiKit
 
 public final class PhotoSaverImpl: PhotoSaver {
     private let runLoopSpinnerLockFactory: RunLoopSpinnerLockFactory
+    private let iosVersionProvider: IosVersionProvider
     
-    public init(runLoopSpinnerLockFactory: RunLoopSpinnerLockFactory) {
+    public init(
+        runLoopSpinnerLockFactory: RunLoopSpinnerLockFactory,
+        iosVersionProvider: IosVersionProvider)
+    {
         self.runLoopSpinnerLockFactory = runLoopSpinnerLockFactory
+        self.iosVersionProvider = iosVersionProvider
     }
     
     public func save(imagesProvider: ImagesProvider) throws {
@@ -115,7 +121,7 @@ public final class PhotoSaverImpl: PhotoSaver {
         // Maybe it's better to have retries/fallbacks.
         let ios11OrLowerLimit = 1
         
-        let maximumSimultaneousImageWriteToSavedPhotosAlbumOperationsAllowed = UIDevice.current.mb_iosVersion.majorVersion >= 12
+        let maximumSimultaneousImageWriteToSavedPhotosAlbumOperationsAllowed = iosVersionProvider.iosVersion().majorVersion >= 12
             ? ios12Limit
             : ios11OrLowerLimit
         

@@ -267,6 +267,13 @@
 		F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */; };
 		F8AA6FFD217E0681007D8208 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AA6FFC217E0681007D8208 /* FakeCellsDoNotCauseSideEffectsTests.swift */; };
 		F8AA7003217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AA7002217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift */; };
+		F8AC3CF2235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */; };
+		F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */; };
+		F8AC3CF4235E5D5400516032 /* TestCase+AssertThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */; };
+		F8AC3CF5235E5D5400516032 /* TestCase+AssertThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */; };
+		F8AC3CF6235E5D7800516032 /* CuckooMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D85562235E473F0068047A /* CuckooMatchers.swift */; };
+		F8AC3CF7235E5D7A00516032 /* CuckooMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D85562235E473F0068047A /* CuckooMatchers.swift */; };
+		F8AC3CF8235E5D7A00516032 /* CuckooMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D85562235E473F0068047A /* CuckooMatchers.swift */; };
 		F8AD07992250D5DD00D5FB93 /* MicrophoneApplicationPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AD078B2250D5DD00D5FB93 /* MicrophoneApplicationPermissionTests.swift */; };
 		F8AD079A2250D5DD00D5FB93 /* MicrophoneApplicationPermissionSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AD078C2250D5DD00D5FB93 /* MicrophoneApplicationPermissionSpecification.swift */; };
 		F8AD079B2250D5DD00D5FB93 /* CameraApplicationPermissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AD078E2250D5DD00D5FB93 /* CameraApplicationPermissionTests.swift */; };
@@ -392,6 +399,19 @@
 		F8C8ED502298650F0009B9A7 /* BaseTestCaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4A22985E200009B9A7 /* BaseTestCaseUtils.swift */; };
 		F8C8ED5122999A170009B9A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */; };
+		F8D53B22235F62E5004E4577 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B21235F62E5004E4577 /* TestCase.swift */; };
+		F8D854E0235A42420068047A /* LocatorsTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */; };
+		F8D854E1235A42420068047A /* LocatorsTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */; };
+		F8D854E9235A512C0068047A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D854E8235A512C0068047A /* AppDelegate.swift */; };
+		F8D854ED235A512C0068047A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D854EC235A512C0068047A /* ViewController.swift */; };
+		F8D854F2235A512D0068047A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8D854F1235A512D0068047A /* Assets.xcassets */; };
+		F8D854F5235A512D0068047A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8D854F3235A512D0068047A /* LaunchScreen.storyboard */; };
+		F8D8550B235A512E0068047A /* AppForCheckingPureXctestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8550A235A512E0068047A /* AppForCheckingPureXctestUITests.swift */; };
+		F8D85517235A52060068047A /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D85516235A52060068047A /* View.swift */; };
+		F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D85562235E473F0068047A /* CuckooMatchers.swift */; };
+		F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8556C235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift */; };
+		F8D8556E235E5C150068047A /* PredefinedObjcMethodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */; };
+		F8D8556F235E5C300068047A /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.swift */; };
 		F8DB34D9227223B000EE0FB8 /* UIImage+WithColorAndSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+WithColorAndSize.swift */; };
 		F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */; };
 		F8DB350622725E8C00EE0FB8 /* RunLoopSpinnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */; };
@@ -461,6 +481,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F813CAE5209CC5D400E6A27C;
 			remoteInfo = TestedApp;
+		};
+		F8D85507235A512E0068047A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8D854E5235A512C0068047A;
+			remoteInfo = AppForCheckingPureXctest;
 		};
 		F8E6EF672283243A007A97E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -685,6 +712,7 @@
 		F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHashCalculatorTests.swift; sourceTree = "<group>"; };
 		F8AA6FFC217E0681007D8208 /* FakeCellsDoNotCauseSideEffectsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTests.swift; sourceTree = "<group>"; };
 		F8AA7002217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTestsView.swift; sourceTree = "<group>"; };
+		F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestCase+AssertThrows.swift"; sourceTree = "<group>"; };
 		F8AD078B2250D5DD00D5FB93 /* MicrophoneApplicationPermissionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrophoneApplicationPermissionTests.swift; sourceTree = "<group>"; };
 		F8AD078C2250D5DD00D5FB93 /* MicrophoneApplicationPermissionSpecification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrophoneApplicationPermissionSpecification.swift; sourceTree = "<group>"; };
 		F8AD078E2250D5DD00D5FB93 /* CameraApplicationPermissionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraApplicationPermissionTests.swift; sourceTree = "<group>"; };
@@ -751,6 +779,21 @@
 		F8C8ED4422985DD00009B9A7 /* ScreenOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenOpener.swift; sourceTree = "<group>"; };
 		F8C8ED4A22985E200009B9A7 /* BaseTestCaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCaseUtils.swift; sourceTree = "<group>"; };
 		F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		F8D53B21235F62E5004E4577 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
+		F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsTestsViewPageObject.swift; sourceTree = "<group>"; };
+		F8D854E6235A512C0068047A /* AppForCheckingPureXctest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppForCheckingPureXctest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8D854E8235A512C0068047A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F8D854EC235A512C0068047A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F8D854F1235A512D0068047A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F8D854F4235A512D0068047A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F8D854F6235A512D0068047A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8D85506235A512E0068047A /* AppForCheckingPureXctestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppForCheckingPureXctestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8D8550A235A512E0068047A /* AppForCheckingPureXctestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppForCheckingPureXctestUITests.swift; sourceTree = "<group>"; };
+		F8D8550C235A512E0068047A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8D85516235A52060068047A /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredefinedObjcMethodsTests.swift; sourceTree = "<group>"; };
+		F8D85562235E473F0068047A /* CuckooMatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuckooMatchers.swift; sourceTree = "<group>"; };
+		F8D8556C235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift; sourceTree = "<group>"; };
 		F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunLoopSpinnerTests.swift; sourceTree = "<group>"; };
 		F8DB358322735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUiEventHistoryIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8DB358622735E0900EE0FB8 /* UiEventHistoryTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventHistoryTracker.swift; sourceTree = "<group>"; };
@@ -838,6 +881,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				C76EBBF8BA7417AA04206F85 /* Pods_GrayBoxUiTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8D854E3235A512C0068047A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8D85503235A512E0068047A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,15 +1021,18 @@
 		F813CADD209CC5D400E6A27C = {
 			isa = PBXGroup;
 			children = (
-				F8C8ED5222999A340009B9A7 /* AppAndTestsShared */,
 				F813CAE8209CC5D400E6A27C /* TestedApp */,
+				F8AC3CEF235E5D0600516032 /* AllTestsShared */,
 				F8B0A251220A0E4D0089C1EE /* UiTestsShared */,
+				F8C8ED5222999A340009B9A7 /* AppAndTestsShared */,
 				F813CAFD209CC5D700E6A27C /* BlackBoxUiTests */,
 				F866756E2121E81E00396F02 /* UnitTests */,
 				F82A05AF21F6745F0008C2BB /* HostedAppLogicTests */,
 				F8B0A2012209C44A0089C1EE /* GrayBoxUiTests */,
 				F8E6EF4322831233007A97E5 /* FakeSettingsApp */,
 				F82A53CF228B22A4007CB9F3 /* Lint */,
+				F8D854E7235A512C0068047A /* AppForCheckingPureXctest */,
+				F8D85509235A512E0068047A /* AppForCheckingPureXctestUITests */,
 				F813CAE7209CC5D400E6A27C /* Products */,
 				AB15AD35FB63246BDD8CE9FB /* Frameworks */,
 				0C0717C6E91AE9966F9A4B0C /* Pods */,
@@ -989,6 +1049,8 @@
 				F8B0A2002209C44A0089C1EE /* GrayBoxUiTests.xctest */,
 				F8E6EF4222831233007A97E5 /* FakeSettingsApp.app */,
 				F82A53CE228B22A3007CB9F3 /* Lint.xctest */,
+				F8D854E6235A512C0068047A /* AppForCheckingPureXctest.app */,
+				F8D85506235A512E0068047A /* AppForCheckingPureXctestUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1288,6 +1350,7 @@
 			children = (
 				F82A05B221F6745F0008C2BB /* Info.plist */,
 				F82A05B021F6745F0008C2BB /* HostedAppLogicTests.swift */,
+				F8D53B21235F62E5004E4577 /* TestCase.swift */,
 			);
 			path = HostedAppLogicTests;
 			sourceTree = "<group>";
@@ -1869,6 +1932,15 @@
 			path = FakeCellsDoNotCauseSideEffectsTests;
 			sourceTree = "<group>";
 		};
+		F8AC3CEF235E5D0600516032 /* AllTestsShared */ = {
+			isa = PBXGroup;
+			children = (
+				F8D85561235E47330068047A /* Cuckoo */,
+				F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */,
+			);
+			path = AllTestsShared;
+			sourceTree = "<group>";
+		};
 		F8AD07892250D5DD00D5FB93 /* Kinds */ = {
 			isa = PBXGroup;
 			children = (
@@ -2068,6 +2140,7 @@
 				F8A8381E2271F35600145140 /* HierarchyTestsViewPageObject.swift */,
 				F8252DB82279DAEF003190D0 /* TouchesTestsViewPageObject.swift */,
 				F8341974232FE91D00E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift */,
+				F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */,
 			);
 			path = PageObjects;
 			sourceTree = "<group>";
@@ -2130,6 +2203,7 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8D85529235DF59A0068047A /* MixboxInAppServices */,
 				F80CEDE022DE27D8006C804D /* MixboxIpcCommon */,
 				F8B964D22281E4000054CE08 /* MixboxTestsFoundation */,
 				F8B964D12281E3E30054CE08 /* MixboxFoundation */,
@@ -2275,6 +2349,45 @@
 				F8222D6F20D194CD009FB7B6 /* TestCaseUtils.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		F8D854E7235A512C0068047A /* AppForCheckingPureXctest */ = {
+			isa = PBXGroup;
+			children = (
+				F8D854E8235A512C0068047A /* AppDelegate.swift */,
+				F8D854EC235A512C0068047A /* ViewController.swift */,
+				F8D85516235A52060068047A /* View.swift */,
+				F8D854F1235A512D0068047A /* Assets.xcassets */,
+				F8D854F3235A512D0068047A /* LaunchScreen.storyboard */,
+				F8D854F6235A512D0068047A /* Info.plist */,
+			);
+			path = AppForCheckingPureXctest;
+			sourceTree = "<group>";
+		};
+		F8D85509235A512E0068047A /* AppForCheckingPureXctestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F8D8550A235A512E0068047A /* AppForCheckingPureXctestUITests.swift */,
+				F8D8550C235A512E0068047A /* Info.plist */,
+			);
+			path = AppForCheckingPureXctestUITests;
+			sourceTree = "<group>";
+		};
+		F8D85529235DF59A0068047A /* MixboxInAppServices */ = {
+			isa = PBXGroup;
+			children = (
+				F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */,
+				F8D8556C235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift */,
+			);
+			path = MixboxInAppServices;
+			sourceTree = "<group>";
+		};
+		F8D85561235E47330068047A /* Cuckoo */ = {
+			isa = PBXGroup;
+			children = (
+				F8D85562235E473F0068047A /* CuckooMatchers.swift */,
+			);
+			path = Cuckoo;
 			sourceTree = "<group>";
 		};
 		F8DB350422725E8200EE0FB8 /* RunLoopSpinner */ = {
@@ -2604,6 +2717,41 @@
 			productReference = F8B0A2002209C44A0089C1EE /* GrayBoxUiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F8D854E5235A512C0068047A /* AppForCheckingPureXctest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8D8550D235A512E0068047A /* Build configuration list for PBXNativeTarget "AppForCheckingPureXctest" */;
+			buildPhases = (
+				F8D854E2235A512C0068047A /* Sources */,
+				F8D854E3235A512C0068047A /* Frameworks */,
+				F8D854E4235A512C0068047A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppForCheckingPureXctest;
+			productName = AppForCheckingPureXctest;
+			productReference = F8D854E6235A512C0068047A /* AppForCheckingPureXctest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F8D85505235A512E0068047A /* AppForCheckingPureXctestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8D85513235A512E0068047A /* Build configuration list for PBXNativeTarget "AppForCheckingPureXctestUITests" */;
+			buildPhases = (
+				F8D85502235A512E0068047A /* Sources */,
+				F8D85503235A512E0068047A /* Frameworks */,
+				F8D85504235A512E0068047A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8D85508235A512E0068047A /* PBXTargetDependency */,
+			);
+			name = AppForCheckingPureXctestUITests;
+			productName = AppForCheckingPureXctestUITests;
+			productReference = F8D85506235A512E0068047A /* AppForCheckingPureXctestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F8E6EF4122831233007A97E5 /* FakeSettingsApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E6EF5322831235007A97E5 /* Build configuration list for PBXNativeTarget "FakeSettingsApp" */;
@@ -2633,7 +2781,7 @@
 				KnownAssetTags = (
 					New,
 				);
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Mixbox;
 				TargetAttributes = {
@@ -2666,6 +2814,15 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = F813CAE5209CC5D400E6A27C;
 					};
+					F8D854E5235A512C0068047A = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+					};
+					F8D85505235A512E0068047A = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F8D854E5235A512C0068047A;
+					};
 					F8E6EF4122831233007A97E5 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
@@ -2693,6 +2850,8 @@
 				F8B0A1FF2209C44A0089C1EE /* GrayBoxUiTests */,
 				F8E6EF4122831233007A97E5 /* FakeSettingsApp */,
 				F82A53CD228B22A3007CB9F3 /* Lint */,
+				F8D854E5235A512C0068047A /* AppForCheckingPureXctest */,
+				F8D85505235A512E0068047A /* AppForCheckingPureXctestUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -2756,6 +2915,22 @@
 				F8C8ED292298505D0009B9A7 /* MoreComplexExample.recordedNetworkSession.json in Resources */,
 				F8A837C72270F25000145140 /* screenshotTestsView_screenshot.png in Resources */,
 				F8C8ED272298505D0009B9A7 /* NetworkPlayerShowcaseTests.recordedNetworkSession.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8D854E4235A512C0068047A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8D854F5235A512D0068047A /* LaunchScreen.storyboard in Resources */,
+				F8D854F2235A512D0068047A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8D85504235A512E0068047A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2870,33 +3045,45 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2928,33 +3115,45 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3040,6 +3239,7 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
@@ -3061,6 +3261,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
@@ -3113,6 +3314,7 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
@@ -3136,6 +3338,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
@@ -3285,6 +3488,7 @@
 				F8B33B16224ACF5B00AA1EB9 /* AssertIsDisabledInteractionTests.swift in Sources */,
 				F8DB359A22738C9A00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */,
 				F801CC172254F9C60074F0E9 /* StepLoggerRecordingStarter.swift in Sources */,
+				F8AC3CF8235E5D7A00516032 /* CuckooMatchers.swift in Sources */,
 				F8A837CE2270F8F500145140 /* MainAppScreen.swift in Sources */,
 				F820307322385D7C006D2F70 /* SetTextActionCanBeRunSubsequentlyWithSameResultTests.swift in Sources */,
 				F8274A432142DA7A00A72C41 /* AssertingCustomValuesTests.swift in Sources */,
@@ -3316,6 +3520,7 @@
 				F8252DBD2279DCED003190D0 /* BaseTouchesTestCase.swift in Sources */,
 				F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */,
 				F888EE1D23206137009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
+				F8AC3CF2235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
 				F854F8282344D2D1009A715B /* BaseIpcEchoingTests.swift in Sources */,
 				F8B33B12224ACF3900AA1EB9 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F8971D2622651E3A001741C1 /* CreatedTemporaryDirectory.swift in Sources */,
@@ -3357,6 +3562,7 @@
 				F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */,
 				F8971D1422650AF1001741C1 /* TemporaryFile.swift in Sources */,
 				F8971D0822650A90001741C1 /* EnvironmentProvider.swift in Sources */,
+				F8D854E0235A42420068047A /* LocatorsTestsViewPageObject.swift in Sources */,
 				F88ADFAA223BCF1E0024CCBE /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift in Sources */,
 				F8971DE92267715A001741C1 /* LaunchingAppTests.swift in Sources */,
 				F8971DF62267A8B5001741C1 /* BuiltinIpcLaunchableApplication.swift in Sources */,
@@ -3411,6 +3617,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8AC3CF4235E5D5400516032 /* TestCase+AssertThrows.swift in Sources */,
+				F8D53B22235F62E5004E4577 /* TestCase.swift in Sources */,
+				F8AC3CF7235E5D7A00516032 /* CuckooMatchers.swift in Sources */,
 				F8B0A2122209F6940089C1EE /* HostedAppLogicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3447,12 +3656,15 @@
 				F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */,
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* MatcherBuilderTests.swift in Sources */,
+				F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */,
 				F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */,
 				F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
+				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
 				F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */,
 				F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */,
 				F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */,
+				F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */,
 				F8971D8922661A8E001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3519,6 +3731,7 @@
 				F8A83E842272223700145140 /* SetTextActionDoesntGainFocusIfItIsAlreadyGainedTests.swift in Sources */,
 				F836C50522DF300900F78C6F /* NetworkStubbingTests.swift in Sources */,
 				F8B0A258220A0EF30089C1EE /* TestReportStatus.swift in Sources */,
+				F8AC3CF6235E5D7800516032 /* CuckooMatchers.swift in Sources */,
 				F8A83E852272223700145140 /* SetTextActionFailuresTests.swift in Sources */,
 				F8DB359F22738C9B00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */,
 				F8C8ED122298505D0009B9A7 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */,
@@ -3528,10 +3741,12 @@
 				F8A83822227215C300145140 /* AssertContainsTextInteractionTests.swift in Sources */,
 				F8C8ED502298650F0009B9A7 /* BaseTestCaseUtils.swift in Sources */,
 				F8A837A52270D40B00145140 /* PageObjects.swift in Sources */,
+				F8AC3CF5235E5D5400516032 /* TestCase+AssertThrows.swift in Sources */,
 				F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */,
 				F8C8ED102298505D0009B9A7 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */,
 				F8A83E7F2272223700145140 /* AssertingCustomValuesTests.swift in Sources */,
 				F8B340F0224D3FD700AA1EB9 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
+				F8D854E1235A42420068047A /* LocatorsTestsViewPageObject.swift in Sources */,
 				F88B33BD232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */,
 				F8C8ED3C22985B060009B9A7 /* TemporaryDirectoryPathProviderImpl.swift in Sources */,
 				F8DB35A122738C9B00EE0FB8 /* BaseActionTestCase+SetViews.swift in Sources */,
@@ -3539,6 +3754,7 @@
 				F8B0A253220A0EF30089C1EE /* FailureGatherer.swift in Sources */,
 				F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */,
 				F8A83828227215C300145140 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */,
+				F8D8556F235E5C300068047A /* GeneratedMocks.swift in Sources */,
 				F8B964AD2280A1070054CE08 /* SwipeActionWaitsTests.swift in Sources */,
 				F8B0A257220A0EF30089C1EE /* TestReportAttachment.swift in Sources */,
 				F8C8ED142298505D0009B9A7 /* ScrollingTests.swift in Sources */,
@@ -3590,6 +3806,7 @@
 				F8A837B12270DAE300145140 /* Singletons.swift in Sources */,
 				F826711B22E7622E00B0B02A /* LegacyNetworkStubbingTests.swift in Sources */,
 				F8C8ED212298505D0009B9A7 /* ApplicationPermissionSpecification.swift in Sources */,
+				F8D8556E235E5C150068047A /* PredefinedObjcMethodsTests.swift in Sources */,
 				F86E60FF229C2D7E00C227CE /* ApplicationNameProvider.swift in Sources */,
 				F8A837A72270D40B00145140 /* BasePageObject+Extension.swift in Sources */,
 				F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
@@ -3606,6 +3823,24 @@
 				F8B0A25B220A0EF30089C1EE /* AsyncReportingSystem.swift in Sources */,
 				F8C8ED1A2298505D0009B9A7 /* CameraApplicationPermissionSpecification.swift in Sources */,
 				F8C8ED192298505D0009B9A7 /* CameraApplicationPermissionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8D854E2235A512C0068047A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8D854ED235A512C0068047A /* ViewController.swift in Sources */,
+				F8D854E9235A512C0068047A /* AppDelegate.swift in Sources */,
+				F8D85517235A52060068047A /* View.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8D85502235A512E0068047A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8D8550B235A512E0068047A /* AppForCheckingPureXctestUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3640,6 +3875,11 @@
 			target = F813CAE5209CC5D400E6A27C /* TestedApp */;
 			targetProxy = F8B0A2052209C44A0089C1EE /* PBXContainerItemProxy */;
 		};
+		F8D85508235A512E0068047A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8D854E5235A512C0068047A /* AppForCheckingPureXctest */;
+			targetProxy = F8D85507235A512E0068047A /* PBXContainerItemProxy */;
+		};
 		F8E6EF682283243A007A97E5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8E6EF4122831233007A97E5 /* FakeSettingsApp */;
@@ -3652,6 +3892,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				F813CAF3209CC5D700E6A27C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F8D854F3235A512D0068047A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F8D854F4235A512D0068047A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -3710,7 +3958,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -3766,7 +4014,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -3967,6 +4215,70 @@
 			};
 			name = Release;
 		};
+		F8D8550E235A512E0068047A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = AppForCheckingPureXctest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F8D8550F235A512E0068047A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = AppForCheckingPureXctest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F8D85514235A512E0068047A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = AppForCheckingPureXctestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AppForCheckingPureXctest;
+			};
+			name = Debug;
+		};
+		F8D85515235A512E0068047A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = AppForCheckingPureXctestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = AppForCheckingPureXctest;
+			};
+			name = Release;
+		};
 		F8E6EF5122831235007A97E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 766B1EA973ED241A9F84A9D5 /* Pods-FakeSettingsApp.debug.xcconfig */;
@@ -4063,6 +4375,24 @@
 			buildConfigurations = (
 				F8B0A2082209C44A0089C1EE /* Debug */,
 				F8B0A2092209C44A0089C1EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8D8550D235A512E0068047A /* Build configuration list for PBXNativeTarget "AppForCheckingPureXctest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8D8550E235A512E0068047A /* Debug */,
+				F8D8550F235A512E0068047A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8D85513235A512E0068047A /* Build configuration list for PBXNativeTarget "AppForCheckingPureXctestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8D85514235A512E0068047A /* Debug */,
+				F8D85515235A512E0068047A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

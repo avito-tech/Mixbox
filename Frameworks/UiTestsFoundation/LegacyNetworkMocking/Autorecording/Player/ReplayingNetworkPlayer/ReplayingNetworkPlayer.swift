@@ -4,7 +4,7 @@ import MixboxReporting
 public final class ReplayingNetworkPlayer: NetworkPlayer {
     // Dependencies
     
-    private let startOnceToken = ThreadUnsafeOnceToken()
+    private let startOnceToken = ThreadUnsafeOnceToken<Void>()
     private let recordedNetworkSession: RecordedNetworkSession
     private let recordedSessionStubber: RecordedSessionStubber
     private let testFailureRecorder: TestFailureRecorder
@@ -103,7 +103,7 @@ public final class ReplayingNetworkPlayer: NetworkPlayer {
     }
     
     private func startOnce() {
-        startOnceToken.executeOnce {
+        _ = startOnceToken.executeOnce {
             start()
             onStart()
         }

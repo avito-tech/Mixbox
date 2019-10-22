@@ -53,7 +53,7 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
             self.router = router
             self.client = client
             
-            inAppServicesDependenciesFactory.accessibilityEnhancer.enhanceAccessibility()
+            try inAppServicesDependenciesFactory.accessibilityEnhancer.enhanceAccessibility()
             
             let mixboxUrlProtocolBootstrapper = client.flatMap { client in
                 inAppServicesDependenciesFactory.mixboxUrlProtocolBootstrapper(

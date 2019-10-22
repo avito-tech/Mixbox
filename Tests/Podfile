@@ -80,12 +80,16 @@ end
 def tests_black_box_pods
   mixbox_blackbox_tests_pods
   
+  tests_testing_helpers
+  
   tests_ipc_pods
   tests_report_pods
 end
 
 def tests_gray_box_pods
   mixbox_graybox_tests_pods
+  
+  tests_testing_helpers
   
   tests_ipc_pods
   tests_report_pods
@@ -98,6 +102,7 @@ def tests_white_box_pods
   
   # Code being tested:
   mixbox_ui_tests_pods
+  mixbox_application_testability_pods
 end
 
 def tests_tested_app_pods

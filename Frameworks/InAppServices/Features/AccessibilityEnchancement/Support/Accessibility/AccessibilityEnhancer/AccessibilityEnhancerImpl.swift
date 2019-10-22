@@ -4,31 +4,32 @@ import MixboxTestability
 import MixboxFoundation
 
 public final class AccessibilityEnhancerImpl: AccessibilityEnhancer {
-    private let accessibilityValueSwizzler: AccessibilityValueSwizzler
+    private let accessibilityLabelSwizzlerFactory: AccessibilityLabelSwizzlerFactory
     private let fakeCellsSwizzling: FakeCellsSwizzling
     private let shouldEnableFakeCells: Bool
     private let shouldEnhanceAccessibilityValue: Bool
     private let fakeCellManager: FakeCellManager
-    private let onceToken = ThreadUnsafeOnceToken()
+    private let onceToken = ThreadUnsafeOnceToken<Void>()
     
     public init(
-        accessibilityValueSwizzler: AccessibilityValueSwizzler,
+        accessibilityLabelSwizzlerFactory: AccessibilityLabelSwizzlerFactory,
         fakeCellsSwizzling: FakeCellsSwizzling,
         shouldEnableFakeCells: Bool,
         shouldEnhanceAccessibilityValue: Bool,
         fakeCellManager: FakeCellManager)
     {
-        self.accessibilityValueSwizzler = accessibilityValueSwizzler
+        self.accessibilityLabelSwizzlerFactory = accessibilityLabelSwizzlerFactory
         self.fakeCellsSwizzling = fakeCellsSwizzling
         self.shouldEnableFakeCells = shouldEnableFakeCells
         self.shouldEnhanceAccessibilityValue = shouldEnhanceAccessibilityValue
         self.fakeCellManager = fakeCellManager
     }
     
-    public func enhanceAccessibility() {
-        onceToken.executeOnce {
+    public func enhanceAccessibility() throws {
+        _ = try onceToken.executeOnce {
             if shouldEnhanceAccessibilityValue {
-                accessibilityValueSwizzler.swizzle()
+                let accessibilityLabelSwizzler = try accessibilityLabelSwizzlerFactory.accessibilityLabelSwizzler()
+                accessibilityLabelSwizzler.swizzle()
             }
             
             if shouldEnableFakeCells {

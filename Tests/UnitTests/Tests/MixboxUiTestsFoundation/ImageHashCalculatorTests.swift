@@ -18,7 +18,7 @@ class ImageHashCalculatorTests: XCTestCase {
         }
         
         func ios121OrHigher(no: UInt64, yes: UInt64) -> UInt64 {
-            if UIDevice.current.mb_iosVersion >= 12.1 {
+            if UiDeviceIosVersionProvider(uiDevice: UIDevice.current).iosVersion() >= IosVersion(major: 12, minor: 1) {
                 return yes
             } else {
                 return no

@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 import MixboxReporting
 
 public final class RecordingNetworkPlayer: NetworkPlayer {
-    private let startOnceToken = ThreadUnsafeOnceToken()
+    private let startOnceToken = ThreadUnsafeOnceToken<Void>()
     private let networkRecordsProvider: NetworkRecordsProvider
     private let networkRecorderLifecycle: NetworkRecorderLifecycle
     private let testFailureRecorder: TestFailureRecorder
@@ -66,7 +66,7 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
     }
     
     private func startOnce() {
-        startOnceToken.executeOnce {
+        _ = startOnceToken.executeOnce {
             networkRecorderLifecycle.startRecording()
             
             testFailureRecorder.recordFailure(

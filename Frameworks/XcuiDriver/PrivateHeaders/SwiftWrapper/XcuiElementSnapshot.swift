@@ -16,32 +16,32 @@ final class XcuiElementSnapshot: ElementSnapshot {
     }
     
     var text: OptionalAvailability<String?> {
-        if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return .available(enhancedAccessibilityValue.text)
+        if let enhancedAccessibilityLabel = enhancedAccessibilityLabel {
+            return .available(enhancedAccessibilityLabel.text)
         } else {
             return .unavailable
         }
     }
     
     var isDefinitelyHidden: OptionalAvailability<Bool> {
-        if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return .available(enhancedAccessibilityValue.isDefinitelyHidden)
+        if let enhancedAccessibilityLabel = enhancedAccessibilityLabel {
+            return .available(enhancedAccessibilityLabel.isDefinitelyHidden)
         } else {
             return .unavailable
         }
     }
     
     var uniqueIdentifier: OptionalAvailability<String> {
-        if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return .available(enhancedAccessibilityValue.uniqueIdentifier)
+        if let enhancedAccessibilityLabel = enhancedAccessibilityLabel {
+            return .available(enhancedAccessibilityLabel.uniqueIdentifier)
         } else {
             return .unavailable
         }
     }
     
     var customValues: OptionalAvailability<[String: String]> {
-        if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return .available(enhancedAccessibilityValue.customValues)
+        if let enhancedAccessibilityLabel = enhancedAccessibilityLabel {
+            return .available(enhancedAccessibilityLabel.customValues)
         } else {
             return .unavailable
         }
@@ -60,14 +60,18 @@ final class XcuiElementSnapshot: ElementSnapshot {
     }
     
     var accessibilityLabel: String {
-        return xcElementSnapshot.label ?? ""
+        if let enhancedAccessibilityLabel = enhancedAccessibilityLabel {
+            return enhancedAccessibilityLabel.originalAccessibilityLabel ?? ""
+        } else {
+            return xcElementSnapshot.label ?? ""
+        }
     }
     
     var accessibilityValue: Any? {
-        if let enhancedAccessibilityValue = enhancedAccessibilityValue {
-            return enhancedAccessibilityValue.originalAccessibilityValue
+        if let enhancedAccessibilityLabel = enhancedAccessibilityLabel {
+            return enhancedAccessibilityLabel.accessibilityValue
         } else {
-            return xcElementSnapshot.value
+            return xcElementSnapshot.value ?? ""
         }
     }
     
@@ -102,8 +106,8 @@ final class XcuiElementSnapshot: ElementSnapshot {
     
     // MARK: - Private
     
-    private var enhancedAccessibilityValue: EnhancedAccessibilityValue? {
-        return EnhancedAccessibilityValue.fromAccessibilityValue(xcElementSnapshot.value as? String)
+    private var enhancedAccessibilityLabel: EnhancedAccessibilityLabel? {
+        return EnhancedAccessibilityLabel.fromAccessibilityLabel(xcElementSnapshot.label as? String)
     }
     
     private var additionalAttributes: [NSObject: Any]  {
