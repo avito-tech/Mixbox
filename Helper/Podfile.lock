@@ -2,11 +2,11 @@ PODS:
   - GCDWebServer (3.4.2):
     - GCDWebServer/Core (= 3.4.2)
   - GCDWebServer/Core (3.4.2)
-  - MixboxBuiltinIpc (0.0.1):
+  - MixboxBuiltinIpc (0.2.3):
     - GCDWebServer
     - MixboxIpc
-  - MixboxFoundation (0.0.1)
-  - MixboxIpc (0.0.1):
+  - MixboxFoundation (0.2.3)
+  - MixboxIpc (0.2.3):
     - MixboxFoundation
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ DEPENDENCIES:
   - MixboxIpc (from `..`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - GCDWebServer
 
 EXTERNAL SOURCES:
@@ -29,10 +29,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
-  MixboxBuiltinIpc: 0a1de598d46d2665709165ac38185aee310a9051
-  MixboxFoundation: d3c5def5457f36c65cd201ab154b78f27ac6bac1
-  MixboxIpc: b1f1c9fb79a48c5dec77a54e38a003bf3e6f6548
+  MixboxBuiltinIpc: 461c61790bd7fe327b8a1e4bd43647485bfc2962
+  MixboxFoundation: 7af66240207240575e163c4e198acbe27afd88da
+  MixboxIpc: 7bbfc8303c278ebabda88d9cae5387204c76a540
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

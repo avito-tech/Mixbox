@@ -159,12 +159,12 @@ SPEC CHECKSUMS:
   MixboxAllure: e8c92a0941f4b517de1d79fcd9f1ac9f37ce2dc2
   MixboxAnyCodable: 3f5eea133b3661ef2c2e52c05a2da53c0ac66939
   MixboxArtifacts: e59bb333ee5bfc0e22828036a8e54494f68805c5
-  MixboxBuiltinIpc: 5536f99baf6e0f7e9aae7a1f074de845ba7332da
+  MixboxBuiltinIpc: 461c61790bd7fe327b8a1e4bd43647485bfc2962
   MixboxFakeSettingsAppMain: 8531f817ee679b6ac7c9bf42f187ca7a26c8bdc6
-  MixboxFoundation: 1ee7775022aab243522611bf7c2c0577a804e380
+  MixboxFoundation: 7af66240207240575e163c4e198acbe27afd88da
   MixboxGray: 46c2d139dc3775edc9c5d9be5e8af9c7192cc93e
   MixboxInAppServices: 497e1873a930d7fa3a5e7eeb60b14b01e3395edf
-  MixboxIpc: 0517c100f41fbb76a769a04ab21cd7c4810f3c0a
+  MixboxIpc: 7bbfc8303c278ebabda88d9cae5387204c76a540
   MixboxIpcCommon: 3dc7fd03fd822c253cb1c7fb69bece2ea7a77e5c
   MixboxIpcSbtuiClient: 115ddebfe3801a901d19872e01db507acc7278dd
   MixboxIpcSbtuiHost: 3553e6858f4e12cfcb195f4d94bf8026f3a2308f

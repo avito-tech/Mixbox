@@ -4,6 +4,9 @@ cd "$(dirname "$0")"
 
 set -x
 
+# Local variable for this script:
+__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET=x86_64-apple-macosx10.14
+
 generatePackage() {
     ./MakePackage/make_package || exit 1
 }
@@ -64,7 +67,7 @@ case "$1" in
             -Xswiftc -Onone \
             -Xswiftc -whole-module-optimization \
             -Xswiftc -target \
-            -Xswiftc x86_64-apple-macosx10.13 \
+            -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET" \
             --static-swift-stdlib \
         )
         if ! [ -z "$2" ]
@@ -76,6 +79,8 @@ case "$1" in
         ;;
     test)
         clean
-        swift test -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.13"
+        swift test \
+            -Xswiftc -target \
+            -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET"
         ;;
 esac

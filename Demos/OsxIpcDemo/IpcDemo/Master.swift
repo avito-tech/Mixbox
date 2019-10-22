@@ -1,5 +1,3 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
-
 import Foundation
 import MixboxIpc
 import MixboxBuiltinIpc
@@ -42,5 +40,3 @@ func use_your_client(_ client: IpcClient) {
     }
     print("\n\nThanks for watching.")
 }
-
-#endif

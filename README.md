@@ -80,6 +80,8 @@ There are not enough docs yet, so you can try simple approach of linking Mixbox 
 - Swift 5
 - iOS 10.3, iOS 11.4, iOS 12.1, intermediate versions may work or may not, the mentioned versions
   are tested on CI
+- Cocoapods 1.8.4
+- Mac OS 10.14.6
 
 Xcode 9/10 and older versions are not supported anymore. If you are planning to use the project on different environment and have problems, let us know.
 

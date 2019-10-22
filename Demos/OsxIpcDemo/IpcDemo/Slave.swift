@@ -1,5 +1,3 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
-
 import Foundation
 import MixboxBuiltinIpc
 
@@ -19,5 +17,3 @@ func mainForSlave(_ port: UInt) {
     // An imitation of running app:
     CFRunLoopRun()
 }
-
-#endif

@@ -16,7 +16,7 @@ DEPENDENCIES:
   - MixboxIpc (from `../..`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - GCDWebServer
 
 EXTERNAL SOURCES:
@@ -29,10 +29,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
-  MixboxBuiltinIpc: c369cef8c57f2f7a0957b10e3fa54843bc9a038e
-  MixboxFoundation: 2957ed972100de2830e0c300e5c6973c201f6504
-  MixboxIpc: cb0b35b698812b99f51ef8b259eed6e7d2e28e37
+  MixboxBuiltinIpc: 461c61790bd7fe327b8a1e4bd43647485bfc2962
+  MixboxFoundation: 7af66240207240575e163c4e198acbe27afd88da
+  MixboxIpc: 7bbfc8303c278ebabda88d9cae5387204c76a540
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
