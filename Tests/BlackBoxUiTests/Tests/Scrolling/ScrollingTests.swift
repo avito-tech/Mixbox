@@ -5,6 +5,10 @@ final class ScrollingTests: TestCase {
         let viewName: String
     }
     
+    override var reuseState: Bool {
+        return false
+    }
+    
     // TODO: Support TableView and WebView
     
     func test_scrolling_works_inScrollView() {

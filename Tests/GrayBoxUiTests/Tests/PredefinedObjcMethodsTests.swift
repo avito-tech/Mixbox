@@ -4,7 +4,7 @@ import MixboxUiKit
 import XCTest
 import MixboxFoundation
 
-// This test requires Accessibility to be enabled.
+// This test requires Accessibility to be enabled (should be run in GrayBoxUiTests).
 final class PredefinedObjcMethodsTests: TestCase {
     private let factory = MockAllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory()
     private let methodType: MethodType = .instanceMethod
@@ -46,8 +46,8 @@ final class PredefinedObjcMethodsTests: TestCase {
             
             let iosVersion = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorVersion
             switch iosVersion {
-            case 9, 10:
-                checkForIosFrom9To10()
+            case 10:
+                checkForIos10()
             case 11, 12, 13:
                 checkForIosFrom11To13()
             default:
@@ -56,13 +56,26 @@ final class PredefinedObjcMethodsTests: TestCase {
         }
     }
     
-    private func checkForIosFrom9To10() {
+    private func checkForIos10() {
+        let baseClass = NSObject.self
+        let selector = #selector(NSObject.accessibilityLabel)
+        
         verify(factory).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: isInstance(of: EnhancedAccessibilityLabelMethodSwizzlerImpl.self),
             objcMethodsWithUniqueImplementationProvider: isInstance(of: ObjcRuntimeObjcMethodsWithUniqueImplementationProvider.self),
-            baseClass: equal(to: NSObject.self, equalWhen: ===),
-            selector: equal(to: #selector(NSObject.accessibilityLabel)),
+            baseClass: equal(to: baseClass, equalWhen: ===),
+            selector: equal(to: selector),
             methodType: equal(to: methodType)
+        )
+        
+        // Verify that only 1 swizzler is created:
+        
+        verify(factory, times(1)).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+            enhancedAccessibilityLabelMethodSwizzler: any(),
+            objcMethodsWithUniqueImplementationProvider: any(),
+            baseClass: any(),
+            selector: any(),
+            methodType: any()
         )
     }
     
@@ -81,6 +94,16 @@ final class PredefinedObjcMethodsTests: TestCase {
         checkObjcMethodsMethodsWithUniqueImplementationArePredefined(
             baseClass: baseClass,
             selector: selector
+        )
+        
+        // Verify that only 1 swizzler is created:
+        
+        verify(factory, times(1)).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+            enhancedAccessibilityLabelMethodSwizzler: any(),
+            objcMethodsWithUniqueImplementationProvider: any(),
+            baseClass: any(),
+            selector: any(),
+            methodType: any()
         )
     }
     
@@ -184,5 +207,24 @@ final class PredefinedObjcMethodsTests: TestCase {
         
         return String(joined)
             .mb_wrapAndIndent(prefix: "[", postfix: "]", indentation: "    ", ifEmpty: "[]")
+    }
+    
+    private func method(
+        className: String,
+        selector: Selector)
+        -> ObjcMethodWithUniqueImplementation?
+    {
+        guard let `class` = NSClassFromString(className) else {
+            return nil
+        }
+        guard let method = class_getInstanceMethod(`class`, selector) else {
+            return nil
+        }
+        
+        return ObjcMethodWithUniqueImplementation(class: `class`, method: method)
+    }
+    
+    private func methods(_ methods: ObjcMethodWithUniqueImplementation?...) -> Set<ObjcMethodWithUniqueImplementation> {
+        return Set(methods.compactMap { $0 })
     }
 }

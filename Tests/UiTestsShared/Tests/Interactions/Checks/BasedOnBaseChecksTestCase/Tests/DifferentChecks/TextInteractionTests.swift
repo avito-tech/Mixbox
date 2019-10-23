@@ -2,12 +2,12 @@ import MixboxUiTestsFoundation
 import XCTest
 
 final class TextInteractionTests: BaseChecksTestCase {
-    func test_assert_passes_immediately_ifUiAppearsImmediately() {
-        checkAssert_passes_immediately_ifUiAppearsImmediately(passingAssertSpecification())
+    func test___text___passes_immediately___if_ui_appears_immediately() {
+        check___assert_passes_immediately___if_ui_appears_immediately(passingAssertSpecification())
     }
     
-    func test_assert_fails_immediately_ifUiDoesntAppearImmediately() {
-        checkAssert_fails_immediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___text___fails_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_fails_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
     private func passingAssertSpecification() -> AssertSpecification<LabelElement> {
@@ -18,7 +18,7 @@ final class TextInteractionTests: BaseChecksTestCase {
     }
     
     // TODO: Fix description of check. Failure message is far from perfect.
-    func test_text_failsProperlyIfTextMismatches() {
+    func test___text___fails_properly_if_text_mismatches() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
                 "получить значение "text" видимого элемента "isNotDisplayed0"" неуспешно, так как: элемент не найден в иерархии

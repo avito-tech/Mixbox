@@ -4,11 +4,12 @@ import MixboxFoundation
 import MixboxIpcCommon
 
 public final class EnhancedAccessibilityLabelMethodSwizzlerImpl: EnhancedAccessibilityLabelMethodSwizzler {
-    public init() {
+    private let accessibilityLabelFunctionReplacement: AccessibilityLabelFunctionReplacement
+    
+    public init(accessibilityLabelFunctionReplacement: AccessibilityLabelFunctionReplacement) {
+        self.accessibilityLabelFunctionReplacement = accessibilityLabelFunctionReplacement
     }
     
-    // TODO: Rewrite using AssertinSwizzler? It will require to switch input arguments from
-    // Method to AnyClass and Selector and may work slower.
     public func swizzleAccessibilityLabelMethod(method: Method) {
         return replaceAccessibilityValueMethod(method: method)
     }
@@ -26,8 +27,8 @@ public final class EnhancedAccessibilityLabelMethodSwizzlerImpl: EnhancedAccessi
         )
         
         // New implementation
-        let newImplementationBlock: @convention(block) (NSObject?) -> NSString? = { this in
-            self.enchancedAccessibilityLabel(this: this) {
+        let newImplementationBlock: @convention(block) (NSObject?) -> NSString? = { [accessibilityLabelFunctionReplacement] this in
+            accessibilityLabelFunctionReplacement.accessibilityLabel(this: this) {
                 originalImplementationFunction(this, selector)
             }
         }
@@ -37,51 +38,6 @@ public final class EnhancedAccessibilityLabelMethodSwizzlerImpl: EnhancedAccessi
         
         // Apply
         method_setImplementation(method, newImplementation)
-    }
-    
-    @objc fileprivate func enchancedAccessibilityLabel(
-        this: NSObject?,
-        originalImplementation: () -> NSString?)
-        -> NSString?
-    {
-        let unwrappedOriginalAccessibilityLabel = unwrapAccessibilityLabel(
-            originalAccessibilityLabel: originalImplementation()
-        )
-        
-        guard let view = this as? UIView else {
-            return unwrappedOriginalAccessibilityLabel
-        }
-        
-        let label = EnhancedAccessibilityLabel(
-            originalAccessibilityLabel: unwrappedOriginalAccessibilityLabel as String?,
-            accessibilityValue: view.accessibilityValue,
-            uniqueIdentifier: view.uniqueIdentifier,
-            isDefinitelyHidden: view.isDefinitelyHidden,
-            text: view.testabilityValue_text(),
-            customValues: view.testability_customValues.dictionary
-        )
-        
-        AccessibilityUniqueObjectMap.shared.register(object: view)
-        
-        return (label.toAccessibilityLabel() as NSString?) ?? unwrappedOriginalAccessibilityLabel
-    }
-    
-    // TODO: Eliminate the need of unwrapping the value. It is necessary for iOS 9/10.
-    private func unwrapAccessibilityLabel(
-        originalAccessibilityLabel: NSString?)
-        -> NSString?
-    {
-        var originalAccessibilityLabel = originalAccessibilityLabel
-        
-        if originalAccessibilityLabel == nil {
-            return nil
-        }
-        
-        while let label = EnhancedAccessibilityLabel.fromAccessibilityLabel(originalAccessibilityLabel as String?) {
-            originalAccessibilityLabel = label.originalAccessibilityLabel as NSString?
-        }
-        
-        return originalAccessibilityLabel
     }
 }
 

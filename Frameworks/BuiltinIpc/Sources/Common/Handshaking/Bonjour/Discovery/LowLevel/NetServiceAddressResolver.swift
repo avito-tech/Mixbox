@@ -25,16 +25,16 @@ public final class NetServiceAddressResolver: NSObject, NetServiceDelegate {
     // MARK: - NetServiceDelegate
     
     public func netServiceWillResolve(_ sender: NetService) {
-        print("Sheeeeat")
+        print("Error")
     }
     
     public func netServiceDidResolveAddress(_ netService: NetService) {
-        print("Sheeeeat")
+        print("Error")
         completion?(netService)
     }
     
     public func netService(_ netService: NetService, didNotResolve errorDict: [String : NSNumber]) {
-        print("Sheeeeat")
+        print("Error")
         completion?(netService)
     }
 }

@@ -23,6 +23,18 @@ public final class ChecksTestsScreen: BasePageObjectWithDefaultInitializer, Open
         return label("hasValue0")
     }
     
+    public var hasLabel0: LabelElement {
+        return label("hasLabel0")
+    }
+    
+    public var hasLabel1: LabelElement {
+        return label("hasLabel1")
+    }
+    
+    public var hasLabel2: LabelElement {
+        return label("hasLabel2")
+    }
+    
     public var isNotDisplayed1: LabelElement {
         return label("isNotDisplayed1")
     }

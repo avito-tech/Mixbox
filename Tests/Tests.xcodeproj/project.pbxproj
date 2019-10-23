@@ -400,6 +400,8 @@
 		F8C8ED5122999A170009B9A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */; };
 		F8D53B22235F62E5004E4577 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B21235F62E5004E4577 /* TestCase.swift */; };
+		F8D53B24235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B23235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift */; };
+		F8D53B25235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B23235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift */; };
 		F8D854E0235A42420068047A /* LocatorsTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */; };
 		F8D854E1235A42420068047A /* LocatorsTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */; };
 		F8D854E9235A512C0068047A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D854E8235A512C0068047A /* AppDelegate.swift */; };
@@ -780,6 +782,7 @@
 		F8C8ED4A22985E200009B9A7 /* BaseTestCaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCaseUtils.swift; sourceTree = "<group>"; };
 		F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		F8D53B21235F62E5004E4577 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
+		F8D53B23235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertHasAccessibilityLabelInteractionTests.swift; sourceTree = "<group>"; };
 		F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8D854E6235A512C0068047A /* AppForCheckingPureXctest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppForCheckingPureXctest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D854E8235A512C0068047A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -2044,6 +2047,7 @@
 				F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */,
 				F8A837C12270ED8E00145140 /* GrayScreenshotTakerTests.swift */,
 				F8A837EE22711E1800145140 /* IpcTests.swift */,
+				F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2085,6 +2089,7 @@
 		F8B33B08224ACEB600AA1EB9 /* DifferentChecks */ = {
 			isa = PBXGroup;
 			children = (
+				F8D53B23235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift */,
 				F8B33B09224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift */,
 				F8B33B0B224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift */,
 				F8B33B0D224ACF1600AA1EB9 /* AssertHasAccessibilityValueInteractionTests.swift */,
@@ -2376,7 +2381,6 @@
 		F8D85529235DF59A0068047A /* MixboxInAppServices */ = {
 			isa = PBXGroup;
 			children = (
-				F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */,
 				F8D8556C235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift */,
 			);
 			path = MixboxInAppServices;
@@ -3472,6 +3476,7 @@
 				F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */,
 				F868744223204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */,
 				F8B9649922808AE90054CE08 /* AlwaysFailingIpcClient.swift in Sources */,
+				F8D53B24235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */,
 				F8B33B10224ACF2500AA1EB9 /* AssertIsNotDisplayedInteractionTests.swift in Sources */,
 				F82030672238548E006D2F70 /* BaseActionTestCase.swift in Sources */,
 				F813CB32209CDF3400E6A27C /* ScrollingTests.swift in Sources */,
@@ -3796,6 +3801,7 @@
 				F8B0A246220A0E040089C1EE /* TestCaseUtils.swift in Sources */,
 				F8C8ED222298505D0009B9A7 /* BasePermissionTestCase.swift in Sources */,
 				F8C8ED3722985B060009B9A7 /* TemporaryDirectory.swift in Sources */,
+				F8D53B25235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */,
 				F8A837EF22711E1800145140 /* IpcTests.swift in Sources */,
 				F8DB35A022738C9B00EE0FB8 /* BaseActionTestCase+Checks.swift in Sources */,
 				F8C8ED3A22985B060009B9A7 /* CreatedTemporaryFile.swift in Sources */,

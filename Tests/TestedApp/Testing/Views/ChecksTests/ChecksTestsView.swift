@@ -86,6 +86,18 @@ final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewCo
             $0.accessibilityValue = "Accessibility Value"
         }
         
+        addLabel(id: "hasLabel0") {
+            $0.accessibilityLabel = "Accessibility Label"
+        }
+        
+        addLabel(id: "hasLabel1") {
+            $0.text = "Text That Is Expected In Accessibility Label"
+        }
+        
+        addButton(id: "hasLabel2") {
+            $0.accessibilityLabel = "Accessibility Label"
+        }
+        
         addLabel(id: "isNotDisplayed0") {
             $0.isHidden = true
         }

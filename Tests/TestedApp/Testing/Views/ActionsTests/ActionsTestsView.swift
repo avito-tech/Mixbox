@@ -63,8 +63,6 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
                 return
             }
             
-            print("WTF-reset")
-            
             DispatchQueue.main.async {
                 strongSelf.info = .uiWasNotTriggered
                 completion(nil)

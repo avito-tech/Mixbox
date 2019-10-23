@@ -1,16 +1,16 @@
 import MixboxUiTestsFoundation
 
 final class AssertTextMatchesInteractionTests: BaseChecksTestCase {
-    func test_assert_passes_immediately_ifUiAppearsImmediately() {
-        checkAssert_passes_immediately_ifUiAppearsImmediately(passingAssertSpecification())
+    func test___assertTextMatches___passes_immediately___if_ui_appears_immediately() {
+        check___assert_passes_immediately___if_ui_appears_immediately(passingAssertSpecification())
     }
     
-    func test_assert_fails_immediately_ifUiDoesntAppearImmediately() {
-        checkAssert_fails_immediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertTextMatches___fails_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_fails_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
-    func test_assert_passes_notImmediately_ifUiDoesntAppearImmediately() {
-        checkAssert_passes_notImmediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertTextMatches___passes_not_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_passes_not_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
     private func passingAssertSpecification() -> AssertSpecification<LabelElement> {
@@ -21,7 +21,7 @@ final class AssertTextMatchesInteractionTests: BaseChecksTestCase {
     }
     
     // TODO: Fix description of check. Failure message is far from perfect.
-    func test_assertTextMatches_failsProperlyIfTextMismatches() {
+    func test___assertTextMatches___fails_properly_if_text_mismatches() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
                 "проверить, что в "checkText1" текст соответствует регулярке "^not passing regexp$"" неуспешно, так как: проверка неуспешна (Имеет проперти text: текст соответствует регулярке "^not passing regexp$"): текст не прошел проверку регуляркой '^not passing regexp$', актуальный текст: 'Частичное соответствие'

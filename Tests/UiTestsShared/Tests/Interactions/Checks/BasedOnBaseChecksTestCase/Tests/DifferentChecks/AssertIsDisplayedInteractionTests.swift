@@ -1,16 +1,16 @@
 import MixboxUiTestsFoundation
 
 final class AssertIsDisplayedInteractionTests: BaseChecksTestCase {
-    func test_assert_passes_immediately_ifUiAppearsImmediately() {
-        checkAssert_passes_immediately_ifUiAppearsImmediately(passingAssertSpecification())
+    func test___assertIsDisplayed___passes_immediately___if_ui_appears_immediately() {
+        check___assert_passes_immediately___if_ui_appears_immediately(passingAssertSpecification())
     }
     
-    func test_assert_fails_immediately_ifUiDoesntAppearImmediately() {
-        checkAssert_fails_immediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertIsDisplayed___fails_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_fails_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
-    func test_assert_passes_notImmediately_ifUiDoesntAppearImmediately() {
-        checkAssert_passes_notImmediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertIsDisplayed___passes_not_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_passes_not_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
     private func passingAssertSpecification() -> AssertSpecification<LabelElement> {
@@ -20,7 +20,7 @@ final class AssertIsDisplayedInteractionTests: BaseChecksTestCase {
         )
     }
     
-    func test_assert_failsProperlyIfElementIsNotDisplayed() {
+    func test___assertIsDisplayed___failsProperlyIfElementIsNotDisplayed() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
                 "проверить, что отображается "isNotDisplayed0"" неуспешно, так как: элемент не найден в иерархии

@@ -36,7 +36,7 @@ class BaseChecksTestCase: TestCase {
     
     // MARK: - Common checks
     
-    func checkAssert_passes_immediately_ifUiAppearsImmediately<T: Element>(_ assertSpec: AssertSpecification<T>) {
+    func check___assert_passes_immediately___if_ui_appears_immediately<T: Element>(_ assertSpec: AssertSpecification<T>) {
         checkAssert(
             passes: true,
             immediately: true,
@@ -45,7 +45,7 @@ class BaseChecksTestCase: TestCase {
         )
     }
     
-    func checkAssert_fails_immediately_ifUiDoesntAppearImmediately<T: Element>(_ assertSpec: AssertSpecification<T>) {
+    func check___assert_fails_immediately___if_ui_doesnt_appear_immediately<T: Element>(_ assertSpec: AssertSpecification<T>) {
         checkAssert(
             passes: false,
             immediately: true,
@@ -54,7 +54,7 @@ class BaseChecksTestCase: TestCase {
         )
     }
     
-    func checkAssert_passes_notImmediately_ifUiDoesntAppearImmediately<T: Element>(_ assertSpec: AssertSpecification<T>) {
+    func check___assert_passes_not_immediately___if_ui_doesnt_appear_immediately<T: Element>(_ assertSpec: AssertSpecification<T>) {
         checkAssert(
             passes: true,
             immediately: false,

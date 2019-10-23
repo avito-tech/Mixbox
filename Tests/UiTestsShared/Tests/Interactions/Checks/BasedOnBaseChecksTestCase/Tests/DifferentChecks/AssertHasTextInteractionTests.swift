@@ -1,16 +1,16 @@
 import MixboxUiTestsFoundation
 
 final class AssertHasTextInteractionTests: BaseChecksTestCase {
-    func test_assert_passes_immediately_ifUiAppearsImmediately() {
-        checkAssert_passes_immediately_ifUiAppearsImmediately(passingAssertSpecification())
+    func test___assertHasText___passes_immediately___if_ui_appears_immediately() {
+        check___assert_passes_immediately___if_ui_appears_immediately(passingAssertSpecification())
     }
     
-    func test_assert_fails_immediately_ifUiDoesntAppearImmediately() {
-        checkAssert_fails_immediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertHasText___fails_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_fails_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
-    func test_assert_passes_notImmediately_ifUiDoesntAppearImmediately() {
-        checkAssert_passes_notImmediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertHasText___passes_not_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_passes_not_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
     private func passingAssertSpecification() -> AssertSpecification<LabelElement> {
@@ -21,7 +21,7 @@ final class AssertHasTextInteractionTests: BaseChecksTestCase {
     }
     
     // TODO: Fix description of check. Failure message is far from perfect.
-    func test_assert_failsProperly() {
+    func test___assertHasText___failsProperly() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
                 "проверить, что в "checkText0" текст равен "Полное [check shall not pass] соответствие"" неуспешно, так как: проверка неуспешна (Имеет проперти text: равно Полное [check shall not pass] соответствие): не равно 'Полное [check shall not pass] соответствие', актуальное значение: 'Полное соответствие')

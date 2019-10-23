@@ -1,16 +1,16 @@
 import MixboxUiTestsFoundation
 
 final class AssertIsEnabledInteractionTests: BaseChecksTestCase {
-    func test_assert_passes_immediately_ifUiAppearsImmediately() {
-        checkAssert_passes_immediately_ifUiAppearsImmediately(passingAssertSpecification())
+    func test___assertIsEnabled___passes_immediately___if_ui_appears_immediately() {
+        check___assert_passes_immediately___if_ui_appears_immediately(passingAssertSpecification())
     }
     
-    func test_assert_fails_immediately_ifUiDoesntAppearImmediately() {
-        checkAssert_fails_immediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertIsEnabled___fails_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_fails_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
-    func test_assert_passes_notImmediately_ifUiDoesntAppearImmediately() {
-        checkAssert_passes_notImmediately_ifUiDoesntAppearImmediately(passingAssertSpecification())
+    func test___assertIsEnabled___passes_not_immediately___if_ui_doesnt_appear_immediately() {
+        check___assert_passes_not_immediately___if_ui_doesnt_appear_immediately(passingAssertSpecification())
     }
     
     private func passingAssertSpecification() -> AssertSpecification<ButtonElement> {
@@ -21,7 +21,7 @@ final class AssertIsEnabledInteractionTests: BaseChecksTestCase {
     }
     
     // TODO: Fix description of check. Failure message is far from perfect.
-    func test_assertIsEnabled_failsProperlyIfElementIsDisabled() {
+    func test___assertIsEnabled___failsProperlyIfElementIsDisabled() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
                 "проверить, что "isDisabled0" доступно для нажатия" неуспешно, так как: проверка неуспешна (Имеет проперти isEnabled: равно true): не равно 'true', актуальное значение: 'false')

@@ -2,46 +2,87 @@ import XCTest
 import MixboxFoundation
 
 class ObjectiveCExceptionCatcherTests: XCTestCase {
-    func test_catchingException() {
-        let raisedException = NSException(name: NSExceptionName(rawValue: "1"), reason: "2", userInfo: ["3": "4"])
-        var catchedException: NSException?
-        var finallyIsCalled = false
+    let exceptionToRaise = NSException(name: NSExceptionName(rawValue: "1"), reason: "2", userInfo: ["3": "4"])
+    
+    func test___catch___catches_exception___if_exception_is_raised() {
+        var caughtException: NSException?
         
         ObjectiveCExceptionCatcher.catch(
             try: {
-                raisedException.raise()
+                exceptionToRaise.raise()
             },
             catch: { exception in
-                catchedException = exception
-            },
-            finally: {
-                finallyIsCalled = true
+                caughtException = exception
             }
         )
         
-        XCTAssertTrue(finallyIsCalled)
-        XCTAssertEqual(catchedException?.name, raisedException.name)
-        XCTAssertEqual(catchedException?.reason, raisedException.reason)
-        XCTAssertEqual(catchedException?.userInfo as? [String: String], raisedException.userInfo as? [String: String])
+        XCTAssertEqual(caughtException?.name, exceptionToRaise.name)
+        XCTAssertEqual(caughtException?.reason, exceptionToRaise.reason)
+        XCTAssertEqual(caughtException?.userInfo as? [String: String], exceptionToRaise.userInfo as? [String: String])
     }
     
-    func test_noException() {
-        var catchedException: NSException?
-        var finallyIsCalled = false
+    func test___catch___calls_finally___if_exception_is_raised() {
+        var finallyWasCalled = false
+        
+        ObjectiveCExceptionCatcher.catch(
+            try: {
+                exceptionToRaise.raise()
+            },
+            catch: { _ in },
+            finally: {
+                finallyWasCalled = true
+            }
+        )
+        
+        XCTAssert(finallyWasCalled)
+    }
+    
+    func test___catch___doesnt_catch_exception___if_there_is_no_exception() {
+        var caughtException: NSException?
         
         ObjectiveCExceptionCatcher.catch(
             try: {
                // nothing
             },
             catch: { exception in
-                catchedException = exception
-            },
-            finally: {
-                finallyIsCalled = true
+                caughtException = exception
             }
         )
         
-        XCTAssertTrue(finallyIsCalled)
-        XCTAssertNil(catchedException)
+        XCTAssertNil(caughtException)
+    }
+    
+    func test___catch___calls_finally___if_there_is_no_exception() {
+        var finallyWasCalled = false
+        
+        ObjectiveCExceptionCatcher.catch(
+            try: {
+                // nothing
+            },
+            catch: { _ in },
+            finally: {
+                finallyWasCalled = true
+            }
+        )
+        
+        XCTAssert(finallyWasCalled)
+    }
+    
+    func test___catch___calls_finally___exception_is_rethrown() {
+        var finallyWasCalled = false
+        
+        ObjectiveCExceptionCatcher.catch(
+            try: {
+                // nothing
+            },
+            catch: { exception in
+                exception.raise()
+            },
+            finally: {
+                finallyWasCalled = true
+            }
+        )
+        
+        XCTAssert(finallyWasCalled)
     }
 }
