@@ -21,8 +21,6 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     
     func launch(environment: [String: String], useBuiltinIpc: Bool = false) {
         let commonEnvironment = [
-            // Just an assertion
-            "MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL": "true",
             // Fixes assertion failure when view is loaded multiple times and uses ViewIpc
             "MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY": "true",
             // TODO: What is it for? Is it just a default screen?

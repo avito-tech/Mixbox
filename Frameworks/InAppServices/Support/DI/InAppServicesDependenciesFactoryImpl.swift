@@ -74,8 +74,6 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         self.ipcStarter = ipcStarter
         
         let shouldEnhanceAccessibilityValue = ipcStarterType != IpcStarterType.graybox // TODO: Wrong place for this logic
-        let shouldAddAssertionForCallingIsHiddenOnFakeCell
-            = environment["MIXBOX_SHOULD_ADD_ASSERTION_FOR_CALLING_IS_HIDDEN_ON_FAKE_CELL"] == "true"
         
         let shouldEnableFakeCells = (environment["MIXBOX_SHOULD_ENABLE_FAKE_CELLS"] ?? "true") == "true"
         
@@ -85,8 +83,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         )
         
         collectionViewCellSwizzler = CollectionViewCellSwizzlerImpl(
-            assertingSwizzler: assertingSwizzler,
-            shouldAddAssertionForCallingIsHiddenOnFakeCell: shouldAddAssertionForCallingIsHiddenOnFakeCell
+            assertingSwizzler: assertingSwizzler
         )
         
         collectionViewSwizzler = CollectionViewSwizzlerImpl(

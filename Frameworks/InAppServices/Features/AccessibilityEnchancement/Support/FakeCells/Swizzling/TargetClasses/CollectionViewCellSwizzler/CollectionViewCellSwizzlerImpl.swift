@@ -5,17 +5,12 @@ import MixboxFoundation
 
 public final class CollectionViewCellSwizzlerImpl: CollectionViewCellSwizzler {
     private let assertingSwizzler: AssertingSwizzler
-    private let shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool
     private let onceToken = ThreadUnsafeOnceToken<Void>()
     
     public init(
-        assertingSwizzler: AssertingSwizzler,
-        // The assert is important, but it adds some side-effects that may break some tests,
-        // in that case you can disable it and use it only in tests on this feature
-        shouldAddAssertionForCallingIsHiddenOnFakeCell: Bool)
+        assertingSwizzler: AssertingSwizzler)
     {
         self.assertingSwizzler = assertingSwizzler
-        self.shouldAddAssertionForCallingIsHiddenOnFakeCell = shouldAddAssertionForCallingIsHiddenOnFakeCell
     }
     
     public func swizzle() {
@@ -39,9 +34,7 @@ public final class CollectionViewCellSwizzlerImpl: CollectionViewCellSwizzler {
         
         swizzle(
             originalSelector: #selector(getter: UIView.isHidden),
-            swizzledSelector: shouldAddAssertionForCallingIsHiddenOnFakeCell
-                ? #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden_withAssertion)
-                : #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden),
+            swizzledSelector: #selector(UICollectionViewCell.swizzled_CollectionViewCellSwizzler_isHidden),
             shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
     }
@@ -91,23 +84,14 @@ extension UIView {
         }
     }
     
-    @objc fileprivate func swizzled_CollectionViewCellSwizzler_isHidden_withAssertion() -> Bool {
-        return isHidden(
-            originalImplementation: swizzled_CollectionViewCellSwizzler_isHidden_withAssertion,
-            withAssertion: true
-        )
-    }
-    
     @objc fileprivate func swizzled_CollectionViewCellSwizzler_isHidden() -> Bool {
         return isHidden(
-            originalImplementation: swizzled_CollectionViewCellSwizzler_isHidden,
-            withAssertion: false
+            originalImplementation: swizzled_CollectionViewCellSwizzler_isHidden
         )
     }
     
     @nonobjc private func isHidden(
-        originalImplementation: () -> Bool,
-        withAssertion: Bool)
+        originalImplementation: () -> Bool)
         -> Bool
     {
         guard let collectionViewCell = self as? UICollectionViewCell else {
@@ -115,10 +99,6 @@ extension UIView {
         }
         
         if collectionViewCell.mb_isFakeCell() {
-            if withAssertion {
-                assertionFailure("isHidden should never be called for a fake cell")
-            }
-            
             // We are relatively safe to alter isHidden if the cell is not in hierarchy,
             // E.g. isHidden can be used on fake cells when they are being set up.
             if collectionViewCell.superview == nil {
