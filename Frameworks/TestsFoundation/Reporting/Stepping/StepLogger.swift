@@ -1,4 +1,4 @@
-import MixboxArtifacts
+import MixboxTestsFoundation
 import MixboxFoundation
 
 // How to add logging to your existing code:
@@ -34,13 +34,13 @@ extension StepLogger {
         date: Date,
         title: String,
         customData: AnyEquatable = .void,
-        artifacts: [Artifact] = [])
+        attachments: [Attachment] = [])
     {
         let stepLogBefore = StepLogBefore(
             date: date,
             title: title,
             customData: customData,
-            artifacts: artifacts
+            attachments: attachments
         )
         
         _ = logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<()> in
@@ -49,7 +49,7 @@ extension StepLogger {
                     date: date,
                     wasSuccessful: true,
                     customData: .void,
-                    artifacts: []
+                    attachments: []
                 ),
                 wrappedResult: ()
             )

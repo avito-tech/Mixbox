@@ -1,8 +1,7 @@
 import MixboxFoundation
-import MixboxReporting
+import MixboxTestsFoundation
 import MixboxIpc
 import MixboxIpcCommon
-import MixboxTestsFoundation
 
 public final class UiKitHierarchyElementFinder: ElementFinder {
     private let ipcClient: IpcClient

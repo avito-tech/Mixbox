@@ -1,4 +1,3 @@
-import MixboxArtifacts
 import MixboxTestsFoundation
 import MixboxFoundation
 
@@ -33,17 +32,17 @@ public final class InteractionResultMakerImpl: InteractionResultMaker {
         return .failure(failure)
     }
     
-    private func attachments(message: String) -> [Artifact] {
-        var artifacts = [Artifact]()
+    private func attachments(message: String) -> [Attachment] {
+        var attachments = [Attachment]()
         
-        artifacts.append(contentsOf: hierarchyArtifacts())
-        artifacts.append(contentsOf: stackTraceArtifacts())
-        artifacts.append(contentsOf: errorMessageArtifacts(message: message))
+        attachments.append(contentsOf: hierarchyAttachments())
+        attachments.append(contentsOf: stackTraceAttachments())
+        attachments.append(contentsOf: errorMessageAttachments(message: message))
         
-        return artifacts
+        return attachments
     }
     
-    private func stackTraceArtifacts() -> [Artifact] {
+    private func stackTraceAttachments() -> [Attachment] {
         // TODO: Share code! Exctract to class.
         // Should look like: "2   xctest                              0x000000010e7a0069 main + 0"
         
@@ -60,29 +59,29 @@ public final class InteractionResultMakerImpl: InteractionResultMaker {
             .joined(separator: "\n")
         
         return [
-            Artifact(
+            Attachment(
                 name: "Stack trace",
                 content: .text(string)
             )
         ]
     }
     
-    private func hierarchyArtifacts() -> [Artifact] {
+    private func hierarchyAttachments() -> [Attachment] {
         guard let string = elementHierarchyDescriptionProvider.elementHierarchyDescription() else {
             return []
         }
         
         return [
-            Artifact(
+            Attachment(
                 name: "Element hierarchy",
                 content: .text(string)
             )
         ]
     }
     
-    private func errorMessageArtifacts(message: String) -> [Artifact] {
+    private func errorMessageAttachments(message: String) -> [Attachment] {
         return [
-            Artifact(
+            Attachment(
                 name: "Error description",
                 content: .text("\(fileLine.file):\(fileLine.line): \(message))")
             )

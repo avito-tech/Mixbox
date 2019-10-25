@@ -1,4 +1,4 @@
-import MixboxArtifacts
+import MixboxTestsFoundation
 
 public protocol InteractionResultMaker: class {
     func decorateFailure(
@@ -9,7 +9,7 @@ public protocol InteractionResultMaker: class {
 extension InteractionResultMaker {
     public func failure(
         message: String,
-        attachments: [Artifact] = [])
+        attachments: [Attachment] = [])
         -> InteractionResult
     {
         return decorateFailure(

@@ -1,9 +1,9 @@
-import MixboxArtifacts
+import MixboxTestsFoundation
 
 public final class TestReportAttachment {
-    public let artifact: Artifact
+    public let attachment: Attachment
     
-    public init(artifact: Artifact) {
-        self.artifact = artifact
+    public init(attachment: Attachment) {
+        self.attachment = attachment
     }
 }

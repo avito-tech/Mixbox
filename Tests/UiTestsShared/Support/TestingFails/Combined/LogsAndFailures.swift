@@ -1,4 +1,4 @@
-import MixboxReporting
+import MixboxTestsFoundation
 
 struct LogsAndFailuresWithBodyResult<T> {
     let bodyResult: GatherFailuresResult<T>.BodyResult

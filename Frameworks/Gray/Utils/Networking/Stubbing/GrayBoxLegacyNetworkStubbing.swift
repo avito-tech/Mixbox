@@ -1,6 +1,5 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxReporting
 
 public final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
     private let testFailureRecorder: TestFailureRecorder

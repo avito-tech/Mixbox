@@ -1,6 +1,6 @@
 import SBTUITestTunnel
 import MixboxUiTestsFoundation
-import MixboxReporting
+import MixboxTestsFoundation
 
 // TODO: Proper abstraction from SBTMonitoredNetworkRequest
 public final class SbtuiNetworkRecordsProvider:

@@ -1,8 +1,5 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxArtifacts
-import MixboxReporting
-import MixboxAllure
 
 // Singletons are necessary, because we have 2 entry points:
 // - PrincipalClass (entry and exit of test bundle)

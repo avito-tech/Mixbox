@@ -1,7 +1,6 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
-import MixboxReporting
 import MixboxFoundation
 
 public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFactory {

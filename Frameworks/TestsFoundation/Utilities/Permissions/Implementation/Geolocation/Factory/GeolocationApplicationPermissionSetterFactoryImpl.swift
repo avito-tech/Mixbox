@@ -1,5 +1,5 @@
 import MixboxUiKit
-import MixboxReporting
+import MixboxTestsFoundation
 
 public final class GeolocationApplicationPermissionSetterFactoryImpl: GeolocationApplicationPermissionSetterFactory {
     private let testFailureRecorder: TestFailureRecorder

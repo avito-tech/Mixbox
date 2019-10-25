@@ -1,6 +1,5 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxReporting
 import MixboxFoundation
 
 protocol XcuiBasedTestsDependenciesFactory: class {

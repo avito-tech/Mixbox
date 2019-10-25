@@ -1,6 +1,5 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
-import MixboxReporting
 import MixboxFoundation
 
 public final class XcuiElementInteractionDependenciesFactory: ElementInteractionDependenciesFactory {

@@ -1,14 +1,14 @@
-import MixboxArtifacts
+import MixboxTestsFoundation
 
 // Complete failure description for UI interaction
 public final class InteractionFailure {
     public let message: String
-    public let attachments: [Artifact]
+    public let attachments: [Attachment]
     public let nestedFailures: [InteractionFailure]
 
     public init(
         message: String,
-        attachments: [Artifact],
+        attachments: [Attachment],
         nestedFailures: [InteractionFailure])
     {
         self.message = message

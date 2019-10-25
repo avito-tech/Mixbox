@@ -1,4 +1,4 @@
-import MixboxReporting
+import MixboxTestsFoundation
 import MixboxFoundation
 
 public final class TccDbApplicationPermissionSetter: ApplicationPermissionSetter {

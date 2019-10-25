@@ -1,6 +1,6 @@
 import MixboxUiTestsFoundation
 import XCTest
-import MixboxReporting
+import MixboxTestsFoundation
 
 final class IgnoringDefinitelyHiddenElementsTests: BaseChecksTestCase {
     func test_assertIsDisplayed_doesntFailWithMultipleMatchesError_ifOneOfDuplicatedViewsIsDefinitelyHidden() {

@@ -1,5 +1,5 @@
 import MixboxFoundation
-import MixboxReporting
+import MixboxTestsFoundation
 
 public final class Ios12GeolocationApplicationPermissionSetter: ApplicationPermissionSetter {
     private let bundleId: String

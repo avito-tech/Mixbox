@@ -1,5 +1,4 @@
 import MixboxTestsFoundation
-import MixboxReporting
 
 public final class FakeSettingsAppNotificationsApplicationPermissionSetterFactory:
     NotificationsApplicationPermissionSetterFactory

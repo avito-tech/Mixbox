@@ -1,7 +1,5 @@
 import Foundation
 import MixboxTestsFoundation
-import MixboxAllure
-import MixboxArtifacts
 
 @objc(PrincipalClass)
 final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
@@ -11,29 +9,18 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
     }
     
     private func exportAvailableTestCasesIfNeeded() {
-        // TODO: Get rid of usage of ProcessInfo singleton here
-        let exportPath: String? = ProcessInfo.processInfo.environment["EMCEE_RUNTIME_TESTS_EXPORT_PATH"]
-        
-        if let exportPath = exportPath, !exportPath.isEmpty {
+        if let exportPath = env("EMCEE_RUNTIME_TESTS_EXPORT_PATH") {
             TestQuery(outputPath: exportPath).export()
         }
     }
     
     private func setUpObservation() {
-        guard let artifactStorage = self.artifactStorage() else {
-            return
-        }
-        
         let testFailureRecorder = XcTestFailureRecorder(
             currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
         )
         
         let reportingTestLifecycleManager = ReportingTestLifecycleManager(
-            reportingSystem: AllureReportingSystem(
-                allureResultsStorage: AllureResultsStorageImpl(
-                    artifactStorage: artifactStorage
-                )
-            ),
+            reportingSystem: DevNullReportingSystem(),
             stepLogsProvider: Singletons.stepLogsProvider,
             stepLogsCleaner: Singletons.stepLogsCleaner,
             testFailureRecorder: testFailureRecorder
@@ -44,22 +31,6 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
                 reportingTestLifecycleManager
             ]
         )
-    }
-    
-    private func artifactStorage() -> ArtifactStorage? {
-        if let storage = localArtifactStorage() {
-            return storage
-        }
-        
-        return nil
-    }
-    
-    private func localArtifactStorage() -> ArtifactStorage? {
-        guard let directory = env("MIXBOX_CI_ALLURE_REPORTS_DIRECTORY") else {
-            return nil
-        }
-        
-        return LocalArtifactStorage(artifactsRootDirectory: directory)
     }
     
     private func env(_ envName: String) -> String? {

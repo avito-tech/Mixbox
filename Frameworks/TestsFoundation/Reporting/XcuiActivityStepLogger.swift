@@ -1,6 +1,5 @@
 import XCTest
-import MixboxArtifacts
-import MixboxReporting
+import MixboxTestsFoundation
 
 // Adds Xcode reports to StepLogger (View -> Navigators -> Show Report Navigator).
 // They help to debug tests.
@@ -18,37 +17,37 @@ public final class XcuiActivityStepLogger: StepLogger {
     {
         return originalStepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<T> in
             XCTContext.runActivity(named: stepLogBefore.title) { (activity: XCTActivity) -> StepLoggerResultWrapper<T> in
-                stepLogBefore.artifacts.forEach { addAttachment(artifact: $0, activity: activity) }
+                stepLogBefore.attachments.forEach { addAttachment(attachment: $0, activity: activity) }
                 
                 let result = body()
                 
-                result.stepLogAfter.artifacts.forEach { addAttachment(artifact: $0, activity: activity) }
+                result.stepLogAfter.attachments.forEach { addAttachment(attachment: $0, activity: activity) }
                 
                 return result
             }
         }
     }
     
-    private func addAttachment(artifact: Artifact, activity: XCTActivity) {
-        switch artifact.content {
+    private func addAttachment(attachment: Attachment, activity: XCTActivity) {
+        switch attachment.content {
         case .screenshot(let screenshot):
             activity.add(
                 attachment: XCTAttachment(image: screenshot),
-                name: artifact.name
+                name: attachment.name
             )
         case .text(let string):
             activity.add(
                 attachment: XCTAttachment(string: string),
-                name: artifact.name
+                name: attachment.name
             )
         case .json(let string):
             activity.add(
                 attachment: XCTAttachment(string: string),
-                name: artifact.name
+                name: attachment.name
             )
-        case .artifacts(let artifacts):
-            for artifact in artifacts {
-                addAttachment(artifact: artifact, activity: activity)
+        case .attachments(let attachments):
+            for attachment in attachments {
+                addAttachment(attachment: attachment, activity: activity)
             }
         }
     }

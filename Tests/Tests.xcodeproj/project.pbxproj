@@ -142,7 +142,6 @@
 		F868744223204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */; };
 		F868744323204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */; };
 		F86E60FF229C2D7E00C227CE /* ApplicationNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */; };
-		F870C66B21FF43FB006F643B /* AllureReportingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */; };
 		F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */; };
 		F879831A22492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */; };
 		F879831F22492D44004DD770 /* RecordableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */; };
@@ -311,7 +310,6 @@
 		F8B0A25C220A0EF30089C1EE /* ReportingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010D221FF319C0026360D /* ReportingSystem.swift */; };
 		F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010D421FF319C0026360D /* ReportingSystems.swift */; };
 		F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010CF21FF30450026360D /* ReportingTestLifecycleManager.swift */; };
-		F8B0A25F220A0EF30089C1EE /* AllureReportingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */; };
 		F8B0A260220A0EF40089C1EE /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* BasePageObjects.swift */; };
 		F8B0A262220A0EF40089C1EE /* BasePageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23B220A0E040089C1EE /* BasePageObject.swift */; };
 		F8B0A271220A12C00089C1EE /* ApplicationNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */; };
@@ -431,6 +429,10 @@
 		F8DB35A122738C9B00EE0FB8 /* BaseActionTestCase+SetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359622738BE500EE0FB8 /* BaseActionTestCase+SetViews.swift */; };
 		F8DB35A222738C9B00EE0FB8 /* BaseActionTestCase+BasicAsserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359822738C2700EE0FB8 /* BaseActionTestCase+BasicAsserts.swift */; };
 		F8DB35A322738C9B00EE0FB8 /* ActionSpecifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358F22738AF000EE0FB8 /* ActionSpecifications.swift */; };
+		F8DEAAB6236348410002AB81 /* XcTestFailureMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEAAAD236347F50002AB81 /* XcTestFailureMatcherBuilder.swift */; };
+		F8DEAAB7236348410002AB81 /* AttachmentMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEAAAF236348010002AB81 /* AttachmentMatcherBuilder.swift */; };
+		F8DEAAB8236348420002AB81 /* XcTestFailureMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEAAAD236347F50002AB81 /* XcTestFailureMatcherBuilder.swift */; };
+		F8DEAAB9236348420002AB81 /* AttachmentMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEAAAF236348010002AB81 /* AttachmentMatcherBuilder.swift */; };
 		F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */; };
 		F8E6CC792180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */; };
 		F8E6CC902187858E00D7A0C1 /* ApplicationBundleProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6CC8F2187858E00D7A0C1 /* ApplicationBundleProviderTests.swift */; };
@@ -637,7 +639,6 @@
 		F8676ED921552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeActionTouchesTests.swift; sourceTree = "<group>"; };
-		F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllureReportingSystem.swift; sourceTree = "<group>"; };
 		F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCanNotBeContinuedException.swift; sourceTree = "<group>"; };
 		F8798323224930B1004DD770 /* ContinueAfterFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueAfterFailureTests.swift; sourceTree = "<group>"; };
 		F8798325224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoringDefinitelyHiddenElementsTests.swift; sourceTree = "<group>"; };
@@ -807,6 +808,8 @@
 		F8DB359422738BBA00EE0FB8 /* BaseActionTestCase+Checks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseActionTestCase+Checks.swift"; sourceTree = "<group>"; };
 		F8DB359622738BE500EE0FB8 /* BaseActionTestCase+SetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseActionTestCase+SetViews.swift"; sourceTree = "<group>"; };
 		F8DB359822738C2700EE0FB8 /* BaseActionTestCase+BasicAsserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseActionTestCase+BasicAsserts.swift"; sourceTree = "<group>"; };
+		F8DEAAAD236347F50002AB81 /* XcTestFailureMatcherBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcTestFailureMatcherBuilder.swift; sourceTree = "<group>"; };
+		F8DEAAAF236348010002AB81 /* AttachmentMatcherBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentMatcherBuilder.swift; sourceTree = "<group>"; };
 		F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxHelperClient.swift; sourceTree = "<group>"; };
 		F8E3200922CF87F30094D2EA /* NetworkStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTests.swift; sourceTree = "<group>"; };
 		F8E6CC782180A80C00D7A0C1 /* FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTestsCollectionView.swift; sourceTree = "<group>"; };
@@ -1553,6 +1556,8 @@
 			isa = PBXGroup;
 			children = (
 				F879833622494F07004DD770 /* StepLogMatcherBuilder.swift */,
+				F8DEAAAD236347F50002AB81 /* XcTestFailureMatcherBuilder.swift */,
+				F8DEAAAF236348010002AB81 /* AttachmentMatcherBuilder.swift */,
 			);
 			path = Matchers;
 			sourceTree = "<group>";
@@ -1998,7 +2003,6 @@
 				F8B010D121FF31880026360D /* ReportingSystem */,
 				F8B010CE21FF30340026360D /* README.md */,
 				F8B010CF21FF30450026360D /* ReportingTestLifecycleManager.swift */,
-				F870C66A21FF43FB006F643B /* AllureReportingSystem.swift */,
 			);
 			path = Reports;
 			sourceTree = "<group>";
@@ -3062,8 +3066,6 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
@@ -3083,8 +3085,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
@@ -3132,8 +3132,6 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
@@ -3153,8 +3151,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
@@ -3244,9 +3240,6 @@
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
@@ -3266,9 +3259,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
@@ -3319,10 +3309,7 @@
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxAllure/MixboxAllure.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxArtifacts/MixboxArtifacts.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxReporting/MixboxReporting.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
@@ -3343,10 +3330,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAllure.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxArtifacts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReporting.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
@@ -3579,13 +3563,13 @@
 				F8AD07992250D5DD00D5FB93 /* MicrophoneApplicationPermissionTests.swift in Sources */,
 				F8B34130224E5EA600AA1EB9 /* BasePermissionTestCase.swift in Sources */,
 				F813CB2F209CDF3400E6A27C /* TestabilityTextTests.swift in Sources */,
+				F8DEAAB7236348410002AB81 /* AttachmentMatcherBuilder.swift in Sources */,
 				F820306E22385B43006D2F70 /* PressActionTests.swift in Sources */,
 				F879833522494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
 				F8971D1122650AD8001741C1 /* TemporaryDirectoryPathProviderImpl.swift in Sources */,
 				F8798324224930B1004DD770 /* ContinueAfterFailureTests.swift in Sources */,
 				F8971D0C22650AA2001741C1 /* ProcessInfoEnvironmentProvider.swift in Sources */,
 				F88ADFAC223BCF7E0024CCBE /* SetTextActionFailuresTests.swift in Sources */,
-				F870C66B21FF43FB006F643B /* AllureReportingSystem.swift in Sources */,
 				F8252DCA2279DD0F003190D0 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F8DB359E22738C9A00EE0FB8 /* ActionSpecifications.swift in Sources */,
 				F8B010E421FF319D0026360D /* TestReportStatus.swift in Sources */,
@@ -3614,6 +3598,7 @@
 				F8B33B0E224ACF1600AA1EB9 /* AssertHasAccessibilityValueInteractionTests.swift in Sources */,
 				F8252DC72279DD0F003190D0 /* NetworkStubbingTestsViewPageObject.swift in Sources */,
 				F801CC072254E3120074F0E9 /* TextInteractionTests.swift in Sources */,
+				F8DEAAB6236348410002AB81 /* XcTestFailureMatcherBuilder.swift in Sources */,
 				F8B33B1A224ACFA500AA1EB9 /* AssertBecomesShorterAfterInteractionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3713,7 +3698,6 @@
 				F8B0A25A220A0EF30089C1EE /* TestReportFailure.swift in Sources */,
 				F8A83E8A2272223700145140 /* CanTapMovingElementTests.swift in Sources */,
 				F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */,
-				F8B0A25F220A0EF30089C1EE /* AllureReportingSystem.swift in Sources */,
 				F8A837A42270D40B00145140 /* GenericPageObject.swift in Sources */,
 				F888EE1B23206136009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
 				F8C8ED3D22985B060009B9A7 /* FileSystem.swift in Sources */,
@@ -3756,6 +3740,7 @@
 				F8C8ED3C22985B060009B9A7 /* TemporaryDirectoryPathProviderImpl.swift in Sources */,
 				F8DB35A122738C9B00EE0FB8 /* BaseActionTestCase+SetViews.swift in Sources */,
 				F8A837C22270ED8E00145140 /* GrayScreenshotTakerTests.swift in Sources */,
+				F8DEAAB9236348420002AB81 /* AttachmentMatcherBuilder.swift in Sources */,
 				F8B0A253220A0EF30089C1EE /* FailureGatherer.swift in Sources */,
 				F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */,
 				F8A83828227215C300145140 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */,
@@ -3793,6 +3778,7 @@
 				F8C8ED3422985B060009B9A7 /* EnvironmentProvider.swift in Sources */,
 				F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */,
 				F8C8ED2A2298505D0009B9A7 /* BaseNetworkMockingTestCase.swift in Sources */,
+				F8DEAAB8236348420002AB81 /* XcTestFailureMatcherBuilder.swift in Sources */,
 				F8252DBE2279DCEE003190D0 /* BaseTouchesTestCase.swift in Sources */,
 				F8C8ED3522985B060009B9A7 /* ProcessInfoEnvironmentProvider.swift in Sources */,
 				F8C8ED1C2298505D0009B9A7 /* GeolocationApplicationPermissionTests.swift in Sources */,

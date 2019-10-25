@@ -14,9 +14,7 @@ Pod::Spec.new do |s|
   s.source_files           = 'Frameworks/TestsFoundation/**/*.{swift,h,m,sh}'
   s.framework              = 'CoreLocation'
   
-  s.dependency 'MixboxArtifacts'
   s.dependency 'MixboxFoundation'
-  s.dependency 'MixboxReporting'
   s.dependency 'MixboxUiKit'
   
   s.dependency 'SQLite.swift'

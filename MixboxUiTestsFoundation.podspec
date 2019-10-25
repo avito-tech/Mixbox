@@ -14,7 +14,6 @@ Pod::Spec.new do |s|
   s.source_files = 'Frameworks/UiTestsFoundation/**/*.{swift,h,m}'
   
   s.dependency 'MixboxTestsFoundation'
-  s.dependency 'MixboxReporting'
   s.dependency 'MixboxUiKit'
   s.dependency 'MixboxAnyCodable'
   s.dependency 'CocoaImageHashing'

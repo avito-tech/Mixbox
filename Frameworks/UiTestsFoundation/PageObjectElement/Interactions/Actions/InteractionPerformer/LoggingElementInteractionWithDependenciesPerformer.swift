@@ -1,7 +1,5 @@
-import MixboxReporting
-import MixboxFoundation
-import MixboxArtifacts
 import MixboxTestsFoundation
+import MixboxFoundation
 
 public final class LoggingElementInteractionWithDependenciesPerformer: ElementInteractionWithDependenciesPerformer {
     private let nestedInteractionPerformer: ElementInteractionWithDependenciesPerformer
@@ -72,7 +70,7 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
         return StepLogBefore(
             date: dateProvider.currentDate(),
             title: interaction.description(),
-            artifacts: screenshotAttachmentsMaker.makeScreenshotArtifacts(
+            attachments: screenshotAttachmentsMaker.makeScreenshotAttachments(
                 beforeStep: true,
                 includeHash: false
             )
@@ -86,29 +84,29 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
         -> StepLogAfter
     {
         let wasSuccessful: Bool
-        var stepArtifacts = [Artifact]()
+        var stepAttachments = [Attachment]()
         
-        stepArtifacts.append(
-            fileLineArtifact(fileLine: fileLine)
+        stepAttachments.append(
+            fileLineAttachment(fileLine: fileLine)
         )
         
         switch interactionResult {
         case .success:
             wasSuccessful = true
         case .failure(let interactionFailure):
-            stepArtifacts.append(
-                Artifact(
+            stepAttachments.append(
+                Attachment(
                     name: "Сообщение об ошибке",
                     content: .text(interactionFailure.testFailureDescription())
                 )
             )
-            stepArtifacts.append(contentsOf: interactionFailure.attachments)
+            stepAttachments.append(contentsOf: interactionFailure.attachments)
             // TODO: Additional attachments?
             wasSuccessful = false
         }
         
-        stepArtifacts.append(
-            contentsOf: screenshotAttachmentsMaker.makeScreenshotArtifacts(
+        stepAttachments.append(
+            contentsOf: screenshotAttachmentsMaker.makeScreenshotAttachments(
                 beforeStep: false,
                 includeHash: !wasSuccessful
             )
@@ -117,12 +115,12 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
         return StepLogAfter(
             date: dateProvider.currentDate(),
             wasSuccessful: wasSuccessful,
-            artifacts: stepArtifacts
+            attachments: stepAttachments
         )
     }
     
-    private func fileLineArtifact(fileLine: FileLine) -> Artifact {
-        return Artifact(
+    private func fileLineAttachment(fileLine: FileLine) -> Attachment {
+        return Attachment(
             name: "File and line",
             content: .text("\(fileLine.file):\(fileLine.line)")
         )

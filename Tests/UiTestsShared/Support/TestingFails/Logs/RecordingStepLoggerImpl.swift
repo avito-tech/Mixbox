@@ -1,4 +1,4 @@
-import MixboxReporting
+import MixboxTestsFoundation
 
 final class RecordingStepLoggerImpl: StepLogger, StepLogsProvider, StepLogsCleaner, StartedStepLoggerRecording {
     private let stepLogger = StepLoggerImpl()

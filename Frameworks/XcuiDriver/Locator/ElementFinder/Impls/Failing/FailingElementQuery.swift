@@ -1,6 +1,6 @@
 import MixboxUiTestsFoundation
 import MixboxFoundation
-import MixboxReporting
+import MixboxTestsFoundation
 
 final class FailingElementQuery: ElementQuery {
     private let testFailureRecorder: TestFailureRecorder

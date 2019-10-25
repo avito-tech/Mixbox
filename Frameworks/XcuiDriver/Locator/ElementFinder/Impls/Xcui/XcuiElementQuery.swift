@@ -1,8 +1,6 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import XCTest
-import MixboxArtifacts
-import MixboxReporting
 
 final class XcuiElementQuery: ElementQuery {
     private let xcuiElementQuery: XCUIElementQuery
@@ -58,16 +56,16 @@ final class XcuiElementQuery: ElementQuery {
                 elementQueryResolvingState: elementQueryResolvingState
             )
             
-            var artifacts = [Artifact]()
+            var attachments = [Attachment]()
             if let failureDescription = resolvedElementQuery.candidatesDescription() {
-                artifacts.append(
-                    Artifact(
+                attachments.append(
+                    Attachment(
                         name: "Кандидаты",
                         content: .text(failureDescription)
                     )
                 )
-                artifacts.append(
-                    Artifact(
+                attachments.append(
+                    Attachment(
                         name: "Иерархия вьюх",
                         content: .text(
                             applicationProvider.application.debugDescription
@@ -75,8 +73,8 @@ final class XcuiElementQuery: ElementQuery {
                     )
                 )
                 if let screenshot = screenshotTaker.takeScreenshot() {
-                    artifacts.append(
-                        Artifact(
+                    attachments.append(
+                        Attachment(
                             name: "Скриншот",
                             content: .screenshot(screenshot)
                         )
@@ -88,7 +86,7 @@ final class XcuiElementQuery: ElementQuery {
                 stepLogAfter: StepLogAfter(
                     date: dateProvider.currentDate(),
                     wasSuccessful: elementExists,
-                    artifacts: artifacts
+                    attachments: attachments
                 ),
                 wrappedResult: resolvedElementQuery
             )

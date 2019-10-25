@@ -1,8 +1,6 @@
 import XCTest
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxArtifacts
-import MixboxReporting
 import MixboxIpc
 import MixboxFoundation
 import MixboxUiKit
@@ -72,8 +70,8 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         testCaseUtils.baseUiTestCaseUtils.stepLogger.logEntry(
             date: testCaseUtils.baseUiTestCaseUtils.dateProvider.currentDate(),
             title: "Started test with environment",
-            artifacts: [
-                Artifact(
+            attachments: [
+                Attachment(
                     name: "Environment",
                     content: .text(
                         """

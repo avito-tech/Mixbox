@@ -1,5 +1,4 @@
 import MixboxFoundation
-import MixboxReporting
 import MixboxTestsFoundation
 
 public final class PageObjectElementInteractionPerformerImpl: PageObjectElementInteractionPerformer {

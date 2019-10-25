@@ -1,4 +1,4 @@
-import MixboxReporting
+import MixboxTestsFoundation
 
 public final class AlwaysFailingNotificationsApplicationPermissionSetterFactory:
     NotificationsApplicationPermissionSetterFactory

@@ -1,4 +1,4 @@
-import MixboxReporting
+import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 
 final class LogsAndFailuresMatcherBuilder {

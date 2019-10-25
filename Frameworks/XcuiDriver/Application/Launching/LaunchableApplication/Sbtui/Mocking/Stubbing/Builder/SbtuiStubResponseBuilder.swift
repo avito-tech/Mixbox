@@ -2,7 +2,6 @@ import SBTUITestTunnel
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
-import MixboxReporting
 import MixboxIpcCommon
 
 enum StubResponseBuilderArgumentsBefore {

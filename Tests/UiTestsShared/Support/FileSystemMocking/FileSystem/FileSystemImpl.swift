@@ -1,4 +1,3 @@
-import MixboxReporting
 import MixboxTestsFoundation
 
 final class FileSystemImpl: FileSystem {

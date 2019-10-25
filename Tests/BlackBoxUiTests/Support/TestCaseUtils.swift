@@ -1,7 +1,6 @@
 import SBTUITestTunnel
-import MixboxReporting
-import MixboxXcuiDriver
 import MixboxTestsFoundation
+import MixboxXcuiDriver
 import MixboxUiTestsFoundation
 import MixboxIpcSbtuiClient
 import MixboxIpc

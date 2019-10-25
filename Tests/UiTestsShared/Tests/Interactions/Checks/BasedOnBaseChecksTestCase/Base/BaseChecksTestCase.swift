@@ -1,6 +1,5 @@
 import MixboxUiTestsFoundation
-import MixboxReporting
-import MixboxArtifacts
+import MixboxTestsFoundation
 import TestsIpc
 
 // todos by methods:
@@ -79,7 +78,7 @@ class BaseChecksTestCase: TestCase {
                 let defaultMatcher = hasDefaultSearchLogs(
                     log: log,
                     failureMessage: failureMessage,
-                    withScreenshotHashArtifact: true
+                    withScreenshotHashAttachment: true
                 )
                 
                 if let additionalLogs = additionalLogs {
@@ -142,22 +141,22 @@ class BaseChecksTestCase: TestCase {
     func hasDefaultSearchLogs(
         log: StepLogMatcherBuilder,
         failureMessage: String,
-        withScreenshotHashArtifact: Bool)
+        withScreenshotHashAttachment: Bool)
         -> Matcher<StepLog>
     {
         let hasSearchStep = log.steps.contains { log in
             let isSearchStep = log.title == "Поиск элемента"
             
-            let hasCandidatesAttachment = log.artifactsAfter.contains { artifact in
-                artifact.name == "Кандидаты"
+            let hasCandidatesAttachment = log.attachmentsAfter.contains { attachment in
+                attachment.name == "Кандидаты"
             }
             
-            let hasScreenshotAttachment = log.artifactsAfter.contains { artifact in
-                artifact.name == "Скриншот"
+            let hasScreenshotAttachment = log.attachmentsAfter.contains { attachment in
+                attachment.name == "Скриншот"
             }
             
-            let hasHierarchyAttachment = log.artifactsAfter.contains { artifact in
-                artifact.name == "Иерархия вьюх"
+            let hasHierarchyAttachment = log.attachmentsAfter.contains { attachment in
+                attachment.name == "Иерархия вьюх"
             }
             
             let hasAllRequiredAttachments = hasCandidatesAttachment
@@ -167,25 +166,25 @@ class BaseChecksTestCase: TestCase {
             return isSearchStep && hasAllRequiredAttachments
         }
         
-        let hasScreenshotBeforeAttachment = log.artifactsBefore.contains { artifact in
-            artifact.name == "Скриншот до"
+        let hasScreenshotBeforeAttachment = log.attachmentsBefore.contains { attachment in
+            attachment.name == "Скриншот до"
         }
         
-        let hasScreenshotAfterAttachment = log.artifactsAfter.contains { artifact in
-            artifact.name == "Скриншот после"
+        let hasScreenshotAfterAttachment = log.attachmentsAfter.contains { attachment in
+            attachment.name == "Скриншот после"
         }
         
-        let hasFileLineAttachment = log.artifactsAfter.contains { artifact in
-            artifact.name == "File and line"
+        let hasFileLineAttachment = log.attachmentsAfter.contains { attachment in
+            attachment.name == "File and line"
         }
         
         var hasAllRequiredAttachments: Matcher<StepLog> = hasScreenshotBeforeAttachment
             && hasScreenshotAfterAttachment
             && hasFileLineAttachment
         
-        if withScreenshotHashArtifact {
-            let hasScreenshotHashAttachment = log.artifactsAfter.contains { artifact in
-                artifact.name == "hash скриншота DHashV0ImageHashCalculator после"
+        if withScreenshotHashAttachment {
+            let hasScreenshotHashAttachment = log.attachmentsAfter.contains { attachment in
+                attachment.name == "hash скриншота DHashV0ImageHashCalculator после"
             }
             hasAllRequiredAttachments = hasAllRequiredAttachments && hasScreenshotHashAttachment
         }

@@ -1,6 +1,6 @@
 import XCTest
 import MixboxFoundation
-import MixboxReporting
+import MixboxTestsFoundation
 
 public final class XcTestFailureRecorder: TestFailureRecorder {
     private let currentTestCaseProvider: CurrentTestCaseProvider

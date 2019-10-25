@@ -1,7 +1,6 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
-import MixboxReporting
 import MixboxFoundation
 
 // TODO: Share code between black-box and gray-box.

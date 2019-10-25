@@ -1,7 +1,5 @@
-import MixboxTestsFoundation
-import MixboxArtifacts
 import XCTest
-import MixboxReporting
+import MixboxTestsFoundation
 
 public final class ReportingTestLifecycleManager:
     TestLifecycleManager
@@ -217,8 +215,8 @@ public final class ReportingTestLifecycleManager:
             stopDate: stopDate,
             customDataBefore: stepLog.before.customData,
             customDataAfter: stepLog.after?.customData,
-            attachments: (stepLog.artifactsBefore + stepLog.artifactsAfter).map {
-                TestReportAttachment(artifact: $0)
+            attachments: (stepLog.attachmentsBefore + stepLog.attachmentsAfter).map {
+                TestReportAttachment(attachment: $0)
             }
         )
     }

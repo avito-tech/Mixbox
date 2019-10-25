@@ -1,5 +1,5 @@
 import MixboxUiTestsFoundation
-import MixboxArtifacts
+import MixboxTestsFoundation
 
 final class AssertIsNotDisplayedInteractionTests: BaseChecksTestCase {
     func test___assertIsNotDisplayed___passes_immediately___if_ui_appears_immediately_0() {
@@ -91,16 +91,16 @@ final class AssertIsNotDisplayedInteractionTests: BaseChecksTestCase {
                         log: log,
                         failureMessage: failureMessage,
                         // search isn't failed, because element was found. screenshot hash is generated only for fails
-                        withScreenshotHashArtifact: false
+                        withScreenshotHashAttachment: false
                     )
                 }
                 
-                let hasErrorMessageArtifact = log.artifactsAfter.contains { artifact in
-                    artifact.name == "Сообщение об ошибке"
-                        && artifact.content == ArtifactContent.text(failureMessage)
+                let hasErrorMessageAttachment = log.attachmentsAfter.contains { attachment in
+                    attachment.name == "Сообщение об ошибке"
+                        && attachment.content == AttachmentContent.text(failureMessage)
                 }
                 
-                return hasSearchLogs && hasErrorMessageArtifact
+                return hasSearchLogs && hasErrorMessageAttachment
             }
         }
         

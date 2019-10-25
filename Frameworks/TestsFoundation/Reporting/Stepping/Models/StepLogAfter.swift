@@ -1,29 +1,29 @@
-import MixboxArtifacts
+import MixboxTestsFoundation
 import MixboxFoundation
 
 public final class StepLogAfter: CustomDebugStringConvertible, Equatable {
     public let date: Date
     public let wasSuccessful: Bool
     public let customData: AnyEquatable
-    public let artifacts: [Artifact]
+    public let attachments: [Attachment]
     
     public init(
         date: Date,
         wasSuccessful: Bool,
         customData: AnyEquatable = .void,
-        artifacts: [Artifact] = [])
+        attachments: [Attachment] = [])
     {
         self.date = date
         self.wasSuccessful = wasSuccessful
         self.customData = customData
-        self.artifacts = artifacts
+        self.attachments = attachments
     }
     
     public static func ==(lhs: StepLogAfter, rhs: StepLogAfter) -> Bool {
         return lhs.date == rhs.date
             && lhs.wasSuccessful == rhs.wasSuccessful
             && lhs.customData == rhs.customData
-            && lhs.artifacts == rhs.artifacts
+            && lhs.attachments == rhs.attachments
     }
     
     public var debugDescription: String {
@@ -31,7 +31,7 @@ public final class StepLogAfter: CustomDebugStringConvertible, Equatable {
             .add(name: "date", value: date)
             .add(name: "wasSuccessful", value: wasSuccessful)
             .add(name: "customData", value: customData)
-            .add(name: "artifacts", array: artifacts)
+            .add(name: "attachments", array: attachments)
             .debugDescription
     }
 }

@@ -1,8 +1,6 @@
 import XCTest
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxArtifacts
-import MixboxReporting
 import MixboxIpc
 import MixboxFoundation
 import MixboxGray

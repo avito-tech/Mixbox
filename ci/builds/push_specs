@@ -64,14 +64,11 @@ IFS=$'\n'
 sequence=()
 
 sequence=("${sequence[@]}" MixboxFakeSettingsAppMain.podspec)
-sequence=("${sequence[@]}" MixboxArtifacts.podspec)
-sequence=("${sequence[@]}" MixboxAllure.podspec)
 sequence=("${sequence[@]}" MixboxFoundation.podspec)
 
 sequence=("${sequence[@]}" MixboxTestability.podspec)
 
 sequence=("${sequence[@]}" MixboxUiKit.podspec)
-sequence=("${sequence[@]}" MixboxReporting.podspec)
 sequence=("${sequence[@]}" MixboxTestsFoundation.podspec)
 sequence=("${sequence[@]}" MixboxIpc.podspec)
 sequence=("${sequence[@]}" MixboxIpcCommon.podspec)

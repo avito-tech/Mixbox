@@ -1,5 +1,4 @@
 import MixboxTestsFoundation
-import MixboxReporting
 
 // Use this with TccDbApplicationPermissionSetter if you are running tests via fbxctest
 // For running with Xcode and xcodebuild use TccDbApplicationPermissionSetterFactory

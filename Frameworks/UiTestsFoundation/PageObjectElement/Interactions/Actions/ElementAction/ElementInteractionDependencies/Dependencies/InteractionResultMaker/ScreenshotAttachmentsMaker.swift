@@ -1,10 +1,10 @@
-import MixboxArtifacts
+import MixboxTestsFoundation
 
 public protocol ScreenshotAttachmentsMaker: class {
-    func makeScreenshotArtifacts(
+    func makeScreenshotAttachments(
         beforeStep: Bool,
         includeHash: Bool)
-        -> [Artifact]
+        -> [Attachment]
 }
 
 public final class ScreenshotAttachmentsMakerImpl: ScreenshotAttachmentsMaker {
@@ -19,48 +19,48 @@ public final class ScreenshotAttachmentsMakerImpl: ScreenshotAttachmentsMaker {
         self.screenshotTaker = screenshotTaker
     }
     
-    public func makeScreenshotArtifacts(
+    public func makeScreenshotAttachments(
         beforeStep: Bool,
         includeHash: Bool)
-        -> [Artifact]
+        -> [Attachment]
     {
-        var artifacts = [Artifact]()
+        var attachments = [Attachment]()
         
         if let screenshot = screenshotTaker.takeScreenshot() {
-            let screenshotArtifact = Artifact(
-                name: artifactNameAndCircumstances(
-                    artifactName: "Скриншот",
+            let screenshotAttachment = Attachment(
+                name: attachmentNameAndCircumstances(
+                    attachmentName: "Скриншот",
                     beforeStep: beforeStep
                 ),
                 content: .screenshot(screenshot)
             )
             
-            artifacts.append(screenshotArtifact)
+            attachments.append(screenshotAttachment)
             
             // Simplifies error classification
             if includeHash {
                 let screenshotHash = imageHashCalculator.imageHash(image: screenshot)
-                let screenshotHashArtifact = Artifact(
-                    name: artifactNameAndCircumstances(
-                        artifactName: "hash скриншота \(type(of: imageHashCalculator))",
+                let screenshotHashAttachment = Attachment(
+                    name: attachmentNameAndCircumstances(
+                        attachmentName: "hash скриншота \(type(of: imageHashCalculator))",
                         beforeStep: beforeStep
                     ),
                     content: .text("\(screenshotHash)")
                 )
-                artifacts.append(screenshotHashArtifact)
+                attachments.append(screenshotHashAttachment)
             }
         }
         
-        return artifacts
+        return attachments
     }
     
-    private func artifactNameAndCircumstances(
-        artifactName: String,
+    private func attachmentNameAndCircumstances(
+        attachmentName: String,
         beforeStep: Bool)
         -> String
     {
         let interactionTime = beforeStep ? "до" : "после"
         
-        return "\(artifactName) \(interactionTime)"
+        return "\(attachmentName) \(interactionTime)"
     }
 }

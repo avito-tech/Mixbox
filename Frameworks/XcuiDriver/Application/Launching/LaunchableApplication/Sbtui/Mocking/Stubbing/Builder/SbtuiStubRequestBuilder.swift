@@ -2,7 +2,6 @@ import SBTUITestTunnel
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
-import MixboxReporting
 
 public final class SbtuiStubRequestBuilder: StubRequestBuilder {
     private let sbtuiStubApplier: SbtuiStubApplier

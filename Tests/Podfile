@@ -12,8 +12,6 @@ use_frameworks!
 def mixbox_ui_tests_pods
   pod 'MixboxTestsFoundation', :path => '..'
   pod 'MixboxUiTestsFoundation', :path => '..'
-  pod 'MixboxArtifacts', :path => '..'
-  pod 'MixboxReporting', :path => '..'
   pod 'MixboxFoundation', :path => '..'
   
   pod 'SQLite.swift', :inhibit_warnings => true
@@ -66,10 +64,6 @@ def tests_ipc_pods
   pod 'TestsIpc', :path => 'Frameworks/TestsIpc'
 end
 
-def tests_report_pods
-  pod 'MixboxAllure', :path => '..'
-end
-
 # TODO: Support mock generation for every test target
 def tests_testing_helpers
   pod 'Cuckoo', { :git => 'https://github.com/avito-tech/Cuckoo', :inhibit_warnings => true }
@@ -83,7 +77,6 @@ def tests_black_box_pods
   tests_testing_helpers
   
   tests_ipc_pods
-  tests_report_pods
 end
 
 def tests_gray_box_pods
@@ -92,7 +85,6 @@ def tests_gray_box_pods
   tests_testing_helpers
   
   tests_ipc_pods
-  tests_report_pods
 end
 
 def tests_white_box_pods

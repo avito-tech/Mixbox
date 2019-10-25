@@ -1,6 +1,5 @@
-import MixboxReporting
+import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxArtifacts
 
 final class StepLogMatcherBuilder {
     let title = PropertyMatcherBuilder("title", \StepLog.title)
@@ -8,16 +7,16 @@ final class StepLogMatcherBuilder {
     let stopDate = PropertyMatcherBuilder("stopDate", \StepLog.stopDate)
     let wasSuccessful = PropertyMatcherBuilder("wasSuccessful", \StepLog.wasSuccessful)
     
-    let artifactsBefore = ArrayPropertyMatcherBuilder<StepLog, Artifact, ArtifactMatcherBuilder>(
-        propertyName: "artifactsBefore",
-        propertyKeyPath: \StepLog.artifactsBefore,
-        matcherBuilder: ArtifactMatcherBuilder()
+    let attachmentsBefore = ArrayPropertyMatcherBuilder<StepLog, Attachment, AttachmentMatcherBuilder>(
+        propertyName: "attachmentsBefore",
+        propertyKeyPath: \StepLog.attachmentsBefore,
+        matcherBuilder: AttachmentMatcherBuilder()
     )
     
-    let artifactsAfter = ArrayPropertyMatcherBuilder<StepLog, Artifact, ArtifactMatcherBuilder>(
-        propertyName: "artifactsAfter",
-        propertyKeyPath: \StepLog.artifactsAfter,
-        matcherBuilder: ArtifactMatcherBuilder()
+    let attachmentsAfter = ArrayPropertyMatcherBuilder<StepLog, Attachment, AttachmentMatcherBuilder>(
+        propertyName: "attachmentsAfter",
+        propertyKeyPath: \StepLog.attachmentsAfter,
+        matcherBuilder: AttachmentMatcherBuilder()
     )
     
     let steps = ArrayPropertyMatcherBuilder<StepLog, StepLog, StepLogMatcherBuilder>(
@@ -25,16 +24,4 @@ final class StepLogMatcherBuilder {
         propertyKeyPath: \StepLog.steps,
         matcherBuilder: StepLogMatcherBuilder()
     )
-}
-
-final class XcTestFailureMatcherBuilder {
-    let description = PropertyMatcherBuilder("description", \XcTestFailure.description)
-    let file = PropertyMatcherBuilder("file", \XcTestFailure.file)
-    let line = PropertyMatcherBuilder("line", \XcTestFailure.line)
-    let expected = PropertyMatcherBuilder("expected", \XcTestFailure.expected)
-}
-
-final class ArtifactMatcherBuilder {
-    let name = PropertyMatcherBuilder("name", \Artifact.name)
-    let content = PropertyMatcherBuilder("content", \Artifact.content)
 }

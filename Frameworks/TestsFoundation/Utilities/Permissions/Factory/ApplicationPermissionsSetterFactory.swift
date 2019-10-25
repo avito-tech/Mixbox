@@ -1,4 +1,4 @@
-import MixboxReporting
+import MixboxTestsFoundation
 
 public protocol ApplicationPermissionsSetterFactory: class {
     func applicationPermissionsSetter(

@@ -1,4 +1,4 @@
-import MixboxArtifacts
+import MixboxTestsFoundation
 import MixboxFoundation
 
 public final class StepLog: CustomDebugStringConvertible, Equatable {
@@ -48,11 +48,11 @@ extension StepLog {
         return after?.date
     }
     
-    public var artifactsBefore:[Artifact] {
-        return before.artifacts
+    public var attachmentsBefore:[Attachment] {
+        return before.attachments
     }
     
-    public var artifactsAfter: [Artifact] {
-        return after?.artifacts ?? []
+    public var attachmentsAfter: [Attachment] {
+        return after?.attachments ?? []
     }
 }

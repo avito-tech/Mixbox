@@ -1,4 +1,4 @@
-import MixboxReporting
+import MixboxTestsFoundation
 import MixboxFoundation
 
 final class RecordableStepLogger: StepLogger, StepLogsProvider, StepLoggerRecordingStarter, StepLogsCleaner {

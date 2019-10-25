@@ -1,9 +1,7 @@
 import MixboxFoundation
-import MixboxReporting
+import MixboxTestsFoundation
 import MixboxIpc
 import MixboxIpcCommon
-import MixboxArtifacts
-import MixboxTestsFoundation
 
 final class UiKitHierarchyElementQuery: ElementQuery {
     private let ipcClient: IpcClient
@@ -96,7 +94,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
             stepLogAfter: StepLogAfter(
                 date: dateProvider.currentDate(),
                 wasSuccessful: false,
-                artifacts: []
+                attachments: []
             ),
             wrappedResult: emptyQuery
         )
@@ -156,7 +154,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
             stepLogAfter: StepLogAfter(
                 date: dateProvider.currentDate(),
                 wasSuccessful: elementWasFound,
-                artifacts: artifactsForLog(
+                attachments: attachmentsForLog(
                     resolvedElementQuery: resolvedElementQuery,
                     viewHierarchy: viewHierarchy
                 )
@@ -166,18 +164,18 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     }
     
     // TODO: This logic is copypasted from XcuiElementQuery. Share.
-    private func artifactsForLog(resolvedElementQuery: ResolvedElementQuery, viewHierarchy: ViewHierarchy) -> [Artifact] {
-        var artifacts = [Artifact]()
+    private func attachmentsForLog(resolvedElementQuery: ResolvedElementQuery, viewHierarchy: ViewHierarchy) -> [Attachment] {
+        var attachments = [Attachment]()
         
         if let candidatesDescription = resolvedElementQuery.candidatesDescription() {
-            artifacts.append(
-                Artifact(
+            attachments.append(
+                Attachment(
                     name: "Кандидаты",
                     content: .text(candidatesDescription)
                 )
             )
-            artifacts.append(
-                Artifact(
+            attachments.append(
+                Attachment(
                     name: "Иерархия вьюх",
                     content: .text(
                         viewHierarchy.debugDescription
@@ -185,8 +183,8 @@ final class UiKitHierarchyElementQuery: ElementQuery {
                 )
             )
             if let screenshot = screenshotTaker.takeScreenshot() {
-                artifacts.append(
-                    Artifact(
+                attachments.append(
+                    Attachment(
                         name: "Скриншот",
                         content: .screenshot(screenshot)
                     )
@@ -194,6 +192,6 @@ final class UiKitHierarchyElementQuery: ElementQuery {
             }
         }
         
-        return artifacts
+        return attachments
     }
 }
