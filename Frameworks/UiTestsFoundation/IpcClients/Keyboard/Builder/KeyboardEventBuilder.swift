@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxIpcCommon
 
 // Very simple builder for very limited task. Typing CMD, A, V and Backspace.
@@ -7,10 +9,20 @@ import MixboxIpcCommon
 //
 // So it is just for readability of a simple task.
 //
+// Some external OSS projects with examples:
+// - https://github.com/WebKit/webkit/blob/2324dbf6d438d673938f30b18e07350497ae7dad/Tools/WebKitTestRunner/ios/HIDEventGenerator.mm
 public final class KeyboardEventBuilder {
-    public struct Key {
-        var code: UInt16
-        var inBetween: [Key]
+    public final class Key {
+        public let code: UInt16
+        public let inBetween: [Key]
+        
+        public init(
+            code: UInt16,
+            inBetween: [Key])
+        {
+            self.code = code
+            self.inBetween = inBetween
+        }
     }
     
     public init() {
@@ -51,3 +63,5 @@ public final class KeyboardEventBuilder {
         }
     }
 }
+
+#endif

@@ -58,7 +58,7 @@ final class TestCaseUtils: IpcRouterProvider {
         
         let windowsProvider = WindowsProviderImpl(
             application: UIApplication.shared,
-            shouldIncludeStatusBarWindow: true
+            iosVersionProvider: baseUiTestCaseUtils.iosVersionProvider
         )
         
         screenshotTaker = GrayScreenshotTaker(

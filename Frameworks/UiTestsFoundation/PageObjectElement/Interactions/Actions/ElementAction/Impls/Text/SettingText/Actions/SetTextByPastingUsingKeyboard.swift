@@ -1,4 +1,5 @@
 import MixboxTestsFoundation
+import MixboxIpcCommon
 
 public final class SetTextByPastingUsingKeyboard: ElementInteraction {
     private let text: String
@@ -58,13 +59,13 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
                 switch textEditingActionMode {
                 case .replace:
                     if text.isEmpty {
-                        selectAllAndClear()
+                        try selectAllAndClear()
                     } else {
-                        selectAllAndPaste()
+                        try selectAllAndPaste()
                     }
                 case .append:
                     if !text.isEmpty {
-                        pasteWithoutSelectingAll()
+                        try pasteWithoutSelectingAll()
                     }
                 }
                 
@@ -72,21 +73,21 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
             }
         }
         
-        private func selectAllAndClear() {
-            dependencies.keyboardEventInjector.inject { press in
+        private func selectAllAndClear() throws {
+            try dependencies.keyboardEventInjector.inject { press in
                 press.command(press.a()) + press.backspace()
             }
         }
         
-        private func selectAllAndPaste() {
-            dependencies.keyboardEventInjector.inject { press in
+        private func selectAllAndPaste() throws {
+            try dependencies.keyboardEventInjector.inject { press in
                 press.command(press.a() + press.v())
             }
         }
         
-        private func pasteWithoutSelectingAll() {
-            dependencies.keyboardEventInjector.inject { press in
-                press.command(press.v())
+        private func pasteWithoutSelectingAll() throws {
+            try dependencies.keyboardEventInjector.inject { (press: KeyboardEventBuilder) -> [KeyboardEventBuilder.Key] in
+                press.v()
             }
         }
     }

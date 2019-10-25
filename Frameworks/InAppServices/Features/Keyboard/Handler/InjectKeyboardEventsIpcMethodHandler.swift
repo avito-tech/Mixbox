@@ -12,9 +12,20 @@ final class InjectKeyboardEventsIpcMethodHandler: IpcMethodHandler {
         self.keyboardEventInjector = keyboardEventInjector
     }
     
-    func handle(arguments: [KeyboardEvent], completion: @escaping (IpcVoid) -> ()) {
-        keyboardEventInjector.inject(events: arguments) {
-            completion(IpcVoid())
+    func handle(
+        arguments: InjectKeyboardEventsIpcMethod.Arguments,
+        completion: @escaping (InjectKeyboardEventsIpcMethod.ReturnValue) -> ())
+    {
+        keyboardEventInjector.inject(events: arguments) { error in
+            let result: IpcThrowingFunctionResult<IpcVoid>
+            
+            if let error = error {
+                result = .threw(error)
+            } else {
+                result = .returned(IpcVoid())
+            }
+            
+            completion(result)
         }
     }
 }

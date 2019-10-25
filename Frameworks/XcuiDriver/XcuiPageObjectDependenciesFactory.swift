@@ -56,7 +56,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             scrollingHintsProvider: ScrollingHintsProviderImpl(
                 ipcClient: ipcClient
             ),
-            keyboardEventInjector: KeyboardEventInjectorImpl(
+            keyboardEventInjector: IpcKeyboardEventInjector(
                 ipcClient: ipcClient
             ),
             stepLogger: stepLogger,

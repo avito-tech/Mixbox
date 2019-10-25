@@ -17,8 +17,11 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         self.inAppServicesDependenciesFactory = inAppServicesDependenciesFactory
         
         self.commandsForAddingRoutes = [
-            { dependencies in
-                MixboxInAppServices.registerDefaultMethods(router: dependencies.ipcRouter)
+            { [inAppServicesDependenciesFactory] dependencies in
+                MixboxInAppServices.registerDefaultMethods(
+                    router: dependencies.ipcRouter,
+                    inAppServicesDependenciesFactory: inAppServicesDependenciesFactory
+                )
             }
         ]
     }
@@ -73,7 +76,10 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         }
     }
 
-    private static func registerDefaultMethods(router: IpcRouter) {
+    private static func registerDefaultMethods(
+        router: IpcRouter,
+        inAppServicesDependenciesFactory: InAppServicesDependenciesFactory)
+    {
         router.register(methodHandler: ScrollingHintIpcMethodHandler())
         router.register(methodHandler: PercentageOfVisibleAreaIpcMethodHandler())
         router.register(
@@ -91,7 +97,7 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         
         router.register(
             methodHandler: InjectKeyboardEventsIpcMethodHandler(
-                keyboardEventInjector: KeyboardEventInjectorImpl(application: UIApplication.shared)
+                keyboardEventInjector: inAppServicesDependenciesFactory.keyboardEventInjector
             )
         )
         

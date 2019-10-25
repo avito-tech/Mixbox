@@ -1,6 +1,7 @@
 import UIKit
 import MixboxFoundation
 import MixboxIpc
+import MixboxIpcCommon
 import TestsIpc
 
 final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSettings {
@@ -57,15 +58,15 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
             }
         }
         
-        viewIpc.register(method: ResetActionResultIpcMethod()) { [weak self] _, completion in
+        viewIpc.register(method: ResetUiIpcMethod()) { [weak self] _, completion in
             guard let strongSelf = self else {
-                completion(ErrorString("ERROR: self is nil"))
+                completion(IpcThrowingFunctionResult.threw("self is nil"))
                 return
             }
             
             DispatchQueue.main.async {
                 strongSelf.info = .uiWasNotTriggered
-                completion(nil)
+                completion(IpcThrowingFunctionResult.returned(IpcVoid()))
             }
         }
         

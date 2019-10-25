@@ -1,12 +1,13 @@
 import MixboxUiTestsFoundation
 import MixboxGray
+import MixboxUiKit
 import XCTest
 
 final class GrayScreenshotTakerTests: TestCase {
     private let screenshotTaker = GrayScreenshotTaker(
         windowsProvider: WindowsProviderImpl(
             application: UIApplication.shared,
-            shouldIncludeStatusBarWindow: true
+            iosVersionProvider: UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
         ),
         screen: UIScreen.main
     )
@@ -26,7 +27,7 @@ final class GrayScreenshotTakerTests: TestCase {
         // Note: tested only on iPhone 7 iOS 11.3. TODO: test on every device.
         let comparator = ImageHashCalculatorSnapshotsComparator(
             imageHashCalculator: DHashV0ImageHashCalculator(),
-            hashDistanceTolerance: 5
+            hashDistanceTolerance: 7
         )
         
         let result = comparator.compare(

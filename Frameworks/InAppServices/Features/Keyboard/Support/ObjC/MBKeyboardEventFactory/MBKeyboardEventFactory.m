@@ -16,7 +16,7 @@ IOHIDEventRef IOHIDEventCreateKeyboardEvent(
 
 @implementation MBKeyboardEventFactory
 
-+ (AbsoluteTime)currentTime {
+- (AbsoluteTime)currentTime {
     uint64_t machAbsoluteTime = mach_absolute_time();
     AbsoluteTime timeStamp;
     timeStamp.hi = (UInt32)(machAbsoluteTime >> 32);
@@ -24,14 +24,14 @@ IOHIDEventRef IOHIDEventCreateKeyboardEvent(
     return timeStamp;
 }
 
-+ (IOHIDEventRef)eventWithTime:(AbsoluteTime)time usagePage:(uint16_t)usagePage usage:(uint16_t)usage down:(BOOL)down {
+- (IOHIDEventRef)eventWithTime:(AbsoluteTime)time usagePage:(uint16_t)usagePage usage:(uint16_t)usage down:(BOOL)down {
     IOHIDEventRef hidEvent = IOHIDEventCreateKeyboardEvent(
                                                            kCFAllocatorDefault,
                                                            time,
                                                            usagePage,
                                                            usage,
                                                            down,
-                                                           0);
+                                                           1);
     return hidEvent;
 }
 

@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
+import MixboxIpcCommon
 
 // TODO: Share code between black-box and gray-box.
 final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory {

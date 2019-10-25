@@ -1,19 +1,23 @@
+import MixboxUiKit
+
 // Translated to Swift.
 // Original implementation: https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Provider/GREYUIWindowProvider.m
 //
 public final class WindowsProviderImpl: WindowsProvider {
     private let application: UIApplication
-    private let shouldIncludeStatusBarWindow: Bool
+    private let iosVersionProvider: IosVersionProvider
     
     public init(
         application: UIApplication,
-        shouldIncludeStatusBarWindow: Bool)
+        iosVersionProvider: IosVersionProvider)
     {
         self.application = application
-        self.shouldIncludeStatusBarWindow = shouldIncludeStatusBarWindow
+        self.iosVersionProvider = iosVersionProvider
     }
     
     public func windowsFromBottomMostToTopMost() -> [UIWindow] {
+        let shouldIncludeStatusBarWindow = iosVersionProvider.iosVersion().majorVersion < 13
+        
         var windows = Set<OrderedWindow>(
             application.windows.enumerated().map {
                 OrderedWindow(order: $0.offset, window: $0.element)

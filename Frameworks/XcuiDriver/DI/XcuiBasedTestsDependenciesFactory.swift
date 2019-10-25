@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
+import MixboxIpcCommon
 
 protocol XcuiBasedTestsDependenciesFactory: class {
     var eventGenerator: EventGenerator { get }

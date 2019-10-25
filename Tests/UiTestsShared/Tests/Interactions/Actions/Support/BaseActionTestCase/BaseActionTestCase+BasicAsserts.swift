@@ -23,8 +23,10 @@ extension BaseActionTestCase {
         )
         
         // Better to reset UI before failing
-        if let error = ipcClient.callOrFail(method: ResetActionResultIpcMethod()) {
-            XCTFail("Error calling ResetActionResultIpcMethod: \(error)")
+        do {
+            try ipcClient.callOrFail(method: ResetUiIpcMethod()).getVoidReturnValue()
+        } catch {
+            XCTFail("Error calling ResetUiIpcMethod: \(error)")
         }
         
         XCTAssertEqual(expectedResult, actualResult, describeFailure(expectedResult, actualResult))

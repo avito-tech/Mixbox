@@ -1,3 +1,17 @@
+// Naming convention:
+//
+// var {{test case class name}}View: MainAppScreen<{{test case class name}}ViewPageObject> { return mainAppScreen() }
+//
+// Example:
+//
+// var touchesTestsView: MainAppScreen<TouchesTestsViewPageObject> { return mainAppScreen() }
+//
+// If you are testing some `Impl`, for example, `KeyboardEventInjectorImpl`:
+//
+// {{test case class name}} = KeyboardEventInjectorImplTests
+//
+// TODO: Change naming accordingly
+//
 final class PageObjects: BasePageObjects {
     var generic: GenericPageObject { return pageObject() }
     
@@ -8,6 +22,8 @@ final class PageObjects: BasePageObjects {
     var screenshotTestsView: MainAppScreen<ScreenshotTestsViewPageObject> { return mainAppScreen() }
     
     var hierarchyTestsView: MainAppScreen<HierarchyTestsViewPageObject> { return mainAppScreen() }
+    
+    var keyboardEventInjectorImplTestsView: MainAppScreen<KeyboardEventInjectorImplTestsViewPageObject> { return mainAppScreen() }
     
     var touchesTestsView: MainAppScreen<TouchesTestsViewPageObject> { return mainAppScreen() }
     

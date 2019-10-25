@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxIpcCommon
 
 // Isolates Actions of testing technology (XCTest vs GrayBox).
 // Contains technology dependent

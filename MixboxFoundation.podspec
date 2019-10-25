@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.osx.deployment_target  = '10.14'
   s.swift_version          = '5.0'
   s.requires_arc           = true
-  s.source_files           = 'Frameworks/Foundation/**/*.{swift,h,m}'
+  s.source_files           = 'Frameworks/Foundation/**/*.{swift,h,m,mm}'
 end

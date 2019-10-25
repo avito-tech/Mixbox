@@ -1,29 +1,35 @@
 import UIKit
 import MixboxInAppServices
 import MixboxIpc
+import MixboxIpcCommon
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: TouchDrawingWindow?
+    
+    // These properties are accessed from tests:
     var ipcClient: IpcClient?
     var ipcRouter: IpcRouter?
+    let keyboardEventInjector: KeyboardEventInjector?
+    let mixboxInAppServices: MixboxInAppServices?
     
-    #if DEBUG
-    let mixboxInAppServices: MixboxInAppServices? = createMixboxInAppServices()
-    #else
-    let mixboxInAppServices: IpcRouter? = nil
-    #endif
-    
-    private static func createMixboxInAppServices() -> MixboxInAppServices? {
-        let inAppServicesDependenciesFactory = InAppServicesDependenciesFactoryImpl(
+    override init() {
+        let factoryOrNil = InAppServicesDependenciesFactoryImpl(
             environment: ProcessInfo.processInfo.environment
         )
         
-        return inAppServicesDependenciesFactory.map {
-            MixboxInAppServices(
-                inAppServicesDependenciesFactory: $0
+        if let factory = factoryOrNil {
+            mixboxInAppServices = MixboxInAppServices(
+                inAppServicesDependenciesFactory: factory
             )
+            
+            keyboardEventInjector = factory.keyboardEventInjector
+        } else {
+            mixboxInAppServices = nil
+            keyboardEventInjector = nil
         }
+        
+        super.init()
     }
 
     func application(

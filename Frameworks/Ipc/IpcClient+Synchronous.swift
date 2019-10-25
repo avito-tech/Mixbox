@@ -15,14 +15,7 @@ extension IpcClient {
             result = localResult
         }
         
-        // TODO: Use a specific tool for non-blocking (kind of) waiting in the current thread.
-        var delayIntervals = [0.05, 0.1, 0.2, 0.4, 1]
-        while result == nil {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: delayIntervals[0]))
-            if delayIntervals.count > 1 {
-                delayIntervals = Array(delayIntervals.dropFirst())
-            }
-        }
+        IpcSynchronization.waitWhile { result == nil }
         
         return result ?? .error(ErrorString("noResponse")) // TODO: Better error
     }

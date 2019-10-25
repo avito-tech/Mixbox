@@ -17,6 +17,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     public let collectionViewCellSwizzler: CollectionViewCellSwizzler
     public let collectionViewSwizzler: CollectionViewSwizzler
     public let fakeCellManager: FakeCellManager
+    public let keyboardEventInjector: KeyboardEventInjector
     
     private let networkMockingBootstrappingType: NetworkMockingBootstrappingType
     
@@ -103,6 +104,13 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             shouldEnableFakeCells: shouldEnableFakeCells,
             shouldEnhanceAccessibilityValue: shouldEnhanceAccessibilityValue,
             fakeCellManager: fakeCellManager
+        )
+        
+        keyboardEventInjector = KeyboardEventInjectorImpl(
+            application: UIApplication.shared,
+            handleHidEventSwizzler: HandleHidEventSwizzlerImpl(
+                assertingSwizzler: assertingSwizzler
+            )
         )
     }
     

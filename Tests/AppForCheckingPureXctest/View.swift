@@ -1,12 +1,15 @@
 import UIKit
 
-class View: UIView {
-    let view = View()
-    let label = UILabel()
-    let button = UIButton()
-    let textView = UITextView()
-    let textField = UITextField()
-    let views: [String: UIView]
+final class View: UIView {
+    private let view = UIView()
+    private let label = UILabel()
+    private let button = UIButton()
+    private let textView = UITextView()
+    private let textField = UITextField()
+    private let startTrackingKeyHidEventsButton = UIButton()
+    private let views: [String: UIView]
+    
+    private let keyHidEventsTracker = KeyHidEventsTracker()
     
     override init(frame: CGRect) {
         views = [
@@ -14,7 +17,8 @@ class View: UIView {
             "label": label,
             "button": button,
             "textView": textView,
-            "textField": textField
+            "textField": textField,
+            "startTrackingKeyHidEventsButton": startTrackingKeyHidEventsButton
         ]
         
         super.init(frame: frame)
@@ -47,6 +51,17 @@ class View: UIView {
         textView.text = "textView.text"
         textField.text = "textField.text"
         
+        startTrackingKeyHidEventsButton.addTarget(
+            self,
+            action: #selector(handleStartTrackingKeyHidEventsButtonTouchedUpInside),
+            for: UIControl.Event.touchUpInside
+        )
+        
+        for (_, state) in buttonStates {
+            startTrackingKeyHidEventsButton.setTitle("Debug IOHID", for: state)
+            startTrackingKeyHidEventsButton.setTitleColor(.black, for: state)
+        }
+        
         backgroundColor = .white
     }
     
@@ -66,5 +81,9 @@ class View: UIView {
         }
         
         views.values.forEach { $0.frame = nextRect() }
+    }
+    
+    @objc func handleStartTrackingKeyHidEventsButtonTouchedUpInside(_ sender: AnyObject) {
+        keyHidEventsTracker.startTracking()
     }
 }
