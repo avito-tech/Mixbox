@@ -126,20 +126,4 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
     }
 }
 
-//private extension Dictionary {
-//    func mb_compactMapValues<ElementOfResult>(
-//        _ transform: (Element) throws -> ElementOfResult?)
-//        rethrows
-//        -> [Dictionary<Key, ElementOfResult>]
-//    {
-//        var result = [Dictionary<Key, ElementOfResult>]()
-//        for (key, value) in self {
-//            if let transformed = transform(value) {
-//                result[key] = transformed
-//            }
-//        }
-//        return result
-//    }
-//}
-
 #endif

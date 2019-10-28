@@ -20,6 +20,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
     let waiter: RunLoopSpinningWaiter
     let signpostActivityLogger: SignpostActivityLogger
+    let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
+    let snapshotsComparatorFactory: SnapshotsComparatorFactory
     
     // MARK: - Init
     
@@ -34,7 +36,9 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider,
         waiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger)
+        signpostActivityLogger: SignpostActivityLogger,
+        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
+        snapshotsComparatorFactory: SnapshotsComparatorFactory)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -45,9 +49,11 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.pollingConfiguration = pollingConfiguration
         self.screenshotTaker = screenshotTaker
         self.windowsProvider = windowsProvider
-        self.signpostActivityLogger = signpostActivityLogger
-        
         self.waiter = waiter
+        self.signpostActivityLogger = signpostActivityLogger
+        self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
+        self.snapshotsComparatorFactory = snapshotsComparatorFactory
+        
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
             runLoopModesStackProvider: RunLoopModesStackProviderImpl()
         )
@@ -88,7 +94,9 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     
     var elementMatcherBuilder: ElementMatcherBuilder {
         return ElementMatcherBuilder(
-            screenshotTaker: screenshotTaker
+            screenshotTaker: screenshotTaker,
+            snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
+            snapshotsComparatorFactory: snapshotsComparatorFactory
         )
     }
     

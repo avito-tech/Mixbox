@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 
 public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
     public init(_ parentMatcher: Matcher<ElementSnapshot>) {
@@ -15,8 +16,9 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                 var bestMismatchResult: MismatchResult?
                 
                 if parentPointer == nil {
-                    return MatchingResult.exactMismatch(
-                        mismatchDescription: { "Является сабвью (актуальный результат - не имеет супервью)" }
+                    return .exactMismatch(
+                        mismatchDescription: { "Является сабвью (актуальный результат - не имеет супервью)" },
+                        attachments: { [] }
                     )
                 }
                 
@@ -34,12 +36,10 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                     parentPointer = parent.parent
                 }
                 
-                return MatchingResult.mismatch(
-                    IsSubviewMatcher.mismatchResult(
-                        percentageOfMatching: bestPercentageOfMatching,
-                        bestMismatchResult: bestMismatchResult,
-                        parentMatcher: parentMatcher
-                    )
+                return IsSubviewMatcher.mismatchResult(
+                    percentageOfMatching: bestPercentageOfMatching,
+                    bestMismatchResult: bestMismatchResult,
+                    parentMatcher: parentMatcher
                 )
             }
         )
@@ -49,9 +49,9 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
         percentageOfMatching: Double,
         bestMismatchResult: MismatchResult?,
         parentMatcher: ElementMatcher)
-        -> MismatchResult
+        -> MatchingResult
     {
-        return MismatchResult(
+        return .partialMismatch(
             percentageOfMatching: percentageOfMatching,
             mismatchDescription: {
                 let bestCandidateMismatchDescription: String
@@ -59,16 +59,33 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                 // We can't show mismatches for every superview, because when nesting multiple IsSubviewMatcher`s,
                 // logging it has exponential complexity, O(N^E) where N - number of views, E - number of nested IsSubviewMatcher`s.
                 if let bestMismatchResult = bestMismatchResult {
-                    bestCandidateMismatchDescription = "лучший кандидат зафейлился: \(bestMismatchResult.mismatchDescription())"
+                    bestCandidateMismatchDescription = "лучший кандидат зафейлился: \(bestMismatchResult.mismatchDescription)"
                 } else {
                     bestCandidateMismatchDescription = "произошла внутренняя ошибка в IsSubviewMatcher, не удалось получить описание фейла лучшего кандидата"
                 }
                 
                 return """
-                Является сабвью - нет, ожидалось содержание родителя, \
-                который матчится матчером "\(parentMatcher.description)", \
+                не найден superview, который матчится матчером "\(parentMatcher.description)", \
                 \(bestCandidateMismatchDescription)
                 """
+            },
+            attachments: {
+                if let bestMismatchResult = bestMismatchResult {
+                    let bestCandidateAttachments = bestMismatchResult.attachments
+                    
+                    if bestCandidateAttachments.isEmpty {
+                        return []
+                    } else {
+                        return [
+                            Attachment(
+                                name: "Best candidate attachments",
+                                content: AttachmentContent.attachments(bestCandidateAttachments)
+                            )
+                        ]
+                    }
+                } else {
+                    return []
+                }
             }
         )
     }

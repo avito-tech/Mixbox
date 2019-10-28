@@ -29,16 +29,16 @@ final class GrayScreenshotTakerTests: TestCase {
             hashDistanceTolerance: 5
         )
         
-        let result = comparator.equals(
-            actual: screenshot,
-            expected: image(name: "screenshotTestsView_screenshot.png")
+        let result = comparator.compare(
+            actualImage: screenshot,
+            expectedImage: image(name: "screenshotTestsView_screenshot.png")
         )
         
         switch result {
-        case .match:
+        case .similar:
             break
-        case .mismatch(let mismatchResult):
-            XCTFail("Screenshot doesn't match reference: \(mismatchResult.mismatchDescription())")
+        case .different(let description):
+            XCTFail("Screenshot doesn't match reference: \(description.message)")
         }
     }
 }

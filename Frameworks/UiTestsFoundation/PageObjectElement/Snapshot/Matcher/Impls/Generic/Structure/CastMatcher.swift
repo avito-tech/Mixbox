@@ -11,7 +11,10 @@ public class CastMatcher<Source, Target>: Matcher<Source> {
                 if let castedValue = castingOperator(value) {
                     return matcher.matches(value: castedValue)
                 } else {
-                    return .exactMismatch { "Не является \(Target.self)" }
+                    return .exactMismatch(
+                        mismatchDescription: { "Не является \(Target.self)" },
+                        attachments: { [] }
+                    ) 
                 }
             }
         )

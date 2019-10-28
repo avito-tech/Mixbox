@@ -35,7 +35,7 @@ public final class ResolvedElementQuery {
                 lines.append(snapshotDescription.mb_indent("    "))
             case .mismatch(let mismatchResult):
                 lines.append("Снепшот \(index), соответствие \(mismatchResult.percentageOfMatching):")
-                lines.append(mismatchResult.mismatchDescription())
+                lines.append(mismatchResult.mismatchDescription)
             }
         }
         return lines.joined(separator: "\n")

@@ -14,6 +14,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let windowsProvider: WindowsProvider
     private let waiter: RunLoopSpinningWaiter
     private let signpostActivityLogger: SignpostActivityLogger
+    private let grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -24,7 +25,9 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         screenshotTaker: ScreenshotTaker,
         windowsProvider: WindowsProvider,
         waiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger)
+        signpostActivityLogger: SignpostActivityLogger,
+        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
+        snapshotsComparatorFactory: SnapshotsComparatorFactory)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -35,10 +38,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.windowsProvider = windowsProvider
         self.waiter = waiter
         self.signpostActivityLogger = signpostActivityLogger
-    }
-    
-    public func pageObjectElementFactory() -> PageObjectElementFactory {
-        let grayBoxTestsDependenciesFactory = GrayBoxTestsDependenciesFactoryImpl(
+        
+        grayBoxTestsDependenciesFactory = GrayBoxTestsDependenciesFactoryImpl(
             testFailureRecorder: testFailureRecorder,
             elementVisibilityChecker: ElementVisibilityCheckerImpl(
                 ipcClient: ipcClient
@@ -55,15 +56,19 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider,
             waiter: waiter,
-            signpostActivityLogger: signpostActivityLogger
+            signpostActivityLogger: signpostActivityLogger,
+            snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
+            snapshotsComparatorFactory: snapshotsComparatorFactory
         )
-        
+    }
+    
+    public func pageObjectElementFactory() -> PageObjectElementFactory {
         return PageObjectElementFactoryImpl(
             testFailureRecorder: grayBoxTestsDependenciesFactory.testFailureRecorder,
             screenshotAttachmentsMaker: grayBoxTestsDependenciesFactory.screenshotAttachmentsMaker,
             stepLogger: grayBoxTestsDependenciesFactory.stepLogger,
             dateProvider: grayBoxTestsDependenciesFactory.dateProvider,
-            elementInteractionDependenciesFactory: { elementSettings in
+            elementInteractionDependenciesFactory: { [grayBoxTestsDependenciesFactory] elementSettings in
                 GrayElementInteractionDependenciesFactory(
                     elementSettings: elementSettings,
                     grayBoxTestsDependenciesFactory: grayBoxTestsDependenciesFactory
@@ -74,8 +79,6 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     }
     
     public func matcherBuilder() -> ElementMatcherBuilder {
-        return ElementMatcherBuilder(
-            screenshotTaker: screenshotTaker
-        )
+        return grayBoxTestsDependenciesFactory.elementMatcherBuilder
     }
 }

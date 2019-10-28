@@ -4,11 +4,16 @@ import MixboxTestsFoundation
 
 public final class XcTestFailureRecorder: TestFailureRecorder {
     private let currentTestCaseProvider: CurrentTestCaseProvider
-    private let everyErrorShouldFailTest: Bool
+    private let shouldNeverContinueTestAfterFailure: Bool
     
-    public init(currentTestCaseProvider: CurrentTestCaseProvider, everyErrorShouldFailTest: Bool = false) {
+    // If `shouldNeverContinueTestAfterFailure` then `shouldContinueTest` is ignored.
+    // Consider using `false` for debugging tests and `true` for CI builds.
+    public init(
+        currentTestCaseProvider: CurrentTestCaseProvider,
+        shouldNeverContinueTestAfterFailure: Bool)
+    {
         self.currentTestCaseProvider = currentTestCaseProvider
-        self.everyErrorShouldFailTest = everyErrorShouldFailTest
+        self.shouldNeverContinueTestAfterFailure = shouldNeverContinueTestAfterFailure
     }
     
     public func recordFailure(description: String, fileLine: FileLine?, shouldContinueTest: Bool) {
@@ -16,7 +21,7 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
         
         if let testCase = testCase {
             let previousValue = testCase.continueAfterFailure
-            testCase.continueAfterFailure = everyErrorShouldFailTest ? false : shouldContinueTest
+            testCase.continueAfterFailure = shouldNeverContinueTestAfterFailure ? false : shouldContinueTest
             testCase.recordFailure(
                 withDescription: description,
                 inFile: String(describing: fileLine?.file ?? #file),

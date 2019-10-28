@@ -21,9 +21,15 @@ public final class OptionalMatcher<T>: Matcher<T?> {
                 case let (.some(matcher), .some(value)):
                     return matcher.matches(value: value)
                 case let (.none, .some(value)):
-                    return .exactMismatch { "ожидалось nil, по факту \(value)" }
+                    return .exactMismatch(
+                        mismatchDescription: { "ожидалось nil, по факту \(value)" },
+                        attachments: { [] }
+                    )
                 case (.some, .none):
-                    return .exactMismatch { "ожидалось не-nil, по факту nil" }
+                    return .exactMismatch(
+                        mismatchDescription: { "ожидалось не-nil, по факту nil" },
+                        attachments: { [] }
+                    )
                 }
             }
         )

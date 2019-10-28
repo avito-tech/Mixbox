@@ -19,7 +19,8 @@ public final class ContainsMatcher<T: StringProtocol>: Matcher<T> {
                     return .exactMismatch(
                         mismatchDescription: {
                             "ожидалось содержание '\(string)' в строке, которая по факту равна '\(actualValue)'"
-                        }
+                        },
+                        attachments: { [] }
                     )
                 }
             }

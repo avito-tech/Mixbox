@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 public enum MatchingResult {
     public static let exactMismatchPercentage: Double = 0
     public static let exactMatchPercentage: Double = 1
@@ -25,20 +27,29 @@ public enum MatchingResult {
     
     public static func partialMismatch(
         percentageOfMatching: Double,
-        mismatchDescription: @escaping () -> String)
+        mismatchDescription: @escaping () -> String,
+        attachments: @escaping () -> [Attachment])
         -> MatchingResult
     {
         return .mismatch(
-            MismatchResult(percentageOfMatching: percentageOfMatching, mismatchDescription: mismatchDescription)
+            LazyMismatchResult.partialMismatch(
+                percentageOfMatching: percentageOfMatching,
+                mismatchDescription: mismatchDescription,
+                attachments: attachments
+            )
         )
     }
     
     public static func exactMismatch(
-        mismatchDescription: @escaping () -> String)
+        mismatchDescription: @escaping () -> String,
+        attachments: @escaping () -> [Attachment])
         -> MatchingResult
     {
         return .mismatch(
-            MismatchResult(percentageOfMatching: exactMismatchPercentage, mismatchDescription: mismatchDescription)
+            LazyMismatchResult.exactMismatch(
+                mismatchDescription: mismatchDescription,
+                attachments: attachments
+            )
         )
     }
 }

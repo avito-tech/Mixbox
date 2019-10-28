@@ -19,7 +19,8 @@ public final class StartsWithMatcher<T: StringProtocol>: Matcher<T> {
                             """
                             ожидалось, что строка начинается с "\(string)"'", актуальное значение строки: "\(actualValue)"
                             """
-                        }
+                        },
+                        attachments: { [] }
                     )
                 }
             }

@@ -14,7 +14,7 @@ extension BaseUiTestCase {
         case .match:
             break
         case .mismatch(let mismatchResult):
-            XCTFail(mismatchResult.mismatchDescription(), file: file, line: line)
+            XCTFail(mismatchResult.mismatchDescription, file: file, line: line)
         }
     }
     

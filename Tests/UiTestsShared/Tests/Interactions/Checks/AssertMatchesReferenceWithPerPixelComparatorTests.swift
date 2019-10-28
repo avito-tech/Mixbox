@@ -5,9 +5,9 @@ import MixboxFoundation
 import CocoaImageHashing
 import TestsIpc
 
-// TODO: Rename
+// TODO: Fix for iOS 13: Comparator can not compare images with different byte order.
 // TODO: Add real world example tests of the screen reference matching
-class ScreenshotTests: TestCase {
+class AssertMatchesReferenceWithPerPixelComparatorTests: TestCase {
     private var screen: MainAppScreen<ScreenshotTestsViewPageObject> {
         return pageObjects.screenshotTestsView
     }
@@ -30,7 +30,7 @@ class ScreenshotTests: TestCase {
             screen.forEveryKindOfHierarchy { screen in
                 screen.view(index: index).withoutTimeout.assertMatchesReference(
                     image: image,
-                    comparatorSelection: .perPixel
+                    comparatorType: .perPixel
                 )
             }
         }

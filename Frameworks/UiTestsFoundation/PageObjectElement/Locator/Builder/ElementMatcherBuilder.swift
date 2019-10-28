@@ -19,14 +19,24 @@
 // So this class does nothing except for providing syntactic sugar.
 //
 // TODO: add ability to compare elements? `{ element == otherElement }`
+// TODO: Make protocol! It will allow Cuckoo to mock it automatically.
 
 public typealias ElementMatcherBuilderClosure = (ElementMatcherBuilder) -> ElementMatcher
 
 public final class ElementMatcherBuilder {
-    // We were comparing `String` to `String?` before, this is a temporary kludge to achieve same behavior.
-    // Before: func a(b: String, c: String?) { return b == c } // if c == nil, then false is returned
-    // After: func a(b: String, c: String) { return b == c } // if c is uuid, then false is returned
-    private static let valueToMimicComparisonOfStringToNil = "(the value is actually nil) This string is a kludge, it is used as a replacement for nils, because optional matcher builders are not implemented."
+    private let screenshotTaker: ScreenshotTaker
+    private let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
+    private let snapshotsComparatorFactory: SnapshotsComparatorFactory
+    
+    public init(
+        screenshotTaker: ScreenshotTaker,
+        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
+        snapshotsComparatorFactory: SnapshotsComparatorFactory)
+    {
+        self.screenshotTaker = screenshotTaker
+        self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
+        self.snapshotsComparatorFactory = snapshotsComparatorFactory
+    }
     
     public let frameRelativeToScreen = CGRectPropertyMatcherBuilder("frameRelativeToScreen", \ElementSnapshot.frameRelativeToScreen)
     
@@ -67,9 +77,7 @@ public final class ElementMatcherBuilder {
         _ matcher: ElementMatcherBuilderClosure)
         -> ElementMatcher
     {
-        return IsSubviewMatcher(
-            matcher(ElementMatcherBuilder(screenshotTaker: screenshotTaker))
-        )
+        return IsSubviewMatcher(matcher(self))
     }
     
     public func matchesReference(
@@ -80,13 +88,24 @@ public final class ElementMatcherBuilder {
         return ReferenceImageMatcher(
             screenshotTaker: screenshotTaker,
             referenceImage: image,
-            comparator: comparator
+            snapshotsComparator: comparator,
+            snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator
         )
     }
     
-    private let screenshotTaker: ScreenshotTaker
-    
-    public init(screenshotTaker: ScreenshotTaker) {
-        self.screenshotTaker = screenshotTaker
+    public func matchesReference(
+        image: UIImage,
+        comparatorType: SnapshotsComparatorType)
+        -> ElementMatcher
+    {
+        return matchesReference(
+            image: image,
+            comparator: snapshotsComparatorFactory.snapshotsComparator(type: comparatorType)
+        )
     }
+    
+    // We were comparing `String` to `String?` before, this is a temporary kludge to achieve same behavior.
+    // Before: func a(b: String, c: String?) { return b == c } // if c == nil, then false is returned
+    // After: func a(b: String, c: String) { return b == c } // if c is uuid, then false is returned
+    private static let valueToMimicComparisonOfStringToNil = "(the value is actually nil) This string is a kludge, it is used as a replacement for nils, because optional matcher builders are not implemented."
 }

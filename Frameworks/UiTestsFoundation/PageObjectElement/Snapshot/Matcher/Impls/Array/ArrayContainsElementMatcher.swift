@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
     private let matcher: Matcher<T>
     
@@ -32,7 +34,7 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
                             .mb_wrapAndIndent(prefix: "[", postfix: "]", ifEmpty: "[]")
                         
                         let mismatchDescriptionsJoined = mismatchResults
-                            .map { "\($0.mismatchDescription())" }
+                            .map { "\($0.mismatchDescription)" }
                             .joined(separator: ",\n")
                             .mb_wrapAndIndent(prefix: "[", postfix: "]", ifEmpty: "[]")
                         
@@ -41,6 +43,20 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
                             в массиве, актуальный массив: \(actualArrayJoined), \
                             описание ошибок по элементам: \(mismatchDescriptionsJoined)
                             """
+                    },
+                    attachments: {
+                        mismatchResults.enumerated().compactMap { index, mismatchResult in
+                            let attachments = mismatchResult.attachments
+                            
+                            if attachments.isEmpty {
+                                return nil
+                            } else {
+                                return Attachment(
+                                    name: "Attachments for element at index #\(index)",
+                                    content: .attachments(attachments)
+                                )
+                            }
+                        }
                     }
                 )
             }

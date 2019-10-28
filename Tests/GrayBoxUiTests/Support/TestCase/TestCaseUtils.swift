@@ -82,7 +82,9 @@ final class TestCaseUtils: IpcRouterProvider {
             screenshotTaker: screenshotTaker,
             windowsProvider: windowsProvider,
             waiter: baseUiTestCaseUtils.waiter,
-            signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger
+            signpostActivityLogger: baseUiTestCaseUtils.signpostActivityLogger,
+            snapshotsDifferenceAttachmentGenerator: baseUiTestCaseUtils.snapshotsDifferenceAttachmentGenerator,
+            snapshotsComparatorFactory: baseUiTestCaseUtils.snapshotsComparatorFactory
         )
         
         pageObjects = PageObjects(

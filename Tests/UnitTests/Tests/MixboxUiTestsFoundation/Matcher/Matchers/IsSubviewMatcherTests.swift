@@ -69,7 +69,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             percentageOfMatching: 0.5,
             description:
             """
-            Является сабвью - нет, ожидалось содержание родителя, который матчится матчером "Всё из [
+            не найден superview, который матчится матчером "Всё из [
                 Имеет проперти id: равно non_existent_id
                 Имеет проперти isEnabled: равно true
             ]", лучший кандидат зафейлился: Всё из [

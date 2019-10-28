@@ -403,7 +403,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = check(ElementMatcherBuilder(screenshotTaker: ScreenshotTakerStub()))
+        let matcher = check(ElementMatcherBuilderFactory.elementMatcherBuilder())
         
         assertMatches(matcher: matcher, value: snapshot)
     }
@@ -420,7 +420,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
             line: line,
             configure: stub
         )
-        let matcher = check(ElementMatcherBuilder(screenshotTaker: ScreenshotTakerStub()))
+        let matcher = check(ElementMatcherBuilderFactory.elementMatcherBuilder())
         
         assertMismatches(
             matcher: matcher,

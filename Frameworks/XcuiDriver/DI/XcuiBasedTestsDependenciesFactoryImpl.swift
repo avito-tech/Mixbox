@@ -18,6 +18,8 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     let pasteboard: Pasteboard
     let waiter: RunLoopSpinningWaiter
     let signpostActivityLogger: SignpostActivityLogger
+    let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
+    let snapshotsComparatorFactory: SnapshotsComparatorFactory
     
     // MARK: - Init
     
@@ -35,7 +37,9 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
         waiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger)
+        signpostActivityLogger: SignpostActivityLogger,
+        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
+        snapshotsComparatorFactory: SnapshotsComparatorFactory)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -51,6 +55,8 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.pasteboard = pasteboard
         self.waiter = waiter
         self.signpostActivityLogger = signpostActivityLogger
+        self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
+        self.snapshotsComparatorFactory = snapshotsComparatorFactory
         
         applicationFrameProvider = XcuiApplicationFrameProvider(
             applicationProvider: applicationProvider
@@ -68,7 +74,9 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     
     var elementMatcherBuilder: ElementMatcherBuilder {
         return ElementMatcherBuilder(
-            screenshotTaker: screenshotTaker
+            screenshotTaker: screenshotTaker,
+            snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
+            snapshotsComparatorFactory: snapshotsComparatorFactory
         )
     }
     

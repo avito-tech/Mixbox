@@ -16,7 +16,8 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
     
     private func setUpObservation() {
         let testFailureRecorder = XcTestFailureRecorder(
-            currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
+            currentTestCaseProvider: AutomaticCurrentTestCaseProvider(),
+            shouldNeverContinueTestAfterFailure: false
         )
         
         let reportingTestLifecycleManager = ReportingTestLifecycleManager(

@@ -11,7 +11,8 @@ public final class EqualsMatcher<T: Equatable>: Matcher<T> {
                     return .exactMismatch(
                         mismatchDescription: {
                             "не равно '\(expectedValue)', актуальное значение: '\(actualValue)')"
-                        }
+                        },
+                        attachments: { [] }
                     )
                 }
             }

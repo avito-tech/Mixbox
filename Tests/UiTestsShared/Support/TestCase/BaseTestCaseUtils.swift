@@ -40,6 +40,10 @@ final class BaseUiTestCaseUtils {
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
     let signpostActivityLogger: SignpostActivityLogger
     let dateProvider = SystemClockDateProvider()
+    let snapshotsDifferenceAttachmentGenerator = SnapshotsDifferenceAttachmentGeneratorImpl(
+        differenceImageGenerator: DifferenceImageGeneratorImpl()
+    )
+    let snapshotsComparatorFactory = SnapshotsComparatorFactoryImpl()
     
     init() {
         self.runLoopSpinnerFactory = RunLoopSpinnerFactoryImpl(
@@ -60,7 +64,10 @@ final class BaseUiTestCaseUtils {
             // Usage of XCTActivity crashes fbxctest, so we have to not use it.
             stepLogger = Singletons.stepLogger
         } else {
-            stepLogger = XcuiActivityStepLogger(originalStepLogger: Singletons.stepLogger)
+            stepLogger = XcuiActivityStepLogger(
+                originalStepLogger: Singletons.stepLogger,
+                xctAttachmentsAdder: XctAttachmentsAdderImpl()
+            )
         }
         
         fileSystem = FileSystemImpl(
@@ -71,7 +78,8 @@ final class BaseUiTestCaseUtils {
         self.stepLogger = stepLogger
         
         let testFailureRecorder = XcTestFailureRecorder(
-            currentTestCaseProvider: AutomaticCurrentTestCaseProvider()
+            currentTestCaseProvider: AutomaticCurrentTestCaseProvider(),
+            shouldNeverContinueTestAfterFailure: false
         )
         
         self.testFailureRecorder = testFailureRecorder

@@ -3,7 +3,10 @@ public class AlwaysFalseMatcher<T>: Matcher<T> {
         super.init(
             description: { "Всегда ложно" },
             matchingFunction: { _ in
-                MatchingResult.exactMismatch(mismatchDescription: { "Всегда ложно" })
+                MatchingResult.exactMismatch(
+                    mismatchDescription: { "Всегда ложно" },
+                    attachments: { [] }
+                )
             }
         )
     }

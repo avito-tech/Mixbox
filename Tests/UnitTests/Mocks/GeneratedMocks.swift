@@ -263,6 +263,164 @@ public class ScreenshotTakerStub: ScreenshotTaker {
 }
 
 import Cuckoo
+import MixboxUiTestsFoundation
+
+public class MockSnapshotsComparatorFactory: SnapshotsComparatorFactory, Cuckoo.ProtocolMock {
+
+    public typealias MocksType = SnapshotsComparatorFactory
+
+    public typealias Stubbing = __StubbingProxy_SnapshotsComparatorFactory
+    public typealias Verification = __VerificationProxy_SnapshotsComparatorFactory
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    private var __defaultImplStub: SnapshotsComparatorFactory?
+
+    public func enableDefaultImplementation(_ stub: SnapshotsComparatorFactory) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+
+    public func snapshotsComparator(type: SnapshotsComparatorType) -> SnapshotsComparator {
+
+    return cuckoo_manager.call("snapshotsComparator(type: SnapshotsComparatorType) -> SnapshotsComparator",
+            parameters: (type),
+            escapingParameters: (type),
+            superclassCall:
+
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.snapshotsComparator(type: type))
+
+    }
+
+	public struct __StubbingProxy_SnapshotsComparatorFactory: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func snapshotsComparator<M1: Cuckoo.Matchable>(type: M1) -> Cuckoo.ProtocolStubFunction<(SnapshotsComparatorType), SnapshotsComparator> where M1.MatchedType == SnapshotsComparatorType {
+	        let matchers: [Cuckoo.ParameterMatcher<(SnapshotsComparatorType)>] = [wrap(matchable: type) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockSnapshotsComparatorFactory.self, method: "snapshotsComparator(type: SnapshotsComparatorType) -> SnapshotsComparator", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_SnapshotsComparatorFactory: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func snapshotsComparator<M1: Cuckoo.Matchable>(type: M1) -> Cuckoo.__DoNotUse<(SnapshotsComparatorType), SnapshotsComparator> where M1.MatchedType == SnapshotsComparatorType {
+	        let matchers: [Cuckoo.ParameterMatcher<(SnapshotsComparatorType)>] = [wrap(matchable: type) { $0 }]
+	        return cuckoo_manager.verify("snapshotsComparator(type: SnapshotsComparatorType) -> SnapshotsComparator", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class SnapshotsComparatorFactoryStub: SnapshotsComparatorFactory {
+
+    public func snapshotsComparator(type: SnapshotsComparatorType) -> SnapshotsComparator  {
+        return DefaultValueRegistry.defaultValue(for: (SnapshotsComparator).self)
+    }
+
+}
+
+import Cuckoo
+import MixboxUiTestsFoundation
+
+import MixboxTestsFoundation
+
+public class MockSnapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator, Cuckoo.ProtocolMock {
+
+    public typealias MocksType = SnapshotsDifferenceAttachmentGenerator
+
+    public typealias Stubbing = __StubbingProxy_SnapshotsDifferenceAttachmentGenerator
+    public typealias Verification = __VerificationProxy_SnapshotsDifferenceAttachmentGenerator
+
+    public let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    private var __defaultImplStub: SnapshotsDifferenceAttachmentGenerator?
+
+    public func enableDefaultImplementation(_ stub: SnapshotsDifferenceAttachmentGenerator) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+
+    public func attachments(snapshotsDifferenceDescription: SnapshotsDifferenceDescription) -> [Attachment] {
+
+    return cuckoo_manager.call("attachments(snapshotsDifferenceDescription: SnapshotsDifferenceDescription) -> [Attachment]",
+            parameters: (snapshotsDifferenceDescription),
+            escapingParameters: (snapshotsDifferenceDescription),
+            superclassCall:
+
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.attachments(snapshotsDifferenceDescription: snapshotsDifferenceDescription))
+
+    }
+
+	public struct __StubbingProxy_SnapshotsDifferenceAttachmentGenerator: Cuckoo.StubbingProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	
+	    public init(manager: Cuckoo.MockManager) {
+	        self.cuckoo_manager = manager
+	    }
+	    
+	    
+	    func attachments<M1: Cuckoo.Matchable>(snapshotsDifferenceDescription: M1) -> Cuckoo.ProtocolStubFunction<(SnapshotsDifferenceDescription), [Attachment]> where M1.MatchedType == SnapshotsDifferenceDescription {
+	        let matchers: [Cuckoo.ParameterMatcher<(SnapshotsDifferenceDescription)>] = [wrap(matchable: snapshotsDifferenceDescription) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockSnapshotsDifferenceAttachmentGenerator.self, method: "attachments(snapshotsDifferenceDescription: SnapshotsDifferenceDescription) -> [Attachment]", parameterMatchers: matchers))
+	    }
+	    
+	}
+
+	public struct __VerificationProxy_SnapshotsDifferenceAttachmentGenerator: Cuckoo.VerificationProxy {
+	    private let cuckoo_manager: Cuckoo.MockManager
+	    private let callMatcher: Cuckoo.CallMatcher
+	    private let sourceLocation: Cuckoo.SourceLocation
+	
+	    public init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+	        self.cuckoo_manager = manager
+	        self.callMatcher = callMatcher
+	        self.sourceLocation = sourceLocation
+	    }
+	
+	    
+	
+	    
+	    @discardableResult
+	    func attachments<M1: Cuckoo.Matchable>(snapshotsDifferenceDescription: M1) -> Cuckoo.__DoNotUse<(SnapshotsDifferenceDescription), [Attachment]> where M1.MatchedType == SnapshotsDifferenceDescription {
+	        let matchers: [Cuckoo.ParameterMatcher<(SnapshotsDifferenceDescription)>] = [wrap(matchable: snapshotsDifferenceDescription) { $0 }]
+	        return cuckoo_manager.verify("attachments(snapshotsDifferenceDescription: SnapshotsDifferenceDescription) -> [Attachment]", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
+	}
+}
+
+public class SnapshotsDifferenceAttachmentGeneratorStub: SnapshotsDifferenceAttachmentGenerator {
+
+    public func attachments(snapshotsDifferenceDescription: SnapshotsDifferenceDescription) -> [Attachment]  {
+        return DefaultValueRegistry.defaultValue(for: ([Attachment]).self)
+    }
+
+}
+
+import Cuckoo
 import MixboxInAppServices
 
 import MixboxFoundation

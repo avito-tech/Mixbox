@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 public class CompoundMatcher<T>: Matcher<T> {
     public init(
         prefix: String,
@@ -20,6 +22,10 @@ public class CompoundMatcher<T>: Matcher<T> {
                         percentageOfMatching: percentageOfMatching(matchingResults),
                         mismatchDescription: CompoundMatcher.joinedFails(
                             prefix: prefix,
+                            matchers: matchers,
+                            results: matchingResults
+                        ),
+                        attachments: CompoundMatcher.joinedAttachments(
                             matchers: matchers,
                             results: matchingResults
                         )
@@ -54,6 +60,32 @@ public class CompoundMatcher<T>: Matcher<T> {
         }
     }
     
+    private static func joinedAttachments(
+        matchers: [Matcher<T>],
+        results: [MatchingResult])
+        -> () -> [Attachment]
+    {
+        return {
+            results.enumerated().compactMap { index, result in
+                switch result {
+                case .mismatch(let mismatchResult):
+                    let attachments = mismatchResult.attachments
+                    
+                    if attachments.isEmpty {
+                        return nil
+                    } else {
+                        return Attachment(
+                            name: "Attachments for mismatched element #\(index)",
+                            content: .attachments(attachments)
+                        )
+                    }
+                case .match:
+                    return nil
+                }
+            }
+        }
+    }
+    
     private static func joined(strings: [String]) -> String {
         return strings.joined(separator: "\n").mb_wrapAndIndent(
             prefix: "[",
@@ -74,7 +106,7 @@ public class CompoundMatcher<T>: Matcher<T> {
         case .match:
             return matchDescription(matcherDescription: matcher.description)
         case .mismatch(let mismatchResult):
-            return self.mismatchDescription(matcherDescription: mismatchResult.mismatchDescription())
+            return mismatchDescription(matcherDescription: mismatchResult.mismatchDescription)
         }
     }
 }

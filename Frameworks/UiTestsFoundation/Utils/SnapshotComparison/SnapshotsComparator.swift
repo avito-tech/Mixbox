@@ -1,4 +1,3 @@
-// TODO: `public protocol SnapshotsComparator: class`
-public protocol SnapshotsComparator {
-    func equals(actual: UIImage, expected: UIImage) -> MatchingResult
+public protocol SnapshotsComparator: class {
+    func compare(actualImage: UIImage, expectedImage: UIImage) -> SnapshotsComparisonResult
 }

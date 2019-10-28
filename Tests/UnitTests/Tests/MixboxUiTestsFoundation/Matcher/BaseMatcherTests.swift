@@ -1,8 +1,9 @@
 import MixboxUiTestsFoundation
 import XCTest
 
+// TODO: Check attachments
 class BaseMatcherTests: XCTestCase {
-    let matcherBuilder = ElementMatcherBuilder(screenshotTaker: ScreenshotTakerStub())
+    let matcherBuilder = ElementMatcherBuilderFactory.elementMatcherBuilder()
     
     func assertMatches<T>(
         matcher: Matcher<T>,
@@ -20,7 +21,7 @@ class BaseMatcherTests: XCTestCase {
                 Matcher: \(matcher.description)
                 Value: \(value)
                 PercentageOfMatching: \(mismatchResult.percentageOfMatching)
-                MismatchDescription: \(mismatchResult.mismatchDescription())
+                MismatchDescription: \(mismatchResult.mismatchDescription)
                 """,
                 file: file,
                 line: line
@@ -63,7 +64,7 @@ class BaseMatcherTests: XCTestCase {
             }
             
             if let description = description {
-                let actualDescription = mismatchResult.mismatchDescription()
+                let actualDescription = mismatchResult.mismatchDescription
                 
                 if description != actualDescription {
                     XCTFail("""

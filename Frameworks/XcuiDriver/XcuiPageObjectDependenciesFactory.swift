@@ -15,6 +15,9 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let pasteboard: Pasteboard
     private let waiter: RunLoopSpinningWaiter
     private let signpostActivityLogger: SignpostActivityLogger
+    private let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
+    private let snapshotsComparatorFactory: SnapshotsComparatorFactory
+    private let xcuiBasedTestsDependenciesFactory: XcuiBasedTestsDependenciesFactory
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -27,7 +30,9 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
         waiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger)
+        signpostActivityLogger: SignpostActivityLogger,
+        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
+        snapshotsComparatorFactory: SnapshotsComparatorFactory)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -40,10 +45,10 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.pasteboard = pasteboard
         self.waiter = waiter
         self.signpostActivityLogger = signpostActivityLogger
-    }
-    
-    public func pageObjectElementFactory() -> PageObjectElementFactory {
-        let xcuiBasedTestsDependenciesFactory = XcuiBasedTestsDependenciesFactoryImpl(
+        self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
+        self.snapshotsComparatorFactory = snapshotsComparatorFactory
+        
+        xcuiBasedTestsDependenciesFactory = XcuiBasedTestsDependenciesFactoryImpl(
             testFailureRecorder: testFailureRecorder,
             elementVisibilityChecker: ElementVisibilityCheckerImpl(
                 ipcClient: ipcClient
@@ -68,15 +73,19 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             screenshotTaker: screenshotTaker,
             pasteboard: pasteboard,
             waiter: waiter,
-            signpostActivityLogger: signpostActivityLogger
+            signpostActivityLogger: signpostActivityLogger,
+            snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
+            snapshotsComparatorFactory: snapshotsComparatorFactory
         )
-        
+    }
+    
+    public func pageObjectElementFactory() -> PageObjectElementFactory {
         return PageObjectElementFactoryImpl(
             testFailureRecorder: xcuiBasedTestsDependenciesFactory.testFailureRecorder,
             screenshotAttachmentsMaker: xcuiBasedTestsDependenciesFactory.screenshotAttachmentsMaker,
             stepLogger: xcuiBasedTestsDependenciesFactory.stepLogger,
             dateProvider: xcuiBasedTestsDependenciesFactory.dateProvider,
-            elementInteractionDependenciesFactory: { elementSettings in
+            elementInteractionDependenciesFactory: { [xcuiBasedTestsDependenciesFactory] elementSettings in
                 XcuiElementInteractionDependenciesFactory(
                     elementSettings: elementSettings,
                     xcuiBasedTestsDependenciesFactory: xcuiBasedTestsDependenciesFactory
@@ -87,8 +96,6 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     }
     
     public func matcherBuilder() -> ElementMatcherBuilder {
-        return ElementMatcherBuilder(
-            screenshotTaker: screenshotTaker
-        )
+        return xcuiBasedTestsDependenciesFactory.elementMatcherBuilder
     }
 }

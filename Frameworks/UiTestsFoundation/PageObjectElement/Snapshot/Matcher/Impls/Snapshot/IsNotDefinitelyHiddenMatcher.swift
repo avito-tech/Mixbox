@@ -8,7 +8,8 @@ public final class IsNotDefinitelyHiddenMatcher: Matcher<ElementSnapshot> {
                 if let isDefinitelyHidden = snapshot.isDefinitelyHidden.valueIfAvailable {
                     if isDefinitelyHidden {
                         return .exactMismatch(
-                            mismatchDescription: { "вьюшка или один из ее родителей скрыты" }
+                            mismatchDescription: { "вьюшка или один из ее родителей скрыты" },
+                            attachments: { [] }
                         )
                     } else {
                         return .match

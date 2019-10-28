@@ -136,13 +136,24 @@ extension ElementWithUi {
     
     public func assertMatchesReference(
         image: UIImage,
-        comparatorSelection: SnapshotsComparators,
+        comparatorType: SnapshotsComparatorType,
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = assertMatchesReference(
-            image: image,
-            comparator: comparatorSelection
+        let buildMatcher: (ElementMatcherBuilder) -> ElementMatcher = { element in
+            element.matchesReference(image: image, comparatorType: comparatorType)
+        }
+        
+        _ = implementation.checkIsDisplayedAndMatches(
+            minimalPercentageOfVisibleArea: 1.0,
+            buildMatcher: buildMatcher,
+            description: { dependencies in
+                """
+                "\(dependencies.elementInfo.elementName)" соответствует референсному изображению
+                """
+            },
+            file: file,
+            line: line
         )
     }
 
@@ -212,7 +223,10 @@ extension ElementWithUi {
                 description: { "checkPositiveHeightDifference, main matcher" },
                 matchingFunction: { snapshot in
                     guard let heightBefore = heightBefore else {
-                        return .exactMismatch { "не удалось получить значение высоты до действия" }
+                        return .exactMismatch(
+                            mismatchDescription: { "не удалось получить значение высоты до действия" },
+                            attachments: { [] }
+                        )
                     }
                     
                     let heightDifference = differenceCalculation(
@@ -223,7 +237,10 @@ extension ElementWithUi {
                     )
                     return heightDifference > 0
                         ? .match
-                        : .exactMismatch { negativeDifferenceFailureMessage(heightDifference) }
+                        : .exactMismatch(
+                            mismatchDescription: { negativeDifferenceFailureMessage(heightDifference) },
+                            attachments: { [] }
+                        )
                 }
             ),
             description: description,

@@ -68,7 +68,8 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
                         return .success
                     case let .mismatch(mismatchResult):
                         return dependencies.interactionResultMaker.failure(
-                            message: "проверка неуспешна (\(matcher.description)): \(mismatchResult.mismatchDescription())"
+                            message: "проверка неуспешна (\(matcher.description)): \(mismatchResult.mismatchDescription)",
+                            attachments: mismatchResult.attachments
                         )
                     }
                 }

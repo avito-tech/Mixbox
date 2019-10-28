@@ -35,7 +35,10 @@ public final class CustomValueMatcher<ValueType: Codable>: Matcher<ElementSnapsh
                     
                     return matcher.matches(value: value)
                 } catch {
-                    return .exactMismatch { "\(error)" }
+                    return .exactMismatch(
+                        mismatchDescription: { "\(error)" },
+                        attachments: { [] }
+                    ) 
                 }
             }
         )

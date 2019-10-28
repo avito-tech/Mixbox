@@ -43,6 +43,9 @@ public final class InteractionResultMakerImpl: InteractionResultMaker {
     }
     
     private func stackTraceAttachments() -> [Attachment] {
+        // TODO: Restore this attachment after fixing duplication of attachments
+        return []
+        
         // TODO: Share code! Exctract to class.
         // Should look like: "2   xctest                              0x000000010e7a0069 main + 0"
         
@@ -67,6 +70,9 @@ public final class InteractionResultMakerImpl: InteractionResultMaker {
     }
     
     private func hierarchyAttachments() -> [Attachment] {
+        // TODO: Restore this attachment after fixing duplication of attachments
+        return []
+        
         guard let string = elementHierarchyDescriptionProvider.elementHierarchyDescription() else {
             return []
         }
@@ -80,6 +86,9 @@ public final class InteractionResultMakerImpl: InteractionResultMaker {
     }
     
     private func errorMessageAttachments(message: String) -> [Attachment] {
+        // TODO: Restore this attachment after fixing duplication of attachments
+        return []
+        
         return [
             Attachment(
                 name: "Error description",

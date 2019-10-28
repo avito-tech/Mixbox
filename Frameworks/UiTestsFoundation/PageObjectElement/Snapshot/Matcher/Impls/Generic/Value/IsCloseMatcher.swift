@@ -19,7 +19,8 @@ public final class IsCloseMatcher<T: IsCloseMatcherCompatible>: Matcher<T> {
                             "актуальное значение: \(actualValue),"
                                 + " ожидаемое значение: \(expectedValue),"
                                 + " разница \(actualDelta) > \(delta)"
-                        }
+                        },
+                        attachments: { [] }
                     )
                 } else {
                     return .match

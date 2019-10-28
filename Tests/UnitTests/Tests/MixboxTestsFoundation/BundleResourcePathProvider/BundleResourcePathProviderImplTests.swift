@@ -34,7 +34,7 @@ final class BundleResourcePathProviderImplTests: XCTestCase {
                 
                 switch matcher.matches(value: path) {
                 case .mismatch(let mismatchResult):
-                    XCTFail("path doesn't match: \(mismatchResult.mismatchDescription())")
+                    XCTFail("path doesn't match: \(mismatchResult.mismatchDescription)")
                 case .match:
                     break
                 }
@@ -62,7 +62,7 @@ final class BundleResourcePathProviderImplTests: XCTestCase {
             
             switch matcher.matches(value: message) {
             case .mismatch(let mismatchResult):
-                XCTFail("exception description doesn't match: \(mismatchResult.mismatchDescription())")
+                XCTFail("exception description doesn't match: \(mismatchResult.mismatchDescription)")
             case .match:
                 break
             }

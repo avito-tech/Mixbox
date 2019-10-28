@@ -100,7 +100,7 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
                     content: .text(interactionFailure.testFailureDescription())
                 )
             )
-            stepAttachments.append(contentsOf: interactionFailure.attachments)
+            stepAttachments.append(contentsOf: allAttachments(interactionFailure: interactionFailure))
             // TODO: Additional attachments?
             wasSuccessful = false
         }
@@ -117,6 +117,12 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
             wasSuccessful: wasSuccessful,
             attachments: stepAttachments
         )
+    }
+    
+    private func allAttachments(interactionFailure: InteractionFailure) -> [Attachment] {
+        return interactionFailure.attachments + interactionFailure.nestedFailures.flatMap {
+            allAttachments(interactionFailure: $0)
+        }
     }
     
     private func fileLineAttachment(fileLine: FileLine) -> Attachment {

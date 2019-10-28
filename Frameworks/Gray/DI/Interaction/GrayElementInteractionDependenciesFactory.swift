@@ -38,9 +38,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
             retriableTimedInteractionState: retriableTimedInteractionState
         )
         
-        let elementMatcherBuilder = ElementMatcherBuilder(
-            screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker
-        )
+        let elementMatcherBuilder = grayBoxTestsDependenciesFactory.elementMatcherBuilder
         
         return ElementInteractionDependenciesImpl(
             snapshotResolver: SnapshotForInteractionResolverImpl(

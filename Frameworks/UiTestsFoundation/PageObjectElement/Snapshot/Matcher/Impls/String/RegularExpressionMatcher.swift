@@ -20,7 +20,8 @@ public final class RegularExpressionMatcher<T: StringProtocol>: Matcher<T> {
                         mismatchDescription: {
                             "текст не прошел проверку регуляркой '\(regularExpression)',"
                                 + " актуальный текст: '\(actualValue)'"
-                        }
+                        },
+                        attachments: { [] }
                     )
                 }
             }

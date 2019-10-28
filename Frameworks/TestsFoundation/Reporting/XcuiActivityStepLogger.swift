@@ -1,13 +1,17 @@
 import XCTest
-import MixboxTestsFoundation
 
 // Adds Xcode reports to StepLogger (View -> Navigators -> Show Report Navigator).
 // They help to debug tests.
 public final class XcuiActivityStepLogger: StepLogger {
     private let originalStepLogger: StepLogger
+    private let xctAttachmentsAdder: XctAttachmentsAdder
     
-    public init(originalStepLogger: StepLogger) {
+    public init(
+        originalStepLogger: StepLogger,
+        xctAttachmentsAdder: XctAttachmentsAdder)
+    {
         self.originalStepLogger = originalStepLogger
+        self.xctAttachmentsAdder = xctAttachmentsAdder
     }
     
     public func logStep<T>(
@@ -15,47 +19,16 @@ public final class XcuiActivityStepLogger: StepLogger {
         body: () -> StepLoggerResultWrapper<T>)
         -> StepLoggerResultWrapper<T>
     {
-        return originalStepLogger.logStep(stepLogBefore: stepLogBefore) { () -> StepLoggerResultWrapper<T> in
+        return originalStepLogger.logStep(stepLogBefore: stepLogBefore) { [xctAttachmentsAdder] () -> StepLoggerResultWrapper<T> in
             XCTContext.runActivity(named: stepLogBefore.title) { (activity: XCTActivity) -> StepLoggerResultWrapper<T> in
-                stepLogBefore.attachments.forEach { addAttachment(attachment: $0, activity: activity) }
+                xctAttachmentsAdder.add(attachments: stepLogBefore.attachments, activity: activity)
                 
                 let result = body()
                 
-                result.stepLogAfter.attachments.forEach { addAttachment(attachment: $0, activity: activity) }
+                xctAttachmentsAdder.add(attachments: result.stepLogAfter.attachments, activity: activity)
                 
                 return result
             }
         }
-    }
-    
-    private func addAttachment(attachment: Attachment, activity: XCTActivity) {
-        switch attachment.content {
-        case .screenshot(let screenshot):
-            activity.add(
-                attachment: XCTAttachment(image: screenshot),
-                name: attachment.name
-            )
-        case .text(let string):
-            activity.add(
-                attachment: XCTAttachment(string: string),
-                name: attachment.name
-            )
-        case .json(let string):
-            activity.add(
-                attachment: XCTAttachment(string: string),
-                name: attachment.name
-            )
-        case .attachments(let attachments):
-            for attachment in attachments {
-                addAttachment(attachment: attachment, activity: activity)
-            }
-        }
-    }
-}
-
-private extension XCTActivity {
-    func add(attachment: XCTAttachment, name: String) {
-        attachment.name = name
-        add(attachment)
     }
 }

@@ -7,6 +7,8 @@ applyMocks() {
     mock "StubRequestBuilder"
     mock "StubResponseBuilder"
     mock "ScreenshotTaker"
+    mock "SnapshotsDifferenceAttachmentGenerator"
+    mock "SnapshotsComparatorFactory"
     
     module "MixboxInAppServices"
     mock "AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory"

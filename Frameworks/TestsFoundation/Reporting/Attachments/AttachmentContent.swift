@@ -1,5 +1,5 @@
 public enum AttachmentContent: Equatable {
-    case screenshot(UIImage)
+    case screenshot(UIImage) // TODO: Rename to `image`
     case text(String)
     case json(String)
     case attachments([Attachment])

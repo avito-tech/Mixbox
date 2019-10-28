@@ -4,22 +4,42 @@ public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
     public init(
         screenshotTaker: ScreenshotTaker,
         referenceImage: UIImage,
-        comparator: SnapshotsComparator)
+        snapshotsComparator: SnapshotsComparator,
+        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator)
     {
         super.init(
             description: {
                 "Совпадает с референсным скрином"
             },
             matchingFunction: { snapshot -> MatchingResult in
-                guard let actual = screenshotTaker.elementImage(elementShanpshot: snapshot) else {
+                guard let actualImage = screenshotTaker.elementImage(elementShanpshot: snapshot) else {
                     return MatchingResult.exactMismatch(
                         mismatchDescription: {
                             "Не удалось создать скрин элемента"
+                        },
+                        attachments: { [] }
+                    )
+                }
+                
+                let comparisonResult = snapshotsComparator.compare(
+                    actualImage: actualImage,
+                    expectedImage: referenceImage
+                )
+                
+                switch comparisonResult {
+                case .similar:
+                    return .match
+                case .different(let description):
+                    return .partialMismatch(
+                        percentageOfMatching: description.percentageOfMatching,
+                        mismatchDescription: { description.message },
+                        attachments: { [snapshotsDifferenceAttachmentGenerator] in
+                            snapshotsDifferenceAttachmentGenerator.attachments(
+                                snapshotsDifferenceDescription: description
+                            )
                         }
                     )
                 }
-                // TODO: Display the actual and diff screenshots in the report in case of a mismatch
-                return comparator.equals(actual: actual, expected: referenceImage)
             }
         )
     }

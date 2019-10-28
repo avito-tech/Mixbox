@@ -24,7 +24,8 @@ public final class IsInstanceMatcher: Matcher<ElementSnapshot> {
                             }
                     
                             return "не является инстансом класса \(className), актуальные значения: \(actualResult)"
-                        }
+                        },
+                        attachments: { [] }
                     )
                 }
             }

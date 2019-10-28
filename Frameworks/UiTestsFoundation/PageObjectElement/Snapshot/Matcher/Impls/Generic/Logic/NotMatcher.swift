@@ -5,12 +5,14 @@ public class NotMatcher<T>: Matcher<T> {
                 "Отрицание матчера " + matcher.description
             },
             matchingFunction: { value in
-                if !matcher.matches(value: value).matched {
-                    return .match
-                } else {
+                switch matcher.matches(value: value) {
+                case .match:
                     return MatchingResult.exactMismatch(
-                        mismatchDescription: { "Отрицание матчера зафейлилось: " + matcher.description }
+                        mismatchDescription: { "Отрицание матчера зафейлилось: " + matcher.description },
+                        attachments:  { [] }
                     )
+                case .mismatch:
+                    return .match
                 }
             }
         )

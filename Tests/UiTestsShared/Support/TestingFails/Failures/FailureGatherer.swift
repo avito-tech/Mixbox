@@ -136,7 +136,7 @@ extension FailureGatherer {
                 break
             case .mismatch(let mismatchResult):
                 XCTFail(
-                    "Failure mismatches: \(mismatchResult.mismatchDescription())",
+                    "Failure mismatches: \(mismatchResult.mismatchDescription)",
                     file: fileOfThisAssertion,
                     line: lineOfThisAssertion
                 )

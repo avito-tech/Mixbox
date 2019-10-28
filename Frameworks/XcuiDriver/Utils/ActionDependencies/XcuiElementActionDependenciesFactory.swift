@@ -82,9 +82,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
                 extendedStackTraceProvider: extendedStackTraceProvider(),
                 fileLine: fileLine
             ),
-            elementMatcherBuilder: ElementMatcherBuilder(
-                screenshotTaker: xcuiBasedTestsDependenciesFactory.screenshotTaker
-            ),
+            elementMatcherBuilder: xcuiBasedTestsDependenciesFactory.elementMatcherBuilder,
             elementInfo: elementInfo,
             retriableTimedInteractionState: retriableTimedInteractionState,
             signpostActivityLogger: xcuiBasedTestsDependenciesFactory.signpostActivityLogger
