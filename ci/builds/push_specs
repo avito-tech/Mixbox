@@ -79,7 +79,7 @@ sequence=("${sequence[@]}" MixboxIpcSbtuiClient.podspec)
 sequence=("${sequence[@]}" MixboxIpcSbtuiHost.podspec)
 sequence=("${sequence[@]}" MixboxInAppServices.podspec)
 sequence=("${sequence[@]}" MixboxGray.podspec)
-sequence=("${sequence[@]}" MixboxXcuiDriver.podspec)
+sequence=("${sequence[@]}" MixboxBlack.podspec)
 
 actualFilesFile=/tmp/`uuidgen`
 expectedFilesFile=/tmp/`uuidgen`

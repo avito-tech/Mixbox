@@ -7,6 +7,9 @@ PODS:
     - GCDWebServer/Core (= 3.5.3)
   - GCDWebServer/Core (3.5.3)
   - MixboxAnyCodable (0.2.3)
+  - MixboxBlack (0.2.3):
+    - MixboxIpcSbtuiClient
+    - MixboxUiTestsFoundation
   - MixboxBuiltinIpc (0.2.3):
     - GCDWebServer
     - MixboxIpc
@@ -48,9 +51,6 @@ PODS:
     - MixboxIpcCommon
     - MixboxTestsFoundation
     - MixboxUiKit
-  - MixboxXcuiDriver (0.2.3):
-    - MixboxIpcSbtuiClient
-    - MixboxUiTestsFoundation
   - SBTUITestTunnel/Client (3.0.14)
   - SBTUITestTunnel/Server (3.0.14):
     - GCDWebServer (~> 3.0)
@@ -66,6 +66,7 @@ PODS:
 DEPENDENCIES:
   - Cuckoo (from `https://github.com/avito-tech/Cuckoo`)
   - MixboxAnyCodable (from `..`)
+  - MixboxBlack (from `..`)
   - MixboxBuiltinIpc (from `..`)
   - MixboxFakeSettingsAppMain (from `..`)
   - MixboxFoundation (from `..`)
@@ -79,7 +80,6 @@ DEPENDENCIES:
   - MixboxTestsFoundation (from `..`)
   - MixboxUiKit (from `..`)
   - MixboxUiTestsFoundation (from `..`)
-  - MixboxXcuiDriver (from `..`)
   - SQLite.swift
   - SwiftLint
   - TestsIpc (from `Frameworks/TestsIpc`)
@@ -96,6 +96,8 @@ EXTERNAL SOURCES:
   Cuckoo:
     :git: https://github.com/avito-tech/Cuckoo
   MixboxAnyCodable:
+    :path: ".."
+  MixboxBlack:
     :path: ".."
   MixboxBuiltinIpc:
     :path: ".."
@@ -123,8 +125,6 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxUiTestsFoundation:
     :path: ".."
-  MixboxXcuiDriver:
-    :path: ".."
   TestsIpc:
     :path: "Frameworks/TestsIpc"
 
@@ -138,6 +138,7 @@ SPEC CHECKSUMS:
   Cuckoo: c9582d4b3047df9dfe22ac98f0b1ebf9bb31f3c2
   GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
+  MixboxBlack: b7a2c6f70e45392e794e85d008610b2756d1e647
   MixboxBuiltinIpc: 26880327fbb22e9f6e96a13b26ef7015749bf946
   MixboxFakeSettingsAppMain: cb03a5515009c7b774c1f36dc459e6503b2b7d7b
   MixboxFoundation: adbfd517f145b40403bd43699181f487d33758ed
@@ -151,7 +152,6 @@ SPEC CHECKSUMS:
   MixboxTestsFoundation: 8c5e098fd24816b9f18226bffffb789b48fcdac6
   MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
   MixboxUiTestsFoundation: fbaa33944df68200bf2434b4d5cfa649e4a529b0
-  MixboxXcuiDriver: ea1d0940ef48e8388eab275e49dd43b2cddf71a3
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114

@@ -74,7 +74,7 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 needsIfs: false
             ),
             FrameworkInfo(
-                name: "XcuiDriver",
+                name: "Black",
                 needsIfs: false
             )
         ]

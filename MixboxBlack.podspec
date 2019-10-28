@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name                   = 'MixboxXcuiDriver'
+  s.name                   = 'MixboxBlack'
   s.module_name            = s.name
   s.version                = '0.2.3'
   s.summary                = s.name
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "9.0"
   s.swift_version = '5.0'
   s.requires_arc = true
-  s.source_files = 'Frameworks/XcuiDriver/**/*.{swift,h,m,mm}'
+  s.source_files = 'Frameworks/Black/**/*.{swift,h,m,mm}'
 
   s.dependency 'MixboxUiTestsFoundation'
   s.dependency 'MixboxIpcSbtuiClient'

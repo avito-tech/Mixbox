@@ -43,7 +43,7 @@ def mixbox_blackbox_tests_pods
   mixbox_application_testability_and_blackbox_testing_common_pods
 
   pod 'MixboxIpcSbtuiClient', :path => '..'
-  pod 'MixboxXcuiDriver', :path => '..'
+  pod 'MixboxBlack', :path => '..'
 end
 
 def mixbox_graybox_tests_pods

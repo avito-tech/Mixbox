@@ -14,31 +14,30 @@ The following picture is quite outdated, but the idea is same:
 
 White-box tests target (e.g. unit tests) may use this:
 
-* **TestsFoundation**: contains code that can be used for every iOS test, e.g. cleaning system state, working with XCTest, etc.
-* **Reporting**, **Artifacts**: based on the picture alone they can be combined with TestsFoundation, however at Avito we use `MixboxArtifacts` for other frameworks (TODO: merge `MixboxReporting` into `MixboxTestsFoundation`).
-* **Foundation**: just very generic utilities that are used in almost every other framework.
+* **MixboxTestsFoundation**: contains code that can be used for every iOS test, e.g. cleaning system state, working with XCTest, etc.
+* **MixboxFoundation**: just very generic utilities that are used in almost every other framework.
 
 Grey-box tests target may use this:
 
-* **Gray**: An implementaion of UI testing when tests are executed within app's process.
-* **UiTestsFoundation**: Shared interfaces for UI testing and tools for UI testing. Shared interfaces allow to share also your code, e.g. your page objects.
-* **UiKit**: Same as Foundation, but requires UIKit
+* **MixboxGray**: An implementaion of UI testing when tests are executed within app's process.
+* **MixboxUiTestsFoundation**: Shared interfaces for UI testing and tools for UI testing. Shared interfaces allow to share also your code, e.g. your page objects.
+* **MixboxUiKit**: Same as Foundation, but requires UIKit
  No newline at end of file
  
 Black-box tests target may use this:
 
-* **XcuiDriver**: An implementaion of UI testing based on XCUI
-* **IpcClients**: Clients for communication with the Application, for example to get data or simulate something like keyboard/touches/push notifications/etc.
+* **MixboxBlack**: An implementaion of UI testing based on XCUI
+* **MixboxIpcClients**: Clients for communication with the Application, for example to get data or simulate something like keyboard/touches/push notifications/etc.
 * TBD
 
 Application should provide some extra information for tests, it will use:
 
-* **InAppServices**: a facade for everything that is related for supporting tests
-* **Testablity**: interfaces that can make your app testable. Why it is a separate framework: you can use it in other frameworks, for example, in frameworks with UI modules (view controllers).
+* **MixboxInAppServices**: a facade for everything that is related for supporting tests
+* **MixboxTestablity**: interfaces that can make your app testable. Why it is a separate framework: you can use it in other frameworks, for example, in frameworks with UI modules (view controllers).
 
 Some code is shared between tests and app:
-* **Ipc**: abstraction over IPC, e.g.: "send me data".
-* **BuiltinIpc**: implementation.
-* **IpcCommon**: interfaces of specific IPC, e.g.: "send me percentage of visible area".
+* **MixboxIpc**: abstraction over IPC, e.g.: "send me data".
+* **MixboxBuiltinIpc**: implementation.
+* **MixboxIpcCommon**: interfaces of specific IPC, e.g.: "send me percentage of visible area".
 
 

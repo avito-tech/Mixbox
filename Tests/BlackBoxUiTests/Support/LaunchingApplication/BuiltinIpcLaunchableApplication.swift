@@ -2,7 +2,7 @@ import XCTest
 import MixboxBuiltinIpc
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxXcuiDriver
+import MixboxBlack
 import MixboxIpcCommon
 
 public final class BuiltinIpcLaunchableApplication: LaunchableApplication {

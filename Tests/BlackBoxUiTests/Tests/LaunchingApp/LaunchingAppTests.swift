@@ -1,4 +1,4 @@
-import MixboxXcuiDriver
+import MixboxBlack
 import XCTest
 import TestsIpc
 import MixboxUiTestsFoundation

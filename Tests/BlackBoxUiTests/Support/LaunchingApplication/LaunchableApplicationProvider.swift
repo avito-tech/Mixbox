@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import MixboxXcuiDriver
+import MixboxBlack
 import SBTUITestTunnel
 
 public final class LaunchableApplicationProvider {
