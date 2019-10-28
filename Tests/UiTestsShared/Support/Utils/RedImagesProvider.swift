@@ -13,18 +13,21 @@ final class RedImagesProvider: ImagesProvider, ImagesProviderHolder {
     }
     
     private static func imageProvider() -> ImageProvider {
-        if let image = randomImage() {
+        do {
             return StubbedImageProvider(
-                image: image
+                image: try randomImage()
             )
-        } else {
+        } catch {
             return StubbedImageProvider(
-                error: ErrorString("Couldn't create randomImage")
+                error: error
             )
         }
     }
     
-    private static func randomImage() -> UIImage? {
-        return UIImage.image(color: .red, size: CGSize(width: 1, height: 1))
+    private static func randomImage() throws -> UIImage {
+        return try UIImage.image(
+            color: .red,
+            size: CGSize(width: 1, height: 1)
+        )
     }
 }

@@ -1,16 +1,6 @@
 import MixboxFoundation
 
 // NOTE: Swift.Result is used instead of Swift exceptions, because exceptions cause various. See:
-//
-// (lldb) po rhsImage.cgImage!.bitmapInfo
-// ▿ CGBitmapInfo
-//   - rawValue : 8194
-//
-// (lldb) po lhsImage.cgImage!.bitmapInfo
-// ▿ CGBitmapInfo
-//   - rawValue : 5
-//
-// EXC_BAD_ACCESS errors (in random places) due to some kind of bug in memory management in Swift.
 public final class PerPixelSnapshotsComparator: SnapshotsComparator {
     public init() {
     }
@@ -37,21 +27,43 @@ public final class PerPixelSnapshotsComparator: SnapshotsComparator {
         }
     }
     
-    struct ContextWithImage {
+    private final class ContextWithImage {
         let cgImage: CGImage
         let frame: CGRect
+        
+        init(
+            cgImage: CGImage,
+            frame: CGRect)
+        {
+            self.cgImage = cgImage
+            self.frame = frame
+        }
     }
     
-    struct ContextWithAllocatedMemory {
+    private final class ContextWithAllocatedMemory {
         let cgImage: CGImage
         let frame: CGRect
         let cgContext: CGContext
         let imagePixels: UnsafeMutableRawPointer
         let imageSizeInBytes: Int
+        
+        init(
+            cgImage: CGImage,
+            frame: CGRect,
+            cgContext: CGContext,
+            imagePixels: UnsafeMutableRawPointer,
+            imageSizeInBytes: Int)
+        {
+            self.cgImage = cgImage
+            self.frame = frame
+            self.cgContext = cgContext
+            self.imagePixels = imagePixels
+            self.imageSizeInBytes = imageSizeInBytes
+        }
     }
     
     // `tolerance`: 0..1. How many pixels can be different.
-    func assertPixelsAreEqual(
+    private func assertPixelsAreEqual(
         lhsImage: UIImage,
         rhsImage: UIImage,
         tolerance: CGFloat)
@@ -68,24 +80,21 @@ public final class PerPixelSnapshotsComparator: SnapshotsComparator {
         }
     }
     
-    func contextWithImage(image: UIImage) -> Result<ContextWithImage, ErrorString> {
+    private func contextWithImage(image: UIImage) -> Result<ContextWithImage, ErrorString> {
         return cgImage(image: image).map { cgImage in
-            let frame = self.frame(image: cgImage)
-            
-            return ContextWithImage(
+            ContextWithImage(
                 cgImage: cgImage,
-                frame: frame
+                frame: cgImage.frame
             )
         }
     }
     
-    func compareContextsWithImages(
+    private func compareContextsWithImages(
         lhsContext: ContextWithImage,
         rhsContext: ContextWithImage,
         tolerance: CGFloat)
         -> Result<Void, ErrorString>
     {
-        
         return getAnyValueIfValuesAreSame(lhs: lhsContext.frame, rhs: rhsContext.frame, name: "frame").flatMap { (frame: CGRect) in
             // We shouldn't check if `bytesPerRow` are equal for images.
             // There can be extra bytes, which can be ignored.
@@ -118,7 +127,7 @@ public final class PerPixelSnapshotsComparator: SnapshotsComparator {
         }
     }
     
-    func contextWithAllocatedMemory(
+    private func contextWithAllocatedMemory(
         contextWithImage: ContextWithImage,
         imageSizeInBytes: Int,
         bytesPerRow: Int)
@@ -137,7 +146,7 @@ public final class PerPixelSnapshotsComparator: SnapshotsComparator {
         }
     }
     
-    func compareContextsWithAllocatedMemory(
+    private func compareContextsWithAllocatedMemory(
         lhsContext: ContextWithAllocatedMemory,
         rhsContext: ContextWithAllocatedMemory,
         frame: CGRect,
@@ -151,7 +160,7 @@ public final class PerPixelSnapshotsComparator: SnapshotsComparator {
         let intTolerance = Int(tolerance * CGFloat(pixelCount))
         
         if intTolerance == 0 {
-            return compareWithoutTolerance(
+            return compareUsingMemcmp(
                 lhsContext: lhsContext,
                 rhsContext: rhsContext
             )
@@ -166,7 +175,7 @@ public final class PerPixelSnapshotsComparator: SnapshotsComparator {
     }
 
     // Does a fast comparison
-    private func compareWithoutTolerance(
+    private func compareUsingMemcmp(
         lhsContext: ContextWithAllocatedMemory,
         rhsContext: ContextWithAllocatedMemory)
         -> Result<Void, ErrorString>
@@ -291,14 +300,5 @@ public final class PerPixelSnapshotsComparator: SnapshotsComparator {
         } else {
             return .failure(ErrorString(error(lhs, rhs)))
         }
-    }
-    
-    private func frame(image: CGImage) -> CGRect {
-        return CGRect(
-            x: 0,
-            y: 0,
-            width: image.width,
-            height: image.height
-        )
     }
 }
