@@ -1,7 +1,8 @@
 import MixboxUiTestsFoundation
 import XCTest
+import MixboxUiKit
 
-// TODO: Rewrite, split into smaller atomic tests. Or keep this and just add more tests.
+// TODO: Rewrite, split into smaller atomic tests. Note that this test found bugs before, so it is importand.
 final class ThirdPartyAppsTests: TestCase {
     func test() {
         // Kludge! TODO: Enable this test! It fails with Emcee on CI.
@@ -12,82 +13,35 @@ final class ThirdPartyAppsTests: TestCase {
             break
         }
         
-        // Install app, terminate it, so there will be
-        // an app installed and home screen will be displayed.
-        XCUIApplication().launch()
-        XCUIApplication().terminate()
-        
-        // Go to first page in Springboard app (home screen)
-        pageObjects.springboard.anyWindow.swipeRight()
-        pageObjects.springboard.anyWindow.swipeRight()
-        pageObjects.springboard.anyWindow.swipeRight()
+        installApp()
+        goToFirstPageOnHomeScreen()
         
         // Assert that we are on the page that doesn't contain app icon.
         // This is an important check, it checks if visibility check works (there was a bug! UPD: twice):
         pageObjects.springboard.mainAppIcon.withoutTimeout.currentlyVisible.assertIsNotDisplayed()
         
-        deleteApp()
+        pageObjects.springboard.scrollToMainAppIcon()
+            
+        waiter.wait(timeout: 1)
+        
+        pageObjects.springboard.deleteApp()
         
         pageObjects.springboard.mainAppIcon.assertIsNotDisplayed()
         
         XCUIDevice.shared.press(.home)
     }
     
-    // TODO: There might be multiple apps with same name! (e.g.: different bundle ids)
-    private func deleteApp() {
-        // Note: there was a bug. Snapshots were wrong after scrolling
-        // when action was executed (it used wrong coordinates).
-        //
-        // It was fixed by adding _waitForQuiescence to reloadSnapshots() in ScrollingContext
-        //
-        // UPD: It was fixed only on iPhone SE iOS 10.3.
-        // It was failing on iPhone 7 iOS 11.3 & iPhone 6 Plus iOS 9.3.
-        //
-        // TODO: FIX! I couldn't reproduce it locally. I think it is flaky, and is easily reproduce on
-        // our old mac minis that are being under high load (lots of simulators are running tests of Mixbox and other tests).
-        //
-        let itWorksAsItIsSupposedToWork = false
-        if itWorksAsItIsSupposedToWork {
-            pageObjects.springboard.mainAppIcon.press(duration: 1.5)
-        } else {
-            // Workaround. We can live with this workaround in other apps.
-            
-            let iosVersion = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorVersion
-            
-            if iosVersion <= 12 {
-                // This will trigger scroll:
-                pageObjects.springboard.mainAppIcon.assertIsDisplayed()
-            } else {
-                // Since iOS 13 app icons lost their frames.
-                // We can only scroll blindly:
-                
-                while !pageObjects.springboard.mainAppIcon.currentlyVisible.withoutTimeout.isDisplayed() {
-                    pageObjects.springboard.anyWindow.swipeLeft()
-                }
-            }
-            
-            waiter.wait(timeout: 1)
-            
-            // At this moment UI will be probably stable:
-            
-            if iosVersion <= 12 {
-                pageObjects.springboard.mainAppIcon.press(duration: 1.5)
-            } else {
-                // iOS 13 introduced and intermediate menu, but longer press works fine (> 3 secs)
-                pageObjects.springboard.mainAppIcon.press(duration: 10)
-            }
-        }
-        
-        pageObjects.springboard.mainAppIconDeleteButton.tap()
-        
-        // Note: there was a bug. Cancel button was tapped instead of delete button.
-        // The reason is that XCUI cancels every alert if there is an interaction with other element.
-        // Every action in Mixbox performed on XCUIApplication, by coordinates (that fixes some XCUI bugs
-        // and makes tests more blackbox, but the reason was really fixing bugs).
-        //
-        // It was fixed by adding a workaround: tap alert XCUIElement by coordinate instead of tapping
-        // XCUIApplication by coordinate.
-        pageObjects.springboard.deleteAppAlertButton.tap()
+    private func installApp() {
+        // Install app, terminate it, so there will be
+        // an app installed and home screen will be displayed.
+        XCUIApplication().launch()
+        XCUIApplication().terminate()
+    }
+    
+    private func goToFirstPageOnHomeScreen() {
+        pageObjects.springboard.anyWindow.swipeRight()
+        pageObjects.springboard.anyWindow.swipeRight()
+        pageObjects.springboard.anyWindow.swipeRight()
     }
 }
 
@@ -97,16 +51,6 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
     var mainAppIcon: ViewElement {
         return element("Main app icon") { element in
             element.type == .icon && element.label == applicationName
-        }
-    }
-    
-    var mainAppIconDeleteButton: ButtonElement {
-        return element("Delete button on main app icon") { element in
-            element.id == "DeleteButton" && element.type == .button && element.isSubviewOf { element in
-                (element.type == .icon /* iOS 10 */ || element.type == .other /* iOS 9 */)
-                    && element.label == applicationName
-                    && element.id == applicationName
-            }
         }
     }
     
@@ -122,6 +66,60 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
             
             return element.type == .button && element.label == title && element.isSubviewOf { element in
                 element.type == .alert
+            }
+        }
+    }
+    
+    func deleteApp() {
+        // At this moment UI will be probably stable:
+        
+        if iosVersion <= 12 {
+            mainAppIcon.press(duration: 1.5)
+            mainAppIconDeleteButtonForIos12OrLower.tap()
+        } else {
+            // iOS 13 introduced and intermediate menu, but longer press works fine (> 3 secs)
+            mainAppIcon.press(duration: 10)
+            mainAppIcon.tap(
+                normalizedCoordinate: CGPoint(x: 0, y: 0),
+                absoluteOffset: CGVector(dx: 5, dy: 5)
+            )
+        }
+        
+        // Note: there was a bug. Cancel button was tapped instead of delete button.
+        // The reason is that XCUI cancels every alert if there is an interaction with other element.
+        // Every action in Mixbox performed on XCUIApplication, by coordinates (that fixes some XCUI bugs
+        // and makes tests more blackbox, but the reason was really fixing bugs).
+        //
+        // It was fixed by adding a workaround: tap alert XCUIElement by coordinate instead of tapping
+        // XCUIApplication by coordinate.
+        deleteAppAlertButton.tap()
+    }
+    
+    func scrollToMainAppIcon() {
+        if iosVersion <= 12 {
+            // This will trigger scroll:
+            mainAppIcon.assertIsDisplayed()
+        } else {
+            // Since iOS 13 app icons lost their frames.
+            // We can only scroll blindly:
+            
+            while !mainAppIcon.currentlyVisible.withoutTimeout.isDisplayed() {
+                anyWindow.swipeLeft()
+            }
+        }
+    }
+    
+    private var iosVersion: Int {
+        return UiDeviceIosVersionProvider(uiDevice: UIDevice.current).iosVersion().majorVersion
+    }
+    
+    // There is no way to find delete button on iOS 13
+    private var mainAppIconDeleteButtonForIos12OrLower: ButtonElement {
+        return element("Delete button on main app icon") { element in
+            element.id == "DeleteButton" && element.type == .button && element.isSubviewOf { element in
+                (element.type == .icon /* iOS 10 */ || element.type == .other /* iOS 9 */)
+                    && element.label == applicationName
+                    && element.id == applicationName
             }
         }
     }
