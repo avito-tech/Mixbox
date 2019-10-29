@@ -6,41 +6,16 @@ import MixboxFoundation
 import MixboxUiKit
 
 class BaseUiTestCase: XCTestCase, FailureGatherer {
-    private(set) lazy var testCaseUtils: TestCaseUtils = self.reuseState {
-        TestCaseUtils()
+    private(set) lazy var dependencies: TestCaseDependenciesResolver = self.reuseState {
+        makeDependencies()
     }
     
-    var waiter: RunLoopSpinningWaiter {
-        return testCaseUtils.baseUiTestCaseUtils.waiter
+    func makeDependencies() -> TestCaseDependenciesResolver {
+        UnavoidableFailure.fail("\(#function) should be implemented in a subclass of \(BaseUiTestCase.self)")
     }
     
-    var permissions: ApplicationPermissionsSetter {
-        return testCaseUtils.permissions
-    }
-    
-    var pageObjects: PageObjects {
-        return testCaseUtils.pageObjects
-    }
-    
-    var ipcClient: IpcClient {
-        return testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient
-    }
-    
-    var legacyNetworking: LegacyNetworking {
-        return testCaseUtils.legacyNetworking
-    }
-    
-    var fileSystem: FileSystem {
-        return testCaseUtils.baseUiTestCaseUtils.fileSystem
-    }
-    
-    var photoStubber: PhotoStubber {
-        return testCaseUtils.photoStubber
-    }
-    
-    var iosVersionProvider: IosVersionProvider {
-        return testCaseUtils.baseUiTestCaseUtils.iosVersionProvider
-    }
+    private var recordingFailureRecursionCounter = 0
+    private let recordingFailureRecursionCounterThreshold = 10
     
     private var baseClassPreconditionWasCalled = false
     func precondition() {
@@ -65,10 +40,10 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
     
     private func logEnvironment() {
         let device = UIDevice.mb_platformType.rawValue
-        let os = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorAndMinor
+        let os = iosVersionProvider.iosVersion().majorAndMinor
         
-        testCaseUtils.baseUiTestCaseUtils.stepLogger.logEntry(
-            date: testCaseUtils.baseUiTestCaseUtils.dateProvider.currentDate(),
+        stepLogger.logEntry(
+            date: dateProvider.currentDate(),
             title: "Started test with environment",
             attachments: [
                 Attachment(
@@ -86,7 +61,7 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
     
     private func assertPreconditionInSuperClassIsCalled() {
         if !baseClassPreconditionWasCalled {
-            testCaseUtils.baseUiTestCaseUtils.testFailureRecorder.recordFailure(
+            testFailureRecorder.recordFailure(
                 description:
                 """
                 You must call super.precondition() from your subclass \
@@ -160,7 +135,26 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         atLine lineNumber: Int,
         expected: Bool)
     {
-        let fileLine = testCaseUtils.baseUiTestCaseUtils.fileLineForFailureProvider.fileLineForFailure()
+        recordingFailureRecursionCounter += 1
+        defer {
+            recordingFailureRecursionCounter -= 1
+        }
+        
+        guard recordingFailureRecursionCounter < recordingFailureRecursionCounterThreshold else {
+            // Might happen if DI fails, for example.
+            // Because `else` case can contain logic that might call `recordFailure`.
+            super.recordFailure(
+                withDescription: "Went to recursion, current failure: \(description)",
+                inFile: filePath,
+                atLine: lineNumber,
+                expected: expected
+            )
+            return
+        }
+        
+        let fileLineForFailureProvider: FileLineForFailureProvider = dependencies.resolve()
+        
+        let fileLine = fileLineForFailureProvider.fileLineForFailure()
             ?? HeapFileLine(file: filePath, line: UInt64(lineNumber))
         
         let failure = XcTestFailure(
@@ -174,7 +168,7 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         case .failTest:
             // Helpful addition for JUnit:
             let device = UIDevice.mb_platformType.rawValue
-            let os = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorAndMinor
+            let os = iosVersionProvider.iosVersion().majorAndMinor
             let environment = "\(device), iOS \(os)"
             
             // Note that you can set a breakpoint here (it is very convenient):

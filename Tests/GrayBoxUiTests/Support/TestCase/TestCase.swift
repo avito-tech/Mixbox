@@ -7,13 +7,32 @@ import MixboxGray
 @testable import TestedApp
 
 class TestCase: BaseUiTestCase, ScreenOpener {
+    // TODO: Fix according to comment in `BaseUiTestCase+ResolveFunctions`
+    lazy var permissions: ApplicationPermissionsSetter = {
+        applicationPermissionsSetterFactory.applicationPermissionsSetter(
+            bundleId: Bundle.main.bundleIdentifier.unwrapOrFail(),
+            displayName: ApplicationNameProvider.applicationName,
+            testFailureRecorder: dependencies.resolve()
+        )
+    }()
+    
+    override func makeDependencies() -> TestCaseDependenciesResolver {
+        TestCaseDependenciesResolver(
+            registerer: GrayBoxTestCaseDependencies(
+                bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
+            )
+        )
+    }
+    
     override func setUp() {
         // TODO: Move to DI (when Dip will be used for DI).
         
         let appDelegate = self.appDelegate
         
-        testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient.ipcClient = appDelegate.ipcClient
-        testCaseUtils.ipcRouter = appDelegate.ipcRouter
+        lazilyInitializedIpcClient.ipcClient = appDelegate.ipcClient
+        
+        let ipcRouterHolder: IpcRouterHolder = dependencies.resolve()
+        ipcRouterHolder.ipcRouter = appDelegate.ipcRouter
         
         super.setUp()
     }
@@ -23,7 +42,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
             UIApplication.shared.keyWindow?.rootViewController = UIViewController()
         }
         
-        testCaseUtils.legacyNetworking.stubbing.removeAllStubs()
+        legacyNetworking.stubbing.removeAllStubs()
         
         super.tearDown()
     }

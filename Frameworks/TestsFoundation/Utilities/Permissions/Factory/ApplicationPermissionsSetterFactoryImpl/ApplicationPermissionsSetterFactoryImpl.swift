@@ -1,6 +1,5 @@
 import Foundation
 import MixboxFoundation
-import MixboxTestsFoundation
 
 // If you want to customize returned ApplicationPermissionsSetter's
 // do not use this class (I mean it is not required) and implement your own factory.

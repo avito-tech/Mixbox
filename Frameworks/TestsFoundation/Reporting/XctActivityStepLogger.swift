@@ -2,7 +2,7 @@ import XCTest
 
 // Adds Xcode reports to StepLogger (View -> Navigators -> Show Report Navigator).
 // They help to debug tests.
-public final class XcuiActivityStepLogger: StepLogger {
+public final class XctActivityStepLogger: StepLogger {
     private let originalStepLogger: StepLogger
     private let xctAttachmentsAdder: XctAttachmentsAdder
     

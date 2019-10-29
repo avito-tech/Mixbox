@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'MixboxUiTestsFoundation'
   s.dependency 'MixboxIpcSbtuiClient'
+  s.dependency 'MixboxDi'
   
   s.frameworks = 'XCTest', 'XCTAutomationSupport'
   

@@ -27,8 +27,8 @@ final class LaunchingAppTests: TestCase {
         let launchableApplication = SbtuiLaunchableApplication(
             tunneledApplication: SBTUITunneledApplication(),
             applicationLifecycleObservable: applicationLifecycleObservable,
-            testFailureRecorder: testCaseUtils.baseUiTestCaseUtils.testFailureRecorder,
-            bundleResourcePathProvider: testCaseUtils.baseUiTestCaseUtils.bundleResourcePathProviderForTestTarget,
+            testFailureRecorder: dependencies.resolve(),
+            bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,
             waiter: waiter,
             networkReplayingObserver: DummyNetworkReplayingObserver()
         )

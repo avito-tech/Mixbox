@@ -3,6 +3,7 @@ import StaticChecksTask
 
 BuildDsl.teamcity.main { di in
     let ifClauseInfoByPathProvider = IfClauseInfoByPathProviderImpl()
+    let filesEnumerator = FilesEnumeratorImpl()
     
     return try StaticChecksTask(
         swiftLint: SwiftLintImpl(
@@ -13,10 +14,14 @@ BuildDsl.teamcity.main { di in
         ),
         conditionalCompilationClausesChecker: ConditionalCompilationClausesCheckerImpl(
             missingConditionalCompilationClausesProvider: MissingConditionalCompilationClausesProviderImpl(
-                frameworksDirectoryProvider: FrameworksDirectoryProviderImpl(
-                    repoRootProvider: di.resolve()
-                ),
                 frameworkInfosProvider: FrameworkInfosProviderImpl(),
+                filesEnumerator: filesEnumerator,
+                mixboxFrameworksEnumerator: MixboxFrameworksEnumeratorImpl(
+                    filesEnumerator: filesEnumerator,
+                    frameworksDirectoryProvider: FrameworksDirectoryProviderImpl(
+                        repoRootProvider: di.resolve()
+                    )
+                ),
                 ifClauseInfoByPathProvider: ifClauseInfoByPathProvider
             ),
             missingConditionalCompilationClausesAutocorrector: MissingConditionalCompilationClausesAutocorrectorImpl(

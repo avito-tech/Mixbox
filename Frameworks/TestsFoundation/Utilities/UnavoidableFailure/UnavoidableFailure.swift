@@ -18,6 +18,17 @@ public final class UnavoidableFailure {
         fatalError(message)
     }
     
+    public static func `catch`<T>(
+        body: () throws -> T)
+        -> T
+    {
+        do {
+            return try body()
+        } catch {
+            UnavoidableFailure.fail("\(error)")
+        }
+    }
+    
     static let UnavoidableFailureException = NSExceptionName(rawValue: "UnavoidableFailureException")
     
     private init() {}

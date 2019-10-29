@@ -6,7 +6,7 @@ import MixboxUiKit
 final class ThirdPartyAppsTests: TestCase {
     func test() {
         // Kludge! TODO: Enable this test! It fails with Emcee on CI.
-        switch testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorVersion {
+        switch iosVersionProvider.iosVersion().majorVersion {
         case 9, 12:
             return
         default:

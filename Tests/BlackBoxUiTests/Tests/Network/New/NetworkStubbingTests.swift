@@ -20,17 +20,17 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
         
         let networkStubber = UrlProtocolStubAdderImpl(
             bridgedUrlProtocolRegisterer: IpcBridgedUrlProtocolRegisterer(
-                ipcClient: testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient,
+                ipcClient: dependencies.resolve(),
                 writeableClassesRepository: classesRepository.toStorable()
             ),
             rootBridgedUrlProtocolClass: compoundBridgedUrlProtocolClass,
             bridgedUrlProtocolClassRepository: compoundBridgedUrlProtocolClass,
-            ipcRouterProvider: testCaseUtils,
+            ipcRouterProvider: dependencies.resolve(),
             ipcMethodHandlersRegisterer: NetworkMockingIpcMethodsRegisterer(
                 readableInstancesRepository: instancesRepository.toStorable { $0 },
                 writeableInstancesRepository: instancesRepository.toStorable(),
                 readableClassesRepository: classesRepository.toStorable { $0 },
-                ipcClient: testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient
+                ipcClient: dependencies.resolve()
             )
         )
         

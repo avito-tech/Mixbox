@@ -103,7 +103,8 @@ final class FakeCellsTests: TestCase {
             patchedAllElementIds = [allElementIds.last].compactMap { $0 } + allElementIds
         }
         
-        let screenHeight = testCaseUtils.applicationFrameProvider.applicationFrame.size.height
+        let applicationFrameProvider: ApplicationFrameProvider = dependencies.resolve()
+        let screenHeight = applicationFrameProvider.applicationFrame.size.height
         
         for id in patchedAllElementIds {
             // isDisplayed triggers scrolling. We need to hide last element.

@@ -13,9 +13,41 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     // UPD: Implemented in Avito. TODO: Sync with Mixbox.
     static var everLaunched = false
     
-    var testRunnerPermissions: ApplicationPermissionsSetter {
-        return testCaseUtils.testRunnerPermissions
+    // TODO: Fix according to comment in `BaseUiTestCase+ResolveFunctions`
+    lazy var testRunnerPermissions: ApplicationPermissionsSetter = {
+        applicationPermissionsSetterFactory.applicationPermissionsSetter(
+            // swiftlint:disable:next force_unwrapping
+            bundleId: Bundle.main.bundleIdentifier!,
+            displayName: "We don't care at the moment",
+            testFailureRecorder: dependencies.resolve()
+        )
+    }()
+
+    // TODO: Fix according to comment in `BaseUiTestCase+ResolveFunctions`
+    lazy var permissions: ApplicationPermissionsSetter = {
+        applicationPermissionsSetterFactory.applicationPermissionsSetter(
+            bundleId: XCUIApplication().bundleID,
+            displayName: ApplicationNameProvider.applicationName,
+            testFailureRecorder: dependencies.resolve()
+        )
+    }()
+
+    // TODO: Fix according to comment in `BaseUiTestCase+ResolveFunctions`
+    var launchableApplicationProvider: LaunchableApplicationProvider {
+        return dependencies.resolve()
     }
+    
+    override func makeDependencies() -> TestCaseDependenciesResolver {
+        TestCaseDependenciesResolver(
+            registerer: BlackBoxTestCaseDependencies(
+                bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
+            )
+        )
+    }
+    
+    // Just to store server (to not let him die during test).
+    // TODO: Replace with `IpcRouterHolder`
+    private var ipcRouter: IpcRouter?
     
     func launch(environment: [String: String], useBuiltinIpc: Bool = false) {
         let commonEnvironment = [
@@ -31,15 +63,14 @@ class TestCase: BaseUiTestCase, ScreenOpener {
             mergedEnvironment[key] = value
         }
         
-        testCaseUtils.launchableApplicationProvider.shouldCreateLaunchableApplicationWithBuiltinIpc = useBuiltinIpc
+        launchableApplicationProvider.shouldCreateLaunchableApplicationWithBuiltinIpc = useBuiltinIpc
         
-        let launchedApplication = testCaseUtils
-            .launchableApplicationProvider
+        let launchedApplication = launchableApplicationProvider
             .launchableApplication
             .launch(arguments: [], environment: mergedEnvironment)
         
-        testCaseUtils.baseUiTestCaseUtils.lazilyInitializedIpcClient.ipcClient = launchedApplication.ipcClient
-        testCaseUtils.ipcRouter = launchedApplication.ipcRouter
+        lazilyInitializedIpcClient.ipcClient = launchedApplication.ipcClient
+        ipcRouter = launchedApplication.ipcRouter
     }
     
     // For tests of IPC

@@ -7,11 +7,9 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
     func test() {
         do {
             let preparedFileSystem = try prepareFileSystem()
+            let filesEnumerator = FilesEnumeratorImpl()
             
             let missingConditionalCompilationClausesProvider = MissingConditionalCompilationClausesProviderImpl(
-                frameworksDirectoryProvider: FrameworksDirectoryProviderMock(
-                    frameworksDirectory: preparedFileSystem.frameworksDirectory
-                ),
                 frameworkInfosProvider: FrameworkInfosProviderMock(
                     frameworkInfos: [
                         FrameworkInfo(
@@ -19,6 +17,13 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
                             needsIfs: true
                         )
                     ]
+                ),
+                filesEnumerator: filesEnumerator,
+                mixboxFrameworksEnumerator: MixboxFrameworksEnumeratorImpl(
+                    filesEnumerator: filesEnumerator,
+                    frameworksDirectoryProvider: FrameworksDirectoryProviderMock(
+                        frameworksDirectory: preparedFileSystem.frameworksDirectory
+                    )
                 ),
                 ifClauseInfoByPathProvider: IfClauseInfoByPathProviderImpl()
             )

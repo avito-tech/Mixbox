@@ -6,20 +6,20 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
     public func frameworkInfos() -> [FrameworkInfo] {
         return [
             FrameworkInfo(
-                name: "Allure",
-                needsIfs: false
-            ),
-            FrameworkInfo(
                 name: "AnyCodable",
                 needsIfs: true
             ),
             FrameworkInfo(
-                name: "Artifacts",
+                name: "Black",
                 needsIfs: false
             ),
             FrameworkInfo(
                 name: "BuiltinIpc",
                 needsIfs: true
+            ),
+            FrameworkInfo(
+                name: "Di",
+                needsIfs: false
             ),
             FrameworkInfo(
                 name: "FakeSettingsAppMain",
@@ -54,10 +54,6 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 needsIfs: true
             ),
             FrameworkInfo(
-                name: "Reporting",
-                needsIfs: false
-            ),
-            FrameworkInfo(
                 name: "Testability",
                 needsIfs: true
             ),
@@ -71,10 +67,6 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
             ),
             FrameworkInfo(
                 name: "UiTestsFoundation",
-                needsIfs: false
-            ),
-            FrameworkInfo(
-                name: "Black",
                 needsIfs: false
             )
         ]

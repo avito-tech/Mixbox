@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxAnyCodable'
   s.dependency 'CocoaImageHashing'
   s.dependency 'MixboxIpcCommon'
+  s.dependency 'MixboxDi'
 
   s.frameworks = 'XCTest'
   

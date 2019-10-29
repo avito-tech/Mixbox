@@ -2,17 +2,20 @@ import Foundation
 import CiFoundation
 
 public final class MissingConditionalCompilationClausesProviderImpl: MissingConditionalCompilationClausesProvider {
-    private let frameworksDirectoryProvider: FrameworksDirectoryProvider
     private let frameworkInfosProvider: FrameworkInfosProvider
+    private let filesEnumerator: FilesEnumerator
+    private let mixboxFrameworksEnumerator: MixboxFrameworksEnumerator
     private let ifClauseInfoByPathProvider: IfClauseInfoByPathProvider
     
     public init(
-        frameworksDirectoryProvider: FrameworksDirectoryProvider,
         frameworkInfosProvider: FrameworkInfosProvider,
+        filesEnumerator: FilesEnumerator,
+        mixboxFrameworksEnumerator: MixboxFrameworksEnumerator,
         ifClauseInfoByPathProvider: IfClauseInfoByPathProvider)
     {
-        self.frameworksDirectoryProvider = frameworksDirectoryProvider
         self.frameworkInfosProvider = frameworkInfosProvider
+        self.filesEnumerator = filesEnumerator
+        self.mixboxFrameworksEnumerator = mixboxFrameworksEnumerator
         self.ifClauseInfoByPathProvider = ifClauseInfoByPathProvider
     }
     
@@ -23,7 +26,7 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
         let frameworkInfoByName = try self.frameworkInfoByName()
         var missingConditionalCompilationClauses = [MissingConditionalCompilationClause]()
         
-        try enumerateFrameworks { frameworkDirectory, frameworkName in
+        try mixboxFrameworksEnumerator.enumerateFrameworks { frameworkDirectory, frameworkName in
             guard let frameworkInfo = frameworkInfoByName[frameworkName] else {
                 throw ErrorString("Framework is unknown: \(frameworkDirectory)")
             }
@@ -40,28 +43,6 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
     }
     
     // MARK: - Private
-    
-    private func enumerateFrameworks(
-        handler: (_ frameworkDirectory: String, _ frameworkName: String) throws -> ())
-        throws
-    {
-        try enumerateFiles(
-            directory: frameworksDirectoryProvider.frameworksDirectory(),
-            handler: { enumerator, path in
-                var isDirectory: ObjCBool = false
-                
-                if FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) {
-                    if isDirectory.boolValue {
-                        let frameworkName = (path as NSString).lastPathComponent
-                        
-                        try handler(path, frameworkName)
-                    }
-                }
-                
-                enumerator.skipDescendants()
-            }
-        )
-    }
     
     private func missingConditionalCompilationClauses(
         frameworkInfo: FrameworkInfo,
@@ -96,7 +77,7 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
     {
         var filesWithoutIfs = [String]()
         
-        try enumerateFiles(directory: frameworkDirectory) { _, path in
+        try filesEnumerator.enumerateFiles(directory: frameworkDirectory) { _, path in
             if let expectedContents = expectedContentsByFileExtension(path: path) {
                 let contents = try String(contentsOf: URL(fileURLWithPath: path))
                 
@@ -111,20 +92,6 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
     
     private func expectedContentsByFileExtension(path: String) -> String? {
         return ifClauseInfoByPathProvider.ifClauseInfo(path: path)?.clauseOpening
-    }
-    
-    private func enumerateFiles(
-        directory: String,
-        handler: (_ enumerator: FileManager.DirectoryEnumerator, _ url: String) throws -> ())
-        throws
-    {
-        if let enumerator = FileManager.default.enumerator(atPath: directory) {
-            for case let path as String in enumerator {
-                try handler(enumerator, "\(directory)/\(path)")
-            }
-        } else {
-            throw ErrorString("Failed to create enumerator of directory \(directory)")
-        }
     }
     
     private func frameworkInfoByName() throws -> [String: FrameworkInfo] {

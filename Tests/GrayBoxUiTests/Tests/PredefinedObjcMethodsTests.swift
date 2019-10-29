@@ -38,13 +38,13 @@ final class PredefinedObjcMethodsTests: TestCase {
     func test() {
         let accessibilityLabelSwizzlerFactory = AccessibilityLabelSwizzlerFactoryImpl(
             allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: factory,
-            iosVersionProvider: testCaseUtils.baseUiTestCaseUtils.iosVersionProvider
+            iosVersionProvider: iosVersionProvider
         )
         
         assertDoesntThrow {
             _ = try accessibilityLabelSwizzlerFactory.accessibilityLabelSwizzler()
             
-            let iosVersion = testCaseUtils.baseUiTestCaseUtils.iosVersionProvider.iosVersion().majorVersion
+            let iosVersion = iosVersionProvider.iosVersion().majorVersion
             switch iosVersion {
             case 10:
                 checkForIos10()
@@ -126,7 +126,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         let stubbedProvider = PredefinedObjcMethodsWithUniqueImplementationProvider(
             fallbackObjcMethodsWithUniqueImplementationProvider: fallbackObjcMethodsWithUniqueImplementationProvider,
             predefinedObjcMethodsWithUniqueImplementationBatchesFactory: PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryImpl(),
-            iosVersionProvider: testCaseUtils.baseUiTestCaseUtils.iosVersionProvider
+            iosVersionProvider: iosVersionProvider
         )
         let realProvider = ObjcRuntimeObjcMethodsWithUniqueImplementationProvider()
         

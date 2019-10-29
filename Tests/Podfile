@@ -13,8 +13,10 @@ def mixbox_ui_tests_pods
   pod 'MixboxTestsFoundation', :path => '..'
   pod 'MixboxUiTestsFoundation', :path => '..'
   pod 'MixboxFoundation', :path => '..'
+  pod 'MixboxDi', :path => '..'
   
   pod 'SQLite.swift', :inhibit_warnings => true
+  pod 'Dip', :inhibit_warnings => true
 end
 
 def mixbox_application_testability_and_ui_tests_common_pods

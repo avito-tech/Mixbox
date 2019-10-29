@@ -1,8 +1,13 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 
-// TODO: Check both "before" and "after" application start. This will require making IPC method or polling in the view.
-// TODO: Also check without Emcee on CI
+// TODO: (BlackBoxTests) Check both "before" and "after" application start.
+//       This will require making IPC method or polling in the view.
+//
+// TODO: (GrayBoxTests) Check alternating states within a single test / application run.
+//       It does not work! authorizationStatus doesn't get updated for .camera for example.
+//
+// TODO: Also check without Emcee on CI (without kludges for fbxctest)
 class BasePermissionTestCase: TestCase {
     override var reuseState: Bool {
         return false
