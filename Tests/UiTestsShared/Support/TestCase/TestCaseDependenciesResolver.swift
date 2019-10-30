@@ -6,7 +6,7 @@ public final class TestCaseDependenciesResolver {
     private let di = DipDependencyInjection(dependencyContainer: DependencyContainer())
     
     public func resolve<T>() -> T {
-        return UnavoidableFailure.catch {
+        return UnavoidableFailure.doOrFail {
             try di.resolve()
         }
     }
@@ -14,8 +14,8 @@ public final class TestCaseDependenciesResolver {
     public init(registerer: DependencyCollectionRegisterer) {
         registerer.register(dependencyRegisterer: di)
         
-        UnavoidableFailure.catch {
-            try di.bootstrap()
+        UnavoidableFailure.doOrFail {
+            try di.completeContainerSetup()
         }
     }
 }

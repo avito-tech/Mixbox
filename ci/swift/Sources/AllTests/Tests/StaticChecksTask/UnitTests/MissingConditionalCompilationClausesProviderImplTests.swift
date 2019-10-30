@@ -14,7 +14,7 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
                     frameworkInfos: [
                         FrameworkInfo(
                             name: preparedFileSystem.frameworkName,
-                            needsIfs: true
+                            requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
                         )
                     ]
                 ),

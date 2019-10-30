@@ -52,7 +52,7 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
     {
         var missingConditionalCompilationClauses = [MissingConditionalCompilationClause]()
         
-        if frameworkInfo.needsIfs {
+        if frameworkInfo.requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds {
             let filesMissingConditionalCompilationClauses = try self.filesMissingConditionalCompilationClauses(
                 frameworkDirectory: frameworkDirectory
             )

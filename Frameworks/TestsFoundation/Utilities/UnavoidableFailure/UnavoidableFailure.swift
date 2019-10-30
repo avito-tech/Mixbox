@@ -18,7 +18,7 @@ public final class UnavoidableFailure {
         fatalError(message)
     }
     
-    public static func `catch`<T>(
+    public static func doOrFail<T>(
         body: () throws -> T)
         -> T
     {

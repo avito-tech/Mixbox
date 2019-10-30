@@ -8,7 +8,7 @@ public final class DipDependencyInjection: DependencyInjection {
         self.dependencyContainer = dependencyContainer
     }
     
-    public func bootstrap() throws {
+    public func completeContainerSetup() throws {
         try dependencyContainer.bootstrap()
     }
     
