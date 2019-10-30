@@ -2,17 +2,8 @@
 
 #import "Xcode_10_1_Xcode_10_0_EventGeneratorObjC.h"
 
-// Xcode 10.1
-#import "Xcode_10_1_XCSynthesizedEventRecord.h"
-#import "Xcode_10_1_XCEventGenerator.h"
-#import "Xcode_10_1_XCUIApplication.h"
-#import "Xcode_10_1_XCUIElement.h"
-
-// Xcode 10.0
-#import "Xcode_10_0_XCSynthesizedEventRecord.h"
-#import "Xcode_10_0_XCEventGenerator.h"
-#import "Xcode_10_0_XCUIApplication.h"
-#import "Xcode_10_0_XCUIElement.h"
+@import MixboxUiTestsFoundation;
+@import MixboxTestsFoundation;
 
 typedef void (^EventGeneratorCompletion)(XCSynthesizedEventRecord *, NSError *);
 typedef double (^ActionBlock)(XCEventGenerator *, EventGeneratorCompletion);
