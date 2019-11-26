@@ -7,13 +7,8 @@ import MixboxDi
 
 final class UiTestCaseDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {
-        di.register(type: PhotoStubber.self) { di in
-            PhotoStubberImpl(
-                stubImagesProvider: RedImagesProvider(),
-                tccDbApplicationPermissionSetterFactory: try di.resolve(),
-                photoSaver: try di.resolve(),
-                testFailureRecorder: try di.resolve()
-            )
+        di.register(type: ImagesProvider.self) { _ in
+            RedImagesProvider()
         }
         di.register(type: FileSystem.self) { di in
             FileSystemImpl(
@@ -24,12 +19,9 @@ final class UiTestCaseDependencies: DependencyCollectionRegisterer {
         di.register(type: TemporaryDirectoryPathProvider.self) { _ in
             NsTemporaryDirectoryPathProvider()
         }
-        di.register(type: FileLineForFailureProvider.self) { _ in
+        di.register(type: FileLineForFailureProvider.self) { di in
             LastCallOfCurrentTestFileLineForFailureProvider(
-                extendedStackTraceProvider: ExtendedStackTraceProviderImpl(
-                    stackTraceProvider: StackTraceProviderImpl(),
-                    extendedStackTraceEntryFromCallStackSymbolsConverter: ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
-                ),
+                extendedStackTraceProvider: try di.resolve(),
                 testSymbolPatterns: [
                     // Example: TargetName.ClassName.test_withOptionalSuffix() -> ()
                     ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)",
