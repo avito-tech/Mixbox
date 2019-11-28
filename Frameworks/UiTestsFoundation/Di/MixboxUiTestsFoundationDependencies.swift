@@ -112,15 +112,7 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
             XctAttachmentsAdderImpl()
         }
         di.register(type: SignpostActivityLogger.self) { _ in
-            if #available(iOS 12.0, *) {
-                return SignpostActivityLoggerImpl(
-                    signpostLoggerFactory: SignpostLoggerFactoryImpl(),
-                    subsystem: "mixbox",
-                    category: "mixbox" // TODO: Find a use for it
-                )
-            } else {
-                return DisabledSignpostActivityLogger()
-            }
+            DisabledSignpostActivityLogger()
         }
         di.register(type: SnapshotsDifferenceAttachmentGenerator.self) { di in
             SnapshotsDifferenceAttachmentGeneratorImpl(
