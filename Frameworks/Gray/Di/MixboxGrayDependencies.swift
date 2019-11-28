@@ -10,6 +10,7 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         self.mixboxUiTestsFoundationDependencies = mixboxUiTestsFoundationDependencies
     }
     
+    // swiftlint:disable:next function_body_length
     public func register(dependencyRegisterer di: DependencyRegisterer) {
         mixboxUiTestsFoundationDependencies.register(dependencyRegisterer: di)
         
@@ -64,5 +65,39 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 applicationQuiescenceWaiter: try di.resolve()
             )
         }
+        
+        // TODO: Use it.
+        di.register(type: EventGenerator.self) { di in
+            GrayEventGenerator(
+                touchPerformer: try di.resolve(),
+                windowForPointProvider: try di.resolve(),
+                pathGestureUtils: PathGestureUtilsFactoryImpl().pathGestureUtils()
+            )
+        }
+        di.register(type: TouchPerformer.self) { di in
+            TouchPerformerImpl(
+                multiTouchCommandExecutor: try di.resolve()
+            )
+        }
+        di.register(type: MultiTouchCommandExecutor.self) { di in
+            MultiTouchCommandExecutorImpl(
+                touchInjectorFactory: try di.resolve()
+            )
+        }
+        di.register(type: WindowForPointProvider.self) { di in
+            WindowForPointProviderImpl(
+                windowsProvider: try di.resolve()
+            )
+        }
+        di.register(type: TouchInjectorFactory.self) { di in
+            TouchInjectorFactoryImpl(
+                currentAbsoluteTimeProvider: try di.resolve(),
+                runLoopSpinnerFactory: try di.resolve()
+            )
+        }
+        di.register(type: CurrentAbsoluteTimeProvider.self) { _ in
+            MachCurrentAbsoluteTimeProvider()
+        }
+        // END OF TODO
     }
 }
