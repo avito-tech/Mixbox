@@ -38,7 +38,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
         )
     }
     
-    func test___IsSubviewMatcher___produces_correct_mismatch_description() {
+    func test___IsSubviewMatcher___produces_correct_mismatch_description_0() {
         let superview0 = ElementSnapshotStub {
             $0.accessibilityIdentifier = "superview0"
             $0.isEnabled = false
@@ -56,7 +56,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
         }
         let viewThatIsBeingMatched = ElementSnapshotStub {
             $0.accessibilityIdentifier = "viewThatIsBeingMatched"
-            $0.failForNotStubbedValues = false // TODO: Should not be needed
+            $0.failForNotStubbedValues = false
         }
         
         superview0.add(child: superview1)
@@ -76,6 +76,29 @@ class IsSubviewMatcherTests: BaseMatcherTests {
                 (x) не равно 'non_existent_id', актуальное значение: 'superview1')
                 (v) Имеет проперти isEnabled: равно true
             ]
+            """
+        )
+    }
+    
+    func test___IsSubviewMatcher___produces_correct_mismatch_description_1() {
+        let superview = ElementSnapshotStub {
+            $0.accessibilityIdentifier = "superview0"
+            $0.failForNotStubbedValues = false
+        }
+        let viewThatIsBeingMatched = ElementSnapshotStub {
+            $0.accessibilityIdentifier = "viewThatIsBeingMatched"
+            $0.failForNotStubbedValues = false
+        }
+        
+        superview.add(child: viewThatIsBeingMatched)
+        
+        assertMismatches(
+            matcher: IsSubviewMatcher(matcherBuilder.id == "non_existent_id"),
+            value: viewThatIsBeingMatched,
+            percentageOfMatching: 0,
+            description:
+            """
+            не найден superview, который матчится матчером "Имеет проперти id: равно non_existent_id", лучший кандидат зафейлился: не равно 'non_existent_id', актуальное значение: 'superview0')
             """
         )
     }

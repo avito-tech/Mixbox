@@ -12,7 +12,7 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
             },
             matchingFunction: { snapshot -> MatchingResult in
                 var parentPointer = snapshot.parent
-                var bestPercentageOfMatching: Double = 0
+                var bestPercentageOfMatching: Double = -Double.greatestFiniteMagnitude
                 var bestMismatchResult: MismatchResult?
                 
                 if parentPointer == nil {
@@ -35,6 +35,9 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                     
                     parentPointer = parent.parent
                 }
+                
+                // To get rid of initial value of `bestPercentageOfMatching`
+                bestPercentageOfMatching = max(0, bestPercentageOfMatching)
                 
                 return IsSubviewMatcher.mismatchResult(
                     percentageOfMatching: bestPercentageOfMatching,
