@@ -2,7 +2,6 @@ import Foundation
 import CiFoundation
 
 public enum Env: String {
-    case MIXBOX_CI_ALLURE_REPORTS_DIRECTORY
     case MIXBOX_CI_BLUEPILL_ZIP_PATH
     case MIXBOX_CI_BUILD_EXECUTABLE
     case MIXBOX_CI_DESTINATION

@@ -9,12 +9,12 @@ public final class TestArgFileGeneratorArguments {
     public let appPath: String
     public let additionalAppPaths: [String]
     public let xctestBundlePath: String
-    public let fbsimctlUrl: URL?
+    public let fbsimctlUrl: URL
     public let fbxctestUrl: URL
     public let mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration]
     public let environment: [String: String]
     public let testType: TestType
-    public let runtimeDumpKind: RuntimeDumpKind
+    public let runtimeDumpKind: XcTestBundleRuntimeDumpMode
     public let priority: UInt
     
     public init(
@@ -22,12 +22,12 @@ public final class TestArgFileGeneratorArguments {
         appPath: String,
         additionalAppPaths: [String],
         xctestBundlePath: String,
-        fbsimctlUrl: URL?,
+        fbsimctlUrl: URL,
         fbxctestUrl: URL,
         mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
         environment: [String: String],
         testType: TestType,
-        runtimeDumpKind: RuntimeDumpKind,
+        runtimeDumpKind: XcTestBundleRuntimeDumpMode,
         priority: UInt)
     {
         self.runnerPath = runnerPath

@@ -6,17 +6,20 @@ public final class InstallingEmceeProvider: EmceeProvider {
     private let processExecutor: ProcessExecutor
     private let emceeInstaller: EmceeInstaller
     private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
+    private let jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
         processExecutor: ProcessExecutor,
         emceeInstaller: EmceeInstaller,
-        decodableFromJsonFileLoader: DecodableFromJsonFileLoader)
+        decodableFromJsonFileLoader: DecodableFromJsonFileLoader,
+        jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
         self.emceeInstaller = emceeInstaller
         self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
+        self.jsonFileFromEncodableGenerator = jsonFileFromEncodableGenerator
     }
     
     public func emcee() throws -> Emcee {
@@ -29,7 +32,8 @@ public final class InstallingEmceeProvider: EmceeProvider {
             emceeDumpCommand: EmceeDumpCommandImpl(
                 temporaryFileProvider: temporaryFileProvider,
                 emceeExecutable: emceeExecutable,
-                decodableFromJsonFileLoader: decodableFromJsonFileLoader
+                decodableFromJsonFileLoader: decodableFromJsonFileLoader,
+                jsonFileFromEncodableGenerator: jsonFileFromEncodableGenerator
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
                 emceeExecutable: emceeExecutable

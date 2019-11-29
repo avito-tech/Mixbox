@@ -43,7 +43,9 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             buildArtifacts: try buildArtifacts(arguments: arguments),
             environment: arguments.environment,
             testType: arguments.testType,
-            priority: arguments.priority
+            priority: arguments.priority,
+            fbsimctlUrl: arguments.fbsimctlUrl,
+            fbxctestUrl: arguments.fbxctestUrl
         )
     }
     
@@ -72,12 +74,14 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         buildArtifacts: BuildArtifacts,
         environment: [String: String],
         testType: TestType,
-        priority: UInt)
+        priority: UInt,
+        fbsimctlUrl: URL,
+        fbxctestUrl: URL)
         throws
         -> TestArgFile
     {
         return TestArgFile(
-            entries: testDestinationConfigurations.map { testDestinationConfiguration in
+            entries: testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFile.Entry in
                 TestArgFile.Entry(
                     testsToRun: testsToRun,
                     buildArtifacts: buildArtifacts,
@@ -86,6 +90,10 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     scheduleStrategy: .progressive,
                     testDestination: testDestinationConfiguration.testDestination,
                     testType: testType,
+                    toolResources: ToolResources(
+                        simulatorControlTool: .fbsimctl(FbsimctlLocation(.remoteUrl(fbsimctlUrl))),
+                        testRunnerTool: .fbxctest(FbxctestLocation(.remoteUrl(fbxctestUrl)))
+                    ),
                     toolchainConfiguration: ToolchainConfiguration(
                         developerDir: DeveloperDir.current
                     )
@@ -135,11 +143,9 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             arguments: EmceeDumpCommandArguments(
                 xctestBundle: arguments.xctestBundlePath,
                 fbxctest: arguments.fbxctestUrl.absoluteString,
-                testDestinations: jsonFileFromEncodableGenerator.generateJsonFile(
-                    encodable: testDestinationConfigurations
-                ),
+                testDestinationConfigurations: testDestinationConfigurations,
                 appPath: appPathDumpArgument,
-                fbsimctl: arguments.fbsimctlUrl?.absoluteString,
+                fbsimctl: arguments.fbsimctlUrl.absoluteString,
                 tempFolder: temporaryFileProvider.temporaryFilePath()
             )
         )

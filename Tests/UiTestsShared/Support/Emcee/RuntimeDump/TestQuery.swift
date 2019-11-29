@@ -38,7 +38,11 @@ public final class TestQuery {
     
     private func output(_ content: [TestInfo]) {
         let coder = JSONEncoder()
-        coder.outputFormatting = [.prettyPrinted]
+        if #available(iOS 11.0, *) {
+            coder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        } else {
+            coder.outputFormatting = [.prettyPrinted]
+        }
         guard let data = try? coder.encode(content) else {
             let reason = "Unable to encode test info array"
             print(reason)
@@ -47,14 +51,15 @@ public final class TestQuery {
         }
         do {
             try data.write(to: URL(fileURLWithPath: outputPath), options: Data.WritingOptions.atomic)
-        } catch {
+        } catch let error {
             let reason = "Failed to dump runtime tests into '\(outputPath)': \(error)"
             print(reason)
-            NSException(
+            let exception = NSException(
               name: exceptionName,
               reason: reason,
               userInfo: nil
-              ).raise()
+            )
+            exception.raise()
         }
     }
 }

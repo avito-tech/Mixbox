@@ -14,18 +14,14 @@ public final class EmceeRunTestsOnRemoteQueueCommandImpl: EmceeRunTestsOnRemoteQ
             "--test-arg-file", arguments.testArgFile,
             "--queue-server-destination", arguments.queueServerDestination,
             "--queue-server-run-configuration-location", arguments.queueServerRunConfigurationLocation,
-            "--fbxctest", arguments.fbxctest,
             "--junit", arguments.junit,
             "--trace", arguments.trace,
             "--temp-folder", arguments.tempFolder
         ]
         
-        let dynamicArguments = []
-            + arguments.fbsimctl.toArray { ["--fbsimctl", $0] }
-        
         try emceeExecutable.execute(
             command: "runTestsOnRemoteQueue",
-            arguments: staticArguments + dynamicArguments
+            arguments: staticArguments
         )
     }
 }

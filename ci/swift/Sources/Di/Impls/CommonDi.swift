@@ -49,7 +49,8 @@ open class CommonDi: BaseDi {
                     temporaryFileProvider: try container.resolve(),
                     processExecutor: try container.resolve(),
                     emceeInstaller: try container.resolve(),
-                    decodableFromJsonFileLoader: try container.resolve()
+                    decodableFromJsonFileLoader: try container.resolve(),
+                    jsonFileFromEncodableGenerator: try container.resolve()
                 )
             )
         }

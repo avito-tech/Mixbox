@@ -67,7 +67,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("23db8e31544f1e49db9b9c64919e7fe92d23d395")
+            .revision("166b6735ea3216da2fb532064b03c41b89379364")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
@@ -180,6 +180,7 @@ let package = Package(
                 "Bash",
                 "CiFoundation",
                 "Di",
+                "Git",
                 "RemoteFiles",
                 "Simctl",
                 "StaticChecksTask",
