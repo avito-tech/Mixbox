@@ -144,5 +144,8 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
                 iosVersionProvider: try di.resolve()
             )
         }
+        di.register(type: PollingConfiguration.self) { _ in
+            PollingConfiguration.reduceWorkload
+        }
     }
 }

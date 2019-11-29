@@ -81,7 +81,7 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                     testFailureRecorder: try di.resolve(),
                     ipcClient: ipcClient ?? AlwaysFailingIpcClient(),
                     stepLogger: try di.resolve(),
-                    pollingConfiguration: .reduceWorkload,
+                    pollingConfiguration: try di.resolve(),
                     elementFinder: elementFinder,
                     applicationProvider: applicationProvider,
                     eventGenerator: XcuiEventGenerator(

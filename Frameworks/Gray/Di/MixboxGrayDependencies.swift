@@ -54,7 +54,7 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 testFailureRecorder: try di.resolve(),
                 ipcClient: try di.resolve(),
                 stepLogger: try di.resolve(),
-                pollingConfiguration: .reduceWorkload,
+                pollingConfiguration: try di.resolve(),
                 elementFinder: try di.resolve(),
                 screenshotTaker: try di.resolve(),
                 windowsProvider: try di.resolve(),
