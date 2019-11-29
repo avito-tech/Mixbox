@@ -27,7 +27,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         waiter: RunLoopSpinningWaiter,
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
-        snapshotsComparatorFactory: SnapshotsComparatorFactory)
+        snapshotsComparatorFactory: SnapshotsComparatorFactory,
+        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -58,7 +59,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             waiter: waiter,
             signpostActivityLogger: signpostActivityLogger,
             snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
-            snapshotsComparatorFactory: snapshotsComparatorFactory
+            snapshotsComparatorFactory: snapshotsComparatorFactory,
+            applicationQuiescenceWaiter: applicationQuiescenceWaiter
         )
     }
     

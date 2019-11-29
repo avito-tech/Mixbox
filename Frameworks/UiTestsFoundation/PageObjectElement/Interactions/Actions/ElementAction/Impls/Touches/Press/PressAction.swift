@@ -53,19 +53,23 @@ public class PressAction: ElementInteraction {
         
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [interactionCoordinates, duration, dependencies] _ in
-                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
-                    do {
-                        let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
-                            elementSnapshot: snapshot,
-                            interactionCoordinates: interactionCoordinates
-                        )
-                        
-                        dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                        try elementSimpleGestures.press(duration: duration)
-                        
-                        return .success
-                    } catch {
-                        return dependencies.interactionResultMaker.failure(message: "\(error)")
+                dependencies.interactionResultMaker.makeResultCatchingErrors {
+                    try dependencies.applicationQuiescenceWaiter.waitForQuiescence {
+                        dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                            do {
+                                let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
+                                    elementSnapshot: snapshot,
+                                    interactionCoordinates: interactionCoordinates
+                                )
+                                
+                                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                                try elementSimpleGestures.press(duration: duration)
+                                
+                                return .success
+                            } catch {
+                                return dependencies.interactionResultMaker.failure(message: "\(error)")
+                            }
+                        }
                     }
                 }
             }

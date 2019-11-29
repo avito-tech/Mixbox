@@ -58,7 +58,7 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
             }
         }
         
-        viewIpc.register(method: ResetUiIpcMethod()) { [weak self] _, completion in
+        viewIpc.register(method: ResetUiIpcMethod<IpcVoid>()) { [weak self] _, completion in
             guard let strongSelf = self else {
                 completion(IpcThrowingFunctionResult.threw("self is nil"))
                 return

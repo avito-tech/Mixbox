@@ -54,6 +54,7 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
             dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
             
             return dependencies.interactionResultMaker.makeResultCatchingErrors {
+                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
                 try dependencies.pasteboard.setString(text)
                 
                 switch textEditingActionMode {

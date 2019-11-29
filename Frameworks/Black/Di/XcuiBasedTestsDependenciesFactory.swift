@@ -22,4 +22,5 @@ protocol XcuiBasedTestsDependenciesFactory: class {
     var screenshotTaker: ScreenshotTaker { get }
     var pasteboard: Pasteboard { get }
     var signpostActivityLogger: SignpostActivityLogger { get }
+    var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { get }
 }

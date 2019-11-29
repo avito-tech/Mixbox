@@ -17,6 +17,19 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
     private var recordingFailureRecursionCounter = 0
     private let recordingFailureRecursionCounterThreshold = 10
     
+    // TODO: Add precondition for tests that reuse state. We may also get rid of `reuseState` property.
+    // E.g. use `precondition` and `reusedPrecondition` method. If `reusedPrecondition` is implemented it should
+    // act like `reuseState` is `true`, `reuseState` can be removed then. It is useful to have both method implemented.
+    // Example:
+    //
+    // override func precondition() {
+    //     resetUi()
+    // }
+    //
+    // override func reusablePrecondition() {
+    //     screen.open()
+    // }
+    //
     private var baseClassPreconditionWasCalled = false
     func precondition() {
         baseClassPreconditionWasCalled = true

@@ -24,4 +24,5 @@ protocol GrayBoxTestsDependenciesFactory: class {
     var runLoopSpinnerFactory: RunLoopSpinnerFactory { get }
     var waiter: RunLoopSpinningWaiter { get }
     var signpostActivityLogger: SignpostActivityLogger { get }
+    var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { get }
 }

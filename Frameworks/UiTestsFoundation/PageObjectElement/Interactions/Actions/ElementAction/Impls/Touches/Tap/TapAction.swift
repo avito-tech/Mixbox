@@ -46,17 +46,21 @@ public final class TapAction: ElementInteraction {
         
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [interactionCoordinates, dependencies] _ in
-                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
-                    dependencies.interactionResultMaker.makeResultCatchingErrors {
-                        let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
-                            elementSnapshot: snapshot,
-                            interactionCoordinates: interactionCoordinates
-                        )
-                        
-                        dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                        try elementSimpleGestures.tap()
-                        
-                        return  .success
+                dependencies.interactionResultMaker.makeResultCatchingErrors {
+                    try dependencies.applicationQuiescenceWaiter.waitForQuiescence {
+                        dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                            dependencies.interactionResultMaker.makeResultCatchingErrors {
+                                let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
+                                    elementSnapshot: snapshot,
+                                    interactionCoordinates: interactionCoordinates
+                                )
+                                
+                                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                                try elementSimpleGestures.tap()
+                                
+                                return  .success
+                            }
+                        }
                     }
                 }
             }

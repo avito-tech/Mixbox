@@ -18,4 +18,5 @@ public protocol ElementInteractionDependencies: class {
     var interactionResultMaker: InteractionResultMaker { get }
     var elementMatcherBuilder: ElementMatcherBuilder { get }
     var signpostActivityLogger: SignpostActivityLogger { get }
+    var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { get }
 }

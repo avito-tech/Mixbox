@@ -34,8 +34,6 @@ public final class RetrierImpl: Retrier {
         if case .reduceWorkload = pollingConfiguration {
             // TODO: Implement retrying using Waiter functionality.
             waiter.wait(timeout: 1)
-            // Before May 2019: Thread.sleep(forTimeInterval: 1)
-            // Before Feb 2019: RunLoop.current.run(until: Date().addingTimeInterval(1.0))
         }
     }
 }

@@ -1,5 +1,6 @@
 import MixboxFoundation
 
+// TODO: Use runtime DI
 public protocol ElementInteractionDependenciesFactory: class {
     func elementInteractionDependencies(
         interaction: ElementInteraction,

@@ -9,6 +9,7 @@ public protocol InAppServicesDependenciesFactory: class {
     var accessibilityEnhancer: AccessibilityEnhancer { get }
     var assertingSwizzler: AssertingSwizzler { get }
     var keyboardEventInjector: KeyboardEventInjector { get }
+    var scrollViewIdlingResourceSwizzler: ScrollViewIdlingResourceSwizzler { get }
     
     func mixboxUrlProtocolBootstrapper(
         ipcRouter: IpcRouter,

@@ -82,7 +82,8 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
             elementMatcherBuilder: elementMatcherBuilder,
             elementInfo: elementInfo,
             retriableTimedInteractionState: retriableTimedInteractionState,
-            signpostActivityLogger: grayBoxTestsDependenciesFactory.signpostActivityLogger
+            signpostActivityLogger: grayBoxTestsDependenciesFactory.signpostActivityLogger,
+            applicationQuiescenceWaiter: grayBoxTestsDependenciesFactory.applicationQuiescenceWaiter
         )
     }
     

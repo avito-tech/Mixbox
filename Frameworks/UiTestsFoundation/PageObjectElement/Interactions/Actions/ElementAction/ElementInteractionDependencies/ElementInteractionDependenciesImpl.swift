@@ -16,6 +16,7 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
     public let elementInfo: HumanReadableInteractionDescriptionBuilderSource
     public let retriableTimedInteractionState: RetriableTimedInteractionState
     public let signpostActivityLogger: SignpostActivityLogger
+    public let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
     
     public init(
         snapshotResolver: SnapshotForInteractionResolver,
@@ -31,7 +32,8 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
         elementMatcherBuilder: ElementMatcherBuilder,
         elementInfo: HumanReadableInteractionDescriptionBuilderSource,
         retriableTimedInteractionState: RetriableTimedInteractionState,
-        signpostActivityLogger: SignpostActivityLogger)
+        signpostActivityLogger: SignpostActivityLogger,
+        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
     {
         self.snapshotResolver = snapshotResolver
         self.textTyper = textTyper
@@ -47,5 +49,6 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
         self.elementInfo = elementInfo
         self.retriableTimedInteractionState = retriableTimedInteractionState
         self.signpostActivityLogger = signpostActivityLogger
+        self.applicationQuiescenceWaiter = applicationQuiescenceWaiter
     }
 }

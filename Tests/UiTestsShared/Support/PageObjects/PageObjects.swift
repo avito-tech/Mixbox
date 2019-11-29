@@ -33,6 +33,8 @@ final class PageObjects: BasePageObjects {
     
     var locatorsTestsView: MainAppScreen<LocatorsTestsViewPageObject> { return mainAppScreen() }
     
+    var waitingForQuiescenceTestsView: MainAppScreen<WaitingForQuiescenceTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainUiKitHierarchy.pageObject(),

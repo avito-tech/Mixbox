@@ -2,6 +2,7 @@ import MixboxInAppServices
 import MixboxUiTestsFoundation
 import TestsIpc
 import XCTest
+import MixboxIpc
 @testable import TestedApp
 
 // This test checks if injected keyboard events actually results in some text in UITextView.
@@ -78,9 +79,10 @@ final class KeyboardEventInjectorImplTests: TestCase {
         }
     }
     
+    // TODO: This code is copypasted. Reuse it.
     private func resetUi() {
         do {
-            try ipcClient.callOrFail(method: ResetUiIpcMethod()).getVoidReturnValue()
+            try ipcClient.callOrFail(method: ResetUiIpcMethod<IpcVoid>()).getVoidReturnValue()
         } catch {
             XCTFail("Error calling ResetUiIpcMethod: \(error)")
         }

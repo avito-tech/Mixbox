@@ -52,13 +52,14 @@ public final class TextMenuAction: ElementInteraction {
                 )
                 
                 return dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try selectAllButton.waitForExistence()
-                    
-                    dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                    
-                    try selectAllButton.tap()
-                    
-                    return .success
+                    try dependencies.applicationQuiescenceWaiter.waitForQuiescence {
+                        try selectAllButton.waitForExistence()
+                        
+                        dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                        try selectAllButton.tap()
+                        
+                        return .success
+                    }
                 }
             }
         }

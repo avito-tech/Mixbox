@@ -21,6 +21,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     let signpostActivityLogger: SignpostActivityLogger
     let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     let snapshotsComparatorFactory: SnapshotsComparatorFactory
+    let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
     
     // MARK: - Init
     
@@ -40,7 +41,8 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         waiter: RunLoopSpinningWaiter,
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
-        snapshotsComparatorFactory: SnapshotsComparatorFactory)
+        snapshotsComparatorFactory: SnapshotsComparatorFactory,
+        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -58,6 +60,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.signpostActivityLogger = signpostActivityLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
+        self.applicationQuiescenceWaiter = applicationQuiescenceWaiter
         
         applicationFrameProvider = XcuiApplicationFrameProvider(
             applicationProvider: applicationProvider

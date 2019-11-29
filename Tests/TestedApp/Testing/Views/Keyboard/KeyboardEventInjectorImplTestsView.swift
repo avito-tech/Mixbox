@@ -16,7 +16,7 @@ public final class KeyboardEventInjectorImplTestsView:
         
         let viewIpc = testingViewControllerSettings.viewIpc
         
-        viewIpc.register(method: ResetUiIpcMethod()) { [weak self] _, completion in
+        viewIpc.register(method: ResetUiIpcMethod<IpcVoid>()) { [weak self] _, completion in
             guard let strongSelf = self else {
                 completion(IpcThrowingFunctionResult.threw(ErrorString("self is nil")))
                 return

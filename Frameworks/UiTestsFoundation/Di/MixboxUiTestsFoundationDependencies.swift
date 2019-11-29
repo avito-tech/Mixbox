@@ -80,6 +80,9 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
                 runLoopSpinnerFactory: try di.resolve()
             )
         }
+        di.register(type: Waiter.self) { di in
+            try di.resolve() as RunLoopSpinningWaiter
+        }
         di.register(type: LazilyInitializedIpcClient.self) { _ in
             LazilyInitializedIpcClient()
         }

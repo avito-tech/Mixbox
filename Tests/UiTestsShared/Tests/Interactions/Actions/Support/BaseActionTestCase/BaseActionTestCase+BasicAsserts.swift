@@ -1,5 +1,6 @@
 import XCTest
 import MixboxUiTestsFoundation
+import MixboxIpc
 import TestsIpc
 
 extension BaseActionTestCase {
@@ -24,7 +25,7 @@ extension BaseActionTestCase {
         
         // Better to reset UI before failing
         do {
-            try ipcClient.callOrFail(method: ResetUiIpcMethod()).getVoidReturnValue()
+            try ipcClient.callOrFail(method: ResetUiIpcMethod<IpcVoid>()).getVoidReturnValue()
         } catch {
             XCTFail("Error calling ResetUiIpcMethod: \(error)")
         }

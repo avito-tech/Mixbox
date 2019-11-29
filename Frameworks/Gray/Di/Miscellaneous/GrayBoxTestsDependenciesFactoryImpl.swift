@@ -23,6 +23,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let signpostActivityLogger: SignpostActivityLogger
     let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     let snapshotsComparatorFactory: SnapshotsComparatorFactory
+    let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
     
     // MARK: - Init
     
@@ -39,7 +40,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         waiter: RunLoopSpinningWaiter,
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
-        snapshotsComparatorFactory: SnapshotsComparatorFactory)
+        snapshotsComparatorFactory: SnapshotsComparatorFactory,
+        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -89,6 +91,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
             pollingConfiguration: pollingConfiguration,
             waiter: waiter
         )
+        
+        self.applicationQuiescenceWaiter = applicationQuiescenceWaiter
     }
     
     // MARK: - GrayBoxTestsDependenciesFactory

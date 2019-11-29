@@ -74,22 +74,26 @@ public final class SwipeAction: ElementInteraction {
                 // Unfortunately either the line will be long, either this rule will be violated:
                 // swiftlint:disable:next closure_parameter_position
                 [dependencies, swipeActionPathCalculator, minimalPercentageOfVisibleArea] _ in
-                
-                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { elementSnapshot in
-                    let path = swipeActionPathCalculator.path(elementSnapshot: elementSnapshot)
-                    
-                    dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                    
-                    return dependencies.interactionResultMaker.makeResultCatchingErrors {
-                        try dependencies.eventGenerator.pressAndDrag(
-                            from: path.startPoint,
-                            to: path.endPoint,
-                            durationOfInitialPress: 0,
-                            velocity: path.velocity,
-                            cancelInertia: false
-                        )
-                        
-                        return .success
+
+                dependencies.interactionResultMaker.makeResultCatchingErrors {
+                    try dependencies.applicationQuiescenceWaiter.waitForQuiescence {
+                        dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { elementSnapshot in
+                            let path = swipeActionPathCalculator.path(elementSnapshot: elementSnapshot)
+
+                            return dependencies.interactionResultMaker.makeResultCatchingErrors {
+                                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                                
+                                try dependencies.eventGenerator.pressAndDrag(
+                                    from: path.startPoint,
+                                    to: path.endPoint,
+                                    durationOfInitialPress: 0,
+                                    velocity: path.velocity,
+                                    cancelInertia: false
+                                )
+                                
+                                return .success
+                            }
+                        }
                     }
                 }
             }

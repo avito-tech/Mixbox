@@ -92,7 +92,8 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                     waiter: try di.resolve(),
                     signpostActivityLogger: try di.resolve(),
                     snapshotsDifferenceAttachmentGenerator: try di.resolve(),
-                    snapshotsComparatorFactory: try di.resolve()
+                    snapshotsComparatorFactory: try di.resolve(),
+                    applicationQuiescenceWaiter: try di.resolve()
                 )
             }
             

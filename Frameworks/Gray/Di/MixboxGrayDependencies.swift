@@ -1,6 +1,7 @@
 import MixboxDi
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
+import MixboxInAppServices
 
 public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
     private let mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies
@@ -37,6 +38,16 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 dateProvider: try di.resolve()
             )
         }
+        di.register(type: ApplicationQuiescenceWaiter.self) { di in
+            GrayApplicationQuiescenceWaiter(
+                waiter: try di.resolve(),
+                idlingResource: CompoundIdlingResource(
+                    idlingResources: [
+                        IdlingResourceObjectTracker.instance
+                    ]
+                )
+            )
+        }
         di.register(type: PageObjectDependenciesFactory.self) { di in
             GrayPageObjectDependenciesFactory(
                 testFailureRecorder: try di.resolve(),
@@ -49,7 +60,8 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 waiter: try di.resolve(),
                 signpostActivityLogger: try di.resolve(),
                 snapshotsDifferenceAttachmentGenerator: try di.resolve(),
-                snapshotsComparatorFactory: try di.resolve()
+                snapshotsComparatorFactory: try di.resolve(),
+                applicationQuiescenceWaiter: try di.resolve()
             )
         }
     }

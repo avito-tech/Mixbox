@@ -68,9 +68,8 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
                 }
             }
             
-            dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-            
             return dependencies.interactionResultMaker.makeResultCatchingErrors {
+                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
                 try dependencies.textTyper.type(text: text)
                 
                 return .success
@@ -79,20 +78,24 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
         
         private func clearText() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [dependencies] _ in
-                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
-                    let value = snapshot.text(fallback: snapshot.accessibilityValue as? String) ?? ""
-                    
-                    if value.isEmpty {
-                        return .success
-                    } else {
-                        return dependencies.interactionResultMaker.makeResultCatchingErrors {
-                            let textTyperInstruction: [TextTyperInstruction] = value
-                                .map { _ in .key(.delete) }
+                dependencies.interactionResultMaker.makeResultCatchingErrors {
+                    try dependencies.applicationQuiescenceWaiter.waitForQuiescence {
+                        dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                            let value = snapshot.text(fallback: snapshot.accessibilityValue as? String) ?? ""
                             
-                            dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                            try dependencies.textTyper.type(instructions: textTyperInstruction)
-                            
-                            return  .success
+                            if value.isEmpty {
+                                return .success
+                            } else {
+                                return dependencies.interactionResultMaker.makeResultCatchingErrors {
+                                    let textTyperInstruction: [TextTyperInstruction] = value
+                                        .map { _ in .key(.delete) }
+                                    
+                                    dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                                    try dependencies.textTyper.type(instructions: textTyperInstruction)
+                                    
+                                    return  .success
+                                }
+                            }
                         }
                     }
                 }

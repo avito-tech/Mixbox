@@ -25,10 +25,16 @@ public final class ConditionalCompilationClausesCheckerImpl: ConditionalCompilat
             
             let listOfFiles = fileNames
                 .joined(separator: "\n")
+                
+            let autocorrectionIsEnabled = ProcessInfo.processInfo.environment["MIXBOX_CI_AUTOCORRECT_ENABLED"] == "true"
             
-            fputs("The following files do not contain #if:\n\n\(listOfFiles)\n\nRun this build with MIXBOX_CI_AUTOCORRECT_ENABLED=true to autocorrect it.\n\n", stderr)
+            let autocorrectionLogMessage = autocorrectionIsEnabled
+                ? "Those were autocorrected, because MIXBOX_CI_AUTOCORRECT_ENABLED environment variable is \"true\""
+                : "Run this build with MIXBOX_CI_AUTOCORRECT_ENABLED=true to autocorrect it."
             
-            if ProcessInfo.processInfo.environment["MIXBOX_CI_AUTOCORRECT_ENABLED"] == "true" {
+            fputs("The following files do not contain #if:\n\n\(listOfFiles)\n\n\(autocorrectionLogMessage)\n\n", stderr)
+            
+            if autocorrectionIsEnabled {
                 try missingConditionalCompilationClausesAutocorrector.autocorrect(
                     missingConditionalCompilationClauses: missingConditionalCompilationClauses
                 )
