@@ -47,8 +47,21 @@ public final class EnhancedAccessibilityLabel: Codable {
         self.customValues = customValues
     }
     
-    public static func fromAccessibilityLabel(_ originalAccessibilityLabel: String?) -> EnhancedAccessibilityLabel? {
-        let container: EnhancedAccessibilityContainer? = originalAccessibilityLabel
+    public static func originalAccessibilityLabel(_ accessibilityLabel: String?) -> String? {
+        guard let accessibilityLabel = accessibilityLabel else {
+            return nil
+        }
+        
+        // Tiny optimization: detect if `accessibilityLabel` contains JSON.
+        if accessibilityLabel.starts(with: "{") {
+            return fromAccessibilityLabel(accessibilityLabel)?.originalAccessibilityLabel
+        } else {
+            return accessibilityLabel
+        }
+    }
+    
+    public static func fromAccessibilityLabel(_ accessibilityLabel: String?) -> EnhancedAccessibilityLabel? {
+        let container: EnhancedAccessibilityContainer? = accessibilityLabel
             .flatMap(GenericSerialization.deserialize)
         
         return container?.enhancedAccessibilityLabel

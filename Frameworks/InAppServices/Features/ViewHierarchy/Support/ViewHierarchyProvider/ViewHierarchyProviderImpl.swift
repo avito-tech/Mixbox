@@ -28,7 +28,8 @@ public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {
                 elementType: view.testabilityValue_elementType()
             ),
             accessibilityIdentifier: view.accessibilityIdentifier,
-            accessibilityLabel: view.accessibilityLabel,
+            // TODO: Avoid using swizzled implementation and return originalAccessibilityLabel directly from view.
+            accessibilityLabel: EnhancedAccessibilityLabel.originalAccessibilityLabel(view.accessibilityLabel),
             accessibilityValue: view.accessibilityValue,
             accessibilityPlaceholderValue: view.accessibilityPlaceholderValue() as? String,
             text: view.testabilityValue_text(),
