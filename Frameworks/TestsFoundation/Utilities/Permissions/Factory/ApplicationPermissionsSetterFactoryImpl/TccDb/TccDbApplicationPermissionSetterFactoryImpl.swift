@@ -1,5 +1,3 @@
-import MixboxTestsFoundation
-
 // Suitable for running via Xcode and xcodebuild
 // For running with fbxctest use AtApplicationLaunchTccDbApplicationPermissionSetterFactory
 public final class TccDbApplicationPermissionSetterFactoryImpl: TccDbApplicationPermissionSetterFactory {

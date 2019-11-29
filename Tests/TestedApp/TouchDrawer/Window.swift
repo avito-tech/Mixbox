@@ -46,6 +46,9 @@ class TouchDrawingWindow: UIWindow {
             
         case .stationary:
             break
+            
+        @unknown default:
+            break
         }
     }
     

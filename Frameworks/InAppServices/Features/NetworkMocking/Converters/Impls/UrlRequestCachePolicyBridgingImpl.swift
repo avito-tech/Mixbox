@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxIpcCommon
+import MixboxFoundation
 
 public final class UrlRequestCachePolicyBridgingImpl: UrlRequestCachePolicyBridging {
     public init() {
@@ -28,6 +29,7 @@ public final class UrlRequestCachePolicyBridgingImpl: UrlRequestCachePolicyBridg
     
     public func bridgedUrlRequestCachePolicy(
         urlRequestCachePolicy: URLRequest.CachePolicy)
+        throws
         -> BridgedUrlRequestCachePolicy
     {
         switch urlRequestCachePolicy {
@@ -43,6 +45,8 @@ public final class UrlRequestCachePolicyBridgingImpl: UrlRequestCachePolicyBridg
             return .returnCacheDataDontLoad
         case .reloadRevalidatingCacheData:
             return .reloadRevalidatingCacheData
+        @unknown default:
+            throw UnsupportedEnumCaseError(urlRequestCachePolicy)
         }
     }
 }

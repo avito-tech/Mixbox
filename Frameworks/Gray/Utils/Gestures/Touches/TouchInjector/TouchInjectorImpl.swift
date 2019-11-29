@@ -263,7 +263,8 @@ public final class TouchInjectorImpl: TouchInjector {
         
         let currentAbsoluteTime = currentAbsoluteTimeProvider.currentAbsoluteTime
         
-        var currentTouchView: UIView? = ongoingTouches.first?.view
+        // See commented out code below
+        // var currentTouchView: UIView? = ongoingTouches.first?.view
         
         // TODO: Check `hidEvents` are not released before `finally` closure ends
         // TODO: Remove modification of state from map.
@@ -321,7 +322,8 @@ public final class TouchInjectorImpl: TouchInjector {
         autoreleasepool {
             previousTouchDeliveryTime = CACurrentMediaTime()
             previousTouchInfo = touchInfo
-            var touchViewContainsWKWebView = false
+            
+            let touchViewContainsWKWebView = false
             
             ObjectiveCExceptionCatcher.catch(
                 try: { () -> () in

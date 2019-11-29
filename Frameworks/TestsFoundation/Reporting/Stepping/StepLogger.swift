@@ -1,4 +1,3 @@
-import MixboxTestsFoundation
 import MixboxFoundation
 
 // How to add logging to your existing code:

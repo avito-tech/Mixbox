@@ -34,6 +34,40 @@ extension IpcClient {
         }
     }
     
+    // Synchronous version for methods without arguments and return value
+    func callOrFail<Method: IpcMethod>(
+        method: Method,
+        file: StaticString = #file,
+        line: UInt = #line)
+        where
+        Method.Arguments == IpcVoid,
+        Method.ReturnValue == IpcVoid
+    {
+        _ = failOnThrow(file: file, line: line) {
+            try callOrThrow(
+                method: method,
+                arguments: IpcVoid()
+            )
+        }
+    }
+    
+    // Synchronous version for methods without return value
+    func callOrFail<Method: IpcMethod>(
+        method: Method,
+        arguments: Method.Arguments,
+        file: StaticString = #file,
+        line: UInt = #line)
+        where
+        Method.ReturnValue == IpcVoid
+    {
+        _ = failOnThrow(file: file, line: line) {
+            try callOrThrow(
+                method: method,
+                arguments: arguments
+            )
+        }
+    }
+    
     private func failOnThrow<T>(
         file: StaticString,
         line: UInt,

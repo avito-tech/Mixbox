@@ -9,7 +9,9 @@ final class NotificationsPermissionInfo: PermissionInfo {
     
     func authorizationStatus() -> String {
         if #available(iOS 10.0, *) {
-            switch notificationSettings().authorizationStatus {
+            let status = notificationSettings().authorizationStatus
+            
+            switch status {
             case .authorized:
                 return "authorized"
             case .denied:
@@ -18,6 +20,8 @@ final class NotificationsPermissionInfo: PermissionInfo {
                 return "notDetermined"
             case .provisional:
                 return "provisional"
+            @unknown default:
+                return "UNKNOWN: \(status)"
             }
         } else {
             // We aren't sure if authorization status is `denied` or `notDetermined`,

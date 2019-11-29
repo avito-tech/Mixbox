@@ -21,7 +21,9 @@ class AvCaptureDevicePermissionInfo: PermissionInfo {
     }
     
     func authorizationStatus() -> String {
-        switch AVCaptureDevice.authorizationStatus(for: mediaType) {
+        let status = AVCaptureDevice.authorizationStatus(for: mediaType)
+        
+        switch status {
         case .authorized:
             return "authorized"
         case .denied:
@@ -30,6 +32,8 @@ class AvCaptureDevicePermissionInfo: PermissionInfo {
             return "notDetermined"
         case .restricted:
             return "restricted"
+        @unknown default:
+            return "UNKNOWN: \(status)"
         }
     }
 }

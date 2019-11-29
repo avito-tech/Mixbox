@@ -1,5 +1,6 @@
 import UIKit
 import TestsIpc
+import MixboxFoundation
 
 public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvider {
     private var uiEventHistoryRecords = [UiEventHistoryRecord]()
@@ -19,28 +20,32 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
     // MARK: - UiEventHistoryProvider
     
     public func eventWasSent(event: UIEvent) {
-        let currentDate = Date()
-        
-        uiEventHistoryRecords.append(
-            UiEventHistoryRecord(
-                event: self.event(event: event),
-                date: currentDate
+        do {
+            let currentDate = Date()
+            
+            uiEventHistoryRecords.append(
+                UiEventHistoryRecord(
+                    event: try self.event(event: event),
+                    date: currentDate
+                )
             )
-        )
+        } catch {
+            // TODO: Assertion failure
+        }
     }
     
     // MARK: - Private
     
-    private func event(event: UIEvent) -> UiEvent {
+    private func event(event: UIEvent) throws -> UiEvent {
         return UiEvent(
-            type: eventType(eventType: event.type),
-            subtype: eventSubtype(eventType: event.subtype),
+            type: try eventType(eventType: event.type),
+            subtype: try eventSubtype(eventType: event.subtype),
             timestamp: event.timestamp,
-            allTouches: (event.allTouches ?? []).map(touch)
+            allTouches: try (event.allTouches ?? []).map(touch)
         )
     }
     
-    private func touch(touch: UITouch) -> UiTouch {
+    private func touch(touch: UITouch) throws -> UiTouch {
         let preciseLocation: CGPoint
         
         if #available(iOS 9.1, *) {
@@ -51,9 +56,9 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
         
         return UiTouch(
             timestamp: touch.timestamp,
-            phase: phase(phase: touch.phase),
+            phase: try phase(phase: touch.phase),
             tapCount: touch.tapCount,
-            type: touchType(touchType: touch.type),
+            type: try touchType(touchType: touch.type),
             majorRadius: touch.majorRadius,
             majorRadiusTolerance: touch.majorRadiusTolerance,
             location: touch.location(in: nil),
@@ -61,7 +66,7 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
         )
     }
     
-    private func touchType(touchType: UITouch.TouchType) -> UiTouch.TouchType {
+    private func touchType(touchType: UITouch.TouchType) throws -> UiTouch.TouchType {
         switch touchType {
         case .direct:
             return .direct
@@ -69,10 +74,12 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
             return .indirect
         case .pencil:
             return .pencil
+        @unknown default:
+            throw UnsupportedEnumCaseError(touchType)
         }
     }
     
-    private func phase(phase: UITouch.Phase) -> UiTouch.Phase {
+    private func phase(phase: UITouch.Phase) throws -> UiTouch.Phase {
         switch phase {
         case .began:
             return .began
@@ -84,10 +91,12 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
             return .ended
         case .cancelled:
             return .cancelled
+        @unknown default:
+            throw UnsupportedEnumCaseError(phase)
         }
     }
     
-    private func eventType(eventType: UIEvent.EventType) -> UiEvent.EventType {
+    private func eventType(eventType: UIEvent.EventType) throws -> UiEvent.EventType {
         switch eventType {
         case .touches:
             return .touches
@@ -97,11 +106,13 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
             return .remoteControl
         case .presses:
             return .presses
+        @unknown default:
+            throw UnsupportedEnumCaseError(eventType)
         }
     }
     
     // swiftlint:disable:next cyclomatic_complexity
-    private func eventSubtype(eventType: UIEvent.EventSubtype) -> UiEvent.EventSubtype {
+    private func eventSubtype(eventType: UIEvent.EventSubtype) throws -> UiEvent.EventSubtype {
         switch eventType {
         case .none:
             return .none
@@ -127,6 +138,8 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
             return .remoteControlBeginSeekingForward
         case .remoteControlEndSeekingForward:
             return .remoteControlEndSeekingForward
+        @unknown default:
+            throw UnsupportedEnumCaseError(eventType)
         }
     }
 }

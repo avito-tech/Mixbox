@@ -1,6 +1,6 @@
 #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
 
-typedef NS_ENUM(NSUInteger, TestabilityElementType) {
+typedef NS_CLOSED_ENUM(NSUInteger, TestabilityElementType) {
     TestabilityElementType_Other = 0,
     TestabilityElementType_Application,
     TestabilityElementType_Group,

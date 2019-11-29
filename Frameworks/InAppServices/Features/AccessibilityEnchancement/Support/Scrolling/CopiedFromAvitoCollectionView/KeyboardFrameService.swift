@@ -23,7 +23,7 @@ private class KeyboardFrameObservers {
     }
     
     func append(_ observer: KeyboardFrameObserver) {
-        if let index = allObservers().index(where: { $0.object === observer.object }) {
+        if let index = allObservers().firstIndex(where: { $0.object === observer.object }) {
             // do not store one observer twice
             observers.remove(at: index)
         }

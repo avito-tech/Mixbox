@@ -19,6 +19,8 @@ public final class XcuiApplicationStateProvider: ApplicationStateProvider {
             return .runningBackground
         case .runningForeground:
             return .runningForeground
+        @unknown default:
+            return .unknown
         }
     }
 }

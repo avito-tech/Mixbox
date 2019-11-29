@@ -36,8 +36,6 @@ public final class UrlRequestNetworkServiceTypeBridgingImpl: UrlRequestNetworkSe
                     """
                 )
             }
-        default:
-            break
         }
     }
     
@@ -62,7 +60,7 @@ public final class UrlRequestNetworkServiceTypeBridgingImpl: UrlRequestNetworkSe
         case .callSignaling:
             return .callSignaling
         default:
-            throw ErrorString("Unsupported URLRequest.NetworkServiceType: \(urlRequestNetworkServiceType)")
+            throw UnsupportedEnumCaseError(urlRequestNetworkServiceType)
         }
     }
 }

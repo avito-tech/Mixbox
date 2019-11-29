@@ -107,7 +107,7 @@ final class XcuiElementSnapshot: ElementSnapshot {
     // MARK: - Private
     
     private var enhancedAccessibilityLabel: EnhancedAccessibilityLabel? {
-        return EnhancedAccessibilityLabel.fromAccessibilityLabel(xcElementSnapshot.label as? String)
+        return EnhancedAccessibilityLabel.fromAccessibilityLabel(xcElementSnapshot.label)
     }
     
     private var additionalAttributes: [NSObject: Any]  {

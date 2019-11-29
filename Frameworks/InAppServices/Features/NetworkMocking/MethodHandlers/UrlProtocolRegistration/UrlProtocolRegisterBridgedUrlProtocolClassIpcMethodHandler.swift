@@ -37,7 +37,8 @@ public final class UrlProtocolRegisterBridgedUrlProtocolClassIpcMethodHandler: I
             bridgedUrlProtocolClass: bridgedUrlProtocolClass
         )
         
-        let addedObject = writeableClassesRepository.insert(
+        // TODO: use `addedObject`
+        _ = writeableClassesRepository.insert(
             object: bridgedUrlProtocolClass,
             ipcObjectId: bridgedUrlProtocolClass.ipcObjectId
         )

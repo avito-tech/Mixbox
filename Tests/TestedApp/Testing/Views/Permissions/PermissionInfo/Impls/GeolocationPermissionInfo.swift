@@ -6,7 +6,9 @@ final class GeolocationPermissionInfo: PermissionInfo {
     }
     
     func authorizationStatus() -> String {
-        switch CLLocationManager.authorizationStatus() {
+        let status = CLLocationManager.authorizationStatus()
+        
+        switch status {
         case .authorizedAlways:
             return "authorizedAlways"
         case .authorizedWhenInUse:
@@ -17,6 +19,8 @@ final class GeolocationPermissionInfo: PermissionInfo {
             return "notDetermined"
         case .restricted:
             return "restricted"
+        @unknown default:
+            return "UNKNOWN: \(status)"
         }
     }
 }

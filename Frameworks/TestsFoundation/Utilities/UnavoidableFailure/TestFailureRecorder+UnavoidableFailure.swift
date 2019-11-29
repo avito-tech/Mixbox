@@ -1,4 +1,3 @@
-import MixboxTestsFoundation
 import MixboxFoundation
 
 extension TestFailureRecorder {

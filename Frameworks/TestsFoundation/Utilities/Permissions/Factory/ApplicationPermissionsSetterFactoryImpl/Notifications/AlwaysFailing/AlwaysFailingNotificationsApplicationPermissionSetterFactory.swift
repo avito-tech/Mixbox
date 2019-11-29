@@ -1,5 +1,3 @@
-import MixboxTestsFoundation
-
 public final class AlwaysFailingNotificationsApplicationPermissionSetterFactory:
     NotificationsApplicationPermissionSetterFactory
 {

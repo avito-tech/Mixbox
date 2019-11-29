@@ -1,5 +1,4 @@
 import MixboxFoundation
-import MixboxTestsFoundation
 import Photos
 
 public final class PhotoStubberImpl: PhotoStubber {

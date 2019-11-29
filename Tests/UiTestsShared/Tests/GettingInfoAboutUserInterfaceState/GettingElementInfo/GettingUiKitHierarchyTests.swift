@@ -46,7 +46,7 @@ final class GettingUiKitHierarchyTests: TestCase {
         let testViewSubviews = testsView.children
         XCTAssertEqual(testViewSubviews.count, 6)
         
-        if let labelIndex = testViewSubviews.index(where: { $0.accessibilityIdentifier == "label.accessibilityIdentifier" }) {
+        if let labelIndex = testViewSubviews.firstIndex(where: { $0.accessibilityIdentifier == "label.accessibilityIdentifier" }) {
             let label = testViewSubviews[labelIndex]
             XCTAssertEqual(label.customClass, "UILabel")
             XCTAssertEqual(label.accessibilityValue, "label.accessibilityValue")
@@ -61,7 +61,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTFail("Did not find label")
         }
         
-        if let hiddenLabelIndex = testViewSubviews.index(where: { $0.accessibilityIdentifier == "hiddenLabel.accessibilityIdentifier" }) {
+        if let hiddenLabelIndex = testViewSubviews.firstIndex(where: { $0.accessibilityIdentifier == "hiddenLabel.accessibilityIdentifier" }) {
             let hiddenLabel = testViewSubviews[hiddenLabelIndex]
             XCTAssertEqual(hiddenLabel.customClass, "UILabel")
             XCTAssertEqual(hiddenLabel.accessibilityValue, "hiddenLabel.accessibilityValue")
@@ -77,7 +77,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTFail("Did not find hiddenLabel")
         }
         
-        if let buttonIndex = testViewSubviews.index(where: { $0.accessibilityIdentifier == "button.accessibilityIdentifier" }) {
+        if let buttonIndex = testViewSubviews.firstIndex(where: { $0.accessibilityIdentifier == "button.accessibilityIdentifier" }) {
             let button = testViewSubviews[buttonIndex]
             XCTAssertEqual(button.customClass, "CustomButton")
             XCTAssertEqual(button.accessibilityValue, "button.accessibilityValue")
@@ -93,7 +93,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTFail("Did not find button")
         }
         
-        if let hiddenButtonIndex = testViewSubviews.index(where: { $0.accessibilityIdentifier == "hiddenButton.accessibilityIdentifier" }) {
+        if let hiddenButtonIndex = testViewSubviews.firstIndex(where: { $0.accessibilityIdentifier == "hiddenButton.accessibilityIdentifier" }) {
             let hiddenButton = testViewSubviews[hiddenButtonIndex]
             XCTAssertEqual(hiddenButton.customClass, "UIButton")
             XCTAssertEqual(hiddenButton.accessibilityValue, "hiddenButton.accessibilityValue")
@@ -109,7 +109,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTFail("Did not find hiddenButton")
         }
         
-        if let focusedTextFieldIndex = testViewSubviews.index(where: { $0.accessibilityIdentifier == "focusedTextField.accessibilityIdentifier" }) {
+        if let focusedTextFieldIndex = testViewSubviews.firstIndex(where: { $0.accessibilityIdentifier == "focusedTextField.accessibilityIdentifier" }) {
             let focusedTextField = testViewSubviews[focusedTextFieldIndex]
             XCTAssertEqual(focusedTextField.customClass, "UITextField")
             XCTAssertEqual(focusedTextField.accessibilityValue, "focusedTextField.accessibilityValue")
@@ -126,7 +126,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTFail("Did not find focusedTextField")
         }
         
-        if let notFocusedTextFieldIndex = testViewSubviews.index(where: { $0.accessibilityIdentifier == "notFocusedTextView.accessibilityIdentifier" }) {
+        if let notFocusedTextFieldIndex = testViewSubviews.firstIndex(where: { $0.accessibilityIdentifier == "notFocusedTextView.accessibilityIdentifier" }) {
             let notFocusedTextField = testViewSubviews[notFocusedTextFieldIndex]
             XCTAssertEqual(notFocusedTextField.customClass, "UITextView")
             XCTAssertEqual(notFocusedTextField.accessibilityValue, "notFocusedTextView.accessibilityValue")

@@ -1,5 +1,3 @@
-import MixboxTestsFoundation
-
 public protocol ApplicationPermissionsSetterFactory: class {
     func applicationPermissionsSetter(
         bundleId: String,

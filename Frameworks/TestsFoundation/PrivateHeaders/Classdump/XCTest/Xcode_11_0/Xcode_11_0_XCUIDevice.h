@@ -27,7 +27,7 @@
     id <XCUIXcodeApplicationManaging> _xcodeApplicationManager;
     id <XCUIDeviceEventAndStateInterface> _deviceEventAndStateInterface;
     id <XCUIApplicationAutomationSessionProviding> _applicationAutomationSessionProvider;
-    XCUISiriService *_siriService;
+    /*XCUISiriService **/ id _siriService;
     id <XCUIScreenDataSource> _screenDataSource;
     NSString *_uniqueIdentifier;
     XCUITestContext *_testContext;

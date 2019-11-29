@@ -1,4 +1,3 @@
-import MixboxTestsFoundation
 import MixboxFoundation
 
 public final class StepLogAfter: CustomDebugStringConvertible, Equatable {
