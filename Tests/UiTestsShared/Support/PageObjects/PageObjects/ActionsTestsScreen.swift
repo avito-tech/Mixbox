@@ -1,6 +1,8 @@
 import MixboxUiTestsFoundation
 
-final class ActionsTestsScreen: BasePageObjectWithDefaultInitializer {
+final class ActionsTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
+    let viewName = "ActionsTestsView"
+    
     var info: LabelElement {
         return element("info") { element in element.id == "info" }
     }
@@ -15,9 +17,5 @@ final class ActionsTestsScreen: BasePageObjectWithDefaultInitializer {
     
     func input(_ id: String) -> InputElement {
         return element("input \(id)") { element in element.id == id }
-    }
-    
-    var screenView: ViewElement {
-        return element("ActionsTestsView") { element in element.id == "ActionsTestsView" }
     }
 }

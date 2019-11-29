@@ -26,11 +26,11 @@ class BaseChecksTestCase: TestCase {
         super.precondition()
         
         openScreen(screen)
-        screen.waitUntilViewIsLoaded()
+            .waitUntilViewIsLoaded()
     }
     
-    var screen: ChecksTestsScreen {
-        return pageObjects.checksTestsScreen
+    var screen: ChecksTestsViewPageObject {
+        return pageObjects.checksTestsView.default
     }
     
     // MARK: - Common checks

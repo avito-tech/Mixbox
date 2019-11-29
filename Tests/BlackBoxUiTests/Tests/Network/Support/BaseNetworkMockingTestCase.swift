@@ -6,7 +6,7 @@ class BaseNetworkMockingTestCase: TestCase {
     }
     
     var screen: NetworkStubbingTestsViewPageObject {
-        return pageObjects.networkStubbingTestsViewPageObject
+        return pageObjects.networkStubbingTestsView.default
     }
     
     func assertFailsInRecordingMode(body: () -> ()) {

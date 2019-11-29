@@ -10,10 +10,11 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
         player.checkpoint(id: "ADB86909-6DD5-4056-86F7-784FD286FD7C")
         
         openScreen(screen)
+            .waitUntilViewIsLoaded()
         
         player.checkpoint(id: "FFA9231E-29A9-4646-9B70-91278E6FFC31")
         
-        screen.exampleCom.tap()
+        screen.exampleCom.withoutTimeout.tap()
         
         player.checkpoint(id: "360496D2-3C7D-4985-B2F2-A4C9BA2F5F8A")
         

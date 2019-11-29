@@ -3,22 +3,23 @@
 
 final class LocatorsPerformanceTests: TestCase {
     private var screen: LocatorsPerformanceTestsViewPageObject {
-        return pageObjects.locatorsPerformanceTestsView
+        return pageObjects.locatorsPerformanceTestsView.default
     }
     
     override func precondition() {
         super.precondition()
         
         openScreen(screen)
+            .waitUntilViewIsLoaded()
     }
     
     func test___complex_is_subview_matcher___passes_in_timeout___when_matches() {
-        screen.element(path: [1, 1, 1, 1, 1, 1]).assertHasText("555")
+        screen.element(path: [1, 1, 1, 1, 1, 1]).withoutTimeout.assertHasText("555")
     }
     
     func test___complex_is_subview_matcher___passes_in_timeout___when_it_doesnt_match() {
         assertFails {
-            screen.element(path: [1, 1, 1, 1, 1, 4]).assertIsDisplayed()
+            screen.element(path: [1, 1, 1, 1, 1, 4]).withoutTimeout.assertIsDisplayed()
         }
     }
 }

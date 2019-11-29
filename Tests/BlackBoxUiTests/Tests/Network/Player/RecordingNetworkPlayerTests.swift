@@ -28,7 +28,9 @@ final class RecordingNetworkPlayerTests: BaseNetworkMockingTestCase {
         let player = recordingPlayer
         
         legacyNetworking.recording.startRecording()
+        
         openScreen(screen)
+            .waitUntilViewIsLoaded()
         
         let sourceCodeFile = file(contents: ".checkpoint()")
         

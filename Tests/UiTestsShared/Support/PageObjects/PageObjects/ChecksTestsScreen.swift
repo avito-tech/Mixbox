@@ -1,6 +1,6 @@
 import MixboxUiTestsFoundation
 
-public final class ChecksTestsScreen: BasePageObjectWithDefaultInitializer, OpenableScreen {
+public final class ChecksTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
     public let viewName = "ChecksTestsView"
     
     public var checkText0: LabelElement {

@@ -14,9 +14,8 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
         let instancesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolInstance & IpcObjectIdentifiable>()
         let classesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolClass & IpcObjectIdentifiable>()
         
-        openScreen(
-            name: screen.viewName
-        )
+        openScreen(screen)
+            .waitUntilViewIsLoaded()
         
         let networkStubber = UrlProtocolStubAdderImpl(
             bridgedUrlProtocolRegisterer: IpcBridgedUrlProtocolRegisterer(
@@ -42,7 +41,7 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
             XCTFail("Failed to `addStub`: \(error)")
         }
         
-        screen.exampleCom.tap()
+        screen.exampleCom.withoutTimeout.tap()
         
         screen.info.assertHasText("Hello, world!")
     }

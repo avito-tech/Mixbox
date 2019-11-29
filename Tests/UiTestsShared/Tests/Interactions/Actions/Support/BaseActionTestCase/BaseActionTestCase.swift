@@ -14,13 +14,11 @@ class BaseActionTestCase: TestCase {
     override func precondition() {
         super.precondition()
         
-        openScreen(name: "ActionsTestsView")
-        
-        // wait
-        _ = screen.screenView.isDisplayed()
+        openScreen(screen)
+            .waitUntilViewIsLoaded()
     }
     
-    var screen: ActionsTestsScreen {
-        return pageObjects.actionsTestsScreen
+    var screen: ActionsTestsViewPageObject {
+        return pageObjects.actionsTestsView.default
     }
 }

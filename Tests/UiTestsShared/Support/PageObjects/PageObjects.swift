@@ -10,14 +10,12 @@
 //
 // {{test case class name}} = KeyboardEventInjectorImplTests
 //
-// TODO: Change naming accordingly
-//
 final class PageObjects: BasePageObjects {
     var generic: GenericPageObject { return pageObject() }
     
-    var checksTestsScreen: ChecksTestsScreen { return pageObject() }
+    var checksTestsView: MainAppScreen<ChecksTestsViewPageObject> { return mainAppScreen() }
     
-    var networkStubbingTestsViewPageObject: NetworkStubbingTestsViewPageObject { return pageObject() }
+    var networkStubbingTestsView: MainAppScreen<NetworkStubbingTestsViewPageObject> { return mainAppScreen() }
     
     var screenshotTestsView: MainAppScreen<ScreenshotTestsViewPageObject> { return mainAppScreen() }
     
@@ -27,9 +25,9 @@ final class PageObjects: BasePageObjects {
     
     var touchesTestsView: MainAppScreen<TouchesTestsViewPageObject> { return mainAppScreen() }
     
-    var actionsTestsScreen: ActionsTestsScreen { return pageObject() }
+    var actionsTestsView: MainAppScreen<ActionsTestsViewPageObject> { return mainAppScreen() }
     
-    var locatorsPerformanceTestsView: LocatorsPerformanceTestsViewPageObject { return pageObject() }
+    var locatorsPerformanceTestsView: MainAppScreen<LocatorsPerformanceTestsViewPageObject> { return mainAppScreen() }
     
     var locatorsTestsView: MainAppScreen<LocatorsTestsViewPageObject> { return mainAppScreen() }
     

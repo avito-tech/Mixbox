@@ -3,13 +3,13 @@ import TestsIpc
 
 class ActionSpecification<T: Element>: AnyActionSpecification {
     let elementId: String
-    let element: (ActionsTestsScreen) -> (T)
+    let element: (ActionsTestsViewPageObject) -> (T)
     let action: (T) -> ()
     let expectedResult: ActionsTestsViewActionResult
     
     init(
         elementId: String,
-        element: @escaping (ActionsTestsScreen) -> (T),
+        element: @escaping (ActionsTestsViewPageObject) -> (T),
         action: @escaping (T) -> (),
         expectedResult: ActionsTestsViewActionResult)
     {
@@ -19,7 +19,7 @@ class ActionSpecification<T: Element>: AnyActionSpecification {
         self.expectedResult = expectedResult
     }
     
-    func performAction(screen: ActionsTestsScreen) {
+    func performAction(screen: ActionsTestsViewPageObject) {
         action(element(screen))
     }
 }

@@ -6,8 +6,9 @@ final class NetworkRecordingTests: BaseNetworkMockingTestCase {
         legacyNetworking.recording.startRecording()
         
         openScreen(screen)
+            .waitUntilViewIsLoaded()
         
-        screen.localhost.tap()
+        screen.localhost.withoutTimeout.tap()
         
         XCTAssertEqual(
             legacyNetworking.recording.lastRequest(urlPattern: "localhost")?.responseString(),

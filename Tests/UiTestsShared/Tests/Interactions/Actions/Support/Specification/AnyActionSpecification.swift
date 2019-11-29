@@ -5,5 +5,5 @@ protocol AnyActionSpecification: class {
     var elementId: String { get }
     var expectedResult: ActionsTestsViewActionResult { get }
     
-    func performAction(screen: ActionsTestsScreen)
+    func performAction(screen: ActionsTestsViewPageObject)
 }
