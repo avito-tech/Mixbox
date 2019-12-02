@@ -9,7 +9,7 @@
 //     { element in
 //         element.id == "myId"
 //         && element.text == "Next"
-//         && element.label == "Next keyboard"
+//         && element.accessibilityLabel == "Next keyboard"
 //         && element.isSubviewOf { anotherElement in
 //             anotherElement.isInstanceOf(UIScrollView.self)
 //             && anotherElement.id == "myScrollView"
@@ -42,14 +42,14 @@ public final class ElementMatcherBuilder {
     
     public let id = PropertyMatcherBuilder("id", \ElementSnapshot.accessibilityIdentifier)
     
-    public let label = PropertyMatcherBuilder("label", \ElementSnapshot.accessibilityLabel)
+    public let accessibilityLabel = PropertyMatcherBuilder("label", \ElementSnapshot.accessibilityLabel)
 
-    public let value = PropertyMatcherBuilder<ElementSnapshot, String>("value") { (snapshot: ElementSnapshot) -> String in
+    public let accessibilityValue = PropertyMatcherBuilder<ElementSnapshot, String>("value") { (snapshot: ElementSnapshot) -> String in
         // TODO: Support nils and other types
         (snapshot.accessibilityValue as? String) ?? ElementMatcherBuilder.valueToMimicComparisonOfStringToNil
     }
     
-    public let placeholderValue = PropertyMatcherBuilder<ElementSnapshot, String>("placeholderValue") {
+    public let accessibilityPlaceholderValue = PropertyMatcherBuilder<ElementSnapshot, String>("placeholderValue") {
         // TODO: Support nils
         $0.accessibilityPlaceholderValue ?? ElementMatcherBuilder.valueToMimicComparisonOfStringToNil
     }

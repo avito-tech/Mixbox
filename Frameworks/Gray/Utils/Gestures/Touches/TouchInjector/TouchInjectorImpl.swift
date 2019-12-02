@@ -263,7 +263,7 @@ public final class TouchInjectorImpl: TouchInjector {
         
         let currentAbsoluteTime = currentAbsoluteTimeProvider.currentAbsoluteTime
         
-        // See commented out code below
+        // See commented out usage of `currentTouchView` in this file below
         // var currentTouchView: UIView? = ongoingTouches.first?.view
         
         // TODO: Check `hidEvents` are not released before `finally` closure ends

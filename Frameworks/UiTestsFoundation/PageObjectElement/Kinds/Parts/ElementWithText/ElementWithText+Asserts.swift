@@ -69,7 +69,7 @@ extension ElementWithText {
         _ = implementation.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
-                element.label == expectedLabel
+                element.accessibilityLabel == expectedLabel
             },
             description: { dependencies in
                 expectedLabel.isEmpty
@@ -89,7 +89,7 @@ extension ElementWithText {
         _ = implementation.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
-                element.label.contains(text)
+                element.accessibilityLabel.contains(text)
             },
             description: { dependencies in
                 """

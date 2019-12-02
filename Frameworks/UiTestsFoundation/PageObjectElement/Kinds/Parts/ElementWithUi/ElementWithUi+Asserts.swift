@@ -80,7 +80,7 @@ extension ElementWithUi {
         _ = implementation.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
-                element.value == value
+                element.accessibilityValue == value
             },
             description: { dependencies in
                 """

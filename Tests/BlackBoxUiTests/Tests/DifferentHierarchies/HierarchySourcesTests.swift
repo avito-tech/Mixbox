@@ -25,7 +25,7 @@ private final class AppScreen: BasePageObjectWithDefaultInitializer {
     }
     
     func label(accessibilityLabel: String) -> LabelElement {
-        return element("label \(accessibilityLabel)") { element in element.label == accessibilityLabel }
+        return element("label \(accessibilityLabel)") { element in element.accessibilityLabel == accessibilityLabel }
     }
 }
 
@@ -34,7 +34,7 @@ private final class SpringboardScreen: BasePageObjectWithDefaultInitializer {
         let elementName = "icon of the app with name \(possibleTitles.joined(separator: " or "))"
         return element(elementName) { element in
             element.type == .icon
-                && OrMatcher(possibleTitles.map { element.label == $0 })
+                && OrMatcher(possibleTitles.map { element.accessibilityLabel == $0 })
         }
     }
 }
@@ -48,7 +48,7 @@ private final class SettingsScreen: BasePageObjectWithDefaultInitializer {
         let elementName = "cell with title \(possibleTitles.joined(separator: " or "))"
         return element(elementName) { element in
             element.isSubviewOf { $0.type == .cell }
-                && OrMatcher(possibleTitles.map { element.label == $0 })
+                && OrMatcher(possibleTitles.map { element.accessibilityLabel == $0 })
         }
     }
 }

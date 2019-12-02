@@ -42,10 +42,17 @@ public final class InteractionFailureResultFactoryImpl: InteractionFailureResult
     public func elementIsNotFoundResult()
         -> InteractionResult
     {
-        let applicationState = applicationStateProvider.applicationState()
-        let applicationStateNotice: String = applicationState == .runningForeground
-            ? ""
-            : ", на это могло повлиять то, что приложение не запущено, либо закрешилось (state = \(applicationState))"
+        let applicationStateNotice: String
+            
+        do {
+            let applicationState = try applicationStateProvider.applicationState()
+            
+            applicationStateNotice = applicationState == .runningForeground
+                ? ""
+                : ", на это могло повлиять то, что приложение не запущено, либо закрешилось (state = \(applicationState))"
+        } catch {
+            applicationStateNotice = ", при попытке получить стейт приложения, чтобы определить закрешилось приложение или нет возникла ошибка: \(error)"
+        }
         
         return failureResult(
             message: "элемент не найден в иерархии\(applicationStateNotice)"

@@ -43,105 +43,105 @@ final class MatcherBuilderTests: BaseMatcherTests {
     func test_label() {
         assertMatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { $0.label == "FOO" }
+            check: { $0.accessibilityLabel == "FOO" }
         )
         assertMismatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { $0.label == "BAR" }
+            check: { $0.accessibilityLabel == "BAR" }
         )
         assertMatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { $0.label != "BAR" }
+            check: { $0.accessibilityLabel != "BAR" }
         )
         assertMismatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { $0.label != "FOO" }
+            check: { $0.accessibilityLabel != "FOO" }
         )
         assertMatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { "FOO" == $0.label }
+            check: { "FOO" == $0.accessibilityLabel }
         )
         assertMismatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { "BAR" == $0.label }
+            check: { "BAR" == $0.accessibilityLabel }
         )
         assertMatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { "BAR" != $0.label }
+            check: { "BAR" != $0.accessibilityLabel }
         )
         assertMismatches(
             stub: { $0.accessibilityLabel = "FOO" },
-            check: { "FOO" != $0.label }
+            check: { "FOO" != $0.accessibilityLabel }
         )
     }
     
     func test_value() {
         assertMatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { $0.value == "FOO" }
+            check: { $0.accessibilityValue == "FOO" }
         )
         assertMismatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { $0.value == "BAR" }
+            check: { $0.accessibilityValue == "BAR" }
         )
         assertMatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { $0.value != "BAR" }
+            check: { $0.accessibilityValue != "BAR" }
         )
         assertMismatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { $0.value != "FOO" }
+            check: { $0.accessibilityValue != "FOO" }
         )
         assertMatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { "FOO" == $0.value }
+            check: { "FOO" == $0.accessibilityValue }
         )
         assertMismatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { "BAR" == $0.value }
+            check: { "BAR" == $0.accessibilityValue }
         )
         assertMatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { "BAR" != $0.value }
+            check: { "BAR" != $0.accessibilityValue }
         )
         assertMismatches(
             stub: { $0.accessibilityValue = "FOO" },
-            check: { "FOO" != $0.value }
+            check: { "FOO" != $0.accessibilityValue }
         )
     }
     
     func test_placeholderValue() {
         assertMatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { $0.placeholderValue == "FOO" }
+            check: { $0.accessibilityPlaceholderValue == "FOO" }
         )
         assertMismatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { $0.placeholderValue == "BAR" }
+            check: { $0.accessibilityPlaceholderValue == "BAR" }
         )
         assertMatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { $0.placeholderValue != "BAR" }
+            check: { $0.accessibilityPlaceholderValue != "BAR" }
         )
         assertMismatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { $0.placeholderValue != "FOO" }
+            check: { $0.accessibilityPlaceholderValue != "FOO" }
         )
         assertMatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { "FOO" == $0.placeholderValue }
+            check: { "FOO" == $0.accessibilityPlaceholderValue }
         )
         assertMismatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { "BAR" == $0.placeholderValue }
+            check: { "BAR" == $0.accessibilityPlaceholderValue }
         )
         assertMatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { "BAR" != $0.placeholderValue }
+            check: { "BAR" != $0.accessibilityPlaceholderValue }
         )
         assertMismatches(
             stub: { $0.accessibilityPlaceholderValue = "FOO" },
-            check: { "FOO" != $0.placeholderValue }
+            check: { "FOO" != $0.accessibilityPlaceholderValue }
         )
     }
     
@@ -229,7 +229,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityLabel = "2"
             },
             check: {
-                $0.id == "1" && $0.label == "2"
+                $0.id == "1" && $0.accessibilityLabel == "2"
             }
         )
         assertMismatches(
@@ -239,7 +239,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.failForNotStubbedValues = false
             },
             check: {
-                $0.id == "1" && $0.label == "x"
+                $0.id == "1" && $0.accessibilityLabel == "x"
             },
             percentageOfMatching: 0.5
         )
@@ -250,7 +250,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.failForNotStubbedValues = false
             },
             check: {
-                $0.id == "x" && $0.label == "2"
+                $0.id == "x" && $0.accessibilityLabel == "2"
             },
             percentageOfMatching: 0.5
         )
@@ -260,7 +260,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityLabel = "2"
             },
             check: {
-                $0.id == "x" && $0.label == "x"
+                $0.id == "x" && $0.accessibilityLabel == "x"
             }
         )
         assertMatches(
@@ -270,7 +270,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityValue = "3"
             },
             check: {
-                $0.id == "1" && $0.label == "2" && $0.value == "3"
+                $0.id == "1" && $0.accessibilityLabel == "2" && $0.accessibilityValue == "3"
             }
         )
         assertMismatches(
@@ -281,7 +281,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.failForNotStubbedValues = false
             },
             check: {
-                $0.id == "1" && $0.label == "x" && $0.value == "3"
+                $0.id == "1" && $0.accessibilityLabel == "x" && $0.accessibilityValue == "3"
             },
             // This is due to && makes two arrays in AndMatcher instead of a single array with 3 elements.
             // (1 - 0.5 * 0.5) == 0.75
@@ -295,7 +295,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.failForNotStubbedValues = false
             },
             check: {
-                $0.id == "x" && $0.label == "2" && $0.value == "x"
+                $0.id == "x" && $0.accessibilityLabel == "2" && $0.accessibilityValue == "x"
             },
             percentageOfMatching: 0.25
         )
@@ -308,7 +308,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityLabel = "2"
             },
             check: {
-                $0.id == "1" || $0.label == "2"
+                $0.id == "1" || $0.accessibilityLabel == "2"
             }
         )
         assertMatches(
@@ -317,7 +317,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityLabel = "2"
             },
             check: {
-                $0.id == "x" || $0.label == "2"
+                $0.id == "x" || $0.accessibilityLabel == "2"
             }
         )
         assertMatches(
@@ -326,7 +326,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityLabel = "2"
             },
             check: {
-                $0.id == "1" || $0.label == "x"
+                $0.id == "1" || $0.accessibilityLabel == "x"
             }
         )
         assertMismatches(
@@ -335,7 +335,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityLabel = "2"
             },
             check: {
-                $0.id == "x" || $0.label == "x"
+                $0.id == "x" || $0.accessibilityLabel == "x"
             }
         )
         assertMatches(
@@ -345,7 +345,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityValue = "3"
             },
             check: {
-                $0.id == "1" || $0.label == "2" || $0.value == "3"
+                $0.id == "1" || $0.accessibilityLabel == "2" || $0.accessibilityValue == "3"
             }
         )
         assertMatches(
@@ -355,7 +355,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                 $0.accessibilityValue = "3"
             },
             check: {
-                $0.id == "x" || $0.label == "2" || $0.value == "x"
+                $0.id == "x" || $0.accessibilityLabel == "2" || $0.accessibilityValue == "x"
             }
         )
     }
@@ -369,7 +369,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                     $0.accessibilityValue = "3"
                 },
                 check: {
-                    $0.id == "1" || $0.label == "2" && $0.value == "x"
+                    $0.id == "1" || $0.accessibilityLabel == "2" && $0.accessibilityValue == "x"
                 }
             )
         } else {
@@ -384,7 +384,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
                     $0.accessibilityValue = "3"
                 },
                 check: {
-                    $0.id == "x" && $0.label == "2" || $0.value == "3"
+                    $0.id == "x" && $0.accessibilityLabel == "2" || $0.accessibilityValue == "3"
                 }
             )
         } else {

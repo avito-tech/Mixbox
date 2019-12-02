@@ -4,7 +4,7 @@ public final class GrayApplicationStateProvider: ApplicationStateProvider {
     public init() {
     }
     
-    public func applicationState() -> ApplicationState {
+    public func applicationState() throws -> ApplicationState {
         return .runningForeground
     }
 }

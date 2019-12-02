@@ -50,7 +50,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
     
     var mainAppIcon: ViewElement {
         return element("Main app icon") { element in
-            element.type == .icon && element.label == applicationName
+            element.type == .icon && element.accessibilityLabel == applicationName
         }
     }
     
@@ -64,7 +64,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
         return element("Delete button on alert") { element in
             let title = deleteButtonTitles[NSLocale.current.languageCode ?? "English"] ?? "Delete"
             
-            return element.type == .button && element.label == title && element.isSubviewOf { element in
+            return element.type == .button && element.accessibilityLabel == title && element.isSubviewOf { element in
                 element.type == .alert
             }
         }
@@ -118,7 +118,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
         return element("Delete button on main app icon") { element in
             element.id == "DeleteButton" && element.type == .button && element.isSubviewOf { element in
                 (element.type == .icon /* iOS 10 */ || element.type == .other /* iOS 9 */)
-                    && element.label == applicationName
+                    && element.accessibilityLabel == applicationName
                     && element.id == applicationName
             }
         }
