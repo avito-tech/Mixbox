@@ -72,6 +72,11 @@ final class LocatorsTestsView: TestStackScrollView {
             $0.testability_customValues["double_nan"] = Double.nan
         }
         
+        addTextField(id: "text_field") {
+            $0.placeholder = "text_field_placeholder"
+            $0.text = "text_field_text"
+        }
+        
         // TODO: test mathing text, startsWith/endsWith/contains/etc
     }
     

@@ -46,8 +46,10 @@ public final class EnhancedAccessibilityLabel: Codable {
         self.text = text
         self.customValues = customValues
     }
-    
-    public static func originalAccessibilityLabel(_ accessibilityLabel: String?) -> String? {
+}
+
+extension EnhancedAccessibilityLabel {
+    public static func originalAccessibilityLabel(accessibilityLabel: String?) -> String? {
         guard let accessibilityLabel = accessibilityLabel else {
             return nil
         }
@@ -57,6 +59,17 @@ public final class EnhancedAccessibilityLabel: Codable {
             return fromAccessibilityLabel(accessibilityLabel)?.originalAccessibilityLabel
         } else {
             return accessibilityLabel
+        }
+    }
+    
+    // UITextField puts `accessibilityLabel` inside `accessibilityPlaceholderValue`,
+    // so it calls `accessibilityLabel` which is swizzled and contains JSON. We should get `originalAccessibilityLabel`
+    // from this JSON and it will contain `accessibilityPlaceholderValue`.
+    public static func originalAccessibilityPlaceholderValue(accessibilityPlaceholderValue: String?) -> String? {
+        if let accessibilityPlaceholderValue = accessibilityPlaceholderValue {
+            return originalAccessibilityLabel(accessibilityLabel: accessibilityPlaceholderValue)
+        } else {
+            return nil
         }
     }
     

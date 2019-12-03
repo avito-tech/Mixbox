@@ -56,7 +56,9 @@ final class XcuiElementSnapshot: ElementSnapshot {
     }
     
     var accessibilityPlaceholderValue: String? {
-        return xcElementSnapshot.placeholderValue as String?
+        return EnhancedAccessibilityLabel.originalAccessibilityPlaceholderValue(
+            accessibilityPlaceholderValue: xcElementSnapshot.placeholderValue
+        )
     }
     
     var accessibilityLabel: String {

@@ -405,7 +405,12 @@ final class MatcherBuilderTests: BaseMatcherTests {
         )
         let matcher = check(ElementMatcherBuilderFactory.elementMatcherBuilder())
         
-        assertMatches(matcher: matcher, value: snapshot)
+        assertMatches(
+            matcher: matcher,
+            value: snapshot,
+            file: file,
+            line: line
+        )
     }
     
     private func assertMismatches(

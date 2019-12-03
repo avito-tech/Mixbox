@@ -29,9 +29,13 @@ public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {
             ),
             accessibilityIdentifier: view.accessibilityIdentifier,
             // TODO: Avoid using swizzled implementation and return originalAccessibilityLabel directly from view.
-            accessibilityLabel: EnhancedAccessibilityLabel.originalAccessibilityLabel(view.accessibilityLabel),
+            accessibilityLabel: EnhancedAccessibilityLabel.originalAccessibilityLabel(
+                accessibilityLabel: view.accessibilityLabel
+            ),
             accessibilityValue: view.accessibilityValue,
-            accessibilityPlaceholderValue: view.accessibilityPlaceholderValue() as? String,
+            accessibilityPlaceholderValue: EnhancedAccessibilityLabel.originalAccessibilityPlaceholderValue(
+                accessibilityPlaceholderValue: view.accessibilityPlaceholderValue() as? String
+            ),
             text: view.testabilityValue_text(),
             uniqueIdentifier: view.uniqueIdentifier,
             isDefinitelyHidden: view.isDefinitelyHidden,
