@@ -150,26 +150,26 @@ SPEC CHECKSUMS:
   Cuckoo: c9582d4b3047df9dfe22ac98f0b1ebf9bb31f3c2
   Dip: 79509d5dc4f648e10e922ed79c608a7761c52b13
   GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
-  MixboxAnyCodable: 71ac2d98e886570b84d2a57f04f3a37731dc87e4
-  MixboxBlack: 1202b146c5c37a342e7b8d22d166dc65d04321fd
-  MixboxBuiltinIpc: 4e3644758b5ee5a14198b3c19cc4a97c245945cf
-  MixboxDi: 03fbe98d7509c77bffe103c4ad8027eee52eebae
-  MixboxFakeSettingsAppMain: 2c77275e43244bb987a783b7caa6b8dca388f02c
-  MixboxFoundation: d1df2ff98f24901b52cbac79245684d0fd7f51af
-  MixboxGray: 404d16e0bc79eea27633de4a38e9b80c1c6569cc
-  MixboxInAppServices: 18e076f0a06e815e02af9957d6855f466523ed1b
-  MixboxIpc: eee8a28ad1b46b984413edb2959d53328cd877c2
-  MixboxIpcCommon: d7c68e519cf6fc497f6c62e8eb941043145c3021
-  MixboxIpcSbtuiClient: 8e019f664e0b69028819a4e036f087c62a00e157
-  MixboxIpcSbtuiHost: 30933763db2a8c67e95f47c49d4e0decb3bcca18
-  MixboxTestability: e8c5501fe3a7e0662302a5bcb27ed1d26ae8a49d
-  MixboxTestsFoundation: 5876e041d616e3f50e930f0230e50a7932ad7f59
-  MixboxUiKit: 5257a924dfd84581c244fd08249e5570e992ab8b
-  MixboxUiTestsFoundation: bf87ca9fb497b6738888296a522b1f9cbd5a23ac
+  MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
+  MixboxBlack: 1ce8cabcfcc49fc6a46e51a36580460ccea3b219
+  MixboxBuiltinIpc: 26880327fbb22e9f6e96a13b26ef7015749bf946
+  MixboxDi: 3e75421e302d50f57974cdb337b3b95adb885fb7
+  MixboxFakeSettingsAppMain: cb03a5515009c7b774c1f36dc459e6503b2b7d7b
+  MixboxFoundation: adbfd517f145b40403bd43699181f487d33758ed
+  MixboxGray: decf42d700e335e7e5bae09f042e68313a9635f1
+  MixboxInAppServices: 9faf4b53e326684d476b6587c3a18dfb15744313
+  MixboxIpc: 03e3a25d4c9fa699c87d3f0c166e47363f8d25e1
+  MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
+  MixboxIpcSbtuiClient: 0fda0fcd3d54687edad6138c2febf593c51fca51
+  MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
+  MixboxTestability: f2ae73479007568fafb48b6a62b98e05986b8a80
+  MixboxTestsFoundation: 8c5e098fd24816b9f18226bffffb789b48fcdac6
+  MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
+  MixboxUiTestsFoundation: e81928e07266eebb199cc40383d4c20e77cf5727
   SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
-  TestsIpc: 15c61a19224302116227e66c2bfbce6572139185
+  TestsIpc: 30eb5db4bc5eefe4324e3900e6285b970b798150
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 

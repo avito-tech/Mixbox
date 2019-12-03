@@ -15,7 +15,7 @@
 {
     NSString *_identifier;
     NSString *_displayName;
-    NSMeasurement *_value;
+    /*NSMeasurement **/ id _value; // 'NSMeasurement' is only available on iOS 10.0 or newer
     double _doubleValue;
     NSString *_unitSymbol;
 }
