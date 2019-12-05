@@ -1,4 +1,3 @@
-// TODO: Share with GrayBoxUiTests
 final class LegacyNetworkStubbingTests: BaseNetworkMockingTestCase {
     private let stubbedText = "This is a stubbed string"
     
