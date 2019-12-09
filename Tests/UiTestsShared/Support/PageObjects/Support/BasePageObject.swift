@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxFoundation
 
 // All utility functions are separated from declaration of page object elements in this class.
 //
@@ -18,12 +19,21 @@ open class BasePageObject: PageObject, PageObjectElementRegistrar {
     
     // MARK: - PageObjectElementRegistrar
     
-    public func element<T: ElementWithDefaultInitializer>(
-        _ name: String,
-        matcherBuilder: ElementMatcherBuilderClosure)
+    public func elementImpl<T>(
+        name: String,
+        fileLine: FileLine,
+        function: String,
+        matcherBuilder: (ElementMatcherBuilder) -> ElementMatcher)
         -> T
+        where
+        T: ElementWithDefaultInitializer
     {
-        return pageObjectElementRegistrar.element(name, matcherBuilder: matcherBuilder)
+        return pageObjectElementRegistrar.elementImpl(
+            name: name,
+            fileLine: fileLine,
+            function: function,
+            matcherBuilder: matcherBuilder
+        )
     }
     
     public func with(searchMode: SearchMode) -> PageObjectElementRegistrar {

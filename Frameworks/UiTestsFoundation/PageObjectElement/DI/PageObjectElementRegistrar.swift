@@ -1,3 +1,5 @@
+import MixboxFoundation
+
 // This class is a helper to make describing PageObjects easier by providing functions
 // to make all page object elements (the main purpose of PageObject is to provide page object elements)
 //
@@ -17,13 +19,34 @@
 // TODO: Rename to something that expresses the purpose of this class more accurately.
 
 public protocol PageObjectElementRegistrar: class {
-    func element<T: ElementWithDefaultInitializer>(
-        _ name: String,
+    func elementImpl<T: ElementWithDefaultInitializer>(
+        name: String,
+        fileLine: FileLine,
+        function: String,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     
     func with(searchMode: SearchMode) -> PageObjectElementRegistrar
     func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar
+}
+
+// Convenient functions
+public extension PageObjectElementRegistrar {
+    func element<T: ElementWithDefaultInitializer>(
+        _ name: String,
+        file: StaticString = #file,
+        line: UInt = #line,
+        function: String = #function,
+        matcherBuilder: ElementMatcherBuilderClosure)
+        -> T
+    {
+        return elementImpl(
+            name: name,
+            fileLine: FileLine(file: file, line: line),
+            function: function,
+            matcherBuilder: matcherBuilder
+        )
+    }
 }
 
 // Modifiers.

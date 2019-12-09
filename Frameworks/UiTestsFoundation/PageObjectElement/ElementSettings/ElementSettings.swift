@@ -1,5 +1,9 @@
+import MixboxFoundation
+
 public final class ElementSettings {
     public let elementName: String
+    public let fileLine: FileLine
+    public let function: String
     public let matcher: ElementMatcher
     public let searchMode: SearchMode
     public let interactionTimeout: TimeInterval
@@ -7,12 +11,16 @@ public final class ElementSettings {
     
     public init(
         elementName: String,
+        fileLine: FileLine,
+        function: String,
         matcher: ElementMatcher,
         searchMode: SearchMode,
         interactionTimeout: TimeInterval?, // nil == default
         interactionMode: InteractionMode)
     {
         self.elementName = elementName
+        self.fileLine = fileLine
+        self.function = function
         self.matcher = matcher
         self.searchMode = searchMode
         self.interactionTimeout = interactionTimeout ?? 15
@@ -21,7 +29,9 @@ public final class ElementSettings {
     
     func with(name: String) -> ElementSettings {
         return ElementSettings(
-            elementName: elementName,
+            elementName: name,
+            fileLine: fileLine,
+            function: function,
             matcher: matcher,
             searchMode: searchMode,
             interactionTimeout: interactionTimeout,
@@ -32,6 +42,8 @@ public final class ElementSettings {
     func with(matcher: ElementMatcher) -> ElementSettings {
         return ElementSettings(
             elementName: elementName,
+            fileLine: fileLine,
+            function: function,
             matcher: matcher,
             searchMode: searchMode,
             interactionTimeout: interactionTimeout,
@@ -42,6 +54,8 @@ public final class ElementSettings {
     func with(searchMode: SearchMode) -> ElementSettings {
         return ElementSettings(
             elementName: elementName,
+            fileLine: fileLine,
+            function: function,
             matcher: matcher,
             searchMode: searchMode,
             interactionTimeout: interactionTimeout,
@@ -52,6 +66,8 @@ public final class ElementSettings {
     func with(interactionTimeout: TimeInterval?) -> ElementSettings {
         return ElementSettings(
             elementName: elementName,
+            fileLine: fileLine,
+            function: function,
             matcher: matcher,
             searchMode: searchMode,
             interactionTimeout: interactionTimeout,
@@ -62,6 +78,8 @@ public final class ElementSettings {
     func with(interactionMode: InteractionMode) -> ElementSettings {
         return ElementSettings(
             elementName: elementName,
+            fileLine: fileLine,
+            function: function,
             matcher: matcher,
             searchMode: searchMode,
             interactionTimeout: interactionTimeout,

@@ -1,3 +1,5 @@
+import MixboxFoundation
+
 public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     private let pageObjectElementFactory: PageObjectElementFactory
     private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory
@@ -19,13 +21,17 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     
     // MARK: - PageObjectElementRegistrar
     
-    public func element<T: ElementWithDefaultInitializer>(
-        _ elementName: String,
+    public func elementImpl<T: ElementWithDefaultInitializer>(
+        name: String,
+        fileLine: FileLine,
+        function: String,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     {
         let pageObjectElement = self.pageObjectElement(
-            elementName: elementName,
+            name: name,
+            fileLine: fileLine,
+            function: function,
             matcherBuilder: matcherBuilder
         )
         return T(implementation: pageObjectElement)
@@ -50,13 +56,17 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     // MARK: - Private
     
     private func pageObjectElement(
-        elementName: String,
+        name: String,
+        fileLine: FileLine,
+        function: String,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> PageObjectElement
     {
         return pageObjectElementFactory.pageObjectElement(
             settings: ElementSettings(
-                elementName: elementName,
+                elementName: name,
+                fileLine: fileLine,
+                function: function,
                 matcher: matcherBuilder(elementMatcherBuilder),
                 searchMode: searchMode ?? .default,
                 interactionTimeout: nil,

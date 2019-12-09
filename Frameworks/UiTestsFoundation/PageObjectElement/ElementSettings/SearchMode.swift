@@ -1,4 +1,4 @@
-public enum SearchMode {
+public enum SearchMode: Equatable {
     // Do not scroll
     case useCurrentlyVisible
     // Scroll
@@ -10,4 +10,17 @@ public enum SearchMode {
     case scrollBlindly
     
     public static let `default`: SearchMode = .scrollUntilFound
+    
+    public static func ==(lhs: SearchMode, rhs: SearchMode) -> Bool {
+        switch (lhs, rhs) {
+        case (.useCurrentlyVisible, .useCurrentlyVisible):
+            return true
+        case (.scrollUntilFound, .scrollUntilFound):
+            return true
+        case (.scrollBlindly, .scrollBlindly):
+            return true
+        default:
+            return false
+        }
+    }
 }
