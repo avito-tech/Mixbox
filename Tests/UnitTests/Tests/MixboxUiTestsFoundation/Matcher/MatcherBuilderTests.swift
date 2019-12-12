@@ -40,6 +40,25 @@ final class MatcherBuilderTests: BaseMatcherTests {
         )
     }
     
+    func test_hasKeyboardFocus() {
+        assertMatches(
+            stub: { $0.hasKeyboardFocus = true },
+            check: { $0.hasKeyboardFocus == true }
+        )
+        assertMatches(
+            stub: { $0.hasKeyboardFocus = false },
+            check: { $0.hasKeyboardFocus == false }
+        )
+        assertMismatches(
+            stub: { $0.hasKeyboardFocus = true },
+            check: { $0.hasKeyboardFocus == false }
+        )
+        assertMismatches(
+            stub: { $0.hasKeyboardFocus = false },
+            check: { $0.hasKeyboardFocus == true }
+        )
+    }
+    
     func test_label() {
         assertMatches(
             stub: { $0.accessibilityLabel = "FOO" },

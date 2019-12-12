@@ -43,6 +43,8 @@ public final class ElementMatcherBuilder {
     public let id = PropertyMatcherBuilder("id", \ElementSnapshot.accessibilityIdentifier)
     
     public let accessibilityLabel = PropertyMatcherBuilder("label", \ElementSnapshot.accessibilityLabel)
+    
+    public let hasKeyboardFocus = PropertyMatcherBuilder("hasKeyboardFocus", \ElementSnapshot.hasKeyboardFocus)
 
     public let accessibilityValue = PropertyMatcherBuilder<ElementSnapshot, String>("value") { (snapshot: ElementSnapshot) -> String in
         // TODO: Support nils and other types
