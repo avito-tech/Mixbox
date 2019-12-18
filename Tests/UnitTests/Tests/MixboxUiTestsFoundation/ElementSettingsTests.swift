@@ -3,9 +3,11 @@ import XCTest
 
 final class ElementSettingsTests: TestCase {
     let elementSettings = ElementSettings(
-        elementName: "elementName",
-        fileLine: .current(),
-        function: "function",
+        name: "elementName",
+        functionDeclarationLocation: FunctionDeclarationLocation(
+            fileLine: .current(),
+            function: "function"
+        ),
         matcher: AlwaysTrueMatcher(),
         scrollMode: .definite,
         interactionTimeout: 15,
@@ -14,13 +16,13 @@ final class ElementSettingsTests: TestCase {
     
     func test___with_name___overrides_name() {
         let name = "otherName"
-        XCTAssertNotEqual(elementSettings.elementName, name)
-        XCTAssertEqual(elementSettings.with(name: name).elementName, name)
+        XCTAssertNotEqual(elementSettings.name, name)
+        XCTAssertEqual(elementSettings.with(name: name).name, name)
     }
     
     func test___with_matcher___overrides_matcher() {
         let matcher = AlwaysFalseMatcher<ElementSnapshot>()
-        XCTAssert(type(of: elementSettings.elementName) != type(of: matcher))
+        XCTAssert(type(of: elementSettings.name) != type(of: matcher))
         XCTAssert(type(of: elementSettings.with(matcher: matcher).matcher) == type(of: matcher))
     }
     

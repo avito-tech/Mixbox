@@ -21,8 +21,7 @@ import MixboxFoundation
 public protocol PageObjectElementRegistrar: class {
     func elementImpl<T: ElementWithDefaultInitializer>(
         name: String,
-        fileLine: FileLine,
-        function: String,
+        functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     
@@ -42,8 +41,10 @@ public extension PageObjectElementRegistrar {
     {
         return elementImpl(
             name: name,
-            fileLine: FileLine(file: file, line: line),
-            function: function,
+            functionDeclarationLocation: FunctionDeclarationLocation(
+                fileLine: FileLine(file: file, line: line),
+                function: function
+            ),
             matcherBuilder: matcherBuilder
         )
     }

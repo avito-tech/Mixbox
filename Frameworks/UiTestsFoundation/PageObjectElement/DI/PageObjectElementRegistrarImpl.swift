@@ -23,15 +23,13 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     
     public func elementImpl<T: ElementWithDefaultInitializer>(
         name: String,
-        fileLine: FileLine,
-        function: String,
+        functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     {
         let pageObjectElement = self.pageObjectElement(
             name: name,
-            fileLine: fileLine,
-            function: function,
+            functionDeclarationLocation: functionDeclarationLocation,
             matcherBuilder: matcherBuilder
         )
         return T(implementation: pageObjectElement)
@@ -57,16 +55,14 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     
     private func pageObjectElement(
         name: String,
-        fileLine: FileLine,
-        function: String,
+        functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: ElementMatcherBuilderClosure)
         -> PageObjectElement
     {
         return pageObjectElementFactory.pageObjectElement(
             settings: ElementSettings(
-                elementName: name,
-                fileLine: fileLine,
-                function: function,
+                name: name,
+                functionDeclarationLocation: functionDeclarationLocation,
                 matcher: matcherBuilder(elementMatcherBuilder),
                 scrollMode: scrollMode ?? .default,
                 interactionTimeout: nil,
