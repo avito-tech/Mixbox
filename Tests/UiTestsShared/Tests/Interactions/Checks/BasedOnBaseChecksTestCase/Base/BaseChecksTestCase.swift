@@ -151,6 +151,10 @@ class BaseChecksTestCase: TestCase {
                 attachment.name == "Кандидаты"
             }
             
+            let hasFunctionDeclarationLocationAttachment = log.attachmentsAfter.contains { attachment in
+                attachment.name == "Строка и файл где объявлен локатор"
+            }
+            
             let hasScreenshotAttachment = log.attachmentsAfter.contains { attachment in
                 attachment.name == "Скриншот"
             }
@@ -160,6 +164,7 @@ class BaseChecksTestCase: TestCase {
             }
             
             let hasAllRequiredAttachments = hasCandidatesAttachment
+                && hasFunctionDeclarationLocationAttachment
                 && hasScreenshotAttachment
                 && hasHierarchyAttachment
             

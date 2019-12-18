@@ -76,7 +76,11 @@ final class GrayMenuItem: MenuItem, CustomStringConvertible {
         let query = elementFinder.query(
             elementMatcher: element.type == .button && possibleTitles.reduce(AlwaysFalseMatcher()) { result, title in
                 result || element.accessibilityLabel == title
-            }
+            },
+            elementFunctionDeclarationLocation: FunctionDeclarationLocation(
+                fileLine: .current(),
+                function: #function
+            )
         )
         
         let resolvedQuery = query.resolveElement(interactionMode: .useUniqueElement)

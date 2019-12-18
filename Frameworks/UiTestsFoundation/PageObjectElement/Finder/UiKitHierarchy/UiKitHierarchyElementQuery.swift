@@ -11,6 +11,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private let screenshotTaker: ScreenshotTaker
     private let signpostActivityLogger: SignpostActivityLogger
     private let dateProvider: DateProvider
+    private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
     
     init(
         ipcClient: IpcClient,
@@ -19,7 +20,8 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
         signpostActivityLogger: SignpostActivityLogger,
-        dateProvider: DateProvider)
+        dateProvider: DateProvider,
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
     {
         self.ipcClient = ipcClient
         self.elementMatcher = elementMatcher
@@ -28,6 +30,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         self.screenshotTaker = screenshotTaker
         self.signpostActivityLogger = signpostActivityLogger
         self.dateProvider = dateProvider
+        self.elementFunctionDeclarationLocation = elementFunctionDeclarationLocation
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
@@ -179,6 +182,17 @@ final class UiKitHierarchyElementQuery: ElementQuery {
                     name: "Иерархия вьюх",
                     content: .text(
                         viewHierarchy.debugDescription
+                    )
+                )
+            )
+            attachments.append(
+                Attachment(
+                    name: "Строка и файл где объявлен локатор",
+                    content: .text(
+                        """
+                        \(elementFunctionDeclarationLocation.fileLine.file):\(elementFunctionDeclarationLocation.fileLine.line):
+                        \(elementFunctionDeclarationLocation.function)
+                        """
                     )
                 )
             )

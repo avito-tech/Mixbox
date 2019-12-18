@@ -12,7 +12,8 @@ public final class ElementResolverImpl: ElementResolver {
     
     public func resolveElement() -> ResolvedElementQuery {
         let elementQuery = elementFinder.query(
-            elementMatcher: elementSettings.matcher // TODO: move matcher from `filteringHiddenElement` here?
+            elementMatcher: elementSettings.matcher, // TODO: move matcher from `filteringHiddenElement` here?
+            elementFunctionDeclarationLocation: elementSettings.functionDeclarationLocation
         )
         
         return elementQuery.resolveElement(interactionMode: elementSettings.interactionMode)

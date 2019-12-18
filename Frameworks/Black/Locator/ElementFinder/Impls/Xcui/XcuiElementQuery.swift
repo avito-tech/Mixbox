@@ -9,6 +9,7 @@ final class XcuiElementQuery: ElementQuery {
     private let screenshotTaker: ScreenshotTaker
     private let applicationProvider: ApplicationProvider
     private let dateProvider: DateProvider
+    private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
     
     init(
         xcuiElementQuery: XCUIElementQuery,
@@ -16,7 +17,8 @@ final class XcuiElementQuery: ElementQuery {
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
         applicationProvider: ApplicationProvider,
-        dateProvider: DateProvider)
+        dateProvider: DateProvider,
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
     {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
@@ -24,6 +26,7 @@ final class XcuiElementQuery: ElementQuery {
         self.screenshotTaker = screenshotTaker
         self.applicationProvider = applicationProvider
         self.dateProvider = dateProvider
+        self.elementFunctionDeclarationLocation = elementFunctionDeclarationLocation
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
@@ -35,6 +38,8 @@ final class XcuiElementQuery: ElementQuery {
         }
     }
     
+    // TODO: fix linter
+    // swiftlint:disable:next function_body_length
     private func resolveElement(_ closure: (XCUIElementQuery) -> (XCUIElement)) -> ResolvedElementQuery {
         let stepLogBefore = StepLogBefore(
             date: dateProvider.currentDate(),
@@ -62,6 +67,17 @@ final class XcuiElementQuery: ElementQuery {
                     Attachment(
                         name: "Кандидаты",
                         content: .text(failureDescription)
+                    )
+                )
+                attachments.append(
+                    Attachment(
+                        name: "Строка и файл где объявлен локатор",
+                        content: .text(
+                            """
+                            \(elementFunctionDeclarationLocation.fileLine.file):\(elementFunctionDeclarationLocation.fileLine.line):
+                            \(elementFunctionDeclarationLocation.function)
+                            """
+                        )
                     )
                 )
                 attachments.append(

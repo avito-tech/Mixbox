@@ -22,7 +22,8 @@ public final class XcuiElementFinder: ElementFinder {
     }
     
     public func query(
-        elementMatcher: ElementMatcher)
+        elementMatcher: ElementMatcher,
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
         -> ElementQuery
     {
         let elementQueryResolvingState = ElementQueryResolvingState()
@@ -53,7 +54,8 @@ public final class XcuiElementFinder: ElementFinder {
             stepLogger: stepLogger,
             screenshotTaker: screenshotTaker,
             applicationProvider: applicationProviderThatDropsCaches,
-            dateProvider: dateProvider
+            dateProvider: dateProvider,
+            elementFunctionDeclarationLocation: elementFunctionDeclarationLocation
         )
     }
 }

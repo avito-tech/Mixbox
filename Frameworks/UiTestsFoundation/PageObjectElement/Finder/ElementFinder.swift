@@ -1,5 +1,6 @@
 public protocol ElementFinder: class {
     func query(
-        elementMatcher: ElementMatcher)
+        elementMatcher: ElementMatcher,
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
         -> ElementQuery
 }

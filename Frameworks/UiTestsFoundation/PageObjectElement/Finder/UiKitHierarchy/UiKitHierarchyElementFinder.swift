@@ -28,7 +28,8 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
     }
     
     public func query(
-        elementMatcher: ElementMatcher)
+        elementMatcher: ElementMatcher,
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
         -> ElementQuery
     {
         return UiKitHierarchyElementQuery(
@@ -38,7 +39,8 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
             stepLogger: stepLogger,
             screenshotTaker: screenshotTaker,
             signpostActivityLogger: signpostActivityLogger,
-            dateProvider: dateProvider
+            dateProvider: dateProvider,
+            elementFunctionDeclarationLocation: elementFunctionDeclarationLocation
         )
     }
 }

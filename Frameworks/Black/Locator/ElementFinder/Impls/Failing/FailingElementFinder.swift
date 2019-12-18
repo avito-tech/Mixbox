@@ -15,7 +15,8 @@ final class FailingElementFinder: ElementFinder {
     }
     
     func query(
-        elementMatcher: ElementMatcher)
+        elementMatcher: ElementMatcher,
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
         -> ElementQuery
     {
         return FailingElementQuery(
