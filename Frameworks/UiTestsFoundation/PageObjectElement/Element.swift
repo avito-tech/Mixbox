@@ -33,8 +33,8 @@ extension Element {
         return with(interactionMode: .useElementAtIndexInHierarchy(index))
     }
     
-    public var currentlyVisible: Self {
-        return with(searchMode: .useCurrentlyVisible)
+    public var withoutScrolling: Self {
+        return with(scrollMode: .none)
     }
     
     public var withoutTimeout: Self {
@@ -58,8 +58,8 @@ extension Element {
         return with(settings: implementation.settings.with(matcher: matcher))
     }
     
-    public func with(searchMode: SearchMode) -> Self {
-        return with(settings: implementation.settings.with(searchMode: searchMode))
+    public func with(scrollMode: ScrollMode) -> Self {
+        return with(settings: implementation.settings.with(scrollMode: scrollMode))
     }
     
     public func with(interactionMode: InteractionMode) -> Self {

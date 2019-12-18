@@ -18,7 +18,7 @@ final class ThirdPartyAppsTests: TestCase {
         
         // Assert that we are on the page that doesn't contain app icon.
         // This is an important check, it checks if visibility check works (there was a bug! UPD: twice):
-        pageObjects.springboard.mainAppIcon.withoutTimeout.currentlyVisible.assertIsNotDisplayed()
+        pageObjects.springboard.mainAppIcon.withoutTimeout.withoutScrolling.assertIsNotDisplayed()
         
         pageObjects.springboard.scrollToMainAppIcon()
             
@@ -103,7 +103,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
             // Since iOS 13 app icons lost their frames.
             // We can only scroll blindly:
             
-            while !mainAppIcon.currentlyVisible.withoutTimeout.isDisplayed() {
+            while !mainAppIcon.withoutScrolling.withoutTimeout.isDisplayed() {
                 anyWindow.swipeLeft()
             }
         }

@@ -26,7 +26,7 @@ public protocol PageObjectElementRegistrar: class {
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     
-    func with(searchMode: SearchMode) -> PageObjectElementRegistrar
+    func with(scrollMode: ScrollMode) -> PageObjectElementRegistrar
     func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar
 }
 
@@ -68,24 +68,26 @@ public extension PageObjectElementRegistrar {
         return atIndex(0)
     }
     
-    // Disables automatic scroll.
-    // TODO: Rename according to the meaning.
-    //
-    // The `currentlyVisible` modifier tells that the element should be
-    // always visible, so scrolling should not be done. If element is not visible, but can be visible after scrolling,
-    // scrolling is not done, the check will be failed.
+    // The `withoutScrolling` modifier tells scrolling engine to not scroll.
+    // If element is not visible at the moment, check will be failed.
+    // Can be useful to check that elements should be visible just after some action.
     //
     // Example:
     //
     //  public var button: ButtonElement {
-    //      return currentlyVisible.element("Alert button") { element in
+    //      return withoutScrolling.element("Alert button") { element in
     //          element.isInstanceOf(UIButton.self) && element.isSubviewOf { element in
     //              element.id == "alert.button"
     //          }
     //      }
     //  }
-    var currentlyVisible: PageObjectElementRegistrar {
-        return with(searchMode: .useCurrentlyVisible)
+    var withoutScrolling: PageObjectElementRegistrar {
+        return with(scrollMode: .none)
+    }
+    
+    // Re-enables default scroll if `scrollMode` was previousely changed.
+    var withScrolling: PageObjectElementRegistrar {
+        return with(scrollMode: .default)
     }
     
     // To point to N-th element. You may want to emphasize this in the name of a variable,
@@ -111,11 +113,12 @@ public extension PageObjectElementRegistrar {
     }
     
     // This modifier tells to "search" element without knowing where it is.
-    // It makes few swipes up and few swipes down. This is a stupid solution and is deprecated,
+    // It makes few swipes up and few swipes down. This is a stupid solution,
     // however, it can help you if the element can not be accessed using other measures.
     //
-    // WARNING: Use in case of emergency. Note that it can be removed from Mixbox.
-    var accessibleViaBlindScroll: PageObjectElementRegistrar {
-        return with(searchMode: .scrollBlindly)
+    // Do not use unless default scrolling doesn't work.
+    //
+    var withBlindScrolling: PageObjectElementRegistrar {
+        return with(scrollMode: .blind)
     }
 }

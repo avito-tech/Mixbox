@@ -3,19 +3,19 @@ import MixboxFoundation
 public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     private let pageObjectElementFactory: PageObjectElementFactory
     private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory
-    private let searchMode: SearchMode?
+    private let scrollMode: ScrollMode?
     private let interactionMode: InteractionMode?
     private let elementMatcherBuilder: ElementMatcherBuilder
     
     public init(
         pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
-        searchMode: SearchMode? = nil,
+        scrollMode: ScrollMode? = nil,
         interactionMode: InteractionMode? = nil)
     {
         self.pageObjectElementDependenciesFactory = pageObjectElementDependenciesFactory
         self.pageObjectElementFactory = pageObjectElementDependenciesFactory.pageObjectElementFactory()
         self.elementMatcherBuilder = pageObjectElementDependenciesFactory.matcherBulder()
-        self.searchMode = searchMode
+        self.scrollMode = scrollMode
         self.interactionMode = interactionMode
     }
     
@@ -37,10 +37,10 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
         return T(implementation: pageObjectElement)
     }
     
-    public func with(searchMode: SearchMode) -> PageObjectElementRegistrar {
+    public func with(scrollMode: ScrollMode) -> PageObjectElementRegistrar {
         return PageObjectElementRegistrarImpl(
             pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
-            searchMode: searchMode,
+            scrollMode: scrollMode,
             interactionMode: interactionMode
         )
     }
@@ -48,7 +48,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     public func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar {
         return PageObjectElementRegistrarImpl(
             pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
-            searchMode: searchMode,
+            scrollMode: scrollMode,
             interactionMode: interactionMode
         )
     }
@@ -68,7 +68,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
                 fileLine: fileLine,
                 function: function,
                 matcher: matcherBuilder(elementMatcherBuilder),
-                searchMode: searchMode ?? .default,
+                scrollMode: scrollMode ?? .default,
                 interactionTimeout: nil,
                 interactionMode: interactionMode ?? .default
             )

@@ -34,7 +34,7 @@ public final class ScrollerImpl: Scroller {
     {
         // TODO: Better code. These lines just disable scrolling with minimal number of lines and minimal consequences.
         // (at the moment the code was written, we all know what can happen with code if it will live for long)
-        if elementSettings.searchMode == .useCurrentlyVisible {
+        if elementSettings.scrollMode == .none {
             return ScrollingResult(
                 status: .scrolled, // this is a lie, but without consequences
                 updatedSnapshot: snapshot,

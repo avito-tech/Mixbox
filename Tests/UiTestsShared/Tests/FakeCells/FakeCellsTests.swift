@@ -20,13 +20,13 @@ final class FakeCellsTests: TestCase {
         
         // First element is visible.
         pageObjects.screen.element(id: firstCellSubviewId, set: 0)
-            .currentlyVisible
+            .withoutScrolling
             .assertIsDisplayed()
         
         // None of elements of last set is visible
         for id in allElementIds {
             pageObjects.screen.element(id: id, set: lastSetId)
-                .currentlyVisible.withoutTimeout
+                .withoutScrolling.withoutTimeout
                 .assertIsNotDisplayed()
         }
     }
@@ -116,7 +116,7 @@ final class FakeCellsTests: TestCase {
             let targetElement = pageObjects.screen.element(id: id, set: lastSetId, generation: generation)
             
             // Check if previous action had effect
-            targetElement.currentlyVisible.withoutTimeout.assertIsNotDisplayed()
+            targetElement.withoutScrolling.withoutTimeout.assertIsNotDisplayed()
             
             // Target check: we should be able to find any view in a cell that is not displayed / exists in view hierarchy
             targetElement.withoutTimeout.assertIsDisplayed()

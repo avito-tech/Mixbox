@@ -95,11 +95,11 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
                 return resolvedElementQuery.matchingSnapshots.isEmpty
             }
             
-            if elementSettings.searchMode == .scrollBlindly && elementSettings.searchMode != .useCurrentlyVisible {
+            if elementSettings.scrollMode == .blind && elementSettings.scrollMode != .none {
                 let scrollingDistance = 8
                 
                 for _ in 0..<scrollingDistance where needToScroll {
-                    try scrollBlindly(up: true)
+                    try blind(up: true)
                     resolvedElementQuery = resolveElement()
                 }
                 
@@ -113,7 +113,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
                 // ---------------------------------------------
                 
                 for _ in 0..<(scrollingDistance * 2) where needToScroll {
-                    try scrollBlindly(up: false)
+                    try blind(up: false)
                     resolvedElementQuery = resolveElement()
                 }
             }
@@ -125,7 +125,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
         return resolvedElementQuery
     }
     
-    private func scrollBlindly(up: Bool) throws {
+    private func blind(up: Bool) throws {
         let frame = applicationFrameProvider.applicationFrame
         
         try eventGenerator.pressAndDrag(

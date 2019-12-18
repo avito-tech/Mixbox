@@ -36,8 +36,8 @@ open class BasePageObject: PageObject, PageObjectElementRegistrar {
         )
     }
     
-    public func with(searchMode: SearchMode) -> PageObjectElementRegistrar {
-        return pageObjectElementRegistrar.with(searchMode: searchMode)
+    public func with(scrollMode: ScrollMode) -> PageObjectElementRegistrar {
+        return pageObjectElementRegistrar.with(scrollMode: scrollMode)
     }
     
     public func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar {

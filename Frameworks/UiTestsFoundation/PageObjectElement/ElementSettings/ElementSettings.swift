@@ -5,7 +5,7 @@ public final class ElementSettings {
     public let fileLine: FileLine
     public let function: String
     public let matcher: ElementMatcher
-    public let searchMode: SearchMode
+    public let scrollMode: ScrollMode
     public let interactionTimeout: TimeInterval
     public let interactionMode: InteractionMode
     
@@ -14,7 +14,7 @@ public final class ElementSettings {
         fileLine: FileLine,
         function: String,
         matcher: ElementMatcher,
-        searchMode: SearchMode,
+        scrollMode: ScrollMode,
         interactionTimeout: TimeInterval?, // nil == default
         interactionMode: InteractionMode)
     {
@@ -22,7 +22,7 @@ public final class ElementSettings {
         self.fileLine = fileLine
         self.function = function
         self.matcher = matcher
-        self.searchMode = searchMode
+        self.scrollMode = scrollMode
         self.interactionTimeout = interactionTimeout ?? 15
         self.interactionMode = interactionMode
     }
@@ -33,7 +33,7 @@ public final class ElementSettings {
             fileLine: fileLine,
             function: function,
             matcher: matcher,
-            searchMode: searchMode,
+            scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
@@ -45,19 +45,19 @@ public final class ElementSettings {
             fileLine: fileLine,
             function: function,
             matcher: matcher,
-            searchMode: searchMode,
+            scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
     }
     
-    func with(searchMode: SearchMode) -> ElementSettings {
+    func with(scrollMode: ScrollMode) -> ElementSettings {
         return ElementSettings(
             elementName: elementName,
             fileLine: fileLine,
             function: function,
             matcher: matcher,
-            searchMode: searchMode,
+            scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
@@ -69,7 +69,7 @@ public final class ElementSettings {
             fileLine: fileLine,
             function: function,
             matcher: matcher,
-            searchMode: searchMode,
+            scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
@@ -81,15 +81,9 @@ public final class ElementSettings {
             fileLine: fileLine,
             function: function,
             matcher: matcher,
-            searchMode: searchMode,
+            scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode
         )
-    }
-}
-
-extension ElementSettings {
-    public var shouldAutoScroll: Bool {
-        return searchMode == .scrollUntilFound
     }
 }
