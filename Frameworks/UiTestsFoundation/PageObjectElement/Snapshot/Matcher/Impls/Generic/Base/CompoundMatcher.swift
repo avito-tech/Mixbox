@@ -13,7 +13,7 @@ public class CompoundMatcher<T>: Matcher<T> {
                 matchers: matchers
             ),
             matchingFunction: { value in
-                let matchingResults = matchers.map { $0.matches(value: value) }
+                let matchingResults = matchers.map { $0.match(value: value) }
                 
                 if exactMatch(matchingResults) {
                     return MatchingResult.match

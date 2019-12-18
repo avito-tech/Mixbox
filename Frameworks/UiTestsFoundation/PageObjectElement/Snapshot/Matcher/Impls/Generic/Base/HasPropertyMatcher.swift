@@ -3,7 +3,7 @@ public final class HasPropertyMatcher<T, U>: Matcher<T> {
         super.init(
             description: { "Имеет проперти \(name): \(matcher.description)" },
             matchingFunction: { container in
-                matcher.matches(value: property(container))
+                matcher.match(value: property(container))
             }
         )
     }

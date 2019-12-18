@@ -8,7 +8,7 @@ extension BaseUiTestCase {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        let result = matcher.matches(value: value)
+        let result = matcher.match(value: value)
         
         switch result {
         case .match:

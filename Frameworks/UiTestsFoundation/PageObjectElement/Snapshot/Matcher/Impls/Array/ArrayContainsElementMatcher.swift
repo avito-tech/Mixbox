@@ -16,7 +16,7 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
                 var mismatchResults = [MismatchResult]()
                 
                 for element in actualArray {
-                    let result = matcher.matches(value: element)
+                    let result = matcher.match(value: element)
                     
                     switch result {
                     case .match:

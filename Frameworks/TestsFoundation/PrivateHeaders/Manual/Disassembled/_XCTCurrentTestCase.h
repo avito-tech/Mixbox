@@ -5,4 +5,4 @@
 //
 // However, tests were crashing with EXC_BAD_ACCESS on a real app project.
 
-id _XCTCurrentTestCase();
+id _XCTCurrentTestCase(void);

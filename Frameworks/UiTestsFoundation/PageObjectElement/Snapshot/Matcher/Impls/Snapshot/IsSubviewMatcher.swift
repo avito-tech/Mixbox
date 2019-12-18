@@ -23,7 +23,7 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                 }
                 
                 while let parent = parentPointer {
-                    switch parentMatcher.matches(value: parent) {
+                    switch parentMatcher.match(value: parent) {
                     case .match:
                         return .match
                     case .mismatch(let mismatchResult):

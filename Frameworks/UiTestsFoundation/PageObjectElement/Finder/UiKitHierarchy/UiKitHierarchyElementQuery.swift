@@ -136,7 +136,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     {
         let snapshot = UiKitHierarchyElementSnaphot(element: element, parent: parent)
         let matchingResult = signpostActivityLogger.log(name: "RVHEQ elementMatcher.matches") {
-            elementMatcher.matches(value: snapshot)
+            elementMatcher.match(value: snapshot)
         }
         state.append(matchingResult: matchingResult, elementSnapshot: snapshot)
         

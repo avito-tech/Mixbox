@@ -5,7 +5,7 @@ public class NotMatcher<T>: Matcher<T> {
                 "Отрицание матчера " + matcher.description
             },
             matchingFunction: { value in
-                switch matcher.matches(value: value) {
+                switch matcher.match(value: value) {
                 case .match:
                     return MatchingResult.exactMismatch(
                         mismatchDescription: { "Отрицание матчера зафейлилось: " + matcher.description },

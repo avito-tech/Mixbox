@@ -19,7 +19,7 @@ public final class OptionalMatcher<T>: Matcher<T?> {
                 case (.none, .none):
                     return .match
                 case let (.some(matcher), .some(value)):
-                    return matcher.matches(value: value)
+                    return matcher.match(value: value)
                 case let (.none, .some(value)):
                     return .exactMismatch(
                         mismatchDescription: { "ожидалось nil, по факту \(value)" },

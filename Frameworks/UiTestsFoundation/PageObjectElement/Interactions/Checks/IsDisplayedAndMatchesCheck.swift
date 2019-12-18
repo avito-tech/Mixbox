@@ -63,7 +63,7 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
                 dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
                     let matcher = buildMatcher(dependencies.elementMatcherBuilder)
                     
-                    switch matcher.matches(value: snapshot) {
+                    switch matcher.match(value: snapshot) {
                     case .match:
                         return .success
                     case let .mismatch(mismatchResult):

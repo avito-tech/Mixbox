@@ -11,7 +11,7 @@ open class Matcher<T> {
         self.matchingFunction = matchingFunction
     }
     
-    public func matches(value: T) -> MatchingResult {
+    public func match(value: T) -> MatchingResult {
         return matchingFunction(value)
     }
 }

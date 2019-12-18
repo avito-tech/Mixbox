@@ -131,7 +131,7 @@ extension FailureGatherer {
         }
         
         if let descriptionMatcher = descriptionMatcher {
-            switch descriptionMatcher.matches(value: firstFailure.description) {
+            switch descriptionMatcher.match(value: firstFailure.description) {
             case .match:
                 break
             case .mismatch(let mismatchResult):

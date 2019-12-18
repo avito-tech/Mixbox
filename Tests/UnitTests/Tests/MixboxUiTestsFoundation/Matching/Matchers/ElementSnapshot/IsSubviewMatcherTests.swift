@@ -3,9 +3,7 @@ import MixboxUiTestsFoundation
 import XCTest
 
 class IsSubviewMatcherTests: BaseMatcherTests {
-    private var anything: Int = 1
-    
-    func test___IsSubviewMatcher___matches___if_superview_matches() {
+    func test___match___matches___if_superview_matches() {
         let superview = ElementSnapshotStub {
             $0.accessibilityIdentifier = "superview"
         }
@@ -21,7 +19,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
         )
     }
 
-    func test___IsSubviewMatcher___mismatches___view_that_is_being_matched() {
+    func test___match___mismatches___view_that_is_being_matched() {
         let superview = ElementSnapshotStub {
             $0.accessibilityIdentifier = "superview"
             $0.failForNotStubbedValues = false
@@ -38,7 +36,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
         )
     }
     
-    func test___IsSubviewMatcher___produces_correct_mismatch_description_0() {
+    func test___match___produces_correct_mismatch_description_0() {
         let superview0 = ElementSnapshotStub {
             $0.accessibilityIdentifier = "superview0"
             $0.isEnabled = false
@@ -80,7 +78,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
         )
     }
     
-    func test___IsSubviewMatcher___produces_correct_mismatch_description_1() {
+    func test___match___produces_correct_mismatch_description_1() {
         let superview = ElementSnapshotStub {
             $0.accessibilityIdentifier = "superview0"
             $0.failForNotStubbedValues = false
@@ -99,6 +97,28 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             description:
             """
             не найден superview, который матчится матчером "Имеет проперти id: равно non_existent_id", лучший кандидат зафейлился: не равно 'non_existent_id', актуальное значение: 'superview0')
+            """
+        )
+    }
+    
+    func test___description___is_correct() {
+        let superview = ElementSnapshotStub {
+            $0.accessibilityIdentifier = "superview"
+        }
+        let viewThatIsBeingMatched = ElementSnapshotStub {
+            $0.accessibilityIdentifier = "subview"
+        }
+        
+        superview.add(child: viewThatIsBeingMatched)
+        
+        assertDescriptionIsCorrect(
+            matcher: IsSubviewMatcher(matcherBuilder.id == "superview"),
+            value: viewThatIsBeingMatched,
+            description:
+            """
+            Является сабвью {
+                Имеет проперти id: равно superview
+            }
             """
         )
     }

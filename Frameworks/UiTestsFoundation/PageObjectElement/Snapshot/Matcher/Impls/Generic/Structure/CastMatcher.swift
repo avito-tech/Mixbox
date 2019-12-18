@@ -9,7 +9,7 @@ public class CastMatcher<Source, Target>: Matcher<Source> {
             },
             matchingFunction: { value in
                 if let castedValue = castingOperator(value) {
-                    return matcher.matches(value: castedValue)
+                    return matcher.match(value: castedValue)
                 } else {
                     return .exactMismatch(
                         mismatchDescription: { "Не является \(Target.self)" },

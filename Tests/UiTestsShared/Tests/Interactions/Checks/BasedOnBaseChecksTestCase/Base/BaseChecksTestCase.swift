@@ -136,7 +136,7 @@ class BaseChecksTestCase: TestCase {
         }
     }
     
-    // MARK: - Mathing
+    // MARK: - Matching
     
     func hasDefaultSearchLogs(
         log: StepLogMatcherBuilder,

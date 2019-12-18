@@ -32,7 +32,7 @@ final class BundleResourcePathProviderImplTests: XCTestCase {
                     regularExpression: ".*?" + NSRegularExpression.escapedPattern(for: resourceName) + "$"
                 )
                 
-                switch matcher.matches(value: path) {
+                switch matcher.match(value: path) {
                 case .mismatch(let mismatchResult):
                     XCTFail("path doesn't match: \(mismatchResult.mismatchDescription)")
                 case .match:
@@ -60,7 +60,7 @@ final class BundleResourcePathProviderImplTests: XCTestCase {
                     """
             )
             
-            switch matcher.matches(value: message) {
+            switch matcher.match(value: message) {
             case .mismatch(let mismatchResult):
                 XCTFail("exception description doesn't match: \(mismatchResult.mismatchDescription)")
             case .match:
