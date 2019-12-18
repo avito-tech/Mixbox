@@ -7,19 +7,25 @@ public final class InstallingEmceeProvider: EmceeProvider {
     private let emceeInstaller: EmceeInstaller
     private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
     private let jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator
+    private let simulatorSettingsProvider: SimulatorSettingsProvider
+    private let toolchainConfigurationProvider: ToolchainConfigurationProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
         processExecutor: ProcessExecutor,
         emceeInstaller: EmceeInstaller,
         decodableFromJsonFileLoader: DecodableFromJsonFileLoader,
-        jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator)
+        jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator,
+        simulatorSettingsProvider: SimulatorSettingsProvider,
+        toolchainConfigurationProvider: ToolchainConfigurationProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
         self.emceeInstaller = emceeInstaller
         self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
         self.jsonFileFromEncodableGenerator = jsonFileFromEncodableGenerator
+        self.simulatorSettingsProvider = simulatorSettingsProvider
+        self.toolchainConfigurationProvider = toolchainConfigurationProvider
     }
     
     public func emcee() throws -> Emcee {
@@ -33,7 +39,9 @@ public final class InstallingEmceeProvider: EmceeProvider {
                 temporaryFileProvider: temporaryFileProvider,
                 emceeExecutable: emceeExecutable,
                 decodableFromJsonFileLoader: decodableFromJsonFileLoader,
-                jsonFileFromEncodableGenerator: jsonFileFromEncodableGenerator
+                jsonFileFromEncodableGenerator: jsonFileFromEncodableGenerator,
+                simulatorSettingsProvider: simulatorSettingsProvider,
+                toolchainConfigurationProvider: toolchainConfigurationProvider
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
                 emceeExecutable: emceeExecutable

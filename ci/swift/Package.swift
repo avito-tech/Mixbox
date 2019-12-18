@@ -67,7 +67,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("166b6735ea3216da2fb532064b03c41b89379364")
+            .revision("8012542954fcb1700b0c3760adca55de4749cc89")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
@@ -116,6 +116,7 @@ let package = Package(
                 "Destinations",
                 "Dip",
                 "Emcee",
+                "EmceeInterfaces",
                 "Git",
                 "RemoteFiles",
                 "Simctl",

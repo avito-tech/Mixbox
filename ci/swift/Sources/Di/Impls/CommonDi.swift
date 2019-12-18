@@ -50,7 +50,9 @@ open class CommonDi: BaseDi {
                     processExecutor: try container.resolve(),
                     emceeInstaller: try container.resolve(),
                     decodableFromJsonFileLoader: try container.resolve(),
-                    jsonFileFromEncodableGenerator: try container.resolve()
+                    jsonFileFromEncodableGenerator: try container.resolve(),
+                    simulatorSettingsProvider: try container.resolve(),
+                    toolchainConfigurationProvider: try container.resolve()
                 )
             )
         }
@@ -102,7 +104,9 @@ open class CommonDi: BaseDi {
                 temporaryFileProvider: try container.resolve(),
                 decodableFromJsonFileLoader: try container.resolve(),
                 emceeFileUploader: try container.resolve(),
-                jsonFileFromEncodableGenerator: try container.resolve()
+                jsonFileFromEncodableGenerator: try container.resolve(),
+                simulatorSettingsProvider: try container.resolve(),
+                toolchainConfigurationProvider: try container.resolve()
             )
         }
         container.register(type: EmceeFileUploader.self) {

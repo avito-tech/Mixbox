@@ -4,22 +4,27 @@ import Models
 import RuntimeDump
 
 public final class EmceeDumpCommandImpl: EmceeDumpCommand {
-    
     private let temporaryFileProvider: TemporaryFileProvider
     private let emceeExecutable: EmceeExecutable
     private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
     private let jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator
+    private let simulatorSettingsProvider: SimulatorSettingsProvider
+    private let toolchainConfigurationProvider: ToolchainConfigurationProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
         emceeExecutable: EmceeExecutable,
         decodableFromJsonFileLoader: DecodableFromJsonFileLoader,
-        jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator)
+        jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator,
+        simulatorSettingsProvider: SimulatorSettingsProvider,
+        toolchainConfigurationProvider: ToolchainConfigurationProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.emceeExecutable = emceeExecutable
         self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
         self.jsonFileFromEncodableGenerator = jsonFileFromEncodableGenerator
+        self.simulatorSettingsProvider = simulatorSettingsProvider
+        self.toolchainConfigurationProvider = toolchainConfigurationProvider
     }
     
     public func dump(
@@ -66,26 +71,33 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         let testArgFile = TestArgFile(
             entries: [
                 try TestArgFile.Entry(
-                    testsToRun: [],
                     buildArtifacts: BuildArtifacts(
-                        appBundle: arguments.appPath.map { AppBundleLocation(try ResourceLocation.from($0)) },
+                        appBundle: arguments.appPath.map {
+                            AppBundleLocation(try ResourceLocation.from($0))
+                        },
                         runner: nil,
                         xcTestBundle: XcTestBundle(
                             location: TestBundleLocation(ResourceLocation.from(arguments.xctestBundle)),
                             runtimeDumpKind: arguments.appPath == nil ? .logicTest : .appTest
                         ),
-                        additionalApplicationBundles: []
+                        additionalApplicationBundles: [] as [AdditionalAppBundleLocation]
                     ),
                     environment: [:],
                     numberOfRetries: 5,
                     scheduleStrategy: .progressive,
+                    simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,
+                    testTimeoutConfiguration: TestTimeoutConfiguration(
+                        singleTestMaximumDuration: 420,
+                        testRunnerMaximumSilenceDuration: 420
+                    ),
                     testType: TestType.logicTest,
+                    testsToRun: [],
                     toolResources: ToolResources(
                         simulatorControlTool: .fbsimctl(FbsimctlLocation(ResourceLocation.from(arguments.fbsimctl))),
                         testRunnerTool: .fbxctest(FbxctestLocation(ResourceLocation.from(arguments.fbxctest)))
                     ),
-                    toolchainConfiguration: ToolchainConfiguration(developerDir: .current)
+                    toolchainConfiguration: try toolchainConfigurationProvider.toolchainConfiguration()
                 )
             ],
             priority: Priority.medium,

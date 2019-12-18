@@ -10,19 +10,25 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
     private let emceeFileUploader: EmceeFileUploader
     private let jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator
+    private let simulatorSettingsProvider: SimulatorSettingsProvider
+    private let toolchainConfigurationProvider: ToolchainConfigurationProvider
     
     public init(
         emceeProvider: EmceeProvider,
         temporaryFileProvider: TemporaryFileProvider,
         decodableFromJsonFileLoader: DecodableFromJsonFileLoader,
         emceeFileUploader: EmceeFileUploader,
-        jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator)
+        jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator,
+        simulatorSettingsProvider: SimulatorSettingsProvider,
+        toolchainConfigurationProvider: ToolchainConfigurationProvider)
     {
         self.emceeProvider = emceeProvider
         self.temporaryFileProvider = temporaryFileProvider
         self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
         self.emceeFileUploader = emceeFileUploader
         self.jsonFileFromEncodableGenerator = jsonFileFromEncodableGenerator
+        self.simulatorSettingsProvider = simulatorSettingsProvider
+        self.toolchainConfigurationProvider = toolchainConfigurationProvider
     }
     
     public func testArgFile(
@@ -81,22 +87,25 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         -> TestArgFile
     {
         return TestArgFile(
-            entries: testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFile.Entry in
-                TestArgFile.Entry(
-                    testsToRun: testsToRun,
+            entries: try testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFile.Entry in
+                try TestArgFile.Entry(
                     buildArtifacts: buildArtifacts,
                     environment: environment,
                     numberOfRetries: 4,
                     scheduleStrategy: .progressive,
+                    simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,
+                    testTimeoutConfiguration: TestTimeoutConfiguration(
+                        singleTestMaximumDuration: 420,
+                        testRunnerMaximumSilenceDuration: 420
+                    ),
                     testType: testType,
+                    testsToRun: testsToRun,
                     toolResources: ToolResources(
                         simulatorControlTool: .fbsimctl(FbsimctlLocation(.remoteUrl(fbsimctlUrl))),
                         testRunnerTool: .fbxctest(FbxctestLocation(.remoteUrl(fbxctestUrl)))
                     ),
-                    toolchainConfiguration: ToolchainConfiguration(
-                        developerDir: DeveloperDir.current
-                    )
+                    toolchainConfiguration: try toolchainConfigurationProvider.toolchainConfiguration()
                 )
             },
             priority: try Priority(intValue: priority),

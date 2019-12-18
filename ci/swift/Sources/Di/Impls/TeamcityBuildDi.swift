@@ -3,6 +3,7 @@ import Tasks
 import Destinations
 import CiFoundation
 import SingletonHell
+import Emcee
 
 public final class TeamcityBuildDi: CommonDi {
     override public init() {}
@@ -12,6 +13,14 @@ public final class TeamcityBuildDi: CommonDi {
         
         container.register(type: LocalTaskExecutor.self) {
             TeamcityLocalTaskExecutor()
+        }
+        container.register(type: ToolchainConfigurationProvider.self) {
+            ToolchainConfigurationProviderImpl()
+        }
+        container.register(type: SimulatorSettingsProvider.self) {
+            SimulatorSettingsProviderImpl(
+                environmentProvider: try container.resolve()
+            )
         }
     }
 }
