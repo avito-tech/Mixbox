@@ -92,6 +92,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     buildArtifacts: buildArtifacts,
                     environment: environment,
                     numberOfRetries: 4,
+                    pluginLocations: Set(),
                     scheduleStrategy: .progressive,
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,

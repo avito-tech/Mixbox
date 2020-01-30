@@ -21,7 +21,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("8012542954fcb1700b0c3760adca55de4749cc89")
+            .revision("694e53d4b38cd14dd6aff9f4dd35f1107104988c")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",

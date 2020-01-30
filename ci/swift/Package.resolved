@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/IBM-Swift/BlueSocket",
         "state": {
           "branch": null,
-          "revision": "49cab699e9f151eeb870ab93d14642425e824c19",
-          "version": "1.0.49"
+          "revision": "c46a3d41f5b2401d18bcb46d0101cdc5cd13e307",
+          "version": "1.0.52"
         }
       },
       {
@@ -60,7 +60,7 @@
         "repositoryURL": "https://github.com/avito-tech/Emcee",
         "state": {
           "branch": null,
-          "revision": "8012542954fcb1700b0c3760adca55de4749cc89",
+          "revision": "694e53d4b38cd14dd6aff9f4dd35f1107104988c",
           "version": null
         }
       },
@@ -68,9 +68,9 @@
         "package": "GraphiteClient",
         "repositoryURL": "https://github.com/avito-tech/GraphiteClient.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "2333d2c4a73c19db636939033cbe2b5ba3fc9f8c",
-          "version": null
+          "version": "0.1.1"
         }
       },
       {
@@ -86,9 +86,9 @@
         "package": "Shout",
         "repositoryURL": "https://github.com/jakeheis/Shout.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "2ee35de0411c2e74700dc4bf4b57bf7dc1de2e84",
-          "version": null
+          "version": "0.5.1"
         }
       },
       {

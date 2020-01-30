@@ -84,6 +84,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     ),
                     environment: [:],
                     numberOfRetries: 5,
+                    pluginLocations: Set(),
                     scheduleStrategy: .progressive,
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,

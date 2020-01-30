@@ -11,12 +11,31 @@ public final class SimulatorSettingsProviderImpl: SimulatorSettingsProvider {
     }
     
     public func simulatorSettings() throws -> SimulatorSettings {
+        let keyboards = ["en_US@sw=QWERTY;hw=Automatic"]
+        
         return SimulatorSettings(
-            simulatorLocalizationSettings: SimulatorLocalizationLocation(
-                ResourceLocation.remoteUrl(try environmentProvider.getUrlOrThrow(env: Env.MIXBOX_CI_SIMULATOR_LOCALIZATION_URL))
+            simulatorLocalizationSettings: SimulatorLocalizationSettings(
+                localeIdentifier: "en_US",
+                keyboards: keyboards,
+                passcodeKeyboards: keyboards,
+                languages: ["en"],
+                addingEmojiKeybordHandled: true,
+                enableKeyboardExpansion: true,
+                didShowInternationalInfoAlert: true
             ),
-            watchdogSettings: WatchdogSettingsLocation(
-                ResourceLocation.remoteUrl(try environmentProvider.getUrlOrThrow(env: Env.MIXBOX_CI_WATCHDOG_SETTINGS_URL))
+            watchdogSettings: WatchdogSettings(
+                bundleIds: [
+                    "mixbox.Tests.TestedApp",
+                    "mixbox.Tests.BlackBoxUiTests",
+                    "mixbox.Tests.UnitTests",
+                    "mixbox.Tests.HostedAppLogicTests",
+                    "mixbox.Tests.GrayBoxUiTests",
+                    "mixbox.Tests.FakeSettingsApp",
+                    "mixbox.Tests.Lint",
+                    "com.mixbox.AppForCheckingPureXctest",
+                    "com.mixbox.AppForCheckingPureXctestUITests"
+                ],
+                timeout: 150
             )
         )
     }
