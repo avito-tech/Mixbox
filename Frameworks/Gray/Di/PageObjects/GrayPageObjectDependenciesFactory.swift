@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxFoundation
+import MixboxInAppServices
 
 // TODO: Share code between black-box and gray-box.
 public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFactory {
@@ -11,7 +12,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let pollingConfiguration: PollingConfiguration
     private let elementFinder: ElementFinder
     private let screenshotTaker: ScreenshotTaker
-    private let windowsProvider: WindowsProvider
+    private let orderedWindowsProvider: OrderedWindowsProvider
     private let waiter: RunLoopSpinningWaiter
     private let signpostActivityLogger: SignpostActivityLogger
     private let grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory
@@ -23,12 +24,13 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
         screenshotTaker: ScreenshotTaker,
-        windowsProvider: WindowsProvider,
+        orderedWindowsProvider: OrderedWindowsProvider,
         waiter: RunLoopSpinningWaiter,
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
-        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
+        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
+        applicationWindowsProvider: ApplicationWindowsProvider)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -36,7 +38,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.pollingConfiguration = pollingConfiguration
         self.elementFinder = elementFinder
         self.screenshotTaker = screenshotTaker
-        self.windowsProvider = windowsProvider
+        self.orderedWindowsProvider = orderedWindowsProvider
         self.waiter = waiter
         self.signpostActivityLogger = signpostActivityLogger
         
@@ -55,12 +57,13 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             pollingConfiguration: pollingConfiguration,
             elementFinder: elementFinder,
             screenshotTaker: screenshotTaker,
-            windowsProvider: windowsProvider,
+            orderedWindowsProvider: orderedWindowsProvider,
             waiter: waiter,
             signpostActivityLogger: signpostActivityLogger,
             snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
             snapshotsComparatorFactory: snapshotsComparatorFactory,
-            applicationQuiescenceWaiter: applicationQuiescenceWaiter
+            applicationQuiescenceWaiter: applicationQuiescenceWaiter,
+            applicationWindowsProvider: applicationWindowsProvider
         )
     }
     

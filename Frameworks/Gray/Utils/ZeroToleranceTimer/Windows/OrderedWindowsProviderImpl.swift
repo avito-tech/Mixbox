@@ -1,40 +1,39 @@
 import MixboxUiKit
+import MixboxInAppServices
 
 // Translated to Swift.
 // Original implementation: https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Provider/GREYUIWindowProvider.m
 //
-public final class WindowsProviderImpl: WindowsProvider {
-    private let application: UIApplication
+public final class OrderedWindowsProviderImpl: OrderedWindowsProvider {
+    private let applicationWindowsProvider: ApplicationWindowsProvider
     private let iosVersionProvider: IosVersionProvider
     
     public init(
-        application: UIApplication,
+        applicationWindowsProvider: ApplicationWindowsProvider,
         iosVersionProvider: IosVersionProvider)
     {
-        self.application = application
+        self.applicationWindowsProvider = applicationWindowsProvider
         self.iosVersionProvider = iosVersionProvider
     }
     
     public func windowsFromBottomMostToTopMost() -> [UIWindow] {
-        let shouldIncludeStatusBarWindow = iosVersionProvider.iosVersion().majorVersion < 13
-        
         var windows = Set<OrderedWindow>(
-            application.windows.enumerated().map {
+            applicationWindowsProvider.windows.enumerated().map {
                 OrderedWindow(order: $0.offset, window: $0.element)
             }
         )
         
-        if let window = application.delegate?.window ?? nil {
+        if let window = applicationWindowsProvider.applicationDelegateWindow ?? nil {
             // Is it possible that application.windows doesn't contain this window?
             windows.insert(OrderedWindow(order: windows.count, window: window))
         }
         
-        if let window = application.keyWindow {
+        if let window = applicationWindowsProvider.keyWindow {
             // Is it possible that application.windows doesn't contain this window?
             windows.insert(OrderedWindow(order: windows.count, window: window))
         }
         
-        if shouldIncludeStatusBarWindow, let window = application.statusBarWindow() {
+        if let window = applicationWindowsProvider.statusBarWindow {
             windows.insert(OrderedWindow(order: windows.count, window: window))
         }
         

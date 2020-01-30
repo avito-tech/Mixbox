@@ -4,7 +4,7 @@ import MixboxIpcCommon
 import MixboxIpc
 import MixboxFoundation
 
-final class IpcThrowingFunctionResultTests: TestCase {
+final class IpcThrowingFunctionResultTests: BaseSerializationTestCase {
     func test___serialization___if_case_is_returned() {
         let result = IpcThrowingFunctionResult.returned(IpcVoid())
         

@@ -2,15 +2,23 @@ import MixboxUiTestsFoundation
 import MixboxGray
 import MixboxUiKit
 import XCTest
+import MixboxInAppServices
 
 final class GrayScreenshotTakerTests: TestCase {
-    private let screenshotTaker = GrayScreenshotTaker(
-        windowsProvider: WindowsProviderImpl(
-            application: UIApplication.shared,
-            iosVersionProvider: UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
-        ),
-        screen: UIScreen.main
-    )
+    private let screenshotTaker: ScreenshotTaker = {
+        let iosVersionProvider = UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
+        
+        return GrayScreenshotTaker(
+            orderedWindowsProvider: OrderedWindowsProviderImpl(
+                applicationWindowsProvider: UiApplicationWindowsProvider(
+                    uiApplication: UIApplication.shared,
+                    iosVersionProvider: iosVersionProvider
+                ),
+                iosVersionProvider: iosVersionProvider
+            ),
+            screen: UIScreen.main
+        )
+    }()
     
     func test() {
         // TODO: Make specific view for this test. Reusing view with potentially

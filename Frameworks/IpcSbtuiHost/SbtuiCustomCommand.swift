@@ -12,7 +12,7 @@ final class SbtuiCustomCommand {
     
     init<MethodHandler: IpcMethodHandler>(ipcMethodHandler: MethodHandler) {
         handleFunction = { request in
-            SbtuiCustomCommand.handle(request: request, usingIpcMethodHandler: ipcMethodHandler)
+            try? SbtuiCustomCommand.handle(request: request, usingIpcMethodHandler: ipcMethodHandler)
         }
         name = ipcMethodHandler.method.name
     }
@@ -34,37 +34,54 @@ final class SbtuiCustomCommand {
     private static func handle<MethodHandler: IpcMethodHandler>(
         request: NSObject?,
         usingIpcMethodHandler ipcMethodHandler: MethodHandler)
-        -> NSObject?
+        throws
+        -> NSObject
     {
-        guard let typedArguments: MethodHandler.Method.Arguments = decodeArguments(request) else {
-            return nil
-        }
+        let typedArguments: MethodHandler.Method.Arguments = try decodeArguments(
+            sbtuiRequestOrNil: request
+        )
         
-        var typedReturnValue: MethodHandler.Method.ReturnValue?
+        var typedReturnValueOrNil: MethodHandler.Method.ReturnValue?
         
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
         ipcMethodHandler.handle(arguments: typedArguments) { returnValue in
-            typedReturnValue = returnValue
+            typedReturnValueOrNil = returnValue
             dispatchGroup.leave()
         }
         
         dispatchGroup.wait()
         
-        return typedReturnValue.flatMap { encodeReturnValue($0) }
-    }
-    
-    private static func decodeArguments<T: Codable>(_ sbtuiRequest: NSObject?) -> T? {
-        guard let serializedArguments = sbtuiRequest as? String else {
-            return nil
+        guard let typedReturnValue = typedReturnValueOrNil else {
+            throw ErrorString("Internal error: ipcMethodHandler did not handle method")
         }
         
-        return GenericSerialization.deserialize(string: serializedArguments)
+        return try encodeReturnValue(sbtuiResult: typedReturnValue)
     }
     
-    private static func encodeReturnValue<T: Codable>(_ sbtuiResult: T) -> NSObject? {
-        return GenericSerialization.serialize(value: sbtuiResult).flatMap { $0 as NSObject }
+    private static func decodeArguments<T: Codable>(
+        sbtuiRequestOrNil: NSObject?)
+        throws
+        -> T
+    {
+        guard let sbtuiRequest = sbtuiRequestOrNil else {
+            throw ErrorString("sbtuiRequest is nil")
+        }
+        
+        guard let serializedArguments = sbtuiRequest as? String else {
+            throw ErrorString("sbtuiRequest is not String: \(sbtuiRequest)")
+        }
+        
+        return try GenericSerialization.deserialize(string: serializedArguments)
+    }
+    
+    private static func encodeReturnValue<T: Codable>(
+        sbtuiResult: T)
+        throws
+        -> NSObject
+    {
+        return try GenericSerialization.serialize(value: sbtuiResult) as NSObject
     }
 }
 

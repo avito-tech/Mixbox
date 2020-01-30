@@ -3,8 +3,10 @@
 import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
+import MixboxUiKit
 
 public protocol InAppServicesDependenciesFactory: class {
+    var iosVersionProvider: IosVersionProvider { get }
     var ipcStarter: IpcStarter { get }
     var accessibilityEnhancer: AccessibilityEnhancer { get }
     var assertingSwizzler: AssertingSwizzler { get }

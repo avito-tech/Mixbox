@@ -26,21 +26,46 @@ final class ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests: TestCas
             )
         ]
         
-        // There is some kind of proxy that is not NSProxy that creates selectors for everything
-        // on iOS 12 (12.1, 12.4, maybe others)
-        if UiDeviceIosVersionProvider(uiDevice: UIDevice.current).iosVersion().majorVersion == 12,
-            let `class` = NSClassFromString("_PFPlaceholderMulticaster"),
-            let method = class_getInstanceMethod(`class`, selector)
-        {
-            expectedMethods.append(
-                ObjcMethodWithUniqueImplementation(
-                    class: `class`,
-                    method: method
-                )
-            )
-        }
+        expectedMethods.append(contentsOf: methodsOfProxies(selector: selector))
         
         XCTAssertEqual(actualMethods.sorted(), expectedMethods.sorted())
+    }
+    
+    private func methodsOfProxies(selector: Selector) -> [ObjcMethodWithUniqueImplementation] {
+        var methodsOfProxies = [ObjcMethodWithUniqueImplementation]()
+        
+        let proxyClassNames: [String]
+        
+        // There are some kinds of proxy that are not NSProxy that create selectors for everything
+        switch UiDeviceIosVersionProvider(uiDevice: UIDevice.current).iosVersion().majorVersion {
+        case 12:
+            proxyClassNames = [
+                "_PFPlaceholderMulticaster"
+            ]
+        case 13:
+            proxyClassNames = [
+                "_PFPlaceholderMulticaster",
+                "UIKeyboardCandidateViewStyle",
+                "UIKeyboardCandidateViewState"
+            ]
+        default:
+            proxyClassNames = []
+        }
+        
+        for className in proxyClassNames {
+            if let `class` = NSClassFromString(className),
+                let method = class_getInstanceMethod(`class`, selector)
+            {
+                methodsOfProxies.append(
+                    ObjcMethodWithUniqueImplementation(
+                        class: `class`,
+                        method: method
+                    )
+                )
+            }
+        }
+        
+        return methodsOfProxies
     }
 }
 

@@ -4,14 +4,14 @@ import MixboxFoundation
 // Translated from Objective-C to Swift. Code is from EarlGrey.
 // https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Common/GREYScreenshotUtil.m
 public final class GrayScreenshotTaker: ScreenshotTaker {
-    private let windowsProvider: WindowsProvider
+    private let orderedWindowsProvider: OrderedWindowsProvider
     private let screen: UIScreen
     
     public init(
-        windowsProvider: WindowsProvider,
+        orderedWindowsProvider: OrderedWindowsProvider,
         screen: UIScreen)
     {
-        self.windowsProvider = windowsProvider
+        self.orderedWindowsProvider = orderedWindowsProvider
         self.screen = screen
     }
     
@@ -74,7 +74,7 @@ public final class GrayScreenshotTaker: ScreenshotTaker {
     }
     
     private func windowsInRenderingOrderSkippingInvisible() -> [UIWindow] {
-        return windowsProvider
+        return orderedWindowsProvider
             .windowsFromBottomMostToTopMost()
             .filter { window in !isDefinitelyNotVisible(window: window) }
     }

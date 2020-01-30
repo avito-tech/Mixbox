@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
 import MixboxIpcCommon
+import MixboxInAppServices
 
 // TODO: Share code between black-box and gray-box.
 protocol GrayBoxTestsDependenciesFactory: class {
@@ -20,9 +21,10 @@ protocol GrayBoxTestsDependenciesFactory: class {
     var elementFinder: ElementFinder { get }
     var scrollingHintsProvider: ScrollingHintsProvider { get }
     var screenshotTaker: ScreenshotTaker { get }
-    var windowsProvider: WindowsProvider { get }
+    var orderedWindowsProvider: OrderedWindowsProvider { get }
     var runLoopSpinnerFactory: RunLoopSpinnerFactory { get }
     var waiter: RunLoopSpinningWaiter { get }
     var signpostActivityLogger: SignpostActivityLogger { get }
     var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { get }
+    var applicationWindowsProvider: ApplicationWindowsProvider { get }
 }

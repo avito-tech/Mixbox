@@ -6,7 +6,13 @@
 // you should expect is that you can decode encoded object and get the same object.
 // TODO: Use Decodable and Encodable separately.
 public final class GenericSerialization {
-    public static func serialize<T: Codable>(value: T) -> String? {
+    private static let encoding: String.Encoding = .utf8
+    
+    public static func serialize<T: Codable>(
+        value: T)
+        throws
+        -> String
+    {
         let encoder = JSONEncoder()
         
         encoder.nonConformingFloatEncodingStrategy = .convertToString(
@@ -15,21 +21,29 @@ public final class GenericSerialization {
             nan: "nan"
         )
         
-        return serialize(value: value, encoder: encoder)
+        return try serialize(value: value, encoder: encoder)
     }
     
-    public static func serialize<T: Codable>(value: T, encoder: JSONEncoder) -> String? {
-        guard let data = try? encoder.encode(Container(value: value)) else {
-            return nil
-        }
+    public static func serialize<T: Codable>(
+        value: T,
+        encoder: JSONEncoder)
+        throws
+        -> String
+    {
+        let data = try encoder.encode(Container(value: value))
+        
         guard let string = String(data: data, encoding: .utf8) else {
-            return nil
+            throw ErrorString("Can not make String from Data using \(encoding) encoding")
         }
         
         return string
     }
     
-    public static func deserialize<T: Codable>(string: String) -> T? {
+    public static func deserialize<T: Codable>(
+        string: String)
+        throws
+        -> T
+    {
         let decoder = JSONDecoder()
         
         decoder.nonConformingFloatDecodingStrategy = .convertFromString(
@@ -38,15 +52,20 @@ public final class GenericSerialization {
             nan: "nan"
         )
         
-        return deserialize(string: string, decoder: decoder)
+        return try deserialize(string: string, decoder: decoder)
     }
     
-    public static func deserialize<T: Codable>(string: String, decoder: JSONDecoder) -> T? {
-        guard let data = string.data(using: .utf8) else {
-            return nil
+    public static func deserialize<T: Codable>(
+        string: String,
+        decoder: JSONDecoder)
+        throws
+        -> T
+    {
+        guard let data = string.data(using: encoding) else {
+            throw ErrorString("Can not make Data from String using \(encoding) encoding")
         }
         
-        return try? decoder.decode(Container<T>.self, from: data).value
+        return try decoder.decode(Container<T>.self, from: data).value
     }
 }
 

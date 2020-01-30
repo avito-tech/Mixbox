@@ -1,9 +1,9 @@
-public protocol WindowsProvider: class {
+public protocol OrderedWindowsProvider: class {
     func windowsFromTopMostToBottomMost() -> [UIWindow]
     func windowsFromBottomMostToTopMost() -> [UIWindow]
 }
 
-extension WindowsProvider {
+extension OrderedWindowsProvider {
     public func windowsFromTopMostToBottomMost() -> [UIWindow] {
         return windowsFromBottomMostToTopMost().reversed()
     }

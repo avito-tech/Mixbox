@@ -91,7 +91,10 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
     
     private func elementHierarchyDescriptionProvider() -> ElementHierarchyDescriptionProvider {
         return GrayElementHierarchyDescriptionProvider(
-            viewHierarchyProvider: ViewHierarchyProviderImpl()
+            viewHierarchyProvider: ViewHierarchyProviderImpl(
+                applicationWindowsProvider: grayBoxTestsDependenciesFactory.applicationWindowsProvider,
+                floatValuesForSr5346Patcher: NoopFloatValuesForSr5346Patcher()
+            )
         )
     }
     

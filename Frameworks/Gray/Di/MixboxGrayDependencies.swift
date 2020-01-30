@@ -17,15 +17,21 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         di.register(type: ApplicationFrameProvider.self) { _ in
             GrayApplicationFrameProvider()
         }
-        di.register(type: WindowsProvider.self) { di in
-            WindowsProviderImpl(
-                application: UIApplication.shared,
+        di.register(type: ApplicationWindowsProvider.self) { di in
+            UiApplicationWindowsProvider(
+                uiApplication: UIApplication.shared,
+                iosVersionProvider: try di.resolve()
+            )
+        }
+        di.register(type: OrderedWindowsProvider.self) { di in
+            OrderedWindowsProviderImpl(
+                applicationWindowsProvider: try di.resolve(),
                 iosVersionProvider: try di.resolve()
             )
         }
         di.register(type: ScreenshotTaker.self) { di in
             GrayScreenshotTaker(
-                windowsProvider: try di.resolve(),
+                orderedWindowsProvider: try di.resolve(),
                 screen: UIScreen.main
             )
         }
@@ -57,12 +63,13 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 pollingConfiguration: try di.resolve(),
                 elementFinder: try di.resolve(),
                 screenshotTaker: try di.resolve(),
-                windowsProvider: try di.resolve(),
+                orderedWindowsProvider: try di.resolve(),
                 waiter: try di.resolve(),
                 signpostActivityLogger: try di.resolve(),
                 snapshotsDifferenceAttachmentGenerator: try di.resolve(),
                 snapshotsComparatorFactory: try di.resolve(),
-                applicationQuiescenceWaiter: try di.resolve()
+                applicationQuiescenceWaiter: try di.resolve(),
+                applicationWindowsProvider: try di.resolve()
             )
         }
         
@@ -86,7 +93,7 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         }
         di.register(type: WindowForPointProvider.self) { di in
             WindowForPointProviderImpl(
-                windowsProvider: try di.resolve()
+                orderedWindowsProvider: try di.resolve()
             )
         }
         di.register(type: TouchInjectorFactory.self) { di in

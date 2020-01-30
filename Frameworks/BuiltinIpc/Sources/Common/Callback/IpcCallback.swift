@@ -59,13 +59,13 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
         }
         
         ipcCallbackStorage[id] = { [closure] string, completion in
-            guard let deserialized: Arguments = GenericSerialization.deserialize(string: string, decoder: decoderFactory.decoder()) else {
+            guard let deserialized: Arguments = try? GenericSerialization.deserialize(string: string, decoder: decoderFactory.decoder()) else {
                 return completion(nil)
             }
             
             closure(deserialized) { (result: DataResult<ReturnValue, Error>) in
                 if let data = result.data {
-                    completion(GenericSerialization.serialize(value: data, encoder: encoderFactory.encoder()))
+                    completion(try? GenericSerialization.serialize(value: data, encoder: encoderFactory.encoder()))
                 } else {
                     completion(nil)
                 }
@@ -96,35 +96,45 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
         }
         
         self.closure = { (args: Arguments, completion: @escaping (DataResult<ReturnValue, Error>) -> ()) in
-            guard let serializedArgs = GenericSerialization.serialize(value: args, encoder: encoderFactory.encoder()) else {
-                return completion(.error(ErrorString("GenericSerialization.serialize failed on \(args)"))) // TODO: Better error
-            }
-            guard let ipcClient = ipcClientHolder.ipcClient else {
-                return completion(.error(ErrorString("ipcClientHolder.ipcClient is nil"))) // TODO: Better error
-            }
-            
-            let method = CallIpcCallbackIpcMethod()
-            let arguments = CallIpcCallbackIpcMethod.Arguments(
-                callbackId: callbackId,
-                callbackArguments: serializedArgs
-            )
-            let completion: (DataResult<String?, Error>) -> () = { (result: DataResult<String?, Error>) -> () in
-                switch result {
-                case .data(let string):
-                    guard let string = string, let deserialized: ReturnValue = GenericSerialization.deserialize(string: string, decoder: decoderFactory.decoder()) else {
-                        return completion(.error(ErrorString("TBD"))) // TODO: Better error
-                    }
-                    completion(.data(deserialized))
-                case .error(let error):
-                    return completion(.error(error))
-                }
-            }
+            do {
+                let serializedArgs = try GenericSerialization.serialize(value: args, encoder: encoderFactory.encoder())
 
-            ipcClient.call(
-                method: method,
-                arguments: arguments,
-                completion: completion
-            )
+                guard let ipcClient = ipcClientHolder.ipcClient else {
+                    throw ErrorString("ipcClientHolder.ipcClient is nil")
+                }
+                
+                let method = CallIpcCallbackIpcMethod()
+                let arguments = CallIpcCallbackIpcMethod.Arguments(
+                    callbackId: callbackId,
+                    callbackArguments: serializedArgs
+                )
+                let completion: (DataResult<String?, Error>) -> () = { (result: DataResult<String?, Error>) -> () in
+                    switch result {
+                    case .data(let string):
+                        guard let string = string else {
+                            completion(.error(ErrorString("TBD"))) // TODO: Better error
+                            return
+                        }
+                        
+                        do {
+                            let deserialized: ReturnValue = try GenericSerialization.deserialize(string: string, decoder: decoderFactory.decoder())
+                            completion(.data(deserialized))
+                        } catch {
+                            completion(.error(error))
+                        }
+                    case .error(let error):
+                        completion(.error(error))
+                    }
+                }
+
+                ipcClient.call(
+                    method: method,
+                    arguments: arguments,
+                    completion: completion
+                )
+            } catch {
+                completion(.error(error))
+            }
         }
     }
 }

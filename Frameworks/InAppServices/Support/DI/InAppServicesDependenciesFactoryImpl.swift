@@ -7,6 +7,7 @@ import MixboxTestability
 import MixboxUiKit
 
 public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenciesFactory {
+    public let iosVersionProvider: IosVersionProvider
     public let ipcStarter: IpcStarter
     public let assertingSwizzler: AssertingSwizzler
     public let assertionFailureRecorder: AssertionFailureRecorder
@@ -79,9 +80,11 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         
         let shouldEnableFakeCells = (environment["MIXBOX_SHOULD_ENABLE_FAKE_CELLS"] ?? "true") == "true"
         
+        iosVersionProvider = UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
+        
         let accessibilityLabelSwizzlerFactory = AccessibilityLabelSwizzlerFactoryImpl(
             allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactoryImpl(),
-            iosVersionProvider: UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
+            iosVersionProvider: iosVersionProvider
         )
         
         collectionViewCellSwizzler = CollectionViewCellSwizzlerImpl(

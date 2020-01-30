@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
 import MixboxIpcCommon
+import MixboxInAppServices
 
 // TODO: Share code between black-box and gray-box.
 final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory {
@@ -16,7 +17,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let keyboardEventInjector: KeyboardEventInjector
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
-    let windowsProvider: WindowsProvider
+    let orderedWindowsProvider: OrderedWindowsProvider
     let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
     let waiter: RunLoopSpinningWaiter
@@ -24,6 +25,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     let snapshotsComparatorFactory: SnapshotsComparatorFactory
     let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
+    let applicationWindowsProvider: ApplicationWindowsProvider
     
     // MARK: - Init
     
@@ -36,12 +38,13 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
         screenshotTaker: ScreenshotTaker,
-        windowsProvider: WindowsProvider,
+        orderedWindowsProvider: OrderedWindowsProvider,
         waiter: RunLoopSpinningWaiter,
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
-        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
+        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
+        applicationWindowsProvider: ApplicationWindowsProvider)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -51,7 +54,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.elementFinder = elementFinder
         self.pollingConfiguration = pollingConfiguration
         self.screenshotTaker = screenshotTaker
-        self.windowsProvider = windowsProvider
+        self.orderedWindowsProvider = orderedWindowsProvider
         self.waiter = waiter
         self.signpostActivityLogger = signpostActivityLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
@@ -71,7 +74,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         )
         
         let windowForPointProvider = WindowForPointProviderImpl(
-            windowsProvider: windowsProvider
+            orderedWindowsProvider: orderedWindowsProvider
         )
         
         elementSimpleGesturesProvider = GrayElementSimpleGesturesProvider(
@@ -93,6 +96,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         )
         
         self.applicationQuiescenceWaiter = applicationQuiescenceWaiter
+        self.applicationWindowsProvider = applicationWindowsProvider
     }
     
     // MARK: - GrayBoxTestsDependenciesFactory

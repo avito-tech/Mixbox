@@ -14,10 +14,25 @@ public final class SbtuiIpcClient: IpcClient {
         arguments: Method.Arguments,
         completion: @escaping (DataResult<Method.ReturnValue, Error>) -> ())
     {
-        guard let encodedObject = GenericSerialization.serialize(value: arguments) else {
-            completion(.error(ErrorString("encodingError"))) // TODO: Better error
-            return
+        do {
+            let result = try callSyncronously(
+                method: method,
+                arguments: arguments
+            )
+            
+            completion(.data(result))
+        } catch {
+            completion(.error(error))
         }
+    }
+    
+    private func callSyncronously<Method: IpcMethod>(
+        method: Method,
+        arguments: Method.Arguments)
+        throws
+        -> Method.ReturnValue
+    {
+        let encodedObject = try GenericSerialization.serialize(value: arguments)
         
         let response = application.performCustomCommandNamed(
             "customCommand:\(method.name)",
@@ -25,20 +40,15 @@ public final class SbtuiIpcClient: IpcClient {
         )
         
         guard let receivedResponse = response else {
-            completion(.error(ErrorString("noResponse"))) // TODO: Better error
-            return
+            throw ErrorString("performCustomCommandNamed returened nil")
         }
         
         guard let stringResponse = receivedResponse as? String else {
-            completion(.error(ErrorString("decodingError"))) // TODO: Better error
-            return
+            throw ErrorString("performCustomCommandNamed returned object that is not string: \(receivedResponse)")
         }
         
-        guard let decodedResponse: Method.ReturnValue = GenericSerialization.deserialize(string: stringResponse) else {
-            completion(.error(ErrorString("decodingError"))) // TODO: Better error
-            return
-        }
+        let decodedResponse: Method.ReturnValue = try GenericSerialization.deserialize(string: stringResponse)
         
-        completion(.data(decodedResponse))
+        return decodedResponse
     }
 }

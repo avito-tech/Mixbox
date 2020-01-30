@@ -142,7 +142,6 @@ IOHIDEventRef IOHIDEventCreateDigitizerFingerEvent(CFAllocatorRef allocator,
 
 @interface UIApplication (AppleInternals)
 - (BOOL)_isSpringBoardShowingAnAlert;
-- (UIWindow *)statusBarWindow;
 /**
  *  Changes the main runloop to run in the specified mode, pushing it to the top of the stack of
  *  current modes.

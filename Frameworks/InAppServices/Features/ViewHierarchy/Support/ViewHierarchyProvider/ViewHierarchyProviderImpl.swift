@@ -3,9 +3,17 @@
 import MixboxIpcCommon
 import UIKit
 
-// TODO: Remove singletons
+// TODO: Remove AccessibilityUniqueObjectMap singleton
 public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {
-    public init() {
+    private let applicationWindowsProvider: ApplicationWindowsProvider
+    private let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
+    
+    public init(
+        applicationWindowsProvider: ApplicationWindowsProvider,
+        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher)
+    {
+        self.applicationWindowsProvider = applicationWindowsProvider
+        self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
     }
     
     public func viewHierarchy() -> ViewHierarchy {
@@ -14,15 +22,19 @@ public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {
     
     // MARK: - Private
     private func buildRootViewHierarchyElements() -> [ViewHierarchyElement] {
-        return UIApplication.shared.windows.map(buildRootViewHierarchyElement)
+        return applicationWindowsProvider.windows.map(buildRootViewHierarchyElement)
     }
     
     private func buildRootViewHierarchyElement(from view: UIView) -> ViewHierarchyElement {
         AccessibilityUniqueObjectMap.shared.register(object: view)
         
         return ViewHierarchyElement(
-            frame: view.frame,
-            frameRelativeToScreen: view.convert(view.bounds, to: nil),
+            frame: floatValuesForSr5346Patcher.patched(
+                frame: view.frame
+            ),
+            frameRelativeToScreen: floatValuesForSr5346Patcher.patched(
+                frame: view.convert(view.bounds, to: nil)
+            ),
             customClass: String(describing: type(of: view)),
             elementType: TestabilityElementTypeConverter.covertToViewHierarchyElementType(
                 elementType: view.testabilityValue_elementType()

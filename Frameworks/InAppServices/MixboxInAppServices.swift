@@ -86,7 +86,15 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         router.register(methodHandler: PercentageOfVisibleAreaIpcMethodHandler())
         router.register(
             methodHandler: ViewHierarchyIpcMethodHandler(
-                viewHierarchyProvider: ViewHierarchyProviderImpl()
+                viewHierarchyProvider: ViewHierarchyProviderImpl(
+                    applicationWindowsProvider: UiApplicationWindowsProvider(
+                        uiApplication: UIApplication.shared,
+                        iosVersionProvider: inAppServicesDependenciesFactory.iosVersionProvider
+                    ),
+                    floatValuesForSr5346Patcher: FloatValuesForSr5346PatcherImpl(
+                        iosVersionProvider: inAppServicesDependenciesFactory.iosVersionProvider
+                    )
+                )
             )
         )
         

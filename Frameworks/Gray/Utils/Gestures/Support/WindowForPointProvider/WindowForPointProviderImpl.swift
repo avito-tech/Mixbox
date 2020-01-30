@@ -1,12 +1,12 @@
 public final class WindowForPointProviderImpl: WindowForPointProvider {
-    private let windowsProvider: WindowsProvider
+    private let orderedWindowsProvider: OrderedWindowsProvider
     
-    public init(windowsProvider: WindowsProvider) {
-        self.windowsProvider = windowsProvider
+    public init(orderedWindowsProvider: OrderedWindowsProvider) {
+        self.orderedWindowsProvider = orderedWindowsProvider
     }
     
     public func window(point: CGPoint) -> UIWindow? {
-        return windowsProvider.windowsFromTopMostToBottomMost().first { (window) -> Bool in
+        return orderedWindowsProvider.windowsFromTopMostToBottomMost().first { (window) -> Bool in
             window.point(inside: point, with: nil)
                 && window.hitTest(point, with: nil) != nil
         }

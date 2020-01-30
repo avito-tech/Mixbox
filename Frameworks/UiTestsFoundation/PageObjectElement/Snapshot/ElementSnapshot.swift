@@ -48,16 +48,16 @@ extension ElementSnapshot {
             )
         }
         
-        guard let typedValue: T = GenericSerialization.deserialize(string: stringValue) else {
+        do {
+            return try GenericSerialization.deserialize(string: stringValue)
+        } catch {
             throw ErrorString(
                 """
                 Couldn't convert custom value for key "\(key)" to type "\(T.self)", \
-                value's string representation: "\(stringValue)"
+                value's string representation: "\(stringValue)". Error: \(error)
                 """
             )
         }
-        
-        return typedValue
     }
     
     // 1. Returns text (from testabilityValue_text).

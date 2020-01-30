@@ -74,7 +74,7 @@ extension EnhancedAccessibilityLabel {
     }
     
     public static func fromAccessibilityLabel(_ accessibilityLabel: String?) -> EnhancedAccessibilityLabel? {
-        let container: EnhancedAccessibilityContainer? = accessibilityLabel
+        let container: EnhancedAccessibilityContainer? = try? accessibilityLabel
             .flatMap(GenericSerialization.deserialize)
         
         return container?.enhancedAccessibilityLabel
@@ -84,7 +84,7 @@ extension EnhancedAccessibilityLabel {
         let container = EnhancedAccessibilityContainer(
             enhancedAccessibilityLabel: self
         )
-        return GenericSerialization.serialize(value: container)
+        return try? GenericSerialization.serialize(value: container)
     }
 }
 
