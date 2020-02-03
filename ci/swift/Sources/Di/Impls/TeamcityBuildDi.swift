@@ -14,8 +14,24 @@ public final class TeamcityBuildDi: CommonDi {
         container.register(type: LocalTaskExecutor.self) {
             TeamcityLocalTaskExecutor()
         }
-        container.register(type: ToolchainConfigurationProvider.self) {
-            ToolchainConfigurationProviderImpl()
+        container.register(type: RemoteCacheConfigProvider.self) {
+            let environmentProvider: EnvironmentProvider = try container.resolve()
+            
+            return RemoteCacheConfigProviderImpl(
+                fileDownloader: try container.resolve(),
+                remoteCacheConfigJsonUrl: try environmentProvider.getUrlOrThrow(
+                    env: Env.MIXBOX_CI_EMCEE_REMOTE_CACHE_CONFIG
+                )
+            )
+        }
+        container.register(type: DeveloperDirProvider.self) {
+            let environmentProvider: EnvironmentProvider = try container.resolve()
+            
+            return DeveloperDirProviderImpl(
+                xcodeCFBundleShortVersionString: try environmentProvider.getOrThrow(
+                    env: Env.MIXBOX_CI_XCODE_VERSION
+                ) 
+            )
         }
         container.register(type: SimulatorSettingsProvider.self) {
             SimulatorSettingsProviderImpl(

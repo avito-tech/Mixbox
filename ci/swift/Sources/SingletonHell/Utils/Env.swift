@@ -2,25 +2,36 @@ import Foundation
 import CiFoundation
 
 public enum Env: String {
-    case MIXBOX_CI_BLUEPILL_ZIP_PATH
+    // Bash CI (to select Swift CI build)
     case MIXBOX_CI_BUILD_EXECUTABLE
+    
+    // Swift CI external envs:
     case MIXBOX_CI_DESTINATION
+    case MIXBOX_CI_FILE_UPLOADER_URL
+    case MIXBOX_CI_XCODE_VERSION
+    
+    // Swift CI external envs, Emcee:
     case MIXBOX_CI_EMCEE_FBSIMCTL_URL
     case MIXBOX_CI_EMCEE_FBXCTEST_URL
     case MIXBOX_CI_EMCEE_PATH
     case MIXBOX_CI_EMCEE_QUEUE_SERVER_RUN_CONFIGURATION_URL
     case MIXBOX_CI_EMCEE_SHARED_QUEUE_DEPLOYMENT_DESTINATIONS_URL
     case MIXBOX_CI_EMCEE_URL
-    case MIXBOX_CI_FILE_UPLOADER_URL
-    case MIXBOX_CI_IS_CI_BUILD
+    case MIXBOX_CI_EMCEE_REMOTE_CACHE_CONFIG
+    
+    // Swift CI external envs, outdated:
     case MIXBOX_CI_REPORTS_PATH
-    case MIXBOX_CI_TRAVIS_BUILD
-    case MIXBOX_CI_UPLOADER_EXECUTABLE
-    case MIXBOX_CI_LOG_LEVEL
+    
+    // Swift CI external envs, for manual executing:
+    case MIXBOX_CI_AUTOCORRECT_ENABLED
+    
+    // Swift CI internal envs (that are passed to tests):
     case MIXBOX_CI_USES_FBXCTEST
+    case MIXBOX_CI_IS_CI_BUILD
+    case MIXBOX_IPC_STARTER_TYPE
+    
+    // Cocoapods envs:
     case MIXBOX_PUSHSPEC_STYLE
-    case MIXBOX_CI_WATCHDOG_SETTINGS_URL
-    case MIXBOX_CI_SIMULATOR_LOCALIZATION_URL
 }
 
 extension EnvironmentProvider {

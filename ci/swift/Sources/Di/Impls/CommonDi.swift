@@ -43,6 +43,9 @@ open class CommonDi: BaseDi {
         container.register(type: DecodableFromJsonFileLoader.self) {
             DecodableFromJsonFileLoaderImpl()
         }
+        container.register(type: SimulatorOperationTimeoutsProvider.self) {
+            DefaultSimulatorOperationTimeoutsProvider()
+        }
         container.register(type: EmceeProvider.self) {
             CachingEmceeProvider(
                 emceeProvider: InstallingEmceeProvider(
@@ -52,7 +55,9 @@ open class CommonDi: BaseDi {
                     decodableFromJsonFileLoader: try container.resolve(),
                     jsonFileFromEncodableGenerator: try container.resolve(),
                     simulatorSettingsProvider: try container.resolve(),
-                    toolchainConfigurationProvider: try container.resolve()
+                    developerDirProvider: try container.resolve(),
+                    remoteCacheConfigProvider: try container.resolve(),
+                    simulatorOperationTimeoutsProvider: try container.resolve()
                 )
             )
         }
@@ -106,7 +111,8 @@ open class CommonDi: BaseDi {
                 emceeFileUploader: try container.resolve(),
                 jsonFileFromEncodableGenerator: try container.resolve(),
                 simulatorSettingsProvider: try container.resolve(),
-                toolchainConfigurationProvider: try container.resolve()
+                developerDirProvider: try container.resolve(),
+                simulatorOperationTimeoutsProvider: try container.resolve()
             )
         }
         container.register(type: EmceeFileUploader.self) {

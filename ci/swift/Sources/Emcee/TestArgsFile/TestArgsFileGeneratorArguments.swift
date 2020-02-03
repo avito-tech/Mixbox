@@ -2,6 +2,7 @@ import Models
 import RuntimeDump
 import Foundation
 import Destinations
+import BuildArtifacts
 
 // NOTE: Tightly coupled with Mixbox CI and can hardly be reused for other projects.
 public final class TestArgFileGeneratorArguments {

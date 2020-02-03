@@ -2,6 +2,7 @@ import Emcee
 import Models
 import CiFoundation
 import SingletonHell
+import SimulatorPoolModels
 
 public final class SimulatorSettingsProviderImpl: SimulatorSettingsProvider {
     private let environmentProvider: EnvironmentProvider

@@ -8,7 +8,9 @@ public final class InstallingEmceeProvider: EmceeProvider {
     private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
     private let jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator
     private let simulatorSettingsProvider: SimulatorSettingsProvider
-    private let toolchainConfigurationProvider: ToolchainConfigurationProvider
+    private let developerDirProvider: DeveloperDirProvider
+    private let remoteCacheConfigProvider: RemoteCacheConfigProvider
+    private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -17,7 +19,9 @@ public final class InstallingEmceeProvider: EmceeProvider {
         decodableFromJsonFileLoader: DecodableFromJsonFileLoader,
         jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator,
         simulatorSettingsProvider: SimulatorSettingsProvider,
-        toolchainConfigurationProvider: ToolchainConfigurationProvider)
+        developerDirProvider: DeveloperDirProvider,
+        remoteCacheConfigProvider: RemoteCacheConfigProvider,
+        simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
@@ -25,7 +29,9 @@ public final class InstallingEmceeProvider: EmceeProvider {
         self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
         self.jsonFileFromEncodableGenerator = jsonFileFromEncodableGenerator
         self.simulatorSettingsProvider = simulatorSettingsProvider
-        self.toolchainConfigurationProvider = toolchainConfigurationProvider
+        self.developerDirProvider = developerDirProvider
+        self.remoteCacheConfigProvider = remoteCacheConfigProvider
+        self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
     }
     
     public func emcee() throws -> Emcee {
@@ -41,10 +47,13 @@ public final class InstallingEmceeProvider: EmceeProvider {
                 decodableFromJsonFileLoader: decodableFromJsonFileLoader,
                 jsonFileFromEncodableGenerator: jsonFileFromEncodableGenerator,
                 simulatorSettingsProvider: simulatorSettingsProvider,
-                toolchainConfigurationProvider: toolchainConfigurationProvider
+                developerDirProvider: developerDirProvider,
+                remoteCacheConfigProvider: remoteCacheConfigProvider,
+                simulatorOperationTimeoutsProvider: simulatorOperationTimeoutsProvider
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
-                emceeExecutable: emceeExecutable
+                emceeExecutable: emceeExecutable,
+                remoteCacheConfigProvider: remoteCacheConfigProvider
             )
         )
     }

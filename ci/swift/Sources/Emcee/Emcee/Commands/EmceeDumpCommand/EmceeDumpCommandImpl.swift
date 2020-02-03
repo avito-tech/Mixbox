@@ -2,6 +2,12 @@ import CiFoundation
 import Foundation
 import Models
 import RuntimeDump
+import TestArgFile
+import BuildArtifacts
+import ResourceLocation
+import SimulatorPoolModels
+import RunnerModels
+import QueueModels
 
 public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let temporaryFileProvider: TemporaryFileProvider
@@ -9,7 +15,9 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let decodableFromJsonFileLoader: DecodableFromJsonFileLoader
     private let jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator
     private let simulatorSettingsProvider: SimulatorSettingsProvider
-    private let toolchainConfigurationProvider: ToolchainConfigurationProvider
+    private let developerDirProvider: DeveloperDirProvider
+    private let remoteCacheConfigProvider: RemoteCacheConfigProvider
+    private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -17,14 +25,18 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         decodableFromJsonFileLoader: DecodableFromJsonFileLoader,
         jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator,
         simulatorSettingsProvider: SimulatorSettingsProvider,
-        toolchainConfigurationProvider: ToolchainConfigurationProvider)
+        developerDirProvider: DeveloperDirProvider,
+        remoteCacheConfigProvider: RemoteCacheConfigProvider,
+        simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.emceeExecutable = emceeExecutable
         self.decodableFromJsonFileLoader = decodableFromJsonFileLoader
         self.jsonFileFromEncodableGenerator = jsonFileFromEncodableGenerator
         self.simulatorSettingsProvider = simulatorSettingsProvider
-        self.toolchainConfigurationProvider = toolchainConfigurationProvider
+        self.developerDirProvider = developerDirProvider
+        self.remoteCacheConfigProvider = remoteCacheConfigProvider
+        self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
     }
     
     public func dump(
@@ -82,33 +94,33 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                         ),
                         additionalApplicationBundles: [] as [AdditionalAppBundleLocation]
                     ),
+                    developerDir: try developerDirProvider.developerDir(),
                     environment: [:],
                     numberOfRetries: 5,
                     pluginLocations: Set(),
                     scheduleStrategy: .progressive,
+                    simulatorControlTool: .fbsimctl(FbsimctlLocation(ResourceLocation.from(arguments.fbsimctl))),
+                    simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,
+                    testRunnerTool: .fbxctest(FbxctestLocation(ResourceLocation.from(arguments.fbxctest))),
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
                     ),
                     testType: TestType.logicTest,
-                    testsToRun: [],
-                    toolResources: ToolResources(
-                        simulatorControlTool: .fbsimctl(FbsimctlLocation(ResourceLocation.from(arguments.fbsimctl))),
-                        testRunnerTool: .fbxctest(FbxctestLocation(ResourceLocation.from(arguments.fbxctest)))
-                    ),
-                    toolchainConfiguration: try toolchainConfigurationProvider.toolchainConfiguration()
+                    testsToRun: []
                 )
             ],
-            priority: Priority.medium,
+            priority: .medium,
             testDestinationConfigurations: arguments.testDestinationConfigurations
         )
         
         let staticArguments = [
             "--test-arg-file", try jsonFileFromEncodableGenerator.generateJsonFile(encodable: testArgFile),
             "--temp-folder", arguments.tempFolder,
-            "--output", jsonPath
+            "--output", jsonPath,
+            "--remote-cache-config", try remoteCacheConfigProvider.remoteCacheConfigJsonFilePath()
         ]
         
         return staticArguments

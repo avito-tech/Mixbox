@@ -105,9 +105,9 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
     
     private func environment() -> [String: String] {
         return [
-            "MIXBOX_IPC_STARTER_TYPE": "graybox",
-            "MIXBOX_CI_USES_FBXCTEST": "true",
-            "MIXBOX_CI_IS_CI_BUILD": "true"
+            Env.MIXBOX_IPC_STARTER_TYPE.rawValue: "graybox",
+            Env.MIXBOX_CI_USES_FBXCTEST.rawValue: "true",
+            Env.MIXBOX_CI_IS_CI_BUILD.rawValue: "true"
         ]
     }
 }

@@ -6,13 +6,16 @@ import Darwin
 public final class ConditionalCompilationClausesCheckerImpl: ConditionalCompilationClausesChecker {
     private let missingConditionalCompilationClausesProvider: MissingConditionalCompilationClausesProvider
     private let missingConditionalCompilationClausesAutocorrector: MissingConditionalCompilationClausesAutocorrector
+    private let autocorrectionIsEnabled: Bool
     
     public init(
         missingConditionalCompilationClausesProvider: MissingConditionalCompilationClausesProvider,
-        missingConditionalCompilationClausesAutocorrector: MissingConditionalCompilationClausesAutocorrector)
+        missingConditionalCompilationClausesAutocorrector: MissingConditionalCompilationClausesAutocorrector,
+        autocorrectionIsEnabled: Bool)
     {
         self.missingConditionalCompilationClausesProvider = missingConditionalCompilationClausesProvider
         self.missingConditionalCompilationClausesAutocorrector = missingConditionalCompilationClausesAutocorrector
+        self.autocorrectionIsEnabled = autocorrectionIsEnabled
     }
     
     public func checkConditionalCompilationClauses() throws {
@@ -25,8 +28,6 @@ public final class ConditionalCompilationClausesCheckerImpl: ConditionalCompilat
             
             let listOfFiles = fileNames
                 .joined(separator: "\n")
-                
-            let autocorrectionIsEnabled = ProcessInfo.processInfo.environment["MIXBOX_CI_AUTOCORRECT_ENABLED"] == "true"
             
             let autocorrectionLogMessage = autocorrectionIsEnabled
                 ? "Those were autocorrected, because MIXBOX_CI_AUTOCORRECT_ENABLED environment variable is \"true\""

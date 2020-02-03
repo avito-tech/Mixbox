@@ -3,6 +3,13 @@ import RuntimeDump
 import Foundation
 import CiFoundation
 import Destinations
+import TestArgFile
+import BuildArtifacts
+import ResourceLocation
+import RunnerModels
+import QueueModels
+import SimulatorPoolModels
+import TypedResourceLocation
 
 public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeProvider: EmceeProvider
@@ -11,7 +18,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeFileUploader: EmceeFileUploader
     private let jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator
     private let simulatorSettingsProvider: SimulatorSettingsProvider
-    private let toolchainConfigurationProvider: ToolchainConfigurationProvider
+    private let developerDirProvider: DeveloperDirProvider
+    private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
     
     public init(
         emceeProvider: EmceeProvider,
@@ -20,7 +28,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         emceeFileUploader: EmceeFileUploader,
         jsonFileFromEncodableGenerator: JsonFileFromEncodableGenerator,
         simulatorSettingsProvider: SimulatorSettingsProvider,
-        toolchainConfigurationProvider: ToolchainConfigurationProvider)
+        developerDirProvider: DeveloperDirProvider,
+        simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider)
     {
         self.emceeProvider = emceeProvider
         self.temporaryFileProvider = temporaryFileProvider
@@ -28,7 +37,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         self.emceeFileUploader = emceeFileUploader
         self.jsonFileFromEncodableGenerator = jsonFileFromEncodableGenerator
         self.simulatorSettingsProvider = simulatorSettingsProvider
-        self.toolchainConfigurationProvider = toolchainConfigurationProvider
+        self.developerDirProvider = developerDirProvider
+        self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
     }
     
     public func testArgFile(
@@ -90,23 +100,22 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             entries: try testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFile.Entry in
                 try TestArgFile.Entry(
                     buildArtifacts: buildArtifacts,
+                    developerDir: try developerDirProvider.developerDir(),
                     environment: environment,
                     numberOfRetries: 4,
                     pluginLocations: Set(),
                     scheduleStrategy: .progressive,
+                    simulatorControlTool: .fbsimctl(FbsimctlLocation(.remoteUrl(fbsimctlUrl))),
+                    simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,
+                    testRunnerTool: .fbxctest(FbxctestLocation(.remoteUrl(fbxctestUrl))),
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
                     ),
                     testType: testType,
-                    testsToRun: testsToRun,
-                    toolResources: ToolResources(
-                        simulatorControlTool: .fbsimctl(FbsimctlLocation(.remoteUrl(fbsimctlUrl))),
-                        testRunnerTool: .fbxctest(FbxctestLocation(.remoteUrl(fbxctestUrl)))
-                    ),
-                    toolchainConfiguration: try toolchainConfigurationProvider.toolchainConfiguration()
+                    testsToRun: testsToRun
                 )
             },
             priority: try Priority(intValue: priority),

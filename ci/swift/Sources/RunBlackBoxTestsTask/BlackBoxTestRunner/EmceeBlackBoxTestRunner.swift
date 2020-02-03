@@ -110,8 +110,8 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     
     private func environment() -> [String: String] {
         return [
-            "MIXBOX_CI_USES_FBXCTEST": "true",
-            "MIXBOX_CI_IS_CI_BUILD": "true"
+            Env.MIXBOX_CI_USES_FBXCTEST.rawValue: "true",
+            Env.MIXBOX_CI_IS_CI_BUILD.rawValue: "true"
         ]
     }
 }

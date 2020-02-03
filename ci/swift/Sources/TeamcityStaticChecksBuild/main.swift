@@ -1,5 +1,7 @@
 import BuildDsl
 import StaticChecksTask
+import SingletonHell
+import CiFoundation
 
 BuildDsl.teamcity.main(
     diOverrides: { di in
@@ -43,9 +45,12 @@ BuildDsl.teamcity.main(
             )
         }
         di.register(type: ConditionalCompilationClausesChecker.self) {
-            ConditionalCompilationClausesCheckerImpl(
+            let environmentProvider: EnvironmentProvider = try di.resolve()
+            
+            return ConditionalCompilationClausesCheckerImpl(
                 missingConditionalCompilationClausesProvider: try di.resolve(),
-                missingConditionalCompilationClausesAutocorrector: try di.resolve()
+                missingConditionalCompilationClausesAutocorrector: try di.resolve(),
+                autocorrectionIsEnabled: environmentProvider.get(env: Env.MIXBOX_CI_AUTOCORRECT_ENABLED) == "true"
             )
         }
         di.register(type: SwiftLint.self) {
