@@ -1,86 +1,132 @@
 #!/bin/bash
 
-cd "$(dirname "$0")"
+# ====== bash_ci ======
+# This section should be same across all bash files in the project
+source "$(builtin cd "$(dirname "$0")" && git rev-parse --show-toplevel)/ci/bash/bash_ci.sh"
+# =====================
 
-set -x
+main() {
+    local action=$1
+    
+    cd "$SCRIPT_ROOT"
 
-# Local variable for this script:
-__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET=x86_64-apple-macosx10.14
-
-generatePackage() {
-    ./MakePackage/make_package || exit 1
+    __MIXBOX_CI_MACOS_DEPLOYMENT_TARGET=x86_64-apple-macosx10.14
+    __MIXBOX_CI_OPTIMIZE_SPEED=false
+    
+    case "$action" in
+        generate) generate_project;;
+        reopen-fast) __MIXBOX_CI_OPTIMIZE_SPEED=true; reopen_project;;
+        reopen) reopen_project $2;;
+        clean) clean_project;;
+        build) build_project $2;;
+        test) test_project;;
+        *) __fatal_error "Unknown action: $action. Known actions: generate, reopen, reopen-fast, clean, build (TravisLogicTestsBuild), test";;
+    esac
 }
 
-generateProject() {
-    generatePackage
+# Actions
+
+generate_project() {
+    generate_package
+    
     swift package generate-xcodeproj --xcconfig-overrides Package.xcconfig --enable-code-coverage
 }
 
-clean() {
+reopen_project() {
+    local xcode_app_name=`xcode-select -p|grep -oE "([^/]+.app)"|sed 's/\.app//'`
+    local xcodeproj_relative=`ls -1|grep ".xcodeproj"`
+    local xcodeproj_absolute=$SCRIPT_ROOT/$xcodeproj_relative
+    local option=$2
+    
+    # Very useful for local developement
+    if [ "$option" == fast ]
+    then
+        __MIXBOX_CI_OPTIMIZE_SPEED=true
+    fi
+    
+    osascript -e '
+        tell application "'$xcode_app_name'"
+           tell workspace document "'$xcodeproj_relative'"
+               close saving yes
+           end tell
+        end tell' || __ignore_error
+    
+    if ! generate_project
+    then
+        open "Package.swift"
+        __fatal_error "Failed to generate project"
+    fi
+    
+    echo "Ignore the following \"missing value\" log:"
+    osascript -e '
+        tell application "'$xcode_app_name'"
+           open "'$xcodeproj_absolute'"
+        end tell'
+
+    echo "Quote from Apple:"
+    echo "> KNOWN ISSUE: The open command in Xcode sometimes fails to return the opened document."
+    echo "> It is recommended to ignore the result of the open command and instead find the opened"
+    echo "> document in the application's documents."
+}
+
+clean_project() {
     swift package clean
     swift package reset
-    rm -rf .build/
+    rm -rf .build
     rm -rf *.xcodeproj
 }
 
-case "$1" in
-    generate)
-        generateProject
-        ;;
-    reopen)
-        xcodeAppName=`xcode-select -p|grep -oE "([^/]+.app)"|sed 's/\.app//'`
-        xcodeprojRelative=`ls -1|grep ".xcodeproj"`
-        xcodeprojAbsolute=$(pwd)/$xcodeprojRelative
-    	osascript -e '
-            tell application "'$xcodeAppName'"
-               tell workspace document "'$xcodeprojRelative'"
-                   close saving yes
-               end tell
-            end tell'
-        
-        if ! generateProject
-        then
-            open Package.swift
-            exit 1
-        fi
-        
-        echo "Ignore the following \"missing value\" log:"
-    	osascript -e '
-            tell application "'$xcodeAppName'"
-               open "'$xcodeprojAbsolute'"
-            end tell'
+build_project() {
+    local product=$1
 
-        echo "Quote from Apple:"
-        echo "> KNOWN ISSUE: The open command in Xcode sometimes fails to return the opened document."
-        echo "> It is recommended to ignore the result of the open command and instead find the opened"
-        echo "> document in the application's documents."
-        
-        ;;
-    clean)
-        clean
-        ;;
-    build)
-        clean
-        args=( \
-            swift build \
-            -c release \
-            -Xswiftc -Onone \
-            -Xswiftc -whole-module-optimization \
-            -Xswiftc -target \
-            -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET" \
-            --static-swift-stdlib \
-        )
-        if ! [ -z "$2" ]
-        then
-            args=("${args[@]}" --product "$2")
-        fi
-        
-        "${args[@]}"
-        ;;
-    test)
-        clean
-        swift test \
-            -Xswiftc -target \
-            -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET"
-        ;;
-esac
+    if [ "$__MIXBOX_CI_OPTIMIZE_SPEED" != "true" ]
+    then
+        clean_project
+    fi
+    
+    args=( \
+        swift build \
+        -c release \
+        -Xswiftc -Onone \
+        -Xswiftc -whole-module-optimization \
+        -Xswiftc -target \
+        -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET" \
+        --static-swift-stdlib \
+    )
+    
+    if ! [ -z "$product" ]
+    then
+        args=("${args[@]}" --product "$product")
+    fi
+    
+    "${args[@]}"
+}
+
+test_project() {
+    if [ "$__MIXBOX_CI_OPTIMIZE_SPEED" != "true" ]
+    then
+        clean_project
+    fi
+    
+    swift test \
+        -Xswiftc -target \
+        -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET"
+}
+
+# Support
+
+generate_package() {
+    if [ "$__MIXBOX_CI_OPTIMIZE_SPEED" != "true" ]
+    then
+        bash_ci_require_pyenv make_v1
+        bash_ci_require_python_packages ./MakePackage/requirements.txt
+    fi
+    
+    bash_ci_run_python3 ./MakePackage/make_package.py || exit 1
+}
+#
+#fix_permissions() {
+#    chmod -R ug+Xrw "$SCRIPT_ROOT"
+#}
+
+main "$@"

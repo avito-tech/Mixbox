@@ -29,7 +29,7 @@ def render(dict_to_render):
     template_name = "Package.swift.template"
 
     loader = jinja2.FileSystemLoader(script_dir)
-    jinja_environment = jinja2.Environment(loader=loader)
+    jinja_environment = jinja2.Environment(loader=loader, autoescape=True)
     template = jinja_environment.get_template(template_name)
 
     return template.render(dict_to_render)
