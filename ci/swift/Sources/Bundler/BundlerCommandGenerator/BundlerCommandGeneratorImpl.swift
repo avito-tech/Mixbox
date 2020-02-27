@@ -33,12 +33,18 @@ public final class BundlerCommandGeneratorImpl: BundlerCommandGenerator {
     }
     
     private func installBundler() throws {
+        let bundlerVersion = "2.0.2"
+        
         _ = try bashExecutor.executeOrThrow(
             command: """
-            gem install bundler -v 2.0.2 --force
+            gem install bundler -v \(bundlerVersion) --force
             
             bundle install --gemfile="\(try gemfileLocationProvider.gemfileLocation())"
-            """
+            """,
+            stdoutDataHandler: { _ in },
+            stderrDataHandler: { _ in }
         )
+        
+        print("Successfully installed bundler \(bundlerVersion)")
     }
 }
