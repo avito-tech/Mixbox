@@ -16,13 +16,13 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
         -> [PredefinedObjcMethodsWithUniqueImplementationBatch]
     {
         return [
-            ios11Till13Batch(iosMajorVersion: 11),
-            ios11Till13Batch(iosMajorVersion: 12),
-            ios11Till13Batch(iosMajorVersion: 13)
+            ios11Till12Batch(iosMajorVersion: 11),
+            ios11Till12Batch(iosMajorVersion: 12),
+            ios13Batch()
         ]
     }
     
-    private func ios11Till13Batch(iosMajorVersion: Int) -> PredefinedObjcMethodsWithUniqueImplementationBatch {
+    private func ios11Till12Batch(iosMajorVersion: Int) -> PredefinedObjcMethodsWithUniqueImplementationBatch {
         return batch(
             iosMajorVersion: iosMajorVersion,
             methods: [
@@ -31,6 +31,25 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
                 method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
                 method(class: "UIView"),
                 method(class: "NSObject")
+            ]
+        )
+    }
+    
+    private func ios13Batch() -> PredefinedObjcMethodsWithUniqueImplementationBatch {
+        return batch(
+            iosMajorVersion: 13,
+            methods: [
+                method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
+                method(class: "UIAccessibilityTextFieldElement"),
+                method(class: "NSObject"),
+                method(class: "UIShareGroupActivityCellAccessibility"),
+                method(class: "UIActivityActionGroupCellAccessibility"),
+                method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
+                method(class: "__UIActivityActionGroupCellAccessibility_super"),
+                method(class: "__UIShareGroupActivityCellAccessibility_super"),
+                method(class: "UIActivityActionGroupCell"),
+                method(class: "UIShareGroupActivityCell"),
+                method(class: "UIView")
             ]
         )
     }
