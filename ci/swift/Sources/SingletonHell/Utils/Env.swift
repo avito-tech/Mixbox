@@ -24,6 +24,7 @@ public enum Env: String {
     
     // Swift CI external envs, for manual executing:
     case MIXBOX_CI_AUTOCORRECT_ENABLED
+    case MIXBOX_CI_RUN_ONLY_ONE_TEST
     
     // Swift CI internal envs (that are passed to tests):
     case MIXBOX_CI_USES_FBXCTEST

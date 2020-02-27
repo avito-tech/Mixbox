@@ -57,7 +57,8 @@ open class CommonDi: BaseDi {
                     simulatorSettingsProvider: try container.resolve(),
                     developerDirProvider: try container.resolve(),
                     remoteCacheConfigProvider: try container.resolve(),
-                    simulatorOperationTimeoutsProvider: try container.resolve()
+                    simulatorOperationTimeoutsProvider: try container.resolve(),
+                    environmentProvider: try container.resolve()
                 )
             )
         }

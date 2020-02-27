@@ -8,6 +8,7 @@ import ResourceLocation
 import SimulatorPoolModels
 import RunnerModels
 import QueueModels
+import SingletonHell
 
 public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let temporaryFileProvider: TemporaryFileProvider
@@ -18,6 +19,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let developerDirProvider: DeveloperDirProvider
     private let remoteCacheConfigProvider: RemoteCacheConfigProvider
     private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
+    private let environmentProvider: EnvironmentProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -27,7 +29,8 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         simulatorSettingsProvider: SimulatorSettingsProvider,
         developerDirProvider: DeveloperDirProvider,
         remoteCacheConfigProvider: RemoteCacheConfigProvider,
-        simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider)
+        simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider,
+        environmentProvider: EnvironmentProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.emceeExecutable = emceeExecutable
@@ -37,6 +40,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         self.developerDirProvider = developerDirProvider
         self.remoteCacheConfigProvider = remoteCacheConfigProvider
         self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
+        self.environmentProvider = environmentProvider
     }
     
     public func dump(
@@ -59,9 +63,15 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                 throw ErrorString("Unexpected length of array in runtime dump file: \(entries.count), expected 1")
             }
             
-            return RuntimeDump(
-                runtimeTestEntries: try entries.first.unwrapOrThrow()
-            )
+            if environmentProvider.get(env: Env.MIXBOX_CI_RUN_ONLY_ONE_TEST) == "true" {
+                return RuntimeDump(
+                    runtimeTestEntries: [try entries.first.unwrapOrThrow().first.unwrapOrThrow()]
+                )
+            } else {
+                return RuntimeDump(
+                    runtimeTestEntries: try entries.first.unwrapOrThrow()
+                )
+            }
         } catch {
             throw ErrorString("Failed to perform runtime dump: \(error)")
         }

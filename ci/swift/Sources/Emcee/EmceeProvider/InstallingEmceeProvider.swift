@@ -11,6 +11,7 @@ public final class InstallingEmceeProvider: EmceeProvider {
     private let developerDirProvider: DeveloperDirProvider
     private let remoteCacheConfigProvider: RemoteCacheConfigProvider
     private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
+    private let environmentProvider: EnvironmentProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -21,7 +22,8 @@ public final class InstallingEmceeProvider: EmceeProvider {
         simulatorSettingsProvider: SimulatorSettingsProvider,
         developerDirProvider: DeveloperDirProvider,
         remoteCacheConfigProvider: RemoteCacheConfigProvider,
-        simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider)
+        simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider,
+        environmentProvider: EnvironmentProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
@@ -32,6 +34,7 @@ public final class InstallingEmceeProvider: EmceeProvider {
         self.developerDirProvider = developerDirProvider
         self.remoteCacheConfigProvider = remoteCacheConfigProvider
         self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
+        self.environmentProvider = environmentProvider
     }
     
     public func emcee() throws -> Emcee {
@@ -49,7 +52,8 @@ public final class InstallingEmceeProvider: EmceeProvider {
                 simulatorSettingsProvider: simulatorSettingsProvider,
                 developerDirProvider: developerDirProvider,
                 remoteCacheConfigProvider: remoteCacheConfigProvider,
-                simulatorOperationTimeoutsProvider: simulatorOperationTimeoutsProvider
+                simulatorOperationTimeoutsProvider: simulatorOperationTimeoutsProvider,
+                environmentProvider: environmentProvider
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
                 emceeExecutable: emceeExecutable,
