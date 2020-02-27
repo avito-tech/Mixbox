@@ -84,19 +84,7 @@ __install_command_line_tools() {
 __install_mac_os_sdk_headers_if_needed() {
     # Example: "10.14"
     local short_mac_os_version=`system_profiler SPSoftwareDataType | grep "System Version" | awk '{print $4}' | sed "s:.[[:digit:]]*.$::g"`
-    pkgutil --pkg-info="com.apple.pkg.macOS_SDK_headers_for_macOS_$short_mac_os_version" || __install_mac_os_sdk_headers_using_installer
-}
-
-# TODO: Check. It seems that it is outdated and can be removed:
-__install_mac_os_sdk_headers_using_installer() {
-    local short_mac_os_version=$1
-    local expected_package_path="/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_$short_mac_os_version.pkg"
-    if [[ -f "$expected_package_path" ]]; then
-        sudo installer -pkg "$expectedPackagePath" -target /
-    else
-        # The package appeared in Mojave, in case it is not found, print this:
-        echo "WARNING: no SDK headers package was found. If pyenv fails to install, then probably headers must be installed first."
-    fi
+    pkgutil --pkg-info="com.apple.pkg.macOS_SDK_headers_for_macOS_$short_mac_os_version"
 }
 
 __assert_pyenv_is_set_up() {
