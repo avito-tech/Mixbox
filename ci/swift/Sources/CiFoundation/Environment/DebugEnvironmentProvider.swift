@@ -36,11 +36,11 @@ public final class DebugEnvironmentProvider: EnvironmentProvider {
         
         let equalsSignSeparatedKeyValues = whitespaceSeparatedEnvironment.split(
             separator: " ",
-            omittingEmptySubsequences: false
+            omittingEmptySubsequences: true
         )
         
         for equalsSignSeparatedKeyValue in equalsSignSeparatedKeyValues {
-            let keyValueAsArray = equalsSignSeparatedKeyValue.split(separator: "=", omittingEmptySubsequences: false)
+            let keyValueAsArray = equalsSignSeparatedKeyValue.split(separator: "=", omittingEmptySubsequences: true)
             
             if keyValueAsArray.count == 2 {
                 let key = String(keyValueAsArray[0])
