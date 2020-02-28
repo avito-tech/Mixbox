@@ -58,16 +58,8 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
             }
         }
         
-        viewIpc.register(method: ResetUiIpcMethod<IpcVoid>()) { [weak self] _, completion in
-            guard let strongSelf = self else {
-                completion(IpcThrowingFunctionResult.threw("self is nil"))
-                return
-            }
-            
-            DispatchQueue.main.async {
-                strongSelf.info = .uiWasNotTriggered
-                completion(IpcThrowingFunctionResult.returned(IpcVoid()))
-            }
+        viewIpc.registerResetUiMethod(view: self) { view in
+            view.info = .uiWasNotTriggered
         }
         
         viewIpc.register(method: SetViewsIpcMethod()) { [weak self] viewModel, completion in

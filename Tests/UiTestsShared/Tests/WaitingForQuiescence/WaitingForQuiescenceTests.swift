@@ -36,21 +36,15 @@ final class WaitingForQuiescenceTests: TestCase {
         // But the test should check that action waits until deceleration ends, to avoid
         // any coincidences we try different offsets for view.
         for iteration in 0..<5 {
-            resetUi(buttonOffset: CGFloat(iteration) * 50)
+            let buttonOffset = CGFloat(iteration) * 50
+            
+            resetUi(argument: buttonOffset)
             
             tapAction()
             
             button.assertMatches {
                 $0.customValues["tapped"] == true
             }
-        }
-    }
-    
-    private func resetUi(buttonOffset: CGFloat) {
-        do {
-            try ipcClient.callOrFail(method: ResetUiIpcMethod<CGFloat>(), arguments: buttonOffset).getVoidReturnValue()
-        } catch {
-            XCTFail("Error calling ResetUiIpcMethod: \(error)")
         }
     }
 }

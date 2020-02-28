@@ -78,13 +78,4 @@ final class KeyboardEventInjectorImplTests: TestCase {
             try keyboardEventInjector.inject(builder: builder)
         }
     }
-    
-    // TODO: This code is copypasted. Reuse it.
-    private func resetUi() {
-        do {
-            try ipcClient.callOrFail(method: ResetUiIpcMethod<IpcVoid>()).getVoidReturnValue()
-        } catch {
-            XCTFail("Error calling ResetUiIpcMethod: \(error)")
-        }
-    }
 }

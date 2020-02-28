@@ -14,18 +14,8 @@ public final class KeyboardEventInjectorImplTestsView:
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
-        let viewIpc = testingViewControllerSettings.viewIpc
-        
-        viewIpc.register(method: ResetUiIpcMethod<IpcVoid>()) { [weak self] _, completion in
-            guard let strongSelf = self else {
-                completion(IpcThrowingFunctionResult.threw(ErrorString("self is nil")))
-                return
-            }
-            
-            DispatchQueue.main.async {
-                strongSelf.resetUi()
-                completion(IpcThrowingFunctionResult.returned(IpcVoid()))
-            }
+        testingViewControllerSettings.viewIpc.registerResetUiMethod(view: self) { view in
+            view.resetUi()
         }
         
         resetUi()

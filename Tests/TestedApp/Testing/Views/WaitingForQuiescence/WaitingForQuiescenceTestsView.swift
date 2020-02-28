@@ -20,19 +20,8 @@ public final class WaitingForQuiescenceTestsView:
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
-        let viewIpc = testingViewControllerSettings.viewIpc
-        
-        // TODO: This code is copypasted everywhere. Reuse it.
-        viewIpc.register(method: ResetUiIpcMethod<CGFloat>()) { [weak self] buttonOffset, completion in
-            guard let strongSelf = self else {
-                completion(IpcThrowingFunctionResult.threw(ErrorString("self is nil")))
-                return
-            }
-            
-            DispatchQueue.main.async {
-                strongSelf.resetUi(buttonOffset: buttonOffset)
-                completion(IpcThrowingFunctionResult.returned(IpcVoid()))
-            }
+        testingViewControllerSettings.viewIpc.registerResetUiMethod(view: self, argumentType: CGFloat.self) { view, buttonOffset in
+            view.resetUi(buttonOffset: buttonOffset)
         }
         
         resetUi(buttonOffset: buttonOffsetFromScrollViewBounds)
