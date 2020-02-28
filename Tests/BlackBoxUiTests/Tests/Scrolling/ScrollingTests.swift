@@ -1,10 +1,6 @@
 import MixboxUiTestsFoundation
 
 final class ScrollingTests: TestCase {
-    private struct DataSet {
-        let viewName: String
-    }
-    
     override var reuseState: Bool {
         return false
     }
@@ -12,15 +8,15 @@ final class ScrollingTests: TestCase {
     // TODO: Support TableView and WebView
     
     func test_scrolling_works_inScrollView() {
-        dataSetTest(dataSet: DataSet(viewName: "ScrollTestsScrollView"))
+        parametrizedTest(viewName: "ScrollTestsScrollView")
     }
     
     func test_scrolling_works_inCollectionView() {
-        dataSetTest(dataSet: DataSet(viewName: "ScrollTestsCollectionView"))
+        parametrizedTest(viewName: "ScrollTestsCollectionView")
     }
     
-    private func dataSetTest(dataSet: DataSet) {
-        openScreen(name: dataSet.viewName)
+    private func parametrizedTest(viewName: String) {
+        openScreen(name: viewName)
         
         // The code tests every combination of scrolling.
         // There are three views: "first", "second", and "third".
