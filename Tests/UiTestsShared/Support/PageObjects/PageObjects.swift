@@ -33,6 +33,8 @@ final class PageObjects: BasePageObjects {
     
     var waitingForQuiescenceTestsView: MainAppScreen<WaitingForQuiescenceTestsViewPageObject> { return mainAppScreen() }
     
+    var setTextActionWaitsForElementToGainFocusTestsView: MainAppScreen<SetTextActionWaitsForElementToGainFocusTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainUiKitHierarchy.pageObject(),

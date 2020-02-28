@@ -53,7 +53,7 @@ public final class NestedInteractionPerformerImpl: NestedInteractionPerformer {
             interaction: interaction,
             fileLine: fileLine,
             elementInteractionWithDependenciesPerformer: elementInteractionWithDependenciesPerformer,
-            retriableTimedInteractionState: retriableTimedInteractionState,
+            retriableTimedInteractionState: retriableTimedInteractionState.retriableTimedInteractionStateForNestedRetryOperation(),
             elementSettings: elementSettings
         )
         

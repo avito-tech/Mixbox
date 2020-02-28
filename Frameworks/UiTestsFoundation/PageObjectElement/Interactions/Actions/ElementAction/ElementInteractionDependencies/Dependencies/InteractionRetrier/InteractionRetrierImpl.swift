@@ -22,6 +22,9 @@ public final class InteractionRetrierImpl: InteractionRetrier {
         closure: (_ interaction: RetriableTimedInteractionState) -> InteractionResult)
         -> InteractionResult
     {
+        let retriableTimedInteractionState = self.retriableTimedInteractionState
+            .retriableTimedInteractionStateForNestedRetryOperation()
+        
         return retrier.retry(
             attempt: {
                 closure(retriableTimedInteractionState)
