@@ -5,7 +5,7 @@ import MixboxIpcCommon
 import TestsIpc
 
 final class SetTextActionWaitsForElementToGainFocusTestsView: UIView, InitializableWithTestingViewControllerSettings {
-    var controlWithNestedTextView = DelayingGainingFocusInput(becomeFirstResponderDelay: 0)
+    var controlWithNestedTextView = DelayingFocusGainingInput(becomeFirstResponderDelay: 0)
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
@@ -24,7 +24,7 @@ final class SetTextActionWaitsForElementToGainFocusTestsView: UIView, Initializa
     func resetUi(becomeFirstResponderDelay: TimeInterval) {
         controlWithNestedTextView.removeFromSuperview()
         
-        controlWithNestedTextView = DelayingGainingFocusInput(becomeFirstResponderDelay: becomeFirstResponderDelay)
+        controlWithNestedTextView = DelayingFocusGainingInput(becomeFirstResponderDelay: becomeFirstResponderDelay)
         
         addSubview(controlWithNestedTextView)
         

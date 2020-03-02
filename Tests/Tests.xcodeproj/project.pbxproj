@@ -482,7 +482,7 @@
 		F8EF37AC24094A3C0041DBF9 /* ViewIpc+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AB24094A3C0041DBF9 /* ViewIpc+ResetUi.swift */; };
 		F8EF37AF24094B2E0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */; };
 		F8EF37B024094B2F0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */; };
-		F8EF37B324094C690041DBF9 /* DelayingGainingFocusInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37B224094C690041DBF9 /* DelayingGainingFocusInput.swift */; };
+		F8EF37B324094C690041DBF9 /* DelayingFocusGainingInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */; };
 		F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */; };
 		F8F9C29D2368811800E9A044 /* TestCaseDependenciesResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C297236880E600E9A044 /* TestCaseDependenciesResolver.swift */; };
 		F8F9C2A02368894100E9A044 /* IpcRouterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */; };
@@ -900,7 +900,7 @@
 		F8EC421E20C83B7800BD8DA2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		F8EF37AB24094A3C0041DBF9 /* ViewIpc+ResetUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewIpc+ResetUi.swift"; sourceTree = "<group>"; };
 		F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift; sourceTree = "<group>"; };
-		F8EF37B224094C690041DBF9 /* DelayingGainingFocusInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayingGainingFocusInput.swift; sourceTree = "<group>"; };
+		F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayingFocusGainingInput.swift; sourceTree = "<group>"; };
 		F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDescriptionBuilderTests.swift; sourceTree = "<group>"; };
 		F8F9C297236880E600E9A044 /* TestCaseDependenciesResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseDependenciesResolver.swift; sourceTree = "<group>"; };
 		F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcRouterHolder.swift; sourceTree = "<group>"; };
@@ -2745,7 +2745,7 @@
 			isa = PBXGroup;
 			children = (
 				F8BB4408240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift */,
-				F8EF37B224094C690041DBF9 /* DelayingGainingFocusInput.swift */,
+				F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */,
 			);
 			path = SetTextActionWaitsForElementToGainFocusTests;
 			sourceTree = "<group>";
@@ -3600,7 +3600,7 @@
 				F84D12722166AC3D00A178B4 /* FakeCellsDoNotCrashAppTestsView.swift in Sources */,
 				F8203045223827E7006D2F70 /* ViewIpc.swift in Sources */,
 				F813CB25209CD82A00E6A27C /* ScrollTestsScrollView.swift in Sources */,
-				F8EF37B324094C690041DBF9 /* DelayingGainingFocusInput.swift in Sources */,
+				F8EF37B324094C690041DBF9 /* DelayingFocusGainingInput.swift in Sources */,
 				F8252DB12279D700003190D0 /* TouchesTestsView.swift in Sources */,
 				F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */,
 				F813CAEA209CC5D400E6A27C /* AppDelegate.swift in Sources */,

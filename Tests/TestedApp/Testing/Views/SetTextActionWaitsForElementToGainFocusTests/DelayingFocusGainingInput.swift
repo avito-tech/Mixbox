@@ -1,6 +1,6 @@
 import UIKit
 
-final class DelayingGainingFocusInput: UIView {
+final class DelayingFocusGainingInput: UIView {
     private let textView = UITextView()
     private let becomeFirstResponderDelay: TimeInterval
     
