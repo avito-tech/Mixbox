@@ -44,7 +44,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
-        applicationWindowsProvider: ApplicationWindowsProvider)
+        applicationWindowsProvider: ApplicationWindowsProvider,
+        multiTouchEventFactory: MultiTouchEventFactory)
     {
         self.testFailureRecorder = testFailureRecorder
         self.elementVisibilityChecker = elementVisibilityChecker
@@ -68,7 +69,8 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
             multiTouchCommandExecutor: MultiTouchCommandExecutorImpl(
                 touchInjectorFactory: TouchInjectorFactoryImpl(
                     currentAbsoluteTimeProvider: MachCurrentAbsoluteTimeProvider(),
-                    runLoopSpinnerFactory: runLoopSpinnerFactory
+                    runLoopSpinnerFactory: runLoopSpinnerFactory,
+                    multiTouchEventFactory: multiTouchEventFactory
                 )
             )
         )

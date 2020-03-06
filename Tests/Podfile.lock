@@ -27,10 +27,13 @@ PODS:
     - MixboxUiTestsFoundation
   - MixboxInAppServices (0.2.3):
     - MixboxBuiltinIpc
+    - MixboxIoKit
     - MixboxIpcCommon
     - MixboxIpcSbtuiHost
     - MixboxTestability
     - MixboxUiKit
+  - MixboxIoKit (0.2.3):
+    - MixboxFoundation
   - MixboxIpc (0.2.3):
     - MixboxFoundation
   - MixboxIpcCommon (0.2.3):
@@ -81,6 +84,7 @@ DEPENDENCIES:
   - MixboxFoundation (from `..`)
   - MixboxGray (from `..`)
   - MixboxInAppServices (from `..`)
+  - MixboxIoKit (from `..`)
   - MixboxIpc (from `..`)
   - MixboxIpcCommon (from `..`)
   - MixboxIpcSbtuiClient (from `..`)
@@ -121,6 +125,8 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxInAppServices:
     :path: ".."
+  MixboxIoKit:
+    :path: ".."
   MixboxIpc:
     :path: ".."
   MixboxIpcCommon:
@@ -156,8 +162,9 @@ SPEC CHECKSUMS:
   MixboxDi: 3e75421e302d50f57974cdb337b3b95adb885fb7
   MixboxFakeSettingsAppMain: cb03a5515009c7b774c1f36dc459e6503b2b7d7b
   MixboxFoundation: adbfd517f145b40403bd43699181f487d33758ed
-  MixboxGray: decf42d700e335e7e5bae09f042e68313a9635f1
-  MixboxInAppServices: 9faf4b53e326684d476b6587c3a18dfb15744313
+  MixboxGray: c0941a5806c2e5835be4b8d5c4c16df651151541
+  MixboxInAppServices: 1bf06e37b3891b39c10aa3cc1ad20d7dc62614a4
+  MixboxIoKit: 9eabef0ca2c0b54af3f4462cff83c90ec3ca8ed3
   MixboxIpc: 03e3a25d4c9fa699c87d3f0c166e47363f8d25e1
   MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
   MixboxIpcSbtuiClient: 0fda0fcd3d54687edad6138c2febf593c51fca51
@@ -173,4 +180,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.9.0.beta.2
+COCOAPODS: 1.8.4

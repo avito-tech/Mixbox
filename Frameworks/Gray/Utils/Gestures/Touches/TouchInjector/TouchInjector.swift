@@ -1,4 +1,5 @@
 public protocol TouchInjector: class {
-    func enqueueForDelivery(touchInfo: TouchInfo)
-    func waitUntilAllTouchesAreDeliveredUsingInjector()
+    func enqueue(enqueuedMultiTouchInfo: EnqueuedMultiTouchInfo)
+    func startInjectionIfNecessary()
+    func waitForInjectionToFinish()
 }

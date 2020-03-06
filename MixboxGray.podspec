@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxInAppServices'
   s.dependency 'MixboxDi'
   
-  s.frameworks = 'XCTest', 'IOKit', 'XCTAutomationSupport'
+  s.frameworks = 'XCTest', 'XCTAutomationSupport'
   
   s.xcconfig = {
     'LIBRARY_SEARCH_PATHS' => '$(TOOLCHAIN_DIR)/usr/lib/swift-$(SWIFT_VERSION)/$(PLATFORM_NAME) $(inherited)',

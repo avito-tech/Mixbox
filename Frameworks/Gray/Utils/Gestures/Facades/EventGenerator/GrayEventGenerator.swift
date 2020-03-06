@@ -29,7 +29,7 @@ public final class GrayEventGenerator: EventGenerator {
                 touchPaths: [[point]],
                 relativeToWindow: window,
                 duration: 0,
-                expendable: false
+                isExpendable: false
             )
         }
     }
@@ -63,7 +63,7 @@ public final class GrayEventGenerator: EventGenerator {
             touchPaths: [path],
             relativeToWindow: window,
             duration: durarionOfMoving,
-            expendable: false
+            isExpendable: false
         )
     }
     

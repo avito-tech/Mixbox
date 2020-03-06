@@ -15,90 +15,83 @@ public final class MultiTouchCommandExecutorImpl: MultiTouchCommandExecutor {
         )
         
         beginTouches(
-            points: command.beginCommand.points,
-            touchInjector: touchInjector,
-            waitUntilAllTouchesAreDelivered: command.beginCommand.waitUntilAllTouchesAreDelivered
+            pointsByFinger: command.beginCommand.pointsByFinger,
+            touchInjector: touchInjector
         )
         
         command.continueCommands.forEach { command in
             continueTouches(
                 touchInjector: touchInjector,
-                points: command.points,
+                pointsByFinger: command.pointsByFinger,
                 timeElapsedSinceLastTouchDelivery: command.timeElapsedSinceLastTouchDelivery,
-                waitUntilAllTouchesAreDelivered: command.waitUntilAllTouchesAreDelivered,
-                expendable: command.expendable
+                isExpendable: command.isExpendable
             )
         }
         
         endTouches(
             touchInjector: touchInjector,
-            points: command.endCommand.points,
+            pointsByFinger: command.endCommand.pointsByFinger,
             timeElapsedSinceLastTouchDelivery: command.endCommand.timeElapsedSinceLastTouchDelivery
         )
     }
     
     private func beginTouches(
-        points: [CGPoint],
-        touchInjector: TouchInjector,
-        waitUntilAllTouchesAreDelivered: Bool)
+        pointsByFinger: [CGPoint],
+        touchInjector: TouchInjector)
     {
-        enqueue(
-            touchInjector: touchInjector,
-            touchInfo: TouchInfo(
-                points: points,
-                phase: .began,
+        touchInjector.enqueue(
+            enqueuedMultiTouchInfo: EnqueuedMultiTouchInfo(
+                touchesByFinger: pointsByFinger.map { point in
+                    EnqueuedMultiTouchInfo.TouchInfo(
+                        point: point,
+                        phase: .began
+                    )
+                },
                 deliveryTimeDeltaSinceLastTouch: 0,
-                expendable: false
-            ),
-            waitUntilAllTouchesAreDelivered: waitUntilAllTouchesAreDelivered
+                isExpendable: false
+            )
         )
     }
 
     private func continueTouches(
         touchInjector: TouchInjector,
-        points: [CGPoint],
+        pointsByFinger: [CGPoint],
         timeElapsedSinceLastTouchDelivery: TimeInterval,
-        waitUntilAllTouchesAreDelivered: Bool,
-        expendable: Bool)
+        isExpendable: Bool)
     {
-        enqueue(
-            touchInjector: touchInjector,
-            touchInfo: TouchInfo(
-                points: points,
-                phase: .moved,
+        touchInjector.enqueue(
+            enqueuedMultiTouchInfo: EnqueuedMultiTouchInfo(
+                touchesByFinger: pointsByFinger.map { point in
+                    EnqueuedMultiTouchInfo.TouchInfo(
+                        point: point,
+                        phase: .moved
+                    )
+                },
                 deliveryTimeDeltaSinceLastTouch: timeElapsedSinceLastTouchDelivery,
-                expendable: expendable
-            ),
-            waitUntilAllTouchesAreDelivered: waitUntilAllTouchesAreDelivered
+                isExpendable: isExpendable
+            )
         )
     }
     
     private func endTouches(
         touchInjector: TouchInjector,
-        points: [CGPoint],
+        pointsByFinger: [CGPoint],
         timeElapsedSinceLastTouchDelivery: TimeInterval)
     {
-        enqueue(
-            touchInjector: touchInjector,
-            touchInfo: TouchInfo(
-                points: points,
-                phase: .ended,
+        touchInjector.enqueue(
+            enqueuedMultiTouchInfo: EnqueuedMultiTouchInfo(
+                touchesByFinger: pointsByFinger.map { point in
+                    EnqueuedMultiTouchInfo.TouchInfo(
+                        point: point,
+                        phase: .ended
+                    )
+                },
                 deliveryTimeDeltaSinceLastTouch: timeElapsedSinceLastTouchDelivery,
-                expendable: false
-            ),
-            waitUntilAllTouchesAreDelivered: true
+                isExpendable: false
+            )
         )
-    }
-    
-    private func enqueue(
-        touchInjector: TouchInjector,
-        touchInfo: TouchInfo,
-        waitUntilAllTouchesAreDelivered: Bool)
-    {
-        touchInjector.enqueueForDelivery(touchInfo: touchInfo)
         
-        if waitUntilAllTouchesAreDelivered {
-            touchInjector.waitUntilAllTouchesAreDeliveredUsingInjector()
-        }
+        touchInjector.startInjectionIfNecessary()
+        touchInjector.waitForInjectionToFinish()
     }
 }

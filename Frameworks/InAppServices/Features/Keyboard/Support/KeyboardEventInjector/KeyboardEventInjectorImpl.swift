@@ -2,13 +2,15 @@
 
 import UIKit
 import MixboxIpcCommon
+import MixboxIoKit
 import MixboxFoundation
 
+// TODO: DI?
 public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
     private let application: UIApplication
-    private let factory = MBKeyboardEventFactory()
-    private let sender = MBKeyboardEventSender()
+    private let sender = MBIohidEventSender()
     private let handleHidEventSwizzler: HandleHidEventSwizzler
+    private let currentAbsoluteTimeProvider: CurrentAbsoluteTimeProvider = MachCurrentAbsoluteTimeProvider()
     
     public init(
         application: UIApplication,
@@ -18,7 +20,7 @@ public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
         self.handleHidEventSwizzler = handleHidEventSwizzler
     }
     
-    public func inject(events: [KeyboardEvent], completion: @escaping (ErrorString?) -> ()) {
+    public func inject(events: [MixboxIpcCommon.KeyboardEvent], completion: @escaping (ErrorString?) -> ()) {
         let observable = handleHidEventSwizzler.swizzle()
         let observer = UiApplicationHandleIohidEventObserver { [sender] in
             sender.handle($0)
@@ -29,17 +31,17 @@ public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
         )
         
         for event in events {
-            DispatchQueue.main.async { [application, factory, sender] in
-                let eventOrNil = factory.event(
-                    withTime: factory.currentTime(),
+            DispatchQueue.main.async { [application, sender, currentAbsoluteTimeProvider] in
+                let event = MixboxIoKit.KeyboardEvent(
+                    allocator: kCFAllocatorDefault,
+                    timeStamp: currentAbsoluteTimeProvider.currentAbsoluteTime(),
                     usagePage: event.usagePage,
                     usage: event.usage,
-                    down: event.down
+                    down: event.down,
+                    optionBits: []
                 )
                 
-                if let event = eventOrNil {
-                    sender.send(event, application: application)
-                }
+                sender.send(event.iohidEventRef, application: application)
             }
         }
         

@@ -23,7 +23,7 @@ public final class GrayElementSimpleGestures: ElementSimpleGestures {
                 error: failedToGetWindowError(eventName: "tap()")
             ),
             duration: 0,
-            expendable: false
+            isExpendable: false
         )
     }
     
@@ -34,7 +34,7 @@ public final class GrayElementSimpleGestures: ElementSimpleGestures {
                 error: failedToGetWindowError(eventName: "press(duration:)")
             ),
             duration: duration,
-            expendable: false
+            isExpendable: false
         )
     }
     

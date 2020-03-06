@@ -2,6 +2,7 @@ import MixboxDi
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxInAppServices
+import MixboxFoundation
 
 public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
     private let mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies
@@ -69,7 +70,14 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 snapshotsDifferenceAttachmentGenerator: try di.resolve(),
                 snapshotsComparatorFactory: try di.resolve(),
                 applicationQuiescenceWaiter: try di.resolve(),
-                applicationWindowsProvider: try di.resolve()
+                applicationWindowsProvider: try di.resolve(),
+                multiTouchEventFactory: try di.resolve()
+            )
+        }
+        di.register(type: MultiTouchEventFactory.self) { _ in
+            MultiTouchEventFactoryImpl(
+                aggregatingTouchEventFactory: AggregatingTouchEventFactoryImpl(),
+                fingerTouchEventFactory: FingerTouchEventFactoryImpl()
             )
         }
         
@@ -99,7 +107,8 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         di.register(type: TouchInjectorFactory.self) { di in
             TouchInjectorFactoryImpl(
                 currentAbsoluteTimeProvider: try di.resolve(),
-                runLoopSpinnerFactory: try di.resolve()
+                runLoopSpinnerFactory: try di.resolve(),
+                multiTouchEventFactory: try di.resolve()
             )
         }
         di.register(type: CurrentAbsoluteTimeProvider.self) { _ in

@@ -11,11 +11,6 @@
 
 //  Multiple points at which the touches are to be made.
 //
-// - waitUntilAllTouchesAreDelivered:
-//
-//  if true, this method blocks until touches are delivered, otherwise it is
-//  enqueued for delivery the next time runloop drains.
-//
 // - expendable:
 //
 //  Indicates that this touch point is intended to be delivered in a timely
@@ -23,49 +18,43 @@
 //
 public final class MultiTouchCommand {
     public final class Begin {
-        public let points: [CGPoint]
+        public let pointsByFinger: [CGPoint]
         public let relativeToWindow: UIWindow
-        public let waitUntilAllTouchesAreDelivered: Bool
         
         public init(
-            points: [CGPoint],
-            relativeToWindow: UIWindow,
-            waitUntilAllTouchesAreDelivered: Bool)
+            pointsByFinger: [CGPoint],
+            relativeToWindow: UIWindow)
         {
-            self.points = points
+            self.pointsByFinger = pointsByFinger
             self.relativeToWindow = relativeToWindow
-            self.waitUntilAllTouchesAreDelivered = waitUntilAllTouchesAreDelivered
         }
     }
     
     public final class Continue {
-        public let points: [CGPoint]
+        public let pointsByFinger: [CGPoint]
         public let timeElapsedSinceLastTouchDelivery: TimeInterval
-        public let waitUntilAllTouchesAreDelivered: Bool
-        public let expendable: Bool
+        public let isExpendable: Bool
         
         public init(
-            points: [CGPoint],
+            pointsByFinger: [CGPoint],
             timeElapsedSinceLastTouchDelivery: TimeInterval,
-            waitUntilAllTouchesAreDelivered: Bool,
-            expendable: Bool)
+            isExpendable: Bool)
         {
-            self.points = points
+            self.pointsByFinger = pointsByFinger
             self.timeElapsedSinceLastTouchDelivery = timeElapsedSinceLastTouchDelivery
-            self.waitUntilAllTouchesAreDelivered = waitUntilAllTouchesAreDelivered
-            self.expendable = expendable
+            self.isExpendable = isExpendable
         }
     }
     
     public final class End {
-        public let points: [CGPoint]
+        public let pointsByFinger: [CGPoint]
         public let timeElapsedSinceLastTouchDelivery: TimeInterval
         
         public init(
-            points: [CGPoint],
+            pointsByFinger: [CGPoint],
             timeElapsedSinceLastTouchDelivery: TimeInterval)
         {
-            self.points = points
+            self.pointsByFinger = pointsByFinger
             self.timeElapsedSinceLastTouchDelivery = timeElapsedSinceLastTouchDelivery
         }
     }

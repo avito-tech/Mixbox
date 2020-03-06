@@ -109,6 +109,103 @@ In the example we can see how to use XCEventGenerator to make custom swipes for 
 
 This is an (almost) real example. And in that case reading disassembled code was not enough, I used debugger to figure out block type (see `Runtime`) and return value (because that was much bigger function for swipe, not for tap as in the example and the code was too hard for me to understand without debugger).
 
+### How to find where an Objective-C method is used
+
+Example for `UITouch setView` selector in UIKitCore.framework.
+
+- Search `UITouch setView` in Labels in the left panel, click result
+- Switch to ASM mode (by default) in the middle panel ("mov add" button in navbar).
+- Right-click `-[UITouch setView:]` (assuming you use left/right clicking in OSX)
+- Left-click `References to -[UITouch setView:]`
+- Left-click reference in a pop-up window
+
+You will see this:
+
+```
+0000000001665e70 struct __objc_method {     ; "setView:","v24@0:8@16"
+                     aSetview,              // name
+                     aV240816_1356c6c,      // signature
+                     -[UITouch setView:]    // implementation
+                 }
+```
+
+- Right-click `aSetview`
+- Left-click `References to "aSetview"`
+- Search for `dq` (I have no idea what is it)
+- Left-click something like `0x12345678           | dq    aSetview`
+
+You will see:
+
+```
+000000000175f370         dq         aSetview  
+```
+
+- Right-click `aSetview`
+- Left-click `References to address`
+- A popup with all references will be opened. Click anything.
+
+You will see:
+
+```
+/* @class UIView */
+-(void)removeGestureRecognizer:(void *)arg2 {
+    r14 = self;
+    rax = [arg2 retain];
+    r15 = rax;
+    rax = [rax view];
+    rax = [rax retain];
+    [rax release];
+    if (rax == r14) {
+            [r15 setView:0x0];          // <------------------ HERE! -------------------
+            [r14->_gestureRecognizers removeObject:r15];
+            rax = [*_UIApp _gestureEnvironment];
+            rax = [rax retain];
+            [rax removeGestureRecognizer:r15];
+            [rax release];
+            rax = [r14 _window];
+            rax = objc_unsafeClaimAutoreleasedReturnValue(rax);
+            if (rax != 0x0) {
+                    [[*_UIApp _touchesEventForWindow:rax] _invalidateGestureRecognizerForWindowCache];
+            }
+    }
+    [r15 release];
+    return;
+}
+```
+
+Done. But not really. You can't find invocation of a method of a specific class. Only invocation of a specific selector.
+
+In this example I searched for `touch` in a pop up hoping to see where setView is called on UITouch (maybe the caller has `touch` somewhere in its name).
+
+```
+/* @class UITouch */
++(void *)_createTouchesWithGSEvent:(struct __GSEvent *)arg2 phase:(long long)arg3 view:(void *)arg4 {
+    r15 = [arg4 retain];
+    r12 = [[UITouch alloc] init];
+    var_40 = [[NSMutableSet alloc] initWithObjects:r12];
+    [r12 setPhase:arg3];
+    GSEventGetTimestamp(arg2);
+    [r12 setTimestamp:arg3];
+    [r12 setTapCount:0x1];
+    rax = [r15 window];
+    rax = [rax retain];
+    [r12 setWindow:rax];
+    [rax release];
+    [r12 setView:r15];
+    [r15 release];
+    GSEventGetLocationInWindow(arg2);
+    [r12 _setLocationInWindow:0x1 resetPrevious:0x0];
+    [r12 _setIsFirstTouchForView:0x1];
+    [r12 release];
+    rax = var_40;
+    return rax;
+}
+```
+
+### Useful links to frameworks
+
+UIKitCore: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/UIKitCore.framework/UIKitCore`
+
 ## Runtime
 
 ### Useful lldb shortcuts

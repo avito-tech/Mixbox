@@ -5,6 +5,6 @@ public protocol TouchPerformer: class {
         touchPaths: [[CGPoint]],
         relativeToWindow window: UIWindow,
         duration: TimeInterval,
-        expendable: Bool)
+        isExpendable: Bool)
         throws
 }

@@ -79,6 +79,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
+                name: "IoKit",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
                 name: "UiTestsFoundation",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             )

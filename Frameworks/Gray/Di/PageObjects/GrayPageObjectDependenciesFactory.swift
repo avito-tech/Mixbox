@@ -30,7 +30,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
-        applicationWindowsProvider: ApplicationWindowsProvider)
+        applicationWindowsProvider: ApplicationWindowsProvider,
+        multiTouchEventFactory: MultiTouchEventFactory)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -63,7 +64,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
             snapshotsComparatorFactory: snapshotsComparatorFactory,
             applicationQuiescenceWaiter: applicationQuiescenceWaiter,
-            applicationWindowsProvider: applicationWindowsProvider
+            applicationWindowsProvider: applicationWindowsProvider,
+            multiTouchEventFactory: multiTouchEventFactory
         )
     }
     

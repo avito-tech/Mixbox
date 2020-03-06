@@ -13,7 +13,7 @@ public final class TouchPerformerImpl: TouchPerformer {
         touchPaths: [[CGPoint]],
         relativeToWindow window: UIWindow,
         duration: TimeInterval,
-        expendable: Bool)
+        isExpendable: Bool)
         throws
     {
         guard touchPaths.count >= 1 else {
@@ -26,12 +26,11 @@ public final class TouchPerformerImpl: TouchPerformer {
         let firstTouchPathSize = touchPaths[0].count
         
         let beginCommand = MultiTouchCommand.Begin(
-            points: try objects(
+            pointsByFinger: try objects(
                 index: 0,
                 arrays: touchPaths
             ),
-            relativeToWindow: window,
-            waitUntilAllTouchesAreDelivered: false
+            relativeToWindow: window
         )
         
         let continueCommands: [MultiTouchCommand.Continue]
@@ -43,7 +42,7 @@ public final class TouchPerformerImpl: TouchPerformer {
         if firstTouchPathSize == 1 {
             continueCommands = []
             endCommand = MultiTouchCommand.End(
-                points: try objects(
+                pointsByFinger: try objects(
                     index: firstTouchPathSize - 1,
                     arrays: touchPaths
                 ),
@@ -56,18 +55,17 @@ public final class TouchPerformerImpl: TouchPerformer {
             
             continueCommands = try (1..<firstTouchPathSize).map { i in
                 MultiTouchCommand.Continue(
-                    points: try objects(
+                    pointsByFinger: try objects(
                         index: i,
                         arrays: touchPaths
                     ),
                     timeElapsedSinceLastTouchDelivery: delayBetweenEachEvent,
-                    waitUntilAllTouchesAreDelivered: false,
-                    expendable: expendable
+                    isExpendable: isExpendable
                 )
             }
             
             endCommand = MultiTouchCommand.End(
-                points: try objects(
+                pointsByFinger: try objects(
                     index: firstTouchPathSize - 1,
                     arrays: touchPaths
                 ),

@@ -1,16 +1,20 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
+import MixboxFoundation
 
 public final class TouchInjectorFactoryImpl: TouchInjectorFactory {
     private let currentAbsoluteTimeProvider: CurrentAbsoluteTimeProvider
     private let runLoopSpinnerFactory: RunLoopSpinnerFactory
+    private let multiTouchEventFactory: MultiTouchEventFactory
     
     public init(
         currentAbsoluteTimeProvider: CurrentAbsoluteTimeProvider,
-        runLoopSpinnerFactory: RunLoopSpinnerFactory)
+        runLoopSpinnerFactory: RunLoopSpinnerFactory,
+        multiTouchEventFactory: MultiTouchEventFactory)
     {
         self.currentAbsoluteTimeProvider = currentAbsoluteTimeProvider
         self.runLoopSpinnerFactory = runLoopSpinnerFactory
+        self.multiTouchEventFactory = multiTouchEventFactory
     }
     
     public func touchInjector(
@@ -18,9 +22,9 @@ public final class TouchInjectorFactoryImpl: TouchInjectorFactory {
         -> TouchInjector
     {
         return TouchInjectorImpl(
-            window: window,
             currentAbsoluteTimeProvider: currentAbsoluteTimeProvider,
-            runLoopSpinnerFactory: runLoopSpinnerFactory
+            runLoopSpinnerFactory: runLoopSpinnerFactory,
+            multiTouchEventFactory: multiTouchEventFactory
         )
     }
 }
