@@ -1,67 +1,16 @@
-require './PodfileUtils'
+require_relative 'PodfileUtils/lock_patcher'
+require_relative 'PodfileUtils/repo'
 
 project 'Tests.xcodeproj'
 workspace 'Tests.xcworkspace'
-
 platform :ios, :deployment_target => '9.0'
-
 use_frameworks!
 
-### Mixbox frameworks
-
-def mixbox_ui_tests_pods
-  pod 'MixboxTestsFoundation', :path => '..'
-  pod 'MixboxUiTestsFoundation', :path => '..'
-  pod 'MixboxFoundation', :path => '..'
-  pod 'MixboxDi', :path => '..'
-  
-  pod 'SQLite.swift', :inhibit_warnings => true
-  pod 'Dip', :inhibit_warnings => true
-end
-
-def mixbox_application_testability_and_ui_tests_common_pods
-  pod 'MixboxIpc', :path => '..'
-  pod 'MixboxIpcCommon', :path => '..'
-  pod 'MixboxUiKit', :path => '..'
-  pod 'MixboxAnyCodable', :path => '..'
-end
-
-def mixbox_application_testability_and_blackbox_testing_common_pods
-  mixbox_application_testability_and_ui_tests_common_pods
-  
-  pod 'MixboxBuiltinIpc', :path => '..'
-end
-
-def mixbox_application_testability_pods
-  mixbox_application_testability_and_blackbox_testing_common_pods
-  
-  pod 'MixboxTestability', :path => '..'
-  pod 'MixboxIpcSbtuiHost', :path => '..'
-  pod 'MixboxInAppServices', :path => '..'
-  pod 'MixboxIoKit', :path => '..'
-end
-
-def mixbox_blackbox_tests_pods
-  mixbox_ui_tests_pods
-  mixbox_application_testability_and_blackbox_testing_common_pods
-
-  pod 'MixboxIpcSbtuiClient', :path => '..'
-  pod 'MixboxBlack', :path => '..'
-end
-
-def mixbox_graybox_tests_pods
-  mixbox_ui_tests_pods
-  mixbox_application_testability_and_ui_tests_common_pods
-  
-  pod 'MixboxGray', :path => '..'
-end
-
-def mixbox_whitebox_tests_pods
-  # nothing is here yet
-  
-end
-
-### Tests-specific frameworks
+mixbox = Devpods::Repo.new(
+    'ssh://git@stash.msk.avito.ru:7999/ma/mixbox.git',
+    lambda { |name, hash| pod name, hash }
+)
+mixbox.local_path_value = '..'
 
 def tests_ipc_pods
   pod 'TestsIpc', :path => 'Frameworks/TestsIpc'
@@ -69,67 +18,50 @@ end
 
 # TODO: Support mock generation for every test target
 def tests_testing_helpers
-  pod 'Cuckoo', { :git => 'https://github.com/avito-tech/Cuckoo', :inhibit_warnings => true }
-end
-
-### Tests-specific facades
-
-def tests_black_box_pods
-  mixbox_blackbox_tests_pods
-  
-  tests_testing_helpers
-  
-  tests_ipc_pods
-end
-
-def tests_gray_box_pods
-  mixbox_graybox_tests_pods
-  
-  tests_testing_helpers
-  
-  tests_ipc_pods
-end
-
-def tests_white_box_pods
-  mixbox_whitebox_tests_pods
-  
-  tests_testing_helpers
-  
-  # Code being tested:
-  mixbox_ui_tests_pods
-  mixbox_application_testability_pods
-end
-
-def tests_tested_app_pods
-  mixbox_application_testability_pods
-  
-  tests_ipc_pods
+  pod 'Cuckoo', { :git => 'https://github.com/avito-tech/Cuckoo' }
 end
  
 ### TARGETS
 
 target 'TestedApp' do
-  tests_tested_app_pods
+  mixbox.pod 'MixboxInAppServices'
+  mixbox.pod 'MixboxIpcSbtuiHost'
+  pod 'SBTUITestTunnel/Server', '3.0.6'
+
+  tests_ipc_pods
 end
 
 target 'FakeSettingsApp' do
-  pod 'MixboxFakeSettingsAppMain', :path => '..'
+  mixbox.pod 'MixboxFakeSettingsAppMain'
 end
 
 target 'GrayBoxUiTests' do
-  tests_gray_box_pods
+  mixbox.pod 'MixboxGray'
+
+  tests_testing_helpers
+  tests_ipc_pods
 end
 
 target 'BlackBoxUiTests' do
-  tests_black_box_pods
+  mixbox.pod 'MixboxBlack'
+  mixbox.pod 'MixboxIpcSbtuiClient'
+  pod 'SBTUITestTunnel/Client', '3.0.6'
+
+  tests_testing_helpers
+  tests_ipc_pods
 end
 
 target 'UnitTests' do
-  tests_white_box_pods
+  mixbox.all_pods.each { |name|
+    mixbox.pod name
+  }
+
+  pod 'SBTUITestTunnel/Client', '3.0.6'
+  pod 'SBTUITestTunnel/Server', '3.0.6'
+  tests_testing_helpers
 end
 
 target 'HostedAppLogicTests' do
-  tests_white_box_pods
 end
 
 target 'Lint' do

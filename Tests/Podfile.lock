@@ -61,8 +61,8 @@ PODS:
     - MixboxIpcCommon
     - MixboxTestsFoundation
     - MixboxUiKit
-  - SBTUITestTunnel/Client (3.0.14)
-  - SBTUITestTunnel/Server (3.0.14):
+  - SBTUITestTunnel/Client (3.0.6)
+  - SBTUITestTunnel/Server (3.0.6):
     - GCDWebServer (~> 3.0)
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
@@ -75,7 +75,6 @@ PODS:
 
 DEPENDENCIES:
   - Cuckoo (from `https://github.com/avito-tech/Cuckoo`)
-  - Dip
   - MixboxAnyCodable (from `..`)
   - MixboxBlack (from `..`)
   - MixboxBuiltinIpc (from `..`)
@@ -93,7 +92,8 @@ DEPENDENCIES:
   - MixboxTestsFoundation (from `..`)
   - MixboxUiKit (from `..`)
   - MixboxUiTestsFoundation (from `..`)
-  - SQLite.swift
+  - SBTUITestTunnel/Client (= 3.0.6)
+  - SBTUITestTunnel/Server (= 3.0.6)
   - SwiftLint
   - TestsIpc (from `Frameworks/TestsIpc`)
 
@@ -173,11 +173,11 @@ SPEC CHECKSUMS:
   MixboxTestsFoundation: 8c5e098fd24816b9f18226bffffb789b48fcdac6
   MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
   MixboxUiTestsFoundation: e81928e07266eebb199cc40383d4c20e77cf5727
-  SBTUITestTunnel: 50c315f2fd1bfd144be8e0eb4c0a1e35ccbe5e9f
+  SBTUITestTunnel: 865e4cec64aa10e495139643f50ccc7d8d0a604f
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
   TestsIpc: 30eb5db4bc5eefe4324e3900e6285b970b798150
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.0.beta.2
