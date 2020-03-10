@@ -4,7 +4,7 @@
 
 #import "IOHIDEventSystemClient.h"
 #import "SoftLinking.h"
-#import "AbsoluteTime.h"
+#import <MixboxFoundation/AbsoluteTime.h>
 
 #include <mach/mach_time.h>
 
