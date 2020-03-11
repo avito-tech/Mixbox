@@ -2821,6 +2821,7 @@
 				F82A05AA21F6745F0008C2BB /* Sources */,
 				F82A05AB21F6745F0008C2BB /* Frameworks */,
 				F82A05AC21F6745F0008C2BB /* Resources */,
+				E2AD6F2EA3B16C2DA3C0B2BB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3482,6 +3483,68 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2AD6F2EA3B16C2DA3C0B2BB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client-Server/SBTUITestTunnel.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
+				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F82A53D7228B22C2007CB9F3 /* Run SwiftLint */ = {

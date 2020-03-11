@@ -20,6 +20,16 @@ end
 def tests_testing_helpers
   pod 'Cuckoo', { :git => 'https://github.com/avito-tech/Cuckoo' }
 end
+
+def logic_tests_pods(mixbox_repo)
+  mixbox_repo.all_pods.each { |name|
+    mixbox_repo.pod name
+  }
+
+  pod 'SBTUITestTunnel/Client', '3.0.6'
+  pod 'SBTUITestTunnel/Server', '3.0.6'
+  tests_testing_helpers
+end
  
 ### TARGETS
 
@@ -50,18 +60,13 @@ target 'BlackBoxUiTests' do
   tests_testing_helpers
   tests_ipc_pods
 end
-
+  
 target 'UnitTests' do
-  mixbox.all_pods.each { |name|
-    mixbox.pod name
-  }
-
-  pod 'SBTUITestTunnel/Client', '3.0.6'
-  pod 'SBTUITestTunnel/Server', '3.0.6'
-  tests_testing_helpers
+  logic_tests_pods mixbox
 end
 
 target 'HostedAppLogicTests' do
+  logic_tests_pods mixbox
 end
 
 target 'Lint' do
