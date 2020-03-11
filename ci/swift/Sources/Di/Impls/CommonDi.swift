@@ -58,9 +58,13 @@ open class CommonDi: BaseDi {
                     developerDirProvider: try container.resolve(),
                     remoteCacheConfigProvider: try container.resolve(),
                     simulatorOperationTimeoutsProvider: try container.resolve(),
-                    environmentProvider: try container.resolve()
+                    environmentProvider: try container.resolve(),
+                    emceeVersionProvider: try container.resolve()
                 )
             )
+        }
+        container.register(type: EmceeVersionProvider.self) {
+            EmceeVersionProviderImpl()
         }
         container.register(type: EmceeInstaller.self) {
             let environmentProvider: EnvironmentProvider = try container.resolve()

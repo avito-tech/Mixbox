@@ -12,6 +12,7 @@ public final class InstallingEmceeProvider: EmceeProvider {
     private let remoteCacheConfigProvider: RemoteCacheConfigProvider
     private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
     private let environmentProvider: EnvironmentProvider
+    private let emceeVersionProvider: EmceeVersionProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -23,7 +24,8 @@ public final class InstallingEmceeProvider: EmceeProvider {
         developerDirProvider: DeveloperDirProvider,
         remoteCacheConfigProvider: RemoteCacheConfigProvider,
         simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider,
-        environmentProvider: EnvironmentProvider)
+        environmentProvider: EnvironmentProvider,
+        emceeVersionProvider: EmceeVersionProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
@@ -35,6 +37,7 @@ public final class InstallingEmceeProvider: EmceeProvider {
         self.remoteCacheConfigProvider = remoteCacheConfigProvider
         self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
         self.environmentProvider = environmentProvider
+        self.emceeVersionProvider = emceeVersionProvider
     }
     
     public func emcee() throws -> Emcee {
@@ -57,7 +60,8 @@ public final class InstallingEmceeProvider: EmceeProvider {
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
                 emceeExecutable: emceeExecutable,
-                remoteCacheConfigProvider: remoteCacheConfigProvider
+                remoteCacheConfigProvider: remoteCacheConfigProvider,
+                emceeVersionProvider: emceeVersionProvider
             )
         )
     }

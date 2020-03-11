@@ -1,13 +1,16 @@
 public final class EmceeRunTestsOnRemoteQueueCommandImpl: EmceeRunTestsOnRemoteQueueCommand {
     private let emceeExecutable: EmceeExecutable
     private let remoteCacheConfigProvider: RemoteCacheConfigProvider
+    private let emceeVersionProvider: EmceeVersionProvider
     
     public init(
         emceeExecutable: EmceeExecutable,
-        remoteCacheConfigProvider: RemoteCacheConfigProvider)
+        remoteCacheConfigProvider: RemoteCacheConfigProvider,
+        emceeVersionProvider: EmceeVersionProvider)
     {
         self.emceeExecutable = emceeExecutable
         self.remoteCacheConfigProvider = remoteCacheConfigProvider
+        self.emceeVersionProvider = emceeVersionProvider
     }
     
     public func runTestsOnRemoteQueue(
@@ -15,6 +18,7 @@ public final class EmceeRunTestsOnRemoteQueueCommandImpl: EmceeRunTestsOnRemoteQ
         throws
     {
         let staticArguments = [
+            "--emcee-version", emceeVersionProvider.emceeVersion(),
             "--run-id", arguments.runId,
             "--test-arg-file", arguments.testArgFile,
             "--queue-server-destination", arguments.queueServerDestination,

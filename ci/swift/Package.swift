@@ -1,6 +1,8 @@
 // swift-tools-version:5.0
 // swiftlint:disable trailing_comma
 
+// This file is generated via MakePackage python code. Do not modify it.
+
 import PackageDescription
 
 let package = Package(
@@ -67,7 +69,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("74cd154d00ce19b9a40564b820493d2454bece2d")
+            .revision("bcdd9d773450c5f3797ef277b0d0e3d51b169a92")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
@@ -198,6 +200,8 @@ let package = Package(
             name: "TeamcityStaticChecksBuild",
             dependencies: [
                 "BuildDsl",
+                "CiFoundation",
+                "SingletonHell",
                 "StaticChecksTask",
             ]
         ),
@@ -293,6 +297,7 @@ let package = Package(
                 "Destinations",
                 "EmceeInterfaces",
                 "RemoteFiles",
+                "SingletonHell",
             ]
         ),
         .target(

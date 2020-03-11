@@ -6,27 +6,53 @@ import re
 
 swift_ci_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
-def generate():
+def emcee_commit_hash():
+    return 'bcdd9d773450c5f3797ef277b0d0e3d51b169a92'
+
+def comment_saying_that_this_file_is_code_generated():
+    return 'This file is generated via MakePackage python code. Do not modify it.' 
+    
+def generate_all():
+    generate(
+        template_name="Package.swift.template",
+        output_file_name="Package.swift",
+        dict_to_render=get_dict_to_render_for_package_swift()
+    )
+    generate(
+        template_name="EmceeVersionProviderImpl.swift.template",
+        output_file_name="Sources/Di/Emcee/EmceeVersionProviderImpl.swift",
+        dict_to_render=get_dict_to_render_for_emcee_version_provider()
+    )
+        
+def generate(template_name, output_file_name, dict_to_render):
     generated_string = render(
-        dict_to_render=get_dict_to_render()
+        dict_to_render=dict_to_render,
+        template_name=template_name
     )
     
-    with open(os.path.join(swift_ci_root, "Package.swift"), 'w') as f:
+    with open(os.path.join(swift_ci_root, output_file_name), 'w') as f:
         f.write(generated_string)
 
-def get_dict_to_render():
+def get_dict_to_render_for_package_swift():
     targets = get_targets()
     
     dict_to_render = {
+        "comment_saying_that_this_file_is_code_generated": comment_saying_that_this_file_is_code_generated(),
+        "emcee_commit_hash": emcee_commit_hash(),
         "targets": targets,
-        "executables": [target for target in targets if target.is_executable]
+        "executables": [target for target in targets if target.is_executable],
     }
     
     return dict_to_render
+    
+def get_dict_to_render_for_emcee_version_provider():
+    return {
+        "comment_saying_that_this_file_is_code_generated": comment_saying_that_this_file_is_code_generated(),
+        "emcee_commit_hash": emcee_commit_hash(),
+    }
 
-def render(dict_to_render):
+def render(dict_to_render, template_name):
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    template_name = "Package.swift.template"
 
     loader = jinja2.FileSystemLoader(script_dir)
     jinja_environment = jinja2.Environment(loader=loader, autoescape=True)
@@ -99,4 +125,4 @@ class Target:
     def __repr__(self):
         return f'Target(name={self.name}, dependencies={self.dependencies}, is_executable={self.is_executable})'
         
-generate()
+generate_all()

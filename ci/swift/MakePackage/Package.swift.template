@@ -1,6 +1,8 @@
 // swift-tools-version:5.0
 // swiftlint:disable trailing_comma
 
+// {{comment_saying_that_this_file_is_code_generated}}
+
 import PackageDescription
 
 let package = Package(
@@ -21,7 +23,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("74cd154d00ce19b9a40564b820493d2454bece2d")
+            .revision("{{emcee_commit_hash}}")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
