@@ -146,7 +146,7 @@
 		F8785C6A2361D29E00571718 /* KeyboardEventInjectorImplTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8785C692361D29E00571718 /* KeyboardEventInjectorImplTestsView.swift */; };
 		F8785C742361D89D00571718 /* KeyboardEventInjectorImplTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8785C702361D86D00571718 /* KeyboardEventInjectorImplTestsViewPageObject.swift */; };
 		F8785C752361D89D00571718 /* KeyboardEventInjectorImplTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8785C702361D86D00571718 /* KeyboardEventInjectorImplTestsViewPageObject.swift */; };
-		F8785C962362045D00571718 /* KeyHidEventsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8785C952362045D00571718 /* KeyHidEventsTracker.swift */; };
+		F8785C962362045D00571718 /* HidEventsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8785C952362045D00571718 /* HidEventsTracker.swift */; };
 		F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */; };
 		F879831A22492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */; };
 		F879831F22492D44004DD770 /* RecordableStepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */; };
@@ -687,7 +687,7 @@
 		F8785C662361D24200571718 /* KeyboardEventInjectorImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEventInjectorImplTests.swift; sourceTree = "<group>"; };
 		F8785C692361D29E00571718 /* KeyboardEventInjectorImplTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEventInjectorImplTestsView.swift; sourceTree = "<group>"; };
 		F8785C702361D86D00571718 /* KeyboardEventInjectorImplTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEventInjectorImplTestsViewPageObject.swift; sourceTree = "<group>"; };
-		F8785C952362045D00571718 /* KeyHidEventsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyHidEventsTracker.swift; sourceTree = "<group>"; };
+		F8785C952362045D00571718 /* HidEventsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidEventsTracker.swift; sourceTree = "<group>"; };
 		F879831722492BAE004DD770 /* TestCanNotBeContinuedException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCanNotBeContinuedException.swift; sourceTree = "<group>"; };
 		F8798323224930B1004DD770 /* ContinueAfterFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueAfterFailureTests.swift; sourceTree = "<group>"; };
 		F8798325224944E5004DD770 /* IgnoringDefinitelyHiddenElementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IgnoringDefinitelyHiddenElementsTests.swift; sourceTree = "<group>"; };
@@ -834,6 +834,8 @@
 		F8BB4406240936CE00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTests.swift; sourceTree = "<group>"; };
 		F8BB4408240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTestsView.swift; sourceTree = "<group>"; };
 		F8BCA9DE213D55E400592068 /* UIImage+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Stub.swift"; sourceTree = "<group>"; };
+		F8C3655D24182110005DD578 /* AppForCheckingPureXctest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppForCheckingPureXctest-Bridging-Header.h"; sourceTree = "<group>"; };
+		F8C3655E24182110005DD578 /* PrivateApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateApi.h; sourceTree = "<group>"; };
 		F8C5A34B22B2E00800E643EC /* CollectionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTests.swift; sourceTree = "<group>"; };
 		F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsView.swift; sourceTree = "<group>"; };
 		F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcCallbacksTests.swift; sourceTree = "<group>"; };
@@ -1600,12 +1602,14 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
-		F8785C942362044F00571718 /* HardwareKeyboardDebugging */ = {
+		F8785C942362044F00571718 /* HidEventsDebugging */ = {
 			isa = PBXGroup;
 			children = (
-				F8785C952362045D00571718 /* KeyHidEventsTracker.swift */,
+				F8785C952362045D00571718 /* HidEventsTracker.swift */,
+				F8C3655E24182110005DD578 /* PrivateApi.h */,
+				F8C3655D24182110005DD578 /* AppForCheckingPureXctest-Bridging-Header.h */,
 			);
-			path = HardwareKeyboardDebugging;
+			path = HidEventsDebugging;
 			sourceTree = "<group>";
 		};
 		F8798327224949DB004DD770 /* Failures */ = {
@@ -2499,7 +2503,7 @@
 		F8D854E7235A512C0068047A /* AppForCheckingPureXctest */ = {
 			isa = PBXGroup;
 			children = (
-				F8785C942362044F00571718 /* HardwareKeyboardDebugging */,
+				F8785C942362044F00571718 /* HidEventsDebugging */,
 				F8D854E8235A512C0068047A /* AppDelegate.swift */,
 				F8D854EC235A512C0068047A /* ViewController.swift */,
 				F8D85516235A52060068047A /* View.swift */,
@@ -2982,6 +2986,7 @@
 					};
 					F866756C2121E81E00396F02 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					F8B0A1FF2209C44A0089C1EE = {
@@ -2991,6 +2996,7 @@
 					};
 					F8D854E5235A512C0068047A = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					F8D85505235A512E0068047A = {
@@ -4076,7 +4082,7 @@
 				F8D854ED235A512C0068047A /* ViewController.swift in Sources */,
 				F8D854E9235A512C0068047A /* AppDelegate.swift in Sources */,
 				F8D85517235A52060068047A /* View.swift in Sources */,
-				F8785C962362045D00571718 /* KeyHidEventsTracker.swift in Sources */,
+				F8785C962362045D00571718 /* HidEventsTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4463,6 +4469,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AppForCheckingPureXctest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4470,6 +4477,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AppForCheckingPureXctest/HidEventsDebugging/AppForCheckingPureXctest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4479,12 +4488,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AppForCheckingPureXctest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AppForCheckingPureXctest/HidEventsDebugging/AppForCheckingPureXctest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

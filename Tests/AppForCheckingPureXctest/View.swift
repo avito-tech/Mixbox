@@ -9,7 +9,7 @@ final class View: UIView {
     private let startTrackingKeyHidEventsButton = UIButton()
     private let views: [String: UIView]
     
-    private let keyHidEventsTracker = KeyHidEventsTracker()
+    private let keyHidEventsTracker = HidEventsTracker()
     
     override init(frame: CGRect) {
         views = [
