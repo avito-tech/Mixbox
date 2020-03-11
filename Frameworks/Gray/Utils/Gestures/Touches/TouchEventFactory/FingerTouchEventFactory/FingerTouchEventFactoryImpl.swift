@@ -2,6 +2,9 @@ import MixboxFoundation
 import MixboxIoKit
 
 public final class FingerTouchEventFactoryImpl: FingerTouchEventFactory {
+    public init() {
+    }
+    
     public func fingerEvents(
         dequeuedMultiTouchInfo: DequeuedMultiTouchInfo,
         time: AbsoluteTime)
@@ -9,22 +12,33 @@ public final class FingerTouchEventFactoryImpl: FingerTouchEventFactory {
     {
         return dequeuedMultiTouchInfo.touchesByFinger.enumerated().map { (arg) -> DigitizerFingerEvent in
             let (fingerIndex, touchInfo) = arg
+            let identifiyOffset: UInt32 = 2 // I don't know the logic of how simulator injects events. See `MultiTouchEventFactoryTests`.
             
-            return DigitizerFingerEvent(
+            let event = DigitizerFingerEvent(
                 allocator: kCFAllocatorDefault,
                 timeStamp: time,
                 index: 0,
-                identifier: UInt32(fingerIndex), // TODO: Throw error for conversion error?
+                identity: identifiyOffset + UInt32(fingerIndex), // TODO: Throw error for conversion error?
                 eventMask: eventMask(touchInfo: touchInfo),
-                x: IOHIDFloat(touchInfo.point.x),
-                y: IOHIDFloat(touchInfo.point.y),
+                x: Double(touchInfo.point.x),
+                y: Double(touchInfo.point.y),
                 z: 0,
                 tipPressure: 0,
-                twist: 0,
+                twist: 90, // I have no idea why. See `MultiTouchEventFactoryTests`. Maybe it will work incorrectly after screen rotation.
                 range: range(touchInfo: touchInfo),
                 touch: touch(touchInfo: touchInfo),
-                options: []
+                options: [.isAbsolute]
             )
+            
+            // See `MultiTouchEventFactoryTests`
+            event.isDisplayIntegrated = true
+            event.quality = 1.5
+            event.density = 1.5
+            event.irregularity = 0
+            event.majorRadius = 4.599991
+            event.minorRadius = 3.799988
+            
+            return event
         }
     }
     
@@ -37,14 +51,14 @@ public final class FingerTouchEventFactoryImpl: FingerTouchEventFactory {
         return touchInfo.phase != .ended
     }
     
-    private func eventMask(touchInfo: DequeuedMultiTouchInfo.TouchInfo) -> IOHIDDigitizerEventMask {
-        var eventMask = IOHIDDigitizerEventMask()
+    private func eventMask(touchInfo: DequeuedMultiTouchInfo.TouchInfo) -> DigitizerEventMask {
+        var eventMask = DigitizerEventMask()
         
         switch touchInfo.phase {
         case .cancelled, .began, .ended, .stationary:
-            eventMask.update(with: .position)
-        case .moved:
             break
+        case .moved:
+            eventMask.update(with: .position)
         }
         
         switch touchInfo.phase {

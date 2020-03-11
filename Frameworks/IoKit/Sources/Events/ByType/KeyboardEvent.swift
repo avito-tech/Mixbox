@@ -3,38 +3,40 @@
 import MixboxFoundation
 
 public final class KeyboardEvent: Event {
-    public let allocator: CFAllocator?
-    public let timeStamp: AbsoluteTime
-    public let usagePage: UInt16
-    public let usage: UInt16
-    public let down: Bool
-    public let optionBits: IOHIDEventOptionBits
+    public let iohidEventRef: IOHIDEventRef
     
-    public private(set) var iohidEventRef: IOHIDEventRef
+    public var usagePage: Int32 {
+        get { return fields.integer[.vendorDefinedUsagePage] }
+        set { fields.integer[.vendorDefinedUsagePage] = newValue }
+    }
+    // TODO:
+    //    kIOHIDEventFieldVendorDefinedUsagePage = IOHIDEventFieldBase(kIOHIDEventTypeVendorDefined),
+    //    kIOHIDEventFieldVendorDefinedReserved,
+    //    kIOHIDEventFieldVendorDefinedReserved1,
+    //    kIOHIDEventFieldVendorDefinedDataLength,
+    //    kIOHIDEventFieldVendorDefinedData
     
-    // swiftlint:disable:next function_parameter_count
-    public init(
+    public init(iohidEventRef: IOHIDEventRef) {
+        self.iohidEventRef = iohidEventRef
+    }
+    
+    public convenience init(
         allocator: CFAllocator?,
         timeStamp: AbsoluteTime,
         usagePage: UInt16,
         usage: UInt16,
         down: Bool,
-        optionBits: IOHIDEventOptionBits)
+        options: EventOptionBits)
     {
-        self.allocator = allocator
-        self.timeStamp = timeStamp
-        self.usagePage = usagePage
-        self.usage = usage
-        self.down = down
-        self.optionBits = optionBits
-        
-        iohidEventRef = IOHIDEventCreateKeyboardEvent(
-            allocator,
-            timeStamp.cAbsoluteTime,
-            usagePage,
-            usage,
-            down,
-            optionBits
+        self.init(
+            iohidEventRef: IOHIDEventCreateKeyboardEvent(
+                allocator,
+                timeStamp.darwinAbsoluteTime,
+                usagePage,
+                usage,
+                down,
+                options.iohidEventOptionBits
+            )
         )
     }
 }

@@ -1,20 +1,36 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public final class AbsoluteTime {
-    public let hi: UInt32
+import Darwin
+
+public final class AbsoluteTime: Equatable {
     public let lo: UInt32
+    public let hi: UInt32
     
-    // It is not easy to get AbsoluteTime from Swift. Proof:
-    // https://stackoverflow.com/questions/36818402/absolutetime-type-not-imported-into-swift
-    //
-    // `AbsoluteTime` C type can not be exported to Swift. However, if the type is not defined, we
-    // can pass the value anywhere, from C to Swift and vice versa.
-    // Here is a kludge with lazy var to not mention type in Swift code.
-    public private(set) lazy var cAbsoluteTime = mixbox_absoluteTimeFromUInt32(hi, lo)
+    public var darwinAbsoluteTime: Darwin.AbsoluteTime {
+        return Darwin.AbsoluteTime(lo: lo, hi: hi)
+    }
     
-    public init(hi: UInt32, lo: UInt32) {
+    public init(lo: UInt32, hi: UInt32) {
         self.hi = hi
         self.lo = lo
+    }
+    
+    public convenience init(darwinAbsoluteTime: Darwin.AbsoluteTime) {
+        self.init(
+            lo: darwinAbsoluteTime.lo,
+            hi: darwinAbsoluteTime.hi
+        )
+    }
+    
+    public convenience init(machAbsoluteTime: UInt64) {
+        self.init(
+            lo: UInt32(machAbsoluteTime & UInt64(UInt32.max)),
+            hi: UInt32(machAbsoluteTime >> UInt32.bitWidth)
+        )    
+    }
+    
+    public static func ==(lhs: AbsoluteTime, rhs: AbsoluteTime) -> Bool {
+        return lhs.hi == rhs.hi && lhs.lo == rhs.lo
     }
 }
 

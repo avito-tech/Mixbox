@@ -3,6 +3,10 @@
 #ifndef IOHIDEventField_h
 #define IOHIDEventField_h
 
+// TODO: Update with:
+// https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-700/IOHIDFamily/IOHIDEventTypes.h.auto.html
+// Note that there is `kIOHIDEventFieldDigitizerOrientationType` that can not be found anywhere
+
 // Keys used to set and get individual event fields.
 typedef NS_ENUM(uint32_t, IOHIDEventField) {
     // NULL
@@ -101,7 +105,7 @@ typedef NS_ENUM(uint32_t, IOHIDEventField) {
     kIOHIDEventFieldDigitizerRange,
     kIOHIDEventFieldDigitizerTouch,
     kIOHIDEventFieldDigitizerPressure,
-    kIOHIDEventFieldDigitizerBarrelPressure,
+    kIOHIDEventFieldDigitizerAuxiliaryPressure, //BarrelPressure
     kIOHIDEventFieldDigitizerTwist,
     kIOHIDEventFieldDigitizerTiltX,
     kIOHIDEventFieldDigitizerTiltY,
@@ -116,6 +120,10 @@ typedef NS_ENUM(uint32_t, IOHIDEventField) {
     kIOHIDEventFieldDigitizerCollectionChord,
     kIOHIDEventFieldDigitizerChildEventMask,
     kIOHIDEventFieldDigitizerIsDisplayIntegrated,
+    kIOHIDEventFieldDigitizerQualityRadiiAccuracy,
+    kIOHIDEventFieldDigitizerGenerationCount,
+    kIOHIDEventFieldDigitizerWillUpdateMask,
+    kIOHIDEventFieldDigitizerDidUpdateMask,
 
     // Swipe
     kIOHIDEventFieldSwipeMask = IOHIDEventFieldBase(kIOHIDEventTypeSwipe),

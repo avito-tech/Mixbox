@@ -3,6 +3,9 @@ import MixboxInAppServices
 import MixboxIoKit
 
 public final class AggregatingTouchEventFactoryImpl: AggregatingTouchEventFactory {
+    public init() {
+    }
+    
     public func aggregatingTouchEvent(
         dequeuedMultiTouchInfo: DequeuedMultiTouchInfo,
         time: AbsoluteTime)
@@ -11,11 +14,11 @@ public final class AggregatingTouchEventFactoryImpl: AggregatingTouchEventFactor
         let event = DigitizerEvent(
             allocator: kCFAllocatorDefault,
             timeStamp: time,
-            transducer: .finger,
+            transducer: .hand,
             index: 0,
-            identifier: 0,
+            identity: 0,
             eventMask: eventMask(dequeuedMultiTouchInfo: dequeuedMultiTouchInfo),
-            buttonEvent: 0,
+            buttonMask: 0,
             x: 0,
             y: 0,
             z: 0,
@@ -23,10 +26,10 @@ public final class AggregatingTouchEventFactoryImpl: AggregatingTouchEventFactor
             twist: 0,
             range: false,
             touch: touch(dequeuedMultiTouchInfo: dequeuedMultiTouchInfo),
-            options: []
+            options: [.isPixelUnits, .isBuiltIn]
         )
         
-        event.digitizer.isDisplayIntegrated = true
+        event.isDisplayIntegrated = true
         
         return event
     }
@@ -43,8 +46,8 @@ public final class AggregatingTouchEventFactoryImpl: AggregatingTouchEventFactor
         }
     }
         
-    private func eventMask(dequeuedMultiTouchInfo: DequeuedMultiTouchInfo) -> IOHIDDigitizerEventMask {
-        var eventMask = IOHIDDigitizerEventMask()
+    private func eventMask(dequeuedMultiTouchInfo: DequeuedMultiTouchInfo) -> DigitizerEventMask {
+        var eventMask = DigitizerEventMask()
         
         if maskShouldIncludeTouch(dequeuedMultiTouchInfo: dequeuedMultiTouchInfo) {
             eventMask.update(with: .touch)

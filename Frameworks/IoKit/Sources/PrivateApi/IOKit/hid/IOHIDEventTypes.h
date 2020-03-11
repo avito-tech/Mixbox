@@ -27,6 +27,8 @@
 #ifndef _IOKIT_HID_IOHIDEVENTTYPES_H
 #define _IOKIT_HID_IOHIDEVENTTYPES_H
 
+__BEGIN_DECLS
+
 #include "IOTypes.h"
 
 #define IOHIDEventTypeMask(type) (1<<type)
@@ -146,7 +148,7 @@ typedef NS_OPTIONS(uint32_t, IOHIDProximityDetectionMask) {
     @constant kIOHIDDigitizerTypeFinger
 */
 typedef NS_ENUM(uint32_t, IOHIDDigitizerTransducerType) {
-    kIOHIDDigitizerTransducerTypeStylus  = 0x20,
+    kIOHIDDigitizerTransducerTypeStylus = 0,
     kIOHIDDigitizerTransducerTypePuck,
     kIOHIDDigitizerTransducerTypeFinger,
     kIOHIDDigitizerTransducerTypeHand
@@ -193,10 +195,12 @@ typedef NS_OPTIONS(uint32_t, IOHIDDigitizerEventMask) {
 };
 
 typedef NS_OPTIONS(uint32_t, IOHIDEventOptionBits) {
-    kIOHIDEventOptionNone                                   = 0x00000000,
-    kIOHIDEventOptionIsAbsolute                             = 0x00000001,
-    kIOHIDEventOptionIsCollection                           = 0x00000002,
-    kIOHIDEventOptionPixelUnits                             = 0x00000004
+    kIOHIDEventOptionNone                                   = 0,
+    kIOHIDEventOptionIsAbsolute                             = 1<<0,
+    kIOHIDEventOptionIsCollection                           = 1<<1,
+    kIOHIDEventOptionIsPixelUnits                           = 1<<2,
+    kIOHIDEventOptionIsCenterOrigin                         = 1<<3,
+    kIOHIDEventOptionIsBuiltIn                              = 1<<4,
 };
 
 #ifndef KERNEL
@@ -217,6 +221,8 @@ typedef struct _IOHID3DPoint {
     IOHIDFloat  z;
 } IOHID3DPoint; 
 #endif
+
+__END_DECLS
 
 #endif /* _IOKIT_HID_IOHIDEVENTTYPES_H */
 

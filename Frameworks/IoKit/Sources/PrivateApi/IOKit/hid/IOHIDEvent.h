@@ -42,11 +42,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "IOHIDEventData.h"
 #include "IOHIDEventField.h"
 #include <CoreFoundation/CoreFoundation.h>
+#include "CFRuntime.h"
 
 __BEGIN_DECLS
 	
 	typedef struct __IOHIDEvent
-#if 0
 	{
 		CFRuntimeBase base;	// 0, 4
 		AbsoluteTime _timeStamp;	// 8, c
@@ -58,9 +58,8 @@ __BEGIN_DECLS
 		struct __IOHIDEvent* _parent;	// 24
 		
 		size_t recordSize;	// 28
-		void record[];		
+		void *record;		
 	}
-#endif
 	* IOHIDEventRef;
 	
 #pragma mark -

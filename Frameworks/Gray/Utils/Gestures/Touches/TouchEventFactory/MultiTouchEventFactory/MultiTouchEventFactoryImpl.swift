@@ -14,7 +14,7 @@ public final class MultiTouchEventFactoryImpl: MultiTouchEventFactory {
         self.fingerTouchEventFactory = fingerTouchEventFactory
     }
     
-    public func multiTouchEvent(dequeuedMultiTouchInfo: DequeuedMultiTouchInfo, time: AbsoluteTime) -> Event {
+    public func multiTouchEvent(dequeuedMultiTouchInfo: DequeuedMultiTouchInfo, time: AbsoluteTime) -> DigitizerEvent {
         let aggregatingEvent = aggregatingTouchEventFactory.aggregatingTouchEvent(
             dequeuedMultiTouchInfo: dequeuedMultiTouchInfo,
             time: time

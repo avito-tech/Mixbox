@@ -16,6 +16,15 @@ public final class EventIntegerFields {
         }
     }
     
+    public subscript(_ field: IOHIDEventField) -> UInt32 {
+        get {
+            return UInt32(bitPattern: self[field])
+        }
+        set {
+            self[field] = Int32(bitPattern: newValue)
+        }
+    }
+    
     public subscript(_ field: IOHIDEventField) -> Bool {
         get {
             return IOHIDEventGetIntegerValue(iohidEventRef, field) != 0

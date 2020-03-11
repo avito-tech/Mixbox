@@ -8,7 +8,7 @@ import MixboxFoundation
 // TODO: DI?
 public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
     private let application: UIApplication
-    private let sender = MBIohidEventSender()
+    private let iohidEventSender = MBIohidEventSender()
     private let handleHidEventSwizzler: HandleHidEventSwizzler
     private let currentAbsoluteTimeProvider: CurrentAbsoluteTimeProvider = MachCurrentAbsoluteTimeProvider()
     
@@ -22,8 +22,8 @@ public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
     
     public func inject(events: [MixboxIpcCommon.KeyboardEvent], completion: @escaping (ErrorString?) -> ()) {
         let observable = handleHidEventSwizzler.swizzle()
-        let observer = UiApplicationHandleIohidEventObserver { [sender] in
-            sender.handle($0)
+        let observer = UiApplicationHandleIohidEventObserver { [iohidEventSender] in
+            iohidEventSender.handle($0)
         }
         
         observable.add(
@@ -31,22 +31,22 @@ public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
         )
         
         for event in events {
-            DispatchQueue.main.async { [application, sender, currentAbsoluteTimeProvider] in
+            DispatchQueue.main.async { [application, iohidEventSender, currentAbsoluteTimeProvider] in
                 let event = MixboxIoKit.KeyboardEvent(
                     allocator: kCFAllocatorDefault,
                     timeStamp: currentAbsoluteTimeProvider.currentAbsoluteTime(),
                     usagePage: event.usagePage,
                     usage: event.usage,
                     down: event.down,
-                    optionBits: []
+                    options: []
                 )
                 
-                sender.send(event.iohidEventRef, application: application)
+                iohidEventSender.send(event.iohidEventRef, application: application)
             }
         }
         
-        DispatchQueue.main.async { [application, sender] in
-            sender.waitForEventsBeingSent(to: application) { error in
+        DispatchQueue.main.async { [application, iohidEventSender] in
+            iohidEventSender.waitForEventsBeingSent(to: application) { error in
                 observable.remove(
                     uiApplicationHandleIohidEventObserver: observer
                 )
