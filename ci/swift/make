@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # ====== bash_ci ======
 # This section should be same across all bash files in the project
 source "$(builtin cd "$(dirname "$0")" && git rev-parse --show-toplevel)/ci/bash/bash_ci.sh"
@@ -11,7 +13,7 @@ main() {
     cd "$SCRIPT_ROOT"
 
     __MIXBOX_CI_MACOS_DEPLOYMENT_TARGET=x86_64-apple-macosx10.14
-    __MIXBOX_CI_OPTIMIZE_SPEED=false
+    __MIXBOX_CI_OPTIMIZE_SPEED=${__MIXBOX_CI_OPTIMIZE_SPEED:-false}
     
     case "$action" in
         generate) generate_project;;
