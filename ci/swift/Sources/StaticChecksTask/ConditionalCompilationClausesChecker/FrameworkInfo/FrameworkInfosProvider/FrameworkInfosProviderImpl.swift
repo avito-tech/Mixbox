@@ -51,6 +51,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
+                name: "IoKit",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
                 name: "Ipc",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
@@ -76,10 +80,6 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
             ),
             FrameworkInfo(
                 name: "UiKit",
-                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
-            ),
-            FrameworkInfo(
-                name: "IoKit",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
