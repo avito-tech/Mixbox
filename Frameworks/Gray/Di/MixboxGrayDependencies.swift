@@ -85,7 +85,6 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         di.register(type: EventGenerator.self) { di in
             GrayEventGenerator(
                 touchPerformer: try di.resolve(),
-                windowForPointProvider: try di.resolve(),
                 pathGestureUtils: PathGestureUtilsFactoryImpl().pathGestureUtils()
             )
         }
@@ -97,11 +96,6 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         di.register(type: MultiTouchCommandExecutor.self) { di in
             MultiTouchCommandExecutorImpl(
                 touchInjectorFactory: try di.resolve()
-            )
-        }
-        di.register(type: WindowForPointProvider.self) { di in
-            WindowForPointProviderImpl(
-                orderedWindowsProvider: try di.resolve()
             )
         }
         di.register(type: TouchInjectorFactory.self) { di in

@@ -17,10 +17,7 @@ public final class TouchInjectorFactoryImpl: TouchInjectorFactory {
         self.multiTouchEventFactory = multiTouchEventFactory
     }
     
-    public func touchInjector(
-        window: UIWindow)
-        -> TouchInjector
-    {
+    public func touchInjector() -> TouchInjector {
         return TouchInjectorImpl(
             currentAbsoluteTimeProvider: currentAbsoluteTimeProvider,
             runLoopSpinnerFactory: runLoopSpinnerFactory,

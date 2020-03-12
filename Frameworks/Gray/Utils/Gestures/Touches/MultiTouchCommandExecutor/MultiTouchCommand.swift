@@ -1,38 +1,19 @@
-// Makes interaction with new touches starting at multiple `points`. Touch will be delivered to
-// the hit test view in `relativeToWindow` window under point.
-//
-// Common parameters:
-//
-// - relativeToWindow:
-//
-//  The window that contains the coordinates of the touch points.
-//
-// - points:
-
-//  Multiple points at which the touches are to be made.
-//
-// - expendable:
-//
-//  Indicates that this touch point is intended to be delivered in a timely
-//  manner rather than reliably.
-//
 public final class MultiTouchCommand {
     public final class Begin {
         public let pointsByFinger: [CGPoint]
-        public let relativeToWindow: UIWindow
         
         public init(
-            pointsByFinger: [CGPoint],
-            relativeToWindow: UIWindow)
+            pointsByFinger: [CGPoint])
         {
             self.pointsByFinger = pointsByFinger
-            self.relativeToWindow = relativeToWindow
         }
     }
     
     public final class Continue {
         public let pointsByFinger: [CGPoint]
         public let timeElapsedSinceLastTouchDelivery: TimeInterval
+        // Indicates that this touch point is intended to be delivered in a timely
+        // manner rather than reliably. If `false`, touch can be skipped.
         public let isExpendable: Bool
         
         public init(

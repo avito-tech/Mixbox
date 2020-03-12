@@ -2,14 +2,11 @@ import MixboxUiTestsFoundation
 
 public final class GrayElementSimpleGesturesProvider: ElementSimpleGesturesProvider {
     private let touchPerformer: TouchPerformer
-    private let windowForPointProvider: WindowForPointProvider
     
     public init(
-        touchPerformer: TouchPerformer,
-        windowForPointProvider: WindowForPointProvider)
+        touchPerformer: TouchPerformer)
     {
         self.touchPerformer = touchPerformer
-        self.windowForPointProvider = windowForPointProvider
     }
     
     public func elementSimpleGestures(
@@ -24,8 +21,7 @@ public final class GrayElementSimpleGesturesProvider: ElementSimpleGesturesProvi
         
         return GrayElementSimpleGestures(
             touchPerformer: touchPerformer,
-            point: point,
-            windowForPointProvider: windowForPointProvider
+            point: point
         )
     }
 }

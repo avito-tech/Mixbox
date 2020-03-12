@@ -11,7 +11,6 @@ public final class TouchPerformerImpl: TouchPerformer {
     
     public func touch(
         touchPaths: [[CGPoint]],
-        relativeToWindow window: UIWindow,
         duration: TimeInterval,
         isExpendable: Bool)
         throws
@@ -29,8 +28,7 @@ public final class TouchPerformerImpl: TouchPerformer {
             pointsByFinger: try objects(
                 index: 0,
                 arrays: touchPaths
-            ),
-            relativeToWindow: window
+            )
         )
         
         let continueCommands: [MultiTouchCommand.Continue]

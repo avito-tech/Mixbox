@@ -75,20 +75,14 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
             )
         )
         
-        let windowForPointProvider = WindowForPointProviderImpl(
-            orderedWindowsProvider: orderedWindowsProvider
-        )
-        
         elementSimpleGesturesProvider = GrayElementSimpleGesturesProvider(
-            touchPerformer: touchPerformer,
-            windowForPointProvider: windowForPointProvider
+            touchPerformer: touchPerformer
         )
         
         applicationFrameProvider = GrayApplicationFrameProvider()
         
         eventGenerator = GrayEventGenerator(
             touchPerformer: touchPerformer,
-            windowForPointProvider: windowForPointProvider,
             pathGestureUtils: PathGestureUtilsFactoryImpl().pathGestureUtils()
         )
         
