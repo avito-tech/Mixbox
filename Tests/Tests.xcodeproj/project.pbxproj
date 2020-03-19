@@ -352,6 +352,7 @@
 		F8B34136224E61AA00AA1EB9 /* CameraPermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34135224E61AA00AA1EB9 /* CameraPermissionInfo.swift */; };
 		F8B34139224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34138224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift */; };
 		F8B34145224E662D00AA1EB9 /* MicrophonePermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34144224E662D00AA1EB9 /* MicrophonePermissionInfo.swift */; };
+		F8B39FEE2423F08F00BFACD8 /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */; };
 		F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */; };
 		F8B9649922808AE90054CE08 /* AlwaysFailingIpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */; };
 		F8B964AB2280A1060054CE08 /* SwipeActionWaitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */; };
@@ -829,6 +830,7 @@
 		F8B34135224E61AA00AA1EB9 /* CameraPermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionInfo.swift; sourceTree = "<group>"; };
 		F8B34138224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvCaptureDevicePermissionInfo.swift; sourceTree = "<group>"; };
 		F8B34144224E662D00AA1EB9 /* MicrophonePermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionInfo.swift; sourceTree = "<group>"; };
+		F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
 		F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStubberTests.swift; sourceTree = "<group>"; };
 		F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysFailingIpcClient.swift; sourceTree = "<group>"; };
 		F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionWaitsTests.swift; sourceTree = "<group>"; };
@@ -2334,6 +2336,14 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		F8B39FEC2423F05500BFACD8 /* MixboxGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */,
+			);
+			path = MixboxGenerator;
+			sourceTree = "<group>";
+		};
 		F8B964C92281DC8C0054CE08 /* MixboxUiKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2354,15 +2364,16 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F8E160CE2418671E00B4912F /* MixboxGray */,
-				F8C3656324182D10005DD578 /* MixboxIoKit */,
 				F879B9FD2368AAC500FB2FA0 /* MixboxDi */,
+				F8B964D12281E3E30054CE08 /* MixboxFoundation */,
+				F8B39FEC2423F05500BFACD8 /* MixboxGenerator */,
+				F8E160CE2418671E00B4912F /* MixboxGray */,
 				F8D85529235DF59A0068047A /* MixboxInAppServices */,
+				F8C3656324182D10005DD578 /* MixboxIoKit */,
 				F80CEDE022DE27D8006C804D /* MixboxIpcCommon */,
 				F8B964D22281E4000054CE08 /* MixboxTestsFoundation */,
-				F8B964D12281E3E30054CE08 /* MixboxFoundation */,
-				F8B964D02281E3CE0054CE08 /* MixboxUiTestsFoundation */,
 				F8B964C92281DC8C0054CE08 /* MixboxUiKit */,
+				F8B964D02281E3CE0054CE08 /* MixboxUiTestsFoundation */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -3279,6 +3290,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxGenerator/MixboxGenerator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3305,6 +3317,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3549,6 +3562,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxGenerator/MixboxGenerator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3575,6 +3589,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3925,6 +3940,7 @@
 				F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
+				F8B39FEE2423F08F00BFACD8 /* GeneratorTests.swift in Sources */,
 				F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */,
 				F8DC865023675D4A003889C7 /* UIColor+RGB.swift in Sources */,
 				F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */,

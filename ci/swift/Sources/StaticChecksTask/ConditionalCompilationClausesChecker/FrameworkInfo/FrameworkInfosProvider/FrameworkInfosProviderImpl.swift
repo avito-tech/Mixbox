@@ -43,6 +43,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
+                name: "Generator",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
+            ),
+            FrameworkInfo(
                 name: "Gray",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
