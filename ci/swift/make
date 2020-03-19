@@ -17,7 +17,7 @@ main() {
     
     case "$action" in
         generate) generate_project;;
-        reopen-fast) __MIXBOX_CI_OPTIMIZE_SPEED=true; reopen_project;;
+        r) __MIXBOX_CI_OPTIMIZE_SPEED=true; reopen_project;; # `r` is for rapid people
         reopen) reopen_project $2;;
         clean) clean_project;;
         build) build_project $2;;
