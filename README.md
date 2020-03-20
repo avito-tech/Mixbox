@@ -193,4 +193,5 @@ we need conditional compilation built in in sources to prevent linking the code 
 - [Why so many frameworks?](Docs/Frameworks.md)
 - [How-To Private API](Docs/PrivateApi.md)
 - [Code of conduct](CODE_OF_CONDUCT.md)
+- [Contributing](CONTRIBUTING.md)
 - [Setting up project to switch notification permissions](Frameworks/FakeSettingsAppMain/README.md)
