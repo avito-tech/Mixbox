@@ -1,7 +1,7 @@
 import MixboxFoundation
 
 // Helpers for making facades
-extension PageObjectElement {
+extension PageObjectElementCore {
     public func checkIsDisplayedAndMatches(
         minimalPercentageOfVisibleArea: CGFloat,
         buildMatcher: @escaping (ElementMatcherBuilder) -> ElementMatcher,
@@ -77,7 +77,7 @@ extension PageObjectElement {
     }
     
     // TODO: Move to a better place. It is not for facades. It is a vital part of working with accessibility hierarchy.
-    private var filteringHiddenElement: PageObjectElement {
+    public var filteringHiddenElement: PageObjectElementCore {
         return with(
             settings: settings.with(
                 matcher: settings.matcher && IsNotDefinitelyHiddenMatcher()

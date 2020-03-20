@@ -28,7 +28,7 @@ public extension ElementWithText {
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
         )
         
-        return implementation.perform(
+        return core.perform(
             action: action,
             failTest: failTest,
             file: file,
@@ -76,7 +76,7 @@ public extension ElementWithText {
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
         )
         
-        return implementation.perform(
+        return core.perform(
             action: action,
             failTest: failTest,
             file: file,

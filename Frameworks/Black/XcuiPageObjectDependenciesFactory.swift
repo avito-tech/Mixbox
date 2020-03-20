@@ -81,8 +81,8 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         )
     }
     
-    public func pageObjectElementFactory() -> PageObjectElementFactory {
-        return PageObjectElementFactoryImpl(
+    public func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory {
+        return PageObjectElementCoreFactoryImpl(
             testFailureRecorder: xcuiBasedTestsDependenciesFactory.testFailureRecorder,
             screenshotAttachmentsMaker: xcuiBasedTestsDependenciesFactory.screenshotAttachmentsMaker,
             stepLogger: xcuiBasedTestsDependenciesFactory.stepLogger,

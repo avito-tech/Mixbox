@@ -13,7 +13,7 @@ extension ElementWithUi {
     {
         var valueOrNil: T?
         
-        _ = implementation.filteringHiddenElement.interactionPerformer.perform(
+        _ = core.filteringHiddenElement.interactionPerformer.perform(
             interaction: WrappedDescriptionElementInteraction(
                 interaction: IsDisplayedAndMatchesCheck(
                     minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
@@ -44,16 +44,5 @@ extension ElementWithUi {
         )
         
         return valueOrNil
-    }
-}
-
-private extension PageObjectElement {
-    // TODO: Remove copypasta
-    var filteringHiddenElement: PageObjectElement {
-        return with(
-            settings: settings.with(
-                matcher: settings.matcher && IsNotDefinitelyHiddenMatcher()
-            )
-        )
     }
 }

@@ -6,7 +6,7 @@ extension ElementWithText {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.text == expectedText
@@ -26,7 +26,7 @@ extension ElementWithText {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.text.matches(regularExpression: regularExpression)
@@ -46,7 +46,7 @@ extension ElementWithText {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.text.contains(text)
@@ -66,7 +66,7 @@ extension ElementWithText {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.accessibilityLabel == expectedLabel
@@ -86,7 +86,7 @@ extension ElementWithText {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.accessibilityLabel.contains(text)

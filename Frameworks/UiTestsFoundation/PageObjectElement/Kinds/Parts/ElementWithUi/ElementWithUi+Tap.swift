@@ -19,7 +19,7 @@ extension ElementWithUi {
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
         )
         
-        return implementation.perform(
+        return core.perform(
             action: action,
             failTest: failTest,
             file: file,

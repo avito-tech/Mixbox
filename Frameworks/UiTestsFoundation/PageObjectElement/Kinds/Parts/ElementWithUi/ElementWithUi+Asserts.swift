@@ -6,7 +6,7 @@ extension ElementWithUi {
         line: UInt = #line)
         -> Bool
     {
-        return implementation.checkIsDisplayedAndMatches(
+        return core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             matcher: AlwaysTrueMatcher(), // check for visibility is built in `IsDisplayedAndMatchesCheck`
             description: { dependencies in
@@ -24,7 +24,7 @@ extension ElementWithUi {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             matcher: AlwaysTrueMatcher(), // check for visibility is built in `IsDisplayedAndMatchesCheck`
             description: { dependencies in
@@ -41,7 +41,7 @@ extension ElementWithUi {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.interactionPerformer.perform(
+        _ = core.interactionPerformer.perform(
             interaction: IsNotDisplayedCheck(
                 maximumAllowedPercentageOfVisibleArea: CGFloat.leastNonzeroMagnitude
             ),
@@ -59,7 +59,7 @@ extension ElementWithUi {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.0, // might be not visible
             matcher: AlwaysTrueMatcher(), // check for existing in hierarchy is built in `isDisplayedAndMatches`
             description: { dependencies in
@@ -77,7 +77,7 @@ extension ElementWithUi {
         file: StaticString = #file,
         line: UInt = #line)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.accessibilityValue == value
@@ -98,7 +98,7 @@ extension ElementWithUi {
         line: UInt = #line,
         matcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
     {
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             buildMatcher: matcher,
             description: { dependencies in
@@ -121,7 +121,7 @@ extension ElementWithUi {
             element.matchesReference(image: image, comparator: comparator)
         }
         
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 1.0,
             buildMatcher: buildMatcher,
             description: { dependencies in
@@ -144,7 +144,7 @@ extension ElementWithUi {
             element.matchesReference(image: image, comparatorType: comparatorType)
         }
         
-        _ = implementation.checkIsDisplayedAndMatches(
+        _ = core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 1.0,
             buildMatcher: buildMatcher,
             description: { dependencies in
@@ -217,7 +217,7 @@ extension ElementWithUi {
         
         action()
         
-        return implementation.checkIsDisplayedAndMatches(
+        return core.checkIsDisplayedAndMatches(
             minimalPercentageOfVisibleArea: 0.2,
             matcher: Matcher<ElementSnapshot>(
                 description: { "checkPositiveHeightDifference, main matcher" },

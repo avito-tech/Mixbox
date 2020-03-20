@@ -1,4 +1,4 @@
-public final class PageObjectElementImpl: PageObjectElement {
+public final class PageObjectElementCoreImpl: PageObjectElementCore {
     public let settings: ElementSettings
     public let interactionPerformer: PageObjectElementInteractionPerformer
     
@@ -10,8 +10,8 @@ public final class PageObjectElementImpl: PageObjectElement {
         self.interactionPerformer = interactionPerformer
     }
     
-    public func with(settings: ElementSettings) -> PageObjectElement {
-        return PageObjectElementImpl(
+    public func with(settings: ElementSettings) -> PageObjectElementCore {
+        return PageObjectElementCoreImpl(
             settings: settings,
             interactionPerformer: interactionPerformer.with(settings: settings)
         )

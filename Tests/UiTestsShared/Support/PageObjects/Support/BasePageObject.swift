@@ -19,15 +19,13 @@ open class BasePageObject: PageObject, PageObjectElementRegistrar {
     
     // MARK: - PageObjectElementRegistrar
     
-    public func elementImpl<T>(
+    public func pageObjectElementCore(
         name: String,
         functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: (ElementMatcherBuilder) -> ElementMatcher)
-        -> T
-        where
-        T: ElementWithDefaultInitializer
+        -> PageObjectElementCore
     {
-        return pageObjectElementRegistrar.elementImpl(
+        return pageObjectElementRegistrar.pageObjectElementCore(
             name: name,
             functionDeclarationLocation: functionDeclarationLocation,
             matcherBuilder: matcherBuilder

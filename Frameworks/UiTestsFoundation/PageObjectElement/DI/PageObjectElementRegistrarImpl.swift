@@ -1,7 +1,7 @@
 import MixboxFoundation
 
 public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
-    private let pageObjectElementFactory: PageObjectElementFactory
+    private let pageObjectElementCoreFactory: PageObjectElementCoreFactory
     private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory
     private let scrollMode: ScrollMode?
     private let interactionMode: InteractionMode?
@@ -13,7 +13,7 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
         interactionMode: InteractionMode? = nil)
     {
         self.pageObjectElementDependenciesFactory = pageObjectElementDependenciesFactory
-        self.pageObjectElementFactory = pageObjectElementDependenciesFactory.pageObjectElementFactory()
+        self.pageObjectElementCoreFactory = pageObjectElementDependenciesFactory.pageObjectElementCoreFactory()
         self.elementMatcherBuilder = pageObjectElementDependenciesFactory.matcherBulder()
         self.scrollMode = scrollMode
         self.interactionMode = interactionMode
@@ -21,18 +21,22 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
     
     // MARK: - PageObjectElementRegistrar
     
-    public func elementImpl<T: ElementWithDefaultInitializer>(
+    public func pageObjectElementCore(
         name: String,
         functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: ElementMatcherBuilderClosure)
-        -> T
+        -> PageObjectElementCore
     {
-        let pageObjectElement = self.pageObjectElement(
-            name: name,
-            functionDeclarationLocation: functionDeclarationLocation,
-            matcherBuilder: matcherBuilder
+        return pageObjectElementCoreFactory.pageObjectElementCore(
+            settings: ElementSettings(
+                name: name,
+                functionDeclarationLocation: functionDeclarationLocation,
+                matcher: matcherBuilder(elementMatcherBuilder),
+                scrollMode: scrollMode ?? .default,
+                interactionTimeout: nil,
+                interactionMode: interactionMode ?? .default
+            )
         )
-        return T(implementation: pageObjectElement)
     }
     
     public func with(scrollMode: ScrollMode) -> PageObjectElementRegistrar {
@@ -48,26 +52,6 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
             pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
             scrollMode: scrollMode,
             interactionMode: interactionMode
-        )
-    }
-    
-    // MARK: - Private
-    
-    private func pageObjectElement(
-        name: String,
-        functionDeclarationLocation: FunctionDeclarationLocation,
-        matcherBuilder: ElementMatcherBuilderClosure)
-        -> PageObjectElement
-    {
-        return pageObjectElementFactory.pageObjectElement(
-            settings: ElementSettings(
-                name: name,
-                functionDeclarationLocation: functionDeclarationLocation,
-                matcher: matcherBuilder(elementMatcherBuilder),
-                scrollMode: scrollMode ?? .default,
-                interactionTimeout: nil,
-                interactionMode: interactionMode ?? .default
-            )
         )
     }
 }

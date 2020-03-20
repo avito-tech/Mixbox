@@ -17,13 +17,18 @@ import MixboxFoundation
 // TODOs:
 //
 // TODO: Rename to something that expresses the purpose of this class more accurately.
-
+//       For example: ElementFactory
 public protocol PageObjectElementRegistrar: class {
-    func elementImpl<T: ElementWithDefaultInitializer>(
+    // To be implemented by base classes, it is not intended for using from client code.
+    //
+    // Use `element` to make objects with interfaces that are easy-to-use in tests.
+    //
+    // E.g. implementation of page objects is different for blackbox and graybox tests.
+    func pageObjectElementCore(
         name: String,
         functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: ElementMatcherBuilderClosure)
-        -> T
+        -> PageObjectElementCore
     
     func with(scrollMode: ScrollMode) -> PageObjectElementRegistrar
     func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar
@@ -39,13 +44,34 @@ public extension PageObjectElementRegistrar {
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     {
-        return elementImpl(
+        return element(
             name: name,
-            functionDeclarationLocation: FunctionDeclarationLocation(
-                fileLine: FileLine(file: file, line: line),
-                function: function
-            ),
+            factory: T.init,
+            file: file,
+            line: line,
+            function: function,
             matcherBuilder: matcherBuilder
+        )
+    }
+    
+    func element<T>(
+        name: String,
+        factory: (PageObjectElementCore) -> T,
+        file: StaticString = #file,
+        line: UInt = #line,
+        function: String = #function,
+        matcherBuilder: ElementMatcherBuilderClosure)
+        -> T
+    {
+        return factory(
+            pageObjectElementCore(
+                name: name,
+                functionDeclarationLocation: FunctionDeclarationLocation(
+                    fileLine: FileLine(file: file, line: line),
+                    function: function
+                ),
+                matcherBuilder: matcherBuilder
+            )
         )
     }
 }

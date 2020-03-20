@@ -69,8 +69,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         )
     }
     
-    public func pageObjectElementFactory() -> PageObjectElementFactory {
-        return PageObjectElementFactoryImpl(
+    public func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory {
+        return PageObjectElementCoreFactoryImpl(
             testFailureRecorder: grayBoxTestsDependenciesFactory.testFailureRecorder,
             screenshotAttachmentsMaker: grayBoxTestsDependenciesFactory.screenshotAttachmentsMaker,
             stepLogger: grayBoxTestsDependenciesFactory.stepLogger,

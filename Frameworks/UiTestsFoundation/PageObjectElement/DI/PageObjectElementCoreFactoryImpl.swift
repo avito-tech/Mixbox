@@ -1,7 +1,7 @@
 import MixboxTestsFoundation
 import MixboxFoundation
 
-public final class PageObjectElementFactoryImpl: PageObjectElementFactory {
+public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactory {
     // MARK: - Private properties
     
     private let testFailureRecorder: TestFailureRecorder
@@ -32,13 +32,13 @@ public final class PageObjectElementFactoryImpl: PageObjectElementFactory {
         self.signpostActivityLogger = signpostActivityLogger
     }
     
-    // MARK: - PageObjectElementFactory
+    // MARK: - PageObjectElementCoreFactory
     
-    public func pageObjectElement(
+    public func pageObjectElementCore(
         settings elementSettings: ElementSettings)
-        -> PageObjectElement
+        -> PageObjectElementCore
     {
-        return PageObjectElementImpl(
+        return PageObjectElementCoreImpl(
             settings: elementSettings,
             interactionPerformer: PageObjectElementInteractionPerformerImpl(
                 testFailureRecorder: testFailureRecorder,

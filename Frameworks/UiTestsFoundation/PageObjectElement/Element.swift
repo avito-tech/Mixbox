@@ -1,11 +1,7 @@
 import MixboxTestsFoundation
 
-// Page Object Element
-// TODO: Names are MESS!!!! I think we should separate different layers of abstractions to different modules.
-// `Element` is page object element for tests.
-// `PageObjectElement` is page object element for Mixbox internals.
 public protocol Element: class {
-    var implementation: PageObjectElement { get }
+    var core: PageObjectElementCore { get }
     
     func with(settings: ElementSettings) -> Self
 }
@@ -46,27 +42,27 @@ extension Element {
     }
     
     public func matching(_ additional: ElementMatcher) -> Self {
-        let old = implementation.settings.matcher
+        let old = core.settings.matcher
         return with(matcher: old && additional)
     }
     
     public func with(name: String) -> Self {
-        return with(settings: implementation.settings.with(name: name))
+        return with(settings: core.settings.with(name: name))
     }
     
     public func with(matcher: ElementMatcher) -> Self {
-        return with(settings: implementation.settings.with(matcher: matcher))
+        return with(settings: core.settings.with(matcher: matcher))
     }
     
     public func with(scrollMode: ScrollMode) -> Self {
-        return with(settings: implementation.settings.with(scrollMode: scrollMode))
+        return with(settings: core.settings.with(scrollMode: scrollMode))
     }
     
     public func with(interactionMode: InteractionMode) -> Self {
-        return with(settings: implementation.settings.with(interactionMode: interactionMode))
+        return with(settings: core.settings.with(interactionMode: interactionMode))
     }
     
     public func with(interactionTimeout: TimeInterval?) -> Self {
-        return with(settings: implementation.settings.with(interactionTimeout: interactionTimeout))
+        return with(settings: core.settings.with(interactionTimeout: interactionTimeout))
     }
 }

@@ -1,4 +1,4 @@
 public protocol PageObjectElementDependenciesFactory: class {
-    func pageObjectElementFactory() -> PageObjectElementFactory
+    func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory
     func matcherBulder() -> ElementMatcherBuilder
 }
