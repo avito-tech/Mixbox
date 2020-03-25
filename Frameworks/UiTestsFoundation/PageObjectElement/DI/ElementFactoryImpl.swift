@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
+public final class ElementFactoryImpl: ElementFactory {
     private let pageObjectElementCoreFactory: PageObjectElementCoreFactory
     private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory
     private let scrollMode: ScrollMode?
@@ -19,9 +19,43 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
         self.interactionMode = interactionMode
     }
     
-    // MARK: - PageObjectElementRegistrar
+    // MARK: - ElementFactory
     
-    public func pageObjectElementCore(
+    public func element<T>(
+        name: String,
+        factory: (PageObjectElementCore) -> T,
+        functionDeclarationLocation: FunctionDeclarationLocation,
+        matcherBuilder: ElementMatcherBuilderClosure)
+        -> T
+    {
+        return factory(
+            pageObjectElementCore(
+                name: name,
+                functionDeclarationLocation: functionDeclarationLocation,
+                matcherBuilder: matcherBuilder
+            )
+        )
+    }
+    
+    public func with(scrollMode: ScrollMode) -> ElementFactory {
+        return ElementFactoryImpl(
+            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            scrollMode: scrollMode,
+            interactionMode: interactionMode
+        )
+    }
+    
+    public func with(interactionMode: InteractionMode) -> ElementFactory {
+        return ElementFactoryImpl(
+            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            scrollMode: scrollMode,
+            interactionMode: interactionMode
+        )
+    }
+    
+    // MARK: - Private
+    
+    private func pageObjectElementCore(
         name: String,
         functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: ElementMatcherBuilderClosure)
@@ -36,22 +70,6 @@ public final class PageObjectElementRegistrarImpl: PageObjectElementRegistrar {
                 interactionTimeout: nil,
                 interactionMode: interactionMode ?? .default
             )
-        )
-    }
-    
-    public func with(scrollMode: ScrollMode) -> PageObjectElementRegistrar {
-        return PageObjectElementRegistrarImpl(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
-            scrollMode: scrollMode,
-            interactionMode: interactionMode
-        )
-    }
-    
-    public func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar {
-        return PageObjectElementRegistrarImpl(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
-            scrollMode: scrollMode,
-            interactionMode: interactionMode
         )
     }
 }

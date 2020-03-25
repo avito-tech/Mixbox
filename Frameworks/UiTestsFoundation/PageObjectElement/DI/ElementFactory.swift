@@ -1,41 +1,43 @@
 import MixboxFoundation
 
-// This class is a helper to make describing PageObjects easier by providing functions
-// to make all page object elements (the main purpose of PageObject is to provide page object elements)
-//
-// EDITING:
-//
-// If you want to add another type of the element
-// you should be able to understand the fundamentals
-// of programming in Swift:
-// - ⌘ + C
-// - ⌘ + V
-// Just replace the type of your page object element (ViewElement/ButtonElement/etc)
-//
-// If you can make it easier, let us know. Now it doesn't seem to be a big problem.
-//
-// TODOs:
-//
-// TODO: Rename to something that expresses the purpose of this class more accurately.
-//       For example: ElementFactory
-public protocol PageObjectElementRegistrar: class {
-    // To be implemented by base classes, it is not intended for using from client code.
+public protocol ElementFactory {
+    // These functions designed to be implemented by classes, not to be used in tests.
     //
-    // Use `element` to make objects with interfaces that are easy-to-use in tests.
+    // See protocol extensions for client interface (your tests).
     //
-    // E.g. implementation of page objects is different for blackbox and graybox tests.
-    func pageObjectElementCore(
+    func element<T>(
         name: String,
+        factory: (PageObjectElementCore) -> T,
         functionDeclarationLocation: FunctionDeclarationLocation,
         matcherBuilder: ElementMatcherBuilderClosure)
-        -> PageObjectElementCore
+        -> T
     
-    func with(scrollMode: ScrollMode) -> PageObjectElementRegistrar
-    func with(interactionMode: InteractionMode) -> PageObjectElementRegistrar
+    func with(scrollMode: ScrollMode) -> ElementFactory
+    func with(interactionMode: InteractionMode) -> ElementFactory
 }
 
 // Convenient functions
-public extension PageObjectElementRegistrar {
+public extension ElementFactory {
+    func element<T>(
+        name: String,
+        factory: (PageObjectElementCore) -> T,
+        file: StaticString = #file,
+        line: UInt = #line,
+        function: String = #function,
+        matcherBuilder: ElementMatcherBuilderClosure)
+        -> T
+    {
+        return element(
+            name: name,
+            factory: factory,
+            functionDeclarationLocation: FunctionDeclarationLocation(
+                fileLine: FileLine(file: file, line: line),
+                function: function
+            ),
+            matcherBuilder: matcherBuilder
+        )
+    }
+    
     func element<T: ElementWithDefaultInitializer>(
         _ name: String,
         file: StaticString = #file,
@@ -53,31 +55,10 @@ public extension PageObjectElementRegistrar {
             matcherBuilder: matcherBuilder
         )
     }
-    
-    func element<T>(
-        name: String,
-        factory: (PageObjectElementCore) -> T,
-        file: StaticString = #file,
-        line: UInt = #line,
-        function: String = #function,
-        matcherBuilder: ElementMatcherBuilderClosure)
-        -> T
-    {
-        return factory(
-            pageObjectElementCore(
-                name: name,
-                functionDeclarationLocation: FunctionDeclarationLocation(
-                    fileLine: FileLine(file: file, line: line),
-                    function: function
-                ),
-                matcherBuilder: matcherBuilder
-            )
-        )
-    }
 }
 
 // Modifiers.
-public extension PageObjectElementRegistrar {
+public extension ElementFactory {
     
     // Selects any element among elements that are matching.
     //
@@ -91,7 +72,7 @@ public extension PageObjectElementRegistrar {
     //          element.id == "myCell"
     //      }
     //  }
-    var any: PageObjectElementRegistrar {
+    var any: ElementFactory {
         return atIndex(0)
     }
     
@@ -108,12 +89,12 @@ public extension PageObjectElementRegistrar {
     //          }
     //      }
     //  }
-    var withoutScrolling: PageObjectElementRegistrar {
+    var withoutScrolling: ElementFactory {
         return with(scrollMode: .none)
     }
     
     // Re-enables default scroll if `scrollMode` was previousely changed.
-    var withScrolling: PageObjectElementRegistrar {
+    var withScrolling: ElementFactory {
         return with(scrollMode: .default)
     }
     
@@ -135,7 +116,7 @@ public extension PageObjectElementRegistrar {
     //          element.id == "foobar"
     //      }
     //  }
-    func atIndex(_ index: Int) -> PageObjectElementRegistrar {
+    func atIndex(_ index: Int) -> ElementFactory {
         return with(interactionMode: .useElementAtIndexInHierarchy(index))
     }
     
@@ -145,7 +126,7 @@ public extension PageObjectElementRegistrar {
     //
     // Do not use unless default scrolling doesn't work.
     //
-    var withBlindScrolling: PageObjectElementRegistrar {
+    var withBlindScrolling: ElementFactory {
         return with(scrollMode: .blind)
     }
 }

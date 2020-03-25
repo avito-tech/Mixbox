@@ -1,11 +1,11 @@
 import MixboxUiTestsFoundation
 
 // See extension to OpenableScreen
-protocol DefaultPageObjectElementRegistrarProvider {
-    var defaultPageObjectElementRegistrar: PageObjectElementRegistrar { get }
+protocol DefaultElementFactoryProvider {
+    var defaultElementFactory: ElementFactory { get }
 }
 
-final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer>: DefaultPageObjectElementRegistrarProvider {
+final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer>: DefaultElementFactoryProvider {
     let real: PageObjectType // page object with real hierarchy
     let xcui: PageObjectType // page object with xcui hierarchy
     let `default`: PageObjectType // real hierarchy in GrayBox tests, xcui hierarchy in BlackBoxTests
@@ -18,7 +18,7 @@ final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer>:
         everyKindOfHierarchy.forEach(body)
     }
     
-    var defaultPageObjectElementRegistrar: PageObjectElementRegistrar {
+    var defaultElementFactory: ElementFactory {
         return `default`
     }
     

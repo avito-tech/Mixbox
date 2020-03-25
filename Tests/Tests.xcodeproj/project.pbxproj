@@ -192,7 +192,6 @@
 		F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */; };
 		F8951E45222463120033885C /* ExpandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8951E44222463120033885C /* ExpandingView.swift */; };
 		F8971CE12264AF9B001741C1 /* LaunchableApplicationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE02264AF9B001741C1 /* LaunchableApplicationProvider.swift */; };
-		F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */; };
 		F8971CFF22650287001741C1 /* RecordingNetworkPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CFE22650287001741C1 /* RecordingNetworkPlayerTests.swift */; };
 		F8971D022265049F001741C1 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971D012265049F001741C1 /* FileSystem.swift */; };
 		F8971D0522650A62001741C1 /* FileSystemImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971D0422650A62001741C1 /* FileSystemImpl.swift */; };
@@ -228,8 +227,6 @@
 		F8A837A32270D40B00145140 /* NetworkStubbingTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */; };
 		F8A837A42270D40B00145140 /* GenericPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34119224E56C800AA1EB9 /* GenericPageObject.swift */; };
 		F8A837A52270D40B00145140 /* PageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23A220A0E040089C1EE /* PageObjects.swift */; };
-		F8A837A62270D40B00145140 /* BasePageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23B220A0E040089C1EE /* BasePageObject.swift */; };
-		F8A837A72270D40B00145140 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */; };
 		F8A837A82270D40B00145140 /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* BasePageObjects.swift */; };
 		F8A837A92270D45800145140 /* ChecksTestsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879832E22494BE3004DD770 /* ChecksTestsScreen.swift */; };
 		F8A837AD2270D57F00145140 /* BaseChecksTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879832B22494B8F004DD770 /* BaseChecksTestCase.swift */; };
@@ -326,7 +323,6 @@
 		F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010D421FF319C0026360D /* ReportingSystems.swift */; };
 		F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010CF21FF30450026360D /* ReportingTestLifecycleManager.swift */; };
 		F8B0A260220A0EF40089C1EE /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* BasePageObjects.swift */; };
-		F8B0A262220A0EF40089C1EE /* BasePageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23B220A0E040089C1EE /* BasePageObject.swift */; };
 		F8B0A271220A12C00089C1EE /* ApplicationNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */; };
 		F8B33B0A224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B09224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift */; };
 		F8B33B0C224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B0B224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift */; };
@@ -473,6 +469,8 @@
 		F8E6EF5D22831513007A97E5 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF5C22831513007A97E5 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift */; };
 		F8E6EF5F228316DD007A97E5 /* ApplicationPermissionSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF5E228316DD007A97E5 /* ApplicationPermissionSpecification.swift */; };
 		F8E6EF6622831BDE007A97E5 /* NotificationsPermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF6522831BDE007A97E5 /* NotificationsPermissionInfo.swift */; };
+		F8E84A88242BB9DD00A29CD8 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */; };
+		F8E84A89242BB9DD00A29CD8 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */; };
 		F8E8BAE320DD752200524185 /* FakeCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAE220DD752200524185 /* FakeCellsTests.swift */; };
 		F8E8BAE520DD752F00524185 /* FakeCellsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAE420DD752F00524185 /* FakeCellsTestsView.swift */; };
 		F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAED20DFD20800524185 /* SingleViewCell.swift */; };
@@ -731,7 +729,6 @@
 		F8951E44222463120033885C /* ExpandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingView.swift; sourceTree = "<group>"; };
 		F8971CE02264AF9B001741C1 /* LaunchableApplicationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchableApplicationProvider.swift; sourceTree = "<group>"; };
 		F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsViewPageObject.swift; sourceTree = "<group>"; };
-		F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasePageObject+Extension.swift"; sourceTree = "<group>"; };
 		F8971CFE22650287001741C1 /* RecordingNetworkPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingNetworkPlayerTests.swift; sourceTree = "<group>"; };
 		F8971D012265049F001741C1 /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
 		F8971D0422650A62001741C1 /* FileSystemImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemImpl.swift; sourceTree = "<group>"; };
@@ -805,7 +802,6 @@
 		F8B0A234220A0E040089C1EE /* GrayBoxTestCaseDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrayBoxTestCaseDependencies.swift; sourceTree = "<group>"; };
 		F8B0A239220A0E040089C1EE /* BasePageObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageObjects.swift; sourceTree = "<group>"; };
 		F8B0A23A220A0E040089C1EE /* PageObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageObjects.swift; sourceTree = "<group>"; };
-		F8B0A23B220A0E040089C1EE /* BasePageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageObject.swift; sourceTree = "<group>"; };
 		F8B0A23D220A0E040089C1EE /* TestObservationEntryPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObservationEntryPoint.swift; sourceTree = "<group>"; };
 		F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationNameProvider.swift; sourceTree = "<group>"; };
 		F8B33B09224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertHasTextInteractionTests.swift; sourceTree = "<group>"; };
@@ -899,6 +895,7 @@
 		F8E6EF5C22831513007A97E5 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPermissionWithAllowedDeniedStateSpecification.swift; sourceTree = "<group>"; };
 		F8E6EF5E228316DD007A97E5 /* ApplicationPermissionSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPermissionSpecification.swift; sourceTree = "<group>"; };
 		F8E6EF6522831BDE007A97E5 /* NotificationsPermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPermissionInfo.swift; sourceTree = "<group>"; };
+		F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BasePageObject+Extension.swift"; sourceTree = "<group>"; };
 		F8E8BAE220DD752200524185 /* FakeCellsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsTests.swift; sourceTree = "<group>"; };
 		F8E8BAE420DD752F00524185 /* FakeCellsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsTestsView.swift; sourceTree = "<group>"; };
 		F8E8BAED20DFD20800524185 /* SingleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewCell.swift; sourceTree = "<group>"; };
@@ -2019,8 +2016,7 @@
 		F8A837CA2270F30800145140 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				F8B0A23B220A0E040089C1EE /* BasePageObject.swift */,
-				F8971CEA2264BBA6001741C1 /* BasePageObject+Extension.swift */,
+				F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */,
 				F8B0A239220A0E040089C1EE /* BasePageObjects.swift */,
 				F8A837C32270EE9800145140 /* OpenableScreen.swift */,
 				F8A837CB2270F5CD00145140 /* MainAppScreen.swift */,
@@ -3716,12 +3712,10 @@
 				F8971D0F22650ACC001741C1 /* TemporaryDirectoryPathProvider.swift in Sources */,
 				F8E6EF5B22831458007A97E5 /* NotificationsApplicationPermissionTests.swift in Sources */,
 				F8AD079D2250D5DD00D5FB93 /* GeolocationApplicationPermissionSpecification.swift in Sources */,
-				F8B0A262220A0EF40089C1EE /* BasePageObject.swift in Sources */,
 				F8F9C29D2368811800E9A044 /* TestCaseDependenciesResolver.swift in Sources */,
 				F889438D23905C44009979BE /* WaitingForQuiescenceTestsViewPageObject.swift in Sources */,
 				F820305F22385427006D2F70 /* CanTapMovingElementTests.swift in Sources */,
 				F8C8ED4022985B790009B9A7 /* TestObservationEntryPoint.swift in Sources */,
-				F8971CEB2264BBA6001741C1 /* BasePageObject+Extension.swift in Sources */,
 				F868744223204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */,
 				F8B9649922808AE90054CE08 /* AlwaysFailingIpcClient.swift in Sources */,
 				F8D53B24235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */,
@@ -3732,6 +3726,7 @@
 				F8252DCC2279DD0F003190D0 /* PageObjects.swift in Sources */,
 				F8971DAC22666218001741C1 /* BaseNetworkMockingTestCase.swift in Sources */,
 				F8971D2422651DF5001741C1 /* TemporaryDirectory.swift in Sources */,
+				F8E84A88242BB9DD00A29CD8 /* BasePageObject+Extension.swift in Sources */,
 				F8E6EF5F228316DD007A97E5 /* ApplicationPermissionSpecification.swift in Sources */,
 				F88ADFB3223BD6A70024CCBE /* RecordableStepLogger.swift in Sources */,
 				F8341971232FE74700E9EC3A /* LocatorsPerformanceTests.swift in Sources */,
@@ -3977,7 +3972,6 @@
 				F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
 				F8C8ED172298505D0009B9A7 /* MicrophoneApplicationPermissionTests.swift in Sources */,
 				F879831F22492D44004DD770 /* RecordableStepLogger.swift in Sources */,
-				F8A837A62270D40B00145140 /* BasePageObject.swift in Sources */,
 				F8A837A92270D45800145140 /* ChecksTestsScreen.swift in Sources */,
 				F8B340F2224D3FD700AA1EB9 /* StepLogMatcherBuilder.swift in Sources */,
 				F8C8ED1D2298505D0009B9A7 /* PhotosApplicationPermissionTests.swift in Sources */,
@@ -4105,7 +4099,6 @@
 				F8C8ED212298505D0009B9A7 /* ApplicationPermissionSpecification.swift in Sources */,
 				F8D8556E235E5C150068047A /* PredefinedObjcMethodsTests.swift in Sources */,
 				F86E60FF229C2D7E00C227CE /* ApplicationNameProvider.swift in Sources */,
-				F8A837A72270D40B00145140 /* BasePageObject+Extension.swift in Sources */,
 				F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
 				F8252DAD22772A47003190D0 /* GettingUiKitHierarchyTests.swift in Sources */,
 				F8A83E872272223700145140 /* SetTextActionWaitsElementTests.swift in Sources */,
@@ -4119,6 +4112,7 @@
 				F8A8382C227215C300145140 /* IsDisplayedInteractionTests.swift in Sources */,
 				F8B0A25B220A0EF30089C1EE /* AsyncReportingSystem.swift in Sources */,
 				F8C8ED1A2298505D0009B9A7 /* CameraApplicationPermissionSpecification.swift in Sources */,
+				F8E84A89242BB9DD00A29CD8 /* BasePageObject+Extension.swift in Sources */,
 				F8C8ED192298505D0009B9A7 /* CameraApplicationPermissionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

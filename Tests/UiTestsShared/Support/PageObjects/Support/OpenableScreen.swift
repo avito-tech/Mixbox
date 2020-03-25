@@ -4,7 +4,7 @@ protocol OpenableScreen: class {
     var viewName: String { get }
 }
 
-extension OpenableScreen where Self: PageObjectElementRegistrar {
+extension OpenableScreen where Self: ElementFactory {
     var view: ViewElement {
         return element(viewName) { element in element.id == viewName }
     }
@@ -14,9 +14,9 @@ extension OpenableScreen where Self: PageObjectElementRegistrar {
     }
 }
 
-extension OpenableScreen where Self: DefaultPageObjectElementRegistrarProvider  {
+extension OpenableScreen where Self: DefaultElementFactoryProvider  {
     var view: ViewElement {
-        return defaultPageObjectElementRegistrar.element(viewName) { element in element.id == viewName }
+        return defaultElementFactory.element(viewName) { element in element.id == viewName }
     }
     
     func waitUntilViewIsLoaded() {
