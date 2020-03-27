@@ -11,7 +11,8 @@ public final class DefaultSimulatorOperationTimeoutsProvider: SimulatorOperation
             boot: 180,
             delete: 20,
             shutdown: 20,
-            automaticSimulatorShutdown: 60
+            automaticSimulatorShutdown: 60,
+            automaticSimulatorDelete: 300
         )
     }
 }
