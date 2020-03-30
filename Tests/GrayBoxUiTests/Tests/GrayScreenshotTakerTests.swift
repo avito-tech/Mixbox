@@ -25,7 +25,7 @@ final class GrayScreenshotTakerTests: TestCase {
         // dynamic subviews for other kind of tests is not a good solution.
         let screen = pageObjects.screenshotTestsView.real
         
-        openScreen(screen)
+        open(screen: screen)
         
         guard let screenshot = screenshotTaker.takeScreenshot() else {
             XCTFail("takeScreenshot() should not be nil")

@@ -6,10 +6,14 @@ final class LocatorsPerformanceTests: TestCase {
         return pageObjects.locatorsPerformanceTestsView.default
     }
     
+    override var reuseState: Bool {
+        return false
+    }
+    
     override func precondition() {
         super.precondition()
         
-        openScreen(screen)
+        open(screen: screen)
             .waitUntilViewIsLoaded()
     }
     

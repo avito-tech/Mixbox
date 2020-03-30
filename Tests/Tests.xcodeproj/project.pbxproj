@@ -349,6 +349,8 @@
 		F8B34139224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34138224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift */; };
 		F8B34145224E662D00AA1EB9 /* MicrophonePermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34144224E662D00AA1EB9 /* MicrophonePermissionInfo.swift */; };
 		F8B39FEE2423F08F00BFACD8 /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */; };
+		F8B4F96C242CB665008A05E8 /* RootViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4F96B242CB665008A05E8 /* RootViewControllerManager.swift */; };
+		F8B4F971242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4F970242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift */; };
 		F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */; };
 		F8B9649922808AE90054CE08 /* AlwaysFailingIpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */; };
 		F8B964AB2280A1060054CE08 /* SwipeActionWaitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */; };
@@ -471,6 +473,8 @@
 		F8E6EF6622831BDE007A97E5 /* NotificationsPermissionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E6EF6522831BDE007A97E5 /* NotificationsPermissionInfo.swift */; };
 		F8E84A88242BB9DD00A29CD8 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */; };
 		F8E84A89242BB9DD00A29CD8 /* BasePageObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */; };
+		F8E855E7242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E855E6242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift */; };
+		F8E85B9F242C9E3900A29CD8 /* SetScreenIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E85B9E242C9E3900A29CD8 /* SetScreenIpcMethodHandler.swift */; };
 		F8E8BAE320DD752200524185 /* FakeCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAE220DD752200524185 /* FakeCellsTests.swift */; };
 		F8E8BAE520DD752F00524185 /* FakeCellsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAE420DD752F00524185 /* FakeCellsTestsView.swift */; };
 		F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E8BAED20DFD20800524185 /* SingleViewCell.swift */; };
@@ -827,6 +831,8 @@
 		F8B34138224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvCaptureDevicePermissionInfo.swift; sourceTree = "<group>"; };
 		F8B34144224E662D00AA1EB9 /* MicrophonePermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePermissionInfo.swift; sourceTree = "<group>"; };
 		F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
+		F8B4F96B242CB665008A05E8 /* RootViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerManager.swift; sourceTree = "<group>"; };
+		F8B4F970242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerManagerImpl.swift; sourceTree = "<group>"; };
 		F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStubberTests.swift; sourceTree = "<group>"; };
 		F8B9649822808AE90054CE08 /* AlwaysFailingIpcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysFailingIpcClient.swift; sourceTree = "<group>"; };
 		F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionWaitsTests.swift; sourceTree = "<group>"; };
@@ -896,6 +902,8 @@
 		F8E6EF5E228316DD007A97E5 /* ApplicationPermissionSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationPermissionSpecification.swift; sourceTree = "<group>"; };
 		F8E6EF6522831BDE007A97E5 /* NotificationsPermissionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPermissionInfo.swift; sourceTree = "<group>"; };
 		F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BasePageObject+Extension.swift"; sourceTree = "<group>"; };
+		F8E855E6242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateBetweenTestsViewController.swift; sourceTree = "<group>"; };
+		F8E85B9E242C9E3900A29CD8 /* SetScreenIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetScreenIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8E8BAE220DD752200524185 /* FakeCellsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsTests.swift; sourceTree = "<group>"; };
 		F8E8BAE420DD752F00524185 /* FakeCellsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsTestsView.swift; sourceTree = "<group>"; };
 		F8E8BAED20DFD20800524185 /* SingleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewCell.swift; sourceTree = "<group>"; };
@@ -1177,7 +1185,7 @@
 		F813CB09209CD82A00E6A27C /* Testing */ = {
 			isa = PBXGroup;
 			children = (
-				F820304822382D8C006D2F70 /* EntryPoint */,
+				F8E855E8242C8FBE00A29CD8 /* ViewControllers */,
 				F813CB0B209CD82A00E6A27C /* SupportViews */,
 				F813CB11209CD82A00E6A27C /* Views */,
 			);
@@ -1269,19 +1277,20 @@
 			path = IpcBetweenViewAndTest;
 			sourceTree = "<group>";
 		};
-		F820304822382D8C006D2F70 /* EntryPoint */ = {
+		F820304822382D8C006D2F70 /* Testing */ = {
 			isa = PBXGroup;
 			children = (
 				F813CB0A209CD82A00E6A27C /* TestingViewController.swift */,
 				F820304922382D9C006D2F70 /* TestingViewControllerSettings.swift */,
 				F820304B22382DAF006D2F70 /* InitializableWithTestingViewControllerSettings.swift */,
 			);
-			path = EntryPoint;
+			path = Testing;
 			sourceTree = "<group>";
 		};
 		F820304D223831DB006D2F70 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F8B4F96F242CB6D0008A05E8 /* RootViewControllerManager */,
 				F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */,
 				F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */,
 				F820304E223831E8006D2F70 /* Optional+UnwrapOrThrow.swift */,
@@ -1556,6 +1565,7 @@
 		F857C9D420CD8BAB00E8BFF5 /* CustomIpc */ = {
 			isa = PBXGroup;
 			children = (
+				F8E85B9D242C9E2F00A29CD8 /* SetScreen */,
 				F8DB358222735B2D00EE0FB8 /* UiEventHistory */,
 				F8971DEA226772BE001741C1 /* ProcessInfo */,
 				F8203043223827DD006D2F70 /* IpcBetweenViewAndTest */,
@@ -2340,6 +2350,15 @@
 			path = MixboxGenerator;
 			sourceTree = "<group>";
 		};
+		F8B4F96F242CB6D0008A05E8 /* RootViewControllerManager */ = {
+			isa = PBXGroup;
+			children = (
+				F8B4F96B242CB665008A05E8 /* RootViewControllerManager.swift */,
+				F8B4F970242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift */,
+			);
+			path = RootViewControllerManager;
+			sourceTree = "<group>";
+		};
 		F8B964C92281DC8C0054CE08 /* MixboxUiKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2753,6 +2772,31 @@
 				F8E6EF5C22831513007A97E5 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift */,
 			);
 			path = Specific;
+			sourceTree = "<group>";
+		};
+		F8E855E8242C8FBE00A29CD8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F820304822382D8C006D2F70 /* Testing */,
+				F8E855E9242C8FC500A29CD8 /* IntermediateBetweenTests */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F8E855E9242C8FC500A29CD8 /* IntermediateBetweenTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E855E6242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift */,
+			);
+			path = IntermediateBetweenTests;
+			sourceTree = "<group>";
+		};
+		F8E85B9D242C9E2F00A29CD8 /* SetScreen */ = {
+			isa = PBXGroup;
+			children = (
+				F8E85B9E242C9E3900A29CD8 /* SetScreenIpcMethodHandler.swift */,
+			);
+			path = SetScreen;
 			sourceTree = "<group>";
 		};
 		F8E8BAE120DD751000524185 /* FakeCellsTests */ = {
@@ -3631,6 +3675,7 @@
 				F820873221418D6800DCBA2D /* LocatorsTestsView.swift in Sources */,
 				F8EF37AC24094A3C0041DBF9 /* ViewIpc+ResetUi.swift in Sources */,
 				F84D12792166B37400A178B4 /* CellThatCrashesAtInit.swift in Sources */,
+				F8E85B9F242C9E3900A29CD8 /* SetScreenIpcMethodHandler.swift in Sources */,
 				F8785C6A2361D29E00571718 /* KeyboardEventInjectorImplTestsView.swift in Sources */,
 				F82086AA213D9CD100DCBA2D /* Window.swift in Sources */,
 				F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */,
@@ -3638,6 +3683,7 @@
 				F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */,
 				F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */,
 				F813CB21209CD82A00E6A27C /* TextViewWithClosures.swift in Sources */,
+				F8E855E7242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift in Sources */,
 				F820304A22382D9C006D2F70 /* TestingViewControllerSettings.swift in Sources */,
 				F813CB26209CD82A00E6A27C /* ScrollTests.swift in Sources */,
 				CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */,
@@ -3669,6 +3715,7 @@
 				F84D12722166AC3D00A178B4 /* FakeCellsDoNotCrashAppTestsView.swift in Sources */,
 				F8203045223827E7006D2F70 /* ViewIpc.swift in Sources */,
 				F813CB25209CD82A00E6A27C /* ScrollTestsScrollView.swift in Sources */,
+				F8B4F971242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift in Sources */,
 				F8EF37B324094C690041DBF9 /* DelayingFocusGainingInput.swift in Sources */,
 				F8252DB12279D700003190D0 /* TouchesTestsView.swift in Sources */,
 				F8E8BAEE20DFD20800524185 /* SingleViewCell.swift in Sources */,
@@ -3682,6 +3729,7 @@
 				F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */,
 				F8894382239056C9009979BE /* WaitingForQuiescenceTestsView.swift in Sources */,
 				F84D12772166B28100A178B4 /* CrashingCell.swift in Sources */,
+				F8B4F96C242CB665008A05E8 /* RootViewControllerManager.swift in Sources */,
 				F8676EE4215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift in Sources */,
 				BCB072EB2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift in Sources */,
 				F8971DEE226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift in Sources */,

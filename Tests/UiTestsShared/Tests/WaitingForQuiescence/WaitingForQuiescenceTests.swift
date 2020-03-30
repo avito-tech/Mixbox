@@ -6,7 +6,7 @@ final class WaitingForQuiescenceTests: TestCase {
     override func precondition() {
         super.precondition()
         
-        openScreen(pageObjects.waitingForQuiescenceTestsView)
+        open(screen: pageObjects.waitingForQuiescenceTestsView)
             .waitUntilViewIsLoaded()
     }
     

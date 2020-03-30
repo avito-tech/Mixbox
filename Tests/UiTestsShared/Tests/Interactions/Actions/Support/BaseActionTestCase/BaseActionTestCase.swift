@@ -14,7 +14,7 @@ class BaseActionTestCase: TestCase {
     override func precondition() {
         super.precondition()
         
-        openScreen(screen)
+        open(screen: screen)
             .waitUntilViewIsLoaded()
     }
     

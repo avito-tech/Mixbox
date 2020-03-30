@@ -6,7 +6,7 @@ final class GettingUiKitHierarchyTests: TestCase {
     override func precondition() {
         super.precondition()
         
-        openScreen(pageObjects.hierarchyTestsView)
+        open(screen: pageObjects.hierarchyTestsView)
     }
     
     // TODO: Fails at getting accessibilityValue and testability_customValues

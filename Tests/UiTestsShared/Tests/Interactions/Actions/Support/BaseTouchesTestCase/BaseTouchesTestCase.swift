@@ -9,7 +9,7 @@ class BaseTouchesTestCase: TestCase {
     }
     
     func open() {
-        openScreen(screen)
+        open(screen: screen)
     }
     
     var screen: TouchesTestsViewPageObject {

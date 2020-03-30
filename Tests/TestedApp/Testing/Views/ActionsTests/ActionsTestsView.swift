@@ -130,7 +130,7 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
         if #available(iOS 11.0, *) {
             insets = safeAreaInsets
         } else {
-            insets = .zero
+            insets = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
         }
         
         scrollView.contentInset = insets
@@ -143,7 +143,7 @@ final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSett
             infoLabel.layout(
                 left: bounds.mb_left,
                 right: bounds.mb_right,
-                top: bounds.mb_top + insets.bottom,
+                top: bounds.mb_top + insets.top,
                 height: 50
             )
             scrollView.layout(

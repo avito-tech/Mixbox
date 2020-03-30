@@ -10,7 +10,7 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
     override func precondition() {
         super.precondition()
         
-        openScreen(pageObjects.screen)
+        open(screen: pageObjects.screen)
         pageObjects.screen.waitUntilViewIsLoaded()
     }
     

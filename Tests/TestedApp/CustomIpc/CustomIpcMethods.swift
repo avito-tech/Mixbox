@@ -6,12 +6,25 @@ import TestsIpc
 
 final class CustomIpcMethods {
     private let uiEventHistoryProvider: UiEventHistoryProvider
+    private let rootViewControllerManager: RootViewControllerManager
     
-    init(uiEventHistoryProvider: UiEventHistoryProvider) {
+    init(
+        uiEventHistoryProvider: UiEventHistoryProvider,
+        rootViewControllerManager: RootViewControllerManager)
+    {
         self.uiEventHistoryProvider = uiEventHistoryProvider
+        self.rootViewControllerManager = rootViewControllerManager
     }
     
     func registerIn(_ mixboxInAppServices: MixboxInAppServices) {
+        // General
+        mixboxInAppServices.register { [rootViewControllerManager] _ in
+            SetScreenIpcMethodHandler(
+                mixboxInAppServices: mixboxInAppServices,
+                rootViewControllerManager: rootViewControllerManager
+            )
+        }
+        
         // For Echo Ipc tests
         mixboxInAppServices.register { _ in EchoIpcMethodHandler<String>() }
         mixboxInAppServices.register { _ in EchoIpcMethodHandler<Int>() }

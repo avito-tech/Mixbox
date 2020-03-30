@@ -50,7 +50,7 @@ final class LaunchingAppTests: TestCase {
         XCTAssertEqual(applicationLifecycleObservable.applicationIsLaunched, false)
         
         let arguments = ["1", "2"]
-        let environment = ["MB_TESTS_screenName": "this is really a required argument"]
+        let environment = ["3": "4"]
         
         let launchedApplication = launchableApplication.launch(
             arguments: arguments,

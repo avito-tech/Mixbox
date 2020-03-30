@@ -6,7 +6,7 @@ final class LocatorsTests: TestCase {
     override func precondition() {
         super.precondition()
         
-        openScreen(pageObjects.locatorsTestsView).waitUntilViewIsLoaded()
+        open(screen: pageObjects.locatorsTestsView).waitUntilViewIsLoaded()
     }
     
     private var screen: LocatorsTestsViewPageObject {

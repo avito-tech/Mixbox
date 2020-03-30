@@ -1,14 +1,14 @@
 import MixboxInAppServices
 
 final class TestingViewControllerSettings {
-    let name: String
+    let viewType: String
     let mixboxInAppServices: MixboxInAppServices?
     
     init(
-        name: String,
+        viewType: String,
         mixboxInAppServices: MixboxInAppServices?)
     {
-        self.name = name
+        self.viewType = viewType
         self.mixboxInAppServices = mixboxInAppServices
     }
 }

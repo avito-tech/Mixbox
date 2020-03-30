@@ -7,6 +7,7 @@ import MixboxIpcSbtuiClient
 import MixboxBuiltinIpc
 import MixboxIpc
 import MixboxFoundation
+import TestsIpc
 
 class TestCase: BaseUiTestCase, ScreenOpener {
     // Prototype of fast launching, see usage:
@@ -52,9 +53,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     func launch(environment: [String: String], useBuiltinIpc: Bool = false) {
         let commonEnvironment = [
             // Fixes assertion failure when view is loaded multiple times and uses ViewIpc
-            "MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY": "true",
-            // TODO: What is it for? Is it just a default screen?
-            "MB_TESTS_screenName": "DummyForLaunchingUiTestsView"
+            "MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY": "true"
         ]
         
         var mergedEnvironment = commonEnvironment
@@ -94,12 +93,17 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         useBuiltinIpc: Bool,
         additionalEnvironment: [String: String] = [:])
     {
-        var additionalEnvironment = additionalEnvironment
-        additionalEnvironment["MB_TESTS_screenName"] = name
-        
         launch(
             environment: additionalEnvironment,
             useBuiltinIpc: useBuiltinIpc
+        )
+        
+        // TODO: Reuse launched application between tests, only set screen.
+        _ = ipcClient.callOrFail(
+            method: SetScreenIpcMethod(),
+            arguments: SetScreenIpcMethod.Screen(
+                viewType: name
+            )
         )
     }
 }

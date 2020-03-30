@@ -16,7 +16,7 @@ final class TestingViewController: UIViewController {
     // TODO: Display errors instead of fallback?
     override func loadView() {
         let prefix = "\(ApplicationNameProvider.applicationName)." // TODO: get module name properly
-        let className = testingViewControllerSettings.name
+        let className = testingViewControllerSettings.viewType
         
         var viewToLoad: UIView?
         

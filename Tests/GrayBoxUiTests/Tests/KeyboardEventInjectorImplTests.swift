@@ -11,7 +11,7 @@ final class KeyboardEventInjectorImplTests: TestCase {
     override func precondition() {
         super.precondition()
         
-        openScreen(pageObjects.keyboardEventInjectorImplTestsView)
+        open(screen: pageObjects.keyboardEventInjectorImplTestsView)
             .waitUntilViewIsLoaded()
     }
     

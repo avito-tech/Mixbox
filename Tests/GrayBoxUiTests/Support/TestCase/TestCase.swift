@@ -4,6 +4,7 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxFoundation
 import MixboxGray
+import TestsIpc
 @testable import TestedApp
 
 class TestCase: BaseUiTestCase, ScreenOpener {
@@ -44,6 +45,11 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         
         legacyNetworking.stubbing.removeAllStubs()
         
+        _ = ipcClient.callOrFail(
+            method: SetScreenIpcMethod(),
+            arguments: nil
+        )
+        
         super.tearDown()
     }
     
@@ -51,15 +57,16 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         // IPC is always initiated in GrayBox tests (see setUp)
     }
     
-    func openScreen(name: String, additionalEnvironment: [String: String]) {
-        let viewController = TestingViewController(
-            testingViewControllerSettings: TestingViewControllerSettings(
-                name: name,
-                mixboxInAppServices: appDelegate.mixboxInAppServices
+    func openScreen(
+        name: String,
+        additionalEnvironment: [String: String])
+    {
+        _ = ipcClient.callOrFail(
+            method: SetScreenIpcMethod(),
+            arguments: SetScreenIpcMethod.Screen(
+                viewType: name
             )
         )
-        
-        UIApplication.shared.keyWindow?.rootViewController = viewController
     }
     
     // MARK: - Private

@@ -11,7 +11,7 @@ class AssertMatchesReferenceWithPerPixelComparatorTests: TestCase {
     }
     
     func testExpectedColoredBoxesMatchActualColoredBoxes() {
-        openScreen(screen.xcui)
+        open(screen: screen.xcui)
         
         screen.xcui.view(index: 0).assertIsDisplayed()
         

@@ -10,7 +10,7 @@ final class ElementHierarchyDescriptionProviderTests: TestCase {
     )
     
     func test() {
-        openScreen(pageObjects.hierarchyTestsView)
+        open(screen: pageObjects.hierarchyTestsView)
         
         guard let actualDescription = elementHierarchyDescriptionProvider.elementHierarchyDescription() else {
             XCTFail("elementHierarchyDescription should not be nil")

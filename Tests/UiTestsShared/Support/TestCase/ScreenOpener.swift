@@ -1,3 +1,5 @@
+import TestsIpc
+
 protocol ScreenOpener: class {
     func openScreen(
         name: String,
@@ -11,7 +13,10 @@ extension ScreenOpener {
     }
     
     @discardableResult
-    func openScreen<T: OpenableScreen>(_ screen: T) -> T {
+    func open<T: OpenableScreen>(
+        screen: T)
+        -> T
+    {
         openScreen(name: screen.viewName)
         
         return screen

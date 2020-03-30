@@ -14,7 +14,7 @@ final class NetworkStubbingTests: BaseNetworkMockingTestCase {
         let instancesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolInstance & IpcObjectIdentifiable>()
         let classesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolClass & IpcObjectIdentifiable>()
         
-        openScreen(screen)
+        open(screen: screen)
             .waitUntilViewIsLoaded()
         
         let networkStubber = UrlProtocolStubAdderImpl(

@@ -38,6 +38,11 @@ final class SetTextActionWaitsForElementToGainFocusTestsView: UIView, Initializa
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        controlWithNestedTextView.frame = bounds
+        controlWithNestedTextView.frame = CGRect(
+            x: 0,
+            y: 100,
+            width: bounds.width,
+            height: 200
+        )
     }
 }

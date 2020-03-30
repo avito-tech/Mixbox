@@ -90,6 +90,14 @@ final class LocatorsPerformanceTestsView: UIView {
     }
     
     override func layoutSubviews() {
-        recursiveView.frame = bounds
+        let insets: UIEdgeInsets
+        
+        if #available(iOS 11.0, *) {
+            insets = safeAreaInsets
+        } else {
+            insets = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+        }
+        
+        recursiveView.frame = bounds.mb_shrinked(insets)
     }
 }

@@ -40,30 +40,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let uiEventHistoryTracker = UiEventHistoryTracker()
         
-        window = TouchDrawingWindow(
+        let window = TouchDrawingWindow(
             frame: UIScreen.main.bounds,
             uiEventObserver: uiEventHistoryTracker
         )
         
-        let viewController: UIViewController
+        self.window = window
         
-        if let screenNameForUiTests = ProcessInfo.processInfo.environment["MB_TESTS_screenName"] {
-            viewController = TestingViewController(
-                testingViewControllerSettings: TestingViewControllerSettings(
-                    name: screenNameForUiTests,
-                    mixboxInAppServices: mixboxInAppServices
-                )
-            )
-        } else {
-            viewController = UIViewController()
-            viewController.view.backgroundColor = .white
-        }
+        let rootViewControllerManager = RootViewControllerManagerImpl(
+            window: window,
+            defaultViewController: IntermediateBetweenTestsViewController()
+        )
         
         #if DEBUG
         if ProcessInfo.processInfo.environment["MIXBOX_IPC_STARTER_TYPE"] != nil {
             if let mixboxInAppServices = mixboxInAppServices {
                 let customIpcMethods = CustomIpcMethods(
-                    uiEventHistoryProvider: uiEventHistoryTracker
+                    uiEventHistoryProvider: uiEventHistoryTracker,
+                    rootViewControllerManager: rootViewControllerManager
                 )
                 
                 // TODO: add environment to be able to disable registration of methods?
@@ -76,8 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         #endif
         
-        window?.rootViewController = viewController
-        window?.makeKeyAndVisible()
+        rootViewControllerManager.setRootViewController(nil)
+        window.makeKeyAndVisible()
         
         return true
     }

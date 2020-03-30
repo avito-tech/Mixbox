@@ -34,7 +34,7 @@ final class LegacyNetworkStubbingTests: BaseNetworkMockingTestCase {
     }
     
     func test___requests_are_stubbed_in_correct_order() {
-        openScreen(screen)
+        open(screen: screen)
             .waitUntilViewIsLoaded()
         
         legacyNetworking.stubbing
@@ -82,7 +82,7 @@ final class LegacyNetworkStubbingTests: BaseNetworkMockingTestCase {
             .stub(urlPattern: urlPattern)
             .thenReturn(string: stubbedText)
         
-        openScreen(screen)
+        open(screen: screen)
         
         tapAction()
         
