@@ -2,6 +2,7 @@ import XCTest
 import MixboxTestsFoundation
 
 // TODO: Remove class and test?
+// Tests are disabled. Symbolication using XCTest stopped working probably since Catalina.
 final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTestCase {
     private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> HeapFileLine {
         return HeapFileLine(
@@ -18,15 +19,15 @@ final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTes
         file: "\(#file)"
     )
     
-    func test() {
+    func disabled_test() {
         XCTAssertEqual(provider.fileLineForFailure(), currentFileLine())
     }
     
-    func test_with_suffix() {
+    func disabled_test_with_suffix() {
         XCTAssertEqual(provider.fileLineForFailure(), currentFileLine())
     }
     
-    func test_nested() {
+    func disabled_test_nested() {
         let (actual, expected) = nested()
         XCTAssertEqual(actual, expected)
     }
@@ -35,7 +36,7 @@ final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTes
         return (provider.fileLineForFailure(), currentFileLine())
     }
     
-    func test_double_nested() {
+    func disabled_test_double_nested() {
         let (actual, expected) = double_nested()
         XCTAssertEqual(actual, expected)
     }
@@ -44,7 +45,7 @@ final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTes
         return nested()
     }
     
-    func test_other_file() {
+    func disabled_test_other_file() {
         var actualFileLine: HeapFileLine?
         var expectedFileLine: HeapFileLine?
         let otherFile = FileForStacktraceTestsWithFixedNameAndLineNumbers {
