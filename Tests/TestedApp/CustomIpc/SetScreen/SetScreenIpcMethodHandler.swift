@@ -36,17 +36,18 @@ final class SetScreenIpcMethodHandler: IpcMethodHandler {
     }
     
     private func rootViewController(screen: SetScreenIpcMethod.Screen) -> UIViewController {
-        let testingViewController = self.testingViewController(viewType: screen.viewType)
+        let navigationController = UINavigationController()
         
-        return UINavigationController(rootViewController: testingViewController)
-    }
-    
-    private func testingViewController(viewType: String) -> UIViewController {
-        return TestingViewController(
+        let testingViewController = TestingViewController(
             testingViewControllerSettings: TestingViewControllerSettings(
-                viewType: viewType,
-                mixboxInAppServices: mixboxInAppServices
+                viewType: screen.viewType,
+                mixboxInAppServices: mixboxInAppServices,
+                navigationController: navigationController
             )
         )
+        
+        navigationController.setViewControllers([testingViewController], animated: false)
+        
+        return navigationController
     }
 }

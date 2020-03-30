@@ -11,20 +11,28 @@ public final class WaitingForQuiescenceTestsView:
     UIView,
     InitializableWithTestingViewControllerSettings
 {
-    private var button = ButtonWithClosures()
+    // Buttons without special layout
+    private var actionButtons = [UIView]()
+    
+    // This button has special layout
+    private var tapIndicatorButton = ButtonWithClosures()
+    private var tapIndicatorButtonOffset: CGFloat = 500
+    private let tapIndicatorButtonHeight: CGFloat = 1 // it is harder to tap smaller button
+    
     private var scrollView = UIScrollView()
-    private var buttonOffsetFromScrollViewBounds: CGFloat = 500
-    private let buttonOffsetFromContentTop: CGFloat = 500
-    private let buttonHeight: CGFloat = 1 // it is harder to tap smaller button
+    
+    private weak var navigationController: UINavigationController?
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
-        testingViewControllerSettings.viewIpc.registerResetUiMethod(view: self, argumentType: CGFloat.self) { view, buttonOffset in
-            view.resetUi(buttonOffset: buttonOffset)
+        testingViewControllerSettings.viewIpc.registerResetUiMethod(view: self, argumentType: CGFloat.self) { view, tapIndicatorButtonOffset in
+            view.resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset)
         }
         
-        resetUi(buttonOffset: buttonOffsetFromScrollViewBounds)
+        navigationController = testingViewControllerSettings.navigationController
+        
+        resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset)
     }
     
     required init?(coder: NSCoder) {
@@ -34,38 +42,115 @@ public final class WaitingForQuiescenceTestsView:
     override public func layoutSubviews() {
         super.layoutSubviews()
         
-        scrollView.frame = bounds
-        scrollView.contentSize = bounds.size
-            .mb_plusHeight(buttonOffsetFromScrollViewBounds + buttonOffsetFromContentTop)
+        let insets: UIEdgeInsets
         
-        button.frame = CGRect(
-            x: 0,
-            y: scrollView.contentSize.height - buttonOffsetFromContentTop - buttonHeight,
-            width: scrollView.contentSize.width,
-            height: buttonHeight
+        if #available(iOS 11.0, *) {
+            insets = safeAreaInsets
+        } else {
+            insets = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+        }
+        
+        let frameForContent = bounds.mb_shrinked(insets)
+        
+        scrollView.frame = bounds
+        scrollView.contentInset = insets
+        scrollView.contentSize = frameForContent.size.mb_plusHeight(100000)
+        
+        tapIndicatorButton.frame = CGRect(
+            x: frameForContent.mb_left,
+            y: frameForContent.mb_top + tapIndicatorButtonOffset,
+            width: frameForContent.width,
+            height: tapIndicatorButtonHeight
         )
         
-        button.accessibilityIdentifier = "button"
+        var actionButtonOffset: CGFloat = 50
+        let actionButtonHeight: CGFloat = 50
+        for actionButton in actionButtons {
+            actionButton.frame = CGRect(
+                x: 0,
+                y: actionButtonOffset,
+                width: scrollView.contentSize.width,
+                height: actionButtonHeight
+            )
+            actionButtonOffset += actionButtonHeight
+        }
     }
     
-    private func resetUi(buttonOffset: CGFloat) {
-        button.removeFromSuperview()
-        scrollView.removeFromSuperview()
-        
-        backgroundColor = .white
+    private func resetUi(tapIndicatorButtonOffset: CGFloat) {
+        subviews.forEach { $0.removeFromSuperview() }
+        actionButtons = []
         
         scrollView = UIScrollView()
         scrollView.decelerationRate = .init(rawValue: 0.9999) // less deceleration than `.normal` (0.998)
         
-        button = ButtonWithClosures()
-        button.backgroundColor = .blue
-        button.testability_customValues["tapped"] = false
-        button.onTap = { [weak self] in
-            self?.button.testability_customValues["tapped"] = true
-        }
-        buttonOffsetFromScrollViewBounds = buttonOffset
+        self.tapIndicatorButtonOffset = tapIndicatorButtonOffset
+        backgroundColor = .white
+        
+        addTapIndicatorButton()
+        addPushButton(animated: true)
+        addPushButton(animated: false)
+        addPresentButton(animated: true)
+        addPresentButton(animated: false)
         
         addSubview(scrollView)
+    }
+    
+    private func addTapIndicatorButton() {
+        tapIndicatorButton = ButtonWithClosures()
+        tapIndicatorButton.backgroundColor = .blue
+        tapIndicatorButton.accessibilityIdentifier = "tapIndicatorButton"
+        tapIndicatorButton.onTap = { [weak tapIndicatorButton] in
+            tapIndicatorButton?.testability_customValues["tapped"] = true
+        }
+        scrollView.addSubview(tapIndicatorButton)
+    }
+    
+    private func addPushButton(animated: Bool) {
+        let id = "pushButton_" + (animated ? "animated" : "notAnimated")
+        addActionButton(id: id) { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.navigationController?.pushViewController(
+                strongSelf.centeredLineViewController(layout: .vertical),
+                animated: animated
+            )
+        }
+    }
+    
+    private func addPresentButton(animated: Bool) {
+        let id = "presentButton_" + (animated ? "animated" : "notAnimated")
+        addActionButton(id: id) { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.navigationController?.present(
+                strongSelf.centeredLineViewController(layout: .horizontal),
+                animated: animated,
+                completion: nil
+            )
+        }
+    }
+    
+    private func centeredLineViewController(layout: CenteredLineButtonView.Layout) -> UIViewController {
+        let viewController = UIViewController()
+        let view = CenteredLineButtonView(layout: layout)
+        view.accessibilityIdentifier = "centeredLineViewControllerButton"
+        viewController.view = view
+        view.onTap = { [weak view] in
+            view?.testability_customValues["tapped"] = true
+        }
+        return viewController
+    }
+    
+    private func addActionButton(id: String, onTap: @escaping () -> ()) {
+        let button = ButtonWithClosures()
+        
+        button.onTap = onTap
+        button.setTitle(id, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.accessibilityIdentifier = id
+        button.backgroundColor = .green
+        
         scrollView.addSubview(button)
+        actionButtons.append(button)
     }
 }

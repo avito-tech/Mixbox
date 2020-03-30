@@ -10,14 +10,10 @@ final class WaitingForQuiescenceTests: TestCase {
             .waitUntilViewIsLoaded()
     }
     
-    private var button: ButtonElement {
-        return pageObjects.waitingForQuiescenceTestsView.default.button
-    }
-    
     // This test isn't enough, because automatic scroll injects extra touches that cancel scroll view inertia.
     func test___action___is_performed_after_scroll_view_deceleration_ends___when_using_gentle_scroll() {
         check___action___is_performed_after_scroll_view_deceleration_ends {
-            button.tap()
+            screen.tapIndicatorButton.tap()
         }
     }
     
@@ -26,8 +22,44 @@ final class WaitingForQuiescenceTests: TestCase {
     func test___action___is_performed_after_scroll_view_deceleration_ends___when_using_swipe() {
         check___action___is_performed_after_scroll_view_deceleration_ends {
             // Swipe doesn't (and shouldn't) inject extra touches to cancel scroll view inertia.
-            pageObjects.waitingForQuiescenceTestsView.default.view.swipeUp()
-            button.tap()
+            screen.view.swipeUp()
+            screen.tapIndicatorButton.tap()
+        }
+    }
+    
+    func disabled_test___action___is_performed_after_view_controller_is_pushed___animated() {
+        check___action_is_performed_after_navigation_transition_ends(
+            navigationPerformingButton: screen.pushButton_animated
+        )
+    }
+    
+    func disabled_test___action___is_performed_after_view_controller_is_pushed___not_animated() {
+        check___action_is_performed_after_navigation_transition_ends(
+            navigationPerformingButton: screen.pushButton_notAnimated
+        )
+    }
+    
+    func disabled_test___action___is_performed_after_view_controller_is_presented___animated() {
+        check___action_is_performed_after_navigation_transition_ends(
+            navigationPerformingButton: screen.presentButton_animated
+        )
+    }
+    
+    func disabled_test___action___is_performed_after_view_controller_is_presented___not_animated() {
+        check___action_is_performed_after_navigation_transition_ends(
+            navigationPerformingButton: screen.presentButton_notAnimated
+        )
+    }
+    
+    func check___action_is_performed_after_navigation_transition_ends(
+        navigationPerformingButton: ButtonElement)
+    {
+        resetUi()
+        
+        navigationPerformingButton.tap()
+        screen.centeredLineViewControllerButton.tap()
+        screen.centeredLineViewControllerButton.assertMatches {
+            $0.customValues["tapped"] == true
         }
     }
     
@@ -36,15 +68,25 @@ final class WaitingForQuiescenceTests: TestCase {
         // But the test should check that action waits until deceleration ends, to avoid
         // any coincidences we try different offsets for view.
         for iteration in 0..<5 {
-            let buttonOffset = CGFloat(iteration) * 50
-            
-            resetUi(argument: buttonOffset)
+            resetUi(additionalOffset: CGFloat(iteration) * 50)
             
             tapAction()
             
-            button.assertMatches {
+            screen.tapIndicatorButton.assertMatches {
                 $0.customValues["tapped"] == true
             }
         }
+    }
+    
+    private var screen: WaitingForQuiescenceTestsViewPageObject {
+        return pageObjects.waitingForQuiescenceTestsView.default
+    }
+    
+    override func resetUi() {
+        resetUi(additionalOffset: 0)
+    }
+    
+    private func resetUi(additionalOffset: CGFloat) {
+        resetUi(argument: additionalOffset + UIScreen.main.bounds.height)
     }
 }

@@ -3,13 +3,16 @@ import MixboxInAppServices
 final class TestingViewControllerSettings {
     let viewType: String
     let mixboxInAppServices: MixboxInAppServices?
+    let navigationController: UINavigationController
     
     init(
         viewType: String,
-        mixboxInAppServices: MixboxInAppServices?)
+        mixboxInAppServices: MixboxInAppServices?,
+        navigationController: UINavigationController)
     {
         self.viewType = viewType
         self.mixboxInAppServices = mixboxInAppServices
+        self.navigationController = navigationController
     }
 }
 
