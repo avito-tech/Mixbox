@@ -40,15 +40,13 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     
     override func tearDown() {
         if !reuseState {
-            UIApplication.shared.keyWindow?.rootViewController = UIViewController()
+            _ = ipcClient.callOrFail(
+                method: SetScreenIpcMethod(),
+                arguments: nil
+            )
         }
         
         legacyNetworking.stubbing.removeAllStubs()
-        
-        _ = ipcClient.callOrFail(
-            method: SetScreenIpcMethod(),
-            arguments: nil
-        )
         
         super.tearDown()
     }

@@ -40,23 +40,30 @@ public final class ScrollViewIdlingResourceSwizzlerImpl: ScrollViewIdlingResourc
 
 extension UIScrollView {
     @objc fileprivate func swizzled_ScrollViewIdlingResourceSwizzler__scrollViewWillBeginDragging() {
-        IdlingResourceObjectTracker.instance.track(object: self, state: .busy)
+        trackedScrollDeceleration.value = IdlingResourceObjectTracker.instance.track(parent: self)
         
         swizzled_ScrollViewIdlingResourceSwizzler__scrollViewWillBeginDragging()
     }
     
     @objc fileprivate func swizzled_ScrollViewIdlingResourceSwizzler__scrollViewDidEndDraggingWithDeceleration(deceleration: Bool) {
         if !deceleration {
-            IdlingResourceObjectTracker.instance.track(object: self, state: .idle)
+            trackedScrollDeceleration.value?.untrack()
         }
         
         swizzled_ScrollViewIdlingResourceSwizzler__scrollViewDidEndDraggingWithDeceleration(deceleration: deceleration)
     }
     
     @objc fileprivate func swizzled_ScrollViewIdlingResourceSwizzler__stopScrollDecelerationNotify(notify: Bool) {
-        IdlingResourceObjectTracker.instance.track(object: self, state: .idle)
+        trackedScrollDeceleration.value?.untrack()
         
         swizzled_ScrollViewIdlingResourceSwizzler__stopScrollDecelerationNotify(notify: notify)
+    }
+    
+    fileprivate var trackedScrollDeceleration: AssociatedObject<TrackedIdlingResource> {
+        return AssociatedObject(
+            container: self,
+            key: "UIScrollView_scrollDeceleration_51CA64E0FD13"
+        )
     }
 }
 

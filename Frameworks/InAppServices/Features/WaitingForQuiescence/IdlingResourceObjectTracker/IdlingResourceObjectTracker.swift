@@ -14,36 +14,45 @@ import MixboxFoundation
 // - You call track(object: scrollView, state: .idle)
 // - So you can interact with UI safely, because it is stable
 //
+// This class is not thread safe. It should be used from main thread only.
+// If you want to make it thread safe, change interface to asynchronous.
+//
 public final class IdlingResourceObjectTracker: IdlingResource {
     // TODO: Inject `IdlingResourceObjectTracker` in swizzlers, keep singletons near swizzlers.
     public static let instance = IdlingResourceObjectTracker()
     
-    private var busyObjects: Set<IdlingResourceObject> = []
+    private var busyResources: [UUID: WeakBox<TrackedIdlingResource>] = [:]
     
     public init() {
     }
     
-    public func track(object: AnyObject, state: IdlingResourceObjectState) {
-        let idlingResourceObject = IdlingResourceObject(object: object)
+    public func track(parent: AnyObject) -> TrackedIdlingResource {
+        let resource = TrackedIdlingResource(
+            parent: parent,
+            untrack: { [weak self] resource in
+                self?.busyResources[resource.identifier] = nil
+            }
+        )
         
-        switch state {
-        case .idle:
-            busyObjects.remove(idlingResourceObject)
-        case .busy:
-            busyObjects.insert(idlingResourceObject)
-        }
+        busyResources[resource.identifier] = WeakBox(resource)
+        
+        return resource
     }
     
     public func isIdle() -> Bool {
-        var newBusyObjects = busyObjects
+        var newResources = busyResources
         
-        for idlingResourceObject in busyObjects where idlingResourceObject.object == nil {
-            newBusyObjects.remove(idlingResourceObject)
+        for (identifier, resourceBox) in busyResources where resourceOrItsParentIsDeallocated(resourceBox) {
+            newResources[identifier] = nil
         }
         
-        busyObjects = newBusyObjects
+        busyResources = newResources
         
-        return newBusyObjects.isEmpty
+        return newResources.isEmpty
+    }
+    
+    private func resourceOrItsParentIsDeallocated(_ box: WeakBox<TrackedIdlingResource>) -> Bool {
+        return box.value?.parent == nil
     }
 }
 

@@ -23,15 +23,16 @@ final class SetScreenIpcMethodHandler: IpcMethodHandler {
         completion: @escaping (Method.ReturnValue) -> ())
     {
         DispatchQueue.main.async {
-            self.setScreen(arguments)
-            
-            completion(IpcVoid())
+            self.setScreen(arguments) {
+                completion(IpcVoid())
+            }
         }
     }
     
-    private func setScreen(_ screen: SetScreenIpcMethod.Screen?) {
-        rootViewControllerManager.setRootViewController(
-            screen.map { rootViewController(screen: $0) }
+    private func setScreen(_ screen: SetScreenIpcMethod.Screen?, completion: @escaping () -> ()) {
+        rootViewControllerManager.set(
+            rootViewController: screen.map { rootViewController(screen: $0) },
+            completion: completion
         )
     }
     

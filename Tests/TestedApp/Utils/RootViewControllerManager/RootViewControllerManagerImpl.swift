@@ -12,7 +12,17 @@ public final class RootViewControllerManagerImpl: RootViewControllerManager {
         self.defaultViewController = defaultViewController
     }
     
-    public func setRootViewController(_ viewController: UIViewController?) {
-        window.rootViewController = viewController ?? defaultViewController
+    public func set(rootViewController: UIViewController?, completion: @escaping () -> ()) {
+        let afterPresentedViewControllerIsDismissed = { [window, defaultViewController] in
+            window.rootViewController = rootViewController ?? defaultViewController
+            
+            completion()
+        }
+        
+        if let presenterViewController = window.rootViewController?.presentedViewController {
+            presenterViewController.dismiss(animated: false, completion: afterPresentedViewControllerIsDismissed)
+        } else {
+            afterPresentedViewControllerIsDismissed()
+        }
     }
 }

@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         #endif
         
-        rootViewControllerManager.setRootViewController(nil)
+        rootViewControllerManager.set(rootViewController: nil, completion: {})
         window.makeKeyAndVisible()
         
         return true

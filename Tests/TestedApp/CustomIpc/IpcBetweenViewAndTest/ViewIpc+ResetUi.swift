@@ -4,10 +4,10 @@ import TestsIpc
 import MixboxFoundation
 
 extension ViewIpc {
-    func registerResetUiMethod<ViewType: UIView, ArgumentType: Codable>(
+    func registerAsyncResetUiMethod<ViewType: UIView, ArgumentType: Codable>(
         view: ViewType,
         argumentType: ArgumentType.Type,
-        handler: @escaping (ViewType, ArgumentType) -> ())
+        handler: @escaping (ViewType, ArgumentType, @escaping () -> ()) -> ())
     {
         register(method: ResetUiIpcMethod<ArgumentType>()) { [weak view] argument, completion in
             guard let strongView = view else {
@@ -16,10 +16,21 @@ extension ViewIpc {
             }
             
             DispatchQueue.main.async {
-                handler(strongView, argument)
-                
-                completion(IpcThrowingFunctionResult.returned(IpcVoid()))
+                handler(strongView, argument) {
+                    completion(IpcThrowingFunctionResult.returned(IpcVoid()))
+                }
             }
+        }
+    }
+    
+    func registerResetUiMethod<ViewType: UIView, ArgumentType: Codable>(
+        view: ViewType,
+        argumentType: ArgumentType.Type,
+        handler: @escaping (ViewType, ArgumentType) -> ())
+    {
+        registerAsyncResetUiMethod(view: view, argumentType: argumentType) { (view, argumentType, completion) in
+            handler(view, argumentType)
+            completion()
         }
     }
     

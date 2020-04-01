@@ -26,13 +26,13 @@ public final class WaitingForQuiescenceTestsView:
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
-        testingViewControllerSettings.viewIpc.registerResetUiMethod(view: self, argumentType: CGFloat.self) { view, tapIndicatorButtonOffset in
-            view.resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset)
+        testingViewControllerSettings.viewIpc.registerAsyncResetUiMethod(view: self, argumentType: CGFloat.self) { view, tapIndicatorButtonOffset, completion in
+            view.resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset, completion: completion)
         }
         
         navigationController = testingViewControllerSettings.navigationController
         
-        resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset)
+        resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset, completion: {})
     }
     
     required init?(coder: NSCoder) {
@@ -76,7 +76,20 @@ public final class WaitingForQuiescenceTestsView:
         }
     }
     
-    private func resetUi(tapIndicatorButtonOffset: CGFloat) {
+    private func resetUi(tapIndicatorButtonOffset: CGFloat, completion: @escaping () -> ()) {
+        dismissEverything { [weak self] in
+            guard let strongSelf = self else {
+                completion()
+                return
+            }
+            
+            strongSelf.resetView(tapIndicatorButtonOffset: tapIndicatorButtonOffset) {
+                completion()
+            }
+        }
+    }
+    
+    private func resetView(tapIndicatorButtonOffset: CGFloat, completion: @escaping () -> ()) {
         subviews.forEach { $0.removeFromSuperview() }
         actionButtons = []
         
@@ -93,6 +106,18 @@ public final class WaitingForQuiescenceTestsView:
         addPresentButton(animated: false)
         
         addSubview(scrollView)
+        
+        completion()
+    }
+    
+    private func dismissEverything(completion: @escaping () -> ()) {
+        navigationController?.popToRootViewController(animated: false)
+        
+        if let presentedViewController = navigationController?.presentedViewController {
+            presentedViewController.dismiss(animated: false, completion: completion)
+        } else {
+            completion()
+        }
     }
     
     private func addTapIndicatorButton() {
