@@ -1,4 +1,4 @@
-public enum AllowedDeniedState {
+public enum AllowedDeniedState: CaseIterable {
     case allowed
     case denied
 }

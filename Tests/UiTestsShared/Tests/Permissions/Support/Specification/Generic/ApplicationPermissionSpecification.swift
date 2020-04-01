@@ -1,7 +1,7 @@
 import MixboxTestsFoundation
 
 protocol ApplicationPermissionSpecification: class {
-    associatedtype PermissionStateType
+    associatedtype PermissionStateType: CaseIterable
     
     var identifier: String { get }
     

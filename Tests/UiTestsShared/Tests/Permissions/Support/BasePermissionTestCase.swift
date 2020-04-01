@@ -13,6 +13,10 @@ class BasePermissionTestCase: TestCase {
         return false
     }
     
+    var screen: PermissionsTestsViewPageObject {
+        return pageObjects.permissionsTestsView.default
+    }
+    
     func check<Spec: ApplicationPermissionSpecification>(
         specification: Spec,
         state: Spec.PermissionStateType)
@@ -22,11 +26,17 @@ class BasePermissionTestCase: TestCase {
             permissions: permissions
         )
         
-        openScreen(name: "PermissionsTestsView")
+        open(screen: pageObjects.permissionsTestsView).waitUntilViewIsLoaded()
         
-        pageObjects.generic.label(specification.identifier).assertMatches { [specification] element in
+        screen.permission(specification).assertMatches { element in
             let expectedStatus = specification.authorizationStatusString(state: state)
             return element.customValues["authorizationStatus"] == expectedStatus
+        }
+    }
+    
+    func check___set___can_be_called_sequentially<Spec: ApplicationPermissionSpecification>(specification: Spec) {
+        for state in Spec.PermissionStateType.allCases {
+            check(specification: specification, state: state)
         }
     }
 }

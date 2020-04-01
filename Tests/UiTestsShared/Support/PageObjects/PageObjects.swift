@@ -31,6 +31,8 @@ final class PageObjects: BasePageObjects {
     
     var locatorsTestsView: MainAppScreen<LocatorsTestsViewPageObject> { return mainAppScreen() }
     
+    var permissionsTestsView: MainAppScreen<PermissionsTestsViewPageObject> { return mainAppScreen() }
+    
     var waitingForQuiescenceTestsView: MainAppScreen<WaitingForQuiescenceTestsViewPageObject> { return mainAppScreen() }
     
     var setTextActionWaitsForElementToGainFocusTestsView: MainAppScreen<SetTextActionWaitsForElementToGainFocusTestsViewPageObject> { return mainAppScreen() }

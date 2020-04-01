@@ -16,4 +16,8 @@ final class PhotosApplicationPermissionTests: BasePermissionTestCase {
     func test_set_notDetermined() {
         check(specification: specification, state: .notDetermined)
     }
+    
+    func disabled_test___set___can_be_called_sequentially() {
+        check___set___can_be_called_sequentially(specification: specification)
+    }
 }
