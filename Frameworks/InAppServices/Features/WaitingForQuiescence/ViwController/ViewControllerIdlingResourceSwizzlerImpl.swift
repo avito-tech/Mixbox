@@ -97,11 +97,9 @@ extension UIViewController {
         // Do not track this state for some keyboard related classes due to issues seen with untracking.
         
         // For some keyboard have issue with untracking.
-        guard !isKeyboardRelatedViewControllerClass() else {
-            return
+        if !isKeyboardRelatedViewControllerClass() {
+            trackAppearanceStateWillChange { $0.trackedViewAppearing }
         }
-        
-        trackAppearanceStateWillChange { $0.trackedViewAppearing }
         
         swizzled_ViewControllerSwizzlerImpl_viewWillAppear(animated)
     }
