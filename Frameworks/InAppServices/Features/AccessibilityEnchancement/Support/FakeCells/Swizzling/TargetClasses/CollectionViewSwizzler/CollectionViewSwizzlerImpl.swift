@@ -85,7 +85,7 @@ extension UICollectionView {
         
         while let view = pointer {
             if let collectionView = view as? UICollectionView {
-                collectionView.cellsState = cellsState
+                collectionView.cellsState.value = cellsState
             }
             
             if let collectionView = (view as? UICollectionViewCell)?.mb_fakeCellInfo?.parentCollectionView {
@@ -139,72 +139,34 @@ fileprivate extension UICollectionView {
         }
     }
     
-    private var cachedFakeCells: [UICollectionViewCell] {
-        get {
-            guard let value = objc_getAssociatedObject(self, &cachedFakeCells_associatedObjectKey) as? [UICollectionViewCell] else {
-                let initialValue = [UICollectionViewCell]()
-                objc_setAssociatedObject(
-                    self,
-                    &cachedFakeCells_associatedObjectKey,
-                    initialValue,
-                    objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
-                )
-                return initialValue
-            }
-            
-            return value
-        }
-        set {
-            objc_setAssociatedObject(
-                self,
-                &cachedFakeCells_associatedObjectKey,
-                newValue,
-                objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
-            )
-        }
+    private var cachedFakeCells: AssociatedValue<[UICollectionViewCell]> {
+        return AssociatedValue(container: self, key: #function, defaultValue: [])
     }
     
-    private var cellsState: CellsState {
-        get {
-            let initialValue = CellsState.realCellsAreUpdated_fakeCellsCacheDoesNotExist
-            guard let value = objc_getAssociatedObject(self, &cellsState_associatedObjectKey) as? String else {
-                objc_setAssociatedObject(
-                    self,
-                    &cellsState_associatedObjectKey,
-                    initialValue.rawValue,
-                    objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
-                )
-                return initialValue
-            }
-            
-            return CellsState(rawValue: value) ?? initialValue
-        }
-        set {
-            objc_setAssociatedObject(
-                self,
-                &cellsState_associatedObjectKey,
-                newValue.rawValue,
-                objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
-            )
-        }
+    private var cellsState: AssociatedValue<CellsState> {
+        return AssociatedValue(
+            container: self,
+            key: #function,
+            defaultValue: CellsState.realCellsAreUpdated_fakeCellsCacheDoesNotExist
+        )
     }
     
     @objc func swizzled_CollectionViewSwizzler_reloadData() {
-        cellsState = .realCellsAreUpdating_fakeCellsCacheDoesNotExist
+        cellsState.value = .realCellsAreUpdating_fakeCellsCacheDoesNotExist
         swizzled_CollectionViewSwizzler_reloadData()
-        cellsState = .realCellsAreUpdated_fakeCellsCacheDoesNotExist
+        cellsState.value = .realCellsAreUpdated_fakeCellsCacheDoesNotExist
     }
     
     @objc func swizzled_CollectionViewSwizzler_performBatchUpdates(
         _ updates: (() -> ())?,
         completion: ((Bool) -> ())?)
     {
-        cellsState = .realCellsAreUpdating_fakeCellsCacheDoesNotExist
+        cellsState.value = .realCellsAreUpdating_fakeCellsCacheDoesNotExist
         swizzled_CollectionViewSwizzler_performBatchUpdates(
             updates,
             completion: { [weak self] args in
                 completion?(args)
-                self?.cellsState = .realCellsAreUpdated_fakeCellsCacheDoesNotExist
+                self?.cellsState.value = .realCellsAreUpdated_fakeCellsCacheDoesNotExist
             }
         )
     }
@@ -214,7 +176,7 @@ fileprivate extension UICollectionView {
         var collectionViewCells = [UIView]()
         var visibleCells = Set<UIView>()
         
-        for fakeCell in cachedFakeCells {
+        for fakeCell in cachedFakeCells.value {
             let cell: UIView
             
             assert(fakeCell.mb_fakeCellInfo != nil)
@@ -268,30 +230,30 @@ fileprivate extension UICollectionView {
     }
     
     @nonobjc func collectionViewSwizzler_accessibilityElementCount() -> Int {
-        if cellsState.needToIgnoreCache {
+        if cellsState.value.needToIgnoreCache {
             return swizzled_CollectionViewSwizzler_accessibilityElementCount()
         }
-        if cellsState.needToUpdateCache {
+        if cellsState.value.needToUpdateCache {
             updateAccessibilityElements()
         }
         return getAccessibilityElements().count
     }
     
     @nonobjc func collectionViewSwizzler_accessibilityElement(at index: Int) -> Any? {
-        if cellsState.needToIgnoreCache {
+        if cellsState.value.needToIgnoreCache {
             return swizzled_CollectionViewSwizzler_accessibilityElement(at: index)
         }
-        if cellsState.needToUpdateCache {
+        if cellsState.value.needToUpdateCache {
             updateAccessibilityElements()
         }
         return getAccessibilityElements().mb_elementAtIndex(index)
     }
     
     @nonobjc func collectionViewSwizzler_index(ofAccessibilityElement element: Any) -> Int {
-        if cellsState.needToIgnoreCache {
+        if cellsState.value.needToIgnoreCache {
             return swizzled_CollectionViewSwizzler_index(ofAccessibilityElement: element)
         }
-        if cellsState.needToUpdateCache {
+        if cellsState.value.needToUpdateCache {
             updateAccessibilityElements()
         }
         
@@ -303,10 +265,10 @@ fileprivate extension UICollectionView {
     }
     
     @nonobjc func collectionViewSwizzler_accessibilityUserTestingChildren() -> NSArray {
-        if cellsState.needToIgnoreCache {
+        if cellsState.value.needToIgnoreCache {
             return swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren()
         }
-        if cellsState.needToUpdateCache {
+        if cellsState.value.needToUpdateCache {
             updateAccessibilityElements()
         }
         
@@ -315,12 +277,12 @@ fileprivate extension UICollectionView {
     
     // TODO: Split. swiftlint:disable:next function_body_length
     @nonobjc private func updateAccessibilityElements() {
-        assert(cellsState == .realCellsAreUpdated_fakeCellsCacheDoesNotExist)
-        cellsState = .realCellsAreUpdated_fakeCellsCacheIsUpdating
+        assert(cellsState.value == .realCellsAreUpdated_fakeCellsCacheDoesNotExist)
+        cellsState.value = .realCellsAreUpdated_fakeCellsCacheIsUpdating
         
         // Without calling `reuseCell` dequeueing of cells will lead to leaks, new cells will
         // appear hidden in real view hierarchy.
-        for fakeCell in self.cachedFakeCells {
+        for fakeCell in self.cachedFakeCells.value {
             ObjectiveCExceptionCatcher.catch(
                 try: {
                     fakeCell.mb_fakeCellInfo = nil
@@ -330,7 +292,7 @@ fileprivate extension UICollectionView {
             )
         }
         
-        self.cachedFakeCells = []
+        self.cachedFakeCells.value = []
         
         var cachedFakeCells = [UICollectionViewCell]()
         
@@ -376,11 +338,11 @@ fileprivate extension UICollectionView {
                     }
                 }
                 
-                self.cachedFakeCells = cachedFakeCells
-                cellsState = .realCellsAreUpdated_fakeCellsCacheIsUpdated
+                self.cachedFakeCells.value = cachedFakeCells
+                cellsState.value = .realCellsAreUpdated_fakeCellsCacheIsUpdated
             },
             catch: { _ in
-                for fakeCell in self.cachedFakeCells {
+                for fakeCell in self.cachedFakeCells.value {
                     ObjectiveCExceptionCatcher.catch(
                         try: {
                             fakeCell.mb_fakeCellInfo = nil
@@ -392,8 +354,8 @@ fileprivate extension UICollectionView {
                     )
                 }
                 
-                self.cachedFakeCells = []
-                cellsState = .fakeCellsCacheCanNotBeObtained
+                self.cachedFakeCells.value = []
+                cellsState.value = .fakeCellsCacheCanNotBeObtained
             }
         )
     }

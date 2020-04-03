@@ -191,40 +191,23 @@ extension UIViewController {
     }
     
     private var isMovingToNilWindow: AssociatedValue<Bool> {
-        return AssociatedValue(
-            container: self,
-            key: "UIViewController_isMovingToNilWindow_B879A63502BF",
-            defaultValue: false
-        )
+        return AssociatedValue(container: self, key: #function, defaultValue: false)
     }
     
     private var didAppear: AssociatedValue<Bool> {
-        return AssociatedValue(
-            container: self,
-            key: "UIViewController_didAppear_60E8615C6FBF",
-            defaultValue: false
-        )
+        return AssociatedValue(container: self, key: #function, defaultValue: false)
     }
     
     private var trackedViewAppearing: AssociatedObject<TrackedIdlingResource> {
-        return AssociatedObject(
-            container: self,
-            key: "UIViewController_trackedViewAppearing_08BE12B56512"
-        )
+        return AssociatedObject(container: self, key: #function)
     }
     
     private var trackedViewDisappearing: AssociatedObject<TrackedIdlingResource> {
-        return AssociatedObject(
-            container: self,
-            key: "UIViewController_trackedViewDisappearing_F5B89BA93E08"
-        )
+        return AssociatedObject(container: self, key: #function)
     }
     
     private var trackedRootViewControllerAppearing: AssociatedObject<TrackedIdlingResource> {
-        return AssociatedObject(
-            container: self,
-            key: "UIViewController_trackedRootViewControllerAppearing_2A6F36AD40F9"
-        )
+        return AssociatedObject(container: self, key: #function)
     }
 }
 
