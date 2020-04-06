@@ -365,6 +365,8 @@
 		F8BB4409240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BB4408240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift */; };
 		F8BCA9DF213D55E400592068 /* UIImage+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+Stub.swift */; };
 		F8C3656524182D22005DD578 /* DigitizerFingerEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3656424182D22005DD578 /* DigitizerFingerEventTests.swift */; };
+		F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */; };
+		F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */; };
 		F8C5A34C22B2E00800E643EC /* CollectionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C5A34B22B2E00800E643EC /* CollectionExtensionTests.swift */; };
 		F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */; };
 		F8C7091D2153F3F70015A10B /* IpcCallbacksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */; };
@@ -851,6 +853,8 @@
 		F8C3655D24182110005DD578 /* AppForCheckingPureXctest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppForCheckingPureXctest-Bridging-Header.h"; sourceTree = "<group>"; };
 		F8C3655E24182110005DD578 /* PrivateApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateApi.h; sourceTree = "<group>"; };
 		F8C3656424182D22005DD578 /* DigitizerFingerEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitizerFingerEventTests.swift; sourceTree = "<group>"; };
+		F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowingUInt64Tests.swift; sourceTree = "<group>"; };
+		F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MersenneTwisterRandomNumberProviderTests.swift; sourceTree = "<group>"; };
 		F8C5A34B22B2E00800E643EC /* CollectionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTests.swift; sourceTree = "<group>"; };
 		F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsView.swift; sourceTree = "<group>"; };
 		F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcCallbacksTests.swift; sourceTree = "<group>"; };
@@ -2353,6 +2357,8 @@
 			isa = PBXGroup;
 			children = (
 				F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */,
+				F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */,
+				F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */,
 			);
 			path = MixboxGenerator;
 			sourceTree = "<group>";
@@ -3966,6 +3972,7 @@
 				F8DC863A236724D2003889C7 /* PerPixelSnapshotsComparatorTests.swift in Sources */,
 				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
 				F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */,
+				F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
@@ -3989,6 +3996,7 @@
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */,
+				F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
 				F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */,
 				F8C3656524182D22005DD578 /* DigitizerFingerEventTests.swift in Sources */,
