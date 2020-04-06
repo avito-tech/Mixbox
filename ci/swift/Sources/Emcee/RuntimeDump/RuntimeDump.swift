@@ -1,9 +1,9 @@
-import RuntimeDump
+import TestDiscovery
 
 public final class RuntimeDump {
-    public let runtimeTestEntries: [RuntimeTestEntry]
+    public let discoveredTestEntries: [DiscoveredTestEntry]
     
-    public init(runtimeTestEntries: [RuntimeTestEntry]) {
-        self.runtimeTestEntries = runtimeTestEntries
+    public init(discoveredTestEntries: [DiscoveredTestEntry]) {
+        self.discoveredTestEntries = discoveredTestEntries
     }
 }

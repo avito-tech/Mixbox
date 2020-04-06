@@ -1,6 +1,6 @@
 public final class EmceeRunTestsOnRemoteQueueCommandArguments {
     // Simple args
-    public let runId: String
+    public let jobId: String
     
     // Configs
     public let testArgFile: String
@@ -19,7 +19,7 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
     public let fbsimctl: String?
     
     public init(
-        runId: String,
+        jobId: String,
         testArgFile: String,
         queueServerDestination: String,
         queueServerRunConfigurationLocation: String,
@@ -29,7 +29,7 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
         trace: String,
         fbsimctl: String?)
     {
-        self.runId = runId
+        self.jobId = jobId
         self.testArgFile = testArgFile
         self.queueServerDestination = queueServerDestination
         self.queueServerRunConfigurationLocation = queueServerRunConfigurationLocation

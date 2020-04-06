@@ -1,7 +1,7 @@
 import CiFoundation
 import Foundation
 import Models
-import RuntimeDump
+import TestDiscovery
 import TestArgFile
 import BuildArtifacts
 import ResourceLocation
@@ -57,7 +57,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
             }
             
             // I don't know why it is 2d array.
-            let entries: [[RuntimeTestEntry]] = try decodableFromJsonFileLoader.load(path: jsonPath)
+            let entries: [[DiscoveredTestEntry]] = try decodableFromJsonFileLoader.load(path: jsonPath)
             
             if entries.count != 1 {
                 throw ErrorString("Unexpected length of array in runtime dump file: \(entries.count), expected 1")
@@ -65,11 +65,11 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
             
             if environmentProvider.get(env: Env.MIXBOX_CI_RUN_ONLY_ONE_TEST) == "true" {
                 return RuntimeDump(
-                    runtimeTestEntries: [try entries.first.unwrapOrThrow().first.unwrapOrThrow()]
+                    discoveredTestEntries: [try entries.first.unwrapOrThrow().first.unwrapOrThrow()]
                 )
             } else {
                 return RuntimeDump(
-                    runtimeTestEntries: try entries.first.unwrapOrThrow()
+                    discoveredTestEntries: try entries.first.unwrapOrThrow()
                 )
             }
         } catch {
@@ -100,7 +100,9 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                         runner: nil,
                         xcTestBundle: XcTestBundle(
                             location: TestBundleLocation(ResourceLocation.from(arguments.xctestBundle)),
-                            runtimeDumpKind: arguments.appPath == nil ? .logicTest : .appTest
+                            testDiscoveryMode: arguments.appPath == nil
+                                ? .runtimeLogicTest
+                                : .runtimeAppTest
                         ),
                         additionalApplicationBundles: [] as [AdditionalAppBundleLocation]
                     ),

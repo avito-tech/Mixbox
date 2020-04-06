@@ -55,7 +55,7 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
         
         try emcee.runTestsOnRemoteQueue(
             arguments: EmceeRunTestsOnRemoteQueueCommandArguments(
-                runId: UUID().uuidString,
+                jobId: UUID().uuidString,
                 testArgFile: testArgFile(
                     mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                     fbxctestUrlString: fbxctestUrlString,
@@ -102,7 +102,7 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                 environment: environment(),
                 testType: .uiTest,
-                runtimeDumpKind: .logicTest,
+                testDiscoveryMode: .runtimeLogicTest,
                 priority: priority
             )
         )

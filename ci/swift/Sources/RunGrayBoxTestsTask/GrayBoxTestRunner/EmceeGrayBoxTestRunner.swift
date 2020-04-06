@@ -52,7 +52,7 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
         
         try emcee.runTestsOnRemoteQueue(
             arguments: EmceeRunTestsOnRemoteQueueCommandArguments(
-                runId: UUID().uuidString,
+                jobId: UUID().uuidString,
                 testArgFile: testArgFile(
                     mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                     fbxctestUrlString: fbxctestUrlString,
@@ -97,7 +97,7 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                 environment: environment(),
                 testType: .appTest,
-                runtimeDumpKind: .appTest,
+                testDiscoveryMode: .runtimeAppTest,
                 priority: priority
             )
         )

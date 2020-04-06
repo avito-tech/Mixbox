@@ -1,5 +1,5 @@
 import Models
-import RuntimeDump
+import TestDiscovery
 import Foundation
 import Destinations
 import BuildArtifacts
@@ -15,7 +15,7 @@ public final class TestArgFileGeneratorArguments {
     public let mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration]
     public let environment: [String: String]
     public let testType: TestType
-    public let runtimeDumpKind: XcTestBundleRuntimeDumpMode
+    public let testDiscoveryMode: XcTestBundleTestDiscoveryMode
     public let priority: UInt
     
     public init(
@@ -28,7 +28,7 @@ public final class TestArgFileGeneratorArguments {
         mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
         environment: [String: String],
         testType: TestType,
-        runtimeDumpKind: XcTestBundleRuntimeDumpMode,
+        testDiscoveryMode: XcTestBundleTestDiscoveryMode,
         priority: UInt)
     {
         self.runnerPath = runnerPath
@@ -40,7 +40,7 @@ public final class TestArgFileGeneratorArguments {
         self.mixboxTestDestinationConfigurations = mixboxTestDestinationConfigurations
         self.environment = environment
         self.testType = testType
-        self.runtimeDumpKind = runtimeDumpKind
+        self.testDiscoveryMode = testDiscoveryMode
         self.priority = priority
     }
 }

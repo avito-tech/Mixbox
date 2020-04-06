@@ -1,5 +1,5 @@
 import Models
-import RuntimeDump
+import TestDiscovery
 import Foundation
 import CiFoundation
 import Destinations
@@ -133,7 +133,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             runner: try uploadOptional(path: arguments.runnerPath),
             xcTestBundle: XcTestBundle(
                 location: try upload(path: arguments.xctestBundlePath),
-                runtimeDumpKind: arguments.runtimeDumpKind
+                testDiscoveryMode: arguments.testDiscoveryMode
             ),
             additionalApplicationBundles: try arguments.additionalAppPaths.map { additionalAppPath in
                 try upload(path: additionalAppPath)
@@ -151,10 +151,10 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         
         let appPathDumpArgument: String?
         
-        switch arguments.runtimeDumpKind {
-        case .appTest:
+        switch arguments.testDiscoveryMode {
+        case .runtimeAppTest:
             appPathDumpArgument = arguments.appPath
-        case .logicTest:
+        case .runtimeLogicTest:
             appPathDumpArgument = nil
         }
         
@@ -171,11 +171,11 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     }
     
     private func testsToRun(runtimeDump: RuntimeDump) -> [TestToRun] {
-        return runtimeDump.runtimeTestEntries.flatMap { runtimeTestEntry in
-            runtimeTestEntry.testMethods.map { testMethod in
+        return runtimeDump.discoveredTestEntries.flatMap { discoveredTestEntry in
+            discoveredTestEntry.testMethods.map { testMethod in
                 TestToRun.testName(
                     TestName(
-                        className: runtimeTestEntry.className,
+                        className: discoveredTestEntry.className,
                         methodName: testMethod
                     )
                 )
