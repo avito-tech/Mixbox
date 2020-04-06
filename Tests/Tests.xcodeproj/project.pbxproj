@@ -367,6 +367,18 @@
 		F8C3656524182D22005DD578 /* DigitizerFingerEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3656424182D22005DD578 /* DigitizerFingerEventTests.swift */; };
 		F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */; };
 		F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */; };
+		F8C3AD072437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD062437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift */; };
+		F8C3AD092437A377004B6BA4 /* EmptyDictionaryGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD082437A377004B6BA4 /* EmptyDictionaryGeneratorTests.swift */; };
+		F8C3AD0B2437A37F004B6BA4 /* EmptyOptionalGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD0A2437A37F004B6BA4 /* EmptyOptionalGeneratorTests.swift */; };
+		F8C3AD0E2437A3A9004B6BA4 /* RandomArrayGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD0D2437A3A9004B6BA4 /* RandomArrayGeneratorTests.swift */; };
+		F8C3AD102437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD0F2437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift */; };
+		F8C3AD122437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD112437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift */; };
+		F8C3AD142437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD132437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift */; };
+		F8C3AD1824384420004B6BA4 /* ConstantAnyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD1724384420004B6BA4 /* ConstantAnyGenerator.swift */; };
+		F8C3AD1924384490004B6BA4 /* Optional+UnwrapOrThrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820304E223831E8006D2F70 /* Optional+UnwrapOrThrow.swift */; };
+		F8C3AD1C243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD1B243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift */; };
+		F8C3AD1E243AFF91004B6BA4 /* SequenceAnyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD1D243AFF91004B6BA4 /* SequenceAnyGenerator.swift */; };
+		F8C3AD20243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD1F243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift */; };
 		F8C5A34C22B2E00800E643EC /* CollectionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C5A34B22B2E00800E643EC /* CollectionExtensionTests.swift */; };
 		F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */; };
 		F8C7091D2153F3F70015A10B /* IpcCallbacksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */; };
@@ -855,6 +867,17 @@
 		F8C3656424182D22005DD578 /* DigitizerFingerEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitizerFingerEventTests.swift; sourceTree = "<group>"; };
 		F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowingUInt64Tests.swift; sourceTree = "<group>"; };
 		F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MersenneTwisterRandomNumberProviderTests.swift; sourceTree = "<group>"; };
+		F8C3AD062437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyArrayGeneratorTests.swift; sourceTree = "<group>"; };
+		F8C3AD082437A377004B6BA4 /* EmptyDictionaryGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDictionaryGeneratorTests.swift; sourceTree = "<group>"; };
+		F8C3AD0A2437A37F004B6BA4 /* EmptyOptionalGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyOptionalGeneratorTests.swift; sourceTree = "<group>"; };
+		F8C3AD0D2437A3A9004B6BA4 /* RandomArrayGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArrayGeneratorTests.swift; sourceTree = "<group>"; };
+		F8C3AD0F2437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomBoolGeneratorTests.swift; sourceTree = "<group>"; };
+		F8C3AD112437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDictionaryGeneratorTests.swift; sourceTree = "<group>"; };
+		F8C3AD132437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFloatGeneratorTests.swift; sourceTree = "<group>"; };
+		F8C3AD1724384420004B6BA4 /* ConstantAnyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantAnyGenerator.swift; sourceTree = "<group>"; };
+		F8C3AD1B243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantRandomNumberProvider.swift; sourceTree = "<group>"; };
+		F8C3AD1D243AFF91004B6BA4 /* SequenceAnyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceAnyGenerator.swift; sourceTree = "<group>"; };
+		F8C3AD1F243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceRandomNumberProvider.swift; sourceTree = "<group>"; };
 		F8C5A34B22B2E00800E643EC /* CollectionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTests.swift; sourceTree = "<group>"; };
 		F8C7090B2153E3620015A10B /* NetworkStubbingTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestsView.swift; sourceTree = "<group>"; };
 		F8C7091C2153F3F70015A10B /* IpcCallbacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcCallbacksTests.swift; sourceTree = "<group>"; };
@@ -1120,9 +1143,9 @@
 		F81144CD2268D39C00ED519B /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				F8C3AD1A243AFD4D004B6BA4 /* Custom */,
 				F81144CE2268D39C00ED519B /* GeneratedMocks.swift */,
 				F81144CF2268D39C00ED519B /* generate_mocks */,
-				F8DEAAEC2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2356,9 +2379,8 @@
 		F8B39FEC2423F05500BFACD8 /* MixboxGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */,
-				F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */,
-				F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */,
+				F8C3AD012437A298004B6BA4 /* Generator */,
+				F8C3AD002437A291004B6BA4 /* Random */,
 			);
 			path = MixboxGenerator;
 			sourceTree = "<group>";
@@ -2469,6 +2491,66 @@
 				F8E160C82418634E00B4912F /* BaseEventTestCase.swift */,
 			);
 			path = MixboxIoKit;
+			sourceTree = "<group>";
+		};
+		F8C3AD002437A291004B6BA4 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */,
+				F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */,
+			);
+			path = Random;
+			sourceTree = "<group>";
+		};
+		F8C3AD012437A298004B6BA4 /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				F8C3AD022437A2A1004B6BA4 /* Generators */,
+				F8B39FED2423F08F00BFACD8 /* GeneratorTests.swift */,
+			);
+			path = Generator;
+			sourceTree = "<group>";
+		};
+		F8C3AD022437A2A1004B6BA4 /* Generators */ = {
+			isa = PBXGroup;
+			children = (
+				F8C3AD0C2437A38F004B6BA4 /* Random */,
+				F8C3AD052437A35C004B6BA4 /* Empty */,
+			);
+			path = Generators;
+			sourceTree = "<group>";
+		};
+		F8C3AD052437A35C004B6BA4 /* Empty */ = {
+			isa = PBXGroup;
+			children = (
+				F8C3AD062437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift */,
+				F8C3AD082437A377004B6BA4 /* EmptyDictionaryGeneratorTests.swift */,
+				F8C3AD0A2437A37F004B6BA4 /* EmptyOptionalGeneratorTests.swift */,
+			);
+			path = Empty;
+			sourceTree = "<group>";
+		};
+		F8C3AD0C2437A38F004B6BA4 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				F8C3AD0D2437A3A9004B6BA4 /* RandomArrayGeneratorTests.swift */,
+				F8C3AD0F2437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift */,
+				F8C3AD112437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift */,
+				F8C3AD132437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift */,
+			);
+			path = Random;
+			sourceTree = "<group>";
+		};
+		F8C3AD1A243AFD4D004B6BA4 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				F8DEAAEC2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift */,
+				F8C3AD1724384420004B6BA4 /* ConstantAnyGenerator.swift */,
+				F8C3AD1B243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift */,
+				F8C3AD1D243AFF91004B6BA4 /* SequenceAnyGenerator.swift */,
+				F8C3AD1F243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		F8C7090D2153E3650015A10B /* NetworkStubbingTests */ = {
@@ -3347,13 +3429,13 @@
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxGenerator/MixboxGenerator.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxGenerator/MixboxGenerator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3374,13 +3456,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3561,6 +3643,7 @@
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxGenerator/MixboxGenerator.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
@@ -3585,6 +3668,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
@@ -3619,13 +3703,13 @@
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxGenerator/MixboxGenerator.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxGenerator/MixboxGenerator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3646,13 +3730,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3966,19 +4050,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C3AD0B2437A37F004B6BA4 /* EmptyOptionalGeneratorTests.swift in Sources */,
 				F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */,
 				F8FC4ACF23AA686900D3E911 /* AndMatcherTests.swift in Sources */,
 				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
 				F8DC863A236724D2003889C7 /* PerPixelSnapshotsComparatorTests.swift in Sources */,
 				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
+				F8C3AD0E2437A3A9004B6BA4 /* RandomArrayGeneratorTests.swift in Sources */,
 				F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */,
 				F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
+				F8C3AD1C243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift in Sources */,
 				F8B964CE2281DCC00054CE08 /* TestCase.swift in Sources */,
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
 				F8E160C92418634E00B4912F /* BaseEventTestCase.swift in Sources */,
+				F8C3AD092437A377004B6BA4 /* EmptyDictionaryGeneratorTests.swift in Sources */,
 				F8DC863C2367253B003889C7 /* UIImage+Stub.swift in Sources */,
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
 				F8C5A34C22B2E00800E643EC /* CollectionExtensionTests.swift in Sources */,
@@ -3999,6 +4087,7 @@
 				F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
 				F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */,
+				F8C3AD122437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift in Sources */,
 				F8C3656524182D22005DD578 /* DigitizerFingerEventTests.swift in Sources */,
 				F8B964CB2281DC9F0054CE08 /* CGVectorExtensionsTests.swift in Sources */,
 				F8DEAAED2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift in Sources */,
@@ -4006,20 +4095,27 @@
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* ElementMatcherBuilderTests.swift in Sources */,
 				F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */,
+				F8C3AD1824384420004B6BA4 /* ConstantAnyGenerator.swift in Sources */,
 				F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */,
+				F8C3AD20243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift in Sources */,
 				F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
 				F8B39FEE2423F08F00BFACD8 /* GeneratorTests.swift in Sources */,
 				F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */,
 				F8DC865023675D4A003889C7 /* UIColor+RGB.swift in Sources */,
+				F8C3AD1924384490004B6BA4 /* Optional+UnwrapOrThrow.swift in Sources */,
 				F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */,
 				F8B40F192433B85D008A05E8 /* AssociatedObjectTests.swift in Sources */,
 				F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */,
+				F8C3AD072437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift in Sources */,
 				F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */,
 				F8FC4AD323AA687F00D3E911 /* AlwaysTrueMatcherTests.swift in Sources */,
 				F8971D8922661A8E001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.swift in Sources */,
 				F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */,
+				F8C3AD102437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift in Sources */,
+				F8C3AD1E243AFF91004B6BA4 /* SequenceAnyGenerator.swift in Sources */,
+				F8C3AD142437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

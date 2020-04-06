@@ -47,7 +47,9 @@ end
 
 target 'GrayBoxUiTests' do
   mixbox.pod 'MixboxGray'
-
+  
+  mixbox.pod 'MixboxGenerator' # Cuckoo-generated mocks are shared between Unit and GrayBox tests, they include mocks for MixboxGenerator
+  
   tests_testing_helpers
   tests_ipc_pods
 end
