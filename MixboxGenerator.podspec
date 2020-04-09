@@ -12,4 +12,6 @@ Pod::Spec.new do |s|
   s.swift_version          = '5.0'
   s.requires_arc           = true
   s.source_files           = 'Frameworks/Generator/**/*.{swift,h,m,mm}'
+
+  s.dependency 'MixboxDi'
 end

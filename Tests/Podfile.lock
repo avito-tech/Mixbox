@@ -20,7 +20,8 @@ PODS:
     - MixboxFoundation
   - MixboxFakeSettingsAppMain (0.2.3)
   - MixboxFoundation (0.2.3)
-  - MixboxGenerator (0.2.3)
+  - MixboxGenerator (0.2.3):
+    - MixboxDi
   - MixboxGray (0.2.3):
     - MixboxDi
     - MixboxInAppServices
@@ -166,7 +167,7 @@ SPEC CHECKSUMS:
   MixboxDi: 3e75421e302d50f57974cdb337b3b95adb885fb7
   MixboxFakeSettingsAppMain: cb03a5515009c7b774c1f36dc459e6503b2b7d7b
   MixboxFoundation: adbfd517f145b40403bd43699181f487d33758ed
-  MixboxGenerator: 6cd4235f166fed19db2a40e8d0349399a6104561
+  MixboxGenerator: c4dcd89aa702407ce4a5409612dab2f52342c299
   MixboxGray: c0941a5806c2e5835be4b8d5c4c16df651151541
   MixboxInAppServices: 1bf06e37b3891b39c10aa3cc1ad20d7dc62614a4
   MixboxIoKit: 9eabef0ca2c0b54af3f4462cff83c90ec3ca8ed3

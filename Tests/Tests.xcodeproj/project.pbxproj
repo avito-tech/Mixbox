@@ -103,6 +103,8 @@
 		F8274A4B2143112000A72C41 /* XcTestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4A2143112000A72C41 /* XcTestFailure.swift */; };
 		F8274A4E21454ECF00A72C41 /* TestStateRecycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4D21454ECF00A72C41 /* TestStateRecycling.swift */; };
 		F82A05B921F755950008C2BB /* DummyForLaunchingUiTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82A05B821F755950008C2BB /* DummyForLaunchingUiTestsView.swift */; };
+		F82BDF85243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BDF84243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift */; };
+		F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */; };
 		F83416E8232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83416E7232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift */; };
 		F8341971232FE74700E9EC3A /* LocatorsPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83416E4232FAB9600E9EC3A /* LocatorsPerformanceTests.swift */; };
 		F8341972232FE74800E9EC3A /* LocatorsPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83416E4232FAB9600E9EC3A /* LocatorsPerformanceTests.swift */; };
@@ -673,6 +675,8 @@
 		F82A05B821F755950008C2BB /* DummyForLaunchingUiTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyForLaunchingUiTestsView.swift; sourceTree = "<group>"; };
 		F82A53CE228B22A3007CB9F3 /* Lint.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lint.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82A53D2228B22A4007CB9F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F82BDF84243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLookupGeneratorTests.swift; sourceTree = "<group>"; };
+		F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomIntegerGeneratorTests.swift; sourceTree = "<group>"; };
 		F83416E4232FAB9600E9EC3A /* LocatorsPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTests.swift; sourceTree = "<group>"; };
 		F83416E7232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTestsView.swift; sourceTree = "<group>"; };
 		F8341974232FE91D00E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTestsViewPageObject.swift; sourceTree = "<group>"; };
@@ -1498,6 +1502,22 @@
 				F82A53D2228B22A4007CB9F3 /* Info.plist */,
 			);
 			path = Lint;
+			sourceTree = "<group>";
+		};
+		F82BDF81243DA5840010FD6C /* AnyGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				F82BDF82243DA5930010FD6C /* DynamicLookup */,
+			);
+			path = AnyGenerator;
+			sourceTree = "<group>";
+		};
+		F82BDF82243DA5930010FD6C /* DynamicLookup */ = {
+			isa = PBXGroup;
+			children = (
+				F82BDF84243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift */,
+			);
+			path = DynamicLookup;
 			sourceTree = "<group>";
 		};
 		F83416E6232FAC0700E9EC3A /* Performance */ = {
@@ -2379,6 +2399,7 @@
 		F8B39FEC2423F05500BFACD8 /* MixboxGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				F82BDF81243DA5840010FD6C /* AnyGenerator */,
 				F8C3AD012437A298004B6BA4 /* Generator */,
 				F8C3AD002437A291004B6BA4 /* Random */,
 			);
@@ -2537,6 +2558,7 @@
 				F8C3AD0F2437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift */,
 				F8C3AD112437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift */,
 				F8C3AD132437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift */,
+				F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */,
 			);
 			path = Random;
 			sourceTree = "<group>";
@@ -4083,6 +4105,7 @@
 				F8FC4ACD23AA666E00D3E911 /* AlwaysFalseMatcherTests.swift in Sources */,
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
+				F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */,
 				F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */,
 				F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
@@ -4116,6 +4139,7 @@
 				F8C3AD102437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift in Sources */,
 				F8C3AD1E243AFF91004B6BA4 /* SequenceAnyGenerator.swift in Sources */,
 				F8C3AD142437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift in Sources */,
+				F82BDF85243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
