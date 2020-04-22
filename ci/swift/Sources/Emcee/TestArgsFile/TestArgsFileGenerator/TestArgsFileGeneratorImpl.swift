@@ -156,6 +156,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             appPathDumpArgument = arguments.appPath
         case .runtimeLogicTest:
             appPathDumpArgument = nil
+        case .parseFunctionSymbols:
+            throw ErrorString("parseFunctionSymbols mode is not supported")
         }
         
         return try emcee.dump(
