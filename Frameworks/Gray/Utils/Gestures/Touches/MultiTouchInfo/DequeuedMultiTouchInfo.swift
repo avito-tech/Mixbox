@@ -2,8 +2,6 @@
 //
 // - It has additional phases are to determined by TouchInjector based on its state
 // - It has no fields that used for dequeing (`expendable`, `deliveryTimeDeltaSinceLastTouch`).
-//
-// swiftlint:disable nesting
 public class DequeuedMultiTouchInfo {
     public final class TouchInfo {
         public enum Phase {

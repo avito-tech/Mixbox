@@ -15,9 +15,14 @@ public final class WaitingForQuiescenceTestsView:
     private var actionButtons = [UIView]()
     
     // This button has special layout
-    private var tapIndicatorButton = ButtonWithClosures()
-    private var tapIndicatorButtonOffset: CGFloat = 500
+    private var tapIndicatorButtons = [ButtonWithClosures]()
     private let tapIndicatorButtonHeight: CGFloat = 1 // it is harder to tap smaller button
+    
+    private var configuration = WaitingForQuiescenceTestsViewConfiguration(
+        contentSize: .zero,
+        tapIndicatorButtons: [],
+        actionButtons: []
+    )
     
     private var scrollView = UIScrollView()
     
@@ -26,13 +31,13 @@ public final class WaitingForQuiescenceTestsView:
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
-        testingViewControllerSettings.viewIpc.registerAsyncResetUiMethod(view: self, argumentType: CGFloat.self) { view, tapIndicatorButtonOffset, completion in
-            view.resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset, completion: completion)
+        testingViewControllerSettings.viewIpc.registerAsyncResetUiMethod(view: self, argumentType: WaitingForQuiescenceTestsViewConfiguration.self) { view, configuration, completion in
+            view.resetUi(configuration: configuration, completion: completion)
         }
         
         navigationController = testingViewControllerSettings.navigationController
         
-        resetUi(tapIndicatorButtonOffset: tapIndicatorButtonOffset, completion: {})
+        resetUi(configuration: configuration, completion: {})
     }
     
     required init?(coder: NSCoder) {
@@ -54,14 +59,16 @@ public final class WaitingForQuiescenceTestsView:
         
         scrollView.frame = bounds
         scrollView.contentInset = insets
-        scrollView.contentSize = frameForContent.size.mb_plusHeight(100000)
+        scrollView.contentSize = configuration.contentSize
         
-        tapIndicatorButton.frame = CGRect(
-            x: frameForContent.mb_left,
-            y: frameForContent.mb_top + tapIndicatorButtonOffset,
-            width: frameForContent.width,
-            height: tapIndicatorButtonHeight
-        )
+        for (configuration, view) in zip(configuration.tapIndicatorButtons, tapIndicatorButtons) {
+            view.frame = CGRect(
+                x: frameForContent.mb_left,
+                y: configuration.offset,
+                width: frameForContent.width,
+                height: tapIndicatorButtonHeight
+            )
+        }
         
         var actionButtonOffset: CGFloat = 50
         let actionButtonHeight: CGFloat = 50
@@ -76,34 +83,43 @@ public final class WaitingForQuiescenceTestsView:
         }
     }
     
-    private func resetUi(tapIndicatorButtonOffset: CGFloat, completion: @escaping () -> ()) {
+    private func resetUi(configuration: WaitingForQuiescenceTestsViewConfiguration, completion: @escaping () -> ()) {
         dismissEverything { [weak self] in
             guard let strongSelf = self else {
                 completion()
                 return
             }
             
-            strongSelf.resetView(tapIndicatorButtonOffset: tapIndicatorButtonOffset) {
+            strongSelf.resetView(configuration: configuration) {
                 completion()
             }
         }
     }
     
-    private func resetView(tapIndicatorButtonOffset: CGFloat, completion: @escaping () -> ()) {
+    private func resetView(configuration: WaitingForQuiescenceTestsViewConfiguration, completion: @escaping () -> ()) {
         subviews.forEach { $0.removeFromSuperview() }
+        tapIndicatorButtons = []
         actionButtons = []
         
         scrollView = UIScrollView()
         scrollView.decelerationRate = .init(rawValue: 0.9999) // less deceleration than `.normal` (0.998)
         
-        self.tapIndicatorButtonOffset = tapIndicatorButtonOffset
+        self.configuration = configuration
+        
         backgroundColor = .white
         
-        addTapIndicatorButton()
-        addPushButton(animated: true)
-        addPushButton(animated: false)
-        addPresentButton(animated: true)
-        addPresentButton(animated: false)
+        for button in configuration.tapIndicatorButtons {
+            addTapIndicatorButton(id: button.id)
+        }
+        
+        for button in configuration.actionButtons {
+            switch button {
+            case let .present(animated):
+                addPresentButton(animated: animated, id: button.id)
+            case let .push(animated):
+                addPushButton(animated: animated, id: button.id)
+            }
+        }
         
         addSubview(scrollView)
         
@@ -120,18 +136,18 @@ public final class WaitingForQuiescenceTestsView:
         }
     }
     
-    private func addTapIndicatorButton() {
-        tapIndicatorButton = ButtonWithClosures()
+    private func addTapIndicatorButton(id: String) {
+        let tapIndicatorButton = ButtonWithClosures()
         tapIndicatorButton.backgroundColor = .blue
-        tapIndicatorButton.accessibilityIdentifier = "tapIndicatorButton"
+        tapIndicatorButton.accessibilityIdentifier = id
         tapIndicatorButton.onTap = { [weak tapIndicatorButton] in
             tapIndicatorButton?.testability_customValues["tapped"] = true
         }
+        tapIndicatorButtons.append(tapIndicatorButton)
         scrollView.addSubview(tapIndicatorButton)
     }
     
-    private func addPushButton(animated: Bool) {
-        let id = "pushButton_" + (animated ? "animated" : "notAnimated")
+    private func addPushButton(animated: Bool, id: String) {
         addActionButton(id: id) { [weak self] in
             guard let strongSelf = self else { return }
             
@@ -142,8 +158,7 @@ public final class WaitingForQuiescenceTestsView:
         }
     }
     
-    private func addPresentButton(animated: Bool) {
-        let id = "presentButton_" + (animated ? "animated" : "notAnimated")
+    private func addPresentButton(animated: Bool, id: String) {
         addActionButton(id: id) { [weak self] in
             guard let strongSelf = self else { return }
             

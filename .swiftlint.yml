@@ -236,6 +236,14 @@ multiline_parameters:
 multiple_closures_with_trailing_closure:
   severity: error
 
+nesting:
+  type_level:
+    warning: 2
+    error: 2
+  statement_level:
+    warning: 5
+    error: 5
+    
 nslocalizedstring_key:
   severity: error
 

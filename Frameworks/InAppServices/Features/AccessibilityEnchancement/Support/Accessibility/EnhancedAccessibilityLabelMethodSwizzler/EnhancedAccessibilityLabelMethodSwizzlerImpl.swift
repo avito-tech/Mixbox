@@ -19,7 +19,6 @@ public final class EnhancedAccessibilityLabelMethodSwizzlerImpl: EnhancedAccessi
         let originalImplementation = method_getImplementation(method)
         let selector = method_getName(method)
         
-        // swiftlint:disable:next nesting
         typealias OriginalImplementationFunction = @convention(c) (NSObject?, Selector) -> NSString?
         let originalImplementationFunction = unsafeBitCast(
             originalImplementation,

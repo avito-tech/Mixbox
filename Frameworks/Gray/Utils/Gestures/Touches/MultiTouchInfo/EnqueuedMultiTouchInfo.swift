@@ -1,4 +1,3 @@
-// swiftlint:disable nesting
 public class EnqueuedMultiTouchInfo {
     public final class TouchInfo {
         public enum Phase {
