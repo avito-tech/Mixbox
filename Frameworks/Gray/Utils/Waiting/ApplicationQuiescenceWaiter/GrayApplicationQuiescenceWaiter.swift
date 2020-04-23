@@ -14,7 +14,7 @@ public final class GrayApplicationQuiescenceWaiter: ApplicationQuiescenceWaiter 
         self.idlingResource = idlingResource
     }
     
-    public func waitForQuiescence<T>(body: () throws -> T) throws -> T {
+    public func waitForQuiescence() throws {
         let result = waiter.wait(
             timeout: waitingForQuiescenceTimeout,
             interval: waitingForQuiescencePollingInterval,
@@ -25,7 +25,7 @@ public final class GrayApplicationQuiescenceWaiter: ApplicationQuiescenceWaiter 
         
         switch result {
         case .stopConditionMet:
-            return try body()
+            return
         case .timedOut:
             throw ErrorString("Failed to wait application for quiescence")
         }

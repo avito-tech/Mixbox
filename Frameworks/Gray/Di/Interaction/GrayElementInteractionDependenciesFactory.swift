@@ -171,9 +171,12 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
         elementSettings: ElementSettings)
         -> ElementResolver
     {
-        return ElementResolverImpl(
-            elementFinder: grayBoxTestsDependenciesFactory.elementFinder,
-            elementSettings: elementSettings
+        return WaitingForQuiescenceElementResolver(
+            elementResolver: ElementResolverImpl(
+                elementFinder: grayBoxTestsDependenciesFactory.elementFinder,
+                elementSettings: elementSettings
+            ),
+            applicationQuiescenceWaiter: grayBoxTestsDependenciesFactory.applicationQuiescenceWaiter
         )
     }
     

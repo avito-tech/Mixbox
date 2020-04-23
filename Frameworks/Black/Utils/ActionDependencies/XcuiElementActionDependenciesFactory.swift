@@ -170,9 +170,12 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
         elementSettings: ElementSettings)
         -> ElementResolver
     {
-        return ElementResolverImpl(
-            elementFinder: xcuiBasedTestsDependenciesFactory.elementFinder,
-            elementSettings: elementSettings
+        return WaitingForQuiescenceElementResolver(
+            elementResolver: ElementResolverImpl(
+                elementFinder: xcuiBasedTestsDependenciesFactory.elementFinder,
+                elementSettings: elementSettings
+            ),
+            applicationQuiescenceWaiter: xcuiBasedTestsDependenciesFactory.applicationQuiescenceWaiter
         )
     }
     
@@ -187,7 +190,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
                 elementResolver: elementResolver(
                     elementSettings: elementSettings
                 ),
-                applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider
+                applicationQuiescenceWaiter: xcuiBasedTestsDependenciesFactory.applicationQuiescenceWaiter
             ),
             applicationFrameProvider: xcuiBasedTestsDependenciesFactory.applicationFrameProvider,
             eventGenerator: xcuiBasedTestsDependenciesFactory.eventGenerator,

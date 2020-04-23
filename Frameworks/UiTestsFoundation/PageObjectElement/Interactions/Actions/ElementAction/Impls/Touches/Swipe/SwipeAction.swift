@@ -76,23 +76,21 @@ public final class SwipeAction: ElementInteraction {
                 [dependencies, swipeActionPathCalculator, minimalPercentageOfVisibleArea] _ in
 
                 dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try dependencies.applicationQuiescenceWaiter.waitForQuiescence {
-                        dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { elementSnapshot in
-                            let path = swipeActionPathCalculator.path(elementSnapshot: elementSnapshot)
+                    try dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { elementSnapshot in
+                        let path = swipeActionPathCalculator.path(elementSnapshot: elementSnapshot)
 
-                            return dependencies.interactionResultMaker.makeResultCatchingErrors {
-                                dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
-                                
-                                try dependencies.eventGenerator.pressAndDrag(
-                                    from: path.startPoint,
-                                    to: path.endPoint,
-                                    durationOfInitialPress: 0,
-                                    velocity: path.velocity,
-                                    cancelInertia: false
-                                )
-                                
-                                return .success
-                            }
+                        return dependencies.interactionResultMaker.makeResultCatchingErrors {
+                            dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
+                            
+                            try dependencies.eventGenerator.pressAndDrag(
+                                from: path.startPoint,
+                                to: path.endPoint,
+                                durationOfInitialPress: 0,
+                                velocity: path.velocity,
+                                cancelInertia: false
+                            )
+                            
+                            return .success
                         }
                     }
                 }

@@ -1,13 +1,15 @@
 import MixboxUiTestsFoundation
 
 public final class XcuiApplicationQuiescenceWaiter: ApplicationQuiescenceWaiter {
-    public init() {
+    private let applicationProvider: ApplicationProvider
+    
+    public init(
+        applicationProvider: ApplicationProvider)
+    {
+        self.applicationProvider = applicationProvider
     }
     
-    public func waitForQuiescence<T>(body: () throws -> T) throws -> T {
-        // Do not do anything. Every access to AX hierarchy occurs with waiting for quiescence.
-        // There is no reason to do anything specific here, it will only affect performance negatively.
-        
-        return try body()
+    public func waitForQuiescence() throws {
+        applicationProvider.application._waitForQuiescence()
     }
 }

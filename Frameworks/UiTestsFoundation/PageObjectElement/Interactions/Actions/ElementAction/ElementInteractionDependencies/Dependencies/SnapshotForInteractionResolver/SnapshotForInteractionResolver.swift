@@ -7,5 +7,6 @@ public protocol SnapshotForInteractionResolver: class {
     func resolve(
         minimalPercentageOfVisibleArea: CGFloat,
         completion: @escaping (ElementSnapshot) -> (InteractionResult))
+        throws
         -> InteractionResult
 }

@@ -31,13 +31,13 @@ final class WaitingForQuiescenceTests: TestCase {
         }
     }
     
-    func disabled_test___action___is_performed_after_scroll_view_bouncing_ends___when_using_gentle_scroll() {
+    func test___action___is_performed_after_scroll_view_bouncing_ends___when_using_gentle_scroll() {
         check___action___is_performed_after_scroll_view_bouncing_ends {
             tapIndicatorButton.tap()
         }
     }
     
-    func disabled_test___action___is_performed_after_scroll_view_bouncing_ends___when_using_swipe() {
+    func test___action___is_performed_after_scroll_view_bouncing_ends___when_using_swipe() {
         check___action___is_performed_after_scroll_view_bouncing_ends {
             screen.view.swipeUp()
             tapIndicatorButton.tap()

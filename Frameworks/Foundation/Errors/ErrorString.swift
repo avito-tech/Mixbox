@@ -6,15 +6,19 @@
 // func doMagic() -> String?
 // func doMagic() -> ErrorString? // looks better
 //
-public final class ErrorString: Error, Hashable, Codable, ExpressibleByStringLiteral, CustomStringConvertible {
+open class ErrorString: Error, Hashable, Codable, ExpressibleByStringLiteral, CustomStringConvertible {
     public let value: String
     
     public init(_ value: String) {
         self.value = value
     }
     
-    public convenience init(stringLiteral: String) {
+    public required convenience init(stringLiteral: String) {
         self.init(stringLiteral)
+    }
+    
+    public convenience init(_ other: Error) {
+        self.init(String(describing: other))
     }
     
     public var description: String {

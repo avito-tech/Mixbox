@@ -3,7 +3,7 @@ public final class ScrollingResult {
         case scrolled
         case elementWasLostAfterScroll
         case alreadyVisible(percentageOfVisibleArea: CGFloat)
-        case internalError(String)
+        case error(String)
     }
     
     public let status: Status

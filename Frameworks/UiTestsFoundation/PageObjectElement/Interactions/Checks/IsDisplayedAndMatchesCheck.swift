@@ -60,17 +60,19 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
         
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [buildMatcher, dependencies] _ in
-                dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
-                    let matcher = buildMatcher(dependencies.elementMatcherBuilder)
-                    
-                    switch matcher.match(value: snapshot) {
-                    case .match:
-                        return .success
-                    case let .mismatch(mismatchResult):
-                        return dependencies.interactionResultMaker.failure(
-                            message: "проверка неуспешна (\(matcher.description)): \(mismatchResult.mismatchDescription)",
-                            attachments: mismatchResult.attachments
-                        )
+                dependencies.interactionResultMaker.makeResultCatchingErrors {
+                    try dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                        let matcher = buildMatcher(dependencies.elementMatcherBuilder)
+                        
+                        switch matcher.match(value: snapshot) {
+                        case .match:
+                            return .success
+                        case let .mismatch(mismatchResult):
+                            return dependencies.interactionResultMaker.failure(
+                                message: "проверка неуспешна (\(matcher.description)): \(mismatchResult.mismatchDescription)",
+                                attachments: mismatchResult.attachments
+                            )
+                        }
                     }
                 }
             }

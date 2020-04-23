@@ -59,11 +59,15 @@ final class ScrollingContext {
     
     func scrollIfNeeded() -> ScrollingResult {
         while status == nil && scrollingAttempts < maxScrollingAttempts {
-            performScrollingOnce()
+            do {
+                try performScrollingOnce()
+            } catch {
+                status = .error("\(error)")
+            }
         }
         
         let finalStatus: ScrollingResult.Status = status
-            ?? .internalError("скролл израсходовал \(scrollingAttempts) из \(maxScrollingAttempts) попыток")
+            ?? .error("скролл израсходовал \(scrollingAttempts) из \(maxScrollingAttempts) попыток")
         
         return ScrollingResult(
             status: finalStatus,
@@ -72,7 +76,7 @@ final class ScrollingContext {
         )
     }
     
-    private func performScrollingOnce() {
+    private func performScrollingOnce() throws {
         let scrollingResult = scrollingHintsProvider.scrollingHint(element: snapshot)
         
         switch scrollingResult {
@@ -80,22 +84,27 @@ final class ScrollingContext {
             followDraggingInstructions(draggingInstructions)
         case .shouldReloadSnapshots:
             status = .scrolled
-            reloadSnapshots()
+            
+            do {
+                try reloadSnapshots()
+            } catch {
+                status = .error("ошибка получения подсказки по скроллу, не удалось понять как доскроллить до элемента")
+            }
         case .canNotProvideHintForCurrentRequest:
             // TODO: use fallback?
-            status = .internalError("ошибка получения подсказки по скроллу, не удалось понять как доскроллить до элемента")
+            status = .error("ошибка получения подсказки по скроллу, не удалось понять как доскроллить до элемента")
         case .hintsAreNotAvailableForCurrentElement:
             // Fallback:
-            scrollUsingInformationFromSnapshot(snapshot: snapshot)
+            try scrollUsingInformationFromSnapshot(snapshot: snapshot)
         case .internalError(let message):
-            status = .internalError("ошибка получения подсказки по скроллу: \(message)")
+            status = .error("ошибка получения подсказки по скроллу: \(message)")
         }
         
         scrollingAttempts += 1
     }
     
     // Fallback when scrolling hint can not be retrieved from application (e.g. third party application)
-    private func scrollUsingInformationFromSnapshot(snapshot: ElementSnapshot) {
+    private func scrollUsingInformationFromSnapshot(snapshot: ElementSnapshot) throws {
         let draggingInstructions: [DraggingInstruction]
         
         if snapshot.frameRelativeToScreen.mb_left > applicationFrameProvider.applicationFrame.mb_right {
@@ -109,7 +118,7 @@ final class ScrollingContext {
         } else {
             draggingInstructions = []
             
-            reloadSnapshots()
+            try reloadSnapshots()
         }
         
         followDraggingInstructions(draggingInstructions)
@@ -168,15 +177,15 @@ final class ScrollingContext {
                 
                     lastUsedInstructionIndex = indexOfInstructionToUse
                 
-                    reloadSnapshots()
+                    try reloadSnapshots()
                 } catch {
-                    status = .internalError(
+                    status = .error(
                         "произошла ошибка при скрроллинге: \(error)"
                     )
                 }
             } else {
                 let joined = stuckedTouchesDescriptions.joined(separator: ", ")
-                status = .internalError(
+                status = .error(
                     "cкролл застрял, ничего не произошло после скролла (\(joined))"
                 )
             }
@@ -290,8 +299,8 @@ final class ScrollingContext {
         )
     }
     
-    private func reloadSnapshots() {
-        resolvedElementQuery = elementResolver.resolveElement()
+    private func reloadSnapshots() throws {
+        resolvedElementQuery = try elementResolver.resolveElement()
         
         let index = expectedIndexOfSnapshotInResolvedElementQuery
         if let newSnapshot = resolvedElementQuery.matchingSnapshots.mb_elementAtIndex(index) {

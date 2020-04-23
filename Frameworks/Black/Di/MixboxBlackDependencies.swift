@@ -14,8 +14,5 @@ public final class MixboxBlackDependencies: DependencyCollectionRegisterer {
         di.register(type: ScreenshotTaker.self) { _ in
             XcuiScreenshotTaker()
         }
-        di.register(type: ApplicationQuiescenceWaiter.self) { _ in
-            XcuiApplicationQuiescenceWaiter()
-        }
     }
 }

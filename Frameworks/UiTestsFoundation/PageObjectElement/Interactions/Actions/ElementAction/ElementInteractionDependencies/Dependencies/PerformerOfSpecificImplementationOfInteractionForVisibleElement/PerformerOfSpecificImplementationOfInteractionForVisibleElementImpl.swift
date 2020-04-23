@@ -72,7 +72,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                 alreadyCalculatedPercentageOfVisibleArea = percentageOfVisibleArea
             case .elementWasLostAfterScroll:
                 scrollingFailureMessage = "ошибка при автоскролле - элемент пропал из иерархии после скролла"
-            case .internalError(let message):
+            case .error(let message):
                 scrollingFailureMessage = message
             }
             

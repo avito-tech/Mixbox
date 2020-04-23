@@ -1,20 +1,22 @@
 public protocol Retrier: class {
     func retry<T>(
-        firstAttempt: () -> T,
-        everyNextAttempt: () -> T,
-        shouldRetry: (T) -> Bool,
+        firstAttempt: () throws -> T,
+        everyNextAttempt: () throws -> T,
+        shouldRetry: (T) throws -> Bool,
         isPossibleToRetryProvider: IsPossibleToRetryProvider)
+        rethrows
         -> T
 }
 
 extension Retrier {
     public func retry<T>(
-        attempt: () -> T,
-        shouldRetry: (T) -> Bool,
+        attempt: () throws -> T,
+        shouldRetry: (T) throws -> Bool,
         isPossibleToRetryProvider: IsPossibleToRetryProvider)
+        rethrows
         -> T
     {
-        return retry(
+        return try retry(
             firstAttempt: attempt,
             everyNextAttempt: attempt,
             shouldRetry: shouldRetry,

@@ -23,37 +23,39 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
     
     public func resolveElementWithRetries(
         isPossibleToRetryProvider: IsPossibleToRetryProvider)
+        throws
         -> ResolvedElementQuery
     {
-        var resolvedElementQuery = resolveElement()
+        var resolvedElementQuery = try resolveElement()
         
-        resolvedElementQuery = reresolveElementWithRetriesIfNeeded(
+        resolvedElementQuery = try reresolveElementWithRetriesIfNeeded(
             resolvedElementQuery: resolvedElementQuery,
             isPossibleToRetryProvider: isPossibleToRetryProvider
         )
         
-        resolvedElementQuery = reresolveElementWithScrollingIfNeeded(
+        resolvedElementQuery = try reresolveElementWithScrollingIfNeeded(
             resolvedElementQuery: resolvedElementQuery
         )
         
         return resolvedElementQuery
     }
     
-    private func resolveElement() -> ResolvedElementQuery {
-        return elementResolver.resolveElement()
+    private func resolveElement() throws -> ResolvedElementQuery {
+        return try elementResolver.resolveElement()
     }
     
     private func reresolveElementWithRetriesIfNeeded(
         resolvedElementQuery: ResolvedElementQuery,
         isPossibleToRetryProvider: IsPossibleToRetryProvider)
+        throws
         -> ResolvedElementQuery
     {
-        return retrier.retry(
+        return try retrier.retry(
             firstAttempt: {
                 resolvedElementQuery
             },
             everyNextAttempt: {
-                resolveElement()
+                try resolveElement()
             },
             shouldRetry: { resolvedElementQuery in
                 shouldRetryResolvingElement(resolvedElementQuery: resolvedElementQuery)
@@ -84,6 +86,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
     
     private func reresolveElementWithScrollingIfNeeded(
         resolvedElementQuery: ResolvedElementQuery)
+        throws
         -> ResolvedElementQuery
     {
         // TODO: Improve the code. This is placed here like a kludge.
@@ -99,8 +102,8 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
                 let scrollingDistance = 8
                 
                 for _ in 0..<scrollingDistance where needToScroll {
-                    try blind(up: true)
-                    resolvedElementQuery = resolveElement()
+                    try scrollBlindly(up: true)
+                    resolvedElementQuery = try resolveElement()
                 }
                 
                 // We must scroll and scroll back twice as much to cover a certain radius (== scrollingDistance):
@@ -113,30 +116,36 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
                 // ---------------------------------------------
                 
                 for _ in 0..<(scrollingDistance * 2) where needToScroll {
-                    try blind(up: false)
-                    resolvedElementQuery = resolveElement()
+                    try scrollBlindly(up: false)
+                    resolvedElementQuery = try resolveElement()
                 }
             }
-        } catch {
+        } catch _ as ScrollingError {
             // TODO: Better error handling
-            resolvedElementQuery = resolveElement()
+            resolvedElementQuery = try resolveElement()
         }
         
         return resolvedElementQuery
     }
     
-    private func blind(up: Bool) throws {
-        let frame = applicationFrameProvider.applicationFrame
-        
-        try eventGenerator.pressAndDrag(
-            from: frame.mb_center,
-            to: CGPoint(
-                x: frame.mb_centerX,
-                y: up ? 0 : frame.height
-            ),
-            durationOfInitialPress: 0,
-            velocity: 500,
-            cancelInertia: true
-        )
+    private func scrollBlindly(up: Bool) throws {
+        do {
+            let frame = applicationFrameProvider.applicationFrame
+            
+            try eventGenerator.pressAndDrag(
+                from: frame.mb_center,
+                to: CGPoint(
+                    x: frame.mb_centerX,
+                    y: up ? 0 : frame.height
+                ),
+                durationOfInitialPress: 0,
+                velocity: 500,
+                cancelInertia: true
+            )
+        } catch {
+            throw ScrollingError(error)
+        }
     }
 }
+
+private class ScrollingError: ErrorString {}

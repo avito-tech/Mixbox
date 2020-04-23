@@ -24,9 +24,10 @@ public final class SnapshotForInteractionResolverImpl: SnapshotForInteractionRes
     public func resolve(
         minimalPercentageOfVisibleArea: CGFloat,
         completion: @escaping (ElementSnapshot) -> (InteractionResult))
+        throws
         -> InteractionResult
     {
-        let resolvedElementQuery = elementResolverWithScrollingAndRetries.resolveElementWithRetries(
+        let resolvedElementQuery = try elementResolverWithScrollingAndRetries.resolveElementWithRetries(
             isPossibleToRetryProvider: retriableTimedInteractionState
         )
         

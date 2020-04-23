@@ -13,18 +13,19 @@ public final class RetrierImpl: Retrier {
     }
     
     public func retry<T>(
-        firstAttempt: () -> T,
-        everyNextAttempt: () -> T,
-        shouldRetry: (T) -> Bool,
+        firstAttempt: () throws -> T,
+        everyNextAttempt: () throws -> T,
+        shouldRetry: (T) throws -> Bool,
         isPossibleToRetryProvider: IsPossibleToRetryProvider)
+        rethrows
         -> T
     {
-        var result = firstAttempt()
+        var result = try firstAttempt()
      
-        while isPossibleToRetryProvider.isPossibleToRetry(), shouldRetry(result) {
+        while isPossibleToRetryProvider.isPossibleToRetry(), try shouldRetry(result) {
             waitRespectingPollingConfiguration()
             
-            result = everyNextAttempt()
+            result = try everyNextAttempt()
         }
         
         return result

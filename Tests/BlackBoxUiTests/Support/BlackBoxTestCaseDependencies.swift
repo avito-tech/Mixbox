@@ -93,7 +93,9 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                     signpostActivityLogger: try di.resolve(),
                     snapshotsDifferenceAttachmentGenerator: try di.resolve(),
                     snapshotsComparatorFactory: try di.resolve(),
-                    applicationQuiescenceWaiter: try di.resolve()
+                    applicationQuiescenceWaiter: XcuiApplicationQuiescenceWaiter(
+                        applicationProvider: applicationProvider
+                    )
                 )
             }
             
