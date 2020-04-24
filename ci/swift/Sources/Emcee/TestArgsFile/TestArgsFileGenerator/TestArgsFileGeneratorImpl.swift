@@ -105,7 +105,10 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     numberOfRetries: 4,
                     pluginLocations: Set(),
                     scheduleStrategy: .progressive,
-                    simulatorControlTool: .fbsimctl(FbsimctlLocation(.remoteUrl(fbsimctlUrl))),
+                    simulatorControlTool: SimulatorControlTool(
+                        location: .insideEmceeTempFolder,
+                        tool: .fbsimctl(FbsimctlLocation(ResourceLocation.remoteUrl(fbsimctlUrl)))
+                    ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,
@@ -158,6 +161,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             appPathDumpArgument = nil
         case .parseFunctionSymbols:
             throw ErrorString("parseFunctionSymbols mode is not supported")
+        case .runtimeExecutableLaunch:
+            throw ErrorString("runtimeExecutableLaunch mode is not supported")
         }
         
         return try emcee.dump(
@@ -166,7 +171,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                 fbxctest: arguments.fbxctestUrl.absoluteString,
                 testDestinationConfigurations: testDestinationConfigurations,
                 appPath: appPathDumpArgument,
-                fbsimctl: arguments.fbsimctlUrl.absoluteString,
+                fbsimctl: arguments.fbsimctlUrl,
                 tempFolder: temporaryFileProvider.temporaryFilePath()
             )
         )

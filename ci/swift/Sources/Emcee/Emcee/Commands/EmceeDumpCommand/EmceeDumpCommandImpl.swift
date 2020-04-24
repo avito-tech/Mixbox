@@ -111,7 +111,10 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     numberOfRetries: 5,
                     pluginLocations: Set(),
                     scheduleStrategy: .progressive,
-                    simulatorControlTool: .fbsimctl(FbsimctlLocation(ResourceLocation.from(arguments.fbsimctl))),
+                    simulatorControlTool: SimulatorControlTool(
+                        location: .insideEmceeTempFolder,
+                        tool: .fbsimctl(FbsimctlLocation(.remoteUrl(arguments.fbsimctl)))
+                    ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,

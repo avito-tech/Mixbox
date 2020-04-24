@@ -1,11 +1,12 @@
 import Models
+import Foundation
 
 public final class EmceeDumpCommandArguments {
     public let xctestBundle: String
     public let fbxctest: String
     public let testDestinationConfigurations: [TestDestinationConfiguration]
     public let appPath: String?
-    public let fbsimctl: String
+    public let fbsimctl: URL
     public let tempFolder: String
     
     public init(
@@ -13,7 +14,7 @@ public final class EmceeDumpCommandArguments {
         fbxctest: String,
         testDestinationConfigurations: [TestDestinationConfiguration],
         appPath: String?,
-        fbsimctl: String,
+        fbsimctl: URL,
         tempFolder: String)
     {
         self.xctestBundle = xctestBundle
