@@ -130,7 +130,7 @@ open class CommonDi: BaseDi {
         container.register(type: GemfileLocationProvider.self) {
             GemfileLocationProviderImpl(
                 repoRootProvider: try container.resolve(),
-                gemfileBasename: "Gemfile_cocoapods_1_8_4"
+                gemfileBasename: "Gemfile_cocoapods_1_9_0"
             )
         }
         container.register(type: CocoapodsFactory.self) {

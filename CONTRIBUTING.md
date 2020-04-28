@@ -4,7 +4,7 @@
 
 ```
 cd Tests
-pod install
+make pod
 open Tests.xcworkspace
 ```
 
