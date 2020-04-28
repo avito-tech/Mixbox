@@ -1,9 +1,11 @@
 import UIKit
+import TestsIpc
 
-final class ScrollTestsCollectionView:
+final class ScrollingSmokeTestsCollectionView:
     UICollectionView,
     UICollectionViewDelegate,
-    UICollectionViewDataSource
+    UICollectionViewDataSource,
+    ScrollingSmokeTestsView
 {
     private class ContentCell: UICollectionViewCell {
         private let label = UILabel()
@@ -55,7 +57,7 @@ final class ScrollTestsCollectionView:
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ScrollTests.contentHeightInScreens
+        return ScrollingSmokeTestsViewConstants.contentHeightInScreens
     }
     
     func collectionView(
@@ -77,11 +79,11 @@ final class ScrollTestsCollectionView:
         
         switch indexPath.row {
         case 0:
-            return contentCell(id: ScrollTests.viewIds[0], text: ScrollTests.viewTexts[0])
-        case (ScrollTests.contentHeightInScreens - 1) / 2:
-            return contentCell(id: ScrollTests.viewIds[1], text: ScrollTests.viewTexts[1])
-        case ScrollTests.contentHeightInScreens - 1:
-            return contentCell(id: ScrollTests.viewIds[2], text: ScrollTests.viewTexts[2])
+            return contentCell(id: ScrollingSmokeTestsViewConstants.viewIds[0], text: ScrollingSmokeTestsViewConstants.viewTexts[0])
+        case (ScrollingSmokeTestsViewConstants.contentHeightInScreens - 1) / 2:
+            return contentCell(id: ScrollingSmokeTestsViewConstants.viewIds[1], text: ScrollingSmokeTestsViewConstants.viewTexts[1])
+        case ScrollingSmokeTestsViewConstants.contentHeightInScreens - 1:
+            return contentCell(id: ScrollingSmokeTestsViewConstants.viewIds[2], text: ScrollingSmokeTestsViewConstants.viewTexts[2])
         default:
             return collectionView.dequeueReusableCell(withReuseIdentifier: "blank", for: indexPath)
         }

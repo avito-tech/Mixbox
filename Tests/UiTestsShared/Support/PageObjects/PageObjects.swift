@@ -35,6 +35,8 @@ final class PageObjects: BasePageObjects {
     
     var setTextActionWaitsForElementToGainFocusTestsView: MainAppScreen<SetTextActionWaitsForElementToGainFocusTestsViewPageObject> { return mainAppScreen() }
     
+    var scrollingSmokeTestsView: MainAppScreen<ScrollingSmokeTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainUiKitHierarchy.pageObject(),
