@@ -13,9 +13,15 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
     }
     
     public enum ActionButton: Codable {
+        public enum AnimationType: String, Codable {
+            case colorChange
+            case move
+        }
+        
         case push(animated: Bool)
         case present(animated: Bool)
         case setContentOffsetAnimated(offset: CGFloat)
+        case withCoreAnimation(AnimationType)
         
         public var id: String {
             switch self {
@@ -25,6 +31,8 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
                 return "presentButton_" + (animated ? "animated" : "notAnimated")
             case let .setContentOffsetAnimated(offset):
                 return "setContentOffset_" + "\(offset)"
+            case let .withCoreAnimation(animationType):
+                return "withCoreAnimation_" + animationType.rawValue
             }
         }
 
@@ -32,12 +40,14 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
     private enum CodingKeys: String, CodingKey {
         case caseId
         case data
+        case withCoreAnimation
     }
 
     private enum CaseId: String, Codable {
         case push
         case present
         case setContentOffsetAnimated
+        case withCoreAnimation
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -51,6 +61,9 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
             try container.encode(nested, forKey: .data)
         case .setContentOffsetAnimated(let nested):
             try container.encode(CaseId.setContentOffsetAnimated, forKey: .caseId)
+            try container.encode(nested, forKey: .data)
+        case .withCoreAnimation(let nested):
+            try container.encode(CaseId.withCoreAnimation, forKey: .caseId)
             try container.encode(nested, forKey: .data)
         }
     }
@@ -69,6 +82,9 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
         case .setContentOffsetAnimated:
             let nested = try container.decode(CGFloat.self, forKey: .data)
             self = .setContentOffsetAnimated(offset: nested)
+        case .withCoreAnimation:
+            let nested = try container.decode(AnimationType.self, forKey: .data)
+            self = .withCoreAnimation(nested)
         }
     }
 // sourcery:end

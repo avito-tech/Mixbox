@@ -23,6 +23,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     public let scrollViewIdlingResourceSwizzler: ScrollViewIdlingResourceSwizzler
     public let uiAnimationIdlingResourceSwizzler: UIAnimationIdlingResourceSwizzler
     public let viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler
+    public let coreAnimationIdlingResourceSwizzler: CoreAnimationIdlingResourceSwizzler
     
     private let networkMockingBootstrappingType: NetworkMockingBootstrappingType
     
@@ -130,6 +131,10 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         )
         
         viewControllerIdlingResourceSwizzler = ViewControllerIdlingResourceSwizzlerImpl(
+            assertingSwizzler: assertingSwizzler
+        )
+        
+        coreAnimationIdlingResourceSwizzler = CoreAnimationIdlingResourceSwizzlerImpl(
             assertingSwizzler: assertingSwizzler
         )
     }

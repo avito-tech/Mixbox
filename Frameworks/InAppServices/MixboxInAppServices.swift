@@ -61,6 +61,7 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
             inAppServicesDependenciesFactory.scrollViewIdlingResourceSwizzler.swizzle()
             inAppServicesDependenciesFactory.uiAnimationIdlingResourceSwizzler.swizzle()
             inAppServicesDependenciesFactory.viewControllerIdlingResourceSwizzler.swizzle()
+            inAppServicesDependenciesFactory.coreAnimationIdlingResourceSwizzler.swizzle()
             
             let mixboxUrlProtocolBootstrapper = client.flatMap { client in
                 inAppServicesDependenciesFactory.mixboxUrlProtocolBootstrapper(

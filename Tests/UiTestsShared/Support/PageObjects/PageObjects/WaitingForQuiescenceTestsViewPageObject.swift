@@ -4,7 +4,7 @@ import MixboxUiTestsFoundation
 public final class WaitingForQuiescenceTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
     public let viewName = "WaitingForQuiescenceTestsView"
     
-    public func button(_ id: String) -> TapIndicatorButtonElement {
+    public func button(_ id: String) -> ButtonElement {
         return byId(id)
     }
     

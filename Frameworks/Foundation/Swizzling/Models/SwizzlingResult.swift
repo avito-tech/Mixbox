@@ -15,6 +15,17 @@ public enum SwizzlingResult {
             return nil
         }
     }
+    
+    public var isSuccessful: Bool {
+        switch self {
+        case .swizzledOriginalMethod:
+            return true
+        case .failedToGetOriginalMethod:
+            return false
+        case .failedToGetSwizzledMethod:
+            return false
+        }
+    }
 }
 
 #endif

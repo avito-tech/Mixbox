@@ -14,6 +14,7 @@ public protocol InAppServicesDependenciesFactory: class {
     var scrollViewIdlingResourceSwizzler: ScrollViewIdlingResourceSwizzler { get }
     var uiAnimationIdlingResourceSwizzler: UIAnimationIdlingResourceSwizzler { get }
     var viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler { get }
+    var coreAnimationIdlingResourceSwizzler: CoreAnimationIdlingResourceSwizzler { get }
     
     func mixboxUrlProtocolBootstrapper(
         ipcRouter: IpcRouter,

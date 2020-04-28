@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4FC7ED4B0508738260A11AB5 /* Pods_HostedAppLogicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC077741AD161DD56DC5B7D /* Pods_HostedAppLogicTests.framework */; };
+		647EA60C24589E12002615DA /* TrackingCAAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EA60B24589E12002615DA /* TrackingCAAnimationDelegate.swift */; };
 		98D85BF2B26C5CCC073FC73F /* Pods_FakeSettingsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A79416B2AFBD317244D261 /* Pods_FakeSettingsApp.framework */; };
 		AB90E753749258EC27F21240 /* Pods_Lint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A47E43BD485E4534CAB3606 /* Pods_Lint.framework */; };
 		BB4999C802E921BA5BEE00D7 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C453A13E556D23820BFADB04 /* Pods_UnitTests.framework */; };
@@ -594,6 +595,7 @@
 		517D85C0521499C8E4AB2111 /* Pods-TestedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig"; sourceTree = "<group>"; };
 		5944D5E7E2A25C457C6A88D9 /* Pods-Lint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lint.release.xcconfig"; path = "Pods/Target Support Files/Pods-Lint/Pods-Lint.release.xcconfig"; sourceTree = "<group>"; };
 		5CC077741AD161DD56DC5B7D /* Pods_HostedAppLogicTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HostedAppLogicTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		647EA60B24589E12002615DA /* TrackingCAAnimationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingCAAnimationDelegate.swift; sourceTree = "<group>"; };
 		661ABC2C9AE48647D964AFD2 /* Pods_TestedApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestedApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		72DD6D3BA9D4021684C09A68 /* Pods-HostedAppLogicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.release.xcconfig"; sourceTree = "<group>"; };
 		766B1EA973ED241A9F84A9D5 /* Pods-FakeSettingsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeSettingsApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FakeSettingsApp/Pods-FakeSettingsApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1851,6 +1853,7 @@
 			children = (
 				F8894381239056C9009979BE /* WaitingForQuiescenceTestsView.swift */,
 				F8B4FDF4242E62C5008A05E8 /* CenteredLineButtonView.swift */,
+				647EA60B24589E12002615DA /* TrackingCAAnimationDelegate.swift */,
 			);
 			path = WaitingForQuiescence;
 			sourceTree = "<group>";
@@ -3905,6 +3908,7 @@
 				F8B34126224E5C6100AA1EB9 /* PhotosPermissionInfo.swift in Sources */,
 				F8BB4409240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift in Sources */,
 				F8E8BB2620E2A00300524185 /* CellModel.swift in Sources */,
+				647EA60C24589E12002615DA /* TrackingCAAnimationDelegate.swift in Sources */,
 				F813CB23209CD82A00E6A27C /* ActionsTestsView.swift in Sources */,
 				F84D12722166AC3D00A178B4 /* FakeCellsDoNotCrashAppTestsView.swift in Sources */,
 				F8203045223827E7006D2F70 /* ViewIpc.swift in Sources */,

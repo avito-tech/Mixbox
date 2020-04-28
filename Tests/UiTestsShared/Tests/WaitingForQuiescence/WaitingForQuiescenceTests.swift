@@ -6,6 +6,8 @@ final class WaitingForQuiescenceTests: TestCase {
     // Count should be > 1 to increase probability of reproducing bugs.
     private let countOfChecksForEachTest = 5
     private let tapIndicatorButtonId = "tapIndicatorButton"
+    private let buttonWithCoreAnimationColorChangeId = WaitingForQuiescenceTestsViewConfiguration.ActionButton.withCoreAnimation(.colorChange).id
+    private let buttonWithCoreAnimationColorMoveId = WaitingForQuiescenceTestsViewConfiguration.ActionButton.withCoreAnimation(.move).id
     
     override func precondition() {
         super.precondition()
@@ -85,6 +87,38 @@ final class WaitingForQuiescenceTests: TestCase {
         }
     }
     
+    private var isRunningInBlackBox: Bool {
+        // TODO: currently, Mixbox in black box test mode uses XCUI private APIs to _waitForQuiescence(), and does not use Mixbox' idling resource tracker.
+        // XCUI apparently does not support tracking CA animations. This test will fail because of that.
+        // This check should be removed when Mixbox will allow to use IPC for app quiescence tracking.
+        return ProcessInfo.processInfo.processName.hasSuffix("-Runner")
+    }
+
+    func test___waits_for_core_animation_to_complete___before_querying_values() {
+        if isRunningInBlackBox { return }
+        
+        resetUi(actionButton: .withCoreAnimation(.colorChange))
+        
+        buttonWithCoreAnimationColorChange.tap()
+        
+        buttonWithCoreAnimationColorChange.withoutTimeout.assertMatches {
+            $0.customValues["core_animation_has_finished"] == true
+        }
+    }
+    
+    func test___waits_for_core_animation_to_complete___before_tapping() {
+        if isRunningInBlackBox { return }
+        
+        resetUi(actionButton: .withCoreAnimation(.move))
+        
+        buttonWithCoreAnimationMove.tap()
+        buttonWithCoreAnimationMove.tap()
+        
+        buttonWithCoreAnimationMove.withoutTimeout.assertMatches {
+            $0.customValues["tap_count"] == 2
+        }
+    }
+    
     private func check___action___is_performed_after_scroll_view_deceleration_ends(tapAction: () -> ()) {
         // Sometimes scroll deceleration can end just right when element appears on screen.
         // But the test should check that action waits until deceleration ends, to avoid
@@ -120,8 +154,8 @@ final class WaitingForQuiescenceTests: TestCase {
         navigationPerformingButton: WaitingForQuiescenceTestsViewConfiguration.ActionButton)
     {
         for _ in 0..<countOfChecksForEachTest {
-            resetUiForCheckingNavigation(
-                navigationPerformingButton: navigationPerformingButton
+            resetUi(
+                actionButton: navigationPerformingButton
             )
             
             screen.button(navigationPerformingButton.id).tap()
@@ -140,6 +174,14 @@ final class WaitingForQuiescenceTests: TestCase {
     
     private var tapIndicatorButton: TapIndicatorButtonElement {
         return screen.tapIndicatorButton(tapIndicatorButtonId)
+    }
+    
+    private var buttonWithCoreAnimationColorChange: ButtonElement {
+        return screen.button(buttonWithCoreAnimationColorChangeId)
+    }
+    
+    private var buttonWithCoreAnimationMove: ButtonElement {
+        return screen.button(buttonWithCoreAnimationColorMoveId)
     }
     
     private func resetUiForCheckingScrollDeceleration(randomizedAdditionalOffset: CGFloat) {
@@ -176,12 +218,12 @@ final class WaitingForQuiescenceTests: TestCase {
         )
     }
     
-    private func resetUiForCheckingNavigation(navigationPerformingButton: WaitingForQuiescenceTestsViewConfiguration.ActionButton) {
+    private func resetUi(actionButton: WaitingForQuiescenceTestsViewConfiguration.ActionButton) {
         resetUi(
             argument: WaitingForQuiescenceTestsViewConfiguration(
                 contentSize: UIScreen.main.bounds.size,
                 tapIndicatorButtons: [],
-                actionButtons: [navigationPerformingButton]
+                actionButtons: [actionButton]
             )
         )
     }

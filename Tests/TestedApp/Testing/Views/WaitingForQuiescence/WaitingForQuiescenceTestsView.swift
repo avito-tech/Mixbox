@@ -120,6 +120,8 @@ public final class WaitingForQuiescenceTestsView:
                 addPushButton(animated: animated, id: button.id)
             case let .setContentOffsetAnimated(offset: offset):
                 addSetContentOffsetAnimatedButton(offset: offset, id: button.id)
+            case let .withCoreAnimation(animationType):
+                addCoreAnimationButton(id: button.id, animationType: animationType)
             }
         }
         
@@ -176,6 +178,40 @@ public final class WaitingForQuiescenceTestsView:
                 animated: true
             )
         }
+    }
+    
+    private func addCoreAnimationButton(id: String, animationType: WaitingForQuiescenceTestsViewConfiguration.ActionButton.AnimationType) {
+        let button = ButtonWithClosures()
+        button.backgroundColor = .blue
+        button.setTitle("Button Title", for: .normal)
+        button.accessibilityIdentifier = id
+        button.onTap = { [weak button] in
+            button?.testability_customValues["tap_count"] = (button?.testability_customValues["tap_count"] ?? 0) + 1
+            
+            let animation = CABasicAnimation()
+            animation.duration = 15.0
+            animation.delegate = TrackingCAAnimationDelegate(
+                onStart: { _ in },
+                onFinish: { _, _ in
+                    button?.testability_customValues["core_animation_has_finished"] = true
+                }
+            )
+            
+            switch animationType {
+            case .colorChange:
+                animation.keyPath = "backgroundColor"
+                animation.fromValue = UIColor.blue.cgColor
+                animation.toValue = UIColor.red.cgColor
+            case .move:
+                animation.keyPath = "transform"
+                animation.fromValue = CATransform3DScale(CATransform3DMakeTranslation(0, 400, 0), 0.1, 0.1, 0.1)
+                animation.toValue = CATransform3DIdentity
+            }
+            
+            button?.layer.add(animation, forKey: "animationForTestingPurposes")
+        }
+        actionButtons.append(button)
+        scrollView.addSubview(button)
     }
     
     private func centeredLineViewController(layout: CenteredLineButtonView.Layout) -> UIViewController {
