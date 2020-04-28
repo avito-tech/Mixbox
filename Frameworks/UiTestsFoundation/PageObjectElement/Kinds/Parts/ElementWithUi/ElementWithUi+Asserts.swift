@@ -7,7 +7,6 @@ extension ElementWithUi {
         -> Bool
     {
         return core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             matcher: AlwaysTrueMatcher(), // check for visibility is built in `IsDisplayedAndMatchesCheck`
             description: { dependencies in
                 """
@@ -25,7 +24,6 @@ extension ElementWithUi {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             matcher: AlwaysTrueMatcher(), // check for visibility is built in `IsDisplayedAndMatchesCheck`
             description: { dependencies in
                 """
@@ -42,9 +40,7 @@ extension ElementWithUi {
         line: UInt = #line)
     {
         _ = core.interactionPerformer.perform(
-            interaction: IsNotDisplayedCheck(
-                maximumAllowedPercentageOfVisibleArea: CGFloat.leastNonzeroMagnitude
-            ),
+            interaction: IsNotDisplayedCheck(),
             interactionPerformingSettings: InteractionPerformingSettings(
                 failTest: true,
                 fileLine: FileLine(
@@ -60,13 +56,13 @@ extension ElementWithUi {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.0, // might be not visible
             matcher: AlwaysTrueMatcher(), // check for existing in hierarchy is built in `isDisplayedAndMatches`
             description: { dependencies in
                 """
                 "\(dependencies.elementInfo.elementName)" присутствует в иерархии
                 """
             },
+            overridenPercentageOfVisibleArea: 0.0, // this check doesn't require visibility
             file: file,
             line: line
         )
@@ -78,7 +74,6 @@ extension ElementWithUi {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.accessibilityValue == value
             },
@@ -93,13 +88,11 @@ extension ElementWithUi {
     }
     
     public func assertMatches(
-        minimalPercentageOfVisibleArea: CGFloat = 0.2,
         file: StaticString = #file,
         line: UInt = #line,
         matcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             buildMatcher: matcher,
             description: { dependencies in
                 """
@@ -122,13 +115,13 @@ extension ElementWithUi {
         }
         
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 1.0,
             buildMatcher: buildMatcher,
             description: { dependencies in
                 """
                 "\(dependencies.elementInfo.elementName)" соответствует референсному изображению
                 """
             },
+            overridenPercentageOfVisibleArea: 1.0,
             file: file,
             line: line
         )
@@ -145,13 +138,13 @@ extension ElementWithUi {
         }
         
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 1.0,
             buildMatcher: buildMatcher,
             description: { dependencies in
                 """
                 "\(dependencies.elementInfo.elementName)" соответствует референсному изображению
                 """
             },
+            overridenPercentageOfVisibleArea: 1.0,
             file: file,
             line: line
         )
@@ -218,7 +211,6 @@ extension ElementWithUi {
         action()
         
         return core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             matcher: Matcher<ElementSnapshot>(
                 description: { "checkPositiveHeightDifference, main matcher" },
                 matchingFunction: { snapshot in

@@ -1,7 +1,6 @@
 public final class OpenTextMenuAction: BaseElementInteractionWrapper {
     public init(
-        interactionCoordinates: InteractionCoordinates,
-        minimalPercentageOfVisibleArea: CGFloat)
+        interactionCoordinates: InteractionCoordinates)
     {
         let longTapTimeToActivateMenu: TimeInterval = 1.5
         
@@ -9,8 +8,7 @@ public final class OpenTextMenuAction: BaseElementInteractionWrapper {
             wrappedInteraction: WrappedDescriptionElementInteraction(
                 interaction: PressAction(
                     duration: longTapTimeToActivateMenu,
-                    interactionCoordinates: interactionCoordinates,
-                    minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                    interactionCoordinates: interactionCoordinates
                 ),
                 descriptionBuilder: { dependencies in
                     """

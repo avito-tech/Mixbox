@@ -1,13 +1,10 @@
 public final class TapAction: ElementInteraction {
     private let interactionCoordinates: InteractionCoordinates
-    private let minimalPercentageOfVisibleArea: CGFloat
     
     public init(
-        interactionCoordinates: InteractionCoordinates,
-        minimalPercentageOfVisibleArea: CGFloat)
+        interactionCoordinates: InteractionCoordinates)
     {
         self.interactionCoordinates = interactionCoordinates
-        self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
     }
     
     public func with(
@@ -16,24 +13,20 @@ public final class TapAction: ElementInteraction {
     {
         return WithDependencies(
             dependencies: dependencies,
-            interactionCoordinates: interactionCoordinates,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            interactionCoordinates: interactionCoordinates
         )
     }
     
     public final class WithDependencies: ElementInteractionWithDependencies {
         private let dependencies: ElementInteractionDependencies
         private let interactionCoordinates: InteractionCoordinates
-        private let minimalPercentageOfVisibleArea: CGFloat
         
         public init(
             dependencies: ElementInteractionDependencies,
-            interactionCoordinates: InteractionCoordinates,
-            minimalPercentageOfVisibleArea: CGFloat)
+            interactionCoordinates: InteractionCoordinates)
         {
             self.dependencies = dependencies
             self.interactionCoordinates = interactionCoordinates
-            self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         }
         
         public func description() -> String {
@@ -47,7 +40,7 @@ public final class TapAction: ElementInteraction {
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [interactionCoordinates, dependencies] _ in
                 dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                    try dependencies.snapshotResolver.resolve { snapshot in
                         dependencies.interactionResultMaker.makeResultCatchingErrors {
                             let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
                                 elementSnapshot: snapshot,

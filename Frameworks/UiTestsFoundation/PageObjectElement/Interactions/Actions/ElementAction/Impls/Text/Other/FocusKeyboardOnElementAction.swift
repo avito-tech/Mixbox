@@ -7,14 +7,11 @@
 //
 public final class FocusKeyboardOnElementAction: ElementInteraction {
     private let interactionCoordinates: InteractionCoordinates
-    private let minimalPercentageOfVisibleArea: CGFloat
     
     public init(
-        interactionCoordinates: InteractionCoordinates,
-        minimalPercentageOfVisibleArea: CGFloat)
+        interactionCoordinates: InteractionCoordinates)
     {
         self.interactionCoordinates = interactionCoordinates
-        self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
     }
     
     public func with(
@@ -23,24 +20,20 @@ public final class FocusKeyboardOnElementAction: ElementInteraction {
     {
         return WithDependencies(
             dependencies: dependencies,
-            interactionCoordinates: interactionCoordinates,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            interactionCoordinates: interactionCoordinates
         )
     }
     
     public final class WithDependencies: ElementInteractionWithDependencies {
         private let dependencies: ElementInteractionDependencies
         private let interactionCoordinates: InteractionCoordinates
-        private let minimalPercentageOfVisibleArea: CGFloat
         
         public init(
             dependencies: ElementInteractionDependencies,
-            interactionCoordinates: InteractionCoordinates,
-            minimalPercentageOfVisibleArea: CGFloat)
+            interactionCoordinates: InteractionCoordinates)
         {
             self.dependencies = dependencies
             self.interactionCoordinates = interactionCoordinates
-            self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         }
         
         public func description() -> String {
@@ -58,8 +51,7 @@ public final class FocusKeyboardOnElementAction: ElementInteraction {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { _ in
                 let result = dependencies.interactionPerformer.perform(
                     interaction: TapAction(
-                        interactionCoordinates: interactionCoordinates,
-                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                        interactionCoordinates: interactionCoordinates
                     )
                 )
                 
@@ -68,7 +60,7 @@ public final class FocusKeyboardOnElementAction: ElementInteraction {
                 } else {
                     return dependencies.interactionPerformer.perform(
                         interaction: IsDisplayedAndMatchesCheck(
-                            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                            overridenPercentageOfVisibleArea: nil,
                             matcher: HasKeyboardFocusOrHasDescendantThatHasKeyboardFocusElementSnapshotMatcher()
                         )
                     )

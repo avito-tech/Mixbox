@@ -4,18 +4,15 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
     private let text: String
     private let textEditingActionMode: TextEditingActionMode
     private let interactionCoordinates: InteractionCoordinates
-    private let minimalPercentageOfVisibleArea: CGFloat
     
     public init(
         text: String,
         textEditingActionMode: TextEditingActionMode,
-        interactionCoordinates: InteractionCoordinates,
-        minimalPercentageOfVisibleArea: CGFloat)
+        interactionCoordinates: InteractionCoordinates)
     {
         self.text = text
         self.textEditingActionMode = textEditingActionMode
         self.interactionCoordinates = interactionCoordinates
-        self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
     }
     
     public func with(
@@ -26,8 +23,7 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
             dependencies: dependencies,
             text: text,
             textEditingActionMode: textEditingActionMode,
-            interactionCoordinates: interactionCoordinates,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            interactionCoordinates: interactionCoordinates
         )
     }
     
@@ -36,20 +32,17 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
         private let text: String
         private let textEditingActionMode: TextEditingActionMode
         private let interactionCoordinates: InteractionCoordinates
-        private let minimalPercentageOfVisibleArea: CGFloat
         
         public init(
             dependencies: ElementInteractionDependencies,
             text: String,
             textEditingActionMode: TextEditingActionMode,
-            interactionCoordinates: InteractionCoordinates,
-            minimalPercentageOfVisibleArea: CGFloat)
+            interactionCoordinates: InteractionCoordinates)
         {
             self.dependencies = dependencies
             self.text = text
             self.textEditingActionMode = textEditingActionMode
             self.interactionCoordinates = interactionCoordinates
-            self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         }
         
         public func description() -> String {
@@ -72,8 +65,7 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
                 if !waitUntilMenuIsShown(timeout: 0) {
                     let result = dependencies.interactionPerformer.perform(
                         interaction: OpenTextMenuAction(
-                            interactionCoordinates: interactionCoordinates,
-                            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                            interactionCoordinates: interactionCoordinates
                         )
                     )
                     

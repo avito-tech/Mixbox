@@ -71,7 +71,8 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 snapshotsComparatorFactory: try di.resolve(),
                 applicationQuiescenceWaiter: try di.resolve(),
                 applicationWindowsProvider: try di.resolve(),
-                multiTouchEventFactory: try di.resolve()
+                multiTouchEventFactory: try di.resolve(),
+                elementSettingsDefaultsProvider: try di.resolve()
             )
         }
         di.register(type: MultiTouchEventFactory.self) { _ in

@@ -1,6 +1,8 @@
+// TODO: Remove
 public protocol PageObjectDependenciesFactory: class {
     func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory
     func matcherBuilder() -> ElementMatcherBuilder
+    var elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider { get }
 }
 
 public extension PageObjectDependenciesFactory {

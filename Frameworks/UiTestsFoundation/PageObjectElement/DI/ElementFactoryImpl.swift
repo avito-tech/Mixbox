@@ -1,22 +1,44 @@
 import MixboxFoundation
 
 public final class ElementFactoryImpl: ElementFactory {
-    private let pageObjectElementCoreFactory: PageObjectElementCoreFactory
     private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory
-    private let scrollMode: ScrollMode?
-    private let interactionMode: InteractionMode?
-    private let elementMatcherBuilder: ElementMatcherBuilder
+    private let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
+    
+    private let scrollMode: ScrollMode
+    private let interactionTimeout: TimeInterval
+    private let interactionMode: InteractionMode
+    private let percentageOfVisibleArea: CGFloat
     
     public init(
         pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
-        scrollMode: ScrollMode? = nil,
-        interactionMode: InteractionMode? = nil)
+        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider,
+        scrollMode: ScrollMode,
+        interactionTimeout: TimeInterval,
+        interactionMode: InteractionMode,
+        percentageOfVisibleArea: CGFloat)
     {
         self.pageObjectElementDependenciesFactory = pageObjectElementDependenciesFactory
-        self.pageObjectElementCoreFactory = pageObjectElementDependenciesFactory.pageObjectElementCoreFactory()
-        self.elementMatcherBuilder = pageObjectElementDependenciesFactory.matcherBulder()
+        self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
         self.scrollMode = scrollMode
+        self.interactionTimeout = interactionTimeout
         self.interactionMode = interactionMode
+        self.percentageOfVisibleArea = percentageOfVisibleArea
+    }
+    
+    public convenience init(
+        pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
+        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider)
+    {
+        let elementSettingsDefaults = elementSettingsDefaultsProvider.elementSettingsDefaults()
+        
+        self.init(
+            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
+            scrollMode: elementSettingsDefaults.scrollMode,
+            interactionTimeout: elementSettingsDefaults.interactionTimeout,
+            interactionMode: elementSettingsDefaults.interactionMode,
+            percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea
+        )
     }
     
     // MARK: - ElementFactory
@@ -32,24 +54,52 @@ public final class ElementFactoryImpl: ElementFactory {
             pageObjectElementCore(
                 name: name,
                 functionDeclarationLocation: functionDeclarationLocation,
-                matcherBuilder: matcherBuilder
+                matcherBuilderClosure: matcherBuilder
             )
         )
     }
     
-    public func with(scrollMode: ScrollMode) -> ElementFactory {
+    public func with(scrollMode: ScrollMode?) -> ElementFactory {
         return ElementFactoryImpl(
             pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
-            scrollMode: scrollMode,
-            interactionMode: interactionMode
+            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
+            scrollMode: scrollMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().scrollMode,
+            interactionTimeout: interactionTimeout,
+            interactionMode: interactionMode,
+            percentageOfVisibleArea: percentageOfVisibleArea
         )
     }
     
-    public func with(interactionMode: InteractionMode) -> ElementFactory {
+    public func with(interactionTimeout: TimeInterval?) -> ElementFactory {
         return ElementFactoryImpl(
             pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
             scrollMode: scrollMode,
-            interactionMode: interactionMode
+            interactionTimeout: interactionTimeout ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionTimeout,
+            interactionMode: interactionMode,
+            percentageOfVisibleArea: percentageOfVisibleArea
+        )
+    }
+    
+    public func with(interactionMode: InteractionMode?) -> ElementFactory {
+        return ElementFactoryImpl(
+            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
+            scrollMode: scrollMode,
+            interactionTimeout: interactionTimeout,
+            interactionMode: interactionMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionMode,
+            percentageOfVisibleArea: percentageOfVisibleArea
+        )
+    }
+    
+    public func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory {
+        return ElementFactoryImpl(
+            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
+            scrollMode: scrollMode,
+            interactionTimeout: interactionTimeout,
+            interactionMode: interactionMode,
+            percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaultsProvider.elementSettingsDefaults().percentageOfVisibleArea
         )
     }
     
@@ -58,17 +108,23 @@ public final class ElementFactoryImpl: ElementFactory {
     private func pageObjectElementCore(
         name: String,
         functionDeclarationLocation: FunctionDeclarationLocation,
-        matcherBuilder: ElementMatcherBuilderClosure)
+        matcherBuilderClosure: ElementMatcherBuilderClosure)
         -> PageObjectElementCore
     {
+        let pageObjectElementCoreFactory = pageObjectElementDependenciesFactory.pageObjectElementCoreFactory()
+        let elementMatcherBuilder = pageObjectElementDependenciesFactory.matcherBulder()
+        
         return pageObjectElementCoreFactory.pageObjectElementCore(
             settings: ElementSettings(
                 name: name,
                 functionDeclarationLocation: functionDeclarationLocation,
-                matcher: matcherBuilder(elementMatcherBuilder),
-                scrollMode: scrollMode ?? .default,
-                interactionTimeout: nil,
-                interactionMode: interactionMode ?? .default
+                matcher: matcherBuilderClosure(elementMatcherBuilder),
+                elementSettingsDefaults: ElementSettingsDefaults(
+                    scrollMode: scrollMode,
+                    interactionTimeout: interactionTimeout,
+                    interactionMode: interactionMode,
+                    percentageOfVisibleArea: percentageOfVisibleArea
+                )
             )
         )
     }

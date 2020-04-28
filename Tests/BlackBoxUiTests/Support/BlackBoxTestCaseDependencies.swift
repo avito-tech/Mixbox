@@ -95,7 +95,8 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                     snapshotsComparatorFactory: try di.resolve(),
                     applicationQuiescenceWaiter: XcuiApplicationQuiescenceWaiter(
                         applicationProvider: applicationProvider
-                    )
+                    ),
+                    elementSettingsDefaultsProvider: try di.resolve()
                 )
             }
             

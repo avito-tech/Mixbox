@@ -3,9 +3,9 @@ import MixboxFoundation
 // Helpers for making facades
 extension PageObjectElementCore {
     public func checkIsDisplayedAndMatches(
-        minimalPercentageOfVisibleArea: CGFloat,
         buildMatcher: @escaping (ElementMatcherBuilder) -> ElementMatcher,
         description: @escaping (ElementInteractionDependencies) -> (String),
+        overridenPercentageOfVisibleArea: CGFloat? = nil,
         failTest: Bool = true,
         file: StaticString,
         line: UInt)
@@ -14,7 +14,7 @@ extension PageObjectElementCore {
         let result = filteringHiddenElement.interactionPerformer.perform(
             interaction: WrappedDescriptionElementInteraction(
                 interaction: IsDisplayedAndMatchesCheck(
-                    minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                    overridenPercentageOfVisibleArea: overridenPercentageOfVisibleArea,
                     buildMatcher: { element in
                         buildMatcher(element)
                     }
@@ -36,18 +36,18 @@ extension PageObjectElementCore {
     }
     
     public func checkIsDisplayedAndMatches(
-        minimalPercentageOfVisibleArea: CGFloat,
         matcher: ElementMatcher,
         description: @escaping (ElementInteractionDependencies) -> (String),
+        overridenPercentageOfVisibleArea: CGFloat? = nil,
         failTest: Bool = true,
         file: StaticString,
         line: UInt)
         -> Bool
     {
         return checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             buildMatcher: { _ in matcher },
             description: description,
+            overridenPercentageOfVisibleArea: overridenPercentageOfVisibleArea,
             failTest: failTest,
             file: file,
             line: line

@@ -21,12 +21,15 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
     // TODO: Split function
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     public func performInteractionForVisibleElement(
-        minimalPercentageOfVisibleArea: CGFloat,
+        overridenPercentageOfVisibleArea: CGFloat?,
         resolvedElementQuery: ResolvedElementQuery,
         interactionSpecificImplementation: InteractionSpecificImplementation,
         interactionMarkableAsImpossibleToRetry: MarkableAsImpossibleToRetry)
         -> InteractionResult
     {
+        let minimalPercentageOfVisibleArea = overridenPercentageOfVisibleArea
+            ?? elementSettings.percentageOfVisibleArea
+        
         var resolvedElementQuery = resolvedElementQuery
         let expectedIndexOfSnapshot: Int
         

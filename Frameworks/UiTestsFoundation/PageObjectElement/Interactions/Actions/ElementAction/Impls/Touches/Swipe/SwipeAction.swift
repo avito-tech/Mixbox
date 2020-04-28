@@ -3,13 +3,11 @@ import MixboxUiKit
 public final class SwipeAction: ElementInteraction {
     private let swipeActionPathCalculator: SwipeActionPathCalculator
     private let swipeActionDescriptionProvider: SwipeActionDescriptionProvider
-    private let minimalPercentageOfVisibleArea: CGFloat
     
     public init(
         startPoint: SwipeActionStartPoint,
         endPoint: SwipeActionEndPoint,
-        speed: TouchActionSpeed?,
-        minimalPercentageOfVisibleArea: CGFloat)
+        speed: TouchActionSpeed?)
     {
         let swipeActionPathSettings = SwipeActionPathSettings(
             startPoint: startPoint,
@@ -22,11 +20,8 @@ public final class SwipeAction: ElementInteraction {
         )
         
         self.swipeActionDescriptionProvider = SwipeActionDescriptionProvider(
-            swipeActionPathSettings: swipeActionPathSettings,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            swipeActionPathSettings: swipeActionPathSettings
         )
-        
-        self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
     }
     
     public func with(
@@ -36,8 +31,7 @@ public final class SwipeAction: ElementInteraction {
         return WithDependencies(
             dependencies: dependencies,
             swipeActionPathCalculator: swipeActionPathCalculator,
-            swipeActionDescriptionProvider: swipeActionDescriptionProvider,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            swipeActionDescriptionProvider: swipeActionDescriptionProvider
         )
     }
     
@@ -45,18 +39,15 @@ public final class SwipeAction: ElementInteraction {
         private let dependencies: ElementInteractionDependencies
         private let swipeActionPathCalculator: SwipeActionPathCalculator
         private let swipeActionDescriptionProvider: SwipeActionDescriptionProvider
-        private let minimalPercentageOfVisibleArea: CGFloat
         
         public init(
             dependencies: ElementInteractionDependencies,
             swipeActionPathCalculator: SwipeActionPathCalculator,
-            swipeActionDescriptionProvider: SwipeActionDescriptionProvider,
-            minimalPercentageOfVisibleArea: CGFloat)
+            swipeActionDescriptionProvider: SwipeActionDescriptionProvider)
         {
             self.dependencies = dependencies
             self.swipeActionPathCalculator = swipeActionPathCalculator
             self.swipeActionDescriptionProvider = swipeActionDescriptionProvider
-            self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         }
     
         public func description() -> String {
@@ -73,10 +64,10 @@ public final class SwipeAction: ElementInteraction {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout {
                 // Unfortunately either the line will be long, either this rule will be violated:
                 // swiftlint:disable:next closure_parameter_position
-                [dependencies, swipeActionPathCalculator, minimalPercentageOfVisibleArea] _ in
+                [dependencies, swipeActionPathCalculator] _ in
 
                 dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { elementSnapshot in
+                    try dependencies.snapshotResolver.resolve { elementSnapshot in
                         let path = swipeActionPathCalculator.path(elementSnapshot: elementSnapshot)
 
                         return dependencies.interactionResultMaker.makeResultCatchingErrors {

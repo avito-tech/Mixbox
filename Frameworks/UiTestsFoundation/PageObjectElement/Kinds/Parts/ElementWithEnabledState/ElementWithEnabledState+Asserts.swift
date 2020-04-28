@@ -8,7 +8,6 @@ public extension ElementWithEnabledState {
         -> Bool
     {
         return core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in element.isEnabled == true },
             description: { dependencies in
                 """
@@ -27,7 +26,6 @@ public extension ElementWithEnabledState {
         -> Bool
     {
         return core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in element.isEnabled == false },
             description: { dependencies in
                 """

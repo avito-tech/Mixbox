@@ -21,8 +21,7 @@ public final class SetTextActionFactory {
         elementSelectionMethod: ElementSelectionMethod,
         inputMethod: InputMethod,
         textEditingActionMode: TextEditingActionMode,
-        interactionCoordinates: InteractionCoordinates,
-        minimalPercentageOfVisibleArea: CGFloat)
+        interactionCoordinates: InteractionCoordinates)
         -> ElementInteraction
     {
         return SetTextAction(
@@ -43,15 +42,13 @@ public final class SetTextActionFactory {
             },
             focusingAction: focusingAction(
                 interactionCoordinates: interactionCoordinates,
-                elementSelectionMethod: elementSelectionMethod,
-                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                elementSelectionMethod: elementSelectionMethod
             ),
             actionOnFocusedElement: actionOnFocusedElement(
                 text: text,
                 interactionCoordinates: interactionCoordinates,
                 inputMethod: inputMethod,
-                textEditingActionMode: textEditingActionMode,
-                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                textEditingActionMode: textEditingActionMode
             )
         )
     }
@@ -92,21 +89,18 @@ public final class SetTextActionFactory {
     
     private static func focusingAction(
         interactionCoordinates: InteractionCoordinates,
-        elementSelectionMethod: ElementSelectionMethod,
-        minimalPercentageOfVisibleArea: CGFloat)
+        elementSelectionMethod: ElementSelectionMethod)
         -> ElementInteraction?
     {
         switch elementSelectionMethod {
         case .selectElement(let ensureElementGainsFocus):
             if ensureElementGainsFocus {
                 return FocusKeyboardOnElementAction(
-                    interactionCoordinates: interactionCoordinates,
-                    minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                    interactionCoordinates: interactionCoordinates
                 )
             } else {
                 return TapAction(
-                    interactionCoordinates: interactionCoordinates,
-                    minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                    interactionCoordinates: interactionCoordinates
                 )
             }
         case .doNotSelectElement:
@@ -118,16 +112,14 @@ public final class SetTextActionFactory {
         text: String,
         interactionCoordinates: InteractionCoordinates,
         inputMethod: InputMethod,
-        textEditingActionMode: TextEditingActionMode,
-        minimalPercentageOfVisibleArea: CGFloat)
+        textEditingActionMode: TextEditingActionMode)
         -> ElementInteraction
     {
         switch inputMethod {
         case .type:
             return SetTextByTypingUsingKeyboard(
                 text: text,
-                textEditingActionMode: textEditingActionMode,
-                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                textEditingActionMode: textEditingActionMode
             )
         case .paste:
             return SetTextByPastingUsingKeyboard(
@@ -138,8 +130,7 @@ public final class SetTextActionFactory {
             return SetTextByPastingUsingPopupMenus(
                 text: text,
                 textEditingActionMode: textEditingActionMode,
-                interactionCoordinates: interactionCoordinates,
-                minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                interactionCoordinates: interactionCoordinates
             )
         }
     }

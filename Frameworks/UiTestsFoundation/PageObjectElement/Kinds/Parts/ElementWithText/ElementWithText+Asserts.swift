@@ -7,7 +7,6 @@ extension ElementWithText {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.text == expectedText
             },
@@ -27,7 +26,6 @@ extension ElementWithText {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.text.matches(regularExpression: regularExpression)
             },
@@ -47,7 +45,6 @@ extension ElementWithText {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.text.contains(text)
             },
@@ -67,7 +64,6 @@ extension ElementWithText {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.accessibilityLabel == expectedLabel
             },
@@ -87,7 +83,6 @@ extension ElementWithText {
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
-            minimalPercentageOfVisibleArea: 0.2,
             buildMatcher: { element in
                 element.accessibilityLabel.contains(text)
             },

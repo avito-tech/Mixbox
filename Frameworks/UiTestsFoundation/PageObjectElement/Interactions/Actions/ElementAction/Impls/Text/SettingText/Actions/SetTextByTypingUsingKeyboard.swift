@@ -3,16 +3,13 @@ import MixboxFoundation
 public final class SetTextByTypingUsingKeyboard: ElementInteraction {
     private let text: String
     private let textEditingActionMode: TextEditingActionMode
-    private let minimalPercentageOfVisibleArea: CGFloat
     
     public init(
         text: String,
-        textEditingActionMode: TextEditingActionMode,
-        minimalPercentageOfVisibleArea: CGFloat)
+        textEditingActionMode: TextEditingActionMode)
     {
         self.text = text
         self.textEditingActionMode = textEditingActionMode
-        self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
     }
     
     public func with(
@@ -22,8 +19,7 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
         return WithDependencies(
             dependencies: dependencies,
             text: text,
-            textEditingActionMode: textEditingActionMode,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            textEditingActionMode: textEditingActionMode
         )
     }
     
@@ -31,18 +27,15 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
         private let dependencies: ElementInteractionDependencies
         private let text: String
         private let textEditingActionMode: TextEditingActionMode
-        private let minimalPercentageOfVisibleArea: CGFloat
         
         public init(
             dependencies: ElementInteractionDependencies,
             text: String,
-            textEditingActionMode: TextEditingActionMode,
-            minimalPercentageOfVisibleArea: CGFloat)
+            textEditingActionMode: TextEditingActionMode)
         {
             self.dependencies = dependencies
             self.text = text
             self.textEditingActionMode = textEditingActionMode
-            self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
         }
         
         public func description() -> String {
@@ -79,7 +72,7 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
         private func clearText() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [dependencies] _ in
                 dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                    try dependencies.snapshotResolver.resolve { snapshot in
                         let value = snapshot.text(fallback: snapshot.accessibilityValue as? String) ?? ""
                         
                         if value.isEmpty {

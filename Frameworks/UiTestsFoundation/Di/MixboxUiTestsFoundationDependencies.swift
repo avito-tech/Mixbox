@@ -147,5 +147,8 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
         di.register(type: PollingConfiguration.self) { _ in
             PollingConfiguration.reduceWorkload
         }
+        di.register(type: ElementSettingsDefaultsProvider.self) { _ in
+            ElementSettingsDefaultsProviderImpl()
+        }
     }
 }

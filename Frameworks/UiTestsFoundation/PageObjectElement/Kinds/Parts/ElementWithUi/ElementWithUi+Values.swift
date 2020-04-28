@@ -6,7 +6,6 @@ extension ElementWithUi {
     public func value<T>(
         file: StaticString = #file,
         line: UInt = #line,
-        minimalPercentageOfVisibleArea: CGFloat = 0.2,
         valueTitle: String,
         getValue: @escaping (ElementSnapshot) -> (T))
         -> T?
@@ -16,7 +15,7 @@ extension ElementWithUi {
         _ = core.filteringHiddenElement.interactionPerformer.perform(
             interaction: WrappedDescriptionElementInteraction(
                 interaction: IsDisplayedAndMatchesCheck(
-                    minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                    overridenPercentageOfVisibleArea: nil,
                     buildMatcher: { _ in
                         Matcher<ElementSnapshot>(
                             description: { "kludge to get a value" },

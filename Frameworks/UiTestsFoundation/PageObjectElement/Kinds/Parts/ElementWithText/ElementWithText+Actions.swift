@@ -10,7 +10,6 @@ public extension ElementWithText {
         inputMethod: SetTextActionFactory.InputMethod = .default,
         normalizedCoordinate: CGPoint? = nil,
         absoluteOffset: CGVector? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -24,8 +23,7 @@ public extension ElementWithText {
             interactionCoordinates: InteractionCoordinates(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
-            ),
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            )
         )
         
         return core.perform(
@@ -40,7 +38,6 @@ public extension ElementWithText {
     func clearText(
         normalizedCoordinate: CGPoint? = nil,
         absoluteOffset: CGVector? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -50,7 +47,6 @@ public extension ElementWithText {
             "",
             normalizedCoordinate: normalizedCoordinate,
             absoluteOffset: absoluteOffset,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             failTest: failTest,
             file: file,
             line: line
@@ -62,7 +58,6 @@ public extension ElementWithText {
     func cutText(
         normalizedCoordinate: CGPoint? = nil,
         absoluteOffset: CGVector? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -72,8 +67,7 @@ public extension ElementWithText {
             interactionCoordinates: InteractionCoordinates(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
-            ),
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            )
         )
         
         return core.perform(

@@ -12,6 +12,10 @@ public final class IsNotDisplayedCheck: ElementInteraction {
         self.maximumAllowedPercentageOfVisibleArea = maximumAllowedPercentageOfVisibleArea
     }
     
+    public convenience init() {
+        self.init(maximumAllowedPercentageOfVisibleArea: CGFloat.leastNonzeroMagnitude)
+    }
+    
     public func with(
         dependencies: ElementInteractionDependencies)
         -> ElementInteractionWithDependencies
@@ -50,7 +54,7 @@ public final class IsNotDisplayedCheck: ElementInteraction {
                 // This check waits. TODO: Allow to return result immediately.
                 let isDisplayedResult = dependencies.interactionPerformer.perform(
                     interaction: IsDisplayedAndMatchesCheck(
-                        minimalPercentageOfVisibleArea: maximumAllowedPercentageOfVisibleArea,
+                        overridenPercentageOfVisibleArea: maximumAllowedPercentageOfVisibleArea,
                         matcher: AlwaysTrueMatcher<ElementSnapshot>()
                     )
                 )

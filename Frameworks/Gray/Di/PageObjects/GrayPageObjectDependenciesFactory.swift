@@ -6,6 +6,8 @@ import MixboxInAppServices
 
 // TODO: Share code between black-box and gray-box.
 public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFactory {
+    public let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
+    
     private let testFailureRecorder: TestFailureRecorder
     private let ipcClient: IpcClient
     private let stepLogger: StepLogger
@@ -31,7 +33,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
         applicationWindowsProvider: ApplicationWindowsProvider,
-        multiTouchEventFactory: MultiTouchEventFactory)
+        multiTouchEventFactory: MultiTouchEventFactory,
+        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -42,6 +45,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.orderedWindowsProvider = orderedWindowsProvider
         self.waiter = waiter
         self.signpostActivityLogger = signpostActivityLogger
+        self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
         
         grayBoxTestsDependenciesFactory = GrayBoxTestsDependenciesFactoryImpl(
             testFailureRecorder: testFailureRecorder,

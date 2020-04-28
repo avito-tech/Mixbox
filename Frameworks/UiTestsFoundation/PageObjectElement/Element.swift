@@ -65,4 +65,8 @@ extension Element {
     public func with(interactionTimeout: TimeInterval?) -> Self {
         return with(settings: core.settings.with(interactionTimeout: interactionTimeout))
     }
+    
+    public func with(percentageOfVisibleArea: CGFloat) -> Self {
+        return with(settings: core.settings.with(percentageOfVisibleArea: percentageOfVisibleArea))
+    }
 }

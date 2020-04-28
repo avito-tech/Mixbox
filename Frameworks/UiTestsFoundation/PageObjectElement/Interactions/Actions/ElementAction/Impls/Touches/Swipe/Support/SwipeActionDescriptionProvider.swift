@@ -1,25 +1,14 @@
 public final class SwipeActionDescriptionProvider {
     private let swipeActionPathSettings: SwipeActionPathSettings
-    private let minimalPercentageOfVisibleArea: CGFloat
     
     public init(
-        swipeActionPathSettings: SwipeActionPathSettings,
-        minimalPercentageOfVisibleArea: CGFloat)
+        swipeActionPathSettings: SwipeActionPathSettings)
     {
         self.swipeActionPathSettings = swipeActionPathSettings
-        self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
     }
     
     public func swipeActionDescription(elementName: String) -> String {
-        let visibilityCheckSuffix: String
-        
-        if minimalPercentageOfVisibleArea > 0 {
-            visibilityCheckSuffix = " с проверкой видимости элемента на \(minimalPercentageOfVisibleArea)"
-        } else {
-            visibilityCheckSuffix = ""
-        }
-        
-        return "в \(elementName) свайп из \(startPointDescription()) в \(endPointDescription())\(visibilityCheckSuffix)"
+        return "в \(elementName) свайп из \(startPointDescription()) в \(endPointDescription())"
     }
     
     private func endPointDescription() -> String {

@@ -6,7 +6,6 @@ extension ElementWithUi {
         startPoint: SwipeActionStartPoint = .center,
         endPoint: SwipeActionEndPoint,
         speed: TouchActionSpeed? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -15,8 +14,7 @@ extension ElementWithUi {
         let action = SwipeAction(
             startPoint: startPoint,
             endPoint: endPoint,
-            speed: speed,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            speed: speed
         )
         
         return core.perform(
@@ -33,7 +31,6 @@ extension ElementWithUi {
         startPoint: InteractionCoordinates? = nil,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -59,7 +56,6 @@ extension ElementWithUi {
             startPoint: swipeActionStartPoint,
             endPoint: swipeActionEndPoint,
             speed: speed,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             failTest: failTest,
             file: file,
             line: line
@@ -71,7 +67,6 @@ extension ElementWithUi {
         startPoint: InteractionCoordinates? = nil,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -82,7 +77,6 @@ extension ElementWithUi {
             startPoint: startPoint,
             length: length,
             speed: speed,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             failTest: failTest,
             file: file,
             line: line
@@ -94,7 +88,6 @@ extension ElementWithUi {
         startPoint: InteractionCoordinates? = nil,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -105,7 +98,6 @@ extension ElementWithUi {
             startPoint: startPoint,
             length: length,
             speed: speed,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             failTest: failTest,
             file: file,
             line: line
@@ -117,7 +109,6 @@ extension ElementWithUi {
         startPoint: InteractionCoordinates? = nil,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -128,7 +119,6 @@ extension ElementWithUi {
             startPoint: startPoint,
             length: length,
             speed: speed,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             failTest: failTest,
             file: file,
             line: line
@@ -140,7 +130,6 @@ extension ElementWithUi {
         startPoint: InteractionCoordinates? = nil,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -151,7 +140,6 @@ extension ElementWithUi {
             startPoint: startPoint,
             length: length,
             speed: speed,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             failTest: failTest,
             file: file,
             line: line

@@ -5,8 +5,21 @@
 // Should be refactored further during implementation of Gray Box tests.
 public protocol SnapshotForInteractionResolver: class {
     func resolve(
-        minimalPercentageOfVisibleArea: CGFloat,
+        overridenPercentageOfVisibleArea: CGFloat?,
         completion: @escaping (ElementSnapshot) -> (InteractionResult))
         throws
         -> InteractionResult
+}
+
+extension SnapshotForInteractionResolver {
+    public func resolve(
+        completion: @escaping (ElementSnapshot) -> (InteractionResult))
+        throws
+        -> InteractionResult
+    {
+        return try resolve(
+            overridenPercentageOfVisibleArea: nil,
+            completion: completion
+        )
+    }
 }

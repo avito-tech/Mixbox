@@ -18,6 +18,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     private let snapshotsComparatorFactory: SnapshotsComparatorFactory
     private let xcuiBasedTestsDependenciesFactory: XcuiBasedTestsDependenciesFactory
+    public let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -33,7 +34,8 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
-        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
+        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
+        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -48,6 +50,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.signpostActivityLogger = signpostActivityLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
+        self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
         
         xcuiBasedTestsDependenciesFactory = XcuiBasedTestsDependenciesFactoryImpl(
             testFailureRecorder: testFailureRecorder,

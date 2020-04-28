@@ -33,7 +33,8 @@ open class BasePageObject: PageObject, ElementFactory {
     
     public init(pageObjectDependenciesFactory: PageObjectDependenciesFactory) {
         self.elementFactory = ElementFactoryImpl(
-            pageObjectElementDependenciesFactory: pageObjectDependenciesFactory.pageObjectElementDependenciesFactory()
+            pageObjectElementDependenciesFactory: pageObjectDependenciesFactory.pageObjectElementDependenciesFactory(),
+            elementSettingsDefaultsProvider: pageObjectDependenciesFactory.elementSettingsDefaultsProvider
         )
     }
     
@@ -54,11 +55,19 @@ open class BasePageObject: PageObject, ElementFactory {
         )
     }
     
-    public func with(scrollMode: ScrollMode) -> ElementFactory {
+    public func with(scrollMode: ScrollMode?) -> ElementFactory {
         return elementFactory.with(scrollMode: scrollMode)
     }
     
-    public func with(interactionMode: InteractionMode) -> ElementFactory {
+    public func with(interactionMode: InteractionMode?) -> ElementFactory {
         return elementFactory.with(interactionMode: interactionMode)
+    }
+    
+    public func with(interactionTimeout: TimeInterval?) -> ElementFactory {
+        return elementFactory.with(interactionTimeout: interactionTimeout)
+    }
+    
+    public func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory {
+        return elementFactory.with(percentageOfVisibleArea: percentageOfVisibleArea)
     }
 }

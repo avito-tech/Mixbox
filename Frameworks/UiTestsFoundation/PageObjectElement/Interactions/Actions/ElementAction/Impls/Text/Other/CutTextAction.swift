@@ -2,8 +2,7 @@ import MixboxFoundation
 
 public final class CutTextAction: BaseElementInteractionWrapper {
     public init(
-        interactionCoordinates: InteractionCoordinates,
-        minimalPercentageOfVisibleArea: CGFloat)
+        interactionCoordinates: InteractionCoordinates)
     {
         super.init(
             wrappedInteraction: AndElementInteraction(
@@ -14,12 +13,10 @@ public final class CutTextAction: BaseElementInteractionWrapper {
                 ),
                 interactions: [
                     FocusKeyboardOnElementAction(
-                        interactionCoordinates: interactionCoordinates,
-                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                        interactionCoordinates: interactionCoordinates
                     ),
                     OpenTextMenuAction(
-                        interactionCoordinates: interactionCoordinates,
-                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                        interactionCoordinates: interactionCoordinates
                     ),
                     TextMenuAction(
                         possibleMenuTitles: TextMenuTitles.selectAll

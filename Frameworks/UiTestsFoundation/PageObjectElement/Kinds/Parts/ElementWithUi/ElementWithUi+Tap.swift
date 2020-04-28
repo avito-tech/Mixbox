@@ -5,7 +5,6 @@ extension ElementWithUi {
     public func tap(
         normalizedCoordinate: CGPoint? = nil,
         absoluteOffset: CGVector? = nil,
-        minimalPercentageOfVisibleArea: CGFloat = ActionsKludges.minimalPercentageOfVisibleAreaOfElementThatIsProbablyEnoughToTapOnIt,
         failTest: Bool = true,
         file: StaticString = #file,
         line: UInt = #line)
@@ -15,8 +14,7 @@ extension ElementWithUi {
             interactionCoordinates: InteractionCoordinates(
                 normalizedCoordinate: normalizedCoordinate,
                 absoluteOffset: absoluteOffset
-            ),
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+            )
         )
         
         return core.perform(

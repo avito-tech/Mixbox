@@ -1,6 +1,6 @@
 public protocol PerformerOfSpecificImplementationOfInteractionForVisibleElement: class {
     func performInteractionForVisibleElement(
-        minimalPercentageOfVisibleArea: CGFloat,
+        overridenPercentageOfVisibleArea: CGFloat?,
         resolvedElementQuery: ResolvedElementQuery,
         interactionSpecificImplementation: InteractionSpecificImplementation,
         interactionMarkableAsImpossibleToRetry: MarkableAsImpossibleToRetry)

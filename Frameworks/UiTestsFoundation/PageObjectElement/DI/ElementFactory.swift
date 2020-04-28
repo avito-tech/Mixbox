@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol ElementFactory {
+public protocol ElementFactory: class {
     // These functions designed to be implemented by classes, not to be used in tests.
     //
     // See protocol extensions for client interface (your tests).
@@ -12,8 +12,10 @@ public protocol ElementFactory {
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     
-    func with(scrollMode: ScrollMode) -> ElementFactory
-    func with(interactionMode: InteractionMode) -> ElementFactory
+    func with(scrollMode: ScrollMode?) -> ElementFactory
+    func with(interactionMode: InteractionMode?) -> ElementFactory
+    func with(interactionTimeout: TimeInterval?) -> ElementFactory
+    func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory
 }
 
 // Convenient functions
@@ -90,12 +92,22 @@ public extension ElementFactory {
     //      }
     //  }
     var withoutScrolling: ElementFactory {
-        return with(scrollMode: .none)
+        return with(scrollMode: .some(.none))
     }
     
     // Re-enables default scroll if `scrollMode` was previousely changed.
     var withScrolling: ElementFactory {
-        return with(scrollMode: .default)
+        return with(scrollMode: .some(.default))
+    }
+    
+    // This modifier tells to "search" element without knowing where it is.
+    // It makes few swipes up and few swipes down. This is a stupid solution,
+    // however, it can help you if the element can not be accessed using other measures.
+    //
+    // Do not use unless default scrolling doesn't work.
+    //
+    var withBlindScrolling: ElementFactory {
+        return with(scrollMode: .some(.blind))
     }
     
     // To point to N-th element. You may want to emphasize this in the name of a variable,
@@ -117,16 +129,6 @@ public extension ElementFactory {
     //      }
     //  }
     func atIndex(_ index: Int) -> ElementFactory {
-        return with(interactionMode: .useElementAtIndexInHierarchy(index))
-    }
-    
-    // This modifier tells to "search" element without knowing where it is.
-    // It makes few swipes up and few swipes down. This is a stupid solution,
-    // however, it can help you if the element can not be accessed using other measures.
-    //
-    // Do not use unless default scrolling doesn't work.
-    //
-    var withBlindScrolling: ElementFactory {
-        return with(scrollMode: .blind)
+        return with(interactionMode: .some(.useElementAtIndexInHierarchy(index)))
     }
 }

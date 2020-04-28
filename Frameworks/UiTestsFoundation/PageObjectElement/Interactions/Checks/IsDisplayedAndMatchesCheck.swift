@@ -1,21 +1,21 @@
 public final class IsDisplayedAndMatchesCheck: ElementInteraction {
-    private let minimalPercentageOfVisibleArea: CGFloat
+    private let overridenPercentageOfVisibleArea: CGFloat?
     private let buildMatcher: (ElementMatcherBuilder) -> ElementMatcher
     
     public init(
-        minimalPercentageOfVisibleArea: CGFloat,
+        overridenPercentageOfVisibleArea: CGFloat?,
         buildMatcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
     {
-        self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
+        self.overridenPercentageOfVisibleArea = overridenPercentageOfVisibleArea
         self.buildMatcher = buildMatcher
     }
     
     public convenience init(
-        minimalPercentageOfVisibleArea: CGFloat,
+        overridenPercentageOfVisibleArea: CGFloat?,
         matcher: ElementMatcher)
     {
         self.init(
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            overridenPercentageOfVisibleArea: overridenPercentageOfVisibleArea,
             buildMatcher: { _ in matcher }
         )
     }
@@ -26,23 +26,23 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
     {
         return WithDependencies(
             dependencies: dependencies,
-            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+            overridenPercentageOfVisibleArea: overridenPercentageOfVisibleArea,
             buildMatcher: buildMatcher
         )
     }
     
     public final class WithDependencies: ElementInteractionWithDependencies {
         private let dependencies: ElementInteractionDependencies
-        private let minimalPercentageOfVisibleArea: CGFloat
+        private let overridenPercentageOfVisibleArea: CGFloat?
         private let buildMatcher: (ElementMatcherBuilder) -> ElementMatcher
         
         public init(
             dependencies: ElementInteractionDependencies,
-            minimalPercentageOfVisibleArea: CGFloat,
+            overridenPercentageOfVisibleArea: CGFloat?,
             buildMatcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
         {
             self.dependencies = dependencies
-            self.minimalPercentageOfVisibleArea = minimalPercentageOfVisibleArea
+            self.overridenPercentageOfVisibleArea = overridenPercentageOfVisibleArea
             self.buildMatcher = buildMatcher
         }
         
@@ -61,7 +61,7 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [buildMatcher, dependencies] _ in
                 dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try dependencies.snapshotResolver.resolve(minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea) { snapshot in
+                    try dependencies.snapshotResolver.resolve(overridenPercentageOfVisibleArea: overridenPercentageOfVisibleArea) { snapshot in
                         let matcher = buildMatcher(dependencies.elementMatcherBuilder)
                         
                         switch matcher.match(value: snapshot) {
