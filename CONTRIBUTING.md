@@ -2,6 +2,8 @@
 
 ## Writing code
 
+Install required gems. List of gems with desired versions can be found at `ci/gemfiles` 
+
 ```
 cd Tests
 pod install
