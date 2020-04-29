@@ -77,11 +77,11 @@ final class WaitingForQuiescenceTests: TestCase {
                 randomizedAdditionalOffset: CGFloat(iteration) * 50
             )
             
+            tapIndicatorButton.withoutTimeout.assert(isTapped: false)
+            
             tapAction()
             
-            tapIndicatorButton.withoutTimeout.assertMatches {
-                $0.customValues["tapped"] == true
-            }
+            tapIndicatorButton.withoutTimeout.assert(isTapped: true)
         }
     }
     
@@ -91,11 +91,11 @@ final class WaitingForQuiescenceTests: TestCase {
                 randomizedAdditionalOffset: CGFloat(iteration) * 50
             )
             
+            tapIndicatorButton.withoutTimeout.assert(isTapped: false)
+            
             tapAction()
             
-            tapIndicatorButton.withoutTimeout.assertMatches {
-                $0.customValues["tapped"] == true
-            }
+            tapIndicatorButton.withoutTimeout.assert(isTapped: true)
         }
     }
     
@@ -109,10 +109,11 @@ final class WaitingForQuiescenceTests: TestCase {
             
             screen.button(navigationPerformingButton.id).tap()
             
+            screen.centeredLineViewControllerButton.withoutTimeout.assert(isTapped: false)
+            
             screen.centeredLineViewControllerButton.tap()
-            screen.centeredLineViewControllerButton.withoutTimeout.assertMatches {
-                $0.customValues["tapped"] == true
-            }
+            
+            screen.centeredLineViewControllerButton.withoutTimeout.assert(isTapped: true)
         }
     }
     
@@ -120,8 +121,8 @@ final class WaitingForQuiescenceTests: TestCase {
         return pageObjects.waitingForQuiescenceTestsView.default
     }
     
-    private var tapIndicatorButton: ButtonElement {
-        return screen.button(tapIndicatorButtonId)
+    private var tapIndicatorButton: TapIndicatorButtonElement {
+        return screen.tapIndicatorButton(tapIndicatorButtonId)
     }
     
     private func resetUiForCheckingScrollDeceleration(randomizedAdditionalOffset: CGFloat) {

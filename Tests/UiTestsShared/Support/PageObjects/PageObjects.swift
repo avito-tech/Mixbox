@@ -37,6 +37,8 @@ final class PageObjects: BasePageObjects {
     
     var scrollingSmokeTestsView: MainAppScreen<ScrollingSmokeTestsViewPageObject> { return mainAppScreen() }
     
+    var scrollingTriesToMakeViewFullyVisibleTestsView: MainAppScreen<ScrollingTriesToMakeViewFullyVisibleTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainUiKitHierarchy.pageObject(),

@@ -15,7 +15,7 @@ public final class WaitingForQuiescenceTestsView:
     private var actionButtons = [UIView]()
     
     // This button has special layout
-    private var tapIndicatorButtons = [ButtonWithClosures]()
+    private var tapIndicatorButtons = [TapIndicatorButton]()
     private let tapIndicatorButtonHeight: CGFloat = 1 // it is harder to tap smaller button
     
     private var configuration = WaitingForQuiescenceTestsViewConfiguration(
@@ -137,12 +137,9 @@ public final class WaitingForQuiescenceTestsView:
     }
     
     private func addTapIndicatorButton(id: String) {
-        let tapIndicatorButton = ButtonWithClosures()
+        let tapIndicatorButton = TapIndicatorButton()
         tapIndicatorButton.backgroundColor = .blue
         tapIndicatorButton.accessibilityIdentifier = id
-        tapIndicatorButton.onTap = { [weak tapIndicatorButton] in
-            tapIndicatorButton?.testability_customValues["tapped"] = true
-        }
         tapIndicatorButtons.append(tapIndicatorButton)
         scrollView.addSubview(tapIndicatorButton)
     }
@@ -175,9 +172,6 @@ public final class WaitingForQuiescenceTestsView:
         let view = CenteredLineButtonView(layout: layout)
         view.accessibilityIdentifier = "centeredLineViewControllerButton"
         viewController.view = view
-        view.onTap = { [weak view] in
-            view?.testability_customValues["tapped"] = true
-        }
         return viewController
     }
     

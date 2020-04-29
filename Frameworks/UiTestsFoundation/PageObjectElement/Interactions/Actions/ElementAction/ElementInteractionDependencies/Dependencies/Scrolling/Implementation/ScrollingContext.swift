@@ -237,15 +237,12 @@ final class ScrollingContext {
                     let targetElementIdentifier = snapshot.uniqueIdentifier.valueIfAvailable
                 {
                     let isTargetElement = (elementUniqueIdentifier == targetElementIdentifier)
-                    let currentElementMinimalPercentageOfVisibleArea = isTargetElement
-                        ? minimalPercentageOfVisibleArea
-                        : 1.0
                     
                     let percentageOfVisibleArea = elementVisibilityChecker.percentageOfVisibleArea(
                         elementUniqueIdentifier: elementUniqueIdentifier
                     )
                     
-                    let elementIsSufficientlyVisible = percentageOfVisibleArea >= currentElementMinimalPercentageOfVisibleArea
+                    let elementIsSufficientlyVisible = percentageOfVisibleArea >= 1
                     
                     if elementIsSufficientlyVisible {
                         viewIdsToSkip.insert(elementUniqueIdentifier)

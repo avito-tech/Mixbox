@@ -9,11 +9,6 @@ final class CenteredLineButtonView: UIView {
     private let button = ButtonWithClosures()
     private let layout: Layout
     
-    var onTap: (() -> ())? {
-        get { return button.onTap }
-        set { button.onTap = newValue }
-    }
-    
     init(layout: Layout) {
         self.layout = layout
         
@@ -22,6 +17,12 @@ final class CenteredLineButtonView: UIView {
         backgroundColor = .white
         button.backgroundColor = .blue
         addSubview(button)
+        
+        testability_customValues["isTapped"] = false
+        
+        button.onTap = { [weak self] in
+            self?.testability_customValues["isTapped"] = true
+        }
     }
     
     required init?(coder: NSCoder) {
