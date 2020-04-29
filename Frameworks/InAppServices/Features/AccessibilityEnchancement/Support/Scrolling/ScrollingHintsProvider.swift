@@ -489,21 +489,30 @@ private extension CGPoint {
     }
 }
 
-private extension UIScrollView {
-    var xScrollIsPossible: Bool {
-        let contentFrame = frame.mb_shrinked(contentInset)
+extension UIScrollView {
+    fileprivate var xScrollIsPossible: Bool {
+        let contentFrame = frame.mb_shrinked(effectiveInsets)
         if contentFrame.width == 0 {
             return false
         } else {
             return contentSize.width / contentFrame.width > 1
         }
     }
-    var yScrollIsPossible: Bool {
-        let contentFrame = frame.mb_shrinked(contentInset)
+    
+    fileprivate var yScrollIsPossible: Bool {
+        let contentFrame = frame.mb_shrinked(effectiveInsets)
         if contentFrame.height == 0 {
             return false
         } else {
             return contentSize.height / contentFrame.height > 1
+        }
+    }
+    
+    private var effectiveInsets: UIEdgeInsets {
+        if #available(iOS 11.0, *) {
+            return adjustedContentInset
+        } else {
+            return contentInset
         }
     }
 }
