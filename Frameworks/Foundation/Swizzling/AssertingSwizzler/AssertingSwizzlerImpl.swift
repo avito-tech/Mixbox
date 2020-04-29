@@ -16,14 +16,15 @@ public final class AssertingSwizzlerImpl: AssertingSwizzler {
     }
     
     public func swizzle(
-        class: NSObject.Type,
+        originalClass: NSObject.Type,
+        swizzlingClass: NSObject.Type,
         originalSelector: Selector,
         swizzledSelector: Selector,
         methodType: MethodType,
         shouldAssertIfMethodIsSwizzledOnlyOneTime: Bool,
         fileLine: FileLine)
     {
-        let swizzlingResult = swizzler.swizzle(`class`, originalSelector, swizzledSelector, methodType)
+        let swizzlingResult = swizzler.swizzle(originalClass, swizzlingClass, originalSelector, swizzledSelector, methodType)
         
         let errorOrNil = swizzlingSynchronization.append(
             swizzlingResult: swizzlingResult,

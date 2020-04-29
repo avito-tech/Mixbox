@@ -2,7 +2,8 @@
 
 public protocol AssertingSwizzler: class {
     func swizzle(
-        class: NSObject.Type,
+        originalClass: NSObject.Type,
+        swizzlingClass: NSObject.Type,
         originalSelector: Selector,
         swizzledSelector: Selector,
         methodType: MethodType,
@@ -23,12 +24,31 @@ public extension AssertingSwizzler {
         originalSelector: Selector,
         swizzledSelector: Selector,
         methodType: MethodType,
+        shouldAssertIfMethodIsSwizzledOnlyOneTime: Bool)
+    {
+        swizzle(
+            originalClass: `class`,
+            swizzlingClass: `class`,
+            originalSelector: originalSelector,
+            swizzledSelector: swizzledSelector,
+            methodType: methodType,
+            shouldAssertIfMethodIsSwizzledOnlyOneTime: shouldAssertIfMethodIsSwizzledOnlyOneTime
+        )
+    }
+    
+    func swizzle(
+        originalClass: NSObject.Type,
+        swizzlingClass: NSObject.Type,
+        originalSelector: Selector,
+        swizzledSelector: Selector,
+        methodType: MethodType,
         shouldAssertIfMethodIsSwizzledOnlyOneTime: Bool,
         file: StaticString = #file,
         line: UInt = #line)
     {
-        swizzle(
-            class: `class`,
+        self.swizzle(
+            originalClass: originalClass,
+            swizzlingClass: swizzlingClass,
             originalSelector: originalSelector,
             swizzledSelector: swizzledSelector,
             methodType: methodType,
@@ -39,6 +59,7 @@ public extension AssertingSwizzler {
             )
         )
     }
+    
 }
 
 #endif

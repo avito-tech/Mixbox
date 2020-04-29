@@ -118,6 +118,8 @@ public final class WaitingForQuiescenceTestsView:
                 addPresentButton(animated: animated, id: button.id)
             case let .push(animated):
                 addPushButton(animated: animated, id: button.id)
+            case let .setContentOffsetAnimated(offset: offset):
+                addSetContentOffsetAnimatedButton(offset: offset, id: button.id)
             }
         }
         
@@ -163,6 +165,15 @@ public final class WaitingForQuiescenceTestsView:
                 strongSelf.centeredLineViewController(layout: .horizontal),
                 animated: animated,
                 completion: nil
+            )
+        }
+    }
+    
+    private func addSetContentOffsetAnimatedButton(offset: CGFloat, id: String) {
+        addActionButton(id: id) { [weak self] in
+            self?.scrollView.setContentOffset(
+                CGPoint(x: 0, y: offset),
+                animated: true
             )
         }
     }

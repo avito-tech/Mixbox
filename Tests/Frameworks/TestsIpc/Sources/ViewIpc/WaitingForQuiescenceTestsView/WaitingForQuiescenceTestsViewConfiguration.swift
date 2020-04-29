@@ -15,6 +15,7 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
     public enum ActionButton: Codable {
         case push(animated: Bool)
         case present(animated: Bool)
+        case setContentOffsetAnimated(offset: CGFloat)
         
         public var id: String {
             switch self {
@@ -22,19 +23,21 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
                 return "pushButton_" + (animated ? "animated" : "notAnimated")
             case let .present(animated):
                 return "presentButton_" + (animated ? "animated" : "notAnimated")
+            case let .setContentOffsetAnimated(offset):
+                return "setContentOffset_" + "\(offset)"
             }
         }
 
 // sourcery:inline:auto:WaitingForQuiescenceTestsViewConfiguration.ActionButton.Codable
     private enum CodingKeys: String, CodingKey {
         case caseId
-        case push
-        case present
+        case data
     }
 
     private enum CaseId: String, Codable {
         case push
         case present
+        case setContentOffsetAnimated
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -42,10 +45,13 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
         switch self {
         case .push(let nested):
             try container.encode(CaseId.push, forKey: .caseId)
-            try container.encode(nested, forKey: .push)
+            try container.encode(nested, forKey: .data)
         case .present(let nested):
             try container.encode(CaseId.present, forKey: .caseId)
-            try container.encode(nested, forKey: .present)
+            try container.encode(nested, forKey: .data)
+        case .setContentOffsetAnimated(let nested):
+            try container.encode(CaseId.setContentOffsetAnimated, forKey: .caseId)
+            try container.encode(nested, forKey: .data)
         }
     }
 
@@ -55,11 +61,14 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
 
         switch caseId {
         case .push:
-            let nested = try container.decode(Bool.self, forKey: .push)
+            let nested = try container.decode(Bool.self, forKey: .data)
             self = .push(animated: nested)
         case .present:
-            let nested = try container.decode(Bool.self, forKey: .present)
+            let nested = try container.decode(Bool.self, forKey: .data)
             self = .present(animated: nested)
+        case .setContentOffsetAnimated:
+            let nested = try container.decode(CGFloat.self, forKey: .data)
+            self = .setContentOffsetAnimated(offset: nested)
         }
     }
 // sourcery:end

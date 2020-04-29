@@ -68,6 +68,23 @@ final class WaitingForQuiescenceTests: TestCase {
         )
     }
     
+    func test___action___is_performed_after_set_content_offset_finished() {
+        for _ in 0..<countOfChecksForEachTest {
+            let animationButton = WaitingForQuiescenceTestsViewConfiguration.ActionButton.setContentOffsetAnimated(
+                offset: UIScreen.main.bounds.height
+            )
+            resetForSettingContentOffset(
+                animationButton: animationButton,
+                height: UIScreen.main.bounds.height * 3,
+                tapIndicatorOffset: UIScreen.main.bounds.height * 1.5
+            )
+            
+            screen.button(animationButton.id).withoutTimeout.tap()
+            
+            tapIndicatorButton.withoutTimeout.tap()
+        }
+    }
+    
     private func check___action___is_performed_after_scroll_view_deceleration_ends(tapAction: () -> ()) {
         // Sometimes scroll deceleration can end just right when element appears on screen.
         // But the test should check that action waits until deceleration ends, to avoid
@@ -165,6 +182,30 @@ final class WaitingForQuiescenceTests: TestCase {
                 contentSize: UIScreen.main.bounds.size,
                 tapIndicatorButtons: [],
                 actionButtons: [navigationPerformingButton]
+            )
+        )
+    }
+    
+    private func resetForSettingContentOffset(
+        animationButton: WaitingForQuiescenceTestsViewConfiguration.ActionButton,
+        height: CGFloat,
+        tapIndicatorOffset: CGFloat)
+    {
+        resetUi(
+            argument: WaitingForQuiescenceTestsViewConfiguration(
+                contentSize: CGSize(
+                    width: UIScreen.main.bounds.width,
+                    height: height
+                ),
+                tapIndicatorButtons: [
+                    .init(
+                        id: tapIndicatorButtonId,
+                        offset: tapIndicatorOffset
+                    )
+                ],
+                actionButtons: [
+                    animationButton
+                ]
             )
         )
     }

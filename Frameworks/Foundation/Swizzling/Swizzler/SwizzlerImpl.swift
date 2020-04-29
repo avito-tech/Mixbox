@@ -5,7 +5,8 @@ public final class SwizzlerImpl: Swizzler {
     }
     
     public func swizzle(
-        _ class: NSObject.Type,
+        _ originalClass: NSObject.Type,
+        _ swizzlingClass: NSObject.Type,
         _ originalSelector: Selector,
         _ swizzledSelector: Selector,
         _ methodType: MethodType)
@@ -20,17 +21,18 @@ public final class SwizzlerImpl: Swizzler {
             methodGetter = class_getClassMethod
         }
         
-        guard let originalMethod = methodGetter(`class`, originalSelector) else {
-            return .failedToGetOriginalMethod(`class`, originalSelector)
+        guard let originalMethod = methodGetter(originalClass, originalSelector) else {
+            return .failedToGetOriginalMethod(originalClass, originalSelector)
         }
-        guard let swizzledMethod = methodGetter(`class`, swizzledSelector) else {
-            return .failedToGetSwizzledMethod(`class`, swizzledSelector)
+        guard let swizzledMethod = methodGetter(swizzlingClass, swizzledSelector) else {
+            return .failedToGetSwizzledMethod(swizzlingClass, swizzledSelector)
         }
         
         method_exchangeImplementations(originalMethod, swizzledMethod)
         
         return .swizzledOriginalMethod(originalMethod)
     }
+    
 }
 
 #endif

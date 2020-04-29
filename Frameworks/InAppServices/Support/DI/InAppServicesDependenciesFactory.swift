@@ -12,6 +12,7 @@ public protocol InAppServicesDependenciesFactory: class {
     var assertingSwizzler: AssertingSwizzler { get }
     var keyboardEventInjector: KeyboardEventInjector { get }
     var scrollViewIdlingResourceSwizzler: ScrollViewIdlingResourceSwizzler { get }
+    var uiAnimationIdlingResourceSwizzler: UIAnimationIdlingResourceSwizzler { get }
     var viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler { get }
     
     func mixboxUrlProtocolBootstrapper(
