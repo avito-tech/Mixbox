@@ -9,7 +9,8 @@ import MixboxIpc
 // High inertia of scroll view and small size of button increases chances of failing a test if there is an issue with waiting.
 public final class WaitingForQuiescenceTestsView:
     UIView,
-    InitializableWithTestingViewControllerSettings
+    InitializableWithTestingViewControllerSettings,
+    UIKeyInput
 {
     // Buttons without special layout
     private var actionButtons = [UIView]()
@@ -118,6 +119,8 @@ public final class WaitingForQuiescenceTestsView:
                 addPresentButton(animated: animated, id: button.id)
             case let .push(animated):
                 addPushButton(animated: animated, id: button.id)
+            case .showKeyboard:
+                addShowKeyboardButton(id: button.id)
             }
         }
         
@@ -170,6 +173,21 @@ public final class WaitingForQuiescenceTestsView:
         }
     }
     
+    private func addShowKeyboardButton(id: String) {
+        let button = ButtonWithClosures()
+        button.backgroundColor = .blue
+        button.setTitle("Button Title", for: .normal)
+        button.accessibilityIdentifier = id
+        button.onTap = { [weak button, weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.becomeFirstResponder()
+            button?.testability_customValues["keyboard_shown"] = true
+        }
+        actionButtons.append(button)
+        scrollView.addSubview(button)
+    }
+    
     private func centeredLineViewController(layout: CenteredLineButtonView.Layout) -> UIViewController {
         let viewController = UIViewController()
         let view = CenteredLineButtonView(layout: layout)
@@ -193,4 +211,18 @@ public final class WaitingForQuiescenceTestsView:
         scrollView.addSubview(button)
         actionButtons.append(button)
     }
+    
+    // MARK: - UIKeyInput
+    
+    public var hasText = false
+    
+    public func insertText(_ text: String) {
+        
+    }
+    
+    public func deleteBackward() {
+        
+    }
+    
+    override public var canBecomeFirstResponder: Bool { true }
 }

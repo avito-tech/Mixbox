@@ -15,6 +15,7 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
     public enum ActionButton: Codable {
         case push(animated: Bool)
         case present(animated: Bool)
+        case showKeyboard
         
         public var id: String {
             switch self {
@@ -22,6 +23,8 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
                 return "pushButton_" + (animated ? "animated" : "notAnimated")
             case let .present(animated):
                 return "presentButton_" + (animated ? "animated" : "notAnimated")
+            case .showKeyboard:
+                return "showKeyboard"
             }
         }
 
@@ -30,11 +33,13 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
         case caseId
         case push
         case present
+        case showKeyboard
     }
 
     private enum CaseId: String, Codable {
         case push
         case present
+        case showKeyboard
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -46,6 +51,8 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
         case .present(let nested):
             try container.encode(CaseId.present, forKey: .caseId)
             try container.encode(nested, forKey: .present)
+        case .showKeyboard:
+            try container.encode(CaseId.showKeyboard, forKey: .showKeyboard)
         }
     }
 
@@ -60,6 +67,8 @@ public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
         case .present:
             let nested = try container.decode(Bool.self, forKey: .present)
             self = .present(animated: nested)
+        case .showKeyboard:
+            self = .showKeyboard
         }
     }
 // sourcery:end

@@ -68,6 +68,15 @@ final class WaitingForQuiescenceTests: TestCase {
         )
     }
     
+    func test___action___is_performed_after_keyboard_is_presented() {
+        let buttonData = WaitingForQuiescenceTestsViewConfiguration.ActionButton.showKeyboard
+        let button = screen.button(buttonData.id)
+        resetUiForCheckingKeyboardAnimation(button: buttonData)
+        
+        button.tap()
+        tapIndicatorButton.tap()
+    }
+    
     private func check___action___is_performed_after_scroll_view_deceleration_ends(tapAction: () -> ()) {
         // Sometimes scroll deceleration can end just right when element appears on screen.
         // But the test should check that action waits until deceleration ends, to avoid
@@ -154,6 +163,23 @@ final class WaitingForQuiescenceTests: TestCase {
                     )
                 ],
                 actionButtons: []
+            )
+        )
+    }
+    
+    private func resetUiForCheckingKeyboardAnimation(button: WaitingForQuiescenceTestsViewConfiguration.ActionButton) {
+        resetUi(
+            argument: WaitingForQuiescenceTestsViewConfiguration(
+                contentSize: UIScreen.main.bounds.size,
+                tapIndicatorButtons: [
+                    .init(
+                        id: tapIndicatorButtonId,
+                        offset: UIScreen.main.bounds.height - 300
+                    )
+                ],
+                actionButtons: [
+                    button
+                ]
             )
         )
     }
