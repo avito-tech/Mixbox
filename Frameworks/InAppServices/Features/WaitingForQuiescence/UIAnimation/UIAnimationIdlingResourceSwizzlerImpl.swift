@@ -16,11 +16,11 @@ public final class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationI
     public func swizzle() {
         swizzle(
             originalSelector: markStartSelector,
-            swizzledSelector: #selector(swizzled__markStart(startTime:))
+            swizzledSelector: #selector(swizzled_markStart(startTime:))
         )
         swizzle(
             originalSelector: markStopSelector,
-            swizzledSelector: #selector(swizzled__markStop)
+            swizzledSelector: #selector(swizzled_markStop)
         )
     }
     
@@ -61,19 +61,19 @@ public final class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationI
      */
     private typealias MarkStartFunction = @convention(c) (AnyObject, Selector, TimeInterval) -> Void
     private var markStartSelector: Selector { return Selector(privateName: "markStart:") }
-    @objc fileprivate func swizzled__markStart(startTime: TimeInterval) {
+    @objc fileprivate func swizzled_markStart(startTime: TimeInterval) {
         trackedAnimation.value = IdlingResourceObjectTracker.instance.track(parent: self)
         
-        let originalImp = class_getMethodImplementation(UIAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled__markStart))
+        let originalImp = class_getMethodImplementation(UIAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled_markStart))
         unsafeBitCast(originalImp, to: MarkStartFunction.self)(self, markStartSelector, startTime)
     }
 
     private typealias MarkStopFunction = @convention(c) (AnyObject, Selector) -> Void
     private var markStopSelector: Selector { return Selector(privateName: "markStop") }
-    @objc fileprivate func swizzled__markStop() {
+    @objc fileprivate func swizzled_markStop() {
         trackedAnimation.value?.untrack()
 
-        let originalImp = class_getMethodImplementation(UIAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled__markStop))
+        let originalImp = class_getMethodImplementation(UIAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled_markStop))
         unsafeBitCast(originalImp, to: MarkStopFunction.self)(self, markStopSelector)
     }
 
