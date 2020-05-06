@@ -9,7 +9,8 @@ import MixboxIpc
 // High inertia of scroll view and small size of button increases chances of failing a test if there is an issue with waiting.
 public final class WaitingForQuiescenceTestsView:
     UIView,
-    InitializableWithTestingViewControllerSettings
+    InitializableWithTestingViewControllerSettings,
+    UIKeyInput
 {
     // Buttons without special layout
     private var actionButtons = [UIView]()
@@ -84,6 +85,7 @@ public final class WaitingForQuiescenceTestsView:
     }
     
     private func resetUi(configuration: WaitingForQuiescenceTestsViewConfiguration, completion: @escaping () -> ()) {
+        resignFirstResponder()
         dismissEverything { [weak self] in
             guard let strongSelf = self else {
                 completion()
@@ -122,6 +124,8 @@ public final class WaitingForQuiescenceTestsView:
                 addSetContentOffsetAnimatedButton(offset: offset, id: button.id)
             case let .withCoreAnimation(animationType):
                 addCoreAnimationButton(id: button.id, animationType: animationType)
+            case .showKeyboard:
+                addShowKeyboardButton(id: button.id)
             }
         }
         
@@ -179,6 +183,29 @@ public final class WaitingForQuiescenceTestsView:
             )
         }
     }
+
+    private func addShowKeyboardButton(id: String) {
+        let showKeyboardButton = ButtonWithClosures()
+        showKeyboardButton.backgroundColor = .blue
+        showKeyboardButton.setTitle("Show keyboard", for: .normal)
+        showKeyboardButton.accessibilityIdentifier = id
+        showKeyboardButton.onTap = { [weak showKeyboardButton, weak self] in
+            guard let strongSelf = self else { return }
+            
+            strongSelf.becomeFirstResponder()
+            showKeyboardButton?.testability_customValues["keyboard_shown"] = true
+        }
+        actionButtons.append(showKeyboardButton)
+        scrollView.addSubview(showKeyboardButton)
+        
+        let accessoryViewButton = ButtonWithClosures()
+        accessoryViewButton.backgroundColor = .red
+        accessoryViewButton.accessibilityIdentifier = "accessoryViewButton"
+        accessoryViewButton.onTap = { [weak accessoryViewButton] in
+            accessoryViewButton?.testability_customValues["tapped"] = true
+        }
+        self.accessoryViewButton = accessoryViewButton
+    }
     
     private func addCoreAnimationButton(id: String, animationType: WaitingForQuiescenceTestsViewConfiguration.ActionButton.AnimationType) {
         let button = ButtonWithClosures()
@@ -233,5 +260,21 @@ public final class WaitingForQuiescenceTestsView:
         
         scrollView.addSubview(button)
         actionButtons.append(button)
+    }
+    
+    // MARK: - UIKeyInput
+    override public var canBecomeFirstResponder: Bool { true }
+    
+    public var hasText = false
+    
+    public func insertText(_ text: String) { }
+    
+    public func deleteBackward() { }
+    
+    var accessoryViewButton: UIButton?
+    
+    override public var inputAccessoryView: UIView? {
+        accessoryViewButton?.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
+        return accessoryViewButton
     }
 }

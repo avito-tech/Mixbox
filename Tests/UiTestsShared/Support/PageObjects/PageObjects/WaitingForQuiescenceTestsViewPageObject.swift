@@ -15,4 +15,7 @@ public final class WaitingForQuiescenceTestsViewPageObject: BasePageObjectWithDe
     public var centeredLineViewControllerButton: TapIndicatorButtonElement {
         return tapIndicatorButton("centeredLineViewControllerButton")
     }
+    public var accessoryViewButton: ButtonElement {
+        return byId("accessoryViewButton")
+    }
 }

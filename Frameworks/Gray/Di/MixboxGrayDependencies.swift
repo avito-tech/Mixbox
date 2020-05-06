@@ -52,7 +52,8 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 waiter: try di.resolve(),
                 idlingResource: CompoundIdlingResource(
                     idlingResources: [
-                        IdlingResourceObjectTracker.instance
+                        IdlingResourceObjectTracker.instance,
+                        KeyboardIdlingResource()
                     ]
                 )
             )

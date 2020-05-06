@@ -86,6 +86,22 @@ final class WaitingForQuiescenceTests: TestCase {
             tapIndicatorButton.withoutTimeout.tap()
         }
     }
+
+    func test___action___is_performed_after_keyboard_is_presented() {
+        let buttonData = WaitingForQuiescenceTestsViewConfiguration.ActionButton.showKeyboard
+        let button = screen.button(buttonData.id)
+        
+        for _ in 0..<countOfChecksForEachTest {
+            resetUi(actionButton: buttonData)
+            
+            button.tap()
+            screen.accessoryViewButton.tap()
+            
+            screen.accessoryViewButton.withoutTimeout.assertMatches {
+                $0.customValues["tapped"] == true
+            }
+        }
+    }
     
     private var isRunningInBlackBox: Bool {
         // TODO: currently, Mixbox in black box test mode uses XCUI private APIs to _waitForQuiescence(), and does not use Mixbox' idling resource tracker.
@@ -156,9 +172,7 @@ final class WaitingForQuiescenceTests: TestCase {
         navigationPerformingButton: WaitingForQuiescenceTestsViewConfiguration.ActionButton)
     {
         for _ in 0..<countOfChecksForEachTest {
-            resetUi(
-                actionButton: navigationPerformingButton
-            )
+            resetUi(actionButton: navigationPerformingButton)
             
             screen.button(navigationPerformingButton.id).tap()
             
