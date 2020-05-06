@@ -2,7 +2,7 @@
 
 import MixboxFoundation
 
-public final class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationIdlingResourceSwizzler {
+public class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationIdlingResourceSwizzler {
     public let assertingSwizzler: AssertingSwizzler
     public let assertionFailureRecorder: AssertionFailureRecorder
     
