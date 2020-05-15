@@ -22,7 +22,8 @@ public final class SimulatorSettingsProviderImpl: SimulatorSettingsProvider {
                 languages: ["en"],
                 addingEmojiKeybordHandled: true,
                 enableKeyboardExpansion: true,
-                didShowInternationalInfoAlert: true
+                didShowInternationalInfoAlert: true,
+                didShowContinuousPathIntroduction: true
             ),
             watchdogSettings: WatchdogSettings(
                 bundleIds: [

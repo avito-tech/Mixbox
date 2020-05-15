@@ -38,15 +38,6 @@
         }
       },
       {
-        "package": "CSSH",
-        "repositoryURL": "https://github.com/jakeheis/CSSH",
-        "state": {
-          "branch": null,
-          "revision": "579a20508ab598f78713a60fed95706efd06bbcb",
-          "version": "1.0.3"
-        }
-      },
-      {
         "package": "Dip",
         "repositoryURL": "https://github.com/AliSoftware/Dip",
         "state": {
@@ -60,7 +51,7 @@
         "repositoryURL": "https://github.com/avito-tech/Emcee",
         "state": {
           "branch": null,
-          "revision": "98af0508ef7016d2e3559cfe9c6c95cdf82eb3fc",
+          "revision": "e9e5b1969b6cabbaf086ac0ee7a662f91abd0086",
           "version": null
         }
       },
@@ -87,8 +78,8 @@
         "repositoryURL": "https://github.com/jakeheis/Shout.git",
         "state": {
           "branch": null,
-          "revision": "2ee35de0411c2e74700dc4bf4b57bf7dc1de2e84",
-          "version": "0.5.1"
+          "revision": "dbb02940a3a96c2f126079891589902a562d0e8d",
+          "version": "0.5.4"
         }
       },
       {
