@@ -8,9 +8,13 @@ public final class CoreAnimationIdlingResourceSwizzlerImpl: CoreAnimationIdlingR
     private let caAnimationIdlingSupport: CAAnimationIdlingSupport
     private let caLayerIdlingSupport: CALayerIdlingSupport
     
-    public init(assertingSwizzler: AssertingSwizzler) {
+    public init(
+        assertingSwizzler: AssertingSwizzler,
+        assertionFailureRecorder: AssertionFailureRecorder)
+    {
         self.caAnimationIdlingSupport = CAAnimationIdlingSupport(
-            assertingSwizzler: assertingSwizzler
+            assertingSwizzler: assertingSwizzler,
+            assertionFailureRecorder: assertionFailureRecorder
         )
         self.caLayerIdlingSupport = CALayerIdlingSupport(
             assertingSwizzler: assertingSwizzler

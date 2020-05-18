@@ -68,34 +68,43 @@ final class CALayerIdlingSupport {
 
 extension CALayer {
     @objc func mbswizzled_setNeedsDisplay() {
-        trackCoreAnimationIdlingResourceChange { $0.trackedCoreAnimationLayoutPassState }
+        // Next runloop drain will perform the draw pass.
+        trackUntilNextRunloopDrain()
+        
         mbswizzled_setNeedsDisplay()
     }
     
     @objc func mbswizzled_setNeedsDisplayInRect(_ r: CGRect) {
-        trackCoreAnimationIdlingResourceChange { $0.trackedCoreAnimationLayoutPassState }
+        // Next runloop drain will perform the draw pass.
+        trackUntilNextRunloopDrain()
+        
         mbswizzled_setNeedsDisplayInRect(r)
     }
     
     @objc func mbswizzled_setNeedsLayout() {
-        trackCoreAnimationIdlingResourceChange { $0.trackedCoreAnimationLayoutPassState }
+        // Next runloop drain will perform the layout pass.
+        trackUntilNextRunloopDrain()
+        
         mbswizzled_setNeedsLayout()
     }
     
     @objc func mbswizzled_add(animation: CAAnimation, key: String) {
-        mb_adjustAnimationToAllowableRange(animation: animation)
-        
-        trackCoreAnimationIdlingResourceChange { $0.trackedCoreAnimationLayerState }
+        adjustAnimationToAllowableRange(animation: animation)
+
+        // At this point, the app could be in idle state and the next runloop drain may trigger this
+        // animation so track this LAYER (not animation) until next runloop drain.
+        trackUntilNextRunloopDrain()
 
         mbswizzled_add(animation: animation, key: key)
     }
     
     @objc func mbswizzled_set(speed: CGFloat) {
         if speed == 0 && self.speed != 0 {
-            mb_pauseAnimations()
+            handleLayerSpeedSetToZero()
         } else if speed != 0 && self.speed == 0 {
-            mb_resumeAnimations()
+            handleLayerSpeedSetToNonZero()
         }
+        
         mbswizzled_set(speed: speed)
     }
     
@@ -116,18 +125,18 @@ extension CALayer {
         mbswizzled_removeAllAnimations()
     }
     
-    private var mb_caLayerModifyAnimations: Bool { true }
-    private var mb_maxAllowableAnimationDuration: CFTimeInterval { 10 }
+    private var caLayerModifyAnimations: Bool { true }
+    private var maxAllowableAnimationDuration: CFTimeInterval { 10 }
     
-    func mb_adjustAnimationToAllowableRange(animation: CAAnimation) {
-        guard mb_caLayerModifyAnimations else { return }
+    private func adjustAnimationToAllowableRange(animation: CAAnimation) {
+        guard caLayerModifyAnimations else { return }
         
-        if animation.duration > mb_maxAllowableAnimationDuration {
-            animation.duration = mb_maxAllowableAnimationDuration
+        if animation.duration > maxAllowableAnimationDuration {
+            animation.duration = maxAllowableAnimationDuration
         }
         
         if animation.duration != 0 {
-            let allowableRepeatDuration = mb_maxAllowableAnimationDuration - animation.duration
+            let allowableRepeatDuration = maxAllowableAnimationDuration - animation.duration
             let allowableRepeatCount: Float = Float(allowableRepeatDuration / animation.duration)
             if animation.repeatDuration > allowableRepeatDuration {
                 animation.repeatDuration = allowableRepeatDuration
@@ -137,67 +146,52 @@ extension CALayer {
         }
     }
     
-    func mb_pauseAnimations() {
+    private func handleLayerSpeedSetToZero() {
         guard let animationKeys = self.animationKeys(), !animationKeys.isEmpty else { return }
+        
+        pausedAnimationKeys.value = Set(animationKeys)
         
         for key in animationKeys {
             if let animation = self.animation(forKey: key) {
                 animation.mb_untrack()
-                mb_pausedAnimationKeys.value?.add(animation)
             }
         }
         
         for sublayer in sublayers ?? [] {
-            sublayer.mb_pauseAnimations()
+            sublayer.handleLayerSpeedSetToZero()
         }
     }
     
-    func mb_resumeAnimations() {
-        let pausedAnimationKeys = mb_pausedAnimationKeys.value ?? NSMutableSet()
-        for key in pausedAnimationKeys {
-            if let stringKey = key as? String {
-                if let animation = self.animation(forKey: stringKey) {
-                    if animation.mb_MBCAAnimationState == .started {
-                        animation.mb_trackForDurationOfAnimation()
-                    }
-                }
-            }
-        }
-        
-        mb_pausedAnimationKeys.value?.removeAllObjects()
-        
-        for sublayer in sublayers ?? [] where sublayer.speed != 0 {
-            sublayer.mb_resumeAnimations()
-        }
-    }
-    
-    private var mb_pausedAnimationKeys: AssociatedObject<NSMutableSet> {
-        let object = AssociatedObject<NSMutableSet>(container: self, key: #function)
-        if object.value == nil {
-            object.value = NSMutableSet()
-        }
-        return object
-    }
-    
-    private var trackedCoreAnimationLayerState: AssociatedObject<TrackedIdlingResource> {
-        return AssociatedObject(container: self, key: #function)
-    }
-    
-    private var trackedCoreAnimationLayoutPassState: AssociatedObject<TrackedIdlingResource> {
-        return AssociatedObject(container: self, key: #function)
-    }
-    
-    private func trackCoreAnimationIdlingResourceChange(
-        trackedIdlingResource: @escaping (CALayer) -> AssociatedObject<TrackedIdlingResource>
-    ) {
-        trackedIdlingResource(self).value = IdlingResourceObjectTracker.instance.track(parent: self)
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else {
-                return
+    private func handleLayerSpeedSetToNonZero() {
+        for key in pausedAnimationKeys.value {
+            guard let animation = self.animation(forKey: key) else {
+                continue
             }
             
-            trackedIdlingResource(strongSelf).value?.untrack()
+            switch animation.mb_state {
+            case .started:
+                animation.mb_trackForDurationOfAnimation()
+            case .stopped, .pendingStart:
+                break
+            }
+        }
+        
+        pausedAnimationKeys.value = []
+        
+        for sublayer in sublayers ?? [] where sublayer.speed != 0 {
+            sublayer.handleLayerSpeedSetToNonZero()
+        }
+    }
+    
+    private var pausedAnimationKeys: AssociatedValue<Set<String>> {
+        return AssociatedValue(container: self, key: #function, defaultValue: [])
+    }
+    
+    private func trackUntilNextRunloopDrain() {
+        let trackedIdlingResource = IdlingResourceObjectTracker.instance.track(parent: self)
+        
+        DispatchQueue.main.async {
+            trackedIdlingResource.untrack()
         }
     }
 }

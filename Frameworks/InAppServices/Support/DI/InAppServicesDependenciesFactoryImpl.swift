@@ -135,7 +135,8 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         )
         
         coreAnimationIdlingResourceSwizzler = CoreAnimationIdlingResourceSwizzlerImpl(
-            assertingSwizzler: assertingSwizzler
+            assertingSwizzler: assertingSwizzler,
+            assertionFailureRecorder: assertionFailureRecorder
         )
     }
     

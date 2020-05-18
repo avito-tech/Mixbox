@@ -94,6 +94,7 @@ final class WaitingForQuiescenceTests: TestCase {
         return ProcessInfo.processInfo.processName.hasSuffix("-Runner")
     }
 
+    // Animations in this test are very slow, so there is no need to perform check multiple times (countOfChecksForEachTest)
     func test___waits_for_core_animation_to_complete___before_querying_values() {
         if isRunningInBlackBox { return }
         
@@ -106,6 +107,7 @@ final class WaitingForQuiescenceTests: TestCase {
         }
     }
     
+    // Animations in this test are very slow, so there is no need to perform check multiple times (countOfChecksForEachTest)
     func test___waits_for_core_animation_to_complete___before_tapping() {
         if isRunningInBlackBox { return }
         
