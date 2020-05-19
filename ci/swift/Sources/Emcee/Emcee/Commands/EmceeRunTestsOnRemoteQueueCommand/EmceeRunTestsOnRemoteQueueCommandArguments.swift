@@ -15,9 +15,6 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
     public let junit: String
     public let trace: String
     
-    // For unit tests
-    public let fbsimctl: String?
-    
     public init(
         jobId: String,
         testArgFile: String,
@@ -26,8 +23,7 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
         tempFolder: String,
         fbxctest: String,
         junit: String,
-        trace: String,
-        fbsimctl: String?)
+        trace: String)
     {
         self.jobId = jobId
         self.testArgFile = testArgFile
@@ -37,6 +33,5 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
         self.fbxctest = fbxctest
         self.junit = junit
         self.trace = trace
-        self.fbsimctl = fbsimctl
     }
 }

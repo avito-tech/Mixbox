@@ -60,7 +60,6 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             environment: arguments.environment,
             testType: arguments.testType,
             priority: arguments.priority,
-            fbsimctlUrl: arguments.fbsimctlUrl,
             fbxctestUrl: arguments.fbxctestUrl
         )
     }
@@ -91,7 +90,6 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         environment: [String: String],
         testType: TestType,
         priority: UInt,
-        fbsimctlUrl: URL,
         fbxctestUrl: URL)
         throws
         -> TestArgFile
@@ -107,7 +105,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     scheduleStrategy: .progressive,
                     simulatorControlTool: SimulatorControlTool(
                         location: .insideEmceeTempFolder,
-                        tool: .fbsimctl(FbsimctlLocation(ResourceLocation.remoteUrl(fbsimctlUrl)))
+                        tool: .simctl
                     ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
@@ -171,7 +169,6 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                 fbxctest: arguments.fbxctestUrl.absoluteString,
                 testDestinationConfigurations: testDestinationConfigurations,
                 appPath: appPathDumpArgument,
-                fbsimctl: arguments.fbsimctlUrl,
                 tempFolder: temporaryFileProvider.temporaryFilePath()
             )
         )

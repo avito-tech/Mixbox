@@ -65,8 +65,7 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
                 tempFolder: temporaryFileProvider.temporaryFilePath(),
                 fbxctest: fbxctestUrlString,
                 junit: junit,
-                trace: trace,
-                fbsimctl: try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_FBSIMCTL_URL)
+                trace: trace
             )
         )
     }
@@ -86,11 +85,6 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
                 appPath: appPath,
                 additionalAppPaths: [],
                 xctestBundlePath: xctestBundle,
-                fbsimctlUrl: try URL.from(
-                    string: try environmentProvider.getOrThrow(
-                        env: Env.MIXBOX_CI_EMCEE_FBSIMCTL_URL
-                    )
-                ),
                 fbxctestUrl: try URL.from(
                     string: fbxctestUrlString
                 ),

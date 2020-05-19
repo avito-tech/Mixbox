@@ -11,7 +11,6 @@ public enum Env: String {
     case MIXBOX_CI_XCODE_VERSION
     
     // Swift CI external envs, Emcee:
-    case MIXBOX_CI_EMCEE_FBSIMCTL_URL
     case MIXBOX_CI_EMCEE_FBXCTEST_URL
     case MIXBOX_CI_EMCEE_PATH
     case MIXBOX_CI_EMCEE_QUEUE_SERVER_RUN_CONFIGURATION_URL

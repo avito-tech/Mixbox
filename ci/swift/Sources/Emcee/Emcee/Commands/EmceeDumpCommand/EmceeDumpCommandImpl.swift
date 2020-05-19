@@ -113,7 +113,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     scheduleStrategy: .progressive,
                     simulatorControlTool: SimulatorControlTool(
                         location: .insideEmceeTempFolder,
-                        tool: .fbsimctl(FbsimctlLocation(.remoteUrl(arguments.fbsimctl)))
+                        tool: .simctl
                     ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
