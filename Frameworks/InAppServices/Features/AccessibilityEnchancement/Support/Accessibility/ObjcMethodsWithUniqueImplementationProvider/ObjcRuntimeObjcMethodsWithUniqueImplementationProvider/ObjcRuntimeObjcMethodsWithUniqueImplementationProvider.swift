@@ -26,7 +26,7 @@ public final class ObjcRuntimeObjcMethodsWithUniqueImplementationProvider:
         var classesByMethods = [Method: [AnyClass]]()
         
         var count = UInt32(0)
-        guard let classList = objc_copyClassList(&count) else {
+        guard let classList = UnsafePointer(objc_copyClassList(&count)) else {
             return []
         }
         
@@ -46,6 +46,8 @@ public final class ObjcRuntimeObjcMethodsWithUniqueImplementationProvider:
                 }
             }
         }
+        
+        free(UnsafeMutableRawPointer(mutating: classList))
         
         return classesByMethods
             .compactMap { pair -> ObjcMethodWithUniqueImplementation? in
