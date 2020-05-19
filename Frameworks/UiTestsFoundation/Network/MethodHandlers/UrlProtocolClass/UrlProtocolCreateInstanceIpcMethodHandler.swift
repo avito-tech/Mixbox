@@ -6,12 +6,12 @@ public final class UrlProtocolCreateInstanceIpcMethodHandler: IpcMethodHandler {
     
     private let readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>
     private let writeableInstancesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolInstance & IpcObjectIdentifiable>
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
     public init(
         readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>,
         writeableInstancesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolInstance & IpcObjectIdentifiable>,
-        ipcClient: IpcClient)
+        ipcClient: SynchronousIpcClient)
     {
         self.readableClassesRepository = readableClassesRepository
         self.writeableInstancesRepository = writeableInstancesRepository

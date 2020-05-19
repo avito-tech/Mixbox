@@ -1,5 +1,6 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
+import MixboxFoundation
 
 // TODO: Replace XcuiMenuItemProvider with this implementation after Gray Box tests will be released and well tested.
 public final class GrayMenuItemProvider: MenuItemProvider {

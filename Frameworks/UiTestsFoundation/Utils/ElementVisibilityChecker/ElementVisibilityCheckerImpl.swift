@@ -3,9 +3,9 @@ import MixboxIpc
 import MixboxUiKit
 
 public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
-    public init(ipcClient: IpcClient) {
+    public init(ipcClient: SynchronousIpcClient) {
         self.ipcClient = ipcClient
     }
     

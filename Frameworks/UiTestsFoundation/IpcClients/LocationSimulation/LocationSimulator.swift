@@ -11,9 +11,9 @@ public protocol LocationSimulator: class {
 }
 
 public final class LocationSimulatorImpl: LocationSimulator {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
-    public init(ipcClient: IpcClient) {
+    public init(ipcClient: SynchronousIpcClient) {
         self.ipcClient = ipcClient
     }
     

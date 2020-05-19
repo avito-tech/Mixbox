@@ -2,6 +2,7 @@ import MixboxBlack
 import XCTest
 import TestsIpc
 import MixboxUiTestsFoundation
+import MixboxIpc
 import SBTUITestTunnel
 
 final class LaunchingAppTests: TestCase {
@@ -62,9 +63,12 @@ final class LaunchingAppTests: TestCase {
             return
         }
         
+        let synchronousIpcClientFactory = dependencies.resolve() as SynchronousIpcClientFactory
+        let synchronousIpcClient = synchronousIpcClientFactory.synchronousIpcClient(ipcClient: ipcClient)
+        
         XCTAssertEqual(applicationLifecycleObservable.applicationIsLaunched, true)
         
-        let ipcProcessInfo: IpcProcessInfo = ipcClient.callOrFail(method: ProcessInfoIpcMethod())
+        let ipcProcessInfo: IpcProcessInfo = synchronousIpcClient.callOrFail(method: ProcessInfoIpcMethod())
         
         for expectedValue in arguments {
             XCTAssert(
@@ -88,7 +92,7 @@ final class LaunchingAppTests: TestCase {
         XCTAssertEqual(applicationLifecycleObservable.applicationIsLaunched, false)
         
         // Simple check that app is launched
-        switch ipcClient.call(method: ProcessInfoIpcMethod()) {
+        switch synchronousIpcClient.call(method: ProcessInfoIpcMethod()) {
         case .data:
             XCTFail("It seems that app is still lanuched, which is unexpected")
         case .error:

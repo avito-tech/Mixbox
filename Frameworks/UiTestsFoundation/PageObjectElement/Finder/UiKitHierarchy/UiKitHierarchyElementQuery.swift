@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 
 final class UiKitHierarchyElementQuery: ElementQuery {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     private let elementMatcher: ElementMatcher
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
@@ -14,7 +14,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
     
     init(
-        ipcClient: IpcClient,
+        ipcClient: SynchronousIpcClient,
         elementMatcher: ElementMatcher,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,

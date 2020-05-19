@@ -3,6 +3,7 @@ import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxUiKit
 import MixboxIpc
+import MixboxIpcCommon
 
 public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegisterer {
     private let stepLogger: StepLogger
@@ -83,12 +84,23 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
         di.register(type: Waiter.self) { di in
             try di.resolve() as RunLoopSpinningWaiter
         }
+        
+        // TODO: Move to MixboxGrayDependencies
         di.register(type: LazilyInitializedIpcClient.self) { _ in
             LazilyInitializedIpcClient()
         }
         di.register(type: IpcClient.self) { di in
             try di.resolve() as LazilyInitializedIpcClient
         }
+        di.register(type: SynchronousIpcClient.self) { di in
+            let synchronousIpcClientFactory = try di.resolve() as SynchronousIpcClientFactory
+            
+            return synchronousIpcClientFactory.synchronousIpcClient(
+                ipcClient: try di.resolve()
+            )
+        }
+        // end of TODO
+        
         di.register(type: StepLogger.self) { [stepLogger, enableXctActivityLogging] di in
             if enableXctActivityLogging {
                 return XctActivityStepLogger(
@@ -150,5 +162,12 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
         di.register(type: ElementSettingsDefaultsProvider.self) { _ in
             ElementSettingsDefaultsProviderImpl()
         }
+        di.register(type: SynchronousIpcClientFactory.self) { di in
+            RunLoopSpinningSynchronousIpcClientFactory(
+                runLoopSpinningWaiter: try di.resolve(),
+                timeout: 15
+            )
+        }
+        
     }
 }

@@ -32,11 +32,13 @@ func launch_child_process_that_will_send_handshake_back(_ port: UInt) {
 func use_your_client(_ client: IpcClient) {
     print("Here will be either successful response or error:\n\n")
     
-    switch client.call(method: HelloIpcMethod(), arguments: IpcVoid()) {
+    let synchronousClient = PollingSynchronousIpcClient(ipcClient: client)
+    
+    switch synchronousClient.call(method: HelloIpcMethod(), arguments: IpcVoid()) {
     case .data(let string):
         print("Received: \(string)")
     case .error(let error):
         print("Error: \(error)")
     }
-    print("\n\nThanks for watching.")
+    print("\n\nDemo ended.")
 }

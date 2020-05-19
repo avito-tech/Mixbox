@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxUiKit
+import MixboxFoundation
 
 // TODO: Replace everything with entities. There is no need for most of these functions.
 // Resolving should ONLY be in factories/di containers. Not in clients' code.
@@ -33,6 +34,10 @@ extension BaseUiTestCase {
     }
     
     var ipcClient: IpcClient {
+        return dependencies.resolve()
+    }
+    
+    var synchronousIpcClient: SynchronousIpcClient {
         return dependencies.resolve()
     }
     

@@ -6,12 +6,17 @@ import MixboxIpcSbtuiHost
 
 final class SbtuiIpcStarter: IpcStarter {
     private let ipcRouter: SbtuiIpcRouter
+    private let synchronousIpcClientFactory: SynchronousIpcClientFactory
     
     // reregisterMethodHandlersAutomatically == true disables asserion if method is registered twice. not recommended.
-    init(reregisterMethodHandlersAutomatically: Bool) {
+    init(
+        reregisterMethodHandlersAutomatically: Bool,
+        synchronousIpcClientFactory: SynchronousIpcClientFactory)
+    {
         self.ipcRouter = SbtuiIpcRouter(
             reregisterMethodHandlersAutomatically: reregisterMethodHandlersAutomatically
         )
+        self.synchronousIpcClientFactory = synchronousIpcClientFactory
     }
     
     func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure]) throws -> (IpcRouter, IpcClient?) {
@@ -21,7 +26,10 @@ final class SbtuiIpcStarter: IpcStarter {
         
         let dependencies = IpcMethodHandlerRegistrationDependencies(
             ipcRouter: ipcRouter,
-            ipcClient: ipcClient
+            ipcClient: ipcClient,
+            synchronousIpcClient: ipcClient.map {
+                synchronousIpcClientFactory.synchronousIpcClient(ipcClient: $0)
+            }
         )
         
         commandsForAddingRoutes.forEach { $0(dependencies) }

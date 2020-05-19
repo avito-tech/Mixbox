@@ -13,7 +13,7 @@ final class GettingUiKitHierarchyTests: TestCase {
     // TODO: Fix linter
     // swiftlint:disable:next function_body_length
     func disabled_test() {
-        let result = ipcClient.callOrFail(
+        let result = synchronousIpcClient.callOrFail(
             method: ViewHierarchyIpcMethod()
         )
         

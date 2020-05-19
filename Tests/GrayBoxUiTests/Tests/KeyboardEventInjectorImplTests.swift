@@ -75,7 +75,11 @@ final class KeyboardEventInjectorImplTests: TestCase {
         }
         
         assertDoesntThrow {
-            try keyboardEventInjector.inject(builder: builder)
+            let synchronousKeyboardEventInjector = SynchronousKeyboardEventInjectorImpl(
+                keyboardEventInjector: keyboardEventInjector,
+                runLoopSpinningWaiter: waiter
+            )
+            try synchronousKeyboardEventInjector.inject(builder: builder)
         }
     }
 }

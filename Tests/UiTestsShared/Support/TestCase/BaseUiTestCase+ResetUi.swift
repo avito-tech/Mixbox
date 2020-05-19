@@ -5,7 +5,7 @@ import XCTest
 extension BaseUiTestCase {
     func resetUi() {
         do {
-            try ipcClient.callOrFail(method: ResetUiIpcMethod<IpcVoid>()).getVoidReturnValue()
+            try synchronousIpcClient.callOrFail(method: ResetUiIpcMethod<IpcVoid>()).getVoidReturnValue()
         } catch {
             XCTFail("Error calling ResetUiIpcMethod: \(error)")
         }
@@ -13,7 +13,7 @@ extension BaseUiTestCase {
     
     func resetUi<ArgumentType: Codable>(argument: ArgumentType) {
         do {
-            try ipcClient.callOrFail(method: ResetUiIpcMethod<ArgumentType>(), arguments: argument).getVoidReturnValue()
+            try synchronousIpcClient.callOrFail(method: ResetUiIpcMethod<ArgumentType>(), arguments: argument).getVoidReturnValue()
         } catch {
             XCTFail("Error calling ResetUiIpcMethod: \(error)")
         }

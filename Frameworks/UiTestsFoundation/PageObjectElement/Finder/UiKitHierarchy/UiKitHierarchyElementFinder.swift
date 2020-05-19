@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 
 public final class UiKitHierarchyElementFinder: ElementFinder {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
@@ -12,7 +12,7 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
     private let dateProvider: DateProvider
     
     public init(
-        ipcClient: IpcClient,
+        ipcClient: SynchronousIpcClient,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,

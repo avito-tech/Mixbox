@@ -9,13 +9,13 @@ public final class UrlProtocolRegisterBridgedUrlProtocolClassIpcMethodHandler: I
     private let bridgedUrlProtocolClassRepository: BridgedUrlProtocolClassRepository
     private let writeableClassesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClass & IpcObjectIdentifiable>
     private let writeableClientsRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClient & IpcObjectIdentifiable>
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
     public init(
         bridgedUrlProtocolClassRepository: BridgedUrlProtocolClassRepository,
         writeableClassesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClass & IpcObjectIdentifiable>,
         writeableClientsRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClient & IpcObjectIdentifiable>,
-        ipcClient: IpcClient)
+        ipcClient: SynchronousIpcClient)
     {
         self.bridgedUrlProtocolClassRepository = bridgedUrlProtocolClassRepository
         self.writeableClassesRepository = writeableClassesRepository

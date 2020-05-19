@@ -5,14 +5,11 @@ public final class UrlProtocolRequestIsCacheEquivalentIpcMethodHandler: IpcMetho
     public let method = UrlProtocolRequestIsCacheEquivalentIpcMethod()
     
     private let readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>
-    private let ipcClient: IpcClient
     
     public init(
-        readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>,
-        ipcClient: IpcClient)
+        readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>)
     {
         self.readableClassesRepository = readableClassesRepository
-        self.ipcClient = ipcClient
     }
     
     public func handle(

@@ -2,6 +2,7 @@
 
 import MixboxTestsFoundation
 import XCTest
+import MixboxFoundation
 
 // TODO: Test different runloop modes
 // TODO: Add more tests

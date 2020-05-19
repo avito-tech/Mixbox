@@ -64,7 +64,7 @@ final class NetworkPlayerShowcaseTests: BaseNetworkMockingTestCase {
     }
     
     private func setResponse(_ string: String) {
-        ipcClient.callOrFail(
+        synchronousIpcClient.callOrFail(
             method: NetworkStubbingTestsViewSetResponseIpcMethod(),
             arguments: string
         )

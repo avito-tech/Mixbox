@@ -207,7 +207,7 @@ final class FakeCellsTests: TestCase {
     }
     
     private func subviewInfos() -> [FakeCellsSubviewsInfoIpcMethod.SubviewInfo] {
-        return ipcClient.callOrFail(
+        return synchronousIpcClient.callOrFail(
             method: FakeCellsSubviewsInfoIpcMethod()
         )
     }
@@ -217,7 +217,7 @@ final class FakeCellsTests: TestCase {
             return
         }
         
-        generation = ipcClient.callOrFail(
+        generation = synchronousIpcClient.callOrFail(
             method: FakeCellsReloadIpcMethod(),
             arguments: reloadType
         )

@@ -3,6 +3,7 @@ import MixboxTestsFoundation
 import MixboxIpcCommon
 import SBTUITestTunnel
 import MixboxIpcSbtuiClient
+import MixboxFoundation
 
 public final class SbtuiLaunchableApplication: LaunchableApplication {
     public let legacyNetworking: LegacyNetworking

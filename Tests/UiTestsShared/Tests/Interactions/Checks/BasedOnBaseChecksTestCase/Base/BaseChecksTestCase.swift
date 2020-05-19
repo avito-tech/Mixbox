@@ -256,7 +256,7 @@ class BaseChecksTestCase: TestCase {
     // MARK: - Reloading view
     
     func reloadView(uiLoadingActions: [ChecksTestsViewConfiguration.Action]) {
-        _ = ipcClient.call(
+        _ = synchronousIpcClient.call(
             method: ConfigureChecksTestsViewIpcMethod(),
             arguments: ChecksTestsViewConfiguration(
                 actions: uiLoadingActions

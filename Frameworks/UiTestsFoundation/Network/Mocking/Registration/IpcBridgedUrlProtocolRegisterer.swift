@@ -2,11 +2,11 @@ import MixboxIpc
 import MixboxIpcCommon
 
 public final class IpcBridgedUrlProtocolRegisterer: BridgedUrlProtocolRegisterer {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     private let writeableClassesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClass & IpcObjectIdentifiable>
     
     public init(
-        ipcClient: IpcClient,
+        ipcClient: SynchronousIpcClient,
         writeableClassesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClass & IpcObjectIdentifiable>)
     {
         self.ipcClient = ipcClient

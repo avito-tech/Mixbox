@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		08CDDDD7C8C09CA26AB9B4C8 /* Pods_IpcDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFC1D6F84D9E46FDEAB7BA05 /* Pods_IpcDemo.framework */; };
+		F82B686A24730D5D008B8FF2 /* PollingSynchronousIpcClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82B686824730D5D008B8FF2 /* PollingSynchronousIpcClientFactory.swift */; };
+		F82B686B24730D5D008B8FF2 /* PollingSynchronousIpcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82B686924730D5D008B8FF2 /* PollingSynchronousIpcClient.swift */; };
 		F8BC01EB20DAB01C00E12922 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC01EA20DAB01C00E12922 /* main.swift */; };
 		F8BC01F220DAB64300E12922 /* HelloIpcMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC01F120DAB64300E12922 /* HelloIpcMethod.swift */; };
 		F8BC01F420DAB64A00E12922 /* HelloIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC01F320DAB64A00E12922 /* HelloIpcMethodHandler.swift */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		09B2AF6C1C298AC141821FE6 /* Pods-IpcDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IpcDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-IpcDemo/Pods-IpcDemo.release.xcconfig"; sourceTree = "<group>"; };
 		ED3F468F187034E721A99794 /* Pods-IpcDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IpcDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IpcDemo/Pods-IpcDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		F82B686824730D5D008B8FF2 /* PollingSynchronousIpcClientFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingSynchronousIpcClientFactory.swift; sourceTree = "<group>"; };
+		F82B686924730D5D008B8FF2 /* PollingSynchronousIpcClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingSynchronousIpcClient.swift; sourceTree = "<group>"; };
 		F8BC01E720DAB01C00E12922 /* IpcDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = IpcDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8BC01EA20DAB01C00E12922 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F8BC01F120DAB64300E12922 /* HelloIpcMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloIpcMethod.swift; sourceTree = "<group>"; };
@@ -68,6 +72,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F82B686724730D5D008B8FF2 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F82B686824730D5D008B8FF2 /* PollingSynchronousIpcClientFactory.swift */,
+				F82B686924730D5D008B8FF2 /* PollingSynchronousIpcClient.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		F8BC01DE20DAB01C00E12922 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +102,7 @@
 		F8BC01E920DAB01C00E12922 /* IpcDemo */ = {
 			isa = PBXGroup;
 			children = (
+				F82B686724730D5D008B8FF2 /* Support */,
 				F8BC01EA20DAB01C00E12922 /* main.swift */,
 				F8BC01F120DAB64300E12922 /* HelloIpcMethod.swift */,
 				F8BC01F320DAB64A00E12922 /* HelloIpcMethodHandler.swift */,
@@ -182,6 +196,8 @@
 				F8BC01F220DAB64300E12922 /* HelloIpcMethod.swift in Sources */,
 				F8BC01EB20DAB01C00E12922 /* main.swift in Sources */,
 				F8BC01F420DAB64A00E12922 /* HelloIpcMethodHandler.swift in Sources */,
+				F82B686B24730D5D008B8FF2 /* PollingSynchronousIpcClient.swift in Sources */,
+				F82B686A24730D5D008B8FF2 /* PollingSynchronousIpcClientFactory.swift in Sources */,
 				F8BC01FB20DAC24F00E12922 /* Slave.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

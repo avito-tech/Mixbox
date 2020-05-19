@@ -12,7 +12,7 @@ public final class IpcMixboxUrlProtocolIpcMethodHandlersRegisterer: IpcMethodHan
     private let writeableClientsRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClient & IpcObjectIdentifiable>
     private let readableClientsRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClient>
     
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
     public init(
         bridgedUrlProtocolClassRepository: BridgedUrlProtocolClassRepository,
@@ -20,7 +20,7 @@ public final class IpcMixboxUrlProtocolIpcMethodHandlersRegisterer: IpcMethodHan
         readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>,
         writeableClientsRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClient & IpcObjectIdentifiable>,
         readableClientsRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClient>,
-        ipcClient: IpcClient)
+        ipcClient: SynchronousIpcClient)
     {
         self.bridgedUrlProtocolClassRepository = bridgedUrlProtocolClassRepository
         

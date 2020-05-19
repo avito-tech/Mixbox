@@ -6,13 +6,14 @@ func mainForSlave(_ port: UInt) {
     
     let knownPortHandshakeSender = KnownPortHandshakeSender(
         handshakeWaiterHost: "localhost",
-        handshakeWaiterPort: port
+        handshakeWaiterPort: port,
+        synchronousIpcClientFactory: PollingSynchronousIpcClientFactory()
     )
     let (server, client) = knownPortHandshakeSender.start { server, _ in
         server.register(methodHandler: HelloIpcMethodHandler())
     }
     
-    print("An imitation of usage of server and client (printing them): \(server), \(client)")
+    print("Child process connected to parent: \(server), \(client)")
     
     // An imitation of running app:
     CFRunLoopRun()

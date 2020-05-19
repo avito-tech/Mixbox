@@ -12,7 +12,7 @@ protocol GrayBoxTestsDependenciesFactory: class {
     var testFailureRecorder: TestFailureRecorder { get }
     var stepLogger: StepLogger { get }
     var elementVisibilityChecker: ElementVisibilityChecker { get }
-    var keyboardEventInjector: KeyboardEventInjector { get }
+    var keyboardEventInjector: SynchronousKeyboardEventInjector { get }
     var elementMatcherBuilder: ElementMatcherBuilder { get }
     var retrier: Retrier { get }
     var screenshotAttachmentsMaker: ScreenshotAttachmentsMaker { get }

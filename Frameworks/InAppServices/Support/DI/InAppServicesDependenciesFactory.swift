@@ -15,6 +15,7 @@ public protocol InAppServicesDependenciesFactory: class {
     var uiAnimationIdlingResourceSwizzler: UIAnimationIdlingResourceSwizzler { get }
     var viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler { get }
     var coreAnimationIdlingResourceSwizzler: CoreAnimationIdlingResourceSwizzler { get }
+    var synchronousIpcClientFactory: SynchronousIpcClientFactory { get }
     
     func mixboxUrlProtocolBootstrapper(
         ipcRouter: IpcRouter,

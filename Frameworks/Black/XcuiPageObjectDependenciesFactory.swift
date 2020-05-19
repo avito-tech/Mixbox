@@ -5,7 +5,7 @@ import MixboxFoundation
 
 public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFactory {
     private let testFailureRecorder: TestFailureRecorder
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     private let stepLogger: StepLogger
     private let pollingConfiguration: PollingConfiguration
     private let elementFinder: ElementFinder
@@ -13,7 +13,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let eventGenerator: EventGenerator
     private let screenshotTaker: ScreenshotTaker
     private let pasteboard: Pasteboard
-    private let waiter: RunLoopSpinningWaiter
+    private let runLoopSpinningWaiter: RunLoopSpinningWaiter
     private let signpostActivityLogger: SignpostActivityLogger
     private let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     private let snapshotsComparatorFactory: SnapshotsComparatorFactory
@@ -22,7 +22,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     
     public init(
         testFailureRecorder: TestFailureRecorder,
-        ipcClient: IpcClient,
+        ipcClient: SynchronousIpcClient,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
@@ -30,12 +30,13 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
-        waiter: RunLoopSpinningWaiter,
+        runLoopSpinningWaiter: RunLoopSpinningWaiter,
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
-        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider)
+        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider,
+        keyboardEventInjector: SynchronousKeyboardEventInjector)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -46,7 +47,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
-        self.waiter = waiter
+        self.runLoopSpinningWaiter = runLoopSpinningWaiter
         self.signpostActivityLogger = signpostActivityLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
@@ -60,9 +61,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             scrollingHintsProvider: ScrollingHintsProviderImpl(
                 ipcClient: ipcClient
             ),
-            keyboardEventInjector: IpcKeyboardEventInjector(
-                ipcClient: ipcClient
-            ),
+            keyboardEventInjector: keyboardEventInjector,
             stepLogger: stepLogger,
             pollingConfiguration: pollingConfiguration,
             elementFinder: elementFinder,
@@ -76,7 +75,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             eventGenerator: eventGenerator,
             screenshotTaker: screenshotTaker,
             pasteboard: pasteboard,
-            waiter: waiter,
+            runLoopSpinningWaiter:runLoopSpinningWaiter,
             signpostActivityLogger: signpostActivityLogger,
             snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
             snapshotsComparatorFactory: snapshotsComparatorFactory,

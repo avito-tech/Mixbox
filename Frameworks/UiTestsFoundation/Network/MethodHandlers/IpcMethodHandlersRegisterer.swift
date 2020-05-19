@@ -5,13 +5,13 @@ public final class NetworkMockingIpcMethodsRegisterer: IpcMethodHandlersRegister
     private let readableInstancesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolInstance>
     private let writeableInstancesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolInstance & IpcObjectIdentifiable>
     private let readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
     public init(
         readableInstancesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolInstance>,
         writeableInstancesRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolInstance & IpcObjectIdentifiable>,
         readableClassesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolClass>,
-        ipcClient: IpcClient)
+        ipcClient: SynchronousIpcClient)
     {
         self.readableInstancesRepository = readableInstancesRepository
         self.writeableInstancesRepository = writeableInstancesRepository
@@ -22,36 +22,31 @@ public final class NetworkMockingIpcMethodsRegisterer: IpcMethodHandlersRegister
     public func registerIn(ipcRouter: IpcRouter) {
         ipcRouter.register(
             methodHandler: UrlProtocolStartLoadingIpcMethodHandler(
-                readableInstancesRepository: readableInstancesRepository,
-                ipcClient: ipcClient
+                readableInstancesRepository: readableInstancesRepository
             )
         )
         
         ipcRouter.register(
             methodHandler: UrlProtocolStopLoadingIpcMethodHandler(
-                readableInstancesRepository: readableInstancesRepository,
-                ipcClient: ipcClient
+                readableInstancesRepository: readableInstancesRepository
             )
         )
         
         ipcRouter.register(
             methodHandler: UrlProtocolRequestIsCacheEquivalentIpcMethodHandler(
-                readableClassesRepository: readableClassesRepository,
-                ipcClient: ipcClient
+                readableClassesRepository: readableClassesRepository
             )
         )
         
         ipcRouter.register(
             methodHandler: UrlProtocolCanInitIpcMethodHandler(
-                readableClassesRepository: readableClassesRepository,
-                ipcClient: ipcClient
+                readableClassesRepository: readableClassesRepository
             )
         )
         
         ipcRouter.register(
             methodHandler: UrlProtocolCanonicalRequestIpcMethodHandler(
-                readableClassesRepository: readableClassesRepository,
-                ipcClient: ipcClient
+                readableClassesRepository: readableClassesRepository
             )
         )
         

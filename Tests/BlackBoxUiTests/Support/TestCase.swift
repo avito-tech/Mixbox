@@ -99,7 +99,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         )
         
         // TODO: Reuse launched application between tests, only set screen.
-        _ = ipcClient.callOrFail(
+        _ = synchronousIpcClient.callOrFail(
             method: SetScreenIpcMethod(),
             arguments: SetScreenIpcMethod.Screen(
                 viewType: name

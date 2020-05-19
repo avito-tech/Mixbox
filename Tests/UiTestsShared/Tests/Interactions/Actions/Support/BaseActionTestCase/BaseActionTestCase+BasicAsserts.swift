@@ -11,15 +11,15 @@ extension BaseActionTestCase {
         let timeout: TimeInterval = 5
         let pollInterval: TimeInterval = 0.1
         
-        waiter.wait(timeout: timeout, interval: pollInterval) { [ipcClient] in
-            let actualResult = ipcClient.callOrFail(
+        waiter.wait(timeout: timeout, interval: pollInterval) { [synchronousIpcClient] in
+            let actualResult = synchronousIpcClient.callOrFail(
                 method: GetActionResultIpcMethod()
             )
             
             return actualResult == expectedResult
         }
         
-        let actualResult = ipcClient.callOrFail(
+        let actualResult = synchronousIpcClient.callOrFail(
             method: GetActionResultIpcMethod()
         )
         

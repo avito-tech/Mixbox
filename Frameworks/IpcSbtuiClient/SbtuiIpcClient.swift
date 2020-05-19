@@ -15,7 +15,7 @@ public final class SbtuiIpcClient: IpcClient {
         completion: @escaping (DataResult<Method.ReturnValue, Error>) -> ())
     {
         do {
-            let result = try callSyncronously(
+            let result = try callSynchronously(
                 method: method,
                 arguments: arguments
             )
@@ -26,7 +26,7 @@ public final class SbtuiIpcClient: IpcClient {
         }
     }
     
-    private func callSyncronously<Method: IpcMethod>(
+    private func callSynchronously<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments)
         throws

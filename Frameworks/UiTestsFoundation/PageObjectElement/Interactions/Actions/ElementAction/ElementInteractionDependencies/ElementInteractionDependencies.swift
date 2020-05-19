@@ -1,8 +1,10 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 import MixboxIpcCommon
 
 // Isolates Actions of testing technology (XCTest vs GrayBox).
 // Contains technology dependent
+// TODO: Proper DI with MixboxDi
 public protocol ElementInteractionDependencies: class {
     var retriableTimedInteractionState: RetriableTimedInteractionState { get }
     var elementInfo: HumanReadableInteractionDescriptionBuilderSource { get }
@@ -10,7 +12,7 @@ public protocol ElementInteractionDependencies: class {
     var snapshotResolver: SnapshotForInteractionResolver { get }
     var elementSimpleGesturesProvider: ElementSimpleGesturesProvider { get }
     var textTyper: TextTyper { get }
-    var keyboardEventInjector: KeyboardEventInjector { get }
+    var keyboardEventInjector: SynchronousKeyboardEventInjector { get }
     var pasteboard: Pasteboard { get }
     var menuItemProvider: MenuItemProvider { get }
     var eventGenerator: EventGenerator { get }

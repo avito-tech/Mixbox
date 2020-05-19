@@ -40,7 +40,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     
     override func tearDown() {
         if !reuseState {
-            _ = ipcClient.callOrFail(
+            _ = synchronousIpcClient.callOrFail(
                 method: SetScreenIpcMethod(),
                 arguments: nil
             )
@@ -59,7 +59,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         name: String,
         additionalEnvironment: [String: String])
     {
-        _ = ipcClient.callOrFail(
+        _ = synchronousIpcClient.callOrFail(
             method: SetScreenIpcMethod(),
             arguments: SetScreenIpcMethod.Screen(
                 viewType: name

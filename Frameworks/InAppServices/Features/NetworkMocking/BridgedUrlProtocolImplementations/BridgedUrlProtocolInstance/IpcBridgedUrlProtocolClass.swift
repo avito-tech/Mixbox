@@ -7,12 +7,12 @@ import MixboxIpcCommon
 public final class IpcBridgedUrlProtocolClass: BridgedUrlProtocolClass, IpcObjectIdentifiable {
     public let ipcObjectId: IpcObjectId
     
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     private let writeableClientsRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClient & IpcObjectIdentifiable>
     
     public init(
         ipcObjectId: IpcObjectId,
-        ipcClient: IpcClient,
+        ipcClient: SynchronousIpcClient,
         writeableClientsRepository: WriteableIpcObjectRepositoryOf<BridgedUrlProtocolClient & IpcObjectIdentifiable>)
     {
         self.ipcObjectId = ipcObjectId

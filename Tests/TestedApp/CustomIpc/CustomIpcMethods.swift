@@ -36,7 +36,7 @@ final class CustomIpcMethods {
         // For Bidirectional Ipc tests
         mixboxInAppServices.register { dependencies in
             BidirectionalIpcPingPongMethodHandler(
-                ipcClient: dependencies.ipcClient
+                ipcClient: dependencies.synchronousIpcClient
             )
         }
         

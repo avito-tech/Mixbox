@@ -5,8 +5,10 @@ import MixboxIpc
 
 public final class GrayBoxIpcStarter: IpcStarter {
     private let sameProcessIpcClientServer = SameProcessIpcClientServer()
+    private let synchronousIpcClientFactory: SynchronousIpcClientFactory
     
-    public init() {
+    public init(synchronousIpcClientFactory: SynchronousIpcClientFactory) {
+        self.synchronousIpcClientFactory = synchronousIpcClientFactory
     }
     
     public func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure]) throws -> (IpcRouter, IpcClient?) {
@@ -15,7 +17,8 @@ public final class GrayBoxIpcStarter: IpcStarter {
         
         let dependencies = IpcMethodHandlerRegistrationDependencies(
             ipcRouter: sameProcessIpcClientServer,
-            ipcClient: sameProcessIpcClientServer
+            ipcClient: sameProcessIpcClientServer,
+            synchronousIpcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: sameProcessIpcClientServer)
         )
         
         commandsForAddingRoutes.forEach { command in

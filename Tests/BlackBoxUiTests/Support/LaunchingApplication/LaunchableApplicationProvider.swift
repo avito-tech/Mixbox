@@ -2,6 +2,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxBlack
 import SBTUITestTunnel
+import MixboxFoundation
 
 public final class LaunchableApplicationProvider {
     public var shouldCreateLaunchableApplicationWithBuiltinIpc = false

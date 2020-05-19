@@ -22,7 +22,7 @@ extension XCUIElement {
         return enhancedAccessibilityLabel.isDefinitelyHidden
     }
     
-    public func percentageOfVisibleArea(ipcClient: IpcClient) -> CGFloat? {
+    public func percentageOfVisibleArea(ipcClient: SynchronousIpcClient) -> CGFloat? {
         guard let enhancedAccessibilityLabel = enhancedAccessibilityLabel else {
             return nil
         }

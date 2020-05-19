@@ -14,7 +14,7 @@ class IpcCallbacksTests: TestCase {
     }
     
     func test_incoming() {
-        let result: DataResult<String?, IpcClientError> = ipcClient.call(
+        let result: DataResult<String?, IpcClientError> = synchronousIpcClient.call(
             method: CallbackToAppIpcMethod<Int, String>(),
             arguments: CallbackToAppIpcMethod<Int, String>.Arguments(
                 value: 4,
@@ -32,7 +32,7 @@ class IpcCallbacksTests: TestCase {
     }
     
     func test_outgoing() {
-        let callback: IpcCallback<Int, [Int]> = ipcClient.callOrFail(
+        let callback: IpcCallback<Int, [Int]> = synchronousIpcClient.callOrFail(
             method: CallbackFromAppIpcMethod<Int>(),
             arguments: 4
         )
@@ -53,7 +53,7 @@ class IpcCallbacksTests: TestCase {
         
         let sleepInterval: TimeInterval = 0.1
         
-        _ = ipcClient.callOrFail(
+        _ = synchronousIpcClient.callOrFail(
             method: NestedCallbacksToAppIpcMethod(),
             arguments: NestedCallbacksToAppIpcMethod.Arguments(
                 sleepInterval: sleepInterval,

@@ -1,11 +1,12 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 import MixboxIpcCommon
 
 public final class ElementInteractionDependenciesImpl: ElementInteractionDependencies {
     public let snapshotResolver: SnapshotForInteractionResolver
     public let textTyper: TextTyper
     public let menuItemProvider: MenuItemProvider
-    public let keyboardEventInjector: KeyboardEventInjector
+    public let keyboardEventInjector: SynchronousKeyboardEventInjector
     public let pasteboard: Pasteboard
     public let interactionPerformer: NestedInteractionPerformer
     public let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
@@ -22,7 +23,7 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
         snapshotResolver: SnapshotForInteractionResolver,
         textTyper: TextTyper,
         menuItemProvider: MenuItemProvider,
-        keyboardEventInjector: KeyboardEventInjector,
+        keyboardEventInjector: SynchronousKeyboardEventInjector,
         pasteboard: Pasteboard,
         interactionPerformer: NestedInteractionPerformer,
         elementSimpleGesturesProvider: ElementSimpleGesturesProvider,

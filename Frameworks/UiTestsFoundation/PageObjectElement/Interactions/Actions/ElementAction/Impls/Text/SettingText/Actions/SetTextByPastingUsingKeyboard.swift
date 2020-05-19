@@ -87,7 +87,7 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
         }
         
         private func pasteWithoutSelectingAll() throws {
-            try dependencies.keyboardEventInjector.inject { (press: KeyboardEventBuilder) -> [KeyboardEventBuilder.Key] in
+            try dependencies.keyboardEventInjector.inject { press in
                 press.v()
             }
         }

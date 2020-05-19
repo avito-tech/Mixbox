@@ -3,6 +3,7 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxInAppServices
 import MixboxFoundation
+import MixboxIpcCommon
 
 public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
     private let mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies
@@ -72,8 +73,18 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 applicationQuiescenceWaiter: try di.resolve(),
                 applicationWindowsProvider: try di.resolve(),
                 multiTouchEventFactory: try di.resolve(),
-                elementSettingsDefaultsProvider: try di.resolve()
+                elementSettingsDefaultsProvider: try di.resolve(),
+                keyboardEventInjector: try di.resolve()
             )
+        }
+        di.register(type: SynchronousKeyboardEventInjector.self) { di in
+            SynchronousKeyboardEventInjectorImpl(
+                keyboardEventInjector: try di.resolve(),
+                runLoopSpinningWaiter: try di.resolve()
+            )
+        }
+        di.register(type: KeyboardEventInjector.self) { di in
+            IpcKeyboardEventInjector(ipcClient: try di.resolve())
         }
         di.register(type: MultiTouchEventFactory.self) { _ in
             MultiTouchEventFactoryImpl(

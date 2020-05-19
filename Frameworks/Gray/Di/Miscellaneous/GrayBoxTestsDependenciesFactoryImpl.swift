@@ -14,7 +14,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let stepLogger: StepLogger
     let elementFinder: ElementFinder
     let scrollingHintsProvider: ScrollingHintsProvider
-    let keyboardEventInjector: KeyboardEventInjector
+    let keyboardEventInjector: SynchronousKeyboardEventInjector
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
     let orderedWindowsProvider: OrderedWindowsProvider
@@ -33,7 +33,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         testFailureRecorder: TestFailureRecorder,
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
-        keyboardEventInjector: KeyboardEventInjector,
+        keyboardEventInjector: SynchronousKeyboardEventInjector,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,

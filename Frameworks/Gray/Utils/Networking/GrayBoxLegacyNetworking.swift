@@ -1,5 +1,6 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
+import MixboxFoundation
 
 public final class GrayBoxLegacyNetworking: LegacyNetworking {
     public let stubbing: LegacyNetworkStubbing

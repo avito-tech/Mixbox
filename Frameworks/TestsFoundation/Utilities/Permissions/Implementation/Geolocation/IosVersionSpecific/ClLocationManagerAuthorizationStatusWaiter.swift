@@ -1,4 +1,5 @@
 import CoreLocation
+import MixboxFoundation
 
 final class ClLocationManagerAuthorizationStatusWaiter {
     private let waiter: RunLoopSpinningWaiter

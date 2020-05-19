@@ -9,7 +9,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     public let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
     
     private let testFailureRecorder: TestFailureRecorder
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     private let stepLogger: StepLogger
     private let pollingConfiguration: PollingConfiguration
     private let elementFinder: ElementFinder
@@ -21,7 +21,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     
     public init(
         testFailureRecorder: TestFailureRecorder,
-        ipcClient: IpcClient,
+        ipcClient: SynchronousIpcClient,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
@@ -34,7 +34,8 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
         applicationWindowsProvider: ApplicationWindowsProvider,
         multiTouchEventFactory: MultiTouchEventFactory,
-        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider)
+        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider,
+        keyboardEventInjector: SynchronousKeyboardEventInjector)
     {
         self.testFailureRecorder = testFailureRecorder
         self.ipcClient = ipcClient
@@ -55,9 +56,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             scrollingHintsProvider: ScrollingHintsProviderImpl(
                 ipcClient: ipcClient
             ),
-            keyboardEventInjector: IpcKeyboardEventInjector(
-                ipcClient: ipcClient
-            ),
+            keyboardEventInjector: keyboardEventInjector,
             stepLogger: stepLogger,
             pollingConfiguration: pollingConfiguration,
             elementFinder: elementFinder,

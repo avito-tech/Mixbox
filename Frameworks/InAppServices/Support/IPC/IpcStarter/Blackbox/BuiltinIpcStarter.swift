@@ -5,14 +5,19 @@ import MixboxBuiltinIpc
 
 final class BuiltinIpcStarter: IpcStarter {
     private let knownPortHandshakeSender: KnownPortHandshakeSender
+    private let synchronousIpcClientFactory: SynchronousIpcClientFactory
     
     init(
         testRunnerHost: String,
-        testRunnerPort: UInt)
+        testRunnerPort: UInt,
+        synchronousIpcClientFactory: SynchronousIpcClientFactory)
     {
+        self.synchronousIpcClientFactory = synchronousIpcClientFactory
+        
         self.knownPortHandshakeSender = KnownPortHandshakeSender(
             handshakeWaiterHost: testRunnerHost,
-            handshakeWaiterPort: testRunnerPort
+            handshakeWaiterPort: testRunnerPort,
+            synchronousIpcClientFactory: synchronousIpcClientFactory
         )
     }
     
@@ -21,7 +26,8 @@ final class BuiltinIpcStarter: IpcStarter {
             beforeHandshake: { ipcRouter, ipcClient in
                 let dependencies = IpcMethodHandlerRegistrationDependencies(
                     ipcRouter: ipcRouter,
-                    ipcClient: ipcClient
+                    ipcClient: ipcClient,
+                    synchronousIpcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: ipcClient)
                 )
                 
                 commandsForAddingRoutes.forEach { command in

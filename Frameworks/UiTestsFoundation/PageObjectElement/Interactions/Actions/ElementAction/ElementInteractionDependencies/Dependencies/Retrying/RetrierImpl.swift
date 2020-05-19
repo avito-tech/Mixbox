@@ -1,4 +1,5 @@
 import MixboxTestsFoundation
+import MixboxFoundation
 
 public final class RetrierImpl: Retrier {
     private let pollingConfiguration: PollingConfiguration

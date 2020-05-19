@@ -24,6 +24,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     public let uiAnimationIdlingResourceSwizzler: UIAnimationIdlingResourceSwizzler
     public let viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler
     public let coreAnimationIdlingResourceSwizzler: CoreAnimationIdlingResourceSwizzler
+    public let synchronousIpcClientFactory: SynchronousIpcClientFactory
     
     private let networkMockingBootstrappingType: NetworkMockingBootstrappingType
     
@@ -45,6 +46,15 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             environment: environment
         )
         
+        synchronousIpcClientFactory = RunLoopSpinningSynchronousIpcClientFactory(
+            runLoopSpinningWaiter: RunLoopSpinningWaiterImpl(
+                runLoopSpinnerFactory: RunLoopSpinnerFactoryImpl(
+                    runLoopModesStackProvider: RunLoopModesStackProviderImpl()
+                )
+            ),
+            timeout: 15
+        )
+        
         switch ipcStarterType {
         case .blackbox?:
             if let testRunnerHost = environment["MIXBOX_HOST"],
@@ -52,7 +62,8 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             {
                 ipcStarterOrNil = BuiltinIpcStarter(
                     testRunnerHost: testRunnerHost,
-                    testRunnerPort: testRunnerPort
+                    testRunnerPort: testRunnerPort,
+                    synchronousIpcClientFactory: synchronousIpcClientFactory
                 )
                 
                 networkMockingBootstrappingType = .ipc
@@ -62,11 +73,14 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             }
         case .sbtui?:
             ipcStarterOrNil = SbtuiIpcStarter(
-                reregisterMethodHandlersAutomatically: environment["MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY"] == "true"
+                reregisterMethodHandlersAutomatically: environment["MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY"] == "true",
+                synchronousIpcClientFactory: synchronousIpcClientFactory
             )
             networkMockingBootstrappingType = .disabled
         case .graybox?:
-            ipcStarterOrNil = GrayBoxIpcStarter()
+            ipcStarterOrNil = GrayBoxIpcStarter(
+                synchronousIpcClientFactory: synchronousIpcClientFactory
+            )
             networkMockingBootstrappingType = .inProcess
         case nil:
             ipcStarterOrNil = nil
@@ -160,7 +174,9 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     }
     
     public func mixboxUrlProtocolBootstrapper(ipcRouter: IpcRouter, ipcClient: IpcClient) -> MixboxUrlProtocolBootstrapper? {
-        return mixboxUrlProtocolDependenciesFactory(ipcClient: ipcClient).map { ipcMixboxUrlProtocolDependenciesFactory in
+        let synchronousIpcClient = synchronousIpcClientFactory.synchronousIpcClient(ipcClient: ipcClient)
+        
+        return mixboxUrlProtocolDependenciesFactory(synchronousIpcClient: synchronousIpcClient).map { ipcMixboxUrlProtocolDependenciesFactory in
             MixboxUrlProtocolBootstrapperImpl(
                 assertingSwizzler: assertingSwizzler,
                 mixboxUrlProtocolDependenciesFactory: ipcMixboxUrlProtocolDependenciesFactory,
@@ -170,7 +186,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         }
     }
     
-    private func mixboxUrlProtocolDependenciesFactory(ipcClient: IpcClient) -> IpcMixboxUrlProtocolDependenciesFactory? {
+    private func mixboxUrlProtocolDependenciesFactory(synchronousIpcClient: SynchronousIpcClient) -> IpcMixboxUrlProtocolDependenciesFactory? {
         switch networkMockingBootstrappingType {
         case .disabled:
             return nil
@@ -182,13 +198,13 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             // investments at the moment I was implementing this feature.
             //
             return IpcMixboxUrlProtocolDependenciesFactory(
-                ipcClient: ipcClient,
+                ipcClient: synchronousIpcClient,
                 foundationNetworkModelsBridgingFactory: FoundationNetworkModelsBridgingFactoryImpl(),
                 assertionFailureRecorder: assertionFailureRecorder
             )
         case .ipc:
             return IpcMixboxUrlProtocolDependenciesFactory(
-                ipcClient: ipcClient,
+                ipcClient: synchronousIpcClient,
                 foundationNetworkModelsBridgingFactory: FoundationNetworkModelsBridgingFactoryImpl(),
                 assertionFailureRecorder: assertionFailureRecorder
             )

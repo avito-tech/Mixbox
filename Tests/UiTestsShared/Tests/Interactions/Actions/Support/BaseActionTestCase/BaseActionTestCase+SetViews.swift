@@ -24,7 +24,7 @@ extension BaseActionTestCase {
     {
         XCTAssert(ui.touchesAreBlocked == false, "touchesAreBlocked==true is not implemented")
         
-        let error = ipcClient.callOrFail(
+        let error = synchronousIpcClient.callOrFail(
             method: SetViewsIpcMethod(),
             arguments: ui
         )

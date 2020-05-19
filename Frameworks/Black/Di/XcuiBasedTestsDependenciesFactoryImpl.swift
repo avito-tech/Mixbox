@@ -13,15 +13,15 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     let stepLogger: StepLogger
     let elementFinder: ElementFinder
     let scrollingHintsProvider: ScrollingHintsProvider
-    let keyboardEventInjector: KeyboardEventInjector
+    let keyboardEventInjector: SynchronousKeyboardEventInjector
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
     let pasteboard: Pasteboard
-    let waiter: RunLoopSpinningWaiter
     let signpostActivityLogger: SignpostActivityLogger
     let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     let snapshotsComparatorFactory: SnapshotsComparatorFactory
     let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
+    let runLoopSpinningWaiter: RunLoopSpinningWaiter
     
     // MARK: - Init
     
@@ -29,7 +29,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         testFailureRecorder: TestFailureRecorder,
         elementVisibilityChecker: ElementVisibilityChecker,
         scrollingHintsProvider: ScrollingHintsProvider,
-        keyboardEventInjector: KeyboardEventInjector,
+        keyboardEventInjector: SynchronousKeyboardEventInjector,
         stepLogger: StepLogger,
         pollingConfiguration: PollingConfiguration,
         elementFinder: ElementFinder,
@@ -38,7 +38,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         eventGenerator: EventGenerator,
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
-        waiter: RunLoopSpinningWaiter,
+        runLoopSpinningWaiter: RunLoopSpinningWaiter,
         signpostActivityLogger: SignpostActivityLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
@@ -56,7 +56,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.eventGenerator = eventGenerator
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
-        self.waiter = waiter
+        self.runLoopSpinningWaiter = runLoopSpinningWaiter
         self.signpostActivityLogger = signpostActivityLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
@@ -72,7 +72,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     var retrier: Retrier {
         return RetrierImpl(
             pollingConfiguration: pollingConfiguration,
-            waiter: waiter
+            waiter: runLoopSpinningWaiter
         )
     }
     

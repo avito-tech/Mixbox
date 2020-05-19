@@ -2,7 +2,7 @@ import MixboxIpc
 import MixboxTestsFoundation
 import MixboxFoundation
 
-extension IpcClient {
+extension SynchronousIpcClient {
     func callOrFail<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,

@@ -4,12 +4,12 @@ import MixboxIpcCommon
 public final class IpcRegisteredBridgedUrlProtocolClass: RegisteredBridgedUrlProtocolClass {
     private let ipcObjectId: IpcObjectId
     private let insertedIpcObject: InsertedIpcObject
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
     public init(
         ipcObjectId: IpcObjectId,
         insertedIpcObject: InsertedIpcObject,
-        ipcClient: IpcClient)
+        ipcClient: SynchronousIpcClient)
     {
         self.ipcObjectId = ipcObjectId
         self.insertedIpcObject = insertedIpcObject

@@ -5,7 +5,7 @@ extension BaseTouchesTestCase {
         let sinceDate = Date()
         
         func getEvents() -> UiEventHistory {
-            return ipcClient.callOrFail(
+            return synchronousIpcClient.callOrFail(
                 method: GetUiEventHistoryIpcMethod(),
                 arguments: sinceDate
             )

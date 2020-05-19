@@ -7,9 +7,9 @@ import MixboxFoundation
 public final class BidirectionalIpcPingPongMethodHandler: IpcMethodHandler {
     public let method = BidirectionalIpcPingPongMethod()
     
-    private let ipcClient: IpcClient? // TODO: Not optional (after removing SBTUITestTunnel)
+    private let ipcClient: SynchronousIpcClient? // TODO: Not optional (after removing SBTUITestTunnel)
     
-    public init(ipcClient: IpcClient?) {
+    public init(ipcClient: SynchronousIpcClient?) {
         self.ipcClient = ipcClient
     }
     

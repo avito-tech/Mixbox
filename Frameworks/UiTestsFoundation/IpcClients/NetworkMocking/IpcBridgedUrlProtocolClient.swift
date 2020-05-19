@@ -5,11 +5,11 @@ import MixboxFoundation
 public final class IpcBridgedUrlProtocolClient: BridgedUrlProtocolClient, IpcObjectIdentifiable {
     public let ipcObjectId: IpcObjectId
     
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
     public init(
         ipcObjectId: IpcObjectId,
-        ipcClient: IpcClient)
+        ipcClient: SynchronousIpcClient)
     {
         self.ipcObjectId = ipcObjectId
         self.ipcClient = ipcClient

@@ -4,9 +4,9 @@ import MixboxIpcCommon
 import MixboxFoundation
 
 public final class PushNotificationSenderImpl: PushNotificationSender {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
-    public init(ipcClient: IpcClient) {
+    public init(ipcClient: SynchronousIpcClient) {
         self.ipcClient = ipcClient
     }
     

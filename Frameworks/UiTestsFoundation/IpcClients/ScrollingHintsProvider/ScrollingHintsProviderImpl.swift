@@ -2,9 +2,9 @@ import MixboxIpcCommon
 import MixboxIpc
 
 public final class ScrollingHintsProviderImpl: ScrollingHintsProvider {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
-    public init(ipcClient: IpcClient) {
+    public init(ipcClient: SynchronousIpcClient) {
         self.ipcClient = ipcClient
     }
     

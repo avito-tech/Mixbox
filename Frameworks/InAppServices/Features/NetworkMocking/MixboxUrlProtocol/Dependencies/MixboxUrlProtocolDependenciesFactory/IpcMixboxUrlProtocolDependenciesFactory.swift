@@ -5,7 +5,6 @@ import MixboxIpc
 import MixboxFoundation
 
 public final class IpcMixboxUrlProtocolDependenciesFactory: MixboxUrlProtocolDependenciesFactory, IpcMethodHandlersRegisterer {
-    private let ipcClient: IpcClient
     private let foundationNetworkModelsBridgingFactory: FoundationNetworkModelsBridgingFactory
     private let assertionFailureRecorder: AssertionFailureRecorder
     private let clientsRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolClient & IpcObjectIdentifiable>()
@@ -14,11 +13,10 @@ public final class IpcMixboxUrlProtocolDependenciesFactory: MixboxUrlProtocolDep
     private let ipcMethodHandlersRegisterer: IpcMethodHandlersRegisterer
     
     public init(
-        ipcClient: IpcClient,
+        ipcClient: SynchronousIpcClient,
         foundationNetworkModelsBridgingFactory: FoundationNetworkModelsBridgingFactory,
         assertionFailureRecorder: AssertionFailureRecorder)
     {
-        self.ipcClient = ipcClient
         self.foundationNetworkModelsBridgingFactory = foundationNetworkModelsBridgingFactory
         self.assertionFailureRecorder = assertionFailureRecorder
         

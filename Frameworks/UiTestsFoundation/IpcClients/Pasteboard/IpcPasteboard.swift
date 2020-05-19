@@ -4,9 +4,9 @@ import MixboxIpcCommon
 // If UikitPasteboard is used, pasteboard is shared between tests and tested app.
 // However, it is not synchronous. IpcClient can make synchronous calls.
 public final class IpcPasteboard: Pasteboard {
-    private let ipcClient: IpcClient
+    private let ipcClient: SynchronousIpcClient
     
-    public init(ipcClient: IpcClient) {
+    public init(ipcClient: SynchronousIpcClient) {
         self.ipcClient = ipcClient
     }
     

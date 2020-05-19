@@ -10,7 +10,7 @@ final class BidirectionalIpcTests: TestCase {
         ensureIpcIsInitiated()
         
         do {
-            let result = try ipcClient.callOrThrow(
+            let result = try synchronousIpcClient.callOrThrow(
                 method: BidirectionalIpcPingPongMethod(),
                 arguments: BidirectionalIpcPingPongMethod.Arguments(
                     countOfCallsLeft: 5

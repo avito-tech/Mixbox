@@ -30,7 +30,10 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         if let router = router {
             let dependencies = IpcMethodHandlerRegistrationDependencies(
                 ipcRouter: router,
-                ipcClient: client
+                ipcClient: client,
+                synchronousIpcClient: client.map {
+                    inAppServicesDependenciesFactory.synchronousIpcClientFactory.synchronousIpcClient(ipcClient: $0)
+                }
             )
             
             router.register(
