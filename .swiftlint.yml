@@ -26,6 +26,9 @@ disabled_rules:
   - function_parameter_count # i like such functions in tests...
   - legacy_hashing # TODO: Do we support Swift < 4.2?
   
+  # Remove after updating SwiftLint and Xcode and fixing every warning
+  - implicit_getter # this rule is triggering only in Xcode 11.4.1 and not in Xcode 11.3.1 and only in old SwiftLint. New swiftlint rules are for Xcode 11.4.1, which is not fully supported
+  
 opt_in_rules:
   - array_init
   - block_based_kvo
