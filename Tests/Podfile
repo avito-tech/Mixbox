@@ -18,7 +18,7 @@ end
 
 # TODO: Support mock generation for every test target
 def tests_testing_helpers
-  pod 'Cuckoo', { :git => 'https://github.com/avito-tech/Cuckoo' }
+  pod 'Cuckoo', { :git => 'https://github.com/avito-tech/Cuckoo', :branch => 'avito20200410' }
 end
 
 def logic_tests_pods(mixbox_repo)

@@ -1,8 +1,8 @@
 PODS:
   - CocoaImageHashing (1.7.0)
-  - Cuckoo (1.2.0):
-    - Cuckoo/Swift (= 1.2.0)
-  - Cuckoo/Swift (1.2.0)
+  - Cuckoo (1.3.2):
+    - Cuckoo/Swift (= 1.3.2)
+  - Cuckoo/Swift (1.3.2)
   - Dip (7.0.1)
   - GCDWebServer (3.5.3):
     - GCDWebServer/Core (= 3.5.3)
@@ -76,7 +76,7 @@ PODS:
     - MixboxIpcCommon
 
 DEPENDENCIES:
-  - Cuckoo (from `https://github.com/avito-tech/Cuckoo`)
+  - Cuckoo (from `https://github.com/avito-tech/Cuckoo`, branch `avito20200410`)
   - MixboxAnyCodable (from `..`)
   - MixboxBlack (from `..`)
   - MixboxBuiltinIpc (from `..`)
@@ -111,6 +111,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Cuckoo:
+    :branch: avito20200410
     :git: https://github.com/avito-tech/Cuckoo
   MixboxAnyCodable:
     :path: ".."
@@ -153,12 +154,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Cuckoo:
-    :commit: ebe3aec90afb8fe97465c8c6dab60660edf40e31
+    :commit: 9bcc58d37563f06786c2afd31b1dfcb9f3faea90
     :git: https://github.com/avito-tech/Cuckoo
 
 SPEC CHECKSUMS:
   CocoaImageHashing: 2c8efd6dd60f9030cd54086b34ffc48e927821c3
-  Cuckoo: c9582d4b3047df9dfe22ac98f0b1ebf9bb31f3c2
+  Cuckoo: 8879d643f37ac77651935d22cc8c5467ac230627
   Dip: 79509d5dc4f648e10e922ed79c608a7761c52b13
   GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
