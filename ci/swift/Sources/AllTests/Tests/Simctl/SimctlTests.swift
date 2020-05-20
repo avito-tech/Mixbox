@@ -98,6 +98,12 @@ final class SimctlTests: XCTestCase {
         }())
     }
     
+    func test___list___works_for_xcode_11_4_1() {
+        XCTAssertNoThrow(try {
+            _ = try simctl("list_xc_11_4_1.json").list()
+        }())
+    }
+    
     private func simctl(_ file: String) throws -> SimctlList {
         return SimctlListImpl(
             bashExecutor: bashExecutor,
