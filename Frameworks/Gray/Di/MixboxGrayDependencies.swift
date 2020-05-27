@@ -77,15 +77,6 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 keyboardEventInjector: try di.resolve()
             )
         }
-        di.register(type: SynchronousKeyboardEventInjector.self) { di in
-            SynchronousKeyboardEventInjectorImpl(
-                keyboardEventInjector: try di.resolve(),
-                runLoopSpinningWaiter: try di.resolve()
-            )
-        }
-        di.register(type: KeyboardEventInjector.self) { di in
-            IpcKeyboardEventInjector(ipcClient: try di.resolve())
-        }
         di.register(type: MultiTouchEventFactory.self) { _ in
             MultiTouchEventFactoryImpl(
                 aggregatingTouchEventFactory: AggregatingTouchEventFactoryImpl(),

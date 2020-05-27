@@ -168,6 +168,14 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
                 timeout: 15
             )
         }
-        
+        di.register(type: KeyboardEventInjector.self) { di in
+            IpcKeyboardEventInjector(ipcClient: try di.resolve())
+        }
+        di.register(type: SynchronousKeyboardEventInjector.self) { di in
+            SynchronousKeyboardEventInjectorImpl(
+                keyboardEventInjector: try di.resolve(),
+                runLoopSpinningWaiter: try di.resolve()
+            )
+        }
     }
 }
