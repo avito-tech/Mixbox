@@ -21,23 +21,6 @@ final class CAAnimationIdlingSupport {
     }
     
     func swizzle() {
-        if let uiViewAnimationStateClass = NSClassFromString("UIViewAnimationState") as? NSObject.Type {
-            swizzle(
-                class: uiViewAnimationStateClass,
-                originalSelector: Selector(privateName: "_transferAnimationToTrackingAnimator:"),
-                swizzledSelector: #selector(NSObject.mbswizzled__transferAnimationToTrackingAnimator(_:))
-            )
-            
-            assertionFailureRecorder.recordAssertionFailure(
-                message:
-                """
-                Class UIViewAnimationState was not found. \
-                If tests are passing then it is no longer needed and \
-                you should remove all related code.
-                """
-            )
-        }
-        
         swizzle(
             class: CAAnimation.self,
             originalSelector: #selector(getter: CAAnimation.delegate),
@@ -60,69 +43,11 @@ final class CAAnimationIdlingSupport {
     }
 }
 
-private class Marker {}
-
-extension NSObject {
-    // We need to track if we are in _transferAnimationToTrackingAnimator(_:) method to avoid this assertion:
-    // "Attempting to transfer an animation to an animation state that does not belong to a property animator."
-    //
-    // This is the only place with the issue. Disassembled code (simplified):
-    //
-    // ```
-    // rbx = [[r14 delegate] retain];
-    // r15 = r13->_nextState;
-    //
-    // COND = rbx == r15;
-    // if (!COND) {
-    //     ...assertion failure...
-    // ```
-    //
-    // `UIViewAnimationState` makes the assumption that the delegate of any CAAnimation is `UIViewAnimationState`
-    // It compares CAAnimationDelegate with UIViewAnimationState and fails if they are not equal.
-    //
-    // The same issue was fixed in EarlGrey here:
-    // https://github.com/google/EarlGrey/commit/de67ded30fd2a4d3505758d383559556eb963b74
-    //
-    // They made a "surrogate delagate" (whatever it means), which is actually the same instance as an original delegate,
-    // but with swizzled methods. So they've just patched same instance and == operator inside
-    // `_transferAnimationToTrackingAnimator` started to work properly.
-    //
-    // Unfortunately we got EXC_BAD_ACCESS in a real application (the issue was not reproduced in Mixbox/Tests)
-    // Unable to debug it quickly, we simplified everything:
-    //
-    // - We made simple interceptor of CAAnimation in pure Swift (TrackingAnimationDelegate)
-    // - We are tracking if we are inside `_transferAnimationToTrackingAnimator`
-    //
-    // This seems to be enough, because it is not correct to make such assumptions as in that function
-    // and we think that is a rare case and this is the only place when such assumption was made
-    // (and it is exactly a single place with that assertion failure).
-    //
-    @objc fileprivate func mbswizzled__transferAnimationToTrackingAnimator(_ animation: CAAnimation?) {
-        // This method is called on main thread. It is okay to store a marker inside CAAnimation
-        // to indicate that `_transferAnimationToTrackingAnimator` is somewhere in the callstack.
-        // In case of Obj-C exception the marker is stored weakly, so even if it wasn't reset in the function below,
-        // it would be reset automatically.
-        let marker = Marker()
-        
-        withExtendedLifetime(marker) {
-            animation?.isInsideTransferAnimationToTrackingAnimatorMarker.value = WeakBox<Marker>(marker)
-            
-            mbswizzled__transferAnimationToTrackingAnimator(animation)
-            
-            animation?.isInsideTransferAnimationToTrackingAnimatorMarker.value = nil
-        }
-    }
-}
-
 extension CAAnimation {
     @objc fileprivate func mbswizzled_delegate() -> CAAnimationDelegate? {
-        if isInsideTransferAnimationToTrackingAnimator {
-            return mbswizzled_delegate()
-        } else {
-            return TrackingAnimationDelegate(
-                originalDelegate: mbswizzled_delegate()
-            )
-        }
+        return SurrogateCAAnimationDelegate.surrogateDelegate(
+            delegate: mbswizzled_delegate()
+        )
     }
     
     // Is used here and in `CALayerIdlingSupport` to track state of the animation.
@@ -164,14 +89,6 @@ extension CAAnimation {
     }
     
     // MARK: - Private state
-    
-    private var isInsideTransferAnimationToTrackingAnimator: Bool {
-        return isInsideTransferAnimationToTrackingAnimatorMarker.value?.value != nil
-    }
-    
-    fileprivate var isInsideTransferAnimationToTrackingAnimatorMarker: AssociatedObject<WeakBox<Marker>> {
-        return AssociatedObject(container: self, key: #function)
-    }
     
     private var animationTrackedIdlingResource: AssociatedObject<TrackedIdlingResource> {
         return AssociatedObject(container: self, key: #function)
