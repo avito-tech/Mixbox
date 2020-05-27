@@ -1,0 +1,16 @@
+[
+    {
+		"testDestination": {
+			"deviceType": "iPhone 11 Pro Max",
+			"iOSVersion": "13.2",
+			"iOSVersionShort": "13.2",
+			"iOSVersionLong": "13.2.2",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11-Pro-Max",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-13-2"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/iphone_11_pro_max_ios_132.xml",
+			"tracingReport": "tests-artifacts/iphone_11_pro_max_ios_132.trace"
+		}
+	}
+]

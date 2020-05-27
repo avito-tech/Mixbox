@@ -30,15 +30,15 @@
     {
 		"testDestination": {
 			"deviceType": "iPhone X",
-			"iOSVersion": "12.1",
-			"iOSVersionShort": "12.1",
-			"iOSVersionLong": "12.1",
+			"iOSVersion": "12.4",
+			"iOSVersionShort": "12.4",
+			"iOSVersionLong": "12.4",
             "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-X",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-12-1"
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-12-4"
 		},
 		"reportOutput": {
-			"junit": "tests-artifacts/iphone_x_ios_121.xml",
-			"tracingReport": "tests-artifacts/iphone_x_ios_121.trace"
+			"junit": "tests-artifacts/iphone_x_ios_124.xml",
+			"tracingReport": "tests-artifacts/iphone_x_ios_124.trace"
 		}
 	},
     {
