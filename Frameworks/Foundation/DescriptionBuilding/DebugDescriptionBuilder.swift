@@ -2,6 +2,7 @@
 
 public final class DebugDescriptionBuilder: CustomDebugStringConvertible {
     private static let indentation = "    "
+    private static let descriptionOfNil = "nil"
     private static let doubledIndentation = String(repeating: indentation, count: 2)
     
     private let name: String
@@ -25,36 +26,73 @@ public final class DebugDescriptionBuilder: CustomDebugStringConvertible {
     
     // MARK: - Adding fields
     
-    public func add<T: CustomDebugStringConvertible>(
+    public func add<T>(
         name: String,
-        value: T)
+        value: T?)
         -> DebugDescriptionBuilder
     {
         return add(
             name: name,
-            debugDescription: value.debugDescription
+            debugDescription: value.flatMap(description) ?? DebugDescriptionBuilder.descriptionOfNil
         )
     }
     
-    public func add<T: CustomDebugStringConvertible>(
+    public func add<T>(
         name: String,
-        array: [T])
+        array: [T]?)
         -> DebugDescriptionBuilder
     {
-        let value = array
-            .map { $0.debugDescription }
-            .joined(separator: ",\n")
-            .mb_wrapAndIndent(
-                prefix: "[",
-                postfix: "\(DebugDescriptionBuilder.indentation)]",
-                indentation: DebugDescriptionBuilder.doubledIndentation, // additional indentation for array
-                ifEmpty: "[]"
-            )
+        let debugDescription: String
+        
+        if let array = array {
+            debugDescription = array
+                .map { description($0) }
+                .joined(separator: ",\n")
+                .mb_wrapAndIndent(
+                    prefix: "[",
+                    postfix: "\(DebugDescriptionBuilder.indentation)]",
+                    indentation: DebugDescriptionBuilder.doubledIndentation, // additional indentation for array
+                    ifEmpty: "[]"
+                )
+        } else {
+            debugDescription = DebugDescriptionBuilder.descriptionOfNil
+        }
         
         return add(
             name: name,
-            debugDescription: value
+            debugDescription: debugDescription
         )
+    }
+    
+    public func add<T, U>(
+        name: String,
+        dictionary: [T: U]?)
+        -> DebugDescriptionBuilder
+    {
+        let debugDescription: String
+        
+        if let dictionary = dictionary {
+            debugDescription = dictionary
+                .map { "\(description($0)): \(description($1))" }
+                .joined(separator: ",\n")
+                .mb_wrapAndIndent(
+                    prefix: "[",
+                    postfix: "\(DebugDescriptionBuilder.indentation)]",
+                    indentation: DebugDescriptionBuilder.doubledIndentation, // additional indentation for dictionary
+                    ifEmpty: "[]"
+                )
+        } else {
+            debugDescription = DebugDescriptionBuilder.descriptionOfNil
+        }
+        
+        return add(
+            name: name,
+            debugDescription: debugDescription
+        )
+    }
+    
+    private func description<T>(_ value: T) -> String {
+        return (value as? CustomDebugStringConvertible)?.debugDescription ?? String(describing: "\(value)")
     }
     
     public func add(

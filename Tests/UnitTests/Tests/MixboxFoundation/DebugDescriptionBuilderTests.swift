@@ -53,6 +53,21 @@ final class DebugDescriptionBuilderTests: TestCase {
         )
     }
     
+    func test___debugDescription___when_nil_value_is_added() {
+        let description = DebugDescriptionBuilder(name: "Name")
+            .add(name: "key", value: nil as Int?)
+            .debugDescription
+        
+        XCTAssertEqual(
+            description,
+            """
+            Name(
+                key: nil
+            )
+            """
+        )
+    }
+    
     func test___debugDescription___when_array_is_added() {
         let description = DebugDescriptionBuilder(name: "Name")
             .add(name: "array", array: ["1", "2", "3"])
@@ -67,6 +82,53 @@ final class DebugDescriptionBuilderTests: TestCase {
                     "2",
                     "3"
                 ]
+            )
+            """
+        )
+    }
+    
+    func test___debugDescription___when_nil_array_is_added() {
+        let description = DebugDescriptionBuilder(name: "Name")
+            .add(name: "array", array: nil as [Int]?)
+            .debugDescription
+        
+        XCTAssertEqual(
+            description,
+            """
+            Name(
+                array: nil
+            )
+            """
+        )
+    }
+    
+    func test___debugDescription___when_dictionary_is_added() {
+        let description = DebugDescriptionBuilder(name: "Name")
+            .add(name: "dictionary", dictionary: ["1": "2"])
+            .debugDescription
+        
+        XCTAssertEqual(
+            description,
+            """
+            Name(
+                dictionary: [
+                    "1": "2"
+                ]
+            )
+            """
+        )
+    }
+    
+    func test___debugDescription___when_nil_dictionary_is_added() {
+        let description = DebugDescriptionBuilder(name: "Name")
+            .add(name: "dictionary", dictionary: nil as [Int: Int]?)
+            .debugDescription
+        
+        XCTAssertEqual(
+            description,
+            """
+            Name(
+                dictionary: nil
             )
             """
         )
