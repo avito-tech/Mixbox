@@ -65,7 +65,7 @@
 		F820304C22382DAF006D2F70 /* InitializableWithTestingViewControllerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820304B22382DAF006D2F70 /* InitializableWithTestingViewControllerSettings.swift */; };
 		F820304F223831E8006D2F70 /* Optional+UnwrapOrThrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820304E223831E8006D2F70 /* Optional+UnwrapOrThrow.swift */; };
 		F82030502238457E006D2F70 /* ApplicationNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */; };
-		F820305E2238511D006D2F70 /* IpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */; };
+		F820305E2238511D006D2F70 /* SynchronousIpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* SynchronousIpcClient+CallOrFail.swift */; };
 		F820305F22385427006D2F70 /* CanTapMovingElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BE2147E4FC000E9E44 /* CanTapMovingElementTests.swift */; };
 		F82030672238548E006D2F70 /* BaseActionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82030662238548E006D2F70 /* BaseActionTestCase.swift */; };
 		F8203069223854A3006D2F70 /* TapActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8203068223854A3006D2F70 /* TapActionTests.swift */; };
@@ -460,7 +460,7 @@
 		F8D8556E235E5C150068047A /* PredefinedObjcMethodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */; };
 		F8D8556F235E5C300068047A /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.swift */; };
 		F8DB34D9227223B000EE0FB8 /* UIImage+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+Stub.swift */; };
-		F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */; };
+		F8DB34DA227223B000EE0FB8 /* SynchronousIpcClient+CallOrFail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F820305D2238511D006D2F70 /* SynchronousIpcClient+CallOrFail.swift */; };
 		F8DB350622725E8C00EE0FB8 /* RunLoopSpinnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */; };
 		F8DB358422735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358322735B4F00EE0FB8 /* GetUiEventHistoryIpcMethodHandler.swift */; };
 		F8DB358722735E0900EE0FB8 /* UiEventHistoryTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB358622735E0900EE0FB8 /* UiEventHistoryTracker.swift */; };
@@ -659,7 +659,7 @@
 		F820304922382D9C006D2F70 /* TestingViewControllerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewControllerSettings.swift; sourceTree = "<group>"; };
 		F820304B22382DAF006D2F70 /* InitializableWithTestingViewControllerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializableWithTestingViewControllerSettings.swift; sourceTree = "<group>"; };
 		F820304E223831E8006D2F70 /* Optional+UnwrapOrThrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+UnwrapOrThrow.swift"; sourceTree = "<group>"; };
-		F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IpcClient+CallOrFail.swift"; sourceTree = "<group>"; };
+		F820305D2238511D006D2F70 /* SynchronousIpcClient+CallOrFail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SynchronousIpcClient+CallOrFail.swift"; sourceTree = "<group>"; };
 		F82030662238548E006D2F70 /* BaseActionTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseActionTestCase.swift; sourceTree = "<group>"; };
 		F8203068223854A3006D2F70 /* TapActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapActionTests.swift; sourceTree = "<group>"; };
 		F820306B223858B9006D2F70 /* SwipeActionCanBeRunSubsequentlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionCanBeRunSubsequentlyTests.swift; sourceTree = "<group>"; };
@@ -2562,7 +2562,7 @@
 		F8BCA9DD213D55D300592068 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F820305D2238511D006D2F70 /* IpcClient+CallOrFail.swift */,
+				F820305D2238511D006D2F70 /* SynchronousIpcClient+CallOrFail.swift */,
 				F8725EE22458B0D200BE004D /* Collection+GetOrFail.swift */,
 			);
 			path = Extensions;
@@ -3949,7 +3949,7 @@
 				F8971DC2226672B3001741C1 /* NetworkRecordingTests.swift in Sources */,
 				F8A753102260E13D00396A89 /* LegacyNetworkStubbingTests.swift in Sources */,
 				F8AD079A2250D5DD00D5FB93 /* MicrophoneApplicationPermissionSpecification.swift in Sources */,
-				F820305E2238511D006D2F70 /* IpcClient+CallOrFail.swift in Sources */,
+				F820305E2238511D006D2F70 /* SynchronousIpcClient+CallOrFail.swift in Sources */,
 				F879832C22494B8F004DD770 /* BaseChecksTestCase.swift in Sources */,
 				F8E6EF5A22831458007A97E5 /* NotificationsApplicationPermissionSpecification.swift in Sources */,
 				F820307A22385E0A006D2F70 /* ClearTextActionTests.swift in Sources */,
@@ -4298,7 +4298,7 @@
 				F8A837A52270D40B00145140 /* PageObjects.swift in Sources */,
 				F8F9C2AD2368949000E9A044 /* BaseUiTestCase.swift in Sources */,
 				F8AC3CF5235E5D5400516032 /* TestCase+AssertThrows.swift in Sources */,
-				F8DB34DA227223B000EE0FB8 /* IpcClient+CallOrFail.swift in Sources */,
+				F8DB34DA227223B000EE0FB8 /* SynchronousIpcClient+CallOrFail.swift in Sources */,
 				F8C8ED102298505D0009B9A7 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */,
 				F8A83E7F2272223700145140 /* AssertingCustomValuesTests.swift in Sources */,
 				F8B340F0224D3FD700AA1EB9 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
