@@ -7,6 +7,6 @@ public final class EmceeVersionProviderImpl: EmceeVersionProvider {
     }
     
     public func emceeVersion() -> String {
-        return String("e9e5b1969b6cabbaf086ac0ee7a662f91abd0086".prefix(7))
+        return String("cebfe8fa33f8ef7310ff9ebc51569bc34db250cf".prefix(7))
     }
 }
