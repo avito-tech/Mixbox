@@ -2,6 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
+import Foundation
 
 public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlProtocolInstance, IpcObjectIdentifiable {
     public let ipcObjectId: IpcObjectId = .uuid
@@ -10,17 +11,20 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlP
     private let client: BridgedUrlProtocolClient
     private let stub: GrayBoxLegacyNetworkStubbingNetworkStub
     private let bundleResourcePathProvider: BundleResourcePathProvider
+    private let testFailureRecorder: TestFailureRecorder
     
     public init(
         url: URL?,
         client: BridgedUrlProtocolClient,
         stub: GrayBoxLegacyNetworkStubbingNetworkStub,
-        bundleResourcePathProvider: BundleResourcePathProvider)
+        bundleResourcePathProvider: BundleResourcePathProvider,
+        testFailureRecorder: TestFailureRecorder)
     {
         self.url = url
         self.client = client
         self.stub = stub
         self.bundleResourcePathProvider = bundleResourcePathProvider
+        self.testFailureRecorder = testFailureRecorder
     }
     
     public func startLoading() throws {
@@ -53,8 +57,19 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlP
                 throw ErrorString("string.data(using: .utf8) returned nil")
             }
         case .file(let string):
-            let path = try bundleResourcePathProvider.path(resource: string)
-            return try Data(contentsOf: URL(fileURLWithPath: path))
+            do {
+                let path = try bundleResourcePathProvider.path(resource: string)
+                return try Data(contentsOf: URL(fileURLWithPath: path))
+            } catch {
+                DispatchQueue.main.async { [testFailureRecorder, bundleResourcePathProvider] in
+                    testFailureRecorder.recordFailure(
+                        description: "Failed to load file of network stub \(string): \(error)",
+                        fileLine: .current(),
+                        shouldContinueTest: false
+                    )
+                }
+                throw error
+            }
         }
     }
 }
