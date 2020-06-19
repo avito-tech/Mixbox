@@ -60,7 +60,8 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
             url: request.url,
             client: client,
             stub: stub,
-            bundleResourcePathProvider: bundleResourcePathProvider
+            bundleResourcePathProvider: bundleResourcePathProvider,
+            testFailureRecorder: testFailureRecorder
         )
     }
     
