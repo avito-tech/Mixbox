@@ -188,7 +188,8 @@ let package = Package(
                     .target(name: "MixboxIpcSbtuiHost"),
                     .target(name: "MixboxBuiltinIpc"),
                     .target(name: "MixboxIoKit"),
-                    .target(name: "MixboxInAppServices_objc")
+                    .target(name: "MixboxInAppServices_objc"),
+                    .target(name: "MixboxUiKit")
             ],  path: "Frameworks/InAppServices",
                 exclude: ["Support/IPC/IpcStarter/Graybox/PrivateApi/AccessibilityOnSimulatorInitializer.m",
                           "Features/AccessibilityEnchancement/Support/VisibilityChecker/CGGeometry+Extensions.m",
