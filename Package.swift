@@ -171,7 +171,8 @@ let package = Package(
                     .target(name: "MixboxTestability"),
                     .target(name: "MixboxIpcSbtuiHost"),
                     .target(name: "MixboxBuiltinIpc"),
-                    .target(name: "MixboxIoKit")
+                    .target(name: "MixboxIoKit"),
+                    .target(name: "MixboxIoKit_objc")
         ],  path: "Frameworks/InAppServices",
             sources: ["Support/IPC/IpcStarter/Graybox/PrivateApi/AccessibilityOnSimulatorInitializer.m",
                       "Features/AccessibilityEnchancement/Support/VisibilityChecker/CGGeometry+Extensions.m",
@@ -189,7 +190,8 @@ let package = Package(
                     .target(name: "MixboxBuiltinIpc"),
                     .target(name: "MixboxIoKit"),
                     .target(name: "MixboxInAppServices_objc"),
-                    .target(name: "MixboxUiKit")
+                    .target(name: "MixboxUiKit"),
+                    .target(name: "MixboxIoKit_objc")
             ],  path: "Frameworks/InAppServices",
                 exclude: ["Support/IPC/IpcStarter/Graybox/PrivateApi/AccessibilityOnSimulatorInitializer.m",
                           "Features/AccessibilityEnchancement/Support/VisibilityChecker/CGGeometry+Extensions.m",
