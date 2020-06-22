@@ -18,6 +18,7 @@ let package = Package(
         .library(name: "MixboxGray", targets: ["MixboxGray"]),
         .library(name: "MixboxInAppServices", targets: ["MixboxInAppServices"]),
         .library(name: "MixboxIoKit", targets: ["MixboxIoKit"]),
+        .library(name: "MixboxIoKit_objc", targets: ["MixboxIoKit_objc"]),
         .library(name: "MixboxIpc", targets: ["MixboxIpc"]),
         .library(name: "MixboxIpcCommon", targets: ["MixboxIpcCommon"]),
         .library(name: "MixboxIpcSbtuiClient", targets: ["MixboxIpcSbtuiClient"]),
@@ -208,7 +209,7 @@ let package = Package(
             ],
                 swiftSettings: [
                     .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))],
-                linkerSettings: [.linkedFramework("MixboxInAppServices_objc"), .linkedFramework("MixboxIoKit_objc")]),
+                linkerSettings: [.linkedLibrary("MixboxIoKit_objc")]),
                 
         .target(name: "MixboxIoKit_objc",
                 dependencies: [
