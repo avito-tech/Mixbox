@@ -208,8 +208,7 @@ let package = Package(
                 .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
             ],
                 swiftSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))],
-                linkerSettings: []),
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
                 
         .target(name: "MixboxIoKit_objc",
                 dependencies: [
