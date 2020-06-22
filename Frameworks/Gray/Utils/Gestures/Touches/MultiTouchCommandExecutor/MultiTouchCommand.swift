@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class MultiTouchCommand {
     public final class Begin {
         public let pointsByFinger: [CGPoint]

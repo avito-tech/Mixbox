@@ -1,6 +1,11 @@
 import MixboxFoundation
 import MixboxIpc
+#if SWIFT_PACKAGE
+import SBTUITestTunnelClient
+import SBTUITestTunnelCommon
+#else
 import SBTUITestTunnel
+#endif
 
 public final class SbtuiIpcClient: IpcClient {
     private let application: SBTUITunneledApplication

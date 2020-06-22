@@ -3,6 +3,8 @@
 import MixboxIpcCommon
 import MixboxTestability
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public final class AllMethodsWithUniqueImplementationAccessibilityLabelSwizzler: AccessibilityLabelSwizzler {
     private let enhancedAccessibilityLabelMethodSwizzler: EnhancedAccessibilityLabelMethodSwizzler

@@ -1,4 +1,6 @@
 import MixboxIpcCommon
+import Foundation
+import UIKit
 
 public protocol StubResponseBuilder: class {
     // Do not use directly, use functions from extensions.

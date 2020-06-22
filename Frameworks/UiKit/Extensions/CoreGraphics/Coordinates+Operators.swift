@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import UIKit
 
 // E.g.: For offsetting
 public func +(left: CGPoint, right: CGVector) -> CGPoint {

@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public enum TouchActionSpeed {
     case duration(CGFloat)
     case velocity(CGFloat) // In points per second

@@ -1,4 +1,6 @@
 import MixboxAnyCodable
+import Foundation
+import UIKit
 
 public enum RecordedStubResponseData: Codable, Equatable {
     // Case `data` is enough for everything, however, json was added for readability.

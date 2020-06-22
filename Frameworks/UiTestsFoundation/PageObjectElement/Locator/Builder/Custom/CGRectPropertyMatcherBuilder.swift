@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class CGRectPropertyMatcherBuilder<TargetMatcherArgumentT>: PropertyMatcherBuilder<TargetMatcherArgumentT, CGRect> {
     public var origin: MappingMatcherBuilderImpl<TargetMatcherArgumentT, CGPoint> {
         return nested("origin", { $0.origin })

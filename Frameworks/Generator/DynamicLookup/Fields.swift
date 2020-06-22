@@ -1,6 +1,8 @@
 // Fields is used to populate fields of object with minimal boilerplate (as in InitializableWithFields).
 // Logic of getting specific field can also be reused (e.g. as in DynamicLookupGenerator).
 //
+import Foundation
+
 @dynamicMemberLookup
 public final class Fields<T> {
     public typealias GeneratedType = T

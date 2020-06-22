@@ -2,6 +2,8 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
+import UIKit
+import Foundation
 
 public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
     BridgedUrlProtocolClass,

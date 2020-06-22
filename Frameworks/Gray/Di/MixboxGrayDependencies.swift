@@ -4,6 +4,8 @@ import MixboxTestsFoundation
 import MixboxInAppServices
 import MixboxFoundation
 import MixboxIpcCommon
+import Foundation
+import UIKit
 
 public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
     private let mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies

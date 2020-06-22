@@ -2,6 +2,8 @@
 
 import MixboxFoundation
 import MixboxUiKit
+import Foundation
+import UIKit
 
 // Getting all methods from all classes in runtime is a costly operation and can take 1-3 seconds.
 // For example, if you run 1000 tests on 4 devices it will add 66-200 minutes of workload.

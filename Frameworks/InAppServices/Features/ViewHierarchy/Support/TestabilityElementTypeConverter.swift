@@ -2,6 +2,9 @@
 
 import MixboxTestability
 import MixboxIpcCommon
+import Foundation
+import UIKit
+import MixboxTestability_objc
 
 final class TestabilityElementTypeConverter {
     // swiftlint:disable:next cyclomatic_complexity function_body_length

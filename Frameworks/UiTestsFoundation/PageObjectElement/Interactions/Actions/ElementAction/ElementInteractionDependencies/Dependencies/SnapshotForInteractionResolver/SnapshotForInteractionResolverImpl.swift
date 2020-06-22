@@ -1,4 +1,6 @@
 import  MixboxFoundation
+import Foundation
+import UIKit
 
 public final class SnapshotForInteractionResolverImpl: SnapshotForInteractionResolver {
     private let retriableTimedInteractionState: RetriableTimedInteractionState

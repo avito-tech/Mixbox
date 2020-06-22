@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class UikitPasteboard: Pasteboard {
     private let uiPasteboard: UIPasteboard
     

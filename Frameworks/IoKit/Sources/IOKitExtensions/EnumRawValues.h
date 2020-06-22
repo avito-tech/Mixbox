@@ -3,7 +3,12 @@
 #ifndef EnumRawValues_h
 #define EnumRawValues_h
 
+#if SWIFT_PACKAGE
+#include "../PrivateApi/IOKit/hid/IOHIDEventTypes.h"
+#else
 #include "IOHIDEventTypes.h"
+#endif
+
 
 __BEGIN_DECLS
 

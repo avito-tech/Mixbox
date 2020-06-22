@@ -1,4 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
+import UIKit
 
 public final class DisabledFakeCellManager: FakeCellManager {
     public func createFakeCellInside(closure: () -> (UICollectionViewCell)) -> UICollectionViewCell {

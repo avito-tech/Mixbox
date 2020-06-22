@@ -2,7 +2,7 @@
 
 #import "Xcode_11_0_XCTest_CDStructures.h"
 #import "Xcode_11_0_MXMInstrumental.h"
-#import "Xcode_11_0_SharedHeader.h"
+
 #import <Foundation/Foundation.h>
 
 @protocol XCTMetric;

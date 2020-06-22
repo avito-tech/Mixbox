@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 extension ElementWithUi {
     public func isDisplayed(

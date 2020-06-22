@@ -1,6 +1,9 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxFoundation
+import Foundation
+import UIKit
+import MixboxIoKit_objc
 
 public protocol Event: class {
     var iohidEventRef: IOHIDEventRef { get }

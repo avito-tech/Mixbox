@@ -1,7 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import UIKit
-
+import MixboxTestability_objc
 // TODO: find a method that returns the type for XCUI and use it.
 
 extension UIView {

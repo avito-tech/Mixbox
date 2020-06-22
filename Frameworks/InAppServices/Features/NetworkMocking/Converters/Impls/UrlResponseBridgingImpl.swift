@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxIpcCommon
+import Foundation
 
 public final class UrlResponseBridgingImpl: UrlResponseBridging {
     public init() {

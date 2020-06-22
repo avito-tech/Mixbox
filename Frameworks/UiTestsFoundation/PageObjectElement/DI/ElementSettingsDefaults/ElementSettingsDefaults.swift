@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class ElementSettingsDefaults {
     public let scrollMode: ScrollMode
     public let interactionTimeout: TimeInterval

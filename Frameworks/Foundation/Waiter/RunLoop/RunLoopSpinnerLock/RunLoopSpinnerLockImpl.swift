@@ -1,7 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import Foundation
-import MixboxFoundation
 
 // TODO: It is possible to replace polling with waking up run loop on each change of `counter`. This
 // will require modification of RunLoopSpinner.

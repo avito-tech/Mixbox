@@ -2,6 +2,7 @@
 
 import MixboxIpc
 import GCDWebServer
+import Foundation
 
 // TODO: Pass error string back to client instead of 500 status code in case of error
 public final class BuiltinIpcServer: IpcRouter {
@@ -142,10 +143,16 @@ public final class BuiltinIpcServer: IpcRouter {
 }
 
 private func error(_ text: String, file: StaticString = #file, line: UInt = #line) -> GCDWebServerResponse? {
-    return GCDWebServerErrorResponse(
-        serverError: .httpStatusCode_InternalServerError,
-        text: "\(text) \(#file):\(#line)"
-    )
+    #if SWIFT_PACKAGE
+        return GCDWebServerErrorResponse(
+            text: "\(text) \(#file):\(#line)"
+        )
+    #else
+        return GCDWebServerErrorResponse(
+            serverError: .httpStatusCode_InternalServerError,
+            text: "\(text) \(#file):\(#line)"
+        )
+    #endif
 }
 
 #endif

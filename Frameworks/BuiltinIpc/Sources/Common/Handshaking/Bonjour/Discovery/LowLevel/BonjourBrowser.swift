@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxFoundation
+import Foundation
 
 // Finds services (uses Foundations's NetService type) via Bonjour.
 //

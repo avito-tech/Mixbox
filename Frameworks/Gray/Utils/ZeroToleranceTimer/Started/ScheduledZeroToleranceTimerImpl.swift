@@ -1,3 +1,6 @@
+import UIKit
+import Foundation
+
 public final class ScheduledZeroToleranceTimerImpl: ScheduledZeroToleranceTimer {
     private let timer: DispatchSourceTimer
     private let activityId: NSObjectProtocol

@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 public final class SwizzlerImpl: Swizzler {
     public init() {

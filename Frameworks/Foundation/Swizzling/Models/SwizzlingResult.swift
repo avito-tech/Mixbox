@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 // May be used to assert if there were no conflicts in swizzling
 // And if swizzling was successful

@@ -1,4 +1,5 @@
 import XCTest
+import MixboxTestsFoundation_objc
 
 public final class AutomaticCurrentTestCaseProvider: CurrentTestCaseProvider {
     public init() {

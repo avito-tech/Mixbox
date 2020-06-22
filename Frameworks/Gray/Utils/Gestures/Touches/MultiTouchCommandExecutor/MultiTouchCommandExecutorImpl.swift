@@ -1,4 +1,6 @@
 import MixboxUiTestsFoundation
+import Foundation
+import UIKit
 
 public final class MultiTouchCommandExecutorImpl: MultiTouchCommandExecutor {
     private let touchInjectorFactory: TouchInjectorFactory

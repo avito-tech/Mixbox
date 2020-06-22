@@ -1,4 +1,9 @@
+#if SWIFT_PACKAGE
+import SBTUITestTunnelClient
+import SBTUITestTunnelCommon
+#else
 import SBTUITestTunnel
+#endif
 import MixboxUiTestsFoundation
 
 public final class SbtuiStubResponse {

@@ -1,4 +1,5 @@
 import MixboxFoundation
+import Foundation
 
 // How to add logging to your existing code:
 //

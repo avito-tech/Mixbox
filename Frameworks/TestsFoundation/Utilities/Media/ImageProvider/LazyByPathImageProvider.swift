@@ -1,4 +1,5 @@
 import MixboxFoundation
+import UIKit
 
 public final class LazyByPathImageProvider: ImageProvider {
     public private(set) lazy var lazyImage: DataResult<UIImage, ErrorString> = self.makeImage()

@@ -6,6 +6,8 @@ import MixboxFoundation
 import MixboxTestability
 import MixboxUiKit
 import MixboxIoKit
+import Foundation
+import UIKit
 
 public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenciesFactory {
     public let iosVersionProvider: IosVersionProvider

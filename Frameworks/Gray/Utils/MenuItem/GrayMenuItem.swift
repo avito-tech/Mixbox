@@ -1,6 +1,8 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxFoundation
+import UIKit
+import Foundation
 
 final class GrayMenuItem: MenuItem, CustomStringConvertible {
     private let possibleTitles: [String]

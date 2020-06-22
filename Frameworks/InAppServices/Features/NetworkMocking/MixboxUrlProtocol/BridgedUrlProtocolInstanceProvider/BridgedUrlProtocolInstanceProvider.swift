@@ -2,6 +2,7 @@
 
 import MixboxIpcCommon
 import MixboxFoundation
+import Foundation
 
 // Creates and provides same reference to BridgedUrlProtocolInstance.
 //

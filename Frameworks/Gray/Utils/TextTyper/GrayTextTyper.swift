@@ -1,5 +1,8 @@
 import MixboxUiTestsFoundation
 import MixboxFoundation
+import UIKit
+import Foundation
+import MixboxGray_objc
 
 public final class GrayTextTyper: TextTyper {
     public func type(instructions: [TextTyperInstruction]) throws {

@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class CGSizePropertyMatcherBuilder<TargetMatcherArgumentT>: PropertyMatcherBuilder<TargetMatcherArgumentT, CGSize> {
     public var width: MappingMatcherBuilderImpl<TargetMatcherArgumentT, CGFloat> {
         return nested("width", { $0.width })

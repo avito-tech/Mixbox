@@ -1,5 +1,8 @@
 // TODO: Remove this enum after removing SBTUITestTunnel dependency.
 // The interface is not ideal, it was made based on current implementation of SBTUITestTunnel
+import Foundation
+import UIKit
+
 public enum StubResponseBuilderResponseValue: Equatable {
     case data(Data)
     case string(String)

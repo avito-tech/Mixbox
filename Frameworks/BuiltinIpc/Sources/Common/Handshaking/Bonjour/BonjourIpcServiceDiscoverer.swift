@@ -2,6 +2,7 @@
 
 import MixboxIpc
 import MixboxFoundation
+import Foundation
 
 // Finds specific Bonjour service, resolves address.
 public final class BonjourIpcServiceDiscoverer {

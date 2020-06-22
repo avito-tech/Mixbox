@@ -1,5 +1,7 @@
 import MixboxFoundation
 import MixboxUiTestsFoundation
+import Foundation
+import UIKit
 
 public final class XcuiElementSimpleGesturesProvider: ElementSimpleGesturesProvider {
     private let applicationProvider: ApplicationProvider

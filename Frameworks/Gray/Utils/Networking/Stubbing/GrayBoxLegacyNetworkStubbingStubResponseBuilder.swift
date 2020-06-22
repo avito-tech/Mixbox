@@ -2,6 +2,8 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
+import UIKit
+import Foundation
 
 public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilder {
     private let urlPattern: String

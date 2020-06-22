@@ -2,6 +2,8 @@
 
 import MixboxIpc
 import MixboxIpcCommon
+import Foundation
+import UIKit
 
 final class ScrollingHintIpcMethodHandler: IpcMethodHandler {
     let method = ScrollingHintIpcMethod()

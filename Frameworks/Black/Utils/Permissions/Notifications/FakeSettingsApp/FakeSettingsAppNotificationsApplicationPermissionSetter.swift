@@ -1,5 +1,9 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import Foundation
+import UIKit
+import MixboxBlack_objc
+import MixboxTestsFoundation_objc
 
 public final class FakeSettingsAppNotificationsApplicationPermissionSetter:
     ApplicationPermissionWithoutNotDeterminedStateSetter

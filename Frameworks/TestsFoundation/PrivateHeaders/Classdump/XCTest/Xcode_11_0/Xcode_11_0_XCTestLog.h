@@ -1,7 +1,7 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000 && __IPHONE_OS_VERSION_MAX_ALLOWED < 140000
 
 #import "Xcode_11_0_XCTest_CDStructures.h"
-#import "Xcode_11_0_SharedHeader.h"
+
 #import "Xcode_11_0__XCTestObservationPrivate.h"
 #import <XCTest/XCTestLog.h>
 #import <XCTest/XCTestObservation.h>

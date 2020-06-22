@@ -2,6 +2,7 @@
 
 import MixboxIpcCommon
 import MixboxFoundation
+import Foundation
 
 // In-process implementation of BridgedUrlProtocolClient (literally bridged `URLProtocolClient`)
 // can access URLProtocolClient directly. This is the purpose of `BridgedUrlProtocolClient`. For example,

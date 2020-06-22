@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import "NotificationPermissionsManager.h"
 #import "AppDelegate.h"
 
 int FakeSettingsAppMain(int argc, char * argv[]) {

@@ -2,6 +2,9 @@
 
 import MixboxIpcCommon
 import MixboxFoundation
+import Foundation
+import UIKit
+import MixboxTestability_objc
 
 public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabelFunctionReplacement {
     private var thisPointersInStack = [NSObject?]()

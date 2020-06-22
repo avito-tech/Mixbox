@@ -1,3 +1,6 @@
+import UIKit
+import Foundation
+
 public final class ZeroToleranceTimerSchedulerImpl: ZeroToleranceTimerScheduler {
     public init() {
     }

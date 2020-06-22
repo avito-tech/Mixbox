@@ -1,4 +1,7 @@
 import MixboxUiTestsFoundation
+import Foundation
+import UIKit
+
 
 public final class XcuiApplicationFrameProvider: ApplicationFrameProvider {
     // NOTE: There may be (i am sure) bugs with rotation or with changing application frame on iPad.

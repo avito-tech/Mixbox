@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 // Wrapper that reduces boilerplate for working with Obj-C associated objects.
 //

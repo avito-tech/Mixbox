@@ -1,6 +1,11 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxFoundation
+import Foundation
+import UIKit
+import MixboxTestability
+import MixboxUiKit
+import MixboxInAppServices_objc
 
 extension UICollectionViewCell {
     // Note: getting value for a real cell can cause resetting property (to nil).

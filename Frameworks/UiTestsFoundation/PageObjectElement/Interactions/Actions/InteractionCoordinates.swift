@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class InteractionCoordinates {
     public let normalizedCoordinate: CGPoint?
     public let absoluteOffset: CGVector?

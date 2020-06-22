@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class RecordedStubRequest: Codable, Equatable {
     public let url: URL
     public let httpMethod: HttpMethod

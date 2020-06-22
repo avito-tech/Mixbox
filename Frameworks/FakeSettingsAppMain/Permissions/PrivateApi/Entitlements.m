@@ -1,4 +1,5 @@
 #import "Entitlements.h"
+#import <Foundation/Foundation.h>
 
 NSObject * getEntitlementValue(CFStringRef entitlementKey) {
     CFErrorRef err = nil;

@@ -1,5 +1,7 @@
 import MixboxUiKit
 import MixboxInAppServices
+import UIKit
+import Foundation
 
 // Translated to Swift.
 // Original implementation: https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Provider/GREYUIWindowProvider.m

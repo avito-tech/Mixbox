@@ -1,6 +1,8 @@
 import MixboxTestsFoundation
 import MixboxFoundation
 import MixboxAnyCodable
+import Foundation
+import UIKit
 
 final class RecordedStubFromMonitoredNetworkRequestConverter {
     private final class InternalError: Error {

@@ -3,6 +3,8 @@
 import UIKit
 import MixboxIpcCommon
 import MixboxUiKit
+import Foundation
+import UIKit
 
 // TODO: Split to classes.
 // swiftlint:disable file_length

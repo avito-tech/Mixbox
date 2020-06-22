@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class RecordedSessionStubberImpl: RecordedSessionStubber {
     private let stubRequestBuilder: StubRequestBuilder
     

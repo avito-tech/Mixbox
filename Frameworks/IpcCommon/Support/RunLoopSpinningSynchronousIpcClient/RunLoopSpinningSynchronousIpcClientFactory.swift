@@ -2,6 +2,7 @@
 
 import MixboxIpc
 import MixboxFoundation
+import Foundation
 
 public final class RunLoopSpinningSynchronousIpcClientFactory: SynchronousIpcClientFactory {
     private let runLoopSpinningWaiter: RunLoopSpinningWaiter

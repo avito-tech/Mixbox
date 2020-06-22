@@ -61,7 +61,10 @@
 #define _IOKIT_PM_IOUPSPLUGIN_H
 
 #include <CoreFoundation/CoreFoundation.h>
+#if SWIFT_PACKAGE
+#else
 #include "IOCFPlugIn.h"
+#endif
 
 
 /* 40A57A4E-26A0-11D8-9295-000A958A2C78 */

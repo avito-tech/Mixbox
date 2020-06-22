@@ -2,6 +2,9 @@
 
 import MixboxFoundation
 import MixboxIpcCommon
+import Foundation
+import UIKit
+import ObjectiveC
 
 public final class EnhancedAccessibilityLabelMethodSwizzlerImpl: EnhancedAccessibilityLabelMethodSwizzler {
     private let accessibilityLabelFunctionReplacement: AccessibilityLabelFunctionReplacement

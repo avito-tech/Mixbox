@@ -2,6 +2,8 @@ import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxUiTestsFoundation
 import XCTest
+import MixboxBlack_objc
+import MixboxTestsFoundation_objc
 
 // Swift wrapper for private XCTest Obj-C class `XCElementSnapshot`
 final class XcuiElementSnapshot: ElementSnapshot {

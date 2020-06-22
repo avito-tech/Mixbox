@@ -1,6 +1,10 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxFoundation
+import Foundation
+import UIKit
+import MixboxBlack_objc
+import MixboxTestsFoundation_objc
 
 public final class XcuiEventGenerator: EventGenerator {
     private let applicationProvider: ApplicationProvider

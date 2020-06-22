@@ -1,5 +1,10 @@
 #import "AppDelegate.h"
+#if SWIFT_PACKAGE
+#import "../Permissions/NotificationPermissionsManager.h"
+#else
 #import "NotificationPermissionsManager.h"
+#endif
+
 
 @interface AppDelegate ()
 

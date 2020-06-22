@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public enum ByteOrder {
     case littleEndian

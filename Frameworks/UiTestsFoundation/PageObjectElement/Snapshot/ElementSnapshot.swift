@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public protocol ElementSnapshot: class, CustomDebugStringConvertible {
     // Common (can be retrieved via Apple's Accessibility feature):

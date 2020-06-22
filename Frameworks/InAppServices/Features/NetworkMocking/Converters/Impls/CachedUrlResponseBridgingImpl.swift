@@ -3,6 +3,7 @@
 import MixboxIpcCommon
 import MixboxAnyCodable
 import MixboxFoundation
+import Foundation
 
 public final class CachedUrlResponseBridgingImpl: CachedUrlResponseBridging {
     private let urlResponseBridging: UrlResponseBridging

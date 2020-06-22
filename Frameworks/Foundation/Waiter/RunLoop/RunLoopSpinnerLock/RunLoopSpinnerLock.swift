@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 // Mimics DispatchGroup interface, but doesn't lock current thread.
 // Instead it spins runloop. This may prevent deadlocks if completion of some action is scheduled on current thread

@@ -1,6 +1,8 @@
 import MixboxFoundation
 import MixboxInAppServices
 import MixboxIoKit
+import UIKit
+import Foundation
 
 public final class AggregatingTouchEventFactoryImpl: AggregatingTouchEventFactory {
     public init() {

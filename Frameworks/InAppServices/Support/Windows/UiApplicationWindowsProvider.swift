@@ -2,6 +2,8 @@
 
 import UIKit
 import MixboxUiKit
+import Foundation
+import MixboxInAppServices_objc
 
 public final class UiApplicationWindowsProvider: ApplicationWindowsProvider {
     private let uiApplication: UIApplication

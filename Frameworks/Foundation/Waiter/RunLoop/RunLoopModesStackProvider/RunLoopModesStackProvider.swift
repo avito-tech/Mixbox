@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 public protocol RunLoopModesStackProvider: class {
     var runLoopModes: [CFRunLoopMode] { get }

@@ -1,6 +1,8 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxFoundation
+import Foundation
+import MixboxIoKit_objc
 
 // TODO: Make it struct & support COW via `isKnownUniquelyReferenced`
 // https://developer.apple.com/documentation/swift/2429905-isknownuniquelyreferenced

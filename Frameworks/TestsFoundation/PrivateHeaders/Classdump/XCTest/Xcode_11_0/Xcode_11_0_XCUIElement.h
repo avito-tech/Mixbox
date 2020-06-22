@@ -1,7 +1,11 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000 && __IPHONE_OS_VERSION_MAX_ALLOWED < 140000
 
 #import "Xcode_11_0_XCTest_CDStructures.h"
+#if SWIFT_PACKAGE
+#import "../../../Manual/XCTest/SharedHeader/Xcode_11_0_SharedHeader.h"
+#else
 #import "Xcode_11_0_SharedHeader.h"
+#endif
 #import "Xcode_11_0_XCTNSPredicateExpectationObject.h"
 #import "Xcode_11_0_XCUIElementAttributesPrivate.h"
 #import <Foundation/Foundation.h>

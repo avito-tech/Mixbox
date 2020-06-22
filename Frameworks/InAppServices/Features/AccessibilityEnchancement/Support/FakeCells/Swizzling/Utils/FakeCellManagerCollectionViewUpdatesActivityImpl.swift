@@ -1,6 +1,8 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxTestability
+import Foundation
+import UIKit
 
 public final class MixboxCollectionViewUpdatesActivityImpl: MixboxCollectionViewUpdatesActivity {
     private let collectionView: UICollectionView

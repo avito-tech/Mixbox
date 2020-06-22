@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public class PressAction: ElementInteraction {
     private let duration: TimeInterval
     private let interactionCoordinates: InteractionCoordinates

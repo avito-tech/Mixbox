@@ -4,6 +4,8 @@ import UIKit
 import MixboxIpcCommon
 import MixboxIoKit
 import MixboxFoundation
+import MixboxInAppServices_objc
+import MixboxIoKit_objc
 
 // TODO: DI?
 public final class KeyboardEventInjectorImpl: KeyboardEventInjector {

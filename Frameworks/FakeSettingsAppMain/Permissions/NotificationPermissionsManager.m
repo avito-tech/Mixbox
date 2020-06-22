@@ -4,8 +4,11 @@
 @import UIKit;
 
 #import "NotificationPermissionsManager.h"
+#if SWIFT_PACKAGE
+#import "PrivateApi/Entitlements.h"
+#else
 #import "Entitlements.h"
-
+#endif
 // For debugging
 #import "objc/runtime.h"
 

@@ -3,6 +3,8 @@ import MixboxUiTestsFoundation
 import MixboxFoundation
 import MixboxIpcCommon
 import MixboxInAppServices
+import UIKit
+import Foundation
 
 // TODO: Share code between black-box and gray-box.
 final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory {

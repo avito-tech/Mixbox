@@ -2,6 +2,8 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxFoundation
 import MixboxInAppServices
+import Foundation
+import UIKit
 
 // TODO: Share code between black-box and gray-box.
 public final class GrayElementInteractionDependenciesFactory: ElementInteractionDependenciesFactory {

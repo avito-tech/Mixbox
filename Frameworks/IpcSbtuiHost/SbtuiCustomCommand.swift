@@ -2,8 +2,12 @@
 
 import MixboxIpc
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import SBTUITestTunnelServer
+import SBTUITestTunnelCommon
+#else
 import SBTUITestTunnel
-    
+#endif
 final class SbtuiCustomCommand {
     private typealias HandleFunction = (_ request: NSObject?) -> (NSObject?)
     

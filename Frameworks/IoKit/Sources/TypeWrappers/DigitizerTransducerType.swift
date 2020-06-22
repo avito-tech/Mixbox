@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import MixboxIoKit_objc
 
 public enum DigitizerTransducerType: Equatable {
     case stylus
@@ -18,7 +19,7 @@ public enum DigitizerTransducerType: Equatable {
         case .hand:
             return .hand
         case .unknown(let rawValue):
-            return IOHIDDigitizerTransducerTypeFromRawValue(rawValue)
+            return IOHIDDigitizerTransducerType.init(rawValue: rawValue) ?? .hand
         }
     }
     

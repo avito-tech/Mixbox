@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public protocol OrderedWindowsProvider: class {
     func windowsFromTopMostToBottomMost() -> [UIWindow]
     func windowsFromBottomMostToTopMost() -> [UIWindow]

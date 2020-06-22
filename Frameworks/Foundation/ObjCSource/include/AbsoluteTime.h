@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include <limits.h>
+#include <MacTypes.h>
 
 static AbsoluteTime mixbox_absoluteTimeFromUInt32(UInt32 hi, UInt32 lo) {
     AbsoluteTime absoluteTime;

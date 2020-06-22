@@ -1,4 +1,6 @@
 import MixboxFoundation
+import UIKit
+import Foundation
 
 // Translated from Objective-C to Swift.
 // Source: https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Event/GREYSyntheticEvents.m

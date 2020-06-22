@@ -1,5 +1,8 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import Foundation
+import UIKit
+
 
 public final class ReplayingNetworkPlayer: NetworkPlayer {
     // Dependencies

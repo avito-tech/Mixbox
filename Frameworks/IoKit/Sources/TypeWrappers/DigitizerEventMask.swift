@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import MixboxIoKit_objc
 
 public struct DigitizerEventMask: OptionSet {
     public let rawValue: UInt32

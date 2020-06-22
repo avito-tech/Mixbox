@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 // Like AssociatedObject, but for structs (like CGRect) or primitives (like Int)
 public final class AssociatedValue<T> {

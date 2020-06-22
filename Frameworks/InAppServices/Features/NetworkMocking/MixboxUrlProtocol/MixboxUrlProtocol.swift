@@ -2,6 +2,7 @@
 
 import MixboxFoundation
 import MixboxIpcCommon
+import Foundation
 
 public class MixboxUrlProtocol: URLProtocol {
     // There are sigletons everywhere when we are working with URLProtocol.

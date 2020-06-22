@@ -2,6 +2,8 @@ import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxInAppServices
+import UIKit
+import Foundation
 
 public final class GrayApplicationQuiescenceWaiter: ApplicationQuiescenceWaiter {
     private let waiter: RunLoopSpinningWaiter

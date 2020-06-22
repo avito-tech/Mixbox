@@ -47,6 +47,8 @@ import Foundation
 //      ...
 //  }
 //
+import Foundation
+import UIKit
 
 extension UICollectionViewCell {
     // TODO: Remove @objc.

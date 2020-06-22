@@ -1,5 +1,7 @@
 import MixboxIpcCommon
 import MixboxIpc
+import Foundation
+import UIKit
 
 public final class NetworkMockingIpcMethodsRegisterer: IpcMethodHandlersRegisterer {
     private let readableInstancesRepository: ReadableIpcObjectRepositoryOf<BridgedUrlProtocolInstance>

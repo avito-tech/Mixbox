@@ -2,6 +2,8 @@
 
 import MixboxFoundation
 import MixboxUiKit
+import Foundation
+import UIKit
 
 public class AccessibilityLabelSwizzlerFactoryImpl: AccessibilityLabelSwizzlerFactory {
     private let allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory

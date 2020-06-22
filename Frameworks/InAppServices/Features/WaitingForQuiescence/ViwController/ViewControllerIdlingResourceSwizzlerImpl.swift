@@ -3,6 +3,8 @@
 import MixboxFoundation
 import UIKit
 import MixboxUiKit
+import Foundation
+import UIKit
 
 // Rewritten from Objective-C to Swift:
 // https://github.com/google/EarlGrey/blob/251b06cd09a8b0b478c295676bb9c385b9a59c10/EarlGrey/Additions/UIViewController%2BGREYAdditions.m#L1

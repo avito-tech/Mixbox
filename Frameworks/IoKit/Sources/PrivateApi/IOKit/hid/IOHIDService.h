@@ -38,7 +38,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define IOHID_SERVICE_H
 
 #include <CoreFoundation/CoreFoundation.h>
+#if SWIFT_PACKAGE
+#else
 #include "IOKitLib.h"
+#endif
+
 #include "IOHIDEvent.h"
 #include "IOHIDNotification.h"
 

@@ -1,5 +1,7 @@
 import MixboxTestsFoundation
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public extension ElementWithText {
     // Makes text be inside text input.

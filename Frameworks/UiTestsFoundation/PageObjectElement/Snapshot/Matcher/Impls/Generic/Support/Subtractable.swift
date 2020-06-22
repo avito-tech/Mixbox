@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public protocol Subtractable {
     func bySubtracting(_ other: Self) -> Self
 }

@@ -2,6 +2,8 @@
 
 import MixboxTestability
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public final class CollectionViewCellSwizzlerImpl: CollectionViewCellSwizzler {
     private let assertingSwizzler: AssertingSwizzler

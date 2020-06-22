@@ -1,4 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
+import UIKit
 
 // Used as key for storing state of some resource.
 public final class TrackedIdlingResource {

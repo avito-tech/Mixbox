@@ -1,6 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import XCTest
+import MixboxTestsFoundation_objc
 
 public final class XcuiElementFinder: ElementFinder {
     private let stepLogger: StepLogger

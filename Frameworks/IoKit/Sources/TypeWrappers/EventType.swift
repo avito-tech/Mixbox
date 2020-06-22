@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import MixboxIoKit_objc
 
 public enum EventType: Equatable {
     case null
@@ -66,7 +67,7 @@ public enum EventType: Equatable {
         case .count:
             return .count
         case .unknown(let rawValue):
-            return IOHIDEventTypeFromRawValue(rawValue)
+            return IOHIDEventType.init(rawValue: rawValue) ?? .NULL
         }
     }
     

@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
     private let text: String

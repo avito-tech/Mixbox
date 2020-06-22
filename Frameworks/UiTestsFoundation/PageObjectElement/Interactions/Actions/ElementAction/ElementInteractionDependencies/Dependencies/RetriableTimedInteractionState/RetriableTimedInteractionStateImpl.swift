@@ -1,5 +1,7 @@
 import MixboxTestsFoundation
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public final class RetriableTimedInteractionStateImpl: RetriableTimedInteractionState {
     // MARK: - Dependencies

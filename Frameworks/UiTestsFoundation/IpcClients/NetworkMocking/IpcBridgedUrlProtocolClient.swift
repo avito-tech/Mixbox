@@ -1,6 +1,8 @@
 import MixboxIpcCommon
 import MixboxIpc
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public final class IpcBridgedUrlProtocolClient: BridgedUrlProtocolClient, IpcObjectIdentifiable {
     public let ipcObjectId: IpcObjectId

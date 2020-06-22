@@ -1,5 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public final class GrayElementSimpleGestures: ElementSimpleGestures {
     private let touchPerformer: TouchPerformer

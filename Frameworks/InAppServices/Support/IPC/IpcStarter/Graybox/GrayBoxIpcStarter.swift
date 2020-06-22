@@ -2,6 +2,7 @@
 
 import MixboxFoundation
 import MixboxIpc
+import MixboxInAppServices_objc
 
 public final class GrayBoxIpcStarter: IpcStarter {
     private let sameProcessIpcClientServer = SameProcessIpcClientServer()

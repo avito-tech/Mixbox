@@ -4,6 +4,8 @@ import Foundation
 import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
+import Foundation
+import UIKit
 
 final class OpenUrlIpcMethodHandler: IpcMethodHandler {
     let method = OpenUrlIpcMethod()

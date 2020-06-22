@@ -2,6 +2,7 @@
 
 import MixboxIpcCommon
 import UIKit
+import MixboxInAppServices_objc
 
 // TODO: Remove AccessibilityUniqueObjectMap singleton
 public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {

@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public final class ElementFactoryImpl: ElementFactory {
     private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory

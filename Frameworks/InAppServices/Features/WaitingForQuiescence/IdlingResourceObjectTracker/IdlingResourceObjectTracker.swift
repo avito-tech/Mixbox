@@ -1,6 +1,8 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxFoundation
+import Foundation
+import UIKit
 
 // Tracks state of objects. Objects are used as keys and stored weakly.
 //

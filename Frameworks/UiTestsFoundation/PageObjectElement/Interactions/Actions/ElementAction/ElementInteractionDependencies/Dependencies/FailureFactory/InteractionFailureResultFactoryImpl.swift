@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class InteractionFailureResultFactoryImpl: InteractionFailureResultFactory {
     private let applicationStateProvider: ApplicationStateProvider
     private let messagePrefix: String

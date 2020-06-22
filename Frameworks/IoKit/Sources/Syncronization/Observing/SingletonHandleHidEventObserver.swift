@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxFoundation
+import MixboxIoKit_objc
 
 public final class SingletonHandleHidEventObserver:
     UiApplicationHandleIohidEventObservable

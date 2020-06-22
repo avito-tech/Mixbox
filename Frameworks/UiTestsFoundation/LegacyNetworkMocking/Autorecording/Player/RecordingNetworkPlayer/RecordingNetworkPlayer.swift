@@ -1,5 +1,7 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import Foundation
+import UIKit
 
 public final class RecordingNetworkPlayer: NetworkPlayer {
     private let startOnceToken = ThreadUnsafeOnceToken<Void>()

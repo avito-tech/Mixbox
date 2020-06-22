@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 // NOTE: Swift.Result is used instead of Swift exceptions, because exceptions cause various
 // EXC_BAD_ACCESS errors (in random places) due to some kind of bug in memory management in Swift.

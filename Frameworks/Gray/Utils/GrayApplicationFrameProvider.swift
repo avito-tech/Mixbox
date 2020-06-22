@@ -1,4 +1,6 @@
 import MixboxUiTestsFoundation
+import UIKit
+import Foundation
 
 public final class GrayApplicationFrameProvider: ApplicationFrameProvider {
     public init() {

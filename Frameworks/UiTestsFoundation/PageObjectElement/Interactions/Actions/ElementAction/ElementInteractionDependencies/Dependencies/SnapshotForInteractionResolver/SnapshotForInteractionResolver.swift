@@ -3,6 +3,9 @@
 //
 // It is a temporary workaround to pause current refactoring.
 // Should be refactored further during implementation of Gray Box tests.
+import Foundation
+import UIKit
+
 public protocol SnapshotForInteractionResolver: class {
     func resolve(
         overridenPercentageOfVisibleArea: CGFloat?,

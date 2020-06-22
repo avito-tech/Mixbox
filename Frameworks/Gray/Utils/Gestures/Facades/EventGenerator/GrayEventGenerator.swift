@@ -1,6 +1,8 @@
 import MixboxUiTestsFoundation
 import MixboxFoundation
 import MixboxUiKit
+import UIKit
+import Foundation
 
 public final class GrayEventGenerator: EventGenerator {
     private let touchPerformer: TouchPerformer

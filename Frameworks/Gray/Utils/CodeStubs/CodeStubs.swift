@@ -1,5 +1,6 @@
 import MixboxTestsFoundation
-
+import Foundation
+import UIKit
 // Temporary stubs that help to commit code.
 // TODO: Remove.
 

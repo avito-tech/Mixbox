@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation_objc
 
 public final class XcodeVersionProvider {
     public static func xcodeVersion() throws -> XcodeVersion {

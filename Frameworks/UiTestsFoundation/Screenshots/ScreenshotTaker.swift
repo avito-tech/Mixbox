@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public protocol ScreenshotTaker: class {
     func takeScreenshot() -> UIImage?
 }

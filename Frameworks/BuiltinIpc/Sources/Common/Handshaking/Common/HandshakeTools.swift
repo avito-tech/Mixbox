@@ -2,6 +2,7 @@
 
 import MixboxIpc
 import MixboxFoundation
+import Foundation
 
 // Just code that is reused in few places.
 final class HandshakeTools {

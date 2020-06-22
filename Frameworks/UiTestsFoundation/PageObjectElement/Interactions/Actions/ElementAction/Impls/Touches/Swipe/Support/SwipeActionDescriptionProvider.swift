@@ -1,3 +1,5 @@
+import Foundation
+
 public final class SwipeActionDescriptionProvider {
     private let swipeActionPathSettings: SwipeActionPathSettings
     

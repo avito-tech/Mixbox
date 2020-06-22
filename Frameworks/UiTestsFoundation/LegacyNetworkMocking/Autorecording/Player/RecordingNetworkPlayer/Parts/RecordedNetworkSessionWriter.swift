@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 final class RecordedNetworkSessionWriter {
     func write(
         recordedSession: RecordedNetworkSession,

@@ -1,4 +1,5 @@
 import MixboxFoundation
+import UIKit
 
 public final class StubbedImageProvider: ImageProvider {
     public enum StubbedResult {

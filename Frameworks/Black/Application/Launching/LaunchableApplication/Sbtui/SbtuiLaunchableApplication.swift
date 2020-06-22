@@ -1,7 +1,12 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
+#if SWIFT_PACKAGE
+import SBTUITestTunnelClient
+import SBTUITestTunnelCommon
+#else
 import SBTUITestTunnel
+#endif
 import MixboxIpcSbtuiClient
 import MixboxFoundation
 

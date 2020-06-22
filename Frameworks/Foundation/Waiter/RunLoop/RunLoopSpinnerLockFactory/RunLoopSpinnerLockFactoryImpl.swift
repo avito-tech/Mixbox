@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 public final class RunLoopSpinnerLockFactoryImpl: RunLoopSpinnerLockFactory {
     private let runLoopSpinnerFactory: RunLoopSpinnerFactory

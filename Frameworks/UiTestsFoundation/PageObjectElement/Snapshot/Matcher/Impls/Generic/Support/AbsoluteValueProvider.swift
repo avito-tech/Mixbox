@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public protocol AbsoluteValueProvider {
     func absoluteValue() -> Self
 }

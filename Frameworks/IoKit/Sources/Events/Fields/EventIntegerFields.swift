@@ -1,4 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
+import UIKit
+import MixboxIoKit_objc
 
 public final class EventIntegerFields {
     private let iohidEventRef: IOHIDEventRef

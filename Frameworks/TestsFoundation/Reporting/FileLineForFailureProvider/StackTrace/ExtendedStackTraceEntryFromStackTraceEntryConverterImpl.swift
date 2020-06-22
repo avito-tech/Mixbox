@@ -8,6 +8,10 @@
 // - CoreSymbolication (a private API that is used by every
 //   Apple symbolication utility, uncluding `_symbolicationRecordForTestCode`)
 //
+import Foundation
+import XCTest
+import MixboxTestsFoundation_objc
+
 public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: ExtendedStackTraceEntryFromStackTraceEntryConverter {
     private let regex = try? NSRegularExpression(
         pattern: "^[0-9]+\\s+(.+?)\\s+0x[0-9a-fA-F]+\\s+(.*?)\\s+\\+\\s+[0-9]+$",

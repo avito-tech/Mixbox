@@ -27,9 +27,13 @@
 #ifndef _IOKIT_HID_IOHIDEVENTTYPES_H
 #define _IOKIT_HID_IOHIDEVENTTYPES_H
 
-__BEGIN_DECLS
+//__BEGIN_DECLS
 
+#if SWIFT_PACKAGE
+#include "../IOTypes.h"
+#else
 #include "IOTypes.h"
+#endif
 
 #define IOHIDEventTypeMask(type) (1<<type)
 #define IOHIDEventFieldBase(type) (type << 16)
@@ -222,7 +226,7 @@ typedef struct _IOHID3DPoint {
 } IOHID3DPoint; 
 #endif
 
-__END_DECLS
+//__END_DECLS
 
 #endif /* _IOKIT_HID_IOHIDEVENTTYPES_H */
 

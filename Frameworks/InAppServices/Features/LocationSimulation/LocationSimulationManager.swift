@@ -2,6 +2,7 @@
 
 import Foundation
 import CoreLocation
+import MixboxInAppServices_objc
 
 final class LocationSimulationManager {
     

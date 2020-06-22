@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
 
 public final class RunLoopSpinningWaiterImpl: RunLoopSpinningWaiter {
     private let runLoopSpinnerFactory: RunLoopSpinnerFactory

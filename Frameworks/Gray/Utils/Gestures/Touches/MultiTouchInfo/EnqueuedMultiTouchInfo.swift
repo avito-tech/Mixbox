@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public class EnqueuedMultiTouchInfo {
     public final class TouchInfo {
         public enum Phase {

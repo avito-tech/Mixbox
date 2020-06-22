@@ -1,4 +1,5 @@
 import MixboxFoundation
+import UIKit
 
 final class PhotoSaverCompletion: NSObject {
     private let completion: (DataResult<(), ErrorString>) -> ()

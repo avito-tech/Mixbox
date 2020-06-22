@@ -1,10 +1,16 @@
 #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
 
 #import "MBIohidEventSender.h"
-
+#if SWIFT_PACKAGE
+#include "../PrivateApi/IOKit/hid/IOHIDEventSystemClient.h"
+#import "../SoftLinking/SoftLinking.h"
+#import <AbsoluteTime.h>
+#else
 #import "IOHIDEventSystemClient.h"
 #import "SoftLinking.h"
 #import <MixboxFoundation/AbsoluteTime.h>
+#endif
+
 
 #include <mach/mach_time.h>
 

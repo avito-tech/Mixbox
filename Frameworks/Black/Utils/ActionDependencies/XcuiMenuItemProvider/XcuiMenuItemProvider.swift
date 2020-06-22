@@ -1,6 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import XCTest
+import MixboxTestsFoundation_objc
 
 public final class XcuiMenuItemProvider: MenuItemProvider {
     private let applicationProvider: ApplicationProvider

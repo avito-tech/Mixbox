@@ -1,5 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxIpcCommon
+import UIKit
+import Foundation
 
 public class GrayBoxLegacyNetworkStubbingNetworkStub {
     public let urlPattern: String

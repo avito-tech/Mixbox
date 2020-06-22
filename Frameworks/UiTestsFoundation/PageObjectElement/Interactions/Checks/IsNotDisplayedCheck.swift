@@ -1,5 +1,8 @@
 // Not only inverts `isNotDisplayed` check. Also waits element to disappear.
 // TODO: Rename?
+import Foundation
+import UIKit
+
 public final class IsNotDisplayedCheck: ElementInteraction {
     private let maximumAllowedPercentageOfVisibleArea: CGFloat
     

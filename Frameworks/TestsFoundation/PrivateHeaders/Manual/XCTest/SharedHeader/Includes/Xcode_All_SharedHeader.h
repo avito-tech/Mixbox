@@ -1,5 +1,6 @@
 #ifndef XC_ALL_SharedHeader_h
 #define XC_ALL_SharedHeader_h
+#import <Foundation/Foundation.h>
 
 @class XCSynthesizedEventRecord, XCElementSnapshot;
 

@@ -2,6 +2,8 @@
 
 import MixboxIpc
 import MixboxIpcCommon
+import Foundation
+import UIKit
 
 // Facade for starting everything for tests, on the side of the app.
 public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegisterer {

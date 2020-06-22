@@ -1,4 +1,6 @@
 import MixboxUiKit
+import UIKit
+import Foundation
 
 public final class PathGestureUtilsImpl: PathGestureUtils {
     private let scrollDetectionLength: CGFloat

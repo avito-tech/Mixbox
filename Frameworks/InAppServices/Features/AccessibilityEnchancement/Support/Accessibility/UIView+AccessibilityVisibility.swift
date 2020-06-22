@@ -2,6 +2,9 @@
 
 import Foundation
 import MixboxTestability
+import Foundation
+import UIKit
+import MixboxInAppServices_objc
 
 @nonobjc extension UIView {
     var isDefinitelyHidden: Bool {

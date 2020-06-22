@@ -2,6 +2,8 @@
 
 import MixboxIpc
 import MixboxIpcCommon
+import Foundation
+import UIKit
 
 final class SetPasteboardStringIpcMethodHandler: IpcMethodHandler {
     let method = SetPasteboardStringIpcMethod()

@@ -1,5 +1,5 @@
 import MixboxFoundation
-
+import Foundation
 public final class StepLog: CustomDebugStringConvertible, Equatable {
     public let before: StepLogBefore
     public let after: StepLogAfter?

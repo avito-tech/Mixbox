@@ -1,4 +1,5 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import MixboxIoKit_objc
 
 // Types are defined as there:
 // https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-1090.220.12/tools/hidutil/HIDEvent.m.auto.html
@@ -159,7 +160,7 @@ extension EventIntegerFields {
     public subscript(_ field: IOHIDEventField) -> DigitizerTransducerType {
         get {
             return DigitizerTransducerType(
-                iohidDigitizerTransducerType: IOHIDDigitizerTransducerTypeFromRawValue(self[field])
+                iohidDigitizerTransducerType: IOHIDDigitizerTransducerType.init(rawValue: self[field]) ?? IOHIDDigitizerTransducerType.hand
             )
         }
         set {

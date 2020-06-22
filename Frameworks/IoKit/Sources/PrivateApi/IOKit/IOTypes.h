@@ -58,13 +58,16 @@ extern "C" {
 #ifndef __TYPES__	/* guess... Mac Types.h */
 
 #include <stdbool.h>
-#include <libkern/OSTypes.h>
+
 
 #endif /* __TYPES__ */
 #endif /* __MACTYPES__ */
 
 #if KERNEL
+#include <libkern/OSTypes.h>
 #include <libkern/OSBase.h>
+#else
+#import <Foundation/Foundation.h>
 #endif
 
 typedef NS_OPTIONS(UInt32, IOOptionBits) {

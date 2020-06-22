@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class RecordedNetworkSessionFileLoaderImpl: RecordedNetworkSessionFileLoader {
     public init() {
     }

@@ -1,4 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
+import UIKit
 
 class ThreadLocalObject<T> {
     private let key: String

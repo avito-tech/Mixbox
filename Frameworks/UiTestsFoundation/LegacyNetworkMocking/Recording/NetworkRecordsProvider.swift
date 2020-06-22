@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public protocol NetworkRecordsProvider: class {
     var allRequests: [MonitoredNetworkRequest] { get }
 }

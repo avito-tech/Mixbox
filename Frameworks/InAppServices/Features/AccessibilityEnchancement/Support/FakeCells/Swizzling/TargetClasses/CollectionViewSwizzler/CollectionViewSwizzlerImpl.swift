@@ -2,6 +2,9 @@
 
 import MixboxTestability
 import MixboxFoundation
+import Foundation
+import UIKit
+import MixboxInAppServices_objc
 
 // TODO: Split. swiftlint:disable file_length
 public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {

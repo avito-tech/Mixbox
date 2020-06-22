@@ -30,10 +30,12 @@
 #ifndef _IOKIT_IOPM_H
 #define _IOKIT_IOPM_H
 
+#if SWIFT_PACKAGE
+#else
 #include "IOTypes.h"
 #include "IOMessage.h"
 #include "IOReturn.h"
-
+#endif
 /*! @header IOPM.h
     @abstract Defines power management constants and keys used by both in-kernel and user space power management.
     @discussion IOPM.h defines a range of power management constants used in several in-kernel and user space APIs. Most significantly, the IOPMPowerFlags used to specify the fields of an IOPMPowerState struct are defined here.

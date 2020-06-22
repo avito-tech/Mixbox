@@ -1,4 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
+import UIKit
 
 public protocol FloatValuesForSr5346Patcher {
     func patched(float: CGFloat) -> CGFloat

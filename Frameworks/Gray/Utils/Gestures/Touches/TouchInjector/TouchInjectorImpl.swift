@@ -9,6 +9,9 @@ import MixboxFoundation
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIoKit
+import UIKit
+import Foundation
+import MixboxIoKit_objc
 
 // TODO: Split (e.g. queueing, using timer source for injection)
 public final class TouchInjectorImpl: TouchInjector {

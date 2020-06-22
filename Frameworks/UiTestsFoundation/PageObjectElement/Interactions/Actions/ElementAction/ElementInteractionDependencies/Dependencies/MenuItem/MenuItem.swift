@@ -2,6 +2,8 @@
 //
 // It is a temporary workaround to pause current refactoring.
 // Should be refactored further during implementation of Gray Box tests.
+import Foundation
+import UIKit
 
 // See also: MenuItemProvider
 public protocol MenuItem: class {

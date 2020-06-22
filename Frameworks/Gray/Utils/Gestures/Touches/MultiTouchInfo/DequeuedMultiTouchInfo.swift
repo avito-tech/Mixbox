@@ -2,6 +2,9 @@
 //
 // - It has additional phases are to determined by TouchInjector based on its state
 // - It has no fields that used for dequeing (`expendable`, `deliveryTimeDeltaSinceLastTouch`).
+import UIKit
+import Foundation
+
 public class DequeuedMultiTouchInfo {
     public final class TouchInfo {
         public enum Phase {

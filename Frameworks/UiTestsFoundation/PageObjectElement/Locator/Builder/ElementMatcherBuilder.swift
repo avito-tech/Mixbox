@@ -20,6 +20,9 @@
 //
 // TODO: add ability to compare elements? `{ element == otherElement }`
 // TODO: Make protocol! It will allow Cuckoo to mock it automatically.
+import Foundation
+import UIKit
+
 
 public typealias ElementMatcherBuilderClosure = (ElementMatcherBuilder) -> ElementMatcher
 

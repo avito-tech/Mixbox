@@ -1,8 +1,11 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000 && __IPHONE_OS_VERSION_MAX_ALLOWED < 140000
 
 #import "Xcode_11_0_XCTest_CDStructures.h"
-#import "Xcode_11_0_SharedHeader.h"
+#if SWIFT_PACKAGE
+#import "../../XCTAutomationSupport/Xcode_11_0/Xcode_11_0_XCElementSnapshot.h"
+#else
 #import "Xcode_11_0_XCElementSnapshot.h"
+#endif
 #import <XCTest/XCUIElement.h>
 #import <XCTest/XCUIElementAttributes.h>
 #import <XCTest/XCUIElementTypes.h>

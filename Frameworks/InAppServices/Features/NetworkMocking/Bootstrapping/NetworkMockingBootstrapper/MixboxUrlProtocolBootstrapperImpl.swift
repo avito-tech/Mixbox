@@ -3,6 +3,8 @@
 import MixboxFoundation
 import MixboxIpc
 import MixboxIpcCommon
+import Foundation
+import UIKit
 
 public final class MixboxUrlProtocolBootstrapperImpl: MixboxUrlProtocolBootstrapper {
     private let assertingSwizzler: AssertingSwizzler

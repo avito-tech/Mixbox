@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 final class IdForCallOfCheckpointFunctionInserter {
     private let encoding = String.Encoding.utf8

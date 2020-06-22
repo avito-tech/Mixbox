@@ -1,4 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
+import Foundation
+import MixboxFoundation_objc
 
 public final class ObjectiveCExceptionCatcher {
     public static func `catch`<T>(

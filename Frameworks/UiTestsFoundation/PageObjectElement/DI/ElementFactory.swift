@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 public protocol ElementFactory: class {
     // These functions designed to be implemented by classes, not to be used in tests.

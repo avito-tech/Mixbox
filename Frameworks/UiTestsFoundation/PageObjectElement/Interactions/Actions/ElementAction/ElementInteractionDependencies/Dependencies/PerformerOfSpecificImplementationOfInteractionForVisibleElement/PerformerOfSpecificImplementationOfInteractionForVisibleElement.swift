@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public protocol PerformerOfSpecificImplementationOfInteractionForVisibleElement: class {
     func performInteractionForVisibleElement(
         overridenPercentageOfVisibleArea: CGFloat?,

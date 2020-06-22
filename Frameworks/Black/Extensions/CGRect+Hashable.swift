@@ -1,4 +1,6 @@
 import MixboxFoundation
+import Foundation
+import UIKit
 
 extension CGRect: Hashable {
     public func hash(into hasher: inout Hasher) {

@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 public final class LazySnapshotsDifferenceDescription: SnapshotsDifferenceDescription {
     public let percentageOfMatching: Double
     public private(set) lazy var message: String = messageFactory()

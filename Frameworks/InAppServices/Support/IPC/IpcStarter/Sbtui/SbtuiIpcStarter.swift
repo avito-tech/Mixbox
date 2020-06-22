@@ -1,7 +1,12 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxIpc
+#if SWIFT_PACKAGE
+import SBTUITestTunnelServer
+import SBTUITestTunnelCommon
+#else
 import SBTUITestTunnel
+#endif
 import MixboxIpcSbtuiHost
 
 final class SbtuiIpcStarter: IpcStarter {

@@ -1,5 +1,7 @@
 import MixboxFoundation
 import MixboxUiKit
+import Foundation
+import UIKit
 
 public final class PhotoSaverImpl: PhotoSaver {
     private let runLoopSpinnerLockFactory: RunLoopSpinnerLockFactory

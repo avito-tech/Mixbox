@@ -1,4 +1,6 @@
 import MixboxTestsFoundation
+import Foundation
+import UIKit
 
 public protocol Element: class {
     var core: PageObjectElementCore { get }

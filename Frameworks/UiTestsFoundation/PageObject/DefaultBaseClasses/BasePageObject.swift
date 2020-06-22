@@ -28,6 +28,9 @@
 //
 // TODO: Add default base class called `BasePageObjects`?
 //
+import Foundation
+import UIKit
+
 open class BasePageObject: PageObject, ElementFactory {
     private let elementFactory: ElementFactory
     

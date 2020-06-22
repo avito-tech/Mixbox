@@ -1,6 +1,9 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxTestability
+import Foundation
+import UIKit
+import ObjectiveC
 
 public final class FakeCellManagerImpl: FakeCellManager {
     public init() {

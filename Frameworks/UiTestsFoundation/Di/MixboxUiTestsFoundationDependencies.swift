@@ -4,6 +4,8 @@ import MixboxTestsFoundation
 import MixboxUiKit
 import MixboxIpc
 import MixboxIpcCommon
+import Foundation
+import UIKit
 
 public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegisterer {
     private let stepLogger: StepLogger

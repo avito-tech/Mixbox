@@ -2,6 +2,7 @@
 
 import MixboxIpcCommon
 import MixboxFoundation
+import Foundation
 
 public final class UrlRequestCachePolicyBridgingImpl: UrlRequestCachePolicyBridging {
     public init() {

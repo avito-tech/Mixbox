@@ -1,5 +1,7 @@
 import MixboxFoundation
 import MixboxIoKit
+import UIKit
+import Foundation
 
 public final class FingerTouchEventFactoryImpl: FingerTouchEventFactory {
     public init() {

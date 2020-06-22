@@ -1,9 +1,10 @@
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 120200
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120000 && __IPHONE_OS_VERSION_MAX_ALLOWED < 120200
 
 #import "Xcode_10_1_Xcode_10_0_EventGeneratorObjC.h"
 
 @import MixboxUiTestsFoundation;
 @import MixboxTestsFoundation;
+@import MixboxTestsFoundation_objc;
 
 typedef void (^EventGeneratorCompletion)(XCSynthesizedEventRecord *, NSError *);
 typedef double (^ActionBlock)(XCEventGenerator *, EventGeneratorCompletion);
