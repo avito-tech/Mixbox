@@ -86,7 +86,7 @@ let package = Package(
                 cSettings: cSettings(),
                 cxxSettings: cxxSettings(),
                 swiftSettings: swiftSettings(),
-                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport")]),
+                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport"), .unsafeFlags(["-F$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"])]),
         
         // MARK: - MixboxBuiltinIpc
         .target(name: "MixboxBuiltinIpc_objc", dependencies: [
