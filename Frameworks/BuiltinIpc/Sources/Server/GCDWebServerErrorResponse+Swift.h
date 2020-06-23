@@ -1,6 +1,6 @@
 #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
 
-#import <GCDWebServer/GCDWebServerErrorResponse.h>
+@import GCDWebServer;
 
 @interface GCDWebServerErrorResponse (Swift)
 

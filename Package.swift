@@ -95,6 +95,7 @@ let package = Package(
                 ],
                 path: "Frameworks/BuiltinIpc",
                 sources: ["Sources/Server/GCDWebServerErrorResponse+Swift.m"],
+                publicHeadersPath: ".",
                 cSettings: cSettings(),
                 cxxSettings: cxxSettings(),
                 swiftSettings: swiftSettings()
