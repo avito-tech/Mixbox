@@ -1,4 +1,5 @@
 #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+#import <UIKit/UIKit.h>
 
 @interface UIView (GREYAdditions)
 

@@ -7,6 +7,7 @@
 #include <execinfo.h>
 #include <objc/runtime.h>
 #include <signal.h>
+#import <UIKit/UIKit.h>
 
 @implementation AccessibilityOnSimulatorInitializer
 

@@ -246,7 +246,15 @@ let package = Package(
         ],  path: "Frameworks/IoKit/Sources",
             sources: ["IOKitExtensions/EnumRawValues.m",
                       "MBIohidEventSender/MBIohidEventSender.mm"],
-            publicHeadersPath: "."
+            publicHeadersPath: ".",
+            cSettings: [
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+            ],
+            cxxSettings: [
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+            ]
         ),
         .target(name: "MixboxIoKit",
                 dependencies: [

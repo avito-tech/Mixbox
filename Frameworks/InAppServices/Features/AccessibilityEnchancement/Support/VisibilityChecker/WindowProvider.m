@@ -1,6 +1,7 @@
 #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
 
 #import "WindowProvider.h"
+#import <UIKit/UIKit.h>
 
 @implementation WindowProvider
 
