@@ -17,6 +17,7 @@ func swiftSettings() -> [SwiftSetting] {
             .define("SWIFT_PACKAGE")]
 }
 
+// sudo ln -s /System/Library/PrivateFrameworks/XCTAutomationSupport.framework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks
 let package = Package(
     name: "Mixbox",
     platforms: [
@@ -48,7 +49,7 @@ let package = Package(
             .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.12.0"),
             .package(name: "CocoaImageHashing", url: "https://github.com/ameingast/cocoaimagehashing.git", from: "1.8.0"),
             .package(url: "https://github.com/antigp/SBTUITestTunnel.git", .branch("spm_3.0.6")),
-            .package(name: "GCDWebServer", url: "https://github.com/SlaunchaMan/GCDWebServer.git",.branch("swift-package-manager")),
+            .package(name: "GCDWebServer", url: "https://github.com/antigp/GCDWebServer.git",.branch("swift-package-manager")),
     ],
     targets: [
         // MARK: - MixboxAnyCodable
