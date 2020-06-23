@@ -1,7 +1,7 @@
 // swift-tools-version:5.2
 
 import PackageDescription
-
+import Foundation
 func cSettings() -> [CSetting] {
     return [.define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE"),
@@ -15,6 +15,11 @@ func cxxSettings() -> [CXXSetting] {
 func swiftSettings() -> [SwiftSetting] {
     return [.define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")]
+}
+
+let filemanager = FileManager()
+if !filemanager.fileExists(atPath: "/Applications/XCode.app/Contents/Developer/Library/Frameworks/XCTAutomationSupport.framework") {
+    try filemanager.linkItem(atPath: "/Applications/XCode.app/Contents/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework", toPath: "/Applications/XCode.app/Contents/Developer/Library/Frameworks/XCTAutomationSupport.framework")
 }
 
 let package = Package(
@@ -86,7 +91,7 @@ let package = Package(
                 cSettings: cSettings(),
                 cxxSettings: cxxSettings(),
                 swiftSettings: swiftSettings(),
-                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport"), .unsafeFlags(["-Xlinker -F/Applications/XCode.app/Contents/Developer/Library/PrivateFrameworks"])]),
+                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport")]),
         
         // MARK: - MixboxBuiltinIpc
         .target(name: "MixboxBuiltinIpc_objc", dependencies: [
