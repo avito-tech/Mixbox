@@ -1,5 +1,5 @@
 // swift-tools-version:5.2
-
+ 
 import PackageDescription
 import Foundation
 func cSettings() -> [CSetting] {
@@ -21,6 +21,7 @@ let package = Package(
     name: "Mixbox",
     platforms: [
         .iOS(.v9),
+        .macOS("10.15")
     ], 
     products: [
         .library(name: "MixboxAnyCodable", type: .dynamic, targets: [ "MixboxAnyCodable" ]),
@@ -86,7 +87,7 @@ let package = Package(
                 cSettings: cSettings(),
                 cxxSettings: cxxSettings(),
                 swiftSettings: swiftSettings(),
-                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport"), .unsafeFlags(["-Test"])]),
+                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport")]),
         
         // MARK: - MixboxBuiltinIpc
         .target(name: "MixboxBuiltinIpc_objc", dependencies: [
