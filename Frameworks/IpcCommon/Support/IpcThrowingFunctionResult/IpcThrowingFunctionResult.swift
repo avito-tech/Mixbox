@@ -2,6 +2,7 @@
 
 import MixboxFoundation
 import MixboxIpc
+import Foundation
 
 // Handy utility to bridge throwing functions via IPC
 // TODO: Add assertion that result is unused (and thus exception was not handled)?
