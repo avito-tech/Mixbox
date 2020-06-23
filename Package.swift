@@ -82,7 +82,7 @@ let package = Package(
                 swiftSettings: [
                     .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
                     .define("SWIFT_PACKAGE")
-        ], linkerSettings: [.linkedFramework("XCTest"), .linkedFramework("XCTAutomationSupport")]),
+        ], linkerSettings: [.linkedFramework("XCTest")]),
         .target(name: "MixboxBuiltinIpc_objc", dependencies: [
             .target(name: "MixboxIpc"),
                 "GCDWebServer"
