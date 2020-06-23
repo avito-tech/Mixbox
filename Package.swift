@@ -52,13 +52,17 @@ let package = Package(
                 sources: ["Utils/ActionDependencies/EventGenerator/XcuiEventGeneratorObjC"],
                 publicHeadersPath: ".",
                 cSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 cxxSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 swiftSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
+        ]),
         .target(name: "MixboxBlack",
                 dependencies: [
             .target(name: "MixboxUiTestsFoundation"),
@@ -68,13 +72,17 @@ let package = Package(
             ],  path: "Frameworks/Black",
                 exclude: ["Utils/ActionDependencies/EventGenerator/XcuiEventGeneratorObjC"],
                 cSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 cxxSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 swiftSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
+        ]),
         .target(name: "MixboxBuiltinIpc_objc", dependencies: [
             .target(name: "MixboxIpc"),
                 "GCDWebServer"
@@ -108,13 +116,17 @@ let package = Package(
             ],
                 path: "Frameworks/Foundation/ObjCSource",
                 cSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 cxxSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 swiftSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
+            ]
         ),
         
         .target(name: "MixboxFoundation",
@@ -124,13 +136,17 @@ let package = Package(
                 path: "Frameworks/Foundation",
                 exclude: ["ObjCSource"],
                 cSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
                 ],
                 cxxSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
                 ],
                 swiftSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))],
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
+            ],
                 linkerSettings: [.linkedFramework("Foundation")] ), 
         .target(name: "MixboxGenerator",
                 dependencies: [
@@ -147,9 +163,12 @@ let package = Package(
                 exclude: ["Utils/PrivateHeaders"],
                 cSettings: [
                     .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "TRUE", .when(platforms: nil, configuration: .debug)),
-                    .define("ENABLE_TESTING_SEARCH_PATHS", to: "TRUE")
+                    .define("ENABLE_TESTING_SEARCH_PATHS", to: "TRUE"),
+                    .define("SWIFT_PACKAGE")
             ], swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+        ]),
         .target(name: "MixboxGray_objc",
                 dependencies: [
                     .target(name: "MixboxUiTestsFoundation"),
@@ -161,9 +180,11 @@ let package = Package(
                 publicHeadersPath: ".",
                 cSettings: [
                     .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "TRUE", .when(platforms: nil, configuration: .debug)),
-                    .define("ENABLE_TESTING_SEARCH_PATHS", to: "TRUE")
+                    .define("ENABLE_TESTING_SEARCH_PATHS", to: "TRUE"),
+                    .define("SWIFT_PACKAGE")
             ], swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")]),
         
         .target(name: "MixboxInAppServices_objc",
                 dependencies: [
@@ -180,7 +201,16 @@ let package = Package(
                       "Features/AccessibilityEnchancement/Support/VisibilityChecker/UIView+Extensions.m",
                       "Features/AccessibilityEnchancement/Support/VisibilityChecker/VisibilityChecker.m",
                       "Features/AccessibilityEnchancement/Support/VisibilityChecker/WindowProvider.m"
-        ], publicHeadersPath: "."),
+            ],
+            publicHeadersPath: ".",
+            cSettings: [
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+            ],
+            cxxSettings: [
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+        ]),
         
         .target(name: "MixboxInAppServices",
                 dependencies: [
@@ -193,21 +223,21 @@ let package = Package(
                     .target(name: "MixboxUiKit"),
                     .target(name: "MixboxIoKit_objc")
             ],  path: "Frameworks/InAppServices",
-                exclude: ["Support/IPC/IpcStarter/Graybox/PrivateApi/AccessibilityOnSimulatorInitializer.m",
-                          "Features/AccessibilityEnchancement/Support/VisibilityChecker/CGGeometry+Extensions.m",
-                          "Features/AccessibilityEnchancement/Support/VisibilityChecker/ScreenshotUtil.m",
-                          "Features/AccessibilityEnchancement/Support/VisibilityChecker/UIView+Extensions.m",
-                          "Features/AccessibilityEnchancement/Support/VisibilityChecker/VisibilityChecker.m",
-                          "Features/AccessibilityEnchancement/Support/VisibilityChecker/WindowProvider.m"
+                exclude: ["Support/IPC/IpcStarter/Graybox/PrivateApi/",
+                          "Features/AccessibilityEnchancement/Support/VisibilityChecker/"
             ],
                 cSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
               cxxSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
                 swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
+        ]),
                 
         .target(name: "MixboxIoKit_objc",
                 dependencies: [
@@ -227,13 +257,17 @@ let package = Package(
                       "MBIohidEventSender/MBIohidEventSender.mm",
                       "PrivateApi"],
             cSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             cxxSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))],
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+            ],
                 linkerSettings: [.linkedFramework("IOKit")]),
         
         
@@ -242,13 +276,17 @@ let package = Package(
                     .target(name: "MixboxFoundation")
         ],  path: "Frameworks/Ipc",
             cSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             cxxSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+            ]
         ),
         .target(name: "MixboxIpcCommon",
                 dependencies: [
@@ -256,7 +294,9 @@ let package = Package(
                     .target(name: "MixboxAnyCodable")
         ],  path: "Frameworks/IpcCommon",
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+        ]),
         
         .target(name: "MixboxIpcSbtuiClient",
                 dependencies: [
@@ -267,9 +307,11 @@ let package = Package(
             ],  path: "Frameworks/IpcSbtuiClient",
                 cSettings: [
                     .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "TRUE", .when(platforms: nil, configuration: .debug)),
-                    .define("ENABLE_TESTING_SEARCH_PATHS", to: "TRUE")
+                    .define("ENABLE_TESTING_SEARCH_PATHS", to: "TRUE"),
+                    .define("SWIFT_PACKAGE")
             ], swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES"),
+                .define("SWIFT_PACKAGE")
         ]),
         
         .target(name: "MixboxIpcSbtuiHost",
@@ -278,7 +320,8 @@ let package = Package(
                     .product(name: "SBTUITestTunnelServer", package: "SBTUITestTunnel"),
             ],  path: "Frameworks/IpcSbtuiHost",
                 swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES"),
+                    .define("SWIFT_PACKAGE")
         ]),
         
         
@@ -296,13 +339,16 @@ let package = Package(
                 "Sources/CommonValues/NSObject+Testability.m"
             ],
             cSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             cxxSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES"),
+                .define("SWIFT_PACKAGE")
         ]),
           
         
@@ -312,10 +358,12 @@ let package = Package(
            sources: ["ObjcSources"],
            publicHeadersPath: "PrivateHeaders",
            cSettings: [
-            .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+            .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+            .define("SWIFT_PACKAGE")
             ],
            cxxSettings: [
-            .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+            .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+            .define("SWIFT_PACKAGE")
             ]),
         .target(name: "MixboxTestsFoundation",
                 dependencies: [
@@ -326,7 +374,8 @@ let package = Package(
         ],  path: "Frameworks/TestsFoundation",
             exclude: ["ObjcSources", "PrivateHeaders"],
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
         ]),
         
          
@@ -337,13 +386,17 @@ let package = Package(
                     .product(name: "SBTUITestTunnelServer", package: "SBTUITestTunnel"),
             ],  path: "Frameworks/UiKit",
                 cSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 cxxSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
             ],
                 swiftSettings: [
-                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))]),
+                    .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                    .define("SWIFT_PACKAGE")
+        ]),
         .target(name: "MixboxUiTestsFoundation",
                 dependencies: [
                     .target(name: "MixboxTestsFoundation"),
@@ -354,12 +407,16 @@ let package = Package(
                     .target(name: "MixboxDi")
         ],  path: "Frameworks/UiTestsFoundation",
             cSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             cxxSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug))
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
             ],
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug))])
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+                .define("SWIFT_PACKAGE")
+        ])
     ]
 )
