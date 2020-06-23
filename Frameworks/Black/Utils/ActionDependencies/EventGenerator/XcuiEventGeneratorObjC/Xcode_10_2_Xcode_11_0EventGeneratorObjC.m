@@ -1,4 +1,4 @@
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120200
+#if !(__IPHONE_OS_VERSION_MAX_ALLOWED < 120200)
 
 #import "Xcode_10_2_Xcode_11_0_EventGeneratorObjC.h"
 
