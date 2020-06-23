@@ -17,11 +17,6 @@ func swiftSettings() -> [SwiftSetting] {
             .define("SWIFT_PACKAGE")]
 }
 
-let filemanager = FileManager()
-if !filemanager.fileExists(atPath: "/System/Library/Frameworks/XCTAutomationSupport.framework") {
-    try filemanager.linkItem(atPath: "/System/Library/PrivateFrameworks/XCTAutomationSupport.framework ", toPath: "/System/Library/Frameworks/XCTAutomationSupport.framework")
-}
-
 let package = Package(
     name: "Mixbox",
     platforms: [
@@ -91,7 +86,7 @@ let package = Package(
                 cSettings: cSettings(),
                 cxxSettings: cxxSettings(),
                 swiftSettings: swiftSettings(),
-                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport")]),
+                linkerSettings: [.linkedFramework("XCTest"),.linkedLibrary("swiftXCTest"), .linkedFramework("XCTAutomationSupport"), .unsafeFlags(["-Test"])]),
         
         // MARK: - MixboxBuiltinIpc
         .target(name: "MixboxBuiltinIpc_objc", dependencies: [
