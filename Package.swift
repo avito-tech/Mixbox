@@ -18,8 +18,8 @@ func swiftSettings() -> [SwiftSetting] {
 }
 
 let filemanager = FileManager()
-if !filemanager.fileExists(atPath: "/Applications/XCode.app/Contents/Developer/Library/Frameworks/XCTAutomationSupport.framework") {
-    try filemanager.linkItem(atPath: "/Applications/XCode.app/Contents/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework", toPath: "/Applications/XCode.app/Contents/Developer/Library/Frameworks/XCTAutomationSupport.framework")
+if !filemanager.fileExists(atPath: "/System/Library/Frameworks/XCTAutomationSupport.framework") {
+    try filemanager.linkItem(atPath: "/System/Library/PrivateFrameworks/XCTAutomationSupport.framework ", toPath: "/System/Library/Frameworks/XCTAutomationSupport.framework")
 }
 
 let package = Package(
