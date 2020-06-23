@@ -1,9 +1,13 @@
-#if !(__IPHONE_OS_VERSION_MAX_ALLOWED < 120200)
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 120200
 
 #import "Xcode_10_2_Xcode_11_0_EventGeneratorObjC.h"
 
 @import MixboxUiTestsFoundation;
 @import MixboxTestsFoundation;
+@import MixboxTestsFoundation_objc;
+@import XCTest;
+@import UIKit;
+@import Foundation;
 
 static CGFloat sqr(CGFloat x) {
     return x * x;
