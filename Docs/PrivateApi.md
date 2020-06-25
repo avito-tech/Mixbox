@@ -22,6 +22,8 @@ There is a list of open-sourced projects for iOS UI testing, ordered by how much
 	- We got nothing from it yet
 - [WebKit](https://github.com/WebKit/webkit)
    - [Proper generation of IOHID events](https://github.com/WebKit/webkit/blob/master/Tools/WebKitTestRunner/ios/HIDEventGenerator.mm)
+- [AppleSimUtils](https://github.com/wix/AppleSimulatorUtils/tree/master/applesimutils/applesimutils)
+   - Interesting project. We may use it to improve stability of setting permissions.
 
 ## class-dump
 
