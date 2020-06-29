@@ -61,7 +61,7 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlP
                 let path = try bundleResourcePathProvider.path(resource: string)
                 return try Data(contentsOf: URL(fileURLWithPath: path))
             } catch {
-                DispatchQueue.main.async { [testFailureRecorder, bundleResourcePathProvider] in
+                DispatchQueue.main.async { [testFailureRecorder] in
                     testFailureRecorder.recordFailure(
                         description: "Failed to load file of network stub \(string): \(error)",
                         fileLine: .current(),
