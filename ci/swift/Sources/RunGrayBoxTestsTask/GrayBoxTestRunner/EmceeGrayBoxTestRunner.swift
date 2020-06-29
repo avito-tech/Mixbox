@@ -45,7 +45,6 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
     {
         let emcee = try emceeProvider.emcee()
         
-        let fbxctestUrlString = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_FBXCTEST_URL)
         let reportsPath = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_REPORTS_PATH)
         let junit = "\(reportsPath)/junit.xml"
         let trace = "\(reportsPath)/trace.json"
@@ -55,7 +54,6 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
                 jobId: UUID().uuidString,
                 testArgFile: testArgFile(
                     mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
-                    fbxctestUrlString: fbxctestUrlString,
                     xctestBundle: xctestBundle,
                     appPath: appPath,
                     priority: 500
@@ -63,7 +61,6 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
                 queueServerDestination: fileDownloader.download(url: sharedQueueDeploymentDestinationsUrl),
                 queueServerRunConfigurationLocation: queueServerRunConfigurationUrl.absoluteString,
                 tempFolder: temporaryFileProvider.temporaryFilePath(),
-                fbxctest: fbxctestUrlString,
                 junit: junit,
                 trace: trace
             )
@@ -72,7 +69,6 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
     
     private func testArgFile(
         mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
-        fbxctestUrlString: String,
         xctestBundle: String,
         appPath: String,
         priority: UInt)
@@ -85,9 +81,6 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
                 appPath: appPath,
                 additionalAppPaths: [],
                 xctestBundlePath: xctestBundle,
-                fbxctestUrl: try URL.from(
-                    string: fbxctestUrlString
-                ),
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                 environment: environment(),
                 testType: .appTest,

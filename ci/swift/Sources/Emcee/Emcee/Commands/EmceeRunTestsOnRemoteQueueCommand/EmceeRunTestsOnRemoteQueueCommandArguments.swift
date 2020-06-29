@@ -11,7 +11,6 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
     public let tempFolder: String
     
     // Common (local/remote/shared queues)
-    public let fbxctest: String
     public let junit: String
     public let trace: String
     
@@ -21,7 +20,6 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
         queueServerDestination: String,
         queueServerRunConfigurationLocation: String,
         tempFolder: String,
-        fbxctest: String,
         junit: String,
         trace: String)
     {
@@ -30,7 +28,6 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
         self.queueServerDestination = queueServerDestination
         self.queueServerRunConfigurationLocation = queueServerRunConfigurationLocation
         self.tempFolder = tempFolder
-        self.fbxctest = fbxctest
         self.junit = junit
         self.trace = trace
     }

@@ -69,7 +69,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("a8fc4e1e2fe070ee853af7b0e188a0d2274cd614")
+            .revision("499adc77ad438c1854fa615918fcceccf390b020")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",

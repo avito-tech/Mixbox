@@ -59,8 +59,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             buildArtifacts: try buildArtifacts(arguments: arguments),
             environment: arguments.environment,
             testType: arguments.testType,
-            priority: arguments.priority,
-            fbxctestUrl: arguments.fbxctestUrl
+            priority: arguments.priority
         )
     }
     
@@ -89,8 +88,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         buildArtifacts: BuildArtifacts,
         environment: [String: String],
         testType: TestType,
-        priority: UInt,
-        fbxctestUrl: URL)
+        priority: UInt)
         throws
         -> TestArgFile
     {
@@ -104,13 +102,13 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     pluginLocations: Set(),
                     scheduleStrategy: .progressive,
                     simulatorControlTool: SimulatorControlTool(
-                        location: .insideEmceeTempFolder,
+                        location: .insideUserLibrary,
                         tool: .simctl
                     ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,
-                    testRunnerTool: .fbxctest(FbxctestLocation(.remoteUrl(fbxctestUrl))),
+                    testRunnerTool: .xcodebuild(nil),
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
@@ -166,7 +164,6 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         return try emcee.dump(
             arguments: EmceeDumpCommandArguments(
                 xctestBundle: arguments.xctestBundlePath,
-                fbxctest: arguments.fbxctestUrl.absoluteString,
                 testDestinationConfigurations: testDestinationConfigurations,
                 appPath: appPathDumpArgument,
                 tempFolder: temporaryFileProvider.temporaryFilePath()

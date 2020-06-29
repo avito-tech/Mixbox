@@ -112,13 +112,13 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     pluginLocations: Set(),
                     scheduleStrategy: .progressive,
                     simulatorControlTool: SimulatorControlTool(
-                        location: .insideEmceeTempFolder,
+                        location: .insideUserLibrary,
                         tool: .simctl
                     ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,
-                    testRunnerTool: .fbxctest(FbxctestLocation(ResourceLocation.from(arguments.fbxctest))),
+                    testRunnerTool: .xcodebuild(nil),
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
