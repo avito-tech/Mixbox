@@ -1,19 +1,17 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import MixboxUiKit
-import MixboxInAppServices
 
 // Translated to Swift.
 // Original implementation: https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Provider/GREYUIWindowProvider.m
 //
 public final class OrderedWindowsProviderImpl: OrderedWindowsProvider {
     private let applicationWindowsProvider: ApplicationWindowsProvider
-    private let iosVersionProvider: IosVersionProvider
     
     public init(
-        applicationWindowsProvider: ApplicationWindowsProvider,
-        iosVersionProvider: IosVersionProvider)
+        applicationWindowsProvider: ApplicationWindowsProvider)
     {
         self.applicationWindowsProvider = applicationWindowsProvider
-        self.iosVersionProvider = iosVersionProvider
     }
     
     public func windowsFromBottomMostToTopMost() -> [UIWindow] {
@@ -66,3 +64,5 @@ private class OrderedWindow: Hashable, Comparable {
         }
     }
 }
+
+#endif

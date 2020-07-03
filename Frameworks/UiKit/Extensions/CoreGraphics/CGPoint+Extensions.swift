@@ -26,15 +26,15 @@ extension CGPoint {
     
     public func mb_ceil() -> CGPoint {
         return CGPoint(
-            x: CoreGraphics.ceil(x),
-            y: CoreGraphics.ceil(y)
+            x: x.mb_ceil(),
+            y: y.mb_ceil()
         )
     }
     
     public func mb_floor() -> CGPoint {
         return CGPoint(
-            x: CoreGraphics.floor(x),
-            y: CoreGraphics.floor(y)
+            x: x.mb_floor(),
+            y: y.mb_floor()
         )
     }
 }

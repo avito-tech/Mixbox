@@ -160,6 +160,10 @@ public extension CGSize {
         )
     }
     
+    var mb_area: CGFloat {
+        return width * height
+    }
+    
     func mb_hasZeroArea() -> Bool {
         return width == 0 || height == 0
     }

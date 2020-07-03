@@ -8,15 +8,6 @@ import MixboxTestability
         return self.isDefinitelyHidden(alphaThreshold: 0.01)
     }
     
-    var percentageOfVisibleArea: CGFloat {
-        if self.isDefinitelyHidden(alphaThreshold: 0.1) {
-            return 0
-        }
-        
-        // This check is placed after the previous, because it is very expensive.
-        return CGFloat(VisibilityChecker.percentElementVisible(onScreen: self))
-    }
-    
     // TODO: Rename/refactor.
     // The name should make the reasons to use the function obvious.
     // And SRP seems to be violated.

@@ -25,13 +25,18 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     public let viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler
     public let coreAnimationIdlingResourceSwizzler: CoreAnimationIdlingResourceSwizzler
     public let synchronousIpcClientFactory: SynchronousIpcClientFactory
+    public let visibilityChecker: VisibilityChecker
+    public let recordedAssertionFailuresProvider: RecordedAssertionFailuresProvider
     
     private let networkMockingBootstrappingType: NetworkMockingBootstrappingType
     
     // TODO: fix swiftlint:disable:next function_body_length
     public init?(environment: [String: String]) {
-        // TODO: Fail tests instead of crashing app
-        assertionFailureRecorder = StandardLibraryAssertionFailureRecorder()
+        let recordedAssertionFailuresHolder = RecordedAssertionFailuresHolder()
+        
+        assertionFailureRecorder = recordedAssertionFailuresHolder
+        recordedAssertionFailuresProvider = recordedAssertionFailuresHolder
+        
         swizzler = SwizzlerImpl()
         swizzlingSynchronization = SwizzlingSynchronizationImpl()
         
@@ -151,6 +156,27 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         coreAnimationIdlingResourceSwizzler = CoreAnimationIdlingResourceSwizzlerImpl(
             assertingSwizzler: assertingSwizzler,
             assertionFailureRecorder: assertionFailureRecorder
+        )
+        
+        let imagePixelDataCreator = ImagePixelDataCreatorImpl()
+        
+        visibilityChecker = VisibilityCheckerImpl(
+            assertionFailureRecorder: assertionFailureRecorder,
+            visibilityCheckImagesCapturer: VisibilityCheckImagesCapturerImpl(
+                imagePixelDataCreator: imagePixelDataCreator,
+                inAppScreenshotTaker: InAppScreenshotTakerImpl(
+                    orderedWindowsProvider: OrderedWindowsProviderImpl(
+                        applicationWindowsProvider: UiApplicationWindowsProvider(
+                            uiApplication: UIApplication.shared,
+                            iosVersionProvider: iosVersionProvider
+                        )
+                    ),
+                    screen: UIScreen.main
+                )
+            ),
+            visiblePixelDataCalculator: VisiblePixelDataCalculatorImpl(
+                imagePixelDataCreator: imagePixelDataCreator
+            )
         )
     }
     

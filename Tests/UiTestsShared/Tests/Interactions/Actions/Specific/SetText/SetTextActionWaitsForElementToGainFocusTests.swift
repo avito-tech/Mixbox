@@ -31,7 +31,8 @@ final class SetTextActionWaitsForElementToGainFocusTests: TestCase {
         
         // setText might take some time even without delay
         // Values should be high enough to work reliably on CI even with high load.
-        let minimumExpectedOverheadOfSetTextCommand: TimeInterval = 15
+        // NOTE: It was 15 before I rewrote visibility check to Swift!
+        let minimumExpectedOverheadOfSetTextCommand: TimeInterval = 25
         
         // Timeout should be much greater than
         // `becomeFirstResponderDelay`

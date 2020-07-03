@@ -27,12 +27,16 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         }
         di.register(type: OrderedWindowsProvider.self) { di in
             OrderedWindowsProviderImpl(
-                applicationWindowsProvider: try di.resolve(),
-                iosVersionProvider: try di.resolve()
+                applicationWindowsProvider: try di.resolve()
             )
         }
         di.register(type: ScreenshotTaker.self) { di in
             GrayScreenshotTaker(
+                inAppScreenshotTaker: try di.resolve()
+            )
+        }
+        di.register(type: InAppScreenshotTaker.self) { di in
+            InAppScreenshotTakerImpl(
                 orderedWindowsProvider: try di.resolve(),
                 screen: UIScreen.main
             )

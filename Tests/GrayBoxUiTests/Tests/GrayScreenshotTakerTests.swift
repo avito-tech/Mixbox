@@ -6,17 +6,18 @@ import MixboxInAppServices
 
 final class GrayScreenshotTakerTests: TestCase {
     private let screenshotTaker: ScreenshotTaker = {
-        let iosVersionProvider = UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
-        
-        return GrayScreenshotTaker(
-            orderedWindowsProvider: OrderedWindowsProviderImpl(
-                applicationWindowsProvider: UiApplicationWindowsProvider(
-                    uiApplication: UIApplication.shared,
-                    iosVersionProvider: iosVersionProvider
+        GrayScreenshotTaker(
+            inAppScreenshotTaker: InAppScreenshotTakerImpl(
+                orderedWindowsProvider: OrderedWindowsProviderImpl(
+                    applicationWindowsProvider: UiApplicationWindowsProvider(
+                        uiApplication: UIApplication.shared,
+                        iosVersionProvider: UiDeviceIosVersionProvider(
+                            uiDevice: UIDevice.current
+                        )
+                    )
                 ),
-                iosVersionProvider: iosVersionProvider
-            ),
-            screen: UIScreen.main
+                screen: UIScreen.main
+            )
         )
     }()
     

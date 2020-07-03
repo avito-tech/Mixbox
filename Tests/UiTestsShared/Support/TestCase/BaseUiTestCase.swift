@@ -4,6 +4,7 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxFoundation
 import MixboxUiKit
+import MixboxIpcCommon
 
 class BaseUiTestCase: XCTestCase, FailureGatherer {
     private(set) lazy var dependencies: TestCaseDependenciesResolver = self.reuseState {
@@ -48,6 +49,32 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
             precondition()
             
             assertPreconditionInSuperClassIsCalled()
+        }
+    }
+    
+    // Note: Emcee can not track error in tearDown yet, so we use invokeTest instead.
+    override func invokeTest() {
+        super.invokeTest()
+        
+        let result = synchronousIpcClient.call(
+            method: GetRecordedAssertionFailuresIpcMethod(),
+            arguments: GetRecordedAssertionFailuresIpcMethod.Arguments(
+                sinceIndex: nil
+            )
+        )
+        
+        switch result {
+        case .data(let data):
+            for failure in data {
+                testFailureRecorder.recordFailure(
+                    description: failure.message,
+                    shouldContinueTest: true
+                )
+            }
+        case .error:
+            // If app is not launched, it can be error.
+            // It is okay to do nothing.
+            break
         }
     }
     

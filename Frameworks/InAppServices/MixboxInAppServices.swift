@@ -89,7 +89,9 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         inAppServicesDependenciesFactory: InAppServicesDependenciesFactory)
     {
         router.register(methodHandler: ScrollingHintIpcMethodHandler())
-        router.register(methodHandler: PercentageOfVisibleAreaIpcMethodHandler())
+        router.register(methodHandler: PercentageOfVisibleAreaIpcMethodHandler(
+            visibilityChecker: inAppServicesDependenciesFactory.visibilityChecker
+        ))
         router.register(
             methodHandler: ViewHierarchyIpcMethodHandler(
                 viewHierarchyProvider: ViewHierarchyProviderImpl(
@@ -119,6 +121,12 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         
         router.register(methodHandler: GetPasteboardStringIpcMethodHandler())
         router.register(methodHandler: SetPasteboardStringIpcMethodHandler())
+        
+        router.register(
+            methodHandler: GetRecordedAssertionFailuresIpcMethodHandler(
+                recordedAssertionFailuresProvider: inAppServicesDependenciesFactory.recordedAssertionFailuresProvider
+            )
+        )
     }
 }
 

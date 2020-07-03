@@ -81,6 +81,10 @@ public extension CGRect {
     
     // MARK: -
     
+    var mb_area: CGFloat {
+        return size.mb_area
+    }
+    
     func mb_hasZeroArea() -> Bool {
         return size.mb_hasZeroArea()
     }
