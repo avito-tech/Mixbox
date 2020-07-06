@@ -41,6 +41,7 @@ extension Event {
         var typedArray = [IOHIDEventRef]()
         for index in 0..<CFArrayGetCount(untypedArray) {
             if let unsafePointer: UnsafeRawPointer = CFArrayGetValueAtIndex(untypedArray, index) {
+                // Ignore the warning. If you apply "fix-it", you will get a crash.
                 let element = unsafeBitCast(unsafePointer, to: IOHIDEventRef.self)
                 typedArray.append(element)
             }

@@ -157,10 +157,16 @@ private func InstrumentSurrogateDelegate(
         return outDelegate
     }
     
+    // Ignore the warning. If you apply "fix-it", you will get a crash.
+    // The warning tells that this function has incorrect optionality. In fact it doesn't.
+    // `CAAnimation` has incorrect optionality. Without optionality, the code crashes.
     @objc func animationDidStart(_ anim: CAAnimation?) {
         AnimationDidStart(self: self, animation: anim, isInvokedFromSwizzledMethod: false)
     }
     
+    // Ignore the warning. If you apply "fix-it", you will get a crash.
+    // The warning tells that this function has incorrect optionality. In fact it doesn't.
+    // `CAAnimation` has incorrect optionality. Without optionality, the code crashes.
     @objc func animationDidStop(_ anim: CAAnimation?, finished flag: Bool) {
         AnimationDidStop(self: self, animation: anim, finished: flag, isInvokedFromSwizzledMethod: false)
     }
