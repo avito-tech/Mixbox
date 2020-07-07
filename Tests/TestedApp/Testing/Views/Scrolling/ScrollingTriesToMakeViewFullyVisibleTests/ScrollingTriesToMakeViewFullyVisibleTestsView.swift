@@ -5,15 +5,16 @@ import MixboxIpcCommon
 import MixboxIpc
 
 public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
-    UIScrollView,
+    UIView,
     InitializableWithTestingViewControllerSettings
 {
+    private var scrollView = UIScrollView()
     private var button = TapIndicatorButton()
     private var overlappingView = UIButton()
     private var configuration = ScrollingTriesToMakeViewFullyVisibleTestsViewConfiguration(
         buttonFrame: .zero,
         contentSize: .zero,
-        overlappingViewSize: .zero
+        overlappingViewFrame: .zero
     )
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {
@@ -32,7 +33,8 @@ public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
         button.backgroundColor = .blue
         overlappingView.backgroundColor = .gray
         
-        addSubview(button)
+        addSubview(scrollView)
+        scrollView.addSubview(button)
         addSubview(overlappingView)
     }
     
@@ -43,11 +45,9 @@ public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
     override public func layoutSubviews() {
         super.layoutSubviews()
         
-        overlappingView.frame = CGRect.mb_init(
-            bottom: bounds.mb_bottom,
-            centerX: bounds.mb_centerX,
-            size: configuration.overlappingViewSize
-        )
+        scrollView.frame = bounds
+        
+        overlappingView.frame = configuration.overlappingViewFrame
         
         button.frame = configuration.buttonFrame
     }
@@ -57,8 +57,8 @@ public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
         
         button.reset()
         
-        contentSize = .zero // resets offset
-        contentSize = configuration.contentSize
+        scrollView.contentSize = .zero // resets offset
+        scrollView.contentSize = configuration.contentSize
         
         setNeedsLayout()
     }

@@ -1,5 +1,3 @@
-import MixboxFoundation
-
 open class BasePageObjectWithDefaultInitializer:
     BasePageObject,
     PageObjectWithDefaultInitializer

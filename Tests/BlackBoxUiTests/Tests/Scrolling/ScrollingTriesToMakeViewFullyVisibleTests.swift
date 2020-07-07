@@ -1,5 +1,6 @@
 import TestsIpc
 import MixboxUiTestsFoundation
+import MixboxIpcCommon
 
 final class ScrollingTriesToMakeViewFullyVisibleTests: TestCase {
     override func precondition() {
@@ -43,7 +44,12 @@ final class ScrollingTriesToMakeViewFullyVisibleTests: TestCase {
     }
     
     private func resetUi(randomizedOffset: CGFloat, overlappingRatio: CGFloat) {
-        let bounds = UIScreen.main.bounds
+        var bounds = synchronousIpcClient.callOrFail(method: GetUiScreenMainBoundsIpcMethod())
+        
+        // to make center of scrollview not overlapped (to allow scroll;
+        // this is a todo-thing to allow scroll by only a visible part)
+        bounds = bounds.mb_shrinked(top: 0, left: 0, bottom: 0, right: 50)
+        
         resetUi(
             argument: ScrollingTriesToMakeViewFullyVisibleTestsViewConfiguration(
                 buttonFrame: CGRect(
@@ -56,9 +62,13 @@ final class ScrollingTriesToMakeViewFullyVisibleTests: TestCase {
                     width: bounds.width,
                     height: 1000000
                 ),
-                overlappingViewSize: CGSize(
-                    width: 10,
-                    height: bounds.height * overlappingRatio
+                overlappingViewFrame: CGRect.mb_init(
+                    bottom: bounds.mb_bottom,
+                    centerX: bounds.mb_centerX,
+                    size: CGSize(
+                        width: 10,
+                        height: bounds.height * overlappingRatio
+                    )
                 )
             )
         )
