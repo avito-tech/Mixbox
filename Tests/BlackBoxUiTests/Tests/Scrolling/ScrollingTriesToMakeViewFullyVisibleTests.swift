@@ -44,7 +44,7 @@ final class ScrollingTriesToMakeViewFullyVisibleTests: TestCase {
     }
     
     private func resetUi(randomizedOffset: CGFloat, overlappingRatio: CGFloat) {
-        var bounds = synchronousIpcClient.callOrFail(method: GetUiScreenMainBoundsIpcMethod())
+        var bounds = mainScreenBounds()
         
         // to make center of scrollview not overlapped (to allow scroll;
         // this is a todo-thing to allow scroll by only a visible part)

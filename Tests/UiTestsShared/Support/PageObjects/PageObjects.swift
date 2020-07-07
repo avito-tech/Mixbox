@@ -41,6 +41,8 @@ final class PageObjects: BasePageObjects {
     
     var scrollingTriesToMakeViewFullyVisibleTestsView: MainAppScreen<ScrollingTriesToMakeViewFullyVisibleTestsViewPageObject> { return mainAppScreen() }
     
+    var interactionsUseVisiblePointTestsViewPageObject: MainAppScreen<InteractionsUseVisiblePointTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainUiKitHierarchy.pageObject(),
