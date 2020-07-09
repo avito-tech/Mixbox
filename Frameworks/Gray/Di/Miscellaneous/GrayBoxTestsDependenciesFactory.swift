@@ -24,7 +24,7 @@ protocol GrayBoxTestsDependenciesFactory: class {
     var orderedWindowsProvider: OrderedWindowsProvider { get }
     var runLoopSpinnerFactory: RunLoopSpinnerFactory { get }
     var waiter: RunLoopSpinningWaiter { get }
-    var signpostActivityLogger: SignpostActivityLogger { get }
+    var performanceLogger: PerformanceLogger { get }
     var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { get }
     var applicationWindowsProvider: ApplicationWindowsProvider { get }
 }

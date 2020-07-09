@@ -6,7 +6,7 @@ public final class NestedInteractionPerformerImpl: NestedInteractionPerformer {
     private let retriableTimedInteractionState: RetriableTimedInteractionState
     private let elementSettings: ElementSettings
     private let fileLine: FileLine
-    private let signpostActivityLogger: SignpostActivityLogger
+    private let performanceLogger: PerformanceLogger
     
     public init(
         elementInteractionDependenciesFactory: ElementInteractionDependenciesFactory,
@@ -14,14 +14,14 @@ public final class NestedInteractionPerformerImpl: NestedInteractionPerformer {
         retriableTimedInteractionState: RetriableTimedInteractionState,
         elementSettings: ElementSettings,
         fileLine: FileLine,
-        signpostActivityLogger: SignpostActivityLogger)
+        performanceLogger: PerformanceLogger)
     {
         self.elementInteractionDependenciesFactory = elementInteractionDependenciesFactory
         self.elementInteractionWithDependenciesPerformer = elementInteractionWithDependenciesPerformer
         self.retriableTimedInteractionState = retriableTimedInteractionState
         self.elementSettings = elementSettings
         self.fileLine = fileLine
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
     }
     
     public func perform(
@@ -38,9 +38,9 @@ public final class NestedInteractionPerformerImpl: NestedInteractionPerformer {
     // MARK: - Private
     
     private func logPerformance<T>(interactionType: ElementInteraction.Type, body: () -> T) -> T {
-        return signpostActivityLogger.log(
-            name: "performing nested interaction",
-            message: { "\(interactionType)" },
+        return performanceLogger.log(
+            staticName: "nested interaction",
+            dynamicName: { "\(interactionType)" },
             body: body
         )
     }

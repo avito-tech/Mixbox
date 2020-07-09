@@ -68,7 +68,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
                 retriableTimedInteractionState: retriableTimedInteractionState,
                 elementSettings: elementSettings,
                 fileLine: fileLine,
-                signpostActivityLogger: grayBoxTestsDependenciesFactory.signpostActivityLogger
+                performanceLogger: grayBoxTestsDependenciesFactory.performanceLogger
             ),
             elementSimpleGesturesProvider: grayBoxTestsDependenciesFactory.elementSimpleGesturesProvider,
             eventGenerator:grayBoxTestsDependenciesFactory.eventGenerator,
@@ -82,7 +82,7 @@ public final class GrayElementInteractionDependenciesFactory: ElementInteraction
             elementMatcherBuilder: elementMatcherBuilder,
             elementInfo: elementInfo,
             retriableTimedInteractionState: retriableTimedInteractionState,
-            signpostActivityLogger: grayBoxTestsDependenciesFactory.signpostActivityLogger,
+            performanceLogger: grayBoxTestsDependenciesFactory.performanceLogger,
             applicationQuiescenceWaiter: grayBoxTestsDependenciesFactory.applicationQuiescenceWaiter
         )
     }

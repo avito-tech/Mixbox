@@ -3,7 +3,7 @@
 import os
 
 @available(iOS 12.0, OSX 10.14, *)
-public final class SignpostActivityImpl: SignpostActivity {
+public final class SignpostMeasureableTimedActivity: MeasureableTimedActivity {
     private let signpostLogger: SignpostLogger
     private let signpostId: OSSignpostID
     private let name: StaticString

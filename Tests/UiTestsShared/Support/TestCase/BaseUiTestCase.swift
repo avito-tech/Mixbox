@@ -40,7 +40,7 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         super.setUp()
         
         // Fail faster on CI
-        let isCiBuild = ProcessInfo.processInfo.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
+        let isCiBuild = environmentProvider.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
         continueAfterFailure = !isCiBuild
         
         logEnvironment()
@@ -267,7 +267,8 @@ class BaseUiTestCase: XCTestCase, FailureGatherer {
         // TODO: Make it work!
         let itWorksAsExpectedOnCi = false
         
-        // TODO: Class for envs
+        // `environmentProvider` can not be used, because it will cause recursion.
+        // And this is not needed here.
         let isCiBuild = ProcessInfo.processInfo.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
         
         let reusingStateIsImpossible = isCiBuild && !itWorksAsExpectedOnCi

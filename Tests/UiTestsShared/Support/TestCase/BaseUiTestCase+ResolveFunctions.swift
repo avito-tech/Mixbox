@@ -82,4 +82,8 @@ extension BaseUiTestCase {
     var testFailureRecorder: TestFailureRecorder {
         return dependencies.resolve()
     }
+    
+    var environmentProvider: EnvironmentProvider {
+        return dependencies.resolve()
+    }
 }

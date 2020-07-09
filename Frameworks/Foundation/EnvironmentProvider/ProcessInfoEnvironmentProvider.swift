@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class ProcessInfoEnvironmentProvider: EnvironmentProvider {
     private let processInfo: ProcessInfo
     
@@ -9,3 +11,5 @@ public final class ProcessInfoEnvironmentProvider: EnvironmentProvider {
         return processInfo.environment
     }
 }
+
+#endif

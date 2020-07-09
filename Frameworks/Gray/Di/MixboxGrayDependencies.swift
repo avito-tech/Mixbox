@@ -47,7 +47,7 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 testFailureRecorder: try di.resolve(),
                 stepLogger: try di.resolve(),
                 screenshotTaker: try di.resolve(),
-                signpostActivityLogger: try di.resolve(),
+                performanceLogger: try di.resolve(),
                 dateProvider: try di.resolve()
             )
         }
@@ -72,7 +72,7 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 screenshotTaker: try di.resolve(),
                 orderedWindowsProvider: try di.resolve(),
                 waiter: try di.resolve(),
-                signpostActivityLogger: try di.resolve(),
+                performanceLogger: try di.resolve(),
                 snapshotsDifferenceAttachmentGenerator: try di.resolve(),
                 snapshotsComparatorFactory: try di.resolve(),
                 applicationQuiescenceWaiter: try di.resolve(),

@@ -63,7 +63,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
                 retriableTimedInteractionState: retriableTimedInteractionState,
                 elementSettings: elementSettings,
                 fileLine: fileLine,
-                signpostActivityLogger: xcuiBasedTestsDependenciesFactory.signpostActivityLogger
+                performanceLogger: xcuiBasedTestsDependenciesFactory.performanceLogger
             ),
             elementSimpleGesturesProvider: XcuiElementSimpleGesturesProvider(
                 applicationProvider: xcuiBasedTestsDependenciesFactory.applicationProvider,
@@ -85,7 +85,7 @@ public final class XcuiElementInteractionDependenciesFactory: ElementInteraction
             elementMatcherBuilder: xcuiBasedTestsDependenciesFactory.elementMatcherBuilder,
             elementInfo: elementInfo,
             retriableTimedInteractionState: retriableTimedInteractionState,
-            signpostActivityLogger: xcuiBasedTestsDependenciesFactory.signpostActivityLogger,
+            performanceLogger: xcuiBasedTestsDependenciesFactory.performanceLogger,
             applicationQuiescenceWaiter: xcuiBasedTestsDependenciesFactory.applicationQuiescenceWaiter
         )
     }

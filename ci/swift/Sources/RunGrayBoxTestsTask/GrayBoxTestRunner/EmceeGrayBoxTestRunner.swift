@@ -91,10 +91,16 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
     }
     
     private func environment() -> [String: String] {
-        return [
+        var environment = [
             Env.MIXBOX_IPC_STARTER_TYPE.rawValue: "graybox",
             Env.MIXBOX_CI_USES_FBXCTEST.rawValue: "true",
             Env.MIXBOX_CI_IS_CI_BUILD.rawValue: "true"
         ]
+        
+        environment[Env.MIXBOX_CI_GRAPHITE_HOST.rawValue] = environmentProvider.environment[Env.MIXBOX_CI_GRAPHITE_HOST.rawValue]
+        environment[Env.MIXBOX_CI_GRAPHITE_PORT.rawValue] = environmentProvider.environment[Env.MIXBOX_CI_GRAPHITE_PORT.rawValue]
+        environment[Env.MIXBOX_CI_GRAPHITE_PREFIX.rawValue] = environmentProvider.environment[Env.MIXBOX_CI_GRAPHITE_PREFIX.rawValue]
+        
+        return environment
     }
 }

@@ -28,6 +28,9 @@ public enum Env: String {
     case MIXBOX_CI_USES_FBXCTEST // todo: remove from Mixbox
     case MIXBOX_CI_IS_CI_BUILD
     case MIXBOX_IPC_STARTER_TYPE
+    case MIXBOX_CI_GRAPHITE_HOST
+    case MIXBOX_CI_GRAPHITE_PORT
+    case MIXBOX_CI_GRAPHITE_PREFIX
     
     // Cocoapods envs:
     case MIXBOX_PUSHSPEC_STYLE

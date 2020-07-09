@@ -98,7 +98,7 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                     screenshotTaker: try di.resolve(),
                     pasteboard: pasteboard,
                     runLoopSpinningWaiter: try di.resolve(),
-                    signpostActivityLogger: try di.resolve(),
+                    performanceLogger: try di.resolve(),
                     snapshotsDifferenceAttachmentGenerator: try di.resolve(),
                     snapshotsComparatorFactory: try di.resolve(),
                     applicationQuiescenceWaiter: XcuiApplicationQuiescenceWaiter(
@@ -152,7 +152,7 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                         testFailureRecorder: try di.resolve(),
                         stepLogger: try di.resolve(),
                         screenshotTaker: try di.resolve(),
-                        signpostActivityLogger: try di.resolve(),
+                        performanceLogger: try di.resolve(),
                         dateProvider: try di.resolve()
                     ),
                     try di.resolve()

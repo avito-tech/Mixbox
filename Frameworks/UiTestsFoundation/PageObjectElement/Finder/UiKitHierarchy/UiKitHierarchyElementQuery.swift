@@ -9,7 +9,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
-    private let signpostActivityLogger: SignpostActivityLogger
+    private let performanceLogger: PerformanceLogger
     private let dateProvider: DateProvider
     private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
     
@@ -19,7 +19,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
-        signpostActivityLogger: SignpostActivityLogger,
+        performanceLogger: PerformanceLogger,
         dateProvider: DateProvider,
         elementFunctionDeclarationLocation: FunctionDeclarationLocation)
     {
@@ -28,13 +28,13 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
         self.dateProvider = dateProvider
         self.elementFunctionDeclarationLocation = elementFunctionDeclarationLocation
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
-        return signpostActivityLogger.log(name: "RVHEQ resolveElement") {
+        return performanceLogger.logSignpost(staticName: "RVHEQ resolveElement") {
             let stepLogBefore = StepLogBefore(
                 date: dateProvider.currentDate(),
                 title: "Поиск элемента"
@@ -66,7 +66,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private func viewHierarchy()
         -> DataResult<ViewHierarchy, Error>
     {
-        return signpostActivityLogger.log(name: "RVHEQ viewHierarchy") {
+        return performanceLogger.logSignpost(staticName: "RVHEQ viewHierarchy") {
             ipcClient.call(
                 method: ViewHierarchyIpcMethod()
             )
@@ -106,11 +106,11 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private func getResolvedElementQueryWhileBeingLoggedToStepLogger(viewHierarchy: ViewHierarchy)
         -> StepLoggerResultWrapper<ResolvedElementQuery>
     {
-        let resolvedElementQuery = signpostActivityLogger.log(name: "RVHEQ resolveElementQuery") {
+        let resolvedElementQuery = performanceLogger.logSignpost(staticName: "RVHEQ resolveElementQuery") {
             resolveElementQuery(viewHierarchy: viewHierarchy)
         }
         
-        return signpostActivityLogger.log(name: "RVHEQ log to StepLogger") {
+        return performanceLogger.logSignpost(staticName: "RVHEQ log to StepLogger") {
             log(resolvedElementQuery: resolvedElementQuery, viewHierarchy: viewHierarchy)
         }
     }
@@ -121,7 +121,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         // We don't actually need start/stop. It is a kludge for XCUI. TODO: Get rid of it.
         elementQueryResolvingState.start()
         
-        signpostActivityLogger.log(name: "RVHEQ all matching") {
+        performanceLogger.logSignpost(staticName: "RVHEQ all matching") {
             for element in viewHierarchy.rootElements {
                 matchRecursively(element: element, state: elementQueryResolvingState)
             }
@@ -138,7 +138,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         state: ElementQueryResolvingState)
     {
         let snapshot = UiKitHierarchyElementSnaphot(element: element, parent: parent)
-        let matchingResult = signpostActivityLogger.log(name: "RVHEQ elementMatcher.matches") {
+        let matchingResult = performanceLogger.logSignpost(staticName: "RVHEQ elementMatcher.matches") {
             elementMatcher.match(value: snapshot)
         }
         state.append(matchingResult: matchingResult, elementSnapshot: snapshot)

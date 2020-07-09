@@ -16,7 +16,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let screenshotTaker: ScreenshotTaker
     private let orderedWindowsProvider: OrderedWindowsProvider
     private let waiter: RunLoopSpinningWaiter
-    private let signpostActivityLogger: SignpostActivityLogger
+    private let performanceLogger: PerformanceLogger
     private let grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory
     
     public init(
@@ -28,7 +28,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         screenshotTaker: ScreenshotTaker,
         orderedWindowsProvider: OrderedWindowsProvider,
         waiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger,
+        performanceLogger: PerformanceLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
@@ -45,7 +45,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.screenshotTaker = screenshotTaker
         self.orderedWindowsProvider = orderedWindowsProvider
         self.waiter = waiter
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
         self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
         
         grayBoxTestsDependenciesFactory = GrayBoxTestsDependenciesFactoryImpl(
@@ -63,7 +63,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
             screenshotTaker: screenshotTaker,
             orderedWindowsProvider: orderedWindowsProvider,
             waiter: waiter,
-            signpostActivityLogger: signpostActivityLogger,
+            performanceLogger: performanceLogger,
             snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
             snapshotsComparatorFactory: snapshotsComparatorFactory,
             applicationQuiescenceWaiter: applicationQuiescenceWaiter,
@@ -84,7 +84,7 @@ public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFact
                     grayBoxTestsDependenciesFactory: grayBoxTestsDependenciesFactory
                 )
             },
-            signpostActivityLogger: signpostActivityLogger
+            performanceLogger: performanceLogger
         )
     }
     

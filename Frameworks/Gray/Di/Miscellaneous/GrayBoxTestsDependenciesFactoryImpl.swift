@@ -21,7 +21,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
     let elementSimpleGesturesProvider: ElementSimpleGesturesProvider
     let runLoopSpinnerFactory: RunLoopSpinnerFactory
     let waiter: RunLoopSpinningWaiter
-    let signpostActivityLogger: SignpostActivityLogger
+    let performanceLogger: PerformanceLogger
     let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     let snapshotsComparatorFactory: SnapshotsComparatorFactory
     let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
@@ -40,7 +40,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         screenshotTaker: ScreenshotTaker,
         orderedWindowsProvider: OrderedWindowsProvider,
         waiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger,
+        performanceLogger: PerformanceLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
@@ -57,7 +57,7 @@ final class GrayBoxTestsDependenciesFactoryImpl: GrayBoxTestsDependenciesFactory
         self.screenshotTaker = screenshotTaker
         self.orderedWindowsProvider = orderedWindowsProvider
         self.waiter = waiter
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
         

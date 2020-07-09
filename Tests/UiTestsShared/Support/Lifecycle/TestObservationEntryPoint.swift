@@ -20,16 +20,15 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
             shouldNeverContinueTestAfterFailure: false
         )
         
-        let reportingTestLifecycleManager = ReportingTestLifecycleManager(
-            reportingSystem: DevNullReportingSystem(),
-            stepLogsProvider: Singletons.stepLogsProvider,
-            stepLogsCleaner: Singletons.stepLogsCleaner,
-            testFailureRecorder: testFailureRecorder
-        )
-        
         startObservation(
             testLifecycleManagers: [
-                reportingTestLifecycleManager
+                ReportingTestLifecycleManager(
+                    reportingSystem: DevNullReportingSystem(),
+                    stepLogsProvider: Singletons.stepLogsProvider,
+                    stepLogsCleaner: Singletons.stepLogsCleaner,
+                    testFailureRecorder: testFailureRecorder
+                ),
+                MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager()
             ]
         )
     }

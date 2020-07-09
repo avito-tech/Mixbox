@@ -16,7 +16,7 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
     public let elementMatcherBuilder: ElementMatcherBuilder
     public let elementInfo: HumanReadableInteractionDescriptionBuilderSource
     public let retriableTimedInteractionState: RetriableTimedInteractionState
-    public let signpostActivityLogger: SignpostActivityLogger
+    public let performanceLogger: PerformanceLogger
     public let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
     
     public init(
@@ -33,7 +33,7 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
         elementMatcherBuilder: ElementMatcherBuilder,
         elementInfo: HumanReadableInteractionDescriptionBuilderSource,
         retriableTimedInteractionState: RetriableTimedInteractionState,
-        signpostActivityLogger: SignpostActivityLogger,
+        performanceLogger: PerformanceLogger,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
     {
         self.snapshotResolver = snapshotResolver
@@ -49,7 +49,7 @@ public final class ElementInteractionDependenciesImpl: ElementInteractionDepende
         self.elementMatcherBuilder = elementMatcherBuilder
         self.elementInfo = elementInfo
         self.retriableTimedInteractionState = retriableTimedInteractionState
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
         self.applicationQuiescenceWaiter = applicationQuiescenceWaiter
     }
 }

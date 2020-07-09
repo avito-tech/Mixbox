@@ -12,7 +12,7 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
     // TODO: This is a kludge, usage of closure is dumb here.
     private let elementInteractionDependenciesFactory: (ElementSettings) -> ElementInteractionDependenciesFactory
     
-    private let signpostActivityLogger: SignpostActivityLogger
+    private let performanceLogger: PerformanceLogger
     
     // MARK: - Init
     
@@ -22,14 +22,14 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
         stepLogger: StepLogger,
         dateProvider: DateProvider,
         elementInteractionDependenciesFactory: @escaping (ElementSettings) -> ElementInteractionDependenciesFactory,
-        signpostActivityLogger: SignpostActivityLogger)
+        performanceLogger: PerformanceLogger)
     {
         self.testFailureRecorder = testFailureRecorder
         self.screenshotAttachmentsMaker = screenshotAttachmentsMaker
         self.stepLogger = stepLogger
         self.dateProvider = dateProvider
         self.elementInteractionDependenciesFactory = elementInteractionDependenciesFactory
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
     }
     
     // MARK: - PageObjectElementCoreFactory
@@ -47,7 +47,7 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
                 dateProvider: dateProvider,
                 elementInteractionDependenciesFactory: elementInteractionDependenciesFactory(elementSettings),
                 elementSettings: elementSettings,
-                signpostActivityLogger: signpostActivityLogger
+                performanceLogger: performanceLogger
             )
         )
     }

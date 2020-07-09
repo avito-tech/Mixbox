@@ -41,16 +41,11 @@ final class UiTestCaseDependencies: DependencyCollectionRegisterer {
                 apps: try di.resolve()
             )
         }
-        di.register(type: SignpostActivityLogger.self) { _ in
-            if #available(iOS 12.0, *) {
-                return SignpostActivityLoggerImpl(
-                    signpostLoggerFactory: SignpostLoggerFactoryImpl(),
-                    subsystem: "mixbox",
-                    category: "mixbox" // TODO: Find a use for it
-                )
-            } else {
-                return DisabledSignpostActivityLogger()
-            }
+        di.register(type: EnvironmentProvider.self) { _ in
+            Singletons.environmentProvider
+        }
+        di.register(type: PerformanceLogger.self) { _ in
+            Singletons.performanceLogger
         }
     }
 }

@@ -123,8 +123,8 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
         di.register(type: XctAttachmentsAdder.self) { _ in
             XctAttachmentsAdderImpl()
         }
-        di.register(type: SignpostActivityLogger.self) { _ in
-            DisabledSignpostActivityLogger()
+        di.register(type: PerformanceLogger.self) { _ in
+            NoopPerformanceLogger()
         }
         di.register(type: SnapshotsDifferenceAttachmentGenerator.self) { di in
             SnapshotsDifferenceAttachmentGeneratorImpl(
@@ -175,6 +175,11 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
             SynchronousKeyboardEventInjectorImpl(
                 keyboardEventInjector: try di.resolve(),
                 runLoopSpinningWaiter: try di.resolve()
+            )
+        }
+        di.register(type: EnvironmentProvider.self) { _ in
+            ProcessInfoEnvironmentProvider(
+                processInfo: ProcessInfo.processInfo
             )
         }
     }

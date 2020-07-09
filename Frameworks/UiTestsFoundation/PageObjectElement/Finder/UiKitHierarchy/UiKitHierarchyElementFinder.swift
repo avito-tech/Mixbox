@@ -8,7 +8,7 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
     private let screenshotTaker: ScreenshotTaker
-    private let signpostActivityLogger: SignpostActivityLogger
+    private let performanceLogger: PerformanceLogger
     private let dateProvider: DateProvider
     
     public init(
@@ -16,14 +16,14 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
         screenshotTaker: ScreenshotTaker,
-        signpostActivityLogger: SignpostActivityLogger,
+        performanceLogger: PerformanceLogger,
         dateProvider: DateProvider)
     {
         self.ipcClient = ipcClient
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
         self.screenshotTaker = screenshotTaker
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
         self.dateProvider = dateProvider
     }
     
@@ -38,7 +38,7 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
             testFailureRecorder: testFailureRecorder,
             stepLogger: stepLogger,
             screenshotTaker: screenshotTaker,
-            signpostActivityLogger: signpostActivityLogger,
+            performanceLogger: performanceLogger,
             dateProvider: dateProvider,
             elementFunctionDeclarationLocation: elementFunctionDeclarationLocation
         )

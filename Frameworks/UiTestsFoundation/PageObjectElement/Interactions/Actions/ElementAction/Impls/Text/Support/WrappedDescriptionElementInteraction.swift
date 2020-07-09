@@ -53,9 +53,9 @@ public final class WrappedDescriptionElementInteraction: ElementInteraction {
         }
         
         public func perform() -> InteractionResult {
-            return dependencies.signpostActivityLogger.log(
-                name: "perform wrapped interaction with dependencies",
-                message: { "\(interactionType)" },
+            return dependencies.performanceLogger.logSignpost(
+                staticName: "wrapped interaction",
+                dynamicName: { [interactionType] in "\(interactionType)" },
                 body: {
                     interaction.perform()
                 }

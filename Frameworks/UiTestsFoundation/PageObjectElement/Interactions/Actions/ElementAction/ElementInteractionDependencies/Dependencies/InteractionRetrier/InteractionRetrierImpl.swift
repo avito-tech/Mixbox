@@ -1,4 +1,5 @@
 import MixboxTestsFoundation
+import MixboxFoundation
 
 public final class InteractionRetrierImpl: InteractionRetrier {
     private let dateProvider: DateProvider

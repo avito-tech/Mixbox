@@ -1,7 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 @available(iOS 12.0, OSX 10.14, *)
-public final class SignpostActivityLoggerImpl: SignpostActivityLogger {
+public final class SignpostMeasureableTimedActivityLogger: MeasureableTimedActivityLogger {
     private let signpostLoggerFactory: SignpostLoggerFactory
     private let subsystem: String
     private let category: String
@@ -17,9 +17,9 @@ public final class SignpostActivityLoggerImpl: SignpostActivityLogger {
     }
     
     public func start(
-        name: StaticString,
-        message: () -> (String?))
-         -> SignpostActivity
+        staticName: StaticString,
+        dynamicName: () -> (String?))
+         -> MeasureableTimedActivity
     {
         let signpostLogger = signpostLoggerFactory.signpostLogger(
             subsystem: subsystem,
@@ -30,15 +30,15 @@ public final class SignpostActivityLoggerImpl: SignpostActivityLogger {
         
         signpostLogger.signpost(
             type: .begin,
-            name: name,
+            name: staticName,
             signpostId: signpostId,
-            message: message()
+            message: dynamicName()
         )
         
-        return SignpostActivityImpl(
+        return SignpostMeasureableTimedActivity(
             signpostLogger: signpostLogger,
             signpostId: signpostId,
-            name: name
+            name: staticName
         )
     }
 }

@@ -17,7 +17,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
     let pollingConfiguration: PollingConfiguration
     let screenshotTaker: ScreenshotTaker
     let pasteboard: Pasteboard
-    let signpostActivityLogger: SignpostActivityLogger
+    let performanceLogger: PerformanceLogger
     let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     let snapshotsComparatorFactory: SnapshotsComparatorFactory
     let applicationQuiescenceWaiter: ApplicationQuiescenceWaiter
@@ -39,7 +39,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
         runLoopSpinningWaiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger,
+        performanceLogger: PerformanceLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter)
@@ -57,7 +57,7 @@ final class XcuiBasedTestsDependenciesFactoryImpl: XcuiBasedTestsDependenciesFac
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
         self.runLoopSpinningWaiter = runLoopSpinningWaiter
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
         self.applicationQuiescenceWaiter = applicationQuiescenceWaiter

@@ -14,7 +14,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
     private let screenshotTaker: ScreenshotTaker
     private let pasteboard: Pasteboard
     private let runLoopSpinningWaiter: RunLoopSpinningWaiter
-    private let signpostActivityLogger: SignpostActivityLogger
+    private let performanceLogger: PerformanceLogger
     private let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     private let snapshotsComparatorFactory: SnapshotsComparatorFactory
     private let xcuiBasedTestsDependenciesFactory: XcuiBasedTestsDependenciesFactory
@@ -31,7 +31,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         screenshotTaker: ScreenshotTaker,
         pasteboard: Pasteboard,
         runLoopSpinningWaiter: RunLoopSpinningWaiter,
-        signpostActivityLogger: SignpostActivityLogger,
+        performanceLogger: PerformanceLogger,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory,
         applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
@@ -48,7 +48,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
         self.screenshotTaker = screenshotTaker
         self.pasteboard = pasteboard
         self.runLoopSpinningWaiter = runLoopSpinningWaiter
-        self.signpostActivityLogger = signpostActivityLogger
+        self.performanceLogger = performanceLogger
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
         self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
@@ -76,7 +76,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
             screenshotTaker: screenshotTaker,
             pasteboard: pasteboard,
             runLoopSpinningWaiter:runLoopSpinningWaiter,
-            signpostActivityLogger: signpostActivityLogger,
+            performanceLogger: performanceLogger,
             snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
             snapshotsComparatorFactory: snapshotsComparatorFactory,
             applicationQuiescenceWaiter: applicationQuiescenceWaiter
@@ -95,7 +95,7 @@ public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFact
                     xcuiBasedTestsDependenciesFactory: xcuiBasedTestsDependenciesFactory
                 )
             },
-            signpostActivityLogger: signpostActivityLogger
+            performanceLogger: performanceLogger
         )
     }
     

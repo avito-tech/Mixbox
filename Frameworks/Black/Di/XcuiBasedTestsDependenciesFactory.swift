@@ -21,7 +21,7 @@ protocol XcuiBasedTestsDependenciesFactory: class {
     var scrollingHintsProvider: ScrollingHintsProvider { get }
     var screenshotTaker: ScreenshotTaker { get }
     var pasteboard: Pasteboard { get }
-    var signpostActivityLogger: SignpostActivityLogger { get }
+    var performanceLogger: PerformanceLogger { get }
     var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { get }
     var runLoopSpinningWaiter: RunLoopSpinningWaiter { get }
 }
