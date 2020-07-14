@@ -58,7 +58,8 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                 applicationLifecycleObservable: try di.resolve(),
                 testFailureRecorder: try di.resolve(),
                 bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,
-                waiter: try di.resolve()
+                waiter: try di.resolve(),
+                performanceLogger: try di.resolve()
             )
         }
         di.register(type: TccDbApplicationPermissionSetterFactory.self) { di in

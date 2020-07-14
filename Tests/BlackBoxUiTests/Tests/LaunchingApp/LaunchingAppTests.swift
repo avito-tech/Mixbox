@@ -31,7 +31,8 @@ final class LaunchingAppTests: TestCase {
             testFailureRecorder: dependencies.resolve(),
             bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,
             waiter: waiter,
-            networkReplayingObserver: DummyNetworkReplayingObserver()
+            networkReplayingObserver: DummyNetworkReplayingObserver(),
+            performanceLogger: dependencies.resolve()
         )
         
         return launchableApplication

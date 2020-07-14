@@ -5,7 +5,9 @@ import SBTUITestTunnel
 public final class SbtuiIpcClient: IpcClient {
     private let application: SBTUITunneledApplication
     
-    public init(application: SBTUITunneledApplication) {
+    public init(
+        application: SBTUITunneledApplication)
+    {
         self.application = application
     }
     

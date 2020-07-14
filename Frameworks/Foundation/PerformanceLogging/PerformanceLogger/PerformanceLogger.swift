@@ -9,6 +9,9 @@
 //
 // Graphite:
 // `dynamicName` will be name of a graphite metric if it is not nil, `staticName` will be used otherwise
+//
+// Instances should be thread safe.
+//
 public protocol PerformanceLogger: class {
     func startImpl(
         staticName: StaticString,

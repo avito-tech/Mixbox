@@ -22,20 +22,6 @@ extension XCUIElement {
         return enhancedAccessibilityLabel.isDefinitelyHidden
     }
     
-    public func percentageOfVisibleArea(ipcClient: SynchronousIpcClient) -> CGFloat? {
-        guard let enhancedAccessibilityLabel = enhancedAccessibilityLabel else {
-            return nil
-        }
-        
-        let result = ipcClient.call(
-            method: PercentageOfVisibleAreaIpcMethod(),
-            arguments: enhancedAccessibilityLabel.uniqueIdentifier
-        )
-        
-        // TODO: Replace nil with 0 in PercentageOfVisibleAreaIpcMethodHandler?
-        return (result.data ?? .none) ?? 0
-    }
-    
     public var center: XCUICoordinate {
         return coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
     }
