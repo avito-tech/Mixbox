@@ -40,7 +40,8 @@ extension PerformanceLogger {
         staticName: StaticString,
         dynamicName: @escaping () -> (String?) = nilString,
         destinations: Set<PerformanceLoggerDestination> = PerformanceLoggerDestination.allDestinations,
-        body: () -> T)
+        body: () throws -> T)
+        rethrows
         -> T
     {
         let activity = startImpl(
@@ -49,7 +50,7 @@ extension PerformanceLogger {
             destinations: destinations
         )
         
-        let returnValue = body()
+        let returnValue = try body()
         
         activity.stop()
         
@@ -60,10 +61,11 @@ extension PerformanceLogger {
     public func logSignpost<T>(
         staticName: StaticString,
         dynamicName: @escaping () -> (String?) = nilString,
-        body: () -> T)
+        body: () throws -> T)
+        rethrows
         -> T
     {
-        log(
+        try log(
             staticName: staticName,
             dynamicName: dynamicName,
             destinations: PerformanceLoggerDestination.signpostDestinations,

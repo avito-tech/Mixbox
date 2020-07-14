@@ -23,12 +23,13 @@ extension MeasureableTimedActivityLogger {
     public func log<T>(
         staticName: StaticString,
         dynamicName: @escaping () -> (String?) = { nil },
-        body: () -> T)
+        body: () throws -> T)
+        rethrows
         -> T
     {
         let activity = start(staticName: staticName, dynamicName: dynamicName)
         
-        let returnValue = body()
+        let returnValue = try body()
         
         activity.stop()
         

@@ -21,7 +21,8 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         RegisteringTestCaseDependenciesResolver(
             registerer: GrayBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
-            )
+            ),
+            performanceLogger: Singletons.performanceLogger
         )
     }
     

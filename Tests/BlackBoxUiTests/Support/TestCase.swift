@@ -42,7 +42,8 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         RegisteringTestCaseDependenciesResolver(
             registerer: BlackBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
-            )
+            ),
+            performanceLogger: Singletons.performanceLogger
         )
     }
     
