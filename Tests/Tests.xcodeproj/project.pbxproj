@@ -534,14 +534,12 @@
 		F8EF37B024094B2F0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */; };
 		F8EF37B324094C690041DBF9 /* DelayingFocusGainingInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */; };
 		F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */; };
-		F8F9C29D2368811800E9A044 /* TestCaseDependenciesResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C297236880E600E9A044 /* TestCaseDependenciesResolver.swift */; };
 		F8F9C2A02368894100E9A044 /* IpcRouterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */; };
 		F8F9C2A52368946A00E9A044 /* BaseUiTestCase+ResolveFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */; };
 		F8F9C2AC2368949000E9A044 /* BaseUiTestCase+AssertLogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833E22495469004DD770 /* BaseUiTestCase+AssertLogsAndFailures.swift */; };
 		F8F9C2AD2368949000E9A044 /* BaseUiTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED2B229854350009B9A7 /* BaseUiTestCase.swift */; };
 		F8F9C2AE2368949000E9A044 /* ScreenOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4422985DD00009B9A7 /* ScreenOpener.swift */; };
 		F8F9C2AF2368949000E9A044 /* UiTestCaseDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4A22985E200009B9A7 /* UiTestCaseDependencies.swift */; };
-		F8F9C2B02368949000E9A044 /* TestCaseDependenciesResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C297236880E600E9A044 /* TestCaseDependenciesResolver.swift */; };
 		F8F9C2B12368949000E9A044 /* BaseUiTestCase+ResolveFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */; };
 		F8FC281922693D2E009E4982 /* MoreComplexExample.recordedNetworkSession.json in Resources */ = {isa = PBXBuildFile; fileRef = F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */; };
 		F8FC39812159133D00A9C922 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
@@ -995,7 +993,6 @@
 		F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayingFocusGainingInput.swift; sourceTree = "<group>"; };
 		F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDescriptionBuilderTests.swift; sourceTree = "<group>"; };
-		F8F9C297236880E600E9A044 /* TestCaseDependenciesResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseDependenciesResolver.swift; sourceTree = "<group>"; };
 		F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcRouterHolder.swift; sourceTree = "<group>"; };
 		F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseUiTestCase+ResolveFunctions.swift"; sourceTree = "<group>"; };
 		F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MoreComplexExample.recordedNetworkSession.json; sourceTree = "<group>"; };
@@ -2711,7 +2708,6 @@
 				F8C8ED2B229854350009B9A7 /* BaseUiTestCase.swift */,
 				F8C8ED4422985DD00009B9A7 /* ScreenOpener.swift */,
 				F8C8ED4A22985E200009B9A7 /* UiTestCaseDependencies.swift */,
-				F8F9C297236880E600E9A044 /* TestCaseDependenciesResolver.swift */,
 				F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */,
 				F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */,
 				F863CA1624B4B7D800423225 /* BaseUiTestCase+Info.swift */,
@@ -4013,7 +4009,6 @@
 				F8971D0F22650ACC001741C1 /* TemporaryDirectoryPathProvider.swift in Sources */,
 				F8E6EF5B22831458007A97E5 /* NotificationsApplicationPermissionTests.swift in Sources */,
 				F8AD079D2250D5DD00D5FB93 /* GeolocationApplicationPermissionSpecification.swift in Sources */,
-				F8F9C29D2368811800E9A044 /* TestCaseDependenciesResolver.swift in Sources */,
 				F889438D23905C44009979BE /* WaitingForQuiescenceTestsViewPageObject.swift in Sources */,
 				F820305F22385427006D2F70 /* CanTapMovingElementTests.swift in Sources */,
 				F8C8ED4022985B790009B9A7 /* TestObservationEntryPoint.swift in Sources */,
@@ -4299,7 +4294,6 @@
 				F8A837C42270EE9800145140 /* OpenableScreen.swift in Sources */,
 				F83090BD24B7443200C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */,
 				F8725EDF2458B01F00BE004D /* ScrollingSmokeTestsViewPageObject.swift in Sources */,
-				F8F9C2B02368949000E9A044 /* TestCaseDependenciesResolver.swift in Sources */,
 				F8A8381F2271F35600145140 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
 				F83089AD24B631B600C79892 /* DebugEnvironmentProvider.swift in Sources */,

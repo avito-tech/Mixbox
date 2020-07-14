@@ -2,20 +2,18 @@ import MixboxDi
 import Dip
 import MixboxTestsFoundation
 
-public final class TestCaseDependenciesResolver {
+public final class RegisteringTestCaseDependenciesResolver: MixboxDiTestCaseDependenciesResolver {
     private let di = DipDependencyInjection(dependencyContainer: DependencyContainer())
-    
-    public func resolve<T>() -> T {
-        return UnavoidableFailure.doOrFail {
-            try di.resolve()
-        }
-    }
     
     public init(registerer: DependencyCollectionRegisterer) {
         registerer.register(dependencyRegisterer: di)
         
-        UnavoidableFailure.doOrFail {
+        do {
             try di.completeContainerSetup()
+        } catch {
+            UnavoidableFailure.fail("Failed to completeContainerSetup: \(error)")
         }
+        
+        super.init(dependencyResolver: di)
     }
 }

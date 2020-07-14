@@ -39,7 +39,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     }
     
     override func makeDependencies() -> TestCaseDependenciesResolver {
-        TestCaseDependenciesResolver(
+        RegisteringTestCaseDependenciesResolver(
             registerer: BlackBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
             )

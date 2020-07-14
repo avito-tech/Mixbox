@@ -18,7 +18,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     }()
     
     override func makeDependencies() -> TestCaseDependenciesResolver {
-        TestCaseDependenciesResolver(
+        RegisteringTestCaseDependenciesResolver(
             registerer: GrayBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
             )
