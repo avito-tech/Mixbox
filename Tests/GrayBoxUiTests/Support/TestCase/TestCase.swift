@@ -31,7 +31,12 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         
         let appDelegate = self.appDelegate
         
-        lazilyInitializedIpcClient.ipcClient = appDelegate.ipcClient
+        lazilyInitializedIpcClient.ipcClient = appDelegate.ipcClient.map { ipcClient in
+            PerformanceLoggingIpcClient(
+                ipcClient: ipcClient,
+                performanceLogger: Singletons.performanceLogger
+            )
+        }
         
         let ipcRouterHolder: IpcRouterHolder = dependencies.resolve()
         ipcRouterHolder.ipcRouter = appDelegate.ipcRouter
