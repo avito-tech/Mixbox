@@ -28,7 +28,7 @@ final class InteractionsUseVisiblePointTests: TestCase {
     // +-----+   +-----+   +-----+   +-----+
     //
     // TODO: Check if point is closest to center
-    func disabled_test___tap___taps_visible_point() {
+    func test___tap___taps_visible_point() {
         resetUi(insets: 200, 0, 0, 0)
         checkButton()
         

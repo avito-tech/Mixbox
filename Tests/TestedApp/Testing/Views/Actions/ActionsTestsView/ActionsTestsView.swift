@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 import TestsIpc
 
-final class ActionsTestsView: UIView, InitializableWithTestingViewControllerSettings {
+final class ActionsTestsView: UIView, TestingView {
     let infoLabel = UILabel()
     let overlappingView = UILabel()
     let scrollView = TestStackScrollView()

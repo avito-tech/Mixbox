@@ -7,7 +7,7 @@ import TestsIpc
 // - All views should have fixed frames and other properties that affect coordinates
 // - There should be a view with "targetView" accessibilityIdentifier
 // - "targetView" should be on screen of every supported device.
-final class TouchesTestsView: UIView, InitializableWithTestingViewControllerSettings {
+final class TouchesTestsView: UIView, TestingView {
     let scrollView = UIScrollView()
     let simpleContainerView = UIView()
     let transformedContainerView = UIView()

@@ -1,4 +1,3 @@
-public enum SwipeActionStartPoint {
-    case center
-    case interactionCoordinates(InteractionCoordinates)
-}
+import MixboxIpcCommon
+
+public typealias SwipeActionStartPoint = InteractionCoordinates

@@ -1,6 +1,8 @@
 import MixboxUiKit
+import MixboxIpcCommon
 
 public final class SwipeAction: ElementInteraction {
+    private let startPoint: SwipeActionStartPoint
     private let swipeActionPathCalculator: SwipeActionPathCalculator
     private let swipeActionDescriptionProvider: SwipeActionDescriptionProvider
     
@@ -9,8 +11,9 @@ public final class SwipeAction: ElementInteraction {
         endPoint: SwipeActionEndPoint,
         speed: TouchActionSpeed?)
     {
+        self.startPoint = startPoint
+        
         let swipeActionPathSettings = SwipeActionPathSettings(
-            startPoint: startPoint,
             endPoint: endPoint,
             speed: speed
         )
@@ -20,7 +23,8 @@ public final class SwipeAction: ElementInteraction {
         )
         
         self.swipeActionDescriptionProvider = SwipeActionDescriptionProvider(
-            swipeActionPathSettings: swipeActionPathSettings
+            swipeActionPathSettings: swipeActionPathSettings,
+            startPoint: startPoint
         )
     }
     
@@ -30,6 +34,7 @@ public final class SwipeAction: ElementInteraction {
     {
         return WithDependencies(
             dependencies: dependencies,
+            startPoint: startPoint,
             swipeActionPathCalculator: swipeActionPathCalculator,
             swipeActionDescriptionProvider: swipeActionDescriptionProvider
         )
@@ -37,15 +42,18 @@ public final class SwipeAction: ElementInteraction {
     
     public final class WithDependencies: ElementInteractionWithDependencies {
         private let dependencies: ElementInteractionDependencies
+        private let startPoint: SwipeActionStartPoint
         private let swipeActionPathCalculator: SwipeActionPathCalculator
         private let swipeActionDescriptionProvider: SwipeActionDescriptionProvider
         
         public init(
             dependencies: ElementInteractionDependencies,
+            startPoint: SwipeActionStartPoint,
             swipeActionPathCalculator: SwipeActionPathCalculator,
             swipeActionDescriptionProvider: SwipeActionDescriptionProvider)
         {
             self.dependencies = dependencies
+            self.startPoint = startPoint
             self.swipeActionPathCalculator = swipeActionPathCalculator
             self.swipeActionDescriptionProvider = swipeActionDescriptionProvider
         }
@@ -64,12 +72,12 @@ public final class SwipeAction: ElementInteraction {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout {
                 // Unfortunately either the line will be long, either this rule will be violated:
                 // swiftlint:disable:next closure_parameter_position
-                [dependencies, swipeActionPathCalculator] _ in
+                [dependencies, swipeActionPathCalculator, startPoint] _ in
 
                 dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try dependencies.snapshotResolver.resolve { elementSnapshot in
-                        let path = swipeActionPathCalculator.path(elementSnapshot: elementSnapshot)
-
+                    try dependencies.snapshotResolver.resolve(interactionCoordinates: startPoint) { elementSnapshot, startPoint in
+                        let path = swipeActionPathCalculator.path(elementSnapshot: elementSnapshot, startPoint: startPoint)
+                        
                         return dependencies.interactionResultMaker.makeResultCatchingErrors {
                             dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()
                             

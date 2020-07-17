@@ -1,7 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol VisibilityChecker {
-    func percentElementVisible(view: UIView) -> CGFloat
+public protocol ViewVisibilityChecker {
+    func checkVisibility(arguments: VisibilityCheckerArguments) throws -> VisibilityCheckerResult
 }
 
 #endif

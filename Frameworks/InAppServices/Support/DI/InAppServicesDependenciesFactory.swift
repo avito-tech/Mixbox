@@ -16,7 +16,7 @@ public protocol InAppServicesDependenciesFactory: class {
     var viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler { get }
     var coreAnimationIdlingResourceSwizzler: CoreAnimationIdlingResourceSwizzler { get }
     var synchronousIpcClientFactory: SynchronousIpcClientFactory { get }
-    var visibilityChecker: VisibilityChecker { get }
+    var viewVisibilityChecker: ViewVisibilityChecker { get }
     var recordedAssertionFailuresProvider: RecordedAssertionFailuresProvider { get }
     
     func mixboxUrlProtocolBootstrapper(

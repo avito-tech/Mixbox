@@ -2,7 +2,7 @@ import UIKit
 import MixboxUiKit
 import TestsIpc
 
-final class InteractionsUseVisiblePointTestsView: UIView, InitializableWithTestingViewControllerSettings {
+final class InteractionsUseVisiblePointTestsView: UIView, TestingView {
     private var button = TapIndicatorButton()
     private var overlappingView = UIView()
     private var configuration = InteractionsUseVisiblePointTestsViewConfiguration(
@@ -32,11 +32,16 @@ final class InteractionsUseVisiblePointTestsView: UIView, InitializableWithTesti
     }
     
     private func resetUi(configuration: InteractionsUseVisiblePointTestsViewConfiguration, completion: @escaping () -> ()) {
+        button.removeFromSuperview()
+        overlappingView.removeFromSuperview()
+        
+        button = TapIndicatorButton()
+        overlappingView = UIView()
+        
         self.configuration = configuration
         
         backgroundColor = .white
         
-        button.backgroundColor = .green
         button.accessibilityIdentifier = "button"
         addSubview(button)
         

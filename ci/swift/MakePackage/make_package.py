@@ -7,7 +7,7 @@ import re
 swift_ci_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
 def emcee_commit_hash():
-    return 'e9c888825c4882fbdc04b04c37c768b0a535e338'
+    return 'c1165f82bf24ae7d419ab0cd9e7278e45fa81046'
 
 def comment_saying_that_this_file_is_code_generated():
     return 'This file is generated via MakePackage python code. Do not modify it.' 

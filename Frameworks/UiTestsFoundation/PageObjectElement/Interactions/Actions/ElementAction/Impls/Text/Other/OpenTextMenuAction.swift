@@ -1,3 +1,5 @@
+import MixboxIpcCommon
+
 public final class OpenTextMenuAction: BaseElementInteractionWrapper {
     public init(
         interactionCoordinates: InteractionCoordinates)

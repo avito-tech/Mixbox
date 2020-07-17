@@ -6,7 +6,7 @@ import MixboxIpc
 
 public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
     UIView,
-    InitializableWithTestingViewControllerSettings
+    TestingView
 {
     private var scrollView = UIScrollView()
     private var button = TapIndicatorButton()
@@ -17,7 +17,7 @@ public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
         overlappingViewFrame: .zero
     )
     
-    init(testingViewControllerSettings: TestingViewControllerSettings) {
+    public init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
         testingViewControllerSettings.viewIpc.registerAsyncResetUiMethod(
@@ -30,7 +30,6 @@ public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
         
         backgroundColor = .white
         button.accessibilityIdentifier = "button"
-        button.backgroundColor = .blue
         overlappingView.backgroundColor = .gray
         
         addSubview(scrollView)

@@ -1,7 +1,7 @@
 import UIKit
 import TestsIpc
 
-final class FakeCellsTestsView: CollectionView, InitializableWithTestingViewControllerSettings {
+final class FakeCellsTestsView: CollectionView, TestingView {
     private var generation: Int = -1
     
     private let nonCellSubviewOfCollectionView = UILabel()

@@ -9,7 +9,7 @@ import MixboxIpc
 // High inertia of scroll view and small size of button increases chances of failing a test if there is an issue with waiting.
 public final class WaitingForQuiescenceTestsView:
     UIView,
-    InitializableWithTestingViewControllerSettings,
+    TestingView,
     UIKeyInput
 {
     // Buttons without special layout
@@ -29,7 +29,11 @@ public final class WaitingForQuiescenceTestsView:
     
     private weak var navigationController: UINavigationController?
     
-    init(testingViewControllerSettings: TestingViewControllerSettings) {
+    public static var viewControllerContainerType: ViewControllerContainerType {
+        return .navigationController
+    }
+    
+    public init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
         testingViewControllerSettings.viewIpc.registerAsyncResetUiMethod(view: self, argumentType: WaitingForQuiescenceTestsViewConfiguration.self) { view, configuration, completion in
@@ -146,7 +150,6 @@ public final class WaitingForQuiescenceTestsView:
     
     private func addTapIndicatorButton(id: String) {
         let tapIndicatorButton = TapIndicatorButton()
-        tapIndicatorButton.backgroundColor = .blue
         tapIndicatorButton.accessibilityIdentifier = id
         tapIndicatorButtons.append(tapIndicatorButton)
         scrollView.addSubview(tapIndicatorButton)

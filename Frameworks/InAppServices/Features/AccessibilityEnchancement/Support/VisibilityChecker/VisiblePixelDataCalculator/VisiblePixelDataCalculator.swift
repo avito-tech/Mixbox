@@ -12,6 +12,8 @@ public protocol VisiblePixelDataCalculator {
     func visiblePixelData(
         beforeImage: CGImage,
         afterImage: CGImage,
+        searchRectInScreenCoordinates: CGRect,
+        targetPointOfInteraction: CGPoint?,
         storeVisiblePixelRect: Bool,
         storeComparisonResult: Bool)
         throws

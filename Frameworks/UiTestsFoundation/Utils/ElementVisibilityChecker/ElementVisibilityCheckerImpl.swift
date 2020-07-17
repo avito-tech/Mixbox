@@ -1,6 +1,7 @@
 import MixboxIpcCommon
 import MixboxIpc
 import MixboxUiKit
+import MixboxFoundation
 
 public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     private let ipcClient: SynchronousIpcClient
@@ -11,15 +12,14 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     
     // MARK: - ElementVisibilityChecker
     
-    private final class VisibilityPercentage {
-        static let probablyVisible: CGFloat = 1.0
-        static let probablyHidden: CGFloat = 0.0
-        static let definitelyHidden: CGFloat = 0.0
-    }
-    
-    public func percentageOfVisibleArea(snapshot: ElementSnapshot) -> CGFloat {
+    public func checkVisibility(
+        snapshot: ElementSnapshot,
+        interactionCoordinates: InteractionCoordinates?)
+        throws
+        -> ElementVisibilityCheckerResult
+    {
         if let isDefinitelyHidden = snapshot.isDefinitelyHidden.valueIfAvailable, isDefinitelyHidden {
-            return VisibilityPercentage.definitelyHidden
+            return definitelyHiddenResult()
         }
         
         var parentPointer = snapshot.parent
@@ -31,42 +31,76 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
         }
         if let topSnapshotFrame = lastParent?.frameRelativeToScreen {
             if !topSnapshotFrame.intersects(snapshot.frameRelativeToScreen) {
-                return VisibilityPercentage.definitelyHidden
+                return definitelyHiddenResult()
             }
         }
 
         if snapshot.frameRelativeToScreen.mb_hasZeroArea() {
-            return VisibilityPercentage.definitelyHidden
+            return definitelyHiddenResult()
         }
         
-        if let percentageOfVisibleArea = percentageOfVisibleAreaFromIpcClient(snapshot: snapshot) {
-            return percentageOfVisibleArea
+        if let elementUniqueIdentifier = snapshot.uniqueIdentifier.valueIfAvailable {
+            return try callIpcClient(
+                elementUniqueIdentifier: elementUniqueIdentifier,
+                interactionCoordinates: interactionCoordinates
+            )
+        } else {
+            // Visibility check is not available for this element (e.g.: not a view or it is an element in
+            // a third-party app / without MixboxInAppServices). Because we can't tell if the element is
+            // hidden, we can say that it is visible, and it is the only case when we return this result,
+            // it has to be at least one case.
+            return canBeVisibleResult()
         }
-        
-        return VisibilityPercentage.probablyVisible
     }
     
-    public func percentageOfVisibleArea(elementUniqueIdentifier: String) -> CGFloat {
-        return percentageOfVisibleAreaFromIpcClient(elementUniqueIdentifier: elementUniqueIdentifier)
+    public func percentageOfVisibleArea(
+        elementUniqueIdentifier: String)
+        throws
+        -> CGFloat
+    {
+        let result = try callIpcClient(
+            elementUniqueIdentifier: elementUniqueIdentifier,
+            interactionCoordinates: nil
+        )
+        
+        return result.percentageOfVisibleArea
     }
     
     // MARK: - Private
     
-    private func percentageOfVisibleAreaFromIpcClient(snapshot: ElementSnapshot) -> CGFloat? {
-        guard let uniqueIdentifier = snapshot.uniqueIdentifier.valueIfAvailable else {
-            return nil
-        }
-        
-        return percentageOfVisibleAreaFromIpcClient(elementUniqueIdentifier: uniqueIdentifier)
+    private func definitelyHiddenResult() -> ElementVisibilityCheckerResult {
+        return ElementVisibilityCheckerResult(
+            percentageOfVisibleArea: 0,
+            visibilePointOnScreenClosestToInteractionCoordinates: nil
+        )
     }
     
-    private func percentageOfVisibleAreaFromIpcClient(elementUniqueIdentifier: String) -> CGFloat {
-        let result = ipcClient.call(
-            method: PercentageOfVisibleAreaIpcMethod(),
-            arguments: elementUniqueIdentifier
+    private func canBeVisibleResult() -> ElementVisibilityCheckerResult {
+        return ElementVisibilityCheckerResult(
+            percentageOfVisibleArea: 1,
+            visibilePointOnScreenClosestToInteractionCoordinates: nil
+        )
+    }
+    
+    private func callIpcClient(
+        elementUniqueIdentifier: String,
+        interactionCoordinates: InteractionCoordinates?)
+        throws
+        -> ElementVisibilityCheckerResult
+    {
+        let ipcThrowingFunctionResult = try ipcClient.callOrThrow(
+            method: CheckVisibilityIpcMethod(),
+            arguments: CheckVisibilityIpcMethod.Arguments(
+                elementUniqueIdentifier: elementUniqueIdentifier,
+                interactionCoordinates: interactionCoordinates
+            )
         )
         
-        // TODO: Replace nil with 0 in PercentageOfVisibleAreaIpcMethodHandler?
-        return (result.data ?? .none) ?? 0
+        let result = try ipcThrowingFunctionResult.getReturnValue()
+        
+        return ElementVisibilityCheckerResult(
+            percentageOfVisibleArea: result.percentageOfVisibleArea,
+            visibilePointOnScreenClosestToInteractionCoordinates: result.visibilePointOnScreenClosestToInteractionCoordinates
+        )
     }
 }

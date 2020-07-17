@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-// E.g.: For offsetting
+// For offsetting
+
 public func +(left: CGPoint, right: CGVector) -> CGPoint {
     return CGPoint(
         x: left.x + right.dx,
@@ -8,12 +9,17 @@ public func +(left: CGPoint, right: CGVector) -> CGPoint {
     )
 }
 
-// E.g.: For offsetting
 public func +(left: CGVector, right: CGPoint) -> CGPoint {
     return right + left
 }
 
-// E.g.: For offsetting
+public func +(left: CGPoint, right: CGPoint) -> CGPoint {
+    return CGPoint(
+        x: left.x + right.x,
+        y: left.y + right.y
+    )
+}
+
 public func -(left: CGPoint, right: CGVector) -> CGPoint {
     return CGPoint(
         x: left.x - right.dx,
@@ -21,7 +27,8 @@ public func -(left: CGPoint, right: CGVector) -> CGPoint {
     )
 }
 
-// E.g.: For calculating offset
+// For calculating offset
+
 public func -(left: CGPoint, right: CGPoint) -> CGVector {
     return CGVector(
         dx: left.x - right.x,

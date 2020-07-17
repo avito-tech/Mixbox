@@ -1,5 +1,6 @@
 import MixboxTestsFoundation
 import MixboxFoundation
+import MixboxIpcCommon
 
 public extension ElementWithText {
     // Makes text be inside text input.

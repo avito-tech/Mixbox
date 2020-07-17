@@ -56,7 +56,8 @@ public final class InstallingEmceeProvider: EmceeProvider {
                 developerDirProvider: developerDirProvider,
                 remoteCacheConfigProvider: remoteCacheConfigProvider,
                 simulatorOperationTimeoutsProvider: simulatorOperationTimeoutsProvider,
-                environmentProvider: environmentProvider
+                environmentProvider: environmentProvider,
+                emceeVersionProvider: emceeVersionProvider
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
                 emceeExecutable: emceeExecutable,

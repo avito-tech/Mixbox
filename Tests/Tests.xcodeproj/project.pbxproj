@@ -35,6 +35,10 @@
 		F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */; };
 		F801CC1C2254F9C80074F0E9 /* StepLoggerRecordingStarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */; };
 		F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */; };
+		F80C944124C1A03D009397F3 /* ViewControllerContainerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C944024C1A03D009397F3 /* ViewControllerContainerType.swift */; };
+		F80C944324C1A072009397F3 /* ViewControllerContainerTypeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C944224C1A072009397F3 /* ViewControllerContainerTypeProvider.swift */; };
+		F80C944524C1A07A009397F3 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C944424C1A07A009397F3 /* TestingView.swift */; };
+		F80C944724C1A11C009397F3 /* TestingViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C944624C1A11C009397F3 /* TestingViewControllerFactory.swift */; };
 		F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEDE122DE27E9006C804D /* IpcThrowingFunctionResultTests.swift */; };
 		F80CEDE822DE37D6006C804D /* BidirectionalIpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */; };
 		F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */; };
@@ -633,6 +637,10 @@
 		F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedStepLoggerRecording.swift; sourceTree = "<group>"; };
 		F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepLoggerRecordingStarter.swift; sourceTree = "<group>"; };
 		F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStepLoggerImpl.swift; sourceTree = "<group>"; };
+		F80C944024C1A03D009397F3 /* ViewControllerContainerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerContainerType.swift; sourceTree = "<group>"; };
+		F80C944224C1A072009397F3 /* ViewControllerContainerTypeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerContainerTypeProvider.swift; sourceTree = "<group>"; };
+		F80C944424C1A07A009397F3 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
+		F80C944624C1A11C009397F3 /* TestingViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewControllerFactory.swift; sourceTree = "<group>"; };
 		F80CEDE122DE27E9006C804D /* IpcThrowingFunctionResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcThrowingFunctionResultTests.swift; sourceTree = "<group>"; };
 		F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalIpcTests.swift; sourceTree = "<group>"; };
 		F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsSubviewMatcherTests.swift; sourceTree = "<group>"; };
@@ -1335,6 +1343,10 @@
 				F813CB0A209CD82A00E6A27C /* TestingViewController.swift */,
 				F820304922382D9C006D2F70 /* TestingViewControllerSettings.swift */,
 				F820304B22382DAF006D2F70 /* InitializableWithTestingViewControllerSettings.swift */,
+				F80C944024C1A03D009397F3 /* ViewControllerContainerType.swift */,
+				F80C944224C1A072009397F3 /* ViewControllerContainerTypeProvider.swift */,
+				F80C944424C1A07A009397F3 /* TestingView.swift */,
+				F80C944624C1A11C009397F3 /* TestingViewControllerFactory.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -3914,6 +3926,7 @@
 				F8E6CC9321878BF900D7A0C1 /* ApplicationBundleProviderTestsView.swift in Sources */,
 				F84D12752166AFB100A178B4 /* CollectionView.swift in Sources */,
 				F8725EEA2458B4C800BE004D /* ScrollingTriesToMakeViewFullyVisibleTestsView.swift in Sources */,
+				F80C944724C1A11C009397F3 /* TestingViewControllerFactory.swift in Sources */,
 				F813CB1C209CD82A00E6A27C /* TestingViewController.swift in Sources */,
 				F8B34136224E61AA00AA1EB9 /* CameraPermissionInfo.swift in Sources */,
 				F8AA7003217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift in Sources */,
@@ -3922,6 +3935,7 @@
 				F820873221418D6800DCBA2D /* LocatorsTestsView.swift in Sources */,
 				F8EF37AC24094A3C0041DBF9 /* ViewIpc+ResetUi.swift in Sources */,
 				F84D12792166B37400A178B4 /* CellThatCrashesAtInit.swift in Sources */,
+				F80C944124C1A03D009397F3 /* ViewControllerContainerType.swift in Sources */,
 				F8E85B9F242C9E3900A29CD8 /* SetScreenIpcMethodHandler.swift in Sources */,
 				F8785C6A2361D29E00571718 /* KeyboardEventInjectorImplTestsView.swift in Sources */,
 				F82086AA213D9CD100DCBA2D /* Window.swift in Sources */,
@@ -3931,6 +3945,7 @@
 				F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */,
 				F813CB21209CD82A00E6A27C /* TextViewWithClosures.swift in Sources */,
 				F8E855E7242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift in Sources */,
+				F80C944524C1A07A009397F3 /* TestingView.swift in Sources */,
 				F820304A22382D9C006D2F70 /* TestingViewControllerSettings.swift in Sources */,
 				F8725EDB2458AFC900BE004D /* ScrollingSmokeTestsView.swift in Sources */,
 				CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */,
@@ -3972,6 +3987,7 @@
 				F8DB358922735FB700EE0FB8 /* UiEventHistoryProvider.swift in Sources */,
 				F8B34139224E621A00AA1EB9 /* AvCaptureDevicePermissionInfo.swift in Sources */,
 				F8B34128224E5C9800AA1EB9 /* GeolocationPermissionInfo.swift in Sources */,
+				F80C944324C1A072009397F3 /* ViewControllerContainerTypeProvider.swift in Sources */,
 				F8951E45222463120033885C /* ExpandingView.swift in Sources */,
 				F8E6EF6622831BDE007A97E5 /* NotificationsPermissionInfo.swift in Sources */,
 				F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */,

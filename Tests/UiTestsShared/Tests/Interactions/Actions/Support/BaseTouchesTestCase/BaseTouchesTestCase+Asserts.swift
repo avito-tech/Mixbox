@@ -22,32 +22,44 @@ extension BaseTouchesTestCase {
     
     // For relative coordinates
     func assertEqual(
-        _ lhs: CGPoint,
-        _ rhs: CGPoint,
+        actual: CGPoint,
+        expected: CGPoint,
         file: StaticString = #file,
         line: UInt = #line)
     {
-        XCTAssertEqual(lhs.x, rhs.x, accuracy: relativeCoordinatesAccuracy, file: file, line: line)
-        XCTAssertEqual(lhs.y, rhs.y, accuracy: relativeCoordinatesAccuracy, file: file, line: line)
+        func message() -> String {
+            return "Actual: \(actual). Expected: \(expected)"
+        }
+        
+        XCTAssertEqual(actual.x, expected.x, accuracy: relativeCoordinatesAccuracy, message(), file: file, line: line)
+        XCTAssertEqual(actual.y, expected.y, accuracy: relativeCoordinatesAccuracy, message(), file: file, line: line)
     }
     
     func assertEqual(
-        _ lhs: CGVector,
-        _ rhs: CGVector,
+        actual: CGVector,
+        expected: CGVector,
         file: StaticString = #file,
         line: UInt = #line)
     {
-        XCTAssertEqual(lhs.dx, rhs.dx, accuracy: relativeCoordinatesAccuracy, file: file, line: line)
-        XCTAssertEqual(lhs.dy, rhs.dy, accuracy: relativeCoordinatesAccuracy, file: file, line: line)
+        func message() -> String {
+            return "Actual: \(actual). Expected: \(expected)"
+        }
+        
+        XCTAssertEqual(actual.dx, expected.dx, accuracy: relativeCoordinatesAccuracy, message(), file: file, line: line)
+        XCTAssertEqual(actual.dy, expected.dy, accuracy: relativeCoordinatesAccuracy, message(), file: file, line: line)
     }
     
     func assertAbsoluteCoordinatesAreEqual(
-        _ lhs: CGPoint,
-        _ rhs: CGPoint,
+        actual: CGPoint,
+        expected: CGPoint,
         file: StaticString = #file,
         line: UInt = #line)
     {
-        XCTAssertEqual(lhs.x, rhs.x, accuracy: absoluteCoordinatesAccuracy, file: file, line: line)
-        XCTAssertEqual(lhs.y, rhs.y, accuracy: absoluteCoordinatesAccuracy, file: file, line: line)
+        func message() -> String {
+            return "Actual: \(actual). Expected: \(expected)"
+        }
+        
+        XCTAssertEqual(actual.x, expected.x, accuracy: absoluteCoordinatesAccuracy, message(), file: file, line: line)
+        XCTAssertEqual(actual.y, expected.y, accuracy: absoluteCoordinatesAccuracy, message(), file: file, line: line)
     }
 }

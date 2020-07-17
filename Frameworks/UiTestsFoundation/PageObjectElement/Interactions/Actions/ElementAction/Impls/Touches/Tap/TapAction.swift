@@ -1,3 +1,5 @@
+import MixboxIpcCommon
+
 public final class TapAction: ElementInteraction {
     private let interactionCoordinates: InteractionCoordinates
     
@@ -40,11 +42,11 @@ public final class TapAction: ElementInteraction {
         public func perform() -> InteractionResult {
             return dependencies.interactionRetrier.retryInteractionUntilTimeout { [interactionCoordinates, dependencies] _ in
                 dependencies.interactionResultMaker.makeResultCatchingErrors {
-                    try dependencies.snapshotResolver.resolve { snapshot in
+                    try dependencies.snapshotResolver.resolve(interactionCoordinates: interactionCoordinates) { snapshot, pointOnScreen in
                         dependencies.interactionResultMaker.makeResultCatchingErrors {
                             let elementSimpleGestures = try dependencies.elementSimpleGesturesProvider.elementSimpleGestures(
                                 elementSnapshot: snapshot,
-                                interactionCoordinates: interactionCoordinates
+                                pointOnScreen: pointOnScreen
                             )
                             
                             dependencies.retriableTimedInteractionState.markAsImpossibleToRetry()

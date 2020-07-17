@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 import TestsIpc
 
-final class SetTextActionWaitsForElementToGainFocusTestsView: UIView, InitializableWithTestingViewControllerSettings {
+final class SetTextActionWaitsForElementToGainFocusTestsView: UIView, TestingView {
     var controlWithNestedTextView = DelayingFocusGainingInput(becomeFirstResponderDelay: 0)
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {

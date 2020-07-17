@@ -2,8 +2,9 @@
 
 import UIKit
 import MixboxFoundation
+import MixboxIpcCommon
 
-public final class VisibilityCheckerImpl: VisibilityChecker {
+public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
     private let assertionFailureRecorder: AssertionFailureRecorder
     private let visibilityCheckImagesCapturer: VisibilityCheckImagesCapturer
     private let visiblePixelDataCalculator: VisiblePixelDataCalculator
@@ -18,47 +19,57 @@ public final class VisibilityCheckerImpl: VisibilityChecker {
         self.visiblePixelDataCalculator = visiblePixelDataCalculator
     }
     
-    public func percentElementVisible(view: UIView) -> CGFloat {
-        return percentElementVisible(
-            view: view,
-            rect: view.accessibilityFrame
+    public func checkVisibility(arguments: VisibilityCheckerArguments) throws -> VisibilityCheckerResult {
+        let searchRectInScreenCoordinates = arguments.view.accessibilityFrame
+        
+        let captureResult = try visibilityCheckImagesCapturer.capture(
+            view: arguments.view,
+            searchRectInScreenCoordinates: searchRectInScreenCoordinates
+        )
+        
+        // Count number of whole pixels in entire search area, including areas off screen or outside
+        // view.
+        let searchRectInPixels = searchRectInScreenCoordinates.mb_pointToPixel()
+        let countTotalSearchRectPixels = searchRectInPixels.mb_integralInside().mb_area
+        
+        let visiblePixelData = try visiblePixelDataCalculator.visiblePixelData(
+            beforeImage: captureResult.beforeImage,
+            afterImage: captureResult.afterImage,
+            searchRectInScreenCoordinates: searchRectInScreenCoordinates,
+            targetPointOfInteraction: targetPointOfInteraction(
+                elementFrameRelativeToScreen: searchRectInScreenCoordinates,
+                interactionCoordinates: arguments.interactionCoordinates
+            ),
+            storeVisiblePixelRect: false,
+            storeComparisonResult: false
+        )
+        
+        let percentageOfVisibleArea = CGFloat(visiblePixelData.visiblePixelCount) / countTotalSearchRectPixels
+        
+        if percentageOfVisibleArea < 0 {
+            throw ErrorString("percentVisible should not be negative. Current Percent: \(percentageOfVisibleArea)")
+        }
+        
+        return VisibilityCheckerResult(
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            visibilePointOnScreenClosestToInteractionCoordinates: visiblePixelData.visiblePixel
         )
     }
     
-    public func percentElementVisible(
-        view: UIView,
-        rect searchRectInScreenCoordinates: CGRect)
-        -> CGFloat
+    private func targetPointOfInteraction(
+        elementFrameRelativeToScreen: CGRect,
+        interactionCoordinates: InteractionCoordinates?)
+        -> CGPoint?
     {
-        do {
-            let captureResult = try visibilityCheckImagesCapturer.capture(
-                view: view,
-                searchRectInScreenCoordinates: searchRectInScreenCoordinates
-            )
-            
-            let percentVisible: CGFloat
-            
-            // Count number of whole pixels in entire search area, including areas off screen or outside
-            // view.
-            let searchRectInPixels = searchRectInScreenCoordinates.mb_pointToPixel()
-            let countTotalSearchRectPixels = searchRectInPixels.mb_integralInside().mb_area
-            
-            let visiblePixelData = try visiblePixelDataCalculator.visiblePixelData(
-                beforeImage: captureResult.beforeImage,
-                afterImage:  captureResult.afterImage,
-                storeVisiblePixelRect: false,
-                storeComparisonResult: false
-            )
-            
-            percentVisible = CGFloat(visiblePixelData.visiblePixelCount) / countTotalSearchRectPixels
-            
-            if percentVisible < 0 {
-                throw ErrorString("percentVisible should not be negative. Current Percent: \(percentVisible)")
+        return interactionCoordinates.flatMap { interactionCoordinates in
+            switch interactionCoordinates.resolveMode() {
+            case .useClosestVisiblePoint:
+                return interactionCoordinates.interactionCoordinatesOnScreen(
+                    elementFrameRelativeToScreen: elementFrameRelativeToScreen
+                )
+            case .useSpecifiedPoint:
+                return nil
             }
-            
-            return percentVisible
-        } catch {
-            return 0
         }
     }
 }

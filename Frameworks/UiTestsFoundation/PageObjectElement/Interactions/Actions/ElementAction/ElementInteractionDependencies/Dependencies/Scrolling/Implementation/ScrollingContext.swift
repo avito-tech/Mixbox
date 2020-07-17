@@ -238,9 +238,9 @@ final class ScrollingContext {
                 {
                     let isTargetElement = (elementUniqueIdentifier == targetElementIdentifier)
                     
-                    let percentageOfVisibleArea = elementVisibilityChecker.percentageOfVisibleArea(
+                    let percentageOfVisibleArea = (try? elementVisibilityChecker.percentageOfVisibleArea(
                         elementUniqueIdentifier: elementUniqueIdentifier
-                    )
+                    )) ?? 0
                     
                     let elementIsSufficientlyVisible = percentageOfVisibleArea >= 1
                     

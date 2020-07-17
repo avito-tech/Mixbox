@@ -3,7 +3,7 @@ import MixboxIpc
 import MixboxFoundation
 import TestsIpc
 
-final class ChecksTestsView: TestStackScrollView, InitializableWithTestingViewControllerSettings {
+final class ChecksTestsView: TestStackScrollView, TestingView {
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         

@@ -89,8 +89,8 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         inAppServicesDependenciesFactory: InAppServicesDependenciesFactory)
     {
         router.register(methodHandler: ScrollingHintIpcMethodHandler())
-        router.register(methodHandler: PercentageOfVisibleAreaIpcMethodHandler(
-            visibilityChecker: inAppServicesDependenciesFactory.visibilityChecker
+        router.register(methodHandler: CheckVisibilityIpcMethodHandler(
+            viewVisibilityChecker: inAppServicesDependenciesFactory.viewVisibilityChecker
         ))
         router.register(
             methodHandler: ViewHierarchyIpcMethodHandler(

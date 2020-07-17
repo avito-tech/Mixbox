@@ -1,9 +1,10 @@
 import MixboxFoundation
+import MixboxIpcCommon
 
 extension ElementWithUi {
     @discardableResult
     public func swipe(
-        startPoint: SwipeActionStartPoint = .center,
+        startPoint: SwipeActionStartPoint = .default,
         endPoint: SwipeActionEndPoint,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
@@ -28,7 +29,7 @@ extension ElementWithUi {
     @discardableResult
     public func swipe(
         direction: SwipeDirection,
-        startPoint: InteractionCoordinates? = nil,
+        startPoint: SwipeActionStartPoint = .default,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
@@ -44,16 +45,8 @@ extension ElementWithUi {
             swipeActionEndPoint = .directionWithDefaultLength(direction)
         }
         
-        let swipeActionStartPoint: SwipeActionStartPoint
-        
-        if let startPoint = startPoint {
-            swipeActionStartPoint = .interactionCoordinates(startPoint)
-        } else {
-            swipeActionStartPoint = .center
-        }
-        
         return swipe(
-            startPoint: swipeActionStartPoint,
+            startPoint: startPoint,
             endPoint: swipeActionEndPoint,
             speed: speed,
             failTest: failTest,
@@ -64,7 +57,7 @@ extension ElementWithUi {
     
     @discardableResult
     public func swipeUp(
-        startPoint: InteractionCoordinates? = nil,
+        startPoint: SwipeActionStartPoint = .default,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
@@ -85,7 +78,7 @@ extension ElementWithUi {
     
     @discardableResult
     public func swipeDown(
-        startPoint: InteractionCoordinates? = nil,
+        startPoint: SwipeActionStartPoint = .default,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
@@ -106,7 +99,7 @@ extension ElementWithUi {
     
     @discardableResult
     public func swipeLeft(
-        startPoint: InteractionCoordinates? = nil,
+        startPoint: SwipeActionStartPoint = .default,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
@@ -127,7 +120,7 @@ extension ElementWithUi {
     
     @discardableResult
     public func swipeRight(
-        startPoint: InteractionCoordinates? = nil,
+        startPoint: SwipeActionStartPoint = .default,
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,

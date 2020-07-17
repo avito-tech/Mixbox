@@ -3,7 +3,7 @@ import GCDWebServer
 import MixboxIpc
 import TestsIpc
 
-final class NetworkStubbingTestsView: TestStackScrollView, InitializableWithTestingViewControllerSettings {
+final class NetworkStubbingTestsView: TestStackScrollView, TestingView {
     
     private let server = GCDWebServer()
     private var infoLabel: UILabel?

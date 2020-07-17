@@ -1,10 +1,15 @@
+import MixboxIpcCommon
+
 public final class SwipeActionDescriptionProvider {
     private let swipeActionPathSettings: SwipeActionPathSettings
+    private let startPoint: InteractionCoordinates
     
     public init(
-        swipeActionPathSettings: SwipeActionPathSettings)
+        swipeActionPathSettings: SwipeActionPathSettings,
+        startPoint: InteractionCoordinates)
     {
         self.swipeActionPathSettings = swipeActionPathSettings
+        self.startPoint = startPoint
     }
     
     public func swipeActionDescription(elementName: String) -> String {
@@ -43,17 +48,8 @@ public final class SwipeActionDescriptionProvider {
         let nonCenterDescription = "точки"
         let centerDescription = "центра элемента"
         
-        let resolvedInteractionCoordinates: InteractionCoordinates
-        
-        switch swipeActionPathSettings.startPoint {
-        case .center:
-            resolvedInteractionCoordinates = .center
-        case .interactionCoordinates(let interactionCoordinates):
-            resolvedInteractionCoordinates = interactionCoordinates
-        }
-        
         return interactionCoordinatesDescription(
-            interactionCoordinates: resolvedInteractionCoordinates,
+            interactionCoordinates: startPoint,
             nonCenterDescription: nonCenterDescription,
             centerDescription: centerDescription
         )

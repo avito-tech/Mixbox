@@ -20,6 +20,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let remoteCacheConfigProvider: RemoteCacheConfigProvider
     private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
     private let environmentProvider: EnvironmentProvider
+    private let emceeVersionProvider: EmceeVersionProvider
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -30,7 +31,8 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         developerDirProvider: DeveloperDirProvider,
         remoteCacheConfigProvider: RemoteCacheConfigProvider,
         simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider,
-        environmentProvider: EnvironmentProvider)
+        environmentProvider: EnvironmentProvider,
+        emceeVersionProvider: EmceeVersionProvider)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.emceeExecutable = emceeExecutable
@@ -41,6 +43,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         self.remoteCacheConfigProvider = remoteCacheConfigProvider
         self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
         self.environmentProvider = environmentProvider
+        self.emceeVersionProvider = emceeVersionProvider
     }
     
     public func dump(
@@ -132,6 +135,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         )
         
         let staticArguments = [
+            "--emcee-version", emceeVersionProvider.emceeVersion(),
             "--test-arg-file", try jsonFileFromEncodableGenerator.generateJsonFile(encodable: testArgFile),
             "--temp-folder", arguments.tempFolder,
             "--output", jsonPath,

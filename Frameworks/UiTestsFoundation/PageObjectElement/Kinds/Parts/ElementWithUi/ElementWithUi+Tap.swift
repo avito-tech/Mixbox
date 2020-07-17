@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxIpcCommon
 
 extension ElementWithUi {
     @discardableResult

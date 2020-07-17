@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxIpcCommon
 
 public final class CutTextAction: BaseElementInteractionWrapper {
     public init(

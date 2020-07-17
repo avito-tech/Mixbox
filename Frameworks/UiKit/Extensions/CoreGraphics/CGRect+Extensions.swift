@@ -16,11 +16,11 @@ public extension CGRect {
     }
     
     var mb_centerX: CGFloat {
-        get { return mb_left + width / 2 }
+        get { return midX }
         set { mb_left = newValue - width / 2 }
     }
     var mb_centerY: CGFloat {
-        get { return mb_top + height / 2 }
+        get { return midY }
         set { mb_top = newValue - height / 2 }
     }
     var mb_left: CGFloat {

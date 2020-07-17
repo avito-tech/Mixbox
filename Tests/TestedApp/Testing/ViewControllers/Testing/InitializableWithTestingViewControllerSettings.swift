@@ -1,3 +1,3 @@
-protocol InitializableWithTestingViewControllerSettings: class {
+public protocol InitializableWithTestingViewControllerSettings: class {
     init(testingViewControllerSettings: TestingViewControllerSettings)
 }

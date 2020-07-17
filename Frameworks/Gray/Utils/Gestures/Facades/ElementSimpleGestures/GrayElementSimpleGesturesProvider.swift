@@ -11,17 +11,13 @@ public final class GrayElementSimpleGesturesProvider: ElementSimpleGesturesProvi
     
     public func elementSimpleGestures(
         elementSnapshot: ElementSnapshot,
-        interactionCoordinates: InteractionCoordinates)
+        pointOnScreen: CGPoint)
         throws
         -> ElementSimpleGestures
     {
-        let point = interactionCoordinates.interactionCoordinatesOnScreen(
-            elementSnapshot: elementSnapshot
-        )
-        
         return GrayElementSimpleGestures(
             touchPerformer: touchPerformer,
-            point: point
+            point: pointOnScreen
         )
     }
 }

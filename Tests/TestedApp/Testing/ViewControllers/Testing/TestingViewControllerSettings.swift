@@ -1,14 +1,14 @@
 import MixboxInAppServices
 
-final class TestingViewControllerSettings {
-    let viewType: String
-    let mixboxInAppServices: MixboxInAppServices?
-    let navigationController: UINavigationController
+public final class TestingViewControllerSettings {
+    public let viewType: String
+    public let mixboxInAppServices: MixboxInAppServices?
+    public let navigationController: UINavigationController?
     
-    init(
+    public init(
         viewType: String,
         mixboxInAppServices: MixboxInAppServices?,
-        navigationController: UINavigationController)
+        navigationController: UINavigationController?)
     {
         self.viewType = viewType
         self.mixboxInAppServices = mixboxInAppServices
@@ -17,7 +17,7 @@ final class TestingViewControllerSettings {
 }
 
 extension TestingViewControllerSettings {
-    var viewIpc: ViewIpc {
+    public var viewIpc: ViewIpc {
         return ViewIpc(ipcMethodHandlerWithDependenciesRegisterer: mixboxInAppServices)
     }
 }

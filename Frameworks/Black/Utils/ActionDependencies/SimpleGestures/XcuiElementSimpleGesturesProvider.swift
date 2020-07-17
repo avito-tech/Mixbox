@@ -18,11 +18,11 @@ public final class XcuiElementSimpleGesturesProvider: ElementSimpleGesturesProvi
     
     public func elementSimpleGestures(
         elementSnapshot: ElementSnapshot,
-        interactionCoordinates: InteractionCoordinates)
+        pointOnScreen: CGPoint)
         throws
         -> ElementSimpleGestures
     {
-        var tapCoordinate = interactionCoordinates.interactionCoordinatesOnScreen(elementSnapshot: elementSnapshot)
+        var tapCoordinate = pointOnScreen
         
         // Kludge to fix tapping on "com.apple.springboard"'s alerts.
         // They can not be tapped by coordinate (even with private XCEventGenerator).

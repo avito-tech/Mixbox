@@ -15,21 +15,25 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
     public func visiblePixelData(
         beforeImage: CGImage,
         afterImage: CGImage,
+        searchRectInScreenCoordinates: CGRect,
+        targetPointOfInteraction: CGPoint?,
         storeVisiblePixelRect: Bool,
         storeComparisonResult: Bool)
         throws
         -> VisiblePixelData
     {
-        let width = beforeImage.width
-        let height = beforeImage.height
+        let imageSize = IntSize(
+            width: beforeImage.width,
+            height: beforeImage.height
+        )
         
-        guard width == afterImage.width else {
+        guard imageSize.width == afterImage.width else {
             throw ErrorString(
                 "Images must be of same size. Width before: \(beforeImage.width). Width after \(afterImage.width)"
             )
         }
         
-        guard height == afterImage.height else {
+        guard imageSize.height == afterImage.height else {
             throw ErrorString(
                 "Images must be of same size. Width before: \(beforeImage.height). Width after \(afterImage.height)"
             )
@@ -43,7 +47,7 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         // We only want to perform the relatively expensive rect computation if we've actually
         // been asked for it.
         if storeVisiblePixelRect {
-            histograms = [UInt16](repeating: 0, count: width * height)
+            histograms = [UInt16](repeating: 0, count: imageSize.area)
         } else {
             histograms = [UInt16]()
         }
@@ -51,41 +55,81 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         var visiblePixelCount: Int = 0
         var visiblePixel: CGPoint?
         var visiblePixelRect: CGRect?
+        var minimalSquaredDistanceToTargetPoint = Int.max
         var comparisonResultBuffer: VisibilityDiffBuffer
+        
+        // Prepare comparison result if needed
         
         if storeComparisonResult {
             comparisonResultBuffer = VisibilityDiffBuffer.createUninitialized(
-                width: width,
-                height: height
+                width: imageSize.width,
+                height: imageSize.height
             )
         } else {
             comparisonResultBuffer = VisibilityDiffBuffer.createUninitialized(width: 0, height: 0)
         }
         
-        // Make sure we go row-order to take advantage of data locality (cuts runtime in half).
-        for y in 0..<height {
-            for x in 0..<width {
-                let currentPixelIndex = (y * width + x) * colorChannelsPerPixel
+        // Check if target pixel is already visible, it takes O(1) and the pixel is often visible.
+        // Without this check the operation will take O(X*Y).
+        
+        let targetPixelInImage: IntPoint?
+        var closestVisiblePixelInImage: IntPoint?
+        
+        if let targetPointOfInteraction = targetPointOfInteraction {
+            let localTargetPixelInImage = self.targetPixelInImage(
+                targetPointOfInteraction: targetPointOfInteraction,
+                imageSize: imageSize,
+                searchRectInScreenCoordinates: searchRectInScreenCoordinates
+            )
+            
+            let targetPixelHasDiff = Self.isPixelDifferent(
+                beforeImagePixelData: beforeImagePixelData,
+                afterImagePixelData: afterImagePixelData,
+                index: (localTargetPixelInImage.y * imageSize.width + localTargetPixelInImage.x) * colorChannelsPerPixel
+            )
+            
+            if targetPixelHasDiff {
+                targetPixelInImage = nil
+                visiblePixel = targetPointOfInteraction
+            } else {
+                targetPixelInImage = localTargetPixelInImage
+            }
+        } else {
+            targetPixelInImage = nil
+        }
+        
+        // Note: we go row-order to take advantage of data locality (cuts runtime in half).
+        for y in 0..<imageSize.height {
+            for x in 0..<imageSize.width {
+                let currentPixelIndex = y * imageSize.width + x
+                let currentPixelByteIndex = currentPixelIndex * colorChannelsPerPixel
                 
                 let pixelHasDiff = Self.isPixelDifferent(
                     beforeImagePixelData: beforeImagePixelData,
                     afterImagePixelData: afterImagePixelData,
-                    index: currentPixelIndex
+                    index: currentPixelByteIndex
                 )
                 
                 if pixelHasDiff {
                     visiblePixelCount += 1
-                    // Always pick the bottom and right-most pixel. We may want to consider using tax-cab
-                    // formula to find a pixel that's closest to the center if we encounter problems with this
-                    // approach.
-                    visiblePixel = CGPoint(x: x, y: y)
+                    
+                    if let targetPixelInImage = targetPixelInImage {
+                        let dx = targetPixelInImage.x - x
+                        let dy = targetPixelInImage.y - y
+                        let squaredDistanceToTargetPoint = dx * dx + dy * dy
+                        
+                        if squaredDistanceToTargetPoint < minimalSquaredDistanceToTargetPoint {
+                            minimalSquaredDistanceToTargetPoint = squaredDistanceToTargetPoint
+                            closestVisiblePixelInImage = IntPoint(x: x, y: y)
+                        }
+                    }
                 }
                 
                 if storeVisiblePixelRect {
                     if y == 0 {
                         histograms[x] = pixelHasDiff ? 1 : 0
                     } else {
-                        histograms[y * width + x] = pixelHasDiff ? (histograms[(y - 1) * width + x] + 1) : 0
+                        histograms[currentPixelIndex] = pixelHasDiff ? (histograms[(y - 1) * imageSize.width + x] + 1) : 0
                     }
                 }
                 
@@ -95,14 +139,16 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
             }
         }
         
+        // Perform additional computation if `storeVisiblePixelRect` is set.
+        
         if storeVisiblePixelRect {
             var globalLargestRect: CGRect = .zero
             
-            for idx in 0..<height {
+            for idx in 0..<imageSize.height {
                 var localLargestRect = Self.largestRect(
                     inHistogram: histograms,
                     idx: idx,
-                    length: UInt16(width)
+                    length: UInt16(imageSize.width)
                 )
                 
                 if localLargestRect.mb_area > globalLargestRect.mb_area {
@@ -117,10 +163,48 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         
         return VisiblePixelData(
             visiblePixelCount: visiblePixelCount,
-            visiblePixel: visiblePixel,
+            visiblePixel: visiblePixel ?? closestVisiblePixelInImage.map { closestVisiblePixelInImage in
+                self.visiblePixel(
+                    intPoint: closestVisiblePixelInImage,
+                    imageSize: imageSize,
+                    searchRectInScreenCoordinates: searchRectInScreenCoordinates
+                )
+            },
             visiblePixelRect: visiblePixelRect,
             comparisonResultBuffer: comparisonResultBuffer
         )
+    }
+    
+    private func targetPixelInImage(
+        targetPointOfInteraction: CGPoint,
+        imageSize: IntSize,
+        searchRectInScreenCoordinates: CGRect)
+        -> IntPoint
+    {
+        // TODO: Make check for division by zero more obvious, don't forget it
+        // after rewriting the code (improvement of performance was planned).
+        // Currently the check is located in another class (VisibilityCheckImagesCapturer).
+        // Same for `func visiblePixel`.
+        let offsetInView = targetPointOfInteraction - searchRectInScreenCoordinates.origin
+        
+        return IntPoint(
+            x: Int(offsetInView.dx / searchRectInScreenCoordinates.width * CGFloat(imageSize.width)),
+            y: Int(offsetInView.dy / searchRectInScreenCoordinates.height * CGFloat(imageSize.height))
+        )
+    }
+    
+    private func visiblePixel(
+        intPoint: IntPoint,
+        imageSize: IntSize,
+        searchRectInScreenCoordinates: CGRect)
+        -> CGPoint
+    {
+        let pointInView = CGPoint(
+            x: CGFloat(intPoint.x) / CGFloat(imageSize.width) * searchRectInScreenCoordinates.width,
+            y: CGFloat(intPoint.y) / CGFloat(imageSize.height) * searchRectInScreenCoordinates.height
+        )
+        
+        return pointInView + searchRectInScreenCoordinates.origin
     }
 
     // TODO: Ideally, we should be testing that pixel colors are shifted by a certain amount instead of

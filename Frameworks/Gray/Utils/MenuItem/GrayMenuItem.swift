@@ -1,6 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxFoundation
+import MixboxIpcCommon
 
 final class GrayMenuItem: MenuItem, CustomStringConvertible {
     private let possibleTitles: [String]
@@ -30,7 +31,7 @@ final class GrayMenuItem: MenuItem, CustomStringConvertible {
         
         let elementSimpleGestures = try elementSimpleGesturesProvider.elementSimpleGestures(
             elementSnapshot: elementSnapshot,
-            interactionCoordinates: InteractionCoordinates.center
+            pointOnScreen: elementSnapshot.frameRelativeToScreen.mb_center
         )
         
         try elementSimpleGestures.tap()

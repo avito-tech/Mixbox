@@ -6,12 +6,12 @@ import MixboxFoundation
 
 public final class KeyboardEventInjectorImplTestsView:
     UIView,
-    InitializableWithTestingViewControllerSettings,
+    TestingView,
     UITextViewDelegate
 {
     private var textView = UITextView()
     
-    init(testingViewControllerSettings: TestingViewControllerSettings) {
+    public init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
         
         testingViewControllerSettings.viewIpc.registerResetUiMethod(view: self) { view in

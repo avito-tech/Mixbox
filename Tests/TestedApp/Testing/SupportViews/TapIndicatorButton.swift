@@ -24,9 +24,11 @@ final class TapIndicatorButton: UIButton {
     
     func reset() {
         tapped = false
+        backgroundColor = .blue
     }
     
     @objc private func onTap(_ recognizer: UITapGestureRecognizer) {
         tapped = true
+        backgroundColor = .green
     }
 }

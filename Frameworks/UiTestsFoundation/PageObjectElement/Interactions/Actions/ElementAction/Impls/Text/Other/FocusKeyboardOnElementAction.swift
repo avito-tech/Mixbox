@@ -1,3 +1,5 @@
+import MixboxIpcCommon
+
 // Expected effect:
 //     One of:
 //         - Keyboard is focused on a text field.

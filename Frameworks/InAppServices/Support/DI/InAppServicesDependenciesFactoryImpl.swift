@@ -25,7 +25,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     public let viewControllerIdlingResourceSwizzler: ViewControllerIdlingResourceSwizzler
     public let coreAnimationIdlingResourceSwizzler: CoreAnimationIdlingResourceSwizzler
     public let synchronousIpcClientFactory: SynchronousIpcClientFactory
-    public let visibilityChecker: VisibilityChecker
+    public let viewVisibilityChecker: ViewVisibilityChecker
     public let recordedAssertionFailuresProvider: RecordedAssertionFailuresProvider
     
     private let networkMockingBootstrappingType: NetworkMockingBootstrappingType
@@ -160,7 +160,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
         
         let imagePixelDataCreator = ImagePixelDataCreatorImpl()
         
-        visibilityChecker = VisibilityCheckerImpl(
+        viewVisibilityChecker = ViewVisibilityCheckerImpl(
             assertionFailureRecorder: assertionFailureRecorder,
             visibilityCheckImagesCapturer: VisibilityCheckImagesCapturerImpl(
                 imagePixelDataCreator: imagePixelDataCreator,

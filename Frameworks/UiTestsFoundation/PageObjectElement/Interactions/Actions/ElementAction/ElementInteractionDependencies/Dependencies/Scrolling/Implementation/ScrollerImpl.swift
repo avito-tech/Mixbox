@@ -58,10 +58,13 @@ public final class ScrollerImpl: Scroller {
                 // If element is partially on screen it might be "sufficiently visible" (and vice versa).
                 // If it is fully on screen it can also be either sufficiently visible ot not.
                 //
-                // So in any case we must do the check if it is not comopletely off screen.
-                let percentageOfVisibleArea = elementVisibilityChecker.percentageOfVisibleArea(
-                    snapshot: snapshot
+                // So in any case we must do the check if it is not completely off screen.
+                let visibilityCheckResult = try? elementVisibilityChecker.checkVisibility(
+                    snapshot: snapshot,
+                    interactionCoordinates: nil
                 )
+                
+                let percentageOfVisibleArea = visibilityCheckResult?.percentageOfVisibleArea ?? 0
                 
                 let elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
                 

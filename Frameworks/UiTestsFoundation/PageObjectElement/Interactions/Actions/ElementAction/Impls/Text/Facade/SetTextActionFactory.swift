@@ -1,3 +1,5 @@
+import MixboxIpcCommon
+
 public final class SetTextActionFactory {
     public enum ElementSelectionMethod {
         case selectElement(ensureElementGainsFocus: Bool)

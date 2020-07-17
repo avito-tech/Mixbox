@@ -1,14 +1,14 @@
 import MixboxIpc
 
-final class ClosureMethodHandler<MethodType: IpcMethod>: IpcMethodHandler {
-    typealias Method = MethodType
-    typealias Closure = (_ arguments: Method.Arguments, _ completion: @escaping (_ returnValue: Method.ReturnValue) -> ()) -> ()
+public final class ClosureMethodHandler<MethodType: IpcMethod>: IpcMethodHandler {
+    public typealias Method = MethodType
+    public typealias Closure = (_ arguments: Method.Arguments, _ completion: @escaping (_ returnValue: Method.ReturnValue) -> ()) -> ()
     
-    let method: Method
+    public let method: Method
     
     private let closure: Closure
     
-    init(
+    public init(
         method: Method,
         closure: @escaping Closure)
     {
@@ -16,7 +16,7 @@ final class ClosureMethodHandler<MethodType: IpcMethod>: IpcMethodHandler {
         self.closure = closure
     }
     
-    func handle(
+    public func handle(
         arguments: Method.Arguments,
         completion: @escaping (_ returnValue: Method.ReturnValue) -> ())
     {

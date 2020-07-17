@@ -1,6 +1,7 @@
 import XCTest
 import MixboxUiTestsFoundation
 import MixboxUiKit
+import MixboxIpcCommon
 
 final class SwipeActionTouchesTests: BaseTouchesTestCase {
     let defaultSwipeOffset: CGFloat = 100
@@ -58,16 +59,16 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
         parametrizedTest___swipe___produces_expected_events(
             swipeClosure: {
                 $0.swipe(
-                    startPoint: .interactionCoordinates(
-                        InteractionCoordinates(
-                            normalizedCoordinate: CGPoint(x: 0.5, y: 0.5),
-                            absoluteOffset: startPointOffset
-                        )
+                    startPoint: InteractionCoordinates(
+                        normalizedCoordinate: CGPoint(x: 0.5, y: 0.5),
+                        absoluteOffset: startPointOffset,
+                        mode: nil
                     ),
                     endPoint: .interactionCoordinates(
                         InteractionCoordinates(
                             normalizedCoordinate: CGPoint(x: 0.5, y: 0.5),
-                            absoluteOffset: CGVector(dx: 50, dy: 50)
+                            absoluteOffset: CGVector(dx: 50, dy: 50),
+                            mode: nil
                         )
                     )
                 )
@@ -108,14 +109,32 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
                 endEvent: lastEvent
             )
             
-            assertEqual(firstTouch.location, try targetViewFrameCenterToWindow() + startPointOffsetFromCenter)
-            assertEqual(firstTouch.preciseLocation, try targetViewFrameCenter() + startPointOffsetFromCenter)
+            assertEqual(
+                actual: firstTouch.location,
+                expected: try targetViewFrameCenterToWindow() + startPointOffsetFromCenter
+            )
+            assertEqual(
+                actual: firstTouch.preciseLocation,
+                expected: try targetViewFrameCenter() + startPointOffsetFromCenter
+            )
             
-            assertEqual(lastTouch.location - firstTouch.location, endPointOffsetFromStartPoint)
-            assertEqual(lastTouch.preciseLocation - firstTouch.preciseLocation, endPointOffsetFromStartPoint)
+            assertEqual(
+                actual: lastTouch.location - firstTouch.location,
+                expected: endPointOffsetFromStartPoint
+            )
+            assertEqual(
+                actual: lastTouch.preciseLocation - firstTouch.preciseLocation,
+                expected: endPointOffsetFromStartPoint
+            )
             
-            assertAbsoluteCoordinatesAreEqual(firstTouch.location, startPointAbsolute)
-            assertAbsoluteCoordinatesAreEqual(lastTouch.location, startPointAbsolute + endPointOffsetFromStartPoint)
+            assertAbsoluteCoordinatesAreEqual(
+                actual: firstTouch.location,
+                expected: startPointAbsolute
+            )
+            assertAbsoluteCoordinatesAreEqual(
+                actual: lastTouch.location,
+                expected: startPointAbsolute + endPointOffsetFromStartPoint
+            )
         } catch {
             XCTFail("\(error)")
         }
