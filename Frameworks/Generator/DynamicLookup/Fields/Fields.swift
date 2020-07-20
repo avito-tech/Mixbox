@@ -5,14 +5,14 @@
 public final class Fields<T> {
     public typealias GeneratedType = T
     
-    private let generators: GeneratorByKeyPath<GeneratedType>
+    private let generatorByKeyPath: GeneratorByKeyPath<GeneratedType>
     
-    public init(generators: GeneratorByKeyPath<GeneratedType>) {
-        self.generators = generators
+    public init(generatorByKeyPath: GeneratorByKeyPath<GeneratedType>) {
+        self.generatorByKeyPath = generatorByKeyPath
     }
     
     public subscript<FieldType>(dynamicMember keyPath: KeyPath<GeneratedType, FieldType>) -> FieldType {
-        let generator: Generator<FieldType> = generators[keyPath]
+        let generator: Generator<FieldType> = generatorByKeyPath[keyPath]
         
         do {
             return try generator.generate()

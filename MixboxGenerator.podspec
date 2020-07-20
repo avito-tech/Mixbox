@@ -14,4 +14,9 @@ Pod::Spec.new do |s|
   s.source_files           = 'Frameworks/Generator/**/*.{swift,h,m,mm}'
 
   s.dependency 'MixboxDi'
+  s.dependency 'MixboxTestsFoundation'
+  
+  s.xcconfig = {
+    'ENABLE_TESTING_SEARCH_PATHS' => 'YES'
+  }
 end

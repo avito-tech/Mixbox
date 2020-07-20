@@ -10,10 +10,18 @@ public protocol GeneratableByFields: DefaultGeneratorProvider {
 
 extension GeneratableByFields {
     public static func defaultGenerator(dependencyResolver: DependencyResolver) throws -> Generator<Self> {
+        let anyGenerator = AnyGeneratorImpl(dependencyResolver: dependencyResolver)
+        
+        let dynamicLookupGeneratorFactory = DynamicLookupGeneratorFactoryImpl(
+            anyGenerator: anyGenerator
+        )
+        
         return DynamicLookupGenerator(
-            dependencies: try DynamicLookupGeneratorDependencies(
-                dependencyResolver: dependencyResolver
-            )
+            dynamicLookupGeneratorFactory: dynamicLookupGeneratorFactory,
+            anyGenerator: anyGenerator,
+            generate: { fields in
+                self.generate(fields: fields)
+            }
         )
     }
 }

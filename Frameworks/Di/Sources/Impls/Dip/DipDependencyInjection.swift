@@ -8,10 +8,6 @@ public final class DipDependencyInjection: DependencyInjection {
         self.dependencyContainer = dependencyContainer
     }
     
-    public func completeContainerSetup() throws {
-        try dependencyContainer.bootstrap()
-    }
-    
     public func resolve<T>() throws -> T {
         return try dependencyContainer.resolve()
     }

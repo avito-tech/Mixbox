@@ -18,8 +18,8 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     }()
     
     override func makeDependencies() -> TestCaseDependenciesResolver {
-        RegisteringTestCaseDependenciesResolver(
-            registerer: GrayBoxTestCaseDependencies(
+        TestCaseDi.make(
+            dependencyCollectionRegisterer: GrayBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
             ),
             performanceLogger: Singletons.performanceLogger

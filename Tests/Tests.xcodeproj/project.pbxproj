@@ -134,6 +134,7 @@
 		F84D12792166B37400A178B4 /* CellThatCrashesAtInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D12782166B37400A178B4 /* CellThatCrashesAtInit.swift */; };
 		F84D127B2166B3A700A178B4 /* CrashingCellException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D127A2166B3A700A178B4 /* CrashingCellException.swift */; };
 		F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */; };
+		F850A31024C5E06A006CCF11 /* GeneratorTestsDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F850A30F24C5E06A006CCF11 /* GeneratorTestsDependencies.swift */; };
 		F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F851CADF239E74CB005F4F2C /* ElementSettingsTests.swift */; };
 		F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */; };
 		F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */; };
@@ -457,6 +458,8 @@
 		F8C8ED4F2298650E0009B9A7 /* UiTestCaseDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4A22985E200009B9A7 /* UiTestCaseDependencies.swift */; };
 		F8C8ED5122999A170009B9A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */; };
+		F8D262D0244313570006B707 /* GeneratorFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D262CF244313570006B707 /* GeneratorFacadeTests.swift */; };
+		F8D262D324431D740006B707 /* BaseGeneratorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D262D224431D740006B707 /* BaseGeneratorTestCase.swift */; };
 		F8D53B22235F62E5004E4577 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B21235F62E5004E4577 /* TestCase.swift */; };
 		F8D53B24235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B23235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift */; };
 		F8D53B25235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B23235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift */; };
@@ -726,6 +729,7 @@
 		F84D12782166B37400A178B4 /* CellThatCrashesAtInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellThatCrashesAtInit.swift; sourceTree = "<group>"; };
 		F84D127A2166B3A700A178B4 /* CrashingCellException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashingCellException.swift; sourceTree = "<group>"; };
 		F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticCurrentTestCaseProvider.swift; sourceTree = "<group>"; };
+		F850A30F24C5E06A006CCF11 /* GeneratorTestsDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorTestsDependencies.swift; sourceTree = "<group>"; };
 		F851CADF239E74CB005F4F2C /* ElementSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementSettingsTests.swift; sourceTree = "<group>"; };
 		F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift; sourceTree = "<group>"; };
 		F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceProviderImplTests.swift; sourceTree = "<group>"; };
@@ -934,6 +938,8 @@
 		F8C8ED4422985DD00009B9A7 /* ScreenOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenOpener.swift; sourceTree = "<group>"; };
 		F8C8ED4A22985E200009B9A7 /* UiTestCaseDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTestCaseDependencies.swift; sourceTree = "<group>"; };
 		F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		F8D262CF244313570006B707 /* GeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorFacadeTests.swift; sourceTree = "<group>"; };
+		F8D262D224431D740006B707 /* BaseGeneratorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGeneratorTestCase.swift; sourceTree = "<group>"; };
 		F8D53B21235F62E5004E4577 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		F8D53B23235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertHasAccessibilityLabelInteractionTests.swift; sourceTree = "<group>"; };
 		F8D854DD235A3CBF0068047A /* LocatorsTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsTestsViewPageObject.swift; sourceTree = "<group>"; };
@@ -2484,6 +2490,8 @@
 		F8B39FEC2423F05500BFACD8 /* MixboxGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				F8D262D124431D6C0006B707 /* Support */,
+				F8D262CE2443134B0006B707 /* GeneratorFacadeTests */,
 				F82BDF81243DA5840010FD6C /* AnyGenerator */,
 				F8C3AD012437A298004B6BA4 /* Generator */,
 				F8C3AD002437A291004B6BA4 /* Random */,
@@ -2733,6 +2741,23 @@
 				F8FC39802159133D00A9C922 /* Media.xcassets */,
 			);
 			path = AppAndTestsShared;
+			sourceTree = "<group>";
+		};
+		F8D262CE2443134B0006B707 /* GeneratorFacadeTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8D262CF244313570006B707 /* GeneratorFacadeTests.swift */,
+			);
+			path = GeneratorFacadeTests;
+			sourceTree = "<group>";
+		};
+		F8D262D124431D6C0006B707 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F8D262D224431D740006B707 /* BaseGeneratorTestCase.swift */,
+				F850A30F24C5E06A006CCF11 /* GeneratorTestsDependencies.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		F8D5392520A087A600733C93 /* Tests */ = {
@@ -4249,6 +4274,7 @@
 				F8DC864923674F44003889C7 /* CGImage+Stub.swift in Sources */,
 				F8FC4ACD23AA666E00D3E911 /* AlwaysFalseMatcherTests.swift in Sources */,
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
+				F8D262D0244313570006B707 /* GeneratorFacadeTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */,
 				F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */,
@@ -4262,6 +4288,7 @@
 				F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */,
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* ElementMatcherBuilderTests.swift in Sources */,
+				F850A31024C5E06A006CCF11 /* GeneratorTestsDependencies.swift in Sources */,
 				F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */,
 				F8C3AD1824384420004B6BA4 /* ConstantAnyGenerator.swift in Sources */,
 				F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */,
@@ -4280,6 +4307,7 @@
 				F8FC4AD323AA687F00D3E911 /* AlwaysTrueMatcherTests.swift in Sources */,
 				F8971D8922661A8E001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.swift in Sources */,
 				F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */,
+				F8D262D324431D740006B707 /* BaseGeneratorTestCase.swift in Sources */,
 				F8C3AD102437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift in Sources */,
 				F8C3AD1E243AFF91004B6BA4 /* SequenceAnyGenerator.swift in Sources */,
 				F8C3AD142437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift in Sources */,

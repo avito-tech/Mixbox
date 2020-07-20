@@ -61,7 +61,7 @@ completeGeneration() {
     
     local tmpfile="$(uuidgen).tmp"
     
-    "${PODS_ROOT}/Cuckoo/run" \
+    "${PODS_ROOT}/Cuckoo/Generator/cuckoo_generator" \
         generate \
         --testable "$MODULE_TO_MOCK" \
         --output "${tmpfile}" \

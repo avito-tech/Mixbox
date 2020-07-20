@@ -39,8 +39,8 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     }
     
     override func makeDependencies() -> TestCaseDependenciesResolver {
-        RegisteringTestCaseDependenciesResolver(
-            registerer: BlackBoxTestCaseDependencies(
+        TestCaseDi.make(
+            dependencyCollectionRegisterer: BlackBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
             ),
             performanceLogger: Singletons.performanceLogger

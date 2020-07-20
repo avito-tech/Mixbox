@@ -4,9 +4,7 @@ import MixboxTestsFoundation
 import Dip
 import XCTest
 
-class DynamicLookupGeneratorTests: TestCase {
-    private let di = makeDi()
-    
+class DynamicLookupGeneratorTests: BaseGeneratorTestCase {
     func test___generator___can_generate_class___based_on_InitializableWithFields() {
         check___generator___can_generate(class: InitializableWithFieldsClass.self)
     }
@@ -21,13 +19,19 @@ class DynamicLookupGeneratorTests: TestCase {
         T: GeneratableByFields
     {
         do {
+            let di = DipDependencyInjection(dependencyContainer: DependencyContainer())
+            
             di.register(type: Generator<Int>.self) { _ in
                 ConstantGenerator(42)
             }
             
-            let generator = DynamicLookupGenerator<T>(
-                dependencies: try DynamicLookupGeneratorDependencies(dependencyResolver: di)
+            let dynamicLookupGeneratorFactory = DynamicLookupGeneratorFactoryImpl(
+                anyGenerator: AnyGeneratorImpl(
+                    dependencyResolver: di
+                )
             )
+            
+            let generator: Generator<T> = try dynamicLookupGeneratorFactory.dynamicLookupGenerator()
             
             XCTAssertEqual(
                 try generator.generate().value,
@@ -36,37 +40,6 @@ class DynamicLookupGeneratorTests: TestCase {
         } catch {
             XCTFail("\(error)")
         }
-    }
-    
-    private static func makeDi() -> DependencyInjection {
-        let di = DipDependencyInjection(dependencyContainer: DependencyContainer())
-        
-        di.register(type: AnyGenerator.self) { dependencyResolver in
-            AnyGeneratorImpl(dependencyResolver: dependencyResolver)
-        }
-        di.register(type: Generator<Bool>.self) { di in
-            try RandomBoolGenerator(randomNumberProvider: di.resolve())
-        }
-        di.register(type: Generator<Float>.self) { di in
-            try RandomFloatGenerator(randomNumberProvider: di.resolve())
-        }
-        di.register(type: Generator<CGFloat>.self) { di in
-            try RandomFloatGenerator(randomNumberProvider: di.resolve())
-        }
-        di.register(type: Generator<Double>.self) { di in
-            try RandomFloatGenerator(randomNumberProvider: di.resolve())
-        }
-        di.register(type: Generator<Int>.self) { di in
-            try RandomIntegerGenerator(randomNumberProvider: di.resolve())
-        }
-        di.register(type: Generator<String>.self) { di in
-            try RandomStringGenerator(randomNumberProvider: di.resolve())
-        }
-        di.register(type: RandomNumberProvider.self) { _ in
-            MersenneTwisterRandomNumberProvider(seed: 0)
-        }
-        
-        return di
     }
 }
 

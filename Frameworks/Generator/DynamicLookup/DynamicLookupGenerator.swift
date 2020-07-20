@@ -7,19 +7,25 @@ import MixboxDi
 public class DynamicLookupGenerator<T>: Generator<T> {
     public typealias GeneratedType = T
     
-    private let generators: GeneratorByKeyPath<GeneratedType>
+    private let dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory
+    private let anyGenerator: AnyGenerator
+    private let generatorByKeyPath: GeneratorByKeyPath<GeneratedType>
     private let fields: Fields<GeneratedType>
     
     public init(
-        dependencies: DynamicLookupGeneratorDependencies,
+        dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory,
+        anyGenerator: AnyGenerator,
         generate: @escaping (Fields<GeneratedType>) throws -> GeneratedType)
     {
-        let generators = GeneratorByKeyPath<GeneratedType>(
-            anyGenerator: dependencies.anyGenerator
-        )
-        let fields = Fields(generators: generators)
+        self.dynamicLookupGeneratorFactory = dynamicLookupGeneratorFactory
+        self.anyGenerator = anyGenerator
         
-        self.generators = generators
+        let generatorByKeyPath = GeneratorByKeyPath<GeneratedType>(
+            anyGenerator: anyGenerator
+        )
+        let fields = Fields(generatorByKeyPath: generatorByKeyPath)
+        
+        self.generatorByKeyPath = generatorByKeyPath
         self.fields = fields
         
         super.init {
@@ -27,22 +33,29 @@ public class DynamicLookupGenerator<T>: Generator<T> {
         }
     }
     
-    public subscript<FieldType>(dynamicMember keyPath: KeyPath<GeneratedType, FieldType>) -> FieldType {
+    public subscript<FieldType>(
+        dynamicMember keyPath: KeyPath<GeneratedType, FieldType>)
+        -> FieldType
+    {
         get {
             return fields[dynamicMember: keyPath]
         }
         set {
-            generators[keyPath] = Generator<FieldType> { newValue }
+            generatorByKeyPath[keyPath] = Generator<FieldType> { newValue }
         }
     }
-}
-
-extension DynamicLookupGenerator where T: GeneratableByFields {
-    public convenience init(
-        dependencies: DynamicLookupGeneratorDependencies)
+    
+    // TODO: Try to remove constraint to GeneratableByFields
+    public subscript<FieldType: GeneratableByFields>(
+        dynamicMember keyPath: KeyPath<GeneratedType, FieldType>)
+        -> NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType>
     {
-        self.init(dependencies: dependencies) { fields in
-            T.generate(fields: fields)
+        get {
+            return NestedDynamicLookupGeneratorStubber(
+                dynamicLookupGeneratorFactory: dynamicLookupGeneratorFactory,
+                generatorByKeyPath: generatorByKeyPath,
+                keyPath: keyPath
+            )
         }
     }
 }

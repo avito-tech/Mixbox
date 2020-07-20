@@ -1,4 +1,4 @@
-public class Generator<T> {
+open class Generator<T> {
     public typealias GenerateFunction = () throws -> T
     
     private let generateFunction: GenerateFunction
