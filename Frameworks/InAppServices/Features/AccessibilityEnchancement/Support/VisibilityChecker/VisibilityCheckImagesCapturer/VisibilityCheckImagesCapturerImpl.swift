@@ -3,16 +3,21 @@
 import MixboxFoundation
 
 public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCapturer {
-    private let imagePixelDataCreator: ImagePixelDataCreator
+    private let imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator
     private let inAppScreenshotTaker: InAppScreenshotTaker
-    private let colorChannelsPerPixel = 4
+    private let imageFromImagePixelDataCreator: ImageFromImagePixelDataCreator
+    private let screen: UIScreen
     
     public init(
-        imagePixelDataCreator: ImagePixelDataCreator,
-        inAppScreenshotTaker: InAppScreenshotTaker)
+        imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator,
+        inAppScreenshotTaker: InAppScreenshotTaker,
+        imageFromImagePixelDataCreator: ImageFromImagePixelDataCreator,
+        screen: UIScreen)
     {
-        self.imagePixelDataCreator = imagePixelDataCreator
+        self.imagePixelDataFromImageCreator = imagePixelDataFromImageCreator
         self.inAppScreenshotTaker = inAppScreenshotTaker
+        self.imageFromImagePixelDataCreator = imageFromImagePixelDataCreator
+        self.screen = screen
     }
     
     // swiftlint:disable:next cyclomatic_complexity function_body_length
@@ -30,7 +35,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         }
         
         // Find portion of search rect that is on screen and in view.
-        let screenBounds = UIScreen.main.bounds
+        let screenBounds = screen.bounds
         
         let axFrame = view.accessibilityFrame
         let searchRectOnScreenInViewInScreenCoordinates = searchRectInScreenCoordinates.intersection(
@@ -42,14 +47,13 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         }
     
         // Calculate the search rectangle for screenshot.
-        var screenshotSearchRect_pixel = searchRectOnScreenInViewInScreenCoordinates
-        
-        screenshotSearchRect_pixel = screenshotSearchRect_pixel.mb_pointToPixel()
-        screenshotSearchRect_pixel = screenshotSearchRect_pixel.mb_integralInside()
+        let screenshotSearchRectInPixels = searchRectOnScreenInViewInScreenCoordinates
+            .mb_pointToPixel()
+            .mb_integralInside()
     
-        let intersectionOrigin = screenshotSearchRect_pixel.origin
+        let intersectionOrigin = screenshotSearchRectInPixels.origin
         
-        if screenshotSearchRect_pixel.size.width == 0 || screenshotSearchRect_pixel.size.height == 0 {
+        if screenshotSearchRectInPixels.size.width == 0 || screenshotSearchRectInPixels.size.height == 0 {
             throw ErrorString("screenshotSearchRect has zero area")
         }
     
@@ -70,7 +74,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
             throw ErrorString("beforeScreenshotCgImage is nil")
         }
         
-        guard let beforeImage = beforeScreenshotCgImage.cropping(to: screenshotSearchRect_pixel) else {
+        guard let beforeImage = beforeScreenshotCgImage.cropping(to: screenshotSearchRectInPixels) else {
             throw ErrorString("beforeImage is nil")
         }
         
@@ -98,7 +102,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
             from: nil
         )
     
-        let rectAfterPixelAlignment = screenshotSearchRect_pixel.mb_pixelToPoint()
+        let rectAfterPixelAlignment = screenshotSearchRectInPixels.mb_pixelToPoint()
         
         let searchRectOnScreenInViewInVariableScreenCoordinates = searchRectOnScreenInViewInScreenCoordinates
         
@@ -113,8 +117,10 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     
         let searchRectOffset = CGPoint(x: searchRectOffsetX, y: searchRectOffsetY)
         
+        let beforeImagePixelData = try imagePixelDataFromImageCreator.createImagePixelData(image: beforeImage)
+        
         let shiftedView = try imageViewWithShiftedColor(
-            ofImage: beforeImage,
+            beforeImagePixelData: beforeImagePixelData,
             frameOffset: searchRectOffset,
             orientation: beforeScreenshot.imageOrientation
         )
@@ -127,15 +133,21 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
             throw ErrorString("afterScreenshotCgImage is nil")
         }
         
-        guard let afterImage = afterScreenshotCgImage.cropping(to: screenshotSearchRect_pixel) else {
+        guard let afterImage = afterScreenshotCgImage.cropping(to: screenshotSearchRectInPixels) else {
             throw ErrorString("afterImage should not be null")
         }
         
+        let afterImagePixelData = try imagePixelDataFromImageCreator.createImagePixelData(image: afterImage)
+        
         return VisibilityCheckImagesCaptureResult(
-            beforeImage: beforeImage,
-            afterImage: afterImage,
+            beforeImagePixelData: beforeImagePixelData,
+            afterImagePixelData: afterImagePixelData,
             intersectionOrigin: intersectionOrigin
         )
+    }
+    
+    private func intRectForCropping(pixelRect: CGRect) -> IntRect {
+        return pixelRect.rounded()
     }
 
     private func imageAfterAddingSubview(
@@ -143,7 +155,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         toView view: UIView)
         -> UIImage?
     {
-        return prepareViewForVisibilityCheck(view: view) { () -> UIImage? in
+        return prepareViewForVisibilityCheck(view: view) {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             view.addSubview(shiftedView)
@@ -231,62 +243,37 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     //         @c offset and orientation set to @c orientation.
     //
     private func imageViewWithShiftedColor(
-        ofImage image: CGImage,
+        beforeImagePixelData: ImagePixelData,
         frameOffset offset: CGPoint,
         orientation: UIImage.Orientation)
         throws
         -> UIImageView
     {
-        let width = image.width
-        let height = image.height
+        let shiftedImagePixels = beforeImagePixelData.copy()
+        let buffer = shiftedImagePixels.imagePixelBuffer
         
-        // TODO: Find a good way to compute imagePixelData of before image only once without
-        // negatively impacting the readability of code in visibility checker.
-        let shiftedImagePixels = try imagePixelDataCreator.createImagePixelData(image: image)
-        
-        for i in 0..<height * width {
-            let currentPixelIndex = colorChannelsPerPixel * i
+        for pixelIndex in 0..<shiftedImagePixels.size.area {
+            let pixelDataOffset = pixelIndex * shiftedImagePixels.bytesPerPixel
             
             // TODO: Blue channel is missing
             // We don't care about the [first] byte of the [X]RGB format.
-            for j in 1...2 {
+            for byteIndex in 1...2 {
                 let kShiftIntensityAmount: [UInt8] = [0, 10, 10, 10] // Shift for X, R, G, B
-                var pixelIntensity = shiftedImagePixels.imagePixelBuffer[currentPixelIndex + j]
+                var pixelIntensity = buffer[pixelDataOffset + byteIndex]
                 
-                if pixelIntensity >= kShiftIntensityAmount[j] {
-                    pixelIntensity -= kShiftIntensityAmount[j]
+                if pixelIntensity >= kShiftIntensityAmount[byteIndex] {
+                    pixelIntensity -= kShiftIntensityAmount[byteIndex]
                 } else {
-                    pixelIntensity += kShiftIntensityAmount[j]
+                    pixelIntensity += kShiftIntensityAmount[byteIndex]
                 }
                 
-                shiftedImagePixels.imagePixelBuffer[currentPixelIndex + j] = pixelIntensity
+                buffer[pixelDataOffset + byteIndex] = pixelIntensity
             }
         }
         
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        
-        let bitmapContextOrNil = CGContext(
-            data: shiftedImagePixels.imagePixelBuffer.pointer,
-            width: width,
-            height: height,
-            bitsPerComponent: 8,
-            bytesPerRow: colorChannelsPerPixel * width,
-            space: colorSpace,
-            bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue | CGImageByteOrderInfo.order32Big.rawValue
-        )
-        
-        // TODO: Move to throwing extension
-        guard let bitmapContext = bitmapContextOrNil else {
-            throw ErrorString("Failed to create CGContext")
-        }
-        
-        guard let bitmapImage = bitmapContext.makeImage() else {
-            throw ErrorString("Failed to makeImage() from CGContext")
-        }
-        
-        let shiftedImage = UIImage(
-            cgImage: bitmapImage,
-            scale: UIScreen.main.scale,
+        let shiftedImage = try imageFromImagePixelDataCreator.image(
+            imagePixelData: shiftedImagePixels,
+            scale: screen.scale,
             orientation: orientation
         )
         

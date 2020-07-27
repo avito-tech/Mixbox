@@ -4,17 +4,17 @@ import MixboxUiKit
 import MixboxFoundation
 
 public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
-    private let imagePixelDataCreator: ImagePixelDataCreator
+    private let imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator
     private let colorChannelsPerPixel = 4
     
-    public init(imagePixelDataCreator: ImagePixelDataCreator) {
-        self.imagePixelDataCreator = imagePixelDataCreator
+    public init(imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator) {
+        self.imagePixelDataFromImageCreator = imagePixelDataFromImageCreator
     }
     
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     public func visiblePixelData(
-        beforeImage: CGImage,
-        afterImage: CGImage,
+        beforeImagePixelData: ImagePixelData,
+        afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
         targetPointOfInteraction: CGPoint?,
         storeVisiblePixelRect: Bool,
@@ -22,25 +22,13 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         throws
         -> VisiblePixelData
     {
-        let imageSize = IntSize(
-            width: beforeImage.width,
-            height: beforeImage.height
-        )
+        let imageSize = beforeImagePixelData.size
         
-        guard imageSize.width == afterImage.width else {
+        guard beforeImagePixelData.size == afterImagePixelData.size else {
             throw ErrorString(
-                "Images must be of same size. Width before: \(beforeImage.width). Width after \(afterImage.width)"
+                "Images must be of same size. Size before: \(beforeImagePixelData.size). Size after \(afterImagePixelData.size)"
             )
         }
-        
-        guard imageSize.height == afterImage.height else {
-            throw ErrorString(
-                "Images must be of same size. Width before: \(beforeImage.height). Width after \(afterImage.height)"
-            )
-        }
-        
-        let beforeImagePixelData = try imagePixelDataCreator.createImagePixelData(image: beforeImage)
-        let afterImagePixelData = try imagePixelDataCreator.createImagePixelData(image: afterImage)
         
         var histograms: [UInt16]
         

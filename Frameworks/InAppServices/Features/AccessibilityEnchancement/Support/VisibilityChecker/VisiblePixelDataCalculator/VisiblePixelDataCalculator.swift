@@ -10,8 +10,8 @@ public protocol VisiblePixelDataCalculator {
     // created to detect image diff, will be stored to `comparisonResultBuffer`.
     //
     func visiblePixelData(
-        beforeImage: CGImage,
-        afterImage: CGImage,
+        beforeImagePixelData: ImagePixelData,
+        afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
         targetPointOfInteraction: CGPoint?,
         storeVisiblePixelRect: Bool,

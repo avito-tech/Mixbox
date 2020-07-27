@@ -149,6 +149,7 @@
 		F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */; };
 		F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */; };
 		F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */; };
+		F86038F324CF0BBC00C257E8 /* ImagePixelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */; };
 		F863CA0624B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA0524B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift */; };
 		F863CA1024B4B23B00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA0E24B4B1AE00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift */; };
 		F863CA1124B4B23C00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA0E24B4B1AE00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift */; };
@@ -194,6 +195,7 @@
 		F879833722494F07004DD770 /* StepLogMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833622494F07004DD770 /* StepLogMatcherBuilder.swift */; };
 		F879833F22495469004DD770 /* BaseUiTestCase+AssertLogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833E22495469004DD770 /* BaseUiTestCase+AssertLogsAndFailures.swift */; };
 		F879B9FF2368AAD700FB2FA0 /* DipDependencyInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879B9FE2368AAD700FB2FA0 /* DipDependencyInjectionTests.swift */; };
+		F87D182C24CF7A8100D6DBFA /* InAppScreenshotTakerImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C7E5124CF215100F70F22 /* InAppScreenshotTakerImplTests.swift */; };
 		F87FD14924097263004B3D99 /* BaseUiTestCase+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */; };
 		F87FD14A24097264004B3D99 /* BaseUiTestCase+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */; };
 		F888EE1A23206136009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */; };
@@ -640,6 +642,7 @@
 		F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedStepLoggerRecording.swift; sourceTree = "<group>"; };
 		F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepLoggerRecordingStarter.swift; sourceTree = "<group>"; };
 		F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStepLoggerImpl.swift; sourceTree = "<group>"; };
+		F80C7E5124CF215100F70F22 /* InAppScreenshotTakerImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppScreenshotTakerImplTests.swift; sourceTree = "<group>"; };
 		F80C944024C1A03D009397F3 /* ViewControllerContainerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerContainerType.swift; sourceTree = "<group>"; };
 		F80C944224C1A072009397F3 /* ViewControllerContainerTypeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerContainerTypeProvider.swift; sourceTree = "<group>"; };
 		F80C944424C1A07A009397F3 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
@@ -743,6 +746,7 @@
 		F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIpcMethods.swift; sourceTree = "<group>"; };
 		F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingSbtuiTestTunnelTests.swift; sourceTree = "<group>"; };
+		F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePixelDataTests.swift; sourceTree = "<group>"; };
 		F863CA0524B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTestsView.swift; sourceTree = "<group>"; };
 		F863CA0C24B4B19C00423225 /* InteractionsUseVisiblePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTests.swift; sourceTree = "<group>"; };
 		F863CA0E24B4B1AE00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTestsViewPageObject.swift; sourceTree = "<group>"; };
@@ -1129,6 +1133,14 @@
 				CCCEA11622AE7C860057F5E0 /* FakeCellsDisablingTests.swift */,
 			);
 			path = FakeCells;
+			sourceTree = "<group>";
+		};
+		F80C81DA24CF3BAA00F70F22 /* ScreenshotTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8A837C12270ED8E00145140 /* GrayScreenshotTakerTests.swift */,
+			);
+			path = ScreenshotTests;
 			sourceTree = "<group>";
 		};
 		F80CEDE022DE27D8006C804D /* MixboxIpcCommon */ = {
@@ -2330,11 +2342,11 @@
 		F8B0A22F220A0E040089C1EE /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F80C81DA24CF3BAA00F70F22 /* ScreenshotTests */,
 				BC6CF99B231040EE003F40C0 /* Stubbing */,
 				F8DB350422725E8200EE0FB8 /* RunLoopSpinner */,
 				F8A8381B2271F2CF00145140 /* ElementHierarchyDescriptionProvider */,
 				F8A837C62270F25000145140 /* screenshotTestsView_screenshot.png */,
-				F8A837C12270ED8E00145140 /* GrayScreenshotTakerTests.swift */,
 				F8A837EE22711E1800145140 /* IpcTests.swift */,
 				F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */,
 				F8785C662361D24200571718 /* KeyboardEventInjectorImplTests.swift */,
@@ -2810,8 +2822,10 @@
 		F8D85529235DF59A0068047A /* MixboxInAppServices */ = {
 			isa = PBXGroup;
 			children = (
+				F80C7E5124CF215100F70F22 /* InAppScreenshotTakerImplTests.swift */,
 				F8D8556C235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift */,
 				F889439B239067A2009979BE /* IdlingResourceObjectTrackerTests.swift */,
+				F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */,
 			);
 			path = MixboxInAppServices;
 			sourceTree = "<group>";
@@ -4266,6 +4280,7 @@
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */,
+				F87D182C24CF7A8100D6DBFA /* InAppScreenshotTakerImplTests.swift in Sources */,
 				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
 				F879B9FF2368AAD700FB2FA0 /* DipDependencyInjectionTests.swift in Sources */,
 				F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */,
@@ -4274,6 +4289,7 @@
 				F8DC864923674F44003889C7 /* CGImage+Stub.swift in Sources */,
 				F8FC4ACD23AA666E00D3E911 /* AlwaysFalseMatcherTests.swift in Sources */,
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
+				F86038F324CF0BBC00C257E8 /* ImagePixelDataTests.swift in Sources */,
 				F8D262D0244313570006B707 /* GeneratorFacadeTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */,

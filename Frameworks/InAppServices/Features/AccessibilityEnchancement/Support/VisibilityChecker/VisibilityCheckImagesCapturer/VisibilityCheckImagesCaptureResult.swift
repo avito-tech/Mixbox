@@ -1,17 +1,17 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 public final class VisibilityCheckImagesCaptureResult {
-    public let beforeImage: CGImage
-    public let afterImage: CGImage
+    public let beforeImagePixelData: ImagePixelData
+    public let afterImagePixelData: ImagePixelData
     public let intersectionOrigin: CGPoint
     
     public init(
-        beforeImage: CGImage,
-        afterImage: CGImage,
+        beforeImagePixelData: ImagePixelData,
+        afterImagePixelData: ImagePixelData,
         intersectionOrigin: CGPoint)
     {
-        self.beforeImage = beforeImage
-        self.afterImage = afterImage
+        self.beforeImagePixelData = beforeImagePixelData
+        self.afterImagePixelData = afterImagePixelData
         self.intersectionOrigin = intersectionOrigin
     }
 }

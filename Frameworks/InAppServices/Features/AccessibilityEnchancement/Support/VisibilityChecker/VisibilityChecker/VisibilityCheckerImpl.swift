@@ -4,6 +4,12 @@ import UIKit
 import MixboxFoundation
 import MixboxIpcCommon
 
+// Ways to improve performance:
+// - CGContextSetInterpolationQuality(ctx, kCGInterpolationNone)
+//   https://stackoverflow.com/a/19327509
+// - Grab screenshot using GPU, hold it in GPU and process it in GPU.
+//   https://stackoverflow.com/questions/33844130/take-a-snapshot-of-current-screen-with-metal-in-swift
+//   https://developer.apple.com/documentation/metal/frame_capture_debugging_tools/capturing_gpu_command_data_programmatically
 public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
     private let assertionFailureRecorder: AssertionFailureRecorder
     private let visibilityCheckImagesCapturer: VisibilityCheckImagesCapturer
@@ -33,8 +39,8 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
         let countTotalSearchRectPixels = searchRectInPixels.mb_integralInside().mb_area
         
         let visiblePixelData = try visiblePixelDataCalculator.visiblePixelData(
-            beforeImage: captureResult.beforeImage,
-            afterImage: captureResult.afterImage,
+            beforeImagePixelData: captureResult.beforeImagePixelData,
+            afterImagePixelData: captureResult.afterImagePixelData,
             searchRectInScreenCoordinates: searchRectInScreenCoordinates,
             targetPointOfInteraction: targetPointOfInteraction(
                 elementFrameRelativeToScreen: searchRectInScreenCoordinates,

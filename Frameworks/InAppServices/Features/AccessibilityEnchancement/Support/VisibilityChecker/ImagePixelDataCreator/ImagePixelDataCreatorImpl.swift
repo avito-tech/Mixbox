@@ -2,7 +2,7 @@
 
 import MixboxFoundation
 
-public final class ImagePixelDataCreatorImpl: ImagePixelDataCreator {
+public final class ImagePixelDataFromImageCreatorImpl: ImagePixelDataFromImageCreator {
     private let bytesPerPixel = 4
     
     public init() {
@@ -13,19 +13,18 @@ public final class ImagePixelDataCreatorImpl: ImagePixelDataCreator {
         throws
         -> ImagePixelData
     {
-        let width = image.width
-        let height = image.height
-        let imagePixelBuffer = UnsafeArray<UInt8>(count: height * width * bytesPerPixel)
+        let size = image.size
+        let imagePixelBuffer = UnsafeArray<UInt8>(count: size.area * bytesPerPixel)
 
         let colorSpace = CGColorSpaceCreateDeviceRGB()
 
         // Create the bitmap context. We want XRGB.
         let bitmapContextOrNil = CGContext(
             data: imagePixelBuffer.pointer,
-            width: width,
-            height: height,
+            width: size.width,
+            height: size.height,
             bitsPerComponent: 8,
-            bytesPerRow: width * bytesPerPixel,
+            bytesPerRow: size.width * bytesPerPixel,
             space: colorSpace,
             bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue | CGBitmapInfo.byteOrder32Big.rawValue
         )
@@ -41,12 +40,16 @@ public final class ImagePixelDataCreatorImpl: ImagePixelDataCreator {
             in: CGRect(
                 x: 0,
                 y: 0,
-                width: width,
-                height: height
+                width: size.width,
+                height: size.height
             )
         )
         
-        return ImagePixelData(imagePixelBuffer: imagePixelBuffer, bitmapContext: bitmapContext)
+        return ImagePixelData(
+            imagePixelBuffer: imagePixelBuffer,
+            bytesPerPixel: bytesPerPixel,
+            size: size
+        )
     }
 }
 

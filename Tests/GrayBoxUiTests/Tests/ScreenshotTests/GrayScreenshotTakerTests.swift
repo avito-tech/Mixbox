@@ -5,22 +5,6 @@ import XCTest
 import MixboxInAppServices
 
 final class GrayScreenshotTakerTests: TestCase {
-    private let screenshotTaker: ScreenshotTaker = {
-        GrayScreenshotTaker(
-            inAppScreenshotTaker: InAppScreenshotTakerImpl(
-                orderedWindowsProvider: OrderedWindowsProviderImpl(
-                    applicationWindowsProvider: UiApplicationWindowsProvider(
-                        uiApplication: UIApplication.shared,
-                        iosVersionProvider: UiDeviceIosVersionProvider(
-                            uiDevice: UIDevice.current
-                        )
-                    )
-                ),
-                screen: UIScreen.main
-            )
-        )
-    }()
-    
     func test() {
         // TODO: Make specific view for this test. Reusing view with potentially
         // dynamic subviews for other kind of tests is not a good solution.
@@ -28,12 +12,15 @@ final class GrayScreenshotTakerTests: TestCase {
         
         open(screen: screen)
         
-        guard let screenshot = screenshotTaker.takeScreenshot() else {
+        let grayScreenshotTaker = dependencies.resolve() as ScreenshotTaker
+        
+        XCTAssert(grayScreenshotTaker is GrayScreenshotTaker)
+        
+        guard let screenshot = grayScreenshotTaker.takeScreenshot() else {
             XCTFail("takeScreenshot() should not be nil")
             return
         }
         
-        // Note: tested only on iPhone 7 iOS 11.3. TODO: test on every device.
         let comparator = ImageHashCalculatorSnapshotsComparator(
             imageHashCalculator: DHashV0ImageHashCalculator(),
             hashDistanceTolerance: 7

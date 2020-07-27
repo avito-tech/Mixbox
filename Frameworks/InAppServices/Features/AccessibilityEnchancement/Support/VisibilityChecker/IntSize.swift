@@ -1,10 +1,20 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-struct IntSize {
-    var width: Int
-    var height: Int
+public struct IntSize: Equatable {
+    public var width: Int
+    public var height: Int
     
-    var area: Int {
+    public init(
+        width: Int,
+        height: Int)
+    {
+        self.width = width
+        self.height = height
+    }
+}
+
+extension IntSize {
+    public var area: Int {
         return width * height
     }
 }

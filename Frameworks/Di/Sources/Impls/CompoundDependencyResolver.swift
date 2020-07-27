@@ -1,4 +1,3 @@
-import MixboxDi
 import MixboxFoundation
 
 public final class CompoundDependencyResolver: DependencyResolver {

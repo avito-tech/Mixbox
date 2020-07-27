@@ -44,6 +44,13 @@ extension CGRect {
         
         return rectInPixels
     }
+    
+    func rounded() -> IntRect {
+        return IntRect(
+            origin: origin.rounded(),
+            size: size.rounded()
+        )
+    }
 }
 
 #endif

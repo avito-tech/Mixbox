@@ -21,6 +21,26 @@ public class UnsafeArray<T> {
             yield &pointer[index]
         }
     }
+    
+    public func toArray() -> [T] {
+        return [T](
+            unsafeUninitializedCapacity: count,
+            initializingWith: { (outPointer, outCount) in
+                if let address = outPointer.baseAddress {
+                    memcpy(address, pointer, count)
+                    outCount = count
+                } else {
+                    outCount = 0
+                }
+            }
+        )
+    }
+    
+    public func copy() -> UnsafeArray<T> {
+        let copy = UnsafeArray<T>(count: count)
+        memcpy(copy.pointer, pointer, count)
+        return copy
+    }
 }
 
 #endif

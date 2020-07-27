@@ -35,10 +35,15 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 inAppScreenshotTaker: try di.resolve()
             )
         }
-        di.register(type: InAppScreenshotTaker.self) { di in
-            InAppScreenshotTakerImpl(
+        di.register(type: ScreenInContextDrawer.self) { di in
+            ScreenInContextDrawerImpl(
                 orderedWindowsProvider: try di.resolve(),
                 screen: UIScreen.main
+            )
+        }
+        di.register(type: InAppScreenshotTaker.self) { di in
+            InAppScreenshotTakerImpl(
+                screenInContextDrawer: try di.resolve()
             )
         }
         di.register(type: ElementFinder.self) { di in

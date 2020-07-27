@@ -104,4 +104,26 @@ public func /(left: CGVector, right: CGSize) -> CGVector {
     )
 }
 
+public func *(left: CGRect, right: CGFloat) -> CGRect {
+    return CGRect(
+        origin: left.origin * right,
+        size: left.size * right
+    )
+}
+
+public func *(left: CGFloat, right: CGRect) -> CGRect {
+    return right * left
+}
+
+public func *(left: CGPoint, right: CGFloat) -> CGPoint {
+    return CGPoint(
+        x: left.x * right,
+        y: left.y * right
+    )
+}
+
+public func *(left: CGFloat, right: CGPoint) -> CGPoint {
+    return right * left
+}
+
 #endif

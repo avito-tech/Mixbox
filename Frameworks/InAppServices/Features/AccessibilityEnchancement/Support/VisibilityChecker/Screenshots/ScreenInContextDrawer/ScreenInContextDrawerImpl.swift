@@ -1,8 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-// Translated from Objective-C to Swift. Code is from EarlGrey.
-// https://github.com/google/EarlGrey/blob/87ffa7ac2517cc8931e4e6ba11714961cbac6dd7/EarlGrey/Common/GREYScreenshotUtil.m
-public final class InAppScreenshotTakerImpl: InAppScreenshotTaker  {
+public final class ScreenInContextDrawerImpl: ScreenInContextDrawer {
     private let orderedWindowsProvider: OrderedWindowsProvider
     private let screen: UIScreen
     
@@ -14,27 +12,15 @@ public final class InAppScreenshotTakerImpl: InAppScreenshotTaker  {
         self.screen = screen
     }
     
-    public func takeScreenshot(afterScreenUpdates: Bool) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(screen.bounds.size, _: true, _: screen.scale)
-        
-        guard let context = UIGraphicsGetCurrentContext() else {
-            // TODO: Handle error?
-            return nil
-        }
-        
-        drawScreen(
-            context: context,
-            afterScreenUpdates: afterScreenUpdates
-        )
-        
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return screenshot
+    public func screenScale() -> CGFloat {
+        return screen.scale
     }
     
-    private func drawScreen(context: CGContext, afterScreenUpdates: Bool) {
+    public func screenBounds() -> CGRect {
+        return screen.bounds
+    }
+    
+    public func drawScreen(context: CGContext, afterScreenUpdates: Bool) {
         let screenRect = screen.bounds
         
         // The bitmap context width and height are scaled, so we need to undo the scale adjustment.

@@ -158,24 +158,32 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             assertionFailureRecorder: assertionFailureRecorder
         )
         
-        let imagePixelDataCreator = ImagePixelDataCreatorImpl()
+        let imagePixelDataFromImageCreator = ImagePixelDataFromImageCreatorImpl()
+        
+        let screen = UIScreen.main
+        
+        let screenInContextDrawer = ScreenInContextDrawerImpl(
+            orderedWindowsProvider: OrderedWindowsProviderImpl(
+                applicationWindowsProvider: UiApplicationWindowsProvider(
+                    uiApplication: UIApplication.shared,
+                    iosVersionProvider: iosVersionProvider
+                )
+            ),
+            screen: screen
+        )
         
         viewVisibilityChecker = ViewVisibilityCheckerImpl(
             assertionFailureRecorder: assertionFailureRecorder,
             visibilityCheckImagesCapturer: VisibilityCheckImagesCapturerImpl(
-                imagePixelDataCreator: imagePixelDataCreator,
+                imagePixelDataFromImageCreator: imagePixelDataFromImageCreator,
                 inAppScreenshotTaker: InAppScreenshotTakerImpl(
-                    orderedWindowsProvider: OrderedWindowsProviderImpl(
-                        applicationWindowsProvider: UiApplicationWindowsProvider(
-                            uiApplication: UIApplication.shared,
-                            iosVersionProvider: iosVersionProvider
-                        )
-                    ),
-                    screen: UIScreen.main
-                )
+                    screenInContextDrawer: screenInContextDrawer
+                ),
+                imageFromImagePixelDataCreator: ImageFromImagePixelDataCreatorImpl(),
+                screen: screen
             ),
             visiblePixelDataCalculator: VisiblePixelDataCalculatorImpl(
-                imagePixelDataCreator: imagePixelDataCreator
+                imagePixelDataFromImageCreator: imagePixelDataFromImageCreator
             )
         )
     }
