@@ -17,7 +17,6 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
         targetPointOfInteraction: CGPoint?,
-        storeVisiblePixelRect: Bool,
         storeComparisonResult: Bool)
         throws
         -> VisiblePixelData
@@ -30,19 +29,8 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
             )
         }
         
-        var histograms: [UInt16]
-        
-        // We only want to perform the relatively expensive rect computation if we've actually
-        // been asked for it.
-        if storeVisiblePixelRect {
-            histograms = [UInt16](repeating: 0, count: imageSize.area)
-        } else {
-            histograms = [UInt16]()
-        }
-        
         var visiblePixelCount: Int = 0
         var visiblePixel: CGPoint?
-        var visiblePixelRect: CGRect?
         var minimalSquaredDistanceToTargetPoint = Int.max
         var comparisonResultBuffer: VisibilityDiffBuffer
         
@@ -113,40 +101,10 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
                     }
                 }
                 
-                if storeVisiblePixelRect {
-                    if y == 0 {
-                        histograms[x] = pixelHasDiff ? 1 : 0
-                    } else {
-                        histograms[currentPixelIndex] = pixelHasDiff ? (histograms[(y - 1) * imageSize.width + x] + 1) : 0
-                    }
-                }
-                
                 if storeComparisonResult {
                     comparisonResultBuffer.setVisibility(x: x, y: y, value: pixelHasDiff)
                 }
             }
-        }
-        
-        // Perform additional computation if `storeVisiblePixelRect` is set.
-        
-        if storeVisiblePixelRect {
-            var globalLargestRect: CGRect = .zero
-            
-            for idx in 0..<imageSize.height {
-                var localLargestRect = Self.largestRect(
-                    inHistogram: histograms,
-                    idx: idx,
-                    length: UInt16(imageSize.width)
-                )
-                
-                if localLargestRect.mb_area > globalLargestRect.mb_area {
-                    // Because our histograms point up, not down.
-                    localLargestRect.origin.y = CGFloat(idx) - localLargestRect.size.height + 1
-                    globalLargestRect = localLargestRect
-                }
-            }
-            
-            visiblePixelRect = globalLargestRect
         }
         
         return VisiblePixelData(
@@ -158,7 +116,6 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
                     searchRectInScreenCoordinates: searchRectInScreenCoordinates
                 )
             },
-            visiblePixelRect: visiblePixelRect,
             comparisonResultBuffer: comparisonResultBuffer
         )
     }
@@ -214,78 +171,6 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         return (lhs[0] != rhs[0])
             || (lhs[1] != rhs[1])
             || (lhs[2] != rhs[2])
-    }
-
-    // Given a list of values representing a histogram (values are the heights of the bars), this
-    // method returns the largest contiguous rectangle in that histogram.
-    //
-    // `histogram`: the array of values representing the histogram
-    // `length`: the number of values in the histogram (a size of one side of 2d-array)
-    //
-    // Returns a CGRect of the largest rectangle in the given histogram.
-    //
-    static func largestRect(inHistogram histogram: [UInt16], idx: Int, length: UInt16) -> CGRect {
-        let length = Int(length)
-        
-        let leftNeighbors = UnsafeArray<Int>(count: length)
-        let rightNeighbors = UnsafeArray<Int>(count: length)
-        let leftStack = UnsafeArray<Int>(count: length)
-        let rightStack = UnsafeArray<Int>(count: length)
-        
-        // Index of the last element on the stack.
-        var leftStackIdx = -1
-        var rightStackIdx = -1
-        
-        var largestRect = CGRect.zero
-        
-        var largestArea = 0
-        
-        // We make two passes at once, one from left to right and one from right to left.
-        for idx in 0..<length {
-            let tailIdx = (length - 1) - idx
-            
-            // Find nearest column shorter than this one on either side.
-            while leftStackIdx >= 0 && histogram[leftStack[leftStackIdx]] >= histogram[idx] {
-                leftStackIdx -= 1
-            }
-            while rightStackIdx >= 0 && histogram[rightStack[rightStackIdx]] >= histogram[tailIdx] {
-                rightStackIdx -= 1
-            }
-            // Set the number of columns at least as tall as this one on either side.
-            if leftStackIdx < 0 {
-                leftNeighbors[idx] = idx
-            } else {
-                leftNeighbors[idx] = idx - leftStack[leftStackIdx] - 1
-            }
-            
-            if rightStackIdx < 0 {
-                rightNeighbors[tailIdx] = length - tailIdx - 1
-            } else {
-                rightNeighbors[tailIdx] = rightStack[rightStackIdx] - tailIdx - 1
-            }
-            
-            leftStackIdx += 1
-            rightStackIdx += 1
-            
-            // Add the current index to the stack
-            leftStack[leftStackIdx] = idx
-            rightStack[rightStackIdx] = tailIdx
-        }
-        
-        // Now we have the number of histogram bars immediately left and right of each bar that are at
-        // least as tall as the given bar. Now we can compute areas easily.
-        for idx in 0..<length {
-            let area = (leftNeighbors[idx] + rightNeighbors[idx] + 1) * Int(histogram[idx])
-            
-            if area > largestArea {
-                largestArea = area
-                largestRect.origin.x = CGFloat(idx - leftNeighbors[idx])
-                largestRect.size.width = CGFloat(leftNeighbors[idx] + rightNeighbors[idx] + 1)
-                largestRect.size.height = CGFloat(histogram[idx])
-            }
-        }
-        
-        return largestRect
     }
 }
 

@@ -46,7 +46,6 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
                 elementFrameRelativeToScreen: searchRectInScreenCoordinates,
                 interactionCoordinates: arguments.interactionCoordinates
             ),
-            storeVisiblePixelRect: false,
             storeComparisonResult: false
         )
         
