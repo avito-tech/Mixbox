@@ -45,8 +45,7 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
             targetPointOfInteraction: targetPointOfInteraction(
                 elementFrameRelativeToScreen: searchRectInScreenCoordinates,
                 interactionCoordinates: arguments.interactionCoordinates
-            ),
-            storeComparisonResult: false
+            )
         )
         
         let percentageOfVisibleArea = CGFloat(visiblePixelData.visiblePixelCount) / countTotalSearchRectPixels

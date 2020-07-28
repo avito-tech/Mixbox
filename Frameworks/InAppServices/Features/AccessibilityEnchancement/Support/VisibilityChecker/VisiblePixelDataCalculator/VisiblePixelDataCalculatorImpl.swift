@@ -16,8 +16,7 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         beforeImagePixelData: ImagePixelData,
         afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
-        targetPointOfInteraction: CGPoint?,
-        storeComparisonResult: Bool)
+        targetPointOfInteraction: CGPoint?)
         throws
         -> VisiblePixelData
     {
@@ -32,18 +31,6 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         var visiblePixelCount: Int = 0
         var visiblePixel: CGPoint?
         var minimalSquaredDistanceToTargetPoint = Int.max
-        var comparisonResultBuffer: VisibilityDiffBuffer
-        
-        // Prepare comparison result if needed
-        
-        if storeComparisonResult {
-            comparisonResultBuffer = VisibilityDiffBuffer.createUninitialized(
-                width: imageSize.width,
-                height: imageSize.height
-            )
-        } else {
-            comparisonResultBuffer = VisibilityDiffBuffer.createUninitialized(width: 0, height: 0)
-        }
         
         // Check if target pixel is already visible, it takes O(1) and the pixel is often visible.
         // Without this check the operation will take O(X*Y).
@@ -100,10 +87,6 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
                         }
                     }
                 }
-                
-                if storeComparisonResult {
-                    comparisonResultBuffer.setVisibility(x: x, y: y, value: pixelHasDiff)
-                }
             }
         }
         
@@ -115,8 +98,7 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
                     imageSize: imageSize,
                     searchRectInScreenCoordinates: searchRectInScreenCoordinates
                 )
-            },
-            comparisonResultBuffer: comparisonResultBuffer
+            }
         )
     }
     
