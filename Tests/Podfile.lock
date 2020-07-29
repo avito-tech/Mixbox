@@ -179,7 +179,7 @@ SPEC CHECKSUMS:
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
   MixboxTestability: f2ae73479007568fafb48b6a62b98e05986b8a80
-  MixboxTestsFoundation: 35b039d36c602a8e8c921fd7abe6f07a31c7d0bf
+  MixboxTestsFoundation: b966b168a3a6d6a4d6265ae5c1f403d6d357cade
   MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
   MixboxUiTestsFoundation: 78791a8553d1d28a6c212b889f2dbd5fe50c1199
   SBTUITestTunnel: 865e4cec64aa10e495139643f50ccc7d8d0a604f

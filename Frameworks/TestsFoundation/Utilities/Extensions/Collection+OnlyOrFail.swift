@@ -20,28 +20,28 @@ public extension Collection {
     
     func onlyOrFail() -> (Iterator.Element, Iterator.Element, Iterator.Element) {
         return onlyOrFail(
-            count: 2,
+            count: 3,
             getter: (at(0), at(1), at(2))
         )
     }
     
     func onlyOrFail() -> (Iterator.Element, Iterator.Element, Iterator.Element, Iterator.Element) {
         return onlyOrFail(
-            count: 2,
+            count: 4,
             getter: (at(0), at(1), at(2), at(3))
         )
     }
     
     func onlyOrFail() -> (Iterator.Element, Iterator.Element, Iterator.Element, Iterator.Element, Iterator.Element) {
         return onlyOrFail(
-            count: 2,
+            count: 5,
             getter: (at(0), at(1), at(2), at(3), at(4))
         )
     }
     
     func onlyOrFail() -> (Iterator.Element, Iterator.Element, Iterator.Element, Iterator.Element, Iterator.Element, Iterator.Element) {
         return onlyOrFail(
-            count: 2,
+            count: 6,
             getter: (at(0), at(1), at(2), at(3), at(4), at(5))
         )
     }

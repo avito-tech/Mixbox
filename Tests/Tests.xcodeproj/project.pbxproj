@@ -82,6 +82,8 @@
 		F80C2E3B24D1E52900C6CAD4 /* Singletons+StepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8308D3724B72BCE00C79892 /* Singletons+StepLogger.swift */; };
 		F80C2E3C24D1E52A00C6CAD4 /* TestStateRecycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4D21454ECF00A72C41 /* TestStateRecycling.swift */; };
 		F80C2E3D24D1E52A00C6CAD4 /* Singletons+StepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8308D3724B72BCE00C79892 /* Singletons+StepLogger.swift */; };
+		F80C2E4C24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C2E4A24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift */; };
+		F80C2E4D24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C2E4B24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift */; };
 		F80C944124C1A03D009397F3 /* ViewControllerContainerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C944024C1A03D009397F3 /* ViewControllerContainerType.swift */; };
 		F80C944324C1A072009397F3 /* ViewControllerContainerTypeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C944224C1A072009397F3 /* ViewControllerContainerTypeProvider.swift */; };
 		F80C944524C1A07A009397F3 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80C944424C1A07A009397F3 /* TestingView.swift */; };
@@ -692,6 +694,8 @@
 		F80C2E1F24D1E08400C6CAD4 /* BaseTestCase+ResolveFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTestCase+ResolveFunctions.swift"; sourceTree = "<group>"; };
 		F80C2E2124D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteBoxTestCaseDependencies.swift; sourceTree = "<group>"; };
 		F80C2E2324D1E0E800C6CAD4 /* TestCaseDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseDependencies.swift; sourceTree = "<group>"; };
+		F80C2E4A24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection_OnlyOrFail_Tests.swift; sourceTree = "<group>"; };
+		F80C2E4B24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection_ElementOrFail_Tests.swift; sourceTree = "<group>"; };
 		F80C7E5124CF215100F70F22 /* InAppScreenshotTakerImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppScreenshotTakerImplTests.swift; sourceTree = "<group>"; };
 		F80C944024C1A03D009397F3 /* ViewControllerContainerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerContainerType.swift; sourceTree = "<group>"; };
 		F80C944224C1A072009397F3 /* ViewControllerContainerTypeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerContainerTypeProvider.swift; sourceTree = "<group>"; };
@@ -2664,6 +2668,8 @@
 		F8B964D22281E4000054CE08 /* MixboxTestsFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				F80C2E4B24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift */,
+				F80C2E4A24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift */,
 				F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */,
 				F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */,
 				F8971D6D22660FF6001741C1 /* BundleResourcePathProvider */,
@@ -4384,6 +4390,7 @@
 				F8C5A34C22B2E00800E643EC /* CollectionExtensionTests.swift in Sources */,
 				F8E160D02418674600B4912F /* MultiTouchEventFactoryTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
+				F80C2E4D24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift in Sources */,
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
 				F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */,
@@ -4425,6 +4432,7 @@
 				F8C3AD1824384420004B6BA4 /* ConstantAnyGenerator.swift in Sources */,
 				F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */,
 				F8C3AD20243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift in Sources */,
+				F80C2E4C24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift in Sources */,
 				F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
