@@ -7,7 +7,15 @@ import MixboxDi
 import TestsIpc
 
 final class UiTestCaseDependencies: DependencyCollectionRegisterer {
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
+        return [
+            TestCaseDependencies()
+        ]
+    }
+    
     func register(dependencyRegisterer di: DependencyRegisterer) {
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
+        
         di.register(type: ImagesProvider.self) { _ in
             RedImagesProvider()
         }
@@ -20,33 +28,10 @@ final class UiTestCaseDependencies: DependencyCollectionRegisterer {
         di.register(type: TemporaryDirectoryPathProvider.self) { _ in
             NsTemporaryDirectoryPathProvider()
         }
-        di.register(type: FileLineForFailureProvider.self) { di in
-            LastCallOfCurrentTestFileLineForFailureProvider(
-                extendedStackTraceProvider: try di.resolve(),
-                testSymbolPatterns: [
-                    // Example: TargetName.ClassName.test_withOptionalSuffix() -> ()
-                    ".+?\\..+?\\.test.*?\\(\\) -> \\(\\)",
-                    
-                    // Example: TargetName.ClassName.parametrizedTest_withOptionalSuffix(message: Swift.String) -> ()
-                    //          BlackBoxUiTests.SwipeActionTouchesTests.(parametrizedTest___swipe___produces_expected_event in _54C65FCCFCCAFE9EE80FC2EC0649E42C)(swipeClosure: (MixboxUiTestsFoundation.ElementWithUi) -> (), startPoint: __C.CGPoint, endPointOffset: __C.CGVector) -> ()
-                    ".+?\\..+?\\.\\(?parametrizedTest.*? -> \\(\\)",
-                    
-                    // Example: closure #2 () -> () in TargetName.ClassName.(parametrizedTest in _FA5631F8141319A712430582B52492D9)(fooArg: Swift.String) -> ()
-                    "\\(parametrizedTest in",
-                    "\\(test in"
-                ]
-            )
-        }
         di.register(type: PageObjects.self) { di in
             PageObjects(
                 apps: try di.resolve()
             )
-        }
-        di.register(type: EnvironmentProvider.self) { _ in
-            Singletons.environmentProvider
-        }
-        di.register(type: PerformanceLogger.self) { _ in
-            Singletons.performanceLogger
         }
     }
 }

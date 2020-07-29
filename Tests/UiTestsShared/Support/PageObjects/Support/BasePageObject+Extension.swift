@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 extension BasePageObject {
     public func byId<T: ElementWithDefaultInitializer>(

@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import XCTest
 
 final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {

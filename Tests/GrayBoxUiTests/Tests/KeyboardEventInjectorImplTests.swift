@@ -1,5 +1,6 @@
 import MixboxInAppServices
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import TestsIpc
 import XCTest
 import MixboxIpc

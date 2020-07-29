@@ -16,10 +16,15 @@ Pod::Spec.new do |s|
   
   s.dependency 'MixboxFoundation'
   s.dependency 'MixboxUiKit'
+  s.dependency 'MixboxDi'
   
   s.dependency 'SQLite.swift'
   
   s.frameworks = 'XCTest', 'XCTAutomationSupport'
+  
+  s.user_target_xcconfig = {
+    'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks'
+  }
   
   s.xcconfig = {
     'ENABLE_TESTING_SEARCH_PATHS' => 'YES',

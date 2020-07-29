@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 final class FakeCellsDoNotCrashAppTests: TestCase {
     override var reuseState: Bool {

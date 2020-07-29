@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import TestsIpc
 
 public final class ScreenshotTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {

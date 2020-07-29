@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import XCTest
 
 final class AssertingCustomValuesTests: TestCase {

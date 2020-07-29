@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 // The class is needed to collect all found `ElementSnapshot`s and to collect all `MatchingResult` (which can be used
 // for example to say why no elements found or why matcher finds duplicate elements).
 //

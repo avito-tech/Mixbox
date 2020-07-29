@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 class AndMatcherTests: BaseMatcherTests {
     func test___match___matches___if_all_nested_matchers_matches() {

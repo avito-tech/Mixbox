@@ -1,6 +1,7 @@
 import TestsIpc
 import XCTest
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 final class WaitingForQuiescenceTests: TestCase {
     // Count should be > 1 to increase probability of reproducing bugs.

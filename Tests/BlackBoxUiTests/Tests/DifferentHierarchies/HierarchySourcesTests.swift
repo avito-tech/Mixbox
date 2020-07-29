@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import MixboxIpc
 import XCTest
 import MixboxFoundation

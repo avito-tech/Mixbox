@@ -1,5 +1,6 @@
 import XCTest
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 // TODO: Test that logs contain all error messages:
 //       Example:

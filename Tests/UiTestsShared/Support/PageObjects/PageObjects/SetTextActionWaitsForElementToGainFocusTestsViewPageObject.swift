@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 public final class SetTextActionWaitsForElementToGainFocusTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
     public let viewName = "SetTextActionWaitsForElementToGainFocusTestsView"

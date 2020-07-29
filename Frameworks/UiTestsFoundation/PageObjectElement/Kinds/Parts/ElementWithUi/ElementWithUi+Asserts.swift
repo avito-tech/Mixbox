@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 
 extension ElementWithUi {
     public func isDisplayed(

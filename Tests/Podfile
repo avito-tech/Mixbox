@@ -69,10 +69,12 @@ end
   
 target 'UnitTests' do
   logic_tests_pods mixbox
+  tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
 
 target 'HostedAppLogicTests' do
   logic_tests_pods mixbox
+  tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
 
 target 'Lint' do

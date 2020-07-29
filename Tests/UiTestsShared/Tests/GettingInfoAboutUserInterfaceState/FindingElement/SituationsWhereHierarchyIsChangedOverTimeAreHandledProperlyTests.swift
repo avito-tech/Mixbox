@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import XCTest
 
 // Test verifies that testing framework is tolerant to changes of hierarchy within

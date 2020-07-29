@@ -7,7 +7,7 @@ final class CallToSuperInPreconditionOfBaseUiTestCaseValidationTests: TestCase {
         assertFails(
             description:
             """
-            You must call super.precondition() from your subclass of BaseUiTestCase (CallToSuperInPreconditionOfBaseUiTestCaseValidationTests)
+            You must call super.precondition() from your subclass of BaseTestCase (CallToSuperInPreconditionOfBaseUiTestCaseValidationTests)
             """,
             body: {
                 super.setUp()

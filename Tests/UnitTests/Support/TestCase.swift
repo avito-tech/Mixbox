@@ -1,9 +1,18 @@
 import XCTest
 import MixboxFoundation
+import MixboxTestsFoundation
+import TestsIpc
 import Dip
 
 // TODO: Replace XCTestCase with TestCase for every test.
-class TestCase: XCTestCase {
+class TestCase: BaseTestCase {
+    override func makeDependencies() -> TestCaseDependenciesResolver {
+        TestCaseDi.make(
+            dependencyCollectionRegisterer: WhiteBoxTestCaseDependencies(),
+            performanceLogger: NoopPerformanceLogger()
+        )
+    }
+    
     override class func setUp() {
         // To suppress these logs:
         //

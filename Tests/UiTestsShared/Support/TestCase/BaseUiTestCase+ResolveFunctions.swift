@@ -53,10 +53,6 @@ extension BaseUiTestCase {
         return dependencies.resolve()
     }
     
-    var iosVersionProvider: IosVersionProvider {
-        return dependencies.resolve()
-    }
-    
     var lazilyInitializedIpcClient: LazilyInitializedIpcClient {
        return dependencies.resolve()
     }
@@ -68,22 +64,6 @@ extension BaseUiTestCase {
     }
     
     var applicationPermissionsSetterFactory: ApplicationPermissionsSetterFactory {
-        return dependencies.resolve()
-    }
-    
-    var stepLogger: StepLogger {
-        return dependencies.resolve()
-    }
-    
-    var dateProvider: DateProvider {
-        return dependencies.resolve()
-    }
-    
-    var testFailureRecorder: TestFailureRecorder {
-        return dependencies.resolve()
-    }
-    
-    var environmentProvider: EnvironmentProvider {
         return dependencies.resolve()
     }
 }

@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import TestsIpc
 
 class ActionSpecification<T: Element>: AnyActionSpecification {

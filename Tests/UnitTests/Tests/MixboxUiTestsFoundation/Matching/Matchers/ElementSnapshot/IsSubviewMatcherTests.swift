@@ -1,5 +1,6 @@
 import Foundation
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import XCTest
 
 class IsSubviewMatcherTests: BaseMatcherTests {

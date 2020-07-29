@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 // TODO: Rewrite all tests that use copypasted code. CMD+SHIFT+O "func label", etc.
 final class GenericPageObject: BasePageObjectWithDefaultInitializer {

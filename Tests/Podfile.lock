@@ -52,6 +52,7 @@ PODS:
     - SBTUITestTunnel/Server (~> 3.0.6)
   - MixboxTestability (0.2.3)
   - MixboxTestsFoundation (0.2.3):
+    - MixboxDi
     - MixboxFoundation
     - MixboxUiKit
     - SQLite.swift
@@ -178,7 +179,7 @@ SPEC CHECKSUMS:
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
   MixboxTestability: f2ae73479007568fafb48b6a62b98e05986b8a80
-  MixboxTestsFoundation: 608bcf2a7014edf4f8886b3fa0b847da84438589
+  MixboxTestsFoundation: 35b039d36c602a8e8c921fd7abe6f07a31c7d0bf
   MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
   MixboxUiTestsFoundation: 78791a8553d1d28a6c212b889f2dbd5fe50c1199
   SBTUITestTunnel: 865e4cec64aa10e495139643f50ccc7d8d0a604f

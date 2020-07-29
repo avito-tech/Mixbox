@@ -14,7 +14,7 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
         self.bundleResourcePathProviderForTestsTarget = bundleResourcePathProviderForTestsTarget
     }
     
-    private func nestedRegisteres() -> [DependencyCollectionRegisterer] {
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
             MixboxBlackDependencies(
                 mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies(
@@ -28,7 +28,7 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
     
     // swiftlint:disable:next function_body_length
     func register(dependencyRegisterer di: DependencyRegisterer) {
-        nestedRegisteres().forEach { $0.register(dependencyRegisterer: di) }
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
         di.register(type: ApplicationFrameProvider.self) { _ in
             XcuiApplicationFrameProvider(

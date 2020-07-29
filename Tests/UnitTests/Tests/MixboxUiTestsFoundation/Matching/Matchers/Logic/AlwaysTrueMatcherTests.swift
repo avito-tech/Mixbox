@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 class AlwaysTrueMatcherTests: BaseMatcherTests {
     func test___match___matches___always() {

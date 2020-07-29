@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 
 // Helpers for making facades
 extension PageObjectElementCore {

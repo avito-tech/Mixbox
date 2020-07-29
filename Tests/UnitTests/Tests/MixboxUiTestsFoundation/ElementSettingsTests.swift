@@ -1,4 +1,5 @@
 @testable import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import XCTest
 
 final class ElementSettingsTests: TestCase {

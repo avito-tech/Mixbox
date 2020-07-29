@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 
 final class ActionsTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
     let viewName = "ActionsTestsView"

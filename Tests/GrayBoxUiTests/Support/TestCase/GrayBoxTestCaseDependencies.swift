@@ -14,7 +14,7 @@ final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
         self.bundleResourcePathProviderForTestsTarget = bundleResourcePathProviderForTestsTarget
     }
     
-    private func nestedRegisteres() -> [DependencyCollectionRegisterer] {
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
             MixboxGrayDependencies(
                 mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies(
@@ -27,7 +27,7 @@ final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
     }
     
     func register(dependencyRegisterer di: DependencyRegisterer) {
-        nestedRegisteres().forEach { $0.register(dependencyRegisterer: di) }
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
         di.register(type: IpcRouterHolder.self) { _ in
             IpcRouterHolder()

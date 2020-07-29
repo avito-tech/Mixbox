@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 // Not only inverts `isNotDisplayed` check. Also waits element to disappear.
 // TODO: Rename?
 public final class IsNotDisplayedCheck: ElementInteraction {
