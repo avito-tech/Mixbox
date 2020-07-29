@@ -27,11 +27,14 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
     public let synchronousIpcClientFactory: SynchronousIpcClientFactory
     public let viewVisibilityChecker: ViewVisibilityChecker
     public let recordedAssertionFailuresProvider: RecordedAssertionFailuresProvider
+    public let performanceLogger: PerformanceLogger
     
     private let networkMockingBootstrappingType: NetworkMockingBootstrappingType
     
     // TODO: fix swiftlint:disable:next function_body_length
-    public init?(environment: [String: String]) {
+    public init?(environment: [String: String], performanceLogger: PerformanceLogger) {
+        self.performanceLogger = performanceLogger
+        
         let recordedAssertionFailuresHolder = RecordedAssertionFailuresHolder()
         
         assertionFailureRecorder = recordedAssertionFailuresHolder
@@ -172,6 +175,10 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             screen: screen
         )
         
+        let visibilityCheckForLoopOptimizer = VisibilityCheckForLoopOptimizerImpl(
+            numberOfPointsInGrid: 10000
+        )
+        
         viewVisibilityChecker = ViewVisibilityCheckerImpl(
             assertionFailureRecorder: assertionFailureRecorder,
             visibilityCheckImagesCapturer: VisibilityCheckImagesCapturerImpl(
@@ -180,11 +187,17 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
                     screenInContextDrawer: screenInContextDrawer
                 ),
                 imageFromImagePixelDataCreator: ImageFromImagePixelDataCreatorImpl(),
-                screen: screen
+                screen: screen,
+                performanceLogger: performanceLogger,
+                visibilityCheckImageColorShifter: VisibilityCheckImageColorShifterImpl(
+                    visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
+                )
             ),
             visiblePixelDataCalculator: VisiblePixelDataCalculatorImpl(
-                imagePixelDataFromImageCreator: imagePixelDataFromImageCreator
-            )
+                imagePixelDataFromImageCreator: imagePixelDataFromImageCreator,
+                visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
+            ),
+            performanceLogger: performanceLogger
         )
     }
     

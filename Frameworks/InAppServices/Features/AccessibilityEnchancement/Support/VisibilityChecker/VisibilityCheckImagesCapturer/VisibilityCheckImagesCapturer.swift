@@ -13,7 +13,12 @@ public protocol VisibilityCheckImagesCapturer {
     //
     // So if view is not overlapped by anything, `beforeImage` and `afterImage` should be equal.
     //
-    func capture(view: UIView, searchRectInScreenCoordinates: CGRect) throws -> VisibilityCheckImagesCaptureResult
+    func capture(
+        view: UIView,
+        searchRectInScreenCoordinates: CGRect,
+        targetPointOfInteraction: CGPoint?)
+        throws
+        -> VisibilityCheckImagesCaptureResult
 }
 
 #endif

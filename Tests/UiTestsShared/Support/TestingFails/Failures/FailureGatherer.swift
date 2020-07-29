@@ -73,10 +73,27 @@ extension FailureGatherer {
         lineOfThisAssertion: UInt = #line,
         body: () -> ())
     {
-        let failures = gatherFailures(body: body)
+        assertPasses(
+            fileOfThisAssertion: fileOfThisAssertion,
+            lineOfThisAssertion: lineOfThisAssertion,
+            message: { failures in
+                "The code is expected to not produce failures, but it produced failures: \(failures)"
+            },
+            body: body
+        )
+    }
+    
+    func assertPasses(
+        fileOfThisAssertion: StaticString = #file,
+        lineOfThisAssertion: UInt = #line,
+        message: ([XcTestFailure]) -> String,
+        body: () -> ())
+    {
+        let result = gatherFailures(body: body)
+        
         XCTAssert(
-            failures.failures.isEmpty,
-            "The code is expected to not produce failures, but it produced failures: \(failures)",
+            result.failures.isEmpty,
+            message(result.failures),
             file: fileOfThisAssertion,
             line: lineOfThisAssertion
         )

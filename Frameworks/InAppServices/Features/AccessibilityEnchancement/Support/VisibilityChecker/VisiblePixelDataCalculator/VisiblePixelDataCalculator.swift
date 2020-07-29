@@ -6,7 +6,8 @@ public protocol VisiblePixelDataCalculator {
         beforeImagePixelData: ImagePixelData,
         afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
-        targetPointOfInteraction: CGPoint?)
+        screenScale: CGFloat,
+        visibilityCheckTargetCoordinates: VisibilityCheckTargetCoordinates?)
         throws
         -> VisiblePixelData
 }

@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public class UnsafeArray<T> {
+public final class UnsafeArray<T> {
     public let pointer: UnsafeMutablePointer<T>
     public let count: Int
     
@@ -22,6 +22,14 @@ public class UnsafeArray<T> {
         }
     }
     
+    public func copy() -> UnsafeArray<T> {
+        let copy = UnsafeArray<T>(count: count)
+        memcpy(copy.pointer, pointer, count)
+        return copy
+    }
+}
+
+extension UnsafeArray {
     public func toArray() -> [T] {
         return [T](
             unsafeUninitializedCapacity: count,
@@ -36,10 +44,14 @@ public class UnsafeArray<T> {
         )
     }
     
-    public func copy() -> UnsafeArray<T> {
-        let copy = UnsafeArray<T>(count: count)
-        memcpy(copy.pointer, pointer, count)
-        return copy
+    public static func fromArray(_ array: [T]) -> UnsafeArray<T> {
+        let unsafeArray = UnsafeArray(count: array.count)
+        
+        array.enumerated().forEach { index, value in
+            unsafeArray[index] = value
+        }
+        
+        return unsafeArray
     }
 }
 

@@ -4,6 +4,7 @@ import MixboxIpc
 import MixboxFoundation
 import MixboxUiKit
 import MixboxDi
+import TestsIpc
 
 final class UiTestCaseDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {

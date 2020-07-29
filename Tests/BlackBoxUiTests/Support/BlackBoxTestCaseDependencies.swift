@@ -5,6 +5,7 @@ import MixboxUiTestsFoundation
 import MixboxIpcSbtuiClient
 import MixboxIpc
 import MixboxDi
+import TestsIpc
 
 final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
     private let bundleResourcePathProviderForTestsTarget: BundleResourcePathProvider

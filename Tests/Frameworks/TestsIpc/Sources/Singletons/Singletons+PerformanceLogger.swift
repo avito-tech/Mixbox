@@ -1,10 +1,8 @@
 import MixboxFoundation
-import MixboxTestsFoundation
-import MixboxUiTestsFoundation
 
-extension Singletons {
-    static let performanceLogger = performanceLoggingRelatedClasses.logger
-    static let measureableTimedActivityMetricSenderWaiter = performanceLoggingRelatedClasses.waiter
+public extension Singletons {
+    public static let performanceLogger = performanceLoggingRelatedClasses.logger
+    public static let measureableTimedActivityMetricSenderWaiter = performanceLoggingRelatedClasses.waiter
     
     private static let performanceLoggingRelatedClasses = makePerformanceLoggingRelatedClasses()
     

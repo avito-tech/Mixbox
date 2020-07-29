@@ -51,33 +51,44 @@ public final class ScrollerImpl: Scroller {
             let frame = applicationFrameProvider.applicationFrame
             
             if frame.mb_intersectionOrNil(snapshot.frameRelativeToScreen) != nil {
-                // Element intersects screen.
-                // We don't care if it is fully on screen or partially.
-                // We just filter out the case when it is completely off screen.
-                //
-                // If element is partially on screen it might be "sufficiently visible" (and vice versa).
-                // If it is fully on screen it can also be either sufficiently visible ot not.
-                //
-                // So in any case we must do the check if it is not completely off screen.
-                let visibilityCheckResult = try? elementVisibilityChecker.checkVisibility(
-                    snapshot: snapshot,
-                    interactionCoordinates: nil
-                )
-                
-                let percentageOfVisibleArea = visibilityCheckResult?.percentageOfVisibleArea ?? 0
-                
-                let elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
-                
-                if elementIsSufficientlyVisible {
-                    // sufficiently visible
+                // If `minimalPercentageOfVisibleArea` is 0 then condition
+                // `percentageOfVisibleArea >= minimalPercentageOfVisibleArea` will be always true.
+                // So there is no need to perform the check.
+                if minimalPercentageOfVisibleArea > 0 {
+                    // Element intersects screen.
+                    // We don't care if it is fully on screen or partially.
+                    // We just filter out the case when it is completely off screen.
+                    //
+                    // If element is partially on screen it might be "sufficiently visible" (and vice versa).
+                    // If it is fully on screen it can also be either sufficiently visible ot not.
+                    //
+                    // So in any case we must do the check if it is not completely off screen.
+                    let visibilityCheckResult = try? elementVisibilityChecker.checkVisibility(
+                        snapshot: snapshot,
+                        interactionCoordinates: nil
+                    )
                     
+                    let percentageOfVisibleArea = visibilityCheckResult?.percentageOfVisibleArea ?? 0
+                    
+                    let elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
+
+                    if elementIsSufficientlyVisible {
+                        // sufficiently visible
+                        
+                        return ScrollingResult(
+                            status: .alreadyVisible(percentageOfVisibleArea: percentageOfVisibleArea),
+                            updatedSnapshot: snapshot,
+                            updatedResolvedElementQuery: resolvedElementQuery
+                        )
+                    } else {
+                        // not sufficiently visible
+                    }
+                } else {
                     return ScrollingResult(
-                        status: .alreadyVisible(percentageOfVisibleArea: percentageOfVisibleArea),
+                        status: .alreadyInHierarchyAndVisibilityCheckIsNotRequired,
                         updatedSnapshot: snapshot,
                         updatedResolvedElementQuery: resolvedElementQuery
                     )
-                } else {
-                    // not sufficiently visible
                 }
             } else {
                 // off screen / can not be visible

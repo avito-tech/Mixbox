@@ -1,5 +1,6 @@
 import Foundation
 import MixboxTestsFoundation
+import TestsIpc
 
 @objc(PrincipalClass)
 final class TestObservationEntryPoint: BaseTestObservationEntryPoint {

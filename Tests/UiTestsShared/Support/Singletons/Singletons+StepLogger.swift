@@ -1,6 +1,7 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
+import TestsIpc
 
 extension Singletons {
     static let stepLogger: StepLogger = recordableStepLogger

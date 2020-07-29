@@ -42,13 +42,125 @@ final class InteractionsUseVisiblePointTests: TestCase {
         checkButton()
     }
     
-    private func checkButton() {
-        button.assert(isTapped: false)
-        button.tap()
-        button.assert(isTapped: true)
+    // TODO: Fix case with overlapping. This test will be helpful in debugging:
+    //
+    // func test() {
+    //     resetUi(
+    //         buttonSide: 3,
+    //         buttonOffset: 0,  // it is not necessary in this test
+    //         layout: .vertical,
+    //         overlapped: true
+    //     )
+    //     checkButton()
+    // }
+    //
+    func test___tap___taps_buttons_with_size_of_few_points() {
+        for overlapped in [false/*, true */] {
+            for layout in ButtonLayout.allCases {
+                for buttonSide in [4, 3, 2, 1] as [CGFloat] {
+                    resetUi(
+                        buttonSide: buttonSide,
+                        buttonOffset: 0,  // it is not necessary in this test
+                        layout: layout,
+                        overlapped: overlapped
+                    )
+                    assertPasses(
+                        message: { failures in
+                            """
+                            Test failed on this data set: \
+                            buttonSide: \(buttonSide) \
+                            layout: \(layout) \
+                            overlapped: \(overlapped) \
+                            Failures: \(failures)
+                            """
+                        },
+                        body: {
+                            checkButton()
+                        }
+                    )
+                }
+            }
+        }
     }
     
-    func resetUi(insets top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) {
+    // TODO: private
+    enum ButtonLayout: CaseIterable {
+        case vertical
+        case horizontal
+    }
+    
+    // TODO: private
+    func checkButton() {
+        button.withoutTimeout.assert(isTapped: false)
+        button.withoutTimeout.tap()
+        button.withoutTimeout.assert(isTapped: true)
+    }
+    
+    // TODO: private
+    func resetUi(
+        fractionOfPoint: Int,
+        offsetInFractionsOfPoint: Int,
+        layout: ButtonLayout,
+        overlapped: Bool)
+    {
+        let buttonSide = 1 / CGFloat(fractionOfPoint)
+        let buttonOffset = buttonSide * CGFloat(offsetInFractionsOfPoint)
+        
+        resetUi(
+            buttonSide: buttonSide,
+            buttonOffset: buttonOffset,
+            layout: layout,
+            overlapped: overlapped
+        )
+    }
+    
+    private func resetUi(
+        buttonSide: CGFloat,
+        buttonOffset: CGFloat,
+        layout: ButtonLayout,
+        overlapped: Bool)
+    {
+        let bounds = mainScreenBounds()
+        
+        // A square, centered on screen, half of the size of screen
+        let overlappingViewSide = min(bounds.width, bounds.height) / 2
+        var overlappingViewFrame = CGRect(
+            origin: .zero,
+            size: CGSize(
+                width: overlappingViewSide,
+                height: overlappingViewSide
+            )
+        )
+        overlappingViewFrame.mb_center = bounds.mb_center
+        
+        let buttonFrame: CGRect
+        
+        switch layout {
+        case .vertical:
+            buttonFrame = CGRect(
+                x: bounds.mb_centerX + buttonOffset,
+                y: 0,
+                width: buttonSide,
+                height: bounds.height
+            )
+        case .horizontal:
+            buttonFrame = CGRect(
+                x: 0,
+                y: bounds.mb_centerY + buttonOffset,
+                width: bounds.width,
+                height: buttonSide
+            )
+        }
+        
+        resetUi(
+            argument: InteractionsUseVisiblePointTestsViewConfiguration(
+                buttonFrame: buttonFrame,
+                overlappingViewFrame: overlapped ? overlappingViewFrame : .zero
+            )
+        )
+    }
+    
+    private func resetUi(insets top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) {
         let bounds = mainScreenBounds()
         
         resetUi(

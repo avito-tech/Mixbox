@@ -1,6 +1,4 @@
 import MixboxFoundation
-import MixboxTestsFoundation
-import MixboxUiTestsFoundation
 
 // Singletons are necessary, because we have 2 entry points:
 // - PrincipalClass (entry and exit of test bundle)
@@ -10,8 +8,8 @@ import MixboxUiTestsFoundation
 //
 // NOTE: This class was split into extensions, see extensions
 //
-final class Singletons {
-    static let environmentProvider: EnvironmentProvider = makeEnvironmentProvider()
+public final class Singletons {
+    public static let environmentProvider: EnvironmentProvider = makeEnvironmentProvider()
     
     private static func makeEnvironmentProvider() -> EnvironmentProvider {
         let environmentProvider = ProcessInfoEnvironmentProvider(

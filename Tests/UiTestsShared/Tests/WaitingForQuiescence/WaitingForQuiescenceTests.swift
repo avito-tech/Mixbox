@@ -25,6 +25,10 @@ final class WaitingForQuiescenceTests: TestCase {
 
     // This test reproduce the bug that tests were not waiting UI to be still
     // (before waiting for quiescence was implemented for Gray box tests)
+    //
+    // TODO: On some devices view is not visible after swipe, so scroller scrolls to it
+    // gently (without latter deceleration) and this test loses its sense.
+    //
     func test___action___is_performed_after_scroll_view_deceleration_ends___when_using_swipe() {
         check___action___is_performed_after_scroll_view_deceleration_ends {
             // Swipe doesn't (and shouldn't) inject extra touches to cancel scroll view inertia.

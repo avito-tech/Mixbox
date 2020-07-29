@@ -2,6 +2,7 @@ import UIKit
 import MixboxInAppServices
 import MixboxIpc
 import MixboxIpcCommon
+import TestsIpc
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     override init() {
         let factoryOrNil = InAppServicesDependenciesFactoryImpl(
-            environment: ProcessInfo.processInfo.environment
+            environment: ProcessInfo.processInfo.environment,
+            performanceLogger: Singletons.performanceLogger
         )
         
         if let factory = factoryOrNil {
@@ -63,9 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // TODO: add environment to be able to disable registration of methods?
                 customIpcMethods.registerIn(mixboxInAppServices)
                 
-                // Yes, Swift is stupid sometimes:
-                let (router, client) = mixboxInAppServices.start()
-                (ipcRouter, ipcClient) = (router, client)
+                let startedInAppServices = mixboxInAppServices.start()
+                ipcRouter = startedInAppServices.router
+                ipcClient = startedInAppServices.client
             }
         }
         #endif

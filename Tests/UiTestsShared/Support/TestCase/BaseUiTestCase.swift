@@ -5,6 +5,7 @@ import MixboxIpc
 import MixboxFoundation
 import MixboxUiKit
 import MixboxIpcCommon
+import TestsIpc
 
 class BaseUiTestCase: XCTestCase, FailureGatherer {
     private(set) lazy var dependencies: TestCaseDependenciesResolver = self.reuseState {

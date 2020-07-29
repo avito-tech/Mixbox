@@ -71,7 +71,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
             resolvedElementQuery = scrollingResult.updatedResolvedElementQuery
             
             switch scrollingResult.status {
-            case .scrolled:
+            case .scrolled, .alreadyInHierarchyAndVisibilityCheckIsNotRequired:
                 // Ok
                 break
             case .alreadyVisible(let percentageOfVisibleArea):
@@ -83,28 +83,12 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
             }
             
             do {
-                let visibilityCheckResult: ElementVisibilityCheckerResult
+                let visiblePoint: CGPoint?
                 
-                if let alreadyCalculatedPercentageOfVisibleArea = alreadyCalculatedPercentageOfVisibleArea, interactionCoordinates == nil {
-                    visibilityCheckResult = ElementVisibilityCheckerResult(
-                        percentageOfVisibleArea: alreadyCalculatedPercentageOfVisibleArea,
-                        visibilePointOnScreenClosestToInteractionCoordinates: nil
-                    )
-                } else {
-                    visibilityCheckResult = try elementVisibilityChecker.checkVisibility(
-                        snapshot: snapshot,
-                        interactionCoordinates: interactionCoordinates
-                    )
-                }
-                
-                let percentageOfVisibleArea = visibilityCheckResult.percentageOfVisibleArea
-                
-                let elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
-                
-                if elementIsSufficientlyVisible {
+                func performInteraction() -> InteractionResult {
                     let result = interactionSpecificImplementation.perform(
                         resolverResult: SnapshotForInteractionResolverResult(
-                            visiblePoint: visibilityCheckResult.visibilePointOnScreenClosestToInteractionCoordinates,
+                            visiblePoint: visiblePoint,
                             elementSnapshot: snapshot
                         )
                     )
@@ -117,12 +101,42 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                             interactionFailure: interactionFailure
                         )
                     }
+                }
+                
+                // If visibility is not required, do not do the check.
+                if minimalPercentageOfVisibleArea <= 0 && interactionCoordinates == nil {
+                    // The following line is valid because `interactionCoordinates == nil`
+                    visiblePoint = nil
+                    
+                    return performInteraction()
                 } else {
-                    return interactionFailureResultFactory.elementIsNotSufficientlyVisibleResult(
-                        percentageOfVisibleArea: percentageOfVisibleArea,
-                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
-                        potentialCauseOfFailure: potentialCauseOfFailure
-                    )
+                    let elementIsSufficientlyVisible: Bool
+                    let percentageOfVisibleArea: CGFloat
+                    
+                    if let alreadyCalculatedPercentageOfVisibleArea = alreadyCalculatedPercentageOfVisibleArea, interactionCoordinates == nil {
+                        percentageOfVisibleArea = alreadyCalculatedPercentageOfVisibleArea
+                        visiblePoint = nil
+                    } else {
+                        let visibilityCheckResult = try elementVisibilityChecker.checkVisibility(
+                            snapshot: snapshot,
+                            interactionCoordinates: interactionCoordinates
+                        )
+                        
+                        percentageOfVisibleArea = visibilityCheckResult.percentageOfVisibleArea
+                        visiblePoint = visibilityCheckResult.visibilePointOnScreenClosestToInteractionCoordinates
+                    }
+                    
+                    elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
+                    
+                    if !elementIsSufficientlyVisible {
+                        return interactionFailureResultFactory.elementIsNotSufficientlyVisibleResult(
+                            percentageOfVisibleArea: percentageOfVisibleArea,
+                            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
+                            potentialCauseOfFailure: potentialCauseOfFailure
+                        )
+                    } else {
+                        return performInteraction()
+                    }
                 }
             } catch {
                 return interactionFailureResultFactory.elementIsNotSufficientlyVisibleResult(

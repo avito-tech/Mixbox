@@ -5,86 +5,110 @@ import MixboxFoundation
 
 public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
     private let imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator
-    private let colorChannelsPerPixel = 4
+    private let visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer
     
-    public init(imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator) {
+    public init(
+        imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
+    {
         self.imagePixelDataFromImageCreator = imagePixelDataFromImageCreator
+        self.visibilityCheckForLoopOptimizer = visibilityCheckForLoopOptimizer
     }
     
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
+    // swiftlint:disable:next function_body_length
     public func visiblePixelData(
         beforeImagePixelData: ImagePixelData,
         afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
-        targetPointOfInteraction: CGPoint?)
+        screenScale: CGFloat,
+        visibilityCheckTargetCoordinates: VisibilityCheckTargetCoordinates?)
         throws
         -> VisiblePixelData
     {
         let imageSize = beforeImagePixelData.size
         
-        guard beforeImagePixelData.size == afterImagePixelData.size else {
+        guard imageSize == afterImagePixelData.size else {
             throw ErrorString(
-                "Images must be of same size. Size before: \(beforeImagePixelData.size). Size after \(afterImagePixelData.size)"
+                "Images must be of same size. Before: \(beforeImagePixelData.size). After \(afterImagePixelData.size)"
             )
         }
         
+        let bytesPerPixel = beforeImagePixelData.bytesPerPixel
+        
+        guard bytesPerPixel == afterImagePixelData.bytesPerPixel else {
+            throw ErrorString(
+                "Images must be with same bytesPerPixel. Before: \(beforeImagePixelData.bytesPerPixel). After \(afterImagePixelData.bytesPerPixel)"
+            )
+        }
+        
+        // Note: the optimization has little 2..3.5% boost.
+        // The idea is to compare 1 UInt32 instead of 3 UInt8
+        guard bytesPerPixel == 4 else {
+            throw ErrorString(
+                "This code is optimized for 4 bytes per pixel. Remove optimization and this check."
+            )
+        }
+        
+        let pixelsBefore = reboundedMemoryFor32BitPixels(imagePixelData: beforeImagePixelData)
+        let pixelsAfter = reboundedMemoryFor32BitPixels(imagePixelData: afterImagePixelData)
+        
+        var checkedPixelCount: Int = 0
         var visiblePixelCount: Int = 0
         var visiblePixel: CGPoint?
         var minimalSquaredDistanceToTargetPoint = Int.max
         
-        // Check if target pixel is already visible, it takes O(1) and the pixel is often visible.
-        // Without this check the operation will take O(X*Y).
+        // 1. Check if target pixel is already visible, it takes O(1) and the pixel is often visible.
+        //    Without this check the operation will take O(X*Y).
+        // 2. We use grid (which reduces number of points to small constant amount) so
+        //    the target pixel is not exactly a point from grid. We want to tap to target pixel if possible,
+        //    and not just somewhere near it.
         
-        let targetPixelInImage: IntPoint?
+        let targetPixelToForAForLoop: IntPoint?
         var closestVisiblePixelInImage: IntPoint?
         
-        if let targetPointOfInteraction = targetPointOfInteraction {
-            let localTargetPixelInImage = self.targetPixelInImage(
-                targetPointOfInteraction: targetPointOfInteraction,
-                imageSize: imageSize,
-                searchRectInScreenCoordinates: searchRectInScreenCoordinates
-            )
+        if let visibilityCheckTargetCoordinates = visibilityCheckTargetCoordinates {
+            let targetPixelOfInteraction = visibilityCheckTargetCoordinates.targetPixelOfInteraction
             
             let targetPixelHasDiff = Self.isPixelDifferent(
-                beforeImagePixelData: beforeImagePixelData,
-                afterImagePixelData: afterImagePixelData,
-                index: (localTargetPixelInImage.y * imageSize.width + localTargetPixelInImage.x) * colorChannelsPerPixel
+                pixelsBefore: pixelsBefore,
+                pixelsAfter: pixelsAfter,
+                index: targetPixelOfInteraction.y * imageSize.width + targetPixelOfInteraction.x
             )
             
             if targetPixelHasDiff {
-                targetPixelInImage = nil
-                visiblePixel = targetPointOfInteraction
+                targetPixelToForAForLoop = nil
+                // It is always better to return same point that is target, not to just tap pixel of image.
+                // For example, it is better for cases with very tiny views (less than a point).
+                visiblePixel = visibilityCheckTargetCoordinates.targetPointOfInteraction
             } else {
-                targetPixelInImage = localTargetPixelInImage
+                targetPixelToForAForLoop = targetPixelOfInteraction
             }
         } else {
-            targetPixelInImage = nil
+            targetPixelToForAForLoop = nil
         }
         
-        // Note: we go row-order to take advantage of data locality (cuts runtime in half).
-        for y in 0..<imageSize.height {
-            for x in 0..<imageSize.width {
-                let currentPixelIndex = y * imageSize.width + x
-                let currentPixelByteIndex = currentPixelIndex * colorChannelsPerPixel
+        visibilityCheckForLoopOptimizer.forEachPoint(imageSize: imageSize) { (x, y) in
+            checkedPixelCount += 1
+            
+            let currentPixelIndex = y * imageSize.width + x
+            
+            let pixelHasDiff = Self.isPixelDifferent(
+                pixelsBefore: pixelsBefore,
+                pixelsAfter: pixelsAfter,
+                index: currentPixelIndex
+            )
+            
+            if pixelHasDiff {
+                visiblePixelCount += 1
                 
-                let pixelHasDiff = Self.isPixelDifferent(
-                    beforeImagePixelData: beforeImagePixelData,
-                    afterImagePixelData: afterImagePixelData,
-                    index: currentPixelByteIndex
-                )
-                
-                if pixelHasDiff {
-                    visiblePixelCount += 1
+                if let targetPixelToForAForLoop = targetPixelToForAForLoop {
+                    let dx = targetPixelToForAForLoop.x - x
+                    let dy = targetPixelToForAForLoop.y - y
+                    let squaredDistanceToTargetPoint = dx * dx + dy * dy
                     
-                    if let targetPixelInImage = targetPixelInImage {
-                        let dx = targetPixelInImage.x - x
-                        let dy = targetPixelInImage.y - y
-                        let squaredDistanceToTargetPoint = dx * dx + dy * dy
-                        
-                        if squaredDistanceToTargetPoint < minimalSquaredDistanceToTargetPoint {
-                            minimalSquaredDistanceToTargetPoint = squaredDistanceToTargetPoint
-                            closestVisiblePixelInImage = IntPoint(x: x, y: y)
-                        }
+                    if squaredDistanceToTargetPoint < minimalSquaredDistanceToTargetPoint {
+                        minimalSquaredDistanceToTargetPoint = squaredDistanceToTargetPoint
+                        closestVisiblePixelInImage = IntPoint(x: x, y: y)
                     }
                 }
             }
@@ -92,43 +116,31 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         
         return VisiblePixelData(
             visiblePixelCount: visiblePixelCount,
+            checkedPixelCount: checkedPixelCount,
             visiblePixel: visiblePixel ?? closestVisiblePixelInImage.map { closestVisiblePixelInImage in
                 self.visiblePixel(
                     intPoint: closestVisiblePixelInImage,
                     imageSize: imageSize,
-                    searchRectInScreenCoordinates: searchRectInScreenCoordinates
+                    searchRectInScreenCoordinates: searchRectInScreenCoordinates,
+                    screenScale: screenScale
                 )
             }
-        )
-    }
-    
-    private func targetPixelInImage(
-        targetPointOfInteraction: CGPoint,
-        imageSize: IntSize,
-        searchRectInScreenCoordinates: CGRect)
-        -> IntPoint
-    {
-        // TODO: Make check for division by zero more obvious, don't forget it
-        // after rewriting the code (improvement of performance was planned).
-        // Currently the check is located in another class (VisibilityCheckImagesCapturer).
-        // Same for `func visiblePixel`.
-        let offsetInView = targetPointOfInteraction - searchRectInScreenCoordinates.origin
-        
-        return IntPoint(
-            x: Int(offsetInView.dx / searchRectInScreenCoordinates.width * CGFloat(imageSize.width)),
-            y: Int(offsetInView.dy / searchRectInScreenCoordinates.height * CGFloat(imageSize.height))
         )
     }
     
     private func visiblePixel(
         intPoint: IntPoint,
         imageSize: IntSize,
-        searchRectInScreenCoordinates: CGRect)
+        searchRectInScreenCoordinates: CGRect,
+        screenScale: CGFloat)
         -> CGPoint
     {
+        // Without this line tests fail to tap single pixel views:
+        let centerOfPixel = screenScale / 2
+        
         let pointInView = CGPoint(
-            x: CGFloat(intPoint.x) / CGFloat(imageSize.width) * searchRectInScreenCoordinates.width,
-            y: CGFloat(intPoint.y) / CGFloat(imageSize.height) * searchRectInScreenCoordinates.height
+            x: CGFloat(intPoint.x) / CGFloat(imageSize.width) * searchRectInScreenCoordinates.width + centerOfPixel,
+            y: CGFloat(intPoint.y) / CGFloat(imageSize.height) * searchRectInScreenCoordinates.height + centerOfPixel
         )
         
         return pointInView + searchRectInScreenCoordinates.origin
@@ -141,18 +153,25 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
     // would cause the test to fail, we resort to a naive check that rbg1 and rgb2 are not the
     // same without specifying the exact delta between them.
     static func isPixelDifferent(
-        beforeImagePixelData: ImagePixelData,
-        afterImagePixelData: ImagePixelData,
+        pixelsBefore: UnsafeMutablePointer<UInt32>,
+        pixelsAfter: UnsafeMutablePointer<UInt32>,
         index: Int)
         -> Bool
     {
-        let lhs = beforeImagePixelData.imagePixelBuffer.pointer.advanced(by: index)
-        let rhs = afterImagePixelData.imagePixelBuffer.pointer.advanced(by: index)
-        
-        // We don't care about the first byte because we are dealing with XRGB format.
-        return (lhs[0] != rhs[0])
-            || (lhs[1] != rhs[1])
-            || (lhs[2] != rhs[2])
+        return pixelsBefore[index] != pixelsAfter[index]
+    }
+    
+    private func reboundedMemoryFor32BitPixels(
+        imagePixelData: ImagePixelData)
+        -> UnsafeMutablePointer<UInt32>
+    {
+        return imagePixelData.imagePixelBuffer.pointer.withMemoryRebound(
+            to: UInt32.self,
+            capacity: imagePixelData.imagePixelBuffer.count / 4,
+            { pointer in
+                pointer
+            }
+        )
     }
 }
 

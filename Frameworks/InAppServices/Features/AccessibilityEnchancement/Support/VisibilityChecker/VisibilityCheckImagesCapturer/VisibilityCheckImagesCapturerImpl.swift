@@ -1,30 +1,43 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxFoundation
+import MixboxUiKit
 
+// TODO: Split this class.
 public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCapturer {
     private let imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator
     private let inAppScreenshotTaker: InAppScreenshotTaker
     private let imageFromImagePixelDataCreator: ImageFromImagePixelDataCreator
     private let screen: UIScreen
+    private let performanceLogger: PerformanceLogger
+    private let visibilityCheckImageColorShifter: VisibilityCheckImageColorShifter
     
     public init(
         imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator,
         inAppScreenshotTaker: InAppScreenshotTaker,
         imageFromImagePixelDataCreator: ImageFromImagePixelDataCreator,
-        screen: UIScreen)
+        screen: UIScreen,
+        performanceLogger: PerformanceLogger,
+        visibilityCheckImageColorShifter: VisibilityCheckImageColorShifter)
     {
         self.imagePixelDataFromImageCreator = imagePixelDataFromImageCreator
         self.inAppScreenshotTaker = inAppScreenshotTaker
         self.imageFromImagePixelDataCreator = imageFromImagePixelDataCreator
         self.screen = screen
+        self.performanceLogger = performanceLogger
+        self.visibilityCheckImageColorShifter = visibilityCheckImageColorShifter
     }
     
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    public func capture(view: UIView, searchRectInScreenCoordinates: CGRect)
+    public func capture(
+        view: UIView,
+        searchRectInScreenCoordinates: CGRect,
+        targetPointOfInteraction: CGPoint?)
         throws
         -> VisibilityCheckImagesCaptureResult
     {
+        let preconditionMetric = performanceLogger.start(staticName: "VC.capture.precond")
+        
         // A quick visibility check is done here to rule out any definitely hidden views.
         if view.isDefinitelyHidden {
             throw ErrorString("View is not visible")
@@ -66,6 +79,10 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         CATransaction.flush()
         CATransaction.commit()
         
+        preconditionMetric.stop()
+        
+        let screenshotBeforeMetric = performanceLogger.start(staticName: "VC.capture.snapshot")
+        
         guard let beforeScreenshot = inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true) else {
             throw ErrorString("beforeScreenshot is nil")
         }
@@ -77,6 +94,10 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         guard let beforeImage = beforeScreenshotCgImage.cropping(to: screenshotSearchRectInPixels) else {
             throw ErrorString("beforeImage is nil")
         }
+        
+        screenshotBeforeMetric.stop()
+        
+        let shiftingColorsMetric = performanceLogger.start(staticName: "VC.capture.shift")
         
         guard let window = view.window else {
             throw ErrorString("Window is nil")
@@ -119,11 +140,27 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         
         let beforeImagePixelData = try imagePixelDataFromImageCreator.createImagePixelData(image: beforeImage)
         
+        let visibilityCheckTargetCoordinates = targetPointOfInteraction.map { targetPointOfInteraction in
+            VisibilityCheckTargetCoordinates(
+                targetPixelOfInteraction: targetPixelOfInteraction(
+                     targetPointOfInteraction: targetPointOfInteraction,
+                     imageSize: beforeImagePixelData.size,
+                     searchRectInScreenCoordinates: searchRectInScreenCoordinates
+                ),
+                targetPointOfInteraction: targetPointOfInteraction
+            )
+        }
+        
         let shiftedView = try imageViewWithShiftedColor(
             beforeImagePixelData: beforeImagePixelData,
             frameOffset: searchRectOffset,
-            orientation: beforeScreenshot.imageOrientation
+            orientation: beforeScreenshot.imageOrientation,
+            targetPixelOfInteraction: visibilityCheckTargetCoordinates?.targetPixelOfInteraction
         )
+        
+        shiftingColorsMetric.stop()
+        
+        let screenshotAfterMetric = performanceLogger.start(staticName: "VC.capture.snapshot")
         
         guard let afterScreenshot = imageAfterAddingSubview(shiftedView: shiftedView, toView: view) else {
             throw ErrorString("afterScreenshot is nil")
@@ -139,10 +176,14 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         
         let afterImagePixelData = try imagePixelDataFromImageCreator.createImagePixelData(image: afterImage)
         
+        screenshotAfterMetric.stop()
+        
         return VisibilityCheckImagesCaptureResult(
             beforeImagePixelData: beforeImagePixelData,
             afterImagePixelData: afterImagePixelData,
-            intersectionOrigin: intersectionOrigin
+            intersectionOrigin: intersectionOrigin,
+            visibilityCheckTargetCoordinates: visibilityCheckTargetCoordinates,
+            screenScale: screen.scale
         )
     }
     
@@ -215,61 +256,18 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         return retVal
     }
     
-    // The code below shifts RGB channels by some amount. The idea is that if after shifting colors of view
-    // something really changes for user, then this view is visible. If nothing is changed, then it's hidden,
-    // overlapped, etc.
-    //
-    // ----
-    //
-    // Below this paragraph is the original comment on how this code works. This is not how it was really working!
-    // But the idea from the comment seems much better than the current implementation.
-    // Current implementation is buggy and doesn't work great for every edge case.
-    // The idea from the comment below might work better, but it also doesn't work properly in reality.
-    // It would be good if we write tests, checking every combination of views, colors, positions, alpha, etc,
-    // and test the actual percentage of visible area vs expected.
-    //
-    // ----
-    //
-    // Creates a UIImageView and adds a shifted color image of @c imageRef to it, in addition
-    // view.frame is offset by @c offset and image orientation set to @c orientation. There are 256
-    // possible values for a color component, from 0 to 255. Each color component will be shifted by
-    // exactly 128, examples: 0 => 128, 64 => 192, 128 => 0, 255 => 127.
-    //
-    // @param imageRef The image whose colors are to be shifted.
-    // @param offset The frame offset to be applied to resulting view.
-    // @param orientation The target orientation of the image added to the resulting view.
-    //
-    // @return A view containing shifted color image of @c imageRef with view.frame offset by
-    //         @c offset and orientation set to @c orientation.
-    //
     private func imageViewWithShiftedColor(
         beforeImagePixelData: ImagePixelData,
         frameOffset offset: CGPoint,
-        orientation: UIImage.Orientation)
+        orientation: UIImage.Orientation,
+        targetPixelOfInteraction: IntPoint?)
         throws
         -> UIImageView
     {
-        let shiftedImagePixels = beforeImagePixelData.copy()
-        let buffer = shiftedImagePixels.imagePixelBuffer
-        
-        for pixelIndex in 0..<shiftedImagePixels.size.area {
-            let pixelDataOffset = pixelIndex * shiftedImagePixels.bytesPerPixel
-            
-            // TODO: Blue channel is missing
-            // We don't care about the [first] byte of the [X]RGB format.
-            for byteIndex in 1...2 {
-                let kShiftIntensityAmount: [UInt8] = [0, 10, 10, 10] // Shift for X, R, G, B
-                var pixelIntensity = buffer[pixelDataOffset + byteIndex]
-                
-                if pixelIntensity >= kShiftIntensityAmount[byteIndex] {
-                    pixelIntensity -= kShiftIntensityAmount[byteIndex]
-                } else {
-                    pixelIntensity += kShiftIntensityAmount[byteIndex]
-                }
-                
-                buffer[pixelDataOffset + byteIndex] = pixelIntensity
-            }
-        }
+        let shiftedImagePixels = visibilityCheckImageColorShifter.imagePixelDataWithShiftedColors(
+            imagePixelData: beforeImagePixelData,
+            targetPixelOfInteraction: targetPixelOfInteraction
+        )
         
         let shiftedImage = try imageFromImagePixelDataCreator.image(
             imagePixelData: shiftedImagePixels,
@@ -282,6 +280,24 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         shiftedImageView.isOpaque = true
         
         return shiftedImageView
+    }
+    
+    private func targetPixelOfInteraction(
+        targetPointOfInteraction: CGPoint,
+        imageSize: IntSize,
+        searchRectInScreenCoordinates: CGRect)
+        -> IntPoint
+    {
+        // TODO: Make check for division by zero more obvious, don't forget it
+        // after rewriting the code (improvement of performance was planned).
+        // Currently the check is located in another class (VisibilityCheckImagesCapturer).
+        // Same for `func visiblePixel`.
+        let offsetInView = targetPointOfInteraction - searchRectInScreenCoordinates.origin
+        
+        return IntPoint(
+            x: Int(offsetInView.dx / searchRectInScreenCoordinates.width * CGFloat(imageSize.width)),
+            y: Int(offsetInView.dy / searchRectInScreenCoordinates.height * CGFloat(imageSize.height))
+        )
     }
 }
 

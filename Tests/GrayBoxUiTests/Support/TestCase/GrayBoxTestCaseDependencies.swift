@@ -5,6 +5,7 @@ import MixboxIpcCommon
 import MixboxGray
 import MixboxFoundation
 import MixboxDi
+import TestsIpc
 
 final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
     private let bundleResourcePathProviderForTestsTarget: BundleResourcePathProvider

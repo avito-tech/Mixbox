@@ -1,4 +1,5 @@
 import MixboxTestsFoundation
+import TestsIpc
 
 public final class MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager:
     TestLifecycleManager

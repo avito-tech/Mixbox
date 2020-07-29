@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public struct IntPoint {
+public struct IntPoint: Hashable {
     public var x: Int
     public var y: Int
     

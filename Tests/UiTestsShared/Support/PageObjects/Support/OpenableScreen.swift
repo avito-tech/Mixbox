@@ -10,7 +10,7 @@ extension OpenableScreen where Self: ElementFactory {
     }
     
     func waitUntilViewIsLoaded() {
-        view.assertIsDisplayed()
+        view.assertIsInHierarchy()
     }
 }
 
@@ -20,6 +20,6 @@ extension OpenableScreen where Self: DefaultElementFactoryProvider  {
     }
     
     func waitUntilViewIsLoaded() {
-        view.assertIsDisplayed()
+        view.assertIsInHierarchy()
     }
 }

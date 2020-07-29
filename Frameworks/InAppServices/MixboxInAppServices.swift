@@ -2,8 +2,10 @@
 
 import MixboxIpc
 import MixboxIpcCommon
+import MixboxFoundation
 
 // Facade for starting everything for tests, on the side of the app.
+// TODO: Rename to InAppServices
 public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegisterer {
     // Dependencies
     private let inAppServicesDependenciesFactory: InAppServicesDependenciesFactory
@@ -48,7 +50,7 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         }
     }
     
-    public func start() -> (IpcRouter, IpcClient?) {
+    public func start() -> StartedInAppServices {
         assert(self.router == nil, "MixboxInAppServices are already started")
         
         do {
@@ -77,7 +79,10 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
             
             commandsForAddingRoutes = []
             
-            return (router, client)
+            return StartedInAppServices(
+                router: router,
+                client: client
+            )
         } catch {
             // TODO: Better error handling for tests (fail test instead of crashing app)
             preconditionFailure(String(describing: error))
