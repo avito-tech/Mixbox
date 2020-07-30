@@ -32,7 +32,8 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     public func capture(
         view: UIView,
         searchRectInScreenCoordinates: CGRect,
-        targetPointOfInteraction: CGPoint?)
+        targetPointOfInteraction: CGPoint?,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
         throws
         -> VisibilityCheckImagesCaptureResult
     {
@@ -61,7 +62,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     
         // Calculate the search rectangle for screenshot.
         let screenshotSearchRectInPixels = searchRectOnScreenInViewInScreenCoordinates
-            .mb_pointToPixel()
+            .mb_pointToPixel(scale: screen.scale)
             .mb_integralInside()
     
         let intersectionOrigin = screenshotSearchRectInPixels.origin
@@ -123,7 +124,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
             from: nil
         )
     
-        let rectAfterPixelAlignment = screenshotSearchRectInPixels.mb_pixelToPoint()
+        let rectAfterPixelAlignment = screenshotSearchRectInPixels.mb_pixelToPoint(scale: screen.scale)
         
         let searchRectOnScreenInViewInVariableScreenCoordinates = searchRectOnScreenInViewInScreenCoordinates
         
@@ -155,7 +156,8 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
             beforeImagePixelData: beforeImagePixelData,
             frameOffset: searchRectOffset,
             orientation: beforeScreenshot.imageOrientation,
-            targetPixelOfInteraction: visibilityCheckTargetCoordinates?.targetPixelOfInteraction
+            targetPixelOfInteraction: visibilityCheckTargetCoordinates?.targetPixelOfInteraction,
+            visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
         )
         
         shiftingColorsMetric.stop()
@@ -188,7 +190,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     }
     
     private func intRectForCropping(pixelRect: CGRect) -> IntRect {
-        return pixelRect.rounded()
+        return pixelRect.mb_rounded()
     }
 
     private func imageAfterAddingSubview(
@@ -260,13 +262,15 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         beforeImagePixelData: ImagePixelData,
         frameOffset offset: CGPoint,
         orientation: UIImage.Orientation,
-        targetPixelOfInteraction: IntPoint?)
+        targetPixelOfInteraction: IntPoint?,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
         throws
         -> UIImageView
     {
         let shiftedImagePixels = visibilityCheckImageColorShifter.imagePixelDataWithShiftedColors(
             imagePixelData: beforeImagePixelData,
-            targetPixelOfInteraction: targetPixelOfInteraction
+            targetPixelOfInteraction: targetPixelOfInteraction,
+            visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
         )
         
         let shiftedImage = try imageFromImagePixelDataCreator.image(

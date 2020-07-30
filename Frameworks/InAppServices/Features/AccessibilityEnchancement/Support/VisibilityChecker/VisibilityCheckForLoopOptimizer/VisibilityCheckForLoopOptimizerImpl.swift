@@ -6,15 +6,29 @@ import MixboxUiKit
 public final class VisibilityCheckForLoopOptimizerImpl: VisibilityCheckForLoopOptimizer {
     private let numberOfPointsInGrid: Int
     
-    public init(numberOfPointsInGrid: Int) {
+    // NOTE: it is possible to calculate `numberOfPointsInGrid` purely via accuracy:
+    //
+    // This equation can be solved for `n` (where `n` is `numberOfPointsInGrid`)
+    // `a = (w * h - (w - (p + sqrt(n * w / h)) * 2) * (h - (p + sqrt(n * h / w)) * 2)) / (w * h)`
+    // Since I don't have paid wolframalpha I can not solve it (and free version times out).
+    //
+    // This equation is basically a relation between area of grid (including pixels of size `p`)
+    // and area of image. The idea is that if something overlaps image, but not the grid, it doesn't count
+    // as overlapping (and vice versa).
+    private let useHundredPercentAccuracy: Bool
+    
+    // If numbers of points of image is less than `numberOfPointsInGrid`
+    // then 100% accuracy will be enforced (because it wouldn't take much CPU time anyway).
+    public init(numberOfPointsInGrid: Int, useHundredPercentAccuracy: Bool) {
         self.numberOfPointsInGrid = numberOfPointsInGrid
+        self.useHundredPercentAccuracy = useHundredPercentAccuracy
     }
     
     public func forEachPoint(
         imageSize: IntSize,
         loop: (_ x: Int, _ y: Int) -> ())
     {
-        if imageSize.area <= numberOfPointsInGrid {
+        if imageSize.area <= numberOfPointsInGrid || useHundredPercentAccuracy {
             forEachPointOnImage(imageSize: imageSize, loop: loop)
         } else {
             forEachPointOnGrid(imageSize: imageSize, loop: loop)
@@ -25,7 +39,7 @@ public final class VisibilityCheckForLoopOptimizerImpl: VisibilityCheckForLoopOp
         imageSize: IntSize,
         loop: (_ x: Int, _ y: Int) -> ())
     {
-        // There were a not in EarlGrey about data locality,
+        // There was a note in EarlGrey about data locality,
         // I didn't check it on current code, but still I use rows first:
         for y in 0..<imageSize.height {
             for x in 0..<imageSize.width {
@@ -47,6 +61,7 @@ public final class VisibilityCheckForLoopOptimizerImpl: VisibilityCheckForLoopOp
             dx: floatImageSize.width / gridSize.width,
             dy: floatImageSize.height / gridSize.height
         )
+        
         let initialOffsetsForLoops = self.initialOffsetsForLoops(imageSize: floatImageSize, gridSize: gridSize)
         
         var y = initialOffsetsForLoops.y

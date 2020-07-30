@@ -27,17 +27,20 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
     private let visibilityCheckImagesCapturer: VisibilityCheckImagesCapturer
     private let visiblePixelDataCalculator: VisiblePixelDataCalculator
     private let performanceLogger: PerformanceLogger
+    private let visibilityCheckForLoopOptimizerFactory: VisibilityCheckForLoopOptimizerFactory
     
     public init(
         assertionFailureRecorder: AssertionFailureRecorder,
         visibilityCheckImagesCapturer: VisibilityCheckImagesCapturer,
         visiblePixelDataCalculator: VisiblePixelDataCalculator,
-        performanceLogger: PerformanceLogger)
+        performanceLogger: PerformanceLogger,
+        visibilityCheckForLoopOptimizerFactory: VisibilityCheckForLoopOptimizerFactory)
     {
         self.assertionFailureRecorder = assertionFailureRecorder
         self.visibilityCheckImagesCapturer = visibilityCheckImagesCapturer
         self.visiblePixelDataCalculator = visiblePixelDataCalculator
         self.performanceLogger = performanceLogger
+        self.visibilityCheckForLoopOptimizerFactory = visibilityCheckForLoopOptimizerFactory
     }
     
     public func checkVisibility(arguments: VisibilityCheckerArguments) throws -> VisibilityCheckerResult {
@@ -49,11 +52,16 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
                 interactionCoordinates: arguments.interactionCoordinates
             )
             
+            let visibilityCheckForLoopOptimizer = visibilityCheckForLoopOptimizerFactory.visibilityCheckForLoopOptimizer(
+                useHundredPercentAccuracy: arguments.useHundredPercentAccuracy
+            )
+            
             let captureResult = try performanceLogger.log(staticName: "VC.capture") {
                 try visibilityCheckImagesCapturer.capture(
                     view: arguments.view,
                     searchRectInScreenCoordinates: searchRectInScreenCoordinates,
-                    targetPointOfInteraction: targetPointOfInteraction
+                    targetPointOfInteraction: targetPointOfInteraction,
+                    visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
                 )
             }
             
@@ -63,7 +71,8 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
                     afterImagePixelData: captureResult.afterImagePixelData,
                     searchRectInScreenCoordinates: searchRectInScreenCoordinates,
                     screenScale: captureResult.screenScale,
-                    visibilityCheckTargetCoordinates: captureResult.visibilityCheckTargetCoordinates
+                    visibilityCheckTargetCoordinates: captureResult.visibilityCheckTargetCoordinates,
+                    visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
                 )
             }
             

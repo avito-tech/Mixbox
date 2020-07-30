@@ -128,6 +128,7 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         router.register(methodHandler: SetPasteboardStringIpcMethodHandler())
         
         router.register(methodHandler: GetUiScreenMainBoundsIpcMethodHandler())
+        router.register(methodHandler: GetUiScreenMainScaleIpcMethodHandler())
         
         router.register(
             methodHandler: GetRecordedAssertionFailuresIpcMethodHandler(

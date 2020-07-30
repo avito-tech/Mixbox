@@ -33,10 +33,9 @@ public final class DebugEnvironmentProvider: EnvironmentProvider {
         
         var environmentAsDictionary = [String: String]()
         
-        let equalsSignSeparatedKeyValues = whitespaceSeparatedEnvironment.split(
-            separator: " ",
-            omittingEmptySubsequences: true
-        )
+        let equalsSignSeparatedKeyValues = whitespaceSeparatedEnvironment.split { character in
+            character == " " || character == "\n"
+        }
         
         for equalsSignSeparatedKeyValue in equalsSignSeparatedKeyValues {
             let keyValueAsArray = equalsSignSeparatedKeyValue.split(separator: "=", omittingEmptySubsequences: true)

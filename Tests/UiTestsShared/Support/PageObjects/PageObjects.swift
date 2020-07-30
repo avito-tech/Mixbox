@@ -43,6 +43,8 @@ final class PageObjects: BasePageObjects {
     
     var interactionsUseVisiblePointTestsViewPageObject: MainAppScreen<InteractionsUseVisiblePointTestsViewPageObject> { return mainAppScreen() }
     
+    var ipcTestingView: MainAppScreen<IpcTestingViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             real: apps.mainUiKitHierarchy.pageObject(),

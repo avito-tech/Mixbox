@@ -83,6 +83,61 @@ final class InteractionsUseVisiblePointTests: TestCase {
         }
     }
     
+    // TODO: Fix.
+    //
+    // func test() {
+    //     resetUi(
+    //         fractionOfPoint: 6,
+    //         offsetInFractionsOfPoint: -6,
+    //         layout: .vertical,
+    //         overlapped: false
+    //     )
+    //     checkButton()
+    // }
+    //
+    // NOTE: This might be due to rounding here:
+    //
+    // let screenshotSearchRectInPixels = searchRectOnScreenInViewInScreenCoordinates
+    //     .mb_pointToPixel(scale: screen.scale)
+    //     .mb_integralInside()
+    //
+    // TODO: Add assertions that screenshotSearchRectInPixels has area > 0 (no dimension is 0) and
+    //       debug the code. I think that it will be hard to make the check perfect due to unknown
+    //       algorithm of blending (unknown to me, maybe its something quite simple)
+    //
+    func disabled_test___tap___taps_buttons_with_size_less_than_a_point() {
+        for overlapped in [false, true] {
+            for layout in ButtonLayout.allCases {
+                // To test different scales and also just different coordinates
+                for fractionOfPoint in [2, 3, 4, 5, 6, 7, 8] {
+                    for offsetInFractionsOfPoint in -fractionOfPoint...fractionOfPoint {
+                        resetUi(
+                            fractionOfPoint: fractionOfPoint,
+                            offsetInFractionsOfPoint: offsetInFractionsOfPoint,
+                            layout: layout,
+                            overlapped: overlapped
+                        )
+                        assertPasses(
+                            message: { failures in
+                                """
+                                Test failed on this data set: \
+                                fractionOfPoint: \(fractionOfPoint) \
+                                offsetInFractionsOfPoint: \(offsetInFractionsOfPoint) \
+                                layout: \(layout) \
+                                overlapped: \(overlapped) \
+                                Failures: \(failures)
+                                """
+                            },
+                            body: {
+                                checkButton()
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+    
     // TODO: private
     enum ButtonLayout: CaseIterable {
         case vertical

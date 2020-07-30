@@ -119,7 +119,8 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                     } else {
                         let visibilityCheckResult = try elementVisibilityChecker.checkVisibility(
                             snapshot: snapshot,
-                            interactionCoordinates: interactionCoordinates
+                            interactionCoordinates: interactionCoordinates,
+                            minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
                         )
                         
                         percentageOfVisibleArea = visibilityCheckResult.percentageOfVisibleArea

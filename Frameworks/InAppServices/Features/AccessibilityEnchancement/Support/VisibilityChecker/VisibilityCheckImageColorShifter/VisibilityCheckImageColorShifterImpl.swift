@@ -1,10 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 public final class VisibilityCheckImageColorShifterImpl: VisibilityCheckImageColorShifter {
-    private let visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer
-    
-    public init(visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer) {
-        self.visibilityCheckForLoopOptimizer = visibilityCheckForLoopOptimizer
+    public init() {
     }
     
     // TODO: Split this function.
@@ -38,7 +35,8 @@ public final class VisibilityCheckImageColorShifterImpl: VisibilityCheckImageCol
     //
     public func imagePixelDataWithShiftedColors(
         imagePixelData: ImagePixelData,
-        targetPixelOfInteraction: IntPoint?)
+        targetPixelOfInteraction: IntPoint?,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
         -> ImagePixelData
     {
         let shiftedImagePixels = imagePixelData.copy()

@@ -7,7 +7,8 @@ public protocol VisiblePixelDataCalculator {
         afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
         screenScale: CGFloat,
-        visibilityCheckTargetCoordinates: VisibilityCheckTargetCoordinates?)
+        visibilityCheckTargetCoordinates: VisibilityCheckTargetCoordinates?,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
         throws
         -> VisiblePixelData
 }

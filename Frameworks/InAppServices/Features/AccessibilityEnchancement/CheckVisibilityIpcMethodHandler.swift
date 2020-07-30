@@ -34,7 +34,8 @@ final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
                 let visibilityCheckerResult = try viewVisibilityChecker.checkVisibility(
                     arguments: VisibilityCheckerArguments(
                         view: view,
-                        interactionCoordinates: arguments.interactionCoordinates
+                        interactionCoordinates: arguments.interactionCoordinates,
+                        useHundredPercentAccuracy: arguments.useHundredPercentAccuracy
                     )
                 )
                 

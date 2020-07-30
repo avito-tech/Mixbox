@@ -4,9 +4,9 @@ import MixboxIpc
 
 // Apple's UI test runner app can have different screen settings than tested app
 // so if you want to get screen settings of app, use this method
-public final class GetUiScreenMainBoundsIpcMethod: IpcMethod {
+public final class GetUiScreenMainScaleIpcMethod: IpcMethod {
     public typealias Arguments = IpcVoid
-    public typealias ReturnValue = CGRect
+    public typealias ReturnValue = CGFloat
     
     public init() {
     }

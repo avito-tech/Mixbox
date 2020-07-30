@@ -14,18 +14,18 @@ final class Collection_ElementOrFail_Tests: TestCase {
         }
         
         assertFails {
-            [0].elementOrFail(index: -1)
+            _ = [0].elementOrFail(index: -1)
         }
         XCTAssertEqual(
             0,
             [0].elementOrFail(index: 0)
         )
         assertFails {
-            [0].elementOrFail(index: 1)
+            _ = [0].elementOrFail(index: 1)
         }
         
         assertFails {
-            [0, 1].elementOrFail(index: -1)
+            _ = [0, 1].elementOrFail(index: -1)
         }
         XCTAssertEqual(
             0,

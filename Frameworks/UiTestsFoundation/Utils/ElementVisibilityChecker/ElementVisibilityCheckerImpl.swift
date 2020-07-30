@@ -14,7 +14,8 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     
     public func checkVisibility(
         snapshot: ElementSnapshot,
-        interactionCoordinates: InteractionCoordinates?)
+        interactionCoordinates: InteractionCoordinates?,
+        useHundredPercentAccuracy: Bool)
         throws
         -> ElementVisibilityCheckerResult
     {
@@ -42,7 +43,8 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
         if let elementUniqueIdentifier = snapshot.uniqueIdentifier.valueIfAvailable {
             return try callIpcClient(
                 elementUniqueIdentifier: elementUniqueIdentifier,
-                interactionCoordinates: interactionCoordinates
+                interactionCoordinates: interactionCoordinates,
+                useHundredPercentAccuracy: useHundredPercentAccuracy
             )
         } else {
             // Visibility check is not available for this element (e.g.: not a view or it is an element in
@@ -54,13 +56,15 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     }
     
     public func percentageOfVisibleArea(
-        elementUniqueIdentifier: String)
+        elementUniqueIdentifier: String,
+        useHundredPercentAccuracy: Bool)
         throws
         -> CGFloat
     {
         let result = try callIpcClient(
             elementUniqueIdentifier: elementUniqueIdentifier,
-            interactionCoordinates: nil
+            interactionCoordinates: nil,
+            useHundredPercentAccuracy: useHundredPercentAccuracy
         )
         
         return result.percentageOfVisibleArea
@@ -84,7 +88,8 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
     
     private func callIpcClient(
         elementUniqueIdentifier: String,
-        interactionCoordinates: InteractionCoordinates?)
+        interactionCoordinates: InteractionCoordinates?,
+        useHundredPercentAccuracy: Bool)
         throws
         -> ElementVisibilityCheckerResult
     {
@@ -92,7 +97,8 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
             method: CheckVisibilityIpcMethod(),
             arguments: CheckVisibilityIpcMethod.Arguments(
                 elementUniqueIdentifier: elementUniqueIdentifier,
-                interactionCoordinates: interactionCoordinates
+                interactionCoordinates: interactionCoordinates,
+                useHundredPercentAccuracy: useHundredPercentAccuracy
             )
         )
         

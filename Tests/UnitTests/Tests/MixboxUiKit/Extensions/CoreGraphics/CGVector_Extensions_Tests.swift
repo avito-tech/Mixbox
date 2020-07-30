@@ -1,6 +1,6 @@
 import XCTest
 
-final class CGVectorExtensionsTests: TestCase {
+final class CGVector_Extensions_Tests: TestCase {
     func test_mb_angle() {
         XCTAssertEqual(
             CGVector(dx: 1, dy: 0).mb_angle(),

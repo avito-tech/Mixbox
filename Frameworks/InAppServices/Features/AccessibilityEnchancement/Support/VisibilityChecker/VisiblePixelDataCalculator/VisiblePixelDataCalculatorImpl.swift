@@ -5,14 +5,11 @@ import MixboxFoundation
 
 public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
     private let imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator
-    private let visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer
     
     public init(
-        imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator,
-        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
+        imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator)
     {
         self.imagePixelDataFromImageCreator = imagePixelDataFromImageCreator
-        self.visibilityCheckForLoopOptimizer = visibilityCheckForLoopOptimizer
     }
     
     // swiftlint:disable:next function_body_length
@@ -21,7 +18,8 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         afterImagePixelData: ImagePixelData,
         searchRectInScreenCoordinates: CGRect,
         screenScale: CGFloat,
-        visibilityCheckTargetCoordinates: VisibilityCheckTargetCoordinates?)
+        visibilityCheckTargetCoordinates: VisibilityCheckTargetCoordinates?,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
         throws
         -> VisiblePixelData
     {

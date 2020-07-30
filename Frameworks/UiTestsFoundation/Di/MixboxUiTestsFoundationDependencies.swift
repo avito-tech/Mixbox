@@ -22,7 +22,10 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
     
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
-            MixboxTestsFoundationDependencies()
+            MixboxTestsFoundationDependencies(
+                stepLogger: stepLogger,
+                enableXctActivityLogging: enableXctActivityLogging
+            )
         ]
     }
     

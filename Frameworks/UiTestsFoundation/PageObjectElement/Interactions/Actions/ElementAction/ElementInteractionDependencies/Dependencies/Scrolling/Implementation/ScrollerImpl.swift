@@ -65,7 +65,8 @@ public final class ScrollerImpl: Scroller {
                     // So in any case we must do the check if it is not completely off screen.
                     let visibilityCheckResult = try? elementVisibilityChecker.checkVisibility(
                         snapshot: snapshot,
-                        interactionCoordinates: nil
+                        interactionCoordinates: nil,
+                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
                     )
                     
                     let percentageOfVisibleArea = visibilityCheckResult?.percentageOfVisibleArea ?? 0

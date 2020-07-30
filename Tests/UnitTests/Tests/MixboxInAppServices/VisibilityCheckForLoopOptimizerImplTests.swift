@@ -56,7 +56,10 @@ final class VisibilityCheckForLoopOptimizerImplTests: TestCase {
     
     private func assertThereIsNoDuplicates(number: Int, x: Int, y: Int) {
         let size = IntSize(width: x, height: y)
-        let optimizer = VisibilityCheckForLoopOptimizerImpl(numberOfPointsInGrid: number)
+        let optimizer = VisibilityCheckForLoopOptimizerImpl(
+            numberOfPointsInGrid: number,
+            useHundredPercentAccuracy: false
+        )
         var points = Set<IntPoint>()
         optimizer.forEachPoint(imageSize: size) { (x, y) in
             let point = IntPoint(x: x, y: y)
@@ -74,7 +77,10 @@ final class VisibilityCheckForLoopOptimizerImplTests: TestCase {
     
     private func points(number: Int, x: Int, y: Int) -> [IntPoint] {
         let size = IntSize(width: x, height: y)
-        let optimizer = VisibilityCheckForLoopOptimizerImpl(numberOfPointsInGrid: number)
+        let optimizer = VisibilityCheckForLoopOptimizerImpl(
+            numberOfPointsInGrid: number,
+            useHundredPercentAccuracy: false
+        )
         var points = [IntPoint]()
         optimizer.forEachPoint(imageSize: size) { (x, y) in
             points.append(IntPoint(x: x, y: y))

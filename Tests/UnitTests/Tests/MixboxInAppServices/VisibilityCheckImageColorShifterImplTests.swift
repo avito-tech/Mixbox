@@ -3,11 +3,11 @@ import XCTest
 
 // swiftlint:disable comma function_body_length
 final class VisibilityCheckImageColorShifterImplTests: TestCase {
-    private let shifter = VisibilityCheckImageColorShifterImpl(
-        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizerImpl(
-            numberOfPointsInGrid: 1000000000 // very big number to disable optimization
-        )
+    private let visibilityCheckForLoopOptimizer = VisibilityCheckForLoopOptimizerImpl(
+        numberOfPointsInGrid: 0, // doesn't really matter because of `useHundredPercentAccuracy: true`
+        useHundredPercentAccuracy: true
     )
+    private let shifter = VisibilityCheckImageColorShifterImpl()
     
     func test___with_target_point() {
         parametrizedTest(targetPixelOfInteraction: IntPoint(x: 1, y: 1))
@@ -39,7 +39,8 @@ final class VisibilityCheckImageColorShifterImplTests: TestCase {
         
         let shiftedPixelData = shifter.imagePixelDataWithShiftedColors(
             imagePixelData: imagePixelData,
-            targetPixelOfInteraction: targetPixelOfInteraction
+            targetPixelOfInteraction: targetPixelOfInteraction,
+            visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
         )
         
         // If value < 10 it is incremented by 10, else it is decremented by 10.

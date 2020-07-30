@@ -3,7 +3,8 @@
 public protocol VisibilityCheckImageColorShifter {
     func imagePixelDataWithShiftedColors(
         imagePixelData: ImagePixelData,
-        targetPixelOfInteraction: IntPoint?)
+        targetPixelOfInteraction: IntPoint?,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
         -> ImagePixelData
 }
 

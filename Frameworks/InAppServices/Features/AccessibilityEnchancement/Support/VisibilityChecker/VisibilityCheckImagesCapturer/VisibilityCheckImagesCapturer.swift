@@ -16,7 +16,8 @@ public protocol VisibilityCheckImagesCapturer {
     func capture(
         view: UIView,
         searchRectInScreenCoordinates: CGRect,
-        targetPointOfInteraction: CGPoint?)
+        targetPointOfInteraction: CGPoint?,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
         throws
         -> VisibilityCheckImagesCaptureResult
 }

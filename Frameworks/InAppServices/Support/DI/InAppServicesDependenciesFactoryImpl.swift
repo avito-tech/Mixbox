@@ -175,7 +175,7 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
             screen: screen
         )
         
-        let visibilityCheckForLoopOptimizer = VisibilityCheckForLoopOptimizerImpl(
+        let visibilityCheckForLoopOptimizerFactory = VisibilityCheckForLoopOptimizerFactoryImpl(
             numberOfPointsInGrid: 10000
         )
         
@@ -189,15 +189,13 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
                 imageFromImagePixelDataCreator: ImageFromImagePixelDataCreatorImpl(),
                 screen: screen,
                 performanceLogger: performanceLogger,
-                visibilityCheckImageColorShifter: VisibilityCheckImageColorShifterImpl(
-                    visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
-                )
+                visibilityCheckImageColorShifter: VisibilityCheckImageColorShifterImpl()
             ),
             visiblePixelDataCalculator: VisiblePixelDataCalculatorImpl(
-                imagePixelDataFromImageCreator: imagePixelDataFromImageCreator,
-                visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
+                imagePixelDataFromImageCreator: imagePixelDataFromImageCreator
             ),
-            performanceLogger: performanceLogger
+            performanceLogger: performanceLogger,
+            visibilityCheckForLoopOptimizerFactory: visibilityCheckForLoopOptimizerFactory
         )
     }
     

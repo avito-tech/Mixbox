@@ -6,13 +6,16 @@ public final class CheckVisibilityIpcMethod: IpcMethod {
     public final class _Arguments: Codable {
         public let elementUniqueIdentifier: String
         public let interactionCoordinates: InteractionCoordinates?
+        public let useHundredPercentAccuracy: Bool
         
         public init(
             elementUniqueIdentifier: String,
-            interactionCoordinates: InteractionCoordinates?)
+            interactionCoordinates: InteractionCoordinates?,
+            useHundredPercentAccuracy: Bool)
         {
             self.elementUniqueIdentifier = elementUniqueIdentifier
             self.interactionCoordinates = interactionCoordinates
+            self.useHundredPercentAccuracy = useHundredPercentAccuracy
         }
     }
     
