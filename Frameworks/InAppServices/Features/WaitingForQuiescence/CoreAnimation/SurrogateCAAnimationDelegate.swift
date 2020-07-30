@@ -158,19 +158,19 @@ private func InstrumentSurrogateDelegate(
     }
     
     @objc func animationDidStart(_ anim: CAAnimation?) {
-        AnimationDidStart(self: self, animation: anim, isInvokedFromSwizzledMethod: false)
-    }
-    
-    @objc func animationDidStop(_ anim: CAAnimation?, finished flag: Bool) {
-        AnimationDidStop(self: self, animation: anim, finished: flag, isInvokedFromSwizzledMethod: false)
-    }
-    
-    @objc fileprivate func mbswizzled_animationDidStart(_ anim: CAAnimation?) {
         AnimationDidStart(self: self, animation: anim, isInvokedFromSwizzledMethod: true)
     }
     
-    @objc fileprivate func mbswizzled_animationDidStop(_ anim: CAAnimation?, finished flag: Bool) {
+    @objc func animationDidStop(_ anim: CAAnimation?, finished flag: Bool) {
         AnimationDidStop(self: self, animation: anim, finished: flag, isInvokedFromSwizzledMethod: true)
+    }
+    
+    @objc fileprivate func mbswizzled_animationDidStart(_ anim: CAAnimation?) {
+        AnimationDidStart(self: self, animation: anim, isInvokedFromSwizzledMethod: false)
+    }
+    
+    @objc fileprivate func mbswizzled_animationDidStop(_ anim: CAAnimation?, finished flag: Bool) {
+        AnimationDidStop(self: self, animation: anim, finished: flag, isInvokedFromSwizzledMethod: false)
     }
 }
 
