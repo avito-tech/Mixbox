@@ -76,7 +76,9 @@ final class IpcTestingView: UIView, TestingView {
         let view = UIView()
         
         view.accessibilityIdentifier = ipcView.accessibilityIdentifier
-        view.backgroundColor = ipcView.backgroundColor.uiColor
+        view.backgroundColor = ipcView.backgroundColor?.uiColor
+        view.alpha = ipcView.alpha
+        view.isHidden = ipcView.isHidden
         
         return view
     }

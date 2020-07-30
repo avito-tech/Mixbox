@@ -195,7 +195,8 @@ public final class InAppServicesDependenciesFactoryImpl: InAppServicesDependenci
                 imagePixelDataFromImageCreator: imagePixelDataFromImageCreator
             ),
             performanceLogger: performanceLogger,
-            visibilityCheckForLoopOptimizerFactory: visibilityCheckForLoopOptimizerFactory
+            visibilityCheckForLoopOptimizerFactory: visibilityCheckForLoopOptimizerFactory,
+            screen: screen
         )
     }
     

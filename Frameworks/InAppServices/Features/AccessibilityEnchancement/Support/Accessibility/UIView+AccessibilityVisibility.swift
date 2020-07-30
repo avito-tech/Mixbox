@@ -21,6 +21,7 @@ import MixboxTestability
     //
     private func isDefinitelyHidden(alphaThreshold: CGFloat) -> Bool {
         var pointer: UIView? = self
+        
         while let view = pointer {
             // "Fake cells" are what we instantiate for the cells that are not visible in collection view.
             // Fake cells can be reused, isHidden can be == true (and setting it to false can not work).
@@ -47,6 +48,7 @@ import MixboxTestability
             
             pointer = view.superview ?? parentCollectionView
         }
+        
         return false
     }
 }

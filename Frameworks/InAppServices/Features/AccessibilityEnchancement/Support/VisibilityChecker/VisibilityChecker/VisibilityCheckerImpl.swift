@@ -3,6 +3,7 @@
 import UIKit
 import MixboxFoundation
 import MixboxIpcCommon
+import MixboxUiKit
 
 // Notes:
 //
@@ -28,24 +29,42 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
     private let visiblePixelDataCalculator: VisiblePixelDataCalculator
     private let performanceLogger: PerformanceLogger
     private let visibilityCheckForLoopOptimizerFactory: VisibilityCheckForLoopOptimizerFactory
+    private let screen: UIScreen
     
     public init(
         assertionFailureRecorder: AssertionFailureRecorder,
         visibilityCheckImagesCapturer: VisibilityCheckImagesCapturer,
         visiblePixelDataCalculator: VisiblePixelDataCalculator,
         performanceLogger: PerformanceLogger,
-        visibilityCheckForLoopOptimizerFactory: VisibilityCheckForLoopOptimizerFactory)
+        visibilityCheckForLoopOptimizerFactory: VisibilityCheckForLoopOptimizerFactory,
+        screen: UIScreen)
     {
         self.assertionFailureRecorder = assertionFailureRecorder
         self.visibilityCheckImagesCapturer = visibilityCheckImagesCapturer
         self.visiblePixelDataCalculator = visiblePixelDataCalculator
         self.performanceLogger = performanceLogger
         self.visibilityCheckForLoopOptimizerFactory = visibilityCheckForLoopOptimizerFactory
+        self.screen = screen
     }
     
     public func checkVisibility(arguments: VisibilityCheckerArguments) throws -> VisibilityCheckerResult {
         return try performanceLogger.log(staticName: "VC.check") {
+            if arguments.view.isDefinitelyHidden {
+                return notVisibleResult()
+            }
+            
             let searchRectInScreenCoordinates = arguments.view.accessibilityFrame
+
+            let screenBounds = screen.bounds
+
+            // TODO: Add this check in MixboxUiTestssFoundation to not call IPC if not needed?
+            //       It seems that something was broken somewhere after recent refactorings, because
+            //       this line fixed a bug.
+            guard let searchRectAndScreenIntersection = searchRectInScreenCoordinates.mb_intersectionOrNil(screenBounds) else {
+                return notVisibleResult()
+            }
+            
+            let percentageOfIntersection = searchRectAndScreenIntersection.mb_area / searchRectInScreenCoordinates.mb_area
             
             let targetPointOfInteraction = self.targetPointOfInteraction(
                 elementFrameRelativeToScreen: searchRectInScreenCoordinates,
@@ -76,7 +95,8 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
                 )
             }
             
-            let percentageOfVisibleArea = CGFloat(visiblePixelData.visiblePixelCount) / CGFloat(visiblePixelData.checkedPixelCount)
+            let percentageOfVisiblePixels = CGFloat(visiblePixelData.visiblePixelCount) / CGFloat(visiblePixelData.checkedPixelCount)
+            let percentageOfVisibleArea = percentageOfVisiblePixels * percentageOfIntersection
             
             if percentageOfVisibleArea < 0 {
                 throw ErrorString("percentVisible should not be negative. Current Percent: \(percentageOfVisibleArea)")
@@ -104,6 +124,13 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
                 return nil
             }
         }
+    }
+    
+    private func notVisibleResult() -> VisibilityCheckerResult {
+        return VisibilityCheckerResult(
+            percentageOfVisibleArea: 0,
+            visibilePointOnScreenClosestToInteractionCoordinates: nil
+        )
     }
 }
 
