@@ -9,6 +9,7 @@ public final class ElementSettings {
     public let interactionTimeout: TimeInterval
     public let interactionMode: InteractionMode
     public let percentageOfVisibleArea: CGFloat
+    public let optimizedVisibilityCheck: Bool
     
     public init(
         name: String,
@@ -18,7 +19,8 @@ public final class ElementSettings {
         scrollMode: ScrollMode,
         interactionTimeout: TimeInterval,
         interactionMode: InteractionMode,
-        percentageOfVisibleArea: CGFloat)
+        percentageOfVisibleArea: CGFloat,
+        optimizedVisibilityCheck: Bool)
     {
         self.name = name
         self.functionDeclarationLocation = functionDeclarationLocation
@@ -28,6 +30,7 @@ public final class ElementSettings {
         self.interactionTimeout = interactionTimeout
         self.interactionMode = interactionMode
         self.percentageOfVisibleArea = percentageOfVisibleArea
+        self.optimizedVisibilityCheck = optimizedVisibilityCheck
     }
     
     public convenience init(
@@ -44,7 +47,8 @@ public final class ElementSettings {
             scrollMode: elementSettingsDefaults.scrollMode,
             interactionTimeout: elementSettingsDefaults.interactionTimeout,
             interactionMode: elementSettingsDefaults.interactionMode,
-            percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea
+            percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea,
+            optimizedVisibilityCheck: elementSettingsDefaults.optimizedVisibilityCheck
         )
     }
     
@@ -57,7 +61,8 @@ public final class ElementSettings {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -70,7 +75,8 @@ public final class ElementSettings {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -83,7 +89,8 @@ public final class ElementSettings {
             scrollMode: scrollMode ?? elementSettingsDefaults.scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -96,7 +103,8 @@ public final class ElementSettings {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout ?? elementSettingsDefaults.interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -109,7 +117,8 @@ public final class ElementSettings {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode ?? elementSettingsDefaults.interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -122,7 +131,22 @@ public final class ElementSettings {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaults.percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaults.percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
+        )
+    }
+    
+    public func with(optimizedVisibilityCheck: Bool) -> ElementSettings {
+        return ElementSettings(
+            name: name,
+            functionDeclarationLocation: functionDeclarationLocation,
+            matcher: matcher,
+            elementSettingsDefaults: elementSettingsDefaults,
+            scrollMode: scrollMode,
+            interactionTimeout: interactionTimeout,
+            interactionMode: interactionMode,
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
 }

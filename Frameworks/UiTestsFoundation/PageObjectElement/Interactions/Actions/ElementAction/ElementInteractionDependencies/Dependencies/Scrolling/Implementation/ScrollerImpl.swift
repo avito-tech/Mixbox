@@ -66,7 +66,7 @@ public final class ScrollerImpl: Scroller {
                     let visibilityCheckResult = try? elementVisibilityChecker.checkVisibility(
                         snapshot: snapshot,
                         interactionCoordinates: nil,
-                        minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea
+                        useHundredPercentAccuracy: !elementSettings.optimizedVisibilityCheck
                     )
                     
                     let percentageOfVisibleArea = visibilityCheckResult?.percentageOfVisibleArea ?? 0

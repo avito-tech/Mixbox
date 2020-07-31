@@ -3,7 +3,8 @@ import TestsIpc
 import MixboxUiTestsFoundation
 import MixboxUiKit
 
-// swiftlint:disable type_body_length
+// TODO: Split
+// swiftlint:disable type_body_length file_length
 final class VisibilityCheckTests: TestCase {
     private var screen: IpcTestingViewPageObject {
         return pageObjects.ipcTestingView.default
@@ -31,6 +32,29 @@ final class VisibilityCheckTests: TestCase {
             .waitUntilViewIsLoaded()
     }
     
+    // Overlapping goes this way:
+    //
+    // ...............    XXXXXXXXXXXXXXX    XXXXXXXXXXXXXXX
+    // ...............    XX...........XX    XXXXXXXXXXXXXXX
+    // ...............    XX...........XX    XXXX.......XXXX
+    // ............... => XX...........XX => XXXX.......XXXX
+    // ...............    XX...........XX    XXXX.......XXXX
+    // ...............    XX...........XX    XXXXXXXXXXXXXXX
+    // ...............    XXXXXXXXXXXXXXX    XXXXXXXXXXXXXXX
+    //
+    // The test was added after a bug with "grid optimization", but in fact the bug was much simpler
+    // than I thought (see `test___visibility_check___respects_position_of_view_relative_to_screen_bounds`)
+    //
+    // The idea was to make tests fail if view was overlapped slightly from sides, but pixels from grid was not
+    // overlapped. Such check would trigger false positive results in edge cases (e.g. when required percentage
+    // of visible area is 100%, actual percentage of visible area is 99%, but visibility check will tell that it's
+    // 100% visible for example.
+    //
+    // This is really an edge case and for such cases a modifier `with(optimizedVisibilityCheck: false)` was added.
+    //
+    // I think that real tests will never use this modifier, however, it is a must have for pixel perfect
+    // image comparation.
+    //
     func test___visibility_check___respects_percentage_of_visible_area_when_view_is_overlapped() {
         check___visibility_check___respects_percentage_of_visible_area_when_view_is_overlapped(
             percentageOfVisibleArea: 0
@@ -47,13 +71,33 @@ final class VisibilityCheckTests: TestCase {
         check___visibility_check___respects_percentage_of_visible_area_when_view_is_overlapped(
             percentageOfVisibleArea: 1
         )
+    }
+    
+    func test___visibility_check___respects_visibility_check_optimization_settings() {
+        let onePixelSize = 1 / screenScale
         
-        // Corner case (if `percentageOfVisibleArea` is 1 then strict check should be enforced
-        _ = resetUiOverlappingAllSidesOfSquare(
-            percentageOfVisibleArea: 0.999
+        _ = resetUiOverlappingOneSideOfSquare(
+            overlappingWidth: onePixelSize
         )
+        
+        // Actually 1 line of pixels is not visible and check is accurate.
+        // The check should fail.
         assertFails {
             checkedView
+                .with(optimizedVisibilityCheck: false)
+                .with(percentageOfVisibleArea: 1)
+                .withoutTimeout
+                .assertIsDisplayed()
+        }
+        
+        // This is expected on square views vastly larger than 100 pixels in size (for every iPhone screen).
+        // The check is not very accurate (it skips few pixels between pixels in grid, once every 10 pixels
+        // on iPhone X for this view, assuming width is 1125 pixels). For iPhone 11 Pro Max it's even more pixels:
+        // 2688 x 1242 = 3 338 496. And it's a good thing we skip them, because mathematics are 333 times faster for
+        // this case.
+        assertPasses {
+            checkedView
+                .with(optimizedVisibilityCheck: true)
                 .with(percentageOfVisibleArea: 1)
                 .withoutTimeout
                 .assertIsDisplayed()
@@ -148,7 +192,7 @@ final class VisibilityCheckTests: TestCase {
         )
     }
     
-    func check___visibility_check___respects_position_of_view_relative_to_screen_bounds(
+    private func check___visibility_check___respects_position_of_view_relative_to_screen_bounds(
         percentageOfVisibleArea: CGFloat)
     {
         let actualPercentageOfVisibleArea = resetUiPlacingCheckedViewOutsideOfScreenBounds(
@@ -185,32 +229,38 @@ final class VisibilityCheckTests: TestCase {
         }
     }
     
-    // This test overlaps view starting from its corners.
-    //
-    // This test was added after a bug with "grid optimization" (see `VisibilityCheckForLoopOptimizer`).
-    //
-    // The optimization reduces number of checked pixels to a grid of fixed number of pixels,
-    // but because of that, some pixels at the borders of view became unchecked, because they are outside of grid
-    // and some tests failed to scroll to view properly (scroller was thinking that view is
-    // 100% visible, but in fact it was not).
-    //
-    // The solution is to check if optimization is appropriate. For example, if we want to check if view is
-    // exactly 100% visible, we should check 100% of its pixels. The other thing is that if check requires certain
-    // accuracy then grid should provide such accuracy ("accuracy" was not implemented at the moment this
-    // is written, but it is a logical thing to do).
-    //
-    // Overlapping goes this way:
-    //
-    // ...............    XXXXXXXXXXXXXXX    XXXXXXXXXXXXXXX
-    // ...............    XX...........XX    XXXXXXXXXXXXXXX
-    // ...............    XX...........XX    XXXX.......XXXX
-    // ............... => XX...........XX => XXXX.......XXXX
-    // ...............    XX...........XX    XXXX.......XXXX
-    // ...............    XX...........XX    XXXXXXXXXXXXXXX
-    // ...............    XXXXXXXXXXXXXXX    XXXXXXXXXXXXXXX
-    //
     private func resetUiOverlappingAllSidesOfSquare(
         percentageOfVisibleArea: CGFloat)
+        -> CGFloat
+    {
+        return resetUiOverlappingAllSidesOfSquare(
+            visibleRectMaker: { checkedViewFrame in
+                visibleRectFrameWhenOverlappingAllSidesOfSquare(
+                    checkedViewFrame: checkedViewFrame,
+                    percentageOfVisibleArea: percentageOfVisibleArea
+                )
+            }
+        )
+    }
+    
+    private func resetUiOverlappingOneSideOfSquare(
+        overlappingWidth: CGFloat)
+        -> CGFloat
+    {
+        // 3 sides will be overlapped by 0 points and 1 by `overlappingWidth` points
+        return resetUiOverlappingAllSidesOfSquare(
+            visibleRectMaker: { checkedViewFrame in
+                visibleRectFrameWhenOverlappingOneSideOfSquare(
+                    checkedViewFrame: checkedViewFrame,
+                    overlappingWidth: overlappingWidth
+                )
+            }
+        )
+        
+    }
+    
+    private func resetUiOverlappingAllSidesOfSquare(
+        visibleRectMaker: (_ checkedViewFrame: CGRect) -> CGRect)
         -> CGFloat
     {
         let bounds = screenBounds
@@ -219,10 +269,8 @@ final class VisibilityCheckTests: TestCase {
             bounds: bounds
         )
         
-        let visibleRectFrame = self.visibleRectFrame(
-            checkedViewFrame: checkedViewFrame,
-            bounds: bounds,
-            percentageOfVisibleArea: percentageOfVisibleArea
+        let visibleRectFrame = visibleRectMaker(
+            checkedViewFrame
         )
         
         let checkedView = makeCheckedIpcView(
@@ -353,16 +401,12 @@ final class VisibilityCheckTests: TestCase {
         return checkedViewFrame
     }
     
-    private func visibleRectFrame(
+    private func visibleRectFrameWhenOverlappingAllSidesOfSquare(
         checkedViewFrame: CGRect,
-        bounds: CGRect,
         percentageOfVisibleArea: CGFloat)
         -> CGRect
     {
         let checkedViewArea = checkedViewFrame.mb_area
-        
-        // Computation works for squares only
-        XCTAssertEqual(checkedViewFrame.width, checkedViewFrame.height)
         
         let visibleArea = percentageOfVisibleArea * checkedViewArea
         let visibleRectSide = sqrt(visibleArea)
@@ -375,11 +419,28 @@ final class VisibilityCheckTests: TestCase {
         )
         visibleRect.mb_center = checkedViewFrame.mb_center
         
-        // Visibility check ignores subpixels so do we in tests.
-        // This should be changed if visibility check is changed.
-        return visibleRect
+        return alignRectToPixelGrid(rect: visibleRect)
+    }
+
+    // Visibility check ignores subpixels so do we in tests.
+    // This should be changed if visibility check is changed.
+    private func alignRectToPixelGrid(rect: CGRect) -> CGRect {
+        return rect
             .mb_pointToPixel(scale: screenScale)
             .mb_integralInside()
             .mb_pixelToPoint(scale: screenScale)
+    }
+    
+    private func visibleRectFrameWhenOverlappingOneSideOfSquare(
+        checkedViewFrame: CGRect,
+        overlappingWidth: CGFloat)
+        -> CGRect
+    {
+        var visibleRect = checkedViewFrame
+        visibleRect.mb_width -= overlappingWidth
+        
+        // Visibility check ignores subpixels so do we in tests.
+        // This should be changed if visibility check is changed.
+        return alignRectToPixelGrid(rect: visibleRect)
     }
 }

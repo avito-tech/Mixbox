@@ -3,16 +3,19 @@ public final class ElementSettingsDefaults {
     public let interactionTimeout: TimeInterval
     public let interactionMode: InteractionMode
     public let percentageOfVisibleArea: CGFloat
+    public let optimizedVisibilityCheck: Bool
     
     public init(
         scrollMode: ScrollMode,
         interactionTimeout: TimeInterval,
         interactionMode: InteractionMode,
-        percentageOfVisibleArea: CGFloat)
+        percentageOfVisibleArea: CGFloat,
+        optimizedVisibilityCheck: Bool)
     {
         self.scrollMode = scrollMode
         self.interactionTimeout = interactionTimeout
         self.interactionMode = interactionMode
         self.percentageOfVisibleArea = percentageOfVisibleArea
+        self.optimizedVisibilityCheck = optimizedVisibilityCheck
     }
 }

@@ -8,6 +8,7 @@ public final class ElementFactoryImpl: ElementFactory {
     private let interactionTimeout: TimeInterval
     private let interactionMode: InteractionMode
     private let percentageOfVisibleArea: CGFloat
+    private let optimizedVisibilityCheck: Bool
     
     public init(
         pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
@@ -15,7 +16,8 @@ public final class ElementFactoryImpl: ElementFactory {
         scrollMode: ScrollMode,
         interactionTimeout: TimeInterval,
         interactionMode: InteractionMode,
-        percentageOfVisibleArea: CGFloat)
+        percentageOfVisibleArea: CGFloat,
+        optimizedVisibilityCheck: Bool)
     {
         self.pageObjectElementDependenciesFactory = pageObjectElementDependenciesFactory
         self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
@@ -23,6 +25,7 @@ public final class ElementFactoryImpl: ElementFactory {
         self.interactionTimeout = interactionTimeout
         self.interactionMode = interactionMode
         self.percentageOfVisibleArea = percentageOfVisibleArea
+        self.optimizedVisibilityCheck = optimizedVisibilityCheck
     }
     
     public convenience init(
@@ -37,7 +40,8 @@ public final class ElementFactoryImpl: ElementFactory {
             scrollMode: elementSettingsDefaults.scrollMode,
             interactionTimeout: elementSettingsDefaults.interactionTimeout,
             interactionMode: elementSettingsDefaults.interactionMode,
-            percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea
+            percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea,
+            optimizedVisibilityCheck: elementSettingsDefaults.optimizedVisibilityCheck
         )
     }
     
@@ -66,7 +70,8 @@ public final class ElementFactoryImpl: ElementFactory {
             scrollMode: scrollMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -77,7 +82,8 @@ public final class ElementFactoryImpl: ElementFactory {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -88,7 +94,8 @@ public final class ElementFactoryImpl: ElementFactory {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
         )
     }
     
@@ -99,7 +106,20 @@ public final class ElementFactoryImpl: ElementFactory {
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaultsProvider.elementSettingsDefaults().percentageOfVisibleArea
+            percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaultsProvider.elementSettingsDefaults().percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck
+        )
+    }
+    
+    public func with(optimizedVisibilityCheck: Bool?) -> ElementFactory {
+        return ElementFactoryImpl(
+            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
+            scrollMode: scrollMode,
+            interactionTimeout: interactionTimeout,
+            interactionMode: interactionMode,
+            percentageOfVisibleArea: percentageOfVisibleArea,
+            optimizedVisibilityCheck: optimizedVisibilityCheck ?? elementSettingsDefaultsProvider.elementSettingsDefaults().optimizedVisibilityCheck
         )
     }
     
@@ -123,7 +143,8 @@ public final class ElementFactoryImpl: ElementFactory {
                     scrollMode: scrollMode,
                     interactionTimeout: interactionTimeout,
                     interactionMode: interactionMode,
-                    percentageOfVisibleArea: percentageOfVisibleArea
+                    percentageOfVisibleArea: percentageOfVisibleArea,
+                    optimizedVisibilityCheck: optimizedVisibilityCheck
                 )
             )
         )

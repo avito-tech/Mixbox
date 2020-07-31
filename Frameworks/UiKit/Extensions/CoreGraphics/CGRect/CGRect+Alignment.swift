@@ -37,6 +37,14 @@ public extension CGRect {
         get { return mb_top + height }
         set { mb_top = newValue - height }
     }
+    var mb_width: CGFloat {
+        get { return width }
+        set { size.width = newValue }
+    }
+    var mb_height: CGFloat {
+        get { return height }
+        set { size.height = newValue }
+    }
     
     static func mb_init(left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) -> CGRect {
         return self.init(x: left, y: top, width: right - left, height: bottom - top)

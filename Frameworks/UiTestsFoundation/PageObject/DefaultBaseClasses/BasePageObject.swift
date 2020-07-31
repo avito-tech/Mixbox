@@ -70,4 +70,8 @@ open class BasePageObject: PageObject, ElementFactory {
     public func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory {
         return elementFactory.with(percentageOfVisibleArea: percentageOfVisibleArea)
     }
+    
+    public func with(optimizedVisibilityCheck: Bool?) -> ElementFactory {
+        return elementFactory.with(optimizedVisibilityCheck: optimizedVisibilityCheck)
+    }
 }

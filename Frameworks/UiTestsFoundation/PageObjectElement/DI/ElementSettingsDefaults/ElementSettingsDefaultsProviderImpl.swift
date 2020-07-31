@@ -27,7 +27,8 @@ public final class ElementSettingsDefaultsProviderImpl: ElementSettingsDefaultsP
             // But the problem with tapping should be solved with other measures, like detecting actually visible
             // pixels for tapping them instead of center of the element.
             //
-            percentageOfVisibleArea: 0.5
+            percentageOfVisibleArea: 0.5,
+            optimizedVisibilityCheck: true
         )
     }
 }
