@@ -25,13 +25,17 @@ public final class ScrollerImpl: Scroller {
         self.elementSettings = elementSettings
     }
     
+    // swiftlint:disable:next function_body_length
     public func scrollIfNeeded(
         snapshot: ElementSnapshot,
         minimalPercentageOfVisibleArea: CGFloat,
         expectedIndexOfSnapshotInResolvedElementQuery: Int,
-        resolvedElementQuery: ResolvedElementQuery)
+        resolvedElementQuery: ResolvedElementQuery,
+        interactionCoordinates: InteractionCoordinates?)
         -> ScrollingResult
     {
+        let useHundredPercentAccuracyInVisibilityCheck = !elementSettings.optimizedVisibilityCheck
+        
         // TODO: Better code. These lines just disable scrolling with minimal number of lines and minimal consequences.
         // (at the moment the code was written, we all know what can happen with code if it will live for long)
         if elementSettings.scrollMode == .none {
@@ -63,24 +67,28 @@ public final class ScrollerImpl: Scroller {
                     // If it is fully on screen it can also be either sufficiently visible ot not.
                     //
                     // So in any case we must do the check if it is not completely off screen.
-                    let visibilityCheckResult = try? elementVisibilityChecker.checkVisibility(
+                    let visibilityCheckResultOrNil = try? elementVisibilityChecker.checkVisibility(
                         snapshot: snapshot,
-                        interactionCoordinates: nil,
-                        useHundredPercentAccuracy: !elementSettings.optimizedVisibilityCheck
+                        interactionCoordinates: interactionCoordinates,
+                        useHundredPercentAccuracy: useHundredPercentAccuracyInVisibilityCheck
                     )
                     
-                    let percentageOfVisibleArea = visibilityCheckResult?.percentageOfVisibleArea ?? 0
-                    
-                    let elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
-
-                    if elementIsSufficientlyVisible {
-                        // sufficiently visible
+                    if let visibilityCheckResult = visibilityCheckResultOrNil {
+                        let percentageOfVisibleArea = visibilityCheckResult.percentageOfVisibleArea
                         
-                        return ScrollingResult(
-                            status: .alreadyVisible(percentageOfVisibleArea: percentageOfVisibleArea),
-                            updatedSnapshot: snapshot,
-                            updatedResolvedElementQuery: resolvedElementQuery
-                        )
+                        let elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
+
+                        if elementIsSufficientlyVisible {
+                            // sufficiently visible
+                            
+                            return ScrollingResult(
+                                status: .alreadyVisible(visibilityCheckResult),
+                                updatedSnapshot: snapshot,
+                                updatedResolvedElementQuery: resolvedElementQuery
+                            )
+                        } else {
+                            // not sufficiently visible
+                        }
                     } else {
                         // not sufficiently visible
                     }
@@ -105,7 +113,9 @@ public final class ScrollerImpl: Scroller {
             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
             applicationFrameProvider: applicationFrameProvider,
             eventGenerator: eventGenerator,
-            elementResolver: elementResolver
+            elementResolver: elementResolver,
+            interactionCoordinates: interactionCoordinates,
+            useHundredPercentAccuracyInVisibilityCheckForTargetElement: useHundredPercentAccuracyInVisibilityCheck
         )
         
         return scrollingContext.scrollIfNeeded()

@@ -61,11 +61,12 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                 snapshot: snapshot,
                 minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
                 expectedIndexOfSnapshotInResolvedElementQuery: expectedIndexOfSnapshot,
-                resolvedElementQuery: resolvedElementQuery
+                resolvedElementQuery: resolvedElementQuery,
+                interactionCoordinates: interactionCoordinates
             )
             
             var potentialCauseOfFailure: String?
-            var alreadyCalculatedPercentageOfVisibleArea: CGFloat?
+            var alreadyCalculatedElementVisibilityCheckerResult: ElementVisibilityCheckerResult?
             
             snapshot = scrollingResult.updatedSnapshot
             resolvedElementQuery = scrollingResult.updatedResolvedElementQuery
@@ -74,8 +75,8 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
             case .scrolled, .alreadyInHierarchyAndVisibilityCheckIsNotRequired:
                 // Ok
                 break
-            case .alreadyVisible(let percentageOfVisibleArea):
-                alreadyCalculatedPercentageOfVisibleArea = percentageOfVisibleArea
+            case .alreadyVisible(let elementVisibilityCheckerResult):
+                alreadyCalculatedElementVisibilityCheckerResult = elementVisibilityCheckerResult
             case .elementWasLostAfterScroll:
                 potentialCauseOfFailure = "ошибка при автоскролле - элемент пропал из иерархии после скролла"
             case .error(let message):
@@ -110,28 +111,25 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                     
                     return performInteraction()
                 } else {
-                    let elementIsSufficientlyVisible: Bool
-                    let percentageOfVisibleArea: CGFloat
+                    let elementVisibilityCheckerResult: ElementVisibilityCheckerResult
                     
-                    if let alreadyCalculatedPercentageOfVisibleArea = alreadyCalculatedPercentageOfVisibleArea, interactionCoordinates == nil {
-                        percentageOfVisibleArea = alreadyCalculatedPercentageOfVisibleArea
-                        visiblePoint = nil
+                    if let alreadyCalculatedElementVisibilityCheckerResult = alreadyCalculatedElementVisibilityCheckerResult {
+                        elementVisibilityCheckerResult = alreadyCalculatedElementVisibilityCheckerResult
                     } else {
-                        let visibilityCheckResult = try elementVisibilityChecker.checkVisibility(
+                        elementVisibilityCheckerResult = try elementVisibilityChecker.checkVisibility(
                             snapshot: snapshot,
                             interactionCoordinates: interactionCoordinates,
                             useHundredPercentAccuracy: !elementSettings.optimizedVisibilityCheck
                         )
-                        
-                        percentageOfVisibleArea = visibilityCheckResult.percentageOfVisibleArea
-                        visiblePoint = visibilityCheckResult.visibilePointOnScreenClosestToInteractionCoordinates
                     }
                     
-                    elementIsSufficientlyVisible = percentageOfVisibleArea >= minimalPercentageOfVisibleArea
+                    visiblePoint = elementVisibilityCheckerResult.visibilePointOnScreenClosestToInteractionCoordinates
+                    
+                    let elementIsSufficientlyVisible = elementVisibilityCheckerResult.percentageOfVisibleArea >= minimalPercentageOfVisibleArea
                     
                     if !elementIsSufficientlyVisible {
                         return interactionFailureResultFactory.elementIsNotSufficientlyVisibleResult(
-                            percentageOfVisibleArea: percentageOfVisibleArea,
+                            percentageOfVisibleArea: elementVisibilityCheckerResult.percentageOfVisibleArea,
                             minimalPercentageOfVisibleArea: minimalPercentageOfVisibleArea,
                             potentialCauseOfFailure: potentialCauseOfFailure
                         )

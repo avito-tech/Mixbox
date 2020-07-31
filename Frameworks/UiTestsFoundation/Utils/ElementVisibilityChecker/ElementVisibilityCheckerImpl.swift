@@ -55,19 +55,18 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
         }
     }
     
-    public func percentageOfVisibleArea(
+    public func checkVisibility(
         elementUniqueIdentifier: String,
+        interactionCoordinates: InteractionCoordinates?,
         useHundredPercentAccuracy: Bool)
         throws
-        -> CGFloat
+        -> ElementVisibilityCheckerResult
     {
-        let result = try callIpcClient(
+        return try callIpcClient(
             elementUniqueIdentifier: elementUniqueIdentifier,
-            interactionCoordinates: nil,
+            interactionCoordinates: interactionCoordinates,
             useHundredPercentAccuracy: useHundredPercentAccuracy
         )
-        
-        return result.percentageOfVisibleArea
     }
     
     // MARK: - Private

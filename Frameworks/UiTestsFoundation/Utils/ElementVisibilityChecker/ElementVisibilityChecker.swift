@@ -8,9 +8,10 @@ public protocol ElementVisibilityChecker: class {
         throws
         -> ElementVisibilityCheckerResult
     
-    func percentageOfVisibleArea(
+    func checkVisibility(
         elementUniqueIdentifier: String,
+        interactionCoordinates: InteractionCoordinates?,
         useHundredPercentAccuracy: Bool)
         throws
-        -> CGFloat
+        -> ElementVisibilityCheckerResult
 }

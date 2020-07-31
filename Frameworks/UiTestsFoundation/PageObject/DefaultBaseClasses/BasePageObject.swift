@@ -27,6 +27,7 @@
 // Such customization is used in tests for Avito app.
 //
 // TODO: Add default base class called `BasePageObjects`?
+// TODO: Actually this class can not be used in a real project if `elementFactory` is polymorphic. Invent a way for this case.
 //
 open class BasePageObject: PageObject, ElementFactory {
     private let elementFactory: ElementFactory
