@@ -1,7 +1,7 @@
 excluded:
   # Cocoapods
   - 'Tests/Pods'
-  - 'Demos/OversimplifiedDemo/Pods'
+  - 'Demos/UiTestsDemo/Pods'
   - 'Frameworks/BuiltinIpc/OsxDemo/Pods'
   
   # Build

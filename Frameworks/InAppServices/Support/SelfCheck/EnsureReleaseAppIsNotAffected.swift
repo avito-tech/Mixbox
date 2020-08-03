@@ -1,5 +1,3 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
-
 #if !MIXBOX_ENABLE_IN_APP_SERVICES
 
 // To prevent this code to be inside your release version of app:
@@ -9,16 +7,19 @@
 // 2. Do not link this module in your release configuration.
 // 3. Do not forget to NOT define MIXBOX_ENABLE_IN_APP_SERVICES in your release configuration.
 //
-// Example for Cocoapods: See Demo project.
+// Example for Cocoapods: See demo project.
 //
+// TODO: Write test (in MixboxSwiftCI project), because it was broken once.
+//
+// This code makes not implemented function to fail build at linking stage.
 @_silgen_name("ItSeemsThatYouAreLinkingMixboxInAppServicesOutsideOfTestsSeeThisStringWithoutUnderscoreInCodeForComments")
 private func functionThatIsCreatedJustToProduceErrorAtLinking()
+
+// This is to prevent symbol from stripping.
 private class UserOfFunctionThatIsCreatedJustToProduceErrorAtLinking {
     func userOfFunctionThatIsCreatedJustToProduceErrorAtLinking() {
         functionThatIsCreatedJustToProduceErrorAtLinking()
     }
 }
-
-#endif
 
 #endif

@@ -1,4 +1,0 @@
-{
-  "bundle_ids": ["mixbox.Tests.TestedApp", "mixbox.Tests.BlackBoxUiTests"],
-  "timeout": 500
-}

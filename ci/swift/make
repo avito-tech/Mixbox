@@ -142,13 +142,15 @@ generate_package() {
     then
         bash_ci_require_pyenv make_v1
         bash_ci_require_python_packages ./MakePackage/requirements.txt
+        bash_ci_run_python3 ./MakePackage/make_package.py || exit 1
+    else
+        bash_ci_run_python3 ./MakePackage/make_package.py || handle_failure_of_calling_make_package_while_not_using_pyenv || exit 1
     fi
-    
-    bash_ci_run_python3 ./MakePackage/make_package.py || exit 1
 }
-#
-#fix_permissions() {
-#    chmod -R ug+Xrw "$SCRIPT_ROOT"
-#}
+
+handle_failure_of_calling_make_package_while_not_using_pyenv() {
+    pip3 install -r ./MakePackage/requirements.txt
+    bash_ci_run_python3 ./MakePackage/make_package.py
+}
 
 main "$@"

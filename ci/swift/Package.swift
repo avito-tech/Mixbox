@@ -24,6 +24,12 @@ let package = Package(
             ]
         ),
         .executable(
+            name: "TeamcityUiTestsDemoBuild",
+            targets: [
+                "TeamcityUiTestsDemoBuild"
+            ]
+        ),
+        .executable(
             name: "TravisLogicTestsBuild",
             targets: [
                 "TravisLogicTestsBuild"
@@ -51,12 +57,6 @@ let package = Package(
             name: "TeamcityLogicTestsBuild",
             targets: [
                 "TeamcityLogicTestsBuild"
-            ]
-        ),
-        .executable(
-            name: "TeamcityOversimplifiedDemoBuild",
-            targets: [
-                "TeamcityOversimplifiedDemoBuild"
             ]
         ),
         .executable(
@@ -163,6 +163,13 @@ let package = Package(
                 "Git",
                 "SingletonHell",
                 "Tasks",
+            ]
+        ),
+        .target(
+            name: "TeamcityUiTestsDemoBuild",
+            dependencies: [
+                "BuildDsl",
+                "CheckDemoTask",
             ]
         ),
         .target(
@@ -335,13 +342,6 @@ let package = Package(
             name: "Git",
             dependencies: [
                 "CiFoundation",
-            ]
-        ),
-        .target(
-            name: "TeamcityOversimplifiedDemoBuild",
-            dependencies: [
-                "BuildDsl",
-                "CheckDemoTask",
             ]
         ),
         .target(

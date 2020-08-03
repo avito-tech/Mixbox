@@ -2,6 +2,7 @@
 // because it makes writing tests easier
 public typealias BasePageObjectInitializer<PageObjectType> = (PageObjectDependenciesFactory) -> PageObjectType
 
+// TODO: Rename to PageObjectFactory.
 public protocol PageObjectRegistrar: class {
     func pageObject<PageObjectType>(
         _ initializer: BasePageObjectInitializer<PageObjectType>)

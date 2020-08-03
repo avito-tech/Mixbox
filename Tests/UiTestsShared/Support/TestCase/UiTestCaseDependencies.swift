@@ -16,6 +16,16 @@ final class UiTestCaseDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {
         nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
+        di.register(type: StepLogger.self) { di in
+            if Singletons.enableXctActivityLogging  {
+                return XctActivityStepLogger(
+                    originalStepLogger: Singletons.stepLogger,
+                    xctAttachmentsAdder: try di.resolve()
+                )
+            } else {
+                return Singletons.stepLogger
+            }
+        }
         di.register(type: ImagesProvider.self) { _ in
             RedImagesProvider()
         }

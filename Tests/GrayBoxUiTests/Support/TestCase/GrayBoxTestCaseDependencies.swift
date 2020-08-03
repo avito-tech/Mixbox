@@ -17,10 +17,7 @@ final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
             MixboxGrayDependencies(
-                mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies(
-                    stepLogger: Singletons.stepLogger,
-                    enableXctActivityLogging: Singletons.enableXctActivityLogging
-                )
+                mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies()
             ),
             UiTestCaseDependencies()
         ]
@@ -45,39 +42,8 @@ final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
                 springboard: mainUiKitHierarchy // TODO: This is wrong!
             )
         }
-        
-        di.register(type: CompoundBridgedUrlProtocolClass.self) { _ in
-            CompoundBridgedUrlProtocolClass()
-        }
-        di.register(type: UrlProtocolStubAdder.self) { di in
-            let compoundBridgedUrlProtocolClass = CompoundBridgedUrlProtocolClass()
-            
-            let instancesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolInstance & IpcObjectIdentifiable>()
-            let classesRepository = IpcObjectRepositoryImpl<BridgedUrlProtocolClass & IpcObjectIdentifiable>()
-            
-            return UrlProtocolStubAdderImpl(
-                bridgedUrlProtocolRegisterer: IpcBridgedUrlProtocolRegisterer(
-                    ipcClient: try di.resolve(),
-                    writeableClassesRepository: classesRepository.toStorable()
-                ),
-                rootBridgedUrlProtocolClass: compoundBridgedUrlProtocolClass,
-                bridgedUrlProtocolClassRepository: compoundBridgedUrlProtocolClass,
-                ipcRouterProvider: try di.resolve(),
-                ipcMethodHandlersRegisterer: NetworkMockingIpcMethodsRegisterer(
-                    readableInstancesRepository: instancesRepository.toStorable { $0 },
-                    writeableInstancesRepository: instancesRepository.toStorable(),
-                    readableClassesRepository: classesRepository.toStorable { $0 },
-                    ipcClient: try di.resolve()
-                )
-            )
-        }
-        di.register(type: LegacyNetworking.self) { [bundleResourcePathProviderForTestsTarget] di in
-            GrayBoxLegacyNetworking(
-                urlProtocolStubAdder: try di.resolve(),
-                testFailureRecorder: try di.resolve(),
-                waiter: try di.resolve(),
-                bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget
-            )
+        di.register(type: BundleResourcePathProvider.self) { [bundleResourcePathProviderForTestsTarget] _ in
+            bundleResourcePathProviderForTestsTarget
         }
     }
 }

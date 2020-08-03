@@ -17,10 +17,7 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
             MixboxBlackDependencies(
-                mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies(
-                    stepLogger: Singletons.stepLogger,
-                    enableXctActivityLogging: Singletons.enableXctActivityLogging
-                )
+                mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies()
             ),
             UiTestCaseDependencies()
         ]

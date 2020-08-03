@@ -9,10 +9,19 @@ public final class IfClauseInfoByPathProviderImpl: IfClauseInfoByPathProvider {
         
         switch (path as NSString).pathExtension.lowercased() {
         case "swift":
-            return IfClauseInfo(
-                clauseOpening: "#if \(flagName)",
-                clauseClosing: "#endif"
-            )
+            if (path as NSString).lastPathComponent == "EnsureReleaseAppIsNotAffected.swift" {
+                // This is the only exception.
+                
+                return IfClauseInfo(
+                    clauseOpening: "#if !\(flagName)",
+                    clauseClosing: "#endif"
+                )
+            } else {
+                return IfClauseInfo(
+                    clauseOpening: "#if \(flagName)",
+                    clauseClosing: "#endif"
+                )
+            }
         case "h", "m", "mm", "c", "cxx", "cpp", "c++", "cc", "hh", "hm", "hpp", "hxx":
             return IfClauseInfo(
                 clauseOpening: "#ifdef \(flagName)",

@@ -10,10 +10,7 @@ import TestsIpc
 final class WhiteBoxTestCaseDependencies: DependencyCollectionRegisterer {
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
-            MixboxTestsFoundationDependencies(
-                stepLogger: Singletons.stepLogger,
-                enableXctActivityLogging: true
-            ),
+            MixboxTestsFoundationDependencies(),
             TestCaseDependencies()
         ]
     }

@@ -3,15 +3,18 @@ require_relative 'PodfileUtils/repo'
 
 project 'Tests.xcodeproj'
 workspace 'Tests.xcworkspace'
+
 platform :ios, :deployment_target => '9.0'
+
 use_frameworks!
 inhibit_all_warnings!
 
 mixbox = Devpods::Repo.new(
-    'ssh://git@stash.msk.avito.ru:7999/ma/mixbox.git',
+    'ssh://git@github.com:avito-tech/Mixbox.git',
     lambda { |name, hash|
       local_hash = hash.clone
       local_hash[:inhibit_warnings] = false
+      local_hash[:configurations] = ['Debug']
       pod name, local_hash
     }
 )

@@ -1,0 +1,78 @@
+require_relative 'PodfileUtils/lock_patcher'
+require_relative 'PodfileUtils/repo'
+require_relative 'PodfileUtils/enable_testing_with_mixbox'
+
+project 'UiTestsDemo.xcodeproj'
+workspace 'UiTestsDemo.xcworkspace'
+
+platform :ios, :deployment_target => '9.0'
+
+use_frameworks!
+inhibit_all_warnings!
+
+mixbox = Devpods::Repo.new(
+    'ssh://git@github.com:avito-tech/Mixbox.git',
+    lambda { |name, hash|
+      local_hash = hash.clone
+      
+      # You may want to use this if you don't use `inhibit_all_warnings!`
+      local_hash[:inhibit_warnings] = false
+      
+      # You WANT to use this to not have useless empty frameworks.
+      # I also recommend you to use a tool like Amimono, which can combine everything to a single
+      # framework, so the size and performance of your app will be improved significantly and it will
+      # also add another level of defence against test frameworks leaking to production. But this
+      # level of defence will work as a defence only if code in frameworks was disabled via #if conditional
+      # compilation clauses. Note that Mixbox guarantees that everything is disabled in production by default
+      # via conditional compilation clauses.
+      local_hash[:configurations] = ['Debug']
+      
+      pod name, local_hash
+    }
+)
+# TODO: Check that this works (after demo will be fixed in master):
+# mixbox.branch_value = 'master'
+mixbox.local_path_value = '../..'
+
+# This is optional if you want to use different kinds of testing (BlackBox & GrayBox)
+# This should be your custom pod, but you can live without it, for example, just put files in some folder
+# and add files files to both targets. It will work better if you make a pod though.
+def ui_tests_shared_code_pods
+  pod 'UiTestsSharedCode', :path => 'Frameworks/UiTestsSharedCode'
+end
+
+target 'GrayBoxTests' do
+  # This is mandatory for gray box testing:
+  
+  mixbox.pod 'MixboxGray' 
+  pod 'SBTUITestTunnel/Server', '3.0.6'
+  
+  # This is optional:
+  
+  ui_tests_shared_code_pods
+end
+
+target 'BlackBoxTests' do
+  # This is mandatory for black box testing:
+   
+  mixbox.pod 'MixboxBlack'
+  mixbox.pod 'MixboxIpcSbtuiClient'
+  pod 'SBTUITestTunnel/Client', '3.0.6'
+  
+  # This is optional:
+  
+  ui_tests_shared_code_pods
+end
+
+# Targets
+
+target 'App' do
+  # This is mandatory for app to be testable.
+  # Don't worry, no code will leak in production.
+  
+  mixbox.pod 'MixboxInAppServices'
+  mixbox.pod 'MixboxIpcSbtuiHost'
+  pod 'SBTUITestTunnel/Server', '3.0.6'
+end
+
+enable_testing_with_mixbox_for_configuration_name('Debug')

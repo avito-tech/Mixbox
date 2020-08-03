@@ -318,7 +318,7 @@
 		F8A837A32270D40B00145140 /* NetworkStubbingTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971CE82264BAD9001741C1 /* NetworkStubbingTestsViewPageObject.swift */; };
 		F8A837A42270D40B00145140 /* GenericPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B34119224E56C800AA1EB9 /* GenericPageObject.swift */; };
 		F8A837A52270D40B00145140 /* PageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A23A220A0E040089C1EE /* PageObjects.swift */; };
-		F8A837A82270D40B00145140 /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* BasePageObjects.swift */; };
+		F8A837A82270D40B00145140 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* Apps.swift */; };
 		F8A837A92270D45800145140 /* ChecksTestsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879832E22494BE3004DD770 /* ChecksTestsScreen.swift */; };
 		F8A837AD2270D57F00145140 /* BaseChecksTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879832B22494B8F004DD770 /* BaseChecksTestCase.swift */; };
 		F8A837AE2270D57F00145140 /* AssertSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B2C224C068B00AA1EB9 /* AssertSpec.swift */; };
@@ -411,7 +411,7 @@
 		F8B0A25C220A0EF30089C1EE /* ReportingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010D221FF319C0026360D /* ReportingSystem.swift */; };
 		F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010D421FF319C0026360D /* ReportingSystems.swift */; };
 		F8B0A25E220A0EF30089C1EE /* ReportingTestLifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010CF21FF30450026360D /* ReportingTestLifecycleManager.swift */; };
-		F8B0A260220A0EF40089C1EE /* BasePageObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* BasePageObjects.swift */; };
+		F8B0A260220A0EF40089C1EE /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A239220A0E040089C1EE /* Apps.swift */; };
 		F8B0A271220A12C00089C1EE /* ApplicationNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */; };
 		F8B33B0A224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B09224ACED000AA1EB9 /* AssertHasTextInteractionTests.swift */; };
 		F8B33B0C224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B33B0B224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift */; };
@@ -941,7 +941,7 @@
 		F8B0A2042209C44A0089C1EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8B0A233220A0E040089C1EE /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		F8B0A234220A0E040089C1EE /* GrayBoxTestCaseDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrayBoxTestCaseDependencies.swift; sourceTree = "<group>"; };
-		F8B0A239220A0E040089C1EE /* BasePageObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePageObjects.swift; sourceTree = "<group>"; };
+		F8B0A239220A0E040089C1EE /* Apps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
 		F8B0A23A220A0E040089C1EE /* PageObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageObjects.swift; sourceTree = "<group>"; };
 		F8B0A23D220A0E040089C1EE /* TestObservationEntryPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObservationEntryPoint.swift; sourceTree = "<group>"; };
 		F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationNameProvider.swift; sourceTree = "<group>"; };
@@ -2311,7 +2311,7 @@
 			isa = PBXGroup;
 			children = (
 				F8E84A87242BB9DD00A29CD8 /* BasePageObject+Extension.swift */,
-				F8B0A239220A0E040089C1EE /* BasePageObjects.swift */,
+				F8B0A239220A0E040089C1EE /* Apps.swift */,
 				F8A837C32270EE9800145140 /* OpenableScreen.swift */,
 				F8A837CB2270F5CD00145140 /* MainAppScreen.swift */,
 			);
@@ -4280,7 +4280,7 @@
 				F83090BC24B7443000C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */,
 				F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */,
 				F801CC182254F9C60074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
-				F8B0A260220A0EF40089C1EE /* BasePageObjects.swift in Sources */,
+				F8B0A260220A0EF40089C1EE /* Apps.swift in Sources */,
 				F88915AB2295E211003B8D0A /* TestQuery.swift in Sources */,
 				F8971D1622650AF8001741C1 /* CreatedTemporaryFile.swift in Sources */,
 				F8725EE52458B13600BE004D /* Collection+GetOrFail.swift in Sources */,
@@ -4634,7 +4634,7 @@
 				F8C8ED3E22985B060009B9A7 /* FileSystemImpl.swift in Sources */,
 				F8F9C2AC2368949000E9A044 /* BaseTestCase+AssertLogsAndFailures.swift in Sources */,
 				F8C8ED132298505D0009B9A7 /* LocatorsTests.swift in Sources */,
-				F8A837A82270D40B00145140 /* BasePageObjects.swift in Sources */,
+				F8A837A82270D40B00145140 /* Apps.swift in Sources */,
 				F8A83E862272223700145140 /* SetTestActionSetsTextProperlyTests.swift in Sources */,
 				F87FD14A24097264004B3D99 /* BaseUiTestCase+ResetUi.swift in Sources */,
 				F863CA1124B4B23C00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift in Sources */,

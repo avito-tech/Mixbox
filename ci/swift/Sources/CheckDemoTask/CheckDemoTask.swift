@@ -39,10 +39,27 @@ public final class CheckDemoTask: LocalTask {
             """
         )
         
+        _ = try iosProjectBuilder.build(
+            projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
+            action: .build,
+            scheme: "Demo",
+            workspaceName: "UiTestsDemo",
+            testDestination: try mixboxTestDestinationProvider.mixboxTestDestination(),
+            xcodebuildPipeFilter: "cat"
+        )
+        
         try iosProjectBuilder.test(
-            projectDirectoryFromRepoRoot: "Demos/OversimplifiedDemo",
-            scheme: "OversimplifiedDemo",
-            workspaceName: "OversimplifiedDemo",
+            projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
+            scheme: "BlackBoxTests",
+            workspaceName: "UiTestsDemo",
+            testDestination: try mixboxTestDestinationProvider.mixboxTestDestination(),
+            xcodebuildPipeFilter: xcodebuildPipeFilter
+        )
+        
+        try iosProjectBuilder.test(
+            projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
+            scheme: "GrayBoxTests",
+            workspaceName: "UiTestsDemo",
             testDestination: try mixboxTestDestinationProvider.mixboxTestDestination(),
             xcodebuildPipeFilter: xcodebuildPipeFilter
         )

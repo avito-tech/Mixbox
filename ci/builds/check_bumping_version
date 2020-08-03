@@ -31,7 +31,7 @@ fi
 
 MIXBOX_PUSHSPEC_STYLE=debug "$MIXBOX_CI_REPO_ROOT/ci/builds/push_specs" || exit 1
 
-cd "$MIXBOX_CI_REPO_ROOT/Demos/OversimplifiedDemo"
+cd "$MIXBOX_CI_REPO_ROOT/Demos/UiTestsDemo"
 
 podfile_path="Podfile"
 podfile_backup_path="Podfile.backup.ignored"

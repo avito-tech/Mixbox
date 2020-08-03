@@ -41,7 +41,7 @@ def travis_builds():
     ]
     
     # Builds (executables)
-    demo_tests = Build(swift_executable="TravisOversimplifiedDemoBuild", name="OversimplifiedDemo")
+    demo_tests = Build(swift_executable="TravisUiTestsDemoBuild", name="UiTestsDemo")
     logic_tests = Build(swift_executable="TravisLogicTestsBuild", name="Logic Tests")
     ipc_demo_tests = Build(swift_executable="TravisIpcDemoBuild", name="IPC Demo")
     

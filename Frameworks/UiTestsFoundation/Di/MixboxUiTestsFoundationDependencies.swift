@@ -6,26 +6,12 @@ import MixboxIpc
 import MixboxIpcCommon
 
 public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegisterer {
-    private let stepLogger: StepLogger
-    private let enableXctActivityLogging: Bool
-    
-    public init(
-        // You can attach your external logging by injecting `StepLoggerImpl` here.
-        stepLogger: StepLogger,
-        // If `true` is passed then you will see logs in Xcode IDE.
-        // Note that it may break tests if you are using fbxctest for running tests.
-        enableXctActivityLogging: Bool)
-    {
-        self.stepLogger = stepLogger
-        self.enableXctActivityLogging = enableXctActivityLogging
+    public init() {
     }
     
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
-            MixboxTestsFoundationDependencies(
-                stepLogger: stepLogger,
-                enableXctActivityLogging: enableXctActivityLogging
-            )
+            MixboxTestsFoundationDependencies()
         ]
     }
     

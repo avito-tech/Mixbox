@@ -3,18 +3,7 @@ import MixboxFoundation
 import MixboxUiKit
 
 public final class MixboxTestsFoundationDependencies: DependencyCollectionRegisterer {
-    private let stepLogger: StepLogger
-    private let enableXctActivityLogging: Bool
-    
-    public init(
-        // You can attach your external logging by injecting `StepLoggerImpl` here.
-        stepLogger: StepLogger,
-        // If `true` is passed then you will see logs in Xcode IDE.
-        // Note that it may break tests if you are using fbxctest for running tests.
-        enableXctActivityLogging: Bool)
-    {
-        self.stepLogger = stepLogger
-        self.enableXctActivityLogging = enableXctActivityLogging
+    public init() {
     }
     
     // swiftlint:disable:next function_body_length
@@ -81,22 +70,20 @@ public final class MixboxTestsFoundationDependencies: DependencyCollectionRegist
         di.register(type: Waiter.self) { di in
             try di.resolve() as RunLoopSpinningWaiter
         }
-        // TODO: Inject just `XctActivityStepLogger`, because dependenciess can be overriden by user easily.
-        di.register(type: StepLogger.self) { [stepLogger, enableXctActivityLogging] di in
-            if enableXctActivityLogging {
-                return XctActivityStepLogger(
-                    originalStepLogger: stepLogger,
-                    xctAttachmentsAdder: try di.resolve()
-                )
-            } else {
-                return stepLogger
-            }
+        di.register(type: StepLogger.self) { di in
+            XctActivityStepLogger(
+                originalStepLogger: StepLoggerImpl(),
+                xctAttachmentsAdder: try di.resolve()
+            )
         }
         di.register(type: TestFailureRecorder.self) { di in
             XcTestFailureRecorder(
                 currentTestCaseProvider: try di.resolve(),
                 shouldNeverContinueTestAfterFailure: false
             )
+        }
+        di.register(type: FileLineForFailureProvider.self) { _ in
+            NoopFileLineForFailureProvider()
         }
         di.register(type: CurrentTestCaseProvider.self) { _ in
             AutomaticCurrentTestCaseProvider()
