@@ -9,13 +9,16 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
     private let stubsDi: DependencyInjection
     private let dependencyResolver: DependencyResolver
     private let testFailureRecorder: TestFailureRecorder
+    private let byFieldsGeneratorResolver: ByFieldsGeneratorResolver
     
     public init(
         parentDi: DependencyResolver,
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver)
     {
         self.parentDi = parentDi
         self.testFailureRecorder = testFailureRecorder
+        self.byFieldsGeneratorResolver = byFieldsGeneratorResolver
         
         // TODO: Use factory.
         stubsDi = DipDependencyInjection(dependencyContainer: DependencyContainer())
@@ -28,7 +31,8 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         )
         
         anyGenerator = AnyGeneratorImpl(
-            dependencyResolver: dependencyResolver
+            dependencyResolver: dependencyResolver,
+            byFieldsGeneratorResolver: byFieldsGeneratorResolver
         )
         
         testFailingGenerator = TestFailingGeneratorImpl(
@@ -36,7 +40,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         )
     }
     
-    public func stub<T: GeneratableByFields>(
+    public func stub<T>(
         configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
     {
         stub(
@@ -47,11 +51,11 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         )
     }
     
-    public func generate<T: GeneratableByFields>() -> T {
+    public func generate<T>() -> T {
         return testFailingGenerator.generate()
     }
     
-    public func generate<T: GeneratableByFields>(
+    public func generate<T>(
         configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
         -> T
     {
@@ -66,7 +70,8 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         )
         
         let anyGenerator = AnyGeneratorImpl(
-            dependencyResolver: dependencyResolver
+            dependencyResolver: dependencyResolver,
+            byFieldsGeneratorResolver: byFieldsGeneratorResolver
         )
         
         let testFailingGenerator = TestFailingGeneratorImpl(
@@ -83,7 +88,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         return testFailingGenerator.generate()
     }
     
-    private func stub<T: GeneratableByFields>(
+    private func stub<T>(
         anyGenerator: AnyGenerator,
         dependencyRegisterer: DependencyRegisterer,
         dependencyResolver: DependencyResolver,
@@ -91,13 +96,16 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
     {
         dependencyRegisterer.register(
             type: Generator<T>.self,
-            factory: { [testFailureRecorder] _ in
+            factory: { [testFailureRecorder, byFieldsGeneratorResolver] _ in
                 let dynamicLookupGeneratorFactory = DynamicLookupGeneratorFactoryImpl(
-                    anyGenerator: anyGenerator
+                    anyGenerator: anyGenerator,
+                    byFieldsGeneratorResolver: byFieldsGeneratorResolver
                 )
                 
                 let testFailingDynamicLookupGenerator = TestFailingDynamicLookupGenerator<T>(
-                    dynamicLookupGenerator: try dynamicLookupGeneratorFactory.dynamicLookupGenerator(),
+                    dynamicLookupGenerator: try dynamicLookupGeneratorFactory.dynamicLookupGenerator(
+                        byFieldsGeneratorResolver: byFieldsGeneratorResolver
+                    ),
                     testFailureRecorder: testFailureRecorder
                 )
                 
@@ -108,18 +116,28 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         )
     }
     
-    private static func anyGenerator(dependencyResolver: DependencyResolver) -> TestFailingGenerator {
+    private static func anyGenerator(
+        dependencyResolver: DependencyResolver,
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver)
+        -> TestFailingGenerator
+    {
         return TestFailingGeneratorImpl(
             anyGenerator: AnyGeneratorImpl(
-                dependencyResolver: dependencyResolver
+                dependencyResolver: dependencyResolver,
+                byFieldsGeneratorResolver: byFieldsGeneratorResolver
             )
         )
     }
     
-    private static func generator(dependencyResolver: DependencyResolver) -> TestFailingGenerator {
+    private static func generator(
+        dependencyResolver: DependencyResolver,
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver)
+        -> TestFailingGenerator
+    {
         return TestFailingGeneratorImpl(
             anyGenerator: AnyGeneratorImpl(
-                dependencyResolver: dependencyResolver
+                dependencyResolver: dependencyResolver,
+                byFieldsGeneratorResolver: byFieldsGeneratorResolver
             )
         )
     }

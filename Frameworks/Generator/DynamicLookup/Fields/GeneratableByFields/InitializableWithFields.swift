@@ -40,7 +40,9 @@ public protocol InitializableWithFields: GeneratableByFields {
 }
 
 extension InitializableWithFields {
-    public static func generate(fields: Fields<Self>) -> Self {
-        return Self(fields: fields)
+    public static func byFieldsGenerator() -> ByFieldsGenerator<Self> {
+        return ByFieldsGenerator<Self> { fields in
+            Self(fields: fields)
+        }
     }
 }

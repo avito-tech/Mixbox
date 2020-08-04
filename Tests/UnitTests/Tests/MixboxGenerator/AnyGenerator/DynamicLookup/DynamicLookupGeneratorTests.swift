@@ -25,13 +25,21 @@ class DynamicLookupGeneratorTests: BaseGeneratorTestCase {
                 ConstantGenerator(42)
             }
             
-            let dynamicLookupGeneratorFactory = DynamicLookupGeneratorFactoryImpl(
-                anyGenerator: AnyGeneratorImpl(
-                    dependencyResolver: di
-                )
+            let byFieldsGeneratorResolver = ByFieldsGeneratorResolverImpl(
+                dependencyResolver: di
             )
             
-            let generator: Generator<T> = try dynamicLookupGeneratorFactory.dynamicLookupGenerator()
+            let dynamicLookupGeneratorFactory = DynamicLookupGeneratorFactoryImpl(
+                anyGenerator: AnyGeneratorImpl(
+                    dependencyResolver: di,
+                    byFieldsGeneratorResolver: byFieldsGeneratorResolver
+                ),
+                byFieldsGeneratorResolver: byFieldsGeneratorResolver
+            )
+            
+            let generator: Generator<T> = try dynamicLookupGeneratorFactory.dynamicLookupGenerator(
+                byFieldsGeneratorResolver: byFieldsGeneratorResolver
+            )
             
             XCTAssertEqual(
                 try generator.generate().value,
@@ -62,7 +70,9 @@ private final class GeneratableByFieldsClass: GeneratableByFields, ValueHolder {
         self.value = value
     }
     
-    static func generate(fields: Fields<GeneratableByFieldsClass>) -> Self {
-        return Self(value: fields.value)
+    static func byFieldsGenerator() -> ByFieldsGenerator<GeneratableByFieldsClass> {
+        return ByFieldsGenerator { fields in
+            Self(value: fields.value)
+        }
     }
 }

@@ -9,16 +9,19 @@ public class DynamicLookupGenerator<T>: Generator<T> {
     
     private let dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory
     private let anyGenerator: AnyGenerator
+    private let byFieldsGeneratorResolver: ByFieldsGeneratorResolver
     private let generatorByKeyPath: GeneratorByKeyPath<GeneratedType>
     private let fields: Fields<GeneratedType>
     
     public init(
         dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory,
         anyGenerator: AnyGenerator,
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver,
         generate: @escaping (Fields<GeneratedType>) throws -> GeneratedType)
     {
         self.dynamicLookupGeneratorFactory = dynamicLookupGeneratorFactory
         self.anyGenerator = anyGenerator
+        self.byFieldsGeneratorResolver = byFieldsGeneratorResolver
         
         let generatorByKeyPath = GeneratorByKeyPath<GeneratedType>(
             anyGenerator: anyGenerator
@@ -45,8 +48,7 @@ public class DynamicLookupGenerator<T>: Generator<T> {
         }
     }
     
-    // TODO: Try to remove constraint to GeneratableByFields
-    public subscript<FieldType: GeneratableByFields>(
+    public subscript<FieldType>(
         dynamicMember keyPath: KeyPath<GeneratedType, FieldType>)
         -> NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType>
     {
@@ -54,7 +56,8 @@ public class DynamicLookupGenerator<T>: Generator<T> {
             return NestedDynamicLookupGeneratorStubber(
                 dynamicLookupGeneratorFactory: dynamicLookupGeneratorFactory,
                 generatorByKeyPath: generatorByKeyPath,
-                keyPath: keyPath
+                keyPath: keyPath,
+                byFieldsGeneratorResolver: byFieldsGeneratorResolver
             )
         }
     }

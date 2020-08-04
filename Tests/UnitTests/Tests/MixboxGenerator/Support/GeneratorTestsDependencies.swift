@@ -31,10 +31,14 @@ class GeneratorTestsDependencies: DependencyCollectionRegisterer {
                 shouldNeverContinueTestAfterFailure: false
             )
         }
+        di.register(type: ByFieldsGeneratorResolver.self) { di in
+            ByFieldsGeneratorResolverImpl(dependencyResolver: di)
+        }
         di.register(type: GeneratorFacade.self) { di in
             GeneratorFacadeImpl(
                 parentDi: di,
-                testFailureRecorder: try di.resolve()
+                testFailureRecorder: try di.resolve(),
+                byFieldsGeneratorResolver: try di.resolve()
             )
         }
     }

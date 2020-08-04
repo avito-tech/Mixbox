@@ -6,15 +6,16 @@ public protocol DynamicLookupGeneratorFactory {
 }
 
 extension DynamicLookupGeneratorFactory {
-    public func dynamicLookupGenerator<GeneratedType>()
+    public func dynamicLookupGenerator<GeneratedType>(
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver)
         throws
         -> DynamicLookupGenerator<GeneratedType>
-        where
-        GeneratedType: GeneratableByFields
     {
+        let byFieldsGenerator: ByFieldsGenerator<GeneratedType> = try byFieldsGeneratorResolver.resolveByFieldsGenerator()
+        
         return try dynamicLookupGenerator(
             generate: { fields in
-                GeneratedType.generate(fields: fields)
+                byFieldsGenerator.generate(fields: fields)
             }
         )
     }
