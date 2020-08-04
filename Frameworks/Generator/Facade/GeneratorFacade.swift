@@ -10,5 +10,4 @@ public protocol GeneratorFacade {
     func generate<T>(
         configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
         -> T
-    
 }
