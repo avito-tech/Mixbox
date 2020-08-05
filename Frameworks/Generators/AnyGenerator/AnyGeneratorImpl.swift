@@ -59,7 +59,7 @@ public final class AnyGeneratorImpl: AnyGenerator {
             anyGenerator: anyGenerator,
             byFieldsGeneratorResolver: byFieldsGeneratorResolver,
             generate: { fields in
-                byFieldsGenerator.generate(fields: fields)
+                try byFieldsGenerator.generate(fields: fields)
             }
         )
     }

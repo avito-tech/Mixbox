@@ -15,8 +15,8 @@ public protocol GeneratableByFields: TypeErasedGeneratableByFields, DefaultGener
 }
 
 extension GeneratableByFields {
-    public static func generate(fields: Fields<Self>) -> Self {
-        return byFieldsGenerator().generate(fields: fields)
+    public static func generate(fields: Fields<Self>) throws -> Self {
+        return try byFieldsGenerator().generate(fields: fields)
     }
     
     public static func typeErasedByFieldsGenerator() -> Any {
@@ -45,7 +45,7 @@ extension GeneratableByFields {
             anyGenerator: anyGenerator,
             byFieldsGeneratorResolver: byFieldsGeneratorResolver,
             generate: { fields in
-                self.generate(fields: fields)
+                try self.generate(fields: fields)
             }
         )
     }

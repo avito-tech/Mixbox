@@ -12,7 +12,7 @@
 //     let myField: Int
 //
 //     init(fields: Fields<Self>) {                                  //   <---  Code to be added
-//          myField = fields.myField                                 //   <---  Code to be added
+//          myField = try fields.myField()                           //   <---  Code to be added
 //     }                                                             //   <---  Code to be added
 // }
 // ```
@@ -26,25 +26,25 @@
 //     let myField: Int
 //
 //     init(myField: Int) {
-//          self.myField = myField
+//          self.myField = try fields.myField()
 //     }
 //
 //     static func generate(fields: Fields<MyModel>) -> MyModel {    //   <---  Code to be added
 //          return MyModel(                                          //   <---  Code to be added
-//              myField: fields.myField                              //   <---  Code to be added
+//              myField: try fields.myField()                        //   <---  Code to be added
 //          )                                                        //   <---  Code to be added
 //     }                                                             //   <---  Code to be added
 // }
 // ```
 //
 public protocol InitializableWithFields: GeneratableByFields {
-    init(fields: Fields<Self>)
+    init(fields: Fields<Self>) throws
 }
 
 extension InitializableWithFields {
     public static func byFieldsGenerator() -> ByFieldsGenerator<Self> {
         return ByFieldsGenerator<Self> { fields in
-            Self(fields: fields)
+            try Self(fields: fields)
         }
     }
 }

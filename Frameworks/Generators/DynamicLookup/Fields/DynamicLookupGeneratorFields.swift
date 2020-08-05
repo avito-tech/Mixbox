@@ -7,16 +7,13 @@ public final class DynamicLookupGeneratorFields<T>: Fields<T> {
         self.generatorByKeyPath = generatorByKeyPath
     }
     
-    override public subscript<FieldType>(dynamicMember keyPath: KeyPath<GeneratedType, FieldType>) -> FieldType {
+    override public subscript<FieldType>(
+        dynamicMember keyPath: KeyPath<GeneratedType, FieldType>)
+        -> FailableProperty<FieldType>
+    {
         let generator: Generator<FieldType> = generatorByKeyPath[keyPath]
         
-        do {
-            return try generator.generate()
-        } catch {
-            FieldsExceptionRaiser.raiseException(
-                message: String(describing: error)
-            )
-        }
+        return FailableProperty { try generator.generate() }
     }
 }
 

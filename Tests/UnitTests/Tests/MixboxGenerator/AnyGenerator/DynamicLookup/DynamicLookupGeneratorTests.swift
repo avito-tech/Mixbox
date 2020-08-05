@@ -59,8 +59,8 @@ private protocol ValueHolder {
 private final class InitializableWithFieldsClass: InitializableWithFields, ValueHolder {
     let value: Int
     
-    init(fields: Fields<InitializableWithFieldsClass>) {
-        value = fields.value
+    init(fields: Fields<InitializableWithFieldsClass>) throws {
+        value = try fields.value.get()
     }
 }
 
@@ -73,7 +73,7 @@ private final class GeneratableByFieldsClass: GeneratableByFields, ValueHolder {
     
     static func byFieldsGenerator() -> ByFieldsGenerator<GeneratableByFieldsClass> {
         return ByFieldsGenerator { fields in
-            Self(value: fields.value)
+            Self(value: try fields.value.get())
         }
     }
 }

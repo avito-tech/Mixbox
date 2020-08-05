@@ -17,7 +17,7 @@ extension DynamicLookupGeneratorFactory {
         
         return try dynamicLookupGenerator(
             generate: { fields in
-                byFieldsGenerator.generate(fields: fields)
+                try byFieldsGenerator.generate(fields: fields)
             }
         )
     }

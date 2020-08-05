@@ -42,7 +42,7 @@
 // ```
 //
 open class ByFieldsGenerator<T> {
-    public typealias GenerateFunction = (Fields<T>) -> T
+    public typealias GenerateFunction = (Fields<T>) throws -> T
     
     private var generateFunction: GenerateFunction
     
@@ -50,8 +50,8 @@ open class ByFieldsGenerator<T> {
         self.generateFunction = generateFunction
     }
     
-    public final func generate(fields: Fields<T>) -> T {
-        return generateFunction(fields)
+    public final func generate(fields: Fields<T>) throws -> T {
+        return try generateFunction(fields)
     }
 }
 

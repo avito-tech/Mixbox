@@ -11,7 +11,7 @@ public class DynamicLookupGenerator<T>: Generator<T> {
     private let anyGenerator: AnyGenerator
     private let byFieldsGeneratorResolver: ByFieldsGeneratorResolver
     private let generatorByKeyPath: GeneratorByKeyPath<GeneratedType>
-    private let fields: Fields<GeneratedType>
+    private let fields: DynamicLookupGeneratorFields<GeneratedType>
     
     public init(
         dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory,
@@ -38,18 +38,6 @@ public class DynamicLookupGenerator<T>: Generator<T> {
     
     public subscript<FieldType>(
         dynamicMember keyPath: KeyPath<GeneratedType, FieldType>)
-        -> FieldType
-    {
-        get {
-            return fields[dynamicMember: keyPath]
-        }
-        set {
-            generatorByKeyPath[keyPath] = Generator<FieldType> { newValue }
-        }
-    }
-    
-    public subscript<FieldType>(
-        dynamicMember keyPath: KeyPath<GeneratedType, FieldType>)
         -> NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType>
     {
         get {
@@ -57,7 +45,8 @@ public class DynamicLookupGenerator<T>: Generator<T> {
                 dynamicLookupGeneratorFactory: dynamicLookupGeneratorFactory,
                 generatorByKeyPath: generatorByKeyPath,
                 keyPath: keyPath,
-                byFieldsGeneratorResolver: byFieldsGeneratorResolver
+                byFieldsGeneratorResolver: byFieldsGeneratorResolver,
+                fields: fields
             )
         }
     }

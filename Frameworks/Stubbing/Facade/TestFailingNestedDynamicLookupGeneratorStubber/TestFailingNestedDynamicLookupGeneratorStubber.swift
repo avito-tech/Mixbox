@@ -14,10 +14,17 @@ public final class TestFailingNestedDynamicLookupGeneratorStubber<GeneratedType,
     }
     
     public func stub(
-        configure: @escaping (DynamicLookupGenerator<FieldType>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupGenerator<FieldType>) throws -> ())
     {
         do {
-            try nestedDynamicLookupGeneratorStubber.stub(configure: configure)
+            try nestedDynamicLookupGeneratorStubber.stub { [testFailureRecorder] dynamicLookupGenerator in
+                let testFailingDynamicLookupGenerator = TestFailingDynamicLookupGenerator(
+                    dynamicLookupGenerator: dynamicLookupGenerator,
+                    testFailureRecorder: testFailureRecorder
+                )
+                
+                try configure(testFailingDynamicLookupGenerator)
+            }
         } catch {
             testFailureRecorder.recordFailure(
                 description: String(describing: error),

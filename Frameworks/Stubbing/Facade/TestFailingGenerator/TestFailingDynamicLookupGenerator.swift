@@ -25,10 +25,19 @@ public class TestFailingDynamicLookupGenerator<GeneratedType>: Generator<Generat
         -> FieldType
     {
         get {
-            return dynamicLookupGenerator[dynamicMember: keyPath]
+            do {
+                return try dynamicLookupGenerator[dynamicMember: keyPath].get()
+            } catch {
+                testFailureRecorder.recordUnavoidableFailure(
+                    description:
+                    """
+                    Failed to get \(FieldType.self) from \(GeneratedType.self) by keypath \(keyPath): \(error)
+                    """
+                )
+            }
         }
         set {
-            dynamicLookupGenerator[dynamicMember: keyPath] = newValue
+            dynamicLookupGenerator[dynamicMember: keyPath].set(newValue)
         }
     }
     

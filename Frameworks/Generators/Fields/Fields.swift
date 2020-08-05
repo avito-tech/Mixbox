@@ -10,19 +10,22 @@ open class Fields<T> {
     public init() {
     }
     
-    open subscript<FieldType>(dynamicMember keyPath: KeyPath<GeneratedType, FieldType>) -> FieldType {
-        let message: String
-        let typeOfSelf = type(of: self)
-        
-        if typeOfSelf == Fields<T>.self {
-            message = "`Fields<T>` must be subclassed and `subscript(dynamicMember:)` must be implemented (T == \(T.self))"
-        } else {
-            message = "Type `\(typeOfSelf)` doesn't override `subscript(dynamicMember:)` (T == \(T.self))"
+    open subscript<FieldType>(
+        dynamicMember keyPath: KeyPath<GeneratedType, FieldType>)
+        -> FailableProperty<FieldType>
+    {
+        return FailableProperty {
+            let message: String
+            let typeOfSelf = type(of: self)
+            
+            if typeOfSelf == Fields<T>.self {
+                message = "`Fields<T>` must be subclassed and `subscript(dynamicMember:)` must be implemented (T == \(T.self))"
+            } else {
+                message = "Type `\(typeOfSelf)` doesn't override `subscript(dynamicMember:)` (T == \(T.self))"
+            }
+            
+            throw GeneratorError(message)
         }
-        
-        FieldsExceptionRaiser.raiseException(
-            message: message
-        )
     }
 }
 

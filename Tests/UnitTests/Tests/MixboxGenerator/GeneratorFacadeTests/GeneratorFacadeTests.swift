@@ -60,7 +60,9 @@ final class GeneratorFacadeTests: BaseGeneratorTestCase {
     func test___generate___can_generate_non_final_classes() {
         mocks.register(type: ByFieldsGenerator<TitledEntity>.self) { _ in
             ByFieldsGenerator<TitledEntity> { fields in
-                TitledEntity(title: fields.title)
+                try TitledEntity(
+                    title: fields.title.get()
+                )
             }
         }
         
@@ -86,12 +88,12 @@ private final class Book: TitledEntity, Equatable, InitializableWithFields {
     let id: Int
     let author: Author
     
-    init(fields: Fields<Book>) {
-        id = fields.id
-        author = fields.author
+    init(fields: Fields<Book>) throws {
+        id = try fields.id.get()
+        author = try fields.author.get()
         
         super.init(
-            title: fields.title
+            title: try fields.title.get()
         )
     }
     
@@ -114,8 +116,8 @@ private struct Author: Equatable, InitializableWithFields {
     let id: Int
     let name: String
     
-    init(fields: Fields<Author>) {
-        id = fields.id
-        name = fields.name
+    init(fields: Fields<Author>) throws {
+        id = try fields.id.get()
+        name = try fields.name.get()
     }
 }
