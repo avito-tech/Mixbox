@@ -1,5 +1,6 @@
 import MixboxDi
-import MixboxGenerator
+import MixboxDipDi
+import MixboxStubbing
 import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation

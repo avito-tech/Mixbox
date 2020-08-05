@@ -1,5 +1,6 @@
-import MixboxGenerator
+import MixboxGenerators
 import MixboxDi
+import MixboxDipDi
 import MixboxTestsFoundation
 import Dip
 import XCTest

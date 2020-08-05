@@ -1,4 +1,4 @@
-import MixboxDi
+import MixboxDipDi
 import XCTest
 import Dip
 

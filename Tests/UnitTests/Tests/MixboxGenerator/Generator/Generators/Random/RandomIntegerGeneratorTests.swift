@@ -1,4 +1,4 @@
-@testable import MixboxGenerator
+@testable import MixboxGenerators
 import XCTest
 
 final class RandomIntegerGeneratorTests: TestCase {

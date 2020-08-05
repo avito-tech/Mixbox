@@ -1,4 +1,4 @@
-import MixboxGenerator
+import MixboxGenerators
 import XCTest
 
 final class RandomDictionaryGeneratorTests: TestCase {

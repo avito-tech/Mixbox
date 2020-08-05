@@ -1,5 +1,5 @@
 import XCTest
-import MixboxGenerator
+import MixboxGenerators
 
 final class GeneratorFacadeTests: BaseGeneratorTestCase {
     private let unstubbedInt = 1234567890

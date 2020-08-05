@@ -1,4 +1,4 @@
-import MixboxFoundation
+#if MIXBOX_ENABLE_IN_APP_SERVICES
 
 public final class DependencyInjectionImpl: DependencyInjection {
     private let dependencyResolver: DependencyResolver
@@ -22,7 +22,7 @@ public final class DependencyInjectionImpl: DependencyInjection {
             type: type,
             factory: { [weak self] _ in
                 guard let dependencyResolver = self?.dependencyResolver else {
-                    throw ErrorString("Internal error: dependencyResolver was deallocated, which is unexpected")
+                    throw DiError("Internal error: dependencyResolver was deallocated, which is unexpected")
                 }
                 
                 return try factory(dependencyResolver)
@@ -30,3 +30,5 @@ public final class DependencyInjectionImpl: DependencyInjection {
         )
     }
 }
+
+#endif

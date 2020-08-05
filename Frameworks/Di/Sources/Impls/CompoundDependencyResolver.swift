@@ -1,4 +1,4 @@
-import MixboxFoundation
+#if MIXBOX_ENABLE_IN_APP_SERVICES
 
 public final class CompoundDependencyResolver: DependencyResolver {
     private let resolvers: [DependencyResolver]
@@ -19,6 +19,8 @@ public final class CompoundDependencyResolver: DependencyResolver {
         
         let errorsJoined = errors.map { String(describing: $0) }.joined(separator: ", ")
         
-        throw ErrorString("Failed to resolve \(T.self): \(errorsJoined)")
+        throw DiError("Failed to resolve \(T.self): \(errorsJoined)")
     }
 }
+
+#endif

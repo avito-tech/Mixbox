@@ -1,5 +1,6 @@
 import MixboxDi
-import MixboxGenerator
+import MixboxGenerators
+import MixboxStubbing
 import MixboxTestsFoundation
 
 class GeneratorTestsDependencies: DependencyCollectionRegisterer {

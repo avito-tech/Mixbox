@@ -1,3 +1,4 @@
+import MixboxDipDi
 import MixboxDi
 import Dip
 import MixboxFoundation

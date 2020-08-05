@@ -1,4 +1,4 @@
-import MixboxGenerator
+import MixboxGenerators
 import MixboxTestsFoundation
 
 final class SequenceAnyGenerator: AnyGenerator {

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   
   s.dependency 'MixboxFoundation'
   s.dependency 'MixboxUiKit'
-  s.dependency 'MixboxDi'
+  s.dependency 'MixboxDipDi'
   
   s.dependency 'SQLite.swift'
   

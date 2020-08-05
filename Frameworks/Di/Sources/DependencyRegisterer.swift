@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public protocol DependencyRegisterer {
     func register<T>(
         scope: Scope,
@@ -22,3 +24,5 @@ extension DependencyRegisterer {
         )
     }
 }
+
+#endif

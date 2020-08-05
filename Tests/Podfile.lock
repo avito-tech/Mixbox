@@ -15,14 +15,15 @@ PODS:
   - MixboxBuiltinIpc (0.2.3):
     - GCDWebServer
     - MixboxIpc
-  - MixboxDi (0.2.3):
+  - MixboxDi (0.2.3)
+  - MixboxDipDi (0.2.3):
     - Dip
+    - MixboxDi
     - MixboxFoundation
   - MixboxFakeSettingsAppMain (0.2.3)
   - MixboxFoundation (0.2.3)
-  - MixboxGenerator (0.2.3):
+  - MixboxGenerators (0.2.3):
     - MixboxDi
-    - MixboxTestsFoundation
   - MixboxGray (0.2.3):
     - MixboxDi
     - MixboxInAppServices
@@ -50,9 +51,12 @@ PODS:
   - MixboxIpcSbtuiHost (0.2.3):
     - MixboxIpc
     - SBTUITestTunnel/Server (~> 3.0.6)
+  - MixboxStubbing (0.2.3):
+    - MixboxGenerators
+    - MixboxTestsFoundation
   - MixboxTestability (0.2.3)
   - MixboxTestsFoundation (0.2.3):
-    - MixboxDi
+    - MixboxDipDi
     - MixboxFoundation
     - MixboxUiKit
     - SQLite.swift
@@ -83,9 +87,10 @@ DEPENDENCIES:
   - MixboxBlack (from `..`)
   - MixboxBuiltinIpc (from `..`)
   - MixboxDi (from `..`)
+  - MixboxDipDi (from `..`)
   - MixboxFakeSettingsAppMain (from `..`)
   - MixboxFoundation (from `..`)
-  - MixboxGenerator (from `..`)
+  - MixboxGenerators (from `..`)
   - MixboxGray (from `..`)
   - MixboxInAppServices (from `..`)
   - MixboxIoKit (from `..`)
@@ -93,6 +98,7 @@ DEPENDENCIES:
   - MixboxIpcCommon (from `..`)
   - MixboxIpcSbtuiClient (from `..`)
   - MixboxIpcSbtuiHost (from `..`)
+  - MixboxStubbing (from `..`)
   - MixboxTestability (from `..`)
   - MixboxTestsFoundation (from `..`)
   - MixboxUiKit (from `..`)
@@ -123,11 +129,13 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxDi:
     :path: ".."
+  MixboxDipDi:
+    :path: ".."
   MixboxFakeSettingsAppMain:
     :path: ".."
   MixboxFoundation:
     :path: ".."
-  MixboxGenerator:
+  MixboxGenerators:
     :path: ".."
   MixboxGray:
     :path: ".."
@@ -142,6 +150,8 @@ EXTERNAL SOURCES:
   MixboxIpcSbtuiClient:
     :path: ".."
   MixboxIpcSbtuiHost:
+    :path: ".."
+  MixboxStubbing:
     :path: ".."
   MixboxTestability:
     :path: ".."
@@ -167,10 +177,11 @@ SPEC CHECKSUMS:
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
   MixboxBlack: 7f1c9cf6b1a99e17dd4df72b92828dc9a03d58e0
   MixboxBuiltinIpc: 26880327fbb22e9f6e96a13b26ef7015749bf946
-  MixboxDi: 3e75421e302d50f57974cdb337b3b95adb885fb7
+  MixboxDi: eca7043111a8aff6ab2fe571ad0644b21da0f8e6
+  MixboxDipDi: 8f1b7356ae889f19bbf119cb5c067a64cf25de8a
   MixboxFakeSettingsAppMain: cb03a5515009c7b774c1f36dc459e6503b2b7d7b
   MixboxFoundation: adbfd517f145b40403bd43699181f487d33758ed
-  MixboxGenerator: c6701b92f071966fe70a8d33929c4269cd38bd89
+  MixboxGenerators: 3ae3e44aaf457378231367f325d00496bc4292e2
   MixboxGray: 5388445d0e9649e864c00d0e11123bfff2f8e6df
   MixboxInAppServices: 1bf06e37b3891b39c10aa3cc1ad20d7dc62614a4
   MixboxIoKit: 9eabef0ca2c0b54af3f4462cff83c90ec3ca8ed3
@@ -178,8 +189,9 @@ SPEC CHECKSUMS:
   MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
+  MixboxStubbing: 32ebdc7d599daf9ce00cbc4908c2ef353880bd0e
   MixboxTestability: f2ae73479007568fafb48b6a62b98e05986b8a80
-  MixboxTestsFoundation: b966b168a3a6d6a4d6265ae5c1f403d6d357cade
+  MixboxTestsFoundation: 7165db8365b291ea424abf7818ba5a9eb9944293
   MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
   MixboxUiTestsFoundation: 78791a8553d1d28a6c212b889f2dbd5fe50c1199
   SBTUITestTunnel: 865e4cec64aa10e495139643f50ccc7d8d0a604f

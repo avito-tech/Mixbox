@@ -1,4 +1,4 @@
-import MixboxGenerator
+import MixboxGenerators
 
 final class ConstantAnyGenerator: AnyGenerator {
     private let constant: Any

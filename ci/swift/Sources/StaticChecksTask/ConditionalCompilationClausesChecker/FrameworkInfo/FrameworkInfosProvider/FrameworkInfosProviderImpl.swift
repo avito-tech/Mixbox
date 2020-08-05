@@ -32,6 +32,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
             ),
             FrameworkInfo(
                 name: "Di",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
+                name: "DipDi",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
@@ -43,8 +47,8 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
-                name: "Generator",
-                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
+                name: "Generators",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
                 name: "Gray",
@@ -73,6 +77,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
             FrameworkInfo(
                 name: "IpcSbtuiHost",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
+                name: "Stubbing",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
                 name: "Testability",

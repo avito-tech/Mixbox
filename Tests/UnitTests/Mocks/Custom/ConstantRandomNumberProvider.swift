@@ -1,4 +1,4 @@
-import MixboxGenerator
+import MixboxGenerators
 
 final class ConstantRandomNumberProvider: RandomNumberProvider {
     private let constant: UInt64
