@@ -5,7 +5,8 @@ import MixboxTestsFoundation
 import MixboxGenerators
 
 public final class GeneratorFacadeImpl: GeneratorFacade {
-    private let anyGenerator: AnyGenerator
+    public let anyGenerator: AnyGenerator
+    
     private let testFailingGenerator: TestFailingGenerator
     private let parentDi: DependencyResolver
     private let stubsDi: DependencyInjection
