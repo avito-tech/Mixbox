@@ -2,7 +2,7 @@
 
 import MixboxIpc
 
-public protocol IpcMethodHandlerWithDependenciesRegisterer {
+public protocol IpcMethodHandlerWithDependenciesRegisterer: class {
     func register<MethodHandler: IpcMethodHandler>(closure: @escaping IpcMethodHandlerRegistrationClosure<MethodHandler>)
 }
 

@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     #if DEBUG
-    var mixboxInAppServices: MixboxInAppServices?
+    var inAppServices: InAppServices?
     var startedInAppServices: StartedInAppServices?
     #endif
     
@@ -26,14 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         if let factory = factoryOrNil {
-            mixboxInAppServices = MixboxInAppServices(
+            inAppServices = InAppServices(
                 inAppServicesDependenciesFactory: factory
             )
         } else {
-            mixboxInAppServices = nil
+            inAppServices = nil
         }
         
-        startedInAppServices = mixboxInAppServices?.start()
+        startedInAppServices = inAppServices?.start()
         
         #endif
         

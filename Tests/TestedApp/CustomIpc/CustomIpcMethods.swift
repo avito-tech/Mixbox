@@ -16,40 +16,40 @@ final class CustomIpcMethods {
         self.rootViewControllerManager = rootViewControllerManager
     }
     
-    func registerIn(_ mixboxInAppServices: MixboxInAppServices) {
+    func registerIn(_ registerer: IpcMethodHandlerWithDependenciesRegisterer) {
         // General
-        mixboxInAppServices.register { [rootViewControllerManager] _ in
+        registerer.register { [rootViewControllerManager] _ in
             SetScreenIpcMethodHandler(
-                mixboxInAppServices: mixboxInAppServices,
+                ipcMethodHandlerWithDependenciesRegisterer: registerer,
                 rootViewControllerManager: rootViewControllerManager
             )
         }
         
         // For Echo Ipc tests
-        mixboxInAppServices.register { _ in EchoIpcMethodHandler<String>() }
-        mixboxInAppServices.register { _ in EchoIpcMethodHandler<Int>() }
-        mixboxInAppServices.register { _ in EchoIpcMethodHandler<IpcVoid>() }
-        mixboxInAppServices.register { _ in EchoIpcMethodHandler<Bool>() }
-        mixboxInAppServices.register { _ in EchoIpcMethodHandler<[String]>() }
-        mixboxInAppServices.register { _ in EchoIpcMethodHandler<[String: String]>() }
+        registerer.register { _ in EchoIpcMethodHandler<String>() }
+        registerer.register { _ in EchoIpcMethodHandler<Int>() }
+        registerer.register { _ in EchoIpcMethodHandler<IpcVoid>() }
+        registerer.register { _ in EchoIpcMethodHandler<Bool>() }
+        registerer.register { _ in EchoIpcMethodHandler<[String]>() }
+        registerer.register { _ in EchoIpcMethodHandler<[String: String]>() }
         
         // For Bidirectional Ipc tests
-        mixboxInAppServices.register { dependencies in
+        registerer.register { dependencies in
             BidirectionalIpcPingPongMethodHandler(
                 ipcClient: dependencies.synchronousIpcClient
             )
         }
         
         // For Callback tests
-        mixboxInAppServices.register { _ in CallbackFromAppIpcMethodHandler<Int>() }
-        mixboxInAppServices.register { _ in CallbackToAppIpcMethodHandler<Int, String>() }
-        mixboxInAppServices.register { _ in NestedCallbacksToAppIpcMethodHandler() }
+        registerer.register { _ in CallbackFromAppIpcMethodHandler<Int>() }
+        registerer.register { _ in CallbackToAppIpcMethodHandler<Int, String>() }
+        registerer.register { _ in NestedCallbacksToAppIpcMethodHandler() }
         
         // For Launching tests
-        mixboxInAppServices.register { _ in ProcessInfoIpcMethodHandler() }
+        registerer.register { _ in ProcessInfoIpcMethodHandler() }
         
         // For Actions tests
-        mixboxInAppServices.register { [uiEventHistoryProvider] _ in
+        registerer.register { [uiEventHistoryProvider] _ in
             GetUiEventHistoryIpcMethodHandler(
                 uiEventHistoryProvider: uiEventHistoryProvider
             )

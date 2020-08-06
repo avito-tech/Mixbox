@@ -7,7 +7,7 @@ public final class TestingViewFactory {
     
     public func rootViewController(
         viewType: String,
-        mixboxInAppServices: MixboxInAppServices?)
+        ipcMethodHandlerWithDependenciesRegisterer: IpcMethodHandlerWithDependenciesRegisterer?)
         -> UIViewController
     {
          // TODO: get module name properly
@@ -26,7 +26,7 @@ public final class TestingViewFactory {
             return rootViewController(
                 viewClass: viewClass,
                 viewType: viewType,
-                mixboxInAppServices: mixboxInAppServices,
+                ipcMethodHandlerWithDependenciesRegisterer: ipcMethodHandlerWithDependenciesRegisterer,
                 viewControllerContainerType: viewControllerContainerType
             )
         } else {
@@ -43,7 +43,7 @@ public final class TestingViewFactory {
     private func rootViewController(
         viewClass: AnyClass,
         viewType: String,
-        mixboxInAppServices: MixboxInAppServices?,
+        ipcMethodHandlerWithDependenciesRegisterer: IpcMethodHandlerWithDependenciesRegisterer?,
         viewControllerContainerType: ViewControllerContainerType)
         -> UIViewController
     {
@@ -52,14 +52,14 @@ public final class TestingViewFactory {
             return testingViewController(
                 viewClass: viewClass,
                 viewType: viewType,
-                mixboxInAppServices: mixboxInAppServices,
+                ipcMethodHandlerWithDependenciesRegisterer: ipcMethodHandlerWithDependenciesRegisterer,
                 navigationController: nil
             )
         case .navigationController:
             return navigationController(
                 viewClass: viewClass,
                 viewType: viewType,
-                mixboxInAppServices: mixboxInAppServices
+                ipcMethodHandlerWithDependenciesRegisterer: ipcMethodHandlerWithDependenciesRegisterer
             )
         }
     }
@@ -67,7 +67,7 @@ public final class TestingViewFactory {
     private func navigationController(
         viewClass: AnyClass,
         viewType: String,
-        mixboxInAppServices: MixboxInAppServices?)
+        ipcMethodHandlerWithDependenciesRegisterer: IpcMethodHandlerWithDependenciesRegisterer?)
         -> UIViewController
     {
         let navigationController = UINavigationController()
@@ -75,7 +75,7 @@ public final class TestingViewFactory {
         let viewController = testingViewController(
             viewClass: viewClass,
             viewType: viewType,
-            mixboxInAppServices: mixboxInAppServices,
+            ipcMethodHandlerWithDependenciesRegisterer: ipcMethodHandlerWithDependenciesRegisterer,
             navigationController: navigationController
         )
         
@@ -87,13 +87,13 @@ public final class TestingViewFactory {
     private func testingViewController(
         viewClass: AnyClass,
         viewType: String,
-        mixboxInAppServices: MixboxInAppServices?,
+        ipcMethodHandlerWithDependenciesRegisterer: IpcMethodHandlerWithDependenciesRegisterer?,
         navigationController: UINavigationController?)
         -> UIViewController
     {
         let testingViewControllerSettings = TestingViewControllerSettings(
             viewType: viewType,
-            mixboxInAppServices: mixboxInAppServices,
+            ipcMethodHandlerWithDependenciesRegisterer: ipcMethodHandlerWithDependenciesRegisterer,
             navigationController: navigationController
         )
         

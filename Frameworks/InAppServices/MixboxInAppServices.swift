@@ -6,7 +6,7 @@ import MixboxFoundation
 
 // Facade for starting everything for tests, on the side of the app.
 // TODO: Rename to InAppServices
-public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegisterer {
+public final class InAppServices: IpcMethodHandlerWithDependenciesRegisterer {
     // Dependencies
     private let inAppServicesDependenciesFactory: InAppServicesDependenciesFactory
     
@@ -20,7 +20,7 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
         
         self.commandsForAddingRoutes = [
             { [inAppServicesDependenciesFactory] dependencies in
-                MixboxInAppServices.registerDefaultMethods(
+                InAppServices.registerDefaultMethods(
                     router: dependencies.ipcRouter,
                     inAppServicesDependenciesFactory: inAppServicesDependenciesFactory
                 )
@@ -51,7 +51,7 @@ public final class MixboxInAppServices: IpcMethodHandlerWithDependenciesRegister
     }
     
     public func start() -> StartedInAppServices {
-        assert(self.router == nil, "MixboxInAppServices are already started")
+        assert(self.router == nil, "InAppServices are already started")
         
         do {
             let (router, client) = try inAppServicesDependenciesFactory.ipcStarter.start(

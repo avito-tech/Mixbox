@@ -7,14 +7,14 @@ final class SetScreenIpcMethodHandler: IpcMethodHandler {
     
     let method = Method()
     
-    private weak var mixboxInAppServices: MixboxInAppServices?
+    private weak var ipcMethodHandlerWithDependenciesRegisterer: IpcMethodHandlerWithDependenciesRegisterer?
     private let rootViewControllerManager: RootViewControllerManager
     
     init(
-        mixboxInAppServices: MixboxInAppServices?,
+        ipcMethodHandlerWithDependenciesRegisterer: IpcMethodHandlerWithDependenciesRegisterer?,
         rootViewControllerManager: RootViewControllerManager)
     {
-        self.mixboxInAppServices = mixboxInAppServices
+        self.ipcMethodHandlerWithDependenciesRegisterer = ipcMethodHandlerWithDependenciesRegisterer
         self.rootViewControllerManager = rootViewControllerManager
     }
     
@@ -39,7 +39,7 @@ final class SetScreenIpcMethodHandler: IpcMethodHandler {
     private func rootViewController(screen: SetScreenIpcMethod.Screen) -> UIViewController {
         return TestingViewFactory().rootViewController(
             viewType: screen.viewType,
-            mixboxInAppServices: mixboxInAppServices
+            ipcMethodHandlerWithDependenciesRegisterer: ipcMethodHandlerWithDependenciesRegisterer
         )
     }
 }

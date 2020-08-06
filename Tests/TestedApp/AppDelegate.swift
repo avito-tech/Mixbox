@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var ipcClient: IpcClient?
     var ipcRouter: IpcRouter?
     let keyboardEventInjector: KeyboardEventInjector?
-    let mixboxInAppServices: MixboxInAppServices?
+    let inAppServices: InAppServices?
     
     override init() {
         let factoryOrNil = InAppServicesDependenciesFactoryImpl(
@@ -21,13 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         if let factory = factoryOrNil {
-            mixboxInAppServices = MixboxInAppServices(
+            inAppServices = InAppServices(
                 inAppServicesDependenciesFactory: factory
             )
             
             keyboardEventInjector = factory.keyboardEventInjector
         } else {
-            mixboxInAppServices = nil
+            inAppServices = nil
             keyboardEventInjector = nil
         }
         
@@ -56,16 +56,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
         if ProcessInfo.processInfo.environment["MIXBOX_IPC_STARTER_TYPE"] != nil {
-            if let mixboxInAppServices = mixboxInAppServices {
+            if let inAppServices = inAppServices {
                 let customIpcMethods = CustomIpcMethods(
                     uiEventHistoryProvider: uiEventHistoryTracker,
                     rootViewControllerManager: rootViewControllerManager
                 )
                 
                 // TODO: add environment to be able to disable registration of methods?
-                customIpcMethods.registerIn(mixboxInAppServices)
+                customIpcMethods.registerIn(inAppServices)
                 
-                let startedInAppServices = mixboxInAppServices.start()
+                let startedInAppServices = inAppServices.start()
                 ipcRouter = startedInAppServices.router
                 ipcClient = startedInAppServices.client
             }
