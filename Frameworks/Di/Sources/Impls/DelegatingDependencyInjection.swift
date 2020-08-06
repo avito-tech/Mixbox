@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public final class DependencyInjectionImpl: DependencyInjection {
+public final class DelegatingDependencyInjection: DependencyInjection {
     private let dependencyResolver: DependencyResolver
     private let dependencyRegisterer: DependencyRegisterer
     

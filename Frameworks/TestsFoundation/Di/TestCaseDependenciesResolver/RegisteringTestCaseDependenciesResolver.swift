@@ -1,6 +1,5 @@
-import MixboxDipDi
+import MixboxBuiltinDi
 import MixboxDi
-import Dip
 import MixboxFoundation
 
 // Utility designed to be used in declaration of base TestCase class.
@@ -22,7 +21,7 @@ import MixboxFoundation
 public final class TestCaseDi {
     public static func make(
         dependencyCollectionRegisterer: DependencyCollectionRegisterer,
-        dependencyInjection: DependencyInjection = DipDependencyInjection(dependencyContainer: DependencyContainer()))
+        dependencyInjection: DependencyInjection = BuiltinDependencyInjection())
         -> TestCaseDependenciesResolver
     {
         dependencyCollectionRegisterer.register(dependencyRegisterer: dependencyInjection)
@@ -34,13 +33,13 @@ public final class TestCaseDi {
     
     public static func make(
         dependencyCollectionRegisterer: DependencyCollectionRegisterer,
-        dependencyInjection: DependencyInjection = DipDependencyInjection(dependencyContainer: DependencyContainer()),
+        dependencyInjection: DependencyInjection = BuiltinDependencyInjection(),
         performanceLogger: PerformanceLogger)
         -> TestCaseDependenciesResolver
     {
         return make(
             dependencyCollectionRegisterer: dependencyCollectionRegisterer,
-            dependencyInjection: DependencyInjectionImpl(
+            dependencyInjection: DelegatingDependencyInjection(
                 dependencyResolver: PerformanceLoggingTestCaseDependenciesResolver(
                     dependencyResolver: dependencyInjection,
                     performanceLogger: performanceLogger

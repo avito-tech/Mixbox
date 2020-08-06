@@ -2,6 +2,7 @@ import MixboxDi
 import MixboxGenerators
 import MixboxStubbing
 import MixboxTestsFoundation
+import MixboxBuiltinDi
 
 class GeneratorTestsDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {
@@ -39,7 +40,8 @@ class GeneratorTestsDependencies: DependencyCollectionRegisterer {
             GeneratorFacadeImpl(
                 parentDi: di,
                 testFailureRecorder: try di.resolve(),
-                byFieldsGeneratorResolver: try di.resolve()
+                byFieldsGeneratorResolver: try di.resolve(),
+                dependencyInjectionFactory: BuiltinDependencyInjectionFactory()
             )
         }
     }

@@ -1,5 +1,5 @@
 import MixboxDi
-import MixboxDipDi
+import MixboxBuiltinDi
 import MixboxStubbing
 import MixboxFoundation
 import MixboxTestsFoundation
@@ -7,8 +7,8 @@ import MixboxUiTestsFoundation
 import Dip
 
 class BaseGeneratorTestCase: TestCase {
-    private let staticDi = DipDependencyInjection(dependencyContainer: DependencyContainer())
-    private let dynamicDi = DipDependencyInjection(dependencyContainer: DependencyContainer())
+    private let staticDi = BuiltinDependencyInjection()
+    private let dynamicDi = BuiltinDependencyInjection()
     
     var mocks: DependencyRegisterer {
         return dynamicDi
@@ -16,7 +16,7 @@ class BaseGeneratorTestCase: TestCase {
     
     private(set) lazy var di = TestCaseDi.make(
         dependencyCollectionRegisterer: GeneratorTestsDependencies(),
-        dependencyInjection: DependencyInjectionImpl(
+        dependencyInjection: DelegatingDependencyInjection(
             dependencyResolver: CompoundDependencyResolver(
                 resolvers: [dynamicDi, staticDi]
             ),

@@ -269,6 +269,8 @@
 		F889438D23905C44009979BE /* WaitingForQuiescenceTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F889437E23905662009979BE /* WaitingForQuiescenceTestsViewPageObject.swift */; };
 		F889438E23905C44009979BE /* WaitingForQuiescenceTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F889437E23905662009979BE /* WaitingForQuiescenceTestsViewPageObject.swift */; };
 		F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F889439B239067A2009979BE /* IdlingResourceObjectTrackerTests.swift */; };
+		F88A402924DC83EC008B290A /* DependencyInjectionImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88A402824DC83EC008B290A /* DependencyInjectionImplTests.swift */; };
+		F88A403424DC854A008B290A /* BaseDependencyInjectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88A403324DC854A008B290A /* BaseDependencyInjectionTests.swift */; };
 		F88ADF592239821C0024CCBE /* ActionSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADF582239821C0024CCBE /* ActionSpecification.swift */; };
 		F88ADF5B223982570024CCBE /* ActionsTestsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADF5A223982570024CCBE /* ActionsTestsScreen.swift */; };
 		F88ADF63223AA4330024CCBE /* ActionTestsViewViewRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88ADF62223AA4330024CCBE /* ActionTestsViewViewRegistrar.swift */; };
@@ -858,6 +860,8 @@
 		F889437E23905662009979BE /* WaitingForQuiescenceTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingForQuiescenceTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8894381239056C9009979BE /* WaitingForQuiescenceTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingForQuiescenceTestsView.swift; sourceTree = "<group>"; };
 		F889439B239067A2009979BE /* IdlingResourceObjectTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdlingResourceObjectTrackerTests.swift; sourceTree = "<group>"; };
+		F88A402824DC83EC008B290A /* DependencyInjectionImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjectionImplTests.swift; sourceTree = "<group>"; };
+		F88A403324DC854A008B290A /* BaseDependencyInjectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseDependencyInjectionTests.swift; sourceTree = "<group>"; };
 		F88ADF582239821C0024CCBE /* ActionSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSpecification.swift; sourceTree = "<group>"; };
 		F88ADF5A223982570024CCBE /* ActionsTestsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsTestsScreen.swift; sourceTree = "<group>"; };
 		F88ADF62223AA4330024CCBE /* ActionTestsViewViewRegistrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTestsViewViewRegistrar.swift; sourceTree = "<group>"; };
@@ -1970,12 +1974,12 @@
 			path = Matchers;
 			sourceTree = "<group>";
 		};
-		F879B9FD2368AAC500FB2FA0 /* MixboxDi */ = {
+		F879B9FD2368AAC500FB2FA0 /* MixboxDipDi */ = {
 			isa = PBXGroup;
 			children = (
 				F879B9FE2368AAD700FB2FA0 /* DipDependencyInjectionTests.swift */,
 			);
-			path = MixboxDi;
+			path = MixboxDipDi;
 			sourceTree = "<group>";
 		};
 		F87D2BF024D084C200D6DBFA /* Performance */ = {
@@ -2036,6 +2040,14 @@
 				647EA60B24589E12002615DA /* TrackingCAAnimationDelegate.swift */,
 			);
 			path = WaitingForQuiescence;
+			sourceTree = "<group>";
+		};
+		F88A403224DC851E008B290A /* MixboxBuiltinDi */ = {
+			isa = PBXGroup;
+			children = (
+				F88A402824DC83EC008B290A /* DependencyInjectionImplTests.swift */,
+			);
+			path = MixboxBuiltinDi;
 			sourceTree = "<group>";
 		};
 		F88ADF64223AEDA20024CCBE /* SelfCheck */ = {
@@ -2675,6 +2687,7 @@
 		F8B964CC2281DCB30054CE08 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				F88A403324DC854A008B290A /* BaseDependencyInjectionTests.swift */,
 				F8B964CD2281DCC00054CE08 /* TestCase.swift */,
 				F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */,
 				F80C2E2124D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift */,
@@ -2685,7 +2698,8 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F879B9FD2368AAC500FB2FA0 /* MixboxDi */,
+				F88A403224DC851E008B290A /* MixboxBuiltinDi */,
+				F879B9FD2368AAC500FB2FA0 /* MixboxDipDi */,
 				F8B964D12281E3E30054CE08 /* MixboxFoundation */,
 				F8B39FEC2423F05500BFACD8 /* MixboxGenerator */,
 				F8E160CE2418671E00B4912F /* MixboxGray */,
@@ -3624,7 +3638,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinDi/MixboxBuiltinDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
@@ -3637,9 +3653,6 @@
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDipDi/MixboxDipDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
@@ -3651,7 +3664,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
@@ -3664,9 +3679,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDipDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
@@ -3750,7 +3762,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinDi/MixboxBuiltinDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
@@ -3764,9 +3778,6 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDipDi/MixboxDipDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
@@ -3775,12 +3786,16 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDipDi/MixboxDipDi.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
@@ -3794,9 +3809,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDipDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
@@ -3805,6 +3817,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDipDi.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3820,7 +3834,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinDi/MixboxBuiltinDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
@@ -3834,9 +3850,6 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDipDi/MixboxDipDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
@@ -3845,12 +3858,16 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDipDi/MixboxDipDi.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
@@ -3864,9 +3881,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDipDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
@@ -3875,6 +3889,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDipDi.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3890,7 +3906,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinDi/MixboxBuiltinDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
@@ -3899,9 +3917,6 @@
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
-				"${BUILT_PRODUCTS_DIR}/Dip/Dip.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxDipDi/MixboxDipDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
@@ -3912,7 +3927,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
@@ -3921,9 +3938,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Dip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDipDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
@@ -3966,7 +3980,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-TestedApp/Pods-TestedApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxAnyCodable/MixboxAnyCodable.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinDi/MixboxBuiltinDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBuiltinIpc/MixboxBuiltinIpc.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxDi/MixboxDi.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxInAppServices/MixboxInAppServices.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
@@ -3982,7 +3998,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxAnyCodable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBuiltinIpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxDi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxInAppServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
@@ -4486,11 +4504,13 @@
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
 				F86038F324CF0BBC00C257E8 /* ImagePixelDataTests.swift in Sources */,
 				F8D262D0244313570006B707 /* GeneratorFacadeTests.swift in Sources */,
+				F88A403424DC854A008B290A /* BaseDependencyInjectionTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F87D250024D050F000D6DBFA /* VisibilityCheckForLoopOptimizerImplTests.swift in Sources */,
 				F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */,
 				F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */,
 				F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */,
+				F88A402924DC83EC008B290A /* DependencyInjectionImplTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
 				F80C2E3A24D1E52900C6CAD4 /* TestStateRecycling.swift in Sources */,
 				F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */,

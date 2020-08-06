@@ -1,6 +1,5 @@
-import MixboxDipDi
+import MixboxBuiltinDi
 import MixboxDi
-import Dip
 import MixboxTestsFoundation
 import MixboxGenerators
 
@@ -13,18 +12,20 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
     private let dependencyResolver: DependencyResolver
     private let testFailureRecorder: TestFailureRecorder
     private let byFieldsGeneratorResolver: ByFieldsGeneratorResolver
+    private let dependencyInjectionFactory: DependencyInjectionFactory
     
     public init(
         parentDi: DependencyResolver,
         testFailureRecorder: TestFailureRecorder,
-        byFieldsGeneratorResolver: ByFieldsGeneratorResolver)
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver,
+        dependencyInjectionFactory: DependencyInjectionFactory)
     {
         self.parentDi = parentDi
         self.testFailureRecorder = testFailureRecorder
         self.byFieldsGeneratorResolver = byFieldsGeneratorResolver
+        self.dependencyInjectionFactory = dependencyInjectionFactory
         
-        // TODO: Use factory.
-        stubsDi = DipDependencyInjection(dependencyContainer: DependencyContainer())
+        stubsDi = dependencyInjectionFactory.dependencyInjection()
         
         dependencyResolver = CompoundDependencyResolver(
             resolvers: [
@@ -62,7 +63,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
         -> T
     {
-        let localDi = DipDependencyInjection(dependencyContainer: DependencyContainer())
+        let localDi = dependencyInjectionFactory.dependencyInjection()
         
         let dependencyResolver = CompoundDependencyResolver(
             resolvers: [

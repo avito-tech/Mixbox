@@ -1,6 +1,6 @@
 import MixboxGenerators
 import MixboxDi
-import MixboxDipDi
+import MixboxBuiltinDi
 import MixboxTestsFoundation
 import Dip
 import XCTest
@@ -20,7 +20,7 @@ class DynamicLookupGeneratorTests: BaseGeneratorTestCase {
         T: GeneratableByFields
     {
         do {
-            let di = DipDependencyInjection(dependencyContainer: DependencyContainer())
+            let di = BuiltinDependencyInjection()
             
             di.register(type: Generator<Int>.self) { _ in
                 ConstantGenerator(42)

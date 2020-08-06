@@ -27,6 +27,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
+                name: "BuiltinDi",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
                 name: "BuiltinIpc",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
