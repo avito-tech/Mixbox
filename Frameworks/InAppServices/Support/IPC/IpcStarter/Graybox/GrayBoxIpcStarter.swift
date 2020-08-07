@@ -21,8 +21,8 @@ public final class GrayBoxIpcStarter: IpcStarter {
             synchronousIpcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: sameProcessIpcClientServer)
         )
         
-        commandsForAddingRoutes.forEach { command in
-            command(dependencies)
+        try commandsForAddingRoutes.forEach { command in
+            try command(dependencies)
         }
         
         return (sameProcessIpcClientServer, sameProcessIpcClientServer)

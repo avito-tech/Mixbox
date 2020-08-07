@@ -2,34 +2,33 @@ import UIKit
 import MixboxInAppServices
 import MixboxIpc
 import MixboxIpcCommon
+import MixboxDi
+import MixboxBuiltinDi
 import TestsIpc
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: TouchDrawingWindow?
     
+    #if DEBUG
+    
     // These properties are accessed from tests:
-    var ipcClient: IpcClient?
-    var ipcRouter: IpcRouter?
-    let keyboardEventInjector: KeyboardEventInjector?
-    let inAppServices: InAppServices?
+    
+    let inAppServicesDependencyInjection = BuiltinDependencyInjection()
+    let inAppServices: InAppServices
+    var startedInAppServices: StartedInAppServices?
+    
+    #endif
     
     override init() {
-        let factoryOrNil = InAppServicesDependenciesFactoryImpl(
-            environment: ProcessInfo.processInfo.environment,
-            performanceLogger: Singletons.performanceLogger
+        #if DEBUG
+        
+        inAppServices = InAppServices(
+            dependencyInjection: inAppServicesDependencyInjection,
+            dependencyCollectionRegisterer: InAppServicesDependencyCollectionRegisterer()
         )
         
-        if let factory = factoryOrNil {
-            inAppServices = InAppServices(
-                inAppServicesDependenciesFactory: factory
-            )
-            
-            keyboardEventInjector = factory.keyboardEventInjector
-        } else {
-            inAppServices = nil
-            keyboardEventInjector = nil
-        }
+        #endif
         
         super.init()
     }
@@ -39,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool
     {
-        
         let uiEventHistoryTracker = UiEventHistoryTracker()
         
         let window = TouchDrawingWindow(
@@ -56,19 +54,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
         if ProcessInfo.processInfo.environment["MIXBOX_IPC_STARTER_TYPE"] != nil {
-            if let inAppServices = inAppServices {
-                let customIpcMethods = CustomIpcMethods(
-                    uiEventHistoryProvider: uiEventHistoryTracker,
-                    rootViewControllerManager: rootViewControllerManager
-                )
-                
-                // TODO: add environment to be able to disable registration of methods?
-                customIpcMethods.registerIn(inAppServices)
-                
-                let startedInAppServices = inAppServices.start()
-                ipcRouter = startedInAppServices.router
-                ipcClient = startedInAppServices.client
-            }
+            let customIpcMethods = CustomIpcMethods(
+                uiEventHistoryProvider: uiEventHistoryTracker,
+                rootViewControllerManager: rootViewControllerManager
+            )
+            
+            // TODO: add environment to be able to disable registration of methods?
+            customIpcMethods.registerIn(inAppServices)
+            
+            startedInAppServices = inAppServices.start()
         }
         #endif
         

@@ -3,6 +3,7 @@ import UIKit
 #if DEBUG
 import MixboxFoundation
 import MixboxInAppServices
+import MixboxBuiltinDi
 #endif
 
 @UIApplicationMain
@@ -10,9 +11,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     #if DEBUG
-    var inAppServices: InAppServices?
+    
+    let inAppServices: InAppServices
     var startedInAppServices: StartedInAppServices?
+    
     #endif
+    
+    override init() {
+        #if DEBUG
+        
+        inAppServices = InAppServices(
+            dependencyInjection: BuiltinDependencyInjection(),
+            dependencyCollectionRegisterer: InAppServicesDefaultDependencyCollectionRegisterer()
+        )
+        
+        #endif
+        
+        super.init()
+    }
     
     func application(
         _ application: UIApplication,
@@ -20,20 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool
     {
         #if DEBUG
-        let factoryOrNil = InAppServicesDependenciesFactoryImpl(
-            environment: ProcessInfo.processInfo.environment,
-            performanceLogger: NoopPerformanceLogger()
-        )
         
-        if let factory = factoryOrNil {
-            inAppServices = InAppServices(
-                inAppServicesDependenciesFactory: factory
-            )
-        } else {
-            inAppServices = nil
-        }
-        
-        startedInAppServices = inAppServices?.start()
+        startedInAppServices = inAppServices.start()
         
         #endif
         

@@ -29,14 +29,18 @@ public final class KnownPortHandshakeSender {
         handshakeTools = HandshakeTools()
     }
     
-    public func start(beforeHandshake: (IpcRouter, IpcClient) -> ()) -> (IpcRouter, IpcClient) {
+    public func start(
+        beforeHandshake: (IpcRouter, IpcClient) throws -> ())
+        rethrows
+        -> (IpcRouter, IpcClient)
+    {
         let client = handshakeTools.makeClient(
             host: handshakeWaiterHost,
             port: handshakeWaiterPort
         )
         
         if let localPort = handshakeTools.startServer() {
-            beforeHandshake(handshakeTools.server, client)
+            try beforeHandshake(handshakeTools.server, client)
             
             let synchronousIpcClient = synchronousIpcClientFactory.synchronousIpcClient(ipcClient: client)
             

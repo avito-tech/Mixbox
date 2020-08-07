@@ -253,6 +253,7 @@
 		F87D2C0524D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D2C0424D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift */; };
 		F87FD14924097263004B3D99 /* BaseUiTestCase+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */; };
 		F87FD14A24097264004B3D99 /* BaseUiTestCase+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */; };
+		F88609D824DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88609D724DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift */; };
 		F888EE1A23206136009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */; };
 		F888EE1B23206136009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */; };
 		F888EE1C23206137009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */; };
@@ -848,6 +849,7 @@
 		F87D2BF124D084D800D6DBFA /* VisibilityCheckPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityCheckPerformanceTests.swift; sourceTree = "<group>"; };
 		F87D2C0424D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityCheckImageColorShifterImplTests.swift; sourceTree = "<group>"; };
 		F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseUiTestCase+ResetUi.swift"; sourceTree = "<group>"; };
+		F88609D724DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppServicesDependencyCollectionRegisterer.swift; sourceTree = "<group>"; };
 		F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+AllEvents.swift"; sourceTree = "<group>"; };
 		F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+AllTouches.swift"; sourceTree = "<group>"; };
 		F88915A62295E211003B8D0A /* TestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuery.swift; sourceTree = "<group>"; };
@@ -1345,6 +1347,7 @@
 				F8E855E8242C8FBE00A29CD8 /* ViewControllers */,
 				F813CB0B209CD82A00E6A27C /* SupportViews */,
 				F813CB11209CD82A00E6A27C /* Views */,
+				F88609D724DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -4155,6 +4158,7 @@
 				F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */,
 				F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */,
 				F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */,
+				F88609D824DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift in Sources */,
 				F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */,
 				F813CB21209CD82A00E6A27C /* TextViewWithClosures.swift in Sources */,
 				F8E855E7242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift in Sources */,

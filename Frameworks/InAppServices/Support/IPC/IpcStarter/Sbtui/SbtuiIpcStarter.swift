@@ -32,7 +32,7 @@ final class SbtuiIpcStarter: IpcStarter {
             }
         )
         
-        commandsForAddingRoutes.forEach { $0(dependencies) }
+        try commandsForAddingRoutes.forEach { try $0(dependencies) }
         
         return (ipcRouter, ipcClient)
     }

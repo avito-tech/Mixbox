@@ -2,7 +2,7 @@
 
 import MixboxFoundation
 
-public class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationIdlingResourceSwizzler {
+public class UiAnimationIdlingResourceSwizzlerImpl: NSObject, UiAnimationIdlingResourceSwizzler {
     public let assertingSwizzler: AssertingSwizzler
     public let assertionFailureRecorder: AssertionFailureRecorder
     
@@ -36,7 +36,7 @@ public class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationIdlingR
         }
         assertingSwizzler.swizzle(
             originalClass: uiAnimationClass,
-            swizzlingClass: UIAnimationIdlingResourceSwizzlerImpl.self,
+            swizzlingClass: UiAnimationIdlingResourceSwizzlerImpl.self,
             originalSelector: originalSelector,
             swizzledSelector: swizzledSelector,
             methodType: .instanceMethod,
@@ -64,7 +64,7 @@ public class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationIdlingR
     @objc fileprivate func swizzled_markStart(startTime: TimeInterval) {
         trackedAnimation.value = IdlingResourceObjectTracker.instance.track(parent: self)
         
-        let originalImp = class_getMethodImplementation(UIAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled_markStart))
+        let originalImp = class_getMethodImplementation(UiAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled_markStart))
         unsafeBitCast(originalImp, to: MarkStartFunction.self)(self, markStartSelector, startTime)
     }
 
@@ -73,7 +73,7 @@ public class UIAnimationIdlingResourceSwizzlerImpl: NSObject, UIAnimationIdlingR
     @objc fileprivate func swizzled_markStop() {
         trackedAnimation.value?.untrack()
 
-        let originalImp = class_getMethodImplementation(UIAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled_markStop))
+        let originalImp = class_getMethodImplementation(UiAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled_markStop))
         unsafeBitCast(originalImp, to: MarkStopFunction.self)(self, markStopSelector)
     }
 

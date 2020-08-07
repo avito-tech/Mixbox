@@ -2,6 +2,6 @@
 
 import MixboxIpc
 
-public typealias IpcMethodHandlerRegistrationTypeErasedClosure = (IpcMethodHandlerRegistrationDependencies) -> ()
+public typealias IpcMethodHandlerRegistrationTypeErasedClosure = (IpcMethodHandlerRegistrationDependencies) throws -> ()
 
 #endif

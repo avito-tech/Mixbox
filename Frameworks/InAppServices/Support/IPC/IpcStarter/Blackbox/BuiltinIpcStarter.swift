@@ -22,7 +22,7 @@ final class BuiltinIpcStarter: IpcStarter {
     }
     
     func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure]) throws -> (IpcRouter, IpcClient?) {
-        let (router, client) = knownPortHandshakeSender.start(
+        let (router, client) = try knownPortHandshakeSender.start(
             beforeHandshake: { ipcRouter, ipcClient in
                 let dependencies = IpcMethodHandlerRegistrationDependencies(
                     ipcRouter: ipcRouter,
@@ -30,8 +30,8 @@ final class BuiltinIpcStarter: IpcStarter {
                     synchronousIpcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: ipcClient)
                 )
                 
-                commandsForAddingRoutes.forEach { command in
-                    command(dependencies)
+                try commandsForAddingRoutes.forEach { command in
+                    try command(dependencies)
                 }
             }
         )
