@@ -22,8 +22,8 @@ public final class CoreAnimationIdlingResourceSwizzlerImpl: CoreAnimationIdlingR
     }
     
     public func swizzle() {
-        caAnimationIdlingSupport.swizzle()
-        caLayerIdlingSupport.swizzle()
+//        caAnimationIdlingSupport.swizzle()
+//        caLayerIdlingSupport.swizzle()
     }
 }
 
