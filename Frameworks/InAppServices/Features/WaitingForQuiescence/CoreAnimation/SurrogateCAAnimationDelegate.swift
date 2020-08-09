@@ -15,7 +15,7 @@ private func AnimationDidStart(
 ) {
     animation?.mb_state = .started
     
-    if !isInvokedFromSwizzledMethod {
+    if isInvokedFromSwizzledMethod {
         let selector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStart(_:))
         let originalImp = class_getMethodImplementation(type(of: self), selector)
         if self.responds(to: selector) {
@@ -32,7 +32,7 @@ private func AnimationDidStop(
 ) {
     animation?.mb_state = .stopped
     
-    if !isInvokedFromSwizzledMethod {
+    if isInvokedFromSwizzledMethod {
         let selector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStop(_:finished:))
         let originalImp = class_getMethodImplementation(type(of: self), selector)
         if self.responds(to: selector) {
