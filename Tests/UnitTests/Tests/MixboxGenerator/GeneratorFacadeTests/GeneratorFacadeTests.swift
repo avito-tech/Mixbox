@@ -73,6 +73,34 @@ final class GeneratorFacadeTests: BaseGeneratorTestCase {
         XCTAssertEqual(entity.title, "How to title a book for dummies.")
     }
     
+    func test___generate___can_generate_CaseIterable_enums() {
+        // High-level check. Checks that it works
+        
+        let value = generator.generate() as CaseIterableEnum
+        
+        XCTAssert(CaseIterableEnum.allCases.contains(value))
+        
+        // Low-level check. Checks that it is random. Relies on implementation.
+        
+        mocks.register(type: RandomNumberProvider.self) { _ in
+            ConstantRandomNumberProvider(0)
+        }
+        
+        XCTAssertEqual(
+            generator.generate() as CaseIterableEnum,
+            CaseIterableEnum.allCases[0]
+        )
+        
+        mocks.register(type: RandomNumberProvider.self) { _ in
+            ConstantRandomNumberProvider(1)
+        }
+        
+        XCTAssertEqual(
+            generator.generate() as CaseIterableEnum,
+            CaseIterableEnum.allCases[1]
+        )
+    }
+
     private func stubConstants() {
         mocks.register(type: Generator<Int>.self) { [unstubbedInt] _ in
             ConstantGenerator(unstubbedInt)
@@ -81,6 +109,11 @@ final class GeneratorFacadeTests: BaseGeneratorTestCase {
             ConstantGenerator(unstubbedString)
         }
     }
+}
+
+private enum CaseIterableEnum: String, Equatable, CaseIterable, DefaultGeneratorProvider {
+    case case0
+    case case1
 }
 
 // To check how generators work with classes
