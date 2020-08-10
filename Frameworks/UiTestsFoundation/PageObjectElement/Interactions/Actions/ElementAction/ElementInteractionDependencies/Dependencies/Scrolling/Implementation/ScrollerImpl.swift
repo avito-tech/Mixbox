@@ -34,7 +34,7 @@ public final class ScrollerImpl: Scroller {
         interactionCoordinates: InteractionCoordinates?)
         -> ScrollingResult
     {
-        let useHundredPercentAccuracyInVisibilityCheck = !elementSettings.optimizedVisibilityCheck
+        let useHundredPercentAccuracyInVisibilityCheck = elementSettings.pixelPerfectVisibilityCheck
         
         // TODO: Better code. These lines just disable scrolling with minimal number of lines and minimal consequences.
         // (at the moment the code was written, we all know what can happen with code if it will live for long)

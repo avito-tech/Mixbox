@@ -72,7 +72,7 @@ open class BasePageObject: PageObject, ElementFactory {
         return elementFactory.with(percentageOfVisibleArea: percentageOfVisibleArea)
     }
     
-    public func with(optimizedVisibilityCheck: Bool?) -> ElementFactory {
-        return elementFactory.with(optimizedVisibilityCheck: optimizedVisibilityCheck)
+    public func with(pixelPerfectVisibilityCheck: Bool?) -> ElementFactory {
+        return elementFactory.with(pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck)
     }
 }

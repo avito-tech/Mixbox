@@ -119,7 +119,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                         elementVisibilityCheckerResult = try elementVisibilityChecker.checkVisibility(
                             snapshot: snapshot,
                             interactionCoordinates: interactionCoordinates,
-                            useHundredPercentAccuracy: !elementSettings.optimizedVisibilityCheck
+                            useHundredPercentAccuracy: elementSettings.pixelPerfectVisibilityCheck
                         )
                     }
                     

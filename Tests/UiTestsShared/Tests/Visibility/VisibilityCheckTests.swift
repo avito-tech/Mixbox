@@ -50,7 +50,7 @@ final class VisibilityCheckTests: TestCase {
     // of visible area is 100%, actual percentage of visible area is 99%, but visibility check will tell that it's
     // 100% visible for example.
     //
-    // This is really an edge case and for such cases a modifier `with(optimizedVisibilityCheck: false)` was added.
+    // This is really an edge case and for such cases a modifier `with(pixelPerfectVisibilityCheck: true)` was added.
     //
     // I think that real tests will never use this modifier, however, it is a must have for pixel perfect
     // image comparation.
@@ -84,7 +84,7 @@ final class VisibilityCheckTests: TestCase {
         // The check should fail.
         assertFails {
             checkedView
-                .with(optimizedVisibilityCheck: false)
+                .with(pixelPerfectVisibilityCheck: true)
                 .with(percentageOfVisibleArea: 1)
                 .withoutTimeout
                 .assertIsDisplayed()
@@ -97,7 +97,7 @@ final class VisibilityCheckTests: TestCase {
         // this case.
         assertPasses {
             checkedView
-                .with(optimizedVisibilityCheck: true)
+                .with(pixelPerfectVisibilityCheck: false)
                 .with(percentageOfVisibleArea: 1)
                 .withoutTimeout
                 .assertIsDisplayed()

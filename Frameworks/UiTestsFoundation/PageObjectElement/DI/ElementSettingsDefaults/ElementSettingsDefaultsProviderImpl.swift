@@ -28,7 +28,7 @@ public final class ElementSettingsDefaultsProviderImpl: ElementSettingsDefaultsP
             // pixels for tapping them instead of center of the element.
             //
             percentageOfVisibleArea: 0.5,
-            optimizedVisibilityCheck: true
+            pixelPerfectVisibilityCheck: false
         )
     }
 }

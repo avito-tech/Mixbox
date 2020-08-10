@@ -15,13 +15,13 @@ final class ElementSettingsTests: TestCase {
             interactionTimeout: 1337,
             interactionMode: .useElementAtIndexInHierarchy(1337),
             percentageOfVisibleArea: 0.1337,
-            optimizedVisibilityCheck: true
+            pixelPerfectVisibilityCheck: false
         ),
         scrollMode: .definite,
         interactionTimeout: 421337,
         interactionMode: .useElementAtIndexInHierarchy(421337),
         percentageOfVisibleArea: 0.421337,
-        optimizedVisibilityCheck: true
+        pixelPerfectVisibilityCheck: false
     )
     
     func test___with_name___overrides_name() {
@@ -60,9 +60,9 @@ final class ElementSettingsTests: TestCase {
         XCTAssertEqual(elementSettings.with(percentageOfVisibleArea: percentageOfVisibleArea).percentageOfVisibleArea, percentageOfVisibleArea)
     }
     
-    func test___with_optimizedVisibilityCheck___overrides_optimizedVisibilityCheck() {
-        let optimizedVisibilityCheck: Bool = false
-        XCTAssertNotEqual(elementSettings.optimizedVisibilityCheck, optimizedVisibilityCheck)
-        XCTAssertEqual(elementSettings.with(optimizedVisibilityCheck: optimizedVisibilityCheck).optimizedVisibilityCheck, optimizedVisibilityCheck)
+    func test___with_pixelPerfectVisibilityCheck___overrides_pixelPerfectVisibilityCheck() {
+        let pixelPerfectVisibilityCheck: Bool = true
+        XCTAssertNotEqual(elementSettings.pixelPerfectVisibilityCheck, pixelPerfectVisibilityCheck)
+        XCTAssertEqual(elementSettings.with(pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck).pixelPerfectVisibilityCheck, pixelPerfectVisibilityCheck)
     }
 }

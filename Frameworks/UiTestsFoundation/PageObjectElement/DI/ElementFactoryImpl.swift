@@ -8,7 +8,7 @@ public final class ElementFactoryImpl: ElementFactory {
     private let interactionTimeout: TimeInterval
     private let interactionMode: InteractionMode
     private let percentageOfVisibleArea: CGFloat
-    private let optimizedVisibilityCheck: Bool
+    private let pixelPerfectVisibilityCheck: Bool
     
     public init(
         pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
@@ -17,7 +17,7 @@ public final class ElementFactoryImpl: ElementFactory {
         interactionTimeout: TimeInterval,
         interactionMode: InteractionMode,
         percentageOfVisibleArea: CGFloat,
-        optimizedVisibilityCheck: Bool)
+        pixelPerfectVisibilityCheck: Bool)
     {
         self.pageObjectElementDependenciesFactory = pageObjectElementDependenciesFactory
         self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
@@ -25,7 +25,7 @@ public final class ElementFactoryImpl: ElementFactory {
         self.interactionTimeout = interactionTimeout
         self.interactionMode = interactionMode
         self.percentageOfVisibleArea = percentageOfVisibleArea
-        self.optimizedVisibilityCheck = optimizedVisibilityCheck
+        self.pixelPerfectVisibilityCheck = pixelPerfectVisibilityCheck
     }
     
     public convenience init(
@@ -41,7 +41,7 @@ public final class ElementFactoryImpl: ElementFactory {
             interactionTimeout: elementSettingsDefaults.interactionTimeout,
             interactionMode: elementSettingsDefaults.interactionMode,
             percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea,
-            optimizedVisibilityCheck: elementSettingsDefaults.optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: elementSettingsDefaults.pixelPerfectVisibilityCheck
         )
     }
     
@@ -71,7 +71,7 @@ public final class ElementFactoryImpl: ElementFactory {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -83,7 +83,7 @@ public final class ElementFactoryImpl: ElementFactory {
             interactionTimeout: interactionTimeout ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -95,7 +95,7 @@ public final class ElementFactoryImpl: ElementFactory {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -107,11 +107,11 @@ public final class ElementFactoryImpl: ElementFactory {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaultsProvider.elementSettingsDefaults().percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
-    public func with(optimizedVisibilityCheck: Bool?) -> ElementFactory {
+    public func with(pixelPerfectVisibilityCheck: Bool?) -> ElementFactory {
         return ElementFactoryImpl(
             pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
             elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
@@ -119,7 +119,7 @@ public final class ElementFactoryImpl: ElementFactory {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck ?? elementSettingsDefaultsProvider.elementSettingsDefaults().optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck ?? elementSettingsDefaultsProvider.elementSettingsDefaults().pixelPerfectVisibilityCheck
         )
     }
     
@@ -144,7 +144,7 @@ public final class ElementFactoryImpl: ElementFactory {
                     interactionTimeout: interactionTimeout,
                     interactionMode: interactionMode,
                     percentageOfVisibleArea: percentageOfVisibleArea,
-                    optimizedVisibilityCheck: optimizedVisibilityCheck
+                    pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
                 )
             )
         )

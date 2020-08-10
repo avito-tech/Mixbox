@@ -70,7 +70,7 @@ extension Element {
         return with(settings: core.settings.with(percentageOfVisibleArea: percentageOfVisibleArea))
     }
     
-    public func with(optimizedVisibilityCheck: Bool) -> Self {
-        return with(settings: core.settings.with(optimizedVisibilityCheck: optimizedVisibilityCheck))
+    public func with(pixelPerfectVisibilityCheck: Bool) -> Self {
+        return with(settings: core.settings.with(pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck))
     }
 }

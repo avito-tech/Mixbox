@@ -9,7 +9,7 @@ public final class ElementSettings {
     public let interactionTimeout: TimeInterval
     public let interactionMode: InteractionMode
     public let percentageOfVisibleArea: CGFloat
-    public let optimizedVisibilityCheck: Bool
+    public let pixelPerfectVisibilityCheck: Bool
     
     public init(
         name: String,
@@ -20,7 +20,7 @@ public final class ElementSettings {
         interactionTimeout: TimeInterval,
         interactionMode: InteractionMode,
         percentageOfVisibleArea: CGFloat,
-        optimizedVisibilityCheck: Bool)
+        pixelPerfectVisibilityCheck: Bool)
     {
         self.name = name
         self.functionDeclarationLocation = functionDeclarationLocation
@@ -30,7 +30,7 @@ public final class ElementSettings {
         self.interactionTimeout = interactionTimeout
         self.interactionMode = interactionMode
         self.percentageOfVisibleArea = percentageOfVisibleArea
-        self.optimizedVisibilityCheck = optimizedVisibilityCheck
+        self.pixelPerfectVisibilityCheck = pixelPerfectVisibilityCheck
     }
     
     public convenience init(
@@ -48,7 +48,7 @@ public final class ElementSettings {
             interactionTimeout: elementSettingsDefaults.interactionTimeout,
             interactionMode: elementSettingsDefaults.interactionMode,
             percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea,
-            optimizedVisibilityCheck: elementSettingsDefaults.optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: elementSettingsDefaults.pixelPerfectVisibilityCheck
         )
     }
     
@@ -62,7 +62,7 @@ public final class ElementSettings {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -76,7 +76,7 @@ public final class ElementSettings {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -90,7 +90,7 @@ public final class ElementSettings {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -104,7 +104,7 @@ public final class ElementSettings {
             interactionTimeout: interactionTimeout ?? elementSettingsDefaults.interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -118,7 +118,7 @@ public final class ElementSettings {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode ?? elementSettingsDefaults.interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
@@ -132,11 +132,11 @@ public final class ElementSettings {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaults.percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
     
-    public func with(optimizedVisibilityCheck: Bool) -> ElementSettings {
+    public func with(pixelPerfectVisibilityCheck: Bool) -> ElementSettings {
         return ElementSettings(
             name: name,
             functionDeclarationLocation: functionDeclarationLocation,
@@ -146,7 +146,7 @@ public final class ElementSettings {
             interactionTimeout: interactionTimeout,
             interactionMode: interactionMode,
             percentageOfVisibleArea: percentageOfVisibleArea,
-            optimizedVisibilityCheck: optimizedVisibilityCheck
+            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
         )
     }
 }
