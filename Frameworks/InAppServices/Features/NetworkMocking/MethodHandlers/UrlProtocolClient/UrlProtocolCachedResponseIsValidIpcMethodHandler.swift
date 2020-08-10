@@ -17,7 +17,7 @@ public final class UrlProtocolCachedResponseIsValidIpcMethodHandler: IpcMethodHa
         completion: @escaping (UrlProtocolCachedResponseIsValidIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let object = try readableClientsRepository.objectOrThrow(
                     ipcObjectId: arguments.selfIpcObjectId
                 )
@@ -25,8 +25,6 @@ public final class UrlProtocolCachedResponseIsValidIpcMethodHandler: IpcMethodHa
                 try object.urlProtocolCachedResponseIsValid(
                     cachedResponse: arguments.bridgedCachedUrlResponse
                 )
-                
-                return IpcVoid()
             }
         )
     }

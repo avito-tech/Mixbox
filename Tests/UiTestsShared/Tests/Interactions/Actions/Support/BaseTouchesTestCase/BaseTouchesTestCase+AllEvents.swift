@@ -1,4 +1,4 @@
-import TestsIpc
+import MixboxIpcCommon
 import MixboxFoundation
 
 // Returns tuples of UIEvent if there are exactly that many events.

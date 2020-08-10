@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         #if DEBUG
         
-        inAppServices = InAppServices(
+        inAppServices = InAppServicesImpl(
             dependencyInjection: BuiltinDependencyInjection(),
             dependencyCollectionRegisterer: InAppServicesDefaultDependencyCollectionRegisterer()
         )

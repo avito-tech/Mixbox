@@ -17,7 +17,7 @@ public final class UrlProtocolDidFailWithErrorIpcMethodHandler: IpcMethodHandler
         completion: @escaping (UrlProtocolDidFailWithErrorIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let object = try readableClientsRepository.objectOrThrow(
                     ipcObjectId: arguments.selfIpcObjectId
                 )
@@ -25,8 +25,6 @@ public final class UrlProtocolDidFailWithErrorIpcMethodHandler: IpcMethodHandler
                 try object.urlProtocolDidFailWithError(
                     error: arguments.error
                 )
-                
-                return IpcVoid()
             }
         )
     }

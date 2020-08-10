@@ -22,7 +22,8 @@ extension DependencyRegisterer {
         )
         
         return MultipleDependenciesRegistrationContinuation<T>(
-            dependencyRegisterer: self
+            dependencyRegisterer: self,
+            scope: scope
         )
     }
 }

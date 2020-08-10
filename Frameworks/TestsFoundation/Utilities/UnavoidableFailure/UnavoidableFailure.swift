@@ -19,13 +19,19 @@ public final class UnavoidableFailure {
     }
     
     public static func doOrFail<T>(
+        file: StaticString = #file,
+        line: UInt = #line,
         body: () throws -> T)
         -> T
     {
         do {
             return try body()
         } catch {
-            UnavoidableFailure.fail("\(error)")
+            UnavoidableFailure.fail(
+                "\(error)",
+                file: file,
+                line: line
+            )
         }
     }
     

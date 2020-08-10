@@ -17,7 +17,7 @@ public final class UrlProtocolDidLoadIpcMethodHandler: IpcMethodHandler {
         completion: @escaping (UrlProtocolDidLoadIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let object = try readableClientsRepository.objectOrThrow(
                     ipcObjectId: arguments.selfIpcObjectId
                 )
@@ -25,8 +25,6 @@ public final class UrlProtocolDidLoadIpcMethodHandler: IpcMethodHandler {
                 try object.urlProtocolDidLoad(
                     data: arguments.data
                 )
-                
-                return IpcVoid()
             }
         )
     }

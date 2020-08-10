@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Mirrors UIEvent (incompletely)
 public final class UiEvent: Codable {
     // Mirrors UIEvent.EventType (completely)
@@ -41,3 +43,5 @@ public final class UiEvent: Codable {
         self.allTouches = allTouches
     }
 }
+
+#endif

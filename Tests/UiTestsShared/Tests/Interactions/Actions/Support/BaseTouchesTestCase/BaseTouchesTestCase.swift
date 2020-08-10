@@ -1,19 +1,23 @@
 import MixboxFoundation
-import TestsIpc
+import MixboxIpcCommon
 
 // TODO: Test press&drag. Check `duration` argument. And all other too.
 // TODO: Test swipes. Check cancelling inertia (both on/off, search for `cancelInertia`).
 class BaseTouchesTestCase: TestCase {
-    var openableScreen: MainAppScreen<TouchesTestsViewPageObject> {
-        return pageObjects.touchesTestsView
-    }
-    
-    func open() {
-        open(screen: screen)
-    }
-    
     var screen: TouchesTestsViewPageObject {
-        return openableScreen.real
+        return pageObjects.touchesTestsView.default
+    }
+    
+    // MARK: - Lifecycle
+    
+    override func precondition() {
+        super.precondition()
+        
+        open(screen: screen).waitUntilViewIsLoaded()
+        
+        synchronousIpcClient
+            .callOrFail(method: SetUiEventHistoryTrackerEnabledIpcMethod(), arguments: true)
+            .getVoidReturnValueOrFail()
     }
     
     // MARK: - Event history

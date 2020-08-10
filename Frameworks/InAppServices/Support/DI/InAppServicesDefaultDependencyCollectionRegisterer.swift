@@ -16,6 +16,7 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         registerUtilities(di: di)
         registerIpc(di: di)
         registerEventInjection(di: di)
+        registerEventObserving(di: di)
         registerSystemSingletons(di: di)
         registerSwizzling(di: di)
         registerVisibilityCheck(di: di)
@@ -93,6 +94,11 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
                 )
             )
         }
+    }
+    
+    private func registerEventObserving(di: DependencyRegisterer) {
+        di.registerMultiple { _ in UiEventHistoryTracker() }
+            .reregister { $0 as UiEventHistoryProvider }
     }
     
     private func registerSystemSingletons(di: DependencyRegisterer) {

@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
 
 final class FadeOutView: UIView {
@@ -41,3 +43,5 @@ final class FadeOutView: UIView {
         )
     }
 }
+
+#endif

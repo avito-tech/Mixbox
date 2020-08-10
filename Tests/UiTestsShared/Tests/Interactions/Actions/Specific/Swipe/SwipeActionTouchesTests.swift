@@ -79,12 +79,6 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
         )
     }
     
-    override func precondition() {
-        super.precondition()
-        
-        open()
-    }
-    
     private func parametrizedTest___swipe___produces_expected_events(
         swipeClosure: (ElementWithUi) -> (),
         startPointOffsetFromCenter: CGVector = .zero,

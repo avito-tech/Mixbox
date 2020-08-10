@@ -5,14 +5,11 @@ import MixboxIpc
 import TestsIpc
 
 final class CustomIpcMethods {
-    private let uiEventHistoryProvider: UiEventHistoryProvider
     private let rootViewControllerManager: RootViewControllerManager
     
     init(
-        uiEventHistoryProvider: UiEventHistoryProvider,
         rootViewControllerManager: RootViewControllerManager)
     {
-        self.uiEventHistoryProvider = uiEventHistoryProvider
         self.rootViewControllerManager = rootViewControllerManager
     }
     
@@ -47,13 +44,6 @@ final class CustomIpcMethods {
         
         // For Launching tests
         registerer.register { _ in ProcessInfoIpcMethodHandler() }
-        
-        // For Actions tests
-        registerer.register { [uiEventHistoryProvider] _ in
-            GetUiEventHistoryIpcMethodHandler(
-                uiEventHistoryProvider: uiEventHistoryProvider
-            )
-        }
     }
 }
 

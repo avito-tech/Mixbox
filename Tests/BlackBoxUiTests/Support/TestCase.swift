@@ -6,6 +6,7 @@ import SBTUITestTunnel
 import MixboxIpcSbtuiClient
 import MixboxBuiltinIpc
 import MixboxIpc
+import MixboxIpcCommon
 import MixboxFoundation
 import TestsIpc
 
@@ -71,6 +72,10 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         
         lazilyInitializedIpcClient.ipcClient = launchedApplication.ipcClient
         ipcRouter = launchedApplication.ipcRouter
+        
+        synchronousIpcClient
+            .callOrFail(method: SetTouchDrawerEnabledIpcMethod(), arguments: true)
+            .getVoidReturnValueOrFail()
     }
     
     // For tests of IPC

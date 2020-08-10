@@ -6,17 +6,19 @@ import MixboxFoundation
 import MixboxDi
 import MixboxBuiltinDi
 
-// Facade for starting everything for tests, on the side of the app.
-public final class InAppServices: IpcMethodHandlerWithDependenciesRegisterer {
+public final class InAppServicesImpl: InAppServices {
     // Dependencies
     private let dependencyRegisterer: DependencyRegisterer
     private let dependencyResolver: DependencyResolver
     private let dependencyCollectionRegisterer: DependencyCollectionRegisterer
+    private let defaultUiEventObservableHolder = UiEventObservableHolder()
     
     // State
     private var router: IpcRouter?
     private var client: IpcClient?
     private var commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure] = []
+    
+    // MARK: - Init
     
     public convenience init(
         dependencyInjection: DependencyInjection,
@@ -40,13 +42,15 @@ public final class InAppServices: IpcMethodHandlerWithDependenciesRegisterer {
         
         self.commandsForAddingRoutes = [
             { [dependencyResolver] dependencies in
-                try InAppServices.registerDefaultMethods(
+                try Self.registerDefaultMethods(
                     router: dependencies.ipcRouter,
                     dependencyResolver: dependencyResolver
                 )
             }
         ]
     }
+    
+    // MARK: - IpcMethodHandlerWithDependenciesRegisterer
     
     public func register<MethodHandler: IpcMethodHandler>(closure: @escaping IpcMethodHandlerRegistrationClosure<MethodHandler>) {
         if let router = router {
@@ -74,12 +78,35 @@ public final class InAppServices: IpcMethodHandlerWithDependenciesRegisterer {
         }
     }
     
+    // MARK: - UiEventObservableSetter
+    
+    public func set(uiEventObservable: UiEventObservable) {
+        // To allow user to redefine `UiEventObservableSetter`.
+        
+        do {
+            let uiEventObservableSetter: UiEventObservableSetter = try dependencyResolver.resolve()
+            uiEventObservableSetter.set(uiEventObservable: uiEventObservable)
+        } catch {
+        }
+        
+        // To allow user to not define `UiEventObservableSetter` and this doesn't use
+        // DependencyResolver, because it would be better to not use throwing functions in this facade.
+        
+        defaultUiEventObservableHolder.set(uiEventObservable: uiEventObservable)
+    }
+    
+    // MARK: - InAppServices
+    
     public func start() -> StartedInAppServices {
         assert(self.router == nil, "InAppServices are already started")
         
         dependencyCollectionRegisterer.register(
             dependencyRegisterer: dependencyRegisterer
         )
+        
+        dependencyRegisterer.registerMultiple { [defaultUiEventObservableHolder] _ in defaultUiEventObservableHolder }
+            .reregister { $0 as UiEventObservableProvider }
+            .reregister { $0 as UiEventObservableSetter }
         
         return tryOrFail {
             let ipcStarterProvider: IpcStarterProvider = try dependencyResolver.resolve()
@@ -118,7 +145,11 @@ public final class InAppServices: IpcMethodHandlerWithDependenciesRegisterer {
             )
         }
     }
+    
+    // MARK: - Private
 
+    // TODO: Split, move to a separate class
+    // swiftlint:disable:next function_body_length
     private static func registerDefaultMethods(
         router: IpcRouter,
         dependencyResolver: DependencyResolver)
@@ -164,6 +195,34 @@ public final class InAppServices: IpcMethodHandlerWithDependenciesRegisterer {
         router.register(
             methodHandler: GetRecordedAssertionFailuresIpcMethodHandler(
                 recordedAssertionFailuresProvider: try dependencyResolver.resolve()
+            )
+        )
+        
+        router.register(
+            methodHandler: UiEventObserverFeatureToggleIpcMethodHandler(
+                method: SetTouchDrawerEnabledIpcMethod(),
+                uiEventObserverFeatureToggleValueSetter: UiEventObserverFeatureToggler(
+                    uiEventObservableProvider: try dependencyResolver.resolve(),
+                    uiEventObserver: TouchDrawer()
+                )
+            )
+        )
+        
+        let historyTrackerToggler = UiEventObserverFeatureToggler(
+            uiEventObservableProvider: try dependencyResolver.resolve(),
+            uiEventObserver: try dependencyResolver.resolve() as UiEventHistoryTracker
+        )
+        
+        router.register(
+            methodHandler: UiEventObserverFeatureToggleIpcMethodHandler(
+                method: SetUiEventHistoryTrackerEnabledIpcMethod(),
+                uiEventObserverFeatureToggleValueSetter: historyTrackerToggler
+            )
+        )
+        router.register(
+            methodHandler: GetUiEventHistoryIpcMethodHandler(
+                uiEventHistoryProvider: try dependencyResolver.resolve(),
+                uiEventObserverFeatureToggleValueGetter: historyTrackerToggler
             )
         )
     }

@@ -17,7 +17,7 @@ public final class UrlProtocolWasRedirectedToIpcMethodHandler: IpcMethodHandler 
         completion: @escaping (UrlProtocolWasRedirectedToIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let object = try readableClientsRepository.objectOrThrow(
                     ipcObjectId: arguments.selfIpcObjectId
                 )
@@ -26,8 +26,6 @@ public final class UrlProtocolWasRedirectedToIpcMethodHandler: IpcMethodHandler 
                     request: arguments.bridgedUrlRequest,
                     redirectResponse: arguments.redirectBridgedUrlResponse
                 )
-                
-                return IpcVoid()
             }
         )
     }

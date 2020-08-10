@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 // Mirrors UIKit.UITouch (incompletely)
 public final class UiTouch: Codable {
     // Mirrors UITouch.Phase (completely)
@@ -45,3 +47,5 @@ public final class UiTouch: Codable {
         self.preciseLocation = preciseLocation
     }
 }
+
+#endif

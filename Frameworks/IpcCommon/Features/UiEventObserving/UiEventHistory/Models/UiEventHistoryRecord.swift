@@ -1,3 +1,5 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 public final class UiEventHistoryRecord: Codable  {
     public let event: UiEvent
     public let date: Date
@@ -10,3 +12,5 @@ public final class UiEventHistoryRecord: Codable  {
         self.date = date
     }
 }
+
+#endif

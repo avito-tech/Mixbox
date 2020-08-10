@@ -43,12 +43,10 @@ final class OpenUrlIpcMethodHandler: IpcMethodHandler {
         completion: @escaping (OpenUrlIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 if !result {
                     throw ErrorString("Не удалось открыть диплинк '\(url)', убедитесь в его валидности")
                 }
-                
-                return IpcVoid()
             }
         )
     }

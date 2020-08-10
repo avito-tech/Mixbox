@@ -17,7 +17,7 @@ public final class UrlProtocolDidReceiveIpcMethodHandler: IpcMethodHandler {
         completion: @escaping (UrlProtocolDidReceiveIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let object = try readableClientsRepository.objectOrThrow(
                     ipcObjectId: arguments.selfIpcObjectId
                 )
@@ -26,8 +26,6 @@ public final class UrlProtocolDidReceiveIpcMethodHandler: IpcMethodHandler {
                     response: arguments.bridgedUrlResponse,
                     cacheStoragePolicy: arguments.bridgedUrlCacheStoragePolicy
                 )
-                
-                return IpcVoid()
             }
         )
     }

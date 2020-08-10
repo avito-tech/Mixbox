@@ -1,9 +1,14 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import UIKit
-import TestsIpc
+import MixboxIpcCommon
 import MixboxFoundation
 
 public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvider {
     private var uiEventHistoryRecords = [UiEventHistoryRecord]()
+    
+    public init() {
+    }
     
     // MARK: - UiEventHistoryProvider
     
@@ -17,9 +22,9 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
         )
     }
     
-    // MARK: - UiEventHistoryProvider
+    // MARK: - UiEventObserver
     
-    public func eventWasSent(event: UIEvent) {
+    public func eventWasSent(event: UIEvent, window: UIWindow) {
         do {
             let currentDate = Date()
             
@@ -143,3 +148,5 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
         }
     }
 }
+
+#endif

@@ -87,6 +87,16 @@ extension IpcThrowingFunctionResult where T == IpcVoid {
             throw error
         }
     }
+    
+    public static func void(throwingClosure: () throws -> ()) -> IpcThrowingFunctionResult {
+        do {
+            try throwingClosure()
+            
+            return .returned(IpcVoid())
+        } catch {
+            return .threw(ErrorString("\(error)"))
+        }
+    }
 }
 
 #endif

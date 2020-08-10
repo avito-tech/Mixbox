@@ -2,6 +2,7 @@ import XCTest
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
+import MixboxIpcCommon
 import MixboxFoundation
 import MixboxGray
 import TestsIpc
@@ -40,6 +41,10 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         
         let ipcRouterHolder: IpcRouterHolder = dependencies.resolve()
         ipcRouterHolder.ipcRouter = appDelegate.startedInAppServices?.router
+        
+        synchronousIpcClient
+            .callOrFail(method: SetTouchDrawerEnabledIpcMethod(), arguments: true)
+            .getVoidReturnValueOrFail()
         
         super.setUp()
     }

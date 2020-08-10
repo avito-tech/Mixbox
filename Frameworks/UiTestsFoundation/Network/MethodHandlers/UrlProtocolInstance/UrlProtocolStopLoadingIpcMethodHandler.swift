@@ -17,14 +17,12 @@ public final class UrlProtocolStopLoadingIpcMethodHandler: IpcMethodHandler {
         completion: @escaping (UrlProtocolStopLoadingIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let bridgedUrlProtocolInstance = try readableInstancesRepository.objectOrThrow(
                     ipcObjectId: arguments.selfIpcObjectId
                 )
                 
                 try bridgedUrlProtocolInstance.stopLoading()
-                
-                return IpcVoid()
             }
         )
     }

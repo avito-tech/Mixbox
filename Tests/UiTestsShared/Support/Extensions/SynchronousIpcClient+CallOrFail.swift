@@ -10,7 +10,7 @@ extension SynchronousIpcClient {
         line: UInt = #line)
         -> Method.ReturnValue
     {
-        return failOnThrow(file: file, line: line) {
+        return UnavoidableFailure.doOrFail(file: file, line: line) {
             try callOrThrow(
                 method: method,
                 arguments: arguments
@@ -26,7 +26,7 @@ extension SynchronousIpcClient {
         -> Method.ReturnValue
         where Method.Arguments == IpcVoid
     {
-        return failOnThrow(file: file, line: line) {
+        return UnavoidableFailure.doOrFail(file: file, line: line) {
             try callOrThrow(
                 method: method,
                 arguments: IpcVoid()
@@ -43,7 +43,7 @@ extension SynchronousIpcClient {
         Method.Arguments == IpcVoid,
         Method.ReturnValue == IpcVoid
     {
-        _ = failOnThrow(file: file, line: line) {
+        _ = UnavoidableFailure.doOrFail(file: file, line: line) {
             try callOrThrow(
                 method: method,
                 arguments: IpcVoid()
@@ -60,27 +60,10 @@ extension SynchronousIpcClient {
         where
         Method.ReturnValue == IpcVoid
     {
-        _ = failOnThrow(file: file, line: line) {
+        _ = UnavoidableFailure.doOrFail(file: file, line: line) {
             try callOrThrow(
                 method: method,
                 arguments: arguments
-            )
-        }
-    }
-    
-    private func failOnThrow<T>(
-        file: StaticString,
-        line: UInt,
-        body: () throws -> (T))
-        -> T
-    {
-        do {
-            return try body()
-        } catch {
-            UnavoidableFailure.fail(
-                "\(error)",
-                file: file,
-                line: line
             )
         }
     }

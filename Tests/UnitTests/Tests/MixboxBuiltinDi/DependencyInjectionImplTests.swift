@@ -25,4 +25,8 @@ final class BuiltinDependencyInjectionTests: BaseDependencyInjectionTests {
     func test___register___doesnt_cause_retain_cycle() {
         check___register___doesnt_cause_retain_cycle()
     }
+    
+    func test___reregister() {
+        check___reregister()
+    }
 }

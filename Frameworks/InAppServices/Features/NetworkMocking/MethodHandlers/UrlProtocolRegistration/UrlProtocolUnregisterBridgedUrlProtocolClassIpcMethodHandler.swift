@@ -22,7 +22,7 @@ public final class UrlProtocolUnregisterBridgedUrlProtocolClassIpcMethodHandler:
         completion: @escaping (UrlProtocolUnregisterBridgedUrlProtocolClassIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let classIpcObjectId = arguments.bridgedUrlProtocolClassIpcObjectId
                 
                 let bridgedUrlProtocolClass = try readableClassesRepository.objectOrThrow(
@@ -32,8 +32,6 @@ public final class UrlProtocolUnregisterBridgedUrlProtocolClassIpcMethodHandler:
                 bridgedUrlProtocolClassRepository.remove(
                     bridgedUrlProtocolClass: bridgedUrlProtocolClass
                 )
-                
-                return IpcVoid()
             }
         )
     }

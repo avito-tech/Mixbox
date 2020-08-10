@@ -8,7 +8,7 @@ import TestsIpc
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: TouchDrawingWindow?
+    var window: UiEventObservingWindow?
     
     #if DEBUG
     
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         #if DEBUG
         
-        inAppServices = InAppServices(
+        inAppServices = InAppServicesImpl(
             dependencyInjection: inAppServicesDependencyInjection,
             dependencyCollectionRegisterer: InAppServicesDependencyCollectionRegisterer()
         )
@@ -38,11 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?)
         -> Bool
     {
-        let uiEventHistoryTracker = UiEventHistoryTracker()
-        
-        let window = TouchDrawingWindow(
-            frame: UIScreen.main.bounds,
-            uiEventObserver: uiEventHistoryTracker
+        let window = UiEventObservingWindow(
+            frame: UIScreen.main.bounds
         )
         
         self.window = window
@@ -54,8 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
         if ProcessInfo.processInfo.environment["MIXBOX_IPC_STARTER_TYPE"] != nil {
+            inAppServices.set(uiEventObservable: window)
+            
             let customIpcMethods = CustomIpcMethods(
-                uiEventHistoryProvider: uiEventHistoryTracker,
                 rootViewControllerManager: rootViewControllerManager
             )
             

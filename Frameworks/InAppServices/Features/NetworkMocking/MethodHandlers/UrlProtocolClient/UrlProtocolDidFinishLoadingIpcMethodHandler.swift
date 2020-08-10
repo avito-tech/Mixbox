@@ -17,14 +17,12 @@ public final class UrlProtocolDidFinishLoadingIpcMethodHandler: IpcMethodHandler
         completion: @escaping (UrlProtocolDidFinishLoadingIpcMethod.ReturnValue) -> ())
     {
         completion(
-            IpcThrowingFunctionResult {
+            IpcThrowingFunctionResult.void {
                 let object = try readableClientsRepository.objectOrThrow(
                     ipcObjectId: arguments.selfIpcObjectId
                 )
                 
                 try object.urlProtocolDidFinishLoading()
-                
-                return IpcVoid()
             }
         )
     }

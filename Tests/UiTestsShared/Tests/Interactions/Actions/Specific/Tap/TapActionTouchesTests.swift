@@ -3,8 +3,6 @@ import XCTest
 final class TapActionTouchesTests: BaseTouchesTestCase {
     func test___tap___produces_expected_touches() {
         do {
-            open()
-            
             recordUiEvents {
                 screen.targetView.tap()
             }

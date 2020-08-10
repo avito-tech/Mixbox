@@ -1,14 +1,18 @@
-import TestsIpc
+import MixboxIpcCommon
 
 extension BaseTouchesTestCase {
     func getUiEventsViaIpc(body: () -> ()) -> UiEventHistory {
         let sinceDate = Date()
         
         func getEvents() -> UiEventHistory {
-            return synchronousIpcClient.callOrFail(
+            let result = synchronousIpcClient.callOrFail(
                 method: GetUiEventHistoryIpcMethod(),
-                arguments: sinceDate
+                arguments: GetUiEventHistoryIpcMethod.Arguments(
+                    sinceDate: sinceDate
+                )
             )
+            
+            return result.getReturnValueOrFail()
         }
         
         body()

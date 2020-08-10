@@ -1,4 +1,4 @@
-import TestsIpc
+import MixboxIpcCommon
 import MixboxFoundation
 import XCTest
 
