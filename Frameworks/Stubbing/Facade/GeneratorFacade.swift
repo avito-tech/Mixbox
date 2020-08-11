@@ -19,3 +19,12 @@ public protocol GeneratorFacade {
         configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
         -> T
 }
+
+extension GeneratorFacade {
+    public func stub<T>(
+        type: T.Type = T.self,
+        configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
+    {
+        stub(configure: configure)
+    }
+}

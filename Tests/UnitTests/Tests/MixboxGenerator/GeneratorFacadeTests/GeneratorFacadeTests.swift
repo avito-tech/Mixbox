@@ -73,6 +73,18 @@ final class GeneratorFacadeTests: BaseGeneratorTestCase {
         XCTAssertEqual(entity.title, "How to title a book for dummies.")
     }
     
+    func test___stub() {
+        stubConstants()
+        
+        generator.stub(type: Book.self) {
+            $0.id = 1
+        }
+        
+        let book: Book = generator.generate()
+        
+        XCTAssertEqual(book.id, 1)
+    }
+    
     func test___generate___can_generate_CaseIterable_enums() {
         // High-level check. Checks that it works
         
