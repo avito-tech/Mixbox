@@ -17,15 +17,16 @@ public final class DelegatingDependencyInjection: DependencyInjection {
     }
     
     public func register<T>(scope: Scope, type: T.Type, factory: @escaping (DependencyResolver) throws -> T) {
+        let weakDependencyResolver = WeakDependencyResolver(dependencyResolver: dependencyResolver)
+        
         dependencyRegisterer.register(
             scope: scope,
             type: type,
-            factory: { [weak self] _ in
-                guard let dependencyResolver = self?.dependencyResolver else {
-                    throw DiError("Internal error: dependencyResolver was deallocated, which is unexpected")
-                }
-                
-                return try factory(dependencyResolver)
+            factory: { _ in
+                // Here `_` (above) is a `DependencyResolver` that is inside `dependencyRegisterer`.
+                // The point of this class is to provide and ability to use different
+                // objects separately, so in this case a separate `DependencyResolver`
+                return try factory(weakDependencyResolver)
             }
         )
     }

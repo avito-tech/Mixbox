@@ -86,7 +86,7 @@ class BaseDependencyInjectionTests: TestCase {
         }
     }
     
-    func check___register___doesnt_cause_retain_cycle() {
+    func check___register___doesnt_cause_retain_cycle___when_dependency_resolver_is_passed_to_a_factory() {
         weak var weakDi: DependencyInjection?
         
         assertDoesntThrow {
@@ -102,6 +102,32 @@ class BaseDependencyInjectionTests: TestCase {
             // Little self-check of the test
             XCTAssertEqual(1, try di.resolve())
             XCTAssertNotNil(weakDi)
+        }
+        
+        XCTAssertNil(weakDi)
+    }
+    
+    func check___register___doesnt_cause_retain_cycle___when_dependency_resolver_is_passed_to_a_singleton() {
+        class DependencyResolverHolder {
+            let dependencyResolver: DependencyResolver
+            
+            init(dependencyResolver: DependencyResolver) {
+                self.dependencyResolver = dependencyResolver
+            }
+        }
+        
+        weak var weakDi: DependencyInjection?
+        
+        assertDoesntThrow {
+            let di = dependencyInjectionFactory.dependencyInjection()
+            
+            weakDi = di
+            
+            di.register(type: DependencyResolverHolder.self) { di in
+                DependencyResolverHolder(dependencyResolver: di)
+            }
+            
+            _ = try di.resolve() as DependencyResolverHolder
         }
         
         XCTAssertNil(weakDi)

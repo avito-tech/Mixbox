@@ -76,14 +76,12 @@ public final class BuiltinDependencyInjection: DependencyInjection {
         factory: @escaping (DependencyResolver) throws -> T)
         -> RegisteredDependency
     {
+        let weakDependencyResolver = WeakDependencyResolver(dependencyResolver: self)
+        
         return RegisteredDependency(
             scope: scope,
-            factory:  { [weak self] in
-                guard let dependencyResolver = self else {
-                    throw ErrorString("Internal error: dependencyContainer was deallocated, which is unexpected")
-                }
-                
-                return try factory(dependencyResolver)
+            factory:  {
+                try factory(weakDependencyResolver)
             },
             instance: nil
         )
@@ -105,14 +103,12 @@ public final class BuiltinDependencyInjection: DependencyInjection {
         type: T.Type = T.self)
         -> RegisteredDependency
     {
+        let weakDependencyResolver = WeakDependencyResolver(dependencyResolver: self)
+        
         return RegisteredDependency(
             scope: scope,
-            factory:  { [weak self] in
-                guard let dependencyResolver = self else {
-                    throw ErrorString("Internal error: dependencyContainer was deallocated, which is unexpected")
-                }
-                
-                return try dependencyResolver.resolve() as T
+            factory:  {
+                try weakDependencyResolver.resolve() as T
             },
             instance: nil
         )

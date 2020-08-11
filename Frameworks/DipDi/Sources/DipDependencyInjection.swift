@@ -14,15 +14,13 @@ public final class DipDependencyInjection: DependencyInjection {
     }
     
     public func register<T>(scope: Scope, type: T.Type, factory: @escaping (DependencyResolver) throws -> T) {
+        let weakDependencyResolver = WeakDependencyResolver(dependencyResolver: self)
+        
         dependencyContainer.register(
             scope.toDipScope(),
             type: type,
-            factory: { [weak self] in
-                guard let dependencyResolver = self else {
-                    throw ErrorString("Internal error: dependencyContainer was deallocated, which is unexpected")
-                }
-                
-                return try factory(dependencyResolver)
+            factory: {
+                try factory(weakDependencyResolver)
             }
         )
     }

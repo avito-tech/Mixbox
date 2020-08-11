@@ -22,8 +22,12 @@ final class BuiltinDependencyInjectionTests: BaseDependencyInjectionTests {
         check___resolve___respects_optionality_in_registration()
     }
     
-    func test___register___doesnt_cause_retain_cycle() {
-        check___register___doesnt_cause_retain_cycle()
+    func test___register___doesnt_cause_retain_cycle___when_dependency_resolver_is_passed_to_a_factory() {
+        check___register___doesnt_cause_retain_cycle___when_dependency_resolver_is_passed_to_a_factory()
+    }
+    
+    func test___register___doesnt_cause_retain_cycle___when_dependency_resolver_is_passed_to_a_singleton() {
+        check___register___doesnt_cause_retain_cycle___when_dependency_resolver_is_passed_to_a_singleton()
     }
     
     func test___reregister() {
