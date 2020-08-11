@@ -1,5 +1,6 @@
 import XCTest
 import MixboxGenerators
+import MixboxStubbing
 
 final class GeneratorFacadeTests: BaseGeneratorTestCase {
     private let unstubbedInt = 1234567890
@@ -53,6 +54,33 @@ final class GeneratorFacadeTests: BaseGeneratorTestCase {
         
         XCTAssertEqual(book.id, unstubbedInt)
         XCTAssertEqual(book.title, unstubbedString)
+        XCTAssertEqual(book.author.id, 2)
+        XCTAssertEqual(book.author.name, "William Shakespeare")
+    }
+    
+    func test___generate___provides_ability_to_generate_deeply_nested_objects() {
+        stubConstants()
+
+        let book: Book = generator.generate(type: Book.self) {
+            $0.pages = [
+                "stubbed string",
+                $0.generate()
+            ]
+        }
+
+        XCTAssertEqual(book.pages, ["stubbed string", unstubbedString])
+    }
+    
+    func test___generate___provides_ability_to_generate_deeply_nested_objects_by_fields() {
+        stubConstants()
+        
+        let book = generator.generate(type: Book.self) {
+            $0.author = $0.generate {
+                $0.id = 2
+                $0.name = "William Shakespeare"
+            }
+        }
+        
         XCTAssertEqual(book.author.id, 2)
         XCTAssertEqual(book.author.name, "William Shakespeare")
     }
@@ -130,11 +158,13 @@ private enum CaseIterableEnum: String, Equatable, CaseIterable, DefaultGenerator
 
 // To check how generators work with classes
 private final class Book: TitledEntity, Equatable, InitializableWithFields {
-    let id: Int
-    let author: Author
+    let id: Int // Primitive
+    let pages: [String] // Array
+    let author: Author // Class
     
     init(fields: Fields<Book>) throws {
         id = try fields.id.get()
+        pages = try fields.pages.get()
         author = try fields.author.get()
         
         super.init(
@@ -143,7 +173,7 @@ private final class Book: TitledEntity, Equatable, InitializableWithFields {
     }
     
     static func ==(lhs: Book, rhs: Book) -> Bool {
-        return lhs.id == rhs.id && lhs.title == rhs.title && lhs.author == rhs.author
+        return lhs.id == rhs.id && lhs.pages == rhs.pages && lhs.title == rhs.title && lhs.author == rhs.author
     }
 }
 

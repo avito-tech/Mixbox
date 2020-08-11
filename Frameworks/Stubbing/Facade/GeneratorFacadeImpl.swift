@@ -45,7 +45,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
     }
     
     public func stub<T>(
-        configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
     {
         stub(
             anyGenerator: anyGenerator,
@@ -60,7 +60,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
     }
     
     public func generate<T>(
-        configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
         -> T
     {
         let localDi = dependencyInjectionFactory.dependencyInjection()
@@ -96,26 +96,36 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         anyGenerator: AnyGenerator,
         dependencyRegisterer: DependencyRegisterer,
         dependencyResolver: DependencyResolver,
-        configure: @escaping (TestFailingDynamicLookupGenerator<T>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
     {
         dependencyRegisterer.register(
             type: Generator<T>.self,
-            factory: { [testFailureRecorder, byFieldsGeneratorResolver] _ in
+            factory: { [testFailureRecorder, byFieldsGeneratorResolver, testFailingGenerator] _ in
                 let dynamicLookupGeneratorFactory = DynamicLookupGeneratorFactoryImpl(
                     anyGenerator: anyGenerator,
                     byFieldsGeneratorResolver: byFieldsGeneratorResolver
                 )
                 
-                let testFailingDynamicLookupGenerator = TestFailingDynamicLookupGenerator<T>(
-                    dynamicLookupGenerator: try dynamicLookupGeneratorFactory.dynamicLookupGenerator(
-                        byFieldsGeneratorResolver: byFieldsGeneratorResolver
-                    ),
-                    testFailureRecorder: testFailureRecorder
+                let dynamicLookupGenerator: DynamicLookupGenerator<T> = try dynamicLookupGeneratorFactory.dynamicLookupGenerator(
+                    byFieldsGeneratorResolver: byFieldsGeneratorResolver
                 )
                 
-                try configure(testFailingDynamicLookupGenerator)
+                let testFailingDynamicLookupGeneratorConfigurator = TestFailingDynamicLookupGeneratorConfigurator<T>(
+                    dynamicLookupGenerator: dynamicLookupGenerator,
+                    dynamicLookupGeneratorFactory: dynamicLookupGeneratorFactory,
+                    byFieldsGeneratorResolver: byFieldsGeneratorResolver,
+                    testFailureRecorder: testFailureRecorder,
+                    testFailingGenerator: testFailingGenerator
+                )
                 
-                return testFailingDynamicLookupGenerator
+                let testFailingDynamicLookupGeneratorProvider = TestFailingDynamicLookupGeneratorProvider<T>(
+                    dynamicLookupGenerator: dynamicLookupGenerator,
+                    testFailingDynamicLookupGeneratorConfigurator: testFailingDynamicLookupGeneratorConfigurator
+                )
+                
+                try configure(testFailingDynamicLookupGeneratorConfigurator)
+                
+                return testFailingDynamicLookupGeneratorProvider.generator()
             }
         )
     }

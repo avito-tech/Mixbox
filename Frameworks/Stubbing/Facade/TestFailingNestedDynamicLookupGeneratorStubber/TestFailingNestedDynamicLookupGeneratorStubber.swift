@@ -3,27 +3,39 @@ import MixboxGenerators
 
 public final class TestFailingNestedDynamicLookupGeneratorStubber<GeneratedType, FieldType: GeneratableByFields> {
     private let nestedDynamicLookupGeneratorStubber: NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType>
+    private let dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory
+    private let byFieldsGeneratorResolver: ByFieldsGeneratorResolver
     private let testFailureRecorder: TestFailureRecorder
+    private let testFailingGenerator: TestFailingGenerator
     
     public init(
         nestedDynamicLookupGeneratorStubber: NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType>,
-        testFailureRecorder: TestFailureRecorder)
+        dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory,
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver,
+        testFailureRecorder: TestFailureRecorder,
+        testFailingGenerator: TestFailingGenerator)
     {
         self.nestedDynamicLookupGeneratorStubber = nestedDynamicLookupGeneratorStubber
+        self.dynamicLookupGeneratorFactory = dynamicLookupGeneratorFactory
+        self.byFieldsGeneratorResolver = byFieldsGeneratorResolver
         self.testFailureRecorder = testFailureRecorder
+        self.testFailingGenerator = testFailingGenerator
     }
     
     public func stub(
-        configure: @escaping (TestFailingDynamicLookupGenerator<FieldType>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<FieldType>) throws -> ())
     {
         do {
-            try nestedDynamicLookupGeneratorStubber.stub { [testFailureRecorder] dynamicLookupGenerator in
-                let testFailingDynamicLookupGenerator = TestFailingDynamicLookupGenerator(
+            try nestedDynamicLookupGeneratorStubber.stub { [testFailureRecorder, dynamicLookupGeneratorFactory, byFieldsGeneratorResolver, testFailingGenerator] dynamicLookupGenerator in
+                let testFailingDynamicLookupGeneratorConfigurator = TestFailingDynamicLookupGeneratorConfigurator<FieldType>(
                     dynamicLookupGenerator: dynamicLookupGenerator,
-                    testFailureRecorder: testFailureRecorder
+                    dynamicLookupGeneratorFactory: dynamicLookupGeneratorFactory,
+                    byFieldsGeneratorResolver: byFieldsGeneratorResolver,
+                    testFailureRecorder: testFailureRecorder,
+                    testFailingGenerator: testFailingGenerator
                 )
                 
-                try configure(testFailingDynamicLookupGenerator)
+                try configure(testFailingDynamicLookupGeneratorConfigurator)
             }
         } catch {
             testFailureRecorder.recordFailure(
