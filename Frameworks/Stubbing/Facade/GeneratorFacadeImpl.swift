@@ -44,7 +44,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         )
     }
     
-    public func stub<T>(
+    public func stub<T: RepresentableByFields>(
         configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
     {
         stub(
@@ -59,7 +59,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         return testFailingGenerator.generate()
     }
     
-    public func generate<T>(
+    public func generate<T: RepresentableByFields>(
         configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
         -> T
     {
@@ -92,7 +92,7 @@ public final class GeneratorFacadeImpl: GeneratorFacade {
         return testFailingGenerator.generate()
     }
     
-    private func stub<T>(
+    private func stub<T: RepresentableByFields>(
         anyGenerator: AnyGenerator,
         dependencyRegisterer: DependencyRegisterer,
         dependencyResolver: DependencyResolver,

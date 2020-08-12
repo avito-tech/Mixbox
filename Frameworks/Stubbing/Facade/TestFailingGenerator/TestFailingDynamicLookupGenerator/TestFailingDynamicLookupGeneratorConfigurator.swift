@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 import MixboxGenerators
 
 @dynamicMemberLookup
-public class TestFailingDynamicLookupGeneratorConfigurator<GeneratedType> {
+public class TestFailingDynamicLookupGeneratorConfigurator<GeneratedType: RepresentableByFields> {
     private let dynamicLookupGenerator: DynamicLookupGenerator<GeneratedType>
     private let dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory
     private let byFieldsGeneratorResolver: ByFieldsGeneratorResolver
@@ -89,7 +89,7 @@ public class TestFailingDynamicLookupGeneratorConfigurator<GeneratedType> {
     //     $0.generate { $0.value = 43 }
     // ]
     // ```
-    public func generate<T>(
+    public func generate<T: RepresentableByFields>(
         type: T.Type = T.self,
         configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
         -> T

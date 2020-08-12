@@ -1,6 +1,6 @@
 import MixboxGenerators
 
-public final class TestFailingDynamicLookupGeneratorProvider<GeneratedType>  {
+public final class TestFailingDynamicLookupGeneratorProvider<GeneratedType: RepresentableByFields>  {
     private let dynamicLookupGenerator: DynamicLookupGenerator<GeneratedType>
     private let testFailingDynamicLookupGeneratorConfigurator: TestFailingDynamicLookupGeneratorConfigurator<GeneratedType>
     

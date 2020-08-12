@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public final class NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType> {
+public final class NestedDynamicLookupGeneratorStubber<GeneratedType: RepresentableByFields, FieldType> {
     private let dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory
     private let generatorByKeyPath: GeneratorByKeyPath<GeneratedType>
     private let keyPath: KeyPath<GeneratedType, FieldType>
@@ -29,6 +29,9 @@ public final class NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType>
         return try fields[dynamicMember: keyPath].get()
     }
     
+}
+
+extension NestedDynamicLookupGeneratorStubber where FieldType: RepresentableByFields {
     public func stub(
         configure: @escaping (DynamicLookupGenerator<FieldType>) throws -> ())
         throws

@@ -10,7 +10,7 @@ import MixboxDi
 //
 // See: `InitializableWithFields`
 //
-public protocol GeneratableByFields: TypeErasedGeneratableByFields, DefaultGeneratorProvider {
+public protocol GeneratableByFields: TypeErasedGeneratableByFields, RepresentableByFields, DefaultGeneratorProvider {
     static func byFieldsGenerator() -> ByFieldsGenerator<Self>
 }
 

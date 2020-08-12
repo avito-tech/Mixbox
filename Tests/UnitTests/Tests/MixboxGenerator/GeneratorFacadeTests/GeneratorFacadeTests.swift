@@ -178,7 +178,7 @@ private final class Book: TitledEntity, Equatable, InitializableWithFields {
 }
 
 // To check how generators work with non-final classes
-private class TitledEntity {
+private class TitledEntity: RepresentableByFields {
     let title: String
     
     init(title: String) {

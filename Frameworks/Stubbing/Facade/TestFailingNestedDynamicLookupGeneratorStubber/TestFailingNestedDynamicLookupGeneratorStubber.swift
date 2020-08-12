@@ -1,7 +1,7 @@
 import MixboxTestsFoundation
 import MixboxGenerators
 
-public final class TestFailingNestedDynamicLookupGeneratorStubber<GeneratedType, FieldType: GeneratableByFields> {
+public final class TestFailingNestedDynamicLookupGeneratorStubber<GeneratedType: RepresentableByFields, FieldType: GeneratableByFields> {
     private let nestedDynamicLookupGeneratorStubber: NestedDynamicLookupGeneratorStubber<GeneratedType, FieldType>
     private let dynamicLookupGeneratorFactory: DynamicLookupGeneratorFactory
     private let byFieldsGeneratorResolver: ByFieldsGeneratorResolver
