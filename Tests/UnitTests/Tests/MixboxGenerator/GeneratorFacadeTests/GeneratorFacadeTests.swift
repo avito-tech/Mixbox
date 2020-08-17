@@ -167,8 +167,8 @@ private final class Book: TitledEntity, Equatable, InitializableWithFields {
         pages = try fields.pages.get()
         author = try fields.author.get()
         
-        super.init(
-            title: try fields.title.get()
+        try super.init(
+            fields: fields
         )
     }
     
@@ -181,8 +181,14 @@ private final class Book: TitledEntity, Equatable, InitializableWithFields {
 private class TitledEntity: RepresentableByFields {
     let title: String
     
+    // Normal constructor.
     init(title: String) {
         self.title = title
+    }
+    
+    // Constructor to reuse in classes that are `InitializableWithFields`.
+    init<T: TitledEntity>(fields: Fields<T>) throws {
+        title = try fields.title.get()
     }
 }
 
