@@ -3,92 +3,34 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxFoundation
 import MixboxInAppServices
+import MixboxDi
 
-// TODO: Share code between black-box and gray-box.
-public final class GrayPageObjectDependenciesFactory: PageObjectDependenciesFactory {
-    public let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
-    
-    private let testFailureRecorder: TestFailureRecorder
-    private let ipcClient: SynchronousIpcClient
-    private let stepLogger: StepLogger
-    private let pollingConfiguration: PollingConfiguration
-    private let elementFinder: ElementFinder
-    private let screenshotTaker: ScreenshotTaker
-    private let orderedWindowsProvider: OrderedWindowsProvider
-    private let waiter: RunLoopSpinningWaiter
-    private let performanceLogger: PerformanceLogger
-    private let grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory
-    
+public final class GrayPageObjectDependenciesFactory: BasePageObjectDependenciesFactory {
     public init(
-        testFailureRecorder: TestFailureRecorder,
-        ipcClient: SynchronousIpcClient,
-        stepLogger: StepLogger,
-        pollingConfiguration: PollingConfiguration,
-        elementFinder: ElementFinder,
-        screenshotTaker: ScreenshotTaker,
-        orderedWindowsProvider: OrderedWindowsProvider,
-        waiter: RunLoopSpinningWaiter,
-        performanceLogger: PerformanceLogger,
-        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
-        snapshotsComparatorFactory: SnapshotsComparatorFactory,
-        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
-        applicationWindowsProvider: ApplicationWindowsProvider,
-        multiTouchEventFactory: MultiTouchEventFactory,
-        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider,
-        keyboardEventInjector: SynchronousKeyboardEventInjector)
+        dependencyResolver: DependencyResolver,
+        dependencyInjectionFactory: DependencyInjectionFactory)
     {
-        self.testFailureRecorder = testFailureRecorder
-        self.ipcClient = ipcClient
-        self.stepLogger = stepLogger
-        self.pollingConfiguration = pollingConfiguration
-        self.elementFinder = elementFinder
-        self.screenshotTaker = screenshotTaker
-        self.orderedWindowsProvider = orderedWindowsProvider
-        self.waiter = waiter
-        self.performanceLogger = performanceLogger
-        self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
-        
-        grayBoxTestsDependenciesFactory = GrayBoxTestsDependenciesFactoryImpl(
-            testFailureRecorder: testFailureRecorder,
-            elementVisibilityChecker: ElementVisibilityCheckerImpl(
-                ipcClient: ipcClient
-            ),
-            scrollingHintsProvider: ScrollingHintsProviderImpl(
-                ipcClient: ipcClient
-            ),
-            keyboardEventInjector: keyboardEventInjector,
-            stepLogger: stepLogger,
-            pollingConfiguration: pollingConfiguration,
-            elementFinder: elementFinder,
-            screenshotTaker: screenshotTaker,
-            orderedWindowsProvider: orderedWindowsProvider,
-            waiter: waiter,
-            performanceLogger: performanceLogger,
-            snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
-            snapshotsComparatorFactory: snapshotsComparatorFactory,
-            applicationQuiescenceWaiter: applicationQuiescenceWaiter,
-            applicationWindowsProvider: applicationWindowsProvider,
-            multiTouchEventFactory: multiTouchEventFactory
+        super.init(
+            dependencyResolver: dependencyResolver,
+            dependencyInjectionFactory: dependencyInjectionFactory,
+            registerSpecificDependencies: { di in
+                di.register(type: PageObjectElementCoreFactory.self) { di in
+                    PageObjectElementCoreFactoryImpl(
+                        testFailureRecorder: try di.resolve(),
+                        screenshotAttachmentsMaker: try di.resolve(),
+                        stepLogger: try di.resolve(),
+                        dateProvider: try di.resolve(),
+                        elementInteractionDependenciesFactory: { elementSettings in
+                            GrayElementInteractionDependenciesFactory(
+                                elementSettings: elementSettings,
+                                dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
+                                dependencyInjectionFactory: dependencyInjectionFactory
+                            )
+                        },
+                        performanceLogger: try di.resolve()
+                    )
+                }
+            }
         )
-    }
-    
-    public func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory {
-        return PageObjectElementCoreFactoryImpl(
-            testFailureRecorder: grayBoxTestsDependenciesFactory.testFailureRecorder,
-            screenshotAttachmentsMaker: grayBoxTestsDependenciesFactory.screenshotAttachmentsMaker,
-            stepLogger: grayBoxTestsDependenciesFactory.stepLogger,
-            dateProvider: grayBoxTestsDependenciesFactory.dateProvider,
-            elementInteractionDependenciesFactory: { [grayBoxTestsDependenciesFactory] elementSettings in
-                GrayElementInteractionDependenciesFactory(
-                    elementSettings: elementSettings,
-                    grayBoxTestsDependenciesFactory: grayBoxTestsDependenciesFactory
-                )
-            },
-            performanceLogger: performanceLogger
-        )
-    }
-    
-    public func matcherBuilder() -> ElementMatcherBuilder {
-        return grayBoxTestsDependenciesFactory.elementMatcherBuilder
     }
 }

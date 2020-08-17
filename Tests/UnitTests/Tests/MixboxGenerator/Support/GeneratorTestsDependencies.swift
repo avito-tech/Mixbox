@@ -38,7 +38,7 @@ class GeneratorTestsDependencies: DependencyCollectionRegisterer {
         }
         di.register(type: GeneratorFacade.self) { di in
             GeneratorFacadeImpl(
-                parentDi: di,
+                parentDi: WeakDependencyResolver(dependencyResolver: di),
                 testFailureRecorder: try di.resolve(),
                 byFieldsGeneratorResolver: try di.resolve(),
                 dependencyInjectionFactory: BuiltinDependencyInjectionFactory()

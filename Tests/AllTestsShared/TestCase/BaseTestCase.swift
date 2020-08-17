@@ -6,11 +6,11 @@ import MixboxUiKit
 import TestsIpc
 
 class BaseTestCase: XCTestCase, FailureGatherer {
-    private(set) lazy var dependencies: TestCaseDependenciesResolver = self.reuseState {
+    private(set) lazy var dependencies: TestFailingDependencyResolver = self.reuseState {
         makeDependencies()
     }
     
-    func makeDependencies() -> TestCaseDependenciesResolver {
+    func makeDependencies() -> TestFailingDependencyResolver {
         UnavoidableFailure.fail("\(#function) should be implemented in a subclass of \(BaseTestCase.self)")
     }
     

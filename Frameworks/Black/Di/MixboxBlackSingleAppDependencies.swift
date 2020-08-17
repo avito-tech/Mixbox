@@ -37,22 +37,11 @@ public final class MixboxBlackSingleAppDependencies: DependencyCollectionRegiste
         }
         di.register(type: PageObjectDependenciesFactory.self) { di in
             XcuiPageObjectDependenciesFactory(
-                testFailureRecorder: try di.resolve(),
-                ipcClient:  try di.resolve(),
-                stepLogger: try di.resolve(),
-                pollingConfiguration: .reduceWorkload,
+                dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
+                dependencyInjectionFactory: try di.resolve(),
+                ipcClient: try di.resolve(),
                 elementFinder: try di.resolve(),
-                applicationProvider: try di.resolve(),
-                eventGenerator: try di.resolve(),
-                screenshotTaker: try di.resolve(),
-                pasteboard: try di.resolve(),
-                runLoopSpinningWaiter: try di.resolve(),
-                performanceLogger: try di.resolve(),
-                snapshotsDifferenceAttachmentGenerator: try di.resolve(),
-                snapshotsComparatorFactory: try di.resolve(),
-                applicationQuiescenceWaiter: try di.resolve(),
-                elementSettingsDefaultsProvider: try di.resolve(),
-                keyboardEventInjector: try di.resolve()
+                applicationProvider: try di.resolve()
             )
         }
     }

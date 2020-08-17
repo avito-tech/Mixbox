@@ -1,7 +1,7 @@
 import MixboxFoundation
 
 public final class ElementFactoryImpl: ElementFactory {
-    private let pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory
+    private let pageObjectDependenciesFactory: PageObjectDependenciesFactory
     private let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
     
     private let scrollMode: ScrollMode
@@ -11,7 +11,7 @@ public final class ElementFactoryImpl: ElementFactory {
     private let pixelPerfectVisibilityCheck: Bool
     
     public init(
-        pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
+        pageObjectDependenciesFactory: PageObjectDependenciesFactory,
         elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider,
         scrollMode: ScrollMode,
         interactionTimeout: TimeInterval,
@@ -19,7 +19,7 @@ public final class ElementFactoryImpl: ElementFactory {
         percentageOfVisibleArea: CGFloat,
         pixelPerfectVisibilityCheck: Bool)
     {
-        self.pageObjectElementDependenciesFactory = pageObjectElementDependenciesFactory
+        self.pageObjectDependenciesFactory = pageObjectDependenciesFactory
         self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
         self.scrollMode = scrollMode
         self.interactionTimeout = interactionTimeout
@@ -29,13 +29,13 @@ public final class ElementFactoryImpl: ElementFactory {
     }
     
     public convenience init(
-        pageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory,
-        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider)
+        pageObjectDependenciesFactory: PageObjectDependenciesFactory)
     {
+        let elementSettingsDefaultsProvider = pageObjectDependenciesFactory.elementSettingsDefaultsProvider
         let elementSettingsDefaults = elementSettingsDefaultsProvider.elementSettingsDefaults()
         
         self.init(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
             elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
             scrollMode: elementSettingsDefaults.scrollMode,
             interactionTimeout: elementSettingsDefaults.interactionTimeout,
@@ -65,7 +65,7 @@ public final class ElementFactoryImpl: ElementFactory {
     
     public func with(scrollMode: ScrollMode?) -> ElementFactory {
         return ElementFactoryImpl(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
             elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
             scrollMode: scrollMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().scrollMode,
             interactionTimeout: interactionTimeout,
@@ -77,7 +77,7 @@ public final class ElementFactoryImpl: ElementFactory {
     
     public func with(interactionTimeout: TimeInterval?) -> ElementFactory {
         return ElementFactoryImpl(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
             elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionTimeout,
@@ -89,7 +89,7 @@ public final class ElementFactoryImpl: ElementFactory {
     
     public func with(interactionMode: InteractionMode?) -> ElementFactory {
         return ElementFactoryImpl(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
             elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
@@ -101,7 +101,7 @@ public final class ElementFactoryImpl: ElementFactory {
     
     public func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory {
         return ElementFactoryImpl(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
             elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
@@ -113,7 +113,7 @@ public final class ElementFactoryImpl: ElementFactory {
     
     public func with(pixelPerfectVisibilityCheck: Bool?) -> ElementFactory {
         return ElementFactoryImpl(
-            pageObjectElementDependenciesFactory: pageObjectElementDependenciesFactory,
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
             elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
             scrollMode: scrollMode,
             interactionTimeout: interactionTimeout,
@@ -131,8 +131,8 @@ public final class ElementFactoryImpl: ElementFactory {
         matcherBuilderClosure: ElementMatcherBuilderClosure)
         -> PageObjectElementCore
     {
-        let pageObjectElementCoreFactory = pageObjectElementDependenciesFactory.pageObjectElementCoreFactory()
-        let elementMatcherBuilder = pageObjectElementDependenciesFactory.matcherBulder()
+        let pageObjectElementCoreFactory = pageObjectDependenciesFactory.pageObjectElementCoreFactory
+        let elementMatcherBuilder = pageObjectDependenciesFactory.matcherBulder
         
         return pageObjectElementCoreFactory.pageObjectElementCore(
             settings: ElementSettings(

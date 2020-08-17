@@ -4,7 +4,6 @@ import MixboxStubbing
 import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
-import Dip
 
 class BaseGeneratorTestCase: TestCase {
     private let staticDi = BuiltinDependencyInjection()

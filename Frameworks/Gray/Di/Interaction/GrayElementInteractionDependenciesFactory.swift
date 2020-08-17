@@ -2,208 +2,43 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxFoundation
 import MixboxInAppServices
+import MixboxDi
 
-// TODO: Share code between black-box and gray-box.
-public final class GrayElementInteractionDependenciesFactory: ElementInteractionDependenciesFactory {
-    private let elementSettings: ElementSettings
-    private let grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory
-    
-    init(
+public final class GrayElementInteractionDependenciesFactory: BaseElementInteractionDependenciesFactory {
+    override public init(
         elementSettings: ElementSettings,
-        grayBoxTestsDependenciesFactory: GrayBoxTestsDependenciesFactory)
+        dependencyResolver: DependencyResolver,
+        dependencyInjectionFactory: DependencyInjectionFactory)
     {
-        self.elementSettings = elementSettings
-        self.grayBoxTestsDependenciesFactory = grayBoxTestsDependenciesFactory
+        super.init(
+            elementSettings: elementSettings,
+            dependencyResolver: dependencyResolver,
+            dependencyInjectionFactory: dependencyInjectionFactory
+        )
     }
     
-    // swiftlint:disable:next function_body_length
-    public func elementInteractionDependencies(
-        interaction: ElementInteraction,
-        fileLine: FileLine,
-        elementInteractionWithDependenciesPerformer: ElementInteractionWithDependenciesPerformer,
-        retriableTimedInteractionState: RetriableTimedInteractionState,
-        elementSettings: ElementSettings)
-        -> ElementInteractionDependencies
-    {
-        let elementInfo = HumanReadableInteractionDescriptionBuilderSource(
-            elementName: elementSettings.name
-        )
-        
-        let interactionFailureResultFactory = actionInteractionFailureResultFactory(
-            fileLine: fileLine
-        )
-        
-        let interactionRetrier = self.interactionRetrier(
-            elementSettings: elementSettings,
-            retriableTimedInteractionState: retriableTimedInteractionState
-        )
-        
-        let elementMatcherBuilder = grayBoxTestsDependenciesFactory.elementMatcherBuilder
-        
-        return ElementInteractionDependenciesImpl(
-            snapshotResolver: SnapshotForInteractionResolverImpl(
-                retriableTimedInteractionState: retriableTimedInteractionState,
-                interactionRetrier: interactionRetrier,
-                performerOfSpecificImplementationOfInteractionForVisibleElement: performerOfSpecificImplementationOfInteractionForVisibleElement(
-                    elementSettings: elementSettings,
-                    interactionFailureResultFactory: interactionFailureResultFactory
-                ),
-                interactionFailureResultFactory: interactionFailureResultFactory,
-                elementResolverWithScrollingAndRetries: elementResolverWithScrollingAndRetries(
-                    elementSettings: elementSettings
+    override public func registerSpecificDependencies(di: DependencyRegisterer, fileLine: FileLine) {
+        di.register(type: ElementHierarchyDescriptionProvider.self) { di in
+            GrayElementHierarchyDescriptionProvider(
+                viewHierarchyProvider: ViewHierarchyProviderImpl(
+                    applicationWindowsProvider: try di.resolve(),
+                    floatValuesForSr5346Patcher: NoopFloatValuesForSr5346Patcher()
                 )
-            ),
-            textTyper: GrayTextTyper(),
-            menuItemProvider: GrayMenuItemProvider(
-                elementMatcherBuilder: elementMatcherBuilder,
-                elementFinder: grayBoxTestsDependenciesFactory.elementFinder,
-                elementSimpleGesturesProvider: grayBoxTestsDependenciesFactory.elementSimpleGesturesProvider,
-                runLoopSpinnerFactory: grayBoxTestsDependenciesFactory.runLoopSpinnerFactory
-            ),
-            keyboardEventInjector: grayBoxTestsDependenciesFactory.keyboardEventInjector,
-            pasteboard: UikitPasteboard(uiPasteboard: .general),
-            interactionPerformer: NestedInteractionPerformerImpl(
-                elementInteractionDependenciesFactory: self,
-                elementInteractionWithDependenciesPerformer: elementInteractionWithDependenciesPerformer,
-                retriableTimedInteractionState: retriableTimedInteractionState,
-                elementSettings: elementSettings,
-                fileLine: fileLine,
-                performanceLogger: grayBoxTestsDependenciesFactory.performanceLogger
-            ),
-            elementSimpleGesturesProvider: grayBoxTestsDependenciesFactory.elementSimpleGesturesProvider,
-            eventGenerator:grayBoxTestsDependenciesFactory.eventGenerator,
-            interactionRetrier: interactionRetrier,
-            interactionResultMaker: InteractionResultMakerImpl(
-                elementHierarchyDescriptionProvider: elementHierarchyDescriptionProvider(),
-                screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker,
-                extendedStackTraceProvider: extendedStackTraceProvider(),
-                fileLine: fileLine
-            ),
-            elementMatcherBuilder: elementMatcherBuilder,
-            elementInfo: elementInfo,
-            retriableTimedInteractionState: retriableTimedInteractionState,
-            performanceLogger: grayBoxTestsDependenciesFactory.performanceLogger,
-            applicationQuiescenceWaiter: grayBoxTestsDependenciesFactory.applicationQuiescenceWaiter
-        )
-    }
-    
-    // MARK: - Private
-    
-    private func elementHierarchyDescriptionProvider() -> ElementHierarchyDescriptionProvider {
-        return GrayElementHierarchyDescriptionProvider(
-            viewHierarchyProvider: ViewHierarchyProviderImpl(
-                applicationWindowsProvider: grayBoxTestsDependenciesFactory.applicationWindowsProvider,
-                floatValuesForSr5346Patcher: NoopFloatValuesForSr5346Patcher()
             )
-        )
-    }
-    
-    private func performerOfSpecificImplementationOfInteractionForVisibleElement(
-        elementSettings: ElementSettings,
-        interactionFailureResultFactory: InteractionFailureResultFactory)
-        -> PerformerOfSpecificImplementationOfInteractionForVisibleElement
-    {
-        return PerformerOfSpecificImplementationOfInteractionForVisibleElementImpl(
-            elementVisibilityChecker: grayBoxTestsDependenciesFactory.elementVisibilityChecker,
-            elementSettings: elementSettings,
-            interactionFailureResultFactory: interactionFailureResultFactory,
-            scroller: scroller(
-                elementSettings: elementSettings
+        }
+        di.register(type: TextTyper.self) { _ in
+            GrayTextTyper()
+        }
+        di.register(type: MenuItemProvider.self) { di in
+            GrayMenuItemProvider(
+                elementMatcherBuilder: try di.resolve(),
+                elementFinder: try di.resolve(),
+                elementSimpleGesturesProvider: try di.resolve(),
+                runLoopSpinnerFactory: try di.resolve()
             )
-        )
-    }
-    
-    private func elementResolverWithScrollingAndRetries(
-        elementSettings: ElementSettings)
-        -> ElementResolverWithScrollingAndRetries
-    {
-        return ElementResolverWithScrollingAndRetriesImpl(
-            elementResolver: elementResolver(
-                elementSettings: elementSettings
-            ),
-            elementSettings: elementSettings,
-            applicationFrameProvider: grayBoxTestsDependenciesFactory.applicationFrameProvider,
-            eventGenerator: grayBoxTestsDependenciesFactory.eventGenerator,
-            retrier: grayBoxTestsDependenciesFactory.retrier
-        )
-    }
-    
-    private func interactionRetrier(
-        elementSettings: ElementSettings,
-        retriableTimedInteractionState: RetriableTimedInteractionState)
-        -> InteractionRetrier
-    {
-        return InteractionRetrierImpl(
-            dateProvider: dateProvider(),
-            timeout: elementSettings.interactionTimeout,
-            retrier: grayBoxTestsDependenciesFactory.retrier,
-            retriableTimedInteractionState: retriableTimedInteractionState
-        )
-    }
-    private func actionInteractionFailureResultFactory(
-        fileLine: FileLine)
-        -> InteractionFailureResultFactory
-    {
-        return interactionFailureResultFactory(
-            messagePrefix: "Действие неуспешно",
-            fileLine: fileLine
-        )
-    }
-    
-    private func interactionFailureResultFactory(
-        messagePrefix: String,
-        fileLine: FileLine)
-        -> InteractionFailureResultFactory
-    {
-        return InteractionFailureResultFactoryImpl(
-            applicationStateProvider: GrayApplicationStateProvider(),
-            messagePrefix: messagePrefix,
-            interactionResultMaker: InteractionResultMakerImpl(
-                elementHierarchyDescriptionProvider: elementHierarchyDescriptionProvider(),
-                screenshotTaker: grayBoxTestsDependenciesFactory.screenshotTaker,
-                extendedStackTraceProvider: extendedStackTraceProvider(),
-                fileLine: fileLine
-            )
-        )
-    }
-    
-    private func elementResolver(
-        elementSettings: ElementSettings)
-        -> ElementResolver
-    {
-        return WaitingForQuiescenceElementResolver(
-            elementResolver: ElementResolverImpl(
-                elementFinder: grayBoxTestsDependenciesFactory.elementFinder,
-                elementSettings: elementSettings
-            ),
-            applicationQuiescenceWaiter: grayBoxTestsDependenciesFactory.applicationQuiescenceWaiter
-        )
-    }
-    
-    private func scroller(
-        elementSettings: ElementSettings)
-        -> Scroller
-    {
-        return ScrollerImpl(
-            scrollingHintsProvider: grayBoxTestsDependenciesFactory.scrollingHintsProvider,
-            elementVisibilityChecker: grayBoxTestsDependenciesFactory.elementVisibilityChecker,
-            elementResolver: elementResolver(
-                elementSettings: elementSettings
-            ),
-            applicationFrameProvider: grayBoxTestsDependenciesFactory.applicationFrameProvider,
-            eventGenerator: grayBoxTestsDependenciesFactory.eventGenerator,
-            elementSettings: elementSettings
-        )
-    }
-    
-    private func dateProvider() -> DateProvider {
-        return SystemClockDateProvider()
-    }
-    
-    private func extendedStackTraceProvider() -> ExtendedStackTraceProvider {
-        return ExtendedStackTraceProviderImpl(
-            stackTraceProvider: StackTraceProviderImpl(),
-            extendedStackTraceEntryFromCallStackSymbolsConverter: ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
-        )
+        }
+        di.register(type: Pasteboard.self) { _ in
+            UikitPasteboard(uiPasteboard: .general)
+        }
     }
 }

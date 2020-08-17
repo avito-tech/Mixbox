@@ -2,7 +2,6 @@ import MixboxGenerators
 import MixboxDi
 import MixboxBuiltinDi
 import MixboxTestsFoundation
-import Dip
 import XCTest
 
 class DynamicLookupGeneratorTests: BaseGeneratorTestCase {

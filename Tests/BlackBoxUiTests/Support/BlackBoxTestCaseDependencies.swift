@@ -76,38 +76,12 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
         
         di.register(type: Apps.self) { di in
             let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder, _ ipcClient: IpcClient?) throws -> XcuiPageObjectDependenciesFactory = { applicationProvider, elementFinder, ipcClient in
-                let synchronousIpcClientFactory: SynchronousIpcClientFactory = try di.resolve()
-                
-                let pasteboard: Pasteboard = ipcClient.map { IpcPasteboard(ipcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: $0)) }
-                    ?? UikitPasteboard(uiPasteboard: .general)
-                
-                let ipcClient = ipcClient ?? AlwaysFailingIpcClient()
-                let synchronousIpcClient = synchronousIpcClientFactory.synchronousIpcClient(ipcClient: ipcClient)
-                
-                return XcuiPageObjectDependenciesFactory(
-                    testFailureRecorder: try di.resolve(),
-                    ipcClient: synchronousIpcClient,
-                    stepLogger: try di.resolve(),
-                    pollingConfiguration: try di.resolve(),
+                XcuiPageObjectDependenciesFactory(
+                    dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
+                    dependencyInjectionFactory: try di.resolve(),
+                    ipcClient: ipcClient,
                     elementFinder: elementFinder,
-                    applicationProvider: applicationProvider,
-                    eventGenerator: XcuiEventGenerator(
-                        applicationProvider: applicationProvider
-                    ),
-                    screenshotTaker: try di.resolve(),
-                    pasteboard: pasteboard,
-                    runLoopSpinningWaiter: try di.resolve(),
-                    performanceLogger: try di.resolve(),
-                    snapshotsDifferenceAttachmentGenerator: try di.resolve(),
-                    snapshotsComparatorFactory: try di.resolve(),
-                    applicationQuiescenceWaiter: XcuiApplicationQuiescenceWaiter(
-                        applicationProvider: applicationProvider
-                    ),
-                    elementSettingsDefaultsProvider: try di.resolve(),
-                    keyboardEventInjector: SynchronousKeyboardEventInjectorImpl(
-                        keyboardEventInjector: IpcKeyboardEventInjector(ipcClient: ipcClient),
-                        runLoopSpinningWaiter: try di.resolve()
-                    )
+                    applicationProvider: applicationProvider
                 )
             }
             

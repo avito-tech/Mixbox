@@ -12,8 +12,8 @@ public final class DelegatingDependencyInjection: DependencyInjection {
         self.dependencyRegisterer = dependencyRegisterer
     }
     
-    public func resolve<T>() throws -> T {
-        return try dependencyResolver.resolve()
+    public func resolve<T>(nestedDependencyResolver: DependencyResolver) throws -> T {
+        return try dependencyResolver.resolve(nestedDependencyResolver: nestedDependencyResolver)
     }
     
     public func register<T>(scope: Scope, type: T.Type, factory: @escaping (DependencyResolver) throws -> T) {

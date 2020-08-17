@@ -16,6 +16,9 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
     public func register(dependencyRegisterer di: DependencyRegisterer) {
         mixboxUiTestsFoundationDependencies.register(dependencyRegisterer: di)
         
+        di.register(type: ApplicationStateProvider.self) { _ in
+            GrayApplicationStateProvider()
+        }
         di.register(type: ApplicationFrameProvider.self) { _ in
             GrayApplicationFrameProvider()
         }
@@ -69,22 +72,8 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         }
         di.register(type: PageObjectDependenciesFactory.self) { di in
             GrayPageObjectDependenciesFactory(
-                testFailureRecorder: try di.resolve(),
-                ipcClient: try di.resolve(),
-                stepLogger: try di.resolve(),
-                pollingConfiguration: try di.resolve(),
-                elementFinder: try di.resolve(),
-                screenshotTaker: try di.resolve(),
-                orderedWindowsProvider: try di.resolve(),
-                waiter: try di.resolve(),
-                performanceLogger: try di.resolve(),
-                snapshotsDifferenceAttachmentGenerator: try di.resolve(),
-                snapshotsComparatorFactory: try di.resolve(),
-                applicationQuiescenceWaiter: try di.resolve(),
-                applicationWindowsProvider: try di.resolve(),
-                multiTouchEventFactory: try di.resolve(),
-                elementSettingsDefaultsProvider: try di.resolve(),
-                keyboardEventInjector: try di.resolve()
+                dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
+                dependencyInjectionFactory: try di.resolve()
             )
         }
         di.register(type: MultiTouchEventFactory.self) { _ in
@@ -93,12 +82,12 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 fingerTouchEventFactory: FingerTouchEventFactoryImpl()
             )
         }
-        
-        // TODO: Use it.
         di.register(type: EventGenerator.self) { di in
-            GrayEventGenerator(
+            let pathGestureUtilsFactory: PathGestureUtilsFactory = try di.resolve()
+            
+            return GrayEventGenerator(
                 touchPerformer: try di.resolve(),
-                pathGestureUtils: PathGestureUtilsFactoryImpl().pathGestureUtils()
+                pathGestureUtils: pathGestureUtilsFactory.pathGestureUtils()
             )
         }
         di.register(type: TouchPerformer.self) { di in
@@ -121,7 +110,11 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
         di.register(type: CurrentAbsoluteTimeProvider.self) { _ in
             MachCurrentAbsoluteTimeProvider()
         }
-        // END OF TODO
+        di.register(type: ElementSimpleGesturesProvider.self) { di in
+            GrayElementSimpleGesturesProvider(
+                touchPerformer: try di.resolve()
+            )
+        }
         di.register(type: UrlProtocolStubAdder.self) { di in
             let compoundBridgedUrlProtocolClass = CompoundBridgedUrlProtocolClass()
             
@@ -151,6 +144,9 @@ public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
                 waiter: try di.resolve(),
                 bundleResourcePathProvider: try di.resolve()
             )
+        }
+        di.register(type: PathGestureUtilsFactory.self) { _ in
+            PathGestureUtilsFactoryImpl()
         }
     }
 }

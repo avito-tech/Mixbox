@@ -4,12 +4,12 @@ import MixboxDi
 
 final class RegisteredDependency {
     let scope: Scope
-    let factory: () throws -> Any
+    let factory: (DependencyResolver) throws -> Any
     let instance: Any?
     
     init(
         scope: Scope,
-        factory: @escaping () throws -> Any,
+        factory: @escaping (DependencyResolver) throws -> Any,
         instance: Any?)
     {
         self.scope = scope

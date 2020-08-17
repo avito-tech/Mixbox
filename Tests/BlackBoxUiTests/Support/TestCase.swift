@@ -5,6 +5,7 @@ import MixboxBlack
 import SBTUITestTunnel
 import MixboxIpcSbtuiClient
 import MixboxBuiltinIpc
+import MixboxBuiltinDi
 import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
@@ -39,11 +40,12 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         return dependencies.resolve()
     }
     
-    override func makeDependencies() -> TestCaseDependenciesResolver {
+    override func makeDependencies() -> TestFailingDependencyResolver {
         TestCaseDi.make(
             dependencyCollectionRegisterer: BlackBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
             ),
+            dependencyInjectionFactory: BuiltinDependencyInjectionFactory(),
             performanceLogger: Singletons.performanceLogger
         )
     }

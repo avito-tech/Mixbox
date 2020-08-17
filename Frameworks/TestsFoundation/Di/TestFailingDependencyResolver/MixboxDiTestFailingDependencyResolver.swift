@@ -1,7 +1,7 @@
 import MixboxDi
 import MixboxFoundation
 
-public class MixboxDiTestCaseDependenciesResolver: TestCaseDependenciesResolver {
+public class MixboxDiTestFailingDependencyResolver: TestFailingDependencyResolver {
     private let dependencyResolver: DependencyResolver
     
     public init(

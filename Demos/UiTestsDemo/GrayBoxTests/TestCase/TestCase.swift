@@ -2,14 +2,16 @@ import UiTestsSharedCode
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpc
+import MixboxBuiltinDi
 @testable import App
 
 class TestCase: BaseTestCase {
-    override func makeDependencies() -> TestCaseDependenciesResolver {
+    override func makeDependencies() -> TestFailingDependencyResolver {
         TestCaseDi.make(
             dependencyCollectionRegisterer: GrayBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
-            )
+            ),
+            dependencyInjectionFactory: BuiltinDependencyInjectionFactory()
         )
     }
     

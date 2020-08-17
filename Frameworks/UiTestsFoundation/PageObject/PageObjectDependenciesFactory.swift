@@ -1,31 +1,12 @@
-// TODO: Remove
+import MixboxTestsFoundation
+
 public protocol PageObjectDependenciesFactory: class {
-    func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory
-    func matcherBuilder() -> ElementMatcherBuilder
-    var elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider { get }
+    var di: TestFailingDependencyResolver { get }
 }
-
-public extension PageObjectDependenciesFactory {
-    func pageObjectElementDependenciesFactory() -> PageObjectElementDependenciesFactory {
-        return PageObjectDependenciesFactoryToPageObjectElementDependenciesFactory(
-            pageObjectDependenciesFactory: self
-        )
-    }
-}
-
-// TODO: Remove
-final class PageObjectDependenciesFactoryToPageObjectElementDependenciesFactory: PageObjectElementDependenciesFactory {
-    private let pageObjectDependenciesFactory: PageObjectDependenciesFactory
-    
-    init(pageObjectDependenciesFactory: PageObjectDependenciesFactory) {
-        self.pageObjectDependenciesFactory = pageObjectDependenciesFactory
-    }
-    
-    func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory {
-        return pageObjectDependenciesFactory.pageObjectElementCoreFactory()
-    }
-    
-    func matcherBulder() -> ElementMatcherBuilder {
-        return pageObjectDependenciesFactory.matcherBuilder()
-    }
+ 
+extension PageObjectDependenciesFactory {
+    var pageObjectElementCoreFactory: PageObjectElementCoreFactory { di.resolve() }
+    var matcherBuilder: ElementMatcherBuilder { di.resolve() }
+    var elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider { di.resolve() }
+    var matcherBulder: ElementMatcherBuilder { di.resolve() }
 }

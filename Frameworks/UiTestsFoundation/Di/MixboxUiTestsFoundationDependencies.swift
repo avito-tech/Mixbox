@@ -15,6 +15,7 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
         ]
     }
     
+    // swiftlint:disable:next function_body_length
     public func register(dependencyRegisterer di: DependencyRegisterer) {
         nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
@@ -69,6 +70,25 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
         di.register(type: EnvironmentProvider.self) { _ in
             ProcessInfoEnvironmentProvider(
                 processInfo: ProcessInfo.processInfo
+            )
+        }
+        di.register(type: ElementMatcherBuilder.self) { di in
+            ElementMatcherBuilder(
+                screenshotTaker: try di.resolve(),
+                snapshotsDifferenceAttachmentGenerator: try di.resolve(),
+                snapshotsComparatorFactory: try di.resolve()
+            )
+        }
+        di.register(type: Retrier.self) { di in
+            RetrierImpl(
+                pollingConfiguration: try di.resolve(),
+                waiter: try di.resolve()
+            )
+        }
+        di.register(type: ScreenshotAttachmentsMaker.self) { di in
+            ScreenshotAttachmentsMakerImpl(
+                imageHashCalculator: DHashV0ImageHashCalculator(),
+                screenshotTaker: try di.resolve()
             )
         }
     }

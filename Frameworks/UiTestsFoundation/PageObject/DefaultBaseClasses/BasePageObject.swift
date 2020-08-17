@@ -34,8 +34,7 @@ open class BasePageObject: PageObject, ElementFactory {
     
     public init(pageObjectDependenciesFactory: PageObjectDependenciesFactory) {
         self.elementFactory = ElementFactoryImpl(
-            pageObjectElementDependenciesFactory: pageObjectDependenciesFactory.pageObjectElementDependenciesFactory(),
-            elementSettingsDefaultsProvider: pageObjectDependenciesFactory.elementSettingsDefaultsProvider
+            pageObjectDependenciesFactory: pageObjectDependenciesFactory
         )
     }
     

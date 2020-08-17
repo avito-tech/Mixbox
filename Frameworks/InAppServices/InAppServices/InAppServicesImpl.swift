@@ -81,18 +81,16 @@ public final class InAppServicesImpl: InAppServices {
     // MARK: - UiEventObservableSetter
     
     public func set(uiEventObservable: UiEventObservable) {
-        // To allow user to redefine `UiEventObservableSetter`.
-        
         do {
+            // To allow user to redefine `UiEventObservableSetter`.
             let uiEventObservableSetter: UiEventObservableSetter = try dependencyResolver.resolve()
             uiEventObservableSetter.set(uiEventObservable: uiEventObservable)
         } catch {
+            // To allow user to not define `UiEventObservableSetter` and this doesn't use
+            // DependencyResolver, because it would be better to not use throwing functions in this facade.
+            
+            defaultUiEventObservableHolder.set(uiEventObservable: uiEventObservable)
         }
-        
-        // To allow user to not define `UiEventObservableSetter` and this doesn't use
-        // DependencyResolver, because it would be better to not use throwing functions in this facade.
-        
-        defaultUiEventObservableHolder.set(uiEventObservable: uiEventObservable)
     }
     
     // MARK: - InAppServices

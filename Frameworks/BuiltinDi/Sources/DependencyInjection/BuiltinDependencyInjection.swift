@@ -14,7 +14,7 @@ public final class BuiltinDependencyInjection: DependencyInjection {
     // For example, if something is resolved slowly the lock will be locked.
     // Alternative is to release lock before calling `factory()`, but this will be very
     // slow for the aforementioned case of accessing `DependencyInjection` primarily from same thread.
-    public func resolve<T>() throws -> T {
+    public func resolve<T>(nestedDependencyResolver: DependencyResolver) throws -> T {
         let instance: Any = try lock { () -> Any in
             let type = T.self
             let hashableType = HashableType(type: type)
@@ -25,18 +25,22 @@ public final class BuiltinDependencyInjection: DependencyInjection {
                     if let instance = registeredDependency.instance {
                         return instance
                     } else {
-                        let instance = try registeredDependency.factory()
-                        
-                        dependencies[hashableType] = RegisteredDependency(
-                            scope: registeredDependency.scope,
-                            factory: registeredDependency.factory,
-                            instance: instance
-                        )
-                        
-                        return instance
+                        do {
+                            let instance = try registeredDependency.factory(nestedDependencyResolver)
+                            
+                            dependencies[hashableType] = RegisteredDependency(
+                                scope: registeredDependency.scope,
+                                factory: registeredDependency.factory,
+                                instance: instance
+                            )
+                            
+                            return instance
+                        } catch {
+                            throw ErrorString("Failed to resolve \(T.self): \(error)")
+                        }
                     }
                 case .unique:
-                    return try registeredDependency.factory()
+                    return try registeredDependency.factory(nestedDependencyResolver)
                 }
             } else {
                 throw ErrorString("\(T.self) was not registered in DI")
@@ -76,12 +80,10 @@ public final class BuiltinDependencyInjection: DependencyInjection {
         factory: @escaping (DependencyResolver) throws -> T)
         -> RegisteredDependency
     {
-        let weakDependencyResolver = WeakDependencyResolver(dependencyResolver: self)
-        
         return RegisteredDependency(
             scope: scope,
-            factory:  {
-                try factory(weakDependencyResolver)
+            factory: { dependencyResolver in
+                try factory(dependencyResolver)
             },
             instance: nil
         )
@@ -103,12 +105,10 @@ public final class BuiltinDependencyInjection: DependencyInjection {
         type: T.Type = T.self)
         -> RegisteredDependency
     {
-        let weakDependencyResolver = WeakDependencyResolver(dependencyResolver: self)
-        
         return RegisteredDependency(
             scope: scope,
-            factory:  {
-                try weakDependencyResolver.resolve() as T
+            factory: { dependencyResolver in
+                try dependencyResolver.resolve() as T
             },
             instance: nil
         )

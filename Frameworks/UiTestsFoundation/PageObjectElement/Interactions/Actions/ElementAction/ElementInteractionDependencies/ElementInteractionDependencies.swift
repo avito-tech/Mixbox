@@ -2,23 +2,24 @@ import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 
-// Isolates Actions of testing technology (XCTest vs GrayBox).
-// Contains technology dependent
-// TODO: Proper DI with MixboxDi
 public protocol ElementInteractionDependencies: class {
-    var retriableTimedInteractionState: RetriableTimedInteractionState { get }
-    var elementInfo: HumanReadableInteractionDescriptionBuilderSource { get }
-    var interactionPerformer: NestedInteractionPerformer { get }
-    var snapshotResolver: SnapshotForInteractionResolver { get }
-    var elementSimpleGesturesProvider: ElementSimpleGesturesProvider { get }
-    var textTyper: TextTyper { get }
-    var keyboardEventInjector: SynchronousKeyboardEventInjector { get }
-    var pasteboard: Pasteboard { get }
-    var menuItemProvider: MenuItemProvider { get }
-    var eventGenerator: EventGenerator { get }
-    var interactionRetrier: InteractionRetrier { get }
-    var interactionResultMaker: InteractionResultMaker { get }
-    var elementMatcherBuilder: ElementMatcherBuilder { get }
-    var performanceLogger: PerformanceLogger { get }
-    var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { get }
+    var di: TestFailingDependencyResolver { get }
+}
+
+extension ElementInteractionDependencies {
+    var retriableTimedInteractionState: RetriableTimedInteractionState { di.resolve() }
+    var elementInfo: HumanReadableInteractionDescriptionBuilderSource { di.resolve() }
+    var interactionPerformer: NestedInteractionPerformer { di.resolve() }
+    var snapshotResolver: SnapshotForInteractionResolver { di.resolve() }
+    var elementSimpleGesturesProvider: ElementSimpleGesturesProvider { di.resolve() }
+    var textTyper: TextTyper { di.resolve() }
+    var keyboardEventInjector: SynchronousKeyboardEventInjector { di.resolve() }
+    var pasteboard: Pasteboard { di.resolve() }
+    var menuItemProvider: MenuItemProvider { di.resolve() }
+    var eventGenerator: EventGenerator { di.resolve() }
+    var interactionRetrier: InteractionRetrier { di.resolve() }
+    var interactionResultMaker: InteractionResultMaker { di.resolve() }
+    var elementMatcherBuilder: ElementMatcherBuilder { di.resolve() }
+    var performanceLogger: PerformanceLogger { di.resolve() }
+    var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { di.resolve() }
 }

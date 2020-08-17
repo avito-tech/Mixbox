@@ -5,6 +5,7 @@ import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
 import MixboxGray
+import MixboxBuiltinDi
 import TestsIpc
 @testable import TestedApp
 
@@ -18,17 +19,18 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         )
     }()
     
-    override func makeDependencies() -> TestCaseDependenciesResolver {
+    override func makeDependencies() -> TestFailingDependencyResolver {
         TestCaseDi.make(
             dependencyCollectionRegisterer: GrayBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
             ),
+            dependencyInjectionFactory: BuiltinDependencyInjectionFactory(),
             performanceLogger: Singletons.performanceLogger
         )
     }
     
     override func setUp() {
-        // TODO: Move to DI (when Dip will be used for DI).
+        // TODO: Move to DI.
         
         let appDelegate = self.appDelegate
         

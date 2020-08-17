@@ -1,105 +1,95 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxIpc
+import MixboxIpcCommon
 import MixboxFoundation
+import MixboxDi
 
-public final class XcuiPageObjectDependenciesFactory: PageObjectDependenciesFactory {
-    private let testFailureRecorder: TestFailureRecorder
-    private let ipcClient: SynchronousIpcClient
-    private let stepLogger: StepLogger
-    private let pollingConfiguration: PollingConfiguration
-    private let elementFinder: ElementFinder
-    private let applicationProvider: ApplicationProvider
-    private let eventGenerator: EventGenerator
-    private let screenshotTaker: ScreenshotTaker
-    private let pasteboard: Pasteboard
-    private let runLoopSpinningWaiter: RunLoopSpinningWaiter
-    private let performanceLogger: PerformanceLogger
-    private let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
-    private let snapshotsComparatorFactory: SnapshotsComparatorFactory
-    private let xcuiBasedTestsDependenciesFactory: XcuiBasedTestsDependenciesFactory
-    public let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
-    
+public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependenciesFactory {
+    // swiftlint:disable:next function_body_length
     public init(
-        testFailureRecorder: TestFailureRecorder,
-        ipcClient: SynchronousIpcClient,
-        stepLogger: StepLogger,
-        pollingConfiguration: PollingConfiguration,
+        dependencyResolver: DependencyResolver,
+        dependencyInjectionFactory: DependencyInjectionFactory,
+        ipcClient: IpcClient?,
         elementFinder: ElementFinder,
-        applicationProvider: ApplicationProvider,
-        eventGenerator: EventGenerator,
-        screenshotTaker: ScreenshotTaker,
-        pasteboard: Pasteboard,
-        runLoopSpinningWaiter: RunLoopSpinningWaiter,
-        performanceLogger: PerformanceLogger,
-        snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
-        snapshotsComparatorFactory: SnapshotsComparatorFactory,
-        applicationQuiescenceWaiter: ApplicationQuiescenceWaiter,
-        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider,
-        keyboardEventInjector: SynchronousKeyboardEventInjector)
+        applicationProvider: ApplicationProvider)
     {
-        self.testFailureRecorder = testFailureRecorder
-        self.ipcClient = ipcClient
-        self.stepLogger = stepLogger
-        self.pollingConfiguration = pollingConfiguration
-        self.elementFinder = elementFinder
-        self.applicationProvider = applicationProvider
-        self.eventGenerator = eventGenerator
-        self.screenshotTaker = screenshotTaker
-        self.pasteboard = pasteboard
-        self.runLoopSpinningWaiter = runLoopSpinningWaiter
-        self.performanceLogger = performanceLogger
-        self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
-        self.snapshotsComparatorFactory = snapshotsComparatorFactory
-        self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
-        
-        xcuiBasedTestsDependenciesFactory = XcuiBasedTestsDependenciesFactoryImpl(
-            testFailureRecorder: testFailureRecorder,
-            elementVisibilityChecker: ElementVisibilityCheckerImpl(
-                ipcClient: ipcClient
-            ),
-            scrollingHintsProvider: ScrollingHintsProviderImpl(
-                ipcClient: ipcClient
-            ),
-            keyboardEventInjector: keyboardEventInjector,
-            stepLogger: stepLogger,
-            pollingConfiguration: pollingConfiguration,
-            elementFinder: elementFinder,
-            applicationProvider: applicationProvider,
-            applicationCoordinatesProvider: ApplicationCoordinatesProviderImpl(
-                applicationProvider: applicationProvider,
-                applicationFrameProvider: XcuiApplicationFrameProvider(
-                    applicationProvider: applicationProvider
-                )
-            ),
-            eventGenerator: eventGenerator,
-            screenshotTaker: screenshotTaker,
-            pasteboard: pasteboard,
-            runLoopSpinningWaiter:runLoopSpinningWaiter,
-            performanceLogger: performanceLogger,
-            snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator,
-            snapshotsComparatorFactory: snapshotsComparatorFactory,
-            applicationQuiescenceWaiter: applicationQuiescenceWaiter
+        super.init(
+            dependencyResolver: dependencyResolver,
+            dependencyInjectionFactory: dependencyInjectionFactory,
+            registerSpecificDependencies: { di in
+                di.register(type: PageObjectElementCoreFactory.self) { di in
+                    PageObjectElementCoreFactoryImpl(
+                        testFailureRecorder: try di.resolve(),
+                        screenshotAttachmentsMaker: try di.resolve(),
+                        stepLogger: try di.resolve(),
+                        dateProvider: try di.resolve(),
+                        elementInteractionDependenciesFactory: { elementSettings in
+                            XcuiElementInteractionDependenciesFactory(
+                                elementSettings: elementSettings,
+                                dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
+                                dependencyInjectionFactory: dependencyInjectionFactory
+                            )
+                        },
+                        performanceLogger: try di.resolve()
+                    )
+                }
+                di.register(type: ElementFinder.self) { _ in
+                    elementFinder
+                }
+                di.register(type: ApplicationProvider.self) { _ in
+                    applicationProvider
+                }
+                di.register(type: ApplicationQuiescenceWaiter.self) { di in
+                    XcuiApplicationQuiescenceWaiter(
+                        applicationProvider: try di.resolve()
+                    )
+                }
+                di.register(type: KeyboardEventInjector.self) { di in
+                    IpcKeyboardEventInjector(
+                        ipcClient: try di.resolve()
+                    )
+                }
+                di.register(type: SynchronousKeyboardEventInjector.self) { di in
+                    SynchronousKeyboardEventInjectorImpl(
+                        keyboardEventInjector: try di.resolve(),
+                        runLoopSpinningWaiter: try di.resolve()
+                    )
+                }
+                di.register(type: SynchronousIpcClient.self) { di in
+                    let synchronousIpcClientFactory:  SynchronousIpcClientFactory = try di.resolve()
+                
+                    return synchronousIpcClientFactory.synchronousIpcClient(ipcClient: try di.resolve())
+                }
+                di.register(type: IpcClient.self) { _ in
+                    ipcClient ?? AlwaysFailingIpcClient()
+                }
+                di.register(type: EventGenerator.self) { di in
+                    XcuiEventGenerator(
+                        applicationProvider: try di.resolve()
+                    )
+                }
+                di.register(type: Pasteboard.self) { di in
+                    let synchronousIpcClientFactory:  SynchronousIpcClientFactory = try di.resolve()
+                    
+                    let ipcPasteboard = ipcClient.map {
+                        IpcPasteboard(ipcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: $0))
+                    }
+                    
+                    return ipcPasteboard ?? UikitPasteboard(uiPasteboard: .general)
+                }
+                di.register(type: ApplicationCoordinatesProvider.self) { di in
+                    ApplicationCoordinatesProviderImpl(
+                        applicationProvider: try di.resolve(),
+                        applicationFrameProvider: try di.resolve()
+                    )
+                }
+                di.register(type: ApplicationFrameProvider.self) { di in
+                    XcuiApplicationFrameProvider(
+                        applicationProvider: try di.resolve()
+                    )
+                }
+            }
         )
-    }
-    
-    public func pageObjectElementCoreFactory() -> PageObjectElementCoreFactory {
-        return PageObjectElementCoreFactoryImpl(
-            testFailureRecorder: xcuiBasedTestsDependenciesFactory.testFailureRecorder,
-            screenshotAttachmentsMaker: xcuiBasedTestsDependenciesFactory.screenshotAttachmentsMaker,
-            stepLogger: xcuiBasedTestsDependenciesFactory.stepLogger,
-            dateProvider: xcuiBasedTestsDependenciesFactory.dateProvider,
-            elementInteractionDependenciesFactory: { [xcuiBasedTestsDependenciesFactory] elementSettings in
-                XcuiElementInteractionDependenciesFactory(
-                    elementSettings: elementSettings,
-                    xcuiBasedTestsDependenciesFactory: xcuiBasedTestsDependenciesFactory
-                )
-            },
-            performanceLogger: performanceLogger
-        )
-    }
-    
-    public func matcherBuilder() -> ElementMatcherBuilder {
-        return xcuiBasedTestsDependenciesFactory.elementMatcherBuilder
     }
 }

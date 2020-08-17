@@ -7,9 +7,9 @@ open class BaseTestCase: XCTestCase {
        return dependencies.resolve()
     }
     
-    public private(set) lazy var dependencies: TestCaseDependenciesResolver = makeDependencies()
+    public private(set) lazy var dependencies: TestFailingDependencyResolver = makeDependencies()
     
-    open func makeDependencies() -> TestCaseDependenciesResolver {
+    open func makeDependencies() -> TestFailingDependencyResolver {
         UnavoidableFailure.fail("You should override makeDependencies() in your test case class")
     }
 }

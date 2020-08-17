@@ -3,7 +3,6 @@ PODS:
   - Cuckoo (1.3.2):
     - Cuckoo/Swift (= 1.3.2)
   - Cuckoo/Swift (1.3.2)
-  - Dip (7.0.1)
   - GCDWebServer (3.5.3):
     - GCDWebServer/Core (= 3.5.3)
   - GCDWebServer/Core (3.5.3)
@@ -19,10 +18,6 @@ PODS:
     - GCDWebServer
     - MixboxIpc
   - MixboxDi (0.2.3)
-  - MixboxDipDi (0.2.3):
-    - Dip
-    - MixboxDi
-    - MixboxFoundation
   - MixboxFakeSettingsAppMain (0.2.3)
   - MixboxFoundation (0.2.3)
   - MixboxGenerators (0.2.3):
@@ -92,7 +87,6 @@ DEPENDENCIES:
   - MixboxBuiltinDi (from `..`)
   - MixboxBuiltinIpc (from `..`)
   - MixboxDi (from `..`)
-  - MixboxDipDi (from `..`)
   - MixboxFakeSettingsAppMain (from `..`)
   - MixboxFoundation (from `..`)
   - MixboxGenerators (from `..`)
@@ -116,7 +110,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CocoaImageHashing
-    - Dip
     - GCDWebServer
     - SBTUITestTunnel
     - SQLite.swift
@@ -135,8 +128,6 @@ EXTERNAL SOURCES:
   MixboxBuiltinIpc:
     :path: ".."
   MixboxDi:
-    :path: ".."
-  MixboxDipDi:
     :path: ".."
   MixboxFakeSettingsAppMain:
     :path: ".."
@@ -179,14 +170,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaImageHashing: 2c8efd6dd60f9030cd54086b34ffc48e927821c3
   Cuckoo: 8879d643f37ac77651935d22cc8c5467ac230627
-  Dip: 79509d5dc4f648e10e922ed79c608a7761c52b13
   GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
   MixboxBlack: 7f1c9cf6b1a99e17dd4df72b92828dc9a03d58e0
   MixboxBuiltinDi: ab3bb8a16601673c202ad540e76a4d7b14a22352
   MixboxBuiltinIpc: 26880327fbb22e9f6e96a13b26ef7015749bf946
   MixboxDi: eca7043111a8aff6ab2fe571ad0644b21da0f8e6
-  MixboxDipDi: 8f1b7356ae889f19bbf119cb5c067a64cf25de8a
   MixboxFakeSettingsAppMain: cb03a5515009c7b774c1f36dc459e6503b2b7d7b
   MixboxFoundation: adbfd517f145b40403bd43699181f487d33758ed
   MixboxGenerators: 808f72daab0ccfda3c41cc8990bff8b3aec82a6a
