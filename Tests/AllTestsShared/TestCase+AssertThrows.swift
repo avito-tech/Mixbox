@@ -1,7 +1,12 @@
 import XCTest
 
 extension TestCase {
-    func assertThrows(error expectedError: String, file: StaticString = #file, line: UInt = #line, body: () throws -> ()) {
+    func assertThrows(
+        error expectedError: String? = nil,
+        file: StaticString = #file,
+        line: UInt = #line,
+        body: () throws -> ())
+    {
         var actualError: String?
         
         do {
@@ -11,13 +16,17 @@ extension TestCase {
         }
         
         if let actualError = actualError {
-            XCTAssertEqual(
-                actualError,
-                expectedError,
-                "Code was expected to throw error with message:\n\(expectedError)\n\nBut it threw:\n\(actualError)",
-                file: file,
-                line: line
-            )
+            if let expectedError = expectedError {
+                XCTAssertEqual(
+                    actualError,
+                    expectedError,
+                    "Code was expected to throw error with message:\n\(expectedError)\n\nBut it threw:\n\(actualError)",
+                    file: file,
+                    line: line
+                )
+            } else {
+                // Check passed. Matching error message is not required.
+            }
         } else {
             XCTFail(
                 "Code was expected to throw error, but it didn't throw",
