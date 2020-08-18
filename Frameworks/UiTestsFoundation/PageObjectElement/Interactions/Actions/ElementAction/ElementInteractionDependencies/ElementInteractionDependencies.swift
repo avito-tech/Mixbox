@@ -7,19 +7,19 @@ public protocol ElementInteractionDependencies: class {
 }
 
 extension ElementInteractionDependencies {
-    var retriableTimedInteractionState: RetriableTimedInteractionState { di.resolve() }
-    var elementInfo: HumanReadableInteractionDescriptionBuilderSource { di.resolve() }
-    var interactionPerformer: NestedInteractionPerformer { di.resolve() }
-    var snapshotResolver: SnapshotForInteractionResolver { di.resolve() }
-    var elementSimpleGesturesProvider: ElementSimpleGesturesProvider { di.resolve() }
-    var textTyper: TextTyper { di.resolve() }
-    var keyboardEventInjector: SynchronousKeyboardEventInjector { di.resolve() }
-    var pasteboard: Pasteboard { di.resolve() }
-    var menuItemProvider: MenuItemProvider { di.resolve() }
-    var eventGenerator: EventGenerator { di.resolve() }
-    var interactionRetrier: InteractionRetrier { di.resolve() }
-    var interactionResultMaker: InteractionResultMaker { di.resolve() }
-    var elementMatcherBuilder: ElementMatcherBuilder { di.resolve() }
-    var performanceLogger: PerformanceLogger { di.resolve() }
-    var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { di.resolve() }
+    public var retriableTimedInteractionState: RetriableTimedInteractionState { di.resolve() }
+    public var elementInfo: HumanReadableInteractionDescriptionBuilderSource { di.resolve() }
+    public var interactionPerformer: NestedInteractionPerformer { di.resolve() }
+    public var snapshotResolver: SnapshotForInteractionResolver { di.resolve() }
+    public var elementSimpleGesturesProvider: ElementSimpleGesturesProvider { di.resolve() }
+    public var textTyper: TextTyper { di.resolve() }
+    public var keyboardEventInjector: SynchronousKeyboardEventInjector { di.resolve() }
+    public var pasteboard: Pasteboard { di.resolve() }
+    public var menuItemProvider: MenuItemProvider { di.resolve() }
+    public var eventGenerator: EventGenerator { di.resolve() }
+    public var interactionRetrier: InteractionRetrier { di.resolve() }
+    public var interactionResultMaker: InteractionResultMaker { di.resolve() }
+    public var elementMatcherBuilder: ElementMatcherBuilder { di.resolve() }
+    public var performanceLogger: PerformanceLogger { di.resolve() }
+    public var applicationQuiescenceWaiter: ApplicationQuiescenceWaiter { di.resolve() }
 }

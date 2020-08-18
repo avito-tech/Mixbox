@@ -5,8 +5,8 @@ public protocol PageObjectDependenciesFactory: class {
 }
  
 extension PageObjectDependenciesFactory {
-    var pageObjectElementCoreFactory: PageObjectElementCoreFactory { di.resolve() }
-    var matcherBuilder: ElementMatcherBuilder { di.resolve() }
-    var elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider { di.resolve() }
-    var matcherBulder: ElementMatcherBuilder { di.resolve() }
+    public var pageObjectElementCoreFactory: PageObjectElementCoreFactory { di.resolve() }
+    public var matcherBuilder: ElementMatcherBuilder { di.resolve() }
+    public var elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider { di.resolve() }
+    public var matcherBulder: ElementMatcherBuilder { di.resolve() }
 }
