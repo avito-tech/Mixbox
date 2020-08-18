@@ -2,6 +2,7 @@ import XCTest
 import MixboxGenerators
 import MixboxStubbing
 
+// swiftlint:disable multiline_arguments
 final class GeneratorFacadeTests: BaseGeneratorTestCase {
     private let unstubbedInt = 1234567890
     private let unstubbedString = "1234567890"
@@ -140,6 +141,74 @@ final class GeneratorFacadeTests: BaseGeneratorTestCase {
             CaseIterableEnum.allCases[1]
         )
     }
+    
+    func test___generate___can_generate_enums_with_associated_values() {
+        stubConstants()
+        
+        func assert(randomInts: UInt64..., expectedValue: CaseGeneratableEnumWithAssociatedValues) {
+            mocks.register(type: RandomNumberProvider.self) { _ in
+                SequenceRandomNumberProvider(randomInts)
+            }
+            
+            XCTAssertEqual(
+                generator.generate() as CaseGeneratableEnumWithAssociatedValues,
+                expectedValue
+            )
+        }
+        
+        let unstubbedBook = Book(
+            id: unstubbedInt,
+            pages: [],
+            author: Author(
+                id: unstubbedInt,
+                name: unstubbedString
+            ),
+            title: unstubbedString
+        )
+        
+        // High-level check. Checks that it works. It shouldn't fail test.
+        
+        _ = generator.generate() as CaseGeneratableEnumWithAssociatedValues
+        
+        // Low-level check. Relies on implementation.
+        
+        assert(
+            randomInts: 0,
+            expectedValue: .case_0_no_associated_value
+        )
+        
+        assert(
+            randomInts: 1,
+            expectedValue: .case_1_primitive(unstubbedInt)
+        )
+        
+        assert(
+            randomInts: 2, 1,
+            expectedValue: .case_2_nesting_same_type(.case_1_primitive(unstubbedInt))
+        )
+        
+        assert(
+            randomInts: 3,
+            expectedValue: .case_3_nesting_class(unstubbedBook)
+        )
+        
+        assert(
+            randomInts: 4,
+            expectedValue: .case_4_nesting_multiple_values(unstubbedBook, unstubbedBook)
+        )
+    }
+    
+    func test___generate___fails_test_if_CaseGeneratable_DefaultGeneratorProvider_returns_empty_allCasesGenerators() {
+        assertFails {
+            _ = generator.generate() as CaseGeneratableEnumWithoutCases
+        }
+    }
+    
+    private func setRandom(_ values: UInt64...) {
+        mocks.register(type: RandomNumberProvider.self) { _ in
+            SequenceRandomNumberProvider(values)
+        }
+    }
 
     private func stubConstants() {
         mocks.register(type: Generator<Int>.self) { [unstubbedInt] _ in
@@ -149,6 +218,43 @@ final class GeneratorFacadeTests: BaseGeneratorTestCase {
             ConstantGenerator(unstubbedString)
         }
     }
+}
+
+private indirect enum CaseGeneratableEnumWithAssociatedValues: Equatable, CaseGeneratable, DefaultGeneratorProvider {
+    case case_0_no_associated_value
+    case case_1_primitive(Int)
+    case case_2_nesting_same_type(CaseGeneratableEnumWithAssociatedValues)
+    case case_3_nesting_class(Book)
+    case case_4_nesting_multiple_values(Book, Book)
+    
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.case_0_no_associated_value, .case_0_no_associated_value):
+            return true
+        case let (.case_1_primitive(lhs), .case_1_primitive(rhs)):
+            return lhs == rhs
+        case let (.case_2_nesting_same_type(lhs), .case_2_nesting_same_type(rhs)):
+            return lhs == rhs
+        case let (.case_3_nesting_class(lhs), .case_3_nesting_class(rhs)):
+            return lhs == rhs
+        case let (.case_4_nesting_multiple_values(lhs), .case_4_nesting_multiple_values(rhs)):
+            return lhs.0 == rhs.0 && lhs.1 == rhs.1
+        default:
+            return false
+        }
+    }
+    
+    static let allCasesGenerators: AllCasesGenerators<Self> = [
+        { _ in .case_0_no_associated_value },
+        { .case_1_primitive(try $0.generate()) },
+        { .case_2_nesting_same_type(try $0.generate()) },
+        { .case_3_nesting_class(try $0.generate()) },
+        { .case_4_nesting_multiple_values(try $0.generate(), try $0.generate()) }
+    ]
+}
+
+private enum CaseGeneratableEnumWithoutCases: Equatable, CaseGeneratable, DefaultGeneratorProvider {
+    static let allCasesGenerators: AllCasesGenerators<Self> = []
 }
 
 private enum CaseIterableEnum: String, Equatable, CaseIterable, DefaultGeneratorProvider {
@@ -162,6 +268,21 @@ private final class Book: TitledEntity, Equatable, InitializableWithFields {
     let pages: [String] // Array
     let author: Author // Class
     
+    // Example of an ordinary constructor. Is not required in a real application for generators to work.
+    init(
+        id: Int,
+        pages: [String],
+        author: Author,
+        title: String)
+    {
+        self.id = id
+        self.pages = pages
+        self.author = author
+        
+        super.init(title: title)
+    }
+    
+    // `InitializableWithFields`
     init(fields: Fields<Book>) throws {
         id = try fields.id.get()
         pages = try fields.pages.get()
@@ -181,7 +302,7 @@ private final class Book: TitledEntity, Equatable, InitializableWithFields {
 private class TitledEntity: RepresentableByFields {
     let title: String
     
-    // Normal constructor.
+    // Example of an ordinary constructor. Is not required in a real application for generators to work.
     init(title: String) {
         self.title = title
     }
@@ -197,6 +318,16 @@ private struct Author: Equatable, InitializableWithFields {
     let id: Int
     let name: String
     
+    // Example of an ordinary constructor. Is not required in a real application for generators to work.
+    init(
+        id: Int,
+        name: String)
+    {
+        self.id = id
+        self.name = name
+    }
+    
+    // `InitializableWithFields`
     init(fields: Fields<Author>) throws {
         id = try fields.id.get()
         name = try fields.name.get()

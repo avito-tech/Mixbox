@@ -44,5 +44,8 @@ class GeneratorTestsDependencies: DependencyCollectionRegisterer {
                 dependencyInjectionFactory: BuiltinDependencyInjectionFactory()
             )
         }
+        di.register(type: AnyGenerator.self) { di in
+            (try di.resolve() as GeneratorFacade).anyGenerator
+        }
     }
 }
