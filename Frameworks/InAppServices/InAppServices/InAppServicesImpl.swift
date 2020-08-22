@@ -223,6 +223,18 @@ public final class InAppServicesImpl: InAppServices {
                 uiEventObserverFeatureToggleValueGetter: historyTrackerToggler
             )
         )
+        router.register(
+            methodHandler: DisplayAlertIpcMethodHandler(
+                alertDisplayer: InAppAlertDisplayer(
+                    applicationWindowsProvider: try dependencyResolver.resolve()
+                )
+            )
+        )
+        router.register(
+            methodHandler: RunPageObjectElementGenerationWizardIpcMethodHandler(
+                applicationWindowsProvider: try dependencyResolver.resolve()
+            )
+        )
     }
     
     private func tryOrReportFailure(body: () throws -> ()) {

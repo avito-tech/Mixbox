@@ -13,6 +13,7 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
     private let elementInteractionDependenciesFactory: (ElementSettings) -> ElementInteractionDependenciesFactory
     
     private let performanceLogger: PerformanceLogger
+    private let interactionFailureDebugger: InteractionFailureDebugger
     
     // MARK: - Init
     
@@ -22,7 +23,8 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
         stepLogger: StepLogger,
         dateProvider: DateProvider,
         elementInteractionDependenciesFactory: @escaping (ElementSettings) -> ElementInteractionDependenciesFactory,
-        performanceLogger: PerformanceLogger)
+        performanceLogger: PerformanceLogger,
+        interactionFailureDebugger: InteractionFailureDebugger)
     {
         self.testFailureRecorder = testFailureRecorder
         self.screenshotAttachmentsMaker = screenshotAttachmentsMaker
@@ -30,6 +32,7 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
         self.dateProvider = dateProvider
         self.elementInteractionDependenciesFactory = elementInteractionDependenciesFactory
         self.performanceLogger = performanceLogger
+        self.interactionFailureDebugger = interactionFailureDebugger
     }
     
     // MARK: - PageObjectElementCoreFactory
@@ -47,7 +50,8 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
                 dateProvider: dateProvider,
                 elementInteractionDependenciesFactory: elementInteractionDependenciesFactory(elementSettings),
                 elementSettings: elementSettings,
-                performanceLogger: performanceLogger
+                performanceLogger: performanceLogger,
+                interactionFailureDebugger: interactionFailureDebugger
             )
         )
     }

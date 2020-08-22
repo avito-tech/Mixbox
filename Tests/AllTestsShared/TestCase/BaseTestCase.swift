@@ -3,14 +3,66 @@ import MixboxTestsFoundation
 import MixboxIpc
 import MixboxFoundation
 import MixboxUiKit
+import MixboxDi
+import MixboxBuiltinDi
 import TestsIpc
 
 class BaseTestCase: XCTestCase, FailureGatherer {
-    private(set) lazy var dependencies: TestFailingDependencyResolver = self.reuseState {
-        makeDependencies()
+    private let mocksDependencyInjection = BuiltinDependencyInjection()
+    
+    // This enables mocking dependencies (improves testability).
+    var mocks: DependencyRegisterer {
+        return mocksDependencyInjection
     }
     
-    func makeDependencies() -> TestFailingDependencyResolver {
+    private(set) lazy var dependencies: TestFailingDependencyResolver = self.reuseState {
+        let configuration = dependencyInjectionConfiguration()
+
+        let dependencyInjectionFactory = BuiltinDependencyInjectionFactory()
+        
+        let defaultDependencyInjection = dependencyInjectionFactory.dependencyInjection()
+        
+        defaultDependencyInjection.register(type: DependencyInjectionFactory.self) { _ in
+            dependencyInjectionFactory
+        }
+        defaultDependencyInjection.register(type: PerformanceLogger.self) { _ in
+            configuration.performanceLogger
+        }
+        
+        return TestCaseDi.make(
+            dependencyCollectionRegisterer: configuration.dependencyCollectionRegisterer,
+            dependencyInjection: DelegatingDependencyInjection(
+                dependencyResolver: PerformanceLoggingDependencyResolver(
+                    dependencyResolver: DelegatingDependencyInjection(
+                        dependencyResolver: CompoundDependencyResolver(
+                            resolvers: [
+                                mocksDependencyInjection,
+                                defaultDependencyInjection
+                            ]
+                        ),
+                        dependencyRegisterer: defaultDependencyInjection
+                    ),
+                    performanceLogger: configuration.performanceLogger
+                ),
+                dependencyRegisterer: defaultDependencyInjection
+            )
+        )
+    }
+    
+    final class DependencyInjectionConfiguration {
+        let dependencyCollectionRegisterer: DependencyCollectionRegisterer
+        let performanceLogger: PerformanceLogger
+        
+        init(
+            dependencyCollectionRegisterer: DependencyCollectionRegisterer,
+            performanceLogger: PerformanceLogger = NoopPerformanceLogger())
+        {
+            self.dependencyCollectionRegisterer = dependencyCollectionRegisterer
+            self.performanceLogger = performanceLogger
+        }
+    }
+    
+    func dependencyInjectionConfiguration() -> DependencyInjectionConfiguration {
         UnavoidableFailure.fail("\(#function) should be implemented in a subclass of \(BaseTestCase.self)")
     }
     

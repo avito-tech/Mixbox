@@ -6,11 +6,9 @@ import TestsIpc
 
 // TODO: Replace XCTestCase with TestCase for every test.
 class TestCase: BaseTestCase {
-    override func makeDependencies() -> TestFailingDependencyResolver {
-        TestCaseDi.make(
-            dependencyCollectionRegisterer: WhiteBoxTestCaseDependencies(),
-            dependencyInjectionFactory: BuiltinDependencyInjectionFactory(),
-            performanceLogger: NoopPerformanceLogger()
+    override func dependencyInjectionConfiguration() -> DependencyInjectionConfiguration {
+        DependencyInjectionConfiguration(
+            dependencyCollectionRegisterer: WhiteBoxTestCaseDependencies()
         )
     }
 }

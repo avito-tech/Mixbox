@@ -40,12 +40,11 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         return dependencies.resolve()
     }
     
-    override func makeDependencies() -> TestFailingDependencyResolver {
-        TestCaseDi.make(
+    override func dependencyInjectionConfiguration() -> DependencyInjectionConfiguration {
+        DependencyInjectionConfiguration(
             dependencyCollectionRegisterer: BlackBoxTestCaseDependencies(
                 bundleResourcePathProviderForTestsTarget: bundleResourcePathProviderForTestsTarget
             ),
-            dependencyInjectionFactory: BuiltinDependencyInjectionFactory(),
             performanceLogger: Singletons.performanceLogger
         )
     }

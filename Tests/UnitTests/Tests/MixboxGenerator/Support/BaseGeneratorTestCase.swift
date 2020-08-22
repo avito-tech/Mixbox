@@ -6,24 +6,17 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 
 class BaseGeneratorTestCase: TestCase {
-    private let staticDi = BuiltinDependencyInjection()
-    private let dynamicDi = BuiltinDependencyInjection()
-    
-    var mocks: DependencyRegisterer {
-        return dynamicDi
+    override func dependencyInjectionConfiguration() -> DependencyInjectionConfiguration {
+        DependencyInjectionConfiguration(
+            dependencyCollectionRegisterer: GeneratorTestsDependencies()
+        )
     }
     
-    private(set) lazy var di = TestCaseDi.make(
-        dependencyCollectionRegisterer: GeneratorTestsDependencies(),
-        dependencyInjection: DelegatingDependencyInjection(
-            dependencyResolver: CompoundDependencyResolver(
-                resolvers: [dynamicDi, staticDi]
-            ),
-            dependencyRegisterer: staticDi
-        )
-    )
+    override var reuseState: Bool {
+        false
+    }
     
     var generator: GeneratorFacade {
-        return di.resolve()
+        return dependencies.resolve()
     }
 }

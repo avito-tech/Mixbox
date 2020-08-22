@@ -4,17 +4,21 @@ import MixboxTestsFoundation
 import MixboxInAppServices
 import MixboxFoundation
 import MixboxIpcCommon
+import MixboxIpc
 
 public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
-    private let mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies
+    public init() {
+    }
     
-    public init(mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies) {
-        self.mixboxUiTestsFoundationDependencies = mixboxUiTestsFoundationDependencies
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
+        return [
+            MixboxUiTestsFoundationDependencies()
+        ]
     }
     
     // swiftlint:disable:next function_body_length
     public func register(dependencyRegisterer di: DependencyRegisterer) {
-        mixboxUiTestsFoundationDependencies.register(dependencyRegisterer: di)
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
         di.register(type: ApplicationStateProvider.self) { _ in
             GrayApplicationStateProvider()

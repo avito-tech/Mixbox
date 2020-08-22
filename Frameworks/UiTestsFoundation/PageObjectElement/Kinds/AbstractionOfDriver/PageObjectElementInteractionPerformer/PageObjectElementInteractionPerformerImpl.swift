@@ -9,6 +9,7 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
     private let screenshotAttachmentsMaker: ScreenshotAttachmentsMaker
     private let stepLogger: StepLogger
     private let performanceLogger: PerformanceLogger
+    private let interactionFailureDebugger: InteractionFailureDebugger
     
     public init(
         testFailureRecorder: TestFailureRecorder,
@@ -17,7 +18,8 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
         dateProvider: DateProvider,
         elementInteractionDependenciesFactory: ElementInteractionDependenciesFactory,
         elementSettings: ElementSettings,
-        performanceLogger: PerformanceLogger)
+        performanceLogger: PerformanceLogger,
+        interactionFailureDebugger: InteractionFailureDebugger)
     {
         self.testFailureRecorder = testFailureRecorder
         self.dateProvider = dateProvider
@@ -26,6 +28,7 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
         self.screenshotAttachmentsMaker = screenshotAttachmentsMaker
         self.stepLogger = stepLogger
         self.performanceLogger = performanceLogger
+        self.interactionFailureDebugger = interactionFailureDebugger
     }
     
     public func perform(
@@ -49,7 +52,8 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
             dateProvider: dateProvider,
             elementInteractionDependenciesFactory: elementInteractionDependenciesFactory,
             elementSettings: settings,
-            performanceLogger: performanceLogger
+            performanceLogger: performanceLogger,
+            interactionFailureDebugger: interactionFailureDebugger
         )
     }
     
@@ -129,7 +133,8 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
         if interactionPerformingSettings.failTest {
             return FailureHandlingElementInteractionWithDependenciesPerformer(
                 nestedInteractionPerformer: loggingElementInteractionWithDependenciesPerformer,
-                testFailureRecorder: testFailureRecorder
+                testFailureRecorder: testFailureRecorder,
+                interactionFailureDebugger: interactionFailureDebugger
             )
         } else {
             return loggingElementInteractionWithDependenciesPerformer

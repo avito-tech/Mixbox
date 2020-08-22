@@ -31,7 +31,8 @@ public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependencies
                                 dependencyInjectionFactory: dependencyInjectionFactory
                             )
                         },
-                        performanceLogger: try di.resolve()
+                        performanceLogger: try di.resolve(),
+                        interactionFailureDebugger: try di.resolve()
                     )
                 }
                 di.register(type: ElementFinder.self) { _ in

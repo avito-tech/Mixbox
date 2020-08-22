@@ -1,12 +1,20 @@
 import MixboxDi
 import MixboxUiTestsFoundation
 
-// Add this DI if you want to test only one app.
+// Use this DI instead of `MixboxBlackDependencies` if you want to test only one app.
 public final class MixboxBlackSingleAppDependencies: DependencyCollectionRegisterer {
     public init() {
     }
     
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
+        return [
+            MixboxBlackDependencies()
+        ]
+    }
+    
     public func register(dependencyRegisterer di: DependencyRegisterer) {
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
+        
         di.register(type: ApplicationProvider.self) { _ in
             ApplicationProviderImpl { XCUIApplication() }
         }

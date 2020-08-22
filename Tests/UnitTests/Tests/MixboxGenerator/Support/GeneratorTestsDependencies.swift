@@ -5,7 +5,18 @@ import MixboxTestsFoundation
 import MixboxBuiltinDi
 
 class GeneratorTestsDependencies: DependencyCollectionRegisterer {
+    init() {
+    }
+    
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
+        return [
+            WhiteBoxTestCaseDependencies()
+        ]
+    }
+    
     func register(dependencyRegisterer di: DependencyRegisterer) {
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
+        
         di.register(type: Generator<Bool>.self) { di in
             try RandomBoolGenerator(randomNumberProvider: di.resolve())
         }

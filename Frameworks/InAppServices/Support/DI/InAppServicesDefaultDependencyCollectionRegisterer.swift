@@ -44,6 +44,12 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         di.register(type: IosVersionProvider.self) { _ in
             UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
         }
+        di.register(type: ApplicationWindowsProvider.self) { di in
+            UiApplicationWindowsProvider(
+                uiApplication: try di.resolve(),
+                iosVersionProvider: try di.resolve()
+            )
+        }
     }
     
     private func registerIpc(di: DependencyRegisterer) {

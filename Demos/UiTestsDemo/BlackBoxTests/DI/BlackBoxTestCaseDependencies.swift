@@ -16,9 +16,6 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
     
     private func nestedRegisteres() -> [DependencyCollectionRegisterer] {
         return [
-            MixboxBlackDependencies(
-                mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies()
-            ),
             MixboxBlackSingleAppDependencies(),
             UiTestCaseDependencies()
         ]

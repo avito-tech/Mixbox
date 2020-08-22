@@ -2,14 +2,17 @@ import MixboxDi
 import MixboxUiTestsFoundation
 
 public final class MixboxBlackDependencies: DependencyCollectionRegisterer {
-    private let mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies
+    public init() {
+    }
     
-    public init(mixboxUiTestsFoundationDependencies: MixboxUiTestsFoundationDependencies) {
-        self.mixboxUiTestsFoundationDependencies = mixboxUiTestsFoundationDependencies
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
+        return [
+            MixboxUiTestsFoundationDependencies()
+        ]
     }
     
     public func register(dependencyRegisterer di: DependencyRegisterer) {
-        mixboxUiTestsFoundationDependencies.register(dependencyRegisterer: di)
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
         di.register(type: ScreenshotTaker.self) { _ in
             XcuiScreenshotTaker()

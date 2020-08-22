@@ -27,7 +27,8 @@ public final class GrayPageObjectDependenciesFactory: BasePageObjectDependencies
                                 dependencyInjectionFactory: dependencyInjectionFactory
                             )
                         },
-                        performanceLogger: try di.resolve()
+                        performanceLogger: try di.resolve(),
+                        interactionFailureDebugger: try di.resolve()
                     )
                 }
             }

@@ -16,9 +16,18 @@ private func AnimationDidStart(
     animation?.mb_state = .started
     
     if isInvokedFromSwizzledMethod {
-        let selector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStart(_:))
-        let originalImp = class_getMethodImplementation(type(of: self), selector)
-        unsafeBitCast(originalImp, to: AnimationDidStartFunction.self)(self, selector, animation)
+        let swizzledSelector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStart(_:))
+        let originalImp = class_getMethodImplementation(type(of: self), swizzledSelector)
+        
+        let originalSelector = #selector(SurrogateCAAnimationDelegate.animationDidStart(_:))
+        let swizzledImp = class_getMethodImplementation(type(of: self), originalSelector)
+        
+        if swizzledImp == originalImp {
+            // TODO: Fix this issue. Tapping alert leads to stack overflow.
+            // IMPs shouldn't be same here.
+        } else {
+            unsafeBitCast(originalImp, to: AnimationDidStartFunction.self)(self, swizzledSelector, animation)
+        }
     }
 }
 
@@ -31,9 +40,18 @@ private func AnimationDidStop(
     animation?.mb_state = .stopped
     
     if isInvokedFromSwizzledMethod {
-        let selector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStop(_:finished:))
-        let originalImp = class_getMethodImplementation(type(of: self), selector)
-        unsafeBitCast(originalImp, to: AnimationDidFinishFunction.self)(self, selector, animation, finished)
+        let swizzledSelector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStop(_:finished:))
+        let originalImp = class_getMethodImplementation(type(of: self), swizzledSelector)
+        
+        let originalSelector = #selector(SurrogateCAAnimationDelegate.animationDidStop(_:finished:))
+        let swizzledImp = class_getMethodImplementation(type(of: self), originalSelector)
+        
+        if swizzledImp == originalImp {
+            // TODO: Fix this issue. Tapping alert leads to stack overflow.
+            // IMPs shouldn't be same here.
+        } else {
+            unsafeBitCast(originalImp, to: AnimationDidFinishFunction.self)(self, swizzledSelector, animation, finished)
+        }
     }
 }
 
