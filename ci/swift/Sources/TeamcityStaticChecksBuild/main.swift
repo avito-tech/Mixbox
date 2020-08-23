@@ -58,7 +58,7 @@ BuildDsl.teamcity.main(
                 processExecutor: try di.resolve(),
                 repoRootProvider: try di.resolve(),
                 swiftLintViolationsParser: try di.resolve(),
-                cocoapodsFactory: try di.resolve()
+                cocoapodsInstall: try di.resolve()
             )
         }
     },

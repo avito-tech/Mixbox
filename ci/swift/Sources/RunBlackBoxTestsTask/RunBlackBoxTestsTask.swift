@@ -45,7 +45,9 @@ public final class RunBlackBoxTestsTask: LocalTask {
             scheme: "BlackBoxUiTests",
             workspaceName: "Tests",
             testDestination: destinationForBuilding,
-            xcodebuildPipeFilter: try bundlerCommandGenerator.bundlerCommand(command: "xcpretty")
+            xcodebuildPipeFilter: try bundlerCommandGenerator
+                .bundle(arguments: ["xcpretty"])
+                .joined(separator: " ")
         )
         
         try test(

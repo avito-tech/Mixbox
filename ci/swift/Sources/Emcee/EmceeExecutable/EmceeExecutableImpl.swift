@@ -16,8 +16,7 @@ public final class EmceeExecutableImpl: EmceeExecutable {
     
     public func execute(command: String, arguments: [String]) throws {
         let result = try processExecutor.execute(
-            executable: executablePath,
-            arguments: [command] + arguments,
+            arguments: [executablePath, command] + arguments,
             currentDirectory: nil,
             environment: [:],
             stdoutDataHandler: { data in

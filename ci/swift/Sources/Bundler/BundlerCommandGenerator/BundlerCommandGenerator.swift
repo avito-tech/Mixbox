@@ -2,5 +2,8 @@
 // If we can rewrite JUnit generation, we can rewrite working with `bundler` so it can execute commands
 // instead of forming bash command.
 public protocol BundlerCommandGenerator {
-    func bundlerCommand(command: String) throws -> String
+    func bundle(
+        arguments: [String])
+        throws
+        -> [String]
 }

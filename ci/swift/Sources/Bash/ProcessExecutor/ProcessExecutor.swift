@@ -2,9 +2,7 @@ import Foundation
 
 public protocol ProcessExecutor: class {
     func execute(
-        // Example: "/bin/ls"
-        executable: String,
-        // Example: ["-a"]
+        // Example: ["/bin/ls", "-a"]
         arguments: [String],
         // Example: "/tmp". If nil is passed, current directory will not be changed.
         currentDirectory: String?,

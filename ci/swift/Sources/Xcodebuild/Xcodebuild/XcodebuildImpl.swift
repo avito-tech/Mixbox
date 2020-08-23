@@ -10,20 +10,20 @@ import SingletonHell
 public final class XcodebuildImpl: Xcodebuild {
     private let bashExecutor: BashExecutor
     private let derivedDataPathProvider: DerivedDataPathProvider
-    private let cocoapodsFactory: CocoapodsFactory
+    private let cocoapodsInstall: CocoapodsInstall
     private let repoRootProvider: RepoRootProvider
     private let environmentProvider: EnvironmentProvider
     
     public init(
         bashExecutor: BashExecutor,
         derivedDataPathProvider: DerivedDataPathProvider,
-        cocoapodsFactory: CocoapodsFactory,
+        cocoapodsInstall: CocoapodsInstall,
         repoRootProvider: RepoRootProvider,
         environmentProvider: EnvironmentProvider)
     {
         self.bashExecutor = bashExecutor
         self.derivedDataPathProvider = derivedDataPathProvider
-        self.cocoapodsFactory = cocoapodsFactory
+        self.cocoapodsInstall = cocoapodsInstall
         self.repoRootProvider = repoRootProvider
         self.environmentProvider = environmentProvider
     }
@@ -49,9 +49,7 @@ public final class XcodebuildImpl: Xcodebuild {
         try? FileManager.default.removeItem(atPath: derivedDataPath)
         try FileManager.default.createDirectory(atPath: derivedDataPath, withIntermediateDirectories: true, attributes: nil)
         
-        let cocoapods = try cocoapodsFactory.cocoapods(projectDirectory: projectDirectory)
-        
-        try cocoapods.install()
+        try cocoapodsInstall.install(projectDirectory: projectDirectory)
         
         let args = xcodebuildArgs(
             action: action,

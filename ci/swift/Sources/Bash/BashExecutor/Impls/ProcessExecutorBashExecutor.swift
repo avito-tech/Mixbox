@@ -32,8 +32,7 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
         }
         
         let processResult = try processExecutor.execute(
-            executable: "/bin/bash",
-            arguments: ["-l", "-c", command],
+            arguments: ["/bin/bash", "-l", "-c", command],
             currentDirectory: currentDirectory,
             environment: environment,
             stdoutDataHandler: stdoutDataHandler,

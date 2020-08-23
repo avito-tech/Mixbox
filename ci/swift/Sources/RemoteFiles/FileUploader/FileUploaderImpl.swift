@@ -23,8 +23,7 @@ public final class FileUploaderImpl: FileUploader {
         let fileUploaderExecutable = try fileUploaderExecutableProvider.fileUploaderExecutable()
         
         let result = try processExecutor.execute(
-            executable: fileUploaderExecutable,
-            arguments: [file, remoteName],
+            arguments: [fileUploaderExecutable, file, remoteName],
             currentDirectory: nil,
             environment: [:],
             stdoutDataHandler: { _ in },

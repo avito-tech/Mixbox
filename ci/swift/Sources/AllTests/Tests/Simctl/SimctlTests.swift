@@ -16,7 +16,7 @@ final class SimctlTests: XCTestCase {
     
     func test___list___works_for_xcode_10_1_0() {
         XCTAssertNoThrow(try {
-            let list = try simctl("list_xc_10_1_0.json").list()
+            let list = try simctlList("list_xc_10_1_0.json")
             
             // devicetypes
             
@@ -67,48 +67,41 @@ final class SimctlTests: XCTestCase {
                 list.runtimes.first?.name,
                 "iOS 9.3"
             )
-            
-            XCTAssertEqual(
-                bashExecutor.executedCommands,
-                [
-                    """
-                    xcrun simctl list -j > "\(nearHere("list_xc_10_1_0.json"))"
-                    """
-                ]
-            )
         }())
     }
     
     // TODO: 1. better test. 2. test difference (see `RuntimeIdentifier`).
     func test___list___works_for_xcode_10_2_1() {
         XCTAssertNoThrow(try {
-            _ = try simctl("list_xc_10_2_1.json").list()
+            _ = try simctlList("list_xc_10_2_1.json")
         }())
     }
     
     func test___list___works_for_xcode_10_0_0() {
         XCTAssertNoThrow(try {
-            _ = try simctl("list_xc_10_0_0.json").list()
+            _ = try simctlList("list_xc_10_0_0.json")
         }())
     }
     
     func test___list___works_for_xcode_11_0_0() {
         XCTAssertNoThrow(try {
-            _ = try simctl("list_xc_11_0_0.json").list()
+            _ = try simctlList("list_xc_11_0_0.json")
         }())
     }
     
     func test___list___works_for_xcode_11_4_1() {
         XCTAssertNoThrow(try {
-            _ = try simctl("list_xc_11_4_1.json").list()
+            _ = try simctlList("list_xc_11_4_1.json")
         }())
     }
     
-    private func simctl(_ file: String) throws -> SimctlList {
-        return SimctlListImpl(
-            bashExecutor: bashExecutor,
-            temporaryFileProvider: TemporaryFileProviderMock(
-                temporaryFilePath: nearHere(file)
+    private func simctlList(_ file: String) throws -> SimctlListResult {
+        return try JSONDecoder().decode(
+            SimctlListResult.self,
+            from: try Data(
+                contentsOf: URL(
+                    fileURLWithPath: nearHere(file)
+                )
             )
         )
     }

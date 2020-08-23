@@ -6,7 +6,6 @@ public final class FoundationProcessExecutor: ProcessExecutor {
     }
     
     public func execute(
-        executable: String,
         arguments: [String],
         currentDirectory: String?,
         environment: [String: String],
@@ -15,6 +14,16 @@ public final class FoundationProcessExecutor: ProcessExecutor {
         throws
         -> ProcessResult
     {
+        guard let executable = arguments.first else {
+            throw ErrorString(
+                """
+                Can't execute process. Arguments count: \(arguments.count). Expected at least 1 arugment (executable).
+                """
+            )
+        }
+        
+        let arguments = Array(arguments.dropFirst())
+        
         guard FileManager.default.fileExists(atPath: executable, isDirectory: nil) else {
             throw ErrorString(
                 """

@@ -9,7 +9,7 @@ public final class SwiftLintImpl: SwiftLint {
     private let processExecutor: ProcessExecutor
     private let repoRootProvider: RepoRootProvider
     private let swiftLintViolationsParser: SwiftLintViolationsParser
-    private let cocoapodsFactory: CocoapodsFactory
+    private let cocoapodsInstall: CocoapodsInstall
     
     private struct SetUpSwiftLint {
         let swiftlintScriptPath: String
@@ -20,12 +20,12 @@ public final class SwiftLintImpl: SwiftLint {
         processExecutor: ProcessExecutor,
         repoRootProvider: RepoRootProvider,
         swiftLintViolationsParser: SwiftLintViolationsParser,
-        cocoapodsFactory: CocoapodsFactory)
+        cocoapodsInstall: CocoapodsInstall)
     {
         self.processExecutor = processExecutor
         self.repoRootProvider = repoRootProvider
         self.swiftLintViolationsParser = swiftLintViolationsParser
-        self.cocoapodsFactory = cocoapodsFactory
+        self.cocoapodsInstall = cocoapodsInstall
     }
     
     public func lint() throws {
@@ -43,9 +43,7 @@ public final class SwiftLintImpl: SwiftLint {
         
         let testsProjectDirectory = "\(repoRootPath)/Tests"
         
-        let cocoapods = try cocoapodsFactory.cocoapods(projectDirectory: testsProjectDirectory)
-        
-        try cocoapods.install()
+        try cocoapodsInstall.install(projectDirectory: testsProjectDirectory)
         
         return SetUpSwiftLint(
             swiftlintScriptPath: "\(testsProjectDirectory)/Pods/SwiftLint/swiftlint",
@@ -59,8 +57,7 @@ public final class SwiftLintImpl: SwiftLint {
         -> ProcessResult
     {
         return try processExecutor.execute(
-            executable: setUpSwiftLint.swiftlintScriptPath,
-            arguments: [],
+            arguments: [setUpSwiftLint.swiftlintScriptPath],
             currentDirectory: setUpSwiftLint.sourcesToLintPath,
             environment: [:],
             stdoutDataHandler: { _ in },

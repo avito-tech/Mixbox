@@ -3,7 +3,7 @@ import Bash
 public final class BundlerCommandGeneratorImpl: BundlerCommandGenerator {
     private let bashExecutor: BashExecutor
     private let gemfileLocationProvider: GemfileLocationProvider
-    private var bundlerIsInstalled = false
+    private var bundlerPath: String?
     
     public init(
         bashExecutor: BashExecutor,
@@ -13,38 +13,41 @@ public final class BundlerCommandGeneratorImpl: BundlerCommandGenerator {
         self.gemfileLocationProvider = gemfileLocationProvider
     }
     
-    public func bundlerCommand(
-        command: String)
+    public func bundle(
+        arguments: [String])
         throws
-        -> String
+        -> [String]
     {
-        try installBundlerIfNeeded()
+        let bundleArguments = [
+            try getBundlerPath(),
+            "exec",
+            "--gemfile=\(try gemfileLocationProvider.gemfileLocation())"
+        ]
         
-        return """
-        bundle exec --gemfile="\(try gemfileLocationProvider.gemfileLocation())" \(command)
-        """
+        return bundleArguments + arguments
     }
     
-    private func installBundlerIfNeeded() throws {
-        if !bundlerIsInstalled {
-            try installBundler()
-            bundlerIsInstalled = true
-        }
-    }
-    
-    private func installBundler() throws {
-        let bundlerVersion = "2.0.2"
-        
-        _ = try bashExecutor.executeOrThrow(
-            command: """
-            gem install bundler -v \(bundlerVersion) --force
+    private func getBundlerPath() throws -> String {
+        if let bundlerPath = bundlerPath {
+            return bundlerPath
+        } else {
+            let bundlerVersion = "2.0.2"
             
-            bundle install --gemfile="\(try gemfileLocationProvider.gemfileLocation())"
-            """,
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
-        )
-        
-        print("Successfully installed bundler \(bundlerVersion)")
+            _ = try bashExecutor.executeOrThrow(
+                command: """
+                gem install bundler -v \(bundlerVersion) --force
+                
+                bundle install --gemfile="\(try gemfileLocationProvider.gemfileLocation())"
+                """,
+                stdoutDataHandler: { _ in },
+                stderrDataHandler: { _ in }
+            )
+            
+            print("Successfully installed bundler \(bundlerVersion)")
+            
+            return try bashExecutor.executeAndReturnTrimmedOutputOrThrow(
+                command: "which bundle"
+            )
+        }
     }
 }

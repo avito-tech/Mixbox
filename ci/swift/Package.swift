@@ -1,5 +1,5 @@
 // swift-tools-version:5.0
-// swiftlint:disable trailing_comma
+// swiftlint:disable trailing_comma file_length
 
 // This file is generated via MakePackage python code. Do not modify it.
 
@@ -27,6 +27,12 @@ let package = Package(
             name: "TeamcityUiTestsDemoBuild",
             targets: [
                 "TeamcityUiTestsDemoBuild"
+            ]
+        ),
+        .executable(
+            name: "TeamcityReleaseToCocoapodsBuild",
+            targets: [
+                "TeamcityReleaseToCocoapodsBuild"
             ]
         ),
         .executable(
@@ -173,6 +179,16 @@ let package = Package(
             ]
         ),
         .target(
+            name: "TeamcityReleaseToCocoapodsBuild",
+            dependencies: [
+                "BuildDsl",
+                "CiFoundation",
+                "Destinations",
+                "ReleaseToCocoapodsTask",
+                "SingletonHell",
+            ]
+        ),
+        .target(
             name: "Destinations",
             dependencies: [
                 "CiFoundation",
@@ -243,6 +259,19 @@ let package = Package(
             dependencies: [
                 "Bash",
                 "CiFoundation",
+            ]
+        ),
+        .target(
+            name: "ReleaseToCocoapodsTask",
+            dependencies: [
+                "Bash",
+                "Bundler",
+                "CiFoundation",
+                "Destinations",
+                "Emcee",
+                "SingletonHell",
+                "Tasks",
+                "Xcodebuild",
             ]
         ),
         .target(
@@ -321,12 +350,14 @@ let package = Package(
             dependencies: [
                 "Bash",
                 "Bundler",
+                "CiFoundation",
             ]
         ),
         .target(
             name: "Bundler",
             dependencies: [
                 "Bash",
+                "CiFoundation",
                 "Git",
             ]
         ),

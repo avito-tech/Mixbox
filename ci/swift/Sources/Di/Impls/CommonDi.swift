@@ -21,6 +21,9 @@ open class CommonDi: BaseDi {
         container.register(type: RepoRootProvider.self) {
             RepoRootProviderImpl()
         }
+        container.register(type: BashEscapedCommandMaker.self) {
+            BashEscapedCommandMakerImpl()
+        }
         container.register(type: BashExecutor.self) {
             ProcessExecutorBashExecutor(
                 processExecutor: try container.resolve(),
@@ -29,7 +32,8 @@ open class CommonDi: BaseDi {
         }
         container.register(type: ProcessExecutor.self) {
             LoggingProcessExecutor(
-                originalProcessExecutor: FoundationProcessExecutor()
+                originalProcessExecutor: FoundationProcessExecutor(),
+                bashEscapedCommandMaker: try container.resolve()
             )
         }
         container.register(type: TemporaryFileProvider.self) {
@@ -133,10 +137,29 @@ open class CommonDi: BaseDi {
                 gemfileBasename: "Gemfile_cocoapods_1_9_0"
             )
         }
-        container.register(type: CocoapodsFactory.self) {
-            CocoapodsFactoryImpl(
-                bashExecutor: try container.resolve(),
-                bundlerCommandGenerator: try container.resolve()
+        container.register(type: CocoapodsInstall.self) {
+            CocoapodsInstallImpl(
+                cocoapodsCommandExecutor: try container.resolve(),
+                environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsSearch.self) {
+            CocoapodsSearchImpl(
+                cocoapodsCommandExecutor: try container.resolve(),
+                environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: BundledProcessExecutor.self) {
+            BundledProcessExecutorImpl(
+                processExecutor: try container.resolve(),
+                bundlerCommandGenerator: try container.resolve(),
+                temporaryFileProvider: try container.resolve(),
+                environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsCommandExecutor.self) {
+            CocoapodsCommandExecutorImpl(
+                bundledProcessExecutor: try container.resolve()
             )
         }
         container.register(type: EnvironmentProvider.self) {
@@ -159,12 +182,6 @@ open class CommonDi: BaseDi {
         container.register(type: DerivedDataPathProvider.self) {
             DerivedDataPathProviderImpl(
                 temporaryFileProvider: try container.resolve()
-            )
-        }
-        container.register(type: CocoapodsFactory.self) {
-            CocoapodsFactoryImpl(
-                bashExecutor: try container.resolve(),
-                bundlerCommandGenerator: try container.resolve()
             )
         }
         container.register(type: IosProjectBuilder.self) {
@@ -201,7 +218,7 @@ open class CommonDi: BaseDi {
             XcodebuildImpl(
                 bashExecutor: try container.resolve(),
                 derivedDataPathProvider: try container.resolve(),
-                cocoapodsFactory: try container.resolve(),
+                cocoapodsInstall: try container.resolve(),
                 repoRootProvider: try container.resolve(),
                 environmentProvider: try container.resolve()
             )

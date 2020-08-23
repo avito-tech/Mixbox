@@ -2,13 +2,17 @@ import Foundation
 
 public final class LoggingProcessExecutor: ProcessExecutor {
     private let originalProcessExecutor: ProcessExecutor
+    private let bashEscapedCommandMaker: BashEscapedCommandMaker
     
-    public init(originalProcessExecutor: ProcessExecutor) {
+    public init(
+        originalProcessExecutor: ProcessExecutor,
+        bashEscapedCommandMaker: BashEscapedCommandMaker)
+    {
         self.originalProcessExecutor = originalProcessExecutor
+        self.bashEscapedCommandMaker = bashEscapedCommandMaker
     }
     
     public func execute(
-        executable: String,
         arguments: [String],
         currentDirectory: String?,
         environment: [String: String],
@@ -18,14 +22,12 @@ public final class LoggingProcessExecutor: ProcessExecutor {
         -> ProcessResult
     {
         log(
-            executable: executable,
             arguments: arguments,
             currentDirectory: currentDirectory,
             environment: environment
         )
         
         return try originalProcessExecutor.execute(
-            executable: executable,
             arguments: arguments,
             currentDirectory: currentDirectory,
             environment: environment,
@@ -35,40 +37,24 @@ public final class LoggingProcessExecutor: ProcessExecutor {
     }
     
     private func log(
-        executable: String,
         arguments: [String],
         currentDirectory: String?,
         environment: [String: String])
     {
+        guard !arguments.isEmpty else {
+            print("Called `execute` with empty arguments")
+            return
+        }
+        
         let prettyPrintedCommand: String
         
-        if executable == "/bin/bash" && arguments.starts(with: ["-l", "-c"]) && arguments.count == 3 {
-            prettyPrintedCommand = arguments[2]
+        if arguments.starts(with: ["/bin/bash", "-l", "-c"]) && arguments.count == 4 {
+            // Only print bash command. Note: relies on bash calles in this project.
+            prettyPrintedCommand = arguments[3]
         } else {
-            let command = [executable] + arguments
-            
-            // ["a", "$b \"c\"", "`d`"] will be printed as this:
-            // """
-            // "a" "\$b \"c\"" "\`d\`"
-            // """
-            // not as this:
-            // """
-            // a b "c" `d`
-            // """
-            // and thus can be easily reproduced in bash.
-            //
-            // Potential improvement: do not put argument in quotes if it is not needed.
-            // E.g.: "a b" should be inside quotes, but "a" should not.
-            //
-            prettyPrintedCommand = command
-                // Escaping rules:
-                // https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Double-Quotes
-                .map { $0.replacingOccurrences(of: "\"", with: "\\\"") }
-                .map { $0.replacingOccurrences(of: "!", with: "\\!") }
-                .map { $0.replacingOccurrences(of: "`", with: "\\`") }
-                .map { $0.replacingOccurrences(of: "$", with: "\\$") }
-                .map { "\"\($0)\"" }
-                .joined(separator: " ")
+            prettyPrintedCommand = bashEscapedCommandMaker.escapedCommand(
+                arguments: arguments
+            )
         }
         
         print(

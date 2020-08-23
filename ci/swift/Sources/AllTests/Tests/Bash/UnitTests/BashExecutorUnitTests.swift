@@ -42,8 +42,7 @@ final class BashExecutorUnitTests: XCTestCase {
             
             guard let call = processExecutor.calls.first else { return XCTFail("No calls") }
             
-            XCTAssertEqual(call.executable, "/bin/bash")
-            XCTAssertEqual(call.arguments, ["-l", "-c", command])
+            XCTAssertEqual(call.arguments, ["/bin/bash", "-l", "-c", command])
             XCTAssertEqual(call.currentDirectory, "a")
             XCTAssertEqual(call.environment, ["b": "c"])
             XCTAssertEqual(result.code, 33)

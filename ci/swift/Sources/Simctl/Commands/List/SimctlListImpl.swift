@@ -30,6 +30,8 @@ public final class SimctlListImpl: SimctlList {
         
         let data = try Data(contentsOf: URL(fileURLWithPath: temporaryFile))
         
+        try FileManager.default.removeItem(atPath: temporaryFile)
+        
         return try readJson(data: data)
     }
     

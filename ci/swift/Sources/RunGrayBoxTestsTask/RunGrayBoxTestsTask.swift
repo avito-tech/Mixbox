@@ -47,7 +47,9 @@ public final class RunGrayBoxTestsTask: LocalTask {
             scheme: testsTargetAndSchemeName,
             workspaceName: "Tests",
             testDestination: destinationForBuilding,
-            xcodebuildPipeFilter: try bundlerCommandGenerator.bundlerCommand(command: "xcpretty")
+            xcodebuildPipeFilter: try bundlerCommandGenerator
+                .bundle(arguments: ["xcpretty"])
+                .joined(separator: " ")
         )
         
         let appName = "TestedApp.app"

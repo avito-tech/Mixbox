@@ -14,29 +14,31 @@ public final class CheckDemoTask: LocalTask {
     private let environmentProvider: EnvironmentProvider
     private let mixboxTestDestinationProvider: MixboxTestDestinationProvider
     private let bundlerCommandGenerator: BundlerCommandGenerator
+    private let bashEscapedCommandMaker: BashEscapedCommandMaker
     
     public init(
         bashExecutor: BashExecutor,
         iosProjectBuilder: IosProjectBuilder,
         environmentProvider: EnvironmentProvider,
         mixboxTestDestinationProvider: MixboxTestDestinationProvider,
-        bundlerCommandGenerator: BundlerCommandGenerator)
+        bundlerCommandGenerator: BundlerCommandGenerator,
+        bashEscapedCommandMaker: BashEscapedCommandMaker)
     {
         self.bashExecutor = bashExecutor
         self.iosProjectBuilder = iosProjectBuilder
         self.environmentProvider = environmentProvider
         self.mixboxTestDestinationProvider = mixboxTestDestinationProvider
         self.bundlerCommandGenerator = bundlerCommandGenerator
+        self.bashEscapedCommandMaker = bashEscapedCommandMaker
     }
     
     public func execute() throws {
         let reportsPath = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_REPORTS_PATH)
         
-        let xcodebuildPipeFilter = try bundlerCommandGenerator.bundlerCommand(
-            command:
-            """
-            xcpretty -r junit -o "\(reportsPath)/junit.xml"
-            """
+        let xcodebuildPipeFilter = bashEscapedCommandMaker.escapedCommand(
+            arguments: try bundlerCommandGenerator.bundle(
+                arguments: ["xcpretty", "-r", "junit", "-o", "\(reportsPath)/junit.xml"]
+            )
         )
         
         _ = try iosProjectBuilder.build(

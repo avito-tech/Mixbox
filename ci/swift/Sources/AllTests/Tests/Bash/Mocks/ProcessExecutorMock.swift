@@ -3,7 +3,6 @@ import Foundation
 
 final class ProcessExecutorMock: ProcessExecutor {
     struct Call {
-        let executable: String
         let arguments: [String]
         let currentDirectory: String?
         let environment: [String: String]
@@ -17,7 +16,6 @@ final class ProcessExecutorMock: ProcessExecutor {
     }
     
     func execute(
-        executable: String,
         arguments: [String],
         currentDirectory: String?,
         environment: [String: String],
@@ -27,7 +25,6 @@ final class ProcessExecutorMock: ProcessExecutor {
     {
         calls.append(
             Call(
-                executable: executable,
                 arguments: arguments,
                 currentDirectory: currentDirectory,
                 environment: environment
