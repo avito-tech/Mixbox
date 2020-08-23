@@ -146,7 +146,8 @@ open class CommonDi: BaseDi {
         container.register(type: CocoapodsSearch.self) {
             CocoapodsSearchImpl(
                 cocoapodsCommandExecutor: try container.resolve(),
-                environmentProvider: try container.resolve()
+                environmentProvider: try container.resolve(),
+                cocoapodsSearchOutputParser: try container.resolve()
             )
         }
         container.register(type: BundledProcessExecutor.self) {
