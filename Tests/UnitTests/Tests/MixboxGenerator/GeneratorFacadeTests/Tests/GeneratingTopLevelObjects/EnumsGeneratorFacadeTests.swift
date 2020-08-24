@@ -3,7 +3,7 @@ import MixboxGenerators
 import MixboxStubbing
 
 // swiftlint:disable multiline_arguments
-extension GeneratorFacadeTests {
+final class EnumsGeneratorFacadeTests: BaseGeneratorFacadeTests {
     func test___generate___can_generate_CaseIterable_enums() {
         setRandom(0, continueSequenceWithMoreNumbers: false)
         

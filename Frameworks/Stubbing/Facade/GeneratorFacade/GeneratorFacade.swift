@@ -1,6 +1,6 @@
 import MixboxGenerators
 
-public protocol GeneratorFacade {
+public protocol GeneratorFacade: TestFailingGenerator {
     // Any generator used in this facade, contains registered stubs.
     // Can be used to share same stubs with other entities that use `AnyGenerator`.
     // This looks like a kludge and can be removed in the future or refactored.
@@ -10,14 +10,6 @@ public protocol GeneratorFacade {
     // Registers stub permanently
     func stub<T: RepresentableByFields>(
         configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
-    
-    // Generates value
-    func generate<T>() -> T
-    
-    // Generates value with temporary stub
-    func generate<T: RepresentableByFields>(
-        configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
-        -> T
 }
 
 extension GeneratorFacade {
@@ -26,20 +18,5 @@ extension GeneratorFacade {
         configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
     {
         stub(configure: configure)
-    }
-    
-    public func generate<T: RepresentableByFields>(
-        type: T.Type = T.self,
-        configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
-        -> T
-    {
-        return generate(configure: configure)
-    }
-    
-    public func generate<T>(
-        type: T.Type = T.self)
-        -> T
-    {
-        return generate()
     }
 }

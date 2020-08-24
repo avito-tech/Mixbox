@@ -9,14 +9,14 @@ public class TestFailingDynamicLookupConfiguratorWithIndex<GeneratedType: Repres
     
     public init(
         testFailingDynamicLookupFields: TestFailingDynamicLookupFields<GeneratedType>,
-        testFailingDynamicLookupGenerator: TestFailingDynamicLookupGenerator<GeneratedType>,
+        baseTestFailingGeneratorDependencies: BaseTestFailingGeneratorDependencies,
         index: Int)
     {
         self.storedIndex = index
         
         super.init(
             testFailingDynamicLookupFields: testFailingDynamicLookupFields,
-            testFailingDynamicLookupGenerator: testFailingDynamicLookupGenerator
+            baseTestFailingGeneratorDependencies: baseTestFailingGeneratorDependencies
         )
     }
     

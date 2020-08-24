@@ -2,9 +2,8 @@ import XCTest
 import MixboxGenerators
 import MixboxStubbing
 
-// swiftlint:disable file_length
-extension GeneratorFacadeTests {
-    
+// swiftlint:disable file_length type_body_length
+final class NestedFieldsGeneratorFacadeTests: BaseGeneratorFacadeTests {
     // MARK: - int
     
     func test___generate___can_generate_nested_field___int() {

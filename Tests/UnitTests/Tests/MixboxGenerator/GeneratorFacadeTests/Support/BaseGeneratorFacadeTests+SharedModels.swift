@@ -1,6 +1,6 @@
 import MixboxGenerators
 
-extension GeneratorFacadeTests {
+extension BaseGeneratorFacadeTests {
     // To check how generators work with final classes
     final class FinalClass: BaseClass, Equatable, InitializableWithFields {
         let int: Int

@@ -2,11 +2,11 @@ import XCTest
 import MixboxGenerators
 import MixboxStubbing
 
-extension GeneratorFacadeTests {
+final class CommonLogicGeneratorFacadeTests: BaseGeneratorFacadeTests {
     func test___generate___is_stateless() {
         stubDefaultConstants()
         
-        var object: GeneratorFacadeTests.FinalClass
+        var object: FinalClass
         
         object = generator.generate {
             $0.int = -3840189766160597805

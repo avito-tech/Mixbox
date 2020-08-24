@@ -2,7 +2,7 @@ import XCTest
 import MixboxGenerators
 import MixboxStubbing
 
-extension GeneratorFacadeTests {
+extension BaseGeneratorFacadeTests {
     @nonobjc func generatedByDefault() -> Int {
         7830206022935481231
     }
