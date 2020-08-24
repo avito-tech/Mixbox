@@ -587,6 +587,12 @@
 		F8EF37B024094B2F0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */; };
 		F8EF37B324094C690041DBF9 /* DelayingFocusGainingInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */; };
 		F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */; };
+		F8F8320524EFEE59007EEA45 /* GeneratorFacadeTests+CommonLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320424EFEE59007EEA45 /* GeneratorFacadeTests+CommonLogic.swift */; };
+		F8F8320724EFEE8A007EEA45 /* GeneratorFacadeTests+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320624EFEE8A007EEA45 /* GeneratorFacadeTests+Enums.swift */; };
+		F8F8320924EFEE94007EEA45 /* GeneratorFacadeTests+NonFinalClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320824EFEE94007EEA45 /* GeneratorFacadeTests+NonFinalClasses.swift */; };
+		F8F8320B24EFEEE6007EEA45 /* GeneratorFacadeTests+SharedCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320A24EFEEE6007EEA45 /* GeneratorFacadeTests+SharedCode.swift */; };
+		F8F8320D24EFEF0C007EEA45 /* GeneratorFacadeTests+NestedFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320C24EFEF0C007EEA45 /* GeneratorFacadeTests+NestedFields.swift */; };
+		F8F8321124EFF382007EEA45 /* GeneratorFacadeTests+SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8321024EFF382007EEA45 /* GeneratorFacadeTests+SharedModels.swift */; };
 		F8F9C2A02368894100E9A044 /* IpcRouterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */; };
 		F8F9C2A52368946A00E9A044 /* BaseUiTestCase+ResolveFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */; };
 		F8F9C2AC2368949000E9A044 /* BaseTestCase+AssertLogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833E22495469004DD770 /* BaseTestCase+AssertLogsAndFailures.swift */; };
@@ -1059,6 +1065,12 @@
 		F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayingFocusGainingInput.swift; sourceTree = "<group>"; };
 		F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDescriptionBuilderTests.swift; sourceTree = "<group>"; };
+		F8F8320424EFEE59007EEA45 /* GeneratorFacadeTests+CommonLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneratorFacadeTests+CommonLogic.swift"; sourceTree = "<group>"; };
+		F8F8320624EFEE8A007EEA45 /* GeneratorFacadeTests+Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneratorFacadeTests+Enums.swift"; sourceTree = "<group>"; };
+		F8F8320824EFEE94007EEA45 /* GeneratorFacadeTests+NonFinalClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneratorFacadeTests+NonFinalClasses.swift"; sourceTree = "<group>"; };
+		F8F8320A24EFEEE6007EEA45 /* GeneratorFacadeTests+SharedCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneratorFacadeTests+SharedCode.swift"; sourceTree = "<group>"; };
+		F8F8320C24EFEF0C007EEA45 /* GeneratorFacadeTests+NestedFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneratorFacadeTests+NestedFields.swift"; sourceTree = "<group>"; };
+		F8F8321024EFF382007EEA45 /* GeneratorFacadeTests+SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeneratorFacadeTests+SharedModels.swift"; sourceTree = "<group>"; };
 		F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcRouterHolder.swift; sourceTree = "<group>"; };
 		F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseUiTestCase+ResolveFunctions.swift"; sourceTree = "<group>"; };
 		F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MoreComplexExample.recordedNetworkSession.json; sourceTree = "<group>"; };
@@ -2867,6 +2879,8 @@
 		F8D262CE2443134B0006B707 /* GeneratorFacadeTests */ = {
 			isa = PBXGroup;
 			children = (
+				F8F8320F24EFEF2D007EEA45 /* Tests */,
+				F8F8320E24EFEF28007EEA45 /* Support */,
 				F8D262CF244313570006B707 /* GeneratorFacadeTests.swift */,
 			);
 			path = GeneratorFacadeTests;
@@ -3168,6 +3182,26 @@
 				F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */,
 			);
 			path = SetTextActionWaitsForElementToGainFocusTests;
+			sourceTree = "<group>";
+		};
+		F8F8320E24EFEF28007EEA45 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F8F8320A24EFEEE6007EEA45 /* GeneratorFacadeTests+SharedCode.swift */,
+				F8F8321024EFF382007EEA45 /* GeneratorFacadeTests+SharedModels.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		F8F8320F24EFEF2D007EEA45 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F8F8320C24EFEF0C007EEA45 /* GeneratorFacadeTests+NestedFields.swift */,
+				F8F8320424EFEE59007EEA45 /* GeneratorFacadeTests+CommonLogic.swift */,
+				F8F8320624EFEE8A007EEA45 /* GeneratorFacadeTests+Enums.swift */,
+				F8F8320824EFEE94007EEA45 /* GeneratorFacadeTests+NonFinalClasses.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		F8FC4AD723AA691200D3E911 /* Logic */ = {
@@ -4374,6 +4408,7 @@
 				F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */,
 				F8FC4ACF23AA686900D3E911 /* AndMatcherTests.swift in Sources */,
 				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
+				F8F8320724EFEE8A007EEA45 /* GeneratorFacadeTests+Enums.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
 				F8DC863A236724D2003889C7 /* PerPixelSnapshotsComparatorTests.swift in Sources */,
 				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
@@ -4393,6 +4428,7 @@
 				F80C2E1524D1DAFD00C6CAD4 /* StepLoggerRecordingStarter.swift in Sources */,
 				F80C2E1224D1DAFD00C6CAD4 /* AttachmentMatcherBuilder.swift in Sources */,
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
+				F8F8320924EFEE94007EEA45 /* GeneratorFacadeTests+NonFinalClasses.swift in Sources */,
 				F80C2E2224D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift in Sources */,
 				F8E160C92418634E00B4912F /* BaseEventTestCase.swift in Sources */,
 				F8C3AD092437A377004B6BA4 /* EmptyDictionaryGeneratorTests.swift in Sources */,
@@ -4443,11 +4479,14 @@
 				F850A31024C5E06A006CCF11 /* GeneratorTestsDependencies.swift in Sources */,
 				F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */,
 				F8C3AD1824384420004B6BA4 /* ConstantAnyGenerator.swift in Sources */,
+				F8F8320B24EFEEE6007EEA45 /* GeneratorFacadeTests+SharedCode.swift in Sources */,
+				F8F8320D24EFEF0C007EEA45 /* GeneratorFacadeTests+NestedFields.swift in Sources */,
 				F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */,
 				F8C3AD20243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift in Sources */,
 				F80C2E4C24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift in Sources */,
 				F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
+				F8F8320524EFEE59007EEA45 /* GeneratorFacadeTests+CommonLogic.swift in Sources */,
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
 				F8B39FEE2423F08F00BFACD8 /* GeneratorTests.swift in Sources */,
 				F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */,
@@ -4469,6 +4508,7 @@
 				F80C2E0A24D1DAFD00C6CAD4 /* LogsAndFailures.swift in Sources */,
 				F8C3AD142437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift in Sources */,
 				F80C2E0F24D1DAFD00C6CAD4 /* GatherFailuresResult.swift in Sources */,
+				F8F8321124EFF382007EEA45 /* GeneratorFacadeTests+SharedModels.swift in Sources */,
 				F82BDF85243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

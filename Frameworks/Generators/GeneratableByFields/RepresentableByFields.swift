@@ -21,7 +21,7 @@
 /// func stub<R: NetworkRequest>(
 ///     requestType: R.Type,
 ///     requestMatcher: @escaping (R) -> Bool,
-///     configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<R.Method.Result>) throws -> ())
+///     configure: @escaping (TestFailingDynamicLookupConfigurator<R.Method.Result>) throws -> ())
 /// ```
 ///
 /// 2. This code was crashing:

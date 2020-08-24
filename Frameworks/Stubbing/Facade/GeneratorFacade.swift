@@ -9,28 +9,28 @@ public protocol GeneratorFacade {
     
     // Registers stub permanently
     func stub<T: RepresentableByFields>(
-        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
     
     // Generates value
     func generate<T>() -> T
     
     // Generates value with temporary stub
     func generate<T: RepresentableByFields>(
-        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
         -> T
 }
 
 extension GeneratorFacade {
     public func stub<T: RepresentableByFields>(
         type: T.Type = T.self,
-        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
     {
         stub(configure: configure)
     }
     
     public func generate<T: RepresentableByFields>(
         type: T.Type = T.self,
-        configure: @escaping (TestFailingDynamicLookupGeneratorConfigurator<T>) throws -> ())
+        configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
         -> T
     {
         return generate(configure: configure)
