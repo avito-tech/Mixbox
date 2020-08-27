@@ -1,7 +1,7 @@
 import MixboxIpcCommon
 import MixboxIpc
 
-public final class IpcAlertDisplayer: AlertDisplayer {
+public final class IpcAlertDisplayer: SynchronousAlertDisplayer {
     private let synchronousIpcClient: SynchronousIpcClient
     
     public init(synchronousIpcClient: SynchronousIpcClient) {
@@ -9,9 +9,10 @@ public final class IpcAlertDisplayer: AlertDisplayer {
     }
     
     public func display(alert: Alert) throws {
-        _ = try synchronousIpcClient.callOrThrow(
+        let result = try synchronousIpcClient.callOrThrow(
             method: DisplayAlertIpcMethod(),
             arguments: alert
         )
+        try result.getVoidReturnValue()
     }
 }

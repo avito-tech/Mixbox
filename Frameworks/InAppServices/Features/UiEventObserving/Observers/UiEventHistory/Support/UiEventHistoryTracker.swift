@@ -24,7 +24,7 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
     
     // MARK: - UiEventObserver
     
-    public func eventWasSent(event: UIEvent, window: UIWindow) {
+    public func eventWasSent(event: UIEvent, window: UIWindow) -> UiEventObserverResult {
         do {
             let currentDate = Date()
             
@@ -37,6 +37,8 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
         } catch {
             // TODO: Assertion failure
         }
+        
+        return UiEventObserverResult(shouldConsumeEvent: false)
     }
     
     // MARK: - Private

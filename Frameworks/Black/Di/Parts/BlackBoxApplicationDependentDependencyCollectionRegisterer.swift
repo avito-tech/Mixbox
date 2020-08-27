@@ -1,20 +1,11 @@
 import MixboxDi
 import MixboxUiTestsFoundation
 
-// Use this DI instead of `MixboxBlackDependencies` if you want to test only one app.
-public final class MixboxBlackSingleAppDependencies: DependencyCollectionRegisterer {
+public final class BlackBoxApplicationDependentDependencyCollectionRegisterer: DependencyCollectionRegisterer {
     public init() {
     }
     
-    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
-        return [
-            MixboxBlackDependencies()
-        ]
-    }
-    
     public func register(dependencyRegisterer di: DependencyRegisterer) {
-        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
-        
         di.register(type: ApplicationProvider.self) { _ in
             ApplicationProviderImpl { XCUIApplication() }
         }
@@ -33,11 +24,6 @@ public final class MixboxBlackSingleAppDependencies: DependencyCollectionRegiste
                 applicationProvider: try di.resolve()
             )
         }
-        di.register(type: Pasteboard.self) { di in
-            IpcPasteboard(
-                ipcClient: try di.resolve()
-            )
-        }
         di.register(type: ApplicationQuiescenceWaiter.self) { di in
             XcuiApplicationQuiescenceWaiter(
                 applicationProvider: try di.resolve()
@@ -50,6 +36,17 @@ public final class MixboxBlackSingleAppDependencies: DependencyCollectionRegiste
                 ipcClient: try di.resolve(),
                 elementFinder: try di.resolve(),
                 applicationProvider: try di.resolve()
+            )
+        }
+        di.register(type: ApplicationFrameProvider.self) { di in
+            XcuiApplicationFrameProvider(
+                applicationProvider: try di.resolve()
+            )
+        }
+        di.register(type: ApplicationCoordinatesProvider.self) { di in
+            ApplicationCoordinatesProviderImpl(
+                applicationProvider: try di.resolve(),
+                applicationFrameProvider: try di.resolve()
             )
         }
     }

@@ -18,9 +18,11 @@ public final class UiEventObservingWindow: UIWindow, UiEventObservable {
     // MARK: - UIWindow
     
     override public func sendEvent(_ event: UIEvent) {
-        uiEventObservable.eventWasSent(event: event, window: self)
+        let result = uiEventObservable.eventWasSent(event: event, window: self)
         
-        super.sendEvent(event)
+        if !result.shouldConsumeEvent {
+            super.sendEvent(event)
+        }
     }
     
     public func add(observer: UiEventObserver) {

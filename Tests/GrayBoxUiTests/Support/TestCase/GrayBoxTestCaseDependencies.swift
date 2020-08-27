@@ -16,7 +16,7 @@ final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
     
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
-            MixboxGrayDependencies(),
+            MixboxGray.GrayBoxDependencies(),
             UiTestCaseDependencies()
         ]
     }

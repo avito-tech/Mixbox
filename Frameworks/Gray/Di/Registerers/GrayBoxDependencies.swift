@@ -6,13 +6,15 @@ import MixboxFoundation
 import MixboxIpcCommon
 import MixboxIpc
 
-public final class MixboxGrayDependencies: DependencyCollectionRegisterer {
+public final class GrayBoxDependencies: DependencyCollectionRegisterer {
     public init() {
     }
     
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
-            MixboxUiTestsFoundationDependencies()
+            IpcClientsDependencyCollectionRegisterer(),
+            ApplicationIndependentUiTestsDependencyCollectionRegisterer(),
+            ApplicationIndependentTestsDependencyCollectionRegisterer()
         ]
     }
     

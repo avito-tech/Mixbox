@@ -21,6 +21,7 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         registerSwizzling(di: di)
         registerVisibilityCheck(di: di)
         registerLogging(di:di)
+        registerPageObjectMakingHelper(di: di)
     }
     
     private func registerUtilities(di: DependencyRegisterer) {
@@ -48,6 +49,17 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             UiApplicationWindowsProvider(
                 uiApplication: try di.resolve(),
                 iosVersionProvider: try di.resolve()
+            )
+        }
+        di.register(type: FloatValuesForSr5346Patcher.self) { di in
+            FloatValuesForSr5346PatcherImpl(
+                iosVersionProvider: try di.resolve()
+            )
+        }
+        di.register(type: ViewHierarchyProvider.self) { di in
+            ViewHierarchyProviderImpl(
+                applicationWindowsProvider: try di.resolve(),
+                floatValuesForSr5346Patcher: try di.resolve()
             )
         }
     }
@@ -249,6 +261,16 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
     private func registerLogging(di: DependencyRegisterer) {
         di.register(type: PerformanceLogger.self) { _ in
             NoopPerformanceLogger()
+        }
+    }
+    
+    private func registerPageObjectMakingHelper(di: DependencyRegisterer) {
+        di.register(type: PageObjectElementGenerationWizardRunner.self) { di in
+            InAppPageObjectElementGenerationWizardRunner(
+                applicationWindowsProvider: try di.resolve(),
+                uiEventObservableProvider: try di.resolve(),
+                viewHierarchyProvider: try di.resolve()
+            )
         }
     }
 }

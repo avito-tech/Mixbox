@@ -1,7 +1,7 @@
 import MixboxIpcCommon
 import MixboxIpc
 
-public final class IpcPageObjectElementGenerationWizardRunner: PageObjectElementGenerationWizardRunner {
+public final class IpcPageObjectElementGenerationWizardRunner: SynchronousPageObjectElementGenerationWizardRunner {
     private let synchronousIpcClient: SynchronousIpcClient
     
     public init(synchronousIpcClient: SynchronousIpcClient) {
@@ -9,9 +9,10 @@ public final class IpcPageObjectElementGenerationWizardRunner: PageObjectElement
     }
     
     public func run() throws {
-        _ = try synchronousIpcClient.callOrThrow(
+        let result = try synchronousIpcClient.callOrThrow(
             method: RunPageObjectElementGenerationWizardIpcMethod(),
             arguments: IpcVoid()
         )
+        try result.getVoidReturnValue()
     }
 }

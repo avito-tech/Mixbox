@@ -3,7 +3,7 @@
 import UIKit
 
 public protocol UiEventObserver: AnyObject {
-    func eventWasSent(event: UIEvent, window: UIWindow)
+    func eventWasSent(event: UIEvent, window: UIWindow) -> UiEventObserverResult
 }
 
 #endif

@@ -5,22 +5,16 @@ import MixboxUiKit
 import MixboxIpc
 import MixboxIpcCommon
 
-public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegisterer {
+// NOTE: Consider including `MixboxTestsFoundationDependencies` in your DI.
+// Or simply use already prepared containers (with suffix `BoxDependencies`, like `SingleAppBlackBoxDependencies`.
+public final class ApplicationIndependentUiTestsDependencyCollectionRegisterer: DependencyCollectionRegisterer {
     public init() {
     }
     
-    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
-        return [
-            MixboxTestsFoundationDependencies()
-        ]
-    }
-    
     public func register(dependencyRegisterer di: DependencyRegisterer) {
-        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
-        
         registerUtilities(di: di)
         registerSnapshotComparisonDependencies(di: di)
-        registerIpcClients(di: di)
+        registerIpc(di: di)
         registerInteractionDependencies(di: di)
         registerPageObjectMakingHelperDependencies(di: di)
     }
@@ -47,33 +41,11 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
         }
     }
     
-    private func registerIpcClients(di: DependencyRegisterer) {
-        di.register(type: LazilyInitializedIpcClient.self) { _ in
-            LazilyInitializedIpcClient()
-        }
-        di.register(type: IpcClient.self) { di in
-            try di.resolve() as LazilyInitializedIpcClient
-        }
-        di.register(type: SynchronousIpcClient.self) { di in
-            let synchronousIpcClientFactory = try di.resolve() as SynchronousIpcClientFactory
-            
-            return synchronousIpcClientFactory.synchronousIpcClient(
-                ipcClient: try di.resolve()
-            )
-        }
+    private func registerIpc(di: DependencyRegisterer) {
         di.register(type: SynchronousIpcClientFactory.self) { di in
             RunLoopSpinningSynchronousIpcClientFactory(
                 runLoopSpinningWaiter: try di.resolve(),
                 timeout: 15
-            )
-        }
-        di.register(type: KeyboardEventInjector.self) { di in
-            IpcKeyboardEventInjector(ipcClient: try di.resolve())
-        }
-        di.register(type: SynchronousKeyboardEventInjector.self) { di in
-            SynchronousKeyboardEventInjectorImpl(
-                keyboardEventInjector: try di.resolve(),
-                runLoopSpinningWaiter: try di.resolve()
             )
         }
     }
@@ -107,16 +79,6 @@ public final class MixboxUiTestsFoundationDependencies: DependencyCollectionRegi
     }
     
     private func registerPageObjectMakingHelperDependencies(di: DependencyRegisterer) {
-        di.register(type: AlertDisplayer.self) { di in
-            IpcAlertDisplayer(
-                synchronousIpcClient: try di.resolve()
-            )
-        }
-        di.register(type: PageObjectElementGenerationWizardRunner.self) { di in
-            IpcPageObjectElementGenerationWizardRunner(
-                synchronousIpcClient: try di.resolve()
-            )
-        }
         di.register(type: InteractionFailureDebugger.self) { _ in
             NoopInteractionFailureDebugger()
         }

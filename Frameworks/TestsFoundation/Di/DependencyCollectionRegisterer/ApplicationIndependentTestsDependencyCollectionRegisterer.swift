@@ -2,7 +2,7 @@ import MixboxDi
 import MixboxFoundation
 import MixboxUiKit
 
-public final class MixboxTestsFoundationDependencies: DependencyCollectionRegisterer {
+public final class ApplicationIndependentTestsDependencyCollectionRegisterer: DependencyCollectionRegisterer {
     public init() {
     }
     

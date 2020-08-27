@@ -159,15 +159,7 @@ public final class InAppServicesImpl: InAppServices {
         ))
         router.register(
             methodHandler: ViewHierarchyIpcMethodHandler(
-                viewHierarchyProvider: ViewHierarchyProviderImpl(
-                    applicationWindowsProvider: UiApplicationWindowsProvider(
-                        uiApplication: UIApplication.shared,
-                        iosVersionProvider: try dependencyResolver.resolve()
-                    ),
-                    floatValuesForSr5346Patcher: FloatValuesForSr5346PatcherImpl(
-                        iosVersionProvider: try dependencyResolver.resolve()
-                    )
-                )
+                viewHierarchyProvider: try dependencyResolver.resolve()
             )
         )
         
@@ -232,7 +224,7 @@ public final class InAppServicesImpl: InAppServices {
         )
         router.register(
             methodHandler: RunPageObjectElementGenerationWizardIpcMethodHandler(
-                applicationWindowsProvider: try dependencyResolver.resolve()
+                pageObjectElementGenerationWizardRunner: try dependencyResolver.resolve()
             )
         )
     }

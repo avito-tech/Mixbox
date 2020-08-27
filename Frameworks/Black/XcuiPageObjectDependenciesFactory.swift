@@ -6,7 +6,6 @@ import MixboxFoundation
 import MixboxDi
 
 public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependenciesFactory {
-    // swiftlint:disable:next function_body_length
     public init(
         dependencyResolver: DependencyResolver,
         dependencyInjectionFactory: DependencyInjectionFactory,
@@ -18,6 +17,9 @@ public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependencies
             dependencyResolver: dependencyResolver,
             dependencyInjectionFactory: dependencyInjectionFactory,
             registerSpecificDependencies: { di in
+                BlackBoxApplicationDependentDependencyCollectionRegisterer().register(dependencyRegisterer: di)
+                IpcClientsDependencyCollectionRegisterer().register(dependencyRegisterer: di)
+                
                 di.register(type: PageObjectElementCoreFactory.self) { di in
                     PageObjectElementCoreFactoryImpl(
                         testFailureRecorder: try di.resolve(),
@@ -41,54 +43,22 @@ public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependencies
                 di.register(type: ApplicationProvider.self) { _ in
                     applicationProvider
                 }
-                di.register(type: ApplicationQuiescenceWaiter.self) { di in
-                    XcuiApplicationQuiescenceWaiter(
-                        applicationProvider: try di.resolve()
-                    )
-                }
-                di.register(type: KeyboardEventInjector.self) { di in
-                    IpcKeyboardEventInjector(
-                        ipcClient: try di.resolve()
-                    )
-                }
-                di.register(type: SynchronousKeyboardEventInjector.self) { di in
-                    SynchronousKeyboardEventInjectorImpl(
-                        keyboardEventInjector: try di.resolve(),
-                        runLoopSpinningWaiter: try di.resolve()
-                    )
-                }
                 di.register(type: SynchronousIpcClient.self) { di in
-                    let synchronousIpcClientFactory:  SynchronousIpcClientFactory = try di.resolve()
+                    let synchronousIpcClientFactory: SynchronousIpcClientFactory = try di.resolve()
                 
                     return synchronousIpcClientFactory.synchronousIpcClient(ipcClient: try di.resolve())
                 }
                 di.register(type: IpcClient.self) { _ in
                     ipcClient ?? AlwaysFailingIpcClient()
                 }
-                di.register(type: EventGenerator.self) { di in
-                    XcuiEventGenerator(
-                        applicationProvider: try di.resolve()
-                    )
-                }
                 di.register(type: Pasteboard.self) { di in
-                    let synchronousIpcClientFactory:  SynchronousIpcClientFactory = try di.resolve()
+                    let synchronousIpcClientFactory: SynchronousIpcClientFactory = try di.resolve()
                     
                     let ipcPasteboard = ipcClient.map {
                         IpcPasteboard(ipcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: $0))
                     }
                     
                     return ipcPasteboard ?? UikitPasteboard(uiPasteboard: .general)
-                }
-                di.register(type: ApplicationCoordinatesProvider.self) { di in
-                    ApplicationCoordinatesProviderImpl(
-                        applicationProvider: try di.resolve(),
-                        applicationFrameProvider: try di.resolve()
-                    )
-                }
-                di.register(type: ApplicationFrameProvider.self) { di in
-                    XcuiApplicationFrameProvider(
-                        applicationProvider: try di.resolve()
-                    )
                 }
             }
         )

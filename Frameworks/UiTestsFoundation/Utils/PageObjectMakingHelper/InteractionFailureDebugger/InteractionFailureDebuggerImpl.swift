@@ -2,15 +2,15 @@ import MixboxFoundation
 import MixboxIpcCommon
 
 public final class InteractionFailureDebuggerImpl: InteractionFailureDebugger {
-    private let alertDisplayer: AlertDisplayer
-    private let pageObjectElementGenerationWizardRunner: PageObjectElementGenerationWizardRunner
+    private let synchronousAlertDisplayer: SynchronousAlertDisplayer
+    private let synchronousPageObjectElementGenerationWizardRunner: SynchronousPageObjectElementGenerationWizardRunner
     
     public init(
-        alertDisplayer: AlertDisplayer,
-        pageObjectElementGenerationWizardRunner: PageObjectElementGenerationWizardRunner)
+        synchronousAlertDisplayer: SynchronousAlertDisplayer,
+        synchronousPageObjectElementGenerationWizardRunner: SynchronousPageObjectElementGenerationWizardRunner)
     {
-        self.alertDisplayer = alertDisplayer
-        self.pageObjectElementGenerationWizardRunner = pageObjectElementGenerationWizardRunner
+        self.synchronousAlertDisplayer = synchronousAlertDisplayer
+        self.synchronousPageObjectElementGenerationWizardRunner = synchronousPageObjectElementGenerationWizardRunner
     }
     
     public func performDebugging() throws -> InteractionFailureDebuggingResult {
@@ -22,7 +22,7 @@ public final class InteractionFailureDebuggerImpl: InteractionFailureDebugger {
     }
     
     private func displayAlert() throws {
-        try alertDisplayer.display(
+        try synchronousAlertDisplayer.display(
             alert: Alert(
                 title: "Error",
                 description: "Error"
@@ -31,6 +31,6 @@ public final class InteractionFailureDebuggerImpl: InteractionFailureDebugger {
     }
     
     private func runPageObjectElementGenerationWizard() throws {
-        try pageObjectElementGenerationWizardRunner.run()
+        try synchronousPageObjectElementGenerationWizardRunner.run()
     }
 }

@@ -97,8 +97,10 @@ final class UiEventObservableImplTests: TestCase {
             self.state = state
         }
         
-        func eventWasSent(event: UIEvent, window: UIWindow) {
+        func eventWasSent(event: UIEvent, window: UIWindow) -> UiEventObserverResult {
             state.calls += 1
+            
+            return UiEventObserverResult(shouldConsumeEvent: false)
         }
     }
     
@@ -110,6 +112,6 @@ final class UiEventObservableImplTests: TestCase {
     }
     
     private func sendEvent() {
-        observable.eventWasSent(event: UIEvent(), window: UIWindow())
+        _ = observable.eventWasSent(event: UIEvent(), window: UIWindow())
     }
 }

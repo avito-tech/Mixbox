@@ -7,10 +7,20 @@ public final class UiEventObservableImpl: UiEventObservable, UiEventObserver {
     
     // MARK: - UiEventObserver
     
-    public func eventWasSent(event: UIEvent, window: UIWindow) {
+    public func eventWasSent(event: UIEvent, window: UIWindow) -> UiEventObserverResult {
+        var shouldConsumeEvent = false
+        
         forEachObserver {
-            $0.eventWasSent(event: event, window: window)
+            let result = $0.eventWasSent(event: event, window: window)
+            
+            if result.shouldConsumeEvent {
+                shouldConsumeEvent = true
+            }
         }
+        
+        return UiEventObserverResult(
+            shouldConsumeEvent: shouldConsumeEvent
+        )
     }
     
     // MARK: - UiEventObservable

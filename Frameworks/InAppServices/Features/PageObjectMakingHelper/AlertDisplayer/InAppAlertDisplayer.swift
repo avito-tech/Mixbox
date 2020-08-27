@@ -4,7 +4,7 @@ import MixboxIpcCommon
 import MixboxFoundation
 import UIKit
 
-// TODO: Conform to `AlertDisplayer`, make `SyncronousAlertDisplayer`
+// TODO: Conform to `AlertDisplayer`, make `SynchronousAlertDisplayer`
 public final class InAppAlertDisplayer {
     private let applicationWindowsProvider: ApplicationWindowsProvider
     

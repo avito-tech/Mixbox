@@ -6,7 +6,13 @@ public final class TouchDrawer: UiEventObserver {
     public init() {
     }
     
-    public func eventWasSent(event: UIEvent, window: UIWindow) {
+    public func eventWasSent(event: UIEvent, window: UIWindow) -> UiEventObserverResult {
+        handleEventWasSent(event: event, window: window)
+        
+        return UiEventObserverResult(shouldConsumeEvent: false)
+    }
+    
+    private func handleEventWasSent(event: UIEvent, window: UIWindow) {
         guard let touches = event.allTouches
             else { return }
         
