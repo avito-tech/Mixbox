@@ -1,3 +1,5 @@
+import UIKit
+
 public final class InteractionsUseVisiblePointTestsViewConfiguration: Codable {
     public let buttonFrame: CGRect
     public let overlappingViewFrame: CGRect

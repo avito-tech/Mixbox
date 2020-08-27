@@ -1,3 +1,5 @@
+import UIKit
+
 // Mimics XCUICoordinate & XCUIElement interfaces.
 //
 // Except for this function:

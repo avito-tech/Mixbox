@@ -1,6 +1,7 @@
 import MixboxIpc
 import TestsIpc
 import MixboxInAppServices
+import UIKit
 
 final class SetScreenIpcMethodHandler: IpcMethodHandler {
     typealias Method = SetScreenIpcMethod

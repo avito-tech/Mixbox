@@ -1,4 +1,5 @@
 import MixboxIpcCommon
+import UIKit
 
 public final class SnapshotForInteractionResolverArguments {
     public let overridenPercentageOfVisibleArea: CGFloat?

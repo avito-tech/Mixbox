@@ -1,3 +1,5 @@
+import UIKit
+
 public final class IpcView: Codable {
     public let frame: CGRect
     public let accessibilityIdentifier: String?

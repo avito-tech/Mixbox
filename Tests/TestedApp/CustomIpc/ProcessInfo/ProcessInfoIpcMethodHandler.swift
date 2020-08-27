@@ -1,5 +1,6 @@
 import MixboxIpc
 import TestsIpc
+import Foundation
 
 final class ProcessInfoIpcMethodHandler: IpcMethodHandler {
     let method = ProcessInfoIpcMethod()

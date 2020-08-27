@@ -1,5 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
+import Foundation
+
 // Replicates URLRequest
 public final class BridgedUrlRequest: Codable {
     public let url: URL?

@@ -1,5 +1,6 @@
 import MixboxUiKit
 import MixboxIpcCommon
+import UIKit
 
 public final class SwipeActionPathCalculator {
     public static let defaultVelocity: CGFloat = 2000

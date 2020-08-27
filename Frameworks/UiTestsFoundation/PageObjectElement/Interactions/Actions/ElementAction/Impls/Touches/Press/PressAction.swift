@@ -1,4 +1,5 @@
 import MixboxIpcCommon
+import Foundation
 
 public class PressAction: ElementInteraction {
     private let duration: TimeInterval

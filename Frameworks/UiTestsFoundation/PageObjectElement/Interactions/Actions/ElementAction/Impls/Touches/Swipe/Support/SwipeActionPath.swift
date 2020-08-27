@@ -1,3 +1,5 @@
+import UIKit
+
 public final class SwipeActionPath {
     public let startPoint: CGPoint
     public let endPoint: CGPoint

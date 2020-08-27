@@ -1,4 +1,5 @@
 import MixboxIpcCommon
+import UIKit
 
 public protocol Scroller: class {
     func scrollIfNeeded(

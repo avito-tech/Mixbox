@@ -1,5 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
+import UIKit
+
 // Mirrors UIKit.UITouch (incompletely)
 public final class UiTouch: Codable {
     // Mirrors UITouch.Phase (completely)

@@ -1,3 +1,5 @@
+import UIKit
+
 public final class ElementVisibilityCheckerResult: Codable {
     // `percentageOfVisibleArea` for view with specified `elementUniqueIdentifier`
     public let percentageOfVisibleArea: CGFloat

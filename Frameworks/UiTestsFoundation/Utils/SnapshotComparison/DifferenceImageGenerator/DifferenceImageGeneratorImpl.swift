@@ -1,3 +1,5 @@
+import UIKit
+
 public final class DifferenceImageGeneratorImpl: DifferenceImageGenerator {
     public init() {
     }

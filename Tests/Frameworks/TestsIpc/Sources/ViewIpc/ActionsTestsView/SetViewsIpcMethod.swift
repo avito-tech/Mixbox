@@ -1,5 +1,6 @@
 import MixboxIpc
 import MixboxFoundation
+import UIKit
 
 public final class ActionsTestsViewModel: Codable {
     public let showInfo: Bool

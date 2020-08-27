@@ -1,3 +1,5 @@
+import Foundation
+
 // Not really a good abstraction. It duplicates SBTMonitoredNetworkRequest interface.
 public protocol MonitoredNetworkRequest: class {
     func requestJson() -> [String: Any]?

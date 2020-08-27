@@ -1,6 +1,7 @@
 #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #include "IOHIDEvent.h"
 

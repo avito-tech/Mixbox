@@ -8,6 +8,8 @@
 #include <objc/runtime.h>
 #include <signal.h>
 
+@import UIKit;
+
 @implementation AccessibilityOnSimulatorInitializer
 
 // Note: AccessibilityUtilities is a private framework in iOS, it can not be linked during the build.

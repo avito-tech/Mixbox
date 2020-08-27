@@ -1,4 +1,5 @@
 import MixboxFoundation
+import UIKit
 
 public final class ElementSettings {
     public let name: String

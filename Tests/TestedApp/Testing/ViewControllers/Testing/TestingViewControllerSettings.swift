@@ -1,4 +1,5 @@
 import MixboxInAppServices
+import UIKit
 
 public final class TestingViewControllerSettings {
     public let viewType: String

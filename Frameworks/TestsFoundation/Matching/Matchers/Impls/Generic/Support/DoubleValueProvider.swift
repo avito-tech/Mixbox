@@ -1,3 +1,5 @@
+import UIKit
+
 public protocol DoubleValueProvider {
     func doubleValue() -> Double
 }

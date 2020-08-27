@@ -1,3 +1,5 @@
+import UIKit
+
 public final class ScrollingTriesToMakeViewFullyVisibleTestsViewConfiguration: Codable {
     public let buttonFrame: CGRect
     public let contentSize: CGSize

@@ -1,3 +1,5 @@
+import UIKit
+
 // You can use this class in your tests.
 //
 // Consider using your own base class if you want to customize dependencies of your page objects.

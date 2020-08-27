@@ -1,3 +1,5 @@
+import Foundation
+
 // TODO: Remove this enum after removing SBTUITestTunnel dependency.
 // The interface is not ideal, it was made based on current implementation of SBTUITestTunnel
 public enum StubResponseBuilderResponseValue: Equatable {

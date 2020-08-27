@@ -1,4 +1,5 @@
 import MixboxIpcCommon
+import UIKit
 
 public final class PerformerOfSpecificImplementationOfInteractionForVisibleElementImpl:
     PerformerOfSpecificImplementationOfInteractionForVisibleElement

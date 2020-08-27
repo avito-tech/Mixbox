@@ -3,6 +3,7 @@ import MixboxUiKit
 import MixboxFoundation
 import MixboxIpcCommon
 import MixboxIpc
+import UIKit
 
 public final class ScrollingTriesToMakeViewFullyVisibleTestsView:
     UIView,

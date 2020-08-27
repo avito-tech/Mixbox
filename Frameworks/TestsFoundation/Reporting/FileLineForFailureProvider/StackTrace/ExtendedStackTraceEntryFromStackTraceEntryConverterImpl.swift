@@ -1,3 +1,5 @@
+import XCTest
+
 // TODO: Split:
 // - Parsing output of backtrace_symbols
 // - Symbolication of callstack addresses

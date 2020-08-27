@@ -1,4 +1,5 @@
 import CocoaImageHashing
+import UIKit
 
 // I think it is this algorithm:
 // http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html

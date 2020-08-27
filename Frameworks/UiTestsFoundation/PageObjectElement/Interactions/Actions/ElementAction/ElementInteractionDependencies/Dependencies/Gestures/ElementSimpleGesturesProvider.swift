@@ -1,3 +1,5 @@
+import UIKit
+
 public protocol ElementSimpleGesturesProvider: class {
     func elementSimpleGestures(
         elementSnapshot: ElementSnapshot,

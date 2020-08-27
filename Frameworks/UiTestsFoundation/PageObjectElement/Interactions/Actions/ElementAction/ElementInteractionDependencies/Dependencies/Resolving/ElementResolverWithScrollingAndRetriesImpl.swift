@@ -1,4 +1,5 @@
 import MixboxFoundation
+import UIKit
 
 public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWithScrollingAndRetries {
     private let elementResolver: ElementResolver

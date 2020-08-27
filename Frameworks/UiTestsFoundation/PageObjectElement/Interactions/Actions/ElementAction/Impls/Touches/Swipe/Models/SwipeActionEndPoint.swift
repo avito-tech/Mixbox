@@ -1,4 +1,5 @@
 import MixboxIpcCommon
+import UIKit
 
 public enum SwipeActionEndPoint {
     case directionWithDefaultLength(SwipeDirection)

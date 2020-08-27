@@ -1,5 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
+import Foundation
+
 public final class UiEventHistory: Codable {
     public let uiEventHistoryRecords: [UiEventHistoryRecord]
     public let startDate: Date

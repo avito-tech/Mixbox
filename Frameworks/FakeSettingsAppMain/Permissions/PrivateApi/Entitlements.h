@@ -1,3 +1,5 @@
+@import Foundation;
+
 void * _Nullable SecTaskCopyValueForEntitlement(
                                                 void * _Nullable task,
                                                 _Nullable CFStringRef entitlement,

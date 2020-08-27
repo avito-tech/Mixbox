@@ -1,3 +1,5 @@
+import UIKit
+
 public protocol Divisible {
     func byDividing(_ other: Self) -> Self
 }

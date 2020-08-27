@@ -27,6 +27,8 @@
 #ifndef _IOKIT_HID_IOHIDEVENTTYPES_H
 #define _IOKIT_HID_IOHIDEVENTTYPES_H
 
+#import <Foundation/Foundation.h>
+
 __BEGIN_DECLS
 
 #include "IOTypes.h"

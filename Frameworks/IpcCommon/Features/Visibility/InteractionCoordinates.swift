@@ -1,5 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
+import UIKit
+
 public final class InteractionCoordinates: Codable {
     //  If point is not specified it will be a center (for all cases).
     public enum Mode: String, Codable {

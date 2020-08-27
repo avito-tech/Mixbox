@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxAnyCodable
+import Foundation
 
 // Replicates CachedURLResponse
 public final class BridgedCachedUrlResponse: Codable {

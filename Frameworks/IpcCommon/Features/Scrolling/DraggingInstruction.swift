@@ -1,5 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
+import UIKit
+
 // Points are in coordinate space of window.
 public final class DraggingInstruction: Codable, Equatable {
     // Point of initial touch

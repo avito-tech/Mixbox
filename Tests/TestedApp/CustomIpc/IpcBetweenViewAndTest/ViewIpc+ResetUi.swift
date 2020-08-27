@@ -2,6 +2,7 @@ import MixboxIpc
 import MixboxIpcCommon
 import TestsIpc
 import MixboxFoundation
+import UIKit
 
 extension ViewIpc {
     func registerAsyncResetUiMethod<ViewType: UIView, ArgumentType: Codable>(

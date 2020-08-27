@@ -1,4 +1,5 @@
 import MixboxIpcCommon
+import UIKit
 
 extension BaseUiTestCase {
     func mainScreenBounds() -> CGRect {

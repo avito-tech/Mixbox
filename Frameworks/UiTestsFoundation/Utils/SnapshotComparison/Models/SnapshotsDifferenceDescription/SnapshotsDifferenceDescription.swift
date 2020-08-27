@@ -1,3 +1,5 @@
+import UIKit
+
 public protocol SnapshotsDifferenceDescription: class {
     var percentageOfMatching: Double { get }
     var message: String { get }

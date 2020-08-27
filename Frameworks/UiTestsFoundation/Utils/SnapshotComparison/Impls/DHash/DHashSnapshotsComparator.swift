@@ -1,3 +1,5 @@
+import UIKit
+
 public final class ImageHashCalculatorSnapshotsComparator: SnapshotsComparator {
     private let imageHashCalculator: ImageHashCalculator
     private let hashDistanceTolerance: UInt8

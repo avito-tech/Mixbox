@@ -1,3 +1,5 @@
+import UIKit
+
 public final class SnapshotForInteractionResolverResult {
     public let visiblePoint: CGPoint?
     public let elementSnapshot: ElementSnapshot

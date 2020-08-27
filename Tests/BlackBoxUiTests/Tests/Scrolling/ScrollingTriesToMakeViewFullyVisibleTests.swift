@@ -1,6 +1,7 @@
 import TestsIpc
 import MixboxUiTestsFoundation
 import MixboxIpcCommon
+import UIKit
 
 final class ScrollingTriesToMakeViewFullyVisibleTests: TestCase {
     override func precondition() {

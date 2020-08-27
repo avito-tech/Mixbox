@@ -1,3 +1,5 @@
+import UIKit
+
 public final class IsDisplayedAndMatchesCheck: ElementInteraction {
     private let overridenPercentageOfVisibleArea: CGFloat?
     private let buildMatcher: (ElementMatcherBuilder) -> ElementMatcher

@@ -1,3 +1,5 @@
+import UIKit
+
 public final class WaitingForQuiescenceTestsViewConfiguration: Codable {
     public final class TapIndicatorButton: Codable {
         public let id: String

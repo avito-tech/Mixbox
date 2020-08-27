@@ -3,6 +3,7 @@ import MixboxUiKit
 import MixboxFoundation
 import MixboxIpcCommon
 import MixboxIpc
+import UIKit
 
 // This view contains scroll with high inertia and a very small button.
 // This view is used to check that even if UI is moving, actions will wait until it becomes stable.

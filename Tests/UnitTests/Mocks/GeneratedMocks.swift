@@ -107,6 +107,7 @@ public class StubRequestBuilderStub: StubRequestBuilder {
 import Cuckoo
 import MixboxUiTestsFoundation
 
+import Foundation
 import MixboxIpcCommon
 
 public class MockStubResponseBuilder: StubResponseBuilder, Cuckoo.ProtocolMock {
@@ -186,6 +187,8 @@ public class StubResponseBuilderStub: StubResponseBuilder {
 
 import Cuckoo
 import MixboxUiTestsFoundation
+
+import UIKit
 
 public class MockScreenshotTaker: ScreenshotTaker, Cuckoo.ProtocolMock {
 

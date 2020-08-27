@@ -1,3 +1,5 @@
+import UIKit
+
 public final class IpcColor: Codable {
     // Values are in range 0...1
     public let alpha: CGFloat

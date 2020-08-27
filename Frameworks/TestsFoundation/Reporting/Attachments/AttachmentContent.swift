@@ -1,3 +1,5 @@
+import UIKit
+
 public enum AttachmentContent: Equatable {
     case screenshot(UIImage) // TODO: Rename to `image`
     case text(String)

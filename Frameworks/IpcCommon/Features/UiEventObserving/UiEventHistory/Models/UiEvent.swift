@@ -1,5 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
+import UIKit
+
 // Mirrors UIEvent (incompletely)
 public final class UiEvent: Codable {
     // Mirrors UIEvent.EventType (completely)

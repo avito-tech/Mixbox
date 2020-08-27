@@ -94,5 +94,51 @@ post_install do |installer|
         config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1', 'ENABLE_UITUNNEL=1']
       end
     end
+    
+    remove_uikit_import_from_target(target)
+  end
+end
+
+def remove_uikit_import_from_target(target)
+  if ['MixboxBlack', 'MixboxTestsFoundation'].include?(target.name)
+    # It doesn't work for these targets. Errors are like `Unknown type name 'XCEventGenerator'`
+    return
+  end
+  
+  dir = "#{__dir__}/Pods/Target Support Files/#{target.name}"
+  
+  remove_uikit_import_from_file("#{dir}/#{target.name}-umbrella.h")
+  remove_uikit_import_from_file("#{dir}/#{target.name}-prefix.pch")
+end
+
+def remove_uikit_import_from_file(file_path)
+  if File.file?(file_path)
+    text = File.read(file_path)
+    
+    new_defines = '#ifndef MIXBOX_EXPORT
+#if defined(__cplusplus)
+#define MIXBOX_EXPORT extern "C"
+#else
+#define MIXBOX_EXPORT extern
+#endif
+#endif'
+
+    old_defines = '#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif'
+
+
+    text = text.gsub(old_defines, new_defines)
+    text = text.gsub('FOUNDATION_EXPORT', 'MIXBOX_EXPORT')
+
+    File.open(file_path, "w") { |file| file.puts text }
   end
 end

@@ -1,4 +1,5 @@
 import MixboxIpcCommon
+import UIKit
 
 // TODO: This particular interface should not exists or at least it should not duplicate other interfaces.
 // However, we will need something like that to implement actions (ElementAction).

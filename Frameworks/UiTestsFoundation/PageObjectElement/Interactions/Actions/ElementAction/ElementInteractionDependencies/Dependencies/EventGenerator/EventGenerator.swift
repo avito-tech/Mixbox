@@ -1,3 +1,5 @@
+import UIKit
+
 public protocol EventGenerator: class {
     func pressAndDrag(
         from: CGPoint,

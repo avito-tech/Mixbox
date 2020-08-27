@@ -1,5 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
+import UIKit
+
 public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
     public let frame: CGRect
     

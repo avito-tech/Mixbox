@@ -1,5 +1,6 @@
 import MixboxUiTestsFoundation
 import TestsIpc
+import UIKit
 
 final class PageObjectMakingHelperTests: TestCase {
     private var screen: IpcTestingViewPageObject {

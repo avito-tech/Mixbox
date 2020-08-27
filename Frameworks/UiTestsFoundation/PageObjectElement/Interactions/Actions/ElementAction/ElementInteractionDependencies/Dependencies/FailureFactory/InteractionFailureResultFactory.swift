@@ -1,3 +1,5 @@
+import UIKit
+
 public protocol InteractionFailureResultFactory: class {
     func elementIsHiddenResult()
         -> InteractionResult

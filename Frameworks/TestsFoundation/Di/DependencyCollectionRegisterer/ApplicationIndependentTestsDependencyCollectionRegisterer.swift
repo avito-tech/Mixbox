@@ -1,6 +1,7 @@
 import MixboxDi
 import MixboxFoundation
 import MixboxUiKit
+import UIKit
 
 public final class ApplicationIndependentTestsDependencyCollectionRegisterer: DependencyCollectionRegisterer {
     public init() {
