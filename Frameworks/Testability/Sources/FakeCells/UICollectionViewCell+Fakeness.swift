@@ -1,11 +1,9 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-import MixboxFoundation
-
 extension UICollectionViewCell {
     // Note: getting value for a real cell can cause resetting property (to nil).
     // This is due to a decision that observing fakeness will cost us more than resetting properties while getting them.
-    var mb_fakeCellInfo: FakeCellInfo? {
+    public var mb_fakeCellInfo: FakeCellInfo? {
         get {
             resetFakenessOfCellIfNeeded()
             return objc_getAssociatedObject(self, &fakeCellInfo_associatedObjectKey) as? FakeCellInfo
@@ -21,12 +19,12 @@ extension UICollectionViewCell {
     }
     
     private func resetFakenessOfCellIfNeeded() {
-        if isNotFakeCellDueToPresenceInViewHierarchy() {
+        if mb_isNotFakeCellDueToPresenceInViewHierarchy() {
             resetFakenessOfCell()
         }
     }
     
-    func isNotFakeCellDueToPresenceInViewHierarchy() -> Bool {
+    public func mb_isNotFakeCellDueToPresenceInViewHierarchy() -> Bool {
         return superview != nil && _isHiddenForReuse() == false
     }
     

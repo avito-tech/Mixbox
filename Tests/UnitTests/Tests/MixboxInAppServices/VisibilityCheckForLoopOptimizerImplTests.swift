@@ -40,6 +40,14 @@ final class VisibilityCheckForLoopOptimizerImplTests: TestCase {
     }
     
     func test___foreach___never_iterates_same_point_twice() {
+        // This test is long (3+ seconds). It bothers when it's run locally.
+        // So I disabled it for debugging in Xcode, it is still available on CI.
+        // If it will fail on CI, comment out the following lines, fix test and don't forget to restore the code:
+        let isCiBuild = environmentProvider.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
+        guard isCiBuild else {
+            return
+        }
+        
         // 0..10 + prime numbers
         let dataSet = [
             0, 1, 2, 3, 5, 6, 7, 8, 9, 10,

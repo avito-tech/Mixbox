@@ -57,6 +57,6 @@ public final class KeyboardEventInjectorImplTestsView:
     }
     
     private func setTextViewIsFocused(_ isFocused: Bool) {
-        textView.testability_customValues["isFocused"] = isFocused
+        textView.mb_testability_customValues["isFocused"] = isFocused
     }
 }

@@ -28,7 +28,7 @@ final class FakeCellsDoNotCrashAppTestsView: CollectionView {
         for i in 0..<100 {
             addCell { (cell: SingleViewCell<UILabel>) in
                 cell.accessibilityIdentifier = "GoodCell"
-                cell.testability_customValues["index"] = i
+                cell.mb_testability_customValues["index"] = i
                 
                 cell.view.text = "I am a good cell #\(i). I do not crash apps."
                 cell.view.backgroundColor = .green
@@ -40,7 +40,7 @@ final class FakeCellsDoNotCrashAppTestsView: CollectionView {
         for i in 0..<100 {
             addCell { (cell: CrashingCell) in
                 cell.accessibilityIdentifier = "CrashingCell"
-                cell.testability_customValues["index"] = i
+                cell.mb_testability_customValues["index"] = i
                 
                 cell.crashPlace = i
                 cell.backgroundColor = .red
@@ -49,7 +49,7 @@ final class FakeCellsDoNotCrashAppTestsView: CollectionView {
         
         for i in 0..<100 {
             addCell { (cell: CellThatCrashesAtInit) in
-                cell.testability_customValues["index"] = i
+                cell.mb_testability_customValues["index"] = i
                 
                 cell.accessibilityIdentifier = "CellThatCrashesAtInit"
                 cell.backgroundColor = .red

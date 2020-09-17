@@ -23,7 +23,7 @@ final class PermissionsTestsView: TestStackScrollView {
             addLabel(id: info.identifier()) {
                 let status = info.authorizationStatus()
                 $0.text = "\(info.identifier()): \(status)"
-                $0.testability_customValues["authorizationStatus"] = status
+                $0.mb_testability_customValues["authorizationStatus"] = status
             }
         }
     }

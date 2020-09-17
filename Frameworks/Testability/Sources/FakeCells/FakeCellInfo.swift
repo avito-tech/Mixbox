@@ -1,17 +1,16 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-import MixboxFoundation
 import UIKit
 
-final class FakeCellInfo {
-    let indexPath: IndexPath
-    var parentCollectionView: UICollectionView? {
+public final class FakeCellInfo {
+    public let indexPath: IndexPath
+    public var parentCollectionView: UICollectionView? {
         return parentCollectionViewBox.value
     }
     
     private let parentCollectionViewBox: WeakBox<UICollectionView>
     
-    init(
+    public init(
         indexPath: IndexPath,
         parentCollectionView: UICollectionView)
     {

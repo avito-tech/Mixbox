@@ -30,7 +30,7 @@ final class LocatorsTestsView: TestStackScrollView {
         
         addLabel(id: "one_of_two_labels_one_with_custom_value") {
             $0.text = "one_of_two_labels_one_with_custom_value (with custom value)"
-            $0.testability_customValues["hasCustomValue"] = true
+            $0.mb_testability_customValues["hasCustomValue"] = true
         }
         addLabel(id: "one_of_two_labels_one_with_custom_value") {
             $0.text = "one_of_two_labels_one_with_custom_value (without custom value)"
@@ -38,38 +38,38 @@ final class LocatorsTestsView: TestStackScrollView {
         
         addLabel(id: "one_of_labels_with_custom_values") {
             setDefaultText($0)
-            $0.testability_customValues["string"] = "the string"
+            $0.mb_testability_customValues["string"] = "the string"
         }
         addLabel(id: "one_of_labels_with_custom_values") {
             setDefaultText($0)
-            $0.testability_customValues["bool_false"] = false
+            $0.mb_testability_customValues["bool_false"] = false
         }
         addLabel(id: "one_of_labels_with_custom_values") {
             setDefaultText($0)
-            $0.testability_customValues["bool_true"] = true
+            $0.mb_testability_customValues["bool_true"] = true
         }
         addLabel(id: "one_of_labels_with_custom_values") {
             setDefaultText($0)
-            $0.testability_customValues["int_0"] = 0
+            $0.mb_testability_customValues["int_0"] = 0
         }
         addLabel(id: "one_of_labels_with_custom_values") {
             setDefaultText($0)
-            $0.testability_customValues["int_1"] = 1
+            $0.mb_testability_customValues["int_1"] = 1
         }
         addLabel(id: "one_of_labels_with_custom_values") {
             setDefaultText($0)
-            $0.testability_customValues["int_-1"] = -1
+            $0.mb_testability_customValues["int_-1"] = -1
         }
         addLabel(id: "one_of_labels_with_custom_values") {
-            $0.testability_customValues["double_0"] = Double(0)
-        }
-        addLabel(id: "one_of_labels_with_custom_values") {
-            setDefaultText($0)
-            $0.testability_customValues["double_inf"] = Double.infinity
+            $0.mb_testability_customValues["double_0"] = Double(0)
         }
         addLabel(id: "one_of_labels_with_custom_values") {
             setDefaultText($0)
-            $0.testability_customValues["double_nan"] = Double.nan
+            $0.mb_testability_customValues["double_inf"] = Double.infinity
+        }
+        addLabel(id: "one_of_labels_with_custom_values") {
+            setDefaultText($0)
+            $0.mb_testability_customValues["double_nan"] = Double.nan
         }
         
         addTextField(id: "text_field") {

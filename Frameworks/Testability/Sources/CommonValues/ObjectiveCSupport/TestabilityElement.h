@@ -1,16 +1,27 @@
-#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
-
 @import UIKit;
 
 #import "TestabilityElementType.h"
 
-@interface NSObject (Testability)
+// NOTE: `customValues` is purely a Swift feature.
+@protocol TestabilityElement
 
-- (BOOL)testabilityValue_hasKeyboardFocus;
+- (CGRect)mb_testability_frame;
 
-- (BOOL)testabilityValue_isEnabled;
+// Note that there is no way to calculate this from fields, because the logic of coordinates conversion
+// is not constant for every view (and is proprietary for many views).
+- (CGRect)mb_testability_frameRelativeToScreen;
 
-- (nonnull NSArray<UIView *> *)testabilityValue_children;
+- (nonnull NSString *)mb_testability_customClass;
+
+- (TestabilityElementType)mb_testability_elementType;
+
+- (nullable NSString *)mb_testability_accessibilityIdentifier;
+
+- (nullable NSString *)mb_testability_accessibilityLabel;
+
+- (nullable NSString *)mb_testability_accessibilityValue;
+
+- (nullable NSString *)mb_testability_accessibilityPlaceholderValue;
 
 // Return nil if the concept of text is not applicable to the view (e.g.: UIImageView).
 // Return visible text, you may not care about the font/color/overlapping.
@@ -49,12 +60,34 @@
 // case text(String)
 //
 // NOTE: Swift signature:
-// public func testabilityValue_text() -> String?
+// public func mb_testability_text() -> String?
 
-- (nullable NSString *)testabilityValue_text;
+- (nullable NSString *)mb_testability_text;
 
-- (TestabilityElementType)testabilityValue_elementType;
+// Unique identifier of the element. Can be used to request info about the element,
+// for example, percentage of visible area of the view, etc.
+- (nonnull NSString *)mb_testability_uniqueIdentifier;
+
+// true: is hidden, can not be visible even after scrolling.
+// false: we don't know
+//
+// TODO: Rename/refactor.
+// The name should make the reasons to use the function obvious.
+// And SRP seems to be violated.
+//
+// There are multiple reasons to use this property (1 & 2 are quite same though):
+// 1. Fast check if view is hidden before performing an expensive check.
+// 2. Ignore temporary cells in collection view that are used for animations.
+// 3. Check if we can scroll to the element and then perform check for visibility.
+//    E.g.: isDefinitelyHidden == true => we should not even try to scroll
+//          isDefinitelyHidden == false => we should consider scrolling to the view.
+//
+- (BOOL)mb_testability_isDefinitelyHidden;
+
+- (BOOL)mb_testability_isEnabled;
+
+- (BOOL)mb_testability_hasKeyboardFocus;
+
+- (nonnull NSArray<id<TestabilityElement>> *)mb_testability_children;
 
 @end
-
-#endif

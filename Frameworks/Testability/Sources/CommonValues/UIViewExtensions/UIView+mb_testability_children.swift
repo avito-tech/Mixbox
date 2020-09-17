@@ -3,7 +3,7 @@
 import UIKit
 
 extension UIView {
-    @objc override open func testabilityValue_children() -> [UIView] {
+    @objc override open func mb_testability_children() -> [TestabilityElement] {
         return subviews
     }
 }

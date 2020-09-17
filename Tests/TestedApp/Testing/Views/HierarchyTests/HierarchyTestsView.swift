@@ -13,7 +13,7 @@ final class HierarchyTestsView: UIView {
         label.frame = CGRect(x: 0, y: 1, width: 100, height: 101)
         label.text = "label.text"
         label.isUserInteractionEnabled = false
-        label.testability_customValues["label.testability_customValues"] = "label.testability_customValues"
+        label.mb_testability_customValues["label.mb_testability_customValues"] = "label.mb_testability_customValues"
         addSubview(label)
         
         let hiddenLabel = UILabel(frame: .zero)
@@ -24,7 +24,7 @@ final class HierarchyTestsView: UIView {
         hiddenLabel.text = "hiddenLabel.text"
         hiddenLabel.isUserInteractionEnabled = true
         hiddenLabel.isHidden = true
-        hiddenLabel.testability_customValues["hiddenLabel.testability_customValues"] = "hiddenLabel.testability_customValues"
+        hiddenLabel.mb_testability_customValues["hiddenLabel.mb_testability_customValues"] = "hiddenLabel.mb_testability_customValues"
         addSubview(hiddenLabel)
         
         let button = CustomButton(frame: .zero)
@@ -34,7 +34,7 @@ final class HierarchyTestsView: UIView {
         button.frame = CGRect(x: -10000, y: 1, width: 100, height: 101)
         button.setTitle("button.text", for: .normal)
         button.isEnabled = false
-        button.testability_customValues["button.testability_customValues"] = "button.testability_customValues"
+        button.mb_testability_customValues["button.mb_testability_customValues"] = "button.mb_testability_customValues"
         addSubview(button)
         
         let hiddenButton = UIButton(frame: .zero)
@@ -45,7 +45,7 @@ final class HierarchyTestsView: UIView {
         hiddenButton.setTitle("hiddenButton.text", for: .normal)
         hiddenButton.alpha = 0
         hiddenButton.isEnabled = true
-        hiddenButton.testability_customValues["hiddenButton.testability_customValues"] = "hiddenButton.testability_customValues"
+        hiddenButton.mb_testability_customValues["hiddenButton.mb_testability_customValues"] = "hiddenButton.mb_testability_customValues"
         addSubview(hiddenButton)
         
         let focusedTextField = UITextField(frame: .zero)
@@ -55,7 +55,7 @@ final class HierarchyTestsView: UIView {
         focusedTextField.frame = CGRect(x: 10000, y: 1, width: 100, height: 101)
         focusedTextField.placeholder = "focusedTextField.placeholder"
         focusedTextField.alpha = 0
-        focusedTextField.testability_customValues["focusedTextField.testability_customValues"] = "focusedTextField.testability_customValues"
+        focusedTextField.mb_testability_customValues["focusedTextField.mb_testability_customValues"] = "focusedTextField.mb_testability_customValues"
         focusedTextField.isSecureTextEntry = true
         addSubview(focusedTextField)
         focusedTextField.becomeFirstResponder()
@@ -67,7 +67,7 @@ final class HierarchyTestsView: UIView {
         notFocusedTextView.frame = CGRect(x: 1000, y: 1, width: 100, height: 101)
         notFocusedTextView.text = "notFocusedTextView.text"
         notFocusedTextView.alpha = 0
-        notFocusedTextView.testability_customValues["notFocusedTextView.testability_customValues"] = "notFocusedTextView.testability_customValues"
+        notFocusedTextView.mb_testability_customValues["notFocusedTextView.mb_testability_customValues"] = "notFocusedTextView.mb_testability_customValues"
         addSubview(notFocusedTextView)
     }
     

@@ -2,6 +2,7 @@
 
 import MixboxIpcCommon
 import MixboxFoundation
+import MixboxTestability
 
 public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabelFunctionReplacement {
     private var thisPointersInStack = [NSObject?]()
@@ -106,20 +107,20 @@ public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabel
             originalAccessibilityLabel: originalImplementation()
         )
         
-        guard let view = this as? UIView else {
+        guard let element = this as TestabilityElement? else {
             return unwrappedOriginalAccessibilityLabel
         }
         
         let label = EnhancedAccessibilityLabel(
             originalAccessibilityLabel: unwrappedOriginalAccessibilityLabel as String?,
-            accessibilityValue: view.accessibilityValue,
-            uniqueIdentifier: view.uniqueIdentifier,
-            isDefinitelyHidden: view.isDefinitelyHidden,
-            text: view.testabilityValue_text(),
-            customValues: view.testability_customValues.dictionary
+            accessibilityValue: element.mb_testability_accessibilityValue(),
+            uniqueIdentifier: element.mb_testability_uniqueIdentifier(),
+            isDefinitelyHidden: element.mb_testability_isDefinitelyHidden(),
+            text: element.mb_testability_text(),
+            customValues: element.mb_testability_customValues.dictionary
         )
         
-        AccessibilityUniqueObjectMap.shared.register(object: view)
+        AccessibilityUniqueObjectMap.shared.register(element: element)
         
         return (label.toAccessibilityLabel() as NSString?) ?? unwrappedOriginalAccessibilityLabel
     }

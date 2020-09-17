@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxIpcCommon
+import MixboxTestability
 import UIKit
 
 // TODO: Remove AccessibilityUniqueObjectMap singleton
@@ -25,36 +26,36 @@ public final class ViewHierarchyProviderImpl: ViewHierarchyProvider {
         return applicationWindowsProvider.windows.map(buildRootViewHierarchyElement)
     }
     
-    private func buildRootViewHierarchyElement(from view: UIView) -> ViewHierarchyElement {
-        AccessibilityUniqueObjectMap.shared.register(object: view)
+    private func buildRootViewHierarchyElement(from element: TestabilityElement) -> ViewHierarchyElement {
+        AccessibilityUniqueObjectMap.shared.register(element: element)
         
         return ViewHierarchyElement(
             frame: floatValuesForSr5346Patcher.patched(
-                frame: view.frame
+                frame: element.mb_testability_frame()
             ),
             frameRelativeToScreen: floatValuesForSr5346Patcher.patched(
-                frame: view.convert(view.bounds, to: nil)
+                frame: element.mb_testability_frameRelativeToScreen()
             ),
-            customClass: String(describing: type(of: view)),
+            customClass: element.mb_testability_customClass(),
             elementType: TestabilityElementTypeConverter.covertToViewHierarchyElementType(
-                elementType: view.testabilityValue_elementType()
+                elementType: element.mb_testability_elementType()
             ),
-            accessibilityIdentifier: view.accessibilityIdentifier,
+            accessibilityIdentifier: element.mb_testability_accessibilityIdentifier(),
             // TODO: Avoid using swizzled implementation and return originalAccessibilityLabel directly from view.
             accessibilityLabel: EnhancedAccessibilityLabel.originalAccessibilityLabel(
-                accessibilityLabel: view.accessibilityLabel
+                accessibilityLabel: element.mb_testability_accessibilityLabel()
             ),
-            accessibilityValue: view.accessibilityValue,
+            accessibilityValue: element.mb_testability_accessibilityValue(),
             accessibilityPlaceholderValue: EnhancedAccessibilityLabel.originalAccessibilityPlaceholderValue(
-                accessibilityPlaceholderValue: view.accessibilityPlaceholderValue() as? String
+                accessibilityPlaceholderValue: element.mb_testability_accessibilityPlaceholderValue()
             ),
-            text: view.testabilityValue_text(),
-            uniqueIdentifier: view.uniqueIdentifier,
-            isDefinitelyHidden: view.isDefinitelyHidden,
-            isEnabled: view.testabilityValue_isEnabled(),
-            hasKeyboardFocus: view.testabilityValue_hasKeyboardFocus(),
-            customValues: view.testability_customValues.dictionary,
-            children: view.testabilityValue_children().map(buildRootViewHierarchyElement)
+            text: element.mb_testability_text(),
+            uniqueIdentifier: element.mb_testability_uniqueIdentifier(),
+            isDefinitelyHidden: element.mb_testability_isDefinitelyHidden(),
+            isEnabled: element.mb_testability_isEnabled(),
+            hasKeyboardFocus: element.mb_testability_hasKeyboardFocus(),
+            customValues: element.mb_testability_customValues.dictionary,
+            children: element.mb_testability_children().map(buildRootViewHierarchyElement)
         )
     }
 }

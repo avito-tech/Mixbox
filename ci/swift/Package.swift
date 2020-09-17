@@ -205,6 +205,7 @@ let package = Package(
             dependencies: [
                 "Bash",
                 "CiFoundation",
+                "Cocoapods",
                 "Di",
                 "Git",
                 "RemoteFiles",

@@ -197,7 +197,7 @@ public final class WaitingForQuiescenceTestsView:
             guard let strongSelf = self else { return }
             
             strongSelf.becomeFirstResponder()
-            showKeyboardButton?.testability_customValues["keyboard_shown"] = true
+            showKeyboardButton?.mb_testability_customValues["keyboard_shown"] = true
         }
         actionButtons.append(showKeyboardButton)
         scrollView.addSubview(showKeyboardButton)
@@ -206,7 +206,7 @@ public final class WaitingForQuiescenceTestsView:
         accessoryViewButton.backgroundColor = .red
         accessoryViewButton.accessibilityIdentifier = "accessoryViewButton"
         accessoryViewButton.onTap = { [weak accessoryViewButton] in
-            accessoryViewButton?.testability_customValues["tapped"] = true
+            accessoryViewButton?.mb_testability_customValues["tapped"] = true
         }
         self.accessoryViewButton = accessoryViewButton
     }
@@ -217,14 +217,14 @@ public final class WaitingForQuiescenceTestsView:
         button.setTitle("Button Title", for: .normal)
         button.accessibilityIdentifier = id
         button.onTap = { [weak button] in
-            button?.testability_customValues["tap_count"] = (button?.testability_customValues["tap_count"] ?? 0) + 1
+            button?.mb_testability_customValues["tap_count"] = (button?.mb_testability_customValues["tap_count"] ?? 0) + 1
             
             let animation = CABasicAnimation()
             animation.duration = 15.0
             animation.delegate = TrackingCAAnimationDelegate(
                 onStart: { _ in },
                 onFinish: { _, _ in
-                    button?.testability_customValues["core_animation_has_finished"] = true
+                    button?.mb_testability_customValues["core_animation_has_finished"] = true
                 }
             )
             

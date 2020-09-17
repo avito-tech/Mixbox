@@ -76,7 +76,7 @@ private var cellsState_associatedObjectKey = "UICollectionView_cellsState_297BF7
 private var cachedFakeCells_associatedObjectKey = "UICollectionView_cachedFakeCells_5F3FCE1CB0A0"
 
 extension UICollectionView {
-    @objc override open func testabilityValue_children() -> [UIView] {
+    @objc override open func mb_testability_children() -> [TestabilityElement] {
         return collectionViewSwizzler_accessibilityUserTestingChildren().compactMap { $0 as? UIView }
     }
     
@@ -320,7 +320,7 @@ fileprivate extension UICollectionView {
                             fakeCell.removeFromSuperview()
                             fakeCell._setHidden(forReuse: false)
                             
-                            assert(!fakeCell.isNotFakeCellDueToPresenceInViewHierarchy())
+                            assert(!fakeCell.mb_isNotFakeCellDueToPresenceInViewHierarchy())
                             
                             fakeCell.mb_fakeCellInfo = FakeCellInfo(
                                 indexPath: indexPath,

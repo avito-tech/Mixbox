@@ -3,13 +3,13 @@
 import UIKit
 
 extension UIView {
-    override open func testabilityValue_isEnabled() -> Bool {
+    @objc override open func mb_testability_isEnabled() -> Bool {
         return isUserInteractionEnabled
     }
 }
 
 extension UIControl {
-    override open func testabilityValue_isEnabled() -> Bool {
+    @objc override open func mb_testability_isEnabled() -> Bool {
         return isEnabled
     }
 }

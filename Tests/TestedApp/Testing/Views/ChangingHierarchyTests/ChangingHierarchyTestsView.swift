@@ -36,12 +36,12 @@ final class ChangingHierarchyTestsView: UIView {
         
         duplicatedView0.backgroundColor = .blue
         duplicatedView0.accessibilityIdentifier = "duplicatedView"
-        duplicatedView0.testability_customValues["index"] = 0
+        duplicatedView0.mb_testability_customValues["index"] = 0
         duplicatedView0.setCircleDiameter(diameter)
         
         duplicatedView1.backgroundColor = .blue
         duplicatedView1.accessibilityIdentifier = "duplicatedView"
-        duplicatedView1.testability_customValues["index"] = 1
+        duplicatedView1.mb_testability_customValues["index"] = 1
         duplicatedView1.setCircleDiameter(diameter)
         
         addSubview(duplicatedViewsContainer)

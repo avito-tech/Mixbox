@@ -3,10 +3,10 @@ import UIKit
 final class TapIndicatorButton: UIButton {
     var tapped: Bool {
         get {
-            return testability_customValues["isTapped"] ?? false
+            return mb_testability_customValues["isTapped"] ?? false
         }
         set {
-            testability_customValues["isTapped"] = newValue
+            mb_testability_customValues["isTapped"] = newValue
         }
     }
     

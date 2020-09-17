@@ -1,19 +1,21 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import Foundation
+import MixboxFoundation
+import MixboxTestability
 
 final class AccessibilityUniqueObjectMap {
     static let shared = AccessibilityUniqueObjectMap()
     
     private init() {}
-    private let values: NSMapTable<NSString, NSObject> = NSMapTable.strongToWeakObjects()
+    private var weaklyBoxedElements = [String: WeakBox<TestabilityElement>]()
     
-    func register(object: AccessibilityUniqulyIdentifiable & NSObject) {
-        values.setObject(object, forKey: object.uniqueIdentifier as NSString)
+    func register(element: TestabilityElement) {
+        weaklyBoxedElements[element.mb_testability_uniqueIdentifier()] = WeakBox(element)
     }
     
-    func locate(uniqueIdentifier: String) -> NSObject? {
-        return values.object(forKey: uniqueIdentifier as NSString)
+    func locate(uniqueIdentifier: String) -> TestabilityElement? {
+        return weaklyBoxedElements[uniqueIdentifier]?.value
     }
 }
 

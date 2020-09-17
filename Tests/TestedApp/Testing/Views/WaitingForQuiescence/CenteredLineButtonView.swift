@@ -18,10 +18,10 @@ final class CenteredLineButtonView: UIView {
         button.backgroundColor = .blue
         addSubview(button)
         
-        testability_customValues["isTapped"] = false
+        mb_testability_customValues["isTapped"] = false
         
         button.onTap = { [weak self] in
-            self?.testability_customValues["isTapped"] = true
+            self?.mb_testability_customValues["isTapped"] = true
         }
     }
     

@@ -40,7 +40,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         let preconditionMetric = performanceLogger.start(staticName: "VC.capture.precond")
         
         // A quick visibility check is done here to rule out any definitely hidden views.
-        if view.isDefinitelyHidden {
+        if view.mb_testability_isDefinitelyHidden() {
             throw ErrorString("View is not visible")
         }
         

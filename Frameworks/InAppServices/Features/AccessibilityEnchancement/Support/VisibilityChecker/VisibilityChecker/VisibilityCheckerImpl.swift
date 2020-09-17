@@ -49,7 +49,7 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
     
     public func checkVisibility(arguments: VisibilityCheckerArguments) throws -> VisibilityCheckerResult {
         return try performanceLogger.log(staticName: "VC.check") {
-            if arguments.view.isDefinitelyHidden {
+            if arguments.view.mb_testability_isDefinitelyHidden() {
                 return notVisibleResult()
             }
             

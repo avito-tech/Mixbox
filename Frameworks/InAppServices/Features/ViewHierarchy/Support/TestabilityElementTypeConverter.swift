@@ -3,9 +3,12 @@
 import MixboxTestability
 import MixboxIpcCommon
 
-final class TestabilityElementTypeConverter {
+public final class TestabilityElementTypeConverter {
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    static func covertToViewHierarchyElementType(elementType: TestabilityElementType) -> ViewHierarchyElementType {
+    public static func covertToViewHierarchyElementType(
+        elementType: TestabilityElementType)
+        -> ViewHierarchyElementType
+    {
         switch elementType {
         case .activityIndicator:
             return .activityIndicator

@@ -23,7 +23,7 @@ final class AssertingCustomValuesTestsView: TestStackScrollView {
     private func add<T: Codable>(_ id: String, _ value: T) {
         addLabel(id: id) {
             $0.text = id
-            $0.testability_customValues["valueKey"] = value
+            $0.mb_testability_customValues["valueKey"] = value
         }
     }
     

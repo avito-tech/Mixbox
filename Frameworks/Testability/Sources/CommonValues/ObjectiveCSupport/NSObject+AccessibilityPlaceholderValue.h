@@ -1,5 +1,3 @@
-#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
-
 @import Foundation;
 
 // Exposes private API
@@ -8,5 +6,3 @@
 - (id)accessibilityPlaceholderValue;
 
 @end
-
-#endif

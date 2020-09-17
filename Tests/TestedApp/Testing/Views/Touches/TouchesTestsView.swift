@@ -56,7 +56,7 @@ final class TouchesTestsView: UIView, TestingView {
         
         targetView.frame = CGRect(x: 30, y: 40, width: 3, height: 3)
         
-        targetView.testability_customValues["centerToWindow"] = targetView.convert(targetView.bounds.mb_center, to: nil)
+        targetView.mb_testability_customValues["centerToWindow"] = targetView.convert(targetView.bounds.mb_center, to: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
