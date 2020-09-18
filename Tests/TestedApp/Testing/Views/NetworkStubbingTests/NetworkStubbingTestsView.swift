@@ -1,13 +1,14 @@
 import UIKit
-import GCDWebServer
 import MixboxIpc
+import MixboxFoundation
 import TestsIpc
 
 final class NetworkStubbingTestsView: TestStackScrollView, TestingView {
-    
-    private let server = GCDWebServer()
+    private let server = SingleResponseWebServer(
+        response: "This is NOT a stubbed string",
+        contentType: SingleResponseWebServer.ContentTypes.plainText
+    )
     private var infoLabel: UILabel?
-    private var message: String = "This is NOT a stubbed string"
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {
         super.init(frame: .zero)
@@ -16,7 +17,11 @@ final class NetworkStubbingTestsView: TestStackScrollView, TestingView {
         
         infoLabel = addLabel(id: "info") { _ in }
         
-        startServer()
+        do {
+            try server.start()
+        } catch {
+            setInfo(ErrorString(error))
+        }
         
         addLabel(id: "port") {
             $0.text = "\(server.port)"
@@ -34,7 +39,7 @@ final class NetworkStubbingTestsView: TestStackScrollView, TestingView {
                 }
                 
                 DispatchQueue.main.async {
-                    strongSelf.message = message
+                    strongSelf.server.response = message
                     completion(IpcVoid())
                 }
             }
@@ -56,50 +61,58 @@ final class NetworkStubbingTestsView: TestStackScrollView, TestingView {
         
         addButton(idAndText: "localhost") {
             $0.onTap = { [weak self] in
-                if let port = self?.server.port {
-                    string("http://localhost:\(port)") { string in
-                        self?.setInfo(string)
-                    }
-                } else {
-                    self?.setErrorInfo()
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                string(strongSelf.server.urlString) { string in
+                    strongSelf.setInfo(string)
                 }
             }
         }
     }
     
-    private func setInfo(_ string: String?) {
-        infoLabel?.text = string ?? "<ERROR>"
-        infoLabel?.textColor = string == nil ? .red : .black
-    }
-    
-    private func setErrorInfo() {
-        setInfo(nil)
-    }
-    
-    private func startServer() {
-        server.addDefaultHandler(forMethod: "GET", request: GCDWebServerDataRequest.self) { [weak self] _, completion in
-            let contentType = "application/json"
-            completion(
-                GCDWebServerDataResponse(
-                    data: self?.message.data(using: .utf8) ?? Data(),
-                    contentType: contentType
-                )
-            )
+    private func setInfo(_ stringResult: Result<String, ErrorString>) {
+        switch stringResult {
+        case .success(let string):
+            setInfo(string)
+        case .failure(let error):
+            setInfo(error)
         }
-        
-        (try? server.start(options: [:])) ?? setInfo(nil)
+    }
+    
+    private func setInfo(_ string: String) {
+        infoLabel?.text = string
+        infoLabel?.textColor = .black
+    }
+    
+    private func setInfo(_ error: ErrorString) {
+        infoLabel?.text = "<ERROR: \(error)>"
+        infoLabel?.textColor = .red
     }
 }
 
-func string(_ url: String, completion: @escaping (String?) -> ()) {
-    guard let url = URL(string: url) else { return completion(nil) }
+func string(_ urlString: String, completion: @escaping (Result<String, ErrorString>) -> ()) {
+    guard let url = URL(string: urlString) else {
+        return completion(
+            .failure(ErrorString("url is not valid: \(urlString)"))
+        )
+    }
     
     let task = URLSession.shared.dataTask(with: url) {(data, _, _) in
         DispatchQueue.main.async {
-            guard let data = data else { return completion(nil) }
-            guard let string = String(data: data, encoding: .utf8) else { return completion(nil) }
+            guard let data = data else {
+                return completion(
+                    .failure(ErrorString("dataTask didn't return data"))
+                )
+            }
+            guard let string = String(data: data, encoding: .utf8) else {
+                return completion(
+                    .failure(ErrorString("data is not UTF-8 string"))
+                )
+            }
         
-            completion(string)
+            completion(.success(string))
         }
     }
     

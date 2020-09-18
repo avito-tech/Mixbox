@@ -587,6 +587,18 @@
 		F8EC2C8E25124FF6009B0813 /* NSObjectTestabilityWithAccessibilityEnabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC2C8D25124FF6009B0813 /* NSObjectTestabilityWithAccessibilityEnabledTests.swift */; };
 		F8EC2C90251250DB009B0813 /* UIViewTestabilityWithAccessibilityEnabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC2C8F251250DB009B0813 /* UIViewTestabilityWithAccessibilityEnabledTests.swift */; };
 		F8EC2C92251250E8009B0813 /* UIViewTestabilityWithAccessibilityDisabledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC2C91251250E8009B0813 /* UIViewTestabilityWithAccessibilityDisabledTests.swift */; };
+		F8EC48C5251278D9009B0813 /* NonViewElementsTestsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48C4251278D9009B0813 /* NonViewElementsTestsWebView.swift */; };
+		F8EC48C7251278DE009B0813 /* NonViewElementsTestsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48C6251278DE009B0813 /* NonViewElementsTestsMapView.swift */; };
+		F8EC48C9251279E1009B0813 /* SingleResponseWebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48C8251279E1009B0813 /* SingleResponseWebServer.swift */; };
+		F8EC48CC25128689009B0813 /* NonViewElementsTestsWebViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48CA25127ED6009B0813 /* NonViewElementsTestsWebViewPageObject.swift */; };
+		F8EC48CD25128689009B0813 /* NonViewElementsTestsWebViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48CA25127ED6009B0813 /* NonViewElementsTestsWebViewPageObject.swift */; };
+		F8EC48D2251286E8009B0813 /* NonViewElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */; };
+		F8EC48D3251286E9009B0813 /* NonViewElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */; };
+		F8EC48D82513AD38009B0813 /* NonViewElementsTestsMapViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D625128D6C009B0813 /* NonViewElementsTestsMapViewPageObject.swift */; };
+		F8EC48D92513AD38009B0813 /* NonViewElementsTestsMapViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D625128D6C009B0813 /* NonViewElementsTestsMapViewPageObject.swift */; };
+		F8EC48DC2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48DB2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift */; };
+		F8EC48DF2513C611009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48DD2513C35C009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift */; };
+		F8EC48E02513C612009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48DD2513C35C009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift */; };
 		F8EF37A9240949E20041DBF9 /* SetTextActionWaitsForElementToGainFocusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BB4406240936CE00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTests.swift */; };
 		F8EF37AA240949E40041DBF9 /* SetTextActionWaitsForElementToGainFocusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BB4406240936CE00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTests.swift */; };
 		F8EF37AC24094A3C0041DBF9 /* ViewIpc+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AB24094A3C0041DBF9 /* ViewIpc+ResetUi.swift */; };
@@ -1076,6 +1088,14 @@
 		F8EC2C8F251250DB009B0813 /* UIViewTestabilityWithAccessibilityEnabledTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewTestabilityWithAccessibilityEnabledTests.swift; sourceTree = "<group>"; };
 		F8EC2C91251250E8009B0813 /* UIViewTestabilityWithAccessibilityDisabledTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewTestabilityWithAccessibilityDisabledTests.swift; sourceTree = "<group>"; };
 		F8EC421E20C83B7800BD8DA2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		F8EC48C4251278D9009B0813 /* NonViewElementsTestsWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonViewElementsTestsWebView.swift; sourceTree = "<group>"; };
+		F8EC48C6251278DE009B0813 /* NonViewElementsTestsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonViewElementsTestsMapView.swift; sourceTree = "<group>"; };
+		F8EC48C8251279E1009B0813 /* SingleResponseWebServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleResponseWebServer.swift; sourceTree = "<group>"; };
+		F8EC48CA25127ED6009B0813 /* NonViewElementsTestsWebViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonViewElementsTestsWebViewPageObject.swift; sourceTree = "<group>"; };
+		F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonViewElementsTests.swift; sourceTree = "<group>"; };
+		F8EC48D625128D6C009B0813 /* NonViewElementsTestsMapViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonViewElementsTestsMapViewPageObject.swift; sourceTree = "<group>"; };
+		F8EC48DB2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonViewElementsTestsCustomDrawingView.swift; sourceTree = "<group>"; };
+		F8EC48DD2513C35C009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonViewElementsTestsCustomDrawingViewPageObject.swift; sourceTree = "<group>"; };
 		F8EF37AB24094A3C0041DBF9 /* ViewIpc+ResetUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewIpc+ResetUi.swift"; sourceTree = "<group>"; };
 		F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayingFocusGainingInput.swift; sourceTree = "<group>"; };
@@ -1381,6 +1401,7 @@
 		F813CB11209CD82A00E6A27C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F8EC48C3251278C3009B0813 /* NonViewElements */,
 				F8494BF524D2F4A90035AB39 /* IpcTestingView */,
 				F8494BF424D2F4940035AB39 /* Visibility */,
 				F8725EE72458B48600BE004D /* Scrolling */,
@@ -1474,6 +1495,7 @@
 				F8B4F96F242CB6D0008A05E8 /* RootViewControllerManager */,
 				F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */,
 				F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */,
+				F8EC48C8251279E1009B0813 /* SingleResponseWebServer.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2292,6 +2314,7 @@
 		F8A837AA2270D4CC00145140 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8EC48CF251286BF009B0813 /* NonViewElementsTests */,
 				F8D1AA9B24ED5AC6001147B6 /* PageObjectMakingHelper */,
 				F8494BEF24D2F35E0035AB39 /* Visibility */,
 				F87D2BF024D084C200D6DBFA /* Performance */,
@@ -2586,6 +2609,7 @@
 		F8B34118224E56BF00AA1EB9 /* PageObjects */ = {
 			isa = PBXGroup;
 			children = (
+				F8EC48D525128D54009B0813 /* NonViewElementsTests */,
 				F8725EF82458BA2600BE004D /* Scrolling */,
 				F88ADF5A223982570024CCBE /* ActionsTestsScreen.swift */,
 				F879832E22494BE3004DD770 /* ChecksTestsScreen.swift */,
@@ -3239,6 +3263,34 @@
 				F8EC2C8F251250DB009B0813 /* UIViewTestabilityWithAccessibilityEnabledTests.swift */,
 			);
 			path = UnitTestsWithEnabledAccessibility;
+			sourceTree = "<group>";
+		};
+		F8EC48C3251278C3009B0813 /* NonViewElements */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC48C4251278D9009B0813 /* NonViewElementsTestsWebView.swift */,
+				F8EC48C6251278DE009B0813 /* NonViewElementsTestsMapView.swift */,
+				F8EC48DB2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift */,
+			);
+			path = NonViewElements;
+			sourceTree = "<group>";
+		};
+		F8EC48CF251286BF009B0813 /* NonViewElementsTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */,
+			);
+			path = NonViewElementsTests;
+			sourceTree = "<group>";
+		};
+		F8EC48D525128D54009B0813 /* NonViewElementsTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8EC48CA25127ED6009B0813 /* NonViewElementsTestsWebViewPageObject.swift */,
+				F8EC48D625128D6C009B0813 /* NonViewElementsTestsMapViewPageObject.swift */,
+				F8EC48DD2513C35C009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift */,
+			);
+			path = NonViewElementsTests;
 			sourceTree = "<group>";
 		};
 		F8EF37B124094C550041DBF9 /* SetTextActionWaitsForElementToGainFocusTests */ = {
@@ -4173,18 +4225,21 @@
 				F80C944124C1A03D009397F3 /* ViewControllerContainerType.swift in Sources */,
 				F8E85B9F242C9E3900A29CD8 /* SetScreenIpcMethodHandler.swift in Sources */,
 				F8785C6A2361D29E00571718 /* KeyboardEventInjectorImplTestsView.swift in Sources */,
+				F8EC48C9251279E1009B0813 /* SingleResponseWebServer.swift in Sources */,
 				F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */,
 				F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */,
 				F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */,
 				F88609D824DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift in Sources */,
 				F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */,
 				F813CB21209CD82A00E6A27C /* TextViewWithClosures.swift in Sources */,
+				F8EC48DC2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift in Sources */,
 				F8E855E7242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift in Sources */,
 				F80C944524C1A07A009397F3 /* TestingView.swift in Sources */,
 				F820304A22382D9C006D2F70 /* TestingViewControllerSettings.swift in Sources */,
 				F8725EDB2458AFC900BE004D /* ScrollingSmokeTestsView.swift in Sources */,
 				CC78DE3221395C6000599258 /* HierarchyTestsView.swift in Sources */,
 				F8E8BAE520DD752F00524185 /* FakeCellsTestsView.swift in Sources */,
+				F8EC48C5251278D9009B0813 /* NonViewElementsTestsWebView.swift in Sources */,
 				F84D127B2166B3A700A178B4 /* CrashingCellException.swift in Sources */,
 				F8E8BAF620E1235E00524185 /* main.m in Sources */,
 				F8B34117224E530F00AA1EB9 /* PermissionsTestsView.swift in Sources */,
@@ -4204,6 +4259,7 @@
 				F82A05B921F755950008C2BB /* DummyForLaunchingUiTestsView.swift in Sources */,
 				F839A80A215124C2009F77AB /* CrashTestsView.swift in Sources */,
 				F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */,
+				F8EC48C7251278DE009B0813 /* NonViewElementsTestsMapView.swift in Sources */,
 				F8EBBCE5213D4EEE00D320A4 /* ScreenshotTestsView.swift in Sources */,
 				F8B34126224E5C6100AA1EB9 /* PhotosPermissionInfo.swift in Sources */,
 				F8BB4409240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift in Sources */,
@@ -4322,6 +4378,7 @@
 				F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */,
 				F888EE1D23206137009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
 				F8AC3CF2235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
+				F8EC48D82513AD38009B0813 /* NonViewElementsTestsMapViewPageObject.swift in Sources */,
 				F854F8282344D2D1009A715B /* BaseIpcEchoingTests.swift in Sources */,
 				F8B33B12224ACF3900AA1EB9 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F8971D2622651E3A001741C1 /* CreatedTemporaryDirectory.swift in Sources */,
@@ -4330,6 +4387,7 @@
 				F83090BC24B7443000C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */,
 				F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */,
 				F801CC182254F9C60074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
+				F8EC48DF2513C611009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift in Sources */,
 				F8B0A260220A0EF40089C1EE /* Apps.swift in Sources */,
 				F88915AB2295E211003B8D0A /* TestQuery.swift in Sources */,
 				F8971D1622650AF8001741C1 /* CreatedTemporaryFile.swift in Sources */,
@@ -4348,6 +4406,7 @@
 				F8252DCB2279DD0F003190D0 /* TouchesTestsViewPageObject.swift in Sources */,
 				F8203069223854A3006D2F70 /* TapActionTests.swift in Sources */,
 				F879832A224949ED004DD770 /* LogsAndFailures.swift in Sources */,
+				F8EC48CC25128689009B0813 /* NonViewElementsTestsWebViewPageObject.swift in Sources */,
 				F8EBBCA6213AA8FF00D320A4 /* HierarchySourcesTests.swift in Sources */,
 				F8C8ED4822985DD90009B9A7 /* ScreenOpener.swift in Sources */,
 				F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */,
@@ -4399,6 +4458,7 @@
 				F8B33B0C224ACEFD00AA1EB9 /* AssertContainsTextInteractionTests.swift in Sources */,
 				F8725EDE2458B01E00BE004D /* ScrollingSmokeTestsViewPageObject.swift in Sources */,
 				F879831A22492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
+				F8EC48D2251286E8009B0813 /* NonViewElementsTests.swift in Sources */,
 				F888EE1C23206137009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */,
 				F87D2BF424D084F400D6DBFA /* VisibilityCheckPerformanceTests.swift in Sources */,
 				F8E6CC902187858E00D7A0C1 /* ApplicationBundleProviderTests.swift in Sources */,
@@ -4589,6 +4649,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B340F1224D3FD700AA1EB9 /* LogsAndFailures.swift in Sources */,
+				F8EC48D92513AD38009B0813 /* NonViewElementsTestsMapViewPageObject.swift in Sources */,
 				F8C8ED202298505D0009B9A7 /* ApplicationPermissionWithAllowedDeniedStateSpecification.swift in Sources */,
 				F8B0A252220A0EF30089C1EE /* TestStateRecycling.swift in Sources */,
 				F8DB35A222738C9B00EE0FB8 /* BaseActionTestCase+BasicAsserts.swift in Sources */,
@@ -4596,6 +4657,7 @@
 				F8785C672361D24200571718 /* KeyboardEventInjectorImplTests.swift in Sources */,
 				F8C8ED0A2298312C0009B9A7 /* AssertMatchesReferenceWithDhashComparatorTests.swift in Sources */,
 				F8A83E822272223700145140 /* ClearTextActionTests.swift in Sources */,
+				F8EC48CD25128689009B0813 /* NonViewElementsTestsWebViewPageObject.swift in Sources */,
 				F8C8ED0D2298505D0009B9A7 /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift in Sources */,
 				F801CC1A2254F9C80074F0E9 /* GatherFailuresResult.swift in Sources */,
 				F8C8ED1E2298505D0009B9A7 /* PhotosApplicationPermissionSpecification.swift in Sources */,
@@ -4666,6 +4728,7 @@
 				F8A83822227215C300145140 /* AssertContainsTextInteractionTests.swift in Sources */,
 				F8DC864D23675D49003889C7 /* UIColor+RGB.swift in Sources */,
 				F8EF37B024094B2F0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift in Sources */,
+				F8EC48E02513C612009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift in Sources */,
 				F8A837A52270D40B00145140 /* PageObjects.swift in Sources */,
 				F8F9C2AD2368949000E9A044 /* BaseUiTestCase.swift in Sources */,
 				F8AC3CF5235E5D5400516032 /* TestCase+AssertThrows.swift in Sources */,
@@ -4738,6 +4801,7 @@
 				F8C8ED3722985B060009B9A7 /* TemporaryDirectory.swift in Sources */,
 				F8D53B25235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */,
 				F8A837EF22711E1800145140 /* IpcTests.swift in Sources */,
+				F8EC48D3251286E9009B0813 /* NonViewElementsTests.swift in Sources */,
 				F8DB35A022738C9B00EE0FB8 /* BaseActionTestCase+Checks.swift in Sources */,
 				F8C8ED3A22985B060009B9A7 /* CreatedTemporaryFile.swift in Sources */,
 				F8A837CC2270F5CD00145140 /* MainAppScreen.swift in Sources */,
