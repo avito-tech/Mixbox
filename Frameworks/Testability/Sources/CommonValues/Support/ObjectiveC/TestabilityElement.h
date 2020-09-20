@@ -88,6 +88,8 @@
 
 - (BOOL)mb_testability_hasKeyboardFocus;
 
+- (nullable id<TestabilityElement>)mb_testability_parent;
+
 - (nonnull NSArray<id<TestabilityElement>> *)mb_testability_children;
 
 @end

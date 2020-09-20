@@ -2,7 +2,10 @@
 
 import MixboxIpc
 import UIKit
+import MixboxFoundation
 
+// Checks visibility of a UIView (per-pixel) or tries to approximately determine if element is
+// visible if it is not UIView.
 public final class CheckVisibilityIpcMethod: IpcMethod {
     public final class _Arguments: Codable {
         public let elementUniqueIdentifier: String
@@ -20,7 +23,57 @@ public final class CheckVisibilityIpcMethod: IpcMethod {
         }
     }
     
-    public final class Result: Codable {
+    public enum _ReturnValue: Codable {
+        case view(ViewVisibilityResult)
+        case nonView(NonViewVisibilityResult)
+        case error(ErrorString)
+
+        private enum CodingKeys: String, CodingKey {
+            case type
+            case value
+        }
+        
+        private enum ValueType: String, Codable {
+            case view
+            case nonView
+            case error
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            
+            switch self {
+            case .view(let nested):
+                try container.encode(ValueType.view, forKey: CodingKeys.type)
+                try container.encode(nested, forKey: CodingKeys.value)
+            case .nonView(let nested):
+                try container.encode(ValueType.nonView, forKey: CodingKeys.type)
+                try container.encode(nested, forKey: CodingKeys.value)
+            case .error(let nested):
+                try container.encode(ValueType.error, forKey: CodingKeys.type)
+                try container.encode(nested, forKey: CodingKeys.value)
+            }
+        }
+        
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let type = try container.decode(ValueType.self, forKey: .type)
+            
+            switch type {
+            case .view:
+                let nested = try container.decode(ViewVisibilityResult.self, forKey: CodingKeys.value)
+                self = .view(nested)
+            case .nonView:
+                let nested = try container.decode(NonViewVisibilityResult.self, forKey: CodingKeys.value)
+                self = .nonView(nested)
+            case .error:
+                let nested = try container.decode(ErrorString.self, forKey: CodingKeys.value)
+                self = .error(nested)
+            }
+        }
+    }
+    
+    public final class ViewVisibilityResult: Codable {
         // `percentageOfVisibleArea` for view with specified `elementUniqueIdentifier`
         public let percentageOfVisibleArea: CGFloat
         
@@ -36,8 +89,19 @@ public final class CheckVisibilityIpcMethod: IpcMethod {
         }
     }
     
+    public final class NonViewVisibilityResult: Codable {
+        // `percentageOfVisibleArea` for view with specified `elementUniqueIdentifier`
+        public let percentageOfVisibleArea: CGFloat
+        
+        public init(
+            percentageOfVisibleArea: CGFloat)
+        {
+            self.percentageOfVisibleArea = percentageOfVisibleArea
+        }
+    }
+    
     public typealias Arguments = _Arguments
-    public typealias ReturnValue = IpcThrowingFunctionResult<Result>
+    public typealias ReturnValue = _ReturnValue
     
     public init() {
     }

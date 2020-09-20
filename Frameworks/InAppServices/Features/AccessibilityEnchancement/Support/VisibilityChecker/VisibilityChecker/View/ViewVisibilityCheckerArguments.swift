@@ -2,7 +2,7 @@
 
 import MixboxIpcCommon
 
-public final class VisibilityCheckerArguments {
+public final class ViewVisibilityCheckerArguments {
     public let view: UIView
     
     // Pass this to get a point closest to given `InteractionCoordinates`

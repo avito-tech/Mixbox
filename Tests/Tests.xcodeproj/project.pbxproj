@@ -593,7 +593,6 @@
 		F8EC48CC25128689009B0813 /* NonViewElementsTestsWebViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48CA25127ED6009B0813 /* NonViewElementsTestsWebViewPageObject.swift */; };
 		F8EC48CD25128689009B0813 /* NonViewElementsTestsWebViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48CA25127ED6009B0813 /* NonViewElementsTestsWebViewPageObject.swift */; };
 		F8EC48D2251286E8009B0813 /* NonViewElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */; };
-		F8EC48D3251286E9009B0813 /* NonViewElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */; };
 		F8EC48D82513AD38009B0813 /* NonViewElementsTestsMapViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D625128D6C009B0813 /* NonViewElementsTestsMapViewPageObject.swift */; };
 		F8EC48D92513AD38009B0813 /* NonViewElementsTestsMapViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D625128D6C009B0813 /* NonViewElementsTestsMapViewPageObject.swift */; };
 		F8EC48DC2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48DB2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift */; };
@@ -4801,7 +4800,6 @@
 				F8C8ED3722985B060009B9A7 /* TemporaryDirectory.swift in Sources */,
 				F8D53B25235F75BD004E4577 /* AssertHasAccessibilityLabelInteractionTests.swift in Sources */,
 				F8A837EF22711E1800145140 /* IpcTests.swift in Sources */,
-				F8EC48D3251286E9009B0813 /* NonViewElementsTests.swift in Sources */,
 				F8DB35A022738C9B00EE0FB8 /* BaseActionTestCase+Checks.swift in Sources */,
 				F8C8ED3A22985B060009B9A7 /* CreatedTemporaryFile.swift in Sources */,
 				F8A837CC2270F5CD00145140 /* MainAppScreen.swift in Sources */,

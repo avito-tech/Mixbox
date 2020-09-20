@@ -155,7 +155,8 @@ public final class InAppServicesImpl: InAppServices {
     {
         router.register(methodHandler: ScrollingHintIpcMethodHandler())
         router.register(methodHandler: CheckVisibilityIpcMethodHandler(
-            viewVisibilityChecker: try dependencyResolver.resolve()
+            viewVisibilityChecker: try dependencyResolver.resolve(),
+            nonViewVisibilityChecker: try dependencyResolver.resolve()
         ))
         router.register(
             methodHandler: ViewHierarchyIpcMethodHandler(

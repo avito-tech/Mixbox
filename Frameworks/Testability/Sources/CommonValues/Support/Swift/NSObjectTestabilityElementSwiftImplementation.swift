@@ -1,10 +1,12 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import UIKit
+import CommonCrypto
 
 // For use in NSObject+TestabilityElement.m
 // Unfortunately, it should be public.
-
+//
+// TODO: Use `UIAccessibilityTraits` to determine element type.
 public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
     private let nsObject: NSObject
     
@@ -32,8 +34,16 @@ public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
         return nsObject.accessibilityValue
     }
     
+    @objc override public func mb_testability_parent() -> TestabilityElement? {
+        return nil
+    }
+    
     @objc override public func mb_testability_children() -> [TestabilityElement] {
-        return []
+        let accessibilityElements = self.accessibilityElements ?? []
+        
+        return accessibilityElements.map {
+            TestabilityElementFromAnyConverter.testabilityElement(anyElement: $0)
+        }
     }
     
     @objc override public func mb_testability_customClass() -> String {

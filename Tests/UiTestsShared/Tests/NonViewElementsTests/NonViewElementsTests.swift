@@ -4,6 +4,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxUiKit
 
+// TODO (non-view elements): Fix for gray box
 final class NonViewElementsTests: TestCase {
     private var webView: NonViewElementsTestsWebViewPageObject {
         return pageObjects.nonViewElementsTestsWebView.default
@@ -17,38 +18,34 @@ final class NonViewElementsTests: TestCase {
         return pageObjects.nonViewElementsTestsCustomDrawingView.default
     }
     
-    func disabled_test___web() {
-        open(screen: pageObjects.nonViewElementsTestsWebView)
-            .waitUntilViewIsLoaded()
+    func test___web() {
+        open(screen: webView).waitUntilViewIsLoaded()
         
+        // Webview is asynchronous, so we have to wait.
         webView.header.assertIsDisplayed()
-        webView.paragraph.assertIsDisplayed()
+        webView.paragraph.withoutTimeout.assertIsDisplayed()
     }
     
-    func disabled_test___map() {
-        open(screen: pageObjects.nonViewElementsTestsMapView)
-            .waitUntilViewIsLoaded()
+    func test___map() {
+        open(screen: mapView).waitUntilViewIsLoaded()
         
-        mapView.pin.assertIsDisplayed()
+        mapView.pin.withoutTimeout.assertIsDisplayed()
     }
     
-    func disabled_test___customDrawing() {
-        open(screen: pageObjects.nonViewElementsTestsCustomDrawingView)
-            .waitUntilViewIsLoaded()
+    func test___customDrawing() {
+        open(screen: customDrawingView).waitUntilViewIsLoaded()
         
-        customDrawingView.element0.tap()
-        customDrawingView.element0.assertMatches {
-            $0.accessibilityValue == "1"
+        func check(_ element: ViewElement) {
+            element.withoutTimeout.tap()
+            element.withoutTimeout.assertMatches {
+                $0.customValues["tapped"] == true
+            }
         }
-        
-        customDrawingView.element1.tap()
-        customDrawingView.element1.assertMatches {
-            $0.accessibilityValue == "1"
-        }
-        
-        customDrawingView.element2.tap()
-        customDrawingView.element2.assertMatches {
-            $0.accessibilityValue == "1"
-        }
+
+        // We are testing several elements to check whether tapping on fake elements work,
+        // e.g, we didn't mess up with frames, etc.
+        check(customDrawingView.element0)
+        check(customDrawingView.element1)
+        check(customDrawingView.element2)
     }
 }

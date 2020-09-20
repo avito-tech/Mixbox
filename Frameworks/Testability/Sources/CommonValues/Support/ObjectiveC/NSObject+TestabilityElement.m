@@ -65,6 +65,10 @@
     return [self.impl mb_testability_children];
 }
 
+- (nullable id<TestabilityElement>)mb_testability_parent {
+    return [self.impl mb_testability_parent];
+}
+
 - (NSObjectTestabilityElementSwiftImplementation *)impl {
     return [[NSObjectTestabilityElementSwiftImplementation alloc] initWithNsObject:self];
 }

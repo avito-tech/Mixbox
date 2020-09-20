@@ -92,7 +92,7 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
         throws
         -> ElementVisibilityCheckerResult
     {
-        let ipcThrowingFunctionResult = try ipcClient.callOrThrow(
+        let result = try ipcClient.callOrThrow(
             method: CheckVisibilityIpcMethod(),
             arguments: CheckVisibilityIpcMethod.Arguments(
                 elementUniqueIdentifier: elementUniqueIdentifier,
@@ -101,11 +101,20 @@ public final class ElementVisibilityCheckerImpl: ElementVisibilityChecker {
             )
         )
         
-        let result = try ipcThrowingFunctionResult.getReturnValue()
-        
-        return ElementVisibilityCheckerResult(
-            percentageOfVisibleArea: result.percentageOfVisibleArea,
-            visibilePointOnScreenClosestToInteractionCoordinates: result.visibilePointOnScreenClosestToInteractionCoordinates
-        )
+        switch result {
+        case .view(let result):
+            return ElementVisibilityCheckerResult(
+                percentageOfVisibleArea: result.percentageOfVisibleArea,
+                visibilePointOnScreenClosestToInteractionCoordinates: result.visibilePointOnScreenClosestToInteractionCoordinates
+            )
+        case .nonView(let result):
+            return ElementVisibilityCheckerResult(
+                percentageOfVisibleArea: result.percentageOfVisibleArea,
+                // TODO (non-view elements): return an information that the element is not a view instead of returnin nil here?
+                visibilePointOnScreenClosestToInteractionCoordinates: nil
+            )
+        case .error(let error):
+            throw error
+        }
     }
 }

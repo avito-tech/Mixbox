@@ -47,7 +47,7 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
         self.screen = screen
     }
     
-    public func checkVisibility(arguments: VisibilityCheckerArguments) throws -> VisibilityCheckerResult {
+    public func checkVisibility(arguments: ViewVisibilityCheckerArguments) throws -> ViewVisibilityCheckerResult {
         return try performanceLogger.log(staticName: "VC.check") {
             if arguments.view.mb_testability_isDefinitelyHidden() {
                 return notVisibleResult()
@@ -102,7 +102,7 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
                 throw ErrorString("percentVisible should not be negative. Current Percent: \(percentageOfVisibleArea)")
             }
             
-            return VisibilityCheckerResult(
+            return ViewVisibilityCheckerResult(
                 percentageOfVisibleArea: percentageOfVisibleArea,
                 visibilePointOnScreenClosestToInteractionCoordinates: visiblePixelData.visiblePixel
             )
@@ -126,8 +126,8 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
         }
     }
     
-    private func notVisibleResult() -> VisibilityCheckerResult {
-        return VisibilityCheckerResult(
+    private func notVisibleResult() -> ViewVisibilityCheckerResult {
+        return ViewVisibilityCheckerResult(
             percentageOfVisibleArea: 0,
             visibilePointOnScreenClosestToInteractionCoordinates: nil
         )

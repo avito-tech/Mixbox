@@ -256,6 +256,9 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
                 screen: try di.resolve()
             )
         }
+        di.register(type: NonViewVisibilityChecker.self) { di in
+            NonViewVisibilityCheckerImpl(screen: try di.resolve())
+        }
     }
     
     private func registerLogging(di: DependencyRegisterer) {

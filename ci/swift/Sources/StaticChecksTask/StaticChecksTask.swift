@@ -21,8 +21,23 @@ public final class StaticChecksTask: LocalTask {
     }
     
     public func execute() throws {
-        try swiftLint.lint()
-        try conditionalCompilationClausesChecker.checkConditionalCompilationClauses()
+        var errors = [Error]()
+        
+        do {
+            try swiftLint.lint()
+        } catch {
+            errors.append(error)
+        }
+        
+        do {
+            try conditionalCompilationClausesChecker.checkConditionalCompilationClauses()
+        } catch {
+            errors.append(error)
+        }
+        
+        if !errors.isEmpty {
+            throw ErrorString(errors.map { String(describing: $0) }.joined(separator: "\n\n"))
+        }
         
         // TODO: Check that no testing code leaks to production (if it is accidentally linked in release build)
         //       For list of frameworks that are linked in app see: Tests/Pods/Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig

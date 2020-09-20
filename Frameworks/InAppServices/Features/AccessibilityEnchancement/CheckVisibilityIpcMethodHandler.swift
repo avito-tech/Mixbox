@@ -3,14 +3,17 @@
 import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
+import MixboxTestability
 
 final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
     let method = CheckVisibilityIpcMethod()
     
     private let viewVisibilityChecker: ViewVisibilityChecker
+    private let nonViewVisibilityChecker: NonViewVisibilityChecker
     
-    init(viewVisibilityChecker: ViewVisibilityChecker) {
+    init(viewVisibilityChecker: ViewVisibilityChecker, nonViewVisibilityChecker: NonViewVisibilityChecker) {
         self.viewVisibilityChecker = viewVisibilityChecker
+        self.nonViewVisibilityChecker = nonViewVisibilityChecker
     }
     
     func handle(
@@ -20,32 +23,81 @@ final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
         let uniqueIdentifier = arguments.elementUniqueIdentifier
         
         guard let element = AccessibilityUniqueObjectMap.shared.locate(uniqueIdentifier: uniqueIdentifier) else {
-            completion(IpcThrowingFunctionResult.threw(ErrorString("Failed to locate element with id '\(uniqueIdentifier)' in AccessibilityUniqueObjectMap")))
+            completion(.error(ErrorString(
+                "Failed to locate element with id '\(uniqueIdentifier)' in AccessibilityUniqueObjectMap"
+            )))
             return
         }
         
-        guard let view = element as? UIView else {
-            completion(IpcThrowingFunctionResult.threw(ErrorString("Element with id '\(uniqueIdentifier)' is not a UIView, can not perform visibility check")))
-            return
+        checkVisibility(element: element, arguments: arguments, completion: completion)
+    }
+    
+    private func checkVisibility(
+        element: TestabilityElement,
+        arguments: CheckVisibilityIpcMethod.Arguments,
+        completion: @escaping (CheckVisibilityIpcMethod.ReturnValue) -> ())
+    {
+        if let view = element as? UIView {
+            checkVisibilityOfView(view: view, arguments: arguments, completion: completion)
+        } else {
+            checkVisibilityOfNonView(element: element, arguments: arguments, completion: completion)
         }
-        
+    }
+    
+    private func checkVisibilityOfView(
+        view: UIView,
+        arguments: CheckVisibilityIpcMethod.Arguments,
+        completion: @escaping (CheckVisibilityIpcMethod.ReturnValue) -> ())
+    {
         DispatchQueue.main.async { [viewVisibilityChecker] in
-            let result = IpcThrowingFunctionResult { () -> CheckVisibilityIpcMethod.Result in 
+            do {
                 let visibilityCheckerResult = try viewVisibilityChecker.checkVisibility(
-                    arguments: VisibilityCheckerArguments(
+                    arguments: ViewVisibilityCheckerArguments(
                         view: view,
                         interactionCoordinates: arguments.interactionCoordinates,
                         useHundredPercentAccuracy: arguments.useHundredPercentAccuracy
                     )
                 )
                 
-                return CheckVisibilityIpcMethod.Result(
-                    percentageOfVisibleArea: visibilityCheckerResult.percentageOfVisibleArea,
-                    visibilePointOnScreenClosestToInteractionCoordinates: visibilityCheckerResult.visibilePointOnScreenClosestToInteractionCoordinates
+                completion(
+                    .view(
+                        CheckVisibilityIpcMethod.ViewVisibilityResult(
+                            percentageOfVisibleArea: visibilityCheckerResult.percentageOfVisibleArea,
+                            visibilePointOnScreenClosestToInteractionCoordinates: visibilityCheckerResult.visibilePointOnScreenClosestToInteractionCoordinates
+                        )
+                    )
+                )
+            } catch {
+                completion(
+                    .error(ErrorString(error))
                 )
             }
-            
-            completion(result)
+        }
+    }
+    
+    private func checkVisibilityOfNonView(
+        element: TestabilityElement,
+        arguments: CheckVisibilityIpcMethod.Arguments,
+        completion: @escaping (CheckVisibilityIpcMethod.ReturnValue) -> ())
+    {
+        DispatchQueue.main.async { [nonViewVisibilityChecker] in
+            do {
+                let visibilityCheckerResult = try nonViewVisibilityChecker.checkVisibility(
+                    element: element
+                )
+                
+                completion(
+                    .nonView(
+                        CheckVisibilityIpcMethod.NonViewVisibilityResult(
+                            percentageOfVisibleArea: visibilityCheckerResult.percentageOfVisibleArea
+                        )
+                    )
+                )
+            } catch {
+                completion(
+                    .error(ErrorString(error))
+                )
+            }
         }
     }
 }

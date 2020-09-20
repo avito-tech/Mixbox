@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public final class VisibilityCheckerResult {
+public final class ViewVisibilityCheckerResult {
     // `percentageOfVisibleArea` for view with specified `elementUniqueIdentifier`
     public let percentageOfVisibleArea: CGFloat
     
