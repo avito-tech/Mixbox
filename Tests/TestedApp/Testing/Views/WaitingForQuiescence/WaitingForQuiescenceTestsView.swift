@@ -206,7 +206,7 @@ public final class WaitingForQuiescenceTestsView:
         accessoryViewButton.backgroundColor = .red
         accessoryViewButton.accessibilityIdentifier = "accessoryViewButton"
         accessoryViewButton.onTap = { [weak accessoryViewButton] in
-            accessoryViewButton?.mb_testability_customValues["tapped"] = true
+            accessoryViewButton?.mb_testability_customValues["isTapped"] = true
         }
         self.accessoryViewButton = accessoryViewButton
     }

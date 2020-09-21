@@ -198,6 +198,8 @@
 		F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */; };
 		F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */; };
 		F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */; };
+		F85876EE25178EE000DB933A /* NonViewElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */; };
+		F85876F12517956B00DB933A /* NonViewElementsTests+BlackBoxOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85876EF2517919900DB933A /* NonViewElementsTests+BlackBoxOnly.swift */; };
 		F86038F324CF0BBC00C257E8 /* ImagePixelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */; };
 		F863CA0624B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA0524B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift */; };
 		F863CA1024B4B23B00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA0E24B4B1AE00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift */; };
@@ -820,6 +822,7 @@
 		F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIpcMethods.swift; sourceTree = "<group>"; };
 		F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingSbtuiTestTunnelTests.swift; sourceTree = "<group>"; };
+		F85876EF2517919900DB933A /* NonViewElementsTests+BlackBoxOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonViewElementsTests+BlackBoxOnly.swift"; sourceTree = "<group>"; };
 		F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePixelDataTests.swift; sourceTree = "<group>"; };
 		F863CA0524B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTestsView.swift; sourceTree = "<group>"; };
 		F863CA0C24B4B19C00423225 /* InteractionsUseVisiblePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTests.swift; sourceTree = "<group>"; };
@@ -3278,6 +3281,7 @@
 			isa = PBXGroup;
 			children = (
 				F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */,
+				F85876EF2517919900DB933A /* NonViewElementsTests+BlackBoxOnly.swift */,
 			);
 			path = NonViewElementsTests;
 			sourceTree = "<group>";
@@ -4393,6 +4397,7 @@
 				F8252DC82279DD0F003190D0 /* GenericPageObject.swift in Sources */,
 				F863CA1824B4B7F100423225 /* BaseUiTestCase+Info.swift in Sources */,
 				F8274A4B2143112000A72C41 /* XcTestFailure.swift in Sources */,
+				F85876F12517956B00DB933A /* NonViewElementsTests+BlackBoxOnly.swift in Sources */,
 				F8B964AB2280A1060054CE08 /* SwipeActionWaitsTests.swift in Sources */,
 				F8971CFF22650287001741C1 /* RecordingNetworkPlayerTests.swift in Sources */,
 				F8B010E321FF319D0026360D /* TestReportAttachment.swift in Sources */,
@@ -4686,6 +4691,7 @@
 				F8A8382A227215C300145140 /* AssertTextMatchesInteractionTests.swift in Sources */,
 				F8B0A25A220A0EF30089C1EE /* TestReportFailure.swift in Sources */,
 				F8A83E8A2272223700145140 /* CanTapMovingElementTests.swift in Sources */,
+				F85876EE25178EE000DB933A /* NonViewElementsTests.swift in Sources */,
 				F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */,
 				F80C2E2624D1E15100C6CAD4 /* TestCaseDependencies.swift in Sources */,
 				F8A837A42270D40B00145140 /* GenericPageObject.swift in Sources */,

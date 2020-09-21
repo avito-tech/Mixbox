@@ -8,7 +8,7 @@ final class GrayScreenshotTakerTests: TestCase {
     func test() {
         // TODO: Make specific view for this test. Reusing view with potentially
         // dynamic subviews for other kind of tests is not a good solution.
-        let screen = pageObjects.screenshotTestsView.real
+        let screen = pageObjects.screenshotTestsView.uikit
         
         open(screen: screen)
         

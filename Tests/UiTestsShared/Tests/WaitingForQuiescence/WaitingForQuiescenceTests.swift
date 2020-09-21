@@ -103,7 +103,7 @@ final class WaitingForQuiescenceTests: TestCase {
             screen.accessoryViewButton.tap()
             
             screen.accessoryViewButton.withoutTimeout.assertMatches {
-                $0.customValues["tapped"] == true
+                $0.customValues["isTapped"] == true
             }
         }
     }

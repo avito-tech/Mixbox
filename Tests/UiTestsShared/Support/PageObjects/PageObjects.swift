@@ -51,7 +51,7 @@ final class PageObjects: BasePageObjects {
     
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
-            real: apps.mainUiKitHierarchy.pageObject(),
+            uikit: apps.mainUiKitHierarchy.pageObject(),
             xcui: apps.mainXcuiHierarchy.pageObject(),
             default: apps.mainDefaultHierarchy.pageObject()
         )

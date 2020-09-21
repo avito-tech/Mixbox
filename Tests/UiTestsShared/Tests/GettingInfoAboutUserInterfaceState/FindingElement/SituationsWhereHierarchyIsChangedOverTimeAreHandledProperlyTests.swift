@@ -28,7 +28,7 @@ final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: Te
             { $0.progressIndicator }
         ]
         
-        for screen in [pageObjects.xcui, pageObjects.real] {
+        for screen in [pageObjects.xcui, pageObjects.uikit] {
             for element in elementAsserts {
                 element(screen).assertIsDisplayed()
             }
@@ -38,14 +38,14 @@ final class SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests: Te
     func test_hidden_mainUiKitHierarchy() {
         parameterizedTest(
             button: { $0.hiddenButton },
-            screen: pageObjects.real
+            screen: pageObjects.uikit
         )
     }
     
     func test_alpha_mainUiKitHierarchy() {
         parameterizedTest(
             button: { $0.alphaButton },
-            screen: pageObjects.real
+            screen: pageObjects.uikit
         )
     }
     
@@ -153,7 +153,7 @@ private final class Screen: BasePageObjectWithDefaultInitializer {
 }
 
 private extension PageObjects {
-    var real: Screen {
+    var uikit: Screen {
         return apps.mainUiKitHierarchy.pageObject()
     }
     var xcui: Screen {

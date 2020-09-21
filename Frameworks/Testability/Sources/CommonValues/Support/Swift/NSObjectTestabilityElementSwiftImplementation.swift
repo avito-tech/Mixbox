@@ -4,9 +4,13 @@ import UIKit
 import CommonCrypto
 
 // For use in NSObject+TestabilityElement.m
+//
+// This class allows to use Swift implementation in Objective-C code.
+//
 // Unfortunately, it should be public.
 //
 // TODO: Use `UIAccessibilityTraits` to determine element type.
+//
 public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
     private let nsObject: NSObject
     
@@ -35,7 +39,7 @@ public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
     }
     
     @objc override public func mb_testability_parent() -> TestabilityElement? {
-        return nil
+        return DefaultTestabilityElementValues.parent
     }
     
     @objc override public func mb_testability_children() -> [TestabilityElement] {
@@ -51,31 +55,31 @@ public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
     }
     
     @objc override public func mb_testability_elementType() -> TestabilityElementType {
-        return .other
+        return DefaultTestabilityElementValues.elementType
     }
     
     @objc override public func mb_testability_frame() -> CGRect {
-        return .null
+        return DefaultTestabilityElementValues.frame
     }
     
     @objc override public func mb_testability_frameRelativeToScreen() -> CGRect {
-        return .null
+        return DefaultTestabilityElementValues.frameRelativeToScreen
     }
     
     @objc override public func mb_testability_hasKeyboardFocus() -> Bool {
-        return false
+        return DefaultTestabilityElementValues.hasKeyboardFocus
     }
     
     @objc override public func mb_testability_isDefinitelyHidden() -> Bool {
-        return false
+        return DefaultTestabilityElementValues.isDefinitelyHidden
     }
     
     @objc override public func mb_testability_isEnabled() -> Bool {
-        return false
+        return DefaultTestabilityElementValues.isEnabled
     }
     
     @objc override public func mb_testability_text() -> String? {
-        return nil
+        return DefaultTestabilityElementValues.text
     }
     
     @objc override public func mb_testability_uniqueIdentifier() -> String {

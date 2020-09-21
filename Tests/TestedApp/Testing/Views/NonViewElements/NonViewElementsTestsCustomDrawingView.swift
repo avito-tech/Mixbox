@@ -3,24 +3,36 @@ import MixboxUiKit
 import TestsIpc
 import MapKit
 import MixboxFoundation
+import MixboxTestability
 
 final class NonViewElementsTestsCustomDrawingView: UIView, TestingView, MKMapViewDelegate {
-    private struct Rectangle {
+    private class Rectangle: BaseMutableTestabilityElement {
         let color: UIColor
-        let accessibilityElement: UIAccessibilityElement
-    }
-    
-    private var rectangles = [Rectangle]() {
-        didSet {
-            updateAccessibilityElements()
+        let id: String
+        
+        var isTapped: Bool = false {
+            didSet {
+                mb_testability_customValues["isTapped"] = isTapped
+            }
+        }
+        
+        init(color: UIColor, id: String) {
+            self.color = color
+            self.id = id
+            
+            super.init()
+            
+            isTapped = false
+        }
+        
+        override func mb_testability_accessibilityIdentifier() -> String? {
+            return id
         }
     }
     
+    private let rectangles: [Rectangle]
+    
     init(testingViewControllerSettings: TestingViewControllerSettings) {
-        super.init(frame: .zero)
-        
-        backgroundColor = .white
-        
         let colors: [UIColor] = [
             UIColor(red: 0, green: 0.5215686275, blue: 0.2588235294, alpha: 1), // Philippine Green
             UIColor(red: 1, green: 0.8784313725, blue: 0, alpha: 1), // Golden Yellow
@@ -28,18 +40,15 @@ final class NonViewElementsTestsCustomDrawingView: UIView, TestingView, MKMapVie
         ]
         
         rectangles = colors.enumerated().map { index, color in
-            let accessibilityElement = UIAccessibilityElement(accessibilityContainer: self)
-            
-            accessibilityElement.accessibilityIdentifier = "element\(index)"
-            accessibilityElement.mb_testability_customValues["tapped"] = false
-                
-            return Rectangle(
+            Rectangle(
                 color: color,
-                accessibilityElement: accessibilityElement
+                id: "element\(index)"
             )
         }
         
-        updateAccessibilityElements()
+        super.init(frame: .zero)
+        
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -65,11 +74,7 @@ final class NonViewElementsTestsCustomDrawingView: UIView, TestingView, MKMapVie
             
             context.fill(rect)
             
-            rectangle.accessibilityElement.accessibilityFrame = UIAccessibility.convertToScreenCoordinates(
-                rect,
-                in: self
-            )
-            rectangle.accessibilityElement.accessibilityFrameInContainerSpace = rect
+            rectangle.set(frame: rect, container: self)
         }
     }
     
@@ -80,8 +85,8 @@ final class NonViewElementsTestsCustomDrawingView: UIView, TestingView, MKMapVie
             let point = touch.location(in: nil)
             
             for rectangle in rectangles {
-                if rectangle.accessibilityElement.accessibilityFrame.contains(point) {
-                    rectangle.accessibilityElement.mb_testability_customValues["tapped"] = true
+                if rectangle.frameRelativeToScreen.contains(point) {
+                    rectangle.isTapped = true
                 }
             }
         }
@@ -89,7 +94,7 @@ final class NonViewElementsTestsCustomDrawingView: UIView, TestingView, MKMapVie
     
     // MARK: - Private
     
-    private func updateAccessibilityElements() {
-        self.accessibilityElements = rectangles.map { $0.accessibilityElement }
+    override func mb_testability_children() -> [TestabilityElement] {
+        return rectangles
     }
 }

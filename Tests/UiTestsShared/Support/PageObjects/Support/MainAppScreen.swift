@@ -6,12 +6,12 @@ protocol DefaultElementFactoryProvider {
 }
 
 final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer>: DefaultElementFactoryProvider {
-    let real: PageObjectType // page object with real hierarchy
+    let uikit: PageObjectType // page object with real hierarchy
     let xcui: PageObjectType // page object with xcui hierarchy
     let `default`: PageObjectType // real hierarchy in GrayBox tests, xcui hierarchy in BlackBoxTests
     
     var everyKindOfHierarchy: [PageObjectType] {
-        return [real, xcui]
+        return [uikit, xcui]
     }
     
     func forEveryKindOfHierarchy(body: (PageObjectType) -> ()) {
@@ -22,8 +22,8 @@ final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer>:
         return `default`
     }
     
-    init(real: PageObjectType, xcui: PageObjectType, default: PageObjectType) {
-        self.real = real
+    init(uikit: PageObjectType, xcui: PageObjectType, default: PageObjectType) {
+        self.uikit = uikit
         self.xcui = xcui
         self.default = `default`
     }
@@ -31,7 +31,7 @@ final class MainAppScreen<PageObjectType: BasePageObjectWithDefaultInitializer>:
 
 extension MainAppScreen: OpenableScreen where PageObjectType: OpenableScreen {
     var viewName: String {
-        assert(real.viewName == xcui.viewName)
-        return real.viewName
+        assert(uikit.viewName == xcui.viewName)
+        return uikit.viewName
     }
 }

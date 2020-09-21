@@ -4,28 +4,18 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxUiKit
 
-// TODO (non-view elements): Fix for gray box
 final class NonViewElementsTests: TestCase {
-    private var webView: NonViewElementsTestsWebViewPageObject {
-        return pageObjects.nonViewElementsTestsWebView.default
-    }
-    
     private var mapView: NonViewElementsTestsMapViewPageObject {
         return pageObjects.nonViewElementsTestsMapView.default
     }
     
     private var customDrawingView: NonViewElementsTestsCustomDrawingViewPageObject {
-        return pageObjects.nonViewElementsTestsCustomDrawingView.default
+        return pageObjects.nonViewElementsTestsCustomDrawingView.uikit // TODO: Support both uikit and xcui? 
     }
     
-    func test___web() {
-        open(screen: webView).waitUntilViewIsLoaded()
-        
-        // Webview is asynchronous, so we have to wait.
-        webView.header.assertIsDisplayed()
-        webView.paragraph.withoutTimeout.assertIsDisplayed()
-    }
-    
+    // MKMapView actually contains UIView's, so in this sense the test doesn't belong in this TestCase,
+    // however it reproduced an error that was introduced after supporting non-view elements (duplication of elements).
+    // And the code is already written and the more tests the better.
     func test___map() {
         open(screen: mapView).waitUntilViewIsLoaded()
         
@@ -38,7 +28,7 @@ final class NonViewElementsTests: TestCase {
         func check(_ element: ViewElement) {
             element.withoutTimeout.tap()
             element.withoutTimeout.assertMatches {
-                $0.customValues["tapped"] == true
+                $0.customValues["isTapped"] == true
             }
         }
 
