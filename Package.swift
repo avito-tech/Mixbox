@@ -52,7 +52,7 @@ let package = Package(
             .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.12.0"),
             .package(name: "CocoaImageHashing", url: "https://github.com/ameingast/cocoaimagehashing.git", from: "1.8.0"),
             .package(url: "https://github.com/antigp/SBTUITestTunnel.git", .branch("spm_3.0.6")),
-            .package(name: "GCDWebServer", url: "https://github.com/SlaunchaMan/GCDWebServer.git",.branch("swift-package-manager")),
+            .package(name: "GCDWebServer", url: "https://github.com/SlaunchaMan/GCDWebServer.git", .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")),
     ],
     targets: [
         // MARK: - MixboxAnyCodable
