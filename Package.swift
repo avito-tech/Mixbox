@@ -1,5 +1,5 @@
 // swift-tools-version:5.2
-
+ 
 import PackageDescription
 import Foundation
 func cSettings() -> [CSetting] {
@@ -17,35 +17,32 @@ func swiftSettings() -> [SwiftSetting] {
             .define("SWIFT_PACKAGE")]
 }
 
-let filemanager = FileManager()
-if !filemanager.fileExists(atPath: "/System/Library/Frameworks/XCTAutomationSupport.framework") {
-    try filemanager.linkItem(atPath: "/System/Library/PrivateFrameworks/XCTAutomationSupport.framework ", toPath: "/System/Library/Frameworks/XCTAutomationSupport.framework")
-}
-
+// sudo ln -s /System/Library/PrivateFrameworks/XCTAutomationSupport.framework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks
 let package = Package(
     name: "Mixbox",
     platforms: [
         .iOS(.v9),
+        .macOS("10.15")
     ], 
     products: [
-        .library(name: "MixboxAnyCodable", type: .dynamic, targets: [ "MixboxAnyCodable" ]),
-        .library(name: "MixboxBlack", type: .dynamic, targets: ["MixboxBlack"]),
-        .library(name: "MixboxBuiltinIpc", type: .dynamic, targets: ["MixboxBuiltinIpc"]),
-        .library(name: "MixboxDi", type: .dynamic, targets: ["MixboxDi"]),
-        .library(name: "MixboxFakeSettingsAppMain", type: .dynamic, targets: ["MixboxFakeSettingsAppMain"]),
-        .library(name: "MixboxFoundation", type: .dynamic, targets: ["MixboxFoundation"]),
-        .library(name: "MixboxGenerator", type: .dynamic, targets: ["MixboxGenerator"]),
-        .library(name: "MixboxGray", type: .dynamic, targets: ["MixboxGray"]),
-        .library(name: "MixboxInAppServices", type: .dynamic, targets: ["MixboxInAppServices", "MixboxInAppServices_objc"]),
-        .library(name: "MixboxIoKit", type: .dynamic, targets: ["MixboxIoKit","MixboxIoKit_objc"]),
-        .library(name: "MixboxIpc", type: .dynamic, targets: ["MixboxIpc"]),
-        .library(name: "MixboxIpcCommon", type: .dynamic, targets: ["MixboxIpcCommon"]),
-        .library(name: "MixboxIpcSbtuiClient", type: .dynamic, targets: ["MixboxIpcSbtuiClient"]),
-        .library(name: "MixboxIpcSbtuiHost", type: .dynamic, targets: ["MixboxIpcSbtuiHost"]),
-        .library(name: "MixboxTestability", type: .dynamic, targets: ["MixboxTestability"]),
-        .library(name: "MixboxTestsFoundation", type: .dynamic, targets: ["MixboxTestsFoundation"]),
-        .library(name: "MixboxUiKit", type: .dynamic, targets: ["MixboxUiKit"]),
-        .library(name: "MixboxUiTestsFoundation", type: .dynamic, targets: ["MixboxUiTestsFoundation"]),
+        .library(name: "MixboxAnyCodable", type: .static, targets: [ "MixboxAnyCodable" ]),
+        .library(name: "MixboxBlack", type: .static, targets: ["MixboxBlack"]),
+        .library(name: "MixboxBuiltinIpc", type: .static, targets: ["MixboxBuiltinIpc"]),
+        .library(name: "MixboxDi", type: .static, targets: ["MixboxDi"]),
+        .library(name: "MixboxFakeSettingsAppMain", type: .static, targets: ["MixboxFakeSettingsAppMain"]),
+        .library(name: "MixboxFoundation", type: .static, targets: ["MixboxFoundation"]),
+        .library(name: "MixboxGenerator", type: .static, targets: ["MixboxGenerator"]),
+        .library(name: "MixboxGray", type: .static, targets: ["MixboxGray"]),
+        .library(name: "MixboxInAppServices", type: .static, targets: ["MixboxInAppServices", "MixboxInAppServices_objc"]),
+        .library(name: "MixboxIoKit", type: .static, targets: ["MixboxIoKit","MixboxIoKit_objc"]),
+        .library(name: "MixboxIpc", type: .static, targets: ["MixboxIpc"]),
+        .library(name: "MixboxIpcCommon", type: .static, targets: ["MixboxIpcCommon"]),
+        .library(name: "MixboxIpcSbtuiClient", type: .static, targets: ["MixboxIpcSbtuiClient"]),
+        .library(name: "MixboxIpcSbtuiHost", type: .static, targets: ["MixboxIpcSbtuiHost"]),
+        .library(name: "MixboxTestability", type: .static, targets: ["MixboxTestability"]),
+        .library(name: "MixboxTestsFoundation", type: .static, targets: ["MixboxTestsFoundation"]),
+        .library(name: "MixboxUiKit", type: .static, targets: ["MixboxUiKit"]),
+        .library(name: "MixboxUiTestsFoundation", type: .static, targets: ["MixboxUiTestsFoundation"]),
     ],
     dependencies: [
             .package(url: "https://github.com/AliSoftware/Dip", from: Version(7, 1, 1)),

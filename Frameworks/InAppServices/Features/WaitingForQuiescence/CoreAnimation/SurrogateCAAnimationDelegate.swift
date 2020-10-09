@@ -18,7 +18,9 @@ private func AnimationDidStart(
     if isInvokedFromSwizzledMethod {
         let selector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStart(_:))
         let originalImp = class_getMethodImplementation(type(of: self), selector)
-        unsafeBitCast(originalImp, to: AnimationDidStartFunction.self)(self, selector, animation)
+        if self.responds(to: selector) {
+            unsafeBitCast(originalImp, to: AnimationDidStartFunction.self)(self, selector, animation)
+        }
     }
 }
 
@@ -33,7 +35,9 @@ private func AnimationDidStop(
     if isInvokedFromSwizzledMethod {
         let selector = #selector(SurrogateCAAnimationDelegate.mbswizzled_animationDidStop(_:finished:))
         let originalImp = class_getMethodImplementation(type(of: self), selector)
-        unsafeBitCast(originalImp, to: AnimationDidFinishFunction.self)(self, selector, animation, finished)
+        if self.responds(to: selector) {
+            unsafeBitCast(originalImp, to: AnimationDidFinishFunction.self)(self, selector, animation, finished)
+        }
     }
 }
 
