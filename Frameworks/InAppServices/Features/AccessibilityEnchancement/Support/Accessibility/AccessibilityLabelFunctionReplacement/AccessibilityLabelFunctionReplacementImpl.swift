@@ -109,7 +109,7 @@ public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabel
             originalAccessibilityLabel: originalImplementation()
         )
         
-        guard let view = this as? UIView else {
+        guard let view = this as? UIAccessibilityElement else {
             return unwrappedOriginalAccessibilityLabel
         }
         
@@ -146,6 +146,12 @@ public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabel
         }
         
         return originalAccessibilityLabel
+    }
+}
+
+extension UIAccessibilityElement {
+    var isDefinitelyHidden: Bool {
+        return (self as? UIView)?.isDefinitelyHidden ?? false
     }
 }
 
