@@ -18,7 +18,6 @@ public final class StackTraceProviderImpl: StackTraceProvider {
         
         let addressesBufferPointer = UnsafeBufferPointer(start: backtraceAddresses, count: storedBacktraceAddressesCount)
 
-        var entries: [StackTraceEntry] = []
         guard let symbols = backtrace_symbols(backtraceAddresses, Int32(storedBacktraceAddressesCount)) else {
             return addressesBufferPointer.map {
                 StackTraceEntry(

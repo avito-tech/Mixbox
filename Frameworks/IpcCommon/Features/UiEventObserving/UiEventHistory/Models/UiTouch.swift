@@ -11,6 +11,9 @@ public final class UiTouch: Codable {
         case stationary
         case ended
         case cancelled
+        case regionEntered
+        case regionExited
+        case regionMoved
     }
     
     // Mirrors UITouch.TouchType (completely)
@@ -18,6 +21,8 @@ public final class UiTouch: Codable {
         case direct
         case indirect
         case pencil
+        case indirectPointer
+        case stylus
     }
     
     public let timestamp: TimeInterval

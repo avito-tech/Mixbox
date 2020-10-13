@@ -199,6 +199,23 @@ class Dump:
     def dumpAll(self):
         args = self.parse_args()
         
+        # Note that if you are having troubles with same major version behaving differently
+        # on different minor versions, you can change `ios_min_version` and `ios_max_version`
+        # to split headers between minor versions (or even patches).
+        #
+        # I didn't find a way to determine Xcode version in compile time in C directly, so we use supported iOS
+        # versions as indicator of Xcode version. It works, because new Xcodes usually support new
+        # iOS versions (there was never otherwise for major releases and all currently handled minor versions too
+        # but I think it is possible for patches, but usually they don't contain any breaking changes so
+        # the general rule of thumb is that Xcode version corresponds to exactly one max iOS version).
+        #
+        # Note that `#if compiler(>=5.3)` can be used to have a clue about what Xcode is used (in this case it's 12+).
+        #
+        # Naming is really up to you, because we do not support every Xcode release, and we
+        # do not test every Xcode release either. So if you are using for example, Xcode 12.0.1 then
+        # you can simply dump headers for it and call it Xcode 12. And hope that everything will work
+        # for all minor releases of Xcode 12 (it can work, or otherwise you will know).
+        #
         xcodes = [
             Xcode(
                 name="Xcode_10_0",
@@ -228,7 +245,13 @@ class Dump:
                 name="Xcode_11_0",
                 path=args.xcode11_0,
                 ios_min_version=130000,
-                ios_max_version=140000, # this is subject to change when new xcode is released
+                ios_max_version=140000,
+            ),
+            Xcode(
+                name="Xcode_12_0",
+                path=args.xcode12_0,
+                ios_min_version=140000,
+                ios_max_version=150000, # this is subject to change when new xcode is released
             ),
         ]
         
@@ -275,7 +298,13 @@ class Dump:
             dest='xcode11_0',
             required=False
         )
-    
+        
+        parser.add_argument(
+            '--xcode12_0',
+            dest='xcode12_0',
+            required=False
+        )
+        
         return parser.parse_args()
 
     def dump(
@@ -520,7 +549,8 @@ f"""+ (_Bool)isTesting;"""
                 name="XCUIElement",
                 kind=DeclarationKind.objc_class,
                 public_declarations=
-f"""{public_declarations_of_XCUIElementTypeQueryProvider}
+f"""
+{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly) long long horizontalSizeClass;
 @property(readonly) long long verticalSizeClass;
 @property(readonly) unsigned long long elementType;
@@ -533,7 +563,8 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly) struct CGRect frame;
 @property(readonly) id value;
 @property(readonly) XCUIElement *firstMatch;
-@property(readonly, copy) XCUIElementQuery *disclosedChildRows;""",
+@property(readonly, copy) XCUIElementQuery *disclosedChildRows;
+""",
             ),
             PublicTypeEntry(
                 name="XCUIApplication",
@@ -583,7 +614,11 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly) XCTestRun *testRun;
 @property(readonly) Class testRunClass;
 @property(readonly, copy) NSString *name;
-@property(readonly) unsigned long long testCaseCount;"""
+@property(readonly) unsigned long long testCaseCount;
+- (_Bool)tearDownWithError:(id *)arg1;
+- (_Bool)setUpWithError:(id *)arg1;
+@property(readonly) XCTestRun *testRun; // @synthesize testRun=_testRun;
+"""
             ),
             PublicTypeEntry(
                 name="XCTContext",
@@ -753,6 +788,95 @@ f'''@property(readonly, copy) NSString *unitSymbol; // @synthesize unitSymbol=_u
                 kind=DeclarationKind.objc_protocol,
                 header="XCUIElement.h",
                 ios_min_version=120400
+            ),
+            PublicTypeEntry(
+                name="XCTApplicationLaunchMetric",
+                kind=DeclarationKind.objc_class,
+                header="XCTMetric.h",
+                public_declarations=
+f'''
+- (id)initWithWaitUntilResponsive:(_Bool)arg1;
+- (id)init;
+''',
+                ios_min_version=140000
+            ),
+            PublicTypeEntry(
+                name='XCUIElementSnapshot',
+                kind=DeclarationKind.objc_protocol,
+                header="XCUIElement.h",
+                ios_min_version=140000
+            ),
+            PublicTypeEntry(
+                name='XCTIssue',
+                kind=DeclarationKind.objc_class,
+                ios_min_version=140000
+            ),
+            PublicTypeEntry(
+                name='XCTMutableIssue',
+                kind=DeclarationKind.objc_class,
+                header="XCTIssue.h",
+                ios_min_version=140000,
+                public_declarations=
+'''
+- (void)addAttachment:(id)arg1;
+@property(copy) NSArray *attachments;
+@property(retain) NSError *associatedError; // @dynamic associatedError;
+@property(copy) NSString *compactDescription; // @dynamic compactDescription;
+@property(copy) NSString *detailedDescription; // @dynamic detailedDescription;
+@property(retain) XCTSourceCodeContext *sourceCodeContext; // @dynamic sourceCodeContext;
+@property long long type; // @dynamic type;
+''',
+            ),
+            PublicTypeEntry(
+                name='XCTSourceCodeContext',
+                kind=DeclarationKind.objc_class,
+                ios_min_version=140000
+            ),
+            PublicTypeEntry(
+                name='XCTSourceCodeFrame',
+                kind=DeclarationKind.objc_class,
+                header="XCTSourceCodeContext.h",
+                ios_min_version=140000,
+                public_declarations=
+'''
+@property(readonly) NSError *symbolicationError; // @synthesize symbolicationError=_symbolicationError;
+@property(readonly) unsigned long long address; // @synthesize address=_address;
+@property(readonly) XCTSourceCodeSymbolInfo *symbolInfo;
+- (id)symbolInfoWithError:(id *)arg1;
+- (id)initWithAddress:(unsigned long long)arg1 symbolInfo:(id)arg2;
+''',
+            ),
+            PublicTypeEntry(
+                name='XCTSourceCodeLocation',
+                kind=DeclarationKind.objc_class,
+                header="XCTSourceCodeContext.h",
+                ios_min_version=140000,
+                public_declarations=
+'''
+@property(readonly) long long lineNumber; // @synthesize lineNumber=_lineNumber;
+@property(readonly) NSURL *fileURL; // @synthesize fileURL=_fileURL;
+- (id)initWithFilePath:(id)arg1 lineNumber:(long long)arg2;
+- (id)initWithFileURL:(id)arg1 lineNumber:(long long)arg2;
+''',
+            ),
+            PublicTypeEntry(
+                name='XCTSourceCodeSymbolInfo',
+                kind=DeclarationKind.objc_class,
+                header="XCTSourceCodeContext.h",
+                ios_min_version=140000,
+                public_declarations=
+'''
+@property(readonly) XCTSourceCodeLocation *location; // @synthesize location=_location;
+@property(readonly, copy) NSString *symbolName; // @synthesize symbolName=_symbolName;
+@property(readonly, copy) NSString *imageName; // @synthesize imageName=_imageName;
+- (id)initWithImageName:(id)arg1 symbolName:(id)arg2 location:(id)arg3;
+''',
+            ),
+            PublicTypeEntry(
+                name='_XCTSkipFailureException',
+                kind=DeclarationKind.objc_class,
+                header="XCTestSkippingImpl.h",
+                ios_min_version=140000
             ),
         ]
 
@@ -925,7 +1049,25 @@ f'''@property(readonly, copy) NSString *unitSymbol; // @synthesize unitSymbol=_u
     def patch_replacing_unknown_types(self, contents, xcode):
         contents = re.sub(
             r'((const )?struct __AXUIElement) \*', 
-            '/* unknown type (\\1) */ void *', 
+            '/* unknown type (\\1) was removed in dump.py */ void *', 
+            contents
+        )
+        # `id *` triggers this error: `Pointer to non-const type 'id' with no explicit ownership`
+        # We don't want to deal with it. It is clearly a pointer, so let it be `void *` instead.
+        # We want to restrict it to structs only:
+        # ```
+        # typedef struct {
+        #     unsigned long long _field1;
+        #     id *_field2;
+        #     unsigned long long *_field3;
+        #     unsigned long long _field4[5];
+        # } CDStruct_70511ce9;
+        # ```
+        # The following code is a workaround to do so. It ignores the fact that variable is defined in a struct.
+        # But it works and doesn't do harm. 
+        contents = re.sub(
+            r'(\s)id \*(.*?);',
+            '\\1/* was `id *` before dump.py */ void * \\2;',
             contents
         )
         

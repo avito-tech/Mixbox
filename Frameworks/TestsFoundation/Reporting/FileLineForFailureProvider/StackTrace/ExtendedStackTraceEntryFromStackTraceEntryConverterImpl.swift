@@ -26,21 +26,19 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
         var symbol: String?
         var demangledSymbol: String?
         
-        if let stackTraceEntrySymbol = stackTraceEntry.symbol, let regex = regex {
-            let matches = regex.matchesIn(string: stackTraceEntrySymbol)
-            
-            if let match = matches.first, matches.count == 1, match.count == 3 {
-                owner = match[1] == "???" ? owner : match[1]
-                symbol = match[2] == "0x0" ? symbol : match[2]
-            }
-        }
+        detectSymbolAndOwner(
+            stackTraceEntry: stackTraceEntry,
+            symbol: &symbol,
+            owner: &owner
+        )
         
-        if let record = (XCTestCase()._symbolicationRecordForTestCode(inAddressStack: NSArray(array: [NSNumber(value: stackTraceEntry.address)])) as? XCSymbolicationRecord) ?? (XCSymbolicationRecord.symbolicationRecord(forAddress: stackTraceEntry.address) as? XCSymbolicationRecord) {
-            file = record.filePath == "<unknown>" ? file : record.filePath
-            line = record.lineNumber == 0 ? line : record.lineNumber
-            owner = record.symbolOwner == "<unknown>" ? owner : record.symbolOwner
-            symbol = record.symbolName == "<unknown>" ? symbol : record.symbolName
-        }
+        symbolicate(
+            address: stackTraceEntry.address,
+            file: &file,
+            line: &line,
+            owner: &owner,
+            symbol: &symbol
+        )
         
         if let symbol = symbol {
             demangledSymbol = _stdlib_demangleName(symbol)
@@ -54,6 +52,59 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
             demangledSymbol: demangledSymbol,
             address: stackTraceEntry.address
         )
+    }
+    
+    // Better than `detectSymbolAndOwner`, because it also detects file and line, but it can fail in some cases (when
+    // compiled without symbols or when source code is not available, the latter was at least true for Xcode 11 and lower).
+    private func symbolicate(
+        address: UInt64,
+        file: inout String?,
+        line: inout UInt64?,
+        owner: inout String?,
+        symbol: inout String?)
+    {
+        #if compiler(>=5.3)
+        // Xcode 12+
+        
+        // Suppresses `Cast from 'XCTSymbolicationService?' to unrelated type 'XCTInProcessSymbolicationService' always fails` warning.
+        let sharedSymbolicationService = XCTSymbolicationService.shared() as AnyObject
+        if let symbolicationService = sharedSymbolicationService as? XCTInProcessSymbolicationService {
+            // TODO: Assertion error
+            let untypedSymbolInfo = symbolicationService.symbolInfoForAddress(inCurrentProcess: address, error: nil)
+            
+            // TODO: Check if "<unknown>" really applicable here with new API. Write tests.
+            if let symbolInfo = untypedSymbolInfo as? XCTSourceCodeSymbolInfo {
+                if let location = symbolInfo.location {
+                    file = location.fileURL.absoluteString == "<unknown>" ? file : location.fileURL.absoluteString
+                    line = location.lineNumber == 0 ? line : UInt64(location.lineNumber)
+                }
+                owner = symbolInfo.imageName == "<unknown>" ? owner : symbolInfo.imageName
+                symbol = symbolInfo.symbolName == "<unknown>" ? symbol : symbolInfo.symbolName
+            }
+        }
+        #else
+        if let record = (XCTestCase()._symbolicationRecordForTestCode(inAddressStack: NSArray(array: [NSNumber(value: address)])) as? XCSymbolicationRecord) ?? (XCSymbolicationRecord.symbolicationRecord(forAddress: address) as? XCSymbolicationRecord) {
+            file = record.filePath == "<unknown>" ? file : record.filePath
+            line = record.lineNumber == 0 ? line : record.lineNumber
+            owner = record.symbolOwner == "<unknown>" ? owner : record.symbolOwner
+            symbol = record.symbolName == "<unknown>" ? symbol : record.symbolName
+        }
+        #endif
+    }
+    
+    private func detectSymbolAndOwner(
+        stackTraceEntry: StackTraceEntry,
+        symbol: inout String?,
+        owner: inout String?)
+    {
+        if let stackTraceEntrySymbol = stackTraceEntry.symbol, let regex = regex {
+            let matches = regex.matchesIn(string: stackTraceEntrySymbol)
+            
+            if let match = matches.first, matches.count == 1, match.count == 3 {
+                owner = match[1] == "???" ? owner : match[1]
+                symbol = match[2] == "0x0" ? symbol : match[2]
+            }
+        }
     }
 }
 

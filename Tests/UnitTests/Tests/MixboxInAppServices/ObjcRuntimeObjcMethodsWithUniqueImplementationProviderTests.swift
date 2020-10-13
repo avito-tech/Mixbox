@@ -28,7 +28,18 @@ final class ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests: TestCas
         
         expectedMethods.append(contentsOf: methodsOfProxies(selector: selector))
         
-        XCTAssertEqual(actualMethods.sorted(), expectedMethods.sorted())
+        XCTAssertEqual(
+            actualMethods.sorted(),
+            expectedMethods.sorted(),
+            """
+            `objcMethodsWithUniqueImplementation` returned different classes that contains a specified selector. \
+            You should either update `ObjcRuntimeObjcMethodsWithUniqueImplementationProvider` or ignore some classes. \
+            Important note: you may see some internal classes in this test failure. Some of those classes are some proxies \
+            that can respond to every selector and they even add selectors dynamically if they are requested. They \
+            should be ignored in this test. See `methodsOfProxies`. If you are upgrading iOS version, add it to a switch. \
+            Consider just having same proxy class names as in previous iOS version. But if the list differs, add another case.
+            """
+        )
     }
     
     private func methodsOfProxies(selector: Selector) -> [ObjcMethodWithUniqueImplementation] {
@@ -42,7 +53,7 @@ final class ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests: TestCas
             proxyClassNames = [
                 "_PFPlaceholderMulticaster"
             ]
-        case 13:
+        case 13, 14:
             proxyClassNames = [
                 "_PFPlaceholderMulticaster",
                 "UIKeyboardCandidateViewStyle",

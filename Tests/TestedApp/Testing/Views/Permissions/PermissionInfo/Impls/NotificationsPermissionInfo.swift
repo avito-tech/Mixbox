@@ -7,10 +7,28 @@ final class NotificationsPermissionInfo: PermissionInfo {
         return "notifications"
     }
     
+    // swiftlint:disable:next cyclomatic_complexity
     func authorizationStatus() -> String {
         if #available(iOS 10.0, *) {
             let status = notificationSettings().authorizationStatus
             
+            #if compiler(>=5.3)
+            // Xcode 12+
+            switch status {
+            case .authorized:
+                return "authorized"
+            case .denied:
+                return "denied"
+            case .notDetermined:
+                return "notDetermined"
+            case .provisional:
+                return "provisional"
+            case .ephemeral:
+                return "ephemeral"
+            @unknown default:
+                return "UNKNOWN: \(status)"
+            }
+            #else
             switch status {
             case .authorized:
                 return "authorized"
@@ -23,6 +41,7 @@ final class NotificationsPermissionInfo: PermissionInfo {
             @unknown default:
                 return "UNKNOWN: \(status)"
             }
+            #endif
         } else {
             // We aren't sure if authorization status is `denied` or `notDetermined`,
             // but we can set only `denied` state and in tests we check only `denied` state.

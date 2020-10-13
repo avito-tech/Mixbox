@@ -73,7 +73,10 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
         )
     }
     
+    // swiftlint:disable:next cyclomatic_complexity
     private func touchType(touchType: UITouch.TouchType) throws -> UiTouch.TouchType {
+        #if compiler(>=5.3)
+        // Xcode 12+
         switch touchType {
         case .direct:
             return .direct
@@ -81,12 +84,58 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
             return .indirect
         case .pencil:
             return .pencil
+        case .indirectPointer:
+            return .indirectPointer
+        case .stylus:
+            return .stylus
         @unknown default:
             throw UnsupportedEnumCaseError(touchType)
         }
+        #else
+        switch touchType {
+        case .direct:
+            return .direct
+        case .indirect:
+            return .indirect
+        case .pencil:
+            return .pencil
+        case .indirectPointer:
+            return .indirectPointer
+        case .stylus:
+            return .stylus
+        @unknown default:
+            throw UnsupportedEnumCaseError(touchType)
+        }
+        #endif
     }
     
+    // swiftlint:disable:next cyclomatic_complexity
     private func phase(phase: UITouch.Phase) throws -> UiTouch.Phase {
+        #if compiler(>=5.3)
+        // Xcode 12+
+        
+        switch phase {
+        case .began:
+            return .began
+        case .moved:
+            return .moved
+        case .stationary:
+            return .stationary
+        case .ended:
+            return .ended
+        case .cancelled:
+            return .cancelled
+        // TODO: Figure out behavior for these:
+        case .regionEntered:
+            return .regionEntered
+        case .regionExited:
+            return .regionExited
+        case .regionMoved:
+            return .regionMoved
+        @unknown default:
+            throw UnsupportedEnumCaseError(phase)
+        }
+        #else
         switch phase {
         case .began:
             return .began
@@ -101,6 +150,7 @@ public final class UiEventHistoryTracker: UiEventObserver, UiEventHistoryProvide
         @unknown default:
             throw UnsupportedEnumCaseError(phase)
         }
+        #endif
     }
     
     private func eventType(eventType: UIEvent.EventType) throws -> UiEvent.EventType {
