@@ -3,7 +3,6 @@ import Foundation
 import CiFoundation
 import Bash
 import SingletonHell
-import Models
 import RemoteFiles
 import Destinations
 

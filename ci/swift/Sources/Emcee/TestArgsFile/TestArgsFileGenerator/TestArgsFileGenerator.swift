@@ -1,4 +1,3 @@
-import Models
 import TestArgFile
 
 public protocol TestArgFileGenerator {

@@ -1,5 +1,4 @@
 import CiFoundation
-import Models
 import Foundation
 
 public final class TestArgFileJsonGeneratorImpl: TestArgFileJsonGenerator {

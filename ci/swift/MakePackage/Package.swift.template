@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
 // swiftlint:disable trailing_comma file_length
 
 // {{comment_saying_that_this_file_is_code_generated}}
@@ -22,6 +22,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
+            name: "EmceeTestRunner",
             url: "https://github.com/avito-tech/Emcee", 
             .revision("{{emcee_commit_hash}}")
         ),
@@ -40,14 +41,14 @@ let package = Package(
             name: "{{target.name}}",
             dependencies: [
                 {%- for dependency in target.dependencies %}
-                "{{dependency}}",
+                {{ dependency | safe }},
                 {%- endfor %}
             ]
         ),
         {%- endfor %}
     ],
     swiftLanguageVersions: [
-        .v4_2
+        .v5
     ]
 )
 

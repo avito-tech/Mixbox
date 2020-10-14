@@ -1,8 +1,8 @@
-import Models
 import TestDiscovery
 import Foundation
 import Destinations
 import BuildArtifacts
+import RunnerModels
 
 // NOTE: Tightly coupled with Mixbox CI and can hardly be reused for other projects.
 public final class TestArgFileGeneratorArguments {

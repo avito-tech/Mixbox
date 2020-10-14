@@ -4,6 +4,7 @@ import Destinations
 import CiFoundation
 import SingletonHell
 import Emcee
+import Cocoapods
 
 public final class TeamcityBuildDi: CommonDi {
     override public init() {}
@@ -13,6 +14,9 @@ public final class TeamcityBuildDi: CommonDi {
         
         container.register(type: LocalTaskExecutor.self) {
             TeamcityLocalTaskExecutor()
+        }
+        container.register(type: CocoapodsSearchOutputParser.self) {
+            CocoapodsSearchOutputParserImpl()
         }
         container.register(type: RemoteCacheConfigProvider.self) {
             let environmentProvider: EnvironmentProvider = try container.resolve()

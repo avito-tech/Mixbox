@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
 // swiftlint:disable trailing_comma file_length
 
 // This file is generated via MakePackage python code. Do not modify it.
@@ -74,8 +74,9 @@ let package = Package(
     ],
     dependencies: [
         .package(
+            name: "EmceeTestRunner",
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("c1165f82bf24ae7d419ab0cd9e7278e45fa81046")
+            .revision("cebbcef73857340d8b1156386afdeb4ddb1dde94")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
@@ -124,13 +125,13 @@ let package = Package(
                 "Destinations",
                 "Dip",
                 "Emcee",
-                "EmceeInterfaces",
                 "Git",
                 "RemoteFiles",
                 "Simctl",
                 "SingletonHell",
                 "Tasks",
                 "Xcodebuild",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
         .target(
@@ -153,7 +154,6 @@ let package = Package(
                 "CiFoundation",
                 "Destinations",
                 "Emcee",
-                "EmceeInterfaces",
                 "RemoteFiles",
                 "SingletonHell",
                 "Tasks",
@@ -299,7 +299,6 @@ let package = Package(
                 "CiFoundation",
                 "Destinations",
                 "Emcee",
-                "EmceeInterfaces",
                 "RemoteFiles",
                 "SingletonHell",
                 "Tasks",
@@ -332,9 +331,9 @@ let package = Package(
                 "Brew",
                 "CiFoundation",
                 "Destinations",
-                "EmceeInterfaces",
                 "RemoteFiles",
                 "SingletonHell",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
         .target(
@@ -399,6 +398,6 @@ let package = Package(
         ),
     ],
     swiftLanguageVersions: [
-        .v4_2
+        .v5
     ]
 )

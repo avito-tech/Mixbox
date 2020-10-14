@@ -1,5 +1,4 @@
 import Emcee
-import Models
 import CiFoundation
 import SingletonHell
 import SimulatorPoolModels

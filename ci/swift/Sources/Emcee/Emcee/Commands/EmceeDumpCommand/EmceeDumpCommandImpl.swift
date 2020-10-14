@@ -1,14 +1,15 @@
 import CiFoundation
 import Foundation
-import Models
-import TestDiscovery
 import TestArgFile
+import TestDiscovery
 import BuildArtifacts
 import ResourceLocation
 import SimulatorPoolModels
 import RunnerModels
 import QueueModels
 import SingletonHell
+import LoggingSetup
+import WorkerCapabilitiesModels
 
 public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let temporaryFileProvider: TemporaryFileProvider
@@ -92,10 +93,16 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         return jsonPath
     }
     
+    // swiftlint:disable:next function_body_length
     private func asStrings(arguments: EmceeDumpCommandArguments, jsonPath: String) throws -> [String] {
         let testArgFile = TestArgFile(
+            analyticsConfiguration: AnalyticsConfiguration(
+                graphiteConfiguration: nil,
+                statsdConfiguration: nil,
+                sentryConfiguration: nil
+            ),
             entries: [
-                try TestArgFile.Entry(
+                try TestArgFileEntry(
                     buildArtifacts: BuildArtifacts(
                         appBundle: arguments.appPath.map {
                             AppBundleLocation(try ResourceLocation.from($0))
@@ -127,15 +134,26 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                         testRunnerMaximumSilenceDuration: 420
                     ),
                     testType: TestType.logicTest,
-                    testsToRun: []
+                    testsToRun: [],
+                    workerCapabilityRequirements: [
+                        WorkerCapabilityRequirement(
+                            capabilityName: "emcee.dt.xcode.12_0_1",
+                            constraint: .present
+                        )
+                    ]
                 )
             ],
-            priority: .medium,
+            prioritizedJob: PrioritizedJob(
+                jobGroupId: JobGroupId(UUID().uuidString),
+                jobGroupPriority: Priority.medium,
+                jobId: JobId(UUID().uuidString),
+                jobPriority: Priority.medium,
+                persistentMetricsJobId: "MixboxTests"
+            ),
             testDestinationConfigurations: arguments.testDestinationConfigurations
         )
         
         let staticArguments = [
-            "--emcee-version", emceeVersionProvider.emceeVersion(),
             "--test-arg-file", try jsonFileFromEncodableGenerator.generateJsonFile(encodable: testArgFile),
             "--temp-folder", arguments.tempFolder,
             "--output", jsonPath,

@@ -1,5 +1,5 @@
 import Emcee
-import Models
+import DeveloperDirModels
 
 public final class DeveloperDirProviderImpl: DeveloperDirProvider {
     private let xcodeCFBundleShortVersionString: String

@@ -1,4 +1,3 @@
-import Models
 import TestDiscovery
 import Foundation
 import CiFoundation
@@ -10,6 +9,8 @@ import RunnerModels
 import QueueModels
 import SimulatorPoolModels
 import TypedResourceLocation
+import LoggingSetup
+import WorkerCapabilitiesModels
 
 public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeProvider: EmceeProvider
@@ -66,7 +67,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private func testDestinationConfigurations(
         arguments: TestArgFileGeneratorArguments)
         throws
-        -> [TestDestinationConfiguration]
+    -> [TestDestinationConfiguration]
     {
         return try arguments.mixboxTestDestinationConfigurations.map {
             TestDestinationConfiguration(
@@ -74,7 +75,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     deviceType: $0.testDestination.deviceType,
                     runtime: $0.testDestination.iOSVersion
                 ),
-                reportOutput: Models.ReportOutput(
+                reportOutput: ReportOutput(
                     junit: $0.reportOutput.junit,
                     tracingReport: $0.reportOutput.tracingReport
                 )
@@ -93,8 +94,13 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         -> TestArgFile
     {
         return TestArgFile(
-            entries: try testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFile.Entry in
-                try TestArgFile.Entry(
+            analyticsConfiguration: AnalyticsConfiguration(
+                graphiteConfiguration: nil,
+                statsdConfiguration: nil,
+                sentryConfiguration: nil
+            ),
+            entries: try testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFileEntry in
+                try TestArgFileEntry(
                     buildArtifacts: buildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: environment,
@@ -114,10 +120,22 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                         testRunnerMaximumSilenceDuration: 420
                     ),
                     testType: testType,
-                    testsToRun: testsToRun
+                    testsToRun: testsToRun,
+                    workerCapabilityRequirements: [
+                        WorkerCapabilityRequirement(
+                            capabilityName: "emcee.dt.xcode.12_0_1",
+                            constraint: .present
+                        )
+                    ]
                 )
             },
-            priority: try Priority(intValue: priority),
+            prioritizedJob: PrioritizedJob(
+                jobGroupId: JobGroupId(UUID().uuidString),
+                jobGroupPriority: try Priority(intValue: priority),
+                jobId: JobId(UUID().uuidString),
+                jobPriority: try Priority(intValue: priority),
+                persistentMetricsJobId: "MixboxTests"
+            ),
             testDestinationConfigurations: testDestinationConfigurations
         )
     }
@@ -163,6 +181,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         
         return try emcee.dump(
             arguments: EmceeDumpCommandArguments(
+                jobId: UUID().uuidString,
                 xctestBundle: arguments.xctestBundlePath,
                 testDestinationConfigurations: testDestinationConfigurations,
                 appPath: appPathDumpArgument,

@@ -1,4 +1,3 @@
-import Models
 import SimulatorPoolModels
 
 public protocol SimulatorSettingsProvider {

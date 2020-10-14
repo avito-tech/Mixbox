@@ -18,11 +18,8 @@ public final class EmceeRunTestsOnRemoteQueueCommandImpl: EmceeRunTestsOnRemoteQ
         throws
     {
         let staticArguments = [
-            "--job-id", arguments.jobId,
-            "--emcee-version", emceeVersionProvider.emceeVersion(),
             "--test-arg-file", arguments.testArgFile,
-            "--queue-server-destination", arguments.queueServerDestination,
-            "--queue-server-run-configuration-location", arguments.queueServerRunConfigurationLocation,
+            "--queue-server-configuration-location", arguments.queueServerRunConfigurationLocation,
             "--junit", arguments.junit,
             "--trace", arguments.trace,
             "--temp-folder", arguments.tempFolder,

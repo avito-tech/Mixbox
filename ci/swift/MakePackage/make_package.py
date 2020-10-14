@@ -7,7 +7,7 @@ import re
 swift_ci_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
 def emcee_commit_hash():
-    return 'c1165f82bf24ae7d419ab0cd9e7278e45fa81046'
+    return 'cebbcef73857340d8b1156386afdeb4ddb1dde94'
 
 def comment_saying_that_this_file_is_code_generated():
     return 'This file is generated via MakePackage python code. Do not modify it.' 
@@ -68,27 +68,43 @@ def get_targets():
             if os.path.isdir(os.path.join(sources, file_name))
     ]
     
-    external_library_name_by_module_name = {
-        'Dip': 'Dip',
-        'Models': 'EmceeInterfaces',
-        'Alamofire': 'Alamofire'
+    emcee_frameworks = [
+        'BuildArtifacts',
+        'DeveloperDirModels',
+        'LoggingSetup',
+        'QueueModels',
+        'ResourceLocation',
+        'RunnerModels',
+        'SimulatorPoolModels',
+        'TestArgFile',
+        'TestDiscovery',
+        'TypedResourceLocation',
+        'WorkerCapabilitiesModels'
+    ]
+    
+    external_product_by_module_name = {
+        'Dip': '"Dip"',
+        'Alamofire': '"Alamofire"',
     }
     
-    library_name_by_module_name = external_library_name_by_module_name.copy()
+    for emcee_framework in emcee_frameworks:
+        external_product_by_module_name[emcee_framework] = '.product(name: "EmceeInterfaces", package: "EmceeTestRunner")'
+    
+    product_by_module_name = external_product_by_module_name.copy()
     
     for directory_name in directory_names:
-        library_name_by_module_name[directory_name] = directory_name
+        product_by_module_name[directory_name] = f'"{directory_name}"'
     
     return [
         get_target(
             target_name=directory_name,
             directory=os.path.join(sources, directory_name),
-            library_name_by_module_name=library_name_by_module_name
+            product_by_module_name=product_by_module_name
         )
         for directory_name in directory_names
     ]
 
-def get_target(target_name, directory, library_name_by_module_name):
+def get_target(target_name, directory, product_by_module_name):
     imported_modules = []
     
     for root, subdirs, files in os.walk(directory):
@@ -103,9 +119,9 @@ def get_target(target_name, directory, library_name_by_module_name):
                     imported_modules.extend(file_dependencies)
                
     dependencies = list(sorted(set([
-        library_name_by_module_name[module_name]
+        product_by_module_name[module_name]
         for module_name in imported_modules
-            if module_name in library_name_by_module_name
+            if module_name in product_by_module_name
     ])))
         
     return Target(
