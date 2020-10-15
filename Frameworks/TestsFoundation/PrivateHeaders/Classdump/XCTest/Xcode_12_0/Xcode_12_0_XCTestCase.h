@@ -55,15 +55,10 @@
     NSMutableDictionary *__perfMetricsForID;
 }
 
-+ (id)_baselineDictionary;
-+ (_Bool)_treatMissingBaselinesAsTestFailures;
-+ (id)defaultMetrics;
 + (_Bool)_reportPerformanceFailuresForLargeImprovements;
 + (_Bool)isInheritingTestCases;
 + (id)bundle;
 
-+ (void)tearDown;
-+ (void)setUp;
 + (id)allTestMethodInvocations;
 + (void)_allTestMethodInvocations:(id)arg1;
 + (id)testMethodInvocations;
@@ -71,7 +66,6 @@
 + (id)allSubclasses;
 + (id)_allSubclasses;
 @property(retain) NSMutableDictionary *_perfMetricsForID; // @synthesize _perfMetricsForID=__perfMetricsForID;
-@property(retain) XCTestCaseRun *testCaseRun; // @synthesize testCaseRun=_testCaseRun;
 @property(nonatomic) _Bool shouldSetShouldHaltWhenReceivesControl; // @synthesize shouldSetShouldHaltWhenReceivesControl=_shouldSetShouldHaltWhenReceivesControl;
 @property(nonatomic) _Bool shouldHaltWhenReceivesControl; // @synthesize shouldHaltWhenReceivesControl=_shouldHaltWhenReceivesControl;
 @property(retain) NSThread *primaryThread; // @synthesize primaryThread=_primaryThread;
@@ -87,12 +81,10 @@
 - (void)_startTimeoutTimer;
 - (void)_exceededExecutionTimeAllowance;
 @property unsigned long long maxDurationInMinutes;
-- (void)addAttachment:(id)arg1;
 - (void)runActivityNamed:(id)arg1 inScope:(CDUnknownBlockType)arg2;
 - (void)startActivityWithTitle:(id)arg1 block:(CDUnknownBlockType)arg2;
 - (void)startActivityWithTitle:(id)arg1 type:(id)arg2 block:(CDUnknownBlockType)arg3;
 
-- (void)registerDefaultMetrics;
 - (id)baselinesDictionaryForTest;
 - (void)_logAndReportPerformanceMetrics:(id)arg1 perfMetricResultsForIDs:(id)arg2 withBaselinesForTest:(id)arg3;
 - (void)_logAndReportPerformanceMetrics:(id)arg1 perfMetricResultsForIDs:(id)arg2 withBaselinesForTest:(id)arg3 defaultBaselinesForPerfMetricID:(id)arg4;
@@ -103,8 +95,6 @@
 - (void)reportMeasurements:(id)arg1 forMetricID:(id)arg2 reportFailures:(_Bool)arg3;
 - (void)_recordValues:(id)arg1 forPerformanceMetricID:(id)arg2 name:(id)arg3 unitsOfMeasurement:(id)arg4 baselineName:(id)arg5 baselineAverage:(id)arg6 maxPercentRegression:(id)arg7 maxPercentRelativeStandardDeviation:(id)arg8 maxRegression:(id)arg9 maxStandardDeviation:(id)arg10 file:(id)arg11 line:(unsigned long long)arg12;
 
-- (void)stopMeasuring;
-- (void)startMeasuring;
 - (void)quiesceDidUpdate:(_Bool)arg1 error:(id)arg2;
 @property(readonly) CDStruct_2ec95fd7 minimumOperatingSystemVersion;
 - (void)_logMemoryGraphDataFromFilePath:(id)arg1 withTitle:(id)arg2;
@@ -118,10 +108,7 @@
 - (void)_addTeardownBlock:(CDUnknownBlockType)arg1;
 
 - (void)_purgeTeardownBlocks;
-- (void)performTest:(id)arg1;
 - (void)_reportFailuresAtFile:(id)arg1 line:(unsigned long long)arg2 forTestAssertionsInScope:(CDUnknownBlockType)arg3;
-- (void)invokeTest;
-- (Class)testRunClass;
 - (Class)_requiredTestRunBaseClass;
 
 - (void)dealloc;
@@ -132,22 +119,6 @@
 - (unsigned long long)testCaseCount;
 - (id)bundle;
 
-- (id)init;
-- (void)removeUIInterruptionMonitor:(id)arg1;
-- (id)addUIInterruptionMonitorWithDescription:(id)arg1 handler:(CDUnknownBlockType)arg2;
-- (void)nestedWaiter:(id)arg1 wasInterruptedByTimedOutWaiter:(id)arg2;
-- (void)waiter:(id)arg1 didFulfillInvertedExpectation:(id)arg2;
-- (void)waiter:(id)arg1 fulfillmentDidViolateOrderingConstraintsForExpectation:(id)arg2 requiredExpectation:(id)arg3;
-- (void)waiter:(id)arg1 didTimeoutWithUnfulfilledExpectations:(id)arg2;
-- (id)expectationForPredicate:(id)arg1 evaluatedWithObject:(id)arg2 handler:(CDUnknownBlockType)arg3;
-- (id)expectationForNotification:(id)arg1 object:(id)arg2 notificationCenter:(id)arg3 handler:(CDUnknownBlockType)arg4;
-- (id)expectationForNotification:(id)arg1 object:(id)arg2 handler:(CDUnknownBlockType)arg3;
-- (id)keyValueObservingExpectationForObject:(id)arg1 keyPath:(id)arg2 handler:(CDUnknownBlockType)arg3;
-- (id)keyValueObservingExpectationForObject:(id)arg1 keyPath:(id)arg2 expectedValue:(id)arg3;
-- (id)expectationWithDescription:(id)arg1;
-- (void)waitForExpectations:(id)arg1 timeout:(double)arg2 enforceOrder:(_Bool)arg3;
-- (void)waitForExpectations:(id)arg1 timeout:(double)arg2;
-- (void)waitForExpectationsWithTimeout:(double)arg1 handler:(CDUnknownBlockType)arg2;
 - (id)_expectationForDistributedNotification:(id)arg1 object:(id)arg2 handler:(CDUnknownBlockType)arg3;
 - (id)_expectationForDarwinNotification:(id)arg1;
 
