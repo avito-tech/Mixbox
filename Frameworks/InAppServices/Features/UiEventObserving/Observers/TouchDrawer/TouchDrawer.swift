@@ -18,8 +18,6 @@ public final class TouchDrawer: UiEventObserver {
         
         guard let touch = touches.first else { return }
         
-        #if compiler(>=5.3)
-        // Xcode 12+
         switch touch.phase {
         case .began:
             addFadeOutViews(touches: touches, window: window)
@@ -42,23 +40,6 @@ public final class TouchDrawer: UiEventObserver {
         @unknown default:
             break
         }
-        #else
-        switch touch.phase {
-        case .began:
-            addFadeOutViews(touches: touches, window: window)
-        case .moved:
-            removeFadeOutViews()
-            addFadeOutViews(touches: touches, window: window)
-        case .cancelled:
-            removeFadeOutViews()
-        case .ended:
-            removeFadeOutViews()
-        case .stationary:
-            break
-        @unknown default:
-            break
-        }
-        #endif
     }
     
     private func addFadeOutViews(touches: Set<UITouch>, window: UIWindow) {

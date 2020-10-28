@@ -81,8 +81,8 @@ final class EnumsGeneratorFacadeTests: BaseGeneratorFacadeTests {
                 return lhs == rhs
             case let (.case_3_nesting_structure(lhs), .case_3_nesting_structure(rhs)):
                 return lhs == rhs
-            case let (.case_4_nesting_multiple_values(lhs), .case_4_nesting_multiple_values(rhs)):
-                return lhs.0 == rhs.0 && lhs.1 == rhs.1
+            case let (.case_4_nesting_multiple_values(lhs0, lhs1), .case_4_nesting_multiple_values(rhs0, rhs1)):
+                return lhs0 == rhs0 && lhs1 == rhs1
             default:
                 return false
             }

@@ -75,7 +75,6 @@ public final class InAppAlertDisplayer {
         
         return window
     }
-    
 }
 
 #endif

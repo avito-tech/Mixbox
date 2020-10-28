@@ -8,7 +8,7 @@ public final class ThreadSafeOnceToken<T>: OnceToken {
     }
     
     public func wasExecuted() -> Bool {
-        if let value = value {
+        if value != nil {
             return true
         } else {
             semaphore.wait()

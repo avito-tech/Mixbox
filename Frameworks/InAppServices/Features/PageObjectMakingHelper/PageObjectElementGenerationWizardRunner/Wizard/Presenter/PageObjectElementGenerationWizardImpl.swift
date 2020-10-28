@@ -49,6 +49,13 @@ public final class PageObjectElementGenerationWizardImpl: PageObjectElementGener
             touchPoint = touch.location(in: nil)
         case .moved, .cancelled, .stationary:
             break
+        // TODO: Figure out behavior for these:
+        case .regionEntered:
+            break
+        case .regionExited:
+            break
+        case .regionMoved:
+            break
         case .ended:
             if let touchPoint = touchPoint, let viewHierarchy = self.viewHierarchy {
                 handleTouchEnded(point: touchPoint, viewHierarchy: viewHierarchy)

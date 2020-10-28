@@ -10,6 +10,9 @@ public final class UiEvent: Codable {
         case motion
         case remoteControl
         case presses
+        case scroll
+        case hover
+        case transform
     }
     
     // Mirrors UIEvent.EventSubtype (completely)
