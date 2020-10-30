@@ -57,16 +57,10 @@ public extension Collection {
     {
         if self.count != count {
             UnavoidableFailure.fail(
-                "Failed to get exactly \(count) elements from the collection, actual count: \(count)"
+                "Failed to get exactly \(count) elements from the collection, actual count: \(self.count)"
             )
         } else {
             return getter()
         }
-    }
-    
-    private func fail(count: Int) {
-        UnavoidableFailure.fail(
-            "Failed to get exactly \(count) elements from the collection, actual count: \(count)"
-        )
     }
 }

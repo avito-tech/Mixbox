@@ -185,6 +185,10 @@
 		F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */; };
 		F850A31024C5E06A006CCF11 /* GeneratorTestsDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F850A30F24C5E06A006CCF11 /* GeneratorTestsDependencies.swift */; };
 		F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F851CADF239E74CB005F4F2C /* ElementSettingsTests.swift */; };
+		F8539643254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8539642254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift */; };
+		F8539645254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8539644254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift */; };
+		F8539647254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8539646254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift */; };
+		F8539649254B1ED80015FD37 /* ValueCodeGeneratorTuplesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8539648254B1ED80015FD37 /* ValueCodeGeneratorTuplesTests.swift */; };
 		F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */; };
 		F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */; };
 		F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D004214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift */; };
@@ -443,6 +447,12 @@
 		F8B4F96C242CB665008A05E8 /* RootViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4F96B242CB665008A05E8 /* RootViewControllerManager.swift */; };
 		F8B4F971242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4F970242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift */; };
 		F8B4FDF5242E62C5008A05E8 /* CenteredLineButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B4FDF4242E62C5008A05E8 /* CenteredLineButtonView.swift */; };
+		F8B5C5AE254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B5C5AD254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift */; };
+		F8B5C68B254AD731002DB0FB /* BaseValueCodeGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B5C68A254AD731002DB0FB /* BaseValueCodeGeneratorTests.swift */; };
+		F8B5C68D254AD742002DB0FB /* BaseValueCodeGeneratorTests+SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B5C68C254AD742002DB0FB /* BaseValueCodeGeneratorTests+SharedModels.swift */; };
+		F8B5C68F254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B5C68E254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift */; };
+		F8B5C693254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B5C692254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift */; };
+		F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B5C694254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift */; };
 		F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */; };
 		F8B964AB2280A1060054CE08 /* SwipeActionWaitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */; };
 		F8B964AC2280A1060054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B964A82280A0E00054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift */; };
@@ -810,6 +820,10 @@
 		F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticCurrentTestCaseProvider.swift; sourceTree = "<group>"; };
 		F850A30F24C5E06A006CCF11 /* GeneratorTestsDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorTestsDependencies.swift; sourceTree = "<group>"; };
 		F851CADF239E74CB005F4F2C /* ElementSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementSettingsTests.swift; sourceTree = "<group>"; };
+		F8539642254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumImmutableValueReflectionTests.swift; sourceTree = "<group>"; };
+		F8539644254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorKnownIssuesTests.swift; sourceTree = "<group>"; };
+		F8539646254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorCollectionsTests.swift; sourceTree = "<group>"; };
+		F8539648254B1ED80015FD37 /* ValueCodeGeneratorTuplesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorTuplesTests.swift; sourceTree = "<group>"; };
 		F853CFE0214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift; sourceTree = "<group>"; };
 		F853D002214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceProviderImplTests.swift; sourceTree = "<group>"; };
 		F853D004214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift; sourceTree = "<group>"; };
@@ -990,6 +1004,12 @@
 		F8B4F96B242CB665008A05E8 /* RootViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerManager.swift; sourceTree = "<group>"; };
 		F8B4F970242CB6D8008A05E8 /* RootViewControllerManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerManagerImpl.swift; sourceTree = "<group>"; };
 		F8B4FDF4242E62C5008A05E8 /* CenteredLineButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredLineButtonView.swift; sourceTree = "<group>"; };
+		F8B5C5AD254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorIntegrationTests.swift; sourceTree = "<group>"; };
+		F8B5C68A254AD731002DB0FB /* BaseValueCodeGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseValueCodeGeneratorTests.swift; path = UnitTests/Tests/MixboxReflection/ValueCodeGenerator/BaseValueCodeGeneratorTests.swift; sourceTree = SOURCE_ROOT; };
+		F8B5C68C254AD742002DB0FB /* BaseValueCodeGeneratorTests+SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BaseValueCodeGeneratorTests+SharedModels.swift"; path = "UnitTests/Tests/MixboxReflection/ValueCodeGenerator/BaseValueCodeGeneratorTests+SharedModels.swift"; sourceTree = SOURCE_ROOT; };
+		F8B5C68E254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "BaseValueCodeGeneratorTests+SharedFunctions.swift"; path = "UnitTests/Tests/MixboxReflection/ValueCodeGenerator/BaseValueCodeGeneratorTests+SharedFunctions.swift"; sourceTree = SOURCE_ROOT; };
+		F8B5C692254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorPrimitivesTests.swift; sourceTree = "<group>"; };
+		F8B5C694254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorEnumsTests.swift; sourceTree = "<group>"; };
 		F8B813FB21231DC1001662F3 /* PhotoStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStubberTests.swift; sourceTree = "<group>"; };
 		F8B964A62280A08A0054CE08 /* SwipeActionWaitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionWaitsTests.swift; sourceTree = "<group>"; };
 		F8B964A82280A0E00054CE08 /* SwipeActionCanBeRunFromAnyPartOfScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionCanBeRunFromAnyPartOfScreenTests.swift; sourceTree = "<group>"; };
@@ -2702,6 +2722,39 @@
 			path = RootViewControllerManager;
 			sourceTree = "<group>";
 		};
+		F8B5C5AC254A74F0002DB0FB /* MixboxReflection */ = {
+			isa = PBXGroup;
+			children = (
+				F8B5C689254AD727002DB0FB /* ValueCodeGenerator */,
+				F8539642254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift */,
+			);
+			path = MixboxReflection;
+			sourceTree = "<group>";
+		};
+		F8B5C689254AD727002DB0FB /* ValueCodeGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				F8B5C690254AD7AB002DB0FB /* Base */,
+				F8B5C5AD254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift */,
+				F8B5C692254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift */,
+				F8B5C694254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift */,
+				F8539644254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift */,
+				F8539646254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift */,
+				F8539648254B1ED80015FD37 /* ValueCodeGeneratorTuplesTests.swift */,
+			);
+			path = ValueCodeGenerator;
+			sourceTree = "<group>";
+		};
+		F8B5C690254AD7AB002DB0FB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F8B5C68A254AD731002DB0FB /* BaseValueCodeGeneratorTests.swift */,
+				F8B5C68C254AD742002DB0FB /* BaseValueCodeGeneratorTests+SharedModels.swift */,
+				F8B5C68E254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		F8B964C92281DC8C0054CE08 /* MixboxUiKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2723,6 +2776,7 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8B5C5AC254A74F0002DB0FB /* MixboxReflection */,
 				F8E979F825111D7F00ED131A /* MixboxTestability */,
 				F812A17424E59F8500BCCE06 /* MixboxDi */,
 				F88A403224DC851E008B290A /* MixboxBuiltinDi */,
@@ -4059,6 +4113,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxReflection/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -4088,6 +4143,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4127,6 +4183,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxReflection/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -4156,6 +4213,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4538,24 +4596,30 @@
 				F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */,
 				F8FC4ACF23AA686900D3E911 /* AndMatcherTests.swift in Sources */,
 				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
+				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
 				F8DC863A236724D2003889C7 /* PerPixelSnapshotsComparatorTests.swift in Sources */,
 				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
+				F8539649254B1ED80015FD37 /* ValueCodeGeneratorTuplesTests.swift in Sources */,
+				F8B5C68D254AD742002DB0FB /* BaseValueCodeGeneratorTests+SharedModels.swift in Sources */,
 				F8C3AD0E2437A3A9004B6BA4 /* RandomArrayGeneratorTests.swift in Sources */,
 				F80C2E0C24D1DAFD00C6CAD4 /* XcTestFailure.swift in Sources */,
 				F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */,
+				F8B5C693254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift in Sources */,
 				F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */,
 				F80C2E1624D1DAFD00C6CAD4 /* RecordingStepLoggerImpl.swift in Sources */,
 				F80C2E2724D1E15100C6CAD4 /* BaseTestCase.swift in Sources */,
 				F80C2E1124D1DAFD00C6CAD4 /* XcTestFailureMatcherBuilder.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
+				F8539643254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
 				F80C2E2424D1E0E900C6CAD4 /* TestCaseDependencies.swift in Sources */,
 				F8C3AD1C243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift in Sources */,
 				F8B964CE2281DCC00054CE08 /* TestCase.swift in Sources */,
 				F80C2E1524D1DAFD00C6CAD4 /* StepLoggerRecordingStarter.swift in Sources */,
+				F8539645254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift in Sources */,
 				F8EC2C92251250E8009B0813 /* UIViewTestabilityWithAccessibilityDisabledTests.swift in Sources */,
 				F80C2E1224D1DAFD00C6CAD4 /* AttachmentMatcherBuilder.swift in Sources */,
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
@@ -4568,9 +4632,11 @@
 				F8C5A34C22B2E00800E643EC /* CollectionExtensionTests.swift in Sources */,
 				F8E160D02418674600B4912F /* MultiTouchEventFactoryTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
+				F8B5C68B254AD731002DB0FB /* BaseValueCodeGeneratorTests.swift in Sources */,
 				F80C2E4D24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift in Sources */,
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
+				F8B5C68F254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift in Sources */,
 				F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */,
 				F80C2E3B24D1E52900C6CAD4 /* Singletons+StepLogger.swift in Sources */,
 				F87D182C24CF7A8100D6DBFA /* InAppScreenshotTakerImplTests.swift in Sources */,
@@ -4593,6 +4659,7 @@
 				F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */,
 				F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */,
 				F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */,
+				F8B5C5AE254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift in Sources */,
 				F88A402924DC83EC008B290A /* DependencyInjectionImplTests.swift in Sources */,
 				F8DD5D8424F4434300FA6491 /* DictionaryGeneratorFacadeTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
@@ -4642,6 +4709,7 @@
 				F80C2E0A24D1DAFD00C6CAD4 /* LogsAndFailures.swift in Sources */,
 				F8C3AD142437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift in Sources */,
 				F8E979FA25111DAD00ED131A /* NSObjectTestabilityWithAccessibilityDisabledTests.swift in Sources */,
+				F8539647254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift in Sources */,
 				F80C2E0F24D1DAFD00C6CAD4 /* GatherFailuresResult.swift in Sources */,
 				F8F8321124EFF382007EEA45 /* BaseGeneratorFacadeTests+SharedModels.swift in Sources */,
 				F82BDF85243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift in Sources */,

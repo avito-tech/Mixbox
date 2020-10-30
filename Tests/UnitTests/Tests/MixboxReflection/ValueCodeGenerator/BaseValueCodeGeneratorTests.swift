@@ -1,0 +1,2 @@
+class BaseValueCodeGeneratorTests: TestCase {
+}

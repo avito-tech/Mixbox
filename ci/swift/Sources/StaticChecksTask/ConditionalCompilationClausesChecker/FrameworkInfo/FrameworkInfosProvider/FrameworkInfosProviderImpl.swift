@@ -83,6 +83,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
+                name: "Reflection",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
+            ),
+            FrameworkInfo(
                 name: "Stubbing",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
