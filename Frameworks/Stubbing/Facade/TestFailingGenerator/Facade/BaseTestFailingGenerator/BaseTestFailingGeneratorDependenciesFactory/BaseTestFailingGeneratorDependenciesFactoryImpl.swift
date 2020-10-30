@@ -14,7 +14,8 @@ public final class BaseTestFailingGeneratorDependenciesFactoryImpl: BaseTestFail
     }
     
     public func baseTestFailingGeneratorDependencies(
-        configuredDynamicLookupGeneratorProvider: ConfiguredDynamicLookupGeneratorProvider)
+        configuredDynamicLookupGeneratorProvider: ConfiguredDynamicLookupGeneratorProvider,
+        testFailingGeneratorObserver: TestFailingGeneratorObserver)
         -> BaseTestFailingGeneratorDependencies
     {
         let testFailingObjectGeneratorWithConfiguratorModification = TestFailingObjectGeneratorWithConfiguratorModificationImpl(
@@ -51,7 +52,8 @@ public final class BaseTestFailingGeneratorDependenciesFactoryImpl: BaseTestFail
             testFailingObjectGenerator: testFailingObjectGenerator,
             testFailingArrayGenerator: testFailingArrayGenerator,
             testFailingDictionaryGenerator: testFailingDictionaryGenerator,
-            testFailingOptionalGenerator: testFailingOptionalGenerator
+            testFailingOptionalGenerator: testFailingOptionalGenerator,
+            testFailingGeneratorObserver: testFailingGeneratorObserver
         )
     }
 }

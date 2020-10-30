@@ -20,7 +20,8 @@ public final class GeneratorFacadeImpl: BaseTestFailingGenerator, GeneratorFacad
         parentDi: DependencyResolver,
         testFailureRecorder: TestFailureRecorder,
         byFieldsGeneratorResolver: ByFieldsGeneratorResolver,
-        dependencyInjectionFactory: DependencyInjectionFactory)
+        dependencyInjectionFactory: DependencyInjectionFactory,
+        testFailingGeneratorObserver: TestFailingGeneratorObserver)
     {
         self.parentDi = parentDi
         self.testFailureRecorder = testFailureRecorder
@@ -64,7 +65,8 @@ public final class GeneratorFacadeImpl: BaseTestFailingGenerator, GeneratorFacad
         
         super.init(
             baseTestFailingGeneratorDependencies: baseTestFailingGeneratorDependenciesFactory.baseTestFailingGeneratorDependencies(
-                configuredDynamicLookupGeneratorProvider: configuredDynamicLookupGeneratorProvider
+                configuredDynamicLookupGeneratorProvider: configuredDynamicLookupGeneratorProvider,
+                testFailingGeneratorObserver: testFailingGeneratorObserver
             )
         )
     }

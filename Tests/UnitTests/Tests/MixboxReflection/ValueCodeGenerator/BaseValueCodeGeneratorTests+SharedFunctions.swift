@@ -3,7 +3,7 @@ import MixboxReflection
 
 extension BaseValueCodeGeneratorTests {
     @nonobjc func check(_ value: Any, _ code: String, typeCanBeInferredFromContext: Bool = false) {
-        let codeGenerator = ValueCodeGenerator(indentation: "    ")
+        let codeGenerator = ValueCodeGeneratorImpl(indentation: "    ")
         XCTAssertEqual(
             codeGenerator.generateCode(value: value, typeCanBeInferredFromContext: typeCanBeInferredFromContext),
             code
@@ -18,7 +18,7 @@ extension BaseValueCodeGeneratorTests {
     // `@objc` will cause bridging from Swift types to ObjC types, e.g. Int to __NSCFNumber.
     // This doesn't work if this method is declared inside the class where it is used.
     @objc func checkKnownIssueWithValueBridgedToObjectiveC(_ value: Any, _ actual: String) {
-        let codeGenerator = ValueCodeGenerator(indentation: "    ")
+        let codeGenerator = ValueCodeGeneratorImpl(indentation: "    ")
         XCTAssertEqual(
             codeGenerator.generateCode(value: value, typeCanBeInferredFromContext: false),
             actual

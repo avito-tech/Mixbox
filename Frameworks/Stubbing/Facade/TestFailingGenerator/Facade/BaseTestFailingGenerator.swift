@@ -6,6 +6,7 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
     private let testFailingArrayGenerator: TestFailingArrayGenerator
     private let testFailingDictionaryGenerator: TestFailingDictionaryGenerator
     private let testFailingOptionalGenerator: TestFailingOptionalGenerator
+    private let testFailingGeneratorObserver: TestFailingGeneratorObserver
     
     public init(
         baseTestFailingGeneratorDependencies: BaseTestFailingGeneratorDependencies)
@@ -15,12 +16,15 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         self.testFailingArrayGenerator = baseTestFailingGeneratorDependencies.testFailingArrayGenerator
         self.testFailingDictionaryGenerator = baseTestFailingGeneratorDependencies.testFailingDictionaryGenerator
         self.testFailingOptionalGenerator = baseTestFailingGeneratorDependencies.testFailingOptionalGenerator
+        self.testFailingGeneratorObserver = baseTestFailingGeneratorDependencies.testFailingGeneratorObserver
     }
     
     // MARK: - TestFailingAnyGenerator
     
     public func generate<T>(type: T.Type) -> T {
-        return testFailingAnyGenerator.generate(type: type)
+        observe {
+            testFailingAnyGenerator.generate(type: type)
+        }
     }
     
     // MARK: - TestFailingObjectGenerator
@@ -30,10 +34,12 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
         -> T
     {
-        return testFailingObjectGenerator.generate(
-            type: type,
-            configure: configure
-        )
+        observe {
+            testFailingObjectGenerator.generate(
+                type: type,
+                configure: configure
+            )
+        }
     }
     
     // MARK: - TestFailingOptionalGenerator
@@ -42,7 +48,9 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         type: T.Type)
         -> T?
     {
-        return testFailingOptionalGenerator.some(type: type)
+        observe {
+            testFailingOptionalGenerator.some(type: type)
+        }
     }
     
     public func some<T: RepresentableByFields>(
@@ -50,7 +58,9 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         configure: @escaping (TestFailingDynamicLookupConfigurator<T>) throws -> ())
         -> T?
     {
-        return testFailingOptionalGenerator.some(type: type, configure: configure)
+        observe {
+            testFailingOptionalGenerator.some(type: type, configure: configure)
+        }
     }
     
     // MARK: - TestFailingArrayGenerator
@@ -60,10 +70,12 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         type: T.Type)
         -> [T]
     {
-        return testFailingArrayGenerator.array(
-            count: count,
-            type: type
-        )
+        observe {
+            testFailingArrayGenerator.array(
+                count: count,
+                type: type
+            )
+        }
     }
         
     public func array<T: RepresentableByFields>(
@@ -72,11 +84,13 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         configure: @escaping (TestFailingDynamicLookupConfiguratorWithIndex<T>) throws -> ())
         -> [T]
     {
-        return testFailingArrayGenerator.array(
-            count: count,
-            type: type,
-            configure: configure
-        )
+        observe {
+            testFailingArrayGenerator.array(
+                count: count,
+                type: type,
+                configure: configure
+            )
+        }
     }
     
     // MARK: - TestFailingDictionaryGenerator
@@ -87,11 +101,13 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         valueType: V.Type)
         -> [K: V]
     {
-        return testFailingDictionaryGenerator.dictionary(
-            count: count,
-            keyType: keyType,
-            valueType: valueType
-        )
+        observe {
+            testFailingDictionaryGenerator.dictionary(
+                count: count,
+                keyType: keyType,
+                valueType: valueType
+            )
+        }
     }
     
     public func dictionary<K: RepresentableByFields, V>(
@@ -101,12 +117,14 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         keys: @escaping (TestFailingDynamicLookupConfiguratorWithIndex<K>) throws -> ())
         -> [K: V]
     {
-        return testFailingDictionaryGenerator.dictionary(
-            count: count,
-            keyType: keyType,
-            valueType: valueType,
-            keys: keys
-        )
+        observe {
+            testFailingDictionaryGenerator.dictionary(
+                count: count,
+                keyType: keyType,
+                valueType: valueType,
+                keys: keys
+            )
+        }
     }
     
     public func dictionary<K, V: RepresentableByFields>(
@@ -116,12 +134,14 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         values: @escaping (TestFailingDynamicLookupConfiguratorWithIndex<V>) throws -> ())
         -> [K: V]
     {
-        return testFailingDictionaryGenerator.dictionary(
-            count: count,
-            keyType: keyType,
-            valueType: valueType,
-            values: values
-        )
+        observe {
+            testFailingDictionaryGenerator.dictionary(
+                count: count,
+                keyType: keyType,
+                valueType: valueType,
+                values: values
+            )
+        }
     }
     
     public func dictionary<K: RepresentableByFields, V: RepresentableByFields>(
@@ -132,12 +152,18 @@ open class BaseTestFailingGenerator: TestFailingGenerator {
         values: @escaping (TestFailingDynamicLookupConfiguratorWithIndex<V>) throws -> ())
         -> [K: V]
     {
-        return testFailingDictionaryGenerator.dictionary(
-            count: count,
-            keyType: keyType,
-            valueType: valueType,
-            keys: keys,
-            values: values
-        )
+        observe {
+            testFailingDictionaryGenerator.dictionary(
+                count: count,
+                keyType: keyType,
+                valueType: valueType,
+                keys: keys,
+                values: values
+            )
+        }
+    }
+    
+    private func observe<T>(body: () -> T) -> T {
+        return testFailingGeneratorObserver.observe(body: body)
     }
 }

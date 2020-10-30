@@ -47,12 +47,16 @@ class GeneratorTestsDependencies: DependencyCollectionRegisterer {
         di.register(type: ByFieldsGeneratorResolver.self) { di in
             ByFieldsGeneratorResolverImpl(dependencyResolver: di)
         }
+        di.register(type: TestFailingGeneratorObserver.self) { _ in
+            NoopTestFailingGeneratorObserver()
+        }
         di.register(type: GeneratorFacade.self) { di in
             GeneratorFacadeImpl(
                 parentDi: WeakDependencyResolver(dependencyResolver: di),
                 testFailureRecorder: try di.resolve(),
                 byFieldsGeneratorResolver: try di.resolve(),
-                dependencyInjectionFactory: BuiltinDependencyInjectionFactory()
+                dependencyInjectionFactory: BuiltinDependencyInjectionFactory(),
+                testFailingGeneratorObserver: try di.resolve()
             )
         }
         di.register(type: AnyGenerator.self) { di in
