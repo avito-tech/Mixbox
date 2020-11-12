@@ -50,6 +50,8 @@ PODS:
   - MixboxIpcSbtuiHost (0.2.3):
     - MixboxIpc
     - SBTUITestTunnel/Server (~> 3.0.6)
+  - MixboxMocksRuntime (0.2.3):
+    - MixboxTestsFoundation
   - MixboxReflection (0.2.3)
   - MixboxStubbing (0.2.3):
     - MixboxGenerators
@@ -98,6 +100,7 @@ DEPENDENCIES:
   - MixboxIpcCommon (from `..`)
   - MixboxIpcSbtuiClient (from `..`)
   - MixboxIpcSbtuiHost (from `..`)
+  - MixboxMocksRuntime (from `..`)
   - MixboxReflection (from `..`)
   - MixboxStubbing (from `..`)
   - MixboxTestability (from `..`)
@@ -151,6 +154,8 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxIpcSbtuiHost:
     :path: ".."
+  MixboxMocksRuntime:
+    :path: ".."
   MixboxReflection:
     :path: ".."
   MixboxStubbing:
@@ -190,6 +195,7 @@ SPEC CHECKSUMS:
   MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
+  MixboxMocksRuntime: e9a4321e2b8efb774d800607b32e9a486aa63318
   MixboxReflection: 08d247df00a91eceef1feef26561115e7101b38c
   MixboxStubbing: 32ebdc7d599daf9ce00cbc4908c2ef353880bd0e
   MixboxTestability: f2ae73479007568fafb48b6a62b98e05986b8a80

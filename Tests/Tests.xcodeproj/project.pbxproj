@@ -284,6 +284,9 @@
 		F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
 		F88B33BC232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
 		F88B33BD232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
+		F88F3C28255D7A7E0072A9BF /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C25255D7A7E0072A9BF /* Math.swift */; };
+		F88F3C29255D7A7E0072A9BF /* MathMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C26255D7A7E0072A9BF /* MathMock.swift */; };
+		F88F3C2A255D7A7E0072A9BF /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C27255D7A7E0072A9BF /* MathTests.swift */; };
 		F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D3823E20225002727AC /* GenericSerializationTests.swift */; };
 		F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */; };
 		F8951E45222463120033885C /* ExpandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8951E44222463120033885C /* ExpandingView.swift */; };
@@ -898,6 +901,9 @@
 		F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordableStepLogger.swift; sourceTree = "<group>"; };
 		F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Asserts.swift"; sourceTree = "<group>"; };
 		F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Coordinates.swift"; sourceTree = "<group>"; };
+		F88F3C25255D7A7E0072A9BF /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		F88F3C26255D7A7E0072A9BF /* MathMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathMock.swift; sourceTree = "<group>"; };
+		F88F3C27255D7A7E0072A9BF /* MathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MathTests.swift; path = UnitTests/Tests/MixboxMocksRuntime/MathTests.swift; sourceTree = SOURCE_ROOT; };
 		F8933D3823E20225002727AC /* GenericSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSerializationTests.swift; sourceTree = "<group>"; };
 		F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSerializationTestCase.swift; sourceTree = "<group>"; };
 		F8951E44222463120033885C /* ExpandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingView.swift; sourceTree = "<group>"; };
@@ -2114,6 +2120,32 @@
 			path = Logs;
 			sourceTree = "<group>";
 		};
+		F88F3C22255D7A410072A9BF /* MixboxMocksRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				F88F3C23255D7A570072A9BF /* Fixtures */,
+			);
+			path = MixboxMocksRuntime;
+			sourceTree = "<group>";
+		};
+		F88F3C23255D7A570072A9BF /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				F88F3C24255D7A7E0072A9BF /* Fixtures */,
+				F88F3C27255D7A7E0072A9BF /* MathTests.swift */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		F88F3C24255D7A7E0072A9BF /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				F88F3C25255D7A7E0072A9BF /* Math.swift */,
+				F88F3C26255D7A7E0072A9BF /* MathMock.swift */,
+			);
+			name = Fixtures;
+			sourceTree = "<group>";
+		};
 		F8971CDF2264AF8A001741C1 /* LaunchingApplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -2776,6 +2808,7 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F88F3C22255D7A410072A9BF /* MixboxMocksRuntime */,
 				F8B5C5AC254A74F0002DB0FB /* MixboxReflection */,
 				F8E979F825111D7F00ED131A /* MixboxTestability */,
 				F812A17424E59F8500BCCE06 /* MixboxDi */,
@@ -4113,6 +4146,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4143,6 +4177,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4183,6 +4218,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4213,6 +4249,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4596,6 +4633,7 @@
 				F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */,
 				F8FC4ACF23AA686900D3E911 /* AndMatcherTests.swift in Sources */,
 				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
+				F88F3C29255D7A7E0072A9BF /* MathMock.swift in Sources */,
 				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
@@ -4610,6 +4648,7 @@
 				F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */,
 				F80C2E1624D1DAFD00C6CAD4 /* RecordingStepLoggerImpl.swift in Sources */,
 				F80C2E2724D1E15100C6CAD4 /* BaseTestCase.swift in Sources */,
+				F88F3C2A255D7A7E0072A9BF /* MathTests.swift in Sources */,
 				F80C2E1124D1DAFD00C6CAD4 /* XcTestFailureMatcherBuilder.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
@@ -4693,6 +4732,7 @@
 				F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */,
 				F8DC865023675D4A003889C7 /* UIColor+RGB.swift in Sources */,
 				F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */,
+				F88F3C28255D7A7E0072A9BF /* Math.swift in Sources */,
 				F8B40F192433B85D008A05E8 /* AssociatedObjectTests.swift in Sources */,
 				F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */,
 				F8C3AD072437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift in Sources */,
