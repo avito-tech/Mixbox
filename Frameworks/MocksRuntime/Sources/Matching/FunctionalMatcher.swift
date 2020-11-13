@@ -19,9 +19,9 @@ public final class FunctionalMatcher<T>: Matcher {
 extension FunctionalMatcher {
     public func byErasingType() -> FunctionalMatcher<Any> {
         return FunctionalMatcher<Any>(
-            matchingFunction: { args in
-                if let argsAsT = args as? T {
-                    return self.valueIsMatching(argsAsT)
+            matchingFunction: { arguments in
+                if let argumentsAsT = arguments as? MatchingType {
+                    return self.valueIsMatching(argumentsAsT)
                 } else {
                     return false
                 }

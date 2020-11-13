@@ -3,6 +3,6 @@ import MixboxFoundation
 public protocol ExpectationBuilder: class {
     init(
         mockManager: MockManager,
-        times: FunctionalMatcher<UInt>,
+        times: FunctionalMatcher<Int>,
         fileLine: FileLine)
 }

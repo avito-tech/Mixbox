@@ -61,6 +61,18 @@ extension Collection {
             }
         }
     }
+    
+    public func mb_count(where isMatching: (Element) throws -> Bool) rethrows -> Int {
+        var count = 0
+        
+        for element in self {
+            if try isMatching(element) {
+                count += 1
+            }
+        }
+        
+        return count
+    }
 }
 
 #endif

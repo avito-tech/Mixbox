@@ -8,7 +8,11 @@ public protocol MockType: class {
 }
 
 extension MockType where StubBuilder: MixboxMocksRuntime.StubBuilder, ExpectationBuilder: MixboxMocksRuntime.ExpectationBuilder {
-    public func expect(file: StaticString = #file, line: UInt = #line) -> ExpectationBuilder {
+    public func expect(
+        file: StaticString = #file,
+        line: UInt = #line)
+        -> ExpectationBuilder
+    {
         return ExpectationBuilder(
             mockManager: mockManager,
             times: MixboxMocksRuntime.atLeast(1),
@@ -16,7 +20,14 @@ extension MockType where StubBuilder: MixboxMocksRuntime.StubBuilder, Expectatio
         )
     }
     
-    public func expect<T: Matcher>(times: T, file: StaticString = #file, line: UInt = #line) -> ExpectationBuilder where T.MatchingType == UInt {
+    public func expect<T: Matcher>(
+        times: T,
+        file: StaticString = #file,
+        line: UInt = #line)
+        -> ExpectationBuilder
+        where
+        T.MatchingType == Int
+    {
         return ExpectationBuilder(
             mockManager: mockManager,
             times: MixboxMocksRuntime.FunctionalMatcher(matcher: times),

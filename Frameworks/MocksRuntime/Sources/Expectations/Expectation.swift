@@ -5,12 +5,12 @@ import MixboxFoundation
 // Reference to a function is in another place.
 public final class Expectation {
     public let matcher: FunctionalMatcher<Any>
-    public let times: FunctionalMatcher<UInt>
+    public let times: FunctionalMatcher<Int>
     public let fileLine: FileLine
     
     public init(
         matcher: FunctionalMatcher<Any>,
-        times: FunctionalMatcher<UInt>,
+        times: FunctionalMatcher<Int>,
         fileLine: FileLine)
     {
         self.matcher = matcher

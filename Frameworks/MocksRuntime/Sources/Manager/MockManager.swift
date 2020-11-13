@@ -1,23 +1,22 @@
 import MixboxFoundation
 
 public protocol MockManager: class {
-    func call<Args, ReturnType>(
+    func call<Arguments, ReturnValue>(
         functionId: String,
-        args: Args)
-        -> ReturnType
+        arguments: Arguments)
+        -> ReturnValue
     
     func verify() -> VerificationResult
     
-    func addStub<Args>(
+    func addStub<Arguments>(
         functionId: String,
         closure: @escaping (Any) -> Any,
-        matcher: FunctionalMatcher<Args>
+        matcher: FunctionalMatcher<Arguments>
     )
     
-    func addExpecatation<Args>(
+    func addExpecatation<Arguments>(
         functionId: String,
         fileLine: FileLine,
-        times: FunctionalMatcher<UInt>,
-        matcher: FunctionalMatcher<Args>
-    )
+        times: FunctionalMatcher<Int>,
+        matcher: FunctionalMatcher<Arguments>)
 }

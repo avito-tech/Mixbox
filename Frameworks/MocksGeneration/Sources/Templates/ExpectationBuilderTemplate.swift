@@ -11,12 +11,12 @@ public class ExpectationBuilderTemplate {
         """
         class ExpectationBuilder: AvitoMocks.ExpectationBuilder {
             private let mockManager: AvitoMocks.MockManager
-            private let times: AvitoMocks.FunctionalMatcher<UInt>
+            private let times: AvitoMocks.FunctionalMatcher<Int>
             private let fileLine: AvitoMocks.FileLine
 
             required init(
                 mockManager: AvitoMocks.MockManager,
-                times: AvitoMocks.FunctionalMatcher<UInt>,
+                times: AvitoMocks.FunctionalMatcher<Int>,
                 fileLine: AvitoMocks.FileLine)
             {
                 self.mockManager = mockManager

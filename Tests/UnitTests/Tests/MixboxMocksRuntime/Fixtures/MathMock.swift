@@ -38,12 +38,12 @@ class MathMock:
 
     class ExpectationBuilder: MixboxMocksRuntime.ExpectationBuilder {
         private let mockManager: MixboxMocksRuntime.MockManager
-        private let times: MixboxMocksRuntime.FunctionalMatcher<UInt>
+        private let times: MixboxMocksRuntime.FunctionalMatcher<Int>
         private let fileLine: MixboxFoundation.FileLine
 
         required init(
             mockManager: MixboxMocksRuntime.MockManager,
-            times: MixboxMocksRuntime.FunctionalMatcher<UInt>,
+            times: MixboxMocksRuntime.FunctionalMatcher<Int>,
             fileLine: MixboxFoundation.FileLine)
         {
             self.mockManager = mockManager
@@ -95,7 +95,7 @@ class MathMock:
     {
         return mockManager.call(
             functionId: "sum(_ a: Int, b: Int)",
-            args: (
+            arguments: (
                 a1,
                 a2
             )

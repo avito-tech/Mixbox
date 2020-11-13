@@ -1,11 +1,14 @@
 import MixboxTestsFoundation
 
-public final class StubForFunctionBuilder<Args, ReturnType> {
+public final class StubForFunctionBuilder<T, U> {
+    public typealias Arguments = T
+    public typealias ReturnType = U
+    
     private let mockManager: MockManager
     private var functionId: String
-    private let matcher: FunctionalMatcher<Args>
+    private let matcher: FunctionalMatcher<Arguments>
     
-    public init(functionId: String, mockManager: MockManager, matcher: FunctionalMatcher<Args>) {
+    public init(functionId: String, mockManager: MockManager, matcher: FunctionalMatcher<Arguments>) {
         self.mockManager = mockManager
         self.functionId = functionId
         self.matcher = matcher
@@ -19,15 +22,17 @@ public final class StubForFunctionBuilder<Args, ReturnType> {
         )
     }
     
-    public func thenInvoke(_ closure: @escaping (Args) -> ReturnType) {
+    public func thenInvoke(_ closure: @escaping (Arguments) -> ReturnType) {
         mockManager.addStub(
             functionId: functionId,
             closure: { any in
-                guard let args = any as? Args else {
-                    UnavoidableFailure.fail("Can not cast \(any) of type \(type(of: any)) to type \(Args.self)")
+                guard let arguments = any as? Arguments else {
+                    UnavoidableFailure.fail(
+                        "Can not cast \(any) of type \(type(of: any)) to type \(Arguments.self)"
+                    )
                 }
                 
-                return closure(args)
+                return closure(arguments)
             },
             matcher: matcher.byErasingType()
         )
