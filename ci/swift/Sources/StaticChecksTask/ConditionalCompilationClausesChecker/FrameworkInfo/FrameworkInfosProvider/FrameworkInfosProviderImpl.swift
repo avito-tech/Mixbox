@@ -87,6 +87,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
+                name: "MocksGeneration",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
+            ),
+            FrameworkInfo(
                 name: "Reflection",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),

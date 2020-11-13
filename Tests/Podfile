@@ -4,8 +4,6 @@ require_relative 'PodfileUtils/repo'
 project 'Tests.xcodeproj'
 workspace 'Tests.xcworkspace'
 
-platform :ios, :deployment_target => '9.0'
-
 use_frameworks!
 inhibit_all_warnings!
 
@@ -20,6 +18,18 @@ mixbox = Devpods::Repo.new(
 )
 mixbox.local_path_value = '..'
 
+sourcery = Devpods::Repo.new(
+    'https://github.com/avito-tech/Sourcery.git',
+    lambda { |name, hash|
+      local_hash = hash.clone
+      local_hash[:inhibit_warnings] = false
+      local_hash[:configurations] = ['Debug']
+      pod name, local_hash
+    }
+)
+sourcery.branch_value = 'master'
+sourcery.local_path_env = 'MIXBOX_SOURCERY_LOCAL_PATH'
+
 def tests_ipc_pods
   pod 'TestsIpc', :path => 'Frameworks/TestsIpc'
 end
@@ -29,19 +39,20 @@ def tests_testing_helpers
   pod 'Cuckoo', :git => 'https://github.com/avito-tech/Cuckoo', :branch => 'avito20200410', :inhibit_warnings => true
 end
 
-def logic_tests_pods(mixbox_repo)
-  mixbox_repo.all_pods.each { |name|
-    mixbox_repo.pod name
-  }
+def logic_tests_pods(mixbox)
+  mixbox.pod_all_ios
 
   pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
   pod 'SBTUITestTunnel/Server', '3.0.6', :inhibit_warnings => true
+  
   tests_testing_helpers
 end
  
 ### TARGETS
 
 target 'TestedApp' do
+  platform :ios, '9.0'
+  
   mixbox.pod 'MixboxInAppServices'
   mixbox.pod 'MixboxIpcSbtuiHost'
   pod 'SBTUITestTunnel/Server', '3.0.6', :inhibit_warnings => true
@@ -50,10 +61,14 @@ target 'TestedApp' do
 end
 
 target 'FakeSettingsApp' do
+  platform :ios, '9.0'
+  
   mixbox.pod 'MixboxFakeSettingsAppMain'
 end
 
 target 'GrayBoxUiTests' do
+  platform :ios, '9.0'
+  
   mixbox.pod 'MixboxGray'
   mixbox.pod 'MixboxStubbing'
   
@@ -62,6 +77,8 @@ target 'GrayBoxUiTests' do
 end
 
 target 'BlackBoxUiTests' do
+  platform :ios, '9.0'
+  
   mixbox.pod 'MixboxBlack'
   mixbox.pod 'MixboxIpcSbtuiClient'
   pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
@@ -71,17 +88,34 @@ target 'BlackBoxUiTests' do
 end
   
 target 'UnitTests' do
-  logic_tests_pods mixbox
+  platform :ios, '9.0'
+  
+  logic_tests_pods(mixbox)
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
 
+target 'OsxUnitTests' do
+  platform :osx, '10.14'
+
+  # pod 'SourceryRuntime', :path => '/Users/razinov/src/Sourcery'
+  # pod 'SourceryUtils', :path => '/Users/razinov/src/Sourcery'
+  # pod 'SourceryFramework', :path => '/Users/razinov/src/Sourcery'
+  sourcery.pod_all_osx
+  mixbox.pod_all_osx
+end
+
 target 'HostedAppLogicTests' do
-  logic_tests_pods mixbox
+  platform :ios, '9.0'
+  
+  logic_tests_pods(mixbox)
+  
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
 
 target 'Lint' do
-  pod 'SwiftLint', :inhibit_warnings => true
+  platform :ios, '9.0'
+  
+  pod 'SwiftLint', '0.36.0', :inhibit_warnings => true # TODO: Update.
 end
 
 post_install do |installer|
@@ -123,22 +157,26 @@ def remove_uikit_import_from_file(file_path)
 #endif
 #endif'
 
-    old_defines = '#ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#else
-#ifndef FOUNDATION_EXPORT
-#if defined(__cplusplus)
-#define FOUNDATION_EXPORT extern "C"
-#else
-#define FOUNDATION_EXPORT extern
-#endif
-#endif
-#endif'
-
-
-    text = text.gsub(old_defines, new_defines)
+    # iOS
+    text = text.gsub(old_defines('UIKit'), new_defines)
+    # OSX
+    text = text.gsub(old_defines('Cocoa'), new_defines)
     text = text.gsub('FOUNDATION_EXPORT', 'MIXBOX_EXPORT')
 
     File.open(file_path, "w") { |file| file.puts text }
   end
+end
+
+def old_defines(framework)
+  "#ifdef __OBJC__
+#import <#{framework}/#{framework}.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern \"C\"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif"
 end

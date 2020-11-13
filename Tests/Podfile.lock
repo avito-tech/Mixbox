@@ -3,9 +3,9 @@ PODS:
   - Cuckoo (1.3.2):
     - Cuckoo/Swift (= 1.3.2)
   - Cuckoo/Swift (1.3.2)
-  - GCDWebServer (3.5.3):
-    - GCDWebServer/Core (= 3.5.3)
-  - GCDWebServer/Core (3.5.3)
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
   - MixboxAnyCodable (0.2.3)
   - MixboxBlack (0.2.3):
     - MixboxDi
@@ -50,6 +50,9 @@ PODS:
   - MixboxIpcSbtuiHost (0.2.3):
     - MixboxIpc
     - SBTUITestTunnel/Server (~> 3.0.6)
+  - MixboxMocksGeneration (0.2.3):
+    - SourceryFramework
+    - SourceryRuntime
   - MixboxMocksRuntime (0.2.3):
     - MixboxTestsFoundation
   - MixboxReflection (0.2.3)
@@ -71,17 +74,32 @@ PODS:
     - MixboxIpcCommon
     - MixboxTestsFoundation
     - MixboxUiKit
+  - PathKit (1.0.0)
   - SBTUITestTunnel/Client (3.0.6)
   - SBTUITestTunnel/Server (3.0.6):
     - GCDWebServer (~> 3.0)
+  - SourceKittenFramework (0.23.2):
+    - SWXMLHash (~> 4.7)
+    - Yams (~> 2.0)
+  - Sourcery (1.0.0)
+  - SourceryFramework (1.0.0):
+    - SourceKittenFramework (~> 0.23.1)
+    - SourceryRuntime
+    - SourceryUtils
+  - SourceryRuntime (1.0.0):
+    - SourceryUtils
+  - SourceryUtils (1.0.0):
+    - PathKit
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
   - SwiftLint (0.36.0)
+  - SWXMLHash (4.9.0)
   - TestsIpc (0.1.0):
     - MixboxBuiltinIpc
     - MixboxIpc
     - MixboxIpcCommon
+  - Yams (2.0.0)
 
 DEPENDENCIES:
   - Cuckoo (from `https://github.com/avito-tech/Cuckoo`, branch `avito20200410`)
@@ -100,6 +118,7 @@ DEPENDENCIES:
   - MixboxIpcCommon (from `..`)
   - MixboxIpcSbtuiClient (from `..`)
   - MixboxIpcSbtuiHost (from `..`)
+  - MixboxMocksGeneration (from `..`)
   - MixboxMocksRuntime (from `..`)
   - MixboxReflection (from `..`)
   - MixboxStubbing (from `..`)
@@ -109,16 +128,24 @@ DEPENDENCIES:
   - MixboxUiTestsFoundation (from `..`)
   - SBTUITestTunnel/Client (= 3.0.6)
   - SBTUITestTunnel/Server (= 3.0.6)
-  - SwiftLint
+  - Sourcery (from `https://github.com/avito-tech/Sourcery.git`, branch `master`)
+  - SourceryFramework (from `https://github.com/avito-tech/Sourcery.git`, branch `master`)
+  - SourceryRuntime (from `https://github.com/avito-tech/Sourcery.git`, branch `master`)
+  - SourceryUtils (from `https://github.com/avito-tech/Sourcery.git`, branch `master`)
+  - SwiftLint (= 0.36.0)
   - TestsIpc (from `Frameworks/TestsIpc`)
 
 SPEC REPOS:
   trunk:
     - CocoaImageHashing
     - GCDWebServer
+    - PathKit
     - SBTUITestTunnel
+    - SourceKittenFramework
     - SQLite.swift
     - SwiftLint
+    - SWXMLHash
+    - Yams
 
 EXTERNAL SOURCES:
   Cuckoo:
@@ -154,6 +181,8 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxIpcSbtuiHost:
     :path: ".."
+  MixboxMocksGeneration:
+    :path: ".."
   MixboxMocksRuntime:
     :path: ".."
   MixboxReflection:
@@ -168,6 +197,18 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxUiTestsFoundation:
     :path: ".."
+  Sourcery:
+    :branch: master
+    :git: https://github.com/avito-tech/Sourcery.git
+  SourceryFramework:
+    :branch: master
+    :git: https://github.com/avito-tech/Sourcery.git
+  SourceryRuntime:
+    :branch: master
+    :git: https://github.com/avito-tech/Sourcery.git
+  SourceryUtils:
+    :branch: master
+    :git: https://github.com/avito-tech/Sourcery.git
   TestsIpc:
     :path: "Frameworks/TestsIpc"
 
@@ -175,11 +216,23 @@ CHECKOUT OPTIONS:
   Cuckoo:
     :commit: 9bcc58d37563f06786c2afd31b1dfcb9f3faea90
     :git: https://github.com/avito-tech/Cuckoo
+  Sourcery:
+    :commit: ab9e4258fd5c534e5edb82ab18a79c69f1b412f4
+    :git: https://github.com/avito-tech/Sourcery.git
+  SourceryFramework:
+    :commit: ab9e4258fd5c534e5edb82ab18a79c69f1b412f4
+    :git: https://github.com/avito-tech/Sourcery.git
+  SourceryRuntime:
+    :commit: ab9e4258fd5c534e5edb82ab18a79c69f1b412f4
+    :git: https://github.com/avito-tech/Sourcery.git
+  SourceryUtils:
+    :commit: ab9e4258fd5c534e5edb82ab18a79c69f1b412f4
+    :git: https://github.com/avito-tech/Sourcery.git
 
 SPEC CHECKSUMS:
   CocoaImageHashing: 2c8efd6dd60f9030cd54086b34ffc48e927821c3
   Cuckoo: 8879d643f37ac77651935d22cc8c5467ac230627
-  GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
   MixboxBlack: 7f1c9cf6b1a99e17dd4df72b92828dc9a03d58e0
   MixboxBuiltinDi: ab3bb8a16601673c202ad540e76a4d7b14a22352
@@ -195,6 +248,7 @@ SPEC CHECKSUMS:
   MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
+  MixboxMocksGeneration: 0bb97a2ec5a85bb2b71b5684a5521f29c78dfe9e
   MixboxMocksRuntime: e9a4321e2b8efb774d800607b32e9a486aa63318
   MixboxReflection: 08d247df00a91eceef1feef26561115e7101b38c
   MixboxStubbing: 32ebdc7d599daf9ce00cbc4908c2ef353880bd0e
@@ -202,10 +256,18 @@ SPEC CHECKSUMS:
   MixboxTestsFoundation: e297db2288246f6221d55001d244ee91da79f3a3
   MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
   MixboxUiTestsFoundation: 78791a8553d1d28a6c212b889f2dbd5fe50c1199
+  PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
   SBTUITestTunnel: 865e4cec64aa10e495139643f50ccc7d8d0a604f
+  SourceKittenFramework: cda8ce5f493caef729dc730ee9c93833ab7b6ac8
+  Sourcery: 928a146ea9b777fa64b0c6ce915c4128b4488cff
+  SourceryFramework: 9409cad199afff958f84ae06b065e5764328db49
+  SourceryRuntime: 5a4dbc3f00116ad28ecb0d79655183540e415ed5
+  SourceryUtils: ed18f31b5a6d600d06bd59359f457e6e81f92d10
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
+  SWXMLHash: 87b0006848a548b7f9485b40bc71721b3ae39add
   TestsIpc: 30eb5db4bc5eefe4324e3900e6285b970b798150
+  Yams: cb96472112d99e4b368f8dae9ab62e8a3eb8a3f9
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 

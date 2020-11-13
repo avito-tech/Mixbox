@@ -21,8 +21,10 @@ module Devpods
     end
     
     public
-    def all_pods
-      @repo_settings.podspec_by_name.keys
+    def all_pods(&filter)
+      @repo_settings.podspec_by_name
+        .select { |podspec_name, podspec| filter.call(podspec_name, podspec) }
+        .map { |podspec_name, podspec| podspec_name }
     end
   end
 end

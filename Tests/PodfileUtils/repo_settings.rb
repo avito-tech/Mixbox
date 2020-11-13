@@ -6,6 +6,7 @@ module Devpods
   class RepoSettings
     attr_reader :repo_url
     attr_reader :pod_function
+    attr_accessor :cached_repo_path
 
     def initialize(repo_url, pod_function, required_commit, required_local_path, required_branch)
       @repo_url = repo_url
@@ -49,16 +50,20 @@ module Devpods
 
     private
     def clone_repo_and_get_path
-      tmpdir = Dir.mktmpdir
-      repo_name = 'git-repository'
-      repo = Git.clone(@repo_url, repo_name, :path => tmpdir, :depth => 1, :branch => @required_branch)
+      if not @cached_repo_path
+        tmpdir = Dir.mktmpdir
+        repo_name = 'git-repository'
+        repo = Git.clone(@repo_url, repo_name, :path => tmpdir, :depth => 1, :branch => @required_branch)
 
-      commit = self.get_commit_as_checkout_options
-      if commit
-        repo.checkout(commit)
+        commit = get_commit_as_checkout_options
+        if commit
+          repo.checkout(commit)
+        end
+        
+        @cached_repo_path = File.join(tmpdir, repo_name)
       end
-
-      File.join(tmpdir, repo_name)
+      
+      @cached_repo_path
     end
 
     public
@@ -95,22 +100,25 @@ module Devpods
     def commit_as_checkout_options
       @commit_as_checkout_options ||= get_commit_as_checkout_options
     end
-
+    
     private
     def get_commit_as_checkout_options
       if commit_as_pod_requirement
         commit_as_pod_requirement
       else
-        lockfile_path = Find.find(Dir.pwd).find { |f| f =~ /Podfile.lock$/ }
-        lockfile = Pod::Lockfile.from_file(Pathname.new(lockfile_path))
-        if lockfile
-          podspec_by_name.keys
-            .map { |name| lockfile.checkout_options_for_pod_named(name)[:commit] }
-            .compact
-            .first
-        else
-          nil
-        end
+        # TODO: Fix it. It doesn't work. it recurively triggers cloning the repo.
+        nil
+        
+        # lockfile_path = Find.find(Dir.pwd).find { |f| f =~ /Podfile.lock$/ }
+        # lockfile = Pod::Lockfile.from_file(Pathname.new(lockfile_path))
+        # if lockfile
+        #   podspec_by_name.keys
+        #     .map { |name| lockfile.checkout_options_for_pod_named(name)[:commit] }
+        #     .compact
+        #     .first
+        # else
+        #   nil
+        # end
       end
     end
   end

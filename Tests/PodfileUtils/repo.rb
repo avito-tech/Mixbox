@@ -23,10 +23,47 @@ module Devpods
     end
 
     public
-    def all_pods
-      repo_with_settings.all_pods
+    def all_pods(filter)
+      repo_with_settings.all_pods { |podspec_name, podspec|
+        true
+      }
     end
 
+    public
+    def pod_all()
+      all_pods.each { |name|
+        pod name
+      }
+    end
+    
+    public
+    def all_ios_pods()
+      repo_with_settings.all_pods { |podspec_name, podspec|
+        podspec.supported_on_platform?(:ios)
+      }
+    end
+    
+    public
+    def pod_all_ios()
+      all_ios_pods.each { |name|
+        pod name
+      }
+    end
+    
+    public
+    def all_osx_pods()
+      repo_with_settings.all_pods { |podspec_name, podspec|
+        podspec.supported_on_platform?(:osx)
+      }
+    end
+    
+    public
+    def pod_all_osx()
+      all_osx_pods.each { |name|
+        pod name
+      }
+    end
+    
     private
     def repo_with_settings
       @repo_with_settings ||= get_repo_with_settings

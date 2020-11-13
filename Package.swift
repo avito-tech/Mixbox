@@ -18,6 +18,7 @@ let frameworksByHavingMixedSources = [
     "IpcCommon": false,
     "IpcSbtuiClient": false,
     "IpcSbtuiHost": false,
+    "MocksGeneration": false,
     "MocksRuntime": false,
     "Reflection": false,
     "Stubbing": false,
@@ -28,7 +29,7 @@ let frameworksByHavingMixedSources = [
 ]
 
 let frameworks = frameworksByHavingMixedSources
-    .filter { framework, hasMixedSourced in !hasMixedSourced }
+    .filter { _, hasMixedSourced in !hasMixedSourced }
     .map { framework, _ in framework }
 
 let package = Package(
