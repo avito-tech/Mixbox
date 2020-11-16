@@ -51,6 +51,7 @@ PODS:
     - MixboxIpc
     - SBTUITestTunnel/Server (~> 3.0.6)
   - MixboxMocksGeneration (0.2.3):
+    - MixboxFoundation
     - SourceryFramework
     - SourceryRuntime
   - MixboxMocksRuntime (0.2.3):
@@ -248,7 +249,7 @@ SPEC CHECKSUMS:
   MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
-  MixboxMocksGeneration: 0bb97a2ec5a85bb2b71b5684a5521f29c78dfe9e
+  MixboxMocksGeneration: 79f0349afe24017f5e03e69dddaa8e3cc874ecf5
   MixboxMocksRuntime: e9a4321e2b8efb774d800607b32e9a486aa63318
   MixboxReflection: 08d247df00a91eceef1feef26561115e7101b38c
   MixboxStubbing: 32ebdc7d599daf9ce00cbc4908c2ef353880bd0e

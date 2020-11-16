@@ -153,6 +153,8 @@
 		F8274A492143110D00A72C41 /* FailureGatherer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A482143110D00A72C41 /* FailureGatherer.swift */; };
 		F8274A4B2143112000A72C41 /* XcTestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4A2143112000A72C41 /* XcTestFailure.swift */; };
 		F8274A4E21454ECF00A72C41 /* TestStateRecycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4D21454ECF00A72C41 /* TestStateRecycling.swift */; };
+		F8297BBF256246760013C5F2 /* MockFixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550D255EFE840072A9BF /* MockFixtureProtocol.swift */; };
+		F8297BC0256248670013C5F2 /* FixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550C255EFE840072A9BF /* FixtureProtocol.swift */; };
 		F82A05B921F755950008C2BB /* DummyForLaunchingUiTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82A05B821F755950008C2BB /* DummyForLaunchingUiTestsView.swift */; };
 		F82BDF85243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BDF84243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift */; };
 		F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */; };
@@ -285,12 +287,8 @@
 		F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
 		F88B33BC232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
 		F88B33BD232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
-		F88F3C28255D7A7E0072A9BF /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C25255D7A7E0072A9BF /* Math.swift */; };
-		F88F3C29255D7A7E0072A9BF /* MathMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C26255D7A7E0072A9BF /* MathMock.swift */; };
-		F88F3C2A255D7A7E0072A9BF /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C27255D7A7E0072A9BF /* MathTests.swift */; };
+		F88F3C2A255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C27255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift */; };
 		F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550A255EFE840072A9BF /* MockGenerationTests.swift */; };
-		F88F5510255EFE840072A9BF /* FixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550C255EFE840072A9BF /* FixtureProtocol.swift */; };
-		F88F5511255EFE840072A9BF /* FixtureProtocolMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550D255EFE840072A9BF /* FixtureProtocolMock.swift */; };
 		F88F5512255EFE840072A9BF /* FixturesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550E255EFE840072A9BF /* FixturesPath.swift */; };
 		F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D3823E20225002727AC /* GenericSerializationTests.swift */; };
 		F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */; };
@@ -909,14 +907,12 @@
 		F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordableStepLogger.swift; sourceTree = "<group>"; };
 		F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Asserts.swift"; sourceTree = "<group>"; };
 		F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Coordinates.swift"; sourceTree = "<group>"; };
-		F88F3C25255D7A7E0072A9BF /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
-		F88F3C26255D7A7E0072A9BF /* MathMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathMock.swift; sourceTree = "<group>"; };
-		F88F3C27255D7A7E0072A9BF /* MathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MathTests.swift; path = UnitTests/Tests/MixboxMocksRuntime/MathTests.swift; sourceTree = SOURCE_ROOT; };
+		F88F3C27255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MixboxMocksRuntimeTests.swift; path = UnitTests/Tests/MixboxMocksRuntime/MixboxMocksRuntimeTests.swift; sourceTree = SOURCE_ROOT; };
 		F88F5501255ED86D0072A9BF /* OsxUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OsxUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88F5505255ED86D0072A9BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F88F550A255EFE840072A9BF /* MockGenerationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGenerationTests.swift; sourceTree = "<group>"; };
 		F88F550C255EFE840072A9BF /* FixtureProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixtureProtocol.swift; sourceTree = "<group>"; };
-		F88F550D255EFE840072A9BF /* FixtureProtocolMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixtureProtocolMock.swift; sourceTree = "<group>"; };
+		F88F550D255EFE840072A9BF /* MockFixtureProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFixtureProtocol.swift; sourceTree = "<group>"; };
 		F88F550E255EFE840072A9BF /* FixturesPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixturesPath.swift; sourceTree = "<group>"; };
 		F8933D3823E20225002727AC /* GenericSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSerializationTests.swift; sourceTree = "<group>"; };
 		F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSerializationTestCase.swift; sourceTree = "<group>"; };
@@ -2148,27 +2144,9 @@
 		F88F3C22255D7A410072A9BF /* MixboxMocksRuntime */ = {
 			isa = PBXGroup;
 			children = (
-				F88F3C23255D7A570072A9BF /* Fixtures */,
+				F88F3C27255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift */,
 			);
 			path = MixboxMocksRuntime;
-			sourceTree = "<group>";
-		};
-		F88F3C23255D7A570072A9BF /* Fixtures */ = {
-			isa = PBXGroup;
-			children = (
-				F88F3C24255D7A7E0072A9BF /* Fixtures */,
-				F88F3C27255D7A7E0072A9BF /* MathTests.swift */,
-			);
-			path = Fixtures;
-			sourceTree = "<group>";
-		};
-		F88F3C24255D7A7E0072A9BF /* Fixtures */ = {
-			isa = PBXGroup;
-			children = (
-				F88F3C25255D7A7E0072A9BF /* Math.swift */,
-				F88F3C26255D7A7E0072A9BF /* MathMock.swift */,
-			);
-			name = Fixtures;
 			sourceTree = "<group>";
 		};
 		F88F5502255ED86D0072A9BF /* OsxUnitTests */ = {
@@ -2193,7 +2171,7 @@
 			isa = PBXGroup;
 			children = (
 				F88F550C255EFE840072A9BF /* FixtureProtocol.swift */,
-				F88F550D255EFE840072A9BF /* FixtureProtocolMock.swift */,
+				F88F550D255EFE840072A9BF /* MockFixtureProtocol.swift */,
 				F88F550E255EFE840072A9BF /* FixturesPath.swift */,
 			);
 			path = Fixtures;
@@ -4795,7 +4773,6 @@
 				F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */,
 				F8FC4ACF23AA686900D3E911 /* AndMatcherTests.swift in Sources */,
 				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
-				F88F3C29255D7A7E0072A9BF /* MathMock.swift in Sources */,
 				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
@@ -4808,9 +4785,10 @@
 				F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */,
 				F8B5C693254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift in Sources */,
 				F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */,
+				F8297BC0256248670013C5F2 /* FixtureProtocol.swift in Sources */,
 				F80C2E1624D1DAFD00C6CAD4 /* RecordingStepLoggerImpl.swift in Sources */,
 				F80C2E2724D1E15100C6CAD4 /* BaseTestCase.swift in Sources */,
-				F88F3C2A255D7A7E0072A9BF /* MathTests.swift in Sources */,
+				F88F3C2A255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift in Sources */,
 				F80C2E1124D1DAFD00C6CAD4 /* XcTestFailureMatcherBuilder.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
@@ -4894,13 +4872,13 @@
 				F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */,
 				F8DC865023675D4A003889C7 /* UIColor+RGB.swift in Sources */,
 				F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */,
-				F88F3C28255D7A7E0072A9BF /* Math.swift in Sources */,
 				F8B40F192433B85D008A05E8 /* AssociatedObjectTests.swift in Sources */,
 				F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */,
 				F8C3AD072437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift in Sources */,
 				F80C2E2824D1E15100C6CAD4 /* BaseTestCase+AssertLogsAndFailures.swift in Sources */,
 				F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */,
 				F8FC4AD323AA687F00D3E911 /* AlwaysTrueMatcherTests.swift in Sources */,
+				F8297BBF256246760013C5F2 /* MockFixtureProtocol.swift in Sources */,
 				F8971D8922661A8E001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.swift in Sources */,
 				F80C2E0B24D1DAFD00C6CAD4 /* FailureGatherer.swift in Sources */,
 				F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */,
@@ -4924,8 +4902,6 @@
 			files = (
 				F88F5512255EFE840072A9BF /* FixturesPath.swift in Sources */,
 				F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */,
-				F88F5510255EFE840072A9BF /* FixtureProtocol.swift in Sources */,
-				F88F5511255EFE840072A9BF /* FixtureProtocolMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5253,6 +5229,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -5308,6 +5285,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5359,7 +5337,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BlackBoxUiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.BlackBoxUiTests;
@@ -5377,7 +5354,6 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BlackBoxUiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.BlackBoxUiTests;
@@ -5393,7 +5369,6 @@
 			baseConfigurationReference = 18F103602061AD5C6BC92921 /* Pods-HostedAppLogicTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5PHGGKL9UQ;
 				INFOPLIST_FILE = HostedAppLogicTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -5408,7 +5383,6 @@
 			baseConfigurationReference = 55F681E0937FA6922818621C /* Pods-HostedAppLogicTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5PHGGKL9UQ;
 				INFOPLIST_FILE = HostedAppLogicTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -5422,7 +5396,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C214D3FDAD2E80E3082FF45 /* Pods-Lint.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Lint/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -5430,7 +5403,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.Lint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -5438,14 +5410,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2917F62FA6584ECB1E3D3C45 /* Pods-Lint.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Lint/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.Lint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -5453,7 +5423,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2334CBC37E807E632DE8295A /* Pods-UnitTests.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.UnitTests;
@@ -5465,7 +5434,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50F20B62BF639AA013C729A9 /* Pods-UnitTests.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.UnitTests;
@@ -5478,7 +5446,6 @@
 			baseConfigurationReference = 550920AF66AAB92EC39631E3 /* Pods-OsxUnitTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OsxUnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -5497,7 +5464,6 @@
 			baseConfigurationReference = C510411FFCB419DFC8AA09AE /* Pods-OsxUnitTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = OsxUnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -5515,7 +5481,6 @@
 			baseConfigurationReference = AF5F7044796DB82E05878B84 /* Pods-GrayBoxUiTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GrayBoxUiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -5532,7 +5497,6 @@
 			baseConfigurationReference = C28D8E07F2A18E562BA9F2A6 /* Pods-GrayBoxUiTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = GrayBoxUiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
@@ -5548,7 +5512,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AppForCheckingPureXctest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -5558,7 +5521,6 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "AppForCheckingPureXctest/HidEventsDebugging/AppForCheckingPureXctest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -5567,7 +5529,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AppForCheckingPureXctest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
@@ -5575,7 +5536,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AppForCheckingPureXctest/HidEventsDebugging/AppForCheckingPureXctest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -5583,7 +5543,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AppForCheckingPureXctestUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -5591,7 +5550,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = AppForCheckingPureXctest;
 			};
 			name = Debug;
@@ -5600,14 +5558,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AppForCheckingPureXctestUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mixbox.AppForCheckingPureXctestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = AppForCheckingPureXctest;
 			};
 			name = Release;
@@ -5618,7 +5574,6 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FakeSettingsApp/Entitlements.entitlements;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FakeSettingsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -5626,7 +5581,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.FakeSettingsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -5636,13 +5590,11 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FakeSettingsApp/Entitlements.entitlements;
-				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FakeSettingsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.FakeSettingsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -1,35 +1,33 @@
 import MixboxMocksRuntime
 import MixboxFoundation
+import MixboxTestsFoundation
 
-class MathMock:
-    Math,
-    MockType
+class MockFixtureProtocol:
+    FixtureProtocol,
+    MixboxMocksRuntime.MockType
 {
     let mockManager: MixboxMocksRuntime.MockManager
-
+    
     class StubBuilder: MixboxMocksRuntime.StubBuilder {
         private let mockManager: MixboxMocksRuntime.MockManager
-
+    
         required init(mockManager: MixboxMocksRuntime.MockManager) {
             self.mockManager = mockManager
         }
-
-        func sum<A1: MixboxMocksRuntime.Matcher, A2: MixboxMocksRuntime.Matcher>(
-            _ a1: A1,
-            b a2: A2)
-            -> MixboxMocksRuntime.StubForFunctionBuilder<(Int, Int), Int>
+        
+        func fixtureFunction<A0: MixboxMocksRuntime.Matcher, A1: MixboxMocksRuntime.Matcher>(_ a0: A0, labeled a1: A1) -> MixboxMocksRuntime.StubForFunctionBuilder<(Int, Int), Int>
             where
-            A1.MatchingType == Int,
-            A2.MatchingType == Int
+            A0.MatchingType == Int,
+            A1.MatchingType == Int
         {
             let matcher = MixboxMocksRuntime.FunctionalMatcher<(Int, Int)>(
-                matchingFunction: { (b1: Int, b2: Int) -> Bool in
-                    a1.valueIsMatching(b1) && a2.valueIsMatching(b2)
+                matchingFunction: { (b0: Int, b1: Int) -> Bool in
+                    a0.valueIsMatching(b0) && a1.valueIsMatching(b1)
                 }
             )
-
+        
             return MixboxMocksRuntime.StubForFunctionBuilder<(Int, Int), Int>(
-                functionId: "sum(_ a: Int, b: Int)",
+                functionId: "fixtureFunction(_ unlabeled: Int, labeled: Int)",
                 mockManager: mockManager,
                 matcher: matcher
             )
@@ -40,7 +38,7 @@ class MathMock:
         private let mockManager: MixboxMocksRuntime.MockManager
         private let times: MixboxMocksRuntime.FunctionalMatcher<Int>
         private let fileLine: MixboxFoundation.FileLine
-
+    
         required init(
             mockManager: MixboxMocksRuntime.MockManager,
             times: MixboxMocksRuntime.FunctionalMatcher<Int>,
@@ -50,29 +48,27 @@ class MathMock:
             self.times = times
             self.fileLine = fileLine
         }
-
-        func sum<A1: MixboxMocksRuntime.Matcher, A2: MixboxMocksRuntime.Matcher>(
-            _ a1: A1,
-            b a2: A2)
+    
+        func fixtureFunction<A0: MixboxMocksRuntime.Matcher, A1: MixboxMocksRuntime.Matcher>(_ a0: A0, labeled a1: A1)
             where
-            A1.MatchingType == Int,
-            A2.MatchingType == Int
+            A0.MatchingType == Int,
+            A1.MatchingType == Int
         {
             let matcher = MixboxMocksRuntime.FunctionalMatcher<(Int, Int)>(
-                matchingFunction: { (b1: Int, b2: Int) -> Bool in
-                    a1.valueIsMatching(b1) && a2.valueIsMatching(b2)
+                matchingFunction: { (b0: Int, b1: Int) -> Bool in
+                    a0.valueIsMatching(b0) && a1.valueIsMatching(b1)
                 }
             )
-
+        
             mockManager.addExpecatation(
-                functionId: "sum(_ a: Int, b: Int)",
+                functionId: "fixtureFunction(_ unlabeled: Int, labeled: Int)",
                 fileLine: fileLine,
                 times: times,
                 matcher: matcher
             )
         }
     }
-
+    
     init(mockManager: MixboxMocksRuntime.MockManager) {
         self.mockManager = mockManager
     }
@@ -88,17 +84,10 @@ class MathMock:
         )
     }
 
-    func sum(
-        _ a1: Int,
-        b a2: Int)
-        -> Int
-    {
-        return mockManager.call(
-            functionId: "sum(_ a: Int, b: Int)",
-            arguments: (
-                a1,
-                a2
-            )
+    func fixtureFunction(_ a0: Int, labeled a1: Int) -> Int {
+        return try mockManager.call(
+            functionId: "fixtureFunction(_ unlabeled: Int, labeled: Int)",
+            arguments: (a0, a1)
         )
     }
 }

@@ -3,7 +3,7 @@ import PathKit
 import MixboxMocksGeneration
 
 final class MockGenerationTests: XCTestCase {
-    func disabled_test() {
+    func test() {
         do {
             let parser = SourceFileParserImpl()
             let parsedSourceFile = try parser.parse(

@@ -6,5 +6,5 @@ final class FixturesPath {
     static let folderPath = Path(#file) + ".."
     
     static let fixtureProtocolPath = folderPath + "FixtureProtocol.swift"
-    static let fixtureProtocolMockPath = folderPath + "FixtureProtocolMock.swift"
+    static let fixtureProtocolMockPath = folderPath + "MockFixtureProtocol.swift"
 }

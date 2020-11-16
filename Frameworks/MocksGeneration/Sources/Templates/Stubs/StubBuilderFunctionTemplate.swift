@@ -8,7 +8,7 @@ public class StubBuilderFunctionTemplate {
     }
     
     public func render() throws -> String {
-        let returnType = "AvitoMocks.StubForFunctionBuilder<\(argumentsTupleType), \(method.returnTypeName.name)>"
+        let returnType = "MixboxMocksRuntime.StubForFunctionBuilder<\(argumentsTupleType), \(method.returnTypeName.name)>"
         
         return try WrappedFunctionTemplate(
             method: method,

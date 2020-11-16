@@ -9,14 +9,14 @@ public class StubBuilderTemplate {
     
     public func render() throws -> String {
         """
-        class StubBuilder: AvitoMocks.StubBuilder {
-            private let mockManager: AvitoMocks.MockManager
+        class StubBuilder: MixboxMocksRuntime.StubBuilder {
+            private let mockManager: MixboxMocksRuntime.MockManager
 
-            required init(mockManager: AvitoMocks.MockManager) {
+            required init(mockManager: MixboxMocksRuntime.MockManager) {
                 self.mockManager = mockManager
             }
             
-            \(try renderFunctions())
+            \(try renderFunctions().indent())
         }
         """
     }

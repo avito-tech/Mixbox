@@ -11,25 +11,22 @@ public final class MockTemplate {
         """
         class Mock\(protocolType.name):
             \(protocolType.name),
-            AvitoMocks.Mock
+            MixboxMocksRuntime.MockType
         {
-            let mockManager: AvitoMocks.MockManager
+            let mockManager: MixboxMocksRuntime.MockManager
             
-            \(try StubBuilderTemplate(protocolType: protocolType).render())
+            \(try StubBuilderTemplate(protocolType: protocolType).render().indent())
         
-            \(try ExpectationBuilderTemplate(protocolType: protocolType).render())
-        
-            \(try StubBuilderTemplate(protocolType: protocolType).render())
+            \(try ExpectationBuilderTemplate(protocolType: protocolType).render().indent())
             
-
-            init(mockManager: AvitoMocks.MockManager) {
+            init(mockManager: MixboxMocksRuntime.MockManager) {
                 self.mockManager = mockManager
             }
 
             convenience init(file: StaticString = #file, line: UInt = #line) {
                 self.init(
-                    mockManager: AvitoMocks.AvitoMocks.ockManager(
-                        fileLine: AvitoMocks.FileLine(
+                    mockManager: MixboxMocksRuntime.MockManagerImpl(
+                        fileLine: MixboxFoundation.FileLine(
                             file: file,
                             line: line
                         )
@@ -37,7 +34,7 @@ public final class MockTemplate {
                 )
             }
 
-            /* TBD: Functions of the mock */
+            \(try ProtocolImplementationTemplate(protocolType: protocolType).render().indent())
         }
         """
     }

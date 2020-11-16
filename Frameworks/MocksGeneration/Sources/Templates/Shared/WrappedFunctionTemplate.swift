@@ -18,11 +18,11 @@ public class WrappedFunctionTemplate {
     public func render() throws -> String {
         """
         func \(method.callName)\(genericParametersClause)\(methodArguments)\(returnClause)\(whereClause){
-            let matcher = AvitoMocks.FunctionalMatcher<\(matcherTupleType)>(
-                matchingFunction: \(matchingFunction)
+            let matcher = MixboxMocksRuntime.FunctionalMatcher<\(matcherTupleType)>(
+                matchingFunction: \(matchingFunction.indent(level: 2))
             )
-
-            \(customBody)
+        
+            \(customBody.indent())
         }
         """
     }
@@ -39,14 +39,14 @@ public class WrappedFunctionTemplate {
         return "a\(index)"
     }
 
-    // <A1: AvitoMocks.Matcher, A2: AvitoMocks.Matcher>
+    // <A1: MixboxMocksRuntime.Matcher, A2: MixboxMocksRuntime.Matcher>
     private var genericParametersClause: String {
         method.parameters.render(
             separator: ", ",
             valueIfEmpty: "",
             surround: { "<\($0)>" },
             transform: { index, _ in
-                "\(genericArgumentType(index: index)): AvitoMocks.Matcher"
+                "\(genericArgumentType(index: index)): MixboxMocksRuntime.Matcher"
             }
         )
     }
@@ -74,13 +74,12 @@ public class WrappedFunctionTemplate {
     private var whereClause: String {
         method.parameters.render(
             separator: ",\n",
-            valueIfEmpty: " {",
+            valueIfEmpty: " ",
             surround: {
                 """
                 
-                where
-                \($0)
-                {
+                    where
+                    \($0.indent())
                 
                 """
             },
@@ -113,7 +112,7 @@ public class WrappedFunctionTemplate {
             :
             """
             { \(matchingFunctionArguments) -> Bool in
-                \(matchingFunctionPredicate)
+                \(matchingFunctionPredicate.indent())
             }
             """
     }
@@ -138,11 +137,13 @@ public class WrappedFunctionTemplate {
     
     private var matchingFunctionPredicate: String {
         method.parameters.render(
-            separator: ", ",
-            valueIfEmpty: "",
-            surround: { "<\($0)>" },
+            separator: " && ",
+            valueIfEmpty: "true",
             transform: { index, _ in
-                "\(genericArgumentType(index: index)): AvitoMocks.Matcher"
+                let a = genericArgumentName(index: index)
+                let b = matchingFunctionArgumentName(index: index)
+                
+                return "\(a).valueIsMatching(\(b))"
             }
         )
     }
