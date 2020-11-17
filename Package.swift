@@ -1,50 +1,45 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
 
 import PackageDescription
 
-let frameworksByHavingMixedSources = [
-    "AnyCodable": false,
-    "Black": true,
-    "BuiltinDi": false,
-    "BuiltinIpc": true,
-    "Di": false,
-    "FakeSettingsAppMain": false,
-    "Foundation": false,
-    "Generators": false,
-    "Gray": false,
-    "InAppServices": true,
-    "IoKit": true,
-    "Ipc": false,
-    "IpcCommon": false,
-    "IpcSbtuiClient": false,
-    "IpcSbtuiHost": false,
-    "MocksGeneration": false,
-    "MocksRuntime": false,
-    "Reflection": false,
-    "Stubbing": false,
-    "Testability": true,
-    "TestsFoundation": true,
-    "UiKit": false,
-    "UiTestsFoundation": false
-]
-
-let frameworks = frameworksByHavingMixedSources
-    .filter { _, hasMixedSourced in !hasMixedSourced }
-    .map { framework, _ in framework }
-
 let package = Package(
     name: "Mixbox",
-    products: frameworks.map {
-        .library(name: "Mixbox\($0)", targets: [ "Mixbox\($0)" ])
-    },
-    targets: frameworks.map {
-        .target(
-            name: "Mixbox\($0)",
-            dependencies: [],
-            path: "Frameworks/\($0)",
-            swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+    platforms: [.macOS(.v10_15)],
+    products: [
+        .library(
+            name: "MixboxMocksGeneration",
+            targets: [
+                "MixboxMocksGeneration"
+            ]
+        ),
+        .executable(
+            name: "MixboxMocksGenerator",
+            targets: [
+                "MixboxMocksGenerator"
             ]
         )
-    }
+    ],
+    dependencies: [
+        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.23.1")),
+        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
+        .package(url: "https://github.com/krzysztofzablocki/Sourcery.git", .exact("1.0.0"))
+    ],
+    targets: [
+        .target(
+            name: "MixboxMocksGeneration",
+            dependencies: [
+                "PathKit",
+                .product(name: "SourceryFramework", package: "Sourcery"),
+                .product(name: "SourceryRuntime", package: "Sourcery")
+            ],
+            path: "Frameworks/MocksGeneration"
+        ),
+        .target(
+            name: "MixboxMocksGenerator",
+            dependencies: [
+                "MixboxMocksGeneration"
+            ],
+            path: "MocksGenerator"
+        )
+    ]
 )

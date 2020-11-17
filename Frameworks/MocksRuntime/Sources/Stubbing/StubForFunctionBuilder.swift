@@ -38,3 +38,9 @@ public final class StubForFunctionBuilder<T, U> {
         )
     }
 }
+
+extension StubForFunctionBuilder where ReturnType == Void {
+    public func thenDoNothing() {
+        thenReturn(())
+    }
+}

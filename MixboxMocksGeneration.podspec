@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
   s.requires_arc           = true
   s.source_files           = 'Frameworks/MocksGeneration/Sources/**/*.{swift,h,m,mm}'
   
-  s.dependency 'MixboxFoundation'
   s.dependency 'SourceryFramework'
   s.dependency 'SourceryRuntime'
 end

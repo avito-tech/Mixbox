@@ -10,8 +10,11 @@ public class ProtocolImplementationFunctionTemplate {
     public func render() throws -> String {
         """
         func \(method.callName)\(methodArguments)\(returnClause) {
-            return try mockManager.call(
-                functionId: "\(functionId)",
+            return mockManager.call(
+                functionId:
+                \"\"\"
+                \(method.name)
+                \"\"\",
                 arguments: \(tupledArguments)
             )
         }
@@ -43,14 +46,10 @@ public class ProtocolImplementationFunctionTemplate {
     }
     
     private func argumentName(index: Int) -> String {
-        return "a\(index)"
+        return "argument\(index)"
     }
     
     private var returnClause: String {
         return " -> \(method.returnTypeName.name)"
-    }
-    
-    private var functionId: String {
-        return method.name
     }
 }

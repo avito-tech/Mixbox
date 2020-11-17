@@ -1,5 +1,5 @@
 import MixboxInAppServices
-import Cuckoo
+import MixboxMocksRuntime
 import MixboxUiKit
 import XCTest
 import MixboxFoundation
@@ -15,7 +15,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         continueAfterFailure = false
         
         factory
-            .getStubbingProxy()
+            .stub()
             .allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
                 enhancedAccessibilityLabelMethodSwizzler: any(),
                 objcMethodsWithUniqueImplementationProvider: any(),
@@ -60,35 +60,37 @@ final class PredefinedObjcMethodsTests: TestCase {
         let baseClass = NSObject.self
         let selector = #selector(NSObject.accessibilityLabel)
         
-        verify(factory).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.expect().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: isInstance(of: EnhancedAccessibilityLabelMethodSwizzlerImpl.self),
             objcMethodsWithUniqueImplementationProvider: isInstance(of: ObjcRuntimeObjcMethodsWithUniqueImplementationProvider.self),
-            baseClass: equal(to: baseClass, equalWhen: ===),
-            selector: equal(to: selector),
-            methodType: equal(to: methodType)
+            baseClass: isSame(baseClass),
+            selector: equals(selector),
+            methodType: equals(methodType)
         )
         
         // Verify that only 1 swizzler is created:
         
-        verify(factory, times(1)).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.expect(times: 1).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: any(),
             objcMethodsWithUniqueImplementationProvider: any(),
             baseClass: any(),
             selector: any(),
             methodType: any()
         )
+        
+        factory.verify()
     }
     
     private func checkForIosFrom11To13() {
         let baseClass = NSObject.self
         let selector = Selector(("_accessibilityAXAttributedLabel"))
         
-        verify(factory).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.expect().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: isInstance(of: EnhancedAccessibilityLabelMethodSwizzlerImpl.self),
             objcMethodsWithUniqueImplementationProvider: isInstance(of: PredefinedObjcMethodsWithUniqueImplementationProvider.self),
-            baseClass: equal(to: baseClass, equalWhen: ===),
-            selector: equal(to: selector),
-            methodType: equal(to: methodType)
+            baseClass: isSame(baseClass),
+            selector: equals(selector),
+            methodType: equals(methodType)
         )
         
         checkObjcMethodsMethodsWithUniqueImplementationArePredefined(
@@ -98,13 +100,15 @@ final class PredefinedObjcMethodsTests: TestCase {
         
         // Verify that only 1 swizzler is created:
         
-        verify(factory, times(1)).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.expect(times: 1).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: any(),
             objcMethodsWithUniqueImplementationProvider: any(),
             baseClass: any(),
             selector: any(),
             methodType: any()
         )
+        
+        factory.verify()
     }
     
     private func checkObjcMethodsMethodsWithUniqueImplementationArePredefined(
@@ -116,9 +120,9 @@ final class PredefinedObjcMethodsTests: TestCase {
         
         let fallbackObjcMethodsWithUniqueImplementationProvider = MockObjcMethodsWithUniqueImplementationProvider()
         fallbackObjcMethodsWithUniqueImplementationProvider
-            .getStubbingProxy()
+            .stub()
             .objcMethodsWithUniqueImplementation(baseClass: any(), selector: any(), methodType: any())
-            .then { _ in
+            .thenInvoke { _ in
                 fallbackWasUsed = true
                 return []
             }

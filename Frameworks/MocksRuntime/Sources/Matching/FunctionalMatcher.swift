@@ -1,3 +1,5 @@
+import Foundation
+
 public final class FunctionalMatcher<T>: Matcher {
     public typealias MatchingType = T
     
@@ -44,6 +46,14 @@ public func equals<T>(_ value: T) -> FunctionalMatcher<T> where T: Equatable {
 
 public func isSame<T>(_ value: T) -> FunctionalMatcher<T> where T: AnyObject {
     return FunctionalMatcher<T> { other in value === other }
+}
+
+public func isSame(_ value: AnyObject.Type) -> FunctionalMatcher<AnyObject.Type> {
+    return FunctionalMatcher<AnyObject.Type> { other in value === other }
+}
+
+public func isSame(_ value: NSObject.Type) -> FunctionalMatcher<NSObject.Type> {
+    return FunctionalMatcher<NSObject.Type> { other in value === other }
 }
 
 public func atLeast<T>(_ atLeast: T) -> FunctionalMatcher<T> where T: Comparable {

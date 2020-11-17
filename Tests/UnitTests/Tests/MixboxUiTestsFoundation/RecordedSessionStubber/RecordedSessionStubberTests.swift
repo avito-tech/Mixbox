@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
-import Cuckoo
 import XCTest
 import MixboxIpcCommon
+import MixboxMocksRuntime
 
 final class RecordedSessionStubberTests: XCTestCase {
     private let stubResponseBuilder = MockStubResponseBuilder()
@@ -14,12 +14,12 @@ final class RecordedSessionStubberTests: XCTestCase {
         super.setUp()
         
         stubRequestBuilder
-            .getStubbingProxy()
+            .stub()
             .withRequestStub(urlPattern: any(), httpMethod: any())
             .thenReturn(stubResponseBuilder)
         
         stubResponseBuilder
-            .getStubbingProxy()
+            .stub()
             .withResponse(
                 value: any(),
                 variation: any(),
@@ -178,15 +178,16 @@ final class RecordedSessionStubberTests: XCTestCase {
                     )
                 )
             )
-            
-            verify(stubRequestBuilder).withRequestStub(
+            stubRequestBuilder.expect().withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
-                httpMethod: equal(to: .put)
+                httpMethod: equals(.put)
             )
-            verify(stubResponseBuilder).withResponse(
+            stubRequestBuilder.verify()
+            
+            stubResponseBuilder.expect().withResponse(
                 value: isDataThatIsJson(["data_key": "data_value"]),
-                variation: equal(
-                    to: .http(
+                variation: equals(
+                    .http(
                         HTTPURLResponseVariation(
                             headers: ["headers_key": "headers_value"],
                             statusCode: 418
@@ -195,6 +196,7 @@ final class RecordedSessionStubberTests: XCTestCase {
                 ),
                 responseTime: 0
             )
+            stubResponseBuilder.verify()
         }
     }
     
@@ -207,10 +209,11 @@ final class RecordedSessionStubberTests: XCTestCase {
         assertNoThrow {
             try recordedSessionStubber.stub(recordedStub: .withUrl(stubUrl))
             
-            verify(stubRequestBuilder, file: file, line: line).withRequestStub(
+            stubRequestBuilder.expect().withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
-                httpMethod: equal(to: .get)
+                httpMethod: equals(.get)
             )
+            stubRequestBuilder.verify()
         }
     }
     
@@ -223,8 +226,8 @@ final class RecordedSessionStubberTests: XCTestCase {
     }
 }
 
-private func isDataThatIsJson(_ json: [String: Any]) -> ParameterMatcher<StubResponseBuilderResponseValue> {
-    return ParameterMatcher<StubResponseBuilderResponseValue> { value in
+private func isDataThatIsJson(_ json: [String: Any]) -> FunctionalMatcher<StubResponseBuilderResponseValue> {
+    return FunctionalMatcher<StubResponseBuilderResponseValue> { value in
         switch value {
         case .data(let data):
             if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
@@ -242,8 +245,8 @@ private func isDataThatIsJson(_ json: [String: Any]) -> ParameterMatcher<StubRes
     }
 }
 
-private func regexIsMatchedBy(_ string: String) -> ParameterMatcher<String> {
-    return ParameterMatcher<String> { pattern in
+private func regexIsMatchedBy(_ string: String) -> FunctionalMatcher<String> {
+    return FunctionalMatcher<String> { pattern in
         let regex = (try? NSRegularExpression(pattern: pattern, options: [])).unwrapOrFail()
         
         let firstMatch = regex.firstMatch(

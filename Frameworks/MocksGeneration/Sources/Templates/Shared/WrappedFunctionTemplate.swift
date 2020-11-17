@@ -32,14 +32,14 @@ public class WrappedFunctionTemplate {
     }
     
     private func genericArgumentType(index: Int) -> String {
-        return "A\(index)"
+        return "Argument\(index)"
     }
     
     private func genericArgumentName(index: Int) -> String {
-        return "a\(index)"
+        return "argument\(index)"
     }
 
-    // <A1: MixboxMocksRuntime.Matcher, A2: MixboxMocksRuntime.Matcher>
+    // <Argument1: MixboxMocksRuntime.Matcher, Argument2: MixboxMocksRuntime.Matcher>
     private var genericParametersClause: String {
         method.parameters.render(
             separator: ", ",
@@ -51,11 +51,10 @@ public class WrappedFunctionTemplate {
         )
     }
 
-    // (_ a1: A1, b a2: A2)
+    // (_ argument1: Argument1, someLabel argument2: Argument2)
     private var methodArguments: String {
         method.parameters.render(
             separator: ", ",
-            valueIfEmpty: "",
             surround: { "(\($0))" },
             transform: { index, parameter in
                 let label = parameter.argumentLabel ?? "_"
@@ -69,8 +68,8 @@ public class WrappedFunctionTemplate {
     }
 
     // where
-    // A1.MatchingType == Int,
-    // A2.MatchingType == Int
+    // Argument1.MatchingType == Int,
+    // Argument2.MatchingType == Int
     private var whereClause: String {
         method.parameters.render(
             separator: ",\n",
@@ -103,8 +102,8 @@ public class WrappedFunctionTemplate {
         )
     }
     
-    // { (b1: Int, b2: Int) -> Bool in
-    //    return a1.valueIsMatching(b1) && a2.valueIsMatching(b2)
+    // { (otherArgument1: Int, otherArgument2: Int) -> Bool in
+    //    return argument1.valueIsMatching(otherArgument1) && argument2.valueIsMatching(otherArgument2)
     // }
     private var matchingFunction: String {
         method.parameters.isEmpty
@@ -118,7 +117,7 @@ public class WrappedFunctionTemplate {
     }
     
     private func matchingFunctionArgumentName(index: Int) -> String {
-        return "b\(index)"
+        return "otherArgument\(index)"
     }
     
     // (b1: Int, b2: Int)
@@ -140,10 +139,10 @@ public class WrappedFunctionTemplate {
             separator: " && ",
             valueIfEmpty: "true",
             transform: { index, _ in
-                let a = genericArgumentName(index: index)
-                let b = matchingFunctionArgumentName(index: index)
+                let lhs = genericArgumentName(index: index)
+                let rhs = matchingFunctionArgumentName(index: index)
                 
-                return "\(a).valueIsMatching(\(b))"
+                return "\(lhs).valueIsMatching(\(rhs))"
             }
         )
     }

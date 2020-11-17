@@ -16,7 +16,10 @@ public class StubBuilderFunctionTemplate {
             customBody:
             """
             return \(returnType)(
-                functionId: "\(method.name)",
+                functionId:
+                \"\"\"
+                \(method.name)
+                \"\"\",
                 mockManager: mockManager,
                 matcher: matcher
             )

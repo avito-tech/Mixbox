@@ -1,5 +1,5 @@
-import MixboxMocksRuntime
 import MixboxFoundation
+import MixboxMocksRuntime
 import MixboxTestsFoundation
 
 class MockFixtureProtocol:
@@ -27,7 +27,10 @@ class MockFixtureProtocol:
             )
         
             return MixboxMocksRuntime.StubForFunctionBuilder<(Int, Int), Int>(
-                functionId: "fixtureFunction(_ unlabeled: Int, labeled: Int)",
+                functionId:
+                """
+                fixtureFunction(_ unlabeled: Int, labeled: Int)
+                """,
                 mockManager: mockManager,
                 matcher: matcher
             )
@@ -61,7 +64,10 @@ class MockFixtureProtocol:
             )
         
             mockManager.addExpecatation(
-                functionId: "fixtureFunction(_ unlabeled: Int, labeled: Int)",
+                functionId:
+                """
+                fixtureFunction(_ unlabeled: Int, labeled: Int)
+                """,
                 fileLine: fileLine,
                 times: times,
                 matcher: matcher
@@ -85,8 +91,11 @@ class MockFixtureProtocol:
     }
 
     func fixtureFunction(_ a0: Int, labeled a1: Int) -> Int {
-        return try mockManager.call(
-            functionId: "fixtureFunction(_ unlabeled: Int, labeled: Int)",
+        return mockManager.call(
+            functionId:
+            """
+            fixtureFunction(_ unlabeled: Int, labeled: Int)
+            """,
             arguments: (a0, a1)
         )
     }

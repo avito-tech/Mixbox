@@ -93,7 +93,7 @@
 		F80CEDE822DE37D6006C804D /* BidirectionalIpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */; };
 		F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */; };
 		F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */; };
-		F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.swift */; };
+		F81144D02268D39C00ED519B /* GeneratedMocks.ignored.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */; };
 		F81144D12268D39C00ED519B /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F81144CF2268D39C00ED519B /* generate_mocks */; };
 		F812A17624E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F812A17524E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift */; };
 		F813CAEA209CC5D400E6A27C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F813CAE9209CC5D400E6A27C /* AppDelegate.swift */; };
@@ -543,7 +543,7 @@
 		F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D85562235E473F0068047A /* CuckooMatchers.swift */; };
 		F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8556C235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift */; };
 		F8D8556E235E5C150068047A /* PredefinedObjcMethodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */; };
-		F8D8556F235E5C300068047A /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.swift */; };
+		F8D8556F235E5C300068047A /* GeneratedMocks.ignored.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */; };
 		F8DB34D9227223B000EE0FB8 /* UIImage+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+Stub.swift */; };
 		F8DB350622725E8C00EE0FB8 /* RunLoopSpinnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */; };
 		F8DB359A22738C9A00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+GetEvents.swift */; };
@@ -696,6 +696,8 @@
 		18F103602061AD5C6BC92921 /* Pods-HostedAppLogicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.debug.xcconfig"; path = "Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2334CBC37E807E632DE8295A /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2917F62FA6584ECB1E3D3C45 /* Pods-Lint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lint.release.xcconfig"; path = "Target Support Files/Pods-Lint/Pods-Lint.release.xcconfig"; sourceTree = "<group>"; };
+		2CB74C666F3705EFED495BE1 /* Pods-MocksGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGenerator.release.xcconfig"; path = "Target Support Files/Pods-MocksGenerator/Pods-MocksGenerator.release.xcconfig"; sourceTree = "<group>"; };
+		35A68FF0C2C0AE41F478867E /* Pods_MocksGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MocksGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4D6D4D32D77EB0E8DEF3CA /* Pods-TestedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.release.xcconfig"; path = "Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig"; sourceTree = "<group>"; };
 		50F20B62BF639AA013C729A9 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		550920AF66AAB92EC39631E3 /* Pods-OsxUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OsxUnitTests.debug.xcconfig"; path = "Target Support Files/Pods-OsxUnitTests/Pods-OsxUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 		BCB072EA2229271D001FE482 /* ScreenshotDHashLabelsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotDHashLabelsTestsView.swift; sourceTree = "<group>"; };
 		C28D8E07F2A18E562BA9F2A6 /* Pods-GrayBoxUiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrayBoxUiTests.release.xcconfig"; path = "Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests.release.xcconfig"; sourceTree = "<group>"; };
 		C510411FFCB419DFC8AA09AE /* Pods-OsxUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OsxUnitTests.release.xcconfig"; path = "Target Support Files/Pods-OsxUnitTests/Pods-OsxUnitTests.release.xcconfig"; sourceTree = "<group>"; };
+		C9405D81BC18CC90D3CA42BE /* Pods-MocksGenerator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGenerator.debug.xcconfig"; path = "Target Support Files/Pods-MocksGenerator/Pods-MocksGenerator.debug.xcconfig"; sourceTree = "<group>"; };
 		CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlackBoxUiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC78DE2E21395BFE00599258 /* GettingUiKitHierarchyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingUiKitHierarchyTests.swift; sourceTree = "<group>"; };
 		CC78DE3121395C6000599258 /* HierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchyTestsView.swift; sourceTree = "<group>"; };
@@ -746,7 +749,7 @@
 		F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalIpcTests.swift; sourceTree = "<group>"; };
 		F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsSubviewMatcherTests.swift; sourceTree = "<group>"; };
 		F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedSessionStubberTests.swift; sourceTree = "<group>"; };
-		F81144CE2268D39C00ED519B /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
+		F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.ignored.swift; sourceTree = "<group>"; };
 		F81144CF2268D39C00ED519B /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
 		F812A17524E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundDependencyResolverTests.swift; sourceTree = "<group>"; };
 		F813CAE6209CC5D400E6A27C /* TestedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1251,6 +1254,7 @@
 				79E12B265F8D0DEEEC4E9C59 /* Pods_TestedApp.framework */,
 				FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */,
 				A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */,
+				35A68FF0C2C0AE41F478867E /* Pods_MocksGenerator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1345,7 +1349,7 @@
 			isa = PBXGroup;
 			children = (
 				F8C3AD1A243AFD4D004B6BA4 /* Custom */,
-				F81144CE2268D39C00ED519B /* GeneratedMocks.swift */,
+				F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */,
 				F81144CF2268D39C00ED519B /* generate_mocks */,
 			);
 			path = Mocks;
@@ -3489,6 +3493,8 @@
 				50F20B62BF639AA013C729A9 /* Pods-UnitTests.release.xcconfig */,
 				550920AF66AAB92EC39631E3 /* Pods-OsxUnitTests.debug.xcconfig */,
 				C510411FFCB419DFC8AA09AE /* Pods-OsxUnitTests.release.xcconfig */,
+				C9405D81BC18CC90D3CA42BE /* Pods-MocksGenerator.debug.xcconfig */,
+				2CB74C666F3705EFED495BE1 /* Pods-MocksGenerator.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -3698,7 +3704,7 @@
 				KnownAssetTags = (
 					New,
 				);
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1170;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Mixbox;
 				TargetAttributes = {
@@ -4140,7 +4146,7 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
@@ -4161,7 +4167,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
@@ -4214,9 +4220,9 @@
 				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
@@ -4240,9 +4246,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
@@ -4277,16 +4283,15 @@
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection-iOS/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4308,16 +4313,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4349,16 +4353,15 @@
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
-				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection-iOS/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4380,16 +4383,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4821,7 +4823,7 @@
 				F87D182C24CF7A8100D6DBFA /* InAppScreenshotTakerImplTests.swift in Sources */,
 				F8494C1B24D316D20035AB39 /* CGRect_Rounding_Tests.swift in Sources */,
 				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
-				F81144D02268D39C00ED519B /* GeneratedMocks.swift in Sources */,
+				F81144D02268D39C00ED519B /* GeneratedMocks.ignored.swift in Sources */,
 				F87D2C0524D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift in Sources */,
 				F8FC4AD623AA68FE00D3E911 /* NotMatcherTests.swift in Sources */,
 				F8E160C7241862A600B4912F /* DigitizerEventTests.swift in Sources */,
@@ -5010,7 +5012,7 @@
 				F8A83828227215C300145140 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */,
 				F8308D3A24B734E600C79892 /* Singletons+StepLogger.swift in Sources */,
 				F8F9C2AF2368949000E9A044 /* UiTestCaseDependencies.swift in Sources */,
-				F8D8556F235E5C300068047A /* GeneratedMocks.swift in Sources */,
+				F8D8556F235E5C300068047A /* GeneratedMocks.ignored.swift in Sources */,
 				F8B964AD2280A1070054CE08 /* SwipeActionWaitsTests.swift in Sources */,
 				F8B0A257220A0EF30089C1EE /* TestReportAttachment.swift in Sources */,
 				F863CA1424B4B24200423225 /* InteractionsUseVisiblePointTests.swift in Sources */,

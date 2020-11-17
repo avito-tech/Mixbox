@@ -34,18 +34,11 @@ def tests_ipc_pods
   pod 'TestsIpc', :path => 'Frameworks/TestsIpc'
 end
 
-# TODO: Support mock generation for every test target
-def tests_testing_helpers
-  pod 'Cuckoo', :git => 'https://github.com/avito-tech/Cuckoo', :branch => 'avito20200410', :inhibit_warnings => true
-end
-
 def logic_tests_pods(mixbox)
   mixbox.pod_all_ios
 
   pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
   pod 'SBTUITestTunnel/Server', '3.0.6', :inhibit_warnings => true
-  
-  tests_testing_helpers
 end
  
 ### TARGETS
@@ -71,8 +64,8 @@ target 'GrayBoxUiTests' do
   
   mixbox.pod 'MixboxGray'
   mixbox.pod 'MixboxStubbing'
-  
-  tests_testing_helpers
+
+  mixbox.pod 'MixboxMocksRuntime'
   tests_ipc_pods
 end
 
@@ -82,8 +75,8 @@ target 'BlackBoxUiTests' do
   mixbox.pod 'MixboxBlack'
   mixbox.pod 'MixboxIpcSbtuiClient'
   pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
+  mixbox.pod 'MixboxMocksRuntime'
 
-  tests_testing_helpers
   tests_ipc_pods
 end
   
@@ -97,9 +90,6 @@ end
 target 'OsxUnitTests' do
   platform :osx, '10.14'
 
-  # pod 'SourceryRuntime', :path => '/Users/razinov/src/Sourcery'
-  # pod 'SourceryUtils', :path => '/Users/razinov/src/Sourcery'
-  # pod 'SourceryFramework', :path => '/Users/razinov/src/Sourcery'
   sourcery.pod_all_osx
   mixbox.pod_all_osx
 end
@@ -121,31 +111,56 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      if config.name == 'Debug'
-        config.build_settings['ENABLE_BITCODE'] = 'NO' # To support testing on devices
-        config.build_settings['ENABLE_TESTABILITY'] = 'YES' # To support @testable import
-        config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'MIXBOX_ENABLE_IN_APP_SERVICES', '-Onone']
-        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1', 'ENABLE_UITUNNEL=1']
+      if target.name != 'MixboxMocksGeneration'
+        if config.name == 'Debug'
+          config.build_settings['ENABLE_BITCODE'] = 'NO' # To support testing on devices
+          config.build_settings['ENABLE_TESTABILITY'] = 'YES' # To support @testable import
+          config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'MIXBOX_ENABLE_IN_APP_SERVICES', '-Onone']
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1', 'ENABLE_UITUNNEL=1']
+        end
       end
     end
     
-    remove_uikit_import_from_target(target)
+    remove_default_imports_from_target(target)
   end
+
+  patch_to_be_able_to_run_executable(installer)
 end
 
-def remove_uikit_import_from_target(target)
+def patch_to_be_able_to_run_executable(installer)
+  project = Xcodeproj::Project.open('Tests.xcodeproj')
+  
+  project.native_targets.each do |native_target|
+    if native_target.name == 'MocksGenerator'
+      native_target.build_configurations.each do |config|
+        config.build_settings['LD_RUNPATH_SEARCH_PATHS'] = '$(inherited) @executable_path/../Frameworks @loader_path/Frameworks'
+        
+        installer.pods_project.targets.each do |pod_target|
+          # For each pod, add the framework path to LD_RUNPATH_SEARCH_PATHS
+          framework_name = pod_target.name
+          search_path = "@executable_path/#{framework_name}/"
+          config.build_settings['LD_RUNPATH_SEARCH_PATHS'] = config.build_settings['LD_RUNPATH_SEARCH_PATHS'] + " #{search_path}"
+        end
+      end
+    end
+  end
+  
+  project.save
+end
+
+def remove_default_imports_from_target(target)
+    # It doesn't work for MixboxBlack & MixboxTestsFoundation targets. Errors are like `Unknown type name 'XCEventGenerator'`
   if ['MixboxBlack', 'MixboxTestsFoundation'].include?(target.name)
-    # It doesn't work for these targets. Errors are like `Unknown type name 'XCEventGenerator'`
     return
   end
   
   dir = "#{__dir__}/Pods/Target Support Files/#{target.name}"
   
-  remove_uikit_import_from_file("#{dir}/#{target.name}-umbrella.h")
-  remove_uikit_import_from_file("#{dir}/#{target.name}-prefix.pch")
+  remove_default_imports_from_file("#{dir}/#{target.name}-umbrella.h")
+  remove_default_imports_from_file("#{dir}/#{target.name}-prefix.pch")
 end
 
-def remove_uikit_import_from_file(file_path)
+def remove_default_imports_from_file(file_path)
   if File.file?(file_path)
     text = File.read(file_path)
     

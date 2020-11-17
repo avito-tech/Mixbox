@@ -14,7 +14,10 @@ public class ExpectationBuilderFunctionTemplate {
             customBody:
             """
             mockManager.addExpecatation(
-                functionId: "\(method.name)",
+                functionId:
+                \"\"\"
+                \(method.name)
+                \"\"\",
                 fileLine: fileLine,
                 times: times,
                 matcher: matcher

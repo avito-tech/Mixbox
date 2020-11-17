@@ -22,16 +22,26 @@ main() {
     echo "Started generation: $(date)"
 
     MOCKS_ROOT="${PROJECT_DIR}/UnitTests/Mocks"
-    OUTPUT_FILE="${MOCKS_ROOT}/GeneratedMocks.swift"
+    OUTPUT_FILE="${MOCKS_ROOT}/GeneratedMocks.ignored.swift"
     
     resetBeforeApplyingMocks
     APPLY_MOCKS_MODE="generateAllFilesList"
     applyMocks
     
+    local root = "${PROJECT_DIR}/.."
+    
+    local filesAffectingCodeGeneration=("${ALL_FILES_TO_MOCK[@]}" "$0" "$root/Package.swift")
+    
+    IFS=$'\n'
+    for file in $(find "$root/Frameworks/MocksGeneration" -type f; find "$root/MocksGenerator" -type f)
+    do
+        filesAffectingCodeGeneration=("${filesAffectingCodeGeneration[@]}" "$file")
+    done
+    
     # Note: caching rocks: real 0m1.936s => real 0m0.078s
     local shasumFile="${MOCKS_ROOT}/cuckoo.shasum.ignored"
-    currentChecksum=$(shasum "${ALL_FILES_TO_MOCK[@]}" "$0" | shasum)
-    cachedChecksum=$(cat ${shasumFile})
+    local currentChecksum=$((shasum "${filesAffectingCodeGeneration[@]}") | shasum)
+    local cachedChecksum=$(cat ${shasumFile})
     
     if [ "$currentChecksum" != "$cachedChecksum" ] || ! [ -e "$OUTPUT_FILE" ]
     then
@@ -53,6 +63,23 @@ pipeWithDescription() {
     "$@"
 }
 
+__GENERATOR_PATH=""
+generate() {
+    if [ -z "$__GENERATOR_PATH" ]
+    then
+        cd "${PROJECT_DIR}/.."
+        
+        local configuration="release"
+        env -i bash -lc "swift build --product MixboxMocksGenerator --configuration \"$configuration\"" || fatalError
+        
+        __GENERATOR_PATH="$(pwd)/.build/$configuration/MixboxMocksGenerator"
+        
+        cd -
+    fi
+    
+    "$__GENERATOR_PATH" "$@"
+}
+
 completeGeneration() {
     if [ -z "$MODULE_TO_MOCK" ]
     then
@@ -61,11 +88,10 @@ completeGeneration() {
     
     local tmpfile="$(uuidgen).tmp"
     
-    "${PODS_ROOT}/Cuckoo/Generator/cuckoo_generator" \
-        generate \
-        --testable "$MODULE_TO_MOCK" \
-        --output "${tmpfile}" \
-        "${ALL_FILES_TO_MOCK[@]}"
+    generate \
+        "$MODULE_TO_MOCK" \
+        "${tmpfile}"  \
+        "${ALL_FILES_TO_MOCK[@]}" || exit 1
     
     cat "${tmpfile}" \
         | pipeWithDescription "Remove @testable" sed 's/@testable import/import/' \
@@ -81,8 +107,10 @@ completeGeneration() {
 }
 
 fatalError() {
+    local last_error_code=$?
+    [ $# == 0 ] && echo "Fatal error. Exit code: $last_error_code"
     echo $@
-    exit 1
+    exit $last_error_code
 }
 
 ignoringAllErrors() {

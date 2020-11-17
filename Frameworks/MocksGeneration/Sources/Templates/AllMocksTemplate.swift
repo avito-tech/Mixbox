@@ -6,12 +6,22 @@ public final class AllMocksTemplate {
     }
     
     public func render() throws -> String {
-        let imports =
-        """
-        import MixboxMocksRuntime
-        import MixboxFoundation
-        import MixboxTestsFoundation
-        """
+        var moduleNames: Set = [
+            "MixboxMocksRuntime",
+            "MixboxFoundation",
+            "MixboxTestsFoundation"
+        ]
+        
+        moduleNames.formUnion(
+            parsedSourceFiles.sourceFiles.flatMap {
+                [$0.moduleName] + $0.types.types.flatMap { $0.imports }
+            }
+        )
+        
+        let imports = moduleNames
+            .sorted()
+            .map { "import \($0)" }
+            .joined(separator: "\n")
         
         let mocks = try parsedSourceFiles.sourceFiles.flatMap { sourceFile in
             try sourceFile.types.protocols.map {

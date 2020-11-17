@@ -1,7 +1,5 @@
-import Cuckoo
+import MixboxMocksRuntime
 
-func isInstance<T, U>(of type: U.Type) -> ParameterMatcher<T> {
-    return ParameterMatcher {
-        $0 is U
-    }
+public func isInstance<T, U>(of type: U.Type) -> FunctionalMatcher<T> {
+    return FunctionalMatcher<T> { $0 is U }
 }

@@ -1,5 +1,4 @@
 import SourceryRuntime
-import MixboxFoundation
 
 public class ExpectationBuilderTemplate {
     private let protocolType: SourceryRuntime.`Protocol`

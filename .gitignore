@@ -40,3 +40,4 @@ dist/
 # Swift package manager
 .build/
 *.d
+Mixbox.xcodeproj

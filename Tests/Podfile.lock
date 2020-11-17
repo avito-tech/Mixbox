@@ -1,8 +1,5 @@
 PODS:
   - CocoaImageHashing (1.7.0)
-  - Cuckoo (1.3.2):
-    - Cuckoo/Swift (= 1.3.2)
-  - Cuckoo/Swift (1.3.2)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
@@ -51,7 +48,6 @@ PODS:
     - MixboxIpc
     - SBTUITestTunnel/Server (~> 3.0.6)
   - MixboxMocksGeneration (0.2.3):
-    - MixboxFoundation
     - SourceryFramework
     - SourceryRuntime
   - MixboxMocksRuntime (0.2.3):
@@ -103,7 +99,6 @@ PODS:
   - Yams (2.0.0)
 
 DEPENDENCIES:
-  - Cuckoo (from `https://github.com/avito-tech/Cuckoo`, branch `avito20200410`)
   - MixboxAnyCodable (from `..`)
   - MixboxBlack (from `..`)
   - MixboxBuiltinDi (from `..`)
@@ -149,9 +144,6 @@ SPEC REPOS:
     - Yams
 
 EXTERNAL SOURCES:
-  Cuckoo:
-    :branch: avito20200410
-    :git: https://github.com/avito-tech/Cuckoo
   MixboxAnyCodable:
     :path: ".."
   MixboxBlack:
@@ -214,9 +206,6 @@ EXTERNAL SOURCES:
     :path: "Frameworks/TestsIpc"
 
 CHECKOUT OPTIONS:
-  Cuckoo:
-    :commit: 9bcc58d37563f06786c2afd31b1dfcb9f3faea90
-    :git: https://github.com/avito-tech/Cuckoo
   Sourcery:
     :commit: ab9e4258fd5c534e5edb82ab18a79c69f1b412f4
     :git: https://github.com/avito-tech/Sourcery.git
@@ -232,7 +221,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CocoaImageHashing: 2c8efd6dd60f9030cd54086b34ffc48e927821c3
-  Cuckoo: 8879d643f37ac77651935d22cc8c5467ac230627
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
   MixboxBlack: 7f1c9cf6b1a99e17dd4df72b92828dc9a03d58e0
@@ -249,7 +237,7 @@ SPEC CHECKSUMS:
   MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
-  MixboxMocksGeneration: 79f0349afe24017f5e03e69dddaa8e3cc874ecf5
+  MixboxMocksGeneration: 0bb97a2ec5a85bb2b71b5684a5521f29c78dfe9e
   MixboxMocksRuntime: e9a4321e2b8efb774d800607b32e9a486aa63318
   MixboxReflection: 08d247df00a91eceef1feef26561115e7101b38c
   MixboxStubbing: 32ebdc7d599daf9ce00cbc4908c2ef353880bd0e
