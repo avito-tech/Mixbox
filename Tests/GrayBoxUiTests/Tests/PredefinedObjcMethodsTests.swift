@@ -12,9 +12,6 @@ final class PredefinedObjcMethodsTests: TestCase {
     override func setUp() {
         super.setUp()
         
-        // TODO: Do it automatically.
-        factory.setMockManager(mockManager: MockManagerImpl())
-        
         continueAfterFailure = false
         
         factory

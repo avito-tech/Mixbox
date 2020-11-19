@@ -6,8 +6,10 @@ import MixboxUiKit
 import MixboxDi
 import MixboxBuiltinDi
 import TestsIpc
+import MixboxMocksRuntime
 
 class BaseTestCase: XCTestCase, FailureGatherer {
+    private var tearDownAction: TearDownAction?
     private let mocksDependencyInjection = BuiltinDependencyInjection()
     
     // This enables mocking dependencies (improves testability).
@@ -66,6 +68,22 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         UnavoidableFailure.fail("\(#function) should be implemented in a subclass of \(BaseTestCase.self)")
     }
     
+    func setUpAction() -> SetUpAction {
+        return CompoundSetUpAction(
+            setUpActions: [
+                LogEnvironmentSetUpAction(
+                    dateProvider: dateProvider,
+                    stepLogger: stepLogger,
+                    iosVersionProvider: iosVersionProvider
+                ),
+                RegisterMocksSetUpAction(
+                    testCase: self,
+                    mockRegisterer: dependencies.resolve()
+                )
+            ]
+        )
+    }
+    
     private var recordingFailureRecursionCounter = 0
     private let recordingFailureRecursionCounterThreshold = 10
     
@@ -94,7 +112,7 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         let isCiBuild = environmentProvider.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
         continueAfterFailure = !isCiBuild
         
-        logEnvironment()
+        tearDownAction = setUpAction().setUp()
         
         reuseState {
             precondition()
@@ -103,25 +121,13 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         }
     }
     
-    private func logEnvironment() {
-        let device = UIDevice.mb_platformType.rawValue
-        let os = iosVersionProvider.iosVersion().majorAndMinor
+    override func tearDown() {
+        tearDownAction?.tearDown()
         
-        stepLogger.logEntry(
-            date: dateProvider.currentDate(),
-            title: "Started test with environment",
-            attachments: [
-                Attachment(
-                    name: "Environment",
-                    content: .text(
-                        """
-                        Device: \(device)
-                        OS: iOS \(os)
-                        """
-                    )
-                )
-            ]
-        )
+        super.tearDown()
+    }
+    
+    private func logEnvironment() {
     }
     
     private func assertPreconditionInSuperClassIsCalled() {

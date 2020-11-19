@@ -4,10 +4,21 @@ import MixboxIpc
 import MixboxFoundation
 import MixboxUiKit
 import MixboxDi
+import MixboxMocksRuntime
 import TestsIpc
 
 final class TestCaseDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {
+        di.register(type: MockManagerFactory.self) { di in
+            MockManagerFactoryImpl(
+                testFailureRecorder: try di.resolve()
+            )
+        }
+        di.register(type: MockRegisterer.self) { di in
+            MockRegistererImpl(
+                mockManagerFactory: try di.resolve()
+            )
+        }
         di.register(type: EnvironmentProvider.self) { _ in
             Singletons.environmentProvider
         }

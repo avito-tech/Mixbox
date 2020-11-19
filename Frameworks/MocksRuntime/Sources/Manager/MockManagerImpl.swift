@@ -6,23 +6,19 @@ public final class MockManagerImpl: MockManager {
     private var callRecords: [CallRecord] = []
     private var expectationsByFunctionId: [String: [Expectation]] = [:]
     private let testFailureRecorder: TestFailureRecorder
-    private let fileLine: FileLine
     
     public init(
-        testFailureRecorder: TestFailureRecorder,
-        fileLine: FileLine)
+        testFailureRecorder: TestFailureRecorder)
     {
         self.testFailureRecorder = testFailureRecorder
-        self.fileLine = fileLine
     }
     
-    public convenience init(file: StaticString = #file, line: UInt = #line) {
+    public convenience init() {
         self.init(
             testFailureRecorder: XcTestFailureRecorder(
                 currentTestCaseProvider: AutomaticCurrentTestCaseProvider(),
                 shouldNeverContinueTestAfterFailure: false
-            ),
-            fileLine: FileLine(file: file, line: line)
+            )
         )
     }
     

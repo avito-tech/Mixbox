@@ -5,7 +5,7 @@ import MixboxTestsFoundation
 class MockFixtureProtocol:
     MixboxMocksRuntime.BaseMock,
     FixtureProtocol,
-    MixboxMocksRuntime.MockType
+    MixboxMocksRuntime.Mock
 {
     class StubBuilder: MixboxMocksRuntime.StubBuilder {
         private let mockManager: MixboxMocksRuntime.MockManager

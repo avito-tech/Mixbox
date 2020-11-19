@@ -15,7 +15,7 @@ open class BaseMock {
         self.fileLineWhereInitialized = FileLine(file: file, line: line)
     }
     
-    // MARK: - MockType
+    // MARK: - Mock
     
     public var mockManager: MockManager {
         return storedMockManager.unwrapOrFail(

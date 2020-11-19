@@ -3,7 +3,7 @@ import XCTest
 import MixboxIpcCommon
 import MixboxMocksRuntime
 
-final class RecordedSessionStubberTests: XCTestCase {
+final class RecordedSessionStubberTests: TestCase {
     private let stubResponseBuilder = MockStubResponseBuilder()
     private let stubRequestBuilder = MockStubRequestBuilder()
     private lazy var recordedSessionStubber = RecordedSessionStubberImpl(
@@ -12,10 +12,6 @@ final class RecordedSessionStubberTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        // TODO: Do it automatically.
-        stubRequestBuilder.setMockManager(mockManager: MockManagerImpl())
-        stubResponseBuilder.setMockManager(mockManager: MockManagerImpl())
         
         stubRequestBuilder
             .stub()

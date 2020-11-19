@@ -1,13 +1,10 @@
 import XCTest
 import MixboxMocksRuntime
 
-class MixboxMocksRuntimeTests: XCTestCase {
+class MixboxMocksRuntimeTests: TestCase {
+    let mock = MockFixtureProtocol()
+    
     func testExample() {
-        let mock = MockFixtureProtocol()
-        
-        // TODO: Do it automatically.
-        mock.setMockManager(mockManager: MockManagerImpl())
-        
         mock.stub()
             .fixtureFunction(any(), labeled: any())
             .thenInvoke { a, b in a + b }

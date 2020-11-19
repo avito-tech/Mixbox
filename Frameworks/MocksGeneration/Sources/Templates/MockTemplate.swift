@@ -12,7 +12,7 @@ public final class MockTemplate {
         class Mock\(protocolType.name):
             MixboxMocksRuntime.BaseMock,
             \(protocolType.name),
-            MixboxMocksRuntime.MockType
+            MixboxMocksRuntime.Mock
         {
             \(try StubBuilderTemplate(protocolType: protocolType).render().indent())
         
