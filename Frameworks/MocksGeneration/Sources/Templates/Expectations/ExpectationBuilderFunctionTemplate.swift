@@ -13,7 +13,7 @@ public class ExpectationBuilderFunctionTemplate {
             returnType: nil,
             customBody:
             """
-            mockManager.addExpecatation(
+            _ = mockManager.addExpecatation(
                 functionId:
                 \"\"\"
                 \(method.name)

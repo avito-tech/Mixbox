@@ -12,6 +12,9 @@ final class PredefinedObjcMethodsTests: TestCase {
     override func setUp() {
         super.setUp()
         
+        // TODO: Do it automatically.
+        factory.setMockManager(mockManager: MockManagerImpl())
+        
         continueAfterFailure = false
         
         factory
@@ -26,8 +29,8 @@ final class PredefinedObjcMethodsTests: TestCase {
             .thenReturn(
                 // Value doesn't matter
                 AllMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
-                    enhancedAccessibilityLabelMethodSwizzler: MockEnhancedAccessibilityLabelMethodSwizzler(),
-                    objcMethodsWithUniqueImplementationProvider: MockObjcMethodsWithUniqueImplementationProvider(),
+                    enhancedAccessibilityLabelMethodSwizzler: MockEnhancedAccessibilityLabelMethodSwizzler(mockManager: MockManagerImpl()),
+                    objcMethodsWithUniqueImplementationProvider: MockObjcMethodsWithUniqueImplementationProvider(mockManager: MockManagerImpl()),
                     baseClass: NSObject.self,
                     selector: #selector(NSObject.init),
                     methodType: .instanceMethod
@@ -118,7 +121,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         // Given
         var fallbackWasUsed = false
         
-        let fallbackObjcMethodsWithUniqueImplementationProvider = MockObjcMethodsWithUniqueImplementationProvider()
+        let fallbackObjcMethodsWithUniqueImplementationProvider = MockObjcMethodsWithUniqueImplementationProvider(mockManager: MockManagerImpl())
         fallbackObjcMethodsWithUniqueImplementationProvider
             .stub()
             .objcMethodsWithUniqueImplementation(baseClass: any(), selector: any(), methodType: any())

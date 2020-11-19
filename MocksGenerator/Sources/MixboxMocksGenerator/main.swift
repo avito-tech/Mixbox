@@ -4,12 +4,13 @@ import Foundation
 
 do {
     let arguments = ProcessInfo.processInfo.arguments
-    guard arguments.count >= 4 else {
+    guard arguments.count >= 5 else {
         exit(1)
     }
     let moduleName = arguments[1]
-    let outputFile = arguments[2]
-    let inputFiles = Array(arguments.suffix(from: 3))
+    let destinationModuleName = arguments[2]
+    let outputFile = arguments[3]
+    let inputFiles = Array(arguments.suffix(from: 4))
     
     let parser = SourceFileParserImpl()
     
@@ -20,7 +21,8 @@ do {
     )
     
     let template = AllMocksTemplate(
-        parsedSourceFiles: parsedSourceFiles
+        parsedSourceFiles: parsedSourceFiles,
+        destinationModuleName: destinationModuleName
     )
     
     try NSString(string: try template.render()).write(

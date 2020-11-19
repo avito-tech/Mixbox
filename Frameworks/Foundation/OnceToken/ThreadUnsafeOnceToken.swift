@@ -10,12 +10,22 @@ public final class ThreadUnsafeOnceToken<T>: OnceToken {
         return value != nil
     }
     
-    public func executeOnce(_ closure: () throws -> T) rethrows -> T {
+    public func executeOnce(
+        body: () throws -> T,
+        observer: (Bool, T) -> ())
+        rethrows
+        -> T
+    {
         if let value = value {
+            observer(false, value)
+            
             return value
         } else {
-            let value = try closure()
+            let value = try body()
             self.value = value
+            
+            observer(true, value)
+            
             return value
         }
     }

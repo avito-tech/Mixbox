@@ -5,32 +5,86 @@ extension Optional {
         error: (_ fileLine: FileLine) -> Error,
         file: StaticString = #file,
         line: UInt = #line)
-        throws -> Wrapped
+        throws
+        -> Wrapped
     {
-        if let unwrapped = self {
-            return unwrapped
-        } else {
-            throw error(FileLine(file: file, line: line))
-        }
+        return try unwrapOrThrow(
+            error: error(
+                FileLine(
+                    file: file,
+                    line: line
+                )
+            )
+        )
     }
     
-    public func unwrapOrThrow(file: StaticString = #file, line: UInt = #line) throws -> Wrapped {
+    public func unwrapOrThrow(
+        message: (_ fileLine: FileLine) -> String,
+        file: StaticString = #file,
+        line: UInt = #line)
+        throws
+        -> Wrapped
+    {
         return try unwrapOrThrow(
-            error: { ErrorString("Found nil when unwrapping optional at \($0.file):\($0.line)") },
+            error: { fileLine in
+                ErrorString(message(fileLine))
+            },
             file: file,
             line: line
         )
     }
     
     public func unwrapOrThrow(
+        message: @autoclosure () -> String)
+        throws
+        -> Wrapped
+    {
+        return try unwrapOrThrow(
+            error: { ErrorString(message()) }()
+        )
+    }
+    
+    public func unwrapOrThrow(
         error: @autoclosure () -> Error)
-        throws -> Wrapped
+        throws
+        -> Wrapped
     {
         if let unwrapped = self {
             return unwrapped
         } else {
             throw error()
         }
+    }
+    
+    public func unwrapOrThrow(
+        file: StaticString = #file,
+        line: UInt = #line)
+        throws
+        -> Wrapped
+    {
+        return try unwrapOrThrow(
+            error: Self.defaultError,
+            file: file,
+            line: line
+        )
+    }
+    
+    private static func defaultError(
+        fileLine: FileLine)
+        -> Error
+    {
+        return ErrorString(
+            defaultMessage(
+                fileLine: fileLine
+            )
+        )
+    }
+    
+    private static func defaultMessage(
+        fileLine: FileLine)
+        -> String
+    {
+        return "Found nil when unwrapping optional at \(fileLine.file):\(fileLine.line)"
     }
 }
 

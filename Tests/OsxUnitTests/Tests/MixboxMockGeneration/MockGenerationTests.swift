@@ -5,15 +5,21 @@ import MixboxMocksGeneration
 final class MockGenerationTests: XCTestCase {
     func test() {
         do {
+            let moduleName = "UnitTests"
             let parser = SourceFileParserImpl()
             let parsedSourceFile = try parser.parse(
                 path: FixturesPath.fixtureProtocolPath,
-                moduleName: "FixtureModule"
+                moduleName: moduleName
             )
             let parsedSourceFiles = ParsedSourceFiles(sourceFiles: [parsedSourceFile])
             
+            let template = AllMocksTemplate(
+                parsedSourceFiles: parsedSourceFiles,
+                destinationModuleName: moduleName
+            )
+            
             try assertEqualsToFixtureFile(
-                actualString: try AllMocksTemplate(parsedSourceFiles: parsedSourceFiles).render(),
+                actualString: template.render(),
                 expectedStringFilePath: FixturesPath.fixtureProtocolMockPath
             )
         } catch {

@@ -8,17 +8,22 @@ public final class MockManagerImpl: MockManager {
     private let testFailureRecorder: TestFailureRecorder
     private let fileLine: FileLine
     
-    public static let defaultTestFailureRecorder: TestFailureRecorder = XcTestFailureRecorder(
-        currentTestCaseProvider: AutomaticCurrentTestCaseProvider(),
-        shouldNeverContinueTestAfterFailure: false
-    )
-    
     public init(
-        testFailureRecorder: TestFailureRecorder = defaultTestFailureRecorder,
+        testFailureRecorder: TestFailureRecorder,
         fileLine: FileLine)
     {
         self.testFailureRecorder = testFailureRecorder
         self.fileLine = fileLine
+    }
+    
+    public convenience init(file: StaticString = #file, line: UInt = #line) {
+        self.init(
+            testFailureRecorder: XcTestFailureRecorder(
+                currentTestCaseProvider: AutomaticCurrentTestCaseProvider(),
+                shouldNeverContinueTestAfterFailure: false
+            ),
+            fileLine: FileLine(file: file, line: line)
+        )
     }
     
     public func call<Arguments, ReturnValue>(
@@ -84,13 +89,17 @@ public final class MockManagerImpl: MockManager {
         fileLine: FileLine,
         times: FunctionalMatcher<Int>,
         matcher: FunctionalMatcher<Arguments>)
+        -> Expectation
     {
         let expectation = Expectation(
             matcher: matcher.byErasingType(),
             times: times,
             fileLine: fileLine
         )
+        
         addExpectation(expectation, functionId: functionId)
+        
+        return expectation
     }
     
     public func addStub<Arguments>(

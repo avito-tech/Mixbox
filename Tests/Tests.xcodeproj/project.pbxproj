@@ -469,6 +469,7 @@
 		F8BB4409240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BB4408240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift */; };
 		F8BCA9DF213D55E400592068 /* UIImage+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+Stub.swift */; };
 		F8C3656524182D22005DD578 /* DigitizerFingerEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3656424182D22005DD578 /* DigitizerFingerEventTests.swift */; };
+		F8C39E3925665FDD00CE2A03 /* UnwrapOrThrowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C39E3825665FDD00CE2A03 /* UnwrapOrThrowTests.swift */; };
 		F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */; };
 		F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */; };
 		F8C3AD072437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C3AD062437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift */; };
@@ -1040,6 +1041,7 @@
 		F8C3655D24182110005DD578 /* AppForCheckingPureXctest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppForCheckingPureXctest-Bridging-Header.h"; sourceTree = "<group>"; };
 		F8C3655E24182110005DD578 /* PrivateApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateApi.h; sourceTree = "<group>"; };
 		F8C3656424182D22005DD578 /* DigitizerFingerEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitizerFingerEventTests.swift; sourceTree = "<group>"; };
+		F8C39E3825665FDD00CE2A03 /* UnwrapOrThrowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapOrThrowTests.swift; sourceTree = "<group>"; };
 		F8C3A7302436E5F2004B6BA4 /* OverflowingUInt64Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowingUInt64Tests.swift; sourceTree = "<group>"; };
 		F8C3A7322436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MersenneTwisterRandomNumberProviderTests.swift; sourceTree = "<group>"; };
 		F8C3AD062437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyArrayGeneratorTests.swift; sourceTree = "<group>"; };
@@ -2890,6 +2892,7 @@
 				F8C5A34B22B2E00800E643EC /* CollectionExtensionTests.swift */,
 				F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */,
 				F8933D3823E20225002727AC /* GenericSerializationTests.swift */,
+				F8C39E3825665FDD00CE2A03 /* UnwrapOrThrowTests.swift */,
 			);
 			path = MixboxFoundation;
 			sourceTree = "<group>";
@@ -4810,6 +4813,7 @@
 				F8C3AD092437A377004B6BA4 /* EmptyDictionaryGeneratorTests.swift in Sources */,
 				F8DC863C2367253B003889C7 /* UIImage+Stub.swift in Sources */,
 				F853D003214ACCF300EAFBCE /* ExtendedStackTraceProviderImplTests.swift in Sources */,
+				F8C39E3925665FDD00CE2A03 /* UnwrapOrThrowTests.swift in Sources */,
 				F8C5A34C22B2E00800E643EC /* CollectionExtensionTests.swift in Sources */,
 				F8E160D02418674600B4912F /* MultiTouchEventFactoryTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,

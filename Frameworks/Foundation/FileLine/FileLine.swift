@@ -20,7 +20,7 @@
 // We cant use function with same signature in protocol extension, because
 // it would cause stack overflow. So FileLine is useful also for this case.
 
-public final class FileLine: Hashable {
+public final class FileLine: Hashable, CustomStringConvertible {
     public let file: StaticString
     public let line: UInt
     
@@ -40,6 +40,10 @@ public final class FileLine: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(String(describing: file))
         hasher.combine(line)
+    }
+    
+    public var description: String {
+        return "\(file):\(line)"
     }
 }
 

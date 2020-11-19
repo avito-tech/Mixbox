@@ -5,6 +5,9 @@ class MixboxMocksRuntimeTests: XCTestCase {
     func testExample() {
         let mock = MockFixtureProtocol()
         
+        // TODO: Do it automatically.
+        mock.setMockManager(mockManager: MockManagerImpl())
+        
         mock.stub()
             .fixtureFunction(any(), labeled: any())
             .thenInvoke { a, b in a + b }

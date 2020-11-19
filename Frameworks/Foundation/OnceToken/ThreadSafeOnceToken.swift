@@ -19,21 +19,31 @@ public final class ThreadSafeOnceToken<T>: OnceToken {
         }
     }
     
-    public func executeOnce(_ closure: () throws -> T) rethrows -> T {
+    public func executeOnce(
+        body: () throws -> T,
+        observer: (Bool, T) -> ())
+        rethrows
+        -> T
+    {
         if let value = value {
             return value
         } else {
             semaphore.wait()
             
             if let value = value {
-                defer {
-                    semaphore.signal()
-                }
+                semaphore.signal()
+                
+                observer(false, value)
+                
                 return value
             } else {
-                let value = try closure()
+                let value = try body()
                 self.value = value
+                
                 semaphore.signal()
+                
+                observer(true, value)
+                
                 return value
             }
         }

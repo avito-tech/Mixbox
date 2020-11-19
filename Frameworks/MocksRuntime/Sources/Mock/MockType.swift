@@ -2,12 +2,13 @@ import MixboxFoundation
 
 public protocol MockType: class {
     var mockManager: MockManager { get }
+    func setMockManager(mockManager: MockManager)
     
-    associatedtype StubBuilder
-    associatedtype ExpectationBuilder
+    associatedtype StubBuilder: MixboxMocksRuntime.StubBuilder
+    associatedtype ExpectationBuilder: MixboxMocksRuntime.ExpectationBuilder
 }
 
-extension MockType where StubBuilder: MixboxMocksRuntime.StubBuilder, ExpectationBuilder: MixboxMocksRuntime.ExpectationBuilder {
+extension MockType {
     public func expect(
         file: StaticString = #file,
         line: UInt = #line)

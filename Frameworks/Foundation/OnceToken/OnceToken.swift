@@ -7,9 +7,23 @@ public protocol OnceToken: class {
     func wasExecuted() -> Bool
     
     func executeOnce(
-        _ closure: () throws -> ReturnValue)
+        body: () throws -> ReturnValue,
+        observer: (Bool, ReturnValue) -> ())
         rethrows
         -> ReturnValue
+}
+
+extension OnceToken {
+    public func executeOnce(
+        body: () throws -> ReturnValue)
+        rethrows
+        -> ReturnValue
+    {
+        return try executeOnce(
+            body: body,
+            observer: { _, _ in }
+        )
+    }
 }
 
 #endif

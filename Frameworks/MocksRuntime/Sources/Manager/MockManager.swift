@@ -11,12 +11,12 @@ public protocol MockManager: class {
     func addStub<Arguments>(
         functionId: String,
         closure: @escaping (Any) -> Any,
-        matcher: FunctionalMatcher<Arguments>
-    )
+        matcher: FunctionalMatcher<Arguments>)
     
     func addExpecatation<Arguments>(
         functionId: String,
         fileLine: FileLine,
         times: FunctionalMatcher<Int>,
         matcher: FunctionalMatcher<Arguments>)
+        -> Expectation
 }

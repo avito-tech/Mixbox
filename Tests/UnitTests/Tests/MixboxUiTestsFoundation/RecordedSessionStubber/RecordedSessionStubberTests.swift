@@ -13,6 +13,10 @@ final class RecordedSessionStubberTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
+        // TODO: Do it automatically.
+        stubRequestBuilder.setMockManager(mockManager: MockManagerImpl())
+        stubResponseBuilder.setMockManager(mockManager: MockManagerImpl())
+        
         stubRequestBuilder
             .stub()
             .withRequestStub(urlPattern: any(), httpMethod: any())

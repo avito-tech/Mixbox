@@ -28,12 +28,12 @@ main() {
     APPLY_MOCKS_MODE="generateAllFilesList"
     applyMocks
     
-    local root = "${PROJECT_DIR}/.."
+    local repo_root="${PROJECT_DIR}/.."
     
-    local filesAffectingCodeGeneration=("${ALL_FILES_TO_MOCK[@]}" "$0" "$root/Package.swift")
+    local filesAffectingCodeGeneration=("${ALL_FILES_TO_MOCK[@]}" "$0" "$repo_root/Package.swift")
     
     IFS=$'\n'
-    for file in $(find "$root/Frameworks/MocksGeneration" -type f; find "$root/MocksGenerator" -type f)
+    for file in $(find "$repo_root/Frameworks/MocksGeneration" -type f; find "$repo_root/MocksGenerator" -type f)
     do
         filesAffectingCodeGeneration=("${filesAffectingCodeGeneration[@]}" "$file")
     done
@@ -90,6 +90,7 @@ completeGeneration() {
     
     generate \
         "$MODULE_TO_MOCK" \
+        "UnitTests" \
         "${tmpfile}"  \
         "${ALL_FILES_TO_MOCK[@]}" || exit 1
     
