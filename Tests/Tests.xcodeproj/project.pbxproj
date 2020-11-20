@@ -6,6 +6,58 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		F8F4A1B3256820BB0093523E /* GenerateMocksForUnitTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F8F4A1B4256820BB0093523E /* Build configuration list for PBXAggregateTarget "GenerateMocksForUnitTests" */;
+			buildPhases = (
+				F8F4A1BE256822A30093523E /* ShellScript */,
+			);
+			dependencies = (
+				F8F4A1CF2568269F0093523E /* PBXTargetDependency */,
+			);
+			name = GenerateMocksForUnitTests;
+			productName = GenerateMocksForUnitTests;
+		};
+		F8F4A1B7256820C80093523E /* GenerateMocksForGrayBoxUiTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F8F4A1B8256820C80093523E /* Build configuration list for PBXAggregateTarget "GenerateMocksForGrayBoxUiTests" */;
+			buildPhases = (
+				F8F4A1C6256823010093523E /* ShellScript */,
+			);
+			dependencies = (
+				F8F4A1D1256826A50093523E /* PBXTargetDependency */,
+			);
+			name = GenerateMocksForGrayBoxUiTests;
+			productName = GenerateMocksForGrayBoxTests;
+		};
+		F8F4A1C92568267B0093523E /* WarmUpCodeGeneration */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F8F4A1CA2568267B0093523E /* Build configuration list for PBXAggregateTarget "WarmUpCodeGeneration" */;
+			buildPhases = (
+				F8F4A1CD256826870093523E /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = WarmUpCodeGeneration;
+			productName = WarmUpCodeGeneration;
+		};
+		F8F4A1D5256833060093523E /* BuildLintAndUnitTest */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F8F4A1D6256833060093523E /* Build configuration list for PBXAggregateTarget "BuildLintAndUnitTest" */;
+			buildPhases = (
+				F8F4A1E125683AA00093523E /* ShellScript */,
+			);
+			dependencies = (
+				F8F4A1DE256833210093523E /* PBXTargetDependency */,
+				F8F4A1E0256833210093523E /* PBXTargetDependency */,
+				F8F4A1DC256833130093523E /* PBXTargetDependency */,
+			);
+			name = BuildLintAndUnitTest;
+			productName = LintAfterBuild;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		145A75A2B44787A4ED137B5D /* Pods_Lint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B60ED96BAF599D304F89BB /* Pods_Lint.framework */; };
 		26EC7E4F90D6BD5075C83255 /* Pods_OsxUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */; };
@@ -94,7 +146,7 @@
 		F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */; };
 		F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */; };
 		F81144D02268D39C00ED519B /* GeneratedMocks.ignored.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */; };
-		F81144D12268D39C00ED519B /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F81144CF2268D39C00ED519B /* generate_mocks */; };
+		F81144D12268D39C00ED519B /* mock_generation.sh in Resources */ = {isa = PBXBuildFile; fileRef = F81144CF2268D39C00ED519B /* mock_generation.sh */; };
 		F812A17624E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F812A17524E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift */; };
 		F813CAEA209CC5D400E6A27C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F813CAE9209CC5D400E6A27C /* AppDelegate.swift */; };
 		F813CAF1209CC5D700E6A27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F813CAF0209CC5D700E6A27C /* Assets.xcassets */; };
@@ -546,7 +598,6 @@
 		F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D85562235E473F0068047A /* CuckooMatchers.swift */; };
 		F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8556C235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift */; };
 		F8D8556E235E5C150068047A /* PredefinedObjcMethodsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D8552A235DF5BA0068047A /* PredefinedObjcMethodsTests.swift */; };
-		F8D8556F235E5C300068047A /* GeneratedMocks.ignored.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */; };
 		F8DB34D9227223B000EE0FB8 /* UIImage+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BCA9DE213D55E400592068 /* UIImage+Stub.swift */; };
 		F8DB350622725E8C00EE0FB8 /* RunLoopSpinnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB350522725E8C00EE0FB8 /* RunLoopSpinnerTests.swift */; };
 		F8DB359A22738C9A00EE0FB8 /* BaseTouchesTestCase+GetEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DB359222738B7200EE0FB8 /* BaseTouchesTestCase+GetEvents.swift */; };
@@ -626,6 +677,11 @@
 		F8EF37B024094B2F0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */; };
 		F8EF37B324094C690041DBF9 /* DelayingFocusGainingInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */; };
 		F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */; };
+		F8F4A1AD2568165E0093523E /* ProtocolToMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1AC2568165E0093523E /* ProtocolToMock.swift */; };
+		F8F4A1BD256821600093523E /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F8F4A1BC256821600093523E /* generate_mocks */; };
+		F8F4A1C4256822E50093523E /* GeneratedMocks.ignored.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1C2256822E50093523E /* GeneratedMocks.ignored.swift */; };
+		F8F4A1C5256822E50093523E /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F8F4A1C3256822E50093523E /* generate_mocks */; };
+		F8F4A1D425682F740093523E /* ObjcProtocolToMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1D325682F740093523E /* ObjcProtocolToMock.swift */; };
 		F8F8223624ED6D53007EEA45 /* PageObjectMakingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D1AA9C24ED5AD9001147B6 /* PageObjectMakingHelperTests.swift */; };
 		F8F8223724ED6D55007EEA45 /* PageObjectMakingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D1AA9C24ED5AD9001147B6 /* PageObjectMakingHelperTests.swift */; };
 		F8F8320524EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320424EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift */; };
@@ -693,6 +749,55 @@
 			remoteGlobalIDString = F8E6EF4122831233007A97E5;
 			remoteInfo = FakeSettingsApp;
 		};
+		F8F4A1BF256822BE0093523E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8F4A1B3256820BB0093523E;
+			remoteInfo = GenerateMocksForUnitTests;
+		};
+		F8F4A1C7256823150093523E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8F4A1B7256820C80093523E;
+			remoteInfo = GenerateMocksForGrayBoxUiTests;
+		};
+		F8F4A1CE2568269F0093523E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8F4A1C92568267B0093523E;
+			remoteInfo = WarmUpCodeGeneration;
+		};
+		F8F4A1D0256826A50093523E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8F4A1C92568267B0093523E;
+			remoteInfo = WarmUpCodeGeneration;
+		};
+		F8F4A1DB256833130093523E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F866756C2121E81E00396F02;
+			remoteInfo = UnitTests;
+		};
+		F8F4A1DD256833210093523E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F813CAF9209CC5D700E6A27C;
+			remoteInfo = BlackBoxUiTests;
+		};
+		F8F4A1DF256833210093523E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8B0A1FF2209C44A0089C1EE;
+			remoteInfo = GrayBoxUiTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -756,7 +861,7 @@
 		F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsSubviewMatcherTests.swift; sourceTree = "<group>"; };
 		F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedSessionStubberTests.swift; sourceTree = "<group>"; };
 		F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.ignored.swift; sourceTree = "<group>"; };
-		F81144CF2268D39C00ED519B /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
+		F81144CF2268D39C00ED519B /* mock_generation.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = mock_generation.sh; sourceTree = "<group>"; };
 		F812A17524E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundDependencyResolverTests.swift; sourceTree = "<group>"; };
 		F813CAE6209CC5D400E6A27C /* TestedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F813CAE9209CC5D400E6A27C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1148,6 +1253,12 @@
 		F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayingFocusGainingInput.swift; sourceTree = "<group>"; };
 		F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDescriptionBuilderTests.swift; sourceTree = "<group>"; };
+		F8F4A1AC2568165E0093523E /* ProtocolToMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolToMock.swift; sourceTree = "<group>"; };
+		F8F4A1BC256821600093523E /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
+		F8F4A1C2256822E50093523E /* GeneratedMocks.ignored.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.ignored.swift; sourceTree = "<group>"; };
+		F8F4A1C3256822E50093523E /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
+		F8F4A1D2256826C50093523E /* warm_up_code_generation */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = warm_up_code_generation; sourceTree = "<group>"; };
+		F8F4A1D325682F740093523E /* ObjcProtocolToMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcProtocolToMock.swift; sourceTree = "<group>"; };
 		F8F8320424EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonLogicGeneratorFacadeTests.swift; sourceTree = "<group>"; };
 		F8F8320624EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumsGeneratorFacadeTests.swift; sourceTree = "<group>"; };
 		F8F8320824EFEE94007EEA45 /* NonFinalClassesGeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFinalClassesGeneratorFacadeTests.swift; sourceTree = "<group>"; };
@@ -1358,8 +1469,8 @@
 			isa = PBXGroup;
 			children = (
 				F8C3AD1A243AFD4D004B6BA4 /* Custom */,
+				F8F4A1BC256821600093523E /* generate_mocks */,
 				F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */,
-				F81144CF2268D39C00ED519B /* generate_mocks */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1388,6 +1499,7 @@
 				F8D854E7235A512C0068047A /* AppForCheckingPureXctest */,
 				F8D85509235A512E0068047A /* AppForCheckingPureXctestUITests */,
 				F88F5502255ED86D0072A9BF /* OsxUnitTests */,
+				F8F4A1BB256821320093523E /* Scripts */,
 				F813CAE7209CC5D400E6A27C /* Products */,
 				AB15AD35FB63246BDD8CE9FB /* Frameworks */,
 				F96411DC076B490934B1B9F9 /* Pods */,
@@ -2604,6 +2716,7 @@
 		F8B0A2012209C44A0089C1EE /* GrayBoxUiTests */ = {
 			isa = PBXGroup;
 			children = (
+				F8F4A1C1256822C80093523E /* Mocks */,
 				F8B0A231220A0E040089C1EE /* Support */,
 				F8B0A22F220A0E040089C1EE /* Tests */,
 				F8B0A2042209C44A0089C1EE /* Info.plist */,
@@ -2778,6 +2891,7 @@
 		F8B39FEC2423F05500BFACD8 /* MixboxGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				F8F4A1AB256816460093523E /* Integration */,
 				F8D262D124431D6C0006B707 /* Support */,
 				F8D262CE2443134B0006B707 /* GeneratorFacadeTests */,
 				F82BDF81243DA5840010FD6C /* AnyGenerator */,
@@ -3444,6 +3558,33 @@
 			path = SetTextActionWaitsForElementToGainFocusTests;
 			sourceTree = "<group>";
 		};
+		F8F4A1AB256816460093523E /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				F8F4A1AC2568165E0093523E /* ProtocolToMock.swift */,
+				F8F4A1D325682F740093523E /* ObjcProtocolToMock.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		F8F4A1BB256821320093523E /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				F8F4A1D2256826C50093523E /* warm_up_code_generation */,
+				F81144CF2268D39C00ED519B /* mock_generation.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
+		F8F4A1C1256822C80093523E /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				F8F4A1C3256822E50093523E /* generate_mocks */,
+				F8F4A1C2256822E50093523E /* GeneratedMocks.ignored.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		F8F8320E24EFEF28007EEA45 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -3605,6 +3746,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F8F4A1C0256822BE0093523E /* PBXTargetDependency */,
 				F86675732121E81E00396F02 /* PBXTargetDependency */,
 			);
 			name = UnitTests;
@@ -3644,6 +3786,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F8F4A1C8256823150093523E /* PBXTargetDependency */,
 				F8B0A2062209C44A0089C1EE /* PBXTargetDependency */,
 			);
 			name = GrayBoxUiTests;
@@ -3768,6 +3911,22 @@
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
+					F8F4A1B3256820BB0093523E = {
+						CreatedOnToolsVersion = 11.7;
+						ProvisioningStyle = Automatic;
+					};
+					F8F4A1B7256820C80093523E = {
+						CreatedOnToolsVersion = 11.7;
+						ProvisioningStyle = Automatic;
+					};
+					F8F4A1C92568267B0093523E = {
+						CreatedOnToolsVersion = 11.7;
+						ProvisioningStyle = Automatic;
+					};
+					F8F4A1D5256833060093523E = {
+						CreatedOnToolsVersion = 11.7;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = F813CAE1209CC5D400E6A27C /* Build configuration list for PBXProject "Tests" */;
@@ -3793,6 +3952,10 @@
 				F8D854E5235A512C0068047A /* AppForCheckingPureXctest */,
 				F8D85505235A512E0068047A /* AppForCheckingPureXctestUITests */,
 				F88F5500255ED86D0072A9BF /* OsxUnitTests */,
+				F8F4A1B3256820BB0093523E /* GenerateMocksForUnitTests */,
+				F8F4A1B7256820C80093523E /* GenerateMocksForGrayBoxUiTests */,
+				F8F4A1C92568267B0093523E /* WarmUpCodeGeneration */,
+				F8F4A1D5256833060093523E /* BuildLintAndUnitTest */,
 			);
 		};
 /* End PBXProject section */
@@ -3841,7 +4004,8 @@
 				F8971DCC226746AD001741C1 /* BundleResourcePathProviderImplTests_without_extension_json in Resources */,
 				F8971D8B22661B06001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.recordedNetworkSession.json in Resources */,
 				F8971D8D226620EF001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.empty.json in Resources */,
-				F81144D12268D39C00ED519B /* generate_mocks in Resources */,
+				F81144D12268D39C00ED519B /* mock_generation.sh in Resources */,
+				F8F4A1BD256821600093523E /* generate_mocks in Resources */,
 				F8971DCB226746AD001741C1 /* BundleResourcePathProviderImplTests_with_extension.json in Resources */,
 				F8971DCD226746AD001741C1 /* BundleResourcePathProviderImplTests.with.lots.of.dots.json in Resources */,
 			);
@@ -3861,6 +4025,7 @@
 				F8C8ED5122999A170009B9A7 /* Media.xcassets in Resources */,
 				F8C8ED282298505D0009B9A7 /* NetworkPlayerShowcaseTests.alwaysEmpty.json in Resources */,
 				F8C8ED292298505D0009B9A7 /* MoreComplexExample.recordedNetworkSession.json in Resources */,
+				F8F4A1C5256822E50093523E /* generate_mocks in Resources */,
 				F8A837C72270F25000145140 /* screenshotTestsView_screenshot.png in Resources */,
 				F8C8ED272298505D0009B9A7 /* NetworkPlayerShowcaseTests.recordedNetworkSession.json in Resources */,
 			);
@@ -4450,6 +4615,74 @@
 			shellPath = /bin/sh;
 			shellScript = "repoRoot=$(cd \"$PODS_ROOT\"; git rev-parse --show-toplevel)\n\ncd \"$repoRoot\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		F8F4A1BE256822A30093523E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "\"${PROJECT_DIR}/UnitTests/Mocks/generate_mocks\"\n";
+		};
+		F8F4A1C6256823010093523E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "\"${PROJECT_DIR}/GrayBoxUiTests/Mocks/generate_mocks\"\n";
+		};
+		F8F4A1CD256826870093523E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/Scripts/warm_up_code_generation\"\n";
+		};
+		F8F4A1E125683AA00093523E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "repoRoot=$(cd \"$PROJECT_DIR\"; git rev-parse --show-toplevel)\n\ncd \"$repoRoot\"\n\"$repoRoot/Tests/Pods/SwiftLint/swiftlint\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -4814,6 +5047,7 @@
 				F8539645254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift in Sources */,
 				F8EC2C92251250E8009B0813 /* UIViewTestabilityWithAccessibilityDisabledTests.swift in Sources */,
 				F80C2E1224D1DAFD00C6CAD4 /* AttachmentMatcherBuilder.swift in Sources */,
+				F8F4A1AD2568165E0093523E /* ProtocolToMock.swift in Sources */,
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
 				F8F8320924EFEE94007EEA45 /* NonFinalClassesGeneratorFacadeTests.swift in Sources */,
 				F80C2E2224D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift in Sources */,
@@ -4829,6 +5063,7 @@
 				F80C2E4D24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift in Sources */,
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
+				F8F4A1D425682F740093523E /* ObjcProtocolToMock.swift in Sources */,
 				F8B5C68F254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift in Sources */,
 				F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */,
 				F80C2E3B24D1E52900C6CAD4 /* Singletons+StepLogger.swift in Sources */,
@@ -5026,7 +5261,7 @@
 				F8A83828227215C300145140 /* AssertBecomesTallerAfterInteractionTests.swift in Sources */,
 				F8308D3A24B734E600C79892 /* Singletons+StepLogger.swift in Sources */,
 				F8F9C2AF2368949000E9A044 /* UiTestCaseDependencies.swift in Sources */,
-				F8D8556F235E5C300068047A /* GeneratedMocks.ignored.swift in Sources */,
+				F8F4A1C4256822E50093523E /* GeneratedMocks.ignored.swift in Sources */,
 				F8B964AD2280A1070054CE08 /* SwipeActionWaitsTests.swift in Sources */,
 				F8B0A257220A0EF30089C1EE /* TestReportAttachment.swift in Sources */,
 				F863CA1424B4B24200423225 /* InteractionsUseVisiblePointTests.swift in Sources */,
@@ -5167,6 +5402,41 @@
 			isa = PBXTargetDependency;
 			target = F8E6EF4122831233007A97E5 /* FakeSettingsApp */;
 			targetProxy = F8E6EF672283243A007A97E5 /* PBXContainerItemProxy */;
+		};
+		F8F4A1C0256822BE0093523E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8F4A1B3256820BB0093523E /* GenerateMocksForUnitTests */;
+			targetProxy = F8F4A1BF256822BE0093523E /* PBXContainerItemProxy */;
+		};
+		F8F4A1C8256823150093523E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8F4A1B7256820C80093523E /* GenerateMocksForGrayBoxUiTests */;
+			targetProxy = F8F4A1C7256823150093523E /* PBXContainerItemProxy */;
+		};
+		F8F4A1CF2568269F0093523E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8F4A1C92568267B0093523E /* WarmUpCodeGeneration */;
+			targetProxy = F8F4A1CE2568269F0093523E /* PBXContainerItemProxy */;
+		};
+		F8F4A1D1256826A50093523E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8F4A1C92568267B0093523E /* WarmUpCodeGeneration */;
+			targetProxy = F8F4A1D0256826A50093523E /* PBXContainerItemProxy */;
+		};
+		F8F4A1DC256833130093523E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F866756C2121E81E00396F02 /* UnitTests */;
+			targetProxy = F8F4A1DB256833130093523E /* PBXContainerItemProxy */;
+		};
+		F8F4A1DE256833210093523E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F813CAF9209CC5D700E6A27C /* BlackBoxUiTests */;
+			targetProxy = F8F4A1DD256833210093523E /* PBXContainerItemProxy */;
+		};
+		F8F4A1E0256833210093523E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8B0A1FF2209C44A0089C1EE /* GrayBoxUiTests */;
+			targetProxy = F8F4A1DF256833210093523E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -5614,6 +5884,70 @@
 			};
 			name = Release;
 		};
+		F8F4A1B5256820BB0093523E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8F4A1B6256820BB0093523E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F8F4A1B9256820C80093523E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8F4A1BA256820C80093523E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F8F4A1CB2568267B0093523E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8F4A1CC2568267B0093523E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F8F4A1D7256833060093523E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F8F4A1D8256833060093523E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -5712,6 +6046,42 @@
 			buildConfigurations = (
 				F8E6EF5122831235007A97E5 /* Debug */,
 				F8E6EF5222831235007A97E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8F4A1B4256820BB0093523E /* Build configuration list for PBXAggregateTarget "GenerateMocksForUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8F4A1B5256820BB0093523E /* Debug */,
+				F8F4A1B6256820BB0093523E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8F4A1B8256820C80093523E /* Build configuration list for PBXAggregateTarget "GenerateMocksForGrayBoxUiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8F4A1B9256820C80093523E /* Debug */,
+				F8F4A1BA256820C80093523E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8F4A1CA2568267B0093523E /* Build configuration list for PBXAggregateTarget "WarmUpCodeGeneration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8F4A1CB2568267B0093523E /* Debug */,
+				F8F4A1CC2568267B0093523E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8F4A1D6256833060093523E /* Build configuration list for PBXAggregateTarget "BuildLintAndUnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8F4A1D7256833060093523E /* Debug */,
+				F8F4A1D8256833060093523E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

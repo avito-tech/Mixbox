@@ -1,0 +1,6 @@
+#!/bin/bash
+
+REPO_ROOT=$(cd "${PROJECT_DIR}/.."; pwd)
+source "$REPO_ROOT/Tests/Scripts/mock_generation.sh"
+
+build_generator_if_needed

@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 import MixboxFoundation
 import MixboxMocksRuntime
 import MixboxTestsFoundation

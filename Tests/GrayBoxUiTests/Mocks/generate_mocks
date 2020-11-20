@@ -1,0 +1,15 @@
+#!/bin/bash
+
+REPO_ROOT=$(cd "${PROJECT_DIR}/.."; pwd)
+source "$REPO_ROOT/Tests/Scripts/mock_generation.sh"
+
+# DSL
+
+apply_mocks() {
+    module "MixboxInAppServices"
+    mock "AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory"
+    mock "EnhancedAccessibilityLabelMethodSwizzler"
+    mock "ObjcMethodsWithUniqueImplementationProvider"
+}
+
+generate "GrayBoxUiTests" "${PROJECT_DIR}/GrayBoxUiTests/Mocks"

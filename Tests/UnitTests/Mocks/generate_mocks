@@ -1,8 +1,11 @@
 #!/bin/bash
 
+REPO_ROOT=$(cd "${PROJECT_DIR}/.."; pwd)
+source "$REPO_ROOT/Tests/Scripts/mock_generation.sh"
+
 # DSL
 
-applyMocks() {
+apply_mocks() {
     module "MixboxUiTestsFoundation"
     mock "StubRequestBuilder"
     mock "StubResponseBuilder"
@@ -10,149 +13,9 @@ applyMocks() {
     mock "SnapshotsDifferenceAttachmentGenerator"
     mock "SnapshotsComparatorFactory"
     
-    module "MixboxInAppServices"
-    mock "AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory"
-    mock "EnhancedAccessibilityLabelMethodSwizzler"
-    mock "ObjcMethodsWithUniqueImplementationProvider"
+    module "UnitTests"
+    mock "ProtocolToMock"
+    mock "ObjcProtocolToMock"
 }
 
-# Internal
-
-main() {
-    echo "Started generation: $(date)"
-
-    MOCKS_ROOT="${PROJECT_DIR}/UnitTests/Mocks"
-    OUTPUT_FILE="${MOCKS_ROOT}/GeneratedMocks.ignored.swift"
-    
-    resetBeforeApplyingMocks
-    APPLY_MOCKS_MODE="generateAllFilesList"
-    applyMocks
-    
-    local repo_root="${PROJECT_DIR}/.."
-    
-    local filesAffectingCodeGeneration=("${ALL_FILES_TO_MOCK[@]}" "$0" "$repo_root/Package.swift")
-    
-    IFS=$'\n'
-    for file in $(find "$repo_root/Frameworks/MocksGeneration" -type f; find "$repo_root/MocksGenerator" -type f)
-    do
-        filesAffectingCodeGeneration=("${filesAffectingCodeGeneration[@]}" "$file")
-    done
-    
-    # Note: caching rocks: real 0m1.936s => real 0m0.078s
-    local shasumFile="${MOCKS_ROOT}/cuckoo.shasum.ignored"
-    local currentChecksum=$((shasum "${filesAffectingCodeGeneration[@]}") | shasum)
-    local cachedChecksum=$(cat ${shasumFile})
-    
-    if [ "$currentChecksum" != "$cachedChecksum" ] || ! [ -e "$OUTPUT_FILE" ]
-    then
-        ignoringAllErrors rm -f "$OUTPUT_FILE"
-    
-        resetBeforeApplyingMocks
-        APPLY_MOCKS_MODE="generateMocks"
-        applyMocks
-        completeGeneration
-    
-        echo "$currentChecksum" > "$shasumFile"
-        
-        echo "Generated Mocks File = ${OUTPUT_FILE}"
-    fi
-}
-
-pipeWithDescription() {
-    shift 1
-    "$@"
-}
-
-__GENERATOR_PATH=""
-generate() {
-    if [ -z "$__GENERATOR_PATH" ]
-    then
-        cd "${PROJECT_DIR}/.."
-        
-        local configuration="release"
-        env -i bash -lc "swift build --product MixboxMocksGenerator --configuration \"$configuration\"" || fatalError
-        
-        __GENERATOR_PATH="$(pwd)/.build/$configuration/MixboxMocksGenerator"
-        
-        cd -
-    fi
-    
-    "$__GENERATOR_PATH" "$@"
-}
-
-completeGeneration() {
-    if [ -z "$MODULE_TO_MOCK" ]
-    then
-        return 0
-    fi
-    
-    local tmpfile="$(uuidgen).tmp"
-    
-    generate \
-        "$MODULE_TO_MOCK" \
-        "UnitTests" \
-        "${tmpfile}"  \
-        "${ALL_FILES_TO_MOCK[@]}" || exit 1
-    
-    cat "${tmpfile}" \
-        | pipeWithDescription "Remove @testable" sed 's/@testable import/import/' \
-        | pipeWithDescription "Remove comments" sed 's|^//.*$||' \
-        | pipeWithDescription "Only spaces => empty lines" sed 's/^[\t ]*$//' \
-        | pipeWithDescription "Trim empty lines" sed -e :a -e '/./,$!d;/^\n*$/{$d;N;};/\n$/ba' \
-        | pipeWithDescription "Remove double empty lines"  cat -s \
-        >> "${OUTPUT_FILE}"
-    
-    echo >> "$OUTPUT_FILE"
-    
-    rm "${tmpfile}"
-}
-
-fatalError() {
-    local last_error_code=$?
-    [ $# == 0 ] && echo "Fatal error. Exit code: $last_error_code"
-    echo $@
-    exit $last_error_code
-}
-
-ignoringAllErrors() {
-    "$@" 1>/dev/null 2>/dev/null || true
-}
-
-resetBeforeApplyingMocks() {
-    ALL_FILES_TO_MOCK=()
-    MODULE_TO_MOCK=
-}
-
-# DSL functions
-
-mock() {
-    [ -z "$MODULE_TO_MOCK" ] && fatalError "call 'module' before 'mock'"
-
-    local class=$1
-    local frameworkFolder=$(echo $MODULE_TO_MOCK | sed 's/^Mixbox//')
-    local fileToMock=$(find "${PROJECT_DIR}/../Frameworks/$frameworkFolder" -name "${class}.swift")
-
-    ALL_FILES_TO_MOCK=("${ALL_FILES_TO_MOCK[@]}" "${fileToMock}")
-}
-
-module() {
-    case "$APPLY_MOCKS_MODE" in
-        generateAllFilesList)
-            MODULE_TO_MOCK=$1
-            ;;
-        generateMocks)
-            completeGeneration
-            
-            ALL_FILES_TO_MOCK=()
-            MODULE_TO_MOCK=$1
-            ;;
-        *)
-            fatalError "Unknown APPLY_MOCKS_MODE: $APPLY_MOCKS_MODE"
-            ;;
-    esac
-}
-
-# Entry point
-
-set -x
-main 2>&1 | tee "${PROJECT_DIR}/generate_mocks.ignored.log"
+generate "UnitTests" "${PROJECT_DIR}/UnitTests/Mocks"

@@ -26,11 +26,14 @@ public class ProtocolImplementationFunctionTemplate {
             separator: ", ",
             surround: { "(\($0))" },
             transform: { index, parameter in
-                let label = parameter.argumentLabel ?? "_"
-                let name = argumentName(index: index)
+                let labeledArgument = CodeGenerationUtils.labeledArgument(
+                    label: parameter.argumentLabel,
+                    name: argumentName(index: index)
+                )
+                
                 let type = parameter.typeName.name
                 
-                return "\(label) \(name): \(type)"
+                return "\(labeledArgument): \(type)"
             }
         )
     }
@@ -50,6 +53,10 @@ public class ProtocolImplementationFunctionTemplate {
     }
     
     private var returnClause: String {
+        if method.returnTypeName.isVoid {
+            return ""
+        }
+        
         return " -> \(method.returnTypeName.name)"
     }
 }

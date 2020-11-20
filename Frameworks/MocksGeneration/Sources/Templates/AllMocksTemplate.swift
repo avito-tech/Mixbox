@@ -33,6 +33,8 @@ public final class AllMocksTemplate {
         
         moduleNames.remove(destinationModuleName)
         
+        let header = "// swiftlint:disable all"
+        
         let imports = moduleNames
             .sorted()
             .map { "import \($0)" }
@@ -44,6 +46,6 @@ public final class AllMocksTemplate {
             }
         }
         
-        return ([imports] + mocks).joined(separator: "\n\n") + "\n"
+        return ([header, imports] + mocks).joined(separator: "\n\n") + "\n"
     }
 }

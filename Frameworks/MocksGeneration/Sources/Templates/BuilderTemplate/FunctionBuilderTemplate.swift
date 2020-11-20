@@ -63,12 +63,14 @@ public class FunctionBuilderTemplate {
             valueIfEmpty: "() ",
             surround: { "(\n\($0))\n    " },
             transform: { index, parameter in
-                let label = parameter.argumentLabel ?? "_"
+                let labeledArgument = CodeGenerationUtils.labeledArgument(
+                    label: parameter.argumentLabel,
+                    name: genericArgumentName(index: index)
+                )
                 
-                let name = genericArgumentName(index: index)
                 let type = genericArgumentType(index: index)
                 
-                return "    \(label) \(name): \(type)"
+                return "    \(labeledArgument): \(type)"
             }
         )
     }
@@ -89,7 +91,7 @@ public class FunctionBuilderTemplate {
                 """
             },
             transform: { index, parameter in
-                let matchingType = parameter.typeName.name
+                let matchingType = parameter.typeName.validTypeName
                 let genericType = genericArgumentType(index: index)
                 
                 return "\(genericType).MatchingType == \(matchingType)"
@@ -103,7 +105,7 @@ public class FunctionBuilderTemplate {
             separator: ", ",
             surround: { "(\($0))" },
             transform: { _, parameter in
-                parameter.typeName.name
+                parameter.typeName.validTypeName
             }
         )
     }
@@ -133,7 +135,7 @@ public class FunctionBuilderTemplate {
             surround: { "(\($0))" },
             transform: { index, parameter in
                 let name = matchingFunctionArgumentName(index: index)
-                let type = parameter.typeName.name
+                let type = parameter.typeName.validTypeName
                 
                 return "\(name): \(type)"
             }
@@ -141,15 +143,19 @@ public class FunctionBuilderTemplate {
     }
     
     private var matchingFunctionPredicate: String {
-        method.parameters.render(
-            separator: " && ",
-            valueIfEmpty: "true",
-            transform: { index, _ in
-                let lhs = genericArgumentName(index: index)
-                let rhs = matchingFunctionArgumentName(index: index)
-                
-                return "\(lhs).valueIsMatching(\(rhs))"
+        method.parameters
+            .filter { parameter in
+                !parameter.isClosure
             }
-        )
+            .render(
+                separator: " && ",
+                valueIfEmpty: "true",
+                transform: { index, _ in
+                    let lhs = genericArgumentName(index: index)
+                    let rhs = matchingFunctionArgumentName(index: index)
+                    
+                    return "\(lhs).valueIsMatching(\(rhs))"
+                }
+            )
     }
 }

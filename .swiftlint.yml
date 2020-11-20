@@ -9,9 +9,6 @@ excluded:
   - 'ci/swift/.build'
   - '.build'
 
-  # Code generated
-  - 'Tests/UnitTests/Mocks'
-
 disabled_rules:
   - line_length # "ignores_interpolated_strings" doesn't work for multiline literals.
   - opening_brace # I don't like it
