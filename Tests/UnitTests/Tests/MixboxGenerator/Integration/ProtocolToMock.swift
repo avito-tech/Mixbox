@@ -49,4 +49,13 @@ protocol ProtocolToMock {
     
     @available(iOS 999.0, *)
     func availableSince999Function()
+    
+    // Propertes
+    
+    var gettable: Int { get }
+    var settable: Int { get set }
+    
+    var gettableClosure: () -> () { get }
+    var gettableOptional: Int? { get }
+    var gettableArray: [Int?]? { get }
 }

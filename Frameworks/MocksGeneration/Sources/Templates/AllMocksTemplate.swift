@@ -18,7 +18,7 @@ public final class AllMocksTemplate {
         self.destinationModuleName = destinationModuleName
     }
     
-    public func render() throws -> String {
+    public func render() -> String {
         var moduleNames: Set = [
             "MixboxMocksRuntime",
             "MixboxFoundation",
@@ -40,9 +40,9 @@ public final class AllMocksTemplate {
             .map { "import \($0)" }
             .joined(separator: "\n")
         
-        let mocks = try parsedSourceFiles.sourceFiles.flatMap { sourceFile in
-            try sourceFile.types.protocols.map {
-                try MockTemplate(protocolType: $0).render()
+        let mocks = parsedSourceFiles.sourceFiles.flatMap { sourceFile in
+            sourceFile.types.protocols.map {
+                MockTemplate(protocolType: $0).render()
             }
         }
         

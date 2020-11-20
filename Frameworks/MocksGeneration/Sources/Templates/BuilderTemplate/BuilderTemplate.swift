@@ -2,43 +2,65 @@ import SourceryRuntime
 
 public class BuilderTemplate {
     private let protocolType: Protocol
-    private let builderName: String
-    private let functionBuilderName: String
+    private let builderType: String
     
     public init(
         protocolType: Protocol,
-        builderName: String,
-        functionBuilderName: String)
+        builderType: String)
     {
         self.protocolType = protocolType
-        self.builderName = builderName
-        self.functionBuilderName = functionBuilderName
+        self.builderType = builderType
     }
     
-    public func render() throws -> String {
+    public func render() -> String {
         """
         class \(builderName): MixboxMocksRuntime.\(builderName) {
-            private let mockManager: MixboxMocksRuntime.MockManager
-            private let fileLine: FileLine
-            
-            required init(mockManager: MixboxMocksRuntime.MockManager, fileLine: FileLine) {
-                self.mockManager = mockManager
-                self.fileLine = fileLine
-            }
-            
-            \(try renderFunctions().indent())
+            \(blocks.indent())
         }
         """
     }
     
-    private func renderFunctions() throws -> String {
-        try protocolType.methods.map {
-            let template = FunctionBuilderTemplate(
-                method: $0,
-                functionBuilderName: functionBuilderName
+    private var blocks: String {
+        let blocks = [header] + properties + functions
+        
+        return blocks.joined(separator: "\n\n")
+    }
+    
+    private var header: String {
+        """
+        private let mockManager: MixboxMocksRuntime.MockManager
+        private let fileLine: FileLine
+        
+        required init(mockManager: MixboxMocksRuntime.MockManager, fileLine: FileLine) {
+            self.mockManager = mockManager
+            self.fileLine = fileLine
+        }
+        """
+    }
+    
+    private var properties: [String] {
+        return protocolType.allVariables.map {
+            let template = PropertyBuilderTemplate(
+                variable: $0,
+                builderType: builderType
             )
             
-            return try template.render()
-        }.joined(separator: "\n\n")
+            return template.render()
+        }
+    }
+    
+    private var functions: [String] {
+        return protocolType.allMethods.map {
+            let template = FunctionBuilderTemplate(
+                method: $0,
+                builderType: builderType
+            )
+            
+            return template.render()
+        }
+    }
+    
+    private var builderName: String {
+        "\(builderType)Builder"
     }
 }

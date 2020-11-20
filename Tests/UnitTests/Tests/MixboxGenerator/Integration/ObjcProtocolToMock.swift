@@ -3,5 +3,11 @@ import Foundation
 @objc
 protocol ObjcProtocolToMock {
     @objc
-    func objcFunction()
+    func objcFunctionWithObjcAttribute()
+    
+    func objcFunctionWithoutObjcAttribute()
+    
+    var gettable: Int { get }
+    
+    var settable: Int { get set }
 }

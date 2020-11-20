@@ -1,9 +1,9 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 
-public final class VerificationFunctionBuilder<T, U> {
-    public typealias Arguments = T
-    public typealias ReturnType = U
+public final class VerificationFunctionBuilder<Arguments, ReturnType> {
+    public typealias Arguments = Arguments
+    public typealias ReturnType = ReturnType
     
     private let mockManager: MockManager
     private var functionIdentifier: FunctionIdentifier

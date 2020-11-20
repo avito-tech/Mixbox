@@ -1,9 +1,9 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 
-public final class StubbingFunctionBuilder<T, U> {
-    public typealias Arguments = T
-    public typealias ReturnType = U
+public final class StubbingFunctionBuilder<Arguments, ReturnType> {
+    public typealias Arguments = Arguments
+    public typealias ReturnType = ReturnType
     
     private let mockManager: MockManager
     private let functionIdentifier: FunctionIdentifier

@@ -7,14 +7,12 @@ public class ProtocolImplementationFunctionTemplate {
         self.method = method
     }
     
-    public func render() throws -> String {
+    public func render() -> String {
         """
         func \(method.callName)\(methodArguments)\(returnClause) {
             return getMockManager().call(
                 functionIdentifier:
-                \"\"\"
-                \(method.name)
-                \"\"\",
+                \(Snippets.functionIdentifier(method: method).indent(level: 2)),
                 arguments: \(tupledArguments)
             )
         }
@@ -26,9 +24,9 @@ public class ProtocolImplementationFunctionTemplate {
             separator: ", ",
             surround: { "(\($0))" },
             transform: { index, parameter in
-                let labeledArgument = CodeGenerationUtils.labeledArgument(
+                let labeledArgument = Snippets.labeledArgument(
                     label: parameter.argumentLabel,
-                    name: argumentName(index: index)
+                    name: Snippets.argumentName(index: index)
                 )
                 
                 let type = parameter.typeName.name
@@ -43,13 +41,9 @@ public class ProtocolImplementationFunctionTemplate {
             separator: ", ",
             surround: { "(\($0))" },
             transform: { index, _ in
-                argumentName(index: index)
+                Snippets.argumentName(index: index)
             }
         )
-    }
-    
-    private func argumentName(index: Int) -> String {
-        return "argument\(index)"
     }
     
     private var returnClause: String {
@@ -57,6 +51,6 @@ public class ProtocolImplementationFunctionTemplate {
             return ""
         }
         
-        return " -> \(method.returnTypeName.name)"
+        return " -> \(method.returnTypeName.validTypeName)"
     }
 }

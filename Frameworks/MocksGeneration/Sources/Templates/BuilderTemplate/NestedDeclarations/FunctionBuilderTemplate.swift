@@ -2,21 +2,17 @@ import SourceryRuntime
 
 public class FunctionBuilderTemplate {
     private let method: Method
-    private let functionBuilderName: String
+    private let builderType: String
     
     public init(
         method: Method,
-        functionBuilderName: String)
+        builderType: String)
     {
         self.method = method
-        self.functionBuilderName = functionBuilderName
+        self.builderType = builderType
     }
     
-    private var returnType: String {
-        return "MixboxMocksRuntime.\(functionBuilderName)<\(argumentsTupleType), \(method.returnTypeName.name)>"
-    }
-    
-    public func render() throws -> String {
+    public func render() -> String {
         """
         func \(method.callName)\(genericParametersClause)\(methodArguments)-> \(returnType)\(whereClause){
             let argumentsMatcher = MixboxMocksRuntime.FunctionalMatcher<\(argumentsTupleType)>(
@@ -25,9 +21,7 @@ public class FunctionBuilderTemplate {
         
             return \(returnType)(
                 functionIdentifier:
-                \"\"\"
-                \(method.name)
-                \"\"\",
+                \(Snippets.functionIdentifier(method: method).indent(level: 2)),
                 mockManager: mockManager,
                 argumentsMatcher: argumentsMatcher,
                 fileLine: fileLine
@@ -36,14 +30,14 @@ public class FunctionBuilderTemplate {
         """
     }
     
-    private func genericArgumentType(index: Int) -> String {
-        return "Argument\(index)"
+    private var returnType: String {
+        return "MixboxMocksRuntime.\(functionBuilderName)<\(argumentsTupleType), \(method.returnTypeName.validTypeName)>"
     }
     
-    private func genericArgumentName(index: Int) -> String {
-        return "argument\(index)"
+    private var functionBuilderName: String {
+        "\(builderType)FunctionBuilder"
     }
-
+    
     // <Argument1: MixboxMocksRuntime.Matcher, Argument2: MixboxMocksRuntime.Matcher>
     private var genericParametersClause: String {
         method.parameters.render(
@@ -51,7 +45,7 @@ public class FunctionBuilderTemplate {
             valueIfEmpty: "",
             surround: { "<\($0)>" },
             transform: { index, _ in
-                "\(genericArgumentType(index: index)): MixboxMocksRuntime.Matcher"
+                "\(Snippets.genericArgumentTypeName(index: index)): MixboxMocksRuntime.Matcher"
             }
         )
     }
@@ -63,12 +57,12 @@ public class FunctionBuilderTemplate {
             valueIfEmpty: "() ",
             surround: { "(\n\($0))\n    " },
             transform: { index, parameter in
-                let labeledArgument = CodeGenerationUtils.labeledArgument(
+                let labeledArgument = Snippets.labeledArgument(
                     label: parameter.argumentLabel,
-                    name: genericArgumentName(index: index)
+                    name: Snippets.argumentName(index: index)
                 )
                 
-                let type = genericArgumentType(index: index)
+                let type = Snippets.genericArgumentTypeName(index: index)
                 
                 return "    \(labeledArgument): \(type)"
             }
@@ -92,7 +86,7 @@ public class FunctionBuilderTemplate {
             },
             transform: { index, parameter in
                 let matchingType = parameter.typeName.validTypeName
-                let genericType = genericArgumentType(index: index)
+                let genericType = Snippets.genericArgumentTypeName(index: index)
                 
                 return "\(genericType).MatchingType == \(matchingType)"
             }
@@ -151,7 +145,7 @@ public class FunctionBuilderTemplate {
                 separator: " && ",
                 valueIfEmpty: "true",
                 transform: { index, _ in
-                    let lhs = genericArgumentName(index: index)
+                    let lhs = Snippets.argumentName(index: index)
                     let rhs = matchingFunctionArgumentName(index: index)
                     
                     return "\(lhs).valueIsMatching(\(rhs))"

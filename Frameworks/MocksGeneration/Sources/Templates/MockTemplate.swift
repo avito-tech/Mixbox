@@ -7,17 +7,15 @@ public final class MockTemplate {
         self.protocolType = protocolType
     }
     
-    public func render() throws -> String {
+    public func render() -> String {
         let stubbingBuilderTemplate = BuilderTemplate(
             protocolType: protocolType,
-            builderName: "StubbingBuilder",
-            functionBuilderName: "StubbingFunctionBuilder"
+            builderType: "Stubbing"
         )
         
         let verifcationBuilderTemplate = BuilderTemplate(
             protocolType: protocolType,
-            builderName: "VerificationBuilder",
-            functionBuilderName: "VerificationFunctionBuilder"
+            builderType: "Verification"
         )
         
         return """
@@ -26,11 +24,11 @@ public final class MockTemplate {
             \(protocolType.name),
             MixboxMocksRuntime.Mock
         {
-            \(try stubbingBuilderTemplate.render().indent())
+            \(stubbingBuilderTemplate.render().indent())
         
-            \(try verifcationBuilderTemplate.render().indent())
+            \(verifcationBuilderTemplate.render().indent())
 
-            \(try ProtocolImplementationTemplate(protocolType: protocolType).render().indent())
+            \(ProtocolImplementationTemplate(protocolType: protocolType).render().indent())
         }
         """
     }
