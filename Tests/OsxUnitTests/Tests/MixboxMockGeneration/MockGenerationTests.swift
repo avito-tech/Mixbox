@@ -7,42 +7,25 @@ final class MockGenerationTests: XCTestCase {
         do {
             let moduleName = "UnitTests"
             let parser = SourceFileParserImpl()
-            let parsedSourceFile = try parser.parse(
-                path: FixturesPath.fixtureProtocolPath,
-                moduleName: moduleName
+            
+            let parsedSourceFiles = ParsedSourceFiles(
+                sourceFiles: try FixturesPathsForOsxUnitTests.allFiles.map {
+                    try parser.parse(
+                        path: $0,
+                        moduleName: moduleName
+                    )
+                }
             )
-            let parsedSourceFiles = ParsedSourceFiles(sourceFiles: [parsedSourceFile])
             
             let template = AllMocksTemplate(
                 parsedSourceFiles: parsedSourceFiles,
                 destinationModuleName: moduleName
             )
             
-            try assertEqualsToFixtureFile(
-                actualString: template.render(),
-                expectedStringFilePath: FixturesPath.fixtureProtocolMockPath
-            )
+            _ = try template.render()
         } catch {
             XCTFail("\(error)")
         }
-    }
-    
-    private func assertEqualsToFixtureFile(actualString: String, expectedStringFilePath: Path) throws {
-        let expectedString = try read(path: expectedStringFilePath)
-        
-        if expectedString != actualString {
-            try write(value: actualString, path: expectedStringFilePath)
-            
-            XCTFail("Fixture differes from expected")
-        }
-    }
-    
-    private func write(value: String, path: Path) throws {
-        try (value as NSString).write(
-            toFile: path.string,
-            atomically: true,
-            encoding: String.Encoding.utf8.rawValue
-        )
     }
     
     private func read(path: Path) throws -> String {

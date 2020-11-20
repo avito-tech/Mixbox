@@ -222,8 +222,6 @@
 		F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A7EA214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift */; };
 		F839A807215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A806215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift */; };
 		F839A80A215124C2009F77AB /* CrashTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A809215124C2009F77AB /* CrashTestsView.swift */; };
-		F83B3AAE2566E264004D942C /* FixturesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550E255EFE840072A9BF /* FixturesPath.swift */; };
-		F83B51252567E5F0004D942C /* FixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550C255EFE840072A9BF /* FixtureProtocol.swift */; };
 		F8494BF724D2F4B40035AB39 /* IpcTestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8494BF624D2F4B40035AB39 /* IpcTestingView.swift */; };
 		F8494C0424D2FE6A0035AB39 /* IpcTestingViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8494BF224D2F4630035AB39 /* IpcTestingViewPageObject.swift */; };
 		F8494C0524D2FE6B0035AB39 /* IpcTestingViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8494BF224D2F4630035AB39 /* IpcTestingViewPageObject.swift */; };
@@ -371,6 +369,9 @@
 		F8971DF62267A8B5001741C1 /* BuiltinIpcLaunchableApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DF52267A8B4001741C1 /* BuiltinIpcLaunchableApplication.swift */; };
 		F899ACCB24E1A9500067E87C /* UiEventObservableImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F899ACCA24E1A9500067E87C /* UiEventObservableImplTests.swift */; };
 		F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */; };
+		F8A12CB625684DF6005E1963 /* FixturesPathsForOsxUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */; };
+		F8A12CB825684FAA005E1963 /* CodeGenerationUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB725684FAA005E1963 /* CodeGenerationUtilsTests.swift */; };
+		F8A12CBA25685049005E1963 /* TypeName_ValidTypeName_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */; };
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
 		F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */; };
@@ -1024,9 +1025,6 @@
 		F88F5501255ED86D0072A9BF /* OsxUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OsxUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88F5505255ED86D0072A9BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F88F550A255EFE840072A9BF /* MockGenerationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGenerationTests.swift; sourceTree = "<group>"; };
-		F88F550C255EFE840072A9BF /* FixtureProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixtureProtocol.swift; sourceTree = "<group>"; };
-		F88F550D255EFE840072A9BF /* MockFixtureProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFixtureProtocol.swift; sourceTree = "<group>"; };
-		F88F550E255EFE840072A9BF /* FixturesPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixturesPath.swift; sourceTree = "<group>"; };
 		F8933D3823E20225002727AC /* GenericSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSerializationTests.swift; sourceTree = "<group>"; };
 		F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSerializationTestCase.swift; sourceTree = "<group>"; };
 		F8951E44222463120033885C /* ExpandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingView.swift; sourceTree = "<group>"; };
@@ -1059,6 +1057,9 @@
 		F8971DF52267A8B4001741C1 /* BuiltinIpcLaunchableApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuiltinIpcLaunchableApplication.swift; sourceTree = "<group>"; };
 		F899ACCA24E1A9500067E87C /* UiEventObservableImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventObservableImplTests.swift; sourceTree = "<group>"; };
 		F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppsTests.swift; sourceTree = "<group>"; };
+		F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixturesPathsForOsxUnitTests.swift; sourceTree = "<group>"; };
+		F8A12CB725684FAA005E1963 /* CodeGenerationUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenerationUtilsTests.swift; sourceTree = "<group>"; };
+		F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName_ValidTypeName_Tests.swift; sourceTree = "<group>"; };
 		F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTestsView.swift; sourceTree = "<group>"; };
 		F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift; sourceTree = "<group>"; };
 		F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingHierarchyTestsView.swift; sourceTree = "<group>"; };
@@ -2279,24 +2280,15 @@
 			isa = PBXGroup;
 			children = (
 				F88F550A255EFE840072A9BF /* MockGenerationTests.swift */,
+				F8A12CB725684FAA005E1963 /* CodeGenerationUtilsTests.swift */,
+				F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */,
 			);
 			path = MixboxMockGeneration;
-			sourceTree = "<group>";
-		};
-		F88F550B255EFE840072A9BF /* Fixtures */ = {
-			isa = PBXGroup;
-			children = (
-				F88F550C255EFE840072A9BF /* FixtureProtocol.swift */,
-				F88F550D255EFE840072A9BF /* MockFixtureProtocol.swift */,
-				F88F550E255EFE840072A9BF /* FixturesPath.swift */,
-			);
-			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		F88F5513255EFE990072A9BF /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F88F550B255EFE840072A9BF /* Fixtures */,
 				F88F5509255EFE840072A9BF /* MixboxMockGeneration */,
 			);
 			path = Tests;
@@ -3563,6 +3555,7 @@
 			children = (
 				F8F4A1AC2568165E0093523E /* ProtocolToMock.swift */,
 				F8F4A1D325682F740093523E /* ObjcProtocolToMock.swift */,
+				F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */,
 			);
 			path = Integration;
 			sourceTree = "<group>";
@@ -5149,9 +5142,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F83B3AAE2566E264004D942C /* FixturesPath.swift in Sources */,
+				F8A12CBA25685049005E1963 /* TypeName_ValidTypeName_Tests.swift in Sources */,
+				F8A12CB825684FAA005E1963 /* CodeGenerationUtilsTests.swift in Sources */,
 				F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */,
-				F83B51252567E5F0004D942C /* FixtureProtocol.swift in Sources */,
+				F8A12CB625684DF6005E1963 /* FixturesPathsForOsxUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

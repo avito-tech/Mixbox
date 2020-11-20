@@ -34,6 +34,9 @@ protocol ProtocolToMock {
     
     func function(escapingClosure: @escaping () -> ())
     
+    func function(
+        closureWithPoorlyWrittenAttributes: @escaping(Int?) -> ())
+    
     func function(escapingAutoclosure: @escaping @autoclosure () -> Int)
     
     // Function attributes
