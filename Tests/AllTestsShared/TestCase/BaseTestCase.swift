@@ -84,6 +84,12 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         )
     }
     
+    func register<M: MockManagerSettable>(_ mock: M) -> M {
+        (dependencies.resolve() as MockRegisterer).register(mock: mock)
+        
+        return mock
+    }
+    
     private var recordingFailureRecursionCounter = 0
     private let recordingFailureRecursionCounterThreshold = 10
     

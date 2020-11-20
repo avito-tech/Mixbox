@@ -153,8 +153,6 @@
 		F8274A492143110D00A72C41 /* FailureGatherer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A482143110D00A72C41 /* FailureGatherer.swift */; };
 		F8274A4B2143112000A72C41 /* XcTestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4A2143112000A72C41 /* XcTestFailure.swift */; };
 		F8274A4E21454ECF00A72C41 /* TestStateRecycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4D21454ECF00A72C41 /* TestStateRecycling.swift */; };
-		F8297BBF256246760013C5F2 /* MockFixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550D255EFE840072A9BF /* MockFixtureProtocol.swift */; };
-		F8297BC0256248670013C5F2 /* FixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550C255EFE840072A9BF /* FixtureProtocol.swift */; };
 		F82A05B921F755950008C2BB /* DummyForLaunchingUiTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82A05B821F755950008C2BB /* DummyForLaunchingUiTestsView.swift */; };
 		F82BDF85243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BDF84243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift */; };
 		F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */; };
@@ -172,6 +170,8 @@
 		F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A7EA214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift */; };
 		F839A807215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A806215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift */; };
 		F839A80A215124C2009F77AB /* CrashTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A809215124C2009F77AB /* CrashTestsView.swift */; };
+		F83B3AAE2566E264004D942C /* FixturesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550E255EFE840072A9BF /* FixturesPath.swift */; };
+		F83B51252567E5F0004D942C /* FixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550C255EFE840072A9BF /* FixtureProtocol.swift */; };
 		F8494BF724D2F4B40035AB39 /* IpcTestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8494BF624D2F4B40035AB39 /* IpcTestingView.swift */; };
 		F8494C0424D2FE6A0035AB39 /* IpcTestingViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8494BF224D2F4630035AB39 /* IpcTestingViewPageObject.swift */; };
 		F8494C0524D2FE6B0035AB39 /* IpcTestingViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8494BF224D2F4630035AB39 /* IpcTestingViewPageObject.swift */; };
@@ -287,9 +287,7 @@
 		F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
 		F88B33BC232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
 		F88B33BD232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
-		F88F3C2A255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F3C27255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift */; };
 		F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550A255EFE840072A9BF /* MockGenerationTests.swift */; };
-		F88F5512255EFE840072A9BF /* FixturesPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550E255EFE840072A9BF /* FixturesPath.swift */; };
 		F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D3823E20225002727AC /* GenericSerializationTests.swift */; };
 		F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */; };
 		F8951E45222463120033885C /* ExpandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8951E44222463120033885C /* ExpandingView.swift */; };
@@ -703,6 +701,7 @@
 		2917F62FA6584ECB1E3D3C45 /* Pods-Lint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lint.release.xcconfig"; path = "Target Support Files/Pods-Lint/Pods-Lint.release.xcconfig"; sourceTree = "<group>"; };
 		2CB74C666F3705EFED495BE1 /* Pods-MocksGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGenerator.release.xcconfig"; path = "Target Support Files/Pods-MocksGenerator/Pods-MocksGenerator.release.xcconfig"; sourceTree = "<group>"; };
 		35A68FF0C2C0AE41F478867E /* Pods_MocksGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MocksGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48B908E1BA16A691135DC20B /* Pods-MocksGeneratorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGeneratorTests.release.xcconfig"; path = "Target Support Files/Pods-MocksGeneratorTests/Pods-MocksGeneratorTests.release.xcconfig"; sourceTree = "<group>"; };
 		4C4D6D4D32D77EB0E8DEF3CA /* Pods-TestedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.release.xcconfig"; path = "Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig"; sourceTree = "<group>"; };
 		50F20B62BF639AA013C729A9 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		550920AF66AAB92EC39631E3 /* Pods-OsxUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OsxUnitTests.debug.xcconfig"; path = "Target Support Files/Pods-OsxUnitTests/Pods-OsxUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -714,6 +713,7 @@
 		79E12B265F8D0DEEEC4E9C59 /* Pods_TestedApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestedApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF8ECF06E3D28C5FCD55641 /* Pods-BlackBoxUiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackBoxUiTests.debug.xcconfig"; path = "Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OsxUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A89533A6B8764D01DE124944 /* Pods_MocksGeneratorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MocksGeneratorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF5F7044796DB82E05878B84 /* Pods-GrayBoxUiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrayBoxUiTests.debug.xcconfig"; path = "Target Support Files/Pods-GrayBoxUiTests/Pods-GrayBoxUiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5E2C6D076311F5F4D5AC9E6 /* Pods_GrayBoxUiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrayBoxUiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC6CF99C2310412A003F40C0 /* NetworkStubbingTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStubbingTestCase.swift; sourceTree = "<group>"; };
@@ -728,6 +728,7 @@
 		D1778D785D440DACAC6CC083 /* Pods-BlackBoxUiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackBoxUiTests.release.xcconfig"; path = "Target Support Files/Pods-BlackBoxUiTests/Pods-BlackBoxUiTests.release.xcconfig"; sourceTree = "<group>"; };
 		DC0586307FEDE5748185AC64 /* Pods_FakeSettingsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FakeSettingsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F142E91DADC7F17830CC06 /* Pods-FakeSettingsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FakeSettingsApp.debug.xcconfig"; path = "Target Support Files/Pods-FakeSettingsApp/Pods-FakeSettingsApp.debug.xcconfig"; sourceTree = "<group>"; };
+		F6F52874FDEA5AD348E01C58 /* Pods-MocksGeneratorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGeneratorTests.debug.xcconfig"; path = "Target Support Files/Pods-MocksGeneratorTests/Pods-MocksGeneratorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F74B48EF355C3F6CB5014A1E /* Pods_HostedAppLogicTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HostedAppLogicTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F80084AE2284740C00DF1DC6 /* RedImagesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedImagesProvider.swift; sourceTree = "<group>"; };
 		F80084BB228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift; sourceTree = "<group>"; };
@@ -915,7 +916,6 @@
 		F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordableStepLogger.swift; sourceTree = "<group>"; };
 		F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Asserts.swift"; sourceTree = "<group>"; };
 		F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Coordinates.swift"; sourceTree = "<group>"; };
-		F88F3C27255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MixboxMocksRuntimeTests.swift; path = UnitTests/Tests/MixboxMocksRuntime/MixboxMocksRuntimeTests.swift; sourceTree = SOURCE_ROOT; };
 		F88F5501255ED86D0072A9BF /* OsxUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OsxUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88F5505255ED86D0072A9BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F88F550A255EFE840072A9BF /* MockGenerationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGenerationTests.swift; sourceTree = "<group>"; };
@@ -1262,6 +1262,7 @@
 				FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */,
 				A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */,
 				35A68FF0C2C0AE41F478867E /* Pods_MocksGenerator.framework */,
+				A89533A6B8764D01DE124944 /* Pods_MocksGeneratorTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2153,14 +2154,6 @@
 			path = Logs;
 			sourceTree = "<group>";
 		};
-		F88F3C22255D7A410072A9BF /* MixboxMocksRuntime */ = {
-			isa = PBXGroup;
-			children = (
-				F88F3C27255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift */,
-			);
-			path = MixboxMocksRuntime;
-			sourceTree = "<group>";
-		};
 		F88F5502255ED86D0072A9BF /* OsxUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2174,7 +2167,6 @@
 			isa = PBXGroup;
 			children = (
 				F88F550A255EFE840072A9BF /* MockGenerationTests.swift */,
-				F88F550B255EFE840072A9BF /* Fixtures */,
 			);
 			path = MixboxMockGeneration;
 			sourceTree = "<group>";
@@ -2192,6 +2184,7 @@
 		F88F5513255EFE990072A9BF /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F88F550B255EFE840072A9BF /* Fixtures */,
 				F88F5509255EFE840072A9BF /* MixboxMockGeneration */,
 			);
 			path = Tests;
@@ -2867,7 +2860,6 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F88F3C22255D7A410072A9BF /* MixboxMocksRuntime */,
 				F8B5C5AC254A74F0002DB0FB /* MixboxReflection */,
 				F8E979F825111D7F00ED131A /* MixboxTestability */,
 				F812A17424E59F8500BCCE06 /* MixboxDi */,
@@ -3512,6 +3504,8 @@
 				C510411FFCB419DFC8AA09AE /* Pods-OsxUnitTests.release.xcconfig */,
 				C9405D81BC18CC90D3CA42BE /* Pods-MocksGenerator.debug.xcconfig */,
 				2CB74C666F3705EFED495BE1 /* Pods-MocksGenerator.release.xcconfig */,
+				F6F52874FDEA5AD348E01C58 /* Pods-MocksGeneratorTests.debug.xcconfig */,
+				48B908E1BA16A691135DC20B /* Pods-MocksGeneratorTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -4806,10 +4800,8 @@
 				F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */,
 				F8B5C693254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift in Sources */,
 				F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */,
-				F8297BC0256248670013C5F2 /* FixtureProtocol.swift in Sources */,
 				F80C2E1624D1DAFD00C6CAD4 /* RecordingStepLoggerImpl.swift in Sources */,
 				F80C2E2724D1E15100C6CAD4 /* BaseTestCase.swift in Sources */,
-				F88F3C2A255D7A7E0072A9BF /* MixboxMocksRuntimeTests.swift in Sources */,
 				F80C2E1124D1DAFD00C6CAD4 /* XcTestFailureMatcherBuilder.swift in Sources */,
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
@@ -4901,7 +4893,6 @@
 				F80C2E2824D1E15100C6CAD4 /* BaseTestCase+AssertLogsAndFailures.swift in Sources */,
 				F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */,
 				F8FC4AD323AA687F00D3E911 /* AlwaysTrueMatcherTests.swift in Sources */,
-				F8297BBF256246760013C5F2 /* MockFixtureProtocol.swift in Sources */,
 				F8971D8922661A8E001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.swift in Sources */,
 				F80C2E0B24D1DAFD00C6CAD4 /* FailureGatherer.swift in Sources */,
 				F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */,
@@ -4923,8 +4914,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F88F5512255EFE840072A9BF /* FixturesPath.swift in Sources */,
+				F83B3AAE2566E264004D942C /* FixturesPath.swift in Sources */,
 				F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */,
+				F83B51252567E5F0004D942C /* FixtureProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

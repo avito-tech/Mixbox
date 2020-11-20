@@ -178,13 +178,12 @@ final class RecordedSessionStubberTests: TestCase {
                     )
                 )
             )
-            stubRequestBuilder.expect().withRequestStub(
+            stubRequestBuilder.verify().withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
                 httpMethod: equals(.put)
-            )
-            stubRequestBuilder.verify()
+            ).isCalled()
             
-            stubResponseBuilder.expect().withResponse(
+            stubResponseBuilder.verify().withResponse(
                 value: isDataThatIsJson(["data_key": "data_value"]),
                 variation: equals(
                     .http(
@@ -195,8 +194,7 @@ final class RecordedSessionStubberTests: TestCase {
                     )
                 ),
                 responseTime: 0
-            )
-            stubResponseBuilder.verify()
+            ).isCalled()
         }
     }
     
@@ -209,11 +207,10 @@ final class RecordedSessionStubberTests: TestCase {
         assertNoThrow {
             try recordedSessionStubber.stub(recordedStub: .withUrl(stubUrl))
             
-            stubRequestBuilder.expect().withRequestStub(
+            stubRequestBuilder.verify().withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
                 httpMethod: equals(.get)
-            )
-            stubRequestBuilder.verify()
+            ).isCalled()
         }
     }
     

@@ -2,127 +2,74 @@ import MixboxFoundation
 import MixboxTestsFoundation
 
 public final class MockManagerImpl: MockManager {
-    private var stubs: [String: [Stub]] = [:]
-    private var callRecords: [CallRecord] = []
-    private var expectationsByFunctionId: [String: [Expectation]] = [:]
-    private let testFailureRecorder: TestFailureRecorder
+    private let stubbing: MockManagerStubbing
+    private let calling: MockManagerCalling
+    private let verification: MockManagerVerification
     
     public init(
-        testFailureRecorder: TestFailureRecorder)
+        testFailureRecorder: TestFailureRecorder,
+        waiter: RunLoopSpinningWaiter,
+        defaultTimeout: TimeInterval = 15,
+        defaultPollingInterval: TimeInterval = 0.1)
     {
-        self.testFailureRecorder = testFailureRecorder
-    }
-    
-    public convenience init() {
-        self.init(
-            testFailureRecorder: XcTestFailureRecorder(
-                currentTestCaseProvider: AutomaticCurrentTestCaseProvider(),
-                shouldNeverContinueTestAfterFailure: false
-            )
+        let stubsHolder = StubsHolderImpl()
+        let callRecordsHolder = CallRecordsHolderImpl()
+        
+        self.stubbing = MockManagerStubbingImpl(
+            stubsHolder: stubsHolder
+        )
+        self.calling = MockManagerCallingImpl(
+            testFailureRecorder: testFailureRecorder,
+            callRecordsHolder: callRecordsHolder,
+            stubsProvider: stubsHolder
+        )
+        self.verification = MockManagerVerificationImpl(
+            testFailureRecorder: testFailureRecorder,
+            callRecordsProvider: callRecordsHolder,
+            waiter: waiter,
+            defaultTimeout: defaultTimeout,
+            defaultPollingInterval: defaultPollingInterval
         )
     }
     
     public func call<Arguments, ReturnValue>(
-        functionId: String,
+        functionIdentifier: FunctionIdentifier,
         arguments: Arguments)
         -> ReturnValue
     {
-        do {
-            let callRecord = CallRecord(
-                functionId: functionId,
-                arguments: arguments
-            )
-            
-            callRecords.append(callRecord)
-            
-            return try stubs[functionId].flatMap { stubs in
-                try stubs
-                    .last { $0.matches(arguments: arguments) }
-                    .map { try $0.value(arguments: arguments) }
-            }.unwrapOrThrow(
-                error: ErrorString("Call to function \(functionId) with args \(arguments) was not stubbed")
-            )
-        } catch {
-            testFailureRecorder.recordUnavoidableFailure(description: "\(error)")
-        }
+        calling.call(
+            functionIdentifier: functionIdentifier,
+            arguments: arguments
+        )
     }
     
-    public func verify() -> VerificationResult {
-        let fails: [VerificationFailureDescription] = expectationsByFunctionId.flatMap { (functionId, expectations) in
-            expectations.compactMap { expectation in
-                let timesCalled = callRecords.mb_count {
-                    $0.functionId == functionId
-                        && expectation.matcher.valueIsMatching($0.arguments)
-                }
-                
-                if !expectation.times.valueIsMatching(timesCalled) {
-                    return VerificationFailureDescription(
-                        message: "Expectation was not fulfilled",
-                        fileLine: expectation.fileLine
-                    )
-                } else {
-                    return nil
-                }
-            }
-        }
-        
-        fails.forEach {
-            testFailureRecorder.recordFailure(
-                description: $0.message,
-                shouldContinueTest: true
-            )
-        }
-        
-        if !fails.isEmpty {
-            return .fail(fails)
-        } else {
-            return .success
-        }
-    }
-    
-    public func addExpecatation<Arguments>(
-        functionId: String,
+    public func verify<Arguments>(
+        functionIdentifier: FunctionIdentifier,
         fileLine: FileLine,
-        times: FunctionalMatcher<Int>,
-        matcher: FunctionalMatcher<Arguments>)
-        -> Expectation
+        timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher,
+        argumentsMatcher: FunctionalMatcher<Arguments>,
+        timeout: TimeInterval?,
+        pollingInterval: TimeInterval?)
     {
-        let expectation = Expectation(
-            matcher: matcher.byErasingType(),
-            times: times,
-            fileLine: fileLine
+        verification.verify(
+            functionIdentifier: functionIdentifier,
+            fileLine: fileLine,
+            timesMethodWasCalledMatcher: timesMethodWasCalledMatcher,
+            argumentsMatcher: argumentsMatcher,
+            timeout: timeout,
+            pollingInterval: pollingInterval
         )
-        
-        addExpectation(expectation, functionId: functionId)
-        
-        return expectation
     }
     
-    public func addStub<Arguments>(
-        functionId: String,
+    public func stub<Arguments>(
+        functionIdentifier: FunctionIdentifier,
         closure: @escaping (Any) -> Any,
-        matcher: FunctionalMatcher<Arguments>)
+        argumentsMatcher: FunctionalMatcher<Arguments>)
     {
-        let stub = Stub(
+        stubbing.stub(
+            functionIdentifier: functionIdentifier,
             closure: closure,
-            matcher: matcher.byErasingType()
+            argumentsMatcher: argumentsMatcher
         )
-        addStub(stub, functionId: functionId)
-    }
-    
-    private func addStub(_ stub: Stub, functionId: String) {
-        if stubs[functionId] != nil {
-            stubs[functionId]?.append(stub)
-        } else {
-            stubs[functionId] = [stub]
-        }
-    }
-    
-    private func addExpectation(_ expectation: Expectation, functionId: String) {
-        if expectationsByFunctionId[functionId] != nil {
-            expectationsByFunctionId[functionId]?.append(expectation)
-        } else {
-            expectationsByFunctionId[functionId] = [expectation]
-        }
     }
 }

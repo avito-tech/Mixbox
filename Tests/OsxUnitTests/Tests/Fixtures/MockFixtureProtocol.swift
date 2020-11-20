@@ -7,76 +7,79 @@ class MockFixtureProtocol:
     FixtureProtocol,
     MixboxMocksRuntime.Mock
 {
-    class StubBuilder: MixboxMocksRuntime.StubBuilder {
+    class StubbingBuilder: MixboxMocksRuntime.StubbingBuilder {
         private let mockManager: MixboxMocksRuntime.MockManager
-    
-        required init(mockManager: MixboxMocksRuntime.MockManager) {
+        private let fileLine: FileLine
+        
+        required init(mockManager: MixboxMocksRuntime.MockManager, fileLine: FileLine) {
             self.mockManager = mockManager
+            self.fileLine = fileLine
         }
         
-        func fixtureFunction<Argument0: MixboxMocksRuntime.Matcher, Argument1: MixboxMocksRuntime.Matcher>(_ argument0: Argument0, labeled argument1: Argument1) -> MixboxMocksRuntime.StubForFunctionBuilder<(Int, Int), Int>
+        func fixtureFunction<Argument0: MixboxMocksRuntime.Matcher, Argument1: MixboxMocksRuntime.Matcher>(
+            _ argument0: Argument0,
+            labeled argument1: Argument1)
+            -> MixboxMocksRuntime.StubbingFunctionBuilder<(Int, Int), Int>
             where
             Argument0.MatchingType == Int,
             Argument1.MatchingType == Int
         {
-            let matcher = MixboxMocksRuntime.FunctionalMatcher<(Int, Int)>(
+            let argumentsMatcher = MixboxMocksRuntime.FunctionalMatcher<(Int, Int)>(
                 matchingFunction: { (otherArgument0: Int, otherArgument1: Int) -> Bool in
                     argument0.valueIsMatching(otherArgument0) && argument1.valueIsMatching(otherArgument1)
                 }
             )
         
-            return MixboxMocksRuntime.StubForFunctionBuilder<(Int, Int), Int>(
-                functionId:
+            return MixboxMocksRuntime.StubbingFunctionBuilder<(Int, Int), Int>(
+                functionIdentifier:
                 """
                 fixtureFunction(_ unlabeled: Int, labeled: Int)
                 """,
                 mockManager: mockManager,
-                matcher: matcher
+                argumentsMatcher: argumentsMatcher,
+                fileLine: fileLine
             )
         }
     }
 
-    class ExpectationBuilder: MixboxMocksRuntime.ExpectationBuilder {
+    class VerificationBuilder: MixboxMocksRuntime.VerificationBuilder {
         private let mockManager: MixboxMocksRuntime.MockManager
-        private let times: MixboxMocksRuntime.FunctionalMatcher<Int>
-        private let fileLine: MixboxFoundation.FileLine
-    
-        required init(
-            mockManager: MixboxMocksRuntime.MockManager,
-            times: MixboxMocksRuntime.FunctionalMatcher<Int>,
-            fileLine: MixboxFoundation.FileLine)
-        {
+        private let fileLine: FileLine
+        
+        required init(mockManager: MixboxMocksRuntime.MockManager, fileLine: FileLine) {
             self.mockManager = mockManager
-            self.times = times
             self.fileLine = fileLine
         }
-    
-        func fixtureFunction<Argument0: MixboxMocksRuntime.Matcher, Argument1: MixboxMocksRuntime.Matcher>(_ argument0: Argument0, labeled argument1: Argument1)
+        
+        func fixtureFunction<Argument0: MixboxMocksRuntime.Matcher, Argument1: MixboxMocksRuntime.Matcher>(
+            _ argument0: Argument0,
+            labeled argument1: Argument1)
+            -> MixboxMocksRuntime.VerificationFunctionBuilder<(Int, Int), Int>
             where
             Argument0.MatchingType == Int,
             Argument1.MatchingType == Int
         {
-            let matcher = MixboxMocksRuntime.FunctionalMatcher<(Int, Int)>(
+            let argumentsMatcher = MixboxMocksRuntime.FunctionalMatcher<(Int, Int)>(
                 matchingFunction: { (otherArgument0: Int, otherArgument1: Int) -> Bool in
                     argument0.valueIsMatching(otherArgument0) && argument1.valueIsMatching(otherArgument1)
                 }
             )
         
-            _ = mockManager.addExpecatation(
-                functionId:
+            return MixboxMocksRuntime.VerificationFunctionBuilder<(Int, Int), Int>(
+                functionIdentifier:
                 """
                 fixtureFunction(_ unlabeled: Int, labeled: Int)
                 """,
-                fileLine: fileLine,
-                times: times,
-                matcher: matcher
+                mockManager: mockManager,
+                argumentsMatcher: argumentsMatcher,
+                fileLine: fileLine
             )
         }
     }
 
     func fixtureFunction(_ argument0: Int, labeled argument1: Int) -> Int {
-        return mockManager.call(
-            functionId:
+        return getMockManager().call(
+            functionIdentifier:
             """
             fixtureFunction(_ unlabeled: Int, labeled: Int)
             """,

@@ -26,8 +26,8 @@ final class PredefinedObjcMethodsTests: TestCase {
             .thenReturn(
                 // Value doesn't matter
                 AllMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
-                    enhancedAccessibilityLabelMethodSwizzler: MockEnhancedAccessibilityLabelMethodSwizzler(mockManager: MockManagerImpl()),
-                    objcMethodsWithUniqueImplementationProvider: MockObjcMethodsWithUniqueImplementationProvider(mockManager: MockManagerImpl()),
+                    enhancedAccessibilityLabelMethodSwizzler: register(MockEnhancedAccessibilityLabelMethodSwizzler()),
+                    objcMethodsWithUniqueImplementationProvider: register(MockObjcMethodsWithUniqueImplementationProvider()),
                     baseClass: NSObject.self,
                     selector: #selector(NSObject.init),
                     methodType: .instanceMethod
@@ -60,38 +60,36 @@ final class PredefinedObjcMethodsTests: TestCase {
         let baseClass = NSObject.self
         let selector = #selector(NSObject.accessibilityLabel)
         
-        factory.expect().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.verify().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: isInstance(of: EnhancedAccessibilityLabelMethodSwizzlerImpl.self),
             objcMethodsWithUniqueImplementationProvider: isInstance(of: ObjcRuntimeObjcMethodsWithUniqueImplementationProvider.self),
             baseClass: isSame(baseClass),
             selector: equals(selector),
             methodType: equals(methodType)
-        )
+        ).isCalled()
         
         // Verify that only 1 swizzler is created:
         
-        factory.expect(times: 1).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.verify().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: any(),
             objcMethodsWithUniqueImplementationProvider: any(),
             baseClass: any(),
             selector: any(),
             methodType: any()
-        )
-        
-        factory.verify()
+        ).isCalled(times: .exactly(times: 1))
     }
     
     private func checkForIosFrom11To13() {
         let baseClass = NSObject.self
         let selector = Selector(("_accessibilityAXAttributedLabel"))
         
-        factory.expect().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.verify().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: isInstance(of: EnhancedAccessibilityLabelMethodSwizzlerImpl.self),
             objcMethodsWithUniqueImplementationProvider: isInstance(of: PredefinedObjcMethodsWithUniqueImplementationProvider.self),
             baseClass: isSame(baseClass),
             selector: equals(selector),
             methodType: equals(methodType)
-        )
+        ).isCalled()
         
         checkObjcMethodsMethodsWithUniqueImplementationArePredefined(
             baseClass: baseClass,
@@ -100,15 +98,13 @@ final class PredefinedObjcMethodsTests: TestCase {
         
         // Verify that only 1 swizzler is created:
         
-        factory.expect(times: 1).allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
+        factory.verify().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
             enhancedAccessibilityLabelMethodSwizzler: any(),
             objcMethodsWithUniqueImplementationProvider: any(),
             baseClass: any(),
             selector: any(),
             methodType: any()
-        )
-        
-        factory.verify()
+        ).isCalled(times: .exactly(times: 1))
     }
     
     private func checkObjcMethodsMethodsWithUniqueImplementationArePredefined(
@@ -118,7 +114,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         // Given
         var fallbackWasUsed = false
         
-        let fallbackObjcMethodsWithUniqueImplementationProvider = MockObjcMethodsWithUniqueImplementationProvider(mockManager: MockManagerImpl())
+        let fallbackObjcMethodsWithUniqueImplementationProvider = register(MockObjcMethodsWithUniqueImplementationProvider())
         fallbackObjcMethodsWithUniqueImplementationProvider
             .stub()
             .objcMethodsWithUniqueImplementation(baseClass: any(), selector: any(), methodType: any())

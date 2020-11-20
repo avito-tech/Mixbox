@@ -1,34 +1,39 @@
 import SourceryRuntime
 
-public class WrappedFunctionTemplate {
+public class FunctionBuilderTemplate {
     private let method: Method
-    private let returnType: String?
-    private let customBody: String
+    private let functionBuilderName: String
     
     public init(
         method: Method,
-        returnType: String?,
-        customBody: String)
+        functionBuilderName: String)
     {
         self.method = method
-        self.returnType = returnType
-        self.customBody = customBody
+        self.functionBuilderName = functionBuilderName
+    }
+    
+    private var returnType: String {
+        return "MixboxMocksRuntime.\(functionBuilderName)<\(argumentsTupleType), \(method.returnTypeName.name)>"
     }
     
     public func render() throws -> String {
         """
-        func \(method.callName)\(genericParametersClause)\(methodArguments)\(returnClause)\(whereClause){
-            let matcher = MixboxMocksRuntime.FunctionalMatcher<\(matcherTupleType)>(
+        func \(method.callName)\(genericParametersClause)\(methodArguments)-> \(returnType)\(whereClause){
+            let argumentsMatcher = MixboxMocksRuntime.FunctionalMatcher<\(argumentsTupleType)>(
                 matchingFunction: \(matchingFunction.indent(level: 2))
             )
         
-            \(customBody.indent())
+            return \(returnType)(
+                functionIdentifier:
+                \"\"\"
+                \(method.name)
+                \"\"\",
+                mockManager: mockManager,
+                argumentsMatcher: argumentsMatcher,
+                fileLine: fileLine
+            )
         }
         """
-    }
-    
-    private var returnClause: String {
-        return returnType.map { " -> \($0)" } ?? ""
     }
     
     private func genericArgumentType(index: Int) -> String {
@@ -54,15 +59,16 @@ public class WrappedFunctionTemplate {
     // (_ argument1: Argument1, someLabel argument2: Argument2)
     private var methodArguments: String {
         method.parameters.render(
-            separator: ", ",
-            surround: { "(\($0))" },
+            separator: ",\n",
+            valueIfEmpty: "() ",
+            surround: { "(\n\($0))\n    " },
             transform: { index, parameter in
                 let label = parameter.argumentLabel ?? "_"
                 
                 let name = genericArgumentName(index: index)
                 let type = genericArgumentType(index: index)
                 
-                return "\(label) \(name): \(type)"
+                return "    \(label) \(name): \(type)"
             }
         )
     }
@@ -92,7 +98,7 @@ public class WrappedFunctionTemplate {
     }
 
     // (Int, Int)
-    private var matcherTupleType: String {
+    private var argumentsTupleType: String {
         method.parameters.render(
             separator: ", ",
             surround: { "(\($0))" },

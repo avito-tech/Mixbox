@@ -9,16 +9,8 @@ import TestsIpc
 
 final class TestCaseDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {
-        di.register(type: MockManagerFactory.self) { di in
-            MockManagerFactoryImpl(
-                testFailureRecorder: try di.resolve()
-            )
-        }
-        di.register(type: MockRegisterer.self) { di in
-            MockRegistererImpl(
-                mockManagerFactory: try di.resolve()
-            )
-        }
+        registerMocks(di: di)
+        
         di.register(type: EnvironmentProvider.self) { _ in
             Singletons.environmentProvider
         }
@@ -58,6 +50,20 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
         }
         di.register(type: PerformanceLogger.self) { _ in
             Singletons.performanceLogger
+        }
+    }
+    
+    private func registerMocks(di: DependencyRegisterer) {
+        di.register(type: MockManagerFactory.self) { di in
+            MockManagerFactoryImpl(
+                testFailureRecorder: try di.resolve(),
+                waiter: try di.resolve()
+            )
+        }
+        di.register(type: MockRegisterer.self) { di in
+            MockRegistererImpl(
+                mockManagerFactory: try di.resolve()
+            )
         }
     }
 }

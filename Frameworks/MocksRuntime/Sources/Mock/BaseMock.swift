@@ -17,7 +17,7 @@ open class BaseMock {
     
     // MARK: - Mock
     
-    public var mockManager: MockManager {
+    public func getMockManager() -> MockManager {
         return storedMockManager.unwrapOrFail(
             message: { fileLine in
                 "`mockManager` was not set, mock \(type(of: self)) has been created on \(fileLine)"

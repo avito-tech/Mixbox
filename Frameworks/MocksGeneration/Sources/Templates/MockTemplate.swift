@@ -8,15 +8,27 @@ public final class MockTemplate {
     }
     
     public func render() throws -> String {
-        """
+        let stubbingBuilderTemplate = BuilderTemplate(
+            protocolType: protocolType,
+            builderName: "StubbingBuilder",
+            functionBuilderName: "StubbingFunctionBuilder"
+        )
+        
+        let verifcationBuilderTemplate = BuilderTemplate(
+            protocolType: protocolType,
+            builderName: "VerificationBuilder",
+            functionBuilderName: "VerificationFunctionBuilder"
+        )
+        
+        return """
         class Mock\(protocolType.name):
             MixboxMocksRuntime.BaseMock,
             \(protocolType.name),
             MixboxMocksRuntime.Mock
         {
-            \(try StubBuilderTemplate(protocolType: protocolType).render().indent())
+            \(try stubbingBuilderTemplate.render().indent())
         
-            \(try ExpectationBuilderTemplate(protocolType: protocolType).render().indent())
+            \(try verifcationBuilderTemplate.render().indent())
 
             \(try ProtocolImplementationTemplate(protocolType: protocolType).render().indent())
         }

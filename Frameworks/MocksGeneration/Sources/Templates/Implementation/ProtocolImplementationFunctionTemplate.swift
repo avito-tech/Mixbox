@@ -10,8 +10,8 @@ public class ProtocolImplementationFunctionTemplate {
     public func render() throws -> String {
         """
         func \(method.callName)\(methodArguments)\(returnClause) {
-            return mockManager.call(
-                functionId:
+            return getMockManager().call(
+                functionIdentifier:
                 \"\"\"
                 \(method.name)
                 \"\"\",
