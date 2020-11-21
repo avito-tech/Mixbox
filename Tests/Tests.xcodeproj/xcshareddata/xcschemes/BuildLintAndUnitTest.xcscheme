@@ -113,8 +113,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F8F4A1D5256833060093523E"
-               BuildableName = "BuildLintAndUnitTest"
-               BlueprintName = "BuildLintAndUnitTest"
+               BuildableName = "LintAfterCodeGeneration"
+               BlueprintName = "LintAfterCodeGeneration"
                ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

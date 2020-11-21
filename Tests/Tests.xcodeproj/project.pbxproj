@@ -42,18 +42,17 @@
 			name = WarmUpCodeGeneration;
 			productName = WarmUpCodeGeneration;
 		};
-		F8F4A1D5256833060093523E /* BuildLintAndUnitTest */ = {
+		F8F4A1D5256833060093523E /* LintAfterCodeGeneration */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = F8F4A1D6256833060093523E /* Build configuration list for PBXAggregateTarget "BuildLintAndUnitTest" */;
+			buildConfigurationList = F8F4A1D6256833060093523E /* Build configuration list for PBXAggregateTarget "LintAfterCodeGeneration" */;
 			buildPhases = (
 				F8F4A1E125683AA00093523E /* ShellScript */,
 			);
 			dependencies = (
-				F8F4A1DE256833210093523E /* PBXTargetDependency */,
-				F8F4A1E0256833210093523E /* PBXTargetDependency */,
-				F8F4A1DC256833130093523E /* PBXTargetDependency */,
+				F8A12FF92568FB14005E1963 /* PBXTargetDependency */,
+				F8A12FFB2568FB14005E1963 /* PBXTargetDependency */,
 			);
-			name = BuildLintAndUnitTest;
+			name = LintAfterCodeGeneration;
 			productName = LintAfterBuild;
 		};
 /* End PBXAggregateTarget section */
@@ -732,6 +731,20 @@
 			remoteGlobalIDString = F813CAE5209CC5D400E6A27C;
 			remoteInfo = Tests;
 		};
+		F8A12FF82568FB14005E1963 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8F4A1B7256820C80093523E;
+			remoteInfo = GenerateMocksForGrayBoxUiTests;
+		};
+		F8A12FFA2568FB14005E1963 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8F4A1B3256820BB0093523E;
+			remoteInfo = GenerateMocksForUnitTests;
+		};
 		F8B0A2052209C44A0089C1EE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
@@ -780,27 +793,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = F8F4A1C92568267B0093523E;
 			remoteInfo = WarmUpCodeGeneration;
-		};
-		F8F4A1DB256833130093523E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F866756C2121E81E00396F02;
-			remoteInfo = UnitTests;
-		};
-		F8F4A1DD256833210093523E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F813CAF9209CC5D700E6A27C;
-			remoteInfo = BlackBoxUiTests;
-		};
-		F8F4A1DF256833210093523E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F813CADE209CC5D400E6A27C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F8B0A1FF2209C44A0089C1EE;
-			remoteInfo = GrayBoxUiTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -3981,7 +3973,7 @@
 				F8F4A1B3256820BB0093523E /* GenerateMocksForUnitTests */,
 				F8F4A1B7256820C80093523E /* GenerateMocksForGrayBoxUiTests */,
 				F8F4A1C92568267B0093523E /* WarmUpCodeGeneration */,
-				F8F4A1D5256833060093523E /* BuildLintAndUnitTest */,
+				F8F4A1D5256833060093523E /* LintAfterCodeGeneration */,
 			);
 		};
 /* End PBXProject section */
@@ -5418,6 +5410,16 @@
 			target = F813CAE5209CC5D400E6A27C /* TestedApp */;
 			targetProxy = F86675722121E81E00396F02 /* PBXContainerItemProxy */;
 		};
+		F8A12FF92568FB14005E1963 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8F4A1B7256820C80093523E /* GenerateMocksForGrayBoxUiTests */;
+			targetProxy = F8A12FF82568FB14005E1963 /* PBXContainerItemProxy */;
+		};
+		F8A12FFB2568FB14005E1963 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8F4A1B3256820BB0093523E /* GenerateMocksForUnitTests */;
+			targetProxy = F8A12FFA2568FB14005E1963 /* PBXContainerItemProxy */;
+		};
 		F8B0A2062209C44A0089C1EE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F813CAE5209CC5D400E6A27C /* TestedApp */;
@@ -5452,21 +5454,6 @@
 			isa = PBXTargetDependency;
 			target = F8F4A1C92568267B0093523E /* WarmUpCodeGeneration */;
 			targetProxy = F8F4A1D0256826A50093523E /* PBXContainerItemProxy */;
-		};
-		F8F4A1DC256833130093523E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F866756C2121E81E00396F02 /* UnitTests */;
-			targetProxy = F8F4A1DB256833130093523E /* PBXContainerItemProxy */;
-		};
-		F8F4A1DE256833210093523E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F813CAF9209CC5D700E6A27C /* BlackBoxUiTests */;
-			targetProxy = F8F4A1DD256833210093523E /* PBXContainerItemProxy */;
-		};
-		F8F4A1E0256833210093523E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F8B0A1FF2209C44A0089C1EE /* GrayBoxUiTests */;
-			targetProxy = F8F4A1DF256833210093523E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -6107,7 +6094,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8F4A1D6256833060093523E /* Build configuration list for PBXAggregateTarget "BuildLintAndUnitTest" */ = {
+		F8F4A1D6256833060093523E /* Build configuration list for PBXAggregateTarget "LintAfterCodeGeneration" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8F4A1D7256833060093523E /* Debug */,
