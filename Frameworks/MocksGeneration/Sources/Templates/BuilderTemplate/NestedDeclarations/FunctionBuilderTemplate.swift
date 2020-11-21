@@ -3,18 +3,47 @@ import SourceryRuntime
 public class FunctionBuilderTemplate {
     private let method: Method
     private let builderType: String
+    private let genericParameterClause: GenericParameterClause?
+    private let genericArgumentTypeNames: [String]
     
     public init(
         method: Method,
         builderType: String)
+        throws
     {
         self.method = method
         self.builderType = builderType
+        self.genericParameterClause = try method.genericParameterClause()
+        
+        // Example: we have function `func x<T, U, Argument0>(x: (T?...) -> ([U]) -> (Argument0))`
+        //
+        // Stub function should contain all generic types from source function.
+        // But we also have our own generic type names. We want to avoid collisions.
+        //
+        // There are two ways to do it:
+        // - Patch source generic names
+        // - Patch additional generic names (for matchers)
+        //
+        // Patching source generic names is error prone, because types can be complicated,
+        // so we patch our own argument names instead.
+        //
+        let takenNames = Set(
+            genericParameterClause.map(default: []) { genericParameterClause in
+                genericParameterClause.genericParameters.map { $0.name }
+            }
+        )
+        
+        genericArgumentTypeNames = try method.parameters.enumerated().map { (index, _) in
+            try NameCollisionAvoidance.typeNameAvoidingCollisons(
+                desiredName: Snippets.matcherGenericArgumentTypeName(index: index),
+                takenNames: takenNames
+            )
+        }
     }
     
     public func render() -> String {
         """
-        func \(method.callName)\(genericParametersClause)\(methodArguments)-> \(returnType)\(whereClause){
+        func \(method.callName)\(genericParameterClauseString)\(methodArguments)-> \(returnType)\(whereClause){
             \(body.indent())
         }
         """
@@ -44,15 +73,22 @@ public class FunctionBuilderTemplate {
         "\(builderType)FunctionBuilder"
     }
     
-    // <Argument1: MixboxMocksRuntime.Matcher, Argument2: MixboxMocksRuntime.Matcher>
-    private var genericParametersClause: String {
-        method.parameters.render(
+    // <SourceT, SourceU, Argument0: MixboxMocksRuntime.Matcher, Argument1: MixboxMocksRuntime.Matcher>
+    private var genericParameterClauseString: String {
+        let sourceParameters = genericParameterClause.map(default: []) { genericParameterClause in
+            genericParameterClause.genericParameters.map { genericParameter in
+                genericParameter.name
+            }
+        }
+        
+        let matcherGenericParameters = method.parameters.enumerated().map { (index, _) in
+            "\(matcherGenericArgumentTypeName(index: index)): MixboxMocksRuntime.Matcher"
+        }
+        
+        return (sourceParameters + matcherGenericParameters).render(
             separator: ", ",
             valueIfEmpty: "",
-            surround: { "<\($0)>" },
-            transform: { index, _ in
-                "\(Snippets.genericArgumentTypeName(index: index)): MixboxMocksRuntime.Matcher"
-            }
+            surround: { "<\($0)>" }
         )
     }
 
@@ -68,11 +104,15 @@ public class FunctionBuilderTemplate {
                     name: Snippets.argumentName(index: index)
                 )
                 
-                let type = Snippets.genericArgumentTypeName(index: index)
+                let type = matcherGenericArgumentTypeName(index: index)
                 
                 return "    \(labeledArgument): \(type)"
             }
         )
+    }
+    
+    private func matcherGenericArgumentTypeName(index: Int) -> String {
+        return genericArgumentTypeNames[index]
     }
 
     // where
@@ -92,7 +132,7 @@ public class FunctionBuilderTemplate {
             },
             transform: { index, parameter in
                 let matchingType = parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
-                let genericType = Snippets.genericArgumentTypeName(index: index)
+                let genericType = matcherGenericArgumentTypeName(index: index)
                 
                 return "\(genericType).MatchingType == \(matchingType)"
             }

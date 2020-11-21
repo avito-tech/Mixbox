@@ -7,12 +7,26 @@ public class ProtocolImplementationFunctionTemplate {
         self.method = method
     }
     
-    public func render() -> String {
+    public func render() throws -> String {
         """
-        func \(method.callName)\(methodArguments)\(returnClause) {
+        func \(method.callName)\(try genericParameterClauseString())\(methodArguments)\(returnClause) {
             \(body.indent())
         }
         """
+    }
+    
+    private func genericParameterClauseString() throws -> String {
+        let genericNames = try method.genericParameterClause().map(default: []) { genericParameterClause in
+            genericParameterClause.genericParameters.map { genericParameter in
+                genericParameter.name
+            }
+        }
+        
+        return genericNames.render(
+            separator: ", ",
+            valueIfEmpty: "",
+            surround: { "<\($0)>" }
+        )
     }
     
     private var body: String {

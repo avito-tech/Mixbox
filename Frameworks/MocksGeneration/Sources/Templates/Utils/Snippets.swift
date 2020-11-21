@@ -8,11 +8,11 @@ public final class Snippets {
     // MARK: - Specific for current templates
     
     public static func argumentName(index: Int) -> String {
-        return "argument\(index)"
+        return "matcher\(index)"
     }
     
-    public static func genericArgumentTypeName(index: Int) -> String {
-        return "Argument\(index)"
+    public static func matcherGenericArgumentTypeName(index: Int) -> String {
+        return "Matcher\(index)"
     }
     
     public static func variableNameStringLiteral(variable: Variable) -> String {

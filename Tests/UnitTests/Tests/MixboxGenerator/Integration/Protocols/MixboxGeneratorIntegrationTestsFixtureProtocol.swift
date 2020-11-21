@@ -29,31 +29,46 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     func function() -> [Int: Int]
     func function() -> () -> ()
     
-    // Argument types
+    // Argument types: Optional
+    
     func function(optional: Int?)
     func function(doubleOptional: Int??)
     func function(otherWayOfSpecifyingOptionality: Optional<Int>)
     
-    // Closures: Non-escaping
+    // Argument types: Tuples
+    
+    func function(tuple: (Int, Int))
+    
+    // Argument types: Variadic
+    
+    // TODO: Fix
+    // func function(variadic: Int...)
+    
+    // Argument types: Generic
+    
+    func function<T>(generic: T)
+    func function<T, U>(generic: T, generic: U)
+    
+    // Argument types: Closures: Non-escaping
     
     func function(closure: () -> ())
     func function(autoclosure: @autoclosure () -> Int)
     
-    // Closures: Escaping
+    // Argument types: Closures: Escaping
     
     func function(escapingClosure: @escaping () -> ())
     func function(escapingAutoclosure: @escaping @autoclosure () -> Int)
     func function(escapingClosureWithTypealias: @escaping Completion)
     func function(escapingClosureWithGenericTypealias: @escaping GenericClosureHolder<Int, Int>.Closure)
     
-    // Closures: Not really
+    // Argument types: Closures: Not really
     
     func function(closureLikeArgumentOfImplicitlyUnwrappedOptionalType: (() -> ())!)
     func function(closureLikeArgumentOfOptionalType: (() -> ())?)
     func function(closureLikeArgumentOfArrayType: [() -> ()])
     func function(closureLikeArgumentOfDictionaryType: [Int: () -> ()])
     
-    // Closures: Other
+    // Argument types: Closures: Other
     
     func function(
         closureWithPoorlyWrittenAttributes: @escaping(Int?) -> ())

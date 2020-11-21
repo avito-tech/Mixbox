@@ -12,16 +12,16 @@ public class BuilderTemplate {
         self.builderType = builderType
     }
     
-    public func render() -> String {
+    public func render() throws -> String {
         """
         class \(builderName): MixboxMocksRuntime.\(builderName) {
-            \(blocks.indent())
+            \(try blocks().indent())
         }
         """
     }
     
-    private var blocks: String {
-        let blocks = [header] + properties + functions
+    private func blocks() throws -> String {
+        let blocks = [header] + properties + (try functions())
         
         return blocks.joined(separator: "\n\n")
     }
@@ -49,9 +49,9 @@ public class BuilderTemplate {
         }
     }
     
-    private var functions: [String] {
-        return protocolType.allMethods.map {
-            let template = FunctionBuilderTemplate(
+    private func functions() throws -> [String] {
+        return try protocolType.allMethods.map {
+            let template = try FunctionBuilderTemplate(
                 method: $0,
                 builderType: builderType
             )

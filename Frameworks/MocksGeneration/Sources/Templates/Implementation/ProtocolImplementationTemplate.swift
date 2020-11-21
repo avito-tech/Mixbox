@@ -7,9 +7,9 @@ public class ProtocolImplementationTemplate {
         self.protocolType = protocolType
     }
     
-    public func render() -> String {
-        let methods = protocolType.allMethods.map {
-            ProtocolImplementationFunctionTemplate(method: $0).render()
+    public func render() throws -> String {
+        let methods = try protocolType.allMethods.map {
+            try ProtocolImplementationFunctionTemplate(method: $0).render()
         }
         
         let properties = protocolType.allVariables.map {
