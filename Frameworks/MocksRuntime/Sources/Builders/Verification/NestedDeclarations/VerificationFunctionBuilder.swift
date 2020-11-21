@@ -37,7 +37,21 @@ public final class VerificationFunctionBuilder<Arguments, ReturnType> {
         )
     }
     
-    public func isCalled(timeout: TimeInterval? = nil, pollingInterval: TimeInterval? = nil) {
+    public func isCalledOnlyOnce(
+        timeout: TimeInterval? = nil,
+        pollingInterval: TimeInterval? = nil)
+    {
+        isCalled(
+            times: .exactlyOnce(),
+            timeout: timeout,
+            pollingInterval: pollingInterval
+        )
+    }
+    
+    public func isCalled(
+        timeout: TimeInterval? = nil,
+        pollingInterval: TimeInterval? = nil)
+    {
         isCalled(
             times: .atLeastOnce(),
             timeout: timeout,
@@ -45,7 +59,10 @@ public final class VerificationFunctionBuilder<Arguments, ReturnType> {
         )
     }
     
-    public func isNotCalled(timeout: TimeInterval? = nil, pollingInterval: TimeInterval? = nil) {
+    public func isNotCalled(
+        timeout: TimeInterval? = nil,
+        pollingInterval: TimeInterval? = nil)
+    {
         isCalled(
             times: .never(),
             timeout: timeout,

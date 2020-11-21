@@ -22,3 +22,13 @@ extension Mock {
 public func anyClosure<MatchingType>() -> FunctionalMatcher<MatchingType> {
     return any()
 }
+
+public func equals<MatchingType>(
+    _ value: MatchingType,
+    when: (MatchingType) -> Bool)
+    -> FunctionalMatcher<MatchingType>
+    where
+    MatchingType: Equatable
+{
+    return FunctionalMatcher<MatchingType> { other in value == other }
+}

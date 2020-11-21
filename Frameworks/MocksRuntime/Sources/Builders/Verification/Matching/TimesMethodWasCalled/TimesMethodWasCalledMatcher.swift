@@ -43,6 +43,12 @@ public final class TimesMethodWasCalledMatcher {
         return atLeast(times: 1)
     }
     
+    public static func exactlyOnce()
+        -> TimesMethodWasCalledMatcher
+    {
+        return exactly(times: 1)
+    }
+    
     public static func atLeast(
         times expectedTimesMethodIsCalled: Int)
         -> TimesMethodWasCalledMatcher
