@@ -36,9 +36,14 @@ final class FrameworkInfosProviderImplTests: XCTestCase {
             XCTFail("\(error)")
         }
         
+        var difference: Any {
+            Set(providedFrameworkNames).symmetricDifference(Set(fileSystemFrameworkNames))
+        }
+        
         XCTAssertEqual(
             providedFrameworkNames.sorted(),
-            fileSystemFrameworkNames.sorted()
+            fileSystemFrameworkNames.sorted(),
+            "Difference: \(difference)"
         )
     }
 }

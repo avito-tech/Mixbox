@@ -39,10 +39,6 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
-                name: "DipDi",
-                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
-            ),
-            FrameworkInfo(
                 name: "FakeSettingsAppMain",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
@@ -83,11 +79,11 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
-                name: "MocksRuntime",
+                name: "MocksGeneration",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
-                name: "MocksGeneration",
+                name: "MocksRuntime",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
