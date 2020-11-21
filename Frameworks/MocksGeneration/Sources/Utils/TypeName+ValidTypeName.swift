@@ -38,7 +38,7 @@ extension TypeName {
     public var validAttributes: [String: Attribute] {
         attributes.mapValues { name, value in
             switch name {
-            case "escaping":
+            case AttributeName.escaping.rawValue:
                 return Attribute(name: name)
             default:
                 return value

@@ -20,7 +20,7 @@ final class MockGenerationTests: XCTestCase {
                 destinationModuleName: moduleName
             )
             
-            template.render()
+            _ = template.render()
         } catch {
             XCTFail("\(error)")
         }

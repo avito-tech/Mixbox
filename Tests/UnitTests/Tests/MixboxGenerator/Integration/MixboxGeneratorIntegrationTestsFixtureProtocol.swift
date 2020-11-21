@@ -36,9 +36,8 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     
     // Closures
     
-    // TODO: Fix non-escaping closures
-    // func function(closure: () -> ())
-    // func function(autoclosure: @autoclosure () -> Int)
+    func function(closure: () -> ())
+    func function(autoclosure: @autoclosure () -> Int)
     
     func function(escapingClosure: @escaping () -> ())
     

@@ -15,18 +15,24 @@ public class FunctionBuilderTemplate {
     public func render() -> String {
         """
         func \(method.callName)\(genericParametersClause)\(methodArguments)-> \(returnType)\(whereClause){
-            let argumentsMatcher = MixboxMocksRuntime.FunctionalMatcher<\(argumentsTupleType)>(
-                matchingFunction: \(matchingFunction.indent(level: 2))
-            )
-        
-            return \(returnType)(
-                functionIdentifier:
-                \(Snippets.functionIdentifier(method: method).indent(level: 2)),
-                mockManager: mockManager,
-                argumentsMatcher: argumentsMatcher,
-                fileLine: fileLine
-            )
+            \(body.indent())
         }
+        """
+    }
+    
+    private var body: String {
+        """
+        let argumentsMatcher = MixboxMocksRuntime.FunctionalMatcher<\(argumentsTupleType)>(
+            matchingFunction: \(matchingFunction.indent(level: 1))
+        )
+
+        return \(returnType)(
+            functionIdentifier:
+            \(Snippets.functionIdentifier(method: method).indent(level: 1)),
+            mockManager: mockManager,
+            argumentsMatcher: argumentsMatcher,
+            fileLine: fileLine
+        )
         """
     }
     
@@ -118,7 +124,7 @@ public class FunctionBuilderTemplate {
             """
     }
     
-    private func matchingFunctionArgumentName(index: Int) -> String {
+    private func matchingFunctionOtherArgumentName(index: Int) -> String {
         return "otherArgument\(index)"
     }
     
@@ -128,25 +134,25 @@ public class FunctionBuilderTemplate {
             separator: ", ",
             surround: { "(\($0))" },
             transform: { index, parameter in
-                let name = matchingFunctionArgumentName(index: index)
+                let name = matchingFunctionOtherArgumentName(index: index)
                 let type = parameter.typeName.validTypeName
+                let typeWithAttributes = parameter.typeName.isClosure
+                    ? "@escaping \(type)"
+                    : type
                 
-                return "\(name): \(type)"
+                return "\(name): \(typeWithAttributes)"
             }
         )
     }
     
     private var matchingFunctionPredicate: String {
         method.parameters
-            .filter { parameter in
-                !parameter.isClosure
-            }
             .render(
-                separator: " && ",
+                separator: "\n    && ",
                 valueIfEmpty: "true",
                 transform: { index, _ in
                     let lhs = Snippets.argumentName(index: index)
-                    let rhs = matchingFunctionArgumentName(index: index)
+                    let rhs = matchingFunctionOtherArgumentName(index: index)
                     
                     return "\(lhs).valueIsMatching(\(rhs))"
                 }

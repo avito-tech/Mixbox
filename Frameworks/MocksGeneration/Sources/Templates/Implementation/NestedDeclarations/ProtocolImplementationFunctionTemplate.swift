@@ -10,12 +10,27 @@ public class ProtocolImplementationFunctionTemplate {
     public func render() -> String {
         """
         func \(method.callName)\(methodArguments)\(returnClause) {
-            return getMockManager().call(
-                functionIdentifier:
-                \(Snippets.functionIdentifier(method: method).indent(level: 2)),
-                arguments: \(tupledArguments)
-            )
+            \(body.indent())
         }
+        """
+    }
+    
+    private var body: String {
+        Snippets.withoutActuallyEscaping(
+            parameters: method.parameters,
+            argumentName: Snippets.argumentName,
+            returnType: returnType,
+            body: bodyWithEscapingClosures
+        )
+    }
+    
+    private var bodyWithEscapingClosures: String {
+        """
+        return getMockManager().call(
+            functionIdentifier:
+            \(Snippets.functionIdentifier(method: method).indent(level: 1)),
+            arguments: \(tupledArguments)
+        )
         """
     }
     
@@ -51,6 +66,10 @@ public class ProtocolImplementationFunctionTemplate {
             return ""
         }
         
-        return " -> \(method.returnTypeName.validTypeName)"
+        return " -> \(returnType)"
+    }
+    
+    private var returnType: String {
+        return method.returnTypeName.validTypeName
     }
 }

@@ -37,6 +37,43 @@ public final class Snippets {
         """
     }
     
+    // MARK: - Escaping closures
+    
+    public static func withoutActuallyEscaping(
+        closureName: String,
+        closureTypeName: TypeName,
+        returnType: String,
+        body: String)
+        -> String
+    {
+        """
+        withoutActuallyEscaping(\(closureName) , do: { (\(closureName): @escaping \(closureTypeName.validTypeName)) -> \(returnType) in
+            \(body.indent())
+        })
+        """
+    }
+    
+    public static func withoutActuallyEscaping(
+        parameters: [MethodParameter],
+        argumentName: (_ index: Int) -> String,
+        returnType: String,
+        body: String)
+        -> String
+    {
+        parameters.enumerated().reduce(body) { (body, pair) -> String in
+            if pair.element.isNonEscapingClosure {
+                return withoutActuallyEscaping(
+                    closureName: argumentName(pair.offset),
+                    closureTypeName: pair.element.typeName,
+                    returnType: returnType,
+                    body: body
+                )
+            } else {
+                return body
+            }
+        }
+    }
+    
     // MARK: - Generic for Swift
     
     /// Returns just name of argument if label is same as name.
