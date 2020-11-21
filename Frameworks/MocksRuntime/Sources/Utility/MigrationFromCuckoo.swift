@@ -14,7 +14,7 @@ public func when<Arguments, ReturnType>(
 
 extension Mock {
     public static func stub<M: Mock>(_ mock: M, block: (M.StubbingBuilder) -> ()) {
-        stub(mock, block: block)
+        MixboxMocksRuntime.stub(mock, block: block)
     }
 }
 
