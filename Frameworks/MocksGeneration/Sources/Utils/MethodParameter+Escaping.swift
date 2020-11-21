@@ -1,8 +1,9 @@
 import SourceryRuntime
 
 extension MethodParameter {
+    // NOTE: Will not work for typealiases if they can't be resolved
     public var isNonEscapingClosure: Bool {
-        return isClosure && !hasEscapingAttribute
+        return typeName.isReallyClosure && !hasEscapingAttribute
     }
     
     private var hasEscapingAttribute: Bool {

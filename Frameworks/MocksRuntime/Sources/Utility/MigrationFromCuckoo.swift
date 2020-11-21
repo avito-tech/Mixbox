@@ -1,8 +1,9 @@
 // These declaration duplicate interface of Cuckoo,
 // they are not set in stone and are just for compatibility during migration period.
 
-public func stub<M: Mock>(_ mock: M, block: (M.StubbingBuilder) -> ()) {
+public func stub<M: Mock>(_ mock: M, block: (M.StubbingBuilder) -> ()) -> M  {
     block(mock.stub())
+    return mock
 }
 
 public func when<Arguments, ReturnType>(
@@ -13,8 +14,8 @@ public func when<Arguments, ReturnType>(
 }
 
 extension Mock {
-    public static func stub<M: Mock>(_ mock: M, block: (M.StubbingBuilder) -> ()) {
-        MixboxMocksRuntime.stub(mock, block: block)
+    public static func stub<M: Mock>(_ mock: M, block: (M.StubbingBuilder) -> ()) -> M {
+        return MixboxMocksRuntime.stub(mock, block: block)
     }
 }
 

@@ -21,7 +21,7 @@ public class PropertyBuilderTemplate {
     }
     
     private var returnType: String {
-        return "MixboxMocksRuntime.\(variableBuilderName)<\(variable.typeName.validTypeName)>"
+        return "MixboxMocksRuntime.\(variableBuilderName)<\(variable.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional)>"
     }
     
     private var getter: String {

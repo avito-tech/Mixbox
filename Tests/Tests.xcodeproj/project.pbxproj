@@ -373,6 +373,8 @@
 		F8A12CB825684FAA005E1963 /* SnippetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB725684FAA005E1963 /* SnippetsTests.swift */; };
 		F8A12CBA25685049005E1963 /* TypeName_ValidTypeName_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */; };
 		F8A12E5325689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */; };
+		F8A12F292568C68B005E1963 /* GenericCompletionHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12F282568C68B005E1963 /* GenericCompletionHolder.swift */; };
+		F8A12F2B2568C692005E1963 /* Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12F2A2568C692005E1963 /* Completion.swift */; };
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
 		F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */; };
@@ -1062,6 +1064,8 @@
 		F8A12CB725684FAA005E1963 /* SnippetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetsTests.swift; sourceTree = "<group>"; };
 		F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName_ValidTypeName_Tests.swift; sourceTree = "<group>"; };
 		F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift; sourceTree = "<group>"; };
+		F8A12F282568C68B005E1963 /* GenericCompletionHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCompletionHolder.swift; sourceTree = "<group>"; };
+		F8A12F2A2568C692005E1963 /* Completion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completion.swift; sourceTree = "<group>"; };
 		F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTestsView.swift; sourceTree = "<group>"; };
 		F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift; sourceTree = "<group>"; };
 		F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingHierarchyTestsView.swift; sourceTree = "<group>"; };
@@ -2449,6 +2453,33 @@
 			path = ProcessInfo;
 			sourceTree = "<group>";
 		};
+		F8A12F252568C646005E1963 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F8A12F282568C68B005E1963 /* GenericCompletionHolder.swift */,
+				F8A12F2A2568C692005E1963 /* Completion.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F8A12F262568C657005E1963 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */,
+				F8F4A1AC2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift */,
+				F8F4A1D325682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		F8A12F272568C667005E1963 /* FixturePaths */ = {
+			isa = PBXGroup;
+			children = (
+				F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */,
+			);
+			path = FixturePaths;
+			sourceTree = "<group>";
+		};
 		F8A395BC2147C549000E9E44 /* ViewsWithClosures */ = {
 			isa = PBXGroup;
 			children = (
@@ -3555,10 +3586,9 @@
 		F8F4A1AB256816460093523E /* Integration */ = {
 			isa = PBXGroup;
 			children = (
-				F8F4A1AC2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift */,
-				F8F4A1D325682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift */,
-				F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */,
-				F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */,
+				F8A12F272568C667005E1963 /* FixturePaths */,
+				F8A12F262568C657005E1963 /* Protocols */,
+				F8A12F252568C646005E1963 /* Models */,
 			);
 			path = Integration;
 			sourceTree = "<group>";
@@ -5017,6 +5047,8 @@
 				F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */,
 				F8FC4ACF23AA686900D3E911 /* AndMatcherTests.swift in Sources */,
 				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
+				F8A12F292568C68B005E1963 /* GenericCompletionHolder.swift in Sources */,
+				F8A12F2B2568C692005E1963 /* Completion.swift in Sources */,
 				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,

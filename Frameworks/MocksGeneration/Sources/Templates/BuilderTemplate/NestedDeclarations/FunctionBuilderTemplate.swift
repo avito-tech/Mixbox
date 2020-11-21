@@ -37,7 +37,7 @@ public class FunctionBuilderTemplate {
     }
     
     private var returnType: String {
-        return "MixboxMocksRuntime.\(functionBuilderName)<\(argumentsTupleType), \(method.returnTypeName.validTypeName)>"
+        return "MixboxMocksRuntime.\(functionBuilderName)<\(argumentsTupleType), \(method.returnTypeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional)>"
     }
     
     private var functionBuilderName: String {
@@ -91,7 +91,7 @@ public class FunctionBuilderTemplate {
                 """
             },
             transform: { index, parameter in
-                let matchingType = parameter.typeName.validTypeName
+                let matchingType = parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
                 let genericType = Snippets.genericArgumentTypeName(index: index)
                 
                 return "\(genericType).MatchingType == \(matchingType)"
@@ -105,7 +105,7 @@ public class FunctionBuilderTemplate {
             separator: ", ",
             surround: { "(\($0))" },
             transform: { _, parameter in
-                parameter.typeName.validTypeName
+                parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
             }
         )
     }
@@ -128,19 +128,18 @@ public class FunctionBuilderTemplate {
         return "otherArgument\(index)"
     }
     
-    // (b1: Int, b2: Int)
+    // Note: types are omitted. This is because if type is closure,
+    // then we have to deal with non-escaping closures, and there is no
+    // way to reliably detect if closure is non-escaping, because it can be
+    // a typealias from another module.
     private var matchingFunctionArguments: String {
         method.parameters.render(
             separator: ", ",
             surround: { "(\($0))" },
-            transform: { index, parameter in
+            transform: { index, _ in
                 let name = matchingFunctionOtherArgumentName(index: index)
-                let type = parameter.typeName.validTypeName
-                let typeWithAttributes = parameter.typeName.isClosure
-                    ? "@escaping \(type)"
-                    : type
                 
-                return "\(name): \(typeWithAttributes)"
+                return "\(name)"
             }
         )
     }

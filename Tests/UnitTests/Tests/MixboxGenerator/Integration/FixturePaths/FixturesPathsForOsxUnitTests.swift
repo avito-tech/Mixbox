@@ -6,9 +6,11 @@ import PathKit
 final class FixturesPathsForOsxUnitTests {
     private init() {}
     
-    static let folderPath = Path(#file) + ".."
+    static let folderPath = Path(#file) + "../.."
     
     static func allFiles() throws -> [Path] {
-        return try folderPath.children()
+        return try folderPath
+            .recursiveChildren()
+            .filter { $0.isFile }
     }
 }

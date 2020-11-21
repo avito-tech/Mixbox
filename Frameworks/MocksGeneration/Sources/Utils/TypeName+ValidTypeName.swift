@@ -23,6 +23,16 @@ extension TypeName {
         }
     }
     
+    public var validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional: String {
+        let typeName = validTypeName
+        
+        if typeName.hasSuffix("!") {
+            return typeName.trimmingSuffix("!") + "?"
+        } else {
+            return typeName
+        }
+    }
+    
     // Note: Sourcery has bugs. It doesn't have use the concept called "lookahead"
     //
     // Example:
@@ -44,6 +54,15 @@ extension TypeName {
                 return value
             }
         }
+    }
+    
+    // Sourcery likes to treat anything that looks like a closure like a closure.
+    public var isReallyClosure: Bool {
+        return isClosure
+            && !isOptional
+            && !isImplicitlyUnwrappedOptional
+            && !isArray
+            && !isDictionary
     }
 }
 

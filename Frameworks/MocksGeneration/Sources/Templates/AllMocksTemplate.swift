@@ -20,30 +20,40 @@ public final class AllMocksTemplate {
     
     public func render() -> String {
         var moduleNames: Set = [
-            "MixboxMocksRuntime",
             "MixboxFoundation",
+            "MixboxMocksRuntime",
             "MixboxTestsFoundation"
         ]
         
-        moduleNames.insert(parsedModule.moduleScope.moduleName)
-        
-        moduleNames.formUnion(
-            parsedModule.moduleScope.allImports
-        )
-        
+        moduleNames.formUnion(parsedModule.moduleScope.allImports)
         moduleNames.remove(destinationModuleName)
+        
+        let testableMouleNames: Set = [
+            parsedModule.moduleScope.moduleName
+        ]
+        
+        // If module should be testable, we can't import it without @testable,
+        // so we remove it from the list of not testable modules and not otherwise
+        testableMouleNames.forEach {
+            moduleNames.remove($0)
+        }
         
         let header = "// swiftlint:disable all"
         
         let imports = moduleNames
             .sorted()
             .map { "import \($0)" }
-            .joined(separator: "\n")
+        
+        let testableImports = testableMouleNames
+            .sorted()
+            .map { "@testable import \($0)" }
+        
+        let joinedImports = (imports + testableImports).joined(separator: "\n")
         
         let mocks = parsedModule.moduleScope.types.protocols.map {
             MockTemplate(protocolType: $0).render()
         }
         
-        return ([header, imports] + mocks).joined(separator: "\n\n") + "\n"
+        return ([header, joinedImports] + mocks).joined(separator: "\n\n") + "\n"
     }
 }

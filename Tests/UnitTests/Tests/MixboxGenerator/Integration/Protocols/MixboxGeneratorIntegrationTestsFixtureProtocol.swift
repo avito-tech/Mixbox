@@ -5,7 +5,7 @@ protocol MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFile {
     func mixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFileFunction()
 }
 
-// swiftlint:disable syntactic_sugar
+// swiftlint:disable syntactic_sugar implicitly_unwrapped_optional
 protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFile,
     MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile
@@ -34,17 +34,29 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     func function(doubleOptional: Int??)
     func function(otherWayOfSpecifyingOptionality: Optional<Int>)
     
-    // Closures
+    // Closures: Non-escaping
     
     func function(closure: () -> ())
     func function(autoclosure: @autoclosure () -> Int)
     
+    // Closures: Escaping
+    
     func function(escapingClosure: @escaping () -> ())
+    func function(escapingAutoclosure: @escaping @autoclosure () -> Int)
+    func function(escapingClosureWithTypealias: @escaping Completion)
+    func function(escapingClosureWithGenericTypealias: @escaping GenericClosureHolder<Int, Int>.Closure)
+    
+    // Closures: Not really
+    
+    func function(closureLikeArgumentOfImplicitlyUnwrappedOptionalType: (() -> ())!)
+    func function(closureLikeArgumentOfOptionalType: (() -> ())?)
+    func function(closureLikeArgumentOfArrayType: [() -> ()])
+    func function(closureLikeArgumentOfDictionaryType: [Int: () -> ()])
+    
+    // Closures: Other
     
     func function(
         closureWithPoorlyWrittenAttributes: @escaping(Int?) -> ())
-    
-    func function(escapingAutoclosure: @escaping @autoclosure () -> Int)
     
     // Function attributes
     

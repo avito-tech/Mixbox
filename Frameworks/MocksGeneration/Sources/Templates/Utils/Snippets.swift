@@ -47,12 +47,14 @@ public final class Snippets {
         -> String
     {
         """
-        withoutActuallyEscaping(\(closureName) , do: { (\(closureName): @escaping \(closureTypeName.validTypeName)) -> \(returnType) in
+        withoutActuallyEscaping(\(closureName) , do: { (\(closureName): @escaping \(closureTypeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional)) -> \(returnType) in
             \(body.indent())
         })
         """
     }
-    
+
+    // Note: we can't be sure that parameter is actually a closure,
+    // for example, if type is typealias and this typealias can't be resolved.
     public static func withoutActuallyEscaping(
         parameters: [MethodParameter],
         argumentName: (_ index: Int) -> String,
