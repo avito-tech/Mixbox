@@ -8,11 +8,11 @@ public class ProtocolImplementationTemplate {
     }
     
     public func render() throws -> String {
-        let methods = try protocolType.allMethods.map {
+        let methods = try protocolType.allMethodsToImplement.map {
             try ProtocolImplementationFunctionTemplate(method: $0).render()
         }
         
-        let properties = protocolType.allVariables.map {
+        let properties = protocolType.allVariablesToImplement.map {
             ProtocolImplementationPropertyTemplate(variable: $0).render()
         }
         

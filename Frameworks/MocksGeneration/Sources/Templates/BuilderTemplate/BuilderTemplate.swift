@@ -50,7 +50,7 @@ public class BuilderTemplate {
     }
     
     private func functions() throws -> [String] {
-        return try protocolType.allMethods.map {
+        return try protocolType.allMethodsToImplement.map {
             let template = try FunctionBuilderTemplate(
                 method: $0,
                 builderType: builderType

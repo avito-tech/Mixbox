@@ -92,4 +92,12 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     var gettableClosure: () -> () { get }
     var gettableOptional: Int? { get }
     var gettableArray: [Int?]? { get }
+    
+    // Extensions
+    
+    func functionThatIsAlsoInExtension(_ someArgumentName: Int)
+}
+
+extension MixboxGeneratorIntegrationTestsFixtureProtocol {
+    func functionThatIsAlsoInExtension(_ someDifferentArgumentName: Int) {}
 }
