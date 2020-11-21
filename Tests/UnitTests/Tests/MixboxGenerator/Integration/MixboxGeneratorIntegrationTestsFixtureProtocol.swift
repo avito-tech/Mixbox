@@ -1,7 +1,15 @@
 import Foundation
 
+protocol MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFile {
+    var _mixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFileProperty: Int { get }
+    func mixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFileFunction()
+}
+
 // swiftlint:disable syntactic_sugar
-protocol ProtocolToMock {
+protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
+    MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFile,
+    MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile
+{
     // Number of arguments
     func function()
     func function(argument0: Int, argument1: Int)

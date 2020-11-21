@@ -12,20 +12,21 @@ do {
     let outputFile = arguments[3]
     let inputFiles = Array(arguments.suffix(from: 4))
     
-    let parser = SourceFileParserImpl()
+    let parser = ModuleParserImpl(
+        sourceFileParser: SourceFileParserImpl()
+    )
     
-    let parsedSourceFiles = ParsedSourceFiles(
-        sourceFiles: try inputFiles.map { file in
-            try parser.parse(path: Path(file), moduleName: moduleName)
-        }
+    let parsedModule = try parser.parse(
+        paths: inputFiles.map { Path($0) },
+        moduleName: moduleName
     )
     
     let template = AllMocksTemplate(
-        parsedSourceFiles: parsedSourceFiles,
+        parsedModule: parsedModule,
         destinationModuleName: destinationModuleName
     )
     
-    try NSString(string: try template.render()).write(
+    try NSString(string: template.render()).write(
         toFile: outputFile,
         atomically: true,
         encoding: String.Encoding.utf8.rawValue

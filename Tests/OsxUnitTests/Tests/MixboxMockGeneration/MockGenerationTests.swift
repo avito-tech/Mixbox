@@ -6,23 +6,21 @@ final class MockGenerationTests: XCTestCase {
     func test() {
         do {
             let moduleName = "UnitTests"
-            let parser = SourceFileParserImpl()
+            let parser = ModuleParserImpl(
+                sourceFileParser: SourceFileParserImpl()
+            )
             
-            let parsedSourceFiles = ParsedSourceFiles(
-                sourceFiles: try FixturesPathsForOsxUnitTests.allFiles.map {
-                    try parser.parse(
-                        path: $0,
-                        moduleName: moduleName
-                    )
-                }
+            let parsedModule = try parser.parse(
+                paths: FixturesPathsForOsxUnitTests.allFiles(),
+                moduleName: moduleName
             )
             
             let template = AllMocksTemplate(
-                parsedSourceFiles: parsedSourceFiles,
+                parsedModule: parsedModule,
                 destinationModuleName: moduleName
             )
             
-            _ = try template.render()
+            template.render()
         } catch {
             XCTFail("\(error)")
         }

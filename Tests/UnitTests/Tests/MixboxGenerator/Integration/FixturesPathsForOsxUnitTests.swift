@@ -8,10 +8,7 @@ final class FixturesPathsForOsxUnitTests {
     
     static let folderPath = Path(#file) + ".."
     
-    static let protocolToMock = folderPath + "ProtocolToMock.swift"
-    static let objcProtocolToMock = folderPath + "ObjcProtocolToMock.swift"
-    
-    static var allFiles: [Path] {
-        return [protocolToMock, objcProtocolToMock]
+    static func allFiles() throws -> [Path] {
+        return try folderPath.children()
     }
 }

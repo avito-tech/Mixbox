@@ -14,8 +14,9 @@ apply_mocks() {
     mock "SnapshotsComparatorFactory"
     
     module "UnitTests"
-    mock "ProtocolToMock"
-    mock "ObjcProtocolToMock"
+    mock "MixboxGeneratorIntegrationTestsFixtureProtocol"
+    mock "MixboxGeneratorIntegrationTestsFixtureObjcProtocol"
+    mock "MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile"
 }
 
 generate "UnitTests" "${PROJECT_DIR}/UnitTests/Mocks"

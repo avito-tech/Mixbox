@@ -1,7 +1,7 @@
 import Foundation
 
 @objc
-protocol ObjcProtocolToMock {
+protocol MixboxGeneratorIntegrationTestsFixtureObjcProtocol {
     @objc
     func objcFunctionWithObjcAttribute()
     

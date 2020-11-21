@@ -114,6 +114,10 @@ complete_generation() {
 
 fatal_error() {
     local last_error_code=$?
+    
+    # Use previous error by default, but previous error can be missing, so default to 1
+    [ "$last_error_code" == 0 ] && last_error_code=1
+    
     [ $# == 0 ] && echo "Fatal error. Exit code: $last_error_code"
     echo $@
     exit $last_error_code
@@ -142,6 +146,8 @@ mock() {
     else
         local file_to_mock=$(find "${REPO_ROOT}" -name "${class}.swift")
     fi
+    
+    [ -z "$file_to_mock" ] && fatal_error "File not found for $class"
     
     ALL_FILES_TO_MOCK=("${ALL_FILES_TO_MOCK[@]+"${ALL_FILES_TO_MOCK[@]}"}" "${file_to_mock}")
 }

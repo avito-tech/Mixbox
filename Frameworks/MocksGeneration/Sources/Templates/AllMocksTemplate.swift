@@ -1,5 +1,5 @@
 public final class AllMocksTemplate {
-    private let parsedSourceFiles: ParsedSourceFiles
+    private let parsedModule: ParsedModule
     private let destinationModuleName: String
     
     /// `destinationModuleName`: name of module that will include generated code.
@@ -11,10 +11,10 @@ public final class AllMocksTemplate {
     /// ```
     ///
     public init(
-        parsedSourceFiles: ParsedSourceFiles,
+        parsedModule: ParsedModule,
         destinationModuleName: String)
     {
-        self.parsedSourceFiles = parsedSourceFiles
+        self.parsedModule = parsedModule
         self.destinationModuleName = destinationModuleName
     }
     
@@ -25,10 +25,10 @@ public final class AllMocksTemplate {
             "MixboxTestsFoundation"
         ]
         
+        moduleNames.insert(parsedModule.moduleScope.moduleName)
+        
         moduleNames.formUnion(
-            parsedSourceFiles.sourceFiles.flatMap {
-                [$0.moduleName] + $0.types.types.flatMap { $0.imports }
-            }
+            parsedModule.moduleScope.allImports
         )
         
         moduleNames.remove(destinationModuleName)
@@ -40,10 +40,8 @@ public final class AllMocksTemplate {
             .map { "import \($0)" }
             .joined(separator: "\n")
         
-        let mocks = parsedSourceFiles.sourceFiles.flatMap { sourceFile in
-            sourceFile.types.protocols.map {
-                MockTemplate(protocolType: $0).render()
-            }
+        let mocks = parsedModule.moduleScope.types.protocols.map {
+            MockTemplate(protocolType: $0).render()
         }
         
         return ([header, imports] + mocks).joined(separator: "\n\n") + "\n"

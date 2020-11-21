@@ -372,6 +372,7 @@
 		F8A12CB625684DF6005E1963 /* FixturesPathsForOsxUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */; };
 		F8A12CB825684FAA005E1963 /* SnippetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB725684FAA005E1963 /* SnippetsTests.swift */; };
 		F8A12CBA25685049005E1963 /* TypeName_ValidTypeName_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */; };
+		F8A12E5325689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */; };
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
 		F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */; };
@@ -678,11 +679,11 @@
 		F8EF37B024094B2F0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */; };
 		F8EF37B324094C690041DBF9 /* DelayingFocusGainingInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */; };
 		F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */; };
-		F8F4A1AD2568165E0093523E /* ProtocolToMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1AC2568165E0093523E /* ProtocolToMock.swift */; };
+		F8F4A1AD2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1AC2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift */; };
 		F8F4A1BD256821600093523E /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F8F4A1BC256821600093523E /* generate_mocks */; };
 		F8F4A1C4256822E50093523E /* GeneratedMocks.ignored.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1C2256822E50093523E /* GeneratedMocks.ignored.swift */; };
 		F8F4A1C5256822E50093523E /* generate_mocks in Resources */ = {isa = PBXBuildFile; fileRef = F8F4A1C3256822E50093523E /* generate_mocks */; };
-		F8F4A1D425682F740093523E /* ObjcProtocolToMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1D325682F740093523E /* ObjcProtocolToMock.swift */; };
+		F8F4A1D425682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4A1D325682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift */; };
 		F8F8223624ED6D53007EEA45 /* PageObjectMakingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D1AA9C24ED5AD9001147B6 /* PageObjectMakingHelperTests.swift */; };
 		F8F8223724ED6D55007EEA45 /* PageObjectMakingHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D1AA9C24ED5AD9001147B6 /* PageObjectMakingHelperTests.swift */; };
 		F8F8320524EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320424EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift */; };
@@ -1060,6 +1061,7 @@
 		F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixturesPathsForOsxUnitTests.swift; sourceTree = "<group>"; };
 		F8A12CB725684FAA005E1963 /* SnippetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetsTests.swift; sourceTree = "<group>"; };
 		F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName_ValidTypeName_Tests.swift; sourceTree = "<group>"; };
+		F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift; sourceTree = "<group>"; };
 		F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingElementTestsView.swift; sourceTree = "<group>"; };
 		F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift; sourceTree = "<group>"; };
 		F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingHierarchyTestsView.swift; sourceTree = "<group>"; };
@@ -1254,12 +1256,12 @@
 		F8EF37AD24094AFF0041DBF9 /* SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextActionWaitsForElementToGainFocusTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayingFocusGainingInput.swift; sourceTree = "<group>"; };
 		F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDescriptionBuilderTests.swift; sourceTree = "<group>"; };
-		F8F4A1AC2568165E0093523E /* ProtocolToMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolToMock.swift; sourceTree = "<group>"; };
+		F8F4A1AC2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxGeneratorIntegrationTestsFixtureProtocol.swift; sourceTree = "<group>"; };
 		F8F4A1BC256821600093523E /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
 		F8F4A1C2256822E50093523E /* GeneratedMocks.ignored.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.ignored.swift; sourceTree = "<group>"; };
 		F8F4A1C3256822E50093523E /* generate_mocks */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_mocks; sourceTree = "<group>"; };
 		F8F4A1D2256826C50093523E /* warm_up_code_generation */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = warm_up_code_generation; sourceTree = "<group>"; };
-		F8F4A1D325682F740093523E /* ObjcProtocolToMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcProtocolToMock.swift; sourceTree = "<group>"; };
+		F8F4A1D325682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift; sourceTree = "<group>"; };
 		F8F8320424EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonLogicGeneratorFacadeTests.swift; sourceTree = "<group>"; };
 		F8F8320624EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumsGeneratorFacadeTests.swift; sourceTree = "<group>"; };
 		F8F8320824EFEE94007EEA45 /* NonFinalClassesGeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonFinalClassesGeneratorFacadeTests.swift; sourceTree = "<group>"; };
@@ -3553,9 +3555,10 @@
 		F8F4A1AB256816460093523E /* Integration */ = {
 			isa = PBXGroup;
 			children = (
-				F8F4A1AC2568165E0093523E /* ProtocolToMock.swift */,
-				F8F4A1D325682F740093523E /* ObjcProtocolToMock.swift */,
+				F8F4A1AC2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift */,
+				F8F4A1D325682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift */,
 				F8A12CB425684DF2005E1963 /* FixturesPathsForOsxUnitTests.swift */,
+				F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */,
 			);
 			path = Integration;
 			sourceTree = "<group>";
@@ -5040,7 +5043,7 @@
 				F8539645254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift in Sources */,
 				F8EC2C92251250E8009B0813 /* UIViewTestabilityWithAccessibilityDisabledTests.swift in Sources */,
 				F80C2E1224D1DAFD00C6CAD4 /* AttachmentMatcherBuilder.swift in Sources */,
-				F8F4A1AD2568165E0093523E /* ProtocolToMock.swift in Sources */,
+				F8F4A1AD2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift in Sources */,
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
 				F8F8320924EFEE94007EEA45 /* NonFinalClassesGeneratorFacadeTests.swift in Sources */,
 				F80C2E2224D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift in Sources */,
@@ -5056,7 +5059,7 @@
 				F80C2E4D24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift in Sources */,
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
-				F8F4A1D425682F740093523E /* ObjcProtocolToMock.swift in Sources */,
+				F8F4A1D425682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift in Sources */,
 				F8B5C68F254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift in Sources */,
 				F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */,
 				F80C2E3B24D1E52900C6CAD4 /* Singletons+StepLogger.swift in Sources */,
@@ -5079,6 +5082,7 @@
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F87D250024D050F000D6DBFA /* VisibilityCheckForLoopOptimizerImplTests.swift in Sources */,
 				F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */,
+				F8A12E5325689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift in Sources */,
 				F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */,
 				F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */,
 				F8B5C5AE254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift in Sources */,
