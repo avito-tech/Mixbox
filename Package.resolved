@@ -75,11 +75,11 @@
       },
       {
         "package": "Sourcery",
-        "repositoryURL": "https://github.com/krzysztofzablocki/Sourcery.git",
+        "repositoryURL": "https://github.com/avito-tech/Sourcery.git",
         "state": {
           "branch": null,
-          "revision": "0c6dc860b1e7afc2e025cb63f66ab5dfd69bb743",
-          "version": "1.0.0"
+          "revision": "10a8955f07a1dfeb9c9ad40b97fe8f95ff14dc29",
+          "version": null
         }
       },
       {

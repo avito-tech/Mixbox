@@ -15,3 +15,5 @@ PYTHON_ROOT="$REPO_ROOT"
 
 source "$REPO_ROOT"/ci/bash/include/python.sh
 source "$REPO_ROOT"/ci/bash/include/error_handling.sh
+source "$REPO_ROOT"/ci/bash/include/swift_package_manager.sh
+source "$REPO_ROOT"/ci/bash/include/bash_utils.sh

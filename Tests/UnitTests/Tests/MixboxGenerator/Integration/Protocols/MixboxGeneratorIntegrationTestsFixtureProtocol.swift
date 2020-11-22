@@ -15,6 +15,7 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     func function(argument0: Int, argument1: Int)
     
     // Labels
+    func functionWithNeitherLabelNorArgumentName(_: Int)
     func function(_ noLabel: Int)
     func function(label: Int)
     

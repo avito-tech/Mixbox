@@ -13,8 +13,9 @@ bash_ci_require_pyenv() {
         return 0
     fi
     
-    __install_command_line_tools_if_needed
-    __install_mac_os_sdk_headers_if_needed
+    # Seems to be not working:
+    # __install_command_line_tools_if_needed
+    # __install_mac_os_sdk_headers_if_needed
     
     which pyenv || brew install pyenv
     which pyenv-virtualenv || brew install pyenv-virtualenv
@@ -28,10 +29,22 @@ bash_ci_require_pyenv() {
 
     # After those commands pip3/python3/pytest will refer to those in virtualenv
     eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    __safely_eval_virtualenv_init
     pyenv local "$pyenv_name"
     
     __PYENV_IS_ALREADY_SET_UP=true
+}
+
+__safely_eval_virtualenv_init() {
+    # Fixes this error: `line 42: PROMPT_COMMAND: unbound variable`, it's in virtualenv's code
+    
+    local old_options=$(bash_save_options)
+    
+    set +u
+    
+    eval "$(pyenv virtualenv-init -)"
+    
+    bash_restore_options "$old_options"
 }
 
 # Installs requirements.txt
@@ -59,8 +72,11 @@ bash_ci_run_python3() {
 
 # PRIVATE
 
+# `--no-cache` was added to work around https://github.com/pypa/pip/issues/6240
+# Note: `-vvv` option is useful for debugging.
 __bash_ci_pip3_install() {
     pip3 install \
+        --no-cache \
         -i "https://pypi.org/simple" \
         "$@"
 }

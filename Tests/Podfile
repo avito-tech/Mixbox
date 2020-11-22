@@ -27,7 +27,7 @@ sourcery = Devpods::Repo.new(
       pod name, local_hash
     }
 )
-sourcery.branch_value = 'master'
+sourcery.branch_value = 'avito'
 sourcery.local_path_env = 'MIXBOX_SOURCERY_LOCAL_PATH'
 
 def tests_ipc_pods

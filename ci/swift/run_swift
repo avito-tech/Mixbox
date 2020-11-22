@@ -68,7 +68,7 @@ build() {
         # Also this:
         #   /xxx/yyy/DeveloperDirLocator.swift:2:8: error: no such module 'Models'
         # The latter is maybe due to some SPM cache problems that can be solved (TODO: solve)
-        if ./make build "${build_options[@]}"
+        if ./make.sh build "${build_options[@]}"
         then
             echo "Build was successful"
             lastExitCode=0
