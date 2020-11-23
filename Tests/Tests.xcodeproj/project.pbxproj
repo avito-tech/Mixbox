@@ -632,6 +632,11 @@
 		F8DEAAB8236348420002AB81 /* XcTestFailureMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEAAAD236347F50002AB81 /* XcTestFailureMatcherBuilder.swift */; };
 		F8DEAAB9236348420002AB81 /* AttachmentMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEAAAF236348010002AB81 /* AttachmentMatcherBuilder.swift */; };
 		F8DEAAED2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEAAEC2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift */; };
+		F8DFA898256BB4DB00016F40 /* Protocol0.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA897256BB4DB00016F40 /* Protocol0.swift */; };
+		F8DFA89B256BB4FD00016F40 /* Protocol1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA89A256BB4FD00016F40 /* Protocol1.swift */; };
+		F8DFA89D256BB50400016F40 /* Protocol2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA89C256BB50400016F40 /* Protocol2.swift */; };
+		F8DFA89F256BB50A00016F40 /* Protocol3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA89E256BB50A00016F40 /* Protocol3.swift */; };
+		F8DFA8A1256BB62600016F40 /* Protocol4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA8A0256BB62600016F40 /* Protocol4.swift */; };
 		F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */; };
 		F8E160C7241862A600B4912F /* DigitizerEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E160C6241862A600B4912F /* DigitizerEventTests.swift */; };
 		F8E160C92418634E00B4912F /* BaseEventTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E160C82418634E00B4912F /* BaseEventTestCase.swift */; };
@@ -1205,6 +1210,11 @@
 		F8DEAAAD236347F50002AB81 /* XcTestFailureMatcherBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcTestFailureMatcherBuilder.swift; sourceTree = "<group>"; };
 		F8DEAAAF236348010002AB81 /* AttachmentMatcherBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentMatcherBuilder.swift; sourceTree = "<group>"; };
 		F8DEAAEC2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementMatcherBuilderFactory.swift; sourceTree = "<group>"; };
+		F8DFA897256BB4DB00016F40 /* Protocol0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol0.swift; sourceTree = "<group>"; };
+		F8DFA89A256BB4FD00016F40 /* Protocol1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol1.swift; sourceTree = "<group>"; };
+		F8DFA89C256BB50400016F40 /* Protocol2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol2.swift; sourceTree = "<group>"; };
+		F8DFA89E256BB50A00016F40 /* Protocol3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol3.swift; sourceTree = "<group>"; };
+		F8DFA8A0256BB62600016F40 /* Protocol4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol4.swift; sourceTree = "<group>"; };
 		F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxHelperClient.swift; sourceTree = "<group>"; };
 		F8E160C6241862A600B4912F /* DigitizerEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitizerEventTests.swift; sourceTree = "<group>"; };
 		F8E160C82418634E00B4912F /* BaseEventTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEventTestCase.swift; sourceTree = "<group>"; };
@@ -2457,6 +2467,7 @@
 		F8A12F262568C657005E1963 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				F8DFA899256BB4E700016F40 /* ForGenerics */,
 				F8A12E5225689AE9005E1963 /* MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile.swift */,
 				F8F4A1AC2568165E0093523E /* MixboxGeneratorIntegrationTestsFixtureProtocol.swift */,
 				F8F4A1D325682F740093523E /* MixboxGeneratorIntegrationTestsFixtureObjcProtocol.swift */,
@@ -3325,6 +3336,18 @@
 				F8F8320624EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift */,
 			);
 			path = GeneratingTopLevelObjects;
+			sourceTree = "<group>";
+		};
+		F8DFA899256BB4E700016F40 /* ForGenerics */ = {
+			isa = PBXGroup;
+			children = (
+				F8DFA897256BB4DB00016F40 /* Protocol0.swift */,
+				F8DFA89A256BB4FD00016F40 /* Protocol1.swift */,
+				F8DFA89C256BB50400016F40 /* Protocol2.swift */,
+				F8DFA89E256BB50A00016F40 /* Protocol3.swift */,
+				F8DFA8A0256BB62600016F40 /* Protocol4.swift */,
+			);
+			path = ForGenerics;
 			sourceTree = "<group>";
 		};
 		F8E0B50F2199E17200C66BA9 /* MixboxHelperPrototype */ = {
@@ -5038,6 +5061,7 @@
 				F8C3AD0B2437A37F004B6BA4 /* EmptyOptionalGeneratorTests.swift in Sources */,
 				F889439C239067A2009979BE /* IdlingResourceObjectTrackerTests.swift in Sources */,
 				F8FC4ACF23AA686900D3E911 /* AndMatcherTests.swift in Sources */,
+				F8DFA89F256BB50A00016F40 /* Protocol3.swift in Sources */,
 				F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */,
 				F8A12F292568C68B005E1963 /* GenericCompletionHolder.swift in Sources */,
 				F8A12F2B2568C692005E1963 /* Completion.swift in Sources */,
@@ -5063,6 +5087,7 @@
 				F80C2E2424D1E0E900C6CAD4 /* TestCaseDependencies.swift in Sources */,
 				F8C3AD1C243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift in Sources */,
 				F8B964CE2281DCC00054CE08 /* TestCase.swift in Sources */,
+				F8DFA89D256BB50400016F40 /* Protocol2.swift in Sources */,
 				F80C2E1524D1DAFD00C6CAD4 /* StepLoggerRecordingStarter.swift in Sources */,
 				F8539645254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift in Sources */,
 				F8EC2C92251250E8009B0813 /* UIViewTestabilityWithAccessibilityDisabledTests.swift in Sources */,
@@ -5098,6 +5123,7 @@
 				F80C2E0D24D1DAFD00C6CAD4 /* TestCanNotBeContinuedException.swift in Sources */,
 				F8DC864923674F44003889C7 /* CGImage+Stub.swift in Sources */,
 				F8FC4ACD23AA666E00D3E911 /* AlwaysFalseMatcherTests.swift in Sources */,
+				F8DFA89B256BB4FD00016F40 /* Protocol1.swift in Sources */,
 				F80C2E1024D1DAFD00C6CAD4 /* StepLogMatcherBuilder.swift in Sources */,
 				F8971D6F22661000001741C1 /* BundleResourcePathProviderImplTests.swift in Sources */,
 				F86038F324CF0BBC00C257E8 /* ImagePixelDataTests.swift in Sources */,
@@ -5126,6 +5152,7 @@
 				F80C2E1424D1DAFD00C6CAD4 /* StartedStepLoggerRecording.swift in Sources */,
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* ElementMatcherBuilderTests.swift in Sources */,
+				F8DFA8A1256BB62600016F40 /* Protocol4.swift in Sources */,
 				F899ACCB24E1A9500067E87C /* UiEventObservableImplTests.swift in Sources */,
 				F850A31024C5E06A006CCF11 /* GeneratorTestsDependencies.swift in Sources */,
 				F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */,
@@ -5141,6 +5168,7 @@
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
 				F8B39FEE2423F08F00BFACD8 /* GeneratorTests.swift in Sources */,
 				F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */,
+				F8DFA898256BB4DB00016F40 /* Protocol0.swift in Sources */,
 				F8DC865023675D4A003889C7 /* UIColor+RGB.swift in Sources */,
 				F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */,
 				F8B40F192433B85D008A05E8 /* AssociatedObjectTests.swift in Sources */,

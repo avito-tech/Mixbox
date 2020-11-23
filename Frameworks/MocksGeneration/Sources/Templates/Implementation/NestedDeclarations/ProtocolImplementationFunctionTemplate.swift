@@ -17,13 +17,13 @@ public class ProtocolImplementationFunctionTemplate {
     }
     
     private func genericParameterClauseString() throws -> String {
-        let genericNames = try method.genericParameterClause().map(default: []) { genericParameterClause in
+        let genericNamesWithConstraints = try method.genericParameterClause().map(default: []) { genericParameterClause in
             genericParameterClause.genericParameters.map { genericParameter in
-                genericParameter.name
+                genericParameter.nameWithConstraint
             }
         }
         
-        return genericNames.render(
+        return genericNamesWithConstraints.render(
             separator: ", ",
             valueIfEmpty: "",
             surround: { "<\($0)>" }

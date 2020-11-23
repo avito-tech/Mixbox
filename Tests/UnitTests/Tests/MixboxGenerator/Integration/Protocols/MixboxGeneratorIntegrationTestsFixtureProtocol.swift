@@ -46,9 +46,45 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     // func function(variadic: Int...)
     
     // Argument types: Generic
+    //
+    // Docs:
+    // - Parameters clause:
+    //   https://docs.swift.org/swift-book/ReferenceManual/GenericParametersAndArguments.html#grammar_generic-parameter-clause
+    // - Where clause:
+    //   https://docs.swift.org/swift-book/ReferenceManual/GenericParametersAndArguments.html#grammar_generic-where-clause
     
-    func function<T>(generic: T)
-    func function<T, U>(generic: T, generic: U)
+    func functionGeneric<T>(generic: T)
+    func functionGeneric<T, U>(generic: T, generic: U)
+    
+    func functionGenericWithConstraints_parameters_0<T: Protocol0>(
+        generic: T)
+    
+    func functionGenericWithConstraints_parameters_0_and_1<T: Protocol0 & Protocol1>(
+        generic: T)
+    
+    // TODO: Fix.
+    //
+    // func functionGenericWithConstraints_where_0<T>(
+    //     generic: T)
+    //     where
+    //     T: Protocol0
+    //
+    // func functionGenericWithConstraints_where_0_and_1<T>(
+    //     generic: T)
+    //     where
+    //     T: Protocol0 & Protocol1
+    //
+    // func functionGenericWithConstraints_where_0_comma_1<T>(
+    //     generic: T)
+    //     where
+    //     T: Protocol0,
+    //     T: Protocol1
+    //
+    // func functionGenericWithConstraints_parameters_0_1_where_2_and_3_comma_4<T: Protocol0 & Protocol1>(
+    //     generic: T)
+    //     where
+    //     T: Protocol2 & Protocol3,
+    //     T: Protocol4
     
     // Argument types: Closures: Non-escaping
     
