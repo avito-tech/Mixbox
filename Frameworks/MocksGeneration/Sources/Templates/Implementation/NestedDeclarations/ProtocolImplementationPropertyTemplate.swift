@@ -38,6 +38,10 @@ public class ProtocolImplementationPropertyTemplate {
                     variableName: \(Snippets.variableNameStringLiteral(variable: variable).indent(level: 3)),
                     type: .get
                 ),
+                defaultImplementation: getDefaultImplementation(MixboxMocksRuntimeVoid.self),
+                defaultImplementationClosure: { (defaultImplementation, _) in
+                    defaultImplementation.\(variable.name)
+                },
                 arguments: ()
             )
         }
@@ -52,6 +56,10 @@ public class ProtocolImplementationPropertyTemplate {
                     variableName: \(Snippets.variableNameStringLiteral(variable: variable).indent(level: 3)),
                     type: .set
                 ),
+                defaultImplementation: getDefaultImplementation(MixboxMocksRuntimeVoid.self),
+                defaultImplementationClosure: { (defaultImplementation, newValue) in
+                    defaultImplementation.\(variable.name) = newValue
+                },
                 arguments: (newValue)
             )
         }

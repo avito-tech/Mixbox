@@ -8,6 +8,10 @@ public final class Snippets {
     // MARK: - Specific for current templates
     
     public static func argumentName(index: Int) -> String {
+        return "argument\(index)"
+    }
+    
+    public static func matcherArgumentName(index: Int) -> String {
         return "matcher\(index)"
     }
     
@@ -90,19 +94,28 @@ public final class Snippets {
     /// `labeledArgument(label: "a", name: "b")` will return `"a b"`
     /// `labeledArgument(label: "x", name: "x")` will return just `"x"`
     ///
-    public static func labeledArgument(label: String, name: String) -> String {
-        if label == name {
-            return name
-        } else {
-            return "\(label) \(name)"
-        }
+    public static func labeledArgumentForFunctionSignature(label: String?, name: String) -> String {
+        return labeledArgumentForFunctionSignatureWhileValuesArentEmpty(
+            label: label.convertEmptyToNil(),
+            name: name.convertEmptyToNil()
+        )
     }
     
-    /// Same as above, if label is `nil`, it is treated like it is `"_"`
-    public static func labeledArgument(label: String?, name: String) -> String {
-        return labeledArgument(
-            label: label ?? "_",
-            name: name
-        )
+    private static func labeledArgumentForFunctionSignatureWhileValuesArentEmpty(label: String?, name: String?) -> String {
+        switch (label, name) {
+        case (nil, nil):
+            return "_"
+        case let (nil, name?):
+            return "_ \(name)"
+        case let (label?, nil):
+            // That's not a valid case in Swift. TODO: Assertion failure?
+            return "\(label) _"
+        case let (label?, name?):
+            if label == name {
+                return name
+            } else {
+                return "\(label) \(name)"
+            }
+        }
     }
 }

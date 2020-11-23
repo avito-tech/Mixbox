@@ -5,12 +5,21 @@ public protocol MockManagerProvider {
 }
 
 public protocol MockManagerSettable {
-    func setMockManager(mockManager: MockManager)
+    @discardableResult
+    func setMockManager(_ mockManager: MockManager) -> MixboxMocksRuntimeVoid
+}
+
+public protocol DefaultImplementationSettable {
+    associatedtype MockedType
+    
+    // TODO: Should we allow resetting it (making argument optional)?
+    @discardableResult
+    func setDefaultImplementation(_ defaultImplementation: MockedType) -> MixboxMocksRuntimeVoid
 }
 
 // Note: don't add properties to protocols to avoid name collisions.
 // Properties don't support overloading.
-public protocol Mock: class, MockManagerProvider, MockManagerSettable {
+public protocol Mock: class, MockManagerProvider, MockManagerSettable, DefaultImplementationSettable {
     associatedtype StubbingBuilder: MixboxMocksRuntime.StubbingBuilder
     associatedtype VerificationBuilder: MixboxMocksRuntime.VerificationBuilder
 }

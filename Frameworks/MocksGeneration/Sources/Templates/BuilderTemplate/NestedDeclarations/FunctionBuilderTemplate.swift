@@ -99,9 +99,9 @@ public class FunctionBuilderTemplate {
             valueIfEmpty: "() ",
             surround: { "(\n\($0))\n    " },
             transform: { index, parameter in
-                let labeledArgument = Snippets.labeledArgument(
+                let labeledArgument = Snippets.labeledArgumentForFunctionSignature(
                     label: parameter.argumentLabel,
-                    name: Snippets.argumentName(index: index)
+                    name: Snippets.matcherArgumentName(index: index)
                 )
                 
                 let type = matcherGenericArgumentTypeName(index: index)
@@ -190,7 +190,7 @@ public class FunctionBuilderTemplate {
                 separator: "\n    && ",
                 valueIfEmpty: "true",
                 transform: { index, _ in
-                    let lhs = Snippets.argumentName(index: index)
+                    let lhs = Snippets.matcherArgumentName(index: index)
                     let rhs = matchingFunctionOtherArgumentName(index: index)
                     
                     return "\(lhs).valueIsMatching(\(rhs))"

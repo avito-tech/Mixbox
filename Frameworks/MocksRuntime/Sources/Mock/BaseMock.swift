@@ -1,7 +1,7 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 
-open class BaseMock {
+open class BaseMock: MockManagerSettable {
     private var storedMockManager: MockManager?
     private let fileLineWhereInitialized: FileLine
     private let onceToken = ThreadSafeOnceToken<Void>()
@@ -27,7 +27,7 @@ open class BaseMock {
         )
     }
     
-    public func setMockManager(mockManager: MockManager) {
+    public func setMockManager(_ mockManager: MockManager) -> MixboxMocksRuntimeVoid {
         onceToken.executeOnce(
             body: {
                 storedMockManager = mockManager
@@ -38,5 +38,7 @@ open class BaseMock {
                 }
             }
         )
+        
+        return MixboxMocksRuntimeVoid()
     }
 }

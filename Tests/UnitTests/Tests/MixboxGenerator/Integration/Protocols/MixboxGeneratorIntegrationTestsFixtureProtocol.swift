@@ -75,6 +75,7 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
         closureWithPoorlyWrittenAttributes: @escaping(Int?) -> ())
     
     // Function attributes
+    // TODO: Test more attributes, attributes with labels, also access modifiers.
     
     @inlinable
     func inlinableFunction()

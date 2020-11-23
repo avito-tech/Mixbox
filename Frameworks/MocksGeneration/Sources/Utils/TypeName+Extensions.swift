@@ -47,13 +47,18 @@ extension TypeName {
     //
     public var validAttributes: [String: Attribute] {
         attributes.mapValues { name, value in
-            switch name {
-            case AttributeName.escaping.rawValue:
+            // Effectively removes parenthesis, because `name` doesn't contain them
+            if AttributeName.attributesNamesWithoutParenthesisRawValues.contains(name) {
                 return Attribute(name: name)
-            default:
+            } else {
                 return value
             }
         }
+    }
+    
+    public var isAutoclosure: Bool {
+        return isReallyClosure
+            && attributes[AttributeName.autoclosure.rawValue] != nil
     }
     
     // Sourcery likes to treat anything that looks like a closure like a closure.

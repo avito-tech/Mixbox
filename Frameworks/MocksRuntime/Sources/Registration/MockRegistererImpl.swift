@@ -9,7 +9,7 @@ public final class MockRegistererImpl: MockRegisterer {
     
     public func register(mock: MockManagerSettable) {
         mock.setMockManager(
-            mockManager: mockManagerFactory.mockManager()
+            mockManagerFactory.mockManager()
         )
     }
 }

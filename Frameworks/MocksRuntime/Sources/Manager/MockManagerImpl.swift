@@ -32,13 +32,49 @@ public final class MockManagerImpl: MockManager {
         )
     }
     
-    public func call<Arguments, ReturnValue>(
+    public func call<MockedType, Arguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
+        defaultImplementation: MockedType?,
+        defaultImplementationClosure: (inout MockedType, Arguments) -> ReturnValue,
         arguments: Arguments)
         -> ReturnValue
     {
-        calling.call(
+        return calling.call(
             functionIdentifier: functionIdentifier,
+            defaultImplementation: defaultImplementation,
+            defaultImplementationClosure: defaultImplementationClosure,
+            arguments: arguments
+        )
+    }
+        
+    public func callThrows<MockedType, Arguments, ReturnValue>(
+        functionIdentifier: FunctionIdentifier,
+        defaultImplementation: MockedType?,
+        defaultImplementationClosure: (inout MockedType, Arguments) throws -> ReturnValue,
+        arguments: Arguments)
+        throws
+        -> ReturnValue
+    {
+        return try calling.callThrows(
+            functionIdentifier: functionIdentifier,
+            defaultImplementation: defaultImplementation,
+            defaultImplementationClosure: defaultImplementationClosure,
+            arguments: arguments
+        )
+    }
+        
+    public func callRethrows<MockedType, Arguments, ReturnValue>(
+        functionIdentifier: FunctionIdentifier,
+        defaultImplementation: MockedType?,
+        defaultImplementationClosure: (inout MockedType, Arguments) throws -> ReturnValue,
+        arguments: Arguments)
+        rethrows
+        -> ReturnValue
+    {
+        return try calling.callRethrows(
+            functionIdentifier: functionIdentifier,
+            defaultImplementation: defaultImplementation,
+            defaultImplementationClosure: defaultImplementationClosure,
             arguments: arguments
         )
     }
