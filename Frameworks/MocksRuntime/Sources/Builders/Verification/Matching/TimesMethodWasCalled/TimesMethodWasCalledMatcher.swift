@@ -1,3 +1,8 @@
+// TODO:
+//
+// Remove labels in static functions. Example:
+// `.exactly(times: 1)` => `.exactly(1)`
+//
 public final class TimesMethodWasCalledMatcher {
     private let name: String
     private let matchingFunction: (Int) -> TimesMethodWasCalledMatchingResult

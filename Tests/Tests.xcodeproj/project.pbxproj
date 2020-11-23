@@ -2919,7 +2919,6 @@
 		F8B39FEC2423F05500BFACD8 /* MixboxGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				F8F4A1AB256816460093523E /* Integration */,
 				F8D262D124431D6C0006B707 /* Support */,
 				F8D262CE2443134B0006B707 /* GeneratorFacadeTests */,
 				F82BDF81243DA5840010FD6C /* AnyGenerator */,
@@ -3002,6 +3001,7 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8DFADC1256BC5A200016F40 /* MixboxMocksRuntime */,
 				F8B5C5AC254A74F0002DB0FB /* MixboxReflection */,
 				F8E979F825111D7F00ED131A /* MixboxTestability */,
 				F812A17424E59F8500BCCE06 /* MixboxDi */,
@@ -3350,6 +3350,24 @@
 			path = ForGenerics;
 			sourceTree = "<group>";
 		};
+		F8DFADC0256BC58600016F40 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		F8DFADC1256BC5A200016F40 /* MixboxMocksRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				F8DFADC0256BC58600016F40 /* Tests */,
+				F8A12F272568C667005E1963 /* FixturePaths */,
+				F8A12F262568C657005E1963 /* Protocols */,
+				F8A12F252568C646005E1963 /* Models */,
+			);
+			path = MixboxMocksRuntime;
+			sourceTree = "<group>";
+		};
 		F8E0B50F2199E17200C66BA9 /* MixboxHelperPrototype */ = {
 			isa = PBXGroup;
 			children = (
@@ -3596,16 +3614,6 @@
 				F8EF37B224094C690041DBF9 /* DelayingFocusGainingInput.swift */,
 			);
 			path = SetTextActionWaitsForElementToGainFocusTests;
-			sourceTree = "<group>";
-		};
-		F8F4A1AB256816460093523E /* Integration */ = {
-			isa = PBXGroup;
-			children = (
-				F8A12F272568C667005E1963 /* FixturePaths */,
-				F8A12F262568C657005E1963 /* Protocols */,
-				F8A12F252568C646005E1963 /* Models */,
-			);
-			path = Integration;
 			sourceTree = "<group>";
 		};
 		F8F4A1BB256821320093523E /* Scripts */ = {
