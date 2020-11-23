@@ -637,6 +637,7 @@
 		F8DFA89D256BB50400016F40 /* Protocol2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA89C256BB50400016F40 /* Protocol2.swift */; };
 		F8DFA89F256BB50A00016F40 /* Protocol3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA89E256BB50A00016F40 /* Protocol3.swift */; };
 		F8DFA8A1256BB62600016F40 /* Protocol4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFA8A0256BB62600016F40 /* Protocol4.swift */; };
+		F8DFADC3256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DFADC2256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift */; };
 		F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */; };
 		F8E160C7241862A600B4912F /* DigitizerEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E160C6241862A600B4912F /* DigitizerEventTests.swift */; };
 		F8E160C92418634E00B4912F /* BaseEventTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E160C82418634E00B4912F /* BaseEventTestCase.swift */; };
@@ -1215,6 +1216,7 @@
 		F8DFA89C256BB50400016F40 /* Protocol2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol2.swift; sourceTree = "<group>"; };
 		F8DFA89E256BB50A00016F40 /* Protocol3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol3.swift; sourceTree = "<group>"; };
 		F8DFA8A0256BB62600016F40 /* Protocol4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol4.swift; sourceTree = "<group>"; };
+		F8DFADC2256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxMocksThrowingFunctionsTests.swift; sourceTree = "<group>"; };
 		F8E0B5102199E18300C66BA9 /* MixboxHelperClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxHelperClient.swift; sourceTree = "<group>"; };
 		F8E160C6241862A600B4912F /* DigitizerEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitizerEventTests.swift; sourceTree = "<group>"; };
 		F8E160C82418634E00B4912F /* BaseEventTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEventTestCase.swift; sourceTree = "<group>"; };
@@ -3353,6 +3355,7 @@
 		F8DFADC0256BC58600016F40 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F8DFADC2256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5152,6 +5155,7 @@
 				F8C3AD122437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift in Sources */,
 				F80C2E0E24D1DAFD00C6CAD4 /* FailsHereFunctionProvider.swift in Sources */,
 				F8C3656524182D22005DD578 /* DigitizerFingerEventTests.swift in Sources */,
+				F8DFADC3256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift in Sources */,
 				F8B964CB2281DC9F0054CE08 /* CGVector_Extensions_Tests.swift in Sources */,
 				F8DEAAED2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift in Sources */,
 				F80C2E0924D1DAFD00C6CAD4 /* LogsAndFailuresMatcherBuilder.swift in Sources */,

@@ -10,25 +10,26 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFile,
     MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile
 {
-    // Number of arguments
-    func function()
-    func function(argument0: Int, argument1: Int)
-    
     // Labels
     func functionWithNeitherLabelNorArgumentName(_: Int)
     func function(_ noLabel: Int)
     func function(label: Int)
     
     // Throwing
-    func throwingFunction() throws
+    func throwingFunction() throws -> Int
+    func rethrowingFunction(closure: () throws -> Int) rethrows -> Int
     
     // Return value
+    func function()
     func function() -> Int
     func function() -> Int?
     func function() -> Int??
     func function() -> [Int]
     func function() -> [Int: Int]
     func function() -> () -> ()
+    
+    // Number of arguments
+    func function(argument0: Int, argument1: Int)
     
     // Argument types: Optional
     

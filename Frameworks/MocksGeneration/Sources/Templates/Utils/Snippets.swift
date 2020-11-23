@@ -46,12 +46,15 @@ public final class Snippets {
     public static func withoutActuallyEscaping(
         closureName: String,
         closureTypeName: TypeName,
+        isThrowingOrRethrowing: Bool,
         returnType: String,
         body: String)
         -> String
     {
-        """
-        withoutActuallyEscaping(\(closureName) , do: { (\(closureName): @escaping \(closureTypeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional)) -> \(returnType) in
+        let tryCode = isThrowingOrRethrowing ? "try " : ""
+        
+        return """
+        \(tryCode)withoutActuallyEscaping(\(closureName), do: { (\(closureName): @escaping \(closureTypeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional)) -> \(returnType) in
             \(body.indent())
         })
         """
@@ -62,6 +65,7 @@ public final class Snippets {
     public static func withoutActuallyEscaping(
         parameters: [MethodParameter],
         argumentName: (_ index: Int) -> String,
+        isThrowingOrRethrowing: Bool,
         returnType: String,
         body: String)
         -> String
@@ -71,6 +75,7 @@ public final class Snippets {
                 return withoutActuallyEscaping(
                     closureName: argumentName(pair.offset),
                     closureTypeName: pair.element.typeName,
+                    isThrowingOrRethrowing: isThrowingOrRethrowing,
                     returnType: returnType,
                     body: body
                 )

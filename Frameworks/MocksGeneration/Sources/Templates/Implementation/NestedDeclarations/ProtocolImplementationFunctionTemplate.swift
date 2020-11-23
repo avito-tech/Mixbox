@@ -11,9 +11,20 @@ public class ProtocolImplementationFunctionTemplate {
     public func render() throws -> String {
         """
         \(functionAttributes)func \(method.callName)\(try genericParameterClauseString())\(methodDeclarationArguments)\(functionThrowing)\(functionResult) {
-            \(body.indent())
+            let \(mockManagerVariableName) = getMockManager()
+            let \(defaultImplementationVariableName) = getDefaultImplementation(MixboxMocksRuntimeVoid.self)
+            return \(body.indent())
         }
         """
+    }
+    
+    // To avoid collision with members of protocol
+    // TODO: Pass it via closure, it will resolve collisions without need of UUIDD.
+    private var mockManagerVariableName: String {
+        "mockManager_FE23B3FA8DA04D908BBC814A7E97FF1A"
+    }
+    private var defaultImplementationVariableName: String {
+        "defaultImplementation_FE23B3FA8DA04D908BBC814A7E97FF1A"
     }
     
     private func genericParameterClauseString() throws -> String {
@@ -34,6 +45,7 @@ public class ProtocolImplementationFunctionTemplate {
         Snippets.withoutActuallyEscaping(
             parameters: method.parameters,
             argumentName: Snippets.argumentName,
+            isThrowingOrRethrowing: methodThrowsOrRethrows,
             returnType: returnType,
             body: bodyWithEscapingClosures
         )
@@ -88,13 +100,13 @@ public class ProtocolImplementationFunctionTemplate {
     }
     
     private var bodyWithEscapingClosures: String {
-        let tryPrefix = (method.throws || method.rethrows) ? "try " : ""
+        let tryPrefix = methodThrowsOrRethrows ? "try " : ""
         
         return """
-        return \(tryPrefix)getMockManager().\(mockManagerCallFunction)(
+        \(tryPrefix)\(mockManagerVariableName).\(mockManagerCallFunction)(
             functionIdentifier:
             \(Snippets.functionIdentifier(method: method).indent(level: 1)),
-            defaultImplementation: getDefaultImplementation(MixboxMocksRuntimeVoid.self),
+            defaultImplementation: \(defaultImplementationVariableName),
             defaultImplementationClosure: { (defaultImplementation, newValue) in
                 \(tryPrefix)defaultImplementation.\(method.callName)\(methodCallArguments.indent(level: 2))
             },
@@ -154,6 +166,10 @@ public class ProtocolImplementationFunctionTemplate {
                 Snippets.argumentName(index: index)
             }
         )
+    }
+    
+    private var methodThrowsOrRethrows: Bool {
+        return method.throws || method.rethrows
     }
     
     private var functionThrowing: String {
