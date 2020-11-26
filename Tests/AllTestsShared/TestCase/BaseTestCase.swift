@@ -17,6 +17,7 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         return mocksDependencyInjection
     }
     
+    // TODO: Rename to `di`, it's shorter and nicer.
     private(set) lazy var dependencies: TestFailingDependencyResolver = self.reuseState {
         let configuration = dependencyInjectionConfiguration()
 
@@ -64,23 +65,29 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         }
     }
     
+    // Overrideable!
     func dependencyInjectionConfiguration() -> DependencyInjectionConfiguration {
         UnavoidableFailure.fail("\(#function) should be implemented in a subclass of \(BaseTestCase.self)")
     }
     
-    func setUpAction() -> SetUpAction {
+    // Overrideable!
+    func setUpActions() -> [SetUpAction] {
+        return [
+            LogEnvironmentSetUpAction(
+                dateProvider: dateProvider,
+                stepLogger: stepLogger,
+                iosVersionProvider: iosVersionProvider
+            ),
+            RegisterMocksSetUpAction(
+                testCase: self,
+                mockRegisterer: dependencies.resolve()
+            )
+        ]
+    }
+    
+    private func setUpAction() -> SetUpAction {
         return CompoundSetUpAction(
-            setUpActions: [
-                LogEnvironmentSetUpAction(
-                    dateProvider: dateProvider,
-                    stepLogger: stepLogger,
-                    iosVersionProvider: iosVersionProvider
-                ),
-                RegisterMocksSetUpAction(
-                    testCase: self,
-                    mockRegisterer: dependencies.resolve()
-                )
-            ]
+            setUpActions: setUpActions()
         )
     }
     

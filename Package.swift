@@ -22,9 +22,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.23.1")),
+        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
         .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
-        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("10a8955f07a1dfeb9c9ad40b97fe8f95ff14dc29")),
+        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("4f311aca6c474ee93cac3186399089dc18fc12bd")),
     ],
     targets: [
         .target(

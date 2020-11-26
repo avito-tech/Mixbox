@@ -2,43 +2,45 @@ import MixboxFoundation
 import MixboxTestsFoundation
 
 open class BaseMock: MockManagerSettable {
-    private var storedMockManager: MockManager?
+    private var mockManager: MockManager
     private let fileLineWhereInitialized: FileLine
-    private let onceToken = ThreadSafeOnceToken<Void>()
     
     public init(
-        mockManager: MockManager? = nil,
+        mockManager: MockManager = UnconfiguredMockManagerFactory().mockManager(),
         file: StaticString = #file,
         line: UInt = #line)
     {
-        self.storedMockManager = mockManager
+        self.mockManager = mockManager
         self.fileLineWhereInitialized = FileLine(file: file, line: line)
+        
+        mockManager.setMockedInstanceInfo(mockedInstanceInfo())
     }
     
     // MARK: - Mock
     
     public func getMockManager() -> MockManager {
-        return storedMockManager.unwrapOrFail(
-            message: { fileLine in
-                "`mockManager` was not set, mock \(type(of: self)) has been created on \(fileLine)"
-            },
-            file: fileLineWhereInitialized.file,
-            line: fileLineWhereInitialized.line
-        )
+        return mockManager
     }
     
-    public func setMockManager(_ mockManager: MockManager) -> MixboxMocksRuntimeVoid {
-        onceToken.executeOnce(
-            body: {
-                storedMockManager = mockManager
-            },
-            observer: { wasExecuted, _ in
-                if !wasExecuted {
-                    UnavoidableFailure.fail("You called `setMockManager` twice")
-                }
-            }
-        )
+    public func setMockManager(
+        _ newMockManager: MockManager)
+        -> MixboxMocksRuntimeVoid
+    {
+        let oldMockManager = self.mockManager
+        
+        newMockManager.setMockedInstanceInfo(mockedInstanceInfo())
+        oldMockManager.transferState(to: newMockManager)
+        
+        self.mockManager = newMockManager
         
         return MixboxMocksRuntimeVoid()
+    }
+    
+    private func mockedInstanceInfo() -> MockedInstanceInfo {
+        return MockedInstanceInfo(
+            type: type(of: self),
+            mirror: Mirror(reflecting: self),
+            fileLineWhereInitialized: fileLineWhereInitialized
+        )
     }
 }

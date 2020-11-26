@@ -1,4 +1,10 @@
 import MixboxFoundation
 
-public protocol MockManager: MockManagerCalling, MockManagerVerification, MockManagerStubbing {
+public protocol MockManager:
+    MockManagerStubbing,
+    MockManagerCalling,
+    MockManagerVerification,
+    MockManagerStateTransferring,
+    MockedInstanceInfoSettable
+{
 }

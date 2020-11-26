@@ -87,6 +87,7 @@
 		F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */; };
 		F801CC1C2254F9C80074F0E9 /* StepLoggerRecordingStarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */; };
 		F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */; };
+		F8033887256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */; };
 		F80C2DFB24D1DAFD00C6CAD4 /* LogsAndFailuresMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833422494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift */; };
 		F80C2DFC24D1DAFD00C6CAD4 /* LogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8798329224949ED004DD770 /* LogsAndFailures.swift */; };
 		F80C2DFD24D1DAFD00C6CAD4 /* FailureGatherer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A482143110D00A72C41 /* FailureGatherer.swift */; };
@@ -847,6 +848,7 @@
 		F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedStepLoggerRecording.swift; sourceTree = "<group>"; };
 		F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepLoggerRecordingStarter.swift; sourceTree = "<group>"; };
 		F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStepLoggerImpl.swift; sourceTree = "<group>"; };
+		F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxMocksSettingMockManagerTests.swift; sourceTree = "<group>"; };
 		F80C2E1724D1DC6400C6CAD4 /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		F80C2E1F24D1E08400C6CAD4 /* BaseTestCase+ResolveFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTestCase+ResolveFunctions.swift"; sourceTree = "<group>"; };
 		F80C2E2124D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhiteBoxTestCaseDependencies.swift; sourceTree = "<group>"; };
@@ -3356,6 +3358,7 @@
 			isa = PBXGroup;
 			children = (
 				F8DFADC2256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift */,
+				F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5149,6 +5152,7 @@
 				F8B5C5AE254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift in Sources */,
 				F88A402924DC83EC008B290A /* DependencyInjectionImplTests.swift in Sources */,
 				F8DD5D8424F4434300FA6491 /* DictionaryGeneratorFacadeTests.swift in Sources */,
+				F8033887256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
 				F80C2E3A24D1E52900C6CAD4 /* TestStateRecycling.swift in Sources */,
 				F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */,

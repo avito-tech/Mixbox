@@ -28,9 +28,11 @@ public final class AllMocksTemplate {
         moduleNamesForImporting.formUnion(parsedModule.moduleScope.allImports)
         moduleNamesForImporting.remove(destinationModuleName)
         
-        let testableModuleNamesForImporting: Set = [
+        var testableModuleNamesForImporting: Set = [
             parsedModule.moduleScope.moduleName
         ]
+        
+        testableModuleNamesForImporting.remove(destinationModuleName)
         
         // If module should be testable, we can't import it without @testable,
         // so we remove it from the list of not testable modules and not otherwise

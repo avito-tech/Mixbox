@@ -4,6 +4,9 @@ public protocol MockManagerProvider {
     func getMockManager() -> MockManager
 }
 
+// TODO: Replace with `setMockManagerFactory`? This will make it less likely to
+// set same `mockManager` to multiple instances. It will also allow to remove
+// optionality in `MockedInstanceInfoProvider`.
 public protocol MockManagerSettable {
     @discardableResult
     func setMockManager(_ mockManager: MockManager) -> MixboxMocksRuntimeVoid

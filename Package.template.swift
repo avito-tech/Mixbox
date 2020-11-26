@@ -22,7 +22,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.23.1")),
+        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
         .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
         <__SOURCERY_PACKAGE__>
     ],

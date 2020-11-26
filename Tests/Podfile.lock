@@ -75,12 +75,12 @@ PODS:
   - SBTUITestTunnel/Client (3.0.6)
   - SBTUITestTunnel/Server (3.0.6):
     - GCDWebServer (~> 3.0)
-  - SourceKittenFramework (0.23.2):
-    - SWXMLHash (~> 4.7)
-    - Yams (~> 2.0)
+  - SourceKittenFramework (0.30.1):
+    - SWXMLHash (~> 5.0.1)
+    - Yams (~> 4.0)
   - Sourcery (1.0.0)
   - SourceryFramework (1.0.0):
-    - SourceKittenFramework (~> 0.23.1)
+    - SourceKittenFramework (~> 0.30.1)
     - SourceryRuntime
     - SourceryUtils
   - SourceryRuntime (1.0.0):
@@ -91,12 +91,12 @@ PODS:
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
   - SwiftLint (0.36.0)
-  - SWXMLHash (4.9.0)
+  - SWXMLHash (5.0.1)
   - TestsIpc (0.1.0):
     - MixboxBuiltinIpc
     - MixboxIpc
     - MixboxIpcCommon
-  - Yams (2.0.0)
+  - Yams (4.0.1)
 
 DEPENDENCIES:
   - MixboxAnyCodable (from `..`)
@@ -207,16 +207,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Sourcery:
-    :commit: b968aea6d9a9b5f140e90b0583a85346fc70f795
+    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryFramework:
-    :commit: b968aea6d9a9b5f140e90b0583a85346fc70f795
+    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryRuntime:
-    :commit: b968aea6d9a9b5f140e90b0583a85346fc70f795
+    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryUtils:
-    :commit: b968aea6d9a9b5f140e90b0583a85346fc70f795
+    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
     :git: https://github.com/avito-tech/Sourcery.git
 
 SPEC CHECKSUMS:
@@ -247,17 +247,17 @@ SPEC CHECKSUMS:
   MixboxUiTestsFoundation: 78791a8553d1d28a6c212b889f2dbd5fe50c1199
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
   SBTUITestTunnel: 865e4cec64aa10e495139643f50ccc7d8d0a604f
-  SourceKittenFramework: cda8ce5f493caef729dc730ee9c93833ab7b6ac8
+  SourceKittenFramework: 540d9d048c0bab3c0faa4668425364fabff12cb0
   Sourcery: 928a146ea9b777fa64b0c6ce915c4128b4488cff
-  SourceryFramework: 9409cad199afff958f84ae06b065e5764328db49
+  SourceryFramework: 52f80f61c513f49ec96e83496c16dd24dd668734
   SourceryRuntime: 5a4dbc3f00116ad28ecb0d79655183540e415ed5
   SourceryUtils: ed18f31b5a6d600d06bd59359f457e6e81f92d10
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
-  SWXMLHash: 87b0006848a548b7f9485b40bc71721b3ae39add
+  SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
   TestsIpc: 30eb5db4bc5eefe4324e3900e6285b970b798150
-  Yams: cb96472112d99e4b368f8dae9ab62e8a3eb8a3f9
+  Yams: 8c1dd4d1458197e98e5e8df8afbb68c29f1d9bf3
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.9.0.beta.2
+COCOAPODS: 1.10.0

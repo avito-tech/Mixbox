@@ -28,6 +28,7 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
             let identifier = "\(identifierCharacterMask)+?"
             let pathOfTwoOrMoreIdentifiers = "(\(identifier)\\.){2,}"
             
+            // TODO: replace `parametrizedTest` with `parameterized_test`.
             return LastCallOfCurrentTestFileLineForFailureProvider(
                 extendedStackTraceProvider: try di.resolve(),
                 testSymbolPatterns: [
@@ -55,9 +56,13 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
     
     private func registerMocks(di: DependencyRegisterer) {
         di.register(type: MockManagerFactory.self) { di in
-            MockManagerFactoryImpl(
+            ConfiguredMockManagerFactory(
                 testFailureRecorder: try di.resolve(),
-                waiter: try di.resolve()
+                waiter: try di.resolve(),
+                // TODO: Decrease to 3 or sync with ElementSettingsDefaultsProviderImpl,
+                // or maybe to add some new configurable entiry for storing default timeouts.
+                defaultTimeout: 15,
+                defaultPollingInterval: 0.1
             )
         }
         di.register(type: MockRegisterer.self) { di in

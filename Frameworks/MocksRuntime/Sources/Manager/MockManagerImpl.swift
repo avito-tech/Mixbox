@@ -5,32 +5,38 @@ public final class MockManagerImpl: MockManager {
     private let stubbing: MockManagerStubbing
     private let calling: MockManagerCalling
     private let verification: MockManagerVerification
+    private let stateTransferring: MockManagerStateTransferring
+    private let mockedInstanceInfoSettable: MockedInstanceInfoSettable
     
     public init(
-        testFailureRecorder: TestFailureRecorder,
-        waiter: RunLoopSpinningWaiter,
-        defaultTimeout: TimeInterval = 15,
-        defaultPollingInterval: TimeInterval = 0.1)
+        stubbing: MockManagerStubbing,
+        calling: MockManagerCalling,
+        verification: MockManagerVerification,
+        stateTransferring: MockManagerStateTransferring,
+        mockedInstanceInfoSettable: MockedInstanceInfoSettable)
     {
-        let stubsHolder = StubsHolderImpl()
-        let callRecordsHolder = CallRecordsHolderImpl()
-        
-        self.stubbing = MockManagerStubbingImpl(
-            stubsHolder: stubsHolder
-        )
-        self.calling = MockManagerCallingImpl(
-            testFailureRecorder: testFailureRecorder,
-            callRecordsHolder: callRecordsHolder,
-            stubsProvider: stubsHolder
-        )
-        self.verification = MockManagerVerificationImpl(
-            testFailureRecorder: testFailureRecorder,
-            callRecordsProvider: callRecordsHolder,
-            waiter: waiter,
-            defaultTimeout: defaultTimeout,
-            defaultPollingInterval: defaultPollingInterval
+        self.stubbing = stubbing
+        self.calling = calling
+        self.verification = verification
+        self.stateTransferring = stateTransferring
+        self.mockedInstanceInfoSettable = mockedInstanceInfoSettable
+    }
+    
+    // MARK: - MockManagerStubbing
+    
+    public func stub<Arguments>(
+        functionIdentifier: FunctionIdentifier,
+        closure: @escaping (Any) -> Any,
+        argumentsMatcher: FunctionalMatcher<Arguments>)
+    {
+        stubbing.stub(
+            functionIdentifier: functionIdentifier,
+            closure: closure,
+            argumentsMatcher: argumentsMatcher
         )
     }
+    
+    // MARK: - MockManagerCalling
     
     public func call<MockedType, Arguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
@@ -79,6 +85,8 @@ public final class MockManagerImpl: MockManager {
         )
     }
     
+    // MARK: - MockManagerVerification
+    
     public func verify<Arguments>(
         functionIdentifier: FunctionIdentifier,
         fileLine: FileLine,
@@ -96,16 +104,19 @@ public final class MockManagerImpl: MockManager {
             pollingInterval: pollingInterval
         )
     }
+    // MARK: - MockManagerStateTransferring
     
-    public func stub<Arguments>(
-        functionIdentifier: FunctionIdentifier,
-        closure: @escaping (Any) -> Any,
-        argumentsMatcher: FunctionalMatcher<Arguments>)
-    {
-        stubbing.stub(
-            functionIdentifier: functionIdentifier,
-            closure: closure,
-            argumentsMatcher: argumentsMatcher
-        )
+    public func transferState(to mockManager: MockManager) {
+        stateTransferring.transferState(to: mockManager)
+    }
+    
+    public func appendCallRecords(from callRecordsProvider: CallRecordsProvider) {
+        stateTransferring.appendCallRecords(from: callRecordsProvider)
+    }
+    
+    // MARK: - MockedInstanceInfoSettable
+    
+    public func setMockedInstanceInfo(_ mockedInstanceInfo: MockedInstanceInfo) {
+        mockedInstanceInfoSettable.setMockedInstanceInfo(mockedInstanceInfo)
     }
 }
