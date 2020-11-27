@@ -337,6 +337,7 @@
 		F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */; };
 		F88B33BC232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
 		F88B33BD232154F900F68B75 /* BaseTouchesTestCase+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */; };
+		F88B8C742570D508009503D2 /* NameCollisionAvoidanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88B8C732570D508009503D2 /* NameCollisionAvoidanceTests.swift */; };
 		F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88F550A255EFE840072A9BF /* MockGenerationTests.swift */; };
 		F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D3823E20225002727AC /* GenericSerializationTests.swift */; };
 		F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */; };
@@ -1026,6 +1027,7 @@
 		F88ADFB2223BD6A70024CCBE /* RecordableStepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordableStepLogger.swift; sourceTree = "<group>"; };
 		F88B33B1232153A000F68B75 /* BaseTouchesTestCase+Asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Asserts.swift"; sourceTree = "<group>"; };
 		F88B33B9232154CE00F68B75 /* BaseTouchesTestCase+Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+Coordinates.swift"; sourceTree = "<group>"; };
+		F88B8C732570D508009503D2 /* NameCollisionAvoidanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameCollisionAvoidanceTests.swift; sourceTree = "<group>"; };
 		F88F5501255ED86D0072A9BF /* OsxUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OsxUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F88F5505255ED86D0072A9BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F88F550A255EFE840072A9BF /* MockGenerationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGenerationTests.swift; sourceTree = "<group>"; };
@@ -2296,6 +2298,7 @@
 				F88F550A255EFE840072A9BF /* MockGenerationTests.swift */,
 				F8A12CB725684FAA005E1963 /* SnippetsTests.swift */,
 				F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */,
+				F88B8C732570D508009503D2 /* NameCollisionAvoidanceTests.swift */,
 			);
 			path = MixboxMockGeneration;
 			sourceTree = "<group>";
@@ -5219,6 +5222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8A12CBA25685049005E1963 /* TypeName_ValidTypeName_Tests.swift in Sources */,
+				F88B8C742570D508009503D2 /* NameCollisionAvoidanceTests.swift in Sources */,
 				F8A12CB825684FAA005E1963 /* SnippetsTests.swift in Sources */,
 				F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */,
 				F8A12CB625684DF6005E1963 /* FixturesPathsForOsxUnitTests.swift in Sources */,
