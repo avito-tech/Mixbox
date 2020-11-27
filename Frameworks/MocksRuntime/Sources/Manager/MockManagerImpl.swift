@@ -6,20 +6,17 @@ public final class MockManagerImpl: MockManager {
     private let calling: MockManagerCalling
     private let verification: MockManagerVerification
     private let stateTransferring: MockManagerStateTransferring
-    private let mockedInstanceInfoSettable: MockedInstanceInfoSettable
     
     public init(
         stubbing: MockManagerStubbing,
         calling: MockManagerCalling,
         verification: MockManagerVerification,
-        stateTransferring: MockManagerStateTransferring,
-        mockedInstanceInfoSettable: MockedInstanceInfoSettable)
+        stateTransferring: MockManagerStateTransferring)
     {
         self.stubbing = stubbing
         self.calling = calling
         self.verification = verification
         self.stateTransferring = stateTransferring
-        self.mockedInstanceInfoSettable = mockedInstanceInfoSettable
     }
     
     // MARK: - MockManagerStubbing
@@ -116,11 +113,5 @@ public final class MockManagerImpl: MockManager {
     
     public func appendRecordedCalls(from recordedCallsProvider: RecordedCallsProvider) {
         stateTransferring.appendRecordedCalls(from: recordedCallsProvider)
-    }
-    
-    // MARK: - MockedInstanceInfoSettable
-    
-    public func setMockedInstanceInfo(_ mockedInstanceInfo: MockedInstanceInfo) {
-        mockedInstanceInfoSettable.setMockedInstanceInfo(mockedInstanceInfo)
     }
 }

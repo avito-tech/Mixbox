@@ -23,8 +23,6 @@ public final class ConfiguredMockManagerFactory: MockManagerFactory {
         let stubsHolder = StubsHolderImpl()
         let recordedCallsHolder = RecordedCallsHolderImpl()
         
-        let mockedInstanceInfoHolder = MockedInstanceInfoHolder()
-        
         return MockManagerImpl(
             stubbing: MockManagerStubbingImpl(
                 stubsHolder: stubsHolder
@@ -44,8 +42,7 @@ public final class ConfiguredMockManagerFactory: MockManagerFactory {
             stateTransferring: MockManagerStateTransferringImpl(
                 stubsProvider: stubsHolder,
                 recordedCallsHolder: recordedCallsHolder
-            ),
-            mockedInstanceInfoSettable: mockedInstanceInfoHolder
+            )
         )
     }
 }

@@ -12,8 +12,6 @@ open class BaseMock: MockManagerSettable {
     {
         self.mockManager = mockManager
         self.fileLineWhereInitialized = FileLine(file: file, line: line)
-        
-        mockManager.setMockedInstanceInfo(mockedInstanceInfo())
     }
     
     // MARK: - Mock
@@ -28,19 +26,10 @@ open class BaseMock: MockManagerSettable {
     {
         let oldMockManager = self.mockManager
         
-        newMockManager.setMockedInstanceInfo(mockedInstanceInfo())
         oldMockManager.transferState(to: newMockManager)
         
         self.mockManager = newMockManager
         
         return MixboxMocksRuntimeVoid()
-    }
-    
-    private func mockedInstanceInfo() -> MockedInstanceInfo {
-        return MockedInstanceInfo(
-            type: type(of: self),
-            mirror: Mirror(reflecting: self),
-            fileLineWhereInitialized: fileLineWhereInitialized
-        )
     }
 }

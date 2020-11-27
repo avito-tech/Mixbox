@@ -4,7 +4,6 @@ public protocol MockManager:
     MockManagerStubbing,
     MockManagerCalling,
     MockManagerVerification,
-    MockManagerStateTransferring,
-    MockedInstanceInfoSettable
+    MockManagerStateTransferring
 {
 }
