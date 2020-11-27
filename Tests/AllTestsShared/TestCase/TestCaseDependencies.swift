@@ -28,7 +28,6 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
             let identifier = "\(identifierCharacterMask)+?"
             let pathOfTwoOrMoreIdentifiers = "(\(identifier)\\.){2,}"
             
-            // TODO: replace `parametrizedTest` with `parameterized_test`.
             return LastCallOfCurrentTestFileLineForFailureProvider(
                 extendedStackTraceProvider: try di.resolve(),
                 testSymbolPatterns: [
@@ -39,12 +38,12 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
                     // Example: TargetName.ClassName.test_withOptionalSuffix() -> ()
                     "^\(pathOfTwoOrMoreIdentifiers)test.*?\\(\\) -> \\(\\)",
                     
-                    // Example: TargetName.ClassName.parametrizedTest_withOptionalSuffix(message: Swift.String) -> ()
-                    //          BlackBoxUiTests.SwipeActionTouchesTests.(parametrizedTest___swipe___produces_expected_event in _54C65FCCFCCAFE9EE80FC2EC0649E42C)(swipeClosure: (MixboxUiTestsFoundation.ElementWithUi) -> (), startPoint: __C.CGPoint, endPointOffset: __C.CGVector) -> ()
-                    "^\(pathOfTwoOrMoreIdentifiers)\\(?parametrizedTest.*? -> \\(\\)",
+                    // Example: TargetName.ClassName.parameterized_test_withOptionalSuffix(message: Swift.String) -> ()
+                    //          BlackBoxUiTests.SwipeActionTouchesTests.(parameterized_test___swipe___produces_expected_event in _54C65FCCFCCAFE9EE80FC2EC0649E42C)(swipeClosure: (MixboxUiTestsFoundation.ElementWithUi) -> (), startPoint: __C.CGPoint, endPointOffset: __C.CGVector) -> ()
+                    "^\(pathOfTwoOrMoreIdentifiers)\\(?parameterized_test.*? -> \\(\\)",
                     
-                    // Example: closure #2 () -> () in TargetName.ClassName.(parametrizedTest in _FA5631F8141319A712430582B52492D9)(fooArg: Swift.String) -> ()
-                    "\\(parametrizedTest in",
+                    // Example: closure #2 () -> () in TargetName.ClassName.(parameterized_test in _FA5631F8141319A712430582B52492D9)(fooArg: Swift.String) -> ()
+                    "\\(parameterized_test in",
                     "\\(test in"
                 ]
             )

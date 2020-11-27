@@ -7,7 +7,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
     let defaultSwipeOffset: CGFloat = 100
     
     func test___swipeUp___produces_expected_events() {
-        parametrizedTest___swipe___produces_expected_events(
+        parameterized_test___swipe___produces_expected_events(
             swipeClosure: { $0.swipeUp() },
             startPointAbsolute: targetViewCenter,
             endPointOffsetFromStartPoint: CGVector(dx: 0, dy: -defaultSwipeOffset)
@@ -15,7 +15,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
     }
     
     func test___swipeDown___produces_expected_events() {
-        parametrizedTest___swipe___produces_expected_events(
+        parameterized_test___swipe___produces_expected_events(
             swipeClosure: { $0.swipeDown() },
             startPointAbsolute: targetViewCenter,
             endPointOffsetFromStartPoint: CGVector(dx: 0, dy: defaultSwipeOffset)
@@ -23,7 +23,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
     }
     
     func test___swipeLeft___produces_expected_events() {
-        parametrizedTest___swipe___produces_expected_events(
+        parameterized_test___swipe___produces_expected_events(
             swipeClosure: { $0.swipeLeft() },
             startPointAbsolute: targetViewCenter,
             endPointOffsetFromStartPoint: CGVector(dx: -defaultSwipeOffset, dy: 0)
@@ -31,7 +31,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
     }
     
     func test___swipeRight___produces_expected_events() {
-        parametrizedTest___swipe___produces_expected_events(
+        parameterized_test___swipe___produces_expected_events(
             swipeClosure: { $0.swipeRight() },
             startPointAbsolute: targetViewCenter,
             endPointOffsetFromStartPoint: CGVector(dx: defaultSwipeOffset, dy: 0)
@@ -39,7 +39,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
     }
     
     func test___swipe___uses_default_length___if_length_is_not_passed() {
-        parametrizedTest___swipe___produces_expected_events(
+        parameterized_test___swipe___produces_expected_events(
             swipeClosure: { $0.swipeDown(length: nil) },
             startPointAbsolute: targetViewCenter,
             endPointOffsetFromStartPoint: CGVector(dx: 0, dy: defaultSwipeOffset)
@@ -47,7 +47,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
     }
     
     func test___swipe___respects_swipe_length() {
-        parametrizedTest___swipe___produces_expected_events(
+        parameterized_test___swipe___produces_expected_events(
             swipeClosure: { $0.swipeDown(length: 200) },
             startPointAbsolute: targetViewCenter,
             endPointOffsetFromStartPoint: CGVector(dx: 0, dy: 200)
@@ -56,7 +56,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
     
     func test___swipe___respects_custom_coordinates() {
         let startPointOffset = CGVector(dx: -50, dy: -50)
-        parametrizedTest___swipe___produces_expected_events(
+        parameterized_test___swipe___produces_expected_events(
             swipeClosure: {
                 $0.swipe(
                     startPoint: InteractionCoordinates(
@@ -79,7 +79,7 @@ final class SwipeActionTouchesTests: BaseTouchesTestCase {
         )
     }
     
-    private func parametrizedTest___swipe___produces_expected_events(
+    private func parameterized_test___swipe___produces_expected_events(
         swipeClosure: (ElementWithUi) -> (),
         startPointOffsetFromCenter: CGVector = .zero,
         startPointAbsolute: CGPoint,

@@ -10,14 +10,14 @@ final class VisibilityCheckImageColorShifterImplTests: TestCase {
     private let shifter = VisibilityCheckImageColorShifterImpl()
     
     func test___with_target_point() {
-        parametrizedTest(targetPixelOfInteraction: IntPoint(x: 1, y: 1))
+        parameterized_test(targetPixelOfInteraction: IntPoint(x: 1, y: 1))
     }
     
     func test___without_target_point() {
-        parametrizedTest(targetPixelOfInteraction: nil)
+        parameterized_test(targetPixelOfInteraction: nil)
     }
     
-    private func parametrizedTest(
+    private func parameterized_test(
         targetPixelOfInteraction: IntPoint?,
         file: StaticString = #file,
         line: UInt = #line)

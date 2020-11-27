@@ -5,7 +5,7 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
     let mock = MockMixboxGeneratorIntegrationTestsFixtureProtocol()
     
     func test___RegisterMocksSetUpAction___sets_up_mock_manager() {
-        parametrizedTest___mock_manager_is_set_up_after {
+        parameterized_test___mock_manager_is_set_up_after {
             let setUpAction = RegisterMocksSetUpAction(
                 testCase: self,
                 mockRegisterer: dependencies.resolve()
@@ -16,7 +16,7 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
     }
     
     func test___setMockManager___sets_up_mock_manager() {
-        parametrizedTest___mock_manager_is_set_up_after {
+        parameterized_test___mock_manager_is_set_up_after {
             let factory = dependencies.resolve() as MockManagerFactory
             
             XCTAssert(factory is ConfiguredMockManagerFactory)
@@ -27,7 +27,7 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
         }
     }
     func test___MockRegisterer___sets_up_mock_manager() {
-        parametrizedTest___mock_manager_is_set_up_after {
+        parameterized_test___mock_manager_is_set_up_after {
             let registerer = dependencies.resolve() as MockRegisterer
             
             XCTAssert(registerer is MockRegistererImpl)
@@ -38,7 +38,7 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
 
     // TODO: Allow user to disambiguate expressions more easily.
     // This is not good: `(mock.verify().function() as VerificationFunctionBuilder<(), Int>).isCalled()`
-    private func parametrizedTest___mock_manager_is_set_up_after(_ setUpAction: () -> ()) {
+    private func parameterized_test___mock_manager_is_set_up_after(_ setUpAction: () -> ()) {
         
         // Stubbing is supported for unconfigured mocks
         mock

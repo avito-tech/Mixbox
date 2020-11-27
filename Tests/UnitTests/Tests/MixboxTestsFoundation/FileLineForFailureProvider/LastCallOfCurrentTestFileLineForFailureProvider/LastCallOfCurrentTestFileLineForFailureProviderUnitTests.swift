@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 
 final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase {
     func test_example() {
-        parametrizedTest(
+        parameterized_test(
             trace: [],
             patterns: [],
             fileLine: nil
@@ -11,7 +11,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_returnsNil_0() {
-        parametrizedTest(
+        parameterized_test(
             trace: [],
             patterns: [],
             fileLine: nil
@@ -19,7 +19,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_returnsNil_1() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     line: nil,
@@ -32,7 +32,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_returnsNil_2() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: nil,
@@ -45,7 +45,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_returnsFileLine_0() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "file",
@@ -62,7 +62,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_returnsFileLine_1() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "child",
@@ -84,7 +84,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_returnsFileLine_2() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "samefile",
@@ -106,7 +106,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_returnsFileLine_3() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "samefile",
@@ -128,7 +128,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_fallbacks_0() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "samefile",
@@ -150,7 +150,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_fallbacks_1() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "samefile",
@@ -167,7 +167,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_fallbacks_2() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "samefile",
@@ -189,7 +189,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_fallbacks_3() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "child",
@@ -211,7 +211,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     }
     
     func test_fallbacks_4() {
-        parametrizedTest(
+        parameterized_test(
             trace: [
                 entry(
                     file: "bob",
@@ -254,7 +254,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
         )
     }
     
-    func parametrizedTest(
+    func parameterized_test(
         trace: [ExtendedStackTraceEntry],
         patterns: [String],
         fileLine: HeapFileLine?,

@@ -26,28 +26,28 @@ final class FailuresAreHighlightedInCorrectPlacesInIdeTests: TestCase {
         }
     }
     
-    func disabled_test_parametrizedTest() {
+    func disabled_test_parameterized_test() {
         assertFails(description: "failed - message", expected: true) { fails in
             XCTFail("message", file: "fallback", line: 1); fails.here()
         }
         
-        parametrizedTest(message: "message")
-        parametrizedTest(message: "other message")
+        parameterized_test(message: "message")
+        parameterized_test(message: "other message")
     }
     
-    func parametrizedTest(message: String) {
+    func parameterized_test(message: String) {
         assertFails(description: "failed - \(message)", expected: true) { fails in
             XCTFail(message, file: "fallback", line: 1); fails.here()
         }
         
         assertFails(description: "failed - message", expected: true) { fails in
-            functionWithNameOtherThanTestOrParametrizedTest(); fails.here()
+            functionWithNameOtherThanTestOrParameterizedTest(); fails.here()
         }
     }
     
-    func functionWithNameOtherThanTestOrParametrizedTest() {
+    func functionWithNameOtherThanTestOrParameterizedTest() {
         // The following line will not be highlighted, because hightlighting is configured to
-        // highlight only "test" and "parametrizedTest" functions
+        // highlight only "test" and "parameterized_test" functions
         XCTFail("message", file: "fallback", line: 1)
     }
 }

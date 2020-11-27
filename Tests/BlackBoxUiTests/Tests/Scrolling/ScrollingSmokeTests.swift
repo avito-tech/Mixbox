@@ -12,14 +12,14 @@ final class ScrollingSmokeTests: TestCase {
     // TODO: Support TableView and WebView
     
     func test_scrolling_works_inScrollView() {
-        parametrizedTest(viewName: "ScrollingSmokeTestsScrollView")
+        parameterized_test(viewName: "ScrollingSmokeTestsScrollView")
     }
     
     func test_scrolling_works_inCollectionView() {
-        parametrizedTest(viewName: "ScrollingSmokeTestsCollectionView")
+        parameterized_test(viewName: "ScrollingSmokeTestsCollectionView")
     }
     
-    private func parametrizedTest(viewName: String) {
+    private func parameterized_test(viewName: String) {
         openScreen(name: viewName)
         
         // The code tests every combination of scrolling.

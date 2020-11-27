@@ -33,28 +33,28 @@ final class FakeCellsTests: TestCase {
     }
     
     func test_ifEveryInvisibleElementCanBeAccessed_noReload() {
-        parametrizedTest_ifEveryInvisibleElementCanBeAccessed(
+        parameterized_test_ifEveryInvisibleElementCanBeAccessed(
             reloadType: nil,
             function: #function
         )
     }
     
     func test_ifEveryInvisibleElementCanBeAccessed_reloadData() {
-        parametrizedTest_ifEveryInvisibleElementCanBeAccessed(
+        parameterized_test_ifEveryInvisibleElementCanBeAccessed(
             reloadType: .reloadData,
             function: #function
         )
     }
     
     func test_ifEveryInvisibleElementCanBeAccessed_performBatchUpdates_reload() {
-        parametrizedTest_ifEveryInvisibleElementCanBeAccessed(
+        parameterized_test_ifEveryInvisibleElementCanBeAccessed(
             reloadType: .performBatchUpdates(.reload),
             function: #function
         )
     }
     
     func test_ifEveryInvisibleElementCanBeAccessed_performBatchUpdates_deleteAndInsert() {
-        parametrizedTest_ifEveryInvisibleElementCanBeAccessed(
+        parameterized_test_ifEveryInvisibleElementCanBeAccessed(
             reloadType: .performBatchUpdates(.deleteAndInsert),
             function: #function
         )
@@ -77,7 +77,7 @@ final class FakeCellsTests: TestCase {
     // Scrolling down, scrolling up, it will seem that it is doing same thing multiple times.
     // What are "sets": a collection of cells. There are multiple duplicated collections to
     // make some of elements offscreen.
-    func parametrizedTest_ifEveryInvisibleElementCanBeAccessed(
+    func parameterized_test_ifEveryInvisibleElementCanBeAccessed(
         reloadType: FakeCellsReloadType?,
         function: StaticString)
     {
