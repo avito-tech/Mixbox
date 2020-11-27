@@ -5,15 +5,11 @@ public final class MockManagerStubbingImpl: MockManagerStubbing {
         self.stubsHolder = stubsHolder
     }
     
-    public func stub<Arguments>(
+    public func stub(
         functionIdentifier: FunctionIdentifier,
-        closure: @escaping (Any) -> Any,
-        argumentsMatcher: FunctionalMatcher<Arguments>)
+        callStub: CallStub)
     {
-        let stub = Stub(
-            closure: closure,
-            matcher: argumentsMatcher.byErasingType()
-        )
-        stubsHolder.stubs[functionIdentifier, default: []].append(stub)
+        stubsHolder.stubs[functionIdentifier, default: []]
+            .append(callStub)
     }
 }

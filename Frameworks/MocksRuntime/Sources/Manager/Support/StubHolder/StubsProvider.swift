@@ -1,3 +1,3 @@
 public protocol StubsProvider: class {
-    var stubs: [FunctionIdentifier: [Stub]] { get }
+    var stubs: [FunctionIdentifier: [CallStub]] { get }
 }

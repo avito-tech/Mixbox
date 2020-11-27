@@ -42,7 +42,8 @@ public class ProtocolImplementationPropertyTemplate {
                 defaultImplementationClosure: { (defaultImplementation, _) in
                     defaultImplementation.\(variable.name)
                 },
-                arguments: ()
+                tupledArguments: (),
+                recordedCallArguments: RecordedCallArguments(arguments: [])
             )
         }
         """
@@ -60,7 +61,10 @@ public class ProtocolImplementationPropertyTemplate {
                 defaultImplementationClosure: { (defaultImplementation, newValue) in
                     defaultImplementation.\(variable.name) = newValue
                 },
-                arguments: (newValue)
+                tupledArguments: (newValue),
+                recordedCallArguments: RecordedCallArguments(arguments: [
+                    RecordedCallArgument.regular(newValue)
+                ])
             )
         }
         """

@@ -4,41 +4,40 @@ import MixboxTestsFoundation
 
 public final class MockManagerVerificationImpl: MockManagerVerification {
     private let testFailureRecorder: TestFailureRecorder
-    private let callRecordsProvider: CallRecordsProvider
+    private let recordedCallsProvider: RecordedCallsProvider
     private let waiter: RunLoopSpinningWaiter
     private let defaultTimeout: TimeInterval
     private let defaultPollingInterval: TimeInterval
     
     public init(
         testFailureRecorder: TestFailureRecorder,
-        callRecordsProvider: CallRecordsProvider,
+        recordedCallsProvider: RecordedCallsProvider,
         waiter: RunLoopSpinningWaiter,
         defaultTimeout: TimeInterval,
         defaultPollingInterval: TimeInterval)
     {
         self.testFailureRecorder = testFailureRecorder
-        self.callRecordsProvider = callRecordsProvider
+        self.recordedCallsProvider = recordedCallsProvider
         self.waiter = waiter
         self.defaultTimeout = defaultTimeout
         self.defaultPollingInterval = defaultPollingInterval
     }
     
-    public func verify<Arguments>(
+    public func verify(
         functionIdentifier: FunctionIdentifier,
         fileLine: FileLine,
         timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher,
-        argumentsMatcher: FunctionalMatcher<Arguments>,
+        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         timeout: TimeInterval?,
         pollingInterval: TimeInterval?)
     {
-        let argumentsMatcher = argumentsMatcher.byErasingType()
         let timeout = timeout ?? defaultTimeout
         let pollingInterval = pollingInterval ?? defaultPollingInterval
         
         if timeout > 0 {
             let shouldWait = shouldWaitForCalls(
                 functionIdentifier: functionIdentifier,
-                argumentsMatcher: argumentsMatcher,
+                recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
                 timesMethodWasCalledMatcher: timesMethodWasCalledMatcher
             )
             
@@ -53,7 +52,7 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
                         
                         return strongSelf.shouldWaitForCalls(
                             functionIdentifier: functionIdentifier,
-                            argumentsMatcher: argumentsMatcher,
+                            recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
                             timesMethodWasCalledMatcher: timesMethodWasCalledMatcher
                         )
                     }
@@ -61,9 +60,9 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
             }
         }
         
-        let timesMethodIsCalled = callRecordsProvider.callRecords.mb_count {
+        let timesMethodIsCalled = recordedCallsProvider.recordedCalls.mb_count {
             $0.functionIdentifier == functionIdentifier
-                && argumentsMatcher.valueIsMatching($0.arguments)
+                && recordedCallArgumentsMatcher.valueIsMatching($0.arguments)
         }
         
         switch timesMethodWasCalledMatcher.match(timesMethodIsCalled: timesMethodIsCalled) {
@@ -80,14 +79,14 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
     
     private func shouldWaitForCalls(
         functionIdentifier: FunctionIdentifier,
-        argumentsMatcher: FunctionalMatcher<Any>,
+        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher)
         -> Bool
     {
         let matchingResult = timesMethodWasCalledMatcher.match(
             timesMethodIsCalled: timesMethodIsCalled(
                 functionIdentifier: functionIdentifier,
-                argumentsMatcher: argumentsMatcher
+                recordedCallArgumentsMatcher: recordedCallArgumentsMatcher
             )
         )
         
@@ -101,12 +100,12 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
     
     private func timesMethodIsCalled(
         functionIdentifier: FunctionIdentifier,
-        argumentsMatcher: FunctionalMatcher<Any>)
+        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher)
         -> Int
     {
-        return callRecordsProvider.callRecords.mb_count {
+        return recordedCallsProvider.recordedCalls.mb_count {
             $0.functionIdentifier == functionIdentifier
-                && argumentsMatcher.valueIsMatching($0.arguments)
+                && recordedCallArgumentsMatcher.valueIsMatching($0.arguments)
         }
     }
 }

@@ -1,6 +1,5 @@
 public protocol MockManagerStubbing {
-    func stub<Arguments>(
+    func stub(
         functionIdentifier: FunctionIdentifier,
-        closure: @escaping (Any) -> Any,
-        argumentsMatcher: FunctionalMatcher<Arguments>)
+        callStub: CallStub)
 }

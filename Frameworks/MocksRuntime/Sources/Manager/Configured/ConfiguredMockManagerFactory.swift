@@ -21,7 +21,7 @@ public final class ConfiguredMockManagerFactory: MockManagerFactory {
     
     public func mockManager() -> MockManager {
         let stubsHolder = StubsHolderImpl()
-        let callRecordsHolder = CallRecordsHolderImpl()
+        let recordedCallsHolder = RecordedCallsHolderImpl()
         
         let mockedInstanceInfoHolder = MockedInstanceInfoHolder()
         
@@ -31,19 +31,19 @@ public final class ConfiguredMockManagerFactory: MockManagerFactory {
             ),
             calling: MockManagerCallingImpl(
                 testFailureRecorder: testFailureRecorder,
-                callRecordsHolder: callRecordsHolder,
+                recordedCallsHolder: recordedCallsHolder,
                 stubsProvider: stubsHolder
             ),
             verification: MockManagerVerificationImpl(
                 testFailureRecorder: testFailureRecorder,
-                callRecordsProvider: callRecordsHolder,
+                recordedCallsProvider: recordedCallsHolder,
                 waiter: waiter,
                 defaultTimeout: defaultTimeout,
                 defaultPollingInterval: defaultPollingInterval
             ),
             stateTransferring: MockManagerStateTransferringImpl(
                 stubsProvider: stubsHolder,
-                callRecordsHolder: callRecordsHolder
+                recordedCallsHolder: recordedCallsHolder
             ),
             mockedInstanceInfoSettable: mockedInstanceInfoHolder
         )

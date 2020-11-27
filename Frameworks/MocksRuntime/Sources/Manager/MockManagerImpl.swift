@@ -24,40 +24,41 @@ public final class MockManagerImpl: MockManager {
     
     // MARK: - MockManagerStubbing
     
-    public func stub<Arguments>(
+    public func stub(
         functionIdentifier: FunctionIdentifier,
-        closure: @escaping (Any) -> Any,
-        argumentsMatcher: FunctionalMatcher<Arguments>)
+        callStub: CallStub)
     {
         stubbing.stub(
             functionIdentifier: functionIdentifier,
-            closure: closure,
-            argumentsMatcher: argumentsMatcher
+            callStub: callStub
         )
     }
     
     // MARK: - MockManagerCalling
     
-    public func call<MockedType, Arguments, ReturnValue>(
+    public func call<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
-        defaultImplementationClosure: (inout MockedType, Arguments) -> ReturnValue,
-        arguments: Arguments)
+        defaultImplementationClosure: (inout MockedType, TupledArguments) -> ReturnValue,
+        tupledArguments: TupledArguments,
+        recordedCallArguments: RecordedCallArguments)
         -> ReturnValue
     {
         return calling.call(
             functionIdentifier: functionIdentifier,
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
-            arguments: arguments
+            tupledArguments: tupledArguments,
+            recordedCallArguments: recordedCallArguments
         )
     }
         
-    public func callThrows<MockedType, Arguments, ReturnValue>(
+    public func callThrows<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
-        defaultImplementationClosure: (inout MockedType, Arguments) throws -> ReturnValue,
-        arguments: Arguments)
+        defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
+        tupledArguments: TupledArguments,
+        recordedCallArguments: RecordedCallArguments)
         throws
         -> ReturnValue
     {
@@ -65,15 +66,17 @@ public final class MockManagerImpl: MockManager {
             functionIdentifier: functionIdentifier,
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
-            arguments: arguments
+            tupledArguments: tupledArguments,
+            recordedCallArguments: recordedCallArguments
         )
     }
         
-    public func callRethrows<MockedType, Arguments, ReturnValue>(
+    public func callRethrows<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
-        defaultImplementationClosure: (inout MockedType, Arguments) throws -> ReturnValue,
-        arguments: Arguments)
+        defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
+        tupledArguments: TupledArguments,
+        recordedCallArguments: RecordedCallArguments)
         rethrows
         -> ReturnValue
     {
@@ -81,17 +84,18 @@ public final class MockManagerImpl: MockManager {
             functionIdentifier: functionIdentifier,
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
-            arguments: arguments
+            tupledArguments: tupledArguments,
+            recordedCallArguments: recordedCallArguments
         )
     }
     
     // MARK: - MockManagerVerification
     
-    public func verify<Arguments>(
+    public func verify(
         functionIdentifier: FunctionIdentifier,
         fileLine: FileLine,
         timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher,
-        argumentsMatcher: FunctionalMatcher<Arguments>,
+        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         timeout: TimeInterval?,
         pollingInterval: TimeInterval?)
     {
@@ -99,7 +103,7 @@ public final class MockManagerImpl: MockManager {
             functionIdentifier: functionIdentifier,
             fileLine: fileLine,
             timesMethodWasCalledMatcher: timesMethodWasCalledMatcher,
-            argumentsMatcher: argumentsMatcher,
+            recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             timeout: timeout,
             pollingInterval: pollingInterval
         )
@@ -110,8 +114,8 @@ public final class MockManagerImpl: MockManager {
         stateTransferring.transferState(to: mockManager)
     }
     
-    public func appendCallRecords(from callRecordsProvider: CallRecordsProvider) {
-        stateTransferring.appendCallRecords(from: callRecordsProvider)
+    public func appendRecordedCalls(from recordedCallsProvider: RecordedCallsProvider) {
+        stateTransferring.appendRecordedCalls(from: recordedCallsProvider)
     }
     
     // MARK: - MockedInstanceInfoSettable

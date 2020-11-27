@@ -51,15 +51,13 @@ public class FunctionBuilderTemplate {
     
     private var body: String {
         """
-        let argumentsMatcher = MixboxMocksRuntime.FunctionalMatcher<\(argumentsTupleType)>(
-            matchingFunction: \(matchingFunction.indent(level: 1))
-        )
+        let recordedCallArgumentsMatcher = \(recordedCallArgumentsMatcherBuilder)
 
         return \(returnType)(
             functionIdentifier:
             \(Snippets.functionIdentifier(method: method).indent(level: 1)),
             mockManager: mockManager,
-            argumentsMatcher: argumentsMatcher,
+            recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             fileLine: fileLine
         )
         """
@@ -81,8 +79,10 @@ public class FunctionBuilderTemplate {
             }
         }
         
-        let matcherGenericParameters = method.parameters.enumerated().map { (index, _) in
-            "\(matcherGenericArgumentTypeName(index: index)): MixboxMocksRuntime.Matcher"
+        let matcherGenericParameters = method.parameters.enumerated().compactMap { (index, parameter) in
+            parameter.isNonEscapingClosure.ifFalse {
+                "\(matcherGenericArgumentTypeName(index: index)): MixboxMocksRuntime.Matcher"
+            }
         }
         
         return (sourceParameters + matcherGenericParameters).render(
@@ -104,9 +104,14 @@ public class FunctionBuilderTemplate {
                     name: Snippets.matcherArgumentName(index: index)
                 )
                 
-                let type = matcherGenericArgumentTypeName(index: index)
+                let originalType = parameter.typeName
+                    .validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
                 
-                return "    \(labeledArgument): \(type)"
+                let argumentType = parameter.isNonEscapingClosure
+                    ? "NonEscapingClosureMatcher<\(originalType)>"
+                    : matcherGenericArgumentTypeName(index: index)
+                
+                return "    \(labeledArgument): \(argumentType)"
             }
         )
     }
@@ -119,7 +124,9 @@ public class FunctionBuilderTemplate {
     // Argument1.MatchingType == Int,
     // Argument2.MatchingType == Int
     private var whereClause: String {
-        method.parameters.render(
+        method.parameters.filter {
+            !$0.isNonEscapingClosure
+        }.render(
             separator: ",\n",
             valueIfEmpty: " ",
             surround: {
@@ -150,51 +157,22 @@ public class FunctionBuilderTemplate {
         )
     }
     
-    // { (otherArgument1: Int, otherArgument2: Int) -> Bool in
-    //    return argument1.valueIsMatching(otherArgument1) && argument2.valueIsMatching(otherArgument2)
-    // }
-    private var matchingFunction: String {
-        method.parameters.isEmpty
-            ? "{ true }"
-            :
-            """
-            { \(matchingFunctionArguments) -> Bool in
-                \(matchingFunctionPredicate.indent())
-            }
-            """
-    }
-    
-    private func matchingFunctionOtherArgumentName(index: Int) -> String {
-        return "otherArgument\(index)"
-    }
-    
-    // Note: types are omitted. This is because if type is closure,
-    // then we have to deal with non-escaping closures, and there is no
-    // way to reliably detect if closure is non-escaping, because it can be
-    // a typealias from another module.
-    private var matchingFunctionArguments: String {
-        method.parameters.render(
-            separator: ", ",
-            surround: { "(\($0))" },
+    private var recordedCallArgumentsMatcherBuilder: String {
+        return method.parameters.render(
+            separator: "\n",
+            valueIfEmpty: "RecordedCallArgumentsMatcherBuilder().matcher()",
+            surround: {
+                """
+                RecordedCallArgumentsMatcherBuilder()
+                    \($0.indent())
+                    .matcher()
+                """
+            },
             transform: { index, _ in
-                let name = matchingFunctionOtherArgumentName(index: index)
-                
-                return "\(name)"
+                """
+                .matchNext(\(Snippets.matcherArgumentName(index: index)))
+                """
             }
         )
-    }
-    
-    private var matchingFunctionPredicate: String {
-        method.parameters
-            .render(
-                separator: "\n    && ",
-                valueIfEmpty: "true",
-                transform: { index, _ in
-                    let lhs = Snippets.matcherArgumentName(index: index)
-                    let rhs = matchingFunctionOtherArgumentName(index: index)
-                    
-                    return "\(lhs).valueIsMatching(\(rhs))"
-                }
-            )
     }
 }

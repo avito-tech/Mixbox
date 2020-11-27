@@ -1,32 +1,31 @@
 public final class MockManagerStateTransferringImpl: MockManagerStateTransferring {
     private let stubsProvider: StubsProvider
-    private let callRecordsHolder: CallRecordsHolder
+    private let recordedCallsHolder: RecordedCallsHolder
     
     public init(
         stubsProvider: StubsProvider,
-        callRecordsHolder: CallRecordsHolder)
+        recordedCallsHolder: RecordedCallsHolder)
     {
         self.stubsProvider = stubsProvider
-        self.callRecordsHolder = callRecordsHolder
+        self.recordedCallsHolder = recordedCallsHolder
     }
     
     public func transferState(to mockManager: MockManager) {
         stubsProvider.stubs.forEach { functionIdentifier, stubs in
-            stubs.forEach { stub in
+            stubs.forEach { callStub in
                 mockManager.stub(
                     functionIdentifier: functionIdentifier,
-                    closure: stub.closure,
-                    argumentsMatcher: stub.matcher
+                    callStub: callStub
                 )
             }
         }
         
-        mockManager.appendCallRecords(from: callRecordsHolder)
+        mockManager.appendRecordedCalls(from: recordedCallsHolder)
     }
     
-    public func appendCallRecords(from callRecordsProvider: CallRecordsProvider) {
-        callRecordsHolder.callRecords.append(
-            contentsOf: callRecordsProvider.callRecords
+    public func appendRecordedCalls(from recordedCallsProvider: RecordedCallsProvider) {
+        recordedCallsHolder.recordedCalls.append(
+            contentsOf: recordedCallsProvider.recordedCalls
         )
     }
 }

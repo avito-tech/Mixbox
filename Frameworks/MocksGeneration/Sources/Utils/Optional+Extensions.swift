@@ -7,6 +7,15 @@ extension Optional {
     {
         return try map(transform) ?? `default`()
     }
+    
+    func flatMap<T>(
+        default: @autoclosure () -> T,
+        transform: (Wrapped) throws -> T?)
+        rethrows
+        -> T
+    {
+        return try flatMap(transform) ?? `default`()
+    }
 }
 
 extension Optional where Wrapped == String {

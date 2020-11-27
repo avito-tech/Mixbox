@@ -19,13 +19,13 @@ public class StubbingImmutablePropertyBuilder<PropertyType> {
         line: UInt = #line)
         -> StubbingFunctionBuilder<(), PropertyType>
     {
-        return StubbingFunctionBuilder<(), PropertyType>(
+        return StubbingFunctionBuilder(
             functionIdentifier: FunctionIdentifierFactory.variableFunctionIdentifier(
                 variableName: variableName,
                 type: .get
             ),
             mockManager: mockManager,
-            argumentsMatcher: any(),
+            recordedCallArgumentsMatcher: any(),
             fileLine: FileLine(file: file, line: line)
         )
     }
@@ -42,20 +42,35 @@ public final class StubbingMutablePropertyBuilder<PropertyType>:
         where
         NewValueMatcher.MatchingType == PropertyType
     {
-        let argumentsMatcher = FunctionalMatcher<PropertyType>(
-            matchingFunction: { (other: PropertyType) -> Bool in
-                newValueMatcher.valueIsMatching(other)
+        let recordedCallArgumentsMatcher = RecordedCallArgumentsMatcher(
+            matchingFunction: { (other: RecordedCallArguments) -> Bool in
+                guard let other: PropertyType = Self.unwrapNewValue(recordedCallArguments: other) else {
+                    return false
+                }
+                
+                return newValueMatcher.valueIsMatching(other)
             }
         )
         
-        return StubbingFunctionBuilder<PropertyType, ()>(
+        return StubbingFunctionBuilder(
             functionIdentifier: FunctionIdentifierFactory.variableFunctionIdentifier(
                 variableName: variableName,
                 type: .set
             ),
             mockManager: mockManager,
-            argumentsMatcher: argumentsMatcher,
+            recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             fileLine: FileLine(file: file, line: line)
         )
+    }
+    
+    private static func unwrapNewValue<PropertyType>(recordedCallArguments: RecordedCallArguments) -> PropertyType? {
+        // 1. Setters can have only 1 argument.
+        // 2. Argument type can never be a non-escaping closure.
+        switch recordedCallArguments.arguments.mb_only {
+        case let .regular(onlyRegularArgument)?:
+            return onlyRegularArgument as? PropertyType
+        case .nonEscapingClosure?, nil:
+            return nil
+        }
     }
 }

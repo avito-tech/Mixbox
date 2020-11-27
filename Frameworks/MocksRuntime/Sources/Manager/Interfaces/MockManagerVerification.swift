@@ -2,11 +2,11 @@ import Foundation
 import MixboxFoundation
 
 public protocol MockManagerVerification {
-    func verify<Arguments>(
+    func verify(
         functionIdentifier: FunctionIdentifier,
         fileLine: FileLine,
         timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher,
-        argumentsMatcher: FunctionalMatcher<Arguments>,
+        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         timeout: TimeInterval?,
         pollingInterval: TimeInterval?)
 }

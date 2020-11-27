@@ -26,7 +26,7 @@ public final class UnavoidableFailure {
     {
         AutomaticCurrentTestCaseProvider().currentTestCase()?.continueAfterFailure = false
         XCTFail(message, file: fileLine.file, line: fileLine.line)
-        NSException(name: UnavoidableFailureException, reason: message).raise()
+        NSException(name: unavoidableFailureException, reason: message).raise()
         
         // To produce `Never` return value. Note that it will not be executed after
         // raising an exception on the previous line
@@ -39,18 +39,31 @@ public final class UnavoidableFailure {
         body: () throws -> T)
         -> T
     {
+        return doOrFail(
+            fileLine: FileLine(
+                file: file,
+                line: line
+            ),
+            body: body
+        )
+    }
+    
+    public static func doOrFail<T>(
+        fileLine: FileLine,
+        body: () throws -> T)
+        -> T
+    {
         do {
             return try body()
         } catch {
             UnavoidableFailure.fail(
-                "\(error)",
-                file: file,
-                line: line
+                message: "\(error)",
+                fileLine: fileLine
             )
         }
     }
     
-    static let UnavoidableFailureException = NSExceptionName(rawValue: "UnavoidableFailureException")
+    private static let unavoidableFailureException = NSExceptionName(rawValue: "UnavoidableFailureException")
     
     private init() {}
 }

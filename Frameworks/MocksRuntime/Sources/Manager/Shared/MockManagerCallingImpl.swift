@@ -3,39 +3,42 @@ import MixboxTestsFoundation
 
 public final class MockManagerCallingImpl: MockManagerCalling {
     private let testFailureRecorder: TestFailureRecorder
-    private let callRecordsHolder: CallRecordsHolder
+    private let recordedCallsHolder: RecordedCallsHolder
     private let stubsProvider: StubsProvider
     
     public init(
         testFailureRecorder: TestFailureRecorder,
-        callRecordsHolder: CallRecordsHolder,
+        recordedCallsHolder: RecordedCallsHolder,
         stubsProvider: StubsProvider)
     {
         self.testFailureRecorder = testFailureRecorder
-        self.callRecordsHolder = callRecordsHolder
+        self.recordedCallsHolder = recordedCallsHolder
         self.stubsProvider = stubsProvider
     }
     
-    public func call<MockedType, Arguments, ReturnValue>(
+    public func call<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
-        defaultImplementationClosure: (inout MockedType, Arguments) -> ReturnValue,
-        arguments: Arguments)
+        defaultImplementationClosure: (inout MockedType, TupledArguments) -> ReturnValue,
+        tupledArguments: TupledArguments,
+        recordedCallArguments: RecordedCallArguments)
         -> ReturnValue
     {
         return callAny(
             functionIdentifier: functionIdentifier,
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
-            arguments: arguments
+            tupledArguments: tupledArguments,
+            recordedCallArguments: recordedCallArguments
         )
     }
     
-    public func callThrows<MockedType, Arguments, ReturnValue>(
+    public func callThrows<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
-        defaultImplementationClosure: (inout MockedType, Arguments) throws -> ReturnValue,
-        arguments: Arguments)
+        defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
+        tupledArguments: TupledArguments,
+        recordedCallArguments: RecordedCallArguments)
         throws
         -> ReturnValue
     {
@@ -43,15 +46,17 @@ public final class MockManagerCallingImpl: MockManagerCalling {
             functionIdentifier: functionIdentifier,
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
-            arguments: arguments
+            tupledArguments: tupledArguments,
+            recordedCallArguments: recordedCallArguments
         )
     }
         
-    public func callRethrows<MockedType, Arguments, ReturnValue>(
+    public func callRethrows<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
-        defaultImplementationClosure: (inout MockedType, Arguments) throws -> ReturnValue,
-        arguments: Arguments)
+        defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
+        tupledArguments: TupledArguments,
+        recordedCallArguments: RecordedCallArguments)
         rethrows
         -> ReturnValue
     {
@@ -59,32 +64,34 @@ public final class MockManagerCallingImpl: MockManagerCalling {
             functionIdentifier: functionIdentifier,
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
-            arguments: arguments
+            tupledArguments: tupledArguments,
+            recordedCallArguments: recordedCallArguments
         )
     }
     
     // TODO: Support stubbing of throwing
-    private func callAny<MockedType, Arguments, ReturnValue>(
+    private func callAny<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
-        defaultImplementationClosure: (inout MockedType, Arguments) throws -> ReturnValue,
-        arguments: Arguments)
+        defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
+        tupledArguments: TupledArguments,
+        recordedCallArguments: RecordedCallArguments)
         rethrows
         -> ReturnValue
     {
-        let callRecord = CallRecord(
+        let recordedCall = RecordedCall(
             functionIdentifier: functionIdentifier,
-            arguments: arguments
+            arguments: recordedCallArguments
         )
         
-        callRecordsHolder.callRecords.append(callRecord)
+        recordedCallsHolder.recordedCalls.append(recordedCall)
 
         let returnValueOrNil: ReturnValue?
         do {
             returnValueOrNil = try stubsProvider.stubs[functionIdentifier].flatMap { stubs in
                 try stubs
-                    .last { $0.matches(arguments: arguments) }
-                    .map { try $0.value(arguments: arguments) }
+                    .last { $0.matches(recordedCallArguments: recordedCallArguments) }
+                    .map { try $0.value(tupledArguments: tupledArguments) }
             }
         } catch {
             fail(error)
@@ -93,9 +100,9 @@ public final class MockManagerCallingImpl: MockManagerCalling {
         if let returnValue = returnValueOrNil {
             return returnValue
         } else if var defaultImplementation = defaultImplementation {
-            return try defaultImplementationClosure(&defaultImplementation, arguments)
+            return try defaultImplementationClosure(&defaultImplementation, tupledArguments)
         } else {
-            fail("Call to function \(functionIdentifier) with args \(arguments) was not stubbed")
+            fail("Call to function \(functionIdentifier) with args \(tupledArguments) was not stubbed")
         }
     }
     

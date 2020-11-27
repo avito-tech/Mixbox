@@ -1,50 +1,51 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 
-public final class StubbingFunctionBuilder<Arguments, ReturnType> {
-    public typealias Arguments = Arguments
+public final class StubbingFunctionBuilder<TupledArguments, ReturnType> {
+    public typealias TupledArguments = TupledArguments
     public typealias ReturnType = ReturnType
     
     private let mockManager: MockManager
     private let functionIdentifier: FunctionIdentifier
-    private let argumentsMatcher: FunctionalMatcher<Arguments>
+    private let recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher
     private let fileLine: FileLine
     
     public init(
         functionIdentifier: FunctionIdentifier,
         mockManager: MockManager,
-        argumentsMatcher: FunctionalMatcher<Arguments>,
+        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         fileLine: FileLine)
     {
         self.mockManager = mockManager
         self.functionIdentifier = functionIdentifier
-        self.argumentsMatcher = argumentsMatcher
+        self.recordedCallArgumentsMatcher = recordedCallArgumentsMatcher
         self.fileLine = fileLine
     }
     
     public func thenReturn(_ result: ReturnType) {
         mockManager.stub(
             functionIdentifier: functionIdentifier,
-            closure: { _ in result },
-            argumentsMatcher: argumentsMatcher.byErasingType()
+            callStub: CallStub(
+                returnValueProvider: { _ in TypeErasedReturnValue(result) },
+                recordedCallArgumentsMatcher: recordedCallArgumentsMatcher
+            )
         )
     }
     
-    public func thenInvoke(_ closure: @escaping (Arguments) -> ReturnType) {
+    public func thenInvoke(_ closure: @escaping (TupledArguments) -> ReturnType) {
         mockManager.stub(
             functionIdentifier: functionIdentifier,
-            closure: { [fileLine] any in
-                guard let arguments = any as? Arguments else {
-                    UnavoidableFailure.fail(
-                        "Can not cast \(any) of type \(type(of: any)) to type \(Arguments.self)",
-                        file: fileLine.file,
-                        line: fileLine.line
-                    )
-                }
-                
-                return closure(arguments)
-            },
-            argumentsMatcher: argumentsMatcher.byErasingType()
+            callStub: CallStub(
+                returnValueProvider: { [fileLine] typeErasedTupledArguments in
+                    UnavoidableFailure.doOrFail(fileLine: fileLine) {
+                        let tupledArguments: TupledArguments = try typeErasedTupledArguments.tupledArguments()
+                        return TypeErasedReturnValue(
+                            closure(tupledArguments)
+                        )
+                    }
+                },
+                recordedCallArgumentsMatcher: recordedCallArgumentsMatcher
+            )
         )
     }
 }

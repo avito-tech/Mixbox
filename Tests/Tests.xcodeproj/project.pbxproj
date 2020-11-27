@@ -436,6 +436,7 @@
 		F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */; };
 		F8AA6FFD217E0681007D8208 /* FakeCellsDoNotCauseSideEffectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AA6FFC217E0681007D8208 /* FakeCellsDoNotCauseSideEffectsTests.swift */; };
 		F8AA7003217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AA7002217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift */; };
+		F8AA9EB4256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AA9EB3256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift */; };
 		F8AC3CF2235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */; };
 		F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */; };
 		F8AC3CF4235E5D5400516032 /* TestCase+AssertThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */; };
@@ -1084,6 +1085,7 @@
 		F8A9D32C2168026E00EC5D24 /* ImageHashCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHashCalculatorTests.swift; sourceTree = "<group>"; };
 		F8AA6FFC217E0681007D8208 /* FakeCellsDoNotCauseSideEffectsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTests.swift; sourceTree = "<group>"; };
 		F8AA7002217E06E5007D8208 /* FakeCellsDoNotCauseSideEffectsTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCellsDoNotCauseSideEffectsTestsView.swift; sourceTree = "<group>"; };
+		F8AA9EB3256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxMocksNonEscapingFunctionsTests.swift; sourceTree = "<group>"; };
 		F8AC3CF0235E5D2500516032 /* TestCase+AssertThrows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestCase+AssertThrows.swift"; sourceTree = "<group>"; };
 		F8AD078B2250D5DD00D5FB93 /* MicrophoneApplicationPermissionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrophoneApplicationPermissionTests.swift; sourceTree = "<group>"; };
 		F8AD078C2250D5DD00D5FB93 /* MicrophoneApplicationPermissionSpecification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicrophoneApplicationPermissionSpecification.swift; sourceTree = "<group>"; };
@@ -3359,6 +3361,7 @@
 			children = (
 				F8DFADC2256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift */,
 				F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */,
+				F8AA9EB3256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5082,6 +5085,7 @@
 				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
+				F8AA9EB4256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift in Sources */,
 				F8DC863A236724D2003889C7 /* PerPixelSnapshotsComparatorTests.swift in Sources */,
 				F8A9D33721681C8300EC5D24 /* ImageHashCalculatorTests.swift in Sources */,
 				F8539649254B1ED80015FD37 /* ValueCodeGeneratorTuplesTests.swift in Sources */,

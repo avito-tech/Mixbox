@@ -7,18 +7,18 @@ public final class VerificationFunctionBuilder<Arguments, ReturnType> {
     
     private let mockManager: MockManager
     private var functionIdentifier: FunctionIdentifier
-    private let argumentsMatcher: FunctionalMatcher<Arguments>
+    private let recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher
     private let fileLine: FileLine
     
     public init(
         functionIdentifier: FunctionIdentifier,
         mockManager: MockManager,
-        argumentsMatcher: FunctionalMatcher<Arguments>,
+        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         fileLine: FileLine)
     {
         self.mockManager = mockManager
         self.functionIdentifier = functionIdentifier
-        self.argumentsMatcher = argumentsMatcher
+        self.recordedCallArgumentsMatcher = recordedCallArgumentsMatcher
         self.fileLine = fileLine
     }
     
@@ -31,7 +31,7 @@ public final class VerificationFunctionBuilder<Arguments, ReturnType> {
             functionIdentifier: functionIdentifier,
             fileLine: fileLine,
             timesMethodWasCalledMatcher: times,
-            argumentsMatcher: argumentsMatcher,
+            recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             timeout: timeout,
             pollingInterval: pollingInterval
         )

@@ -110,7 +110,8 @@ public class ProtocolImplementationFunctionTemplate {
             defaultImplementationClosure: { (defaultImplementation, newValue) in
                 \(tryPrefix)defaultImplementation.\(method.callName)\(methodCallArguments.indent(level: 2))
             },
-            arguments: \(tupledArguments)
+            tupledArguments: \(tupledArguments),
+            recordedCallArguments: \(recordedCallArguments)
         )
         """
     }
@@ -168,8 +169,46 @@ public class ProtocolImplementationFunctionTemplate {
         )
     }
     
+    private var recordedCallArguments: String {
+        return method.parameters.render(
+            separator: ", ",
+            surround: {
+                """
+                RecordedCallArguments(arguments: [
+                    \($0.indent())
+                ])
+                """
+            },
+            transform: { index, parameter in
+                parameter.isNonEscapingClosure
+                    ? nonEscapingClosureRecordedCallArgument(parameter: parameter)
+                    : regularRecordedCallArgument(argumenIndex: index)
+            }
+        )
+    }
+    
+    private func regularRecordedCallArgument(argumenIndex: Int) -> String {
+        """
+        RecordedCallArgument.regular(\(Snippets.argumentName(index: argumenIndex)))
+        """
+    }
+    
+    private func nonEscapingClosureRecordedCallArgument(parameter: MethodParameter) -> String {
+        """
+        RecordedCallArgument.nonEscapingClosure((\(parameter.typeName.validTypeName)).self)
+        """
+    }
+    
     private var methodThrowsOrRethrows: Bool {
         return method.throws || method.rethrows
+    }
+    
+    private func closureThrowing(closure: ClosureType) -> String {
+        if closure.throws {
+            return " throws"
+        } else {
+            return ""
+        }
     }
     
     private var functionThrowing: String {

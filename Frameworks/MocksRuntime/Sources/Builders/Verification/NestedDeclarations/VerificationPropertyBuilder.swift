@@ -25,7 +25,7 @@ public class VerificationImmutablePropertyBuilder<PropertyType> {
                 type: .get
             ),
             mockManager: mockManager,
-            argumentsMatcher: any(),
+            recordedCallArgumentsMatcher: any(),
             fileLine: FileLine(file: file, line: line)
         )
     }
@@ -40,11 +40,17 @@ public final class VerificationMutablePropertyBuilder<PropertyType>:
         line: UInt = #line)
         -> VerificationFunctionBuilder<PropertyType, ()>
         where
-        NewValueMatcher.MatchingType == PropertyType
+        NewValueMatcher.MatchingType == RecordedCallArguments
     {
-        let argumentsMatcher = FunctionalMatcher<PropertyType>(
-            matchingFunction: { (other: PropertyType) -> Bool in
-                newValueMatcher.valueIsMatching(other)
+        let recordedCallArgumentsMatcher = FunctionalMatcher<RecordedCallArguments>(
+            matchingFunction: { (other: RecordedCallArguments) -> Bool in
+                newValueMatcher.valueIsMatching(
+                    RecordedCallArguments(
+                        arguments: [
+                            RecordedCallArgument.regular(other)
+                        ]
+                    )
+                )
             }
         )
         
@@ -54,7 +60,7 @@ public final class VerificationMutablePropertyBuilder<PropertyType>:
                 type: .set
             ),
             mockManager: mockManager,
-            argumentsMatcher: argumentsMatcher,
+            recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             fileLine: FileLine(file: file, line: line)
         )
     }

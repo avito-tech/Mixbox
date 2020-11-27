@@ -1,3 +1,3 @@
 public final class StubsHolderImpl: StubsHolder {
-    public var stubs: [FunctionIdentifier: [Stub]] = [:]
+    public var stubs: [FunctionIdentifier: [CallStub]] = [:]
 }

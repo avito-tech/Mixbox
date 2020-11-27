@@ -1,6 +1,6 @@
 import Foundation
 
-public final class FunctionalMatcher<MatchingType>: Matcher {
+open class FunctionalMatcher<MatchingType>: Matcher {
     public typealias MatchingType = MatchingType
     
     private let matchingFunction: (MatchingType) -> Bool
