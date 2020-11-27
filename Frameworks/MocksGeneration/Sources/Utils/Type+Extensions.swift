@@ -23,8 +23,9 @@ extension Type {
 }
 
 // All functons and properties declared in protocol are required to implement.
-// However, we can check if it's true always for current code by using `preconditionFailure`.
-// Anything might happen actually.
+// However, it's not certain whether there aren't any bugs in Sourcery/SourceKit,
+// additional check might help. This code was added on 2020.11.21, you can remove
+// it if you wish.
 extension Protocol {
     var allMethodsToImplement: [Method] {
         let allMethodsDefinedInTypeDeclaration = self.allMethodsDefinedInTypeDeclaration
@@ -33,7 +34,7 @@ extension Protocol {
         }
         
         if allMethodsDefinedInTypeDeclaration.count != allMethodsDefinedToImplement.count {
-            preconditionFailure("Unexpected situation: detected final variables in protocol")
+            preconditionFailure("Unexpected situation: detected final final in protocol")
         }
         
         return allMethodsDefinedToImplement

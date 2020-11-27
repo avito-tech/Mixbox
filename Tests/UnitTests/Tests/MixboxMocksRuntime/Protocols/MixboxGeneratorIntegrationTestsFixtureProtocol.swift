@@ -63,7 +63,7 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     func functionGenericWithConstraints_parameters_0_and_1<T: Protocol0 & Protocol1>(
         generic: T)
     
-    // TODO: Fix.
+    // TODO: Support functions with generic where clause
     //
     // func functionGenericWithConstraints_where_0<T>(
     //     generic: T)
