@@ -2,7 +2,7 @@ import MixboxMocksGeneration
 import XCTest
 
 final class NameCollisionAvoidanceTests: XCTestCase {
-    func test() {
+    func test___typeNameAvoidingCollisons___avoids_collisions() {
         parameterized_test___typeNameAvoidingCollisons___avoids_collisions(
             desiredName: "a",
             takenNames: [],
@@ -20,6 +20,24 @@ final class NameCollisionAvoidanceTests: XCTestCase {
             takenNames: ["b"],
             itIsExpectedToKeepDesiredName: true
         )
+    }
+    
+    func test___typeNameAvoidingCollisons___generate_deterministic_names() {
+        let desiredName = "name"
+        let takenNames = Set([desiredName])
+        
+        XCTAssertNoThrow(try {
+            let lhs = try NameCollisionAvoidance.typeNameAvoidingCollisons(
+                desiredName: desiredName,
+                takenNames: takenNames
+            )
+            let rhs = try NameCollisionAvoidance.typeNameAvoidingCollisons(
+                desiredName: desiredName,
+                takenNames: takenNames
+            )
+            
+            XCTAssertEqual(lhs, rhs)
+        }())
     }
     
     private func parameterized_test___typeNameAvoidingCollisons___avoids_collisions(
