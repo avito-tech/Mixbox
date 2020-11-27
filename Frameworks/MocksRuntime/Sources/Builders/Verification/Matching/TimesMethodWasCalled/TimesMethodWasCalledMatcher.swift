@@ -1,8 +1,3 @@
-// TODO:
-//
-// Remove labels in static functions. Example:
-// `.exactly(times: 1)` => `.exactly(1)`
-//
 public final class TimesMethodWasCalledMatcher {
     private let name: String
     private let matchingFunction: (Int) -> TimesMethodWasCalledMatchingResult
@@ -39,23 +34,23 @@ public final class TimesMethodWasCalledMatcher {
     public static func never()
         -> TimesMethodWasCalledMatcher
     {
-        return exactly(times: 0)
+        return exactly(0)
     }
     
     public static func atLeastOnce()
         -> TimesMethodWasCalledMatcher
     {
-        return atLeast(times: 1)
+        return atLeast(1)
     }
     
     public static func exactlyOnce()
         -> TimesMethodWasCalledMatcher
     {
-        return exactly(times: 1)
+        return exactly(1)
     }
     
     public static func atLeast(
-        times expectedTimesMethodIsCalled: Int)
+        _ expectedTimesMethodIsCalled: Int)
         -> TimesMethodWasCalledMatcher
     {
         return Self(name: "atLeast(\(expectedTimesMethodIsCalled))") { actualTimesMethodIsCalled in
@@ -68,7 +63,7 @@ public final class TimesMethodWasCalledMatcher {
     }
     
     public static func exactly(
-        times expectedTimesMethodIsCalled: Int)
+        _ expectedTimesMethodIsCalled: Int)
         -> TimesMethodWasCalledMatcher
     {
         return Self(name: "exactly(\(expectedTimesMethodIsCalled))") { actualTimesMethodIsCalled in

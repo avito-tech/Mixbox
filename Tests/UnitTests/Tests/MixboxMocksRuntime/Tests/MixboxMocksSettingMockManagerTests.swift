@@ -64,7 +64,7 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
         // Verification works as before
         assertPasses {
             (mock.verify().function() as VerificationFunctionBuilder<(), Int>)
-                .isCalled(times: .exactly(times: 1), timeout: 0)
+                .isCalled(times: .exactly(1), timeout: 0)
         }
         
         // Calling works as before
@@ -78,7 +78,7 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
         // Old and new mock manager are synced. Both old an new calls are tracked
         assertPasses {
             (mock.verify().function() as VerificationFunctionBuilder<(), Int>)
-                .isCalled(times: .exactly(times: 2), timeout: 0)
+                .isCalled(times: .exactly(2), timeout: 0)
         }
     }
     

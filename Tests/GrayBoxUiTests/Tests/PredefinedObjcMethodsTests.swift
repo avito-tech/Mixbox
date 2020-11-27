@@ -76,7 +76,7 @@ final class PredefinedObjcMethodsTests: TestCase {
             baseClass: any(),
             selector: any(),
             methodType: any()
-        ).isCalled(times: .exactly(times: 1))
+        ).isCalled(times: .exactly(1))
     }
     
     private func checkForIosFrom11To13() {
@@ -104,7 +104,7 @@ final class PredefinedObjcMethodsTests: TestCase {
             baseClass: any(),
             selector: any(),
             methodType: any()
-        ).isCalled(times: .exactly(times: 1))
+        ).isCalled(times: .exactly(1))
     }
     
     private func checkObjcMethodsMethodsWithUniqueImplementationArePredefined(
