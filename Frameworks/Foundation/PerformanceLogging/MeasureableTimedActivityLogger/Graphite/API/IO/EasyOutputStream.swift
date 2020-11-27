@@ -157,8 +157,12 @@ public final class EasyOutputStream: NSObject, StreamDelegate {
     @discardableResult
     private func writeBufferedData(outputStream: OutputStream, numberOfBytes: Int) -> Int {
         return buffer.withExclusiveAccess { data in
-            let bytesWritten = data.withUnsafeBytes { bytes -> Int in
-                outputStream.write(bytes, maxLength: min(numberOfBytes, data.count))
+            let bytesWritten: Int = data.withUnsafeBytes { bufferPointer -> Int in
+                let bytes = bufferPointer.bindMemory(to: UInt8.self)
+                if let baseAddress = bytes.baseAddress {
+                    return outputStream.write(baseAddress, maxLength: min(numberOfBytes, data.count))
+                }
+                return 0
             }
             if bytesWritten > 0 {
                 data = data.dropFirst(bytesWritten)

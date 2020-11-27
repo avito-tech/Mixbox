@@ -215,7 +215,7 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         guard recordingFailureRecursionCounter < recordingFailureRecursionCounterThreshold else {
             // Might happen if DI fails, for example.
             // Because `else` case can contain logic that might call `recordFailure`.
-            super.recordFailure(
+            super.deprecatedRecordFailure(
                 withDescription: "Went to recursion, current failure: \(description)",
                 inFile: filePath,
                 atLine: lineNumber,
@@ -244,7 +244,7 @@ class BaseTestCase: XCTestCase, FailureGatherer {
             let environment = "\(device), iOS \(os)"
             
             // Note that you can set a breakpoint here (it is very convenient):
-            super.recordFailure(
+            super.deprecatedRecordFailure(
                 withDescription: "\(environment): \(failure.description)",
                 inFile: failure.file,
                 atLine: failure.line,

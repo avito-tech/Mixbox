@@ -31,7 +31,7 @@ final class ChecksTestsView: TestStackScrollView, TestingView {
         let callCompletionOnce = ThreadSafeOnceToken<Void>()
         
         func uiTestsCanStartCheckingUi() {
-            _ = callCompletionOnce.executeOnce {
+            callCompletionOnce.executeOnce {
                 completion()
             }
         }

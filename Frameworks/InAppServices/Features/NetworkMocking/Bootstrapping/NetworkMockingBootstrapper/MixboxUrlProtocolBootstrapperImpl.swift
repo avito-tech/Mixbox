@@ -24,7 +24,7 @@ public final class MixboxUrlProtocolBootstrapperImpl: MixboxUrlProtocolBootstrap
     }
     
     public func bootstrapNetworkMocking() {
-        _ = onceToken.executeOnce {
+        onceToken.executeOnce {
             bootstrapNetworkMockingWhileBeingExecutedOnce()
         }
     }

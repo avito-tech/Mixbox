@@ -144,6 +144,8 @@ final class ElementSnapshotStub: ElementSnapshot {
     // Will produce failures if some property is not stubbed
     var failForNotStubbedValues = true
     
+    var onFail: (_ propertyName: String) -> ()
+    
     private var _frameRelativeToScreen: CGRect?
     private var _elementType: ElementType??
     private var _hasKeyboardFocus: Bool?
@@ -168,15 +170,12 @@ final class ElementSnapshotStub: ElementSnapshot {
         return value
     }
     
-    private let onFail: (_ propertyName: String) -> ()
-    
     init(
-        onFail: ((_ propertyName: String) -> ())? = nil,
         file: StaticString = #file,
         line: UInt = #line,
         configure: (ElementSnapshotStub) -> () = { _ in })
     {
-        self.onFail = onFail ?? { propertyName in
+        self.onFail = { propertyName in
             XCTFail("Property \(propertyName) was read, but not set", file: file, line: line)
         }
         configure(self)

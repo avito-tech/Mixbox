@@ -43,7 +43,7 @@ extension SynchronousIpcClient {
         Method.Arguments == IpcVoid,
         Method.ReturnValue == IpcVoid
     {
-        _ = UnavoidableFailure.doOrFail(file: file, line: line) {
+        UnavoidableFailure.doOrFail(file: file, line: line) {
             try callOrThrow(
                 method: method,
                 arguments: IpcVoid()
@@ -60,7 +60,7 @@ extension SynchronousIpcClient {
         where
         Method.ReturnValue == IpcVoid
     {
-        _ = UnavoidableFailure.doOrFail(file: file, line: line) {
+        UnavoidableFailure.doOrFail(file: file, line: line) {
             try callOrThrow(
                 method: method,
                 arguments: arguments

@@ -14,7 +14,7 @@ public final class CollectionViewCellSwizzlerImpl: CollectionViewCellSwizzler {
     }
     
     public func swizzle() {
-        _ = onceToken.executeOnce {
+        onceToken.executeOnce {
             swizzleWhileBeingExecutedOnce()
         }
     }

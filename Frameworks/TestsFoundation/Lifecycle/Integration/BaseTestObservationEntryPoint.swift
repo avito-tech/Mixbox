@@ -58,7 +58,7 @@ open class BaseTestObservationEntryPoint: NSObject {
         testLifecycleManagers: [TestLifecycleManager],
         testLifecycleObservable: TestLifecycleObservable = TestLifecycleObservableImpl())
     {
-        _ = startObservingOnceToken.executeOnce {
+        startObservingOnceToken.executeOnce {
             self.testLifecycleManagers = testLifecycleManagers
             self.testLifecycleObservable = testLifecycleObservable
             

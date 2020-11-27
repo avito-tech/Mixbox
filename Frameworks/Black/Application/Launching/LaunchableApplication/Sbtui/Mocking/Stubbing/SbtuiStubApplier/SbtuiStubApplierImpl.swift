@@ -68,7 +68,7 @@ public final class SbtuiStubApplierImpl: SbtuiStubApplier, ApplicationLifecycleO
     // MARK: - Private
     
     private func subscribeToApplicationLifecycleOnce() {
-        _ = subscribeToApplicationLifecycleOnceToken.executeOnce {
+        subscribeToApplicationLifecycleOnceToken.executeOnce {
             applicationLifecycleObservable.addObserver(self)
         }
     }

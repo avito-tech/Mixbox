@@ -105,13 +105,13 @@ public class ProtocolImplementationFunctionTemplate {
         return """
         \(tryPrefix)\(mockManagerVariableName).\(mockManagerCallFunction)(
             functionIdentifier:
-            \(Snippets.functionIdentifier(method: method).indent(level: 1)),
-            defaultImplementation: \(defaultImplementationVariableName),
+            \(Snippets.functionIdentifier(method: method).indent()),
+            defaultImplementation: \(defaultImplementationVariableName.indent()),
             defaultImplementationClosure: { (defaultImplementation, newValue) in
                 \(tryPrefix)defaultImplementation.\(method.callName)\(methodCallArguments.indent(level: 2))
             },
-            tupledArguments: \(tupledArguments),
-            recordedCallArguments: \(recordedCallArguments)
+            tupledArguments: \(tupledArguments.indent()),
+            recordedCallArguments: \(recordedCallArguments.indent())
         )
         """
     }
@@ -171,7 +171,7 @@ public class ProtocolImplementationFunctionTemplate {
     
     private var recordedCallArguments: String {
         return method.parameters.render(
-            separator: ", ",
+            separator: ",\n",
             surround: {
                 """
                 RecordedCallArguments(arguments: [
@@ -189,7 +189,7 @@ public class ProtocolImplementationFunctionTemplate {
     
     private func regularRecordedCallArgument(argumenIndex: Int) -> String {
         """
-        RecordedCallArgument.regular(\(Snippets.argumentName(index: argumenIndex)))
+        RecordedCallArgument.regular(\(Snippets.argumentName(index: argumenIndex)) as Any)
         """
     }
     

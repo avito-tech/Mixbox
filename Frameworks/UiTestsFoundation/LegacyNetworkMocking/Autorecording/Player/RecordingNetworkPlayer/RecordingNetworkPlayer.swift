@@ -65,7 +65,7 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
     }
     
     private func startOnce() {
-        _ = startOnceToken.executeOnce {
+        startOnceToken.executeOnce {
             networkRecorderLifecycle.startRecording()
             
             testFailureRecorder.recordFailure(

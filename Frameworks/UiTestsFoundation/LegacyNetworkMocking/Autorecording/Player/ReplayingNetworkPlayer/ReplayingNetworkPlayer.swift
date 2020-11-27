@@ -103,7 +103,7 @@ public final class ReplayingNetworkPlayer: NetworkPlayer {
     }
     
     private func startOnce() {
-        _ = startOnceToken.executeOnce {
+        startOnceToken.executeOnce {
             start()
             onStart()
         }

@@ -66,9 +66,9 @@ final class ElementSnapshotStubTests: XCTestCase {
     func test___ElementSnapshotStub___fails___if_values_are_not_stubbed_and_failForNotStubbedValues_is_true() {
         var failedProperties = [String]()
         
-        let stub = ElementSnapshotStub(
-            onFail: { failedProperties.append($0) }
-        )
+        let stub = ElementSnapshotStub()
+        
+        stub.onFail = { failedProperties.append($0) }
         
         _ = stub.frameRelativeToScreen
         XCTAssertEqual(failedProperties, ["frameRelativeToScreen"])

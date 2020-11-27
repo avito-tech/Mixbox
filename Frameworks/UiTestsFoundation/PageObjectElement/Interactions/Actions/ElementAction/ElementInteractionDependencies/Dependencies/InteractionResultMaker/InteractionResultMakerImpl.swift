@@ -45,56 +45,56 @@ public final class InteractionResultMakerImpl: InteractionResultMaker {
     private func stackTraceAttachments() -> [Attachment] {
         // TODO: Restore this attachment after fixing duplication of attachments
         return []
-        
-        // TODO: Share code! Exctract to class.
-        // Should look like: "2   xctest                              0x000000010e7a0069 main + 0"
-        
-        let string = extendedStackTraceProvider
-            .extendedStackTrace()
-            .enumerated()
-            .map { indexed in
-                if let file = indexed.element.file, let line = indexed.element.line {
-                    return "\(indexed.offset) \(file):\(line)"
-                } else {
-                    return "\(indexed.offset) \(indexed.element.symbol ?? "???") \(indexed.element.address)"
-                }
-            }
-            .joined(separator: "\n")
-        
-        return [
-            Attachment(
-                name: "Stack trace",
-                content: .text(string)
-            )
-        ]
+        // 
+        // // TODO: Share code! Exctract to class.
+        // // Should look like: "2   xctest                              0x000000010e7a0069 main + 0"
+        // 
+        // let string = extendedStackTraceProvider
+        //     .extendedStackTrace()
+        //     .enumerated()
+        //     .map { indexed in
+        //         if let file = indexed.element.file, let line = indexed.element.line {
+        //             return "\(indexed.offset) \(file):\(line)"
+        //         } else {
+        //             return "\(indexed.offset) \(indexed.element.symbol ?? "???") \(indexed.element.address)"
+        //         }
+        //     }
+        //     .joined(separator: "\n")
+        // 
+        // return [
+        //     Attachment(
+        //         name: "Stack trace",
+        //         content: .text(string)
+        //     )
+        // ]
     }
     
     private func hierarchyAttachments() -> [Attachment] {
         // TODO: Restore this attachment after fixing duplication of attachments
         return []
-        
-        guard let string = elementHierarchyDescriptionProvider.elementHierarchyDescription() else {
-            return []
-        }
-        
-        return [
-            Attachment(
-                name: "Element hierarchy",
-                content: .text(string)
-            )
-        ]
+        //
+        // guard let string = elementHierarchyDescriptionProvider.elementHierarchyDescription() else {
+        //     return []
+        // }
+        //
+        // return [
+        //     Attachment(
+        //         name: "Element hierarchy",
+        //         content: .text(string)
+        //     )
+        // ]
     }
     
     private func errorMessageAttachments(message: String) -> [Attachment] {
         // TODO: Restore this attachment after fixing duplication of attachments
         return []
-        
-        return [
-            Attachment(
-                name: "Error description",
-                content: .text("\(fileLine.file):\(fileLine.line): \(message))")
-            )
-        ]
+        //
+        // return [
+        //     Attachment(
+        //         name: "Error description",
+        //         content: .text("\(fileLine.file):\(fileLine.line): \(message))")
+        //     )
+        // ]
     }
     
 }

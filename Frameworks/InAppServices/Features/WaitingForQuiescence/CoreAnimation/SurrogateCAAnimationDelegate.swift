@@ -9,7 +9,7 @@ private typealias AnimationDidStartFunction = @convention(c) (AnyObject, Selecto
 private typealias AnimationDidFinishFunction = @convention(c) (AnyObject, Selector, CAAnimation?, Bool) -> Void
 
 private func AnimationDidStart(
-    self: SurrogateCAAnimationDelegate,
+    self: AnyObject,
     animation: CAAnimation?,
     isInvokedFromSwizzledMethod: Bool
 ) {
@@ -32,7 +32,7 @@ private func AnimationDidStart(
 }
 
 private func AnimationDidStop(
-    self: SurrogateCAAnimationDelegate,
+    self: AnyObject,
     animation: CAAnimation?,
     finished: Bool,
     isInvokedFromSwizzledMethod: Bool
@@ -117,10 +117,17 @@ private func InstrumentSurrogateDelegate(
     return delegate
 }
 
-@objc class SurrogateCAAnimationDelegate: NSObject, CAAnimationDelegate {
+@objc class SurrogateCAAnimationDelegate: FixedOptionalityCAAnimationDelegate {
     
     override private init() {
-        super.init()
+        super.init(
+            animationDidStart: { `self`, animation in
+                AnimationDidStart(self: `self`, animation: animation, isInvokedFromSwizzledMethod: false)
+            },
+            animationDidStop: { `self`, animation, finished in
+                AnimationDidStop(self: `self`, animation: animation, finished: finished, isInvokedFromSwizzledMethod: false)
+            }
+        )
     }
     
     static func surrogateDelegate(
@@ -173,20 +180,6 @@ private func InstrumentSurrogateDelegate(
         )
         
         return outDelegate
-    }
-    
-    // Ignore the warning. If you apply "fix-it", you will get a crash.
-    // The warning tells that this function has incorrect optionality. In fact it doesn't.
-    // `CAAnimation` has incorrect optionality. Without optionality, the code crashes.
-    @objc func animationDidStart(_ anim: CAAnimation?) {
-        AnimationDidStart(self: self, animation: anim, isInvokedFromSwizzledMethod: false)
-    }
-    
-    // Ignore the warning. If you apply "fix-it", you will get a crash.
-    // The warning tells that this function has incorrect optionality. In fact it doesn't.
-    // `CAAnimation` has incorrect optionality. Without optionality, the code crashes.
-    @objc func animationDidStop(_ anim: CAAnimation?, finished flag: Bool) {
-        AnimationDidStop(self: self, animation: anim, finished: flag, isInvokedFromSwizzledMethod: false)
     }
     
     @objc fileprivate func mbswizzled_animationDidStart(_ anim: CAAnimation?) {

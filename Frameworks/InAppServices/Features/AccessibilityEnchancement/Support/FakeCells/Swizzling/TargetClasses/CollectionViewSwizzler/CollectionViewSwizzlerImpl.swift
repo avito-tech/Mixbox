@@ -13,7 +13,7 @@ public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
     }
     
     public func swizzle() {
-        _ = onceToken.executeOnce {
+        onceToken.executeOnce {
             swizzleWhileBeingExecutedOnce()
         }
     }

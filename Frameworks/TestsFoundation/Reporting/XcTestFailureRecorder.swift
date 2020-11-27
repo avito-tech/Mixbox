@@ -21,7 +21,7 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
         if let testCase = testCase {
             let previousValue = testCase.continueAfterFailure
             testCase.continueAfterFailure = shouldNeverContinueTestAfterFailure ? false : shouldContinueTest
-            testCase.recordFailure(
+            testCase.deprecatedRecordFailure(
                 withDescription: description,
                 inFile: String(describing: fileLine?.file ?? #file),
                 atLine: Int(fileLine?.line ?? #line),
