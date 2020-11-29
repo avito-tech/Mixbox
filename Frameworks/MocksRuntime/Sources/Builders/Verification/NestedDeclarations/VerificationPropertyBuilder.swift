@@ -34,6 +34,7 @@ public class VerificationImmutablePropertyBuilder<PropertyType> {
 public final class VerificationMutablePropertyBuilder<PropertyType>:
     VerificationImmutablePropertyBuilder<PropertyType>
 {
+    // TODO: Support detecting closures? Now only `RecordedCallArgument.regular` is returned.
     public func set<NewValueMatcher: Matcher>(
         _ newValueMatcher: NewValueMatcher,
         file: StaticString = #file,
@@ -47,7 +48,7 @@ public final class VerificationMutablePropertyBuilder<PropertyType>:
                 newValueMatcher.valueIsMatching(
                     RecordedCallArguments(
                         arguments: [
-                            RecordedCallArgument.regular(other)
+                            RecordedCallArgument.regular(value: other)
                         ]
                     )
                 )

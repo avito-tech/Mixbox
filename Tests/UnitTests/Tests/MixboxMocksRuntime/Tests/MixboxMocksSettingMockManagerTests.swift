@@ -1,8 +1,8 @@
 import MixboxMocksRuntime
 import MixboxTestsFoundation
 
-final class MixboxMocksSettingMockManagerTests: TestCase {
-    let mock = MockMixboxGeneratorIntegrationTestsFixtureProtocol()
+final class MixboxMocksSettingMockManagerTests: BaseMixboxMocksRuntimeTests {
+    let mock = MockMocksTestsFixtureProtocol()
     
     func test___RegisterMocksSetUpAction___sets_up_mock_manager() {
         parameterized_test___mock_manager_is_set_up_after {
@@ -21,7 +21,7 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
             
             XCTAssert(factory is ConfiguredMockManagerFactory)
             
-            _ = mock.setMockManager(
+            mock.setMockManager(
                 factory.mockManager()
             )
         }
@@ -79,14 +79,6 @@ final class MixboxMocksSettingMockManagerTests: TestCase {
         assertPasses {
             (mock.verify().function() as VerificationFunctionBuilder<(), Int>)
                 .isCalled(times: .exactly(2), timeout: 0)
-        }
-    }
-    
-    // Remove `RegisterMocksSetUpAction`, this allows to test
-    // all cases, whether `RegisterMocksSetUpAction` is used or not
-    override func setUpActions() -> [SetUpAction] {
-        return super.setUpActions().filter {
-            !($0 is RegisterMocksSetUpAction)
         }
     }
 }

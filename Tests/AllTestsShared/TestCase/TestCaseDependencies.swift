@@ -4,12 +4,16 @@ import MixboxIpc
 import MixboxFoundation
 import MixboxUiKit
 import MixboxDi
+import MixboxBuiltinDi
 import MixboxMocksRuntime
+import MixboxGenerators
+import MixboxStubbing
 import TestsIpc
 
 final class TestCaseDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {
         registerMocks(di: di)
+        registerGenerators(di: di)
         
         di.register(type: EnvironmentProvider.self) { _ in
             Singletons.environmentProvider
@@ -61,13 +65,70 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
                 // TODO: Decrease to 3 or sync with ElementSettingsDefaultsProviderImpl,
                 // or maybe to add some new configurable entiry for storing default timeouts.
                 defaultTimeout: 15,
-                defaultPollingInterval: 0.1
+                defaultPollingInterval: 0.1,
+                dynamicCallable: try di.resolve()
             )
         }
         di.register(type: MockRegisterer.self) { di in
             MockRegistererImpl(
                 mockManagerFactory: try di.resolve()
             )
+        }
+        di.register(type: DynamicCallable.self) { di in
+            AnyGeneratorDynamicCallable(
+                anyGenerator: try di.resolve()
+            )
+        }
+    }
+    
+    private func registerGenerators(di: DependencyRegisterer) {
+        di.register(type: Generator<Void>.self) { _ in
+            Generator { () }
+        }
+        di.register(type: Generator<Bool>.self) { di in
+            try RandomBoolGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<Float>.self) { di in
+            try RandomFloatGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<CGFloat>.self) { di in
+            try RandomFloatGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<Double>.self) { di in
+            try RandomFloatGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<Int>.self) { di in
+            try RandomIntegerGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<String>.self) { di in
+            try RandomStringGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: RandomNumberProvider.self) { _ in
+            MersenneTwisterRandomNumberProvider(seed: 0)
+        }
+        di.register(type: TestFailureRecorder.self) { _ in
+            XcTestFailureRecorder(
+                currentTestCaseProvider: AutomaticCurrentTestCaseProvider(),
+                shouldNeverContinueTestAfterFailure: false
+            )
+        }
+        di.register(type: ByFieldsGeneratorResolver.self) { di in
+            ByFieldsGeneratorResolverImpl(dependencyResolver: di)
+        }
+        di.register(type: TestFailingGeneratorObserver.self) { _ in
+            NoopTestFailingGeneratorObserver()
+        }
+        di.register(type: GeneratorFacade.self) { di in
+            GeneratorFacadeImpl(
+                parentDi: WeakDependencyResolver(dependencyResolver: di),
+                testFailureRecorder: try di.resolve(),
+                byFieldsGeneratorResolver: try di.resolve(),
+                dependencyInjectionFactory: BuiltinDependencyInjectionFactory(),
+                testFailingGeneratorObserver: try di.resolve()
+            )
+        }
+        di.register(type: AnyGenerator.self) { di in
+            (try di.resolve() as GeneratorFacade).anyGenerator
         }
     }
 }

@@ -3,10 +3,10 @@ import MixboxTestsFoundation
 import MixboxFoundation
 
 final class ExtendedStackTraceProviderImplTests: XCTestCase {
-    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> HeapFileLine {
-        return HeapFileLine(
+    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> RuntimeFileLine {
+        return RuntimeFileLine(
             file: "\(file)",
-            line: UInt64(line)
+            line: line
         )
     }
     

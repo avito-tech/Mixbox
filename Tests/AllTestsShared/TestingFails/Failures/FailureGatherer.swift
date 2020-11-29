@@ -24,7 +24,7 @@ extension FailureGatherer {
     func assertFails(
         description: String? = nil,
         file: String? = nil,
-        line: Int? = nil,
+        line: UInt? = nil,
         expected: Bool? = nil,
         fileOfThisAssertion: StaticString = #file,
         lineOfThisAssertion: UInt = #line,
@@ -123,7 +123,7 @@ extension FailureGatherer {
     func assertFails(
         descriptionMatcher: Matcher<String>? = nil,
         file: String? = nil,
-        line: Int? = nil,
+        line: UInt? = nil,
         expected: Bool? = nil,
         failures: [XcTestFailure],
         fileOfThisAssertion: StaticString = #file,
@@ -191,7 +191,7 @@ extension FailureGatherer {
     func assertFails(
         failureDescriptionMatchesRegularExpression regularExpression: String,
         file: String? = nil,
-        line: Int? = nil,
+        line: UInt? = nil,
         expected: Bool? = nil,
         fileOfThisAssertion: StaticString = #file,
         lineOfThisAssertion: UInt = #line,

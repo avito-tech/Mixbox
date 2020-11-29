@@ -1,3 +1,5 @@
+import MixboxFoundation
+
 public protocol FileLineForFailureProvider: class {
-    func fileLineForFailure() -> HeapFileLine?
+    func fileLineForFailure() -> RuntimeFileLine?
 }

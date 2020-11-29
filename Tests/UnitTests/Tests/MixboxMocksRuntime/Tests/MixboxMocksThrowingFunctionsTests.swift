@@ -2,8 +2,8 @@ import MixboxMocksRuntime
 import XCTest
 import MixboxFoundation
 
-final class MixboxMocksThrowingFunctionsTests: TestCase {
-    let mock = MockMixboxGeneratorIntegrationTestsFixtureProtocol()
+final class MixboxMocksThrowingFunctionsTests: BaseMixboxMocksRuntimeTests {
+    let mock = MockMocksTestsFixtureProtocol()
     
     func test___calling_throwing_function___fails_test___if_not_stubbed() {
         assertFails {

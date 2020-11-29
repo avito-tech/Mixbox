@@ -21,10 +21,10 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
         if let testCase = testCase {
             let previousValue = testCase.continueAfterFailure
             testCase.continueAfterFailure = shouldNeverContinueTestAfterFailure ? false : shouldContinueTest
-            testCase.deprecatedRecordFailure(
-                withDescription: description,
-                inFile: String(describing: fileLine?.file ?? #file),
-                atLine: Int(fileLine?.line ?? #line),
+            testCase.recordFailureBySelf(
+                description: description,
+                file: String(describing: fileLine?.file ?? #file),
+                line: fileLine?.line ?? #line,
                 // https://developer.apple.com/documentation/xctest/xctestcase/1496269-recordfailure
                 // > true if the failure being reported was the result of a failed assertion,
                 // > false if it was the result of an uncaught exception.

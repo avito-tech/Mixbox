@@ -1,14 +1,14 @@
 import Foundation
 
-protocol MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFile {
-    var _mixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFileProperty: Int { get }
-    func mixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFileFunction()
+protocol MocksTestsFixtureBaseProtocolFromSameFile {
+    var _mocksTestsFixtureBaseProtocolFromSameFileProperty: Int { get }
+    func mocksTestsFixtureBaseProtocolFromSameFileFunction()
 }
 
 // swiftlint:disable syntactic_sugar implicitly_unwrapped_optional
-protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
-    MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromSameFile,
-    MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile
+protocol MocksTestsFixtureProtocol:
+    MocksTestsFixtureBaseProtocolFromSameFile,
+    MocksTestsFixtureBaseProtocolFromOtherFile
 {
     // Labels
     func functionWithNeitherLabelNorArgumentName(_: Int)
@@ -54,8 +54,10 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     // - Where clause:
     //   https://docs.swift.org/swift-book/ReferenceManual/GenericParametersAndArguments.html#grammar_generic-where-clause
     
-    func functionGeneric<T>(generic: T)
-    func functionGeneric<T, U>(generic: T, generic: U)
+    func genericFunction<T>(generic: T)
+    func genericFunction<T, U>(generic: T, generic: U)
+    func genericFunctionWithSameReturnValue<T>(generic: T) -> T
+    func genericFunctionWithDifferentReturnValue<T, U>(generic: T) -> U
     
     func functionGenericWithConstraints_parameters_0<T: Protocol0>(
         generic: T)
@@ -101,6 +103,7 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     
     // Argument types: Closures: Not really
     
+    func function(optionalClosure: ((Int, inout String, () throws -> ()) throws -> (Int))?)
     func function(closureLikeArgumentOfImplicitlyUnwrappedOptionalType: (() -> ())!)
     func function(closureLikeArgumentOfOptionalType: (() -> ())?)
     func function(closureLikeArgumentOfArrayType: [() -> ()])
@@ -137,6 +140,6 @@ protocol MixboxGeneratorIntegrationTestsFixtureProtocol:
     func functionThatIsAlsoInExtension(_ someArgumentName: Int)
 }
 
-extension MixboxGeneratorIntegrationTestsFixtureProtocol {
+extension MocksTestsFixtureProtocol {
     func functionThatIsAlsoInExtension(_ someDifferentArgumentName: Int) {}
 }

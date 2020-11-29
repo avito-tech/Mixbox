@@ -124,8 +124,8 @@ public class FunctionBuilderTemplate {
     // Argument1.MatchingType == Int,
     // Argument2.MatchingType == Int
     private var whereClause: String {
-        method.parameters.filter {
-            !$0.isNonEscapingClosure
+        method.parameters.enumerated().filter { (_, parameter) in
+            !parameter.isNonEscapingClosure
         }.render(
             separator: ",\n",
             valueIfEmpty: " ",
@@ -137,7 +137,10 @@ public class FunctionBuilderTemplate {
                 
                 """
             },
-            transform: { index, parameter in
+            transform: { (_, pair) in
+                let index = pair.offset
+                let parameter = pair.element
+                    
                 let matchingType = parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
                 let genericType = matcherGenericArgumentTypeName(index: index)
                 

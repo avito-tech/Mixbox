@@ -1,4 +1,5 @@
 import XCTest
+import MixboxFoundation
 import MixboxTestsFoundation
 
 final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase {
@@ -54,7 +55,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["x"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "file",
                 line: 42
             )
@@ -76,7 +77,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["x"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "parent",
                 line: 2
             )
@@ -98,7 +99,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["x"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "samefile",
                 line: 1 // child
             )
@@ -120,7 +121,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["x"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "samefile",
                 line: 2
             )
@@ -142,7 +143,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["nothing-matches-me"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "samefile",
                 line: 1
             )
@@ -159,7 +160,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["nothing-matches-me"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "samefile",
                 line: 1
             )
@@ -181,7 +182,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["nothing-matches-me"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "samefile",
                 line: 1
             )
@@ -203,7 +204,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["nothing-matches-me"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "parent",
                 line: 2
             )
@@ -231,7 +232,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
                 )
             ],
             patterns: ["nothing-matches-me"],
-            fileLine: HeapFileLine(
+            fileLine: RuntimeFileLine(
                 file: "alice",
                 line: 2
             )
@@ -240,7 +241,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     
     private func entry(
         file: String? = random(),
-        line: UInt64? = random(),
+        line: UInt? = random(),
         demangledSymbol: String? = random())
         -> ExtendedStackTraceEntry
     {
@@ -257,7 +258,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
     func parameterized_test(
         trace: [ExtendedStackTraceEntry],
         patterns: [String],
-        fileLine: HeapFileLine?,
+        fileLine: RuntimeFileLine?,
         file: StaticString = #file,
         line: UInt = #line)
     {
@@ -274,6 +275,10 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
 
 private func random() -> UInt64 {
     return UInt64(arc4random())
+}
+
+private func random() -> UInt {
+    return UInt(arc4random())
 }
 
 private func random() -> String? {

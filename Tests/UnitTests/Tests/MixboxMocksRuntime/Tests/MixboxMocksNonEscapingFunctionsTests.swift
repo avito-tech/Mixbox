@@ -13,8 +13,8 @@ import XCTest
 //
 // Solution was: not to store non-escaping closures.
 //
-final class MixboxMocksNonEscapingFunctionsTests: TestCase {
-    let mock = MockMixboxGeneratorIntegrationTestsFixtureProtocol()
+final class MixboxMocksNonEscapingFunctionsTests: BaseMixboxMocksRuntimeTests {
+    let mock = MockMocksTestsFixtureProtocol()
     
     func test() {
         let expectedTimeClosureWasCalled = 42

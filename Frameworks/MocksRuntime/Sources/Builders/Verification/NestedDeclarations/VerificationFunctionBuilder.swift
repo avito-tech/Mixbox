@@ -69,4 +69,19 @@ public final class VerificationFunctionBuilder<Arguments, ReturnType> {
             pollingInterval: pollingInterval
         )
     }
+    
+    // Used to disambiguate return type (must have for generics or overloaded functions; experimental).
+    //
+    // Example:
+    // ```
+    // mock.verify().genericFunction().returning(Int.self).isCalled()
+    // ```
+    //
+    // TODO: Make it return a builder without `returning` function.
+    //
+    public func returning(_ type: ReturnType)
+        -> VerificationFunctionBuilder
+    {
+        return self
+    }
 }

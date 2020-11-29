@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
   s.requires_arc           = true
   s.source_files           = 'Frameworks/MocksRuntime/Sources/**/*.{swift,h,m,sh}'
   
+  s.dependency 'MixboxGenerators'
   s.dependency 'MixboxTestsFoundation'
   
   s.pod_target_xcconfig = {

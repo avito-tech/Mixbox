@@ -63,7 +63,7 @@ public class ProtocolImplementationPropertyTemplate {
                 },
                 tupledArguments: (newValue),
                 recordedCallArguments: RecordedCallArguments(arguments: [
-                    RecordedCallArgument.regular(newValue)
+                    RecordedCallArgument.regular(value: newValue)
                 ])
             )
         }

@@ -5,15 +5,18 @@ public final class MockManagerCallingImpl: MockManagerCalling {
     private let testFailureRecorder: TestFailureRecorder
     private let recordedCallsHolder: RecordedCallsHolder
     private let stubsProvider: StubsProvider
+    private let dynamicCallable: DynamicCallable
     
     public init(
         testFailureRecorder: TestFailureRecorder,
         recordedCallsHolder: RecordedCallsHolder,
-        stubsProvider: StubsProvider)
+        stubsProvider: StubsProvider,
+        dynamicCallable: DynamicCallable)
     {
         self.testFailureRecorder = testFailureRecorder
         self.recordedCallsHolder = recordedCallsHolder
         self.stubsProvider = stubsProvider
+        self.dynamicCallable = dynamicCallable
     }
     
     public func call<MockedType, TupledArguments, ReturnValue>(
@@ -69,7 +72,7 @@ public final class MockManagerCallingImpl: MockManagerCalling {
         )
     }
     
-    // TODO: Support stubbing of throwing
+    // TODO: Support stubbing of throwing/rethrowing functions
     private func callAny<MockedType, TupledArguments, ReturnValue>(
         functionIdentifier: FunctionIdentifier,
         defaultImplementation: MockedType?,
@@ -101,8 +104,27 @@ public final class MockManagerCallingImpl: MockManagerCalling {
             return returnValue
         } else if var defaultImplementation = defaultImplementation {
             return try defaultImplementationClosure(&defaultImplementation, tupledArguments)
+        } else if let returnValue: ReturnValue = dynamicCallableReturnValue(recordedCallArguments: recordedCallArguments) {
+            return returnValue
         } else {
-            fail("Call to function \(functionIdentifier) with args \(tupledArguments) was not stubbed")
+            fail("Call to function \(functionIdentifier) with args \(tupledArguments) and return value of type \(ReturnValue.self) was not stubbed")
+        }
+    }
+    
+    private func dynamicCallableReturnValue<ReturnValue>(
+        recordedCallArguments: RecordedCallArguments)
+        -> ReturnValue?
+    {
+        let result = dynamicCallable.call(
+            recordedCallArguments: recordedCallArguments,
+            returnValueType: ReturnValue.self
+        )
+        
+        switch result {
+        case let .returned(returnValue):
+            return returnValue
+        case .canNotProvideResult/*(let error)*/: // TODO: report error?
+            return nil
         }
     }
     

@@ -1,12 +1,13 @@
 import XCTest
+import MixboxFoundation
 import MixboxTestsFoundation
 
 // Tests are disabled. Symbolication using XCTest stopped working probably since Catalina.
 final class LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests: XCTestCase {
-    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> HeapFileLine {
-        return HeapFileLine(
+    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> RuntimeFileLine {
+        return RuntimeFileLine(
             file: "\(file)",
-            line: UInt64(line)
+            line: line
         )
     }
     
@@ -37,7 +38,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests: XCT
         XCTAssertEqual(nested(), currentFileLine())
     }
     
-    private func nested() -> HeapFileLine? {
+    private func nested() -> RuntimeFileLine? {
         return provider.fileLineForFailure()
     }
     
@@ -45,15 +46,15 @@ final class LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests: XCT
         XCTAssertEqual(double_nested(), currentFileLine())
     }
     
-    private func double_nested() -> HeapFileLine? {
+    private func double_nested() -> RuntimeFileLine? {
         return nested()
     }
     
     // MARK: - Files
     
     func disabled_test_otherFile() {
-        var actualFileLine: HeapFileLine?
-        var expectedFileLine: HeapFileLine?
+        var actualFileLine: RuntimeFileLine?
+        var expectedFileLine: RuntimeFileLine?
         let otherFile = FileForStacktraceTestsWithFixedNameAndLineNumbers {
             // Other file will be ignored
             actualFileLine = self.provider.fileLineForFailure(); expectedFileLine = self.currentFileLine()
@@ -78,7 +79,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests: XCT
         XCTAssertEqual(provider.fileLineForFailure(), currentFileLine())
     }
     
-    func thisFunctionDoesntMatchPattern_thepattern_() -> HeapFileLine? {
+    func thisFunctionDoesntMatchPattern_thepattern_() -> RuntimeFileLine? {
         return provider.fileLineForFailure() // should return file/line of the caller (if it is called from test function)
     }
 }

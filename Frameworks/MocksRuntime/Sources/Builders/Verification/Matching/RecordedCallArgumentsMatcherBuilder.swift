@@ -52,15 +52,10 @@ public final class RecordedCallArgumentsMatcherBuilder {
         -> FunctionalMatcher<RecordedCallArgument>
     {
         return FunctionalMatcher { argument in
-            switch argument {
-            case .nonEscapingClosure:
+            if let value = argument.typedNestedValue(type: Matcher.MatchingType.self) {
+                return matcher.valueIsMatching(value)
+            } else {
                 return false
-            case let .regular(value):
-                if let value = value as? Matcher.MatchingType {
-                    return  matcher.valueIsMatching(value)
-                } else {
-                    return false
-                }
             }
         }
     }
@@ -70,12 +65,7 @@ public final class RecordedCallArgumentsMatcherBuilder {
         -> FunctionalMatcher<RecordedCallArgument>
     {
         return FunctionalMatcher { argument in
-            switch argument {
-            case let .nonEscapingClosure(type):
-                return type == closureType
-            case .regular:
-                return false
-            }
+            argument.asNonEscapingClosureType() == closureType
         }
     }
 }

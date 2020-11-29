@@ -6,6 +6,9 @@ source "$REPO_ROOT/Tests/Scripts/mock_generation.sh"
 # DSL
 
 apply_mocks() {
+    module "MixboxTestsFoundation"
+    mock "TestFailureRecorder"
+    
     module "MixboxUiTestsFoundation"
     mock "StubRequestBuilder"
     mock "StubResponseBuilder"
@@ -14,9 +17,22 @@ apply_mocks() {
     mock "SnapshotsComparatorFactory"
     
     module "UnitTests"
-    mock "MixboxGeneratorIntegrationTestsFixtureProtocol"
-    mock "MixboxGeneratorIntegrationTestsFixtureObjcProtocol"
-    mock "MixboxGeneratorIntegrationTestsFixtureBaseProtocolFromOtherFile"
+    mock "MocksTestsFixtureProtocol"
+    mock "MocksTestsFixtureObjcProtocol"
+    mock "MocksTestsFixtureBaseProtocolFromOtherFile"
+    mock "MocksTestsFixtureSimpleProtocol"
+    
+    module "MixboxMocksRuntime"
+    mock "DynamicCallable"
+    mock "MockManagerVerification"
+    mock "MockManagerStubbing"
+    mock "MockManagerStateTransferring"
+    mock "MockManagerCalling"
+    mock "StubsProvider"
+    mock "RecordedCallsHolder"
+        
+    module "MixboxGenerators"
+    mock "AnyGenerator"
 }
 
 generate "UnitTests" "${PROJECT_DIR}/UnitTests/Mocks"

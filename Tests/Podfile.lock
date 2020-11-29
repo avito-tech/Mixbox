@@ -51,6 +51,7 @@ PODS:
     - SourceryFramework
     - SourceryRuntime
   - MixboxMocksRuntime (0.2.3):
+    - MixboxGenerators
     - MixboxTestsFoundation
   - MixboxReflection (0.2.3)
   - MixboxStubbing (0.2.3):
@@ -238,7 +239,7 @@ SPEC CHECKSUMS:
   MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
   MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
   MixboxMocksGeneration: 0bb97a2ec5a85bb2b71b5684a5521f29c78dfe9e
-  MixboxMocksRuntime: e9a4321e2b8efb774d800607b32e9a486aa63318
+  MixboxMocksRuntime: ed2e7456ab989f54221518cfea115c97c287742a
   MixboxReflection: 08d247df00a91eceef1feef26561115e7101b38c
   MixboxStubbing: 32ebdc7d599daf9ce00cbc4908c2ef353880bd0e
   MixboxTestability: f2ae73479007568fafb48b6a62b98e05986b8a80

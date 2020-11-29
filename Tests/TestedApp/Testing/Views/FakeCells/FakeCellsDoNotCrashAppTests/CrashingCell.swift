@@ -3,7 +3,7 @@ import UIKit
 final class CrashingCell: UICollectionViewCell {
     var crashPlace: Int?
     
-    private func crash(line: UInt = #line) {
+    private func crash(line: Int = #line) {
         if Int(line) == crashPlace || crashPlace == 0 {
             CrashingCellException().raise()
         }

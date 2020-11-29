@@ -1,13 +1,14 @@
 import XCTest
+import MixboxFoundation
 import MixboxTestsFoundation
 
 // TODO: Remove class and test?
 // Tests are disabled. Symbolication using XCTest stopped working probably since Catalina.
 final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTestCase {
-    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> HeapFileLine {
-        return HeapFileLine(
+    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> RuntimeFileLine {
+        return RuntimeFileLine(
             file: "\(file)",
-            line: UInt64(line)
+            line: line
         )
     }
     
@@ -32,7 +33,7 @@ final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTes
         XCTAssertEqual(actual, expected)
     }
     
-    private func nested() -> (HeapFileLine?, HeapFileLine) {
+    private func nested() -> (RuntimeFileLine?, RuntimeFileLine) {
         return (provider.fileLineForFailure(), currentFileLine())
     }
     
@@ -41,13 +42,13 @@ final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTes
         XCTAssertEqual(actual, expected)
     }
     
-    private func double_nested() -> (HeapFileLine?, HeapFileLine) {
+    private func double_nested() -> (RuntimeFileLine?, RuntimeFileLine) {
         return nested()
     }
     
     func disabled_test_other_file() {
-        var actualFileLine: HeapFileLine?
-        var expectedFileLine: HeapFileLine?
+        var actualFileLine: RuntimeFileLine?
+        var expectedFileLine: RuntimeFileLine?
         let otherFile = FileForStacktraceTestsWithFixedNameAndLineNumbers {
             // Other file will be ignored
             actualFileLine = self.provider.fileLineForFailure(); expectedFileLine = self.currentFileLine()

@@ -32,12 +32,26 @@ extension FunctionalMatcher {
     }
 }
 
-public func any<MatchingType>() -> FunctionalMatcher<MatchingType> {
+public func any<MatchingType>(
+    type: MatchingType.Type = MatchingType.self)
+    -> FunctionalMatcher<MatchingType>
+{
     return FunctionalMatcher<MatchingType> { _ in true }
 }
 
-public func none<MatchingType>() -> FunctionalMatcher<MatchingType> {
+public func none<MatchingType>(
+    type: MatchingType.Type = MatchingType.self)
+    -> FunctionalMatcher<MatchingType>
+{
     return FunctionalMatcher<MatchingType> { _ in false }
+}
+
+public func matches<MatchingType>(
+    type: MatchingType.Type = MatchingType.self,
+    _ matchingFunction: @escaping (MatchingType) -> Bool)
+    -> FunctionalMatcher<MatchingType>
+{
+    return FunctionalMatcher<MatchingType>(matchingFunction: matchingFunction)
 }
 
 public func equals<MatchingType>(

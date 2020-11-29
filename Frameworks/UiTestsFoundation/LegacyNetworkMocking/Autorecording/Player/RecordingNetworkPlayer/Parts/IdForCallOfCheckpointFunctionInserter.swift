@@ -26,17 +26,21 @@ final class IdForCallOfCheckpointFunctionInserter {
     private func patchLines(
         lines: [String],
         id: String,
-        lineNumber: Int)
+        lineNumber: UInt)
         throws
         -> [String]
     {
+        guard let intLineNumber = Int(exactly: lineNumber) else {
+            return lines
+        }
+        
         var lines = lines
         let regex = try NSRegularExpression(pattern: "(\\.checkpoint)\\((?:|id: \".*?\")\\)", options: [])
         
-        lines[lineNumber] = regex.stringByReplacingMatches(
-            in: lines[lineNumber],
+        lines[intLineNumber] = regex.stringByReplacingMatches(
+            in: lines[intLineNumber],
             options: [],
-            range: NSRange(location: 0, length: (lines[lineNumber] as NSString).length),
+            range: NSRange(location: 0, length: (lines[intLineNumber] as NSString).length),
             withTemplate: "$1(id: \"\(id)\")"
         )
         
@@ -67,13 +71,13 @@ final class IdForCallOfCheckpointFunctionInserter {
     private func fileAndLineNumberStartingFromZero(
         fileLine: RuntimeFileLine)
         throws
-        -> (file: String, line: Int)
+        -> (file: String, line: UInt)
     {
-        guard fileLine.intLine >= 1 else {
-            throw ErrorString("Line \(fileLine.intLine) < 1, which is unexpected. Note that lines in file starts with 1 instead of 0.")
+        guard fileLine.line >= 1 else {
+            throw ErrorString("Line \(fileLine.line) < 1, which is unexpected. Note that lines in file starts with 1 instead of 0.")
         }
         
-        let line = fileLine.intLine - 1
+        let line = fileLine.line - 1
         let file = fileLine.file
         
         return (file, line)

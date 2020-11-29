@@ -11,7 +11,7 @@ extension TypeName {
     public var validTypeName: String {
         var name = self.name
         
-        name = name.removing(attributes: validAttributes)
+        name = name.removingAttributes()
         name = name.removingGenericConstraints()
         name = name.bracketsBalancing()
         name = name.trimmingPrefix("inout ").trimmingCharacters(in: .whitespacesAndNewlines)
@@ -21,6 +21,26 @@ extension TypeName {
         } else {
             return name
         }
+    }
+    
+    // https://docs.swift.org/swift-book/ReferenceManual/Expressions.html#grammar_postfix-self-expression
+    public var typeInstanceExpression: String {
+        var typeName = validTypeName
+        
+        // `().self` leads to this error: `Cannot convert value of type '()' to expected argument type 'Any.Type'`
+        // Note that `(()).self` is also an invalid expression and just adding more parenthesis (like below) won't help.
+        if typeName == "()" {
+            typeName = "Void"
+        }
+        
+        // `() -> ().self` is not a valid expression
+        if isReallyClosure || typeName.hasPrefix(")") || typeName.hasSuffix(")") {
+            typeName = "(\(typeName))"
+        }
+        
+        return """
+        \(typeName).self
+        """
     }
     
     public var validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional: String {
@@ -69,6 +89,73 @@ extension TypeName {
             && !isArray
             && !isDictionary
     }
+    
+    // Almost a pure copy-pasta from Sourcery, except some patches
+    public var validClosureType: ClosureType? {
+        guard isClosure else { return nil }
+        
+        var name = unwrappedTypeName
+        
+        // Those are the patches:
+        name = name.removingAttributes()
+        name = name.removingGenericConstraints()
+        name = name.bracketsBalancing()
+        name = name.trimmingPrefix("inout ").trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let closureTypeComponents = name.components(separatedBy: "->", excludingDelimiterBetween: ("(", ")"))
+
+        let returnType = closureTypeComponents.suffix(from: 1)
+            .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+            .joined(separator: " -> ")
+        
+        let returnTypeName = TypeName(returnType)
+
+        var parametersString = closureTypeComponents[0].trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let `throws` = parametersString.trimSuffix("throws")
+        parametersString = parametersString.trimmingCharacters(in: .whitespacesAndNewlines)
+        if parametersString.trimPrefix("(") { parametersString.trimSuffix(")") }
+        parametersString = parametersString.trimmingCharacters(in: .whitespacesAndNewlines)
+        let parameters = parseClosureParameters(parametersString)
+
+        let composedName = "(\(parametersString))\(`throws` ? " throws" : "") -> \(returnType)"
+        
+        return ClosureType(
+            name: composedName,
+            parameters: parameters,
+            returnTypeName: returnTypeName,
+            throws: `throws`
+        )
+    }
+    
+    // Pure copypasta from Sourcery
+    private func parseClosureParameters(_ parametersString: String) -> [MethodParameter] {
+        guard !parametersString.isEmpty else {
+            return []
+        }
+
+        let parameters = parametersString
+            .commaSeparated()
+            .compactMap({ parameter -> MethodParameter? in
+                let components = parameter.trimmingCharacters(in: .whitespacesAndNewlines)
+                    .colonSeparated()
+                    .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
+
+                if components.count == 1 {
+                    return MethodParameter(argumentLabel: nil, typeName: TypeName(components[0]))
+                } else {
+                    let name = components[0].trimmingPrefix("_").stripped()
+                    let typeName = components[1]
+                    return MethodParameter(argumentLabel: nil, name: name, typeName: TypeName(typeName))
+                }
+            })
+
+        if parameters.count == 1 && parameters[0].typeName.isVoid {
+            return []
+        } else {
+            return parameters
+        }
+    }
 }
 
 extension Dictionary {
@@ -89,16 +176,16 @@ extension Dictionary {
 }
 
 extension String {
-    fileprivate func removing(attributes:  [String: Attribute]) -> String {
+    fileprivate func removingAttributes() -> String {
         var typeName = self
         
-        attributes.forEach {
+        AttributeName.attributesNamesWithoutParenthesisRawValues.forEach {
             typeName = typeName.replacingOccurrences(
-                of: $0.value.description,
+                of: "@\($0)",
                 with: ""
             )
-                
         }
+        
         return typeName.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     

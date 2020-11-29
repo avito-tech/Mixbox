@@ -1,4 +1,5 @@
 import XCTest
+import MixboxFoundation
 
 // TODO: Split:
 // - Parsing output of backtrace_symbols
@@ -21,7 +22,7 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
     
     public func extendedStackTraceEntry(stackTraceEntry: StackTraceEntry) -> ExtendedStackTraceEntry {
         var file: String?
-        var line: UInt64?
+        var line: UInt?
         var owner: String?
         var symbol: String?
         var demangledSymbol: String?
@@ -59,7 +60,7 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
     private func symbolicate(
         address: UInt64,
         file: inout String?,
-        line: inout UInt64?,
+        line: inout UInt?,
         owner: inout String?,
         symbol: inout String?)
     {
@@ -75,8 +76,10 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
             // TODO: Check if "<unknown>" really applicable here with new API. Write tests.
             if let symbolInfo = untypedSymbolInfo as? XCTSourceCodeSymbolInfo {
                 if let location = symbolInfo.location {
-                    file = location.fileURL.absoluteString == "<unknown>" ? file : location.fileURL.absoluteString
-                    line = location.lineNumber == 0 ? line : UInt64(location.lineNumber)
+                    file = location.fileURL.absoluteString == "<unknown>" ? file : location.fileURL.path
+                    line = location.lineNumber == 0
+                        ? line
+                        : SourceCodeLineTypeConverter.convert(line: location.lineNumber)
                 }
                 owner = symbolInfo.imageName == "<unknown>" ? owner : symbolInfo.imageName
                 symbol = symbolInfo.symbolName == "<unknown>" ? symbol : symbolInfo.symbolName
@@ -85,7 +88,7 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
         #else
         if let record = (XCTestCase()._symbolicationRecordForTestCode(inAddressStack: NSArray(array: [NSNumber(value: address)])) as? XCSymbolicationRecord) ?? (XCSymbolicationRecord.symbolicationRecord(forAddress: address) as? XCSymbolicationRecord) {
             file = record.filePath == "<unknown>" ? file : record.filePath
-            line = record.lineNumber == 0 ? line : record.lineNumber
+            line = record.lineNumber == 0 ? line : SourceCodeLineTypeConverter.convert(line: record.lineNumber)
             owner = record.symbolOwner == "<unknown>" ? owner : record.symbolOwner
             symbol = record.symbolName == "<unknown>" ? symbol : record.symbolName
         }

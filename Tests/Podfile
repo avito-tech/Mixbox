@@ -62,20 +62,27 @@ end
 target 'GrayBoxUiTests' do
   platform :ios, '9.0'
   
+  # Code being tested:
   mixbox.pod 'MixboxGray'
+  
+  # Helpers:
   mixbox.pod 'MixboxStubbing'
-
   mixbox.pod 'MixboxMocksRuntime'
+  
   tests_ipc_pods
 end
 
 target 'BlackBoxUiTests' do
   platform :ios, '9.0'
   
+  # Code being tested:
   mixbox.pod 'MixboxBlack'
   mixbox.pod 'MixboxIpcSbtuiClient'
   pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
+  
+  # Helpers:
   mixbox.pod 'MixboxMocksRuntime'
+  mixbox.pod 'MixboxStubbing'
 
   tests_ipc_pods
 end

@@ -1,13 +1,13 @@
 final class FailsHereFunctionProvider {
     var file: String?
-    var line: Int?
+    var line: UInt?
     
-    func here(file: String = #file, line: Int = #line) {
+    func here(file: String = #file, line: UInt = #line) {
         self.file = file
         self.line = line
     }
     
-    func onNextLine(file: String = #file, line: Int = #line) {
+    func onNextLine(file: String = #file, line: UInt = #line) {
         self.file = file
         self.line = line + 1
     }

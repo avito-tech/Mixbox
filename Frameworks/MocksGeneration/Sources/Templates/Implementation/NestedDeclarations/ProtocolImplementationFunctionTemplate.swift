@@ -180,22 +180,105 @@ public class ProtocolImplementationFunctionTemplate {
                 """
             },
             transform: { index, parameter in
-                parameter.isNonEscapingClosure
-                    ? nonEscapingClosureRecordedCallArgument(parameter: parameter)
-                    : regularRecordedCallArgument(argumenIndex: index)
+                if parameter.isNonEscapingClosure {
+                    return nonEscapingClosureRecordedCallArgument(parameter: parameter)
+                } else if parameter.isEscapingClosure, let closure = parameter.typeName.validClosureType {
+                    // There is no way to detect that something is a closure in Swift 5.3
+                    // using a private API. This is a simple way to do it in runtime using private API:
+                    //
+                    // ```
+                    // @_silgen_name("swift_OpaqueSummary")
+                    // internal func _opaqueSummary(_ metadata: Any.Type) -> UnsafePointer<CChar>?
+                    //
+                    // func isClosure(_ any: Any) -> Bool {
+                    //     let mirror = Mirror(reflecting: any)
+                    //
+                    //     if let cString = _opaqueSummary(mirror.subjectType),
+                    //        let opaqueSummary = String(validatingUTF8: cString)
+                    //     {
+                    //         // This is guaranteed to be an indicator that object is function and
+                    //         // that object is not something else, see `swift_OpaqueSummary`:
+                    //         return opaqueSummary == "(Function)"
+                    //     } else {
+                    //         return false
+                    //     }
+                    // }
+                    // ```
+                    //
+                    // (more complex way is to hack deep into C++ code and call `getKind()` on `Metadata` and
+                    // handle `MetadataKind::Function` case, see `ReflectionMirror.mm` in `swift` repo)
+                    //
+                    // This code relies on private API. The reasons not to use it:
+                    // - Private API can change. However it's highly unlikely that it would be impossible
+                    //   that in future Swift will lack the ablity to determine if object is a function.
+                    // - There will be still other challanging things like ability to dynamically call a closure.
+                    //
+                    // All those things will complicate the code, make it dependent on private API, so
+                    // the code generation is used to add ability to inspect values at runtime. Note
+                    // that code generation can be much less reliable than doing same thing in runtime,
+                    // because code generation is much less supported by Apple, and a lot of things
+                    // are done by community and the quality of those things is not good (like using regexps instead of AST).
+                    //
+                    return escapingClosureRecordedCallArgument(
+                        argumenIndex: index,
+                        closure: closure,
+                        parameter: parameter,
+                        caseName: "escapingClosure"
+                    )
+                } else if parameter.isOptional, let closure = parameter.typeName.validClosureType {
+                    return escapingClosureRecordedCallArgument(
+                        argumenIndex: index,
+                        closure: closure,
+                        parameter: parameter,
+                        caseName: "optionalEscapingClosure"
+                    )
+                } else {
+                    return regularRecordedCallArgument(argumenIndex: index)
+                }
             }
         )
     }
     
     private func regularRecordedCallArgument(argumenIndex: Int) -> String {
         """
-        RecordedCallArgument.regular(\(Snippets.argumentName(index: argumenIndex)) as Any)
+        RecordedCallArgument.regular(value: \(Snippets.argumentName(index: argumenIndex)) as Any)
+        """
+    }
+    
+    private func escapingClosureRecordedCallArgument(
+        argumenIndex: Int,
+        closure: ClosureType,
+        parameter: MethodParameter,
+        caseName: String)
+        -> String
+    {
+        let argumentTypes = closure.parameters.render(
+            separator: ",\n",
+            valueIfEmpty: "[]",
+            surround: {
+                """
+                [
+                    \($0.indent())
+                ]
+                """
+            },
+            transform: { _, parameter in
+                parameter.typeName.typeInstanceExpression
+            }
+        )
+        
+        return """
+        RecordedCallArgument.\(caseName)(
+            value: \(Snippets.argumentName(index: argumenIndex)),
+            argumentTypes: \(argumentTypes.indent()),
+            returnValueType: \(closure.returnTypeName.typeInstanceExpression)
+        )
         """
     }
     
     private func nonEscapingClosureRecordedCallArgument(parameter: MethodParameter) -> String {
         """
-        RecordedCallArgument.nonEscapingClosure((\(parameter.typeName.validTypeName)).self)
+        RecordedCallArgument.nonEscapingClosure(type: \(parameter.typeName.typeInstanceExpression))
         """
     }
     

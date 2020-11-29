@@ -20,6 +20,7 @@ open class BaseMock: MockManagerSettable {
         return mockManager
     }
     
+    @discardableResult
     public func setMockManager(
         _ newMockManager: MockManager)
         -> MixboxMocksRuntimeVoid

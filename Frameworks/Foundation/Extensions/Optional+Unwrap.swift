@@ -1,6 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 extension Optional {
+    // TODO: Add `mb_` prefix to avoid name collisions
     public func unwrapOrThrow(
         error: (_ fileLine: FileLine) -> Error,
         file: StaticString = #file,

@@ -1,3 +1,5 @@
+import MixboxFoundation
+
 public class LastCallOfCurrentTestFileLineForFailureProvider: FileLineForFailureProvider {
     private let extendedStackTraceProvider: ExtendedStackTraceProvider
     private let testSymbolPatterns: [String]
@@ -32,7 +34,7 @@ public class LastCallOfCurrentTestFileLineForFailureProvider: FileLineForFailure
         return entry.file != nil && entry.line != nil
     }
     
-    public func fileLineForFailure() -> HeapFileLine? {
+    public func fileLineForFailure() -> RuntimeFileLine? {
         let stack = extendedStackTraceProvider.extendedStackTrace()
         
         let topEntryOrNil = stack.reversed().first { hasFileLine($0) && isTest($0) }
@@ -50,7 +52,7 @@ public class LastCallOfCurrentTestFileLineForFailureProvider: FileLineForFailure
             ?? stack.first(where: { hasFileLine($0) })
         
         if let entry = entryOrNil, let file = entry.file, let line = entry.line {
-            return HeapFileLine(file: file, line: line)
+            return RuntimeFileLine(file: file, line: line)
         } else {
             return nil
         }

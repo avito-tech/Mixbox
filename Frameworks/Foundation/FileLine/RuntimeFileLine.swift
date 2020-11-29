@@ -6,13 +6,9 @@
 // Unfortunately, it is used less commonly because, unfortunately, StaticString exists
 // and some functions require it (like XCTAssert, etc).
 //
-public final class RuntimeFileLine: Codable {
+public final class RuntimeFileLine: Codable, Equatable, Hashable {
     public let file: String
     public let line: UInt
-    
-    public var intLine: Int {
-        return Int(line)
-    }
     
     public init(
         file: String,

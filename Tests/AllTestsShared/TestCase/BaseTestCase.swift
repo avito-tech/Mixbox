@@ -8,7 +8,7 @@ import MixboxBuiltinDi
 import TestsIpc
 import MixboxMocksRuntime
 
-class BaseTestCase: XCTestCase, FailureGatherer {
+class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, FailureGatherer {
     private var tearDownAction: TearDownAction?
     private let mocksDependencyInjection = BuiltinDependencyInjection()
     
@@ -137,6 +137,8 @@ class BaseTestCase: XCTestCase, FailureGatherer {
     override func tearDown() {
         tearDownAction?.tearDown()
         
+        uninterceptableErrorTrackerImpl.recordFailures(testCase: self)
+        
         super.tearDown()
     }
     
@@ -165,6 +167,11 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         case gatherFailures
     }
     
+    var uninterceptableErrorTracker: UninterceptableErrorTracker {
+        return uninterceptableErrorTrackerImpl
+    }
+    
+    private let uninterceptableErrorTrackerImpl = UninterceptableErrorTrackerImpl()
     private var recordFailureMode = RecordFailureMode.failTest
     private var gatheredFailures = [XcTestFailure]()
     
@@ -203,10 +210,12 @@ class BaseTestCase: XCTestCase, FailureGatherer {
     
     override func recordFailure(
         withDescription description: String,
-        inFile filePath: String,
-        atLine lineNumber: Int,
+        inFile file: String,
+        atLine line: Int,
         expected: Bool)
     {
+        let line: UInt = SourceCodeLineTypeConverter.convert(line: line)
+        
         recordingFailureRecursionCounter += 1
         defer {
             recordingFailureRecursionCounter -= 1
@@ -215,10 +224,11 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         guard recordingFailureRecursionCounter < recordingFailureRecursionCounterThreshold else {
             // Might happen if DI fails, for example.
             // Because `else` case can contain logic that might call `recordFailure`.
-            super.deprecatedRecordFailure(
-                withDescription: "Went to recursion, current failure: \(description)",
-                inFile: filePath,
-                atLine: lineNumber,
+            
+            self.recordFailureBySuper(
+                description: description,
+                file: file,
+                line: line,
                 expected: expected
             )
             return
@@ -227,12 +237,15 @@ class BaseTestCase: XCTestCase, FailureGatherer {
         let fileLineForFailureProvider: FileLineForFailureProvider = dependencies.resolve()
         
         let fileLine = fileLineForFailureProvider.fileLineForFailure()
-            ?? HeapFileLine(file: filePath, line: UInt64(lineNumber))
+            ?? RuntimeFileLine(
+                file: file,
+                line: line
+            )
         
         let failure = XcTestFailure(
             description: description,
             file: fileLine.file,
-            line: Int(fileLine.line),
+            line: fileLine.line,
             expected: expected
         )
         
@@ -244,10 +257,10 @@ class BaseTestCase: XCTestCase, FailureGatherer {
             let environment = "\(device), iOS \(os)"
             
             // Note that you can set a breakpoint here (it is very convenient):
-            super.deprecatedRecordFailure(
-                withDescription: "\(environment): \(failure.description)",
-                inFile: failure.file,
-                atLine: failure.line,
+            super.recordFailureBySuper(
+                description: "\(environment): \(failure.description)",
+                file: failure.file,
+                line: failure.line,
                 expected: failure.expected
             )
         case .gatherFailures:

@@ -6,12 +6,6 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 
 class BaseGeneratorTestCase: TestCase {
-    override func dependencyInjectionConfiguration() -> DependencyInjectionConfiguration {
-        DependencyInjectionConfiguration(
-            dependencyCollectionRegisterer: GeneratorTestsDependencies()
-        )
-    }
-    
     override var reuseState: Bool {
         false
     }
