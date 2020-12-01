@@ -1,0 +1,16 @@
+[
+    {
+		"testDestination": {
+			"deviceType": "iPhone 11",
+			"iOSVersion": "14.0",
+			"iOSVersionShort": "14.0",
+			"iOSVersionLong": "14.0",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-14-0"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/iphone_11_ios_140.xml",
+			"tracingReport": "tests-artifacts/iphone_11_ios_140.trace"
+		}
+	}
+]
