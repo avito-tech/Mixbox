@@ -107,7 +107,7 @@ public class ProtocolImplementationFunctionTemplate {
             functionIdentifier:
             \(Snippets.functionIdentifier(method: method).indent()),
             defaultImplementation: \(defaultImplementationVariableName.indent()),
-            defaultImplementationClosure: { (defaultImplementation, newValue) in
+            defaultImplementationClosure: { (defaultImplementation, tupledArguments) in
                 \(tryPrefix)defaultImplementation.\(method.callName)\(methodCallArguments.indent(level: 2))
             },
             tupledArguments: \(tupledArguments.indent()),
@@ -150,11 +150,13 @@ public class ProtocolImplementationFunctionTemplate {
             surround: { "(\n\($0.indent(includingFirstLine: true))\n)" },
             transform: { index, parameter in
                 let labelPrefix = parameter.argumentLabel.map(default: "", transform: { "\($0): " })
-                let value = Snippets.argumentName(index: index)
-                
                 let callParenthesis = parameter.typeName.isAutoclosure ? "()" : ""
                 
-                return "\(labelPrefix)\(value)\(callParenthesis)"
+                let tupleMemberSelector = method.parameters.count > 1
+                    ? ".\(index)" // x: (Int, Int) => x.0, x.1
+                    : ""          // x: (Int) => x
+                
+                return "\(labelPrefix)tupledArguments\(tupleMemberSelector)\(callParenthesis)"
             }
         )
     }
