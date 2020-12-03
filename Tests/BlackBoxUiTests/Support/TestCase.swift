@@ -21,8 +21,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         applicationPermissionsSetterFactory.applicationPermissionsSetter(
             // swiftlint:disable:next force_unwrapping
             bundleId: Bundle.main.bundleIdentifier!,
-            displayName: "We don't care at the moment",
-            testFailureRecorder: dependencies.resolve()
+            displayName: "We don't care at the moment"
         )
     }()
 
@@ -30,8 +29,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     lazy var permissions: ApplicationPermissionsSetter = {
         applicationPermissionsSetterFactory.applicationPermissionsSetter(
             bundleId: XCUIApplication().bundleID,
-            displayName: ApplicationNameProvider.applicationName,
-            testFailureRecorder: dependencies.resolve()
+            displayName: ApplicationNameProvider.applicationName
         )
     }()
 

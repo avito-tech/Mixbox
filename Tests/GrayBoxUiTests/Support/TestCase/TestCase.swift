@@ -14,8 +14,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     lazy var permissions: ApplicationPermissionsSetter = {
         applicationPermissionsSetterFactory.applicationPermissionsSetter(
             bundleId: Bundle.main.bundleIdentifier.unwrapOrFail(),
-            displayName: ApplicationNameProvider.applicationName,
-            testFailureRecorder: dependencies.resolve()
+            displayName: ApplicationNameProvider.applicationName
         )
     }()
     

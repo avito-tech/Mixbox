@@ -60,7 +60,9 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
             // We use fbxtest in Emcee on CI.
             // Fbxctest resets tcc.db on its own (very unfortunately).
             AtApplicationLaunchTccDbApplicationPermissionSetterFactory(
-                applicationLifecycleObservable: try di.resolve()
+                applicationLifecycleObservable: try di.resolve(),
+                testFailureRecorder: try di.resolve(),
+                tccDbFactory: try di.resolve()
             )
         }
         di.register(type: NotificationsApplicationPermissionSetterFactory.self) { di in

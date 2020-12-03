@@ -25,6 +25,8 @@ final class ThirdPartyAppsTests: TestCase {
             
         waiter.wait(timeout: 1)
         
+        pageObjects.springboard.mainAppIcon.assertIsDisplayed()
+        
         pageObjects.springboard.deleteApp()
         
         pageObjects.springboard.mainAppIcon.assertIsNotDisplayed()
@@ -61,29 +63,69 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
         }
     }
     
-    var deleteAppAlertButton: ButtonElement {
+    var okButton: ViewElement {
+        return any.element("Any window") { element in
+            element.text == "OK"
+        }
+    }
+    
+    var intermediateDeleteAppAlertButton: ButtonElement {
+        deleteAppAlertButton { label, localizedDeleteText in
+            // The alert contains "Delete" substring. This alert is different
+            // than one in `finalDeleteAppAlertButton`.
+            // I didn't make localization, but I hope it will work fine.
+            label.contains(localizedDeleteText)
+        }
+    }
+    
+    var finalDeleteAppAlertButton: ButtonElement {
+        deleteAppAlertButton { label, localizedDeleteText in
+            label == localizedDeleteText
+        }
+    }
+    
+    func deleteAppAlertButton(
+        matchLabel: (PropertyMatcherBuilder<ElementSnapshot, String>, String) -> Matcher<ElementSnapshot>)
+        -> ButtonElement
+    {
         return element("Delete button on alert") { element in
             let title = deleteButtonTitles[NSLocale.current.languageCode ?? "English"] ?? "Delete"
             
-            return element.type == .button && element.accessibilityLabel == title && element.isSubviewOf { element in
-                element.type == .alert
-            }
+            return element.type == .button
+                && matchLabel(element.accessibilityLabel, title)
+                && element.isSubviewOf { $0 .type == .alert }
         }
     }
     
     func deleteApp() {
         // At this moment UI will be probably stable:
         
-        if iosVersion <= 12 {
+        switch iosVersion {
+        case ...12:
             mainAppIcon.press(duration: 1.5)
             mainAppIconDeleteButtonForIos12OrLower.tap()
-        } else {
+        case 13:
             // iOS 13 introduced and intermediate menu, but longer press works fine (> 3 secs)
-            mainAppIcon.press(duration: 10)
+            mainAppIcon.press(duration: 5)
+            
             mainAppIcon.tap(
                 normalizedCoordinate: CGPoint(x: 0, y: 0),
                 absoluteOffset: CGVector(dx: 5, dy: 5)
             )
+        case 14...:
+            mainAppIcon.press(duration: 5)
+            
+            // iOS 14 introduced also an alert (some "feature discovery" thing, I didn't remember the text)
+            okButton.tap(failTest: false)
+            
+            mainAppIcon.tap(
+                normalizedCoordinate: CGPoint(x: 0, y: 0),
+                absoluteOffset: CGVector(dx: 5, dy: 5)
+            )
+            
+            intermediateDeleteAppAlertButton.tap()
+        default:
+            XCTFail("Unsupported iOS: \(iosVersion)") // Seemingly impossible case given other current cases.
         }
         
         // Note: there was a bug. Cancel button was tapped instead of delete button.
@@ -93,7 +135,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
         //
         // It was fixed by adding a workaround: tap alert XCUIElement by coordinate instead of tapping
         // XCUIApplication by coordinate.
-        deleteAppAlertButton.tap()
+        finalDeleteAppAlertButton.tap()
     }
     
     func scrollToMainAppIcon() {

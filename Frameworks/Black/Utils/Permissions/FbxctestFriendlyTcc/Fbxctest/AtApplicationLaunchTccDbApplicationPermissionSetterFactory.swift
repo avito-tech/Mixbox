@@ -4,15 +4,22 @@ import MixboxTestsFoundation
 // For running with Xcode and xcodebuild use TccDbApplicationPermissionSetterFactory
 public final class AtApplicationLaunchTccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory {
     private let applicationLifecycleObservable: ApplicationLifecycleObservable
+    private let testFailureRecorder: TestFailureRecorder
+    private let tccDbFactory: TccDbFactory
     
-    public init(applicationLifecycleObservable: ApplicationLifecycleObservable) {
+    public init(
+        applicationLifecycleObservable: ApplicationLifecycleObservable,
+        testFailureRecorder: TestFailureRecorder,
+        tccDbFactory: TccDbFactory)
+    {
         self.applicationLifecycleObservable = applicationLifecycleObservable
+        self.testFailureRecorder = testFailureRecorder
+        self.tccDbFactory = tccDbFactory
     }
     
     public func tccDbApplicationPermissionSetter(
         service: TccService,
-        bundleId: String,
-        testFailureRecorder: TestFailureRecorder)
+        bundleId: String)
         -> ApplicationPermissionSetter
     {
         let wrappedSetter = TccDbApplicationPermissionSetter(
@@ -20,9 +27,7 @@ public final class AtApplicationLaunchTccDbApplicationPermissionSetterFactory: T
             testFailureRecorder: testFailureRecorder,
             tccPrivacySettingsManager: TccPrivacySettingsManagerImpl(
                 bundleId: bundleId,
-                tccDbFinder: TccDbFinderImpl(
-                    currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
-                )
+                tccDbFactory: tccDbFactory
             )
         )
         

@@ -79,8 +79,7 @@ public final class PhotoStubberImpl: PhotoStubber {
         
         let setter = tccDbApplicationPermissionSetterFactory.tccDbApplicationPermissionSetter(
             service: .photos,
-            bundleId: bundleId,
-            testFailureRecorder: testFailureRecorder
+            bundleId: bundleId
         )
         
         setter.set(.allowed)

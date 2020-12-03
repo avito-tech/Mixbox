@@ -48,8 +48,8 @@ final class PredefinedObjcMethodsTests: TestCase {
             switch iosVersion {
             case 10:
                 checkForIos10()
-            case 11, 12, 13:
-                checkForIosFrom11To13()
+            case 11...:
+                checkForIosFrom11()
             default:
                 XCTFail("Current iOS version is not supported in this test: \(iosVersion). Please test it carefully.")
             }
@@ -79,7 +79,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         ).isCalled(times: .exactly(1))
     }
     
-    private func checkForIosFrom11To13() {
+    private func checkForIosFrom11() {
         let baseClass = NSObject.self
         let selector = Selector(("_accessibilityAXAttributedLabel"))
         

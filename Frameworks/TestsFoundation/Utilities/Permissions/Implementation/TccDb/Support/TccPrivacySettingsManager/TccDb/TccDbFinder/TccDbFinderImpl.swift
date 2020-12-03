@@ -1,7 +1,4 @@
-// Searches for TCC.db of current simulator
-public protocol TccDbFinder: class {
-    func tccDbPath() throws -> String
-}
+import MixboxFoundation
 
 public final class TccDbFinderImpl: TccDbFinder {
     private let currentSimulatorFileSystemRootProvider: CurrentSimulatorFileSystemRootProvider
@@ -11,8 +8,12 @@ public final class TccDbFinderImpl: TccDbFinder {
     }
     
     public func tccDbPath() throws -> String {
-        return try currentSimulatorFileSystemRootProvider
-            .currentSimulatorFileSystemRoot()
-            .osxPath("data/Library/TCC/TCC.db")
+        do {
+            return try currentSimulatorFileSystemRootProvider
+                .currentSimulatorFileSystemRoot()
+                .osxPath("data/Library/TCC/TCC.db")
+        } catch {
+            throw ErrorString("Failed to `tccDbPath()`: \(error)")
+        }
     }
 }

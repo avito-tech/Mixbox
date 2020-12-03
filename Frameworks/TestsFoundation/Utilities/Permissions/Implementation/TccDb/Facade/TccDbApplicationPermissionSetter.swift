@@ -23,7 +23,7 @@ public final class TccDbApplicationPermissionSetter: ApplicationPermissionSetter
             )
         } catch {
             testFailureRecorder.recordFailure(
-                description: "Не удалось пропатчить настройки приватности: \(error)",
+                description: "Failed to set permissions of type \(service) to \(state): \(error)",
                 shouldContinueTest: false
             )
         }

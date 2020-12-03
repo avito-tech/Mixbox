@@ -1,9 +1,13 @@
 import Foundation
 import MixboxFoundation
+import MixboxUiKit
 
 // If you want to customize returned ApplicationPermissionsSetter's
 // do not use this class (I mean it is not required) and implement your own factory.
-public final class ApplicationPermissionsSetterFactoryImpl: ApplicationPermissionsSetterFactory {
+public final class ApplicationPermissionsSetterFactoryImpl:
+    ApplicationPermissionsSetterFactory
+{
+    
     private let notificationsApplicationPermissionSetterFactory: NotificationsApplicationPermissionSetterFactory
     private let tccDbApplicationPermissionSetterFactory: TccDbApplicationPermissionSetterFactory
     private let geolocationApplicationPermissionSetterFactory: GeolocationApplicationPermissionSetterFactory
@@ -33,15 +37,13 @@ public final class ApplicationPermissionsSetterFactoryImpl: ApplicationPermissio
     
     public func applicationPermissionsSetter(
         bundleId: String,
-        displayName: String,
-        testFailureRecorder: TestFailureRecorder)
+        displayName: String)
         -> ApplicationPermissionsSetter
     {
         func tccDbApplicationPermissionSetter(_ service: TccService) -> ApplicationPermissionSetter {
             return tccDbApplicationPermissionSetterFactory.tccDbApplicationPermissionSetter(
                 service: service,
-                bundleId: bundleId,
-                testFailureRecorder: testFailureRecorder
+                bundleId: bundleId
             )
         }
         

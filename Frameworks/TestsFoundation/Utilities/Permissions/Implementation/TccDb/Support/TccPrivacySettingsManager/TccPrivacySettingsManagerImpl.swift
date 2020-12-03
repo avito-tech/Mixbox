@@ -2,11 +2,14 @@ import MixboxFoundation
 
 public final class TccPrivacySettingsManagerImpl: TccPrivacySettingsManager {
     private let bundleId: String
-    private let tccDbFinder: TccDbFinder
+    private let tccDbFactory: TccDbFactory
     
-    public init(bundleId: String, tccDbFinder: TccDbFinder) {
+    public init(
+        bundleId: String,
+        tccDbFactory: TccDbFactory)
+    {
         self.bundleId = bundleId
-        self.tccDbFinder = tccDbFinder
+        self.tccDbFactory = tccDbFactory
     }
     
     // MARK: - TccPrivacySettingsManager
@@ -40,18 +43,25 @@ public final class TccPrivacySettingsManagerImpl: TccPrivacySettingsManager {
                 try db.setAccess(serviceId: serviceId, bundleId: bundleId, isAllowed: false)
             case .notDetermined:
                 try db.resetAccess(serviceId: serviceId, bundleId: bundleId)
+            case .selectedPhotos:
+                throw ErrorString("Setting state \(state) is not supported")
             }
         } catch {
-            throw ErrorString("Can not updatePrivacySettings: \(error)")
+            throw ErrorString(
+                """
+                Failed to call `\(type(of: self)).updatePrivacySettings(\
+                service: \(service), \
+                state: \(state))`\
+                : \(error)
+                """
+            )
         }
     }
     
     // MARK: - Private
     
     private func tccDb() throws -> TccDb {
-        let tccDbPath = try tccDbFinder.tccDbPath()
-        
-        return try TccDb(path: tccDbPath)
+        return try tccDbFactory.tccDb()
     }
     
     // swiftlint:disable:next cyclomatic_complexity function_body_length

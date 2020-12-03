@@ -18,7 +18,8 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
         return [
             ios11Till12Batch(iosMajorVersion: 11),
             ios11Till12Batch(iosMajorVersion: 12),
-            ios13Batch()
+            ios13Batch(),
+            ios14Batch()
         ]
     }
     
@@ -49,6 +50,18 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
                 method(class: "__UIShareGroupActivityCellAccessibility_super"),
                 method(class: "UIActivityActionGroupCell"),
                 method(class: "UIShareGroupActivityCell"),
+                method(class: "UIView")
+            ]
+        )
+    }
+    
+    private func ios14Batch() -> PredefinedObjcMethodsWithUniqueImplementationBatch {
+        return batch(
+            iosMajorVersion: 14,
+            methods: [
+                method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
+                method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
+                method(class: "NSObject"),
                 method(class: "UIView")
             ]
         )

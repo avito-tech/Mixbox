@@ -1,13 +1,22 @@
+import MixboxUiKit
+
 // Suitable for running via Xcode and xcodebuild
 // For running with fbxctest use AtApplicationLaunchTccDbApplicationPermissionSetterFactory
 public final class TccDbApplicationPermissionSetterFactoryImpl: TccDbApplicationPermissionSetterFactory {
-    public init() {
+    private let testFailureRecorder: TestFailureRecorder
+    private let tccDbFactory: TccDbFactory
+    
+    public init(
+        testFailureRecorder: TestFailureRecorder,
+        tccDbFactory: TccDbFactory)
+    {
+        self.testFailureRecorder = testFailureRecorder
+        self.tccDbFactory = tccDbFactory
     }
     
     public func tccDbApplicationPermissionSetter(
         service: TccService,
-        bundleId: String,
-        testFailureRecorder: TestFailureRecorder)
+        bundleId: String)
         -> ApplicationPermissionSetter
     {
         return TccDbApplicationPermissionSetter(
@@ -15,9 +24,7 @@ public final class TccDbApplicationPermissionSetterFactoryImpl: TccDbApplication
             testFailureRecorder: testFailureRecorder,
             tccPrivacySettingsManager: TccPrivacySettingsManagerImpl(
                 bundleId: bundleId,
-                tccDbFinder: TccDbFinderImpl(
-                    currentSimulatorFileSystemRootProvider: CurrentApplicationCurrentSimulatorFileSystemRootProvider()
-                )
+                tccDbFactory: tccDbFactory
             )
         )
     }

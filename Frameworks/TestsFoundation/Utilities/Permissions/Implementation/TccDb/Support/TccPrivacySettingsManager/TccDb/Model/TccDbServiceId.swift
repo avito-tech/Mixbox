@@ -1,4 +1,4 @@
-enum TccDbServiceId: String {
+public enum TccDbServiceId: String {
     // I think it exist in iOS 10:
     case calendar = "kTCCServiceCalendar"
     case camera = "kTCCServiceCamera"

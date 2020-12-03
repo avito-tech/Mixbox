@@ -39,8 +39,22 @@ public final class ApplicationIndependentTestsDependencyCollectionRegisterer: De
                 geolocationApplicationPermissionSetterFactory: try di.resolve()
             )
         }
-        di.register(type: TccDbApplicationPermissionSetterFactory.self) { _ in
-            TccDbApplicationPermissionSetterFactoryImpl()
+        di.register(type: TccDbApplicationPermissionSetterFactory.self) { di in
+            TccDbApplicationPermissionSetterFactoryImpl(
+                testFailureRecorder: try di.resolve(),
+                tccDbFactory: try di.resolve()
+            )
+        }
+        di.register(type: TccDbFinder.self) { di in
+            TccDbFinderImpl(
+                currentSimulatorFileSystemRootProvider: try di.resolve()
+            )
+        }
+        di.register(type: TccDbFactory.self) { di in
+            TccDbFactoryImpl(
+                tccDbFinder: try di.resolve(),
+                iosVersionProvider: try di.resolve()
+            )
         }
         di.register(type: RunLoopSpinnerLockFactory.self) { di in
             RunLoopSpinnerLockFactoryImpl(
