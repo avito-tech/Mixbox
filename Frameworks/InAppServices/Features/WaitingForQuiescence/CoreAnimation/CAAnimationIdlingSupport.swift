@@ -45,7 +45,7 @@ final class CAAnimationIdlingSupport {
 
 extension CAAnimation {
     @objc fileprivate func mbswizzled_delegate() -> CAAnimationDelegate? {
-        return SurrogateCAAnimationDelegate.surrogateDelegate(
+        return SurrogateCAAnimationDelegateFactory.surrogateDelegate(
             delegate: mbswizzled_delegate()
         )
     }
