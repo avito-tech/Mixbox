@@ -6,7 +6,7 @@ public final class CanNotProvideResultDynamicCallable: DynamicCallable {
     }
     
     public func call<ReturnValue>(
-        recordedCallArguments: RecordedCallArguments,
+        nonEscapingCallArguments: NonEscapingCallArguments,
         returnValueType: ReturnValue.Type)
         -> DynamicCallableResult<ReturnValue>
     {

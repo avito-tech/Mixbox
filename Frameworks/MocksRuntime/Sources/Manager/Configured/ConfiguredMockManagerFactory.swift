@@ -6,20 +6,20 @@ public final class ConfiguredMockManagerFactory: MockManagerFactory {
     private let waiter: RunLoopSpinningWaiter
     private let defaultTimeout: TimeInterval
     private let defaultPollingInterval: TimeInterval
-    private let dynamicCallable: DynamicCallable
+    private let dynamicCallableFactory: DynamicCallableFactory
     
     public init(
         testFailureRecorder: TestFailureRecorder,
         waiter: RunLoopSpinningWaiter,
         defaultTimeout: TimeInterval,
         defaultPollingInterval: TimeInterval,
-        dynamicCallable: DynamicCallable)
+        dynamicCallableFactory: DynamicCallableFactory)
     {
         self.testFailureRecorder = testFailureRecorder
         self.waiter = waiter
         self.defaultTimeout = defaultTimeout
         self.defaultPollingInterval = defaultPollingInterval
-        self.dynamicCallable = dynamicCallable
+        self.dynamicCallableFactory = dynamicCallableFactory
     }
     
     public func mockManager() -> MockManager {
@@ -34,7 +34,7 @@ public final class ConfiguredMockManagerFactory: MockManagerFactory {
                 testFailureRecorder: testFailureRecorder,
                 recordedCallsHolder: recordedCallsHolder,
                 stubsProvider: stubsHolder,
-                dynamicCallable: dynamicCallable
+                dynamicCallableFactory: dynamicCallableFactory
             ),
             verification: MockManagerVerificationImpl(
                 testFailureRecorder: testFailureRecorder,

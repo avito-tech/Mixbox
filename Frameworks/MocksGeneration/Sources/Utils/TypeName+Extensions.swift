@@ -28,13 +28,18 @@ extension TypeName {
         var typeName = validTypeName
         
         // `().self` leads to this error: `Cannot convert value of type '()' to expected argument type 'Any.Type'`
-        // Note that `(()).self` is also an invalid expression and just adding more parenthesis (like below) won't help.
+        // Note that `(()).self` is also an invalid expression and just adding more parentheses (like below) won't help.
         if typeName == "()" {
             typeName = "Void"
         }
         
-        // `() -> ().self` is not a valid expression
+        while typeName.hasSuffix("!") {
+            // `(() -> ())!.self is not a valid expression
+            typeName = "\(typeName.dropLast())"
+        }
+        
         if isReallyClosure || typeName.hasPrefix(")") || typeName.hasSuffix(")") {
+            // `() -> ().self` is not a valid expression
             typeName = "(\(typeName))"
         }
         
@@ -67,7 +72,7 @@ extension TypeName {
     //
     public var validAttributes: [String: Attribute] {
         attributes.mapValues { name, value in
-            // Effectively removes parenthesis, because `name` doesn't contain them
+            // Effectively removes parentheses, because `name` doesn't contain them
             if AttributeName.attributesNamesWithoutParenthesisRawValues.contains(name) {
                 return Attribute(name: name)
             } else {
@@ -90,17 +95,22 @@ extension TypeName {
             && !isDictionary
     }
     
-    // Almost a pure copy-pasta from Sourcery, except some patches
+    // Returns valid `ClosureType`, not something like `-> String`.
+    // It doesn't guarantee the absense of errors, it just works better than what is in Sourcery.
+    //
+    // Note that it also unwraps optionals, etc. So the resulting type is not closure,
+    // and may contain optional containing closure. This is just like how it works in Sourcery.
+    //
+    // Use `isReallyClosure` on `TypeName` to determine if type is really closure and not something that
+    // looks like a closure, e.g. `(() -> ())?`.
+    //
+    // Almost a pure copy-pasta from Sourcery, except some patches.
     public var validClosureType: ClosureType? {
+        guard isClosure && !isArray && !isDictionary else { return nil }
         guard isClosure else { return nil }
         
-        var name = unwrappedTypeName
-        
         // Those are the patches:
-        name = name.removingAttributes()
-        name = name.removingGenericConstraints()
-        name = name.bracketsBalancing()
-        name = name.trimmingPrefix("inout ").trimmingCharacters(in: .whitespacesAndNewlines)
+        let name = validUnwrappedTypeNameIfClosure()
         
         let closureTypeComponents = name.components(separatedBy: "->", excludingDelimiterBetween: ("(", ")"))
 
@@ -141,13 +151,31 @@ extension TypeName {
                     .colonSeparated()
                     .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
 
+                let isInout: Bool
+                let name: String
+                var typeName: String
+                
                 if components.count == 1 {
-                    return MethodParameter(argumentLabel: nil, typeName: TypeName(components[0]))
+                    name = ""
+                    typeName = components[0]
                 } else {
-                    let name = components[0].trimmingPrefix("_").stripped()
-                    let typeName = components[1]
-                    return MethodParameter(argumentLabel: nil, name: name, typeName: TypeName(typeName))
+                    name = components[0].trimmingPrefix("_").stripped()
+                    typeName = components[1]
                 }
+                
+                if typeName.hasPrefix("inout ") {
+                    typeName = String(typeName.dropFirst(6))
+                    isInout = true
+                } else {
+                    isInout = false
+                }
+                
+                return MethodParameter(
+                    argumentLabel: nil,
+                    name: name,
+                    typeName: TypeName(typeName),
+                    isInout: isInout
+                )
             })
 
         if parameters.count == 1 && parameters[0].typeName.isVoid {
@@ -155,6 +183,35 @@ extension TypeName {
         } else {
             return parameters
         }
+    }
+    
+    private func validUnwrappedTypeNameIfClosure() -> String {
+        var name = self.name
+        
+        // This is what sourcery lacks. Everything else is copypasted from different parts of sourcery.
+        // This is what `unwrappedTypeName` from Soucery should be doing.
+        // Maybe it's a good idea to fix it in Sourcery, make a pull request.
+        // What it does: removes, for example, `@escaping` from `@escaping(Int?) -> ()` properly,
+        // without removing also `(Int?)` like Sourcery does (resulting in `-> ()`, invalid type name).
+        name = name.removingAttributes()
+        
+        name = name.removingGenericConstraints()
+        name = name.bracketsBalancing()
+        name = name.trimmingPrefix("inout ").trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if isOptional {
+            if name.hasSuffix("?") || name.hasSuffix("!") {
+                name = String(name.dropLast())
+            } else if name.hasPrefix("Optional<") {
+                name = name.drop(first: "Optional<".count, last: 1)
+            } else {
+                name = name.drop(first: "ImplicitlyUnwrappedOptional<".count, last: 1)
+            }
+            
+            name = name.bracketsBalancing()
+        }
+        
+        return name
     }
 }
 

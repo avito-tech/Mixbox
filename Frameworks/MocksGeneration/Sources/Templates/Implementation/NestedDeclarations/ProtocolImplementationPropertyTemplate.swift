@@ -40,12 +40,23 @@ public class ProtocolImplementationPropertyTemplate {
                 ),
                 defaultImplementation: getDefaultImplementation(MixboxMocksRuntimeVoid.self),
                 defaultImplementationClosure: { (defaultImplementation, _) in
-                    defaultImplementation.\(variable.name)
+                    defaultImplementation.\(variable.name.indent(level: 3))
                 },
                 tupledArguments: (),
-                recordedCallArguments: RecordedCallArguments(arguments: [])
+                nonEscapingCallArguments: MixboxMocksRuntime.NonEscapingCallArguments(
+                    arguments: []
+                ),
+                generatorSpecializations: \(generatorSpecializations.indent(level: 2))
             )
         }
+        """
+    }
+    
+    private var generatorSpecializations: String {
+        """
+        TypeErasedAnyGeneratorSpecializationsBuilder()
+            .add(\(variable.typeName.typeInstanceExpression.indent()))
+            .specializations
         """
     }
     
@@ -62,9 +73,21 @@ public class ProtocolImplementationPropertyTemplate {
                     defaultImplementation.\(variable.name) = newValue
                 },
                 tupledArguments: (newValue),
-                recordedCallArguments: RecordedCallArguments(arguments: [
-                    RecordedCallArgument.regular(value: newValue)
-                ])
+                nonEscapingCallArguments: NonEscapingCallArguments(
+                    arguments: [
+                        NonEscapingCallArgument(
+                            name: nil,
+                            label: nil,
+                            type: \(variable.typeName.typeInstanceExpression.indent(level: 5)),
+                            value: MixboxMocksRuntime.NonEscapingCallArgumentValue.regular(
+                                MixboxMocksRuntime.RegularArgumentValue(
+                                    value: newValue
+                                )
+                            )
+                        )
+                    ]
+                ),
+                generatorSpecializations: \(generatorSpecializations.indent(level: 2))
             )
         }
         """

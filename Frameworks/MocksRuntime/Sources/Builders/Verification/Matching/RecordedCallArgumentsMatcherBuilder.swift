@@ -52,7 +52,7 @@ public final class RecordedCallArgumentsMatcherBuilder {
         -> FunctionalMatcher<RecordedCallArgument>
     {
         return FunctionalMatcher { argument in
-            if let value = argument.typedNestedValue(type: Matcher.MatchingType.self) {
+            if let value = argument.value.typedNestedValue(type: Matcher.MatchingType.self) {
                 return matcher.valueIsMatching(value)
             } else {
                 return false
@@ -65,7 +65,7 @@ public final class RecordedCallArgumentsMatcherBuilder {
         -> FunctionalMatcher<RecordedCallArgument>
     {
         return FunctionalMatcher { argument in
-            argument.asNonEscapingClosureType() == closureType
+            argument.value.isNonEscapingClosure() && argument.type == closureType
         }
     }
 }

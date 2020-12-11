@@ -14,6 +14,17 @@ final class TypeName_ValidClosureType_Tests: XCTestCase {
         )
     }
     
+    func test___with_array() {
+        let typeName = TypeName(
+            "[() -> ()]"
+        )
+        
+        XCTAssertEqual(
+            typeName.validClosureType?.name,
+            nil
+        )
+    }
+    
     func test___with_optional_closure() {
         let typeName = TypeName("((String, Int) -> (Int))?")
         

@@ -218,13 +218,14 @@
 		F82AC33A2572F4B00008922E /* UninterceptableErrorTrackerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89ED2ED2572DFFC00A32D54 /* UninterceptableErrorTrackerImpl.swift */; };
 		F82AC33B2572F4B00008922E /* UninterceptableErrorRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89ED2EF2572E00700A32D54 /* UninterceptableErrorRecorder.swift */; };
 		F82AC33C2572F4B00008922E /* UninterceptableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89ED2F12572E05A00A32D54 /* UninterceptableError.swift */; };
-		F82AC33E2572F74D0008922E /* MixboxMocksArgumentGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82AC33D2572F74D0008922E /* MixboxMocksArgumentGenerationTests.swift */; };
 		F82BDF85243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BDF84243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift */; };
 		F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */; };
 		F8308D3924B734E500C79892 /* Singletons+StepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8308D3724B72BCE00C79892 /* Singletons+StepLogger.swift */; };
 		F8308D3A24B734E600C79892 /* Singletons+StepLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8308D3724B72BCE00C79892 /* Singletons+StepLogger.swift */; };
 		F83090BC24B7443000C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83090B924B7437B00C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift */; };
 		F83090BD24B7443200C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83090B924B7437B00C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift */; };
+		F830B5DE2582205800E5E444 /* DynamicBehaviorIntegrationalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830B5DD2582205800E5E444 /* DynamicBehaviorIntegrationalTests.swift */; };
+		F830B5E02582208D00E5E444 /* DynamicBehaviorIntegrationalTestsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830B5DF2582208D00E5E444 /* DynamicBehaviorIntegrationalTestsProtocol.swift */; };
 		F83416E8232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83416E7232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift */; };
 		F8341971232FE74700E9EC3A /* LocatorsPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83416E4232FAB9600E9EC3A /* LocatorsPerformanceTests.swift */; };
 		F8341972232FE74800E9EC3A /* LocatorsPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83416E4232FAB9600E9EC3A /* LocatorsPerformanceTests.swift */; };
@@ -737,7 +738,6 @@
 		F8FC4AD323AA687F00D3E911 /* AlwaysTrueMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FC4AD223AA687F00D3E911 /* AlwaysTrueMatcherTests.swift */; };
 		F8FC4AD623AA68FE00D3E911 /* NotMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FC4AD523AA68FE00D3E911 /* NotMatcherTests.swift */; };
 		F8FF7BA32573962300F976A7 /* TypeName_ValidClosureType_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FF7BA22573962300F976A7 /* TypeName_ValidClosureType_Tests.swift */; };
-		F8FF7BA525739B0300F976A7 /* AnyGeneratorDynamicCallableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FF7BA425739B0300F976A7 /* AnyGeneratorDynamicCallableTests.swift */; };
 		F8FF7BA725739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FF7BA625739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -947,11 +947,12 @@
 		F82A05B821F755950008C2BB /* DummyForLaunchingUiTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyForLaunchingUiTestsView.swift; sourceTree = "<group>"; };
 		F82A53CE228B22A3007CB9F3 /* Lint.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lint.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82A53D2228B22A4007CB9F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F82AC33D2572F74D0008922E /* MixboxMocksArgumentGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxMocksArgumentGenerationTests.swift; sourceTree = "<group>"; };
 		F82BDF84243DA5C60010FD6C /* DynamicLookupGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLookupGeneratorTests.swift; sourceTree = "<group>"; };
 		F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomIntegerGeneratorTests.swift; sourceTree = "<group>"; };
 		F8308D3724B72BCE00C79892 /* Singletons+StepLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Singletons+StepLogger.swift"; sourceTree = "<group>"; };
 		F83090B924B7437B00C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift; sourceTree = "<group>"; };
+		F830B5DD2582205800E5E444 /* DynamicBehaviorIntegrationalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicBehaviorIntegrationalTests.swift; sourceTree = "<group>"; };
+		F830B5DF2582208D00E5E444 /* DynamicBehaviorIntegrationalTestsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicBehaviorIntegrationalTestsProtocol.swift; sourceTree = "<group>"; };
 		F83416E4232FAB9600E9EC3A /* LocatorsPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTests.swift; sourceTree = "<group>"; };
 		F83416E7232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTestsView.swift; sourceTree = "<group>"; };
 		F8341974232FE91D00E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTestsViewPageObject.swift; sourceTree = "<group>"; };
@@ -1323,7 +1324,6 @@
 		F8FC4AD223AA687F00D3E911 /* AlwaysTrueMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysTrueMatcherTests.swift; sourceTree = "<group>"; };
 		F8FC4AD523AA68FE00D3E911 /* NotMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotMatcherTests.swift; sourceTree = "<group>"; };
 		F8FF7BA22573962300F976A7 /* TypeName_ValidClosureType_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName_ValidClosureType_Tests.swift; sourceTree = "<group>"; };
-		F8FF7BA425739B0300F976A7 /* AnyGeneratorDynamicCallableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyGeneratorDynamicCallableTests.swift; sourceTree = "<group>"; };
 		F8FF7BA625739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxMocksGenericFunctionsTests.swift; sourceTree = "<group>"; };
 		FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFE87AB4F0AEC625D2BFB247 /* Pods-TestedApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.debug.xcconfig"; path = "Target Support Files/Pods-TestedApp/Pods-TestedApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1908,6 +1908,42 @@
 				F8308D3724B72BCE00C79892 /* Singletons+StepLogger.swift */,
 			);
 			path = Singletons;
+			sourceTree = "<group>";
+		};
+		F830B5DC2582204600E5E444 /* Integrational */ = {
+			isa = PBXGroup;
+			children = (
+				F830B5DD2582205800E5E444 /* DynamicBehaviorIntegrationalTests.swift */,
+				F830B5DF2582208D00E5E444 /* DynamicBehaviorIntegrationalTestsProtocol.swift */,
+			);
+			path = Integrational;
+			sourceTree = "<group>";
+		};
+		F8340B34257E381B004D29FE /* DynamicBehaviorGeneration */ = {
+			isa = PBXGroup;
+			children = (
+				F830B5DC2582204600E5E444 /* Integrational */,
+				F8AF0E642572930A0050D10A /* MixboxMocksDynamicResultTests.swift */,
+			);
+			path = DynamicBehaviorGeneration;
+			sourceTree = "<group>";
+		};
+		F8340B35257E3842004D29FE /* SupportForDifferentDeclarations */ = {
+			isa = PBXGroup;
+			children = (
+				F8DFADC2256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift */,
+				F8AA9EB3256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift */,
+				F8FF7BA625739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift */,
+			);
+			path = SupportForDifferentDeclarations;
+			sourceTree = "<group>";
+		};
+		F8340B37257E38BC004D29FE /* PublicInterfaceOfMocks */ = {
+			isa = PBXGroup;
+			children = (
+				F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */,
+			);
+			path = PublicInterfaceOfMocks;
 			sourceTree = "<group>";
 		};
 		F83416E6232FAC0700E9EC3A /* Performance */ = {
@@ -3426,13 +3462,9 @@
 		F8DFADC0256BC58600016F40 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F8DFADC2256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift */,
-				F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */,
-				F8AA9EB3256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift */,
-				F8AF0E642572930A0050D10A /* MixboxMocksDynamicResultTests.swift */,
-				F82AC33D2572F74D0008922E /* MixboxMocksArgumentGenerationTests.swift */,
-				F8FF7BA425739B0300F976A7 /* AnyGeneratorDynamicCallableTests.swift */,
-				F8FF7BA625739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift */,
+				F8340B37257E38BC004D29FE /* PublicInterfaceOfMocks */,
+				F8340B35257E3842004D29FE /* SupportForDifferentDeclarations */,
+				F8340B34257E381B004D29FE /* DynamicBehaviorGeneration */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5188,6 +5220,7 @@
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
 				F8539643254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift in Sources */,
+				F830B5E02582208D00E5E444 /* DynamicBehaviorIntegrationalTestsProtocol.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
 				F80C2E2424D1E0E900C6CAD4 /* TestCaseDependencies.swift in Sources */,
 				F8C3AD1C243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift in Sources */,
@@ -5217,6 +5250,7 @@
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
 				F8F4A1D425682F740093523E /* MocksTestsFixtureObjcProtocol.swift in Sources */,
+				F830B5DE2582205800E5E444 /* DynamicBehaviorIntegrationalTests.swift in Sources */,
 				F8B5C68F254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift in Sources */,
 				F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */,
 				F80C2E3B24D1E52900C6CAD4 /* Singletons+StepLogger.swift in Sources */,
@@ -5249,7 +5283,6 @@
 				F8033887256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
 				F80C2E3A24D1E52900C6CAD4 /* TestStateRecycling.swift in Sources */,
-				F82AC33E2572F74D0008922E /* MixboxMocksArgumentGenerationTests.swift in Sources */,
 				F8933D3923E20225002727AC /* GenericSerializationTests.swift in Sources */,
 				F8C3AD122437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift in Sources */,
 				F80C2E0E24D1DAFD00C6CAD4 /* FailsHereFunctionProvider.swift in Sources */,
@@ -5284,7 +5317,6 @@
 				F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */,
 				F8B40F192433B85D008A05E8 /* AssociatedObjectTests.swift in Sources */,
 				F853D005214ACCFF00EAFBCE /* ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests.swift in Sources */,
-				F8FF7BA525739B0300F976A7 /* AnyGeneratorDynamicCallableTests.swift in Sources */,
 				F8C3AD072437A36E004B6BA4 /* EmptyArrayGeneratorTests.swift in Sources */,
 				F80C2E2824D1E15100C6CAD4 /* BaseTestCase+AssertLogsAndFailures.swift in Sources */,
 				F8D85563235E473F0068047A /* CuckooMatchers.swift in Sources */,

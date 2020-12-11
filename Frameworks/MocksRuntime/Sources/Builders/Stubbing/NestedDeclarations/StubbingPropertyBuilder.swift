@@ -65,6 +65,6 @@ public final class StubbingMutablePropertyBuilder<PropertyType>:
     
     private static func unwrapNewValue<PropertyType>(recordedCallArguments: RecordedCallArguments) -> PropertyType? {
         // Setters can have only 1 argument.
-        return recordedCallArguments.arguments.mb_only?.typedNestedValue()
+        return recordedCallArguments.arguments.mb_only?.value.typedNestedValue()
     }
 }

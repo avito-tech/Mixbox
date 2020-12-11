@@ -27,7 +27,7 @@ public final class UnconfiguredMockManagerFactory: MockManagerFactory {
             ),
             defaultTimeout: 15, // TODO: Sync values across the project
             defaultPollingInterval: 0.1, // TODO: Sync values across the project
-            dynamicCallable: CanNotProvideResultDynamicCallable(
+            dynamicCallableFactory: CanNotProvideResultDynamicCallableFactory(
                 error: ErrorString(
                     """
                     Mock manager is not configured, can not dynamically provide a result

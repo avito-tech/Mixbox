@@ -5,6 +5,23 @@ public final class Snippets {
     private init() {
     }
     
+    // Current implementation probaly contains a lot of errors. TODO: Read Swift grammar, write test.
+    public static func stringLiteral(_ string: String?) -> String {
+        return string.map(default: "nil") { string in
+            if string.contains("\n") {
+                return """
+                \"\"\"
+                \(string.replacingOccurrences(of: "\"\"\"", with: "\\\"\\\"\\\""))
+                \"\"\"
+                """
+            } else {
+                return """
+                "\(string.replacingOccurrences(of: "\"", with: "\\\""))"
+                """
+            }
+        }
+    }
+    
     // MARK: - Specific for current templates
     
     public static func argumentName(index: Int) -> String {

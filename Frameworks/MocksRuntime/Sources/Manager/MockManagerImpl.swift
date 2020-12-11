@@ -1,5 +1,6 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import MixboxGenerators
 
 public final class MockManagerImpl: MockManager {
     private let stubbing: MockManagerStubbing
@@ -38,7 +39,8 @@ public final class MockManagerImpl: MockManager {
         defaultImplementation: MockedType?,
         defaultImplementationClosure: (inout MockedType, TupledArguments) -> ReturnValue,
         tupledArguments: TupledArguments,
-        recordedCallArguments: RecordedCallArguments)
+        nonEscapingCallArguments: NonEscapingCallArguments,
+        generatorSpecializations: [HashableType: TypeErasedAnyGeneratorSpecialization])
         -> ReturnValue
     {
         return calling.call(
@@ -46,7 +48,8 @@ public final class MockManagerImpl: MockManager {
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
             tupledArguments: tupledArguments,
-            recordedCallArguments: recordedCallArguments
+            nonEscapingCallArguments: nonEscapingCallArguments,
+            generatorSpecializations: generatorSpecializations
         )
     }
         
@@ -55,7 +58,8 @@ public final class MockManagerImpl: MockManager {
         defaultImplementation: MockedType?,
         defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
         tupledArguments: TupledArguments,
-        recordedCallArguments: RecordedCallArguments)
+        nonEscapingCallArguments: NonEscapingCallArguments,
+        generatorSpecializations: [HashableType: TypeErasedAnyGeneratorSpecialization])
         throws
         -> ReturnValue
     {
@@ -64,7 +68,8 @@ public final class MockManagerImpl: MockManager {
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
             tupledArguments: tupledArguments,
-            recordedCallArguments: recordedCallArguments
+            nonEscapingCallArguments: nonEscapingCallArguments,
+            generatorSpecializations: generatorSpecializations
         )
     }
         
@@ -73,7 +78,8 @@ public final class MockManagerImpl: MockManager {
         defaultImplementation: MockedType?,
         defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
         tupledArguments: TupledArguments,
-        recordedCallArguments: RecordedCallArguments)
+        nonEscapingCallArguments: NonEscapingCallArguments,
+        generatorSpecializations: [HashableType: TypeErasedAnyGeneratorSpecialization])
         rethrows
         -> ReturnValue
     {
@@ -82,7 +88,8 @@ public final class MockManagerImpl: MockManager {
             defaultImplementation: defaultImplementation,
             defaultImplementationClosure: defaultImplementationClosure,
             tupledArguments: tupledArguments,
-            recordedCallArguments: recordedCallArguments
+            nonEscapingCallArguments: nonEscapingCallArguments,
+            generatorSpecializations: generatorSpecializations
         )
     }
     

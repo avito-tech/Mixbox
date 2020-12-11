@@ -1,6 +1,8 @@
 import SourceryRuntime
 import Foundation
 
+// TODO: Split?
+// swiftlint:disable file_length type_body_length
 public class ProtocolImplementationFunctionTemplate {
     private let method: SourceryRuntime.Method
     
@@ -111,9 +113,36 @@ public class ProtocolImplementationFunctionTemplate {
                 \(tryPrefix)defaultImplementation.\(method.callName)\(methodCallArguments.indent(level: 2))
             },
             tupledArguments: \(tupledArguments.indent()),
-            recordedCallArguments: \(recordedCallArguments.indent())
+            nonEscapingCallArguments: \(nonEscapingCallArguments.indent()),
+            generatorSpecializations: \(knownTypeGenerationSpecialzations().indent())
         )
         """
+    }
+    
+    private func knownTypeGenerationSpecialzations() -> String {
+        allTypeInstanceExpressions().render(
+            separator: "\n",
+            surround: {
+                """
+                TypeErasedAnyGeneratorSpecializationsBuilder()
+                    \($0.indent())
+                    .specializations
+                """
+            },
+            transform: { _, expression in
+                ".add(\(expression))"
+            }
+        )
+    }
+    
+    private func allTypeInstanceExpressions() -> Set<String> {
+        return Set(
+            [method.returnTypeName.typeInstanceExpression] + method.parameters.flatMap {
+                [$0.typeName.typeInstanceExpression] + $0.typeName.validClosureType.map(default: []) {
+                    $0.parameters.map { $0.typeName.typeInstanceExpression }
+                }
+            }
+        )
     }
     
     private var mockManagerCallFunction: String {
@@ -171,87 +200,125 @@ public class ProtocolImplementationFunctionTemplate {
         )
     }
     
-    private var recordedCallArguments: String {
+    private var nonEscapingCallArguments: String {
         return method.parameters.render(
             separator: ",\n",
             surround: {
                 """
-                RecordedCallArguments(arguments: [
+                MixboxMocksRuntime.NonEscapingCallArguments(arguments: [
                     \($0.indent())
                 ])
                 """
             },
             transform: { index, parameter in
-                if parameter.isNonEscapingClosure {
-                    return nonEscapingClosureRecordedCallArgument(parameter: parameter)
-                } else if parameter.isEscapingClosure, let closure = parameter.typeName.validClosureType {
-                    // There is no way to detect that something is a closure in Swift 5.3
-                    // using a private API. This is a simple way to do it in runtime using private API:
-                    //
-                    // ```
-                    // @_silgen_name("swift_OpaqueSummary")
-                    // internal func _opaqueSummary(_ metadata: Any.Type) -> UnsafePointer<CChar>?
-                    //
-                    // func isClosure(_ any: Any) -> Bool {
-                    //     let mirror = Mirror(reflecting: any)
-                    //
-                    //     if let cString = _opaqueSummary(mirror.subjectType),
-                    //        let opaqueSummary = String(validatingUTF8: cString)
-                    //     {
-                    //         // This is guaranteed to be an indicator that object is function and
-                    //         // that object is not something else, see `swift_OpaqueSummary`:
-                    //         return opaqueSummary == "(Function)"
-                    //     } else {
-                    //         return false
-                    //     }
-                    // }
-                    // ```
-                    //
-                    // (more complex way is to hack deep into C++ code and call `getKind()` on `Metadata` and
-                    // handle `MetadataKind::Function` case, see `ReflectionMirror.mm` in `swift` repo)
-                    //
-                    // This code relies on private API. The reasons not to use it:
-                    // - Private API can change. However it's highly unlikely that it would be impossible
-                    //   that in future Swift will lack the ablity to determine if object is a function.
-                    // - There will be still other challanging things like ability to dynamically call a closure.
-                    //
-                    // All those things will complicate the code, make it dependent on private API, so
-                    // the code generation is used to add ability to inspect values at runtime. Note
-                    // that code generation can be much less reliable than doing same thing in runtime,
-                    // because code generation is much less supported by Apple, and a lot of things
-                    // are done by community and the quality of those things is not good (like using regexps instead of AST).
-                    //
-                    return escapingClosureRecordedCallArgument(
-                        argumenIndex: index,
-                        closure: closure,
-                        parameter: parameter,
-                        caseName: "escapingClosure"
-                    )
-                } else if parameter.isOptional, let closure = parameter.typeName.validClosureType {
-                    return escapingClosureRecordedCallArgument(
-                        argumenIndex: index,
-                        closure: closure,
-                        parameter: parameter,
-                        caseName: "optionalEscapingClosure"
-                    )
-                } else {
-                    return regularRecordedCallArgument(argumenIndex: index)
-                }
+                """
+                MixboxMocksRuntime.NonEscapingCallArgument(
+                    name: \(Snippets.stringLiteral(parameter.name.convertEmptyToNil()).indent()),
+                    label: \(Snippets.stringLiteral(parameter.argumentLabel.convertEmptyToNil()).indent()),
+                    type: \(parameter.typeName.typeInstanceExpression.indent()),
+                    value: \(nonEscapingCallArgumentValue(index: index, parameter: parameter).indent())
+                )
+                """
             }
         )
     }
     
-    private func regularRecordedCallArgument(argumenIndex: Int) -> String {
+    private func nonEscapingCallArgumentValue(
+        index: Int,
+        parameter: MethodParameter)
+        -> String
+    {
+        // There is no way to detect that something is a closure in Swift 5.3
+        // using a private API. This is a simple way to do it in runtime using private API:
+        //
+        // ```
+        // @_silgen_name("swift_OpaqueSummary")
+        // internal func _opaqueSummary(_ metadata: Any.Type) -> UnsafePointer<CChar>?
+        //
+        // func isClosure(_ any: Any) -> Bool {
+        //     let mirror = Mirror(reflecting: any)
+        //
+        //     if let cString = _opaqueSummary(mirror.subjectType),
+        //        let opaqueSummary = String(validatingUTF8: cString)
+        //     {
+        //         // This is guaranteed to be an indicator that object is function and
+        //         // that object is not something else, see `swift_OpaqueSummary`:
+        //         return opaqueSummary == "(Function)"
+        //     } else {
+        //         return false
+        //     }
+        // }
+        // ```
+        //
+        // (more complex way is to hack deep into C++ code and call `getKind()` on `Metadata` and
+        // handle `MetadataKind::Function` case, see `ReflectionMirror.mm` in `swift` repo)
+        //
+        // This code relies on private API. The reasons not to use it:
+        // - Private API can change. However it's highly unlikely that it would be impossible
+        //   that in future Swift will lack the ablity to determine if object is a function.
+        // - There will be still other challanging things like ability to dynamically call a closure.
+        //
+        // All those things will complicate the code, make it dependent on private API, so
+        // the code generation is used to add ability to inspect values at runtime. Note
+        // that code generation can be much less reliable than doing same thing in runtime,
+        // because code generation is much less supported by Apple, and a lot of things
+        // are done by community and the quality of those things is not good (like using regexps instead of AST).
+        //
+        if let closure = parameter.typeName.validClosureType {
+            if parameter.isNonEscapingClosure {
+                return closureNonEscapingCallArgumentValue(
+                    argumenIndex: index,
+                    closure: closure,
+                    isOptional: false,
+                    parameter: parameter,
+                    caseName: "nonEscapingClosure",
+                    className: "NonEscapingClosureArgumentValue"
+                )
+            } else if parameter.isEscapingClosure {
+                return closureNonEscapingCallArgumentValue(
+                    argumenIndex: index,
+                    closure: closure,
+                    isOptional: false,
+                    parameter: parameter,
+                    caseName: "escapingClosure",
+                    className: "EscapingClosureArgumentValue"
+                )
+            } else if parameter.isOptional {
+                return closureNonEscapingCallArgumentValue(
+                    argumenIndex: index,
+                    closure: closure,
+                    isOptional: true,
+                    parameter: parameter,
+                    caseName: "optionalEscapingClosure",
+                    className: "OptionalEscapingClosureArgumentValue"
+                )
+            } else {
+                return regularNonEscapingCallArgumentValue(argumenIndex: index)
+            }
+        } else {
+            return regularNonEscapingCallArgumentValue(argumenIndex: index)
+        }
+    }
+    
+    private func regularNonEscapingCallArgumentValue(argumenIndex: Int) -> String {
         """
-        RecordedCallArgument.regular(value: \(Snippets.argumentName(index: argumenIndex)) as Any)
+        MixboxMocksRuntime.NonEscapingCallArgumentValue.regular(
+            MixboxMocksRuntime.RegularArgumentValue(
+                value: \(Snippets.argumentName(index: argumenIndex)) as Any
+            )
+        )
         """
     }
     
-    private func escapingClosureRecordedCallArgument(
+    // TODO: Split.
+    // swiftlint:disable:next function_body_length
+    private func closureNonEscapingCallArgumentValue(
         argumenIndex: Int,
         closure: ClosureType,
+        isOptional: Bool,
         parameter: MethodParameter,
-        caseName: String)
+        caseName: String,
+        className: String)
         -> String
     {
         let argumentTypes = closure.parameters.render(
@@ -269,18 +336,48 @@ public class ProtocolImplementationFunctionTemplate {
             }
         )
         
-        return """
-        RecordedCallArgument.\(caseName)(
-            value: \(Snippets.argumentName(index: argumenIndex)),
-            argumentTypes: \(argumentTypes.indent()),
-            returnValueType: \(closure.returnTypeName.typeInstanceExpression)
+        let closureArgumentName = Snippets.argumentName(index: argumenIndex)
+        
+        let unwrapOperatorSuffix = isOptional ? "?" : ""
+        
+        let closureTryPrefix = closure.throws ? "try " : ""
+        
+        let callImplementation = closure.parameters.render(
+            separator: ",\n",
+            valueIfEmpty:
+                """
+                { _ in
+                    \(closureTryPrefix)\(closureArgumentName)\(unwrapOperatorSuffix)() as Any
+                }
+                """,
+            surround: {
+                """
+                { arguments in
+                    \(closureTryPrefix)\(closureArgumentName)\(unwrapOperatorSuffix)(
+                        \($0.indent(level: 2))
+                    ) as Any
+                }
+                """
+            },
+            transform: { index, parameter in
+                let ampersandPrefix = parameter.inout ? "&" : ""
+                return """
+                \(ampersandPrefix)arguments[\(index)]
+                """
+            }
         )
-        """
-    }
-    
-    private func nonEscapingClosureRecordedCallArgument(parameter: MethodParameter) -> String {
-        """
-        RecordedCallArgument.nonEscapingClosure(type: \(parameter.typeName.typeInstanceExpression))
+        
+        return """
+        MixboxMocksRuntime.NonEscapingCallArgumentValue.\(caseName)(
+            MixboxMocksRuntime.\(className.indent(level: 1))(
+                value: \(closureArgumentName.indent(level: 2)),
+                reflection: MixboxMocksRuntime.ClosureArgumentValueReflection(
+                    argumentTypes: \(argumentTypes.indent(level: 3)),
+                    returnValueType: \(closure.returnTypeName.typeInstanceExpression.indent(level: 3)),
+                    callImplementation: \(callImplementation.indent(level: 3))
+                )
+            )
+        )
         """
     }
     

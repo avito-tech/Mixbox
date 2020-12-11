@@ -6,13 +6,14 @@ import MixboxTestsFoundation
 final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     let mock = MockMocksTestsFixtureSimpleProtocol()
     let dynamicCallable = MockDynamicCallable()
+    let dynamicCallableFactory = MockDynamicCallableFactory()
     var factory: MockManagerFactory {
         ConfiguredMockManagerFactory(
             testFailureRecorder: dependencies.resolve(),
             waiter: dependencies.resolve(),
             defaultTimeout: 0,
             defaultPollingInterval: 0,
-            dynamicCallable: dynamicCallable
+            dynamicCallableFactory: dynamicCallableFactory
         )
     }
     
@@ -24,6 +25,11 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
         super.precondition()
         
         mock.setMockManager(factory.mockManager())
+        
+        dynamicCallableFactory
+            .stub()
+            .dynamicCallable(generatorSpecializations: any())
+            .thenReturn(dynamicCallable)
     }
     
     // Self-check for this test. Note that ideally you should check every value of
@@ -101,7 +107,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     private func stubDynamicCallable<T: MixboxMocksRuntime.Matcher>(
         argument: T)
         -> StubbingFunctionBuilder<
-            (RecordedCallArguments, Int.Type),
+            (NonEscapingCallArguments, Int.Type),
             DynamicCallableResult<Int>
         >
         where
@@ -110,8 +116,8 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
         return dynamicCallable
             .stub()
             .call(
-                recordedCallArguments: matches { [uninterceptableErrorTracker] in
-                    if let value = $0.arguments.mb_only?.asTypedRegular(type: Int.self) {
+                nonEscapingCallArguments: matches { [uninterceptableErrorTracker] in
+                    if let value = $0.arguments.mb_only?.value.asRegular()?.value as? Int {
                         return argument.valueIsMatching(value)
                     } else {
                         uninterceptableErrorTracker.track(

@@ -56,12 +56,18 @@ public final class MockTemplate {
             
             private var defaultImplementation: MockedType?
             
-            fileprivate final func getDefaultImplementation(_: MixboxMocksRuntimeVoid.Type) -> MockedType? {
+            fileprivate final func getDefaultImplementation(
+                _: MixboxMocksRuntimeVoid.Type)
+                -> MockedType?
+            {
                 return defaultImplementation
             }
         
             @discardableResult
-            final func setDefaultImplementation(_ defaultImplementation: MockedType) -> MixboxMocksRuntimeVoid {
+            final func setDefaultImplementation(
+                _ defaultImplementation: MockedType)
+                -> MixboxMocksRuntimeVoid
+            {
                 self.defaultImplementation = defaultImplementation
         
                 return MixboxMocksRuntimeVoid()

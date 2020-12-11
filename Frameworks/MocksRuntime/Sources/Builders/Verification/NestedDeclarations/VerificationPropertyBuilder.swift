@@ -34,26 +34,18 @@ public class VerificationImmutablePropertyBuilder<PropertyType> {
 public final class VerificationMutablePropertyBuilder<PropertyType>:
     VerificationImmutablePropertyBuilder<PropertyType>
 {
-    // TODO: Support detecting closures? Now only `RecordedCallArgument.regular` is returned.
+    // TODO: Support detecting closures? Now only `NonEscapingCallArgument.regular` is returned.
     public func set<NewValueMatcher: Matcher>(
         _ newValueMatcher: NewValueMatcher,
         file: StaticString = #file,
         line: UInt = #line)
         -> VerificationFunctionBuilder<PropertyType, ()>
         where
-        NewValueMatcher.MatchingType == RecordedCallArguments
+        NewValueMatcher.MatchingType == NonEscapingCallArguments
     {
-        let recordedCallArgumentsMatcher = FunctionalMatcher<RecordedCallArguments>(
-            matchingFunction: { (other: RecordedCallArguments) -> Bool in
-                newValueMatcher.valueIsMatching(
-                    RecordedCallArguments(
-                        arguments: [
-                            RecordedCallArgument.regular(value: other)
-                        ]
-                    )
-                )
-            }
-        )
+        let recordedCallArgumentsMatcher = RecordedCallArgumentsMatcherBuilder()
+            .matchNext(newValueMatcher)
+            .matcher()
         
         return VerificationFunctionBuilder<PropertyType, ()>(
             functionIdentifier: FunctionIdentifierFactory.variableFunctionIdentifier(

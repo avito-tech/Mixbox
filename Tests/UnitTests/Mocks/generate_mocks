@@ -21,9 +21,11 @@ apply_mocks() {
     mock "MocksTestsFixtureObjcProtocol"
     mock "MocksTestsFixtureBaseProtocolFromOtherFile"
     mock "MocksTestsFixtureSimpleProtocol"
+    mock "DynamicBehaviorIntegrationalTestsProtocol"
     
     module "MixboxMocksRuntime"
     mock "DynamicCallable"
+    mock "DynamicCallableFactory"
     mock "MockManagerVerification"
     mock "MockManagerStubbing"
     mock "MockManagerStateTransferring"

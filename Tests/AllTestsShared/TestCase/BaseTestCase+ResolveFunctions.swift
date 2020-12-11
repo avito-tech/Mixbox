@@ -3,6 +3,7 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import MixboxUiKit
 import MixboxFoundation
+import MixboxStubbing
 
 extension BaseTestCase {
     var iosVersionProvider: IosVersionProvider {
@@ -22,6 +23,10 @@ extension BaseTestCase {
     }
     
     var environmentProvider: EnvironmentProvider {
+        return dependencies.resolve()
+    }
+    
+    var generator: GeneratorFacade {
         return dependencies.resolve()
     }
 }

@@ -66,7 +66,7 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
                 // or maybe to add some new configurable entiry for storing default timeouts.
                 defaultTimeout: 15,
                 defaultPollingInterval: 0.1,
-                dynamicCallable: try di.resolve()
+                dynamicCallableFactory: try di.resolve()
             )
         }
         di.register(type: MockRegisterer.self) { di in
@@ -74,9 +74,13 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
                 mockManagerFactory: try di.resolve()
             )
         }
-        di.register(type: DynamicCallable.self) { di in
-            AnyGeneratorDynamicCallable(
-                anyGenerator: try di.resolve()
+        di.register(type: AnyGeneratorDynamicCallableBehavior.self) { _ in
+            CompletionHandlerCallingAnyGeneratorDynamicCallableBehavior()
+        }
+        di.register(type: DynamicCallableFactory.self) { di in
+            AnyGeneratorDynamicCallableFactory(
+                anyGenerator: try di.resolve(),
+                anyGeneratorDynamicCallableBehavior: try di.resolve()
             )
         }
     }

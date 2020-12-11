@@ -9,8 +9,4 @@ class BaseGeneratorTestCase: TestCase {
     override var reuseState: Bool {
         false
     }
-    
-    var generator: GeneratorFacade {
-        return dependencies.resolve()
-    }
 }

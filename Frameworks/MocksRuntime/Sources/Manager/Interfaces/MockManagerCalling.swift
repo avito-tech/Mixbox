@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxGenerators
 
 // TODO: It can be better to use array of arguments instead of a tuple.
 //
@@ -18,7 +19,8 @@ public protocol MockManagerCalling {
         defaultImplementation: MockedType?,
         defaultImplementationClosure: (inout MockedType, TupledArguments) -> ReturnValue,
         tupledArguments: TupledArguments,
-        recordedCallArguments: RecordedCallArguments)
+        nonEscapingCallArguments: NonEscapingCallArguments,
+        generatorSpecializations: [HashableType: TypeErasedAnyGeneratorSpecialization])
         -> ReturnValue
         
     func callThrows<MockedType, TupledArguments, ReturnValue>(
@@ -26,7 +28,8 @@ public protocol MockManagerCalling {
         defaultImplementation: MockedType?,
         defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
         tupledArguments: TupledArguments,
-        recordedCallArguments: RecordedCallArguments)
+        nonEscapingCallArguments: NonEscapingCallArguments,
+        generatorSpecializations: [HashableType: TypeErasedAnyGeneratorSpecialization])
         throws
         -> ReturnValue
         
@@ -35,7 +38,8 @@ public protocol MockManagerCalling {
         defaultImplementation: MockedType?,
         defaultImplementationClosure: (inout MockedType, TupledArguments) throws -> ReturnValue,
         tupledArguments: TupledArguments,
-        recordedCallArguments: RecordedCallArguments)
+        nonEscapingCallArguments: NonEscapingCallArguments,
+        generatorSpecializations: [HashableType: TypeErasedAnyGeneratorSpecialization])
         rethrows
         -> ReturnValue
 }

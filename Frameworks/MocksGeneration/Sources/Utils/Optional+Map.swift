@@ -1,3 +1,5 @@
+// Note: Copypasted from `Optional+Map.swift` from `MixboxFoundation`,
+// which is incompatible wiith SPM due to mixed Obj-C and Swift code.
 extension Optional {
     func map<T>(
         default: @autoclosure () -> T,
@@ -15,25 +17,5 @@ extension Optional {
         -> T
     {
         return try flatMap(transform) ?? `default`()
-    }
-}
-
-extension Optional where Wrapped == String {
-    func convertEmptyToNil() -> String? {
-        if self?.isEmpty == true {
-            return nil
-        } else {
-            return self
-        }
-    }
-}
-
-extension String {
-    func convertEmptyToNil() -> String? {
-        if isEmpty {
-            return nil
-        } else {
-            return self
-        }
     }
 }
