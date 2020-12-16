@@ -12,12 +12,46 @@ public class ProtocolImplementationFunctionTemplate {
     
     public func render() throws -> String {
         """
-        \(functionAttributes)func \(method.callName)\(try genericParameterClauseString())\(methodDeclarationArguments)\(functionThrowing)\(functionResult) {
+        \(try functionSignatureWithBrace())
             let \(mockManagerVariableName) = getMockManager(MixboxMocksRuntimeVoid.self)
             let \(defaultImplementationVariableName) = getDefaultImplementation(MixboxMocksRuntimeVoid.self)
             return \(body.indent())
         }
         """
+    }
+    
+    private func functionSignatureWithBrace() throws -> String {
+        let prefix = "\(functionAttributes)func \(method.callName)\(try genericParameterClauseString())"
+        
+        return method.parameters.render(
+            separator: ",\n",
+            valueIfEmpty: "\(prefix)() \(functionThrowing ?? "") \(functionResult ?? "") {",
+            surround: {
+                let lines = [
+                    """
+                    \(prefix)(
+                        \($0.indent()))
+                    """,
+                    functionThrowing.map { "    \($0)" },
+                    functionResult.map { "    \($0)" },
+                    "{"
+                ]
+                
+                return lines
+                    .compactMap { $0 }
+                    .joined(separator: "\n")
+            },
+            transform: { index, parameter in
+                let labeledArgument = Snippets.labeledArgumentForFunctionSignature(
+                    label: parameter.argumentLabel,
+                    name: Snippets.argumentName(index: index)
+                )
+                
+                let type = parameter.typeName.name
+                
+                return "\(labeledArgument): \(type)"
+            }
+        )
     }
     
     // To avoid collision with members of protocol
@@ -155,28 +189,17 @@ public class ProtocolImplementationFunctionTemplate {
         }
     }
     
-    private var methodDeclarationArguments: String {
-        method.parameters.render(
-            separator: ", ",
-            surround: { "(\($0))" },
-            transform: { index, parameter in
-                let labeledArgument = Snippets.labeledArgumentForFunctionSignature(
-                    label: parameter.argumentLabel,
-                    name: Snippets.argumentName(index: index)
-                )
-                
-                let type = parameter.typeName.name
-                
-                return "\(labeledArgument): \(type)"
-            }
-        )
-    }
-    
     private var methodCallArguments: String {
         method.parameters.render(
             separator: ",\n",
             valueIfEmpty: "()",
-            surround: { "(\n\($0.indent(includingFirstLine: true))\n)" },
+            surround: {
+                """
+                (
+                    \($0.indent())
+                )
+                """
+            },
             transform: { index, parameter in
                 let labelPrefix = parameter.argumentLabel.map(default: "", transform: { "\($0): " })
                 let callParenthesis = parameter.typeName.isAutoclosure ? "()" : ""
@@ -393,22 +416,22 @@ public class ProtocolImplementationFunctionTemplate {
         }
     }
     
-    private var functionThrowing: String {
+    private var functionThrowing: String? {
         if method.rethrows {
-            return " rethrows"
+            return "rethrows"
         } else if method.throws {
-            return " throws"
+            return "throws"
         } else {
-            return ""
+            return nil
         }
     }
     
-    private var functionResult: String {
+    private var functionResult: String? {
         if method.returnTypeName.isVoid {
-            return ""
+            return nil
         }
         
-        return " -> \(returnType)"
+        return "-> \(returnType)"
     }
     
     private var returnType: String {

@@ -97,21 +97,28 @@ public class FunctionBuilderTemplate {
         method.parameters.render(
             separator: ",\n",
             valueIfEmpty: "() ",
-            surround: { "(\n\($0))\n    " },
+            surround: {
+                """
+                (
+                    \($0.indent()))
+                    
+                """
+            },
             transform: { index, parameter in
                 let labeledArgument = Snippets.labeledArgumentForFunctionSignature(
                     label: parameter.argumentLabel,
                     name: Snippets.matcherArgumentName(index: index)
                 )
                 
-                let originalType = parameter.typeName
+                let originalType = parameter
+                    .typeName
                     .validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
                 
                 let argumentType = parameter.isNonEscapingClosure
                     ? "NonEscapingClosureMatcher<\(originalType)>"
                     : matcherGenericArgumentTypeName(index: index)
                 
-                return "    \(labeledArgument): \(argumentType)"
+                return "\(labeledArgument): \(argumentType)"
             }
         )
     }
