@@ -33,7 +33,7 @@ public class ProtocolImplementationPropertyTemplate {
     private var getter: String {
         """
         get {
-            return getMockManager().call(
+            return getMockManager(MixboxMocksRuntime.MixboxMocksRuntimeVoid.self).call(
                 functionIdentifier: MixboxMocksRuntime.FunctionIdentifierFactory.variableFunctionIdentifier(
                     variableName: \(Snippets.variableNameStringLiteral(variable: variable).indent(level: 3)),
                     type: .get
@@ -63,7 +63,7 @@ public class ProtocolImplementationPropertyTemplate {
     private var setter: String? {
         """
         set {
-            let _: () = getMockManager().call(
+            let _: () = getMockManager(MixboxMocksRuntime.MixboxMocksRuntimeVoid.self).call(
                 functionIdentifier: MixboxMocksRuntime.FunctionIdentifierFactory.variableFunctionIdentifier(
                     variableName: \(Snippets.variableNameStringLiteral(variable: variable).indent(level: 3)),
                     type: .set

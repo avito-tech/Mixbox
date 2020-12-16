@@ -16,7 +16,7 @@ open class BaseMock: MockManagerSettable {
     
     // MARK: - Mock
     
-    public func getMockManager() -> MockManager {
+    public func getMockManager(_: MixboxMocksRuntimeVoid.Type) -> MockManager {
         return mockManager
     }
     

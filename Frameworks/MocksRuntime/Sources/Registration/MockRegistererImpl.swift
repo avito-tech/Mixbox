@@ -7,7 +7,7 @@ public final class MockRegistererImpl: MockRegisterer {
         self.mockManagerFactory = mockManagerFactory
     }
     
-    public func register(mock: MockManagerSettable) {
+    public func register(mock: StorableMock) {
         mock.setMockManager(
             mockManagerFactory.mockManager()
         )

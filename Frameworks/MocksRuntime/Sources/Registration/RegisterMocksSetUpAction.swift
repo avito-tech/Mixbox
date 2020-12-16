@@ -27,7 +27,7 @@ public final class RegisterMocksSetUpAction: SetUpAction {
     
     public func setUp() -> TearDownAction {
         testCaseMirror.children.forEach { child in
-            if let mock = child.value as? MockManagerSettable {
+            if let mock = child.value as? StorableMock {
                 mockRegisterer.register(mock: mock)
             }
         }

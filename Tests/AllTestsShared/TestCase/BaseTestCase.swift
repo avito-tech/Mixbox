@@ -91,7 +91,7 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
         )
     }
     
-    func register<M: MockManagerSettable>(_ mock: M) -> M {
+    func register<M: Mock>(_ mock: M) -> M {
         (dependencies.resolve() as MockRegisterer).register(mock: mock)
         
         return mock

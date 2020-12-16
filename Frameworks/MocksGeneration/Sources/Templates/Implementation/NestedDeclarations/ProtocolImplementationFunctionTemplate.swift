@@ -13,7 +13,7 @@ public class ProtocolImplementationFunctionTemplate {
     public func render() throws -> String {
         """
         \(functionAttributes)func \(method.callName)\(try genericParameterClauseString())\(methodDeclarationArguments)\(functionThrowing)\(functionResult) {
-            let \(mockManagerVariableName) = getMockManager()
+            let \(mockManagerVariableName) = getMockManager(MixboxMocksRuntimeVoid.self)
             let \(defaultImplementationVariableName) = getDefaultImplementation(MixboxMocksRuntimeVoid.self)
             return \(body.indent())
         }
