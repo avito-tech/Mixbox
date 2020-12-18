@@ -44,29 +44,29 @@
     {
 		"testDestination": {
 			"deviceType": "iPhone 11 Pro Max",
-			"iOSVersion": "13.2",
-			"iOSVersionShort": "13.2",
-			"iOSVersionLong": "13.2.2",
+			"iOSVersion": "13.7",
+			"iOSVersionShort": "13.7",
+			"iOSVersionLong": "13.7",
             "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11-Pro-Max",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-13-2"
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-13-7"
 		},
 		"reportOutput": {
-			"junit": "tests-artifacts/iphone_11_pro_max_ios_132.xml",
-			"tracingReport": "tests-artifacts/iphone_11_pro_max_ios_132.trace"
+			"junit": "tests-artifacts/iphone_11_pro_max_ios_137.xml",
+			"tracingReport": "tests-artifacts/iphone_11_pro_max_ios_137.trace"
 		}
 	},
     {
 		"testDestination": {
 			"deviceType": "iPhone 11",
-			"iOSVersion": "14.0",
-			"iOSVersionShort": "14.0",
-			"iOSVersionLong": "14.0",
+			"iOSVersion": "14.1",
+			"iOSVersionShort": "14.1",
+			"iOSVersionLong": "14.1",
             "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-14-0"
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-14-1"
 		},
 		"reportOutput": {
-			"junit": "tests-artifacts/iphone_11_ios_140.xml",
-			"tracingReport": "tests-artifacts/iphone_11_ios_140.trace"
+			"junit": "tests-artifacts/iphone_11_ios_141.xml",
+			"tracingReport": "tests-artifacts/iphone_11_ios_141.trace"
 		}
 	}
 ]
