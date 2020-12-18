@@ -16,12 +16,12 @@ public final class MockTemplate {
     public func render() throws -> String {
         let stubbingBuilderTemplate = BuilderTemplate(
             protocolType: protocolType,
-            builderType: "Stubbing"
+            builderType: .stubbing
         )
         
         let verifcationBuilderTemplate = BuilderTemplate(
             protocolType: protocolType,
-            builderType: "Verification"
+            builderType: .verification
         )
         
         // About need of BaseMockXxx classes:

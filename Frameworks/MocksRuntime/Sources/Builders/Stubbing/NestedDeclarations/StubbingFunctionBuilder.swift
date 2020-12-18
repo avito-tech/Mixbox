@@ -1,7 +1,7 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 
-public final class StubbingFunctionBuilder<TupledArguments, ReturnType> {
+open class StubbingFunctionBuilder<TupledArguments, ReturnType> {
     public typealias TupledArguments = TupledArguments
     public typealias ReturnType = ReturnType
     
@@ -11,8 +11,8 @@ public final class StubbingFunctionBuilder<TupledArguments, ReturnType> {
     private let fileLine: FileLine
     
     public init(
-        functionIdentifier: FunctionIdentifier,
         mockManager: MockManager,
+        functionIdentifier: FunctionIdentifier,
         recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         fileLine: FileLine)
     {

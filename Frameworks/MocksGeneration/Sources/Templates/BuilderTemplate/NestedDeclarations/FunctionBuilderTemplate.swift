@@ -2,18 +2,18 @@ import SourceryRuntime
 
 public class FunctionBuilderTemplate {
     private let method: Method
-    private let builderType: String
     private let genericParameterClause: GenericParameterClause?
     private let genericArgumentTypeNames: [String]
+    private let functionBuilderClass: String
     
     public init(
         method: Method,
-        builderType: String)
+        functionBuilderClass: String)
         throws
     {
         self.method = method
-        self.builderType = builderType
         self.genericParameterClause = try method.genericParameterClause()
+        self.functionBuilderClass = functionBuilderClass
         
         // Example: we have function `func x<T, U, Argument0>(x: (T?...) -> ([U]) -> (Argument0))`
         //
@@ -54,9 +54,9 @@ public class FunctionBuilderTemplate {
         let recordedCallArgumentsMatcher = \(recordedCallArgumentsMatcherBuilder)
 
         return \(returnType)(
+            mockManager: mockManager,
             functionIdentifier:
             \(Snippets.functionIdentifier(method: method).indent(level: 1)),
-            mockManager: mockManager,
             recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             fileLine: fileLine
         )
@@ -64,11 +64,7 @@ public class FunctionBuilderTemplate {
     }
     
     private var returnType: String {
-        return "MixboxMocksRuntime.\(functionBuilderName)<\(argumentsTupleType), \(method.returnTypeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional)>"
-    }
-    
-    private var functionBuilderName: String {
-        "\(builderType)FunctionBuilder"
+        return "MixboxMocksRuntime.\(functionBuilderClass)"
     }
     
     // <SourceT, SourceU, Argument0: MixboxMocksRuntime.Matcher, Argument1: MixboxMocksRuntime.Matcher>
@@ -158,12 +154,8 @@ public class FunctionBuilderTemplate {
 
     // (Int, Int)
     private var argumentsTupleType: String {
-        method.parameters.render(
-            separator: ", ",
-            surround: { "(\($0))" },
-            transform: { _, parameter in
-                parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
-            }
+        return Snippets.tupledArgumentsType(
+            methodParameters: method.parameters
         )
     }
     

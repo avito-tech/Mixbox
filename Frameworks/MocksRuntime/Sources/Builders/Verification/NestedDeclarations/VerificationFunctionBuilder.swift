@@ -11,8 +11,8 @@ public final class VerificationFunctionBuilder<Arguments, ReturnType> {
     private let fileLine: FileLine
     
     public init(
-        functionIdentifier: FunctionIdentifier,
         mockManager: MockManager,
+        functionIdentifier: FunctionIdentifier,
         recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
         fileLine: FileLine)
     {

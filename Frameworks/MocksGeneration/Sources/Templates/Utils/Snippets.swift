@@ -24,6 +24,16 @@ public final class Snippets {
     
     // MARK: - Specific for current templates
     
+    public static func tupledArgumentsType(methodParameters: [MethodParameter]) -> String {
+        return methodParameters.render(
+            separator: ", ",
+            surround: { "(\($0))" },
+            transform: { _, parameter in
+                parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
+            }
+        )
+    }
+    
     public static func argumentName(index: Int) -> String {
         return "argument\(index)"
     }

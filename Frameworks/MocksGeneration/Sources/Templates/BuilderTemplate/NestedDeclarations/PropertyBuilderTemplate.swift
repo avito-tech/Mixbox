@@ -2,11 +2,11 @@ import SourceryRuntime
 
 public class PropertyBuilderTemplate {
     private let variable: Variable
-    private let builderType: String
+    private let builderType: BuilderType
     
     public init(
         variable: Variable,
-        builderType: String)
+        builderType: BuilderType)
     {
         self.variable = variable
         self.builderType = builderType
@@ -35,8 +35,8 @@ public class PropertyBuilderTemplate {
     }
     
     private var variableBuilderName: String {
-        variable.isMutable
-            ? "\(builderType)MutablePropertyBuilder"
-            : "\(builderType)ImmutablePropertyBuilder"
+        return builderType.propertyBuilderClassName(
+            isMutable: variable.isMutable
+        )
     }
 }

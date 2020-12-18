@@ -232,6 +232,8 @@
 		F8341976232FE9B400E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341974232FE91D00E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift */; };
 		F8341977232FE9B500E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8341974232FE91D00E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift */; };
 		F836C50522DF300900F78C6F /* NetworkStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3200922CF87F30094D2EA /* NetworkStubbingTests.swift */; };
+		F837EF5E258BDBBD00721A30 /* EasyClosureStubbingIntegrationalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F837EF5D258BDBBD00721A30 /* EasyClosureStubbingIntegrationalTests.swift */; };
+		F837EF60258BDD4B00721A30 /* EasyClosureStubbingIntegrationalTestsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F837EF5F258BDD4B00721A30 /* EasyClosureStubbingIntegrationalTestsProtocol.swift */; };
 		F839A7E7214FC218009F77AB /* ExtendedStackTraceProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A7E6214FC218009F77AB /* ExtendedStackTraceProviderMock.swift */; };
 		F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A7EA214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift */; };
 		F839A807215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F839A806215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift */; };
@@ -956,6 +958,8 @@
 		F83416E4232FAB9600E9EC3A /* LocatorsPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTests.swift; sourceTree = "<group>"; };
 		F83416E7232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTestsView.swift; sourceTree = "<group>"; };
 		F8341974232FE91D00E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatorsPerformanceTestsViewPageObject.swift; sourceTree = "<group>"; };
+		F837EF5D258BDBBD00721A30 /* EasyClosureStubbingIntegrationalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyClosureStubbingIntegrationalTests.swift; sourceTree = "<group>"; };
+		F837EF5F258BDD4B00721A30 /* EasyClosureStubbingIntegrationalTestsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyClosureStubbingIntegrationalTestsProtocol.swift; sourceTree = "<group>"; };
 		F839A7E6214FC218009F77AB /* ExtendedStackTraceProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedStackTraceProviderMock.swift; sourceTree = "<group>"; };
 		F839A7EA214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift; sourceTree = "<group>"; };
 		F839A806215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCrashProducesMeaninfulErrorTests.swift; sourceTree = "<group>"; };
@@ -1952,6 +1956,15 @@
 				F83416E7232FAC1600E9EC3A /* LocatorsPerformanceTestsView.swift */,
 			);
 			path = Performance;
+			sourceTree = "<group>";
+		};
+		F837EF5C258BDBA700721A30 /* EasyClosureStubbing */ = {
+			isa = PBXGroup;
+			children = (
+				F837EF5D258BDBBD00721A30 /* EasyClosureStubbingIntegrationalTests.swift */,
+				F837EF5F258BDD4B00721A30 /* EasyClosureStubbingIntegrationalTestsProtocol.swift */,
+			);
+			path = EasyClosureStubbing;
 			sourceTree = "<group>";
 		};
 		F839A7E5214FC20A009F77AB /* Support */ = {
@@ -3462,6 +3475,7 @@
 		F8DFADC0256BC58600016F40 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F837EF5C258BDBA700721A30 /* EasyClosureStubbing */,
 				F8340B37257E38BC004D29FE /* PublicInterfaceOfMocks */,
 				F8340B35257E3842004D29FE /* SupportForDifferentDeclarations */,
 				F8340B34257E381B004D29FE /* DynamicBehaviorGeneration */,
@@ -5201,6 +5215,7 @@
 				F89ED2E92572D27900A32D54 /* MocksTestsFixtureSimpleProtocol.swift in Sources */,
 				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
+				F837EF5E258BDBBD00721A30 /* EasyClosureStubbingIntegrationalTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
 				F89ED2EE2572DFFC00A32D54 /* UninterceptableErrorTrackerImpl.swift in Sources */,
 				F8AA9EB4256E95410040C4D9 /* MixboxMocksNonEscapingFunctionsTests.swift in Sources */,
@@ -5307,6 +5322,7 @@
 				F80C2E4C24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift in Sources */,
 				F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */,
 				F8AF0E652572930A0050D10A /* MixboxMocksDynamicResultTests.swift in Sources */,
+				F837EF60258BDD4B00721A30 /* EasyClosureStubbingIntegrationalTestsProtocol.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
 				F8F8320524EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift in Sources */,
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,

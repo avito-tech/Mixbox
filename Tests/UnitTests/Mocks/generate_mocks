@@ -22,6 +22,7 @@ apply_mocks() {
     mock "MocksTestsFixtureBaseProtocolFromOtherFile"
     mock "MocksTestsFixtureSimpleProtocol"
     mock "DynamicBehaviorIntegrationalTestsProtocol"
+    mock "EasyClosureStubbingIntegrationalTestsProtocol"
     
     module "MixboxMocksRuntime"
     mock "DynamicCallable"

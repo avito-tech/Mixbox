@@ -20,11 +20,11 @@ public class VerificationImmutablePropertyBuilder<PropertyType> {
         -> VerificationFunctionBuilder<(), PropertyType>
     {
         return VerificationFunctionBuilder<(), PropertyType>(
+            mockManager: mockManager,
             functionIdentifier: FunctionIdentifierFactory.variableFunctionIdentifier(
                 variableName: variableName,
                 type: .get
             ),
-            mockManager: mockManager,
             recordedCallArgumentsMatcher: any(),
             fileLine: FileLine(file: file, line: line)
         )
@@ -48,11 +48,11 @@ public final class VerificationMutablePropertyBuilder<PropertyType>:
             .matcher()
         
         return VerificationFunctionBuilder<PropertyType, ()>(
+            mockManager: mockManager,
             functionIdentifier: FunctionIdentifierFactory.variableFunctionIdentifier(
                 variableName: variableName,
                 type: .set
             ),
-            mockManager: mockManager,
             recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             fileLine: FileLine(file: file, line: line)
         )

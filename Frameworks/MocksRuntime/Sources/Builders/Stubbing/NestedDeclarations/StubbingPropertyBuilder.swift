@@ -20,11 +20,11 @@ public class StubbingImmutablePropertyBuilder<PropertyType> {
         -> StubbingFunctionBuilder<(), PropertyType>
     {
         return StubbingFunctionBuilder(
+            mockManager: mockManager,
             functionIdentifier: FunctionIdentifierFactory.variableFunctionIdentifier(
                 variableName: variableName,
                 type: .get
             ),
-            mockManager: mockManager,
             recordedCallArgumentsMatcher: any(),
             fileLine: FileLine(file: file, line: line)
         )
@@ -53,11 +53,11 @@ public final class StubbingMutablePropertyBuilder<PropertyType>:
         )
         
         return StubbingFunctionBuilder(
+            mockManager: mockManager,
             functionIdentifier: FunctionIdentifierFactory.variableFunctionIdentifier(
                 variableName: variableName,
                 type: .set
             ),
-            mockManager: mockManager,
             recordedCallArgumentsMatcher: recordedCallArgumentsMatcher,
             fileLine: FileLine(file: file, line: line)
         )
