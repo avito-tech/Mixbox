@@ -76,7 +76,7 @@ let package = Package(
         .package(
             name: "EmceeTestRunner",
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("cebbcef73857340d8b1156386afdeb4ddb1dde94")
+            .revision("f0aac2546846caac844a90249527a6d4cf026970")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
