@@ -70,11 +70,11 @@ public final class ElementMatcherBuilder {
     public let customValues = CustomValuesMatcherBuilder()
     
     public func isInstanceOf(_ class: AnyClass) -> ElementMatcher {
-        return IsInstanceMatcher("\(`class`)")
+        return IsInstanceElementSnapshotMatcher("\(`class`)")
     }
     
     public func isInstanceOf(_ class: String) -> ElementMatcher {
-        return IsInstanceMatcher(`class`)
+        return IsInstanceElementSnapshotMatcher(`class`)
     }
     
     public func isSubviewOf(

@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-public final class IsInstanceMatcher: Matcher<ElementSnapshot> {
+public final class IsInstanceElementSnapshotMatcher: Matcher<ElementSnapshot> {
     public init(_ className: String) {
         super.init(
             description: {

@@ -1,4 +1,6 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
+import MixboxFoundation
 import XCTest
 import MixboxIpcCommon
 import MixboxMocksRuntime
@@ -193,7 +195,7 @@ final class RecordedSessionStubberTests: TestCase {
                         )
                     )
                 ),
-                responseTime: 0
+                responseTime: equals(0)
             ).isCalled()
         }
     }
@@ -223,36 +225,64 @@ final class RecordedSessionStubberTests: TestCase {
     }
 }
 
-private func isDataThatIsJson(_ json: [String: Any]) -> FunctionalMatcher<StubResponseBuilderResponseValue> {
-    return FunctionalMatcher<StubResponseBuilderResponseValue> { value in
-        switch value {
-        case .data(let data):
-            if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
-                let jsonObjectAsDictionary = jsonObject as? NSDictionary
-            {
-                return jsonObjectAsDictionary.isEqual(to: json)
-            } else {
-                return false
+private func isDataThatIsJson(_ json: [String: Any]) -> Matcher<StubResponseBuilderResponseValue> {
+    return Matcher<StubResponseBuilderResponseValue>(
+        description: { "Response is of type `.data` and contains json \(json)" },
+        matchingFunction: { value in
+            do {
+                switch value {
+                case .data(let data):
+                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+                    
+                    guard let jsonObjectAsDictionary = jsonObject as? NSDictionary else {
+                        throw ErrorString("JSON object is not dictionary")
+                    }
+                    
+                    guard jsonObjectAsDictionary.isEqual(to: json) else {
+                        throw ErrorString("JSON '\(jsonObjectAsDictionary)' is not equal to expected JSON '\(json)'")
+                    }
+                    
+                    return .match
+                case .string:
+                    throw ErrorString("Value is .string")
+                case .file:
+                    throw ErrorString("Value is .file")
+                }
+            } catch {
+                return .exactMismatch(
+                    mismatchDescription: { "\(error)" },
+                    attachments: { [] }
+                )
             }
-        case .string:
-            return false
-        case .file:
-            return false
         }
-    }
+    )
 }
 
-private func regexIsMatchedBy(_ string: String) -> FunctionalMatcher<String> {
-    return FunctionalMatcher<String> { pattern in
-        let regex = (try? NSRegularExpression(pattern: pattern, options: [])).unwrapOrFail()
-        
-        let firstMatch = regex.firstMatch(
-            in: string,
-            range: NSRange(location: 0, length: (string as NSString).length)
-        )
-        
-        return firstMatch != nil
-    }
+private func regexIsMatchedBy(_ string: String) -> Matcher<String> {
+    return Matcher<String>(
+        description: { "String \(string) is matched with a given regex" },
+        matchingFunction: { pattern in
+            do {
+                let regex = try NSRegularExpression(pattern: pattern, options: [])
+                
+                let firstMatch = regex.firstMatch(
+                    in: string,
+                    range: NSRange(location: 0, length: (string as NSString).length)
+                )
+                
+                if firstMatch != nil {
+                    return .match
+                } else {
+                    throw ErrorString("\(string) is not matched by \(pattern)")
+                }
+            } catch {
+                return .exactMismatch(
+                    mismatchDescription: { "\(error)" },
+                    attachments: { [] }
+                )
+            }
+        }
+    )
 }
 
 private extension RecordedStub {

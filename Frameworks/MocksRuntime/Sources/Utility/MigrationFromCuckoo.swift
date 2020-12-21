@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 // These declaration duplicate interface of Cuckoo,
 // they are not set in stone and are just for compatibility during migration period.
 
@@ -21,16 +23,16 @@ extension Mock {
     }
 }
 
-public func anyClosure<MatchingType>() -> FunctionalMatcher<MatchingType> {
+public func anyClosure<MatchingType>() -> Matcher<MatchingType> {
     return any()
 }
 
 public func equals<MatchingType>(
     _ value: MatchingType,
     when: (MatchingType) -> Bool)
-    -> FunctionalMatcher<MatchingType>
+    -> Matcher<MatchingType>
     where
     MatchingType: Equatable
 {
-    return FunctionalMatcher<MatchingType> { other in value == other }
+    return matches { other in value == other }
 }

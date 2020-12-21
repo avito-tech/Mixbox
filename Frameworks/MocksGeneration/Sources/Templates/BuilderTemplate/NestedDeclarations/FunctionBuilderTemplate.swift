@@ -2,9 +2,8 @@ import SourceryRuntime
 
 public class FunctionBuilderTemplate {
     private let method: Method
-    private let genericParameterClause: GenericParameterClause?
-    private let genericArgumentTypeNames: [String]
     private let functionBuilderClass: String
+    private let genericParameterClause: GenericParameterClause?
     
     public init(
         method: Method,
@@ -12,38 +11,13 @@ public class FunctionBuilderTemplate {
         throws
     {
         self.method = method
-        self.genericParameterClause = try method.genericParameterClause()
         self.functionBuilderClass = functionBuilderClass
-        
-        // Example: we have function `func x<T, U, Argument0>(x: (T?...) -> ([U]) -> (Argument0))`
-        //
-        // Stub function should contain all generic types from source function.
-        // But we also have our own generic type names. We want to avoid collisions.
-        //
-        // There are two ways to do it:
-        // - Patch source generic names
-        // - Patch additional generic names (for matchers)
-        //
-        // Patching source generic names is error prone, because types can be complicated,
-        // so we patch our own argument names instead.
-        //
-        let takenNames = Set(
-            genericParameterClause.map(default: []) { genericParameterClause in
-                genericParameterClause.genericParameters.map { $0.name }
-            }
-        )
-        
-        genericArgumentTypeNames = try method.parameters.enumerated().map { (index, _) in
-            try NameCollisionAvoidance.typeNameAvoidingCollisons(
-                desiredName: Snippets.matcherGenericArgumentTypeName(index: index),
-                takenNames: takenNames
-            )
-        }
+        self.genericParameterClause = try method.genericParameterClause()
     }
     
     public func render() -> String {
         """
-        func \(method.callName)\(genericParameterClauseString)\(methodArguments)-> \(returnType)\(whereClause){
+        func \(method.callName)\(genericParameterClauseString)\(methodArguments)-> \(returnType){
             \(body.indent())
         }
         """
@@ -75,13 +49,7 @@ public class FunctionBuilderTemplate {
             }
         }
         
-        let matcherGenericParameters = method.parameters.enumerated().compactMap { (index, parameter) in
-            parameter.isNonEscapingClosure.ifFalse {
-                "\(matcherGenericArgumentTypeName(index: index)): MixboxMocksRuntime.Matcher"
-            }
-        }
-        
-        return (sourceParameters + matcherGenericParameters).render(
+        return sourceParameters.render(
             separator: ", ",
             valueIfEmpty: "",
             surround: { "<\($0)>" }
@@ -110,46 +78,21 @@ public class FunctionBuilderTemplate {
                     .typeName
                     .validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
                 
-                let argumentType = parameter.isNonEscapingClosure
-                    ? "NonEscapingClosureMatcher<\(originalType)>"
-                    : matcherGenericArgumentTypeName(index: index)
+                let argumentType: String
+                
+                if parameter.isNonEscapingClosure {
+                    argumentType = "NonEscapingClosureMatcher<\(originalType)>"
+                } else {
+                    argumentType = matcherArgumentTypeName(parameter: parameter)
+                }
                 
                 return "\(labeledArgument): \(argumentType)"
             }
         )
     }
     
-    private func matcherGenericArgumentTypeName(index: Int) -> String {
-        return genericArgumentTypeNames[index]
-    }
-
-    // where
-    // Argument1.MatchingType == Int,
-    // Argument2.MatchingType == Int
-    private var whereClause: String {
-        method.parameters.enumerated().filter { (_, parameter) in
-            !parameter.isNonEscapingClosure
-        }.render(
-            separator: ",\n",
-            valueIfEmpty: " ",
-            surround: {
-                """
-                
-                    where
-                    \($0.indent())
-                
-                """
-            },
-            transform: { (_, pair) in
-                let index = pair.offset
-                let parameter = pair.element
-                    
-                let matchingType = parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional
-                let genericType = matcherGenericArgumentTypeName(index: index)
-                
-                return "\(genericType).MatchingType == \(matchingType)"
-            }
-        )
+    private func matcherArgumentTypeName(parameter: MethodParameter) -> String {
+        return "Matcher<\(parameter.typeName.validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional)>"
     }
 
     // (Int, Int)

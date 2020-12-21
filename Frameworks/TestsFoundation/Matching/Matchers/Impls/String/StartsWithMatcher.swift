@@ -17,7 +17,7 @@ public final class StartsWithMatcher<T: StringProtocol>: Matcher<T> {
                     return .exactMismatch(
                         mismatchDescription: {
                             """
-                            ожидалось, что строка начинается с "\(string)"'", актуальное значение строки: "\(actualValue)"
+                            ожидалось, что строка начинается с "\(string)"'", actual value строки: "\(actualValue)"
                             """
                         },
                         attachments: { [] }

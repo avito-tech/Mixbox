@@ -27,7 +27,7 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
         functionIdentifier: FunctionIdentifier,
         fileLine: FileLine,
         timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher,
-        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
+        recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>,
         timeout: TimeInterval?,
         pollingInterval: TimeInterval?)
     {
@@ -62,7 +62,7 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
         
         let timesMethodIsCalled = recordedCallsProvider.recordedCalls.mb_count {
             $0.functionIdentifier == functionIdentifier
-                && recordedCallArgumentsMatcher.valueIsMatching($0.arguments)
+                && recordedCallArgumentsMatcher.match(value: $0.arguments).matched
         }
         
         switch timesMethodWasCalledMatcher.match(timesMethodIsCalled: timesMethodIsCalled) {
@@ -79,7 +79,7 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
     
     private func shouldWaitForCalls(
         functionIdentifier: FunctionIdentifier,
-        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
+        recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>,
         timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher)
         -> Bool
     {
@@ -100,12 +100,12 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
     
     private func timesMethodIsCalled(
         functionIdentifier: FunctionIdentifier,
-        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher)
+        recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>)
         -> Int
     {
         return recordedCallsProvider.recordedCalls.mb_count {
             $0.functionIdentifier == functionIdentifier
-                && recordedCallArgumentsMatcher.valueIsMatching($0.arguments)
+                && recordedCallArgumentsMatcher.match(value: $0.arguments).matched
         }
     }
 }

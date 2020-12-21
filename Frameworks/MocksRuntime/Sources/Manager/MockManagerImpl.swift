@@ -99,7 +99,7 @@ public final class MockManagerImpl: MockManager {
         functionIdentifier: FunctionIdentifier,
         fileLine: FileLine,
         timesMethodWasCalledMatcher: TimesMethodWasCalledMatcher,
-        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
+        recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>,
         timeout: TimeInterval?,
         pollingInterval: TimeInterval?)
     {

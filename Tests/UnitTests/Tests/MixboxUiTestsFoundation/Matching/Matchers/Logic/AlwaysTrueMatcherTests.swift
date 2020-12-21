@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 
-class AlwaysTrueMatcherTests: BaseMatcherTests {
+class AlwaysTrueMatcherTests: BaseLogicMatcherTests {
     func test___match___matches___always() {
         assertMatches(
             matcher: AlwaysTrueMatcher()

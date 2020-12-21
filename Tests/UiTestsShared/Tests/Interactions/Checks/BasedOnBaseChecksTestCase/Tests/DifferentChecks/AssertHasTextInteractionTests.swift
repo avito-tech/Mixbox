@@ -24,7 +24,7 @@ final class AssertHasTextInteractionTests: BaseChecksTestCase {
     func test___assertHasText___failsProperly() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что в "checkText0" текст равен "Полное [check shall not pass] соответствие"" неуспешно, так как: проверка неуспешна (Имеет проперти text: равно Полное [check shall not pass] соответствие): не равно 'Полное [check shall not pass] соответствие', актуальное значение: 'Полное соответствие')
+                "проверить, что в "checkText0" текст равен "Полное [check shall not pass] соответствие"" неуспешно, так как: проверка неуспешна (Имеет проперти text: equals to Полное [check shall not pass] соответствие): value is not equal to 'Полное [check shall not pass] соответствие', actual value: 'Полное соответствие'
                 """,
             body: {
                 screen.checkText0.withoutTimeout.assertHasText("Полное [check shall not pass] соответствие")

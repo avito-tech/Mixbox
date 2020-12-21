@@ -1,9 +1,5 @@
 public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
-    private let matcher: Matcher<T>
-    
     public init(matcher: Matcher<T>) {
-        self.matcher = matcher
-        
         super.init(
             description: {
                 """

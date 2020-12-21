@@ -69,11 +69,11 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             description:
             """
             не найден superview, который матчится матчером "Всё из [
-                Имеет проперти id: равно non_existent_id
-                Имеет проперти isEnabled: равно true
+                Имеет проперти id: equals to non_existent_id
+                Имеет проперти isEnabled: equals to true
             ]", лучший кандидат зафейлился: Всё из [
-                (x) не равно 'non_existent_id', актуальное значение: 'superview1')
-                (v) Имеет проперти isEnabled: равно true
+                (x) value is not equal to 'non_existent_id', actual value: 'superview1'
+                (v) Имеет проперти isEnabled: equals to true
             ]
             """
         )
@@ -97,7 +97,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             percentageOfMatching: 0,
             description:
             """
-            не найден superview, который матчится матчером "Имеет проперти id: равно non_existent_id", лучший кандидат зафейлился: не равно 'non_existent_id', актуальное значение: 'superview0')
+            не найден superview, который матчится матчером "Имеет проперти id: equals to non_existent_id", лучший кандидат зафейлился: value is not equal to 'non_existent_id', actual value: 'superview0'
             """
         )
     }
@@ -118,7 +118,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             description:
             """
             Является сабвью {
-                Имеет проперти id: равно superview
+                Имеет проперти id: equals to superview
             }
             """
         )

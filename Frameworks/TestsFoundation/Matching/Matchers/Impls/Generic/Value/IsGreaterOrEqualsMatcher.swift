@@ -1,17 +1,17 @@
-public final class EqualsMatcher<T: Equatable>: Matcher<T> {
-    public init(_ expectedValue: T) {
+public final class IsGreaterOrEqualsMatcher<T: Comparable>: Matcher<T> {
+    public init(_ otherValue: T) {
         super.init(
             description: {
-                "equals to \(expectedValue)"
+                "is greater than or equal to \(otherValue)"
             },
             matchingFunction: { actualValue in
-                if actualValue == expectedValue {
+                if actualValue >= otherValue {
                     return .match
                 } else {
                     return .exactMismatch(
                         mismatchDescription: {
                             """
-                            value is not equal to '\(expectedValue)', \
+                            value is not greater than or equal to '\(otherValue)', \
                             actual value: '\(actualValue)'
                             """
                         },

@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 
 public class StubbingFunctionWithClosureArgumentsBuilder<TupledArguments, ReturnType, CallClosureStubbingContinuation>:
     StubbingFunctionBuilder<TupledArguments, ReturnType>
@@ -6,13 +7,13 @@ public class StubbingFunctionWithClosureArgumentsBuilder<TupledArguments, Return
 {
     private let mockManager: MockManager
     private let functionIdentifier: FunctionIdentifier
-    private let recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher
+    private let recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>
     private let fileLine: FileLine
     
     override public init(
         mockManager: MockManager,
         functionIdentifier: FunctionIdentifier,
-        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
+        recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>,
         fileLine: FileLine)
     {
         self.mockManager = mockManager

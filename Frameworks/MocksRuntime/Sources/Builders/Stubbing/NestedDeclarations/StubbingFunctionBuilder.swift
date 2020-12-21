@@ -7,13 +7,13 @@ open class StubbingFunctionBuilder<TupledArguments, ReturnType> {
     
     private let mockManager: MockManager
     private let functionIdentifier: FunctionIdentifier
-    private let recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher
+    private let recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>
     private let fileLine: FileLine
     
     public init(
         mockManager: MockManager,
         functionIdentifier: FunctionIdentifier,
-        recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
+        recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>,
         fileLine: FileLine)
     {
         self.mockManager = mockManager

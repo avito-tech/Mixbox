@@ -42,7 +42,7 @@ final class AssertHasAccessibilityLabelInteractionTests: BaseChecksTestCase {
     func test___assertHasAccessibilityValue___failsProperlyIfAccessibilityValueMismatches() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что в "hasLabel0" accessibilityLabel равен "Accessibility [check shall not pass] Label"" неуспешно, так как: проверка неуспешна (Имеет проперти label: равно Accessibility [check shall not pass] Label): не равно 'Accessibility [check shall not pass] Label', актуальное значение: 'Accessibility Label')
+                "проверить, что в "hasLabel0" accessibilityLabel равен "Accessibility [check shall not pass] Label"" неуспешно, так как: проверка неуспешна (Имеет проперти label: equals to Accessibility [check shall not pass] Label): value is not equal to 'Accessibility [check shall not pass] Label', actual value: 'Accessibility Label'
                 """,
             body: {
                 screen.hasLabel0

@@ -124,13 +124,13 @@ public final class CallClosureStubbingContinuationTemplate {
             
             private let mockManager: MockManager
             private var functionIdentifier: FunctionIdentifier
-            private let recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher
+            private let recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>
             private let fileLine: FileLine
             
             public init(
                 mockManager: MockManager,
                 functionIdentifier: FunctionIdentifier,
-                recordedCallArgumentsMatcher: RecordedCallArgumentsMatcher,
+                recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>,
                 fileLine: FileLine)
             {
                 self.mockManager = mockManager

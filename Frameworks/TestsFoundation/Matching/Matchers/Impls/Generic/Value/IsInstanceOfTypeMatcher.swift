@@ -1,18 +1,20 @@
-public final class EqualsMatcher<T: Equatable>: Matcher<T> {
-    public init(_ expectedValue: T) {
+public final class IsInstanceOfTypeMatcher<ActualType, ExpectedType>:
+    Matcher<ActualType>
+{
+    public init() {
         super.init(
             description: {
-                "equals to \(expectedValue)"
+                "is instance of type \(ExpectedType.self)"
             },
             matchingFunction: { actualValue in
-                if actualValue == expectedValue {
+                if actualValue is ExpectedType {
                     return .match
                 } else {
                     return .exactMismatch(
                         mismatchDescription: {
                             """
-                            value is not equal to '\(expectedValue)', \
-                            actual value: '\(actualValue)'
+                            value is not instance of type '\(ExpectedType.self)', \
+                            actual type: '\(Swift.type(of: actualValue))')
                             """
                         },
                         attachments: { [] }

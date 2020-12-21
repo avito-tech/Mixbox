@@ -8,7 +8,7 @@ public final class IsCloseMatcher<T: IsCloseMatcherCompatible>: Matcher<T> {
     public init(expectedValue: T, delta: T) {
         super.init(
             description: {
-                "равно \(expectedValue) +/- \(delta)"
+                "equals to \(expectedValue) +/- \(delta)"
             },
             matchingFunction: { actualValue in
                 let actualDelta = actualValue.bySubtracting(expectedValue).absoluteValue()
@@ -16,9 +16,9 @@ public final class IsCloseMatcher<T: IsCloseMatcherCompatible>: Matcher<T> {
                     return .partialMismatch(
                         percentageOfMatching: delta.byDividing(actualDelta).doubleValue(),
                         mismatchDescription: {
-                            "актуальное значение: \(actualValue),"
-                                + " ожидаемое значение: \(expectedValue),"
-                                + " разница \(actualDelta) > \(delta)"
+                            "actual value: \(actualValue),"
+                                + " expected value: \(expectedValue),"
+                                + " difference: \(actualDelta) > \(delta)"
                         },
                         attachments: { [] }
                     )

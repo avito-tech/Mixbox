@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 
 public class StubbingImmutablePropertyBuilder<PropertyType> {
     public typealias PropertyType = PropertyType
@@ -34,23 +35,15 @@ public class StubbingImmutablePropertyBuilder<PropertyType> {
 public final class StubbingMutablePropertyBuilder<PropertyType>:
     StubbingImmutablePropertyBuilder<PropertyType>
 {
-    public func set<NewValueMatcher: Matcher>(
-        _ newValueMatcher: NewValueMatcher,
+    public func set(
+        _ newValueMatcher: Matcher<PropertyType>,
         file: StaticString = #file,
         line: UInt = #line)
         -> StubbingFunctionBuilder<PropertyType, ()>
-        where
-        NewValueMatcher.MatchingType == PropertyType
     {
-        let recordedCallArgumentsMatcher = RecordedCallArgumentsMatcher(
-            matchingFunction: { (other: RecordedCallArguments) -> Bool in
-                guard let other: PropertyType = Self.unwrapNewValue(recordedCallArguments: other) else {
-                    return false
-                }
-                
-                return newValueMatcher.valueIsMatching(other)
-            }
-        )
+        let recordedCallArgumentsMatcher = RecordedCallArgumentsMatcherBuilder()
+            .matchNext(newValueMatcher)
+            .matcher()
         
         return StubbingFunctionBuilder(
             mockManager: mockManager,

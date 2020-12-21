@@ -1,7 +1,7 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 
-class NotMatcherTests: BaseMatcherTests {
+class NotMatcherTests: BaseLogicMatcherTests {
     func test___match___matches___if_nested_matcher_mismatches() {
         assertMatches(
             matcher: NotMatcher(AlwaysFalseMatcher())

@@ -1,10 +1,12 @@
+import MixboxTestsFoundation
+
 public final class RecordedCallArgumentsMatcherBuilder {
     private let index: Int
-    private let matchers: [FunctionalMatcher<RecordedCallArgument>]
+    private let matchers: [Matcher<RecordedCallArgument>]
     
     public init(
         index: Int,
-        matchers: [FunctionalMatcher<RecordedCallArgument>])
+        matchers: [Matcher<RecordedCallArgument>])
     {
         self.index = index
         self.matchers = matchers
@@ -17,55 +19,33 @@ public final class RecordedCallArgumentsMatcherBuilder {
         )
     }
     
-    public func matchNext<Matcher: MixboxMocksRuntime.Matcher>(_ matcher: Matcher)
+    public func matchNext<T>(_ matcher: Matcher<T>)
         -> RecordedCallArgumentsMatcherBuilder
     {
+        let nextMatcher = MatcherToRecordedCallArgumentMatcher(
+            matcher: matcher
+        )
+        
         return Self(
             index: index,
-            matchers: matchers + [recordedCallArgumentMatcher(matcher: matcher)]
+            matchers: matchers + [nextMatcher]
         )
     }
     
     public func matchNext<ClosureType>(_ matcher: NonEscapingClosureMatcher<ClosureType>)
         -> RecordedCallArgumentsMatcherBuilder
     {
+        let nextMatcher = NonEscapingClosureTypeToRecordedCallArgumentMatcher(
+            closureType: ClosureType.self
+        )
+        
         return Self(
             index: index,
-            matchers: matchers + [nonEscapingClosureMatcher(closureType: ClosureType.self)]
+            matchers: matchers + [nextMatcher]
         )
     }
     
-    public func matcher() -> RecordedCallArgumentsMatcher {
-        return RecordedCallArgumentsMatcher(
-            matchingFunction: { [matchers] recordedCallArguments in
-                recordedCallArguments.arguments.elementsEqual(matchers) { (recordedCallArgument, matcher) -> Bool in
-                    matcher.valueIsMatching(recordedCallArgument)
-                }
-            }
-        )
-    }
-    
-    // MARK: - Private
-    
-    private func recordedCallArgumentMatcher<Matcher: MixboxMocksRuntime.Matcher>(
-        matcher: Matcher)
-        -> FunctionalMatcher<RecordedCallArgument>
-    {
-        return FunctionalMatcher { argument in
-            if let value = argument.value.typedNestedValue(type: Matcher.MatchingType.self) {
-                return matcher.valueIsMatching(value)
-            } else {
-                return false
-            }
-        }
-    }
-    
-    private func nonEscapingClosureMatcher(
-        closureType: Any.Type)
-        -> FunctionalMatcher<RecordedCallArgument>
-    {
-        return FunctionalMatcher { argument in
-            argument.value.isNonEscapingClosure() && argument.type == closureType
-        }
+    public func matcher() -> Matcher<RecordedCallArguments> {
+        return RecordedCallArgumentsMatcher(matchers: matchers)
     }
 }

@@ -2,7 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import XCTest
 
-class AlwaysFalseMatcherTests: BaseMatcherTests {
+class AlwaysFalseMatcherTests: BaseLogicMatcherTests {
     func test___match___mismatches___always() {
         assertMismatches(
             matcher: AlwaysFalseMatcher(),

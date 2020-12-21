@@ -42,10 +42,6 @@ public final class Snippets {
         return "matcher\(index)"
     }
     
-    public static func matcherGenericArgumentTypeName(index: Int) -> String {
-        return "Matcher\(index)"
-    }
-    
     public static func variableNameStringLiteral(variable: Variable) -> String {
         return identifier(
             value: "\(variable.name)"

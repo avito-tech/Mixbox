@@ -487,6 +487,8 @@
 		F8B010E421FF319D0026360D /* TestReportStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010DA21FF319C0026360D /* TestReportStatus.swift */; };
 		F8B010E521FF319D0026360D /* TestMethodReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010DB21FF319C0026360D /* TestMethodReport.swift */; };
 		F8B010E621FF319D0026360D /* TestReportFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B010DC21FF319C0026360D /* TestReportFailure.swift */; };
+		F8B0346F2590F2D60014574B /* ArrayEqualsMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0346E2590F2D60014574B /* ArrayEqualsMatcherTests.swift */; };
+		F8B034712590F7EC0014574B /* BaseLogicMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B034702590F7EC0014574B /* BaseLogicMatcherTests.swift */; };
 		F8B0A2122209F6940089C1EE /* HostedAppLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82A05B021F6745F0008C2BB /* HostedAppLogicTests.swift */; };
 		F8B0A245220A0E040089C1EE /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A233220A0E040089C1EE /* TestCase.swift */; };
 		F8B0A246220A0E040089C1EE /* GrayBoxTestCaseDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A234220A0E040089C1EE /* GrayBoxTestCaseDependencies.swift */; };
@@ -1145,6 +1147,8 @@
 		F8B010DA21FF319C0026360D /* TestReportStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestReportStatus.swift; sourceTree = "<group>"; };
 		F8B010DB21FF319C0026360D /* TestMethodReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMethodReport.swift; sourceTree = "<group>"; };
 		F8B010DC21FF319C0026360D /* TestReportFailure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestReportFailure.swift; sourceTree = "<group>"; };
+		F8B0346E2590F2D60014574B /* ArrayEqualsMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayEqualsMatcherTests.swift; sourceTree = "<group>"; };
+		F8B034702590F7EC0014574B /* BaseLogicMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLogicMatcherTests.swift; sourceTree = "<group>"; };
 		F8B0A2002209C44A0089C1EE /* GrayBoxUiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrayBoxUiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B0A2042209C44A0089C1EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8B0A233220A0E040089C1EE /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -1506,6 +1510,7 @@
 		F80D36082313F9610058E118 /* Matchers */ = {
 			isa = PBXGroup;
 			children = (
+				F8B0346D2590F2C80014574B /* Array */,
 				F8FC4AD823AA692200D3E911 /* ElementSnapshot */,
 				F8FC4AD723AA691200D3E911 /* Logic */,
 			);
@@ -2863,6 +2868,22 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		F8B0346D2590F2C80014574B /* Array */ = {
+			isa = PBXGroup;
+			children = (
+				F8B0346E2590F2D60014574B /* ArrayEqualsMatcherTests.swift */,
+			);
+			path = Array;
+			sourceTree = "<group>";
+		};
+		F8B034722590F7F40014574B /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F8B034702590F7EC0014574B /* BaseLogicMatcherTests.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		F8B0A2012209C44A0089C1EE /* GrayBoxUiTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -3783,6 +3804,7 @@
 		F8FC4AD723AA691200D3E911 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				F8B034722590F7F40014574B /* Support */,
 				F8FC4ACC23AA666E00D3E911 /* AlwaysFalseMatcherTests.swift */,
 				F8FC4ACE23AA686900D3E911 /* AndMatcherTests.swift */,
 				F8FC4AD023AA687700D3E911 /* OrMatcherTests.swift */,
@@ -5237,6 +5259,7 @@
 				F8539643254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift in Sources */,
 				F830B5E02582208D00E5E444 /* DynamicBehaviorIntegrationalTestsProtocol.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
+				F8B0346F2590F2D60014574B /* ArrayEqualsMatcherTests.swift in Sources */,
 				F80C2E2424D1E0E900C6CAD4 /* TestCaseDependencies.swift in Sources */,
 				F8C3AD1C243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift in Sources */,
 				F8B964CE2281DCC00054CE08 /* TestCase.swift in Sources */,
@@ -5276,6 +5299,7 @@
 				F81144D02268D39C00ED519B /* GeneratedMocks.ignored.swift in Sources */,
 				F87D2C0524D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift in Sources */,
 				F8FC4AD623AA68FE00D3E911 /* NotMatcherTests.swift in Sources */,
+				F8B034712590F7EC0014574B /* BaseLogicMatcherTests.swift in Sources */,
 				F8E160C7241862A600B4912F /* DigitizerEventTests.swift in Sources */,
 				F80C2E0D24D1DAFD00C6CAD4 /* TestCanNotBeContinuedException.swift in Sources */,
 				F8DC864923674F44003889C7 /* CGImage+Stub.swift in Sources */,

@@ -56,7 +56,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     
     func test___mock___doesnt_use_dynamicCallable_result___if_dynamicCallable_is_set_to_return_canNotProvideResult() {
         // TODO: Error is not not used anywhere. Use it in error description.
-        stubDynamicCallable(argument: 1)
+        stubDynamicCallable(argument: equals(1))
             .thenReturn(.canNotProvideResult(ErrorString("error")))
         
         assertFails {
@@ -83,42 +83,47 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
         )
     }
     
-    func test___mock___doesnt_use_dynamicCallable_result___if_mock_is_stubbed() {
+    func test___mock___uses_dynamicCallable_result___if_mock_is_stubbed_but_arguments_dont_match_stub() {
         stubDynamicCallable(argument: any())
             .thenReturn(.returned(123456789))
         
-        mock.stub().function(int: 1).thenReturn(987654321)
+        mock.stub().function(int: equals(1)).thenReturn(987654321)
         
-        // Stubs have higher priority than dynamic implementation
-        XCTAssertEqual(
-            mock.function(int: 1),
-            987654321
-        )
-        
-        // This only works if stubs exactly match arguments
+        // There is stub for arguments equals to 1, not for 2 => use dynamic callable
         XCTAssertEqual(
             mock.function(int: 2),
             123456789
         )
     }
     
+    func test___mock___doesnt_use_dynamicCallable_result___if_mock_is_stubbed_and_arguments_match_staub() {
+        stubDynamicCallable(argument: any())
+            .thenReturn(.returned(123456789))
+        
+        mock.stub().function(int: equals(1)).thenReturn(987654321)
+        
+        // Stubs have higher priority than dynamic implementation
+        XCTAssertEqual(
+            mock.function(int: 1),
+            987654321
+        )
+    }
+    
     // MARK: - Private
     
-    private func stubDynamicCallable<T: MixboxMocksRuntime.Matcher>(
-        argument: T)
+    private func stubDynamicCallable(
+        argument: Matcher<Int>)
         -> StubbingFunctionBuilder<
             (NonEscapingCallArguments, Int.Type),
             DynamicCallableResult<Int>
         >
-        where
-        T.MatchingType == Int
     {
         return dynamicCallable
             .stub()
             .call(
                 nonEscapingCallArguments: matches { [uninterceptableErrorTracker] in
                     if let value = $0.arguments.mb_only?.value.asRegular()?.value as? Int {
-                        return argument.valueIsMatching(value)
+                        return argument.match(value: value).matched
                     } else {
                         uninterceptableErrorTracker.track(
                             error: ErrorString("Unexpected call to DynamicCallable")

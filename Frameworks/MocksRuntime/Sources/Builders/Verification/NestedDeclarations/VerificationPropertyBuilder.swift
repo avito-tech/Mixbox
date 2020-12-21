@@ -1,4 +1,5 @@
 import MixboxFoundation
+import MixboxTestsFoundation
 
 public class VerificationImmutablePropertyBuilder<PropertyType> {
     public typealias PropertyType = PropertyType
@@ -25,7 +26,7 @@ public class VerificationImmutablePropertyBuilder<PropertyType> {
                 variableName: variableName,
                 type: .get
             ),
-            recordedCallArgumentsMatcher: any(),
+            recordedCallArgumentsMatcher: AlwaysTrueMatcher(),
             fileLine: FileLine(file: file, line: line)
         )
     }
@@ -35,13 +36,11 @@ public final class VerificationMutablePropertyBuilder<PropertyType>:
     VerificationImmutablePropertyBuilder<PropertyType>
 {
     // TODO: Support detecting closures? Now only `NonEscapingCallArgument.regular` is returned.
-    public func set<NewValueMatcher: Matcher>(
-        _ newValueMatcher: NewValueMatcher,
+    public func set(
+        _ newValueMatcher: Matcher<PropertyType>,
         file: StaticString = #file,
         line: UInt = #line)
         -> VerificationFunctionBuilder<PropertyType, ()>
-        where
-        NewValueMatcher.MatchingType == NonEscapingCallArguments
     {
         let recordedCallArgumentsMatcher = RecordedCallArgumentsMatcherBuilder()
             .matchNext(newValueMatcher)

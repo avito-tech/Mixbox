@@ -1,105 +1,116 @@
 import Foundation
+import MixboxTestsFoundation
 
-open class FunctionalMatcher<MatchingType>: Matcher {
-    public typealias MatchingType = MatchingType
-    
-    private let matchingFunction: (MatchingType) -> Bool
-    
-    public init(matchingFunction: @escaping (MatchingType) -> Bool) {
-        self.matchingFunction = matchingFunction
-    }
-    
-    public init<U: Matcher>(matcher: U) where U.MatchingType == MatchingType {
-        self.matchingFunction = matcher.valueIsMatching
-    }
-    
-    public func valueIsMatching(_ value: MatchingType) -> Bool {
-        return matchingFunction(value)
-    }
-}
-
-extension FunctionalMatcher {
-    public func byErasingType() -> FunctionalMatcher<Any> {
-        return FunctionalMatcher<Any>(
-            matchingFunction: { arguments in
-                if let argumentsAsT = arguments as? MatchingType {
-                    return self.valueIsMatching(argumentsAsT)
+extension Matcher {
+    public func byErasingType() -> Matcher<Any> {
+        return Matcher<Any>(
+            description: {
+                "\(self.description) (converting result to \(MatchedType.self))"
+            },
+            matchingFunction: { value in
+                if let valueAsT = value as? MatchedType {
+                    return self.match(value: valueAsT)
                 } else {
-                    return false
+                    return .exactMismatch(
+                        mismatchDescription: {
+                            """
+                            Expected value to be of type '\(MatchedType.self)', \
+                            actual type: \(type(of: value)), \
+                            value: \(value)
+                            """
+                        },
+                        attachments: { [] }
+                    )
                 }
             }
         )
     }
 }
 
-public func any<MatchingType>(
-    type: MatchingType.Type = MatchingType.self)
-    -> FunctionalMatcher<MatchingType>
+public func any<MatchedType>(
+    type: MatchedType.Type = MatchedType.self)
+    -> Matcher<MatchedType>
 {
-    return FunctionalMatcher<MatchingType> { _ in true }
+    return AlwaysTrueMatcher()
 }
 
-public func none<MatchingType>(
-    type: MatchingType.Type = MatchingType.self)
-    -> FunctionalMatcher<MatchingType>
+public func none<MatchedType>(
+    type: MatchedType.Type = MatchedType.self)
+    -> Matcher<MatchedType>
 {
-    return FunctionalMatcher<MatchingType> { _ in false }
+    return AlwaysFalseMatcher()
 }
 
-public func matches<MatchingType>(
-    type: MatchingType.Type = MatchingType.self,
-    _ matchingFunction: @escaping (MatchingType) -> Bool)
-    -> FunctionalMatcher<MatchingType>
+public func matches<MatchedType>(
+    type: MatchedType.Type = MatchedType.self,
+    _ matchingFunction: @escaping (MatchedType) -> Bool)
+    -> Matcher<MatchedType>
 {
-    return FunctionalMatcher<MatchingType>(matchingFunction: matchingFunction)
+    return Matcher<MatchedType>(
+        description: {
+            "value is matched by custom function (without description)"
+        },
+        matchingFunction: {
+            if matchingFunction($0) {
+                return .match
+            } else {
+                return .exactMismatch(
+                    mismatchDescription: {
+                        "matching with custom function failed (without description)"
+                    },
+                    attachments: { [] }
+                )
+            }
+        }
+    )
 }
 
-public func equals<MatchingType>(
-    _ value: MatchingType)
-    -> FunctionalMatcher<MatchingType>
+public func equals<MatchedType>(
+    _ value: MatchedType)
+    -> Matcher<MatchedType>
     where
-    MatchingType: Equatable
+    MatchedType: Equatable
 {
-    return FunctionalMatcher<MatchingType> { other in value == other }
+    return EqualsMatcher(value)
 }
 
-public func isSame<MatchingType>(
-    _ value: MatchingType)
-    -> FunctionalMatcher<MatchingType>
+public func isSame<MatchedType>(
+    _ value: MatchedType)
+    -> Matcher<MatchedType>
     where
-    MatchingType: AnyObject
+    MatchedType: AnyObject
 {
-    return FunctionalMatcher<MatchingType> { other in value === other }
+    return IsSameInstanceMatcher(value)
 }
 
 public func isSame(
     _ value: AnyObject.Type)
-    -> FunctionalMatcher<AnyObject.Type>
+    -> Matcher<AnyObject.Type>
 {
-    return FunctionalMatcher<AnyObject.Type> { other in value === other }
+    return IsSameInstanceMatcher(value)
 }
 
 public func isSame(
     _ value: NSObject.Type)
-    -> FunctionalMatcher<NSObject.Type>
+    -> Matcher<NSObject.Type>
 {
-    return FunctionalMatcher<NSObject.Type> { other in value === other }
+    return IsSameInstanceMatcher(value)
 }
 
 public func atLeast<MatchingType>(
-    _ atLeast: MatchingType)
-    -> FunctionalMatcher<MatchingType>
+    _ minimumValue: MatchingType)
+    -> Matcher<MatchingType>
     where
     MatchingType: Comparable
 {
-    return FunctionalMatcher<MatchingType> { given in given >= atLeast }
+    return IsGreaterOrEqualsMatcher(minimumValue)
 }
 
 public func atMost<MatchingType>(
-    _ atLeast: MatchingType)
-    -> FunctionalMatcher<MatchingType>
+    _ maximumValue: MatchingType)
+    -> Matcher<MatchingType>
     where
     MatchingType: Comparable
 {
-    return FunctionalMatcher<MatchingType> { given in given <= atLeast }
+    return IsLessOrEqualsMatcher(maximumValue)
 }
