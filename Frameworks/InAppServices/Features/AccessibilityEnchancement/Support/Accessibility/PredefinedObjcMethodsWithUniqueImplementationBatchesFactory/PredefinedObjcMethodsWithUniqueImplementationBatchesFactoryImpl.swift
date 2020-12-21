@@ -60,9 +60,11 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
             iosMajorVersion: 14,
             methods: [
                 method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
+                method(class: "UIActivityActionGroupCellAccessibility"),
+                method(class: "UIShareGroupActivityCellAccessibility"),
                 method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
-                method(class: "NSObject"),
-                method(class: "UIView")
+                method(class: "UIView"),
+                method(class: "NSObject")
             ]
         )
     }
