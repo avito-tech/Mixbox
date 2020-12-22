@@ -87,6 +87,7 @@
 		F801CC1B2254F9C80074F0E9 /* StartedStepLoggerRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */; };
 		F801CC1C2254F9C80074F0E9 /* StepLoggerRecordingStarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */; };
 		F801CC1D2254F9C80074F0E9 /* RecordingStepLoggerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */; };
+		F8027A4D2592342300F0DA44 /* TypeName_TypeInstanceExpression_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8027A4C2592342300F0DA44 /* TypeName_TypeInstanceExpression_Tests.swift */; };
 		F8033887256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */; };
 		F80C2DFB24D1DAFD00C6CAD4 /* LogsAndFailuresMatcherBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833422494E7B004DD770 /* LogsAndFailuresMatcherBuilder.swift */; };
 		F80C2DFC24D1DAFD00C6CAD4 /* LogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8798329224949ED004DD770 /* LogsAndFailures.swift */; };
@@ -877,6 +878,7 @@
 		F801CC0E2254F9700074F0E9 /* StartedStepLoggerRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartedStepLoggerRecording.swift; sourceTree = "<group>"; };
 		F801CC102254F97F0074F0E9 /* StepLoggerRecordingStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepLoggerRecordingStarter.swift; sourceTree = "<group>"; };
 		F801CC122254F9930074F0E9 /* RecordingStepLoggerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStepLoggerImpl.swift; sourceTree = "<group>"; };
+		F8027A4C2592342300F0DA44 /* TypeName_TypeInstanceExpression_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName_TypeInstanceExpression_Tests.swift; sourceTree = "<group>"; };
 		F8033886256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxMocksSettingMockManagerTests.swift; sourceTree = "<group>"; };
 		F80C2E1724D1DC6400C6CAD4 /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
 		F80C2E1F24D1E08400C6CAD4 /* BaseTestCase+ResolveFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTestCase+ResolveFunctions.swift"; sourceTree = "<group>"; };
@@ -2389,6 +2391,7 @@
 				F8A12CB925685049005E1963 /* TypeName_ValidTypeName_Tests.swift */,
 				F88B8C732570D508009503D2 /* NameCollisionAvoidanceTests.swift */,
 				F8FF7BA22573962300F976A7 /* TypeName_ValidClosureType_Tests.swift */,
+				F8027A4C2592342300F0DA44 /* TypeName_TypeInstanceExpression_Tests.swift */,
 			);
 			path = MixboxMockGeneration;
 			sourceTree = "<group>";
@@ -5388,6 +5391,7 @@
 				F8FF7BA32573962300F976A7 /* TypeName_ValidClosureType_Tests.swift in Sources */,
 				F88B8C742570D508009503D2 /* NameCollisionAvoidanceTests.swift in Sources */,
 				F8A12CB825684FAA005E1963 /* SnippetsTests.swift in Sources */,
+				F8027A4D2592342300F0DA44 /* TypeName_TypeInstanceExpression_Tests.swift in Sources */,
 				F88F550F255EFE840072A9BF /* MockGenerationTests.swift in Sources */,
 				F8A12CB625684DF6005E1963 /* FixturesPathsForOsxUnitTests.swift in Sources */,
 			);

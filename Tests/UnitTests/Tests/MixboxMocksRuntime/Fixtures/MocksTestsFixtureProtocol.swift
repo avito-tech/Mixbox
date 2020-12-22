@@ -103,6 +103,7 @@ protocol MocksTestsFixtureProtocol:
     
     // Argument types: Closures: Not really
     
+    func function(closureWithLabeledArgs: (Int, _: Int, _ label: Int) -> ())
     func function(optionalClosure: ((Int, inout String, () throws -> ()) throws -> (Int))?)
     func function(closureLikeArgumentOfImplicitlyUnwrappedOptionalType: (() -> ())!)
     func function(closureLikeArgumentOfOptionalType: (() -> ())?)

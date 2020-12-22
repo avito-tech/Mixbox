@@ -23,31 +23,6 @@ extension TypeName {
         }
     }
     
-    // https://docs.swift.org/swift-book/ReferenceManual/Expressions.html#grammar_postfix-self-expression
-    public var typeInstanceExpression: String {
-        var typeName = validTypeName
-        
-        // `().self` leads to this error: `Cannot convert value of type '()' to expected argument type 'Any.Type'`
-        // Note that `(()).self` is also an invalid expression and just adding more parentheses (like below) won't help.
-        if typeName == "()" {
-            typeName = "Void"
-        }
-        
-        while typeName.hasSuffix("!") {
-            // `(() -> ())!.self is not a valid expression
-            typeName = "\(typeName.dropLast())"
-        }
-        
-        if isReallyClosure || typeName.hasPrefix(")") || typeName.hasSuffix(")") {
-            // `() -> ().self` is not a valid expression
-            typeName = "(\(typeName))"
-        }
-        
-        return """
-        \(typeName).self
-        """
-    }
-    
     public var validTypeNameReplacingImplicitlyUnrappedOptionalWithPlainOptional: String {
         let typeName = validTypeName
         
