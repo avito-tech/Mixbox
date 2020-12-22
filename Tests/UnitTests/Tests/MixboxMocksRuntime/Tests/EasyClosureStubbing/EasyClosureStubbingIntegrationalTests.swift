@@ -12,7 +12,7 @@ final class EasyClosureStubbingIntegrationalTests: TestCase {
     func test___void_function___can_be_stubbed_with_closure_call___with_name_variant_0() {
         mock
             .stub()
-            .voidFunctionWithNameVariant0(completion: any())
+            .voidFunctionWithNameVariant0()
             .thenCall
             .completion(42)
         
@@ -30,7 +30,7 @@ final class EasyClosureStubbingIntegrationalTests: TestCase {
     func test___void_function___can_be_stubbed_with_closure_call___with_name_variant_1() {
         mock
             .stub()
-            .voidFunctionWithNameVariant1(closure: any())
+            .voidFunctionWithNameVariant1()
             .thenCall
             .closure(42)
         
@@ -48,7 +48,7 @@ final class EasyClosureStubbingIntegrationalTests: TestCase {
     func test___function_with_void_arguments_in_closure___can_be_stubbed_with_closure_call() {
         mock
             .stub()
-            .functionWithVoidArgumentsInClosure(closure: any())
+            .functionWithVoidArgumentsInClosure()
             .thenCall
             .closure()
         
@@ -65,7 +65,7 @@ final class EasyClosureStubbingIntegrationalTests: TestCase {
     
     func test___non_void_function___can_not_be_stubbed_with_closure_call() {
         XCTAssert(
-            type(of: mock.stub().nonVoidFunction(completion: any()))
+            type(of: mock.stub().nonVoidFunction())
                 == StubbingFunctionBuilder<((Int) -> ()), Int>.self
         )
     }

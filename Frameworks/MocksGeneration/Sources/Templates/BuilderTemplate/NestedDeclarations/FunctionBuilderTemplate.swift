@@ -86,7 +86,7 @@ public class FunctionBuilderTemplate {
                     argumentType = matcherArgumentTypeName(parameter: parameter)
                 }
                 
-                return "\(labeledArgument): \(argumentType)"
+                return "\(labeledArgument): \(argumentType) = any()"
             }
         )
     }

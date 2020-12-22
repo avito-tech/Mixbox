@@ -17,17 +17,8 @@ final class RecordedSessionStubberTests: TestCase {
         
         stubRequestBuilder
             .stub()
-            .withRequestStub(urlPattern: any(), httpMethod: any())
+            .withRequestStub()
             .thenReturn(stubResponseBuilder)
-        
-        stubResponseBuilder
-            .stub()
-            .withResponse(
-                value: any(),
-                variation: any(),
-                responseTime: any()
-            )
-            .thenDoNothing()
     }
     
     func test___with_empty_path() {

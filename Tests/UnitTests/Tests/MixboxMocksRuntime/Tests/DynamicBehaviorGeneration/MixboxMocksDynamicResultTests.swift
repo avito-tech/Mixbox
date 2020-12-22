@@ -28,7 +28,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
         
         dynamicCallableFactory
             .stub()
-            .dynamicCallable(generatorSpecializations: any())
+            .dynamicCallable()
             .thenReturn(dynamicCallable)
     }
     
@@ -45,7 +45,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     }
     
     func test___mock___uses_dynamicCallable_result___if_dynamicCallable_is_set_to_return_value() {
-        stubDynamicCallable(argument: any())
+        stubDynamicCallable()
             .thenReturn(.returned(123456789))
         
         XCTAssertEqual(
@@ -65,7 +65,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     }
     
     func test___mock___doesnt_use_dynamicCallable_result___if_default_implementation_is_set() {
-        stubDynamicCallable(argument: any())
+        stubDynamicCallable()
             .thenReturn(.returned(123456789))
         
         class DefaultImplementation: MocksTestsFixtureSimpleProtocol {
@@ -84,7 +84,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     }
     
     func test___mock___uses_dynamicCallable_result___if_mock_is_stubbed_but_arguments_dont_match_stub() {
-        stubDynamicCallable(argument: any())
+        stubDynamicCallable()
             .thenReturn(.returned(123456789))
         
         mock.stub().function(int: equals(1)).thenReturn(987654321)
@@ -97,7 +97,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     }
     
     func test___mock___doesnt_use_dynamicCallable_result___if_mock_is_stubbed_and_arguments_match_staub() {
-        stubDynamicCallable(argument: any())
+        stubDynamicCallable()
             .thenReturn(.returned(123456789))
         
         mock.stub().function(int: equals(1)).thenReturn(987654321)
@@ -112,7 +112,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
     // MARK: - Private
     
     private func stubDynamicCallable(
-        argument: Matcher<Int>)
+        argument: Matcher<Int> = any())
         -> StubbingFunctionBuilder<
             (NonEscapingCallArguments, Int.Type),
             DynamicCallableResult<Int>

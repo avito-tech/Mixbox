@@ -16,13 +16,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         
         factory
             .stub()
-            .allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
-                enhancedAccessibilityLabelMethodSwizzler: any(),
-                objcMethodsWithUniqueImplementationProvider: any(),
-                baseClass: any(),
-                selector: any(),
-                methodType: any()
-            )
+            .allMethodsWithUniqueImplementationAccessibilityLabelSwizzler()
             .thenReturn(
                 // Value doesn't matter
                 AllMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
@@ -70,13 +64,10 @@ final class PredefinedObjcMethodsTests: TestCase {
         
         // Verify that only 1 swizzler is created:
         
-        factory.verify().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
-            enhancedAccessibilityLabelMethodSwizzler: any(),
-            objcMethodsWithUniqueImplementationProvider: any(),
-            baseClass: any(),
-            selector: any(),
-            methodType: any()
-        ).isCalled(times: .exactly(1))
+        factory
+            .verify()
+            .allMethodsWithUniqueImplementationAccessibilityLabelSwizzler()
+            .isCalledOnlyOnce()
     }
     
     private func checkForIosFrom11() {
@@ -98,13 +89,10 @@ final class PredefinedObjcMethodsTests: TestCase {
         
         // Verify that only 1 swizzler is created:
         
-        factory.verify().allMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
-            enhancedAccessibilityLabelMethodSwizzler: any(),
-            objcMethodsWithUniqueImplementationProvider: any(),
-            baseClass: any(),
-            selector: any(),
-            methodType: any()
-        ).isCalled(times: .exactly(1))
+        factory
+            .verify()
+            .allMethodsWithUniqueImplementationAccessibilityLabelSwizzler()
+            .isCalledOnlyOnce()
     }
     
     private func checkObjcMethodsMethodsWithUniqueImplementationArePredefined(
@@ -117,7 +105,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         let fallbackObjcMethodsWithUniqueImplementationProvider = register(MockObjcMethodsWithUniqueImplementationProvider())
         fallbackObjcMethodsWithUniqueImplementationProvider
             .stub()
-            .objcMethodsWithUniqueImplementation(baseClass: any(), selector: any(), methodType: any())
+            .objcMethodsWithUniqueImplementation()
             .thenInvoke { _ in
                 fallbackWasUsed = true
                 return []
