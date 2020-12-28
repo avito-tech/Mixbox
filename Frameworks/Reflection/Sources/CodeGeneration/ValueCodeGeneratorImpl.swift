@@ -1,3 +1,5 @@
+// TODO: Fix lint.
+// swiftlint:disable:next type_body_length
 public final class ValueCodeGeneratorImpl: ValueCodeGenerator {
     private let indentation: String
     
@@ -8,16 +10,23 @@ public final class ValueCodeGeneratorImpl: ValueCodeGenerator {
     private let newLineCharacter: Character
     private let newLine: String
     
-    public init(indentation: String = "    ", newLineCharacter: Character = "\n") {
+    private let immutableValueReflectionProvider: ImmutableValueReflectionProvider
+    
+    public init(
+        indentation: String = "    ",
+        newLineCharacter: Character = "\n",
+        immutableValueReflectionProvider: ImmutableValueReflectionProvider)
+    {
         self.indentation = indentation
         self.newLineCharacter = newLineCharacter
         self.newLine = String(newLineCharacter)
+        self.immutableValueReflectionProvider = immutableValueReflectionProvider
     }
     
     public func generateCode(value: Any, typeCanBeInferredFromContext: Bool) -> String {
         return code(
-            reflection: TypedImmutableValueReflection.reflect(
-                reflected: value
+            reflection: immutableValueReflectionProvider.reflection(
+                value: value
             ),
             typeCanBeInferredFromContext: typeCanBeInferredFromContext
         )
@@ -29,24 +38,26 @@ public final class ValueCodeGeneratorImpl: ValueCodeGenerator {
         -> String
     {
         switch reflection {
-        case .`struct`(let reflection):
+        case let .`struct`(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .`class`(let reflection):
+        case let .`class`(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .`enum`(let reflection):
+        case let .`enum`(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .tuple(let reflection):
+        case let .tuple(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .optional(let reflection):
+        case let .optional(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .collection(let reflection):
+        case let .collection(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .dictionary(let reflection):
+        case let .dictionary(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .set(let reflection):
+        case let .set(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
-        case .primitive(let reflection):
+        case let .primitive(reflection):
             return code(reflection: reflection, typeCanBeInferredFromContext: typeCanBeInferredFromContext)
+        case let .circularReference(value, _):
+            return "<circular reference to \(type(of: value))>"
         }
     }
 

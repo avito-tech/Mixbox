@@ -2,7 +2,10 @@
 @_silgen_name("swift_EnumCaseName")
 private func _getEnumCaseName<T>(_ value: T) -> UnsafePointer<CChar>?
 
-public final class EnumImmutableValueReflection: ImmutableValueReflection {
+public final class EnumImmutableValueReflection:
+    ImmutableValueReflection,
+    ReflectableWithReflector
+{
     public let type: Any.Type
     public let caseName: String?
     public let associatedValue: TypedImmutableValueReflection?
@@ -17,20 +20,16 @@ public final class EnumImmutableValueReflection: ImmutableValueReflection {
         self.associatedValue = associatedValue
     }
     
-    public static func reflect(reflected: Any) -> EnumImmutableValueReflection {
-        return reflect(
-            reflected: reflected,
-            mirror: Mirror(reflecting: reflected)
-        )
-    }
-    
-    public static func reflect(reflected: Any, mirror: Mirror) -> EnumImmutableValueReflection {
+    public static func reflect(reflector: Reflector) -> EnumImmutableValueReflection {
         return EnumImmutableValueReflection(
-            type: mirror.subjectType,
-            caseName: enumCaseName(child: mirror.children.first, reflected: reflected),
-            associatedValue: mirror.children.first.map { child in
-                TypedImmutableValueReflection.reflect(
-                    reflected: child.value
+            type: reflector.mirror.subjectType,
+            caseName: enumCaseName(
+                child: reflector.mirror.children.first,
+                reflected: reflector.value
+            ),
+            associatedValue: reflector.mirror.children.first.map { child in
+                reflector.nestedValueReflection(
+                    value: child.value
                 )
             }
         )

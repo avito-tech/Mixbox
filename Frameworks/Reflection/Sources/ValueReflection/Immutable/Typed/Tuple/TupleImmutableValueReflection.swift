@@ -1,4 +1,7 @@
-public final class TupleImmutableValueReflection: ImmutableValueReflection, ReflectableWithMirror {
+public final class TupleImmutableValueReflection:
+    ImmutableValueReflection,
+    ReflectableWithReflector
+{
     public let type: Any.Type
     public let elements: [TupleImmutableValueReflectionElement]
     
@@ -10,17 +13,17 @@ public final class TupleImmutableValueReflection: ImmutableValueReflection, Refl
         self.elements = elements
     }
     
-    public static func reflect(mirror: Mirror) -> TupleImmutableValueReflection {
+    public static func reflect(reflector: Reflector) -> TupleImmutableValueReflection {
         return TupleImmutableValueReflection(
-            type: mirror.subjectType,
-            elements: mirror.children.map { child in
+            type: reflector.mirror.subjectType,
+            elements: reflector.mirror.children.map { child in
                 TupleImmutableValueReflectionElement(
                     label: child.label.flatMap { label in
                         // If there is no label, label is like ".0" (for first element, for example).
                         label.starts(with: ".") ? nil : label
                     },
-                    value: TypedImmutableValueReflection.reflect(
-                        reflected: child.value
+                    value: reflector.nestedValueReflection(
+                        value: child.value
                     )
                 )
             }

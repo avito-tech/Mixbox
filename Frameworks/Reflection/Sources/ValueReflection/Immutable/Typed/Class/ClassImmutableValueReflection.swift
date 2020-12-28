@@ -1,4 +1,7 @@
-public final class ClassImmutableValueReflection: BaseImmutableValueReflectionWithFields {
+public final class ClassImmutableValueReflection:
+    BaseImmutableValueReflectionWithFields,
+    ReflectableWithReflector
+{
     public let superclassReflection: ClassImmutableValueReflection?
     
     public init(
@@ -19,12 +22,23 @@ public final class ClassImmutableValueReflection: BaseImmutableValueReflectionWi
         return superclassFields + fields
     }
     
-    public static func reflect(mirror: Mirror) -> ClassImmutableValueReflection {
+    public static func reflect(reflector: Reflector) -> ClassImmutableValueReflection {
         return ClassImmutableValueReflection(
-            type: mirror.subjectType,
-            fields: fields(mirror: mirror),
-            superclassReflection: mirror.superclassMirror.map { mirror in
-                ClassImmutableValueReflection.reflect(mirror: mirror)
+            type: reflector.mirror.subjectType,
+            fields: fields(reflector: reflector),
+            superclassReflection: reflector.mirror.superclassMirror.flatMap { mirror in
+                let reflection = reflector.nestedValueReflection(
+                    value: reflector.value,
+                    mirror: mirror
+                )
+                
+                switch reflection {
+                case let .class(superclassReflection):
+                    return superclassReflection
+                default:
+                    // TODO: Assert or throw error instead?
+                    return nil
+                }
             }
         )
     }

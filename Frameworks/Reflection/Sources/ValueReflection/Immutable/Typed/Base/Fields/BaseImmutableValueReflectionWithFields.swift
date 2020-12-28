@@ -10,12 +10,12 @@ open class BaseImmutableValueReflectionWithFields: ImmutableValueReflectionWithF
         self.fields = fields
     }
     
-    static func fields(mirror: Mirror) -> [ImmutableValueReflectionField] {
-        return mirror.children.map { child in
+    static func fields(reflector: Reflector) -> [ImmutableValueReflectionField] {
+        return reflector.mirror.children.map { child in
             ImmutableValueReflectionField(
                 label: child.label,
-                value: TypedImmutableValueReflection.reflect(
-                    reflected: child.value
+                value: reflector.nestedValueReflection(
+                    value: child.value
                 )
             )
         }

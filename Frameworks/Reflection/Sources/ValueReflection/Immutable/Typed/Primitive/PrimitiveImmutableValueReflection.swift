@@ -1,4 +1,7 @@
-public final class PrimitiveImmutableValueReflection: ImmutableValueReflection {
+public final class PrimitiveImmutableValueReflection:
+    ImmutableValueReflection,
+    ReflectableWithReflector
+{
     public let type: Any.Type
     public let reflected: Any
     
@@ -10,12 +13,10 @@ public final class PrimitiveImmutableValueReflection: ImmutableValueReflection {
         self.reflected = reflected
     }
     
-    public convenience init(
-        reflected: Any)
-    {
-        self.init(
-            type: Swift.type(of: reflected),
-            reflected: reflected
+    public static func reflect(reflector: Reflector) -> PrimitiveImmutableValueReflection {
+        return PrimitiveImmutableValueReflection(
+            type: Swift.type(of: reflector.value),
+            reflected: reflector.value
         )
     }
 }

@@ -11,8 +11,8 @@ final class EnumImmutableValueReflectionTests: TestCase {
     }
     
     func test___reflect___works_correctly___for_no_associated_value() {
-        let reflection = EnumImmutableValueReflection.reflect(
-            reflected: Enum.no_associated_value
+        let reflection = reflect(
+            value: Enum.no_associated_value
         )
         
         XCTAssertEqual(
@@ -25,8 +25,8 @@ final class EnumImmutableValueReflectionTests: TestCase {
     }
     
     func test___reflect___works_correctly___for_associated_value_without_label() {
-        let reflection = EnumImmutableValueReflection.reflect(
-            reflected: Enum.associated_value_without_label(1)
+        let reflection = reflect(
+            value: Enum.associated_value_without_label(1)
         )
         
         XCTAssertEqual(
@@ -43,8 +43,8 @@ final class EnumImmutableValueReflectionTests: TestCase {
     }
     
     func test___reflect___works_correctly___for_associated_value_with_label() {
-        let reflection = EnumImmutableValueReflection.reflect(
-            reflected: Enum.associated_value_with_label(label: 1)
+        let reflection = reflect(
+            value: Enum.associated_value_with_label(label: 1)
         )
         
         XCTAssertEqual(
@@ -70,8 +70,8 @@ final class EnumImmutableValueReflectionTests: TestCase {
     }
     
     func test___reflect___works_correctly___for_multiple_associated_values() {
-        let reflection = EnumImmutableValueReflection.reflect(
-            reflected: Enum.multiple_associated_values(1, label: "2")
+        let reflection = reflect(
+            value: Enum.multiple_associated_values(1, label: "2")
         )
         
         XCTAssertEqual(
@@ -97,6 +97,16 @@ final class EnumImmutableValueReflectionTests: TestCase {
         XCTAssertEqual(
             second.value.primitiveOrFail().reflected as? String,
             "2"
+        )
+    }
+    
+    private func reflect(value: Enum) -> EnumImmutableValueReflection {
+        EnumImmutableValueReflection.reflect(
+            reflector: ReflectorImpl(
+                value: value,
+                mirror: Mirror(reflecting: value),
+                parents: []
+            )
         )
     }
 }

@@ -1,4 +1,7 @@
-open class BaseCollectionImmutableValueReflection: ImmutableValueReflection, ReflectableWithMirror {
+open class BaseCollectionImmutableValueReflection:
+    ImmutableValueReflection,
+    ReflectableWithReflector
+{
     public let type: Any.Type
     public let elements: [TypedImmutableValueReflection]
     
@@ -10,13 +13,11 @@ open class BaseCollectionImmutableValueReflection: ImmutableValueReflection, Ref
         self.elements = elements
     }
     
-    public static func reflect(mirror: Mirror) -> Self {
+    public static func reflect(reflector: Reflector) -> Self {
         return Self(
-            type: mirror.subjectType,
-            elements: mirror.children.map { child in
-                TypedImmutableValueReflection.reflect(
-                    reflected: child.value
-                )
+            type: reflector.mirror.subjectType,
+            elements: reflector.mirror.children.map { child in
+                reflector.nestedValueReflection(value: child.value)
             }
         )
     }

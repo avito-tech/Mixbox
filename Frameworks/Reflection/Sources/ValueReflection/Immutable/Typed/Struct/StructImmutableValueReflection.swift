@@ -1,8 +1,11 @@
-public final class StructImmutableValueReflection: BaseImmutableValueReflectionWithFields {
-    public static func reflect(mirror: Mirror) -> StructImmutableValueReflection {
+public final class StructImmutableValueReflection:
+    BaseImmutableValueReflectionWithFields,
+    ReflectableWithReflector
+{
+    public static func reflect(reflector: Reflector) -> StructImmutableValueReflection {
         return StructImmutableValueReflection(
-            type: mirror.subjectType,
-            fields: fields(mirror: mirror)
+            type: reflector.mirror.subjectType,
+            fields: fields(reflector: reflector)
         )
     }
 }

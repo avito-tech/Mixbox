@@ -324,6 +324,7 @@
 		F87FD14924097263004B3D99 /* BaseUiTestCase+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */; };
 		F87FD14A24097264004B3D99 /* BaseUiTestCase+ResetUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */; };
 		F88609D824DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88609D724DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift */; };
+		F887BD272594CF6300B08A03 /* ValueCodeGeneratorRecursionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F887BD262594CF6300B08A03 /* ValueCodeGeneratorRecursionTests.swift */; };
 		F888EE1A23206136009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */; };
 		F888EE1B23206136009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */; };
 		F888EE1C23206137009CF8B7 /* BaseTouchesTestCase+AllEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */; };
@@ -1036,6 +1037,10 @@
 		F87D2C0424D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityCheckImageColorShifterImplTests.swift; sourceTree = "<group>"; };
 		F87FD1412409723B004B3D99 /* BaseUiTestCase+ResetUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseUiTestCase+ResetUi.swift"; sourceTree = "<group>"; };
 		F88609D724DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppServicesDependencyCollectionRegisterer.swift; sourceTree = "<group>"; };
+		F887BD262594CF6300B08A03 /* ValueCodeGeneratorRecursionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorRecursionTests.swift; sourceTree = "<group>"; };
+		F887BD282594DC6800B08A03 /* UnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UnitTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F887BD2F2594DE4C00B08A03 /* AllTestsSharedBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllTestsSharedBridgingHeader.h; sourceTree = "<group>"; };
+		F887BD352594DFD700B08A03 /* HostedAppLogicTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HostedAppLogicTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F888EE0F23205BF1009CF8B7 /* BaseTouchesTestCase+AllEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+AllEvents.swift"; sourceTree = "<group>"; };
 		F888EE1123205CD7009CF8B7 /* BaseTouchesTestCase+AllTouches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseTouchesTestCase+AllTouches.swift"; sourceTree = "<group>"; };
 		F88915A62295E211003B8D0A /* TestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestQuery.swift; sourceTree = "<group>"; };
@@ -1882,6 +1887,7 @@
 		F82A05AF21F6745F0008C2BB /* HostedAppLogicTests */ = {
 			isa = PBXGroup;
 			children = (
+				F887BD302594DF8600B08A03 /* Support */,
 				F82A05B221F6745F0008C2BB /* Info.plist */,
 				F82A05B021F6745F0008C2BB /* HostedAppLogicTests.swift */,
 				F8D53B21235F62E5004E4577 /* TestCase.swift */,
@@ -2293,6 +2299,14 @@
 				F87D2BF124D084D800D6DBFA /* VisibilityCheckPerformanceTests.swift */,
 			);
 			path = Performance;
+			sourceTree = "<group>";
+		};
+		F887BD302594DF8600B08A03 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				F887BD352594DFD700B08A03 /* HostedAppLogicTests-Bridging-Header.h */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		F888EE0523205631009CF8B7 /* BaseTouchesTestCase */ = {
@@ -2785,6 +2799,7 @@
 				F8BCA9DE213D55E400592068 /* UIImage+Stub.swift */,
 				F8DC864823674F44003889C7 /* CGImage+Stub.swift */,
 				F8DC864A23675BDE003889C7 /* UIColor+RGB.swift */,
+				F887BD2F2594DE4C00B08A03 /* AllTestsSharedBridgingHeader.h */,
 			);
 			path = AllTestsShared;
 			sourceTree = "<group>";
@@ -3112,6 +3127,7 @@
 				F8539644254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift */,
 				F8539646254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift */,
 				F8539648254B1ED80015FD37 /* ValueCodeGeneratorTuplesTests.swift */,
+				F887BD262594CF6300B08A03 /* ValueCodeGeneratorRecursionTests.swift */,
 			);
 			path = ValueCodeGenerator;
 			sourceTree = "<group>";
@@ -3137,6 +3153,7 @@
 		F8B964CC2281DCB30054CE08 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				F887BD282594DC6800B08A03 /* UnitTests-Bridging-Header.h */,
 				F8B964CD2281DCC00054CE08 /* TestCase.swift */,
 				F8933D4D23E33817002727AC /* BaseSerializationTestCase.swift */,
 				F80C2E2124D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift */,
@@ -4085,7 +4102,7 @@
 					};
 					F866756C2121E81E00396F02 = {
 						CreatedOnToolsVersion = 9.4;
-						LastSwiftMigration = 1130;
+						LastSwiftMigration = 1220;
 						ProvisioningStyle = Automatic;
 					};
 					F88F5500255ED86D0072A9BF = {
@@ -5373,6 +5390,7 @@
 				F8C3AD102437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift in Sources */,
 				F812A17624E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift in Sources */,
 				F8C3AD1E243AFF91004B6BA4 /* SequenceAnyGenerator.swift in Sources */,
+				F887BD272594CF6300B08A03 /* ValueCodeGeneratorRecursionTests.swift in Sources */,
 				F80C2E0A24D1DAFD00C6CAD4 /* LogsAndFailures.swift in Sources */,
 				F8C3AD142437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift in Sources */,
 				F8E979FA25111DAD00ED131A /* NSObjectTestabilityWithAccessibilityDisabledTests.swift in Sources */,
@@ -5901,6 +5919,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.HostedAppLogicTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HostedAppLogicTests/Support/HostedAppLogicTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestedApp.app/TestedApp";
 			};
 			name = Debug;
@@ -5915,6 +5934,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.HostedAppLogicTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HostedAppLogicTests/Support/HostedAppLogicTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestedApp.app/TestedApp";
 			};
 			name = Release;
@@ -5950,10 +5970,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2334CBC37E807E632DE8295A /* Pods-UnitTests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/Support/UnitTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -5961,10 +5985,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50F20B62BF639AA013C729A9 /* Pods-UnitTests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mixbox.Tests.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "UnitTests/Support/UnitTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
