@@ -7,7 +7,6 @@ public final class GeneratorFacadeImpl: BaseTestFailingGenerator, GeneratorFacad
     public let anyGenerator: AnyGenerator
     
     private let testFailingAnyGenerator: TestFailingAnyGenerator
-    
     private let parentDi: DependencyResolver
     private let stubsDi: DependencyInjection
     private let dependencyResolver: DependencyResolver
@@ -16,33 +15,28 @@ public final class GeneratorFacadeImpl: BaseTestFailingGenerator, GeneratorFacad
     private let dependencyInjectionFactory: DependencyInjectionFactory
     private let configuredDynamicLookupGeneratorProvider: ConfiguredDynamicLookupGeneratorProvider
     
-    public init(
+    public convenience init(
         parentDi: DependencyResolver,
         testFailureRecorder: TestFailureRecorder,
         byFieldsGeneratorResolver: ByFieldsGeneratorResolver,
         dependencyInjectionFactory: DependencyInjectionFactory,
         testFailingGeneratorObserver: TestFailingGeneratorObserver)
     {
-        self.parentDi = parentDi
-        self.testFailureRecorder = testFailureRecorder
-        self.byFieldsGeneratorResolver = byFieldsGeneratorResolver
-        self.dependencyInjectionFactory = dependencyInjectionFactory
+        let stubsDi = dependencyInjectionFactory.dependencyInjection()
         
-        stubsDi = dependencyInjectionFactory.dependencyInjection()
-        
-        dependencyResolver = CompoundDependencyResolver(
+        let dependencyResolver = CompoundDependencyResolver(
             resolvers: [
                 stubsDi,
                 parentDi
             ]
         )
         
-        anyGenerator = AnyGeneratorImpl(
+        let anyGenerator = AnyGeneratorImpl(
             dependencyResolver: dependencyResolver,
             byFieldsGeneratorResolver: byFieldsGeneratorResolver
         )
         
-        testFailingAnyGenerator = TestFailingAnyGeneratorImpl(
+        let testFailingAnyGenerator = TestFailingAnyGeneratorImpl(
             anyGenerator: anyGenerator
         )
         
@@ -56,18 +50,54 @@ public final class GeneratorFacadeImpl: BaseTestFailingGenerator, GeneratorFacad
             testFailureRecorder: testFailureRecorder
         )
         
-        configuredDynamicLookupGeneratorProvider = ConfiguredDynamicLookupGeneratorProviderImpl(
+        let configuredDynamicLookupGeneratorProvider = ConfiguredDynamicLookupGeneratorProviderImpl(
             dynamicLookupGeneratorFactory: dynamicLookupGeneratorFactory,
             byFieldsGeneratorResolver: byFieldsGeneratorResolver,
             testFailureRecorder: testFailureRecorder,
             baseTestFailingGeneratorDependenciesFactory: baseTestFailingGeneratorDependenciesFactory
         )
         
-        super.init(
+        self.init(
+            anyGenerator: anyGenerator,
+            testFailingAnyGenerator: testFailingAnyGenerator,
+            parentDi: parentDi,
+            stubsDi: stubsDi,
+            dependencyResolver: dependencyResolver,
+            testFailureRecorder: testFailureRecorder,
+            byFieldsGeneratorResolver: byFieldsGeneratorResolver,
+            dependencyInjectionFactory: dependencyInjectionFactory,
+            configuredDynamicLookupGeneratorProvider: configuredDynamicLookupGeneratorProvider,
             baseTestFailingGeneratorDependencies: baseTestFailingGeneratorDependenciesFactory.baseTestFailingGeneratorDependencies(
                 configuredDynamicLookupGeneratorProvider: configuredDynamicLookupGeneratorProvider,
                 testFailingGeneratorObserver: testFailingGeneratorObserver
             )
+        )
+    }
+    
+    public init(
+        anyGenerator: AnyGenerator,
+        testFailingAnyGenerator: TestFailingAnyGenerator,
+        parentDi: DependencyResolver,
+        stubsDi: DependencyInjection,
+        dependencyResolver: DependencyResolver,
+        testFailureRecorder: TestFailureRecorder,
+        byFieldsGeneratorResolver: ByFieldsGeneratorResolver,
+        dependencyInjectionFactory: DependencyInjectionFactory,
+        configuredDynamicLookupGeneratorProvider: ConfiguredDynamicLookupGeneratorProvider,
+        baseTestFailingGeneratorDependencies: BaseTestFailingGeneratorDependencies)
+    {
+        self.anyGenerator = anyGenerator
+        self.testFailingAnyGenerator = testFailingAnyGenerator
+        self.parentDi = parentDi
+        self.stubsDi = stubsDi
+        self.dependencyResolver = dependencyResolver
+        self.testFailureRecorder = testFailureRecorder
+        self.byFieldsGeneratorResolver = byFieldsGeneratorResolver
+        self.dependencyInjectionFactory = dependencyInjectionFactory
+        self.configuredDynamicLookupGeneratorProvider = configuredDynamicLookupGeneratorProvider
+        
+        super.init(
+            baseTestFailingGeneratorDependencies: baseTestFailingGeneratorDependencies
         )
     }
     
