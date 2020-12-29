@@ -20,8 +20,9 @@ public final class ReflectorImpl: Reflector {
         }
         
         public func hash(into hasher: inout Hasher) {
+            // Note that some collisions may arise by lack of having mirror hashed, however,
+            // hashing mirror has very strong negative impact on performance.
             hasher.combine(objectIdentifier)
-            mirror.hash(into: &hasher)
         }
     }
     
@@ -136,21 +137,5 @@ extension Mirror {
             && lhs.children.elementsEqual(rhs.children) { (lhs, rhs) in
                 lhs.label == rhs.label
             }
-    }
-    
-    fileprivate func hash(into hasher: inout Hasher) {
-        hasher.combine(children.count)
-        
-        children.forEach {
-            hasher.combine($0.label)
-        }
-        
-        hasher.combine(displayStyle)
-        hasher.combine("\(subjectType)")
-        
-        hasher.combine(superclassMirror == nil)
-        if let superclassMirror = superclassMirror {
-            superclassMirror.hash(into: &hasher)
-        }
     }
 }
