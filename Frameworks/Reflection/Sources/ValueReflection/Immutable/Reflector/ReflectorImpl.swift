@@ -43,10 +43,7 @@ public final class ReflectorImpl: Reflector {
     public func nestedValueReflection(value: Any, mirror: Mirror) -> TypedImmutableValueReflection {
         let nextParents: Set<Parent>
         
-        // Note that `as? AnyObject` always succeeds (SE-0116) and returns
-        // bridged type, so it can't be used as an indicator that value is reference type.
-        let isReferenceType = type(of: value) is AnyObject
-        if isReferenceType {
+        if ValueIsObjectChecker.isObject(value) {
             let objectIdentifier = ObjectIdentifier(value as AnyObject)
             
             let currentValueAsParent = Parent(

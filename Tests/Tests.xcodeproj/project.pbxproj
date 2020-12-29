@@ -743,6 +743,7 @@
 		F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FC4AD023AA687700D3E911 /* OrMatcherTests.swift */; };
 		F8FC4AD323AA687F00D3E911 /* AlwaysTrueMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FC4AD223AA687F00D3E911 /* AlwaysTrueMatcherTests.swift */; };
 		F8FC4AD623AA68FE00D3E911 /* NotMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FC4AD523AA68FE00D3E911 /* NotMatcherTests.swift */; };
+		F8FD092E259B961800730EAF /* ValueIsObjectCheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FD092D259B961800730EAF /* ValueIsObjectCheckerTests.swift */; };
 		F8FF7BA32573962300F976A7 /* TypeName_ValidClosureType_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FF7BA22573962300F976A7 /* TypeName_ValidClosureType_Tests.swift */; };
 		F8FF7BA725739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FF7BA625739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift */; };
 /* End PBXBuildFile section */
@@ -1338,6 +1339,7 @@
 		F8FC4AD023AA687700D3E911 /* OrMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrMatcherTests.swift; sourceTree = "<group>"; };
 		F8FC4AD223AA687F00D3E911 /* AlwaysTrueMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysTrueMatcherTests.swift; sourceTree = "<group>"; };
 		F8FC4AD523AA68FE00D3E911 /* NotMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotMatcherTests.swift; sourceTree = "<group>"; };
+		F8FD092D259B961800730EAF /* ValueIsObjectCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueIsObjectCheckerTests.swift; sourceTree = "<group>"; };
 		F8FF7BA22573962300F976A7 /* TypeName_ValidClosureType_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeName_ValidClosureType_Tests.swift; sourceTree = "<group>"; };
 		F8FF7BA625739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixboxMocksGenericFunctionsTests.swift; sourceTree = "<group>"; };
 		FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3113,6 +3115,7 @@
 			children = (
 				F8B5C689254AD727002DB0FB /* ValueCodeGenerator */,
 				F8539642254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift */,
+				F8FD092D259B961800730EAF /* ValueIsObjectCheckerTests.swift */,
 			);
 			path = MixboxReflection;
 			sourceTree = "<group>";
@@ -5257,6 +5260,7 @@
 				F89ED2E92572D27900A32D54 /* MocksTestsFixtureSimpleProtocol.swift in Sources */,
 				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
+				F8FD092E259B961800730EAF /* ValueIsObjectCheckerTests.swift in Sources */,
 				F837EF5E258BDBBD00721A30 /* EasyClosureStubbingIntegrationalTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
 				F89ED2EE2572DFFC00A32D54 /* UninterceptableErrorTrackerImpl.swift in Sources */,

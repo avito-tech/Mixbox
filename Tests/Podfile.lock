@@ -100,6 +100,7 @@ PODS:
   - Yams (4.0.1)
 
 DEPENDENCIES:
+  - CocoaImageHashing
   - MixboxAnyCodable (from `..`)
   - MixboxBlack (from `..`)
   - MixboxBuiltinDi (from `..`)
