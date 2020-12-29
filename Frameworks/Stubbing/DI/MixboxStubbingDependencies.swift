@@ -2,6 +2,7 @@ import MixboxGenerators
 import MixboxDi
 import MixboxBuiltinDi
 import CoreGraphics
+import Foundation
 
 public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
     public init() {
@@ -29,6 +30,22 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
         }
         di.register(type: Generator<String>.self) { di in
             try RandomStringGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<Int64>.self) { di in
+            try RandomIntegerGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<UInt64>.self) { di in
+            try RandomIntegerGenerator(randomNumberProvider: di.resolve())
+        }
+        di.register(type: Generator<URL>.self) { di in
+            let stringGenerator = try RandomStringGenerator(randomNumberProvider: di.resolve())
+            return Generator {
+                let randomString = try stringGenerator.generate()
+                guard let url = try URL(string: randomString) else {
+                    throw GeneratorError("Could not initialize url with random string \(randomString)")
+                }
+                return url
+            }
         }
         di.register(type: RandomNumberProvider.self) { _ in
             MersenneTwisterRandomNumberProvider(seed: 0)
