@@ -84,6 +84,19 @@ public final class ElementMatcherBuilder {
         return IsSubviewMatcher(matcher(self))
     }
     
+    public func isDirectSubviewOf(
+        _ matcher: ElementMatcherBuilderClosure)
+        -> ElementMatcher
+    {
+        return HasPropertyMatcher(
+            property: { (snapshot: ElementSnapshot) -> ElementSnapshot? in
+                snapshot.parent
+            },
+            name: "superview",
+            matcher: OptionalMatcher(matcher(self))
+        )
+    }
+    
     public func matchesReference(
         image: UIImage,
         comparator: SnapshotsComparator)

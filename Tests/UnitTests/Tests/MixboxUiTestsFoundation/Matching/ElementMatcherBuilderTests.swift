@@ -412,6 +412,39 @@ final class MatcherBuilderTests: BaseMatcherTests {
         }
     }
     
+    func test___isDirectSubviewOf() {
+        let superview = ElementSnapshotStub {
+            $0.accessibilityIdentifier = "superview"
+        }
+        let directSuperview = ElementSnapshotStub {
+            $0.accessibilityIdentifier = "directSuperview"
+        }
+        let subview = ElementSnapshotStub {
+            $0.accessibilityIdentifier = "subview"
+        }
+        
+        superview.add(child: directSuperview)
+        directSuperview.add(child: subview)
+        
+        assertMatches(
+            locator: { element in
+                element.isDirectSubviewOf { element in
+                    element.id == "directSuperview"
+                }
+            },
+            snapshot: subview
+        )
+        
+        assertMismatches(
+            locator: { element in
+                element.isDirectSubviewOf { element in
+                    element.id == "superview"
+                }
+            },
+            snapshot: subview
+        )
+    }
+    
     private func assertMatches(
         stub: (ElementSnapshotStub) -> (),
         check: ElementMatcherBuilderClosure,

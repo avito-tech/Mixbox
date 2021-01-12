@@ -41,7 +41,7 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
             let stringGenerator = try RandomStringGenerator(randomNumberProvider: di.resolve())
             return Generator {
                 let randomString = try stringGenerator.generate()
-                guard let url = try URL(string: randomString) else {
+                guard let url = URL(string: randomString) else {
                     throw GeneratorError("Could not initialize url with random string \(randomString)")
                 }
                 return url

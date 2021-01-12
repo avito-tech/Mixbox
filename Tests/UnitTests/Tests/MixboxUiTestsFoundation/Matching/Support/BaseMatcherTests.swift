@@ -6,6 +6,20 @@ import XCTest
 class BaseMatcherTests: XCTestCase {
     let matcherBuilder = ElementMatcherBuilderFactory.elementMatcherBuilder()
     
+    func assertMatches(
+        locator: ElementMatcherBuilderClosure,
+        snapshot: ElementSnapshot,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        assertMatches(
+            matcher: locator(ElementMatcherBuilderFactory.elementMatcherBuilder()),
+            value: snapshot,
+            file: file,
+            line: line
+        )
+    }
+    
     func assertMatches<T>(
         matcher: Matcher<T>,
         value: T,
@@ -28,6 +42,24 @@ class BaseMatcherTests: XCTestCase {
                 line: line
             )
         }
+    }
+    
+    func assertMismatches(
+        locator: ElementMatcherBuilderClosure,
+        snapshot: ElementSnapshot,
+        percentageOfMatching: Double = 0,
+        description: String? = nil,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        assertMismatches(
+            matcher: locator(ElementMatcherBuilderFactory.elementMatcherBuilder()),
+            value: snapshot,
+            percentageOfMatching: percentageOfMatching,
+            description: description,
+            file: file,
+            line: line
+        )
     }
     
     func assertMismatches<T>(
