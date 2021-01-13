@@ -14,5 +14,4 @@ Pod::Spec.new do |s|
   s.source_files           = 'Frameworks/BuiltinDi/**/*.{swift,h,m,mm}'
   
   s.dependency 'MixboxDi'
-  s.dependency 'MixboxFoundation'
 end

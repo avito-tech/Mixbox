@@ -10,7 +10,6 @@ PODS:
     - MixboxUiTestsFoundation
   - MixboxBuiltinDi (0.2.3):
     - MixboxDi
-    - MixboxFoundation
   - MixboxBuiltinIpc (0.2.3):
     - GCDWebServer
     - MixboxIpc
@@ -226,7 +225,7 @@ SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
   MixboxBlack: 7f1c9cf6b1a99e17dd4df72b92828dc9a03d58e0
-  MixboxBuiltinDi: ab3bb8a16601673c202ad540e76a4d7b14a22352
+  MixboxBuiltinDi: edd1871fbf863e5abffa337bbdce5150fd5a7156
   MixboxBuiltinIpc: 26880327fbb22e9f6e96a13b26ef7015749bf946
   MixboxDi: eca7043111a8aff6ab2fe571ad0644b21da0f8e6
   MixboxFakeSettingsAppMain: cb03a5515009c7b774c1f36dc459e6503b2b7d7b

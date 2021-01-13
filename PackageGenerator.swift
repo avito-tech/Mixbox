@@ -31,7 +31,19 @@ let moduleDescriptions: [ModuleDescription] = [
         moduleName: "MixboxMocksGenerator",
         path: "MocksGenerator/Sources",
         isTestTarget: false
-    )
+    ),
+    try generate(
+        moduleName: "MixboxDi",
+        path: "Frameworks/Di/Sources",
+        isTestTarget: false,
+        hasConditionalCompilation: true
+    ),
+    try generate(
+        moduleName: "MixboxBuiltinDi",
+        path: "Frameworks/BuiltinDi/Sources",
+        isTestTarget: false,
+        hasConditionalCompilation: true
+    ),
 ]
 
 func main() throws {
@@ -39,27 +51,73 @@ func main() throws {
     let sortedModuleDescriptions: [ModuleDescription] = moduleDescriptions.sorted { $0.name < $1.name }
     
     for moduleDescription in sortedModuleDescriptions {
-        generatedTargetStatements.append(".\(!moduleDescription.isTest ? "target" : "testTarget")(")
-        generatedTargetStatements.append("    // MARK: \(moduleDescription.name)")
-        generatedTargetStatements.append("    name: " + "\"\(moduleDescription.name)\"" + ",")
-        generatedTargetStatements.append("    dependencies: [")
+        let targetType = moduleDescription.isTest ? "testTarget" : "target"
+        
+        var args = [String]()
+        
+        args.append(
+            """
+            name: "\(moduleDescription.name)"
+            """
+        )
+        
+        var dependencies = [String]()
+        
         for dependency in moduleDescription.deps {
             if explicitlyIdentifiedPackages.keys.contains(dependency) {
                 let package = explicitlyIdentifiedPackages[dependency]!
-                generatedTargetStatements.append("        .product(name: \"\(dependency)\", package: \"\(package)\"),")
+                dependencies.append(
+                    """
+                    .product(name: "\(dependency)", package: "\(package)")
+                    """
+                )
             } else {
-                generatedTargetStatements.append("        \"\(dependency)\",")
+                dependencies.append(
+                    """
+                    "\(dependency)"
+                    """
+                )
             }
         }
-        generatedTargetStatements.append("    ],")
-        generatedTargetStatements.append("    path: " + "\"" + moduleDescription.path + "\"")
-        generatedTargetStatements.append("),")
+        
+        args.append(
+            """
+            dependencies: [
+                \(dependencies.joined(separator: ",\n").indent())
+            ]
+            """
+        )
+        
+        args.append(
+            """
+            path: "\(moduleDescription.path)"
+            """
+        )
+        
+        if !moduleDescription.defines.isEmpty {
+            args.append(
+                """
+                swiftSettings: [
+                    \(moduleDescription.defines.map { ".define(\"\($0)\")" }.joined(separator: ",\n").indent())
+                ]
+                """
+            )
+        }
+        
+        generatedTargetStatements.append(
+            """
+            .\(targetType)(
+                // MARK: \(moduleDescription.name)
+                \(args.joined(separator: ",\n").indent())
+            )
+            """
+        )
     }
     
     try generatePackageSwift(replacementForTargets: generatedTargetStatements)
 }
 
-func generate(moduleName: String, path: String, isTestTarget: Bool) throws -> ModuleDescription {
+func generate(moduleName: String, path: String, isTestTarget: Bool, hasConditionalCompilation: Bool = false) throws -> ModuleDescription {
     let moduleFolderUrl = repoRoot().appendingPathComponent(path)
     
     guard directoryExists(url: moduleFolderUrl) else {
@@ -113,7 +171,8 @@ func generate(moduleName: String, path: String, isTestTarget: Bool) throws -> Mo
         name: moduleName,
         deps: dependencies, 
         path: String(path),
-        isTest: isTestTarget
+        isTest: isTestTarget,
+        defines: hasConditionalCompilation ? ["MIXBOX_ENABLE_IN_APP_SERVICES"] : []
     )
 }
 
@@ -123,7 +182,7 @@ func generatePackageSwift(replacementForTargets: [String]) throws {
     
     templateContents = templateContents.replacingOccurrences(
         of: "<__TARGETS__>",
-        with: replacementForTargets.map { "        \($0)" }.joined(separator: "\n")
+        with: replacementForTargets.map { $0.indent(level: 2, includingFirstLine: true) }.joined(separator: ",\n")
     )
     
     templateContents = templateContents.replacingOccurrences(
@@ -238,6 +297,7 @@ struct ModuleDescription {
     let deps: [String]
     let path: String
     let isTest: Bool
+    let defines: [String]
 }
 
 // MARK: - Utility
@@ -251,6 +311,20 @@ func log(_ text: String) {
 func directoryExists(url: URL) -> Bool {
     var isDirectory = ObjCBool(false)
     return FileManager().fileExists(atPath: url.path, isDirectory: &isDirectory) && isDirectory.boolValue
+}
+
+extension String {
+    private static let newLine = "\n"
+    
+    func indent(level: Int = 1, includingFirstLine: Bool = false) -> String {
+        let indentation = String(repeating: " ", count: level * 4)
+        
+        return self
+            .components(separatedBy: String.newLine)
+            .enumerated()
+            .map { index, line in (index == 0 && !includingFirstLine) ? line : indentation + line }
+            .joined(separator: String.newLine)
+    }
 }
 
 // MARK: - Main

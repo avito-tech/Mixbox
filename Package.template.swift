@@ -14,6 +14,18 @@ let package = Package(
                 "MixboxMocksGeneration"
             ]
         ),
+        .library(
+            name: "MixboxDi",
+            targets: [
+                "MixboxDi"
+            ]
+        ),
+        .library(
+            name: "MixboxBuiltinDi",
+            targets: [
+                "MixboxBuiltinDi"
+            ]
+        ),
         .executable(
             name: "MixboxMocksGenerator",
             targets: [

@@ -14,6 +14,18 @@ let package = Package(
                 "MixboxMocksGeneration"
             ]
         ),
+        .library(
+            name: "MixboxDi",
+            targets: [
+                "MixboxDi"
+            ]
+        ),
+        .library(
+            name: "MixboxBuiltinDi",
+            targets: [
+                "MixboxBuiltinDi"
+            ]
+        ),
         .executable(
             name: "MixboxMocksGenerator",
             targets: [
@@ -28,12 +40,34 @@ let package = Package(
     ],
     targets: [
         .target(
+            // MARK: MixboxBuiltinDi
+            name: "MixboxBuiltinDi",
+            dependencies: [
+                "MixboxDi"
+            ],
+            path: "Frameworks/BuiltinDi/Sources",
+            swiftSettings: [
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+            ]
+        ),
+        .target(
+            // MARK: MixboxDi
+            name: "MixboxDi",
+            dependencies: [
+                
+            ],
+            path: "Frameworks/Di/Sources",
+            swiftSettings: [
+                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+            ]
+        ),
+        .target(
             // MARK: MixboxMocksGeneration
             name: "MixboxMocksGeneration",
             dependencies: [
                 "PathKit",
                 .product(name: "SourceryFramework", package: "Sourcery"),
-                .product(name: "SourceryRuntime", package: "Sourcery"),
+                .product(name: "SourceryRuntime", package: "Sourcery")
             ],
             path: "Frameworks/MocksGeneration/Sources"
         ),
@@ -42,9 +76,9 @@ let package = Package(
             name: "MixboxMocksGenerator",
             dependencies: [
                 "MixboxMocksGeneration",
-                "PathKit",
+                "PathKit"
             ],
             path: "MocksGenerator/Sources"
-        ),
+        )
     ]
 )
