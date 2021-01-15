@@ -51,7 +51,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     // TODO: Replace with `IpcRouterHolder`
     private var ipcRouter: IpcRouter?
     
-    func launch(environment: [String: String], useBuiltinIpc: Bool = false) {
+    func launch(environment: [String: String], useBuiltinIpc: Bool = true) {
         let commonEnvironment = [
             // Fixes assertion failure when view is loaded multiple times and uses ViewIpc
             "MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY": "true"
