@@ -7,15 +7,15 @@ import MixboxMocksRuntime
 
 final class RecordedSessionStubberTests: TestCase {
     private let stubResponseBuilder = MockStubResponseBuilder()
-    private let stubRequestBuilder = MockStubRequestBuilder()
+    private let legacyNetworkStubbing = MockLegacyNetworkStubbing()
     private lazy var recordedSessionStubber = RecordedSessionStubberImpl(
-        stubRequestBuilder: stubRequestBuilder
+        legacyNetworkStubbing: legacyNetworkStubbing
     )
     
     override func setUp() {
         super.setUp()
         
-        stubRequestBuilder
+        legacyNetworkStubbing
             .stub()
             .withRequestStub()
             .thenReturn(stubResponseBuilder)
@@ -171,7 +171,8 @@ final class RecordedSessionStubberTests: TestCase {
                     )
                 )
             )
-            stubRequestBuilder.verify().withRequestStub(
+            
+            legacyNetworkStubbing.verify().withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
                 httpMethod: equals(.put)
             ).isCalled()
@@ -200,7 +201,7 @@ final class RecordedSessionStubberTests: TestCase {
         assertNoThrow {
             try recordedSessionStubber.stub(recordedStub: .withUrl(stubUrl))
             
-            stubRequestBuilder.verify().withRequestStub(
+            legacyNetworkStubbing.verify().withRequestStub(
                 urlPattern: regexIsMatchedBy(actualUrl),
                 httpMethod: equals(.get)
             ).isCalled()

@@ -1,7 +1,7 @@
-import MixboxUiTestsFoundation
 import MixboxIpcCommon
+import Foundation
 
-public class GrayBoxLegacyNetworkStubbingNetworkStub {
+public class LegacyNetworkStub {
     public let urlPattern: String
     public let httpMethod: HttpMethod?
     public let value: StubResponseBuilderResponseValue

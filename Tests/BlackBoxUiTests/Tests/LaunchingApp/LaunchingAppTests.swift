@@ -3,7 +3,6 @@ import XCTest
 import TestsIpc
 import MixboxUiTestsFoundation
 import MixboxIpc
-import SBTUITestTunnel
 
 final class LaunchingAppTests: TestCase {
     private let applicationLifecycleObservable = ApplicationLifecycleObservableImpl()
@@ -12,34 +11,15 @@ final class LaunchingAppTests: TestCase {
         return false
     }
     
-    func test_SbtuiLaunchableApplication_canBeLaunchedithArgumentsAndEnvironmentAndTerminated() {
-        checkAppIsCanBeLaunchedWithArgumentsAndEnvironmentAndTerminated(
-            launchableApplication: sbtuiLaunchableApplication()
-        )
-    }
-    
     func test_BuiltinLaunchableApplication_canBeLaunchedithArgumentsAndEnvironmentAndTerminated() {
         checkAppIsCanBeLaunchedWithArgumentsAndEnvironmentAndTerminated(
-            launchableApplication: sbtuiLaunchableApplication()
+            launchableApplication: builtinIpcLaunchableApplication()
         )
-    }
-    
-    private func sbtuiLaunchableApplication() -> LaunchableApplication {
-        let launchableApplication = SbtuiLaunchableApplication(
-            tunneledApplication: SBTUITunneledApplication(),
-            applicationLifecycleObservable: applicationLifecycleObservable,
-            testFailureRecorder: dependencies.resolve(),
-            bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,
-            waiter: waiter,
-            networkReplayingObserver: DummyNetworkReplayingObserver(),
-            performanceLogger: dependencies.resolve()
-        )
-        
-        return launchableApplication
     }
     
     private func builtinIpcLaunchableApplication() -> LaunchableApplication {
         let launchableApplication = BuiltinIpcLaunchableApplication(
+            legacyNetworking: dependencies.resolve(),
             applicationLifecycleObservable: applicationLifecycleObservable
         )
         

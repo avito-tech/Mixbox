@@ -1,12 +1,9 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxBlack
-import SBTUITestTunnel
 import MixboxFoundation
 
 public final class LaunchableApplicationProvider {
-    public var shouldCreateLaunchableApplicationWithBuiltinIpc = false
-    
     public var launchableApplication: LaunchableApplication {
         return reusedLaunchableApplication()
             ?? createLaunchableApplication()
@@ -17,19 +14,22 @@ public final class LaunchableApplicationProvider {
     private let bundleResourcePathProvider: BundleResourcePathProvider
     private let waiter: RunLoopSpinningWaiter
     private let performanceLogger: PerformanceLogger
+    private let legacyNetworking: LegacyNetworking
     
     public init(
         applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver,
         testFailureRecorder: TestFailureRecorder,
         bundleResourcePathProvider: BundleResourcePathProvider,
         waiter: RunLoopSpinningWaiter,
-        performanceLogger: PerformanceLogger)
+        performanceLogger: PerformanceLogger,
+        legacyNetworking: LegacyNetworking)
     {
         self.applicationLifecycleObservable = applicationLifecycleObservable
         self.testFailureRecorder = testFailureRecorder
         self.bundleResourcePathProvider = bundleResourcePathProvider
         self.waiter = waiter
         self.performanceLogger = performanceLogger
+        self.legacyNetworking = legacyNetworking
     }
     
     private var launchableApplicationWasCreatedWithBuiltinIpc = false
@@ -39,41 +39,17 @@ public final class LaunchableApplicationProvider {
         guard let launchableApplication = launchableApplicationOrNil else {
             return nil
         }
-        
-        guard launchableApplicationWasCreatedWithBuiltinIpc == shouldCreateLaunchableApplicationWithBuiltinIpc else {
-            UnavoidableFailure.fail(
-                """
-                Conflicting settings for creating launchable application. \
-                launchableApplicationWasCreatedWithBuiltinIpc: \(launchableApplicationWasCreatedWithBuiltinIpc) \
-                shouldCreateLaunchableApplicationWithBuiltinIpc: \(shouldCreateLaunchableApplicationWithBuiltinIpc)
-                """
-            )
-        }
             
         return launchableApplication
     }
     
     private func createLaunchableApplication() -> LaunchableApplication {
-        let launchableApplication: LaunchableApplication
-        
-        if shouldCreateLaunchableApplicationWithBuiltinIpc {
-            launchableApplication = BuiltinIpcLaunchableApplication(
-                applicationLifecycleObservable: applicationLifecycleObservable
-            )
-        } else {
-            launchableApplication = SbtuiLaunchableApplication(
-                tunneledApplication: SBTUITunneledApplication(),
-                applicationLifecycleObservable: applicationLifecycleObservable,
-                testFailureRecorder: testFailureRecorder,
-                bundleResourcePathProvider: bundleResourcePathProvider,
-                waiter: waiter,
-                networkReplayingObserver: DummyNetworkReplayingObserver(),
-                performanceLogger: performanceLogger
-            )
-        }
+        let launchableApplication: LaunchableApplication = BuiltinIpcLaunchableApplication(
+            legacyNetworking: legacyNetworking,
+            applicationLifecycleObservable: applicationLifecycleObservable
+        )
         
         launchableApplicationOrNil = launchableApplication
-        launchableApplicationWasCreatedWithBuiltinIpc = shouldCreateLaunchableApplicationWithBuiltinIpc
         
         return launchableApplication
     }

@@ -2,8 +2,6 @@ import XCTest
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxBlack
-import SBTUITestTunnel
-import MixboxIpcSbtuiClient
 import MixboxBuiltinIpc
 import MixboxBuiltinDi
 import MixboxIpc
@@ -47,11 +45,7 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         )
     }
     
-    // Just to store server (to not let him die during test).
-    // TODO: Replace with `IpcRouterHolder`
-    private var ipcRouter: IpcRouter?
-    
-    func launch(environment: [String: String], useBuiltinIpc: Bool = true) {
+    func launch(environment: [String: String]) {
         let commonEnvironment = [
             // Fixes assertion failure when view is loaded multiple times and uses ViewIpc
             "MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY": "true"
@@ -63,14 +57,15 @@ class TestCase: BaseUiTestCase, ScreenOpener {
             mergedEnvironment[key] = value
         }
         
-        launchableApplicationProvider.shouldCreateLaunchableApplicationWithBuiltinIpc = useBuiltinIpc
-        
         let launchedApplication = launchableApplicationProvider
             .launchableApplication
             .launch(arguments: [], environment: mergedEnvironment)
         
+        let lazilyInitializedIpcClient: LazilyInitializedIpcClient = dependencies.resolve()
         lazilyInitializedIpcClient.ipcClient = launchedApplication.ipcClient
-        ipcRouter = launchedApplication.ipcRouter
+    
+        let ipcRouterHolder: IpcRouterHolder = dependencies.resolve()
+        ipcRouterHolder.ipcRouter = launchedApplication.ipcRouter
         
         synchronousIpcClient
             .callOrFail(method: SetTouchDrawerEnabledIpcMethod(), arguments: true)
@@ -79,28 +74,18 @@ class TestCase: BaseUiTestCase, ScreenOpener {
     
     // For tests of IPC
     func ensureIpcIsInitiated() {
-        launch(environment: [:], useBuiltinIpc: true)
+        launch(environment: [:])
     }
     
     func openScreen(
         name: String,
         additionalEnvironment: [String: String])
     {
-        openScreen(
-            name: name,
-            useBuiltinIpc: false,
-            additionalEnvironment: additionalEnvironment
-        )
-    }
-    
-    func openScreen(
-        name: String,
-        useBuiltinIpc: Bool,
-        additionalEnvironment: [String: String] = [:])
-    {
+        var additionalEnvironment = additionalEnvironment
+        additionalEnvironment["MB_TESTS_screenName"] = name
+        
         launch(
-            environment: additionalEnvironment,
-            useBuiltinIpc: useBuiltinIpc
+            environment: additionalEnvironment
         )
         
         // TODO: Reuse launched application between tests, only set screen.

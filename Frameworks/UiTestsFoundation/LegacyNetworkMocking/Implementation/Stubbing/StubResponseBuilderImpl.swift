@@ -1,25 +1,24 @@
 import MixboxTestsFoundation
-import MixboxUiTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
 
-public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilder {
+public class StubResponseBuilderImpl: StubResponseBuilder {
     private let urlPattern: String
     private let httpMethod: HttpMethod?
-    private let grayBoxLegacyNetworkStubbingNetworkStubRepository: GrayBoxLegacyNetworkStubbingNetworkStubRepository
+    private let legacyNetworkStubRepository: LegacyNetworkStubRepository
     private let testFailureRecorder: TestFailureRecorder
     private let waiter: RunLoopSpinningWaiter
     
     public init(
         urlPattern: String,
         httpMethod: HttpMethod?,
-        grayBoxLegacyNetworkStubbingNetworkStubRepository: GrayBoxLegacyNetworkStubbingNetworkStubRepository,
+        legacyNetworkStubRepository: LegacyNetworkStubRepository,
         testFailureRecorder: TestFailureRecorder,
         waiter: RunLoopSpinningWaiter)
     {
         self.urlPattern = urlPattern
         self.httpMethod = httpMethod
-        self.grayBoxLegacyNetworkStubbingNetworkStubRepository = grayBoxLegacyNetworkStubbingNetworkStubRepository
+        self.legacyNetworkStubRepository = legacyNetworkStubRepository
         self.testFailureRecorder = testFailureRecorder
         self.waiter = waiter
     }
@@ -30,7 +29,7 @@ public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilde
         responseTime: TimeInterval)
     {
         do {
-            let stub = try GrayBoxLegacyNetworkStubbingNetworkStub(
+            let stub = try LegacyNetworkStub(
                 urlPattern: urlPattern,
                 httpMethod: httpMethod,
                 value: value,
@@ -38,7 +37,7 @@ public class GrayBoxLegacyNetworkStubbingStubResponseBuilder: StubResponseBuilde
                 responseTime: responseTime
             )
             
-            grayBoxLegacyNetworkStubbingNetworkStubRepository.add(
+            legacyNetworkStubRepository.add(
                 stub: stub
             )
         } catch {

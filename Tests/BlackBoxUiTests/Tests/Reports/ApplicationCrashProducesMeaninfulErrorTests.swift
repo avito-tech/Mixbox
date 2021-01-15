@@ -8,7 +8,7 @@ final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {
         
         // Tests rely on the fact that app process will not be debugged.
         // That's why we are installing app to not install it later in tests and to not start debugging it.
-        openScreen(name: "CrashTestsView", useBuiltinIpc: true)
+        openScreen(name: "CrashTestsView")
         XCUIApplication().terminate()
     }
     
@@ -25,7 +25,7 @@ final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {
     }
     
     func check(element: ViewElement) {
-        openScreen(name: "CrashTestsView", useBuiltinIpc: true)
+        openScreen(name: "CrashTestsView")
         
         assertFails(
             description: """

@@ -7,7 +7,6 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
     private let automaticRecorderAndReplayerCreationSettingsProvider: AutomaticRecorderAndReplayerCreationSettingsProvider
     private let recordedSessionStubber: RecordedSessionStubber
     private let networkRecordsProvider: NetworkRecordsProvider
-    private let networkRecorderLifecycle: NetworkRecorderLifecycle
     private let testFailureRecorder: TestFailureRecorder
     private let waiter: RunLoopSpinningWaiter
     private let networkReplayingObserver: NetworkReplayingObserver
@@ -16,7 +15,6 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
         automaticRecorderAndReplayerCreationSettingsProvider: AutomaticRecorderAndReplayerCreationSettingsProvider,
         recordedSessionStubber: RecordedSessionStubber,
         networkRecordsProvider: NetworkRecordsProvider,
-        networkRecorderLifecycle: NetworkRecorderLifecycle,
         testFailureRecorder: TestFailureRecorder,
         waiter: RunLoopSpinningWaiter,
         networkReplayingObserver: NetworkReplayingObserver)
@@ -24,7 +22,6 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
         self.automaticRecorderAndReplayerCreationSettingsProvider = automaticRecorderAndReplayerCreationSettingsProvider
         self.recordedSessionStubber = recordedSessionStubber
         self.networkRecordsProvider = networkRecordsProvider
-        self.networkRecorderLifecycle = networkRecorderLifecycle
         self.waiter = waiter
         self.testFailureRecorder = testFailureRecorder
         self.networkReplayingObserver = networkReplayingObserver
@@ -45,7 +42,6 @@ public final class NetworkAutomaticRecorderAndReplayerProviderImpl:
         case .createForRecording(let recordedNetworkSessionPath):
             return RecordingNetworkPlayer(
                 networkRecordsProvider: networkRecordsProvider,
-                networkRecorderLifecycle: networkRecorderLifecycle,
                 testFailureRecorder: testFailureRecorder,
                 waiter: waiter,
                 recordedNetworkSessionPath: recordedNetworkSessionPath,

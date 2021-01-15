@@ -3,16 +3,15 @@
 import MixboxIpc
 
 public final class StartedInAppServices {
-    // TODO: Rename to ipcRouter and ipcClient.
-    public let router: IpcRouter
-    public let client: IpcClient?
+    public let ipcRouter: IpcRouter
+    public let ipcClient: IpcClient
     
     public init(
-        router: IpcRouter,
-        client: IpcClient?)
+        ipcRouter: IpcRouter,
+        ipcClient: IpcClient)
     {
-        self.router = router
-        self.client = client
+        self.ipcRouter = ipcRouter
+        self.ipcClient = ipcClient
     }
 }
 

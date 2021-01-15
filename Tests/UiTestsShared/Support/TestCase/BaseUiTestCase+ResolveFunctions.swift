@@ -52,13 +52,9 @@ extension BaseUiTestCase {
     var photoStubber: PhotoStubber {
         return dependencies.resolve()
     }
-    
-    var lazilyInitializedIpcClient: LazilyInitializedIpcClient {
-       return dependencies.resolve()
-    }
 
-    var bundleResourcePathProviderForTestsTarget: BundleResourcePathProvider {
-        return BundleResourcePathProviderImpl(
+    var bundleResourcePathProviderForTestsTarget: BundleResourcePathProviderForTestsTarget {
+        return BundleResourcePathProviderForTestsTargetImpl(
             bundle: Bundle(for: BaseUiTestCase.self)
         )
     }

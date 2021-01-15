@@ -32,15 +32,16 @@ class TestCase: BaseUiTestCase, ScreenOpener {
         
         let appDelegate = self.appDelegate
         
-        lazilyInitializedIpcClient.ipcClient = appDelegate.startedInAppServices?.client.map { ipcClient in
+        let lazilyInitializedIpcClient: LazilyInitializedIpcClient = dependencies.resolve()
+        lazilyInitializedIpcClient.ipcClient = appDelegate.startedInAppServices.map {
             PerformanceLoggingIpcClient(
-                ipcClient: ipcClient,
+                ipcClient: $0.ipcClient,
                 performanceLogger: Singletons.performanceLogger
             )
         }
         
         let ipcRouterHolder: IpcRouterHolder = dependencies.resolve()
-        ipcRouterHolder.ipcRouter = appDelegate.startedInAppServices?.router
+        ipcRouterHolder.ipcRouter = appDelegate.startedInAppServices?.ipcRouter
         
         synchronousIpcClient
             .callOrFail(method: SetTouchDrawerEnabledIpcMethod(), arguments: true)

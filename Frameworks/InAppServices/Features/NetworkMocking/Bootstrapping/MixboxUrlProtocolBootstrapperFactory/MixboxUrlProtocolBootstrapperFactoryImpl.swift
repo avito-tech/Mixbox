@@ -78,8 +78,6 @@ public final class MixboxUrlProtocolBootstrapperFactoryImpl: MixboxUrlProtocolBo
         switch try ipcStarterTypeProvider.ipcStarterType() {
         case .blackbox:
             return .ipc
-        case .sbtui:
-            return .disabled
         case .graybox:
             return .inProcess
         }

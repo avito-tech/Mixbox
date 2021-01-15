@@ -1,16 +1,14 @@
-import SBTUITestTunnel
 import MixboxTestsFoundation
 import MixboxBlack
 import MixboxUiTestsFoundation
-import MixboxIpcSbtuiClient
 import MixboxIpc
 import MixboxDi
 import TestsIpc
 
 final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
-    private let bundleResourcePathProviderForTestsTarget: BundleResourcePathProvider
+    private let bundleResourcePathProviderForTestsTarget: BundleResourcePathProviderForTestsTarget
     
-    init(bundleResourcePathProviderForTestsTarget: BundleResourcePathProvider) {
+    init(bundleResourcePathProviderForTestsTarget: BundleResourcePathProviderForTestsTarget) {
         self.bundleResourcePathProviderForTestsTarget = bundleResourcePathProviderForTestsTarget
     }
     
@@ -46,16 +44,15 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
         di.register(type: ApplicationLifecycleObservable.self) { di in
             try di.resolve() as ApplicationLifecycleObservableImpl
         }
-        di.register(scope: .unique, type: LegacyNetworking.self) { di in
-            (try di.resolve() as LaunchableApplicationProvider).launchableApplication.legacyNetworking
-        }
-        di.register(type: LaunchableApplicationProvider.self) { [bundleResourcePathProviderForTestsTarget] di in
-            LaunchableApplicationProvider(
+        di.register(type: LaunchableApplicationProvider.self) { di in
+            let bundleResourcePathProviderForTestsTarget: BundleResourcePathProviderForTestsTarget = try di.resolve()
+            return LaunchableApplicationProvider(
                 applicationLifecycleObservable: try di.resolve(),
                 testFailureRecorder: try di.resolve(),
                 bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,
                 waiter: try di.resolve(),
-                performanceLogger: try di.resolve()
+                performanceLogger: try di.resolve(),
+                legacyNetworking: try di.resolve()
             )
         }
         di.register(type: TccDbApplicationPermissionSetterFactory.self) { di in

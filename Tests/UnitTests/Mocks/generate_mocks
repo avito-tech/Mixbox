@@ -10,7 +10,7 @@ apply_mocks() {
     mock "TestFailureRecorder"
     
     module "MixboxUiTestsFoundation"
-    mock "StubRequestBuilder"
+    mock "LegacyNetworkStubbing"
     mock "StubResponseBuilder"
     mock "ScreenshotTaker"
     mock "SnapshotsDifferenceAttachmentGenerator"

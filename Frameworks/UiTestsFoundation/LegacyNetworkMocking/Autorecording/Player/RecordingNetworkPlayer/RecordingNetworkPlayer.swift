@@ -4,7 +4,6 @@ import MixboxTestsFoundation
 public final class RecordingNetworkPlayer: NetworkPlayer {
     private let startOnceToken = ThreadUnsafeOnceToken<Void>()
     private let networkRecordsProvider: NetworkRecordsProvider
-    private let networkRecorderLifecycle: NetworkRecorderLifecycle
     private let testFailureRecorder: TestFailureRecorder
     private let recordedNetworkSessionPath: String
     private let recordedStubFromMonitoredNetworkRequestConverter: RecordedStubFromMonitoredNetworkRequestConverter
@@ -20,14 +19,12 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
     
     public init(
         networkRecordsProvider: NetworkRecordsProvider,
-        networkRecorderLifecycle: NetworkRecorderLifecycle,
         testFailureRecorder: TestFailureRecorder,
         waiter: RunLoopSpinningWaiter,
         recordedNetworkSessionPath: String,
         onStart: @escaping () -> ())
     {
         self.networkRecordsProvider = networkRecordsProvider
-        self.networkRecorderLifecycle = networkRecorderLifecycle
         self.recordedNetworkSessionPath = recordedNetworkSessionPath
         self.testFailureRecorder = testFailureRecorder
         self.waiter = waiter
@@ -66,8 +63,6 @@ public final class RecordingNetworkPlayer: NetworkPlayer {
     
     private func startOnce() {
         startOnceToken.executeOnce {
-            networkRecorderLifecycle.startRecording()
-            
             testFailureRecorder.recordFailure(
                 description: "Failing test in network recording mode. This is totally fine, expected and will happen every time network is recorded. Once network is recorded, network player switches to replaying mode, so if everything went well, you wouldn't see this failure. Note that this failure prevents you to commit code that is records network.",
                 shouldContinueTest: true

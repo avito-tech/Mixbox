@@ -264,13 +264,10 @@
 		F853D022214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D021214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift */; };
 		F853D024214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D023214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift */; };
 		F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853D02D214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift */; };
-		F854F8252344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */; };
-		F854F8282344D2D1009A715B /* BaseIpcEchoingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */; };
 		F854F86D23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F86C23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift */; };
 		F854F86E23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F86C23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift */; };
 		F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */; };
 		F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */; };
-		F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */; };
 		F85876EE25178EE000DB933A /* NonViewElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */; };
 		F85876F12517956B00DB933A /* NonViewElementsTests+BlackBoxOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85876EF2517919900DB933A /* NonViewElementsTests+BlackBoxOnly.swift */; };
 		F86038F324CF0BBC00C257E8 /* ImagePixelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */; };
@@ -287,6 +284,7 @@
 		F8676EE4215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */; };
 		F868744223204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */; };
 		F868744323204A3F00E2C765 /* SwipeActionTouchesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */; };
+		F86B638825B1AC260061EA8E /* IpcEchoingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86B638725B1AC260061EA8E /* IpcEchoingTests.swift */; };
 		F86E60FF229C2D7E00C227CE /* ApplicationNameProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B0A270220A12C00089C1EE /* ApplicationNameProvider.swift */; };
 		F8725EDB2458AFC900BE004D /* ScrollingSmokeTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8725EDA2458AFC900BE004D /* ScrollingSmokeTestsView.swift */; };
 		F8725EDE2458B01E00BE004D /* ScrollingSmokeTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8725EDC2458B01400BE004D /* ScrollingSmokeTestsViewPageObject.swift */; };
@@ -729,7 +727,6 @@
 		F8F8320B24EFEEE6007EEA45 /* BaseGeneratorFacadeTests+SharedCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320A24EFEEE6007EEA45 /* BaseGeneratorFacadeTests+SharedCode.swift */; };
 		F8F8320D24EFEF0C007EEA45 /* NestedFieldsGeneratorFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8320C24EFEF0C007EEA45 /* NestedFieldsGeneratorFacadeTests.swift */; };
 		F8F8321124EFF382007EEA45 /* BaseGeneratorFacadeTests+SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F8321024EFF382007EEA45 /* BaseGeneratorFacadeTests+SharedModels.swift */; };
-		F8F9C2A02368894100E9A044 /* IpcRouterHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */; };
 		F8F9C2A52368946A00E9A044 /* BaseUiTestCase+ResolveFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */; };
 		F8F9C2AC2368949000E9A044 /* BaseTestCase+AssertLogsAndFailures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833E22495469004DD770 /* BaseTestCase+AssertLogsAndFailures.swift */; };
 		F8F9C2AD2368949000E9A044 /* BaseUiTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED2B229854350009B9A7 /* BaseUiTestCase.swift */; };
@@ -993,12 +990,9 @@
 		F853D021214BEB4000EAFBCE /* FileForStacktraceTestsWithFixedNameAndLineNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileForStacktraceTestsWithFixedNameAndLineNumbers.swift; sourceTree = "<group>"; };
 		F853D023214BF68F00EAFBCE /* FailuresAreHighlightedInCorrectPlacesInIdeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailuresAreHighlightedInCorrectPlacesInIdeTests.swift; sourceTree = "<group>"; };
 		F853D02D214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift; sourceTree = "<group>"; };
-		F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingBuiltinIpcTests.swift; sourceTree = "<group>"; };
-		F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIpcEchoingTests.swift; sourceTree = "<group>"; };
 		F854F86C23460F36009A715B /* CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallToSuperInPreconditionOfBaseUiTestCaseValidationTests.swift; sourceTree = "<group>"; };
 		F857C9D520CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIpcMethods.swift; sourceTree = "<group>"; };
-		F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingSbtuiTestTunnelTests.swift; sourceTree = "<group>"; };
 		F85876EF2517919900DB933A /* NonViewElementsTests+BlackBoxOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonViewElementsTests+BlackBoxOnly.swift"; sourceTree = "<group>"; };
 		F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePixelDataTests.swift; sourceTree = "<group>"; };
 		F863CA0524B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTestsView.swift; sourceTree = "<group>"; };
@@ -1012,6 +1006,7 @@
 		F8676ED921552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F868744123204A3F00E2C765 /* SwipeActionTouchesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeActionTouchesTests.swift; sourceTree = "<group>"; };
+		F86B638725B1AC260061EA8E /* IpcEchoingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IpcEchoingTests.swift; sourceTree = "<group>"; };
 		F8725EDA2458AFC900BE004D /* ScrollingSmokeTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingSmokeTestsView.swift; sourceTree = "<group>"; };
 		F8725EDC2458B01400BE004D /* ScrollingSmokeTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingSmokeTestsViewPageObject.swift; sourceTree = "<group>"; };
 		F8725EE92458B4C800BE004D /* ScrollingTriesToMakeViewFullyVisibleTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingTriesToMakeViewFullyVisibleTestsView.swift; sourceTree = "<group>"; };
@@ -1330,7 +1325,6 @@
 		F8F8320A24EFEEE6007EEA45 /* BaseGeneratorFacadeTests+SharedCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseGeneratorFacadeTests+SharedCode.swift"; sourceTree = "<group>"; };
 		F8F8320C24EFEF0C007EEA45 /* NestedFieldsGeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedFieldsGeneratorFacadeTests.swift; sourceTree = "<group>"; };
 		F8F8321024EFF382007EEA45 /* BaseGeneratorFacadeTests+SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseGeneratorFacadeTests+SharedModels.swift"; sourceTree = "<group>"; };
-		F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcRouterHolder.swift; sourceTree = "<group>"; };
 		F8F9C2A123688DB600E9A044 /* BaseUiTestCase+ResolveFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseUiTestCase+ResolveFunctions.swift"; sourceTree = "<group>"; };
 		F8FC281722693CDD009E4982 /* MoreComplexExample.recordedNetworkSession.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MoreComplexExample.recordedNetworkSession.json; sourceTree = "<group>"; };
 		F8FC39802159133D00A9C922 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -2112,9 +2106,7 @@
 		F854F8262344D2BB009A715B /* Echoing */ = {
 			isa = PBXGroup;
 			children = (
-				F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */,
-				F854F8242344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift */,
-				F854F8272344D2D1009A715B /* BaseIpcEchoingTests.swift */,
+				F86B638725B1AC260061EA8E /* IpcEchoingTests.swift */,
 			);
 			path = Echoing;
 			sourceTree = "<group>";
@@ -2945,7 +2937,6 @@
 			children = (
 				F8B0A233220A0E040089C1EE /* TestCase.swift */,
 				F8B0A234220A0E040089C1EE /* GrayBoxTestCaseDependencies.swift */,
-				F8F9C29F2368894100E9A044 /* IpcRouterHolder.swift */,
 			);
 			path = TestCase;
 			sourceTree = "<group>";
@@ -4339,10 +4330,8 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4357,10 +4346,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4540,7 +4527,6 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
@@ -4550,7 +4536,6 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -4563,7 +4548,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
@@ -4573,7 +4557,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4615,10 +4598,8 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
@@ -4641,10 +4622,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
@@ -4677,10 +4656,8 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
@@ -4692,8 +4669,8 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection-iOS/MixboxReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel/SBTUITestTunnel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -4707,10 +4684,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
@@ -4722,8 +4697,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4747,10 +4722,8 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIoKit/MixboxIoKit.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
@@ -4762,8 +4735,8 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiTestsFoundation/MixboxUiTestsFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
-				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection-iOS/MixboxReflection.framework",
+				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel/SBTUITestTunnel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -4777,10 +4750,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIoKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
@@ -4792,8 +4763,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiTestsFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -5078,7 +5049,6 @@
 				F8AD079F2250D5DD00D5FB93 /* PhotosApplicationPermissionTests.swift in Sources */,
 				F8AD079C2250D5DD00D5FB93 /* CameraApplicationPermissionSpecification.swift in Sources */,
 				F8B010DF21FF319D0026360D /* ReportingSystems.swift in Sources */,
-				F854F8252344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift in Sources */,
 				F8EBBCE7213D541300D320A4 /* AssertMatchesReferenceWithPerPixelComparatorTests.swift in Sources */,
 				F8971D0522650A62001741C1 /* FileSystemImpl.swift in Sources */,
 				F8B33B31224CF43400AA1EB9 /* AnyActionSpecification.swift in Sources */,
@@ -5090,7 +5060,6 @@
 				F888EE1D23206137009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
 				F8AC3CF2235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
 				F8EC48D82513AD38009B0813 /* NonViewElementsTestsMapViewPageObject.swift in Sources */,
-				F854F8282344D2D1009A715B /* BaseIpcEchoingTests.swift in Sources */,
 				F8B33B12224ACF3900AA1EB9 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F8971D2622651E3A001741C1 /* CreatedTemporaryDirectory.swift in Sources */,
 				F8E8BAE320DD752200524185 /* FakeCellsTests.swift in Sources */,
@@ -5133,7 +5102,6 @@
 				F8252DC92279DD0F003190D0 /* ScreenshotTestsViewPageObject.swift in Sources */,
 				F8725F022458C0D500BE004D /* TapIndicatorButtonElement.swift in Sources */,
 				F8B010DD21FF319D0026360D /* ReportingSystem.swift in Sources */,
-				F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */,
 				F8C8ED2D229854570009B9A7 /* BaseUiTestCase.swift in Sources */,
 				F8B3411E224E5B0800AA1EB9 /* ApplicationPermissionWithAllowedDeniedNotDeterminedStateSpecification.swift in Sources */,
 				F8B813FC21231DC1001662F3 /* PhotoStubberTests.swift in Sources */,
@@ -5162,6 +5130,7 @@
 				F8971D1122650AD8001741C1 /* NsTemporaryDirectoryPathProvider.swift in Sources */,
 				F8798324224930B1004DD770 /* ContinueAfterFailureTests.swift in Sources */,
 				F88ADFAC223BCF7E0024CCBE /* SetTextActionFailuresTests.swift in Sources */,
+				F86B638825B1AC260061EA8E /* IpcEchoingTests.swift in Sources */,
 				F8252DCA2279DD0F003190D0 /* HierarchyTestsViewPageObject.swift in Sources */,
 				F82AC3382572F4AF0008922E /* UninterceptableError.swift in Sources */,
 				F8DB359E22738C9A00EE0FB8 /* ActionSpecifications.swift in Sources */,
@@ -5566,7 +5535,6 @@
 				F8EC2C8E25124FF6009B0813 /* NSObjectTestabilityWithAccessibilityEnabledTests.swift in Sources */,
 				F8B0A25D220A0EF30089C1EE /* ReportingSystems.swift in Sources */,
 				F8C8ED2A2298505D0009B9A7 /* BaseNetworkMockingTestCase.swift in Sources */,
-				F8F9C2A02368894100E9A044 /* IpcRouterHolder.swift in Sources */,
 				F8DEAAB8236348420002AB81 /* XcTestFailureMatcherBuilder.swift in Sources */,
 				F8252DBE2279DCEE003190D0 /* BaseTouchesTestCase.swift in Sources */,
 				F8C8ED1C2298505D0009B9A7 /* GeolocationApplicationPermissionTests.swift in Sources */,

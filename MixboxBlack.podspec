@@ -14,7 +14,6 @@ Pod::Spec.new do |s|
   s.source_files = 'Frameworks/Black/**/*.{swift,h,m,mm}'
 
   s.dependency 'MixboxUiTestsFoundation'
-  s.dependency 'MixboxIpcSbtuiClient'
   s.dependency 'MixboxDi'
   
   s.frameworks = 'XCTest', 'XCTAutomationSupport'

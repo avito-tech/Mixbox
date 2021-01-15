@@ -7,9 +7,9 @@ import MixboxFoundation
 public final class BidirectionalIpcPingPongMethodHandler: IpcMethodHandler {
     public let method = BidirectionalIpcPingPongMethod()
     
-    private let ipcClient: SynchronousIpcClient? // TODO: Not optional (after removing SBTUITestTunnel)
+    private let ipcClient: SynchronousIpcClient
     
-    public init(ipcClient: SynchronousIpcClient?) {
+    public init(ipcClient: SynchronousIpcClient) {
         self.ipcClient = ipcClient
     }
     
@@ -27,10 +27,6 @@ public final class BidirectionalIpcPingPongMethodHandler: IpcMethodHandler {
     
     private func pingPong(countOfCallsLeft: Int) throws -> [Int] {
         if countOfCallsLeft > 0 {
-            guard let ipcClient = ipcClient else {
-                throw ErrorString("ipcClient is nil in BidirectionalIpcPingPongMethodHandler")
-            }
-            
             let result: BidirectionalIpcPingPongMethod.ReturnValue = try ipcClient.callOrThrow(
                 method: BidirectionalIpcPingPongMethod(),
                 arguments: BidirectionalIpcPingPongMethod.Arguments(

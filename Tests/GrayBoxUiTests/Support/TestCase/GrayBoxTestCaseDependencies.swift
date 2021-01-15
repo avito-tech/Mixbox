@@ -8,9 +8,9 @@ import MixboxDi
 import TestsIpc
 
 final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
-    private let bundleResourcePathProviderForTestsTarget: BundleResourcePathProvider
+    private let bundleResourcePathProviderForTestsTarget: BundleResourcePathProviderForTestsTarget
     
-    init(bundleResourcePathProviderForTestsTarget: BundleResourcePathProvider) {
+    init(bundleResourcePathProviderForTestsTarget: BundleResourcePathProviderForTestsTarget) {
         self.bundleResourcePathProviderForTestsTarget = bundleResourcePathProviderForTestsTarget
     }
     
@@ -24,12 +24,6 @@ final class GrayBoxTestCaseDependencies: DependencyCollectionRegisterer {
     func register(dependencyRegisterer di: DependencyRegisterer) {
         nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
-        di.register(type: IpcRouterHolder.self) { _ in
-            IpcRouterHolder()
-        }
-        di.register(type: IpcRouterProvider.self) { di in
-            try di.resolve() as IpcRouterHolder
-        }
         di.register(type: Apps.self) { di in
             let mainUiKitHierarchy: PageObjectDependenciesFactory = try di.resolve()
             return Apps(

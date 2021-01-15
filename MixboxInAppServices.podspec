@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
   
   s.dependency 'MixboxIpcCommon'
   s.dependency 'MixboxTestability'
-  s.dependency 'MixboxIpcSbtuiHost'
   s.dependency 'MixboxUiKit'
   s.dependency 'MixboxBuiltinIpc'
   s.dependency 'MixboxIoKit'

@@ -43,11 +43,6 @@ class FromEnvironmentIpcStarterProvider: IpcStarterProvider {
                     """
                 )
             }
-        case .sbtui:
-            return SbtuiIpcStarter(
-                reregisterMethodHandlersAutomatically: environment["MIXBOX_REREGISTER_SBTUI_IPC_METHOD_HANDLERS_AUTOMATICALLY"] == "true",
-                synchronousIpcClientFactory: synchronousIpcClientFactory
-            )
         case .graybox:
             return GrayBoxIpcStarter(
                 synchronousIpcClientFactory: synchronousIpcClientFactory

@@ -11,7 +11,7 @@ public final class GrayBoxIpcStarter: IpcStarter {
         self.synchronousIpcClientFactory = synchronousIpcClientFactory
     }
     
-    public func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure]) throws -> (IpcRouter, IpcClient?) {
+    public func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure]) throws -> (IpcRouter, IpcClient) {
         // TODO: Remove from IpcStarter. It has nothing to do with IPC.
         try setUpAccessibilityForSimulator()
         

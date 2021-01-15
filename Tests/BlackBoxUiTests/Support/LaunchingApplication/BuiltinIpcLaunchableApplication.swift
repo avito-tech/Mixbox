@@ -6,17 +6,17 @@ import MixboxBlack
 import MixboxIpcCommon
 
 public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
-    public var legacyNetworking: LegacyNetworking {
-        UnavoidableFailure.fail("LegacyNetworking is not implemented for Builtin Ipc")
-    }
+    public let legacyNetworking: LegacyNetworking
     
     private static var everLaunched: Bool = false
     private let applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver
     private var launchedXcuiApplication: XCUIApplication?
     
     public init(
+        legacyNetworking: LegacyNetworking,
         applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver)
     {
+        self.legacyNetworking = legacyNetworking
         self.applicationLifecycleObservable = applicationLifecycleObservable
     }
     

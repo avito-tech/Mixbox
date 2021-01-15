@@ -1,22 +1,21 @@
-import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
 import Foundation
 
-public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance: BridgedUrlProtocolInstance, IpcObjectIdentifiable {
+public class StubbingBridgedUrlProtocolInstance: BridgedUrlProtocolInstance, IpcObjectIdentifiable {
     public let ipcObjectId: IpcObjectId = .uuid
     
     private let url: URL?
     private let client: BridgedUrlProtocolClient
-    private let stub: GrayBoxLegacyNetworkStubbingNetworkStub
+    private let stub: LegacyNetworkStub
     private let bundleResourcePathProvider: BundleResourcePathProvider
     private let testFailureRecorder: TestFailureRecorder
     
     public init(
         url: URL?,
         client: BridgedUrlProtocolClient,
-        stub: GrayBoxLegacyNetworkStubbingNetworkStub,
+        stub: LegacyNetworkStub,
         bundleResourcePathProvider: BundleResourcePathProvider,
         testFailureRecorder: TestFailureRecorder)
     {

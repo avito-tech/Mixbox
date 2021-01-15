@@ -1,17 +1,17 @@
 import Foundation
 
 public final class RecordedSessionStubberImpl: RecordedSessionStubber {
-    private let stubRequestBuilder: StubRequestBuilder
+    private let legacyNetworkStubbing: LegacyNetworkStubbing
     
-    public init(stubRequestBuilder: StubRequestBuilder) {
-        self.stubRequestBuilder = stubRequestBuilder
+    public init(legacyNetworkStubbing: LegacyNetworkStubbing) {
+        self.legacyNetworkStubbing = legacyNetworkStubbing
     }
     
     public func stub(
         recordedStub: RecordedStub)
         throws
     {
-        stubRequestBuilder
+        legacyNetworkStubbing
             .stub(
                 urlPattern: urlPattern(
                     request: recordedStub.request
@@ -26,7 +26,7 @@ public final class RecordedSessionStubberImpl: RecordedSessionStubber {
     }
     
     public func stubAllNetworkInitially() {
-        stubRequestBuilder
+        legacyNetworkStubbing
             .stub(urlPattern: ".*")
             .thenReturn(
                 string: "All network is stubbed with error by default. If you see this then current request was not stubbed.",

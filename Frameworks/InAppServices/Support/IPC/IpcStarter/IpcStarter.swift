@@ -3,10 +3,9 @@
 import MixboxIpc
 
 public protocol IpcStarter: class {
-    // TODO: IpcClient should not be nil
     func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure])
         throws
-        -> (IpcRouter, IpcClient?)
+        -> (IpcRouter, IpcClient)
 }
 
 #endif

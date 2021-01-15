@@ -10,7 +10,7 @@ class IpcCallbacksTests: TestCase {
     override func precondition() {
         super.precondition()
         
-        launch(environment: [:], useBuiltinIpc: true)
+        launch(environment: [:])
     }
     
     func test_incoming() {

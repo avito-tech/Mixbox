@@ -47,9 +47,7 @@ target 'TestedApp' do
   platform :ios, '9.0'
   
   mixbox.pod 'MixboxInAppServices'
-  mixbox.pod 'MixboxIpcSbtuiHost'
-  pod 'SBTUITestTunnel/Server', '3.0.6', :inhibit_warnings => true
-
+  
   tests_ipc_pods
 end
 
@@ -80,8 +78,6 @@ target 'BlackBoxUiTests' do
   
   # Code being tested:
   mixbox.pod 'MixboxBlack'
-  mixbox.pod 'MixboxIpcSbtuiClient'
-  pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
   
   # Helpers:
   mixbox.pod 'MixboxMocksRuntime'

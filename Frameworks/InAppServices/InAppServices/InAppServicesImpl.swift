@@ -14,8 +14,7 @@ public final class InAppServicesImpl: InAppServices {
     private let defaultUiEventObservableHolder = UiEventObservableHolder()
     
     // State
-    private var router: IpcRouter?
-    private var client: IpcClient?
+    private var startedInAppServices: StartedInAppServices?
     private var commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure] = []
     
     // MARK: - Init
@@ -53,19 +52,19 @@ public final class InAppServicesImpl: InAppServices {
     // MARK: - IpcMethodHandlerWithDependenciesRegisterer
     
     public func register<MethodHandler: IpcMethodHandler>(closure: @escaping IpcMethodHandlerRegistrationClosure<MethodHandler>) {
-        if let router = router {
+        if let startedInAppServices = startedInAppServices {
             tryOrReportFailure {
                 let synchronousIpcClientFactory: SynchronousIpcClientFactory = try dependencyResolver.resolve()
                 
                 let dependencies = IpcMethodHandlerRegistrationDependencies(
-                    ipcRouter: router,
-                    ipcClient: client,
-                    synchronousIpcClient: client.map {
-                        synchronousIpcClientFactory.synchronousIpcClient(ipcClient: $0)
-                    }
+                    ipcRouter: startedInAppServices.ipcRouter,
+                    ipcClient: startedInAppServices.ipcClient,
+                    synchronousIpcClient: synchronousIpcClientFactory.synchronousIpcClient(
+                        ipcClient: startedInAppServices.ipcClient
+                    )
                 )
                 
-                router.register(
+                startedInAppServices.ipcRouter.register(
                     methodHandler: closure(dependencies)
                 )
             }
@@ -96,7 +95,7 @@ public final class InAppServicesImpl: InAppServices {
     // MARK: - InAppServices
     
     public func start() -> StartedInAppServices {
-        assert(self.router == nil, "InAppServices are already started")
+        assert(self.startedInAppServices == nil, "InAppServices are already started")
         
         dependencyCollectionRegisterer.register(
             dependencyRegisterer: dependencyRegisterer
@@ -114,9 +113,6 @@ public final class InAppServicesImpl: InAppServices {
                 commandsForAddingRoutes: commandsForAddingRoutes
             )
             
-            self.router = router
-            self.client = client
-            
             try (dependencyResolver.resolve() as AccessibilityEnhancer).enhanceAccessibility()
             
             try (dependencyResolver.resolve() as ScrollViewIdlingResourceSwizzler).swizzle()
@@ -124,23 +120,24 @@ public final class InAppServicesImpl: InAppServices {
             try (dependencyResolver.resolve() as ViewControllerIdlingResourceSwizzler).swizzle()
             try (dependencyResolver.resolve() as CoreAnimationIdlingResourceSwizzler).swizzle()
             
-            let mixboxUrlProtocolBootstrapper: MixboxUrlProtocolBootstrapper? = try client.flatMap { client in
-                let mixboxUrlProtocolBootstrapperFactory: MixboxUrlProtocolBootstrapperFactory = try dependencyResolver.resolve()
-                
-                return try mixboxUrlProtocolBootstrapperFactory.mixboxUrlProtocolBootstrapper(
-                    ipcRouter: router,
-                    ipcClient: client
-                )
-            }
+            let mixboxUrlProtocolBootstrapperFactory: MixboxUrlProtocolBootstrapperFactory = try dependencyResolver.resolve()
+            let mixboxUrlProtocolBootstrapper: MixboxUrlProtocolBootstrapper? = try mixboxUrlProtocolBootstrapperFactory.mixboxUrlProtocolBootstrapper(
+                ipcRouter: router,
+                ipcClient: client
+            )
             
             mixboxUrlProtocolBootstrapper?.bootstrapNetworkMocking()
             
             commandsForAddingRoutes = []
             
-            return StartedInAppServices(
-                router: router,
-                client: client
+            let startedInAppServices = StartedInAppServices(
+                ipcRouter: router,
+                ipcClient: client
             )
+            
+            self.startedInAppServices = startedInAppServices
+            
+            return startedInAppServices
         }
     }
     

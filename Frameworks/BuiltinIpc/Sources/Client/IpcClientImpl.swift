@@ -40,6 +40,7 @@ public final class BuiltinIpcClient: IpcClient {
         )
     }
     
+    // FIXME
     // TODO: Better error handling before replacing SBTUI with it.
     private func call<ReturnValue: Codable>(
         method: String,

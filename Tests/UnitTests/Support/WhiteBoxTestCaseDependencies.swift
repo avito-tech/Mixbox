@@ -1,11 +1,6 @@
-import SBTUITestTunnel
 import MixboxTestsFoundation
-import MixboxBlack
 import MixboxUiTestsFoundation
-import MixboxIpcSbtuiClient
-import MixboxIpc
 import MixboxDi
-import TestsIpc
 
 final class WhiteBoxTestCaseDependencies: DependencyCollectionRegisterer {
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {

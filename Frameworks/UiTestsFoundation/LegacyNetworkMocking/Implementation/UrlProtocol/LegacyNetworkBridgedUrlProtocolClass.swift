@@ -1,17 +1,16 @@
-import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxFoundation
 
-public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
+public class LegacyNetworkBridgedUrlProtocolClass:
     BridgedUrlProtocolClass,
-    GrayBoxLegacyNetworkStubbingNetworkStubRepository
+    LegacyNetworkStubRepository
 {
     private let urlProtocolStubAdder: UrlProtocolStubAdder
     private let testFailureRecorder: TestFailureRecorder
     private let bundleResourcePathProvider: BundleResourcePathProvider
     
-    private var stubs = [GrayBoxLegacyNetworkStubbingNetworkStub]()
+    private var stubs = [LegacyNetworkStub]()
     private var addedStub: AddedUrlProtocolStub?
     
     public init(
@@ -56,7 +55,7 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
             )
         }
         
-        return GrayBoxLegacyNetworkStubbingBridgedUrlProtocolInstance(
+        return StubbingBridgedUrlProtocolInstance(
             url: request.url,
             client: client,
             stub: stub,
@@ -65,7 +64,7 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
         )
     }
     
-    private func matchingStub(request: BridgedUrlRequest) throws -> GrayBoxLegacyNetworkStubbingNetworkStub? {
+    private func matchingStub(request: BridgedUrlRequest) throws -> LegacyNetworkStub? {
         for stub in stubs.reversed() {
             if stub.matches(request: request) {
                 return stub
@@ -75,9 +74,9 @@ public class GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass:
         return nil
     }
     
-    // MARK: - GrayBoxLegacyNetworkStubbingNetworkStubRepository
+    // MARK: - LegacyNetworkStubRepository
     
-    public func add(stub: GrayBoxLegacyNetworkStubbingNetworkStub) {
+    public func add(stub: LegacyNetworkStub) {
         do {
             if stubs.isEmpty {
                 addedStub = try urlProtocolStubAdder.addStub(bridgedUrlProtocolClass: self)

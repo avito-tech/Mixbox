@@ -1,12 +1,11 @@
 import MixboxTestsFoundation
-import MixboxUiTestsFoundation
 import MixboxFoundation
 
-public final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
+public final class LegacyNetworkStubbingImpl: LegacyNetworkStubbing {
     private let testFailureRecorder: TestFailureRecorder
     private let waiter: RunLoopSpinningWaiter
     
-    private let bridgedUrlProtocolClass: GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass
+    private let bridgedUrlProtocolClass: LegacyNetworkBridgedUrlProtocolClass
     
     public init(
         urlProtocolStubAdder: UrlProtocolStubAdder,
@@ -17,7 +16,7 @@ public final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
         self.testFailureRecorder = testFailureRecorder
         self.waiter = waiter
         
-        self.bridgedUrlProtocolClass = GrayBoxLegacyNetworkStubbingBridgedUrlProtocolClass(
+        self.bridgedUrlProtocolClass = LegacyNetworkBridgedUrlProtocolClass(
             urlProtocolStubAdder: urlProtocolStubAdder,
             testFailureRecorder: testFailureRecorder,
             bundleResourcePathProvider: bundleResourcePathProvider
@@ -29,10 +28,10 @@ public final class GrayBoxLegacyNetworkStubbing: LegacyNetworkStubbing {
         httpMethod: HttpMethod?)
         -> StubResponseBuilder
     {
-        return GrayBoxLegacyNetworkStubbingStubResponseBuilder(
+        return StubResponseBuilderImpl(
             urlPattern: urlPattern,
             httpMethod: httpMethod,
-            grayBoxLegacyNetworkStubbingNetworkStubRepository: bridgedUrlProtocolClass,
+            legacyNetworkStubRepository: bridgedUrlProtocolClass,
             testFailureRecorder: testFailureRecorder,
             waiter: waiter
         )

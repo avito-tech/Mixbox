@@ -6,7 +6,6 @@ import XCTest
 // TODO: Make stubbing work before app is started! Check both cases.
 // TODO: IMPORTANT: Check stubbing when files were not added to target.
 //       I didn't add it, failure handling was poor and it took me a lot of time to figure it out.
-//       NOTE: It was with GrayBoxLegacyNetworkStubbing which is not tested at the moment.
 final class NetworkStubbingTests: BaseNetworkMockingTestCase {
     func test() {
         let compoundBridgedUrlProtocolClass = CompoundBridgedUrlProtocolClass()

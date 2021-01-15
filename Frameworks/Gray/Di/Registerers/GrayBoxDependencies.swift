@@ -143,16 +143,39 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
                 )
             )
         }
-        di.register(type: LegacyNetworking.self) { di in
-            GrayBoxLegacyNetworking(
+        di.register(type: LegacyNetworkStubbing.self) { di in
+            LegacyNetworkStubbingImpl(
                 urlProtocolStubAdder: try di.resolve(),
                 testFailureRecorder: try di.resolve(),
                 waiter: try di.resolve(),
                 bundleResourcePathProvider: try di.resolve()
             )
         }
+        di.register(type: LegacyNetworkRecording.self) { _ in
+            NotImplementedLegacyNetworkRecording()
+        }
+        di.register(type: LegacyNetworking.self) { di in
+            LegacyNetworkingImpl(
+                stubbing: try di.resolve(),
+                recording: try di.resolve()
+            )
+        }
         di.register(type: PathGestureUtilsFactory.self) { _ in
             PathGestureUtilsFactoryImpl()
         }
+    }
+}
+
+private class NotImplementedLegacyNetworkRecording: LegacyNetworkRecording {
+    
+    var allRequests: [MonitoredNetworkRequest] {
+        grayNotImplemented()
+    }
+    
+    func player(
+        session: RecordedNetworkSessionPath)
+        -> NetworkPlayer
+    {
+        grayNotImplemented()
     }
 }

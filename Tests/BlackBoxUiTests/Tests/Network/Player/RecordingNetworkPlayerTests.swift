@@ -9,7 +9,6 @@ final class RecordingNetworkPlayerTests: BaseNetworkMockingTestCase {
     
     private lazy var recordingPlayer = RecordingNetworkPlayer(
         networkRecordsProvider: legacyNetworking.recording,
-        networkRecorderLifecycle: legacyNetworking.recording,
         testFailureRecorder: dependencies.resolve(),
         waiter: waiter,
         recordedNetworkSessionPath: recordedNetworkSessionFile.path,
@@ -27,8 +26,6 @@ final class RecordingNetworkPlayerTests: BaseNetworkMockingTestCase {
     func test_checkpoint_insertsIdToItself() {
         // Given
         let player = recordingPlayer
-        
-        legacyNetworking.recording.startRecording()
         
         open(screen: screen)
             .waitUntilViewIsLoaded()
