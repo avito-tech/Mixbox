@@ -2,7 +2,7 @@ import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxBlack
-import SBTUITestTunnel
+import MixboxSBTUITestTunnelClient
 
 // There are many options for you of how to start your app (there are 3 projects in total that do it differently,
 // like handling launch arguments, environment, some other things).

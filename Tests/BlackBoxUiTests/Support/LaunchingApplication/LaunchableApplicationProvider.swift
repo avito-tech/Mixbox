@@ -1,7 +1,7 @@
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxBlack
-import SBTUITestTunnel
+import MixboxSBTUITestTunnelClient
 import MixboxFoundation
 
 public final class LaunchableApplicationProvider {

@@ -1,4 +1,3 @@
-import SBTUITestTunnel
 import MixboxTestsFoundation
 import MixboxBlack
 import MixboxUiTestsFoundation

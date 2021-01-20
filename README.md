@@ -187,6 +187,7 @@ we need conditional compilation built in in sources to prevent linking the code 
 - EarlGrey (every source file contains `EarlGrey` substring somewhere). [License is here (Apache)](Docs/EarlGreyLicense/LICENSE),
   [original repo is here](https://github.com/google/EarlGrey). It is visibility checker, setting up accessibility, etc.
 - [AnyCodable](Frameworks/AnyCodable). `#if` clauses were added.
+- SBTUITestTunnel. There was a bug with web views with versions newer than 3.0.6. Then several years later we experienced flakiness when building it. The fix was very primitive - copypaste everything to avoid problems. We could have dive deeper, but there is a plan to use native solution for IPC in the future, so we didn't bother. Original repo: <https://github.com/Subito-it/SBTUITestTunnel>
 
 ## Other docs
 

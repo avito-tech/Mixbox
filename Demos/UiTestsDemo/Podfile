@@ -45,7 +45,6 @@ target 'GrayBoxTests' do
   # This is mandatory for gray box testing:
   
   mixbox.pod 'MixboxGray' 
-  pod 'SBTUITestTunnel/Server', '3.0.6'
   
   # This is optional:
   
@@ -56,8 +55,6 @@ target 'BlackBoxTests' do
   # This is mandatory for black box testing:
    
   mixbox.pod 'MixboxBlack'
-  mixbox.pod 'MixboxIpcSbtuiClient'
-  pod 'SBTUITestTunnel/Client', '3.0.6'
   
   # This is optional:
   
@@ -71,8 +68,6 @@ target 'App' do
   # Don't worry, no code will leak in production.
   
   mixbox.pod 'MixboxInAppServices'
-  mixbox.pod 'MixboxIpcSbtuiHost'
-  pod 'SBTUITestTunnel/Server', '3.0.6'
 end
 
 enable_testing_with_mixbox_for_configuration_name('Debug')

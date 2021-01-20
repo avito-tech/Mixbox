@@ -3,7 +3,7 @@ import XCTest
 import TestsIpc
 import MixboxUiTestsFoundation
 import MixboxIpc
-import SBTUITestTunnel
+import MixboxSBTUITestTunnelClient
 
 final class LaunchingAppTests: TestCase {
     private let applicationLifecycleObservable = ApplicationLifecycleObservableImpl()

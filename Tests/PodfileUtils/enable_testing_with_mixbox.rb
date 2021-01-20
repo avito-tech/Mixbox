@@ -38,7 +38,5 @@ def enable_testing_with_mixbox_for_module_configuration(config)
 
   # MIXBOX_ENABLE_IN_APP_SERVICES enables code for testing. You should not include that code in release builds.
   config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'MIXBOX_ENABLE_IN_APP_SERVICES']
-
-  # ENABLE_UITUNNEL is a same thing, but for SBTUITestTunnel library. We're planning to stop using it. If there is no such dependency now, remove this definition.
-  config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'ENABLE_UITUNNEL=1', 'MIXBOX_ENABLE_IN_APP_SERVICES=1']
+  config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1']
 end

@@ -33,13 +33,6 @@ sourcery.local_path_env = 'MIXBOX_SOURCERY_LOCAL_PATH'
 def tests_ipc_pods
   pod 'TestsIpc', :path => 'Frameworks/TestsIpc'
 end
-
-def logic_tests_pods(mixbox)
-  mixbox.pod_all_ios
-
-  pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
-  pod 'SBTUITestTunnel/Server', '3.0.6', :inhibit_warnings => true
-end
  
 ### TARGETS
 
@@ -47,8 +40,6 @@ target 'TestedApp' do
   platform :ios, '9.0'
   
   mixbox.pod 'MixboxInAppServices'
-  mixbox.pod 'MixboxIpcSbtuiHost'
-  pod 'SBTUITestTunnel/Server', '3.0.6', :inhibit_warnings => true
 
   tests_ipc_pods
 end
@@ -80,8 +71,6 @@ target 'BlackBoxUiTests' do
   
   # Code being tested:
   mixbox.pod 'MixboxBlack'
-  mixbox.pod 'MixboxIpcSbtuiClient'
-  pod 'SBTUITestTunnel/Client', '3.0.6', :inhibit_warnings => true
   
   # Helpers:
   mixbox.pod 'MixboxMocksRuntime'
@@ -93,7 +82,8 @@ end
 target 'UnitTests' do
   platform :ios, '9.0'
   
-  logic_tests_pods(mixbox)
+  mixbox.pod_all_ios
+  
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
 
@@ -107,7 +97,7 @@ end
 target 'HostedAppLogicTests' do
   platform :ios, '9.0'
   
-  logic_tests_pods(mixbox)
+  mixbox.pod_all_ios
   
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
@@ -126,7 +116,7 @@ post_install do |installer|
           config.build_settings['ENABLE_BITCODE'] = 'NO' # To support testing on devices
           config.build_settings['ENABLE_TESTABILITY'] = 'YES' # To support @testable import
           config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'MIXBOX_ENABLE_IN_APP_SERVICES', '-Onone']
-          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1', 'ENABLE_UITUNNEL=1']
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1']
         end
       end
     end

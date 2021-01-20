@@ -2,7 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 import MixboxIpc
-import SBTUITestTunnel
+import MixboxSBTUITestTunnelClient
 import MixboxIpcSbtuiClient
 import MixboxFoundation
 

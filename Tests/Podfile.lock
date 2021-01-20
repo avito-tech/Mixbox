@@ -7,6 +7,7 @@ PODS:
   - MixboxBlack (0.2.3):
     - MixboxDi
     - MixboxIpcSbtuiClient
+    - MixboxSBTUITestTunnelClient
     - MixboxUiTestsFoundation
   - MixboxBuiltinDi (0.2.3):
     - MixboxDi
@@ -40,12 +41,12 @@ PODS:
     - MixboxIpc
   - MixboxIpcSbtuiClient (0.2.3):
     - MixboxIpc
+    - MixboxSBTUITestTunnelClient
     - MixboxTestsFoundation
     - MixboxUiTestsFoundation
-    - SBTUITestTunnel/Client (~> 3.0.6)
   - MixboxIpcSbtuiHost (0.2.3):
     - MixboxIpc
-    - SBTUITestTunnel/Server (~> 3.0.6)
+    - MixboxSBTUITestTunnelServer
   - MixboxMocksGeneration (0.2.3):
     - SourceryFramework
     - SourceryRuntime
@@ -53,6 +54,12 @@ PODS:
     - MixboxGenerators
     - MixboxTestsFoundation
   - MixboxReflection (0.2.3)
+  - MixboxSBTUITestTunnelClient (0.2.3):
+    - MixboxSBTUITestTunnelCommon
+  - MixboxSBTUITestTunnelCommon (0.2.3)
+  - MixboxSBTUITestTunnelServer (0.2.3):
+    - GCDWebServer (~> 3.0)
+    - MixboxSBTUITestTunnelCommon
   - MixboxStubbing (0.2.3):
     - MixboxGenerators
     - MixboxTestsFoundation
@@ -72,9 +79,6 @@ PODS:
     - MixboxTestsFoundation
     - MixboxUiKit
   - PathKit (1.0.0)
-  - SBTUITestTunnel/Client (3.0.6)
-  - SBTUITestTunnel/Server (3.0.6):
-    - GCDWebServer (~> 3.0)
   - SourceKittenFramework (0.30.1):
     - SWXMLHash (~> 5.0.1)
     - Yams (~> 4.0)
@@ -118,13 +122,14 @@ DEPENDENCIES:
   - MixboxMocksGeneration (from `..`)
   - MixboxMocksRuntime (from `..`)
   - MixboxReflection (from `..`)
+  - MixboxSBTUITestTunnelClient (from `..`)
+  - MixboxSBTUITestTunnelCommon (from `..`)
+  - MixboxSBTUITestTunnelServer (from `..`)
   - MixboxStubbing (from `..`)
   - MixboxTestability (from `..`)
   - MixboxTestsFoundation (from `..`)
   - MixboxUiKit (from `..`)
   - MixboxUiTestsFoundation (from `..`)
-  - SBTUITestTunnel/Client (= 3.0.6)
-  - SBTUITestTunnel/Server (= 3.0.6)
   - Sourcery (from `https://github.com/avito-tech/Sourcery.git`, branch `avito`)
   - SourceryFramework (from `https://github.com/avito-tech/Sourcery.git`, branch `avito`)
   - SourceryRuntime (from `https://github.com/avito-tech/Sourcery.git`, branch `avito`)
@@ -137,7 +142,6 @@ SPEC REPOS:
     - CocoaImageHashing
     - GCDWebServer
     - PathKit
-    - SBTUITestTunnel
     - SourceKittenFramework
     - SQLite.swift
     - SwiftLint
@@ -180,6 +184,12 @@ EXTERNAL SOURCES:
   MixboxMocksRuntime:
     :path: ".."
   MixboxReflection:
+    :path: ".."
+  MixboxSBTUITestTunnelClient:
+    :path: ".."
+  MixboxSBTUITestTunnelCommon:
+    :path: ".."
+  MixboxSBTUITestTunnelServer:
     :path: ".."
   MixboxStubbing:
     :path: ".."
@@ -224,7 +234,7 @@ SPEC CHECKSUMS:
   CocoaImageHashing: 2c8efd6dd60f9030cd54086b34ffc48e927821c3
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   MixboxAnyCodable: 94421d76e8d4b7c66fefe5ce9267587207e4d805
-  MixboxBlack: 7f1c9cf6b1a99e17dd4df72b92828dc9a03d58e0
+  MixboxBlack: 65fcd8add17d82536d52928f308755f2c2078c28
   MixboxBuiltinDi: edd1871fbf863e5abffa337bbdce5150fd5a7156
   MixboxBuiltinIpc: 26880327fbb22e9f6e96a13b26ef7015749bf946
   MixboxDi: eca7043111a8aff6ab2fe571ad0644b21da0f8e6
@@ -236,18 +246,20 @@ SPEC CHECKSUMS:
   MixboxIoKit: 9eabef0ca2c0b54af3f4462cff83c90ec3ca8ed3
   MixboxIpc: 03e3a25d4c9fa699c87d3f0c166e47363f8d25e1
   MixboxIpcCommon: 71629f707c370f201ab475856b90762cc1e158d7
-  MixboxIpcSbtuiClient: d360a472cc96d3a068bb7dd7c551b3f8c3e0ca89
-  MixboxIpcSbtuiHost: 19ca10eed91be1c32fbeba9686b97f0df46ea777
+  MixboxIpcSbtuiClient: 9e10d36534240a689edc73d9780457ce67800ba1
+  MixboxIpcSbtuiHost: 54fa2b987d36cca6c369394021c0065b71a0146e
   MixboxMocksGeneration: 0bb97a2ec5a85bb2b71b5684a5521f29c78dfe9e
   MixboxMocksRuntime: ed2e7456ab989f54221518cfea115c97c287742a
   MixboxReflection: 08d247df00a91eceef1feef26561115e7101b38c
+  MixboxSBTUITestTunnelClient: 50d55ed624f16d80651d83466ddaf557945b85ad
+  MixboxSBTUITestTunnelCommon: 7a206e0b0a7a1a58a7f40bf6704d15047103ce74
+  MixboxSBTUITestTunnelServer: 32b2ec617a07f40072ab9e7ae04ad691c081c30d
   MixboxStubbing: 32ebdc7d599daf9ce00cbc4908c2ef353880bd0e
   MixboxTestability: f2ae73479007568fafb48b6a62b98e05986b8a80
   MixboxTestsFoundation: e297db2288246f6221d55001d244ee91da79f3a3
   MixboxUiKit: aa78cf7ebcd02e90c3ebb2865091adf3396f2f81
   MixboxUiTestsFoundation: 78791a8553d1d28a6c212b889f2dbd5fe50c1199
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
-  SBTUITestTunnel: 865e4cec64aa10e495139643f50ccc7d8d0a604f
   SourceKittenFramework: 540d9d048c0bab3c0faa4668425364fabff12cb0
   Sourcery: 928a146ea9b777fa64b0c6ce915c4128b4488cff
   SourceryFramework: 52f80f61c513f49ec96e83496c16dd24dd668734
@@ -261,4 +273,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.0.beta.2

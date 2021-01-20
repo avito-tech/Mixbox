@@ -91,6 +91,18 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
+                name: "SBTUITestTunnelClient",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
+            ),
+            FrameworkInfo(
+                name: "SBTUITestTunnelCommon",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
+                name: "SBTUITestTunnelServer",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
                 name: "Stubbing",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),

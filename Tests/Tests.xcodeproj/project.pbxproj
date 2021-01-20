@@ -4340,9 +4340,10 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelCommon/MixboxSBTUITestTunnelCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelServer/MixboxSBTUITestTunnelServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4358,9 +4359,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4539,8 +4541,8 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxFoundation-iOS/MixboxFoundation.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelCommon/MixboxSBTUITestTunnelCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
@@ -4551,6 +4553,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelClient/MixboxSBTUITestTunnelClient.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -4562,8 +4565,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFoundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
@@ -4574,6 +4577,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelClient.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4616,9 +4620,10 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelCommon/MixboxSBTUITestTunnelCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelServer/MixboxSBTUITestTunnelServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGenerators/MixboxGenerators.framework",
@@ -4642,9 +4647,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGenerators.framework",
@@ -4678,9 +4684,10 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelCommon/MixboxSBTUITestTunnelCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelServer/MixboxSBTUITestTunnelServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
@@ -4693,6 +4700,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelClient/MixboxSBTUITestTunnelClient.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection-iOS/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4708,9 +4716,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
@@ -4723,6 +4732,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4748,9 +4758,10 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxIpc-iOS/MixboxIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcCommon/MixboxIpcCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiHost/MixboxIpcSbtuiHost.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelCommon/MixboxSBTUITestTunnelCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelServer/MixboxSBTUITestTunnelServer.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SBTUITestTunnel-Client-Server/SBTUITestTunnel.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
@@ -4763,6 +4774,7 @@
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxBlack/MixboxBlack.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxIpcSbtuiClient/MixboxIpcSbtuiClient.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelClient/MixboxSBTUITestTunnelClient.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxReflection-iOS/MixboxReflection.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -4778,9 +4790,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiHost.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SBTUITestTunnel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
@@ -4793,6 +4806,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxBlack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxIpcSbtuiClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxReflection.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

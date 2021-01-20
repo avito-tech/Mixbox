@@ -1,7 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 import MixboxIpc
-import SBTUITestTunnel
+import MixboxSBTUITestTunnelServer
 import MixboxIpcSbtuiHost
 
 final class SbtuiIpcStarter: IpcStarter {

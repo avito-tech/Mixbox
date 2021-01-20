@@ -2,7 +2,7 @@ import XCTest
 import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxBlack
-import SBTUITestTunnel
+import MixboxSBTUITestTunnelClient
 import MixboxIpcSbtuiClient
 import MixboxBuiltinIpc
 import MixboxBuiltinDi
