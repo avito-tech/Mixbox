@@ -58,7 +58,7 @@
 // - See crash
 - (NSString *)waitUntilAccessibilityIsSetUpOrReturnError {
     UIView *view = [UIView new];
-    NSTimeInterval pollingTimeout = 1;
+    NSTimeInterval pollingTimeout = 15;
     NSTimeInterval pollingInterval = 1;
     NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:pollingTimeout];
     
