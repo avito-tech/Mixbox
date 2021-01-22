@@ -19,7 +19,8 @@
 // https://github.com/AliSoftware/OHHTTPStubs/blob/master/OHHTTPStubs/Sources/NSURLSession/OHHTTPStubs%2BNSURLSessionConfiguration.m
 
 #import "NSURLSessionConfiguration+SBTUITestTunnel.h"
-#import "SBTSwizzleHelpers.h"
+
+#import <MixboxSBTUITestTunnelCommon/SBTSwizzleHelpers.h>
 #import "SBTProxyURLProtocol.h"
 
 @implementation NSURLSessionConfiguration (SBTUITestTunnel)

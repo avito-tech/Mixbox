@@ -15,9 +15,9 @@
 // limitations under the License.
 
 #import "SBTUITunneledApplication.h"
-#import "SBTUITestTunnel.h"
-#import "NSURLRequest+SBTUITestTunnelMatch.h"
 
+#import <MixboxSBTUITestTunnelCommon/SBTUITestTunnel.h>
+#import <MixboxSBTUITestTunnelCommon/NSURLRequest+SBTUITestTunnelMatch.h>
 #import <MixboxSBTUITestTunnelCommon/SBTMonitoredNetworkRequest.h>
 
 #include <ifaddrs.h>

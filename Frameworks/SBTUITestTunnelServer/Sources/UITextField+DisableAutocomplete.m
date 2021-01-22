@@ -17,7 +17,7 @@
 // limitations under the License.
 
 #import "UITextField+DisableAutocomplete.h"
-#import "SBTSwizzleHelpers.h"
+#import <MixboxSBTUITestTunnelCommon/SBTSwizzleHelpers.h>
 
 @implementation UITextField (DisableAutocomplete)
 

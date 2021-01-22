@@ -17,10 +17,10 @@
 // limitations under the License.
 
 #import "SBTProxyURLProtocol.h"
-#import "NSURLRequest+SBTUITestTunnelMatch.h"
 #import "NSData+SHA1.h"
-#import "SBTStubResponse.h"
-#import "SBTRewrite.h"
+#import <MixboxSBTUITestTunnelCommon/SBTStubResponse.h>
+#import <MixboxSBTUITestTunnelCommon/SBTRewrite.h>
+#import <MixboxSBTUITestTunnelCommon/NSURLRequest+SBTUITestTunnelMatch.h>
 
 static NSString * const SBTProxyURLOriginalRequestKey = @"SBTProxyURLOriginalRequestKey";
 static NSString * const SBTProxyURLProtocolHandledKey = @"SBTProxyURLProtocolHandledKey";

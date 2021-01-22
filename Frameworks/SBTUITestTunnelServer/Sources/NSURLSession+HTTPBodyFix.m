@@ -17,8 +17,9 @@
 // limitations under the License.
 
 #import "NSURLSession+HTTPBodyFix.h"
-#import "SBTSwizzleHelpers.h"
-#import "SBTUITestTunnel.h"
+
+#import <MixboxSBTUITestTunnelCommon/SBTSwizzleHelpers.h>
+#import <MixboxSBTUITestTunnelCommon/SBTUITestTunnel.h>
 
 @implementation NSURLSession (HTTPBodyFix)
 
