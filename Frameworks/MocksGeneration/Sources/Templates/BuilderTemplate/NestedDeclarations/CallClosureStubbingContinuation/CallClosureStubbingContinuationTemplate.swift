@@ -207,8 +207,16 @@ public final class CallClosureStubbingContinuationTemplate {
                 """
             },
             transform: { index, parameter in
-                """
-                _ closureArgument\(index): \(parameter.typeName.validTypeName)
+                let attributesString: String
+                
+                if parameter.typeName.isReallyClosure {
+                    attributesString = "@escaping "
+                } else {
+                    attributesString = ""
+                }
+                
+                return """
+                _ closureArgument\(index): \(attributesString)\(parameter.typeName.validTypeName)
                 """
             }
         )

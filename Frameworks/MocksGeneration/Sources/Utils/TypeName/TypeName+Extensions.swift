@@ -161,7 +161,7 @@ extension TypeName {
     }
     
     private func validUnwrappedTypeNameIfClosure() -> String {
-        var name = self.name
+        var name = (actualTypeName ?? self).name
         
         // This is what sourcery lacks. Everything else is copypasted from different parts of sourcery.
         // This is what `unwrappedTypeName` from Soucery should be doing.
