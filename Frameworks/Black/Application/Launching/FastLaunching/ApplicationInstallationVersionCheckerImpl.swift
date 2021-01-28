@@ -34,16 +34,10 @@ import MixboxTestsFoundation
 /// di.register(type: SBTUITunneledApplication.self) { di in
 ///     let applicationInstallationVersionChecker: ApplicationInstallationVersionChecker = try di.resolve()
 ///     let bundleIdProvider: BundleIdProvider = try di.resolve()
-///     // TODO: Feature Toggles for tests
-///     let installationOptimizationEnabled = true
-///
-///     let shouldInstallApplication = installationOptimizationEnabled
-///         ? !applicationInstallationVersionChecker.sameVersionOfTestedApplicationIsAlreadyInstalled()
-///         : true
 ///
 ///     return SBTUITunneledApplication(
 ///         bundleId: bundleIdProvider.bundleId,
-///         shouldInstallApplication: shouldInstallApplication
+///         shouldInstallApplication: !applicationInstallationVersionChecker.sameVersionOfTestedApplicationIsAlreadyInstalled()
 ///     )
 /// }
 /// ```
