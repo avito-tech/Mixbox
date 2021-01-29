@@ -104,7 +104,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     buildArtifacts: buildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: environment,
-                    numberOfRetries: 4,
+                    numberOfRetries: 0,
                     pluginLocations: Set(),
                     scheduleStrategy: .progressive,
                     simulatorControlTool: SimulatorControlTool(
