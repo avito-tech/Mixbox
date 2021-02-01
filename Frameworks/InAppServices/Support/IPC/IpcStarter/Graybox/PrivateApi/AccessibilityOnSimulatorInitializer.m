@@ -21,6 +21,8 @@
 
 // Note: AccessibilityUtilities is a private framework in iOS, it can not be linked during the build.
 - (NSString *)setupAccessibilityOrReturnError {
+    return nil;
+    
     NSLog(@"Enabling accessibility for automation on Simulator.");
     
     NSTimeInterval pollingTimeout = 60;
