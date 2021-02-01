@@ -10,22 +10,100 @@
 
 @import UIKit;
 
+@interface AccessibilityOnSimulatorInitializer() {
+    void *accessibilityUtilitiesHandle;
+    void *libAccessibilityHandle;
+}
+
+@end
+
 @implementation AccessibilityOnSimulatorInitializer
 
 // Note: AccessibilityUtilities is a private framework in iOS, it can not be linked during the build.
 - (NSString *)setupAccessibilityOrReturnError {
     NSLog(@"Enabling accessibility for automation on Simulator.");
-    static NSString *path = @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities";
     
-    char const *const localPath = [path fileSystemRepresentation];
-    if (!localPath) {
-        return @"localPath should not be nil";
+    NSTimeInterval pollingTimeout = 60;
+    NSTimeInterval pollingInterval = 1;
+    NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:pollingTimeout];
+    
+    NSString *error = nil;
+    
+    SEL selectorThatIsOnlyAvailableIfAxIsSetUp = NSSelectorFromString(@"_accessibilityUserTestingChildren");
+    
+    while ([stopDate timeIntervalSinceNow] > 0 && ![[UIView new] respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
+        error = [self setupAccessibilityOnceOrReturnError];
+        [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:pollingInterval]];
     }
     
-    void *handle = dlopen(localPath, RTLD_LOCAL);
+    if (![[UIView new] respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
+        NSString *suffix = error
+            ? [NSString stringWithFormat:@", nested error: %@", error]
+            : @"";
+            return [NSString stringWithFormat:@"Failed to enable AX%@", suffix];
+    }
+    
+    return nil;
+}
+
+- (NSString *)setupAccessibilityOnceOrReturnError {
+    if ([self osMajorVersion] >= 14) {
+        return [self setupAccessibilityOnceUsingLibAccessibilityOrReturnError];
+    } else {
+        return [self setupAccessibilityOnceUsingAccessibilityUtilitiesOrReturnError];
+    }
+}
+
+- (NSInteger)osMajorVersion {
+    return [[[[UIDevice.currentDevice systemVersion] componentsSeparatedByString:@"."] firstObject] integerValue];
+}
+
+// Seems to be working on iOS 14.
+// Copypasted from here: https://github.com/cashapp/AccessibilitySnapshot/blob/master/Sources/AccessibilitySnapshot/Core/ObjC/ASAccessibilityEnabler.m
+// And they copypasted it from KIF.
+- (NSString *)setupAccessibilityOnceUsingLibAccessibilityOrReturnError {
+    void *handle = [self loadLibAccessibilityAndReturnHandle];
+    
     if (!handle) {
-        return [NSString stringWithFormat:@"dlopen couldn't open AccessibilityUtilities at path %s", localPath];
+        return @"Can't load libAccessibility";
     }
+
+    int (*_AXSAutomationEnabled)(void) = dlsym(handle, "_AXSAutomationEnabled");
+    void (*_AXSSetAutomationEnabled)(int) = dlsym(handle, "_AXSSetAutomationEnabled");
+
+    int initialValue = _AXSAutomationEnabled();
+    _AXSSetAutomationEnabled(YES);
+    atexit_b(^{
+        _AXSSetAutomationEnabled(initialValue);
+    });
+    
+    return nil;
+}
+
+- (void *)loadLibAccessibilityAndReturnHandle {
+    if (self->libAccessibilityHandle) {
+        return self->libAccessibilityHandle;
+    } else {
+        NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+        NSString *simulatorRoot = [environment objectForKey:@"IPHONE_SIMULATOR_ROOT"];
+        
+        NSString *path = @"/usr/lib/libAccessibility.dylib";
+        
+        if (simulatorRoot) {
+            path = [simulatorRoot stringByAppendingPathComponent:path];
+        }
+        
+        self->libAccessibilityHandle = dlopen([path fileSystemRepresentation], RTLD_LOCAL);
+        
+        return self->libAccessibilityHandle;
+    }
+}
+
+// Was working prior to (not including) iOS 14.
+// Copypasted from EarlGrey. Became extremely flaky on iOS 14 on Big Sur
+// (this, the conditions led to flakiness, is not certain).
+- (NSString *)setupAccessibilityOnceUsingAccessibilityUtilitiesOrReturnError {
+    [self loadAccessibilityUtilitiesOrReturnError];
     
     Class AXBackBoardServerClass = NSClassFromString(@"AXBackBoardServer");
     if (!AXBackBoardServerClass) {
@@ -45,34 +123,28 @@
                                          value:kCFBooleanTrue
                                   notification:(CFStringRef)@"com.apple.accessibility.cache.ax"];
     
-    return [self waitUntilAccessibilityIsSetUpOrReturnError];
+    return nil;
 }
 
-// TODO: Maybe there is a reliable private API for waiting for enabling accessibility.
-// Note that it doesn't reproduce in EarlGrey, maybe because there is always a lag
-// between enabling AX and using AX APIs.
-//
-// NOTE: Steps to reproduce the issue with AX not being set:
-// - Close simulator
-// - Run any Grey Box test
-// - See crash
-- (NSString *)waitUntilAccessibilityIsSetUpOrReturnError {
-    UIView *view = [UIView new];
-    NSTimeInterval pollingTimeout = 15;
-    NSTimeInterval pollingInterval = 1;
-    NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:pollingTimeout];
-    
-    SEL selectorThatIsOnlyAvailableIfAxIsSetUp = NSSelectorFromString(@"_accessibilityUserTestingChildren");
-    
-    while ([stopDate timeIntervalSinceNow] > 0 && ![view respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
-        [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:pollingInterval]];
+- (NSString *)loadAccessibilityUtilitiesOrReturnError {
+    if (self->accessibilityUtilitiesHandle) {
+        return nil;
+    } else {
+        static NSString *path = @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities";
+        
+        char const *const localPath = [path fileSystemRepresentation];
+        if (!localPath) {
+            return @"localPath should not be nil";
+        }
+        
+        self->accessibilityUtilitiesHandle = dlopen(localPath, RTLD_LOCAL);
+        
+        if (self->accessibilityUtilitiesHandle) {
+            return nil;
+        } else {
+            return [NSString stringWithFormat:@"dlopen couldn't open AccessibilityUtilities at path %s", localPath];
+        }
     }
-    
-    if (![view respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
-        return @"Failed to enable AX";
-    }
-    
-    return nil;
 }
 
 @end
