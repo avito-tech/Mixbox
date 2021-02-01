@@ -14,6 +14,30 @@
 
 // Note: AccessibilityUtilities is a private framework in iOS, it can not be linked during the build.
 - (NSString *)setupAccessibilityOrReturnError {
+    NSTimeInterval pollingTimeout = 60;
+    NSTimeInterval pollingInterval = 1;
+    NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:pollingTimeout];
+    
+    NSString *error = nil;
+    
+    SEL selectorThatIsOnlyAvailableIfAxIsSetUp = NSSelectorFromString(@"_accessibilityUserTestingChildren");
+    
+    while ([stopDate timeIntervalSinceNow] > 0 && ![[UIView new] respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
+        error = [self setupAccessibilityOnceOrReturnError];
+        [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:pollingInterval]];
+    }
+    
+    if (![[UIView new] respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
+        NSString *suffix = error
+            ? [NSString stringWithFormat:@", nested error: %@", error]
+            : @"";
+            return [NSString stringWithFormat:@"Failed to enable AX%@", suffix];
+    }
+    
+    return nil;
+}
+
+- (NSString *)setupAccessibilityOnceOrReturnError {
     NSLog(@"Enabling accessibility for automation on Simulator.");
     static NSString *path = @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities";
     
@@ -44,33 +68,6 @@
     [server setAccessibilityPreferenceAsMobile:(CFStringRef)@"AccessibilityEnabled"
                                          value:kCFBooleanTrue
                                   notification:(CFStringRef)@"com.apple.accessibility.cache.ax"];
-    
-    return [self waitUntilAccessibilityIsSetUpOrReturnError];
-}
-
-// TODO: Maybe there is a reliable private API for waiting for enabling accessibility.
-// Note that it doesn't reproduce in EarlGrey, maybe because there is always a lag
-// between enabling AX and using AX APIs.
-//
-// NOTE: Steps to reproduce the issue with AX not being set:
-// - Close simulator
-// - Run any Grey Box test
-// - See crash
-- (NSString *)waitUntilAccessibilityIsSetUpOrReturnError {
-    UIView *view = [UIView new];
-    NSTimeInterval pollingTimeout = 15;
-    NSTimeInterval pollingInterval = 1;
-    NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:pollingTimeout];
-    
-    SEL selectorThatIsOnlyAvailableIfAxIsSetUp = NSSelectorFromString(@"_accessibilityUserTestingChildren");
-    
-    while ([stopDate timeIntervalSinceNow] > 0 && ![view respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
-        [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:pollingInterval]];
-    }
-    
-    if (![view respondsToSelector:selectorThatIsOnlyAvailableIfAxIsSetUp]) {
-        return @"Failed to enable AX";
-    }
     
     return nil;
 }
