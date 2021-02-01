@@ -47,17 +47,11 @@
 }
 
 - (NSString *)setupAccessibilityOnceOrReturnError {
-    NSString *error;
-    
-    if ((error = [self setupAccessibilityOnceUsingAccessibilityUtilitiesOrReturnError])) {
-        return error;
+    if ([self osMajorVersion] >= 14) {
+        return [self setupAccessibilityOnceUsingLibAccessibilityOrReturnError];
+    } else {
+        return [self setupAccessibilityOnceUsingAccessibilityUtilitiesOrReturnError];
     }
-    
-    if ((error = [self setupAccessibilityOnceUsingLibAccessibilityOrReturnError])) {
-        return error;
-    }
-    
-    return nil;
 }
 
 // Seems to be working on iOS 14.
@@ -147,6 +141,10 @@
             return [NSString stringWithFormat:@"dlopen couldn't open AccessibilityUtilities at path %s", localPath];
         }
     }
+}
+
+- (NSInteger)osMajorVersion {
+    return [[[[UIDevice.currentDevice systemVersion] componentsSeparatedByString:@"."] firstObject] integerValue];
 }
 
 @end
