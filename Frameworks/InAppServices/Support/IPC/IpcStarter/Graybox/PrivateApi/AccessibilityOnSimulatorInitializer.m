@@ -10,10 +10,19 @@
 
 @import UIKit;
 
+@interface AccessibilityOnSimulatorInitializer() {
+    void *accessibilityUtilitiesHandle;
+    void *libAccessibilityHandle;
+}
+
+@end
+
 @implementation AccessibilityOnSimulatorInitializer
 
 // Note: AccessibilityUtilities is a private framework in iOS, it can not be linked during the build.
 - (NSString *)setupAccessibilityOrReturnError {
+    NSLog(@"Enabling accessibility for automation on Simulator.");
+    
     NSTimeInterval pollingTimeout = 60;
     NSTimeInterval pollingInterval = 1;
     NSDate *stopDate = [NSDate dateWithTimeIntervalSinceNow:pollingTimeout];
@@ -38,18 +47,65 @@
 }
 
 - (NSString *)setupAccessibilityOnceOrReturnError {
-    NSLog(@"Enabling accessibility for automation on Simulator.");
-    static NSString *path = @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities";
+    NSString *error;
     
-    char const *const localPath = [path fileSystemRepresentation];
-    if (!localPath) {
-        return @"localPath should not be nil";
+    if ((error = [self setupAccessibilityOnceUsingAccessibilityUtilitiesOrReturnError])) {
+        return error;
     }
     
-    void *handle = dlopen(localPath, RTLD_LOCAL);
+    if ((error = [self setupAccessibilityOnceUsingLibAccessibilityOrReturnError])) {
+        return error;
+    }
+    
+    return nil;
+}
+
+// Seems to be working on iOS 14.
+// Copypasted from here: https://github.com/cashapp/AccessibilitySnapshot/blob/master/Sources/AccessibilitySnapshot/Core/ObjC/ASAccessibilityEnabler.m
+// And they copypasted it from KIF.
+- (NSString *)setupAccessibilityOnceUsingLibAccessibilityOrReturnError {
+    void *handle = [self loadLibAccessibilityAndReturnHandle];
+    
     if (!handle) {
-        return [NSString stringWithFormat:@"dlopen couldn't open AccessibilityUtilities at path %s", localPath];
+        return @"Can't load libAccessibility";
     }
+
+    int (*_AXSAutomationEnabled)(void) = dlsym(handle, "_AXSAutomationEnabled");
+    void (*_AXSSetAutomationEnabled)(int) = dlsym(handle, "_AXSSetAutomationEnabled");
+
+    int initialValue = _AXSAutomationEnabled();
+    _AXSSetAutomationEnabled(YES);
+    atexit_b(^{
+        _AXSSetAutomationEnabled(initialValue);
+    });
+    
+    return nil;
+}
+
+- (void *)loadLibAccessibilityAndReturnHandle {
+    if (self->libAccessibilityHandle) {
+        return self->libAccessibilityHandle;
+    } else {
+        NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+        NSString *simulatorRoot = [environment objectForKey:@"IPHONE_SIMULATOR_ROOT"];
+        
+        NSString *path = @"/usr/lib/libAccessibility.dylib";
+        
+        if (simulatorRoot) {
+            path = [simulatorRoot stringByAppendingPathComponent:path];
+        }
+        
+        self->libAccessibilityHandle = dlopen([path fileSystemRepresentation], RTLD_LOCAL);
+        
+        return self->libAccessibilityHandle;
+    }
+}
+
+// Was working prior to (not including) iOS 14.
+// Copypasted from EarlGrey. Became extremely flaky on iOS 14 on Big Sur
+// (this, the conditions led to flakiness, is not certain).
+- (NSString *)setupAccessibilityOnceUsingAccessibilityUtilitiesOrReturnError {
+    [self loadAccessibilityUtilitiesOrReturnError];
     
     Class AXBackBoardServerClass = NSClassFromString(@"AXBackBoardServer");
     if (!AXBackBoardServerClass) {
@@ -70,6 +126,27 @@
                                   notification:(CFStringRef)@"com.apple.accessibility.cache.ax"];
     
     return nil;
+}
+
+- (NSString *)loadAccessibilityUtilitiesOrReturnError {
+    if (self->accessibilityUtilitiesHandle) {
+        return nil;
+    } else {
+        static NSString *path = @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities";
+        
+        char const *const localPath = [path fileSystemRepresentation];
+        if (!localPath) {
+            return @"localPath should not be nil";
+        }
+        
+        self->accessibilityUtilitiesHandle = dlopen(localPath, RTLD_LOCAL);
+        
+        if (self->accessibilityUtilitiesHandle) {
+            return nil;
+        } else {
+            return [NSString stringWithFormat:@"dlopen couldn't open AccessibilityUtilities at path %s", localPath];
+        }
+    }
 }
 
 @end
