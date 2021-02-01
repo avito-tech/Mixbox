@@ -134,6 +134,10 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
         }
     }
     
+    override func invokeTest() {
+        // do nothing!
+    }
+    
     override func tearDown() {
         tearDownAction?.tearDown()
         
