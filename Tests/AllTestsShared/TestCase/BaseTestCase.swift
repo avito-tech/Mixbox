@@ -251,14 +251,12 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
         
         switch recordFailureMode {
         case .failTest:
-            // Helpful addition for JUnit:
-            let device = UIDevice.mb_platformType.rawValue
-            let os = iosVersionProvider.iosVersion().majorAndMinor
-            let environment = "\(device), iOS \(os)"
             
             // Note that you can set a breakpoint here (it is very convenient):
             super.recordFailureBySuper(
-                description: "\(environment): \(failure.description)",
+                description: failureDescription(
+                    originalDescription: failure.description
+                ) ,
                 file: failure.file,
                 line: failure.line,
                 expected: failure.expected
@@ -269,6 +267,23 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
             if !continueAfterFailure {
                 TestCanNotBeContinuedException().raise()
             }
+        }
+    }
+    
+    private func failureDescription(originalDescription: String) -> String {
+        let isCiBuild = environmentProvider.environment["MIXBOX_CI_IS_CI_BUILD"] == "true"
+        
+        if isCiBuild {
+            // Helpful addition for JUnit:
+            let device = UIDevice.mb_platformType.rawValue
+            let os = iosVersionProvider.iosVersion().majorAndMinor
+            let environment = "\(device), iOS \(os)"
+            let patchedDescription = originalDescription.split(separator: "\n").joined(separator: " ")
+            let hostname = ProcessInfo.processInfo.hostName
+            
+            return "\(environment): \(patchedDescription). Hostname: \(hostname)."
+        } else {
+            return originalDescription
         }
     }
     
