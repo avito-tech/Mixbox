@@ -10,6 +10,7 @@ import QueueModels
 import SingletonHell
 import LoggingSetup
 import WorkerCapabilitiesModels
+import MetricsExtensions
 
 public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let temporaryFileProvider: TemporaryFileProvider
@@ -96,11 +97,6 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     // swiftlint:disable:next function_body_length
     private func asStrings(arguments: EmceeDumpCommandArguments, jsonPath: String) throws -> [String] {
         let testArgFile = TestArgFile(
-            analyticsConfiguration: AnalyticsConfiguration(
-                graphiteConfiguration: nil,
-                statsdConfiguration: nil,
-                sentryConfiguration: nil
-            ),
             entries: [
                 try TestArgFileEntry(
                     buildArtifacts: BuildArtifacts(
@@ -128,22 +124,18 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,
-                    testRunnerTool: .xcodebuild(nil),
+                    testRunnerTool: .xcodebuild,
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
                     ),
                     testType: TestType.logicTest,
                     testsToRun: [],
-                    workerCapabilityRequirements: [
-                        WorkerCapabilityRequirement(
-                            capabilityName: "emcee.dt.xcode.12_0_1",
-                            constraint: .present
-                        )
-                    ]
+                    workerCapabilityRequirements: []
                 )
             ],
             prioritizedJob: PrioritizedJob(
+                analyticsConfiguration: AnalyticsConfiguration(),
                 jobGroupId: JobGroupId(UUID().uuidString),
                 jobGroupPriority: Priority.medium,
                 jobId: JobId(UUID().uuidString),

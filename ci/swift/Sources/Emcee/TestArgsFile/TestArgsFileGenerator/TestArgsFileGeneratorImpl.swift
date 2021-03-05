@@ -11,6 +11,7 @@ import SimulatorPoolModels
 import TypedResourceLocation
 import LoggingSetup
 import WorkerCapabilitiesModels
+import MetricsExtensions
 
 public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeProvider: EmceeProvider
@@ -94,11 +95,6 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         -> TestArgFile
     {
         return TestArgFile(
-            analyticsConfiguration: AnalyticsConfiguration(
-                graphiteConfiguration: nil,
-                statsdConfiguration: nil,
-                sentryConfiguration: nil
-            ),
             entries: try testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFileEntry in
                 try TestArgFileEntry(
                     buildArtifacts: buildArtifacts,
@@ -114,22 +110,18 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,
-                    testRunnerTool: .xcodebuild(nil),
+                    testRunnerTool: .xcodebuild,
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
                     ),
                     testType: testType,
                     testsToRun: testsToRun,
-                    workerCapabilityRequirements: [
-                        WorkerCapabilityRequirement(
-                            capabilityName: "emcee.dt.xcode.12_0_1",
-                            constraint: .present
-                        )
-                    ]
+                    workerCapabilityRequirements: []
                 )
             },
             prioritizedJob: PrioritizedJob(
+                analyticsConfiguration: AnalyticsConfiguration(),
                 jobGroupId: JobGroupId(UUID().uuidString),
                 jobGroupPriority: try Priority(intValue: priority),
                 jobId: JobId(UUID().uuidString),

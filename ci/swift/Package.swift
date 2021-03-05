@@ -8,7 +8,7 @@ import PackageDescription
 let package = Package(
     name: "MixboxSwiftCI",
     platforms: [
-        .macOS(.v10_14),
+        .macOS(.v10_15),
     ],
     products: [
         .executable(
@@ -76,7 +76,7 @@ let package = Package(
         .package(
             name: "EmceeTestRunner",
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("f0aac2546846caac844a90249527a6d4cf026970")
+            .revision("ad3833f711e4239f70185ef65247ce146c114f4f")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",

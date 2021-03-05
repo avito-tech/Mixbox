@@ -9,8 +9,8 @@
             "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-11-4"
         },
         "reportOutput": {
-            "junit": "tests-artifacts/iphone_7_ios_114.xml",
-            "tracingReport": "tests-artifacts/iphone_7_ios_114.trace"
+            "junit": "tests-artifacts/ios_11.xml",
+            "tracingReport": "tests-artifacts/ios_11.trace"
         }
     },
     {
@@ -23,36 +23,36 @@
             "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-12-4"
 		},
 		"reportOutput": {
-			"junit": "tests-artifacts/iphone_x_ios_124.xml",
-			"tracingReport": "tests-artifacts/iphone_x_ios_124.trace"
-		}
-	},
-    {
-		"testDestination": {
-			"deviceType": "iPhone 11 Pro Max",
-			"iOSVersion": "13.7",
-			"iOSVersionShort": "13.7",
-			"iOSVersionLong": "13.7",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11-Pro-Max",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-13-7"
-		},
-		"reportOutput": {
-			"junit": "tests-artifacts/iphone_11_pro_max_ios_137.xml",
-			"tracingReport": "tests-artifacts/iphone_11_pro_max_ios_137.trace"
+			"junit": "tests-artifacts/ios_12.xml",
+			"tracingReport": "tests-artifacts/ios_12.trace"
 		}
 	},
     {
 		"testDestination": {
 			"deviceType": "iPhone 11",
+			"iOSVersion": "13.7",
+			"iOSVersionShort": "13.7",
+			"iOSVersionLong": "13.7",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-13-7"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/ios_13.xml",
+			"tracingReport": "tests-artifacts/ios_13.trace"
+		}
+	},
+    {
+		"testDestination": {
+			"deviceType": "iPhone 12",
 			"iOSVersion": "14.1",
 			"iOSVersionShort": "14.1",
 			"iOSVersionLong": "14.1",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-12",
             "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-14-1"
 		},
 		"reportOutput": {
-			"junit": "tests-artifacts/iphone_11_ios_141.xml",
-			"tracingReport": "tests-artifacts/iphone_11_ios_141.trace"
+			"junit": "tests-artifacts/ios_14.xml",
+			"tracingReport": "tests-artifacts/ios_14.trace"
 		}
 	}
 ]
