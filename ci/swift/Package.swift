@@ -372,6 +372,7 @@ let package = Package(
         .target(
             name: "Git",
             dependencies: [
+                "Bash",
                 "CiFoundation",
             ]
         ),

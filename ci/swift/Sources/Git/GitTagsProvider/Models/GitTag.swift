@@ -1,6 +1,9 @@
 public final class GitTag {
-    // TBD.
-    // This will contain text of the tag, date, commit hash.
-    // For example, we may want to get info about specific commit
-    // and all its tags.
+    public let name: String
+    public let sha: String
+    
+    public init(name: String, sha: String) {
+        self.name = name
+        self.sha = sha
+    }
 }
