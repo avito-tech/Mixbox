@@ -1,4 +1,3 @@
-// Note: only gets tags from current repository (with MixboxCI)
 public protocol GitTagsProvider {
-    func gitTags() throws -> [GitTag]
+    func gitTags(repoRoot: String) throws -> [GitTag]
 }

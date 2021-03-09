@@ -3,17 +3,14 @@ import CiFoundation
 
 public final class GitTagsProviderImpl: GitTagsProvider {
     private let processExecutor: ProcessExecutor
-    private let repoRootProvider: RepoRootProvider
     
     public init(
-        processExecutor: ProcessExecutor,
-        repoRootProvider: RepoRootProvider)
+        processExecutor: ProcessExecutor)
     {
         self.processExecutor = processExecutor
-        self.repoRootProvider = repoRootProvider
     }
     
-    public func gitTags() throws -> [GitTag] {
+    public func gitTags(repoRoot: String) throws -> [GitTag] {
         let separator = ";"
         
         let result = try processExecutor.execute(
@@ -23,7 +20,7 @@ public final class GitTagsProviderImpl: GitTagsProvider {
                 "--list",
                 "--format", "%(objectname)\(separator)%(refname:strip=2)"
             ],
-            currentDirectory: try repoRootProvider.repoRootPath(),
+            currentDirectory: repoRoot,
             environment: [:],
             stdoutDataHandler: { _ in },
             stderrDataHandler: { _ in }
