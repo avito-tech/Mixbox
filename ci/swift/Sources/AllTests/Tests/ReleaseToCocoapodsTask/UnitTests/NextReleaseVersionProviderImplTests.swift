@@ -10,13 +10,19 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
     func test___nextReleaseVersion___doesnt_throw() {
         assertDoesntThrow {
             let nextReleaseVersionProvider = NextReleaseVersionProviderImpl(
+                repoRootProvider: RepoRootProviderImpl(),
                 gitTagsProvider: GitTagsProviderImpl(
                     processExecutor: FoundationProcessExecutor()
                 ),
                 gitRevListProvider: GitRevListProviderImpl(
                     processExecutor: FoundationProcessExecutor()
                 ),
-                repoRootProvider: RepoRootProviderImpl()
+                currentCommitProvider: CurrentCommitProviderImpl(
+                    processExecutor: FoundationProcessExecutor()
+                ),
+                // doesn't work otherwise, e.g. if "master" is used then it will be always behind
+                // head on pull requests, tests will not work with "master" or "origin/master", so we use "HEAD".
+                releaseBranchName: "HEAD"
             )
             
             let version = try nextReleaseVersionProvider.nextReleaseVersion()
@@ -165,13 +171,16 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
         -> Version
     {
         let nextReleaseVersionProvider = NextReleaseVersionProviderImpl(
+            repoRootProvider: RepoRootProviderImpl(),
             gitTagsProvider: GitTagsProviderMock(
                 gitTags: tags
             ),
             gitRevListProvider: GitRevListProviderMock(
                 revList: revisions
             ),
-            repoRootProvider: RepoRootProviderImpl()
+            currentCommitProvider: CurrentCommitProviderMock(
+                currentCommit: try revisions.first.unwrapOrThrow()
+            )
         )
         
         return try nextReleaseVersionProvider.nextReleaseVersion(

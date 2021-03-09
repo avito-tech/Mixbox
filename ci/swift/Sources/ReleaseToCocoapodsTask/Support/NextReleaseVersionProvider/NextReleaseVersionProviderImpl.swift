@@ -2,11 +2,11 @@ import Git
 import CiFoundation
 
 public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
+    private let repoRootProvider: RepoRootProvider
     private let gitTagsProvider: GitTagsProvider
     private let gitRevListProvider: GitRevListProvider
-    private let repoRootProvider: RepoRootProvider
-    
-    private let branch = "master"
+    private let currentCommitProvider: CurrentCommitProvider
+    private let releaseBranchName: String
     
     private struct VersionTag {
         let version: Version
@@ -14,15 +14,21 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
     }
     
     public init(
+        repoRootProvider: RepoRootProvider,
         gitTagsProvider: GitTagsProvider,
         gitRevListProvider: GitRevListProvider,
-        repoRootProvider: RepoRootProvider)
+        currentCommitProvider: CurrentCommitProvider,
+        releaseBranchName: String = "origin/master")
     {
+        self.repoRootProvider = repoRootProvider
         self.gitTagsProvider = gitTagsProvider
         self.gitRevListProvider = gitRevListProvider
-        self.repoRootProvider = repoRootProvider
+        self.currentCommitProvider = currentCommitProvider
+        self.releaseBranchName = releaseBranchName
     }
     
+    // TODO: Split the function.
+    // swiftlint:disable:next function_body_length
     public func nextReleaseVersion(
         majorVersion: Int,
         minorVersion: Int)
@@ -67,20 +73,26 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
             }
         }
         
-        let masterRevisions = try gitRevListProvider.revList(
+        let releaseBranchRevisions = try gitRevListProvider.revList(
             repoRoot: repoRoot,
-            branch: branch
+            branch: releaseBranchName
         )
         
-        let masterTagsFromNewestToOldest = masterRevisions.compactMap { revision in
+        let currentCommit = try currentCommitProvider.currentCommit(repoRoot: repoRoot)
+        
+        guard releaseBranchRevisions.first == currentCommit else {
+            throw ErrorString("Currently unsupported case. Current commit is not on the top of \(releaseBranchName) branch.")
+        }
+        
+        let releaseBranchTagsFromNewestToOldest = releaseBranchRevisions.compactMap { revision in
             versionTagByRevision[revision]
         }
         
-        guard let latestVersionTag = masterTagsFromNewestToOldest.first else {
+        guard let latestVersionTag = releaseBranchTagsFromNewestToOldest.first else {
             throw ErrorString("No previous version tag found.")
         }
         
-        guard let indexOfLatestVersionRevision = masterRevisions
+        guard let indexOfLatestVersionRevision = releaseBranchRevisions
                 .firstIndex(of: latestVersionTag.revision)
         else {
             // Impossible case if previous code worked correctly
