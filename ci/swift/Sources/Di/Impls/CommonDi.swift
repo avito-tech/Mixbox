@@ -249,5 +249,36 @@ open class CommonDi: BaseDi {
                 gemfileLocationProvider: try container.resolve()
             )
         }
+        
+        registerGit(container: container)
+    }
+    
+    private func registerGit(container: DependencyContainer) {
+        container.register(type: GitTagsProvider.self) {
+            GitTagsProviderImpl(
+                gitCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: GitRevListProvider.self) {
+            GitRevListProviderImpl(
+                gitCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: HeadCommitHashProvider.self) {
+            HeadCommitHashProviderImpl(
+                gitCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: GitTagAdder.self) {
+            GitTagAdderImpl(
+                gitCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: GitCommandExecutor.self) {
+            GitCommandExecutorImpl(
+                processExecutor: try container.resolve(),
+                repoRootProvider: try container.resolve()
+            )
+        }
     }
 }

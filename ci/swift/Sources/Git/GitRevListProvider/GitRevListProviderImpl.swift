@@ -1,33 +1,25 @@
 import Bash
 
 public final class GitRevListProviderImpl: GitRevListProvider {
-    private let processExecutor: ProcessExecutor
+    private let gitCommandExecutor: GitCommandExecutor
     
     public init(
-        processExecutor: ProcessExecutor)
+        gitCommandExecutor: GitCommandExecutor)
     {
-        self.processExecutor = processExecutor
+        self.gitCommandExecutor = gitCommandExecutor
     }
     
     public func revList(
-        repoRoot: String,
         branch: String)
         throws
         -> [String]
     {
-        let result = try processExecutor.execute(
+        let output = try gitCommandExecutor.execute(
             arguments: [
-                "/usr/bin/git",
                 "rev-list",
                 branch
-            ],
-            currentDirectory: repoRoot,
-            environment: [:],
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
+            ]
         )
-        
-        let output = try result.stdout.trimmedUtf8String().unwrapOrThrow()
         
         return output.components(separatedBy: "\n")
     }

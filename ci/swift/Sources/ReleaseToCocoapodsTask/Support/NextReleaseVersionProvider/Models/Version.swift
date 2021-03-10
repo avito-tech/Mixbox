@@ -14,6 +14,10 @@ public final class Version {
         self.patch = patch
     }
     
+    public func toString() -> String {
+        return "\(major).\(minor).\(patch)"
+    }
+    
     public convenience init?(versionString: String) {
         let components = versionString.components(separatedBy: ".")
         

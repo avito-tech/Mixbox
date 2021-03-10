@@ -2,10 +2,9 @@ import Git
 import CiFoundation
 
 public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
-    private let repoRootProvider: RepoRootProvider
     private let gitTagsProvider: GitTagsProvider
     private let gitRevListProvider: GitRevListProvider
-    private let currentCommitProvider: CurrentCommitProvider
+    private let headCommitHashProvider: HeadCommitHashProvider
     private let releaseBranchName: String
     
     private struct VersionTag {
@@ -14,16 +13,14 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
     }
     
     public init(
-        repoRootProvider: RepoRootProvider,
         gitTagsProvider: GitTagsProvider,
         gitRevListProvider: GitRevListProvider,
-        currentCommitProvider: CurrentCommitProvider,
+        headCommitHashProvider: HeadCommitHashProvider,
         releaseBranchName: String = "origin/master")
     {
-        self.repoRootProvider = repoRootProvider
         self.gitTagsProvider = gitTagsProvider
         self.gitRevListProvider = gitRevListProvider
-        self.currentCommitProvider = currentCommitProvider
+        self.headCommitHashProvider = headCommitHashProvider
         self.releaseBranchName = releaseBranchName
     }
     
@@ -31,14 +28,13 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
     // swiftlint:disable:next function_body_length
     public func nextReleaseVersion(
         majorVersion: Int,
-        minorVersion: Int)
+        minorVersion: Int,
+        commitHashToRelease: String)
         throws
         -> Version
     {
-        let repoRoot = try repoRootProvider.repoRootPath()
-        
         let versionTags = try gitTagsProvider
-            .gitTags(repoRoot: repoRoot)
+            .gitTags()
             .compactMap { tag -> VersionTag? in
                 guard let version = Version(versionString: tag.name) else {
                     return nil
@@ -74,14 +70,17 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
         }
         
         let releaseBranchRevisions = try gitRevListProvider.revList(
-            repoRoot: repoRoot,
             branch: releaseBranchName
         )
         
-        let currentCommit = try currentCommitProvider.currentCommit(repoRoot: repoRoot)
+        let headCommitHash = try headCommitHashProvider.headCommitHash()
         
-        guard releaseBranchRevisions.first == currentCommit else {
-            throw ErrorString("Currently unsupported case. Current commit is not on the top of \(releaseBranchName) branch.")
+        guard commitHashToRelease == headCommitHash else {
+            throw ErrorString("Currently unsupported case. Commit to release is not HEAD.")
+        }
+        
+        guard releaseBranchRevisions.first == headCommitHash else {
+            throw ErrorString("Currently unsupported case. Top of \(releaseBranchName) branch is not HEAD.")
         }
         
         let releaseBranchTagsFromNewestToOldest = releaseBranchRevisions.compactMap { revision in

@@ -7,6 +7,14 @@ import Destinations
 
 BuildDsl.teamcity.main { di in
     try ReleaseToCocoapodsTask(
-        bashExecutor: di.resolve()
+        headCommitHashProvider: di.resolve(),
+        nextReleaseVersionProvider: NextReleaseVersionProviderImpl(
+            gitTagsProvider: di.resolve(),
+            gitRevListProvider: di.resolve(),
+            headCommitHashProvider: di.resolve()
+        ),
+        beforeReleaseTagsSetter: BeforeReleaseTagsSetterImpl(
+            gitTagAdder: di.resolve()
+        )
     )
 }

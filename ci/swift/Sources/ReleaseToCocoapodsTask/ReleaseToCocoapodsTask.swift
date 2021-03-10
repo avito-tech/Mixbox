@@ -7,22 +7,37 @@ import Emcee
 import Destinations
 import Xcodebuild
 import Bundler
+import Git
 
 public final class ReleaseToCocoapodsTask: LocalTask {
     public let name = "ReleaseToCocoapodsTask"
     
-    private let bashExecutor: BashExecutor
+    private let headCommitHashProvider: HeadCommitHashProvider
+    private let nextReleaseVersionProvider: NextReleaseVersionProvider
+    private let beforeReleaseTagsSetter: BeforeReleaseTagsSetter
     
     public init(
-        bashExecutor: BashExecutor)
+        headCommitHashProvider: HeadCommitHashProvider,
+        nextReleaseVersionProvider: NextReleaseVersionProvider,
+        beforeReleaseTagsSetter: BeforeReleaseTagsSetter)
     {
-        self.bashExecutor = bashExecutor
+        self.headCommitHashProvider = headCommitHashProvider
+        self.nextReleaseVersionProvider = nextReleaseVersionProvider
+        self.beforeReleaseTagsSetter = beforeReleaseTagsSetter
     }
     
     public func execute() throws {
-        let version = getNextReleaseVersion()
+        let commitHashToRelease = try headCommitHashProvider.headCommitHash()
         
-        setUpTagsBeforeRelease(version: version)
+        let version = try nextReleaseVersionProvider.nextReleaseVersion(
+            commitHashToRelease: commitHashToRelease
+        )
+        
+        try beforeReleaseTagsSetter.setUpTagsBeforeRelease(
+            version: version,
+            commitHash: commitHashToRelease,
+            remote: "origin"
+        )
         
         patchPodspecs(version: version)
         validatePodspecs()
@@ -31,22 +46,7 @@ public final class ReleaseToCocoapodsTask: LocalTask {
         setUpTagsAfterRelease(version: version)
     }
     
-    private func getNextReleaseVersion() -> String {
-        // TBD
-        return ""
-    }
-    
-    private func setUpTagsBeforeRelease(version: String) {
-        // TBD.
-        // Should set a normal tag with version
-        // And also a marker tag that this is WIP release.
-        // If release process fails, the marker will help to
-        // revert that version tag (nothing was actually released)
-        // thus there will be no tags for missing releases.
-        // Only if everything succeeds, marker will be removed.
-    }
-    
-    private func patchPodspecs(version: String) {
+    private func patchPodspecs(version: Version) {
         // TBD.
         // Will set version of every podspec
     }
@@ -69,7 +69,7 @@ public final class ReleaseToCocoapodsTask: LocalTask {
         // possible in cocoapods without hacking it.
     }
     
-    private func setUpTagsAfterRelease(version: String) {
+    private func setUpTagsAfterRelease(version: Version) {
         // TBD.
         // Will finalize tags (e.g. remove marker tag that
         // says that release is unfinished)

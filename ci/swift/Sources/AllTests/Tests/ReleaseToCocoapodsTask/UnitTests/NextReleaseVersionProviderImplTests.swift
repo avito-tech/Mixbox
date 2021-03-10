@@ -9,23 +9,29 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
     // Integration test without mocks
     func test___nextReleaseVersion___doesnt_throw() {
         assertDoesntThrow {
+            let gitCommandExecutor = GitCommandExecutorImpl(
+                processExecutor: FoundationProcessExecutor(),
+                repoRootProvider: RepoRootProviderImpl()
+            )
+            let headCommitHashProvider = HeadCommitHashProviderImpl(
+                gitCommandExecutor: gitCommandExecutor
+            )
             let nextReleaseVersionProvider = NextReleaseVersionProviderImpl(
-                repoRootProvider: RepoRootProviderImpl(),
                 gitTagsProvider: GitTagsProviderImpl(
-                    processExecutor: FoundationProcessExecutor()
+                    gitCommandExecutor: gitCommandExecutor
                 ),
                 gitRevListProvider: GitRevListProviderImpl(
-                    processExecutor: FoundationProcessExecutor()
+                    gitCommandExecutor: gitCommandExecutor
                 ),
-                currentCommitProvider: CurrentCommitProviderImpl(
-                    processExecutor: FoundationProcessExecutor()
-                ),
+                headCommitHashProvider: headCommitHashProvider,
                 // doesn't work otherwise, e.g. if "master" is used then it will be always behind
                 // head on pull requests, tests will not work with "master" or "origin/master", so we use "HEAD".
                 releaseBranchName: "HEAD"
             )
             
-            let version = try nextReleaseVersionProvider.nextReleaseVersion()
+            let version = try nextReleaseVersionProvider.nextReleaseVersion(
+                commitHashToRelease: try headCommitHashProvider.headCommitHash()
+            )
             
             // Patch version is ignored here, the code of its calculation is checked
             // in other tests. Major & minor version are always as in MixboxVersion.
@@ -170,22 +176,24 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
         throws
         -> Version
     {
+        let headCommitHash = try revisions.first.unwrapOrThrow()
+        
         let nextReleaseVersionProvider = NextReleaseVersionProviderImpl(
-            repoRootProvider: RepoRootProviderImpl(),
             gitTagsProvider: GitTagsProviderMock(
                 gitTags: tags
             ),
             gitRevListProvider: GitRevListProviderMock(
                 revList: revisions
             ),
-            currentCommitProvider: CurrentCommitProviderMock(
-                currentCommit: try revisions.first.unwrapOrThrow()
+            headCommitHashProvider: HeadCommitHashProviderMock(
+                headCommitHash: headCommitHash
             )
         )
         
         return try nextReleaseVersionProvider.nextReleaseVersion(
             majorVersion: nextMajorVersion,
-            minorVersion: nextMinorVersion
+            minorVersion: nextMinorVersion,
+            commitHashToRelease: headCommitHash
         )
     }
 }

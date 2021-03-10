@@ -8,7 +8,6 @@ public final class GitRevListProviderMock: GitRevListProvider {
     }
     
     public func revList(
-        repoRoot: String,
         branch: String)
         throws
         -> [String]

@@ -1,3 +1,3 @@
 public protocol GitTagsProvider {
-    func gitTags(repoRoot: String) throws -> [GitTag]
+    func gitTags() throws -> [GitTag]
 }

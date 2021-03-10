@@ -5,15 +5,14 @@ import XCTest
 public final class GitTagsProviderImplTests: XCTestCase {
     func test() {
         assertDoesntThrow {
-            let repoRootProvider = RepoRootProviderImpl()
-            
             let gitTagsProvider = GitTagsProviderImpl(
-                processExecutor: FoundationProcessExecutor()
+                gitCommandExecutor: GitCommandExecutorImpl(
+                    processExecutor: FoundationProcessExecutor(),
+                    repoRootProvider: RepoRootProviderImpl()
+                )
             )
             
-            let gitTags = try gitTagsProvider.gitTags(
-                repoRoot: try repoRootProvider.repoRootPath()
-            )
+            let gitTags = try gitTagsProvider.gitTags()
             
             let knownTag = try gitTags.first { tag in
                 tag.name == "0.2.5"

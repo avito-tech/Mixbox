@@ -2,31 +2,24 @@ import Bash
 import CiFoundation
 
 public final class GitTagsProviderImpl: GitTagsProvider {
-    private let processExecutor: ProcessExecutor
+    private let gitCommandExecutor: GitCommandExecutor
     
     public init(
-        processExecutor: ProcessExecutor)
+        gitCommandExecutor: GitCommandExecutor)
     {
-        self.processExecutor = processExecutor
+        self.gitCommandExecutor = gitCommandExecutor
     }
     
-    public func gitTags(repoRoot: String) throws -> [GitTag] {
+    public func gitTags() throws -> [GitTag] {
         let separator = ";"
         
-        let result = try processExecutor.execute(
+        let output = try gitCommandExecutor.execute(
             arguments: [
-                "/usr/bin/git",
                 "tag",
                 "--list",
                 "--format", "%(objectname)\(separator)%(refname:strip=2)"
-            ],
-            currentDirectory: repoRoot,
-            environment: [:],
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
+            ]
         )
-        
-        let output = try result.stdout.trimmedUtf8String().unwrapOrThrow()
         
         let rawTags = output.components(separatedBy: "\n")
         

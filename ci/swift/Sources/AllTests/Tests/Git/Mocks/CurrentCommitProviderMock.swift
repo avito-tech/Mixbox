@@ -1,17 +1,16 @@
 import Git
 
-public final class CurrentCommitProviderMock: CurrentCommitProvider {
-    private let currentCommitStub: String
+public final class HeadCommitHashProviderMock: HeadCommitHashProvider {
+    private let headCommitHashStub: String
     
-    public init(currentCommit: String) {
-        self.currentCommitStub = currentCommit
+    public init(headCommitHash: String) {
+        self.headCommitHashStub = headCommitHash
     }
     
-    public func currentCommit(
-        repoRoot: String)
+    public func headCommitHash()
         throws
         -> String
     {
-        return currentCommitStub
+        return headCommitHashStub
     }
 }

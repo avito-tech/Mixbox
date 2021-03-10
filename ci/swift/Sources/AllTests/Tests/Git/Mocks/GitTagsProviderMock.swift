@@ -7,7 +7,7 @@ public final class GitTagsProviderMock: GitTagsProvider {
         self.gitTagsStub = gitTags
     }
     
-    public func gitTags(repoRoot: String) throws -> [GitTag] {
+    public func gitTags() throws -> [GitTag] {
         return gitTagsStub
     }
 }
