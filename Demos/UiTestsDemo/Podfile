@@ -1,6 +1,6 @@
-require_relative 'PodfileUtils/lock_patcher'
-require_relative 'PodfileUtils/repo'
-require_relative 'PodfileUtils/enable_testing_with_mixbox'
+require_relative 'cocoapods/lock_patcher'
+require_relative 'cocoapods/repo'
+require_relative 'cocoapods/enable_testing_with_mixbox'
 
 project 'UiTestsDemo.xcodeproj'
 workspace 'UiTestsDemo.xcworkspace'

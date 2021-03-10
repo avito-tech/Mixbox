@@ -1,5 +1,5 @@
-require_relative 'PodfileUtils/lock_patcher'
-require_relative 'PodfileUtils/repo'
+require_relative '../cocoapods/lock_patcher'
+require_relative '../cocoapods/repo'
 
 project 'Tests.xcodeproj'
 workspace 'Tests.xcworkspace'
