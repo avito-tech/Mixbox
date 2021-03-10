@@ -15,15 +15,18 @@ public final class ReleaseToCocoapodsTask: LocalTask {
     private let headCommitHashProvider: HeadCommitHashProvider
     private let nextReleaseVersionProvider: NextReleaseVersionProvider
     private let beforeReleaseTagsSetter: BeforeReleaseTagsSetter
+    private let podspecsPatcher: PodspecsPatcher
     
     public init(
         headCommitHashProvider: HeadCommitHashProvider,
         nextReleaseVersionProvider: NextReleaseVersionProvider,
-        beforeReleaseTagsSetter: BeforeReleaseTagsSetter)
+        beforeReleaseTagsSetter: BeforeReleaseTagsSetter,
+        podspecsPatcher: PodspecsPatcher)
     {
         self.headCommitHashProvider = headCommitHashProvider
         self.nextReleaseVersionProvider = nextReleaseVersionProvider
         self.beforeReleaseTagsSetter = beforeReleaseTagsSetter
+        self.podspecsPatcher = podspecsPatcher
     }
     
     public func execute() throws {
@@ -39,16 +42,12 @@ public final class ReleaseToCocoapodsTask: LocalTask {
             remote: "origin"
         )
         
-        patchPodspecs(version: version)
+        try podspecsPatcher.setMixboxFrameworkPodspecsVersion(version)
+        
         validatePodspecs()
         pushPodspecs()
         
         setUpTagsAfterRelease(version: version)
-    }
-    
-    private func patchPodspecs(version: Version) {
-        // TBD.
-        // Will set version of every podspec
     }
     
     private func validatePodspecs() {

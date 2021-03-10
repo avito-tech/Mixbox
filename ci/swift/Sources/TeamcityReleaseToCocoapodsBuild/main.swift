@@ -15,6 +15,9 @@ BuildDsl.teamcity.main { di in
         ),
         beforeReleaseTagsSetter: BeforeReleaseTagsSetterImpl(
             gitTagAdder: di.resolve()
+        ),
+        podspecsPatcher: PodspecsPatcherImpl(
+            repoRootProvider: di.resolve()
         )
     )
 }
