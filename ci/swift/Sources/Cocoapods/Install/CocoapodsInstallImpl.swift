@@ -58,20 +58,9 @@ private class CocoapodsInstallWithProjectDirectory {
     }
     
     private func execute(_ arguments: [String]) throws {
-        let result = try cocoapodsCommandExecutor.execute(
+        _ = try cocoapodsCommandExecutor.execute(
             arguments: arguments,
             currentDirectory: projectDirectory
         )
-        
-        if result.code != 0 {
-            let argumentsJoined = arguments.joined(separator: " ")
-            
-            throw ErrorString(
-                """
-                pod \(argumentsJoined) failed with exit code \(result.code), \
-                stderr: \(result.stderr.trimmedUtf8String() ?? "")
-                """
-            )
-        }
     }
 }

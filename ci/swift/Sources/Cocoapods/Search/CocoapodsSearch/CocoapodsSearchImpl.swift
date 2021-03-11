@@ -26,10 +26,6 @@ public final class CocoapodsSearchImpl: CocoapodsSearch {
                 arguments: ["search", "--no-pager", "--ios", "--simple", "--stats", "--no-ansi", name]
             )
             
-            guard result.code == 0 else {
-                throw ErrorString("Failed to search pod with exit code \(result.code)")
-            }
-            
             guard let output = result.stdout.trimmedUtf8String() else {
                 throw ErrorString("Unexpected lack of output form `pod search`")
             }
