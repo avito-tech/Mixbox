@@ -3,21 +3,18 @@ import Foundation
 import CiFoundation
 
 public final class BundledProcessExecutorImpl: BundledProcessExecutor {
-    private let processExecutor: ProcessExecutor
-    private let bundlerCommandGenerator: BundlerCommandGenerator
-    private let temporaryFileProvider: TemporaryFileProvider
-    private let environmentProvider: EnvironmentProvider
+    private let bashExecutor: BashExecutor
+    private let gemfileLocationProvider: GemfileLocationProvider
+    private let bundlerBashCommandGenerator: BundlerBashCommandGenerator
     
     public init(
-        processExecutor: ProcessExecutor,
-        bundlerCommandGenerator: BundlerCommandGenerator,
-        temporaryFileProvider: TemporaryFileProvider,
-        environmentProvider: EnvironmentProvider)
+        bashExecutor: BashExecutor,
+        gemfileLocationProvider: GemfileLocationProvider,
+        bundlerBashCommandGenerator: BundlerBashCommandGenerator)
     {
-        self.processExecutor = processExecutor
-        self.bundlerCommandGenerator = bundlerCommandGenerator
-        self.temporaryFileProvider = temporaryFileProvider
-        self.environmentProvider = environmentProvider
+        self.bashExecutor = bashExecutor
+        self.gemfileLocationProvider = gemfileLocationProvider
+        self.bundlerBashCommandGenerator = bundlerBashCommandGenerator
     }
     
     public func execute(
@@ -27,16 +24,24 @@ public final class BundledProcessExecutorImpl: BundledProcessExecutor {
         throws
         -> ProcessResult
     {
-        return try processExecutor.execute(
-            arguments: bundle(arguments: arguments),
+        let result = try bashExecutor.executeOrThrow(
+            command: bundlerBashCommandGenerator.bashCommandRunningCommandBundler(
+                arguments: arguments
+            ),
             currentDirectory: currentDirectory,
-            environment: environment ?? environmentProvider.environment,
+            environment: environment.map { .custom($0) } ?? .current,
             stdoutDataHandler: { _ in },
             stderrDataHandler: { _ in }
         )
-    }
-    
-    private func bundle(arguments: [String]) throws -> [String] {
-        return try bundlerCommandGenerator.bundle(arguments: arguments)
+        
+        return ProcessResult(
+            code: result.code,
+            stdout: PlainProcessOutput(
+                data: result.stdout.data
+            ),
+            stderr: PlainProcessOutput(
+                data: result.stderr.data
+            )
+        )
     }
 }

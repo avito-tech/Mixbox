@@ -15,20 +15,23 @@ public final class RunGrayBoxTestsTask: LocalTask {
     private let grayBoxTestRunner: GrayBoxTestRunner
     private let mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider
     private let iosProjectBuilder: IosProjectBuilder
-    private let bundlerCommandGenerator: BundlerCommandGenerator
+    private let bundlerBashCommandGenerator: BundlerBashCommandGenerator
+    private let bashEscapedCommandMaker: BashEscapedCommandMaker
     
     public init(
         bashExecutor: BashExecutor,
         grayBoxTestRunner: GrayBoxTestRunner,
         mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider,
         iosProjectBuilder: IosProjectBuilder,
-        bundlerCommandGenerator: BundlerCommandGenerator)
+        bundlerBashCommandGenerator: BundlerBashCommandGenerator,
+        bashEscapedCommandMaker: BashEscapedCommandMaker)
     {
         self.bashExecutor = bashExecutor
         self.grayBoxTestRunner = grayBoxTestRunner
         self.mixboxTestDestinationConfigurationsProvider = mixboxTestDestinationConfigurationsProvider
         self.iosProjectBuilder = iosProjectBuilder
-        self.bundlerCommandGenerator = bundlerCommandGenerator
+        self.bundlerBashCommandGenerator = bundlerBashCommandGenerator
+        self.bashEscapedCommandMaker = bashEscapedCommandMaker
     }
     
     public func execute() throws {
@@ -47,9 +50,16 @@ public final class RunGrayBoxTestsTask: LocalTask {
             scheme: testsTargetAndSchemeName,
             workspaceName: "Tests",
             testDestination: destinationForBuilding,
-            xcodebuildPipeFilter: try bundlerCommandGenerator
-                .bundle(arguments: ["xcpretty"])
-                .joined(separator: " ")
+            xcodebuildPipeFilter: bashEscapedCommandMaker.escapedCommand(
+                arguments: [
+                    "bash",
+                    "-c",
+                    try bundlerBashCommandGenerator
+                        .bashCommandRunningCommandBundler(
+                            arguments: ["xcpretty"]
+                        )
+                ]
+            )
         )
         
         let appName = "TestedApp.app"

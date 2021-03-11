@@ -152,10 +152,9 @@ open class CommonDi: BaseDi {
         }
         container.register(type: BundledProcessExecutor.self) {
             BundledProcessExecutorImpl(
-                processExecutor: try container.resolve(),
-                bundlerCommandGenerator: try container.resolve(),
-                temporaryFileProvider: try container.resolve(),
-                environmentProvider: try container.resolve()
+                bashExecutor: try container.resolve(),
+                gemfileLocationProvider: try container.resolve(),
+                bundlerBashCommandGenerator: try container.resolve()
             )
         }
         container.register(type: CocoapodsCommandExecutor.self) {
@@ -243,10 +242,10 @@ open class CommonDi: BaseDi {
                 xcodebuild: try container.resolve()
             )
         }
-        container.register(type: BundlerCommandGenerator.self) {
-            BundlerCommandGeneratorImpl(
-                bashExecutor: try container.resolve(),
-                gemfileLocationProvider: try container.resolve()
+        container.register(type: BundlerBashCommandGenerator.self) {
+            BundlerBashCommandGeneratorImpl(
+                gemfileLocationProvider: try container.resolve(),
+                bashEscapedCommandMaker: try container.resolve()
             )
         }
         

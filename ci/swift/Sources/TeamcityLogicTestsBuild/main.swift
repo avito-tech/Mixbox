@@ -7,7 +7,7 @@ BuildDsl.teamcity.main { di in
         iosProjectBuilder: di.resolve(),
         mixboxTestDestinationProvider: di.resolve(),
         environmentProvider: di.resolve(),
-        bundlerCommandGenerator: di.resolve(),
+        bundlerBashCommandGenerator: di.resolve(),
         bashEscapedCommandMaker: di.resolve()
     )
 }

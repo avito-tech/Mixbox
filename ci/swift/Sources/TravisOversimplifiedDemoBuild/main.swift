@@ -10,7 +10,7 @@ BuildDsl.travis.main(
             iosProjectBuilder: di.resolve(),
             environmentProvider: di.resolve(),
             mixboxTestDestinationProvider: di.resolve(),
-            bundlerCommandGenerator: di.resolve(),
+            bundlerBashCommandGenerator: di.resolve(),
             bashEscapedCommandMaker: di.resolve()
         )
     }

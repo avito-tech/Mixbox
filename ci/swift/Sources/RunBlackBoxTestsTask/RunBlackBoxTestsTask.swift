@@ -15,20 +15,23 @@ public final class RunBlackBoxTestsTask: LocalTask {
     private let blackBoxTestRunner: BlackBoxTestRunner
     private let mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider
     private let iosProjectBuilder: IosProjectBuilder
-    private let bundlerCommandGenerator: BundlerCommandGenerator
+    private let bundlerBashCommandGenerator: BundlerBashCommandGenerator
+    private let bashEscapedCommandMaker: BashEscapedCommandMaker
     
     public init(
         bashExecutor: BashExecutor,
         blackBoxTestRunner: BlackBoxTestRunner,
         mixboxTestDestinationConfigurationsProvider: MixboxTestDestinationConfigurationsProvider,
         iosProjectBuilder: IosProjectBuilder,
-        bundlerCommandGenerator: BundlerCommandGenerator)
+        bundlerBashCommandGenerator: BundlerBashCommandGenerator,
+        bashEscapedCommandMaker: BashEscapedCommandMaker)
     {
         self.bashExecutor = bashExecutor
         self.blackBoxTestRunner = blackBoxTestRunner
         self.mixboxTestDestinationConfigurationsProvider = mixboxTestDestinationConfigurationsProvider
         self.iosProjectBuilder = iosProjectBuilder
-        self.bundlerCommandGenerator = bundlerCommandGenerator
+        self.bundlerBashCommandGenerator = bundlerBashCommandGenerator
+        self.bashEscapedCommandMaker = bashEscapedCommandMaker
     }
     
     public func execute() throws {
@@ -45,9 +48,14 @@ public final class RunBlackBoxTestsTask: LocalTask {
             scheme: "BlackBoxUiTests",
             workspaceName: "Tests",
             testDestination: destinationForBuilding,
-            xcodebuildPipeFilter: try bundlerCommandGenerator
-                .bundle(arguments: ["xcpretty"])
-                .joined(separator: " ")
+            xcodebuildPipeFilter: bashEscapedCommandMaker.escapedCommand(
+                arguments: [
+                    "bash",
+                    "-c",
+                    try bundlerBashCommandGenerator
+                        .bashCommandRunningCommandBundler(arguments: ["xcpretty"])
+                ]
+            )
         )
         
         try test(

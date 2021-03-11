@@ -16,7 +16,7 @@ public final class RunUnitTestsTask: LocalTask {
     private let iosProjectBuilder: IosProjectBuilder
     private let mixboxTestDestinationProvider: MixboxTestDestinationProvider
     private let environmentProvider: EnvironmentProvider
-    private let bundlerCommandGenerator: BundlerCommandGenerator
+    private let bundlerBashCommandGenerator: BundlerBashCommandGenerator
     private let bashEscapedCommandMaker: BashEscapedCommandMaker
     
     public init(
@@ -24,14 +24,14 @@ public final class RunUnitTestsTask: LocalTask {
         iosProjectBuilder: IosProjectBuilder,
         mixboxTestDestinationProvider: MixboxTestDestinationProvider,
         environmentProvider: EnvironmentProvider,
-        bundlerCommandGenerator: BundlerCommandGenerator,
+        bundlerBashCommandGenerator: BundlerBashCommandGenerator,
         bashEscapedCommandMaker: BashEscapedCommandMaker)
     {
         self.bashExecutor = bashExecutor
         self.iosProjectBuilder = iosProjectBuilder
         self.mixboxTestDestinationProvider = mixboxTestDestinationProvider
         self.environmentProvider = environmentProvider
-        self.bundlerCommandGenerator = bundlerCommandGenerator
+        self.bundlerBashCommandGenerator = bundlerBashCommandGenerator
         self.bashEscapedCommandMaker = bashEscapedCommandMaker
     }
     
@@ -39,9 +39,13 @@ public final class RunUnitTestsTask: LocalTask {
         let reportsPath = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_REPORTS_PATH)
         
         let xcodebuildPipeFilter = bashEscapedCommandMaker.escapedCommand(
-            arguments: try bundlerCommandGenerator.bundle(
-                arguments: ["xcpretty", "-r", "junit", "-o", "\(reportsPath)/junit.xml"]
-            )
+            arguments: [
+                "bash",
+                "-c",
+                try bundlerBashCommandGenerator.bashCommandRunningCommandBundler(
+                    arguments: ["xcpretty", "-r", "junit", "-o", "\(reportsPath)/junit.xml"]
+                )
+            ]
         )
         
         try iosProjectBuilder.test(
