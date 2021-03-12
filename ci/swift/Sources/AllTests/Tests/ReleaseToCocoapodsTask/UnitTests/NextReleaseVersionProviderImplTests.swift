@@ -127,6 +127,25 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
         )
     }
     
+    func test___nextReleaseVersion___throws_error___if_commit_is_already_released() {
+        for majorVersion in [0, 1] {
+            check(
+                tags: [
+                    GitTag(name: "0.0.3", sha: "C"), // this is commit to release, and it is already released
+                    GitTag(name: "0.0.2", sha: "B"),
+                    GitTag(name: "0.0.1", sha: "A")
+                ],
+                revisions: [
+                    "C",
+                    "B",
+                    "A"
+                ],
+                nextVersion: majorVersion, 0,
+                expectedError: "This commit hash is already released: C (0.0.3)."
+            )
+        }
+    }
+    
     private func check(
         tags: [GitTag],
         revisions: [String],

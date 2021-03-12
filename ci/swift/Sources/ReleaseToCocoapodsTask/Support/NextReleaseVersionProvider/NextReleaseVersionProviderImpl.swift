@@ -91,6 +91,10 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
             throw ErrorString("No previous version tag found.")
         }
         
+        guard latestVersionTag.revision != commitHashToRelease else {
+            throw ErrorString("This commit hash is already released: \(commitHashToRelease) (\(latestVersionTag.version.toString())).")
+        }
+        
         guard let indexOfLatestVersionRevision = releaseBranchRevisions
                 .firstIndex(of: latestVersionTag.revision)
         else {
