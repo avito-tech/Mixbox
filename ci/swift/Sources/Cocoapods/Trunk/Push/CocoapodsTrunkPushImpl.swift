@@ -10,9 +10,33 @@ public final class CocoapodsTrunkPushImpl: CocoapodsTrunkPush {
         self.cocoapodsTrunkToken = cocoapodsTrunkToken
     }
     
-    public func push(pathToPodspec: String) throws {
+    public func push(
+        pathToPodspec: String,
+        allowWarnings: Bool,
+        skipImportValidation: Bool,
+        skipTests: Bool)
+        throws
+    {
+        var arguments: [String] = [
+            "trunk",
+            "push",
+            pathToPodspec
+        ]
+        
+        if allowWarnings {
+            arguments.append("--allow-warnings")
+        }
+        
+        if skipImportValidation {
+            arguments.append("--skip-import-validation")
+        }
+        
+        if skipTests {
+            arguments.append("--skip-tests")
+        }
+        
         _ = try cocoapodsCommandExecutor.execute(
-            arguments: ["trunk", "push", pathToPodspec],
+            arguments: arguments,
             environment: [
                 "COCOAPODS_TRUNK_TOKEN": cocoapodsTrunkToken
             ]
