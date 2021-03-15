@@ -1,5 +1,6 @@
 import Darwin
 import CiFoundation
+import Tasks
 
 // Move to some "Teamcity" package
 public final class TeamcityLocalTaskExecutor: LocalTaskExecutor {

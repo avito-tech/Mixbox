@@ -1,13 +1,13 @@
 public final class CocoapodsTrunkPushImpl: CocoapodsTrunkPush {
     private let cocoapodsCommandExecutor: CocoapodsCommandExecutor
-    private let cocoapodsTrunkToken: String
+    private let cocoapodsTrunkTokenProvider: CocoapodsTrunkTokenProvider
     
     public init(
         cocoapodsCommandExecutor: CocoapodsCommandExecutor,
-        cocoapodsTrunkToken: String)
+        cocoapodsTrunkTokenProvider: CocoapodsTrunkTokenProvider)
     {
         self.cocoapodsCommandExecutor = cocoapodsCommandExecutor
-        self.cocoapodsTrunkToken = cocoapodsTrunkToken
+        self.cocoapodsTrunkTokenProvider = cocoapodsTrunkTokenProvider
     }
     
     public func push(
@@ -38,7 +38,7 @@ public final class CocoapodsTrunkPushImpl: CocoapodsTrunkPush {
         _ = try cocoapodsCommandExecutor.execute(
             arguments: arguments,
             environment: [
-                "COCOAPODS_TRUNK_TOKEN": cocoapodsTrunkToken
+                "COCOAPODS_TRUNK_TOKEN": cocoapodsTrunkTokenProvider.cocoapodsTrunkToken()
             ]
         )
     }

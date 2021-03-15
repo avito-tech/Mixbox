@@ -1,8 +1,8 @@
 import XCTest
 import CiFoundation
-import Di
 import Bash
 import RemoteFiles
+import TeamcityDi
 
 public final class FileDownloaderTests: XCTestCase {
     func test() {

@@ -4,6 +4,9 @@ import Dip
 open class BaseDi: Di {
     private let container = DependencyContainer()
     
+    public init() {
+    }
+    
     // MARK: - Di
     
     public final func bootstrap(overrides: (DependencyContainer) -> ()) throws {

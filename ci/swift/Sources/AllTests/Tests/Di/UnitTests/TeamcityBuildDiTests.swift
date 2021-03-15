@@ -1,5 +1,5 @@
 import XCTest
-import Di
+import TeamcityDi
 import Bash
 
 final class TeamcityBuildDiTests: XCTestCase {

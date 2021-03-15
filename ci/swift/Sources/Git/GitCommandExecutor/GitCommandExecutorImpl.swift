@@ -18,8 +18,10 @@ public final class GitCommandExecutorImpl: GitCommandExecutor {
         throws
         -> String
     {
+        let arguments = ["/usr/bin/git"] + arguments
+        
         let result = try processExecutor.execute(
-            arguments: ["/usr/bin/git"] + arguments,
+            arguments: arguments,
             currentDirectory: try repoRootProvider.repoRootPath(),
             environment: [:],
             stdoutDataHandler: { _ in },
@@ -27,9 +29,14 @@ public final class GitCommandExecutorImpl: GitCommandExecutor {
         )
         
         if result.code != 0 {
+            let argumentsAsString = arguments.joined(separator: " ")
             throw ErrorString(
                 """
-                Failed to execute "git \(arguments.joined(separator: " "))" with exit code \(result.code)"
+                Failed to execute "\(argumentsAsString)" with exit code \(result.code)
+                Stderr:
+                \(result.stderr.utf8String() ?? "")
+                Stdout:
+                \(result.stdout.utf8String() ?? "")
                 """
             )
         }

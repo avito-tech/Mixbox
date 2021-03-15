@@ -1,5 +1,7 @@
 import Tasks
 import Di
+import TeamcityDi
+import TravisDi
 import Dip
 import Darwin
 

@@ -126,7 +126,6 @@ let package = Package(
         .target(
             name: "Tasks",
             dependencies: [
-                "CiFoundation",
             ]
         ),
         .target(
@@ -141,6 +140,7 @@ let package = Package(
                 "Dip",
                 "Emcee",
                 "Git",
+                "Releases",
                 "RemoteFiles",
                 "Simctl",
                 "SingletonHell",
@@ -248,12 +248,12 @@ let package = Package(
                 "Bash",
                 "CiFoundation",
                 "Cocoapods",
-                "Di",
                 "Git",
                 "Releases",
                 "RemoteFiles",
                 "Simctl",
                 "StaticChecksTask",
+                "TeamcityDi",
             ]
         ),
         .target(
@@ -296,6 +296,8 @@ let package = Package(
                 "Di",
                 "Dip",
                 "Tasks",
+                "TeamcityDi",
+                "TravisDi",
             ]
         ),
         .target(
@@ -367,6 +369,30 @@ let package = Package(
                 "Git",
                 "Simctl",
                 "SingletonHell",
+            ]
+        ),
+        .target(
+            name: "TeamcityDi",
+            dependencies: [
+                "CiFoundation",
+                "Cocoapods",
+                "Destinations",
+                "Di",
+                "Dip",
+                "Emcee",
+                "RemoteFiles",
+                "SingletonHell",
+                "Tasks",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
+            ]
+        ),
+        .target(
+            name: "TravisDi",
+            dependencies: [
+                "CiFoundation",
+                "Di",
+                "Dip",
+                "Tasks",
             ]
         ),
         .target(

@@ -5,10 +5,9 @@ import CiFoundation
 import SingletonHell
 import Emcee
 import Cocoapods
+import Di
 
 public final class TeamcityBuildDi: CommonDi {
-    override public init() {}
-    
     override public func registerAll(container: DependencyContainer) {
         super.registerAll(container: container)
         
@@ -39,6 +38,11 @@ public final class TeamcityBuildDi: CommonDi {
         }
         container.register(type: SimulatorSettingsProvider.self) {
             SimulatorSettingsProviderImpl(
+                environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsTrunkTokenProvider.self) {
+            TeamcityCocoapodsTrunkTokenProvider(
                 environmentProvider: try container.resolve()
             )
         }

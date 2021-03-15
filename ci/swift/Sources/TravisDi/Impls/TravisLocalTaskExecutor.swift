@@ -1,5 +1,6 @@
 import Darwin
 import CiFoundation
+import Tasks
 
 // Move to some "Travis" package
 public final class TravisLocalTaskExecutor: LocalTaskExecutor {

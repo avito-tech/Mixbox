@@ -1,6 +1,6 @@
 import XCTest
 import Releases
-import Di
+import TeamcityDi
 
 public final class ListOfPodspecsToPushProviderImplTests: XCTestCase {
     // Test doesn't use mocks, uses everything real, and requires

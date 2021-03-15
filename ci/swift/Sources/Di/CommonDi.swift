@@ -13,6 +13,7 @@ import RemoteFiles
 import Xcodebuild
 import Destinations
 import Bundler
+import Releases
 
 // TODO: Fix retain-cycle in DI. Container retains itself.
 open class CommonDi: BaseDi {
@@ -137,29 +138,12 @@ open class CommonDi: BaseDi {
                 gemfileBasename: "Gemfile_cocoapods"
             )
         }
-        container.register(type: CocoapodsInstall.self) {
-            CocoapodsInstallImpl(
-                cocoapodsCommandExecutor: try container.resolve(),
-                environmentProvider: try container.resolve()
-            )
-        }
-        container.register(type: CocoapodsSearch.self) {
-            CocoapodsSearchImpl(
-                cocoapodsCommandExecutor: try container.resolve(),
-                environmentProvider: try container.resolve(),
-                cocoapodsSearchOutputParser: try container.resolve()
-            )
-        }
+        
         container.register(type: BundledProcessExecutor.self) {
             BundledProcessExecutorImpl(
                 bashExecutor: try container.resolve(),
                 gemfileLocationProvider: try container.resolve(),
                 bundlerBashCommandGenerator: try container.resolve()
-            )
-        }
-        container.register(type: CocoapodsCommandExecutor.self) {
-            CocoapodsCommandExecutorImpl(
-                bundledProcessExecutor: try container.resolve()
             )
         }
         container.register(type: EnvironmentProvider.self) {
@@ -170,7 +154,7 @@ open class CommonDi: BaseDi {
             )
             
             let isRunningFromXcode: Bool = ProcessInfo.processInfo.environment["__XCODE_BUILT_PRODUCTS_DIR_PATHS"] != nil
-
+            
             if isRunningFromXcode {
                 return DebugEnvironmentProvider(
                     originalEnvironmentProvider: environmentProvider
@@ -250,6 +234,8 @@ open class CommonDi: BaseDi {
         }
         
         registerGit(container: container)
+        registerCocoapods(container: container)
+        registerReleases(container: container)
     }
     
     private func registerGit(container: DependencyContainer) {
@@ -276,6 +262,93 @@ open class CommonDi: BaseDi {
         container.register(type: GitCommandExecutor.self) {
             GitCommandExecutorImpl(
                 processExecutor: try container.resolve(),
+                repoRootProvider: try container.resolve()
+            )
+        }
+    }
+    
+    private func registerCocoapods(container: DependencyContainer) {
+        container.register(type: CocoapodsCommandExecutor.self) {
+            CocoapodsCommandExecutorImpl(
+                bundledProcessExecutor: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsInstall.self) {
+            CocoapodsInstallImpl(
+                cocoapodsCommandExecutor: try container.resolve(),
+                environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsSearch.self) {
+            CocoapodsSearchImpl(
+                cocoapodsCommandExecutor: try container.resolve(),
+                environmentProvider: try container.resolve(),
+                cocoapodsSearchOutputParser: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsRepoAdd.self) {
+            CocoapodsRepoAddImpl(
+                cocoapodsCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsRepoPush.self) {
+            CocoapodsRepoPushImpl(
+                cocoapodsCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodCacheClean.self) {
+            CocoapodCacheCleanImpl(
+                cocoapodsCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsTrunkPush.self) {
+            CocoapodsTrunkPushImpl(
+                cocoapodsCommandExecutor: try container.resolve(),
+                cocoapodsTrunkTokenProvider: try container.resolve()
+            )
+        }
+    }
+    private func registerReleases(container: DependencyContainer) {
+        container.register(type: BeforeReleaseTagsSetter.self) {
+            BeforeReleaseTagsSetterImpl(
+                gitTagAdder: try container.resolve()
+            )
+        }
+        container.register(type: ListOfPodspecsToPushProvider.self) {
+            ListOfPodspecsToPushProviderImpl(
+                bundledProcessExecutor: try container.resolve(),
+                repoRootProvider: try container.resolve()
+            )
+        }
+        container.register(type: MixboxPodspecsPusher.self) {
+            MixboxPodspecsPusherImpl(
+                listOfPodspecsToPushProvider: try container.resolve(),
+                cocoapodsTrunkPush: try container.resolve(),
+                repoRootProvider: try container.resolve()
+            )
+        }
+        container.register(type: MixboxPodspecsValidator.self) {
+            MixboxPodspecsValidatorImpl(
+                repoRootProvider: try container.resolve(),
+                listOfPodspecsToPushProvider: try container.resolve(),
+                cocoapodCacheClean: try container.resolve(),
+                cocoapodsRepoAdd: try container.resolve(),
+                cocoapodsRepoPush: try container.resolve(),
+                environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: MixboxReleaseSettingsProvider.self) {
+            MixboxReleaseSettingsProviderImpl()
+        }
+        container.register(type: NextReleaseVersionProvider.self) {
+            NextReleaseVersionProviderImpl(
+                gitTagsProvider: try container.resolve(),
+                gitRevListProvider: try container.resolve(),
+                headCommitHashProvider: try container.resolve()
+            )
+        }
+        container.register(type: PodspecsPatcher.self) {
+            PodspecsPatcherImpl(
                 repoRootProvider: try container.resolve()
             )
         }
