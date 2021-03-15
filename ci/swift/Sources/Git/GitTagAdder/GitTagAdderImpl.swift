@@ -15,7 +15,7 @@ public final class GitTagAdderImpl: GitTagAdder {
         _ = try gitCommandExecutor.execute(
             arguments: [
                 "tag",
-                "-a", tagName,
+                tagName,
                 commitHash
             ]
         )
