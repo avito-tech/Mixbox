@@ -42,9 +42,9 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
         let fileManager = FileManager()
         let home = try environmentProvider.environment["HOME"].unwrapOrThrow()
         
-        try fileManager.removeItem(atPath: "\(home)/Library/Caches/CocoaPods/Pods")
-        try fileManager.removeItem(atPath: "\(home)/Library/Developer/Xcode/DerivedData/")
-        try fileManager.removeItem(atPath: "\(home)/.cocoapods/repos/\(sandboxRepoName)")
+        try? fileManager.removeItem(atPath: "\(home)/Library/Caches/CocoaPods/Pods")
+        try? fileManager.removeItem(atPath: "\(home)/Library/Developer/Xcode/DerivedData/")
+        try? fileManager.removeItem(atPath: "\(home)/.cocoapods/repos/\(sandboxRepoName)")
     }
     
     private func pushPodspecsToSandboxRepo() throws {
