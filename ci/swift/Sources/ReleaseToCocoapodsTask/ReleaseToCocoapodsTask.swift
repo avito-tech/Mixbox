@@ -57,6 +57,9 @@ public final class ReleaseToCocoapodsTask: LocalTask {
         
         try podspecsPatcher.setMixboxFrameworkPodspecsVersion(version)
         
+        defer {
+            try? podspecsPatcher.resetMixboxFrameworkPodspecsVersion()
+        }
         try mixboxPodspecsValidator.validateMixboxPodspecs()
         try mixboxPodspecsPusher.pushMixboxPodspecs()
         

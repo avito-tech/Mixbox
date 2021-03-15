@@ -259,6 +259,11 @@ open class CommonDi: BaseDi {
                 gitCommandExecutor: try container.resolve()
             )
         }
+        container.register(type: GitTagDeleter.self) {
+            GitTagDeleterImpl(
+                gitCommandExecutor: try container.resolve()
+            )
+        }
         container.register(type: GitCommandExecutor.self) {
             GitCommandExecutorImpl(
                 processExecutor: try container.resolve(),

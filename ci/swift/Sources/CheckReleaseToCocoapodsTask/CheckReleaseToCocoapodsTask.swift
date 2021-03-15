@@ -16,6 +16,7 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
     private let headCommitHashProvider: HeadCommitHashProvider
     private let nextReleaseVersionProvider: NextReleaseVersionProvider
     private let gitTagAdder: GitTagAdder
+    private let gitTagDeleter: GitTagDeleter
     private let podspecsPatcher: PodspecsPatcher
     private let mixboxPodspecsValidator: MixboxPodspecsValidator
     private let mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider
@@ -24,6 +25,7 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         headCommitHashProvider: HeadCommitHashProvider,
         nextReleaseVersionProvider: NextReleaseVersionProvider,
         gitTagAdder: GitTagAdder,
+        gitTagDeleter: GitTagDeleter,
         podspecsPatcher: PodspecsPatcher,
         mixboxPodspecsValidator: MixboxPodspecsValidator,
         mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider)
@@ -31,6 +33,7 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         self.headCommitHashProvider = headCommitHashProvider
         self.nextReleaseVersionProvider = nextReleaseVersionProvider
         self.gitTagAdder = gitTagAdder
+        self.gitTagDeleter = gitTagDeleter
         self.podspecsPatcher = podspecsPatcher
         self.mixboxPodspecsValidator = mixboxPodspecsValidator
         self.mixboxReleaseSettingsProvider = mixboxReleaseSettingsProvider
@@ -48,12 +51,28 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         
         let versionString = version.toString()
         
+        // Add tag
+        
+        defer {
+            try? gitTagDeleter.deleteLocalTag(
+                tagName: versionString
+            )
+        }
+        
         try gitTagAdder.addTag(
             tagName: versionString,
             commitHash: commitHashToRelease
         )
         
+        // Set version
+            
+        defer {
+            try? podspecsPatcher.resetMixboxFrameworkPodspecsVersion()
+        }
+        
         try podspecsPatcher.setMixboxFrameworkPodspecsVersion(version)
+        
+        // Run validation
         
         try mixboxPodspecsValidator.validateMixboxPodspecs()
     }

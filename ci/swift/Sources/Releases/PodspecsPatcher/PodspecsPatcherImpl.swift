@@ -11,11 +11,27 @@ public final class PodspecsPatcherImpl: PodspecsPatcher {
         _ version: Version)
         throws
     {
-        let newContents =
-        """
-        $mixbox_version = '\(version.toString())'
-        """
-        
+        try patchMixboxVersionRb(
+            version: version
+        )
+    }
+    
+    public func resetMixboxFrameworkPodspecsVersion() throws {
+        try patchMixboxVersionRb(
+            version: Version(major: 0, minor: 0, patch: 1)
+        )
+    }
+    
+    private func patchMixboxVersionRb(version: Version) throws {
+        try patchMixboxVersionRb(
+            newContents:
+            """
+            $mixbox_version = '\(version.toString())'
+            """
+        )
+    }
+    
+    private func patchMixboxVersionRb(newContents: String) throws {
         let path = try repoRootProvider.repoRootPath().appending(
             pathComponents: ["cocoapods", "mixbox_version.rb"]
         )

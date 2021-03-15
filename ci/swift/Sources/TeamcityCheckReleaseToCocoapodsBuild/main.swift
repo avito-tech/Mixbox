@@ -20,6 +20,7 @@ BuildDsl.teamcity.main { di in
             headCommitHashProvider: di.resolve()
         ),
         gitTagAdder: di.resolve(),
+        gitTagDeleter: di.resolve(),
         podspecsPatcher: PodspecsPatcherImpl(
             repoRootProvider: di.resolve()
         ),
