@@ -1,5 +1,5 @@
 import XCTest
-import ReleaseToCocoapodsTask
+import Releases
 import Di
 
 public final class ListOfPodspecsToPushProviderImplTests: XCTestCase {

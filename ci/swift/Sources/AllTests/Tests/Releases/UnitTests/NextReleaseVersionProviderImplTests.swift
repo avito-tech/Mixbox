@@ -1,7 +1,7 @@
 import Bash
 import Git
 import XCTest
-import ReleaseToCocoapodsTask
+import Releases
 
 // swiftlint:disable multiline_arguments multiline_parameters
 
@@ -23,20 +23,24 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
                 gitRevListProvider: GitRevListProviderImpl(
                     gitCommandExecutor: gitCommandExecutor
                 ),
-                headCommitHashProvider: headCommitHashProvider,
+                headCommitHashProvider: headCommitHashProvider
+            )
+            
+            let settings = MixboxReleaseSettingsProviderImpl()
+            
+            let version = try nextReleaseVersionProvider.nextReleaseVersion(
+                majorVersion: settings.majorVersion,
+                minorVersion: settings.minorVersion,
+                commitHashToRelease: try headCommitHashProvider.headCommitHash(),
                 // doesn't work otherwise, e.g. if "master" is used then it will be always behind
                 // head on pull requests, tests will not work with "master" or "origin/master", so we use "HEAD".
                 releaseBranchName: "HEAD"
             )
             
-            let version = try nextReleaseVersionProvider.nextReleaseVersion(
-                commitHashToRelease: try headCommitHashProvider.headCommitHash()
-            )
-            
-            // Patch version is ignored here, the code of its calculation is checked
-            // in other tests. Major & minor version are always as in MixboxVersion.
-            XCTAssertEqual(version.major, MixboxVersion.major)
-            XCTAssertEqual(version.minor, MixboxVersion.minor)
+            // Patch version is ignored here, the code of its calculation is checked in other tests.
+            // Major & minor version are always as in MixboxReleaseSettingsProviderImpl.
+            XCTAssertEqual(version.major, settings.majorVersion)
+            XCTAssertEqual(version.minor, settings.minorVersion)
         }
     }
     
@@ -212,7 +216,8 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
         return try nextReleaseVersionProvider.nextReleaseVersion(
             majorVersion: nextMajorVersion,
             minorVersion: nextMinorVersion,
-            commitHashToRelease: headCommitHash
+            commitHashToRelease: headCommitHash,
+            releaseBranchName: "doesn't matter"
         )
     }
 }

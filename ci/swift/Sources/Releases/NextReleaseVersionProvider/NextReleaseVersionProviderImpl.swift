@@ -5,7 +5,6 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
     private let gitTagsProvider: GitTagsProvider
     private let gitRevListProvider: GitRevListProvider
     private let headCommitHashProvider: HeadCommitHashProvider
-    private let releaseBranchName: String
     
     private struct VersionTag {
         let version: Version
@@ -15,13 +14,11 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
     public init(
         gitTagsProvider: GitTagsProvider,
         gitRevListProvider: GitRevListProvider,
-        headCommitHashProvider: HeadCommitHashProvider,
-        releaseBranchName: String = "origin/master")
+        headCommitHashProvider: HeadCommitHashProvider)
     {
         self.gitTagsProvider = gitTagsProvider
         self.gitRevListProvider = gitRevListProvider
         self.headCommitHashProvider = headCommitHashProvider
-        self.releaseBranchName = releaseBranchName
     }
     
     // TODO: Split the function.
@@ -29,7 +26,8 @@ public final class NextReleaseVersionProviderImpl: NextReleaseVersionProvider {
     public func nextReleaseVersion(
         majorVersion: Int,
         minorVersion: Int,
-        commitHashToRelease: String)
+        commitHashToRelease: String,
+        releaseBranchName: String)
         throws
         -> Version
     {

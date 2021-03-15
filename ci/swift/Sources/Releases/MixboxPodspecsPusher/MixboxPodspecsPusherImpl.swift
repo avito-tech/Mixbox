@@ -1,5 +1,6 @@
 import Cocoapods
 import Git
+import Extensions
 
 public final class MixboxPodspecsPusherImpl: MixboxPodspecsPusher {
     private let listOfPodspecsToPushProvider: ListOfPodspecsToPushProvider

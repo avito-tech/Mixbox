@@ -24,6 +24,12 @@ let package = Package(
             ]
         ),
         .executable(
+            name: "TeamcityCheckReleaseToCocoapodsBuild",
+            targets: [
+                "TeamcityCheckReleaseToCocoapodsBuild"
+            ]
+        ),
+        .executable(
             name: "TeamcityUiTestsDemoBuild",
             targets: [
                 "TeamcityUiTestsDemoBuild"
@@ -109,6 +115,15 @@ let package = Package(
             ]
         ),
         .target(
+            name: "Releases",
+            dependencies: [
+                "Bundler",
+                "CiFoundation",
+                "Cocoapods",
+                "Git",
+            ]
+        ),
+        .target(
             name: "Tasks",
             dependencies: [
                 "CiFoundation",
@@ -132,6 +147,32 @@ let package = Package(
                 "Tasks",
                 "Xcodebuild",
                 .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
+            ]
+        ),
+        .target(
+            name: "CheckReleaseToCocoapodsTask",
+            dependencies: [
+                "Bash",
+                "Bundler",
+                "CiFoundation",
+                "Destinations",
+                "Emcee",
+                "Git",
+                "Releases",
+                "SingletonHell",
+                "Tasks",
+                "Xcodebuild",
+            ]
+        ),
+        .target(
+            name: "TeamcityCheckReleaseToCocoapodsBuild",
+            dependencies: [
+                "BuildDsl",
+                "CheckReleaseToCocoapodsTask",
+                "CiFoundation",
+                "Destinations",
+                "Releases",
+                "SingletonHell",
             ]
         ),
         .target(
@@ -185,6 +226,7 @@ let package = Package(
                 "CiFoundation",
                 "Destinations",
                 "ReleaseToCocoapodsTask",
+                "Releases",
                 "SingletonHell",
             ]
         ),
@@ -208,7 +250,7 @@ let package = Package(
                 "Cocoapods",
                 "Di",
                 "Git",
-                "ReleaseToCocoapodsTask",
+                "Releases",
                 "RemoteFiles",
                 "Simctl",
                 "StaticChecksTask",
@@ -272,6 +314,7 @@ let package = Package(
                 "Destinations",
                 "Emcee",
                 "Git",
+                "Releases",
                 "SingletonHell",
                 "Tasks",
                 "Xcodebuild",

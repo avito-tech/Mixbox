@@ -1,6 +1,6 @@
 import BuildDsl
 import SingletonHell
-import ReleaseToCocoapodsTask
+import CheckReleaseToCocoapodsTask
 import Releases
 import Foundation
 import CiFoundation
@@ -12,16 +12,14 @@ BuildDsl.teamcity.main { di in
         repoRootProvider: di.resolve()
     )
     
-    return try ReleaseToCocoapodsTask(
+    return try CheckReleaseToCocoapodsTask(
         headCommitHashProvider: di.resolve(),
         nextReleaseVersionProvider: NextReleaseVersionProviderImpl(
             gitTagsProvider: di.resolve(),
             gitRevListProvider: di.resolve(),
             headCommitHashProvider: di.resolve()
         ),
-        beforeReleaseTagsSetter: BeforeReleaseTagsSetterImpl(
-            gitTagAdder: di.resolve()
-        ),
+        gitTagAdder: di.resolve(),
         podspecsPatcher: PodspecsPatcherImpl(
             repoRootProvider: di.resolve()
         ),
@@ -32,11 +30,6 @@ BuildDsl.teamcity.main { di in
             cocoapodsRepoAdd: di.resolve(),
             cocoapodsRepoPush: di.resolve(),
             environmentProvider: di.resolve()
-        ),
-        mixboxPodspecsPusher: MixboxPodspecsPusherImpl(
-            listOfPodspecsToPushProvider: listOfPodspecsToPushProvider,
-            cocoapodsTrunkPush: di.resolve(),
-            repoRootProvider: di.resolve()
         ),
         mixboxReleaseSettingsProvider: MixboxReleaseSettingsProviderImpl()
     )

@@ -1,7 +1,7 @@
 import Bash
 import Git
 import XCTest
-import ReleaseToCocoapodsTask
+import Releases
 import CiFoundation
 
 final class PodspecsPatcherImplTests: XCTestCase {
