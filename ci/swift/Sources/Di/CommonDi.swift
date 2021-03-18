@@ -317,7 +317,8 @@ open class CommonDi: BaseDi {
     private func registerReleases(container: DependencyContainer) {
         container.register(type: BeforeReleaseTagsSetter.self) {
             BeforeReleaseTagsSetterImpl(
-                gitTagAdder: try container.resolve()
+                gitTagAdder: try container.resolve(),
+                gitTagDeleter: try container.resolve()
             )
         }
         container.register(type: ListOfPodspecsToPushProvider.self) {

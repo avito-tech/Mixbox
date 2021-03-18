@@ -4,4 +4,5 @@ public protocol BeforeReleaseTagsSetter {
         commitHash: String,
         remote: String)
         throws
+        -> AfterReleaseTagsSetter
 }

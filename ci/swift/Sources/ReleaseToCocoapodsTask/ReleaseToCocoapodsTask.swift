@@ -49,31 +49,19 @@ public final class ReleaseToCocoapodsTask: LocalTask {
             releaseBranchName: mixboxReleaseSettingsProvider.releaseBranchFullName
         )
         
-        try beforeReleaseTagsSetter.setUpTagsBeforeRelease(
+        let afterReleaseTagsSetter = try beforeReleaseTagsSetter.setUpTagsBeforeRelease(
             version: version,
             commitHash: commitHashToRelease,
             remote: mixboxReleaseSettingsProvider.releaseRemoteName
         )
         
-        // Patch cocoapods
-            
-        defer {
-            print("Will reset validation code in Cocoapods")
-            try? cocoapodsValidationPatcher.setPodspecValidationEnabled(true)
-        }
-
-        print("Will disable validation code in Cocoapods")
+        defer { try? cocoapodsValidationPatcher.setPodspecValidationEnabled(true) }
         try cocoapodsValidationPatcher.setPodspecValidationEnabled(false)
         
         try mixboxPodspecsValidator.validateMixboxPodspecs()
+        
         try mixboxPodspecsPusher.pushMixboxPodspecs()
         
-        setUpTagsAfterRelease(version: version)
-    }
-    
-    private func setUpTagsAfterRelease(version: Version) {
-        // TBD.
-        // Will finalize tags (e.g. remove marker tag that
-        // says that release is unfinished)
+        try afterReleaseTagsSetter.setUpTagsAfterRelease()
     }
 }
