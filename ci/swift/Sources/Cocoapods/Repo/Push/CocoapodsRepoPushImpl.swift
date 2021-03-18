@@ -1,3 +1,5 @@
+import Bash
+
 public final class CocoapodsRepoPushImpl: CocoapodsRepoPush {
     private let cocoapodsCommandExecutor: CocoapodsCommandExecutor
     
@@ -14,7 +16,9 @@ public final class CocoapodsRepoPushImpl: CocoapodsRepoPush {
         localOnly: Bool,
         allowWarnings: Bool,
         skipImportValidation: Bool,
-        skipTests: Bool)
+        skipTests: Bool,
+        useJson: Bool,
+        sources: [String]?)
         throws
     {
         var arguments: [String] = [
@@ -42,6 +46,14 @@ public final class CocoapodsRepoPushImpl: CocoapodsRepoPush {
         
         if skipTests {
             arguments.append("--skip-tests")
+        }
+        
+        if useJson {
+            arguments.append("--use-json")
+        }
+        
+        if let sources = sources {
+            arguments.append("--sources=\(sources.joined(separator: ","))")
         }
         
         _ = try cocoapodsCommandExecutor.execute(

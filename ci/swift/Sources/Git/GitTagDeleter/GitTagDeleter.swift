@@ -30,7 +30,6 @@ extension GitTagDeleter {
     public func deleteLocalAndRemoteTagIgnoringAllErrors(
         tagName: String,
         remoteName: String)
-        throws
     {
         try? deleteLocalTag(
             tagName: tagName

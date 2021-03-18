@@ -1,4 +1,4 @@
-require_relative 'mixbox_version'
+require_relative 'mixbox_podspecs_source'
 
 module Mixbox
   class FrameworkSpec < Pod::Spec
@@ -7,19 +7,26 @@ module Mixbox
     def initialize()
       super()
       
-      framework_folder = "Frameworks/#{self.framework_folder_name}"
+      framework_folder = "Frameworks/#{self.get_framework_folder_name}"
+      
+      mixbox_version = get_mixbox_version
       
       attributes_hash['module_name'] = self.name
-      attributes_hash['version'] = $mixbox_version
+      attributes_hash['version'] = mixbox_version
       attributes_hash['summary'] = self.name
       attributes_hash['homepage'] = 'https://github.com/avito-tech/Mixbox'
       attributes_hash['license'] = 'MIT'
       attributes_hash['authors'] = { 'Hive of coders from Avito' => 'avito.ru' }
-      attributes_hash['source'] = { :git => 'https://github.com/avito-tech/Mixbox.git', :tag => $mixbox_version }
+      attributes_hash['source'] = { :git => $mixbox_podspecs_source, :tag => mixbox_version }
       attributes_hash['swift_version'] = '5.0'
       attributes_hash['requires_arc'] = true
-      attributes_hash['source_files'] = "#{framework_folder}/Sources/**/#{self.source_files_mask}"
-      attributes_hash['resources'] = "#{framework_folder}/Resources/**/*"
+      attributes_hash['source_files'] = "#{framework_folder}/Sources/**/#{self.get_source_files_mask}"
+      
+      # Podspec doesn't validate if there are no resource files and `resources` is set.
+      resources_folder_glob = "#{framework_folder}/Resources/**/*"
+      if not Dir.glob(resources_folder_glob).empty?
+        attributes_hash['resources'] = resources_folder_glob
+      end
       
       if self.platforms.include? :ios
         ios.deployment_target  = '9.0'
@@ -34,11 +41,30 @@ module Mixbox
       end
     end
     
-    def source_files_mask()
+    def get_mixbox_version()
+      # Can be used to avoid unnecessary changes in Podfile.lock (if development pods are used)
+      if ENV["MIXBOX_SET_VERSION_TO_001"] == "true"
+        return "0.0.1"
+      end
+      
+      # This code:
+      # 1. Gets all revisions as tags
+      # 2. Filters only version tags
+      # 3. Gets first (latest) version tag.
+      # The fallback value is 0.0.1
+      return %x(
+        git describe --always --abbrev=0 --tags `git rev-list --tags` | \
+        grep -oE "^[0-9]+\.[0-9]+\.[0-9]+$" | \
+        head -1 2>/dev/null \
+        || echo 0.0.1
+      ).strip
+    end
+    
+    def get_source_files_mask()
       return '*.{swift,h,m,mm,c}'
     end
     
-    def framework_folder_name()
+    def get_framework_folder_name()
       return self.name.sub(/^Mixbox/, '')
     end
   end

@@ -7,33 +7,27 @@ public final class PodspecsPatcherImpl: PodspecsPatcher {
         self.repoRootProvider = repoRootProvider
     }
     
-    public func setMixboxFrameworkPodspecsVersion(
-        _ version: Version)
+    public func setMixboxPodspecsSource(
+        _ source: String)
         throws
     {
-        try patchMixboxVersionRb(
-            version: version
-        )
-    }
-    
-    public func resetMixboxFrameworkPodspecsVersion() throws {
-        try patchMixboxVersionRb(
-            version: Version(major: 0, minor: 0, patch: 1)
-        )
-    }
-    
-    private func patchMixboxVersionRb(version: Version) throws {
-        try patchMixboxVersionRb(
+        try patchMixboxPodspecsSourceRb(
             newContents:
             """
-            $mixbox_version = '\(version.toString())'
+            $mixbox_podspecs_source = '\(source)'
             """
         )
     }
     
-    private func patchMixboxVersionRb(newContents: String) throws {
+    public func resetMixboxPodspecsSource() throws {
+        try setMixboxPodspecsSource(
+            "https://github.com/avito-tech/Mixbox.git"
+        )
+    }
+    
+    private func patchMixboxPodspecsSourceRb(newContents: String) throws {
         let path = try repoRootProvider.repoRootPath().appending(
-            pathComponents: ["cocoapods", "mixbox_version.rb"]
+            pathComponents: ["cocoapods", "mixbox_podspecs_source.rb"]
         )
         
         try newContents.write(

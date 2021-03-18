@@ -25,21 +25,21 @@ final class PodspecsPatcherImplTests: XCTestCase {
         )
         
         assertDoesntThrow {
-            try patcher.setMixboxFrameworkPodspecsVersion(
-                Version(major: 1, minor: 2, patch: 3)
+            try patcher.setMixboxPodspecsSource(
+                "<source>"
             )
         }
         
         assertDoesntThrow {
             let contents = try String(
                 contentsOfFile: repoRootPath.appending(
-                    pathComponents: ["cocoapods", "mixbox_version.rb"]
+                    pathComponents: ["cocoapods", "mixbox_podspecs_source.rb"]
                 )
             )
             
             XCTAssertEqual(
                 contents,
-                "$mixbox_version = '1.2.3'"
+                "$mixbox_podspecs_source = '<source>'"
             )
         }
         

@@ -7,31 +7,13 @@ import CiFoundation
 import Destinations
 
 BuildDsl.teamcity.main { di in
-    let listOfPodspecsToPushProvider = try ListOfPodspecsToPushProviderImpl(
-        bundledProcessExecutor: di.resolve(),
-        repoRootProvider: di.resolve()
-    )
-    
-    return try CheckReleaseToCocoapodsTask(
+    try CheckReleaseToCocoapodsTask(
         headCommitHashProvider: di.resolve(),
-        nextReleaseVersionProvider: NextReleaseVersionProviderImpl(
-            gitTagsProvider: di.resolve(),
-            gitRevListProvider: di.resolve(),
-            headCommitHashProvider: di.resolve()
-        ),
+        nextReleaseVersionProvider: di.resolve(),
         gitTagAdder: di.resolve(),
         gitTagDeleter: di.resolve(),
-        podspecsPatcher: PodspecsPatcherImpl(
-            repoRootProvider: di.resolve()
-        ),
-        mixboxPodspecsValidator: MixboxPodspecsValidatorImpl(
-            repoRootProvider: di.resolve(),
-            listOfPodspecsToPushProvider: listOfPodspecsToPushProvider,
-            cocoapodCacheClean: di.resolve(),
-            cocoapodsRepoAdd: di.resolve(),
-            cocoapodsRepoPush: di.resolve(),
-            environmentProvider: di.resolve()
-        ),
-        mixboxReleaseSettingsProvider: MixboxReleaseSettingsProviderImpl()
+        cocoapodsValidationPatcher: di.resolve(),
+        mixboxPodspecsValidator: di.resolve(),
+        mixboxReleaseSettingsProvider: di.resolve()
     )
 }

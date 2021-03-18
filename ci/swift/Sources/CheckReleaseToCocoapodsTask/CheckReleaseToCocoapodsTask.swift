@@ -17,7 +17,7 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
     private let nextReleaseVersionProvider: NextReleaseVersionProvider
     private let gitTagAdder: GitTagAdder
     private let gitTagDeleter: GitTagDeleter
-    private let podspecsPatcher: PodspecsPatcher
+    private let cocoapodsValidationPatcher: CocoapodsValidationPatcher
     private let mixboxPodspecsValidator: MixboxPodspecsValidator
     private let mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider
     
@@ -26,7 +26,7 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         nextReleaseVersionProvider: NextReleaseVersionProvider,
         gitTagAdder: GitTagAdder,
         gitTagDeleter: GitTagDeleter,
-        podspecsPatcher: PodspecsPatcher,
+        cocoapodsValidationPatcher: CocoapodsValidationPatcher,
         mixboxPodspecsValidator: MixboxPodspecsValidator,
         mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider)
     {
@@ -34,7 +34,7 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         self.nextReleaseVersionProvider = nextReleaseVersionProvider
         self.gitTagAdder = gitTagAdder
         self.gitTagDeleter = gitTagDeleter
-        self.podspecsPatcher = podspecsPatcher
+        self.cocoapodsValidationPatcher = cocoapodsValidationPatcher
         self.mixboxPodspecsValidator = mixboxPodspecsValidator
         self.mixboxReleaseSettingsProvider = mixboxReleaseSettingsProvider
     }
@@ -54,26 +54,31 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         // Add tag
         
         defer {
+            print("Will delete local tag")
             try? gitTagDeleter.deleteLocalTag(
                 tagName: versionString
             )
         }
         
+        print("Will set up local tag")
         try gitTagAdder.addTag(
             tagName: versionString,
             commitHash: commitHashToRelease
         )
         
-        // Set version
-            
-        defer {
-            try? podspecsPatcher.resetMixboxFrameworkPodspecsVersion()
-        }
+        // Patch cocoapods
         
-        try podspecsPatcher.setMixboxFrameworkPodspecsVersion(version)
+        defer {
+            print("Will reset validation code in Cocoapods")
+            try? cocoapodsValidationPatcher.setPodspecValidationEnabled(true)
+        }
+
+        print("Will disable validation code in Cocoapods")
+        try cocoapodsValidationPatcher.setPodspecValidationEnabled(false)
         
         // Run validation
         
+        print("Will validate Mixbox podspecs")
         try mixboxPodspecsValidator.validateMixboxPodspecs()
     }
 }

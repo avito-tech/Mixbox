@@ -6,6 +6,8 @@ public protocol CocoapodsRepoPush {
         localOnly: Bool,
         allowWarnings: Bool,
         skipImportValidation: Bool,
-        skipTests: Bool)
+        skipTests: Bool,
+        useJson: Bool,
+        sources: [String]?)
         throws
 }

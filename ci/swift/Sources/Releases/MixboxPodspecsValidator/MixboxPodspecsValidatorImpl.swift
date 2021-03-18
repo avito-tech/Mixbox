@@ -10,6 +10,7 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
     private let cocoapodsRepoAdd: CocoapodsRepoAdd
     private let cocoapodsRepoPush: CocoapodsRepoPush
     private let environmentProvider: EnvironmentProvider
+    private let podspecsPatcher: PodspecsPatcher
     
     private let sandboxRepoName: String
     
@@ -19,7 +20,8 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
         cocoapodCacheClean: CocoapodCacheClean,
         cocoapodsRepoAdd: CocoapodsRepoAdd,
         cocoapodsRepoPush: CocoapodsRepoPush,
-        environmentProvider: EnvironmentProvider)
+        environmentProvider: EnvironmentProvider,
+        podspecsPatcher: PodspecsPatcher)
     {
         self.repoRootProvider = repoRootProvider
         self.listOfPodspecsToPushProvider = listOfPodspecsToPushProvider
@@ -27,24 +29,31 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
         self.cocoapodsRepoAdd = cocoapodsRepoAdd
         self.cocoapodsRepoPush = cocoapodsRepoPush
         self.environmentProvider = environmentProvider
+        self.podspecsPatcher = podspecsPatcher
         
         self.sandboxRepoName = "MixboxSandboxRepo-\(UUID().uuidString)"
     }
     
     public func validateMixboxPodspecs() throws {
+        defer {
+            try? cleanUpFileSystem()
+        }
         try cleanUpState()
         try pushPodspecsToSandboxRepo()
     }
     
     private func cleanUpState() throws {
         try cocoapodCacheClean.clean(target: .all)
-        
+        try cleanUpFileSystem()
+    }
+    
+    private func cleanUpFileSystem() throws {
         let fileManager = FileManager()
-        let home = try environmentProvider.environment["HOME"].unwrapOrThrow()
+        let home = try homeDirectory()
         
         try? fileManager.removeItem(atPath: "\(home)/Library/Caches/CocoaPods/Pods")
         try? fileManager.removeItem(atPath: "\(home)/Library/Developer/Xcode/DerivedData/")
-        try? fileManager.removeItem(atPath: "\(home)/.cocoapods/repos/\(sandboxRepoName)")
+        try? fileManager.removeItem(atPath: try localSpecRepoPath())
     }
     
     private func pushPodspecsToSandboxRepo() throws {
@@ -55,11 +64,19 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
             url: repoRootPath
         )
         
+        let sources = [
+            "\(sandboxRepoName)",
+            "https://cdn.cocoapods.org/"
+        ]
+        
+        defer { try? podspecsPatcher.resetMixboxPodspecsSource() }
+        try podspecsPatcher.setMixboxPodspecsSource("file://\(repoRootPath)")
+        
         let listOfPodspecsToPush = try listOfPodspecsToPushProvider.listOfPodspecsToPush()
         
         try listOfPodspecsToPush.forEach { podspecName in
             try cocoapodsRepoPush.push(
-                repoName: try repoRootProvider.repoRootPath(),
+                repoName: sandboxRepoName,
                 pathToPodspec: repoRootPath.appending(
                     pathComponent: "\(podspecName).podspec"
                 ),
@@ -67,8 +84,18 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
                 localOnly: true,
                 allowWarnings: true,
                 skipImportValidation: true,
-                skipTests: true
+                skipTests: true,
+                useJson: true,
+                sources: sources
             )
         }
+    }
+    
+    private func homeDirectory() throws -> String {
+        return try environmentProvider.environment["HOME"].unwrapOrThrow()
+    }
+    
+    private func localSpecRepoPath() throws -> String {
+        return "\(try homeDirectory())/.cocoapods/repos/\(sandboxRepoName)"
     }
 }

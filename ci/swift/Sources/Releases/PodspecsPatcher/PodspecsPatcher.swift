@@ -1,9 +1,7 @@
 public protocol PodspecsPatcher {
-    func setMixboxFrameworkPodspecsVersion(
-        _ version: Version)
+    func setMixboxPodspecsSource(
+        _ source: String)
         throws
     
-    // Reverts everything
-    func resetMixboxFrameworkPodspecsVersion()
-        throws
+    func resetMixboxPodspecsSource() throws
 }

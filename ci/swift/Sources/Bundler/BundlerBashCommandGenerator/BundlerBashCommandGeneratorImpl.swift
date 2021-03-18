@@ -21,11 +21,11 @@ public final class BundlerBashCommandGeneratorImpl: BundlerBashCommandGenerator 
         let escapedArguments = bashEscapedCommandMaker.escapedCommand(arguments: arguments)
         
         return """
-        (bundler --version | grep -q "\(bundlerVersion) 1>/dev/null 2>/dev/null") || gem install bundler -v \(bundlerVersion) --force 1>/dev/null 2>/dev/null
+        (bundler --version | grep -q "\(bundlerVersion)" 1>/dev/null 2>/dev/null) || gem install bundler -v \(bundlerVersion) --force 1>/dev/null 2>/dev/null
         
         bundle install --gemfile="\(try gemfileLocationProvider.gemfileLocation())" 1>/dev/null 2>/dev/null
-
-        "$(which bundle)" exec "--gemfile=\(try gemfileLocationProvider.gemfileLocation())" \(escapedArguments)
+        
+        bundle exec "--gemfile=\(try gemfileLocationProvider.gemfileLocation())" \(escapedArguments)
         """
     }
 }

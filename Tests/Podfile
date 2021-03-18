@@ -1,6 +1,8 @@
 require_relative '../cocoapods/lock_patcher'
 require_relative '../cocoapods/repo'
 
+ENV["MIXBOX_SET_VERSION_TO_001"] = "true"
+
 project 'Tests.xcodeproj'
 workspace 'Tests.xcworkspace'
 

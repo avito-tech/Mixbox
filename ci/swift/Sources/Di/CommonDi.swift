@@ -16,6 +16,7 @@ import Bundler
 import Releases
 
 // TODO: Fix retain-cycle in DI. Container retains itself.
+// swiftlint:disable:next type_body_length
 open class CommonDi: BaseDi {
     // swiftlint:disable:next function_body_length
     override open func registerAll(container: DependencyContainer) {
@@ -339,7 +340,8 @@ open class CommonDi: BaseDi {
                 cocoapodCacheClean: try container.resolve(),
                 cocoapodsRepoAdd: try container.resolve(),
                 cocoapodsRepoPush: try container.resolve(),
-                environmentProvider: try container.resolve()
+                environmentProvider: try container.resolve(),
+                podspecsPatcher: try container.resolve()
             )
         }
         container.register(type: MixboxReleaseSettingsProvider.self) {
@@ -350,6 +352,11 @@ open class CommonDi: BaseDi {
                 gitTagsProvider: try container.resolve(),
                 gitRevListProvider: try container.resolve(),
                 headCommitHashProvider: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsValidationPatcher.self) {
+            CocoapodsValidationPatcherImpl(
+                bundledProcessExecutor: try container.resolve()
             )
         }
         container.register(type: PodspecsPatcher.self) {
