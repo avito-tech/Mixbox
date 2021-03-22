@@ -268,7 +268,8 @@ open class CommonDi: BaseDi {
         container.register(type: GitCommandExecutor.self) {
             GitCommandExecutorImpl(
                 processExecutor: try container.resolve(),
-                repoRootProvider: try container.resolve()
+                repoRootProvider: try container.resolve(),
+                environmentProvider: try container.resolve()
             )
         }
     }
@@ -310,10 +311,12 @@ open class CommonDi: BaseDi {
         container.register(type: CocoapodsTrunkPush.self) {
             CocoapodsTrunkPushImpl(
                 cocoapodsCommandExecutor: try container.resolve(),
-                cocoapodsTrunkTokenProvider: try container.resolve()
+                cocoapodsTrunkTokenProvider: try container.resolve(),
+                environmentProvider: try container.resolve()
             )
         }
     }
+    
     private func registerReleases(container: DependencyContainer) {
         container.register(type: BeforeReleaseTagsSetter.self) {
             BeforeReleaseTagsSetterImpl(
@@ -353,11 +356,6 @@ open class CommonDi: BaseDi {
                 gitTagsProvider: try container.resolve(),
                 gitRevListProvider: try container.resolve(),
                 headCommitHashProvider: try container.resolve()
-            )
-        }
-        container.register(type: CocoapodsValidationPatcher.self) {
-            CocoapodsValidationPatcherImpl(
-                bundledProcessExecutor: try container.resolve()
             )
         }
         container.register(type: PodspecsPatcher.self) {

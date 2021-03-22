@@ -11,7 +11,6 @@ BuildDsl.teamcity.main { di in
         headCommitHashProvider: di.resolve(),
         nextReleaseVersionProvider: di.resolve(),
         beforeReleaseTagsSetter: di.resolve(),
-        cocoapodsValidationPatcher: di.resolve(),
         mixboxPodspecsValidator: di.resolve(),
         mixboxPodspecsPusher: di.resolve(),
         mixboxReleaseSettingsProvider: di.resolve()

@@ -1,6 +1,7 @@
 import Bundler
 import Bash
 import CiFoundation
+import Extensions
 
 public final class CocoapodsCommandExecutorImpl: CocoapodsCommandExecutor {
     private let bundledProcessExecutor: BundledProcessExecutor
@@ -19,7 +20,10 @@ public final class CocoapodsCommandExecutorImpl: CocoapodsCommandExecutor {
         -> ProcessResult
     {
         let result = try bundledProcessExecutor.execute(
-            arguments: ["pod"] + arguments,
+            arguments: [
+                "ruby",
+                #file.deletingLastPathComponent.appending(pathComponent: "patched_pod.rb")
+            ] + arguments,
             currentDirectory: currentDirectory,
             environment: environment
         )

@@ -27,7 +27,6 @@ public final class GitTagDeleterImpl: GitTagDeleter {
     {
         _ = try gitCommandExecutor.execute(
             arguments: [
-                "git",
                 "push",
                 remoteName,
                 ":refs/tags/\(tagName)"

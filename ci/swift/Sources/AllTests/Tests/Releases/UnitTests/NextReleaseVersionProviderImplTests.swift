@@ -2,6 +2,7 @@ import Bash
 import Git
 import XCTest
 import Releases
+import TeamcityDi
 
 // swiftlint:disable multiline_arguments multiline_parameters
 
@@ -9,38 +10,32 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
     // Integration test without mocks
     func test___nextReleaseVersion___doesnt_throw() {
         assertDoesntThrow {
-            let gitCommandExecutor = GitCommandExecutorImpl(
-                processExecutor: FoundationProcessExecutor(),
-                repoRootProvider: RepoRootProviderImpl()
-            )
-            let headCommitHashProvider = HeadCommitHashProviderImpl(
-                gitCommandExecutor: gitCommandExecutor
-            )
-            let nextReleaseVersionProvider = NextReleaseVersionProviderImpl(
-                gitTagsProvider: GitTagsProviderImpl(
-                    gitCommandExecutor: gitCommandExecutor
-                ),
-                gitRevListProvider: GitRevListProviderImpl(
-                    gitCommandExecutor: gitCommandExecutor
-                ),
-                headCommitHashProvider: headCommitHashProvider
-            )
+            let di = TeamcityBuildDi()
+            try di.bootstrap(overrides: { _ in })
+            let nextReleaseVersionProvider: NextReleaseVersionProvider = try di.resolve()
+            let headCommitHashProvider: HeadCommitHashProvider = try di.resolve()
+            let settings: MixboxReleaseSettingsProvider = try di.resolve()
             
-            let settings = MixboxReleaseSettingsProviderImpl()
-            
-            let version = try nextReleaseVersionProvider.nextReleaseVersion(
-                majorVersion: settings.majorVersion,
-                minorVersion: settings.minorVersion,
-                commitHashToRelease: try headCommitHashProvider.headCommitHash(),
-                // doesn't work otherwise, e.g. if "master" is used then it will be always behind
-                // head on pull requests, tests will not work with "master" or "origin/master", so we use "HEAD".
-                releaseBranchName: "HEAD"
-            )
-            
-            // Patch version is ignored here, the code of its calculation is checked in other tests.
-            // Major & minor version are always as in MixboxReleaseSettingsProviderImpl.
-            XCTAssertEqual(version.major, settings.majorVersion)
-            XCTAssertEqual(version.minor, settings.minorVersion)
+            do {
+                let version = try nextReleaseVersionProvider.nextReleaseVersion(
+                    majorVersion: settings.majorVersion,
+                    minorVersion: settings.minorVersion,
+                    commitHashToRelease: try headCommitHashProvider.headCommitHash(),
+                    // doesn't work otherwise, e.g. if "master" is used then it will be always behind
+                    // head on pull requests, tests will not work with "master" or "origin/master", so we use "HEAD".
+                    releaseBranchName: "HEAD"
+                )
+                
+                // Patch version is ignored here, the code of its calculation is checked in other tests.
+                // Major & minor version are always as in MixboxReleaseSettingsProviderImpl.
+                XCTAssertEqual(version.major, settings.majorVersion)
+                XCTAssertEqual(version.minor, settings.minorVersion)
+            } catch {
+                // Other possible correct outcome is this:
+                XCTAssert(
+                    "\(error)".starts(with: "This commit hash is already released: ")
+                )
+            }
         }
     }
     

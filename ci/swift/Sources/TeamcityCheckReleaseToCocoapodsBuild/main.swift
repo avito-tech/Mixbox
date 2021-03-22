@@ -12,7 +12,6 @@ BuildDsl.teamcity.main { di in
         nextReleaseVersionProvider: di.resolve(),
         gitTagAdder: di.resolve(),
         gitTagDeleter: di.resolve(),
-        cocoapodsValidationPatcher: di.resolve(),
         mixboxPodspecsValidator: di.resolve(),
         mixboxReleaseSettingsProvider: di.resolve()
     )

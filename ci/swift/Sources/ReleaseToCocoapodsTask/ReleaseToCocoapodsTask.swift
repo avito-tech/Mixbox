@@ -16,7 +16,6 @@ public final class ReleaseToCocoapodsTask: LocalTask {
     private let headCommitHashProvider: HeadCommitHashProvider
     private let nextReleaseVersionProvider: NextReleaseVersionProvider
     private let beforeReleaseTagsSetter: BeforeReleaseTagsSetter
-    private let cocoapodsValidationPatcher: CocoapodsValidationPatcher
     private let mixboxPodspecsValidator: MixboxPodspecsValidator
     private let mixboxPodspecsPusher: MixboxPodspecsPusher
     private let mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider
@@ -25,7 +24,6 @@ public final class ReleaseToCocoapodsTask: LocalTask {
         headCommitHashProvider: HeadCommitHashProvider,
         nextReleaseVersionProvider: NextReleaseVersionProvider,
         beforeReleaseTagsSetter: BeforeReleaseTagsSetter,
-        cocoapodsValidationPatcher: CocoapodsValidationPatcher,
         mixboxPodspecsValidator: MixboxPodspecsValidator,
         mixboxPodspecsPusher: MixboxPodspecsPusher,
         mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider)
@@ -33,7 +31,6 @@ public final class ReleaseToCocoapodsTask: LocalTask {
         self.headCommitHashProvider = headCommitHashProvider
         self.nextReleaseVersionProvider = nextReleaseVersionProvider
         self.beforeReleaseTagsSetter = beforeReleaseTagsSetter
-        self.cocoapodsValidationPatcher = cocoapodsValidationPatcher
         self.mixboxPodspecsValidator = mixboxPodspecsValidator
         self.mixboxPodspecsPusher = mixboxPodspecsPusher
         self.mixboxReleaseSettingsProvider = mixboxReleaseSettingsProvider
@@ -54,9 +51,6 @@ public final class ReleaseToCocoapodsTask: LocalTask {
             commitHash: commitHashToRelease,
             remote: mixboxReleaseSettingsProvider.releaseRemoteName
         )
-        
-        defer { try? cocoapodsValidationPatcher.setPodspecValidationEnabled(true) }
-        try cocoapodsValidationPatcher.setPodspecValidationEnabled(false)
         
         try mixboxPodspecsValidator.validateMixboxPodspecs()
         

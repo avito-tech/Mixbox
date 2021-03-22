@@ -1,16 +1,14 @@
 import Bash
 import Git
 import XCTest
+import TeamcityDi
 
 public final class GitTagsProviderImplTests: XCTestCase {
     func test() {
         assertDoesntThrow {
-            let gitTagsProvider = GitTagsProviderImpl(
-                gitCommandExecutor: GitCommandExecutorImpl(
-                    processExecutor: FoundationProcessExecutor(),
-                    repoRootProvider: RepoRootProviderImpl()
-                )
-            )
+            let di = TeamcityBuildDi()
+            try di.bootstrap(overrides: { _ in })
+            let gitTagsProvider: GitTagsProvider = try di.resolve()
             
             let gitTags = try gitTagsProvider.gitTags()
             

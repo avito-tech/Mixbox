@@ -18,19 +18,16 @@ public final class MixboxPodspecsPusherImpl: MixboxPodspecsPusher {
     }
     
     public func pushMixboxPodspecs() throws {
+        let repoRoot = try repoRootProvider.repoRootPath()
+        
         try listOfPodspecsToPushProvider.listOfPodspecsToPush().forEach { podspecName in
             try cocoapodsTrunkPush.push(
-                pathToPodspec: try pathToPodspec(
-                    podspecName: podspecName
-                ),
+                pathToPodspec: repoRoot.appending(pathComponent: "\(podspecName).podspec"),
                 allowWarnings: true,
                 skipImportValidation: true,
-                skipTests: true
+                skipTests: true,
+                synchronous: true
             )
         }
-    }
-    
-    private func pathToPodspec(podspecName: String) throws -> String {
-        try repoRootProvider.repoRootPath().appending(pathComponent: "\(podspecName)")
     }
 }

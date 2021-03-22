@@ -4,13 +4,16 @@ import CiFoundation
 public final class GitCommandExecutorImpl: GitCommandExecutor {
     private let processExecutor: ProcessExecutor
     private let repoRootProvider: RepoRootProvider
+    private let environmentProvider: EnvironmentProvider
     
     public init(
         processExecutor: ProcessExecutor,
-        repoRootProvider: RepoRootProvider)
+        repoRootProvider: RepoRootProvider,
+        environmentProvider: EnvironmentProvider)
     {
         self.processExecutor = processExecutor
         self.repoRootProvider = repoRootProvider
+        self.environmentProvider = environmentProvider
     }
     
     public func execute(
@@ -23,7 +26,7 @@ public final class GitCommandExecutorImpl: GitCommandExecutor {
         let result = try processExecutor.execute(
             arguments: arguments,
             currentDirectory: try repoRootProvider.repoRootPath(),
-            environment: [:],
+            environment: environmentProvider.environment,
             stdoutDataHandler: { _ in },
             stderrDataHandler: { _ in }
         )

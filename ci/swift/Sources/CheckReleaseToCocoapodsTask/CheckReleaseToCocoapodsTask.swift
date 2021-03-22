@@ -17,7 +17,6 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
     private let nextReleaseVersionProvider: NextReleaseVersionProvider
     private let gitTagAdder: GitTagAdder
     private let gitTagDeleter: GitTagDeleter
-    private let cocoapodsValidationPatcher: CocoapodsValidationPatcher
     private let mixboxPodspecsValidator: MixboxPodspecsValidator
     private let mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider
     
@@ -26,7 +25,6 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         nextReleaseVersionProvider: NextReleaseVersionProvider,
         gitTagAdder: GitTagAdder,
         gitTagDeleter: GitTagDeleter,
-        cocoapodsValidationPatcher: CocoapodsValidationPatcher,
         mixboxPodspecsValidator: MixboxPodspecsValidator,
         mixboxReleaseSettingsProvider: MixboxReleaseSettingsProvider)
     {
@@ -34,7 +32,6 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         self.nextReleaseVersionProvider = nextReleaseVersionProvider
         self.gitTagAdder = gitTagAdder
         self.gitTagDeleter = gitTagDeleter
-        self.cocoapodsValidationPatcher = cocoapodsValidationPatcher
         self.mixboxPodspecsValidator = mixboxPodspecsValidator
         self.mixboxReleaseSettingsProvider = mixboxReleaseSettingsProvider
     }
@@ -65,16 +62,6 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
             tagName: versionString,
             commitHash: commitHashToRelease
         )
-        
-        // Patch cocoapods
-        
-        defer {
-            print("Will reset validation code in Cocoapods")
-            try? cocoapodsValidationPatcher.setPodspecValidationEnabled(true)
-        }
-
-        print("Will disable validation code in Cocoapods")
-        try cocoapodsValidationPatcher.setPodspecValidationEnabled(false)
         
         // Run validation
         
