@@ -48,24 +48,9 @@ public final class CheckReleaseToCocoapodsTask: LocalTask {
         
         let versionString = version.toString()
         
-        // Add tag
+        defer { try? gitTagDeleter.deleteLocalTag(tagName: versionString) }
+        try gitTagAdder.addTag(tagName: versionString, commitHash: commitHashToRelease)
         
-        defer {
-            print("Will delete local tag")
-            try? gitTagDeleter.deleteLocalTag(
-                tagName: versionString
-            )
-        }
-        
-        print("Will set up local tag")
-        try gitTagAdder.addTag(
-            tagName: versionString,
-            commitHash: commitHashToRelease
-        )
-        
-        // Run validation
-        
-        print("Will validate Mixbox podspecs")
         try mixboxPodspecsValidator.validateMixboxPodspecs()
     }
 }

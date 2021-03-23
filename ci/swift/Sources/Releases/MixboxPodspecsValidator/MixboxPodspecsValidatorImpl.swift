@@ -64,11 +64,6 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
             url: repoRootPath
         )
         
-        let sources = [
-            "\(sandboxRepoName)",
-            "https://cdn.cocoapods.org/"
-        ]
-        
         defer { try? podspecsPatcher.resetMixboxPodspecsSource() }
         try podspecsPatcher.setMixboxPodspecsSource("file://\(repoRootPath)")
         
@@ -86,7 +81,10 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
                 skipImportValidation: true,
                 skipTests: true,
                 useJson: true,
-                sources: sources
+                sources: [
+                    "\(sandboxRepoName)",
+                    "https://cdn.cocoapods.org/"
+                ]
             )
         }
     }
