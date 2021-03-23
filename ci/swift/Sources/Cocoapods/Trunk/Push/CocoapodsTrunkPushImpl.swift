@@ -1,18 +1,12 @@
 import CiFoundation
 
 public final class CocoapodsTrunkPushImpl: CocoapodsTrunkPush {
-    private let cocoapodsCommandExecutor: CocoapodsCommandExecutor
-    private let cocoapodsTrunkTokenProvider: CocoapodsTrunkTokenProvider
-    private let environmentProvider: EnvironmentProvider
+    private let cocoapodsTrunkCommandExecutor: CocoapodsTrunkCommandExecutor
     
     public init(
-        cocoapodsCommandExecutor: CocoapodsCommandExecutor,
-        cocoapodsTrunkTokenProvider: CocoapodsTrunkTokenProvider,
-        environmentProvider: EnvironmentProvider)
+        cocoapodsTrunkCommandExecutor: CocoapodsTrunkCommandExecutor)
     {
-        self.cocoapodsCommandExecutor = cocoapodsCommandExecutor
-        self.cocoapodsTrunkTokenProvider = cocoapodsTrunkTokenProvider
-        self.environmentProvider = environmentProvider
+        self.cocoapodsTrunkCommandExecutor = cocoapodsTrunkCommandExecutor
     }
     
     public func push(
@@ -24,7 +18,6 @@ public final class CocoapodsTrunkPushImpl: CocoapodsTrunkPush {
         throws
     {
         var arguments: [String] = [
-            "trunk",
             "push",
             pathToPodspec
         ]
@@ -45,11 +38,6 @@ public final class CocoapodsTrunkPushImpl: CocoapodsTrunkPush {
             arguments.append("--synchronous")
         }
         
-        _ = try cocoapodsCommandExecutor.execute(
-            arguments: arguments,
-            environment: [
-                "COCOAPODS_TRUNK_TOKEN": cocoapodsTrunkTokenProvider.cocoapodsTrunkToken()
-            ].merging(environmentProvider.environment, uniquingKeysWith: { left, _ in left })
-        )
+        _ = try cocoapodsTrunkCommandExecutor.execute(arguments: arguments)
     }
 }

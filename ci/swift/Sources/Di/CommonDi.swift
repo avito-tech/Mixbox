@@ -268,6 +268,7 @@ open class CommonDi: BaseDi {
         }
     }
     
+    // swiftlint:disable:next function_body_length
     private func registerCocoapods(container: DependencyContainer) {
         container.register(type: CocoapodsCommandExecutor.self) {
             CocoapodsCommandExecutorImpl(
@@ -302,11 +303,35 @@ open class CommonDi: BaseDi {
                 cocoapodsCommandExecutor: try container.resolve()
             )
         }
-        container.register(type: CocoapodsTrunkPush.self) {
-            CocoapodsTrunkPushImpl(
+        container.register(type: CocoapodsTrunkCommandExecutor.self) {
+            CocoapodsTrunkCommandExecutorImpl(
                 cocoapodsCommandExecutor: try container.resolve(),
                 cocoapodsTrunkTokenProvider: try container.resolve(),
                 environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsTrunkPush.self) {
+            CocoapodsTrunkPushImpl(
+                cocoapodsTrunkCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsTrunkAddOwner.self) {
+            CocoapodsTrunkAddOwnerImpl(
+                cocoapodsTrunkCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsTrunkRemoveOwner.self) {
+            CocoapodsTrunkRemoveOwnerImpl(
+                cocoapodsTrunkCommandExecutor: try container.resolve()
+            )
+        }
+        container.register(type: CocoapodsTrunkInfoOutputParser.self) {
+            CocoapodsTrunkInfoOutputParserImpl()
+        }
+        container.register(type: CocoapodsTrunkInfo.self) {
+            CocoapodsTrunkInfoImpl(
+                cocoapodsTrunkCommandExecutor: try container.resolve(),
+                cocoapodsTrunkInfoOutputParser: try container.resolve()
             )
         }
     }

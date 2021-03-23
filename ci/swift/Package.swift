@@ -54,6 +54,12 @@ let package = Package(
             ]
         ),
         .executable(
+            name: "TeamcityManagePodOwnersBuild",
+            targets: [
+                "TeamcityManagePodOwnersBuild"
+            ]
+        ),
+        .executable(
             name: "TravisOversimplifiedDemoBuild",
             targets: [
                 "TravisOversimplifiedDemoBuild"
@@ -285,6 +291,13 @@ let package = Package(
             ]
         ),
         .target(
+            name: "TeamcityManagePodOwnersBuild",
+            dependencies: [
+                "BuildDsl",
+                "ManagePodOwnersTask",
+            ]
+        ),
+        .target(
             name: "Bash",
             dependencies: [
                 "CiFoundation",
@@ -374,6 +387,7 @@ let package = Package(
         .target(
             name: "TeamcityDi",
             dependencies: [
+                "Bundler",
                 "CiFoundation",
                 "Cocoapods",
                 "Destinations",
@@ -389,9 +403,18 @@ let package = Package(
         .target(
             name: "TravisDi",
             dependencies: [
+                "Bundler",
                 "CiFoundation",
                 "Di",
                 "Dip",
+                "Tasks",
+            ]
+        ),
+        .target(
+            name: "ManagePodOwnersTask",
+            dependencies: [
+                "Cocoapods",
+                "Releases",
                 "Tasks",
             ]
         ),
