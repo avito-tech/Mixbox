@@ -227,12 +227,6 @@ open class CommonDi: BaseDi {
                 xcodebuild: try container.resolve()
             )
         }
-        container.register(type: BundlerBashCommandGenerator.self) {
-            BundlerBashCommandGeneratorImpl(
-                gemfileLocationProvider: try container.resolve(),
-                bashEscapedCommandMaker: try container.resolve()
-            )
-        }
         
         registerGit(container: container)
         registerCocoapods(container: container)

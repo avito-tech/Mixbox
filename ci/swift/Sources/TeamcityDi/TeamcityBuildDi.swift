@@ -6,6 +6,7 @@ import SingletonHell
 import Emcee
 import Cocoapods
 import Di
+import Bundler
 
 public final class TeamcityBuildDi: CommonDi {
     override public func registerAll(container: DependencyContainer) {
@@ -44,6 +45,13 @@ public final class TeamcityBuildDi: CommonDi {
         container.register(type: CocoapodsTrunkTokenProvider.self) {
             TeamcityCocoapodsTrunkTokenProvider(
                 environmentProvider: try container.resolve()
+            )
+        }
+        container.register(type: BundlerBashCommandGenerator.self) {
+            BundlerBashCommandGeneratorImpl(
+                gemfileLocationProvider: try container.resolve(),
+                bashEscapedCommandMaker: try container.resolve(),
+                bundlerToUse: .useSystem
             )
         }
     }
