@@ -14,25 +14,26 @@ public final class InstalledApplicationBundleProvider: ApplicationBundleProvider
     }
     
     public func applicationBundle() throws -> Bundle {
-        guard let bundleId = application.bundleID else {
-            throw ErrorString("Failed to get bundle id of application \(application)")
-        }
-        
-        let path = try bundlePath(
-            installedAppContainers: try installedAppContainers(
-                installedAppContainersDirectory: try installedAppContainersDirectory()
-            ),
-            applicationFileName: applicationFileName(
-                sourceApplicationPath: try sourceApplicationPath()
-            ),
-            bundleId: bundleId
-        )
-        
-        guard let bundle = Bundle(path: path) else {
-            throw ErrorString("File at path \(path) is not a bundle")
-        }
-        
-        return bundle
+        fatalError()
+//        guard let bundleId = application.bundleID else {
+//            throw ErrorString("Failed to get bundle id of application \(application)")
+//        }
+//
+//        let path = try bundlePath(
+//            installedAppContainers: try installedAppContainers(
+//                installedAppContainersDirectory: try installedAppContainersDirectory()
+//            ),
+//            applicationFileName: applicationFileName(
+//                sourceApplicationPath: try sourceApplicationPath()
+//            ),
+//            bundleId: bundleId
+//        )
+//
+//        guard let bundle = Bundle(path: path) else {
+//            throw ErrorString("File at path \(path) is not a bundle")
+//        }
+//
+//        return bundle
     }
     
     private func bundlePath(
@@ -61,11 +62,12 @@ public final class InstalledApplicationBundleProvider: ApplicationBundleProvider
     }
     
     private func sourceApplicationPath() throws -> String {
-        guard let path = application.path else {
-            throw ErrorString("application.path is nil, application: \(application)")
-        }
-        
-        return path
+        fatalError()
+//        guard let path = application.path else {
+//            throw ErrorString("application.path is nil, application: \(application)")
+//        }
+//
+//        return path
     }
     
     private func applicationFileName(sourceApplicationPath: String) -> String {

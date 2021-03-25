@@ -9,14 +9,15 @@ public final class BuiltApplicationBundleProvider: ApplicationBundleProvider {
     }
     
     public func applicationBundle() throws -> Bundle {
-        guard let path = application.path else {
-            throw ErrorString("application.path is nil, application: \(application)")
-        }
-        
-        guard let bundle = Bundle(path: path) else {
-            throw ErrorString("File at path \(path) is not a bundle")
-        }
-        
-        return bundle
+        fatalError()
+//        guard let path = application.path else {
+//            throw ErrorString("application.path is nil, application: \(application)")
+//        }
+//
+//        guard let bundle = Bundle(path: path) else {
+//            throw ErrorString("File at path \(path) is not a bundle")
+//        }
+//
+//        return bundle
     }
 }

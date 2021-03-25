@@ -64,35 +64,36 @@ public final class ExtendedStackTraceEntryFromStackTraceEntryConverterImpl: Exte
         owner: inout String?,
         symbol: inout String?)
     {
-        #if compiler(>=5.3)
-        // Xcode 12+
-        
-        // Suppresses `Cast from 'XCTSymbolicationService?' to unrelated type 'XCTInProcessSymbolicationService' always fails` warning.
-        let sharedSymbolicationService = XCTSymbolicationService.shared() as AnyObject
-        if let symbolicationService = sharedSymbolicationService as? XCTInProcessSymbolicationService {
-            // TODO: Assertion error
-            let untypedSymbolInfo = symbolicationService.symbolInfoForAddress(inCurrentProcess: address, error: nil)
-            
-            // TODO: Check if "<unknown>" really applicable here with new API. Write tests.
-            if let symbolInfo = untypedSymbolInfo as? XCTSourceCodeSymbolInfo {
-                if let location = symbolInfo.location {
-                    file = location.fileURL.absoluteString == "<unknown>" ? file : location.fileURL.path
-                    line = location.lineNumber == 0
-                        ? line
-                        : SourceCodeLineTypeConverter.convert(line: location.lineNumber)
-                }
-                owner = symbolInfo.imageName == "<unknown>" ? owner : symbolInfo.imageName
-                symbol = symbolInfo.symbolName == "<unknown>" ? symbol : symbolInfo.symbolName
-            }
-        }
-        #else
-        if let record = (XCTestCase()._symbolicationRecordForTestCode(inAddressStack: NSArray(array: [NSNumber(value: address)])) as? XCSymbolicationRecord) ?? (XCSymbolicationRecord.symbolicationRecord(forAddress: address) as? XCSymbolicationRecord) {
-            file = record.filePath == "<unknown>" ? file : record.filePath
-            line = record.lineNumber == 0 ? line : SourceCodeLineTypeConverter.convert(line: record.lineNumber)
-            owner = record.symbolOwner == "<unknown>" ? owner : record.symbolOwner
-            symbol = record.symbolName == "<unknown>" ? symbol : record.symbolName
-        }
-        #endif
+        fatalError()
+//        #if compiler(>=5.3)
+//        // Xcode 12+
+//
+//        // Suppresses `Cast from 'XCTSymbolicationService?' to unrelated type 'XCTInProcessSymbolicationService' always fails` warning.
+//        let sharedSymbolicationService = XCTSymbolicationService.shared() as AnyObject
+//        if let symbolicationService = sharedSymbolicationService as? XCTInProcessSymbolicationService {
+//            // TODO: Assertion error
+//            let untypedSymbolInfo = symbolicationService.symbolInfoForAddress(inCurrentProcess: address, error: nil)
+//
+//            // TODO: Check if "<unknown>" really applicable here with new API. Write tests.
+//            if let symbolInfo = untypedSymbolInfo as? XCTSourceCodeSymbolInfo {
+//                if let location = symbolInfo.location {
+//                    file = location.fileURL.absoluteString == "<unknown>" ? file : location.fileURL.path
+//                    line = location.lineNumber == 0
+//                        ? line
+//                        : SourceCodeLineTypeConverter.convert(line: location.lineNumber)
+//                }
+//                owner = symbolInfo.imageName == "<unknown>" ? owner : symbolInfo.imageName
+//                symbol = symbolInfo.symbolName == "<unknown>" ? symbol : symbolInfo.symbolName
+//            }
+//        }
+//        #else
+//        if let record = (XCTestCase()._symbolicationRecordForTestCode(inAddressStack: NSArray(array: [NSNumber(value: address)])) as? XCSymbolicationRecord) ?? (XCSymbolicationRecord.symbolicationRecord(forAddress: address) as? XCSymbolicationRecord) {
+//            file = record.filePath == "<unknown>" ? file : record.filePath
+//            line = record.lineNumber == 0 ? line : SourceCodeLineTypeConverter.convert(line: record.lineNumber)
+//            owner = record.symbolOwner == "<unknown>" ? owner : record.symbolOwner
+//            symbol = record.symbolName == "<unknown>" ? symbol : record.symbolName
+//        }
+//        #endif
     }
     
     private func detectSymbolAndOwner(
