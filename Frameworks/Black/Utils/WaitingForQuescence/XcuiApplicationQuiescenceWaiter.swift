@@ -10,6 +10,7 @@ public final class XcuiApplicationQuiescenceWaiter: ApplicationQuiescenceWaiter 
     }
     
     public func waitForQuiescence() throws {
-        applicationProvider.application._waitForQuiescence()
+        fatalError()
+//        applicationProvider.application._waitForQuiescence()
     }
 }

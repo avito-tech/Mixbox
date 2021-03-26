@@ -86,11 +86,12 @@ public final class XcuiElementSimpleGesturesProvider: ElementSimpleGesturesProvi
             pointer = snapshot.parent
         }
         
-        // Maybe just a comparison of "com.apple.springboard" will work.
-        if let snapshot = pointer, snapshot.elementType == .alert && applicationProvider.application.bundleID.starts(with: "com.apple.") {
-            return UiInterruptionStatus(interruptingAlert: snapshot)
-        } else {
-            return UiInterruptionStatus(interruptingAlert: nil)
-        }
+        fatalError()
+//        // Maybe just a comparison of "com.apple.springboard" will work.
+//        if let snapshot = pointer, snapshot.elementType == .alert && applicationProvider.application.bundleID.starts(with: "com.apple.") {
+//            return UiInterruptionStatus(interruptingAlert: snapshot)
+//        } else {
+//            return UiInterruptionStatus(interruptingAlert: nil)
+//        }
     }
 }

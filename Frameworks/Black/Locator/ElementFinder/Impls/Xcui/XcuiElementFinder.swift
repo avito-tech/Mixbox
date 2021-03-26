@@ -32,19 +32,20 @@ public final class XcuiElementFinder: ElementFinder {
         let xcuiElementQuery = applicationProviderThatDropsCaches.application.descendants(matching: .any).matching(
             NSPredicate(
                 block: { snapshot, _ -> Bool in
-                    if let snapshot = snapshot as? XCElementSnapshot {
-                        let elementSnapshot = XcuiElementSnapshot(snapshot)
-                        let matchingResult = elementMatcher.match(value: elementSnapshot)
-                        
-                        elementQueryResolvingState.append(
-                            matchingResult: matchingResult,
-                            elementSnapshot: elementSnapshot
-                        )
-                        
-                        return matchingResult.matched
-                    } else {
-                        return false
-                    }
+                    fatalError()
+//                    if let snapshot = snapshot as? XCElementSnapshot {
+//                        let elementSnapshot = XcuiElementSnapshot(snapshot)
+//                        let matchingResult = elementMatcher.match(value: elementSnapshot)
+//
+//                        elementQueryResolvingState.append(
+//                            matchingResult: matchingResult,
+//                            elementSnapshot: elementSnapshot
+//                        )
+//
+//                        return matchingResult.matched
+//                    } else {
+//                        return false
+//                    }
                 }
             )
         )

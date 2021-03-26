@@ -13,13 +13,14 @@ public final class XcuiMenuItemProvider: MenuItemProvider {
         let xcuiElementQuery = applicationProvider.application.menuItems.matching(
             NSPredicate(
                 block: { [possibleTitles] snapshot, _ -> Bool in
-                    if let snapshot = snapshot as? XCElementSnapshot {
-                        return possibleTitles.contains { element in
-                            snapshot.label == element
-                        }
-                    } else {
-                        return false
-                    }
+                    fatalError()
+//                    if let snapshot = snapshot as? XCElementSnapshot {
+//                        return possibleTitles.contains { element in
+//                            snapshot.label == element
+//                        }
+//                    } else {
+//                        return false
+//                    }
                 }
             )
         )
