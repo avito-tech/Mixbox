@@ -27,7 +27,6 @@ Pod::Spec.new do |s|
   }
   
   s.xcconfig = {
-    'ENABLE_TESTING_SEARCH_PATHS' => 'YES',
-    'LIBRARY_SEARCH_PATHS' => '$(TOOLCHAIN_DIR)/usr/lib/swift-$(SWIFT_VERSION)/$(PLATFORM_NAME) $(inherited)'
+    'ENABLE_TESTING_SEARCH_PATHS' => 'YES'
   }
 end
