@@ -1,5 +1,5 @@
 import MixboxTestsFoundation
 
 protocol UninterceptableErrorRecorder {
-    func recordFailures(testCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure)
+    func recordFailures(testCase: XCTestCase)
 }

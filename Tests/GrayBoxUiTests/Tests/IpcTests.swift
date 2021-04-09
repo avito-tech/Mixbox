@@ -21,6 +21,29 @@ final class IpcTests: BaseChecksTestCase {
     }
     
     func test_2() {
+        continueAfterFailure = false
+        
+        pageObjects.actionsTestsView.default.info.withoutTimeout.tap()
+        pageObjects.actionsTestsView.default.info.withoutTimeout.tap()
+        pageObjects.actionsTestsView.default.info.withoutTimeout.tap()
+        pageObjects.actionsTestsView.default.info.withoutTimeout.tap()
+        
+        XCTAssert(false)
+        XCTAssert(false)
+        XCTAssert(false)
+        XCTAssert(false)
+        
+        ObjectiveCExceptionCatcher.catch {
+            XCTAssert(false)
+            XCTAssert(false)
+            XCTAssert(false)
+            XCTAssert(false)
+        } catch: { exception in
+            print(exception)
+        }
+        
+        XCTAssert(false)
+        
         checkEchoingValue(
             value: -12345,
             useBuiltinIpc: false

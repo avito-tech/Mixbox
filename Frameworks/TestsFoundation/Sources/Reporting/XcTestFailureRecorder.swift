@@ -24,25 +24,21 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
             
             testCase.continueAfterFailure = continueAfterFailureNewValue
             
-            testCase.recordFailureBySelf(
-                description: description,
-                file: String(describing: fileLine?.file ?? #file),
-                line: fileLine?.line ?? #line,
-                // https://developer.apple.com/documentation/xctest/xctestcase/1496269-recordfailure
-                // > true if the failure being reported was the result of a failed assertion,
-                // > false if it was the result of an uncaught exception.
-                // Perhaps we should use `false` in cases when we don't know what happened.
-                expected: true
+            testCase.record(
+                XCTIssue(
+                    type: .assertionFailure,
+                    compactDescription: description,
+                    detailedDescription: nil,
+                    sourceCodeContext: XCTSourceCodeContext(
+                        location: XCTSourceCodeLocation(
+                            filePath: fileLine?.file ?? #file,
+                            lineNumber: fileLine?.line ?? #line
+                        )
+                    ),
+                    associatedError: nil,
+                    attachments: []
+                )
             )
-            
-            if !continueAfterFailureNewValue {
-                // In this case test should be interrupted. However, since Xcode 12 something is broken.
-                // I though this is because we override `recordFailure`, but I removed the overriding
-                // and still had this issue. The following line is a workaround. It forcefully triggers an
-                // interruption. Maybe it can be fixed properly, but it already took 1 day debugging and
-                // disassembling.
-                testCase._interruptOrMarkForLaterInterruption()
-            }
             
             testCase.continueAfterFailure = continueAfterFailureOldValue
         } else {

@@ -8,7 +8,7 @@ import MixboxBuiltinDi
 import TestsIpc
 import MixboxMocksRuntime
 
-class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, FailureGatherer {
+class BaseTestCase: XCTestCase, FailureGatherer {
     private var tearDownAction: TearDownAction?
     private let mocksDependencyInjection = BuiltinDependencyInjection()
     
@@ -171,7 +171,9 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
         return uninterceptableErrorTrackerImpl
     }
     
-    private let uninterceptableErrorTrackerImpl = UninterceptableErrorTrackerImpl()
+    private lazy var uninterceptableErrorTrackerImpl = UninterceptableErrorTrackerImpl(
+        testFailureRecorder: self.dependencies.resolve() as TestFailureRecorder
+    )
     private var recordFailureMode = RecordFailureMode.failTest
     private var gatheredFailures = [XcTestFailure]()
     
@@ -208,14 +210,7 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
         )
     }
     
-    override func recordFailure(
-        withDescription description: String,
-        inFile file: String,
-        atLine line: Int,
-        expected: Bool)
-    {
-        let line: UInt = SourceCodeLineTypeConverter.convert(line: line)
-        
+    override func record(_ issue: XCTIssue) {
         recordingFailureRecursionCounter += 1
         defer {
             recordingFailureRecursionCounter -= 1
@@ -225,41 +220,48 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
             // Might happen if DI fails, for example.
             // Because `else` case can contain logic that might call `recordFailure`.
             
-            self.recordFailureBySuper(
-                description: description,
-                file: file,
-                line: line,
-                expected: expected
-            )
+            super.record(issue)
+            
             return
         }
         
         let fileLineForFailureProvider: FileLineForFailureProvider = dependencies.resolve()
         
         let fileLine = fileLineForFailureProvider.fileLineForFailure()
+            ?? issue.sourceCodeContext.location.map {
+                RuntimeFileLine(
+                    file: $0.fileURL.absoluteString,
+                    line: SourceCodeLineTypeConverter.convert(line: $0.lineNumber)
+                )
+            }
             ?? RuntimeFileLine(
-                file: file,
-                line: line
+                file: #file,
+                line: #line
             )
+
         
         let failure = XcTestFailure(
             description: description,
             file: fileLine.file,
             line: fileLine.line,
-            expected: expected
+            expected: issue.type == .assertionFailure
         )
         
         switch recordFailureMode {
         case .failTest:
-            
             // Note that you can set a breakpoint here (it is very convenient):
-            super.recordFailureBySuper(
-                description: failureDescription(
-                    originalDescription: failure.description
-                ) ,
-                file: failure.file,
-                line: failure.line,
-                expected: failure.expected
+            
+            super.record(
+                XCTIssue(
+                    type: issue.type,
+                    compactDescription: failureDescription(
+                        originalDescription: failure.description
+                    ),
+                    detailedDescription: issue.detailedDescription,
+                    sourceCodeContext: issue.sourceCodeContext,
+                    associatedError: issue.associatedError,
+                    attachments: issue.attachments
+                )
             )
         case .gatherFailures:
             gatheredFailures.append(failure)
@@ -268,6 +270,15 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
                 TestCanNotBeContinuedException().raise()
             }
         }
+    }
+    
+    override func recordFailure(
+        withDescription description: String,
+        inFile file: String,
+        atLine line: Int,
+        expected: Bool)
+    {
+        
     }
     
     private func failureDescription(originalDescription: String) -> String {
