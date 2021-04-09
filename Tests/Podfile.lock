@@ -3,6 +3,10 @@ PODS:
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
+  - Mixbox (0.0.1):
+    - Mixbox/Foundation (= 0.0.1)
+  - Mixbox/Foundation (0.0.1):
+    - MixboxFoundation
   - MixboxAnyCodable (0.0.1)
   - MixboxBlack (0.0.1):
     - MixboxDi
@@ -104,6 +108,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaImageHashing
+  - Mixbox (from `..`)
   - MixboxAnyCodable (from `..`)
   - MixboxBlack (from `..`)
   - MixboxBuiltinDi (from `..`)
@@ -149,6 +154,8 @@ SPEC REPOS:
     - Yams
 
 EXTERNAL SOURCES:
+  Mixbox:
+    :path: ".."
   MixboxAnyCodable:
     :path: ".."
   MixboxBlack:
@@ -233,32 +240,33 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaImageHashing: 2c8efd6dd60f9030cd54086b34ffc48e927821c3
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  MixboxAnyCodable: bb405ec14e9597260b532efb684258d7de7bd733
-  MixboxBlack: 4e5f64b54ef46fe0bc8a8ee42f0ffe5643b7eeed
-  MixboxBuiltinDi: cb562564069734564569ccd655dcfebf7f1a76e6
-  MixboxBuiltinIpc: e3bafbc5ab4963b8101f4518d3c0d67df0f9d9a9
-  MixboxDi: f423560dd9debdaaac0e0764afe1044bb33dd3df
-  MixboxFakeSettingsAppMain: 9360ead838983acd8174b01ae1b72fc56ffe02cd
-  MixboxFoundation: 66e000c27f767c0a1ca4b36058f80282c65b9ad5
-  MixboxGenerators: 9f140ec4c089f72f3ec8cce621045baac13ec981
-  MixboxGray: f5b021aa1d7a2a263a50ed8648e6d50c1154a9df
-  MixboxInAppServices: fb90f7c87257bdf3edc2b7e2720585613a898c58
-  MixboxIoKit: d9c9189c3a87eae1ee9861aeafea48316a139b35
-  MixboxIpc: 581fb88bd5ce90d51334460987d7324bbb0d5259
-  MixboxIpcCommon: 3b6d17cd7fb01cb5c76d6b21707b8774bbcd8c16
-  MixboxIpcSbtuiClient: f8bfa8a18d0df2bef1420a9bb5b6817681bd1c2e
-  MixboxIpcSbtuiHost: 8951051646f2697acb0c595fe5c62a889db04e51
-  MixboxMocksGeneration: 901434c69d9e4294e1554760370c75003ed95766
-  MixboxMocksRuntime: 5d426cc465b7446f94cbf258cf38ab45919a7189
-  MixboxReflection: 89b96892bfc5648e2885a8f54c86328efa2133d3
-  MixboxSBTUITestTunnelClient: e20fc77b8d1814b4d84628329262246259dde770
-  MixboxSBTUITestTunnelCommon: 14d69d892838c2b29b3cf1c206944c4d22f5ebbe
-  MixboxSBTUITestTunnelServer: ed1994516e257eec8203ad056f054c3619961875
-  MixboxStubbing: bd73165aa70a1927e7bcf6cfd3da56fdc6535401
-  MixboxTestability: 113365ed695d832264d82bc540414dcbefe55229
-  MixboxTestsFoundation: 432247d4ee8f102d847b8adcb6d6b4e4b40a7c24
-  MixboxUiKit: 772905f087b96b04b94680b37a23f7d28e0caee3
-  MixboxUiTestsFoundation: cc383529221d15deffebc18e6b6b9703a2b2cb98
+  Mixbox: e789fba3307115b0153e084432d4be1d07b0ffcc
+  MixboxAnyCodable: fd0ff0d1478469c9042e19ffdcefe72572004cdf
+  MixboxBlack: 68a7050a7e8a548549b535b1e69bf2c776ac6d62
+  MixboxBuiltinDi: 016018c9f31a7bcd95bb58934afebbb4ee57cf8e
+  MixboxBuiltinIpc: 4550cacb8add5a18ae5a6f826628188992ae9d71
+  MixboxDi: 52a8dde8bbbf39ffd2bbd492a834264d75cfe35e
+  MixboxFakeSettingsAppMain: 553af81744d58e93615654247cd30d626e2bb81c
+  MixboxFoundation: 22743b6c0264af71d16694154431e73c43f821cb
+  MixboxGenerators: 059c931dd575953ffe4f9c34cc547613b2abf8d9
+  MixboxGray: d037bb1fee91e3edb8efa1e5402a67e181bd3d9e
+  MixboxInAppServices: 544753ea39f16d9fce93db7d9920bbb5189c8141
+  MixboxIoKit: 942e8568eb8f3c4a61a5994946adb65c6a4c6d18
+  MixboxIpc: 976a69e9e60dd56df973bd73d253e53504a940a8
+  MixboxIpcCommon: 070c4d25f86734fe843b09931060f98eae42009f
+  MixboxIpcSbtuiClient: 5c33cceb0975f59341b720f133f2a10e1ea5f01a
+  MixboxIpcSbtuiHost: b1b5609f65ab721293c1ad74ef3eb0dd08a5a8ff
+  MixboxMocksGeneration: 53548046b29e5aefd9510cf1d9d850c214e23d63
+  MixboxMocksRuntime: 6463b2815718f50240a8989cfe3890599e7426f4
+  MixboxReflection: 48c528e948cdbc3ac4d932910c987ba649c26782
+  MixboxSBTUITestTunnelClient: 41b4db205753be8c1aa4cf6cc9f62763339db1a1
+  MixboxSBTUITestTunnelCommon: eac072e9d1dfde9bd1b4a25d39a61a48a2d00d69
+  MixboxSBTUITestTunnelServer: d30cf87cf9b01bf7752c381c2e3223ce462408db
+  MixboxStubbing: 6915a51179085eda397f7a0eaabdcc45c00194c4
+  MixboxTestability: 5116edee152c55635434424269364e4189f75f26
+  MixboxTestsFoundation: ae15bfbae5de3914bf8df5c486b180b8726428c5
+  MixboxUiKit: 064489bdb334af1b918432b8f4381c33dd591928
+  MixboxUiTestsFoundation: 39133c2d82c8f044c6d929f0d6cd43a8df902dbb
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
   SourceKittenFramework: 540d9d048c0bab3c0faa4668425364fabff12cb0
   Sourcery: 928a146ea9b777fa64b0c6ce915c4128b4488cff

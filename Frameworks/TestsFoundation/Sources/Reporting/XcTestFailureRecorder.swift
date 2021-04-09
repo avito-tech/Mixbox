@@ -19,8 +19,11 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
         let testCase = currentTestCaseProvider.currentTestCase()
         
         if let testCase = testCase {
-            let previousValue = testCase.continueAfterFailure
-            testCase.continueAfterFailure = shouldNeverContinueTestAfterFailure ? false : shouldContinueTest
+            let continueAfterFailureOldValue = testCase.continueAfterFailure
+            let continueAfterFailureNewValue = shouldNeverContinueTestAfterFailure ? false : shouldContinueTest
+            
+            testCase.continueAfterFailure = continueAfterFailureNewValue
+            
             testCase.recordFailureBySelf(
                 description: description,
                 file: String(describing: fileLine?.file ?? #file),
@@ -31,7 +34,17 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
                 // Perhaps we should use `false` in cases when we don't know what happened.
                 expected: true
             )
-            testCase.continueAfterFailure = previousValue
+            
+            if !continueAfterFailureNewValue {
+                // In this case test should be interrupted. However, since Xcode 12 something is broken.
+                // I though this is because we override `recordFailure`, but I removed the overriding
+                // and still had this issue. The following line is a workaround. It forcefully triggers an
+                // interruption. Maybe it can be fixed properly, but it already took 1 day debugging and
+                // disassembling.
+                testCase._interruptOrMarkForLaterInterruption()
+            }
+            
+            testCase.continueAfterFailure = continueAfterFailureOldValue
         } else {
             // TODO: Invent a way to report errors to developers.
             // Logs can be easily ignored.
