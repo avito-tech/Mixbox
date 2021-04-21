@@ -6,7 +6,7 @@ extension BaseTouchesTestCase {
     func assertPhasesAreCorrect(
         beginEvent: UiEvent,
         endEvent: UiEvent,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         XCTAssertEqual(beginEvent.type, .touches, file: file, line: line)
@@ -24,7 +24,7 @@ extension BaseTouchesTestCase {
     func assertEqual(
         actual: CGPoint,
         expected: CGPoint,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         func message() -> String {
@@ -38,7 +38,7 @@ extension BaseTouchesTestCase {
     func assertEqual(
         actual: CGVector,
         expected: CGVector,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         func message() -> String {
@@ -52,7 +52,7 @@ extension BaseTouchesTestCase {
     func assertAbsoluteCoordinatesAreEqual(
         actual: CGPoint,
         expected: CGPoint,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         func message() -> String {

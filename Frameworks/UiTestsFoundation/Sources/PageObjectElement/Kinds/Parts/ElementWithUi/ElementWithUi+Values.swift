@@ -4,7 +4,7 @@ import MixboxFoundation
 extension ElementWithUi {
     // Uncomfortably disgusting solution. TODO: Better interface for getting values
     public func value<T>(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         valueTitle: String,
         getValue: @escaping (ElementSnapshot) -> (T))

@@ -3,7 +3,7 @@ import XCTest
 extension TestCase {
     func assertThrows(
         error expectedError: String? = nil,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         body: () throws -> ())
     {
@@ -36,7 +36,7 @@ extension TestCase {
         }
     }
     
-    func assertDoesntThrow(file: StaticString = #file, line: UInt = #line, body: () throws -> ()) {
+    func assertDoesntThrow(file: StaticString = #filePath, line: UInt = #line, body: () throws -> ()) {
         do {
             try body()
         } catch {

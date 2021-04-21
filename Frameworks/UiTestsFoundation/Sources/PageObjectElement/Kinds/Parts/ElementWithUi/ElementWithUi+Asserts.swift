@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 
 extension ElementWithUi {
     public func isDisplayed(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {
@@ -21,7 +21,7 @@ extension ElementWithUi {
     }
     
     public func assertIsDisplayed(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
@@ -37,7 +37,7 @@ extension ElementWithUi {
     }
     
     public func assertIsNotDisplayed(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.interactionPerformer.perform(
@@ -53,7 +53,7 @@ extension ElementWithUi {
     }
     
     public func assertIsInHierarchy(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
@@ -71,7 +71,7 @@ extension ElementWithUi {
     
     public func assertHasAccessibilityValue(
         _ value: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
@@ -89,7 +89,7 @@ extension ElementWithUi {
     }
     
     public func assertMatches(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         matcher: @escaping (ElementMatcherBuilder) -> ElementMatcher)
     {
@@ -108,7 +108,7 @@ extension ElementWithUi {
     public func assertMatchesReference(
         image: UIImage,
         comparator: SnapshotsComparator,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let buildMatcher: (ElementMatcherBuilder) -> ElementMatcher = { element in
@@ -131,7 +131,7 @@ extension ElementWithUi {
     public func assertMatchesReference(
         image: UIImage,
         comparatorType: SnapshotsComparatorType,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let buildMatcher: (ElementMatcherBuilder) -> ElementMatcher = { element in
@@ -152,7 +152,7 @@ extension ElementWithUi {
     }
 
     public func assertBecomesTallerAfter(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         action: @escaping () -> ())
     {
@@ -175,7 +175,7 @@ extension ElementWithUi {
     }
     
     public func assertBecomesShorterAfter(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         action: @escaping () -> ())
     {

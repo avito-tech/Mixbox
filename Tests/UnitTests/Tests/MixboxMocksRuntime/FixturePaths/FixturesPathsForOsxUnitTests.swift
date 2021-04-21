@@ -6,7 +6,7 @@ import PathKit
 final class FixturesPathsForOsxUnitTests {
     private init() {}
     
-    static let folderPath = Path(#file) + "../../Fixtures"
+    static let folderPath = Path(#filePath) + "../../Fixtures"
     
     static func allFiles() throws -> [Path] {
         return try folderPath

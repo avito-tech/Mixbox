@@ -8,7 +8,7 @@ public protocol Mock: StorableMock, DefaultImplementationSettable {
 }
 
 extension Mock {
-    public func verify(file: StaticString = #file, line: UInt = #line) -> VerificationBuilder {
+    public func verify(file: StaticString = #filePath, line: UInt = #line) -> VerificationBuilder {
         return VerificationBuilder(
             mockManager: getMockManager(MixboxMocksRuntimeVoid.self),
             fileLine: FileLine(
@@ -18,7 +18,7 @@ extension Mock {
         )
     }
     
-    public func stub(file: StaticString = #file, line: UInt = #line) -> StubbingBuilder {
+    public func stub(file: StaticString = #filePath, line: UInt = #line) -> StubbingBuilder {
         return StubbingBuilder(
             mockManager: getMockManager(MixboxMocksRuntimeVoid.self),
             fileLine: FileLine(

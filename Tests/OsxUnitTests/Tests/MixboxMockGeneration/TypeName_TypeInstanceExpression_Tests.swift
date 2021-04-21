@@ -89,7 +89,7 @@ final class TypeName_TypeInstanceExpression_Tests: XCTestCase {
     private func check(
         type: String,
         expression: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let typeName = TypeName(type)

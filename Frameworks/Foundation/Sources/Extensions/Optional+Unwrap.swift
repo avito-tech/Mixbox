@@ -4,7 +4,7 @@ extension Optional {
     // TODO: Add `mb_` prefix to avoid name collisions
     public func unwrapOrThrow(
         error: (_ fileLine: FileLine) -> Error,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         throws
         -> Wrapped
@@ -21,7 +21,7 @@ extension Optional {
     
     public func unwrapOrThrow(
         message: (_ fileLine: FileLine) -> String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         throws
         -> Wrapped
@@ -58,7 +58,7 @@ extension Optional {
     }
     
     public func unwrapOrThrow(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         throws
         -> Wrapped

@@ -8,7 +8,7 @@ protocol FailureGatherer: class {
 // TODO: Remove singletons (XCTAssert)
 extension FailureGatherer {
     func assertFails(
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line,
         body: () -> ())
     {
@@ -26,7 +26,7 @@ extension FailureGatherer {
         file: String? = nil,
         line: UInt? = nil,
         expected: Bool? = nil,
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line,
         body: () -> ())
     {
@@ -48,7 +48,7 @@ extension FailureGatherer {
     func assertFails(
         description: String? = nil,
         expected: Bool? = nil,
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line,
         body: (_ fails: FailsHereFunctionProvider) -> ())
     {
@@ -69,7 +69,7 @@ extension FailureGatherer {
     }
     
     func assertPasses(
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line,
         body: () -> ())
     {
@@ -84,7 +84,7 @@ extension FailureGatherer {
     }
     
     func assertPasses(
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line,
         message: ([XcTestFailure]) -> String,
         body: () -> ())
@@ -101,7 +101,7 @@ extension FailureGatherer {
     
     func assert(
         passes: Bool,
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line,
         body: () -> ())
     {
@@ -126,7 +126,7 @@ extension FailureGatherer {
         line: UInt? = nil,
         expected: Bool? = nil,
         failures: [XcTestFailure],
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line)
     {
         guard let firstFailure = failures.first else {
@@ -193,7 +193,7 @@ extension FailureGatherer {
         file: String? = nil,
         line: UInt? = nil,
         expected: Bool? = nil,
-        fileOfThisAssertion: StaticString = #file,
+        fileOfThisAssertion: StaticString = #filePath,
         lineOfThisAssertion: UInt = #line,
         body: () -> ())
     {

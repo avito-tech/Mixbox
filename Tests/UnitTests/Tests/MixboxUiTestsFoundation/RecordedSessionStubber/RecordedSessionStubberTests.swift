@@ -194,7 +194,7 @@ final class RecordedSessionStubberTests: TestCase {
     private func assert(
         stubWithUrl stubUrl: String,
         willMatch actualUrl: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assertNoThrow {

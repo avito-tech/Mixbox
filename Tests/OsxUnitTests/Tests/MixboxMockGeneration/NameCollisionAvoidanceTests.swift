@@ -44,7 +44,7 @@ final class NameCollisionAvoidanceTests: XCTestCase {
         desiredName: String,
         takenNames: Set<String>,
         itIsExpectedToKeepDesiredName: Bool,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         XCTAssertNoThrow(try {

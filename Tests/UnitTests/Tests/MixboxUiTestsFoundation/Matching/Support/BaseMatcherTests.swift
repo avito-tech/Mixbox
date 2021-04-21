@@ -9,7 +9,7 @@ class BaseMatcherTests: XCTestCase {
     func assertMatches(
         locator: ElementMatcherBuilderClosure,
         snapshot: ElementSnapshot,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assertMatches(
@@ -23,7 +23,7 @@ class BaseMatcherTests: XCTestCase {
     func assertMatches<T>(
         matcher: Matcher<T>,
         value: T,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         switch matcher.match(value: value) {
@@ -49,7 +49,7 @@ class BaseMatcherTests: XCTestCase {
         snapshot: ElementSnapshot,
         percentageOfMatching: Double = 0,
         description: String? = nil,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assertMismatches(
@@ -67,7 +67,7 @@ class BaseMatcherTests: XCTestCase {
         value: T,
         percentageOfMatching: Double = 0,
         description: String? = nil,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         switch matcher.match(value: value) {
@@ -118,7 +118,7 @@ class BaseMatcherTests: XCTestCase {
         matcher: Matcher<T>,
         value: T,
         description: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         XCTAssertEqual(

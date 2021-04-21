@@ -5,7 +5,7 @@ import MixboxFoundation
 class BaseEventTestCase: TestCase {
     func checkValueIsPassedViaInit<T: Equatable>(
         value: T,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         initAndGetValue: (T) -> T)
     {

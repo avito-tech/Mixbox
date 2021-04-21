@@ -16,7 +16,7 @@ public class StubbingImmutablePropertyBuilder<PropertyType> {
     }
     
     public func get(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> StubbingFunctionBuilder<(), PropertyType>
     {
@@ -37,7 +37,7 @@ public final class StubbingMutablePropertyBuilder<PropertyType>:
 {
     public func set(
         _ newValueMatcher: Matcher<PropertyType>,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> StubbingFunctionBuilder<PropertyType, ()>
     {

@@ -7,7 +7,7 @@ open class BaseMock: MockManagerSettable {
     
     public init(
         mockManager: MockManager = UnconfiguredMockManagerFactory().mockManager(),
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         self.mockManager = mockManager

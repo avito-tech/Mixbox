@@ -31,7 +31,7 @@ public final class RecordedNetworkSessionPath {
     }
     
     public static func nearHere(
-        file: StaticString = #file)
+        file: StaticString = #filePath)
         -> RecordedNetworkSessionDirectoryWithDefaultName
     {
         let defaultName = "\(file)"
@@ -48,7 +48,7 @@ public final class RecordedNetworkSessionPath {
     }
     
     public static func `default`(
-        file: StaticString = #file)
+        file: StaticString = #filePath)
         -> RecordedNetworkSessionPath
     {
         return nearHere(file: file).withDefaultName()

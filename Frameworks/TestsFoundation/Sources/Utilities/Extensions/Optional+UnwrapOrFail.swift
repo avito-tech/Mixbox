@@ -3,7 +3,7 @@ import MixboxFoundation
 extension Optional {
     public func unwrapOrFail(
         error: (_ fileLine: FileLine) -> Error,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Wrapped
     {
@@ -18,7 +18,7 @@ extension Optional {
     
     public func unwrapOrFail(
         message: (_ fileLine: FileLine) -> String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Wrapped
     {
@@ -33,7 +33,7 @@ extension Optional {
     
     public func unwrapOrFail(
         message: @autoclosure () -> String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Wrapped
     {
@@ -46,7 +46,7 @@ extension Optional {
     
     public func unwrapOrFail(
         error: @autoclosure () -> Error,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Wrapped
     {
@@ -58,7 +58,7 @@ extension Optional {
     }
     
     public func unwrapOrFail(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Wrapped
     {

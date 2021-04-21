@@ -6,7 +6,7 @@ extension SynchronousIpcClient {
     public func callOrFail<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Method.ReturnValue
     {
@@ -21,7 +21,7 @@ extension SynchronousIpcClient {
     // Synchronous version for methods without arguments
     public func callOrFail<Method: IpcMethod>(
         method: Method,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Method.ReturnValue
         where Method.Arguments == IpcVoid
@@ -37,7 +37,7 @@ extension SynchronousIpcClient {
     // Synchronous version for methods without arguments and return value
     public func callOrFail<Method: IpcMethod>(
         method: Method,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         where
         Method.Arguments == IpcVoid,
@@ -55,7 +55,7 @@ extension SynchronousIpcClient {
     public func callOrFail<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         where
         Method.ReturnValue == IpcVoid

@@ -231,7 +231,7 @@ final class RandomIntegerGeneratorTests: TestCase {
         randomNumber: UInt64,
         range: Range<T>,
         leadsTo expectedResult: T,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assert(
@@ -253,7 +253,7 @@ final class RandomIntegerGeneratorTests: TestCase {
         randomNumber: UInt64,
         range: ClosedRange<T>,
         leadsTo expectedResult: T,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assert(

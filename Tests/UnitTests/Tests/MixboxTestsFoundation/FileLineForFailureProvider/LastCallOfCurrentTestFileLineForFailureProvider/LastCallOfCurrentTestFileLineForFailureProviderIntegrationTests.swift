@@ -4,7 +4,7 @@ import MixboxTestsFoundation
 
 // Tests are disabled. Symbolication using XCTest stopped working probably since Catalina.
 final class LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests: XCTestCase {
-    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> RuntimeFileLine {
+    private func currentFileLine(file: StaticString = #filePath, line: UInt = #line) -> RuntimeFileLine {
         return RuntimeFileLine(
             file: "\(file)",
             line: line

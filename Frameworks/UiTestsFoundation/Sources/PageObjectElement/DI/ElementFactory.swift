@@ -117,7 +117,7 @@ extension ElementFactory {
     public func element<T>(
         name: String,
         factory: (PageObjectElementCore) -> T,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         function: String = #function,
         matcherBuilder: ElementMatcherBuilderClosure)
@@ -136,7 +136,7 @@ extension ElementFactory {
     
     public func element<T: ElementWithDefaultInitializer>(
         _ name: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         function: String = #function,
         matcherBuilder: ElementMatcherBuilderClosure)

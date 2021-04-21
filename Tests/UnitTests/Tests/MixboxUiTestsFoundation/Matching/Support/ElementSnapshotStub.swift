@@ -171,7 +171,7 @@ final class ElementSnapshotStub: ElementSnapshot {
     }
     
     init(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         configure: (ElementSnapshotStub) -> () = { _ in })
     {

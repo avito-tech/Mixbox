@@ -448,7 +448,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
     private func assertMatches(
         stub: (ElementSnapshotStub) -> (),
         check: ElementMatcherBuilderClosure,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let snapshot = ElementSnapshotStub(
@@ -470,7 +470,7 @@ final class MatcherBuilderTests: BaseMatcherTests {
         stub: (ElementSnapshotStub) -> (),
         check: ElementMatcherBuilderClosure,
         percentageOfMatching: Double = 0,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let snapshot = ElementSnapshotStub(

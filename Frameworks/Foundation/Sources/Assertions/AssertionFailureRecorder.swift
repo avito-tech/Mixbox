@@ -9,7 +9,7 @@ public protocol AssertionFailureRecorder: class {
 extension AssertionFailureRecorder {
     public func recordAssertionFailure(
         message: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         recordAssertionFailure(

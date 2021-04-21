@@ -7,7 +7,7 @@ extension ElementWithUi {
         normalizedCoordinate: CGPoint? = nil,
         absoluteOffset: CGVector? = nil,
         failTest: Bool = true,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {

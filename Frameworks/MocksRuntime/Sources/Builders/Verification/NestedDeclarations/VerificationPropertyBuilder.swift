@@ -16,7 +16,7 @@ public class VerificationImmutablePropertyBuilder<PropertyType> {
     }
     
     public func get(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> VerificationFunctionBuilder<(), PropertyType>
     {
@@ -38,7 +38,7 @@ public final class VerificationMutablePropertyBuilder<PropertyType>:
     // TODO: Support detecting closures? Now only `NonEscapingCallArgument.regular` is returned.
     public func set(
         _ newValueMatcher: Matcher<PropertyType>,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> VerificationFunctionBuilder<PropertyType, ()>
     {

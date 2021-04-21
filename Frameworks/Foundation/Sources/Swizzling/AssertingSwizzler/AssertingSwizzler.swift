@@ -43,7 +43,7 @@ public extension AssertingSwizzler {
         swizzledSelector: Selector,
         methodType: MethodType,
         shouldAssertIfMethodIsSwizzledOnlyOneTime: Bool,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         self.swizzle(

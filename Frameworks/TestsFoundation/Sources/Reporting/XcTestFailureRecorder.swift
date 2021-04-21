@@ -26,7 +26,7 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
             
             testCase.recordFailureBySelf(
                 description: description,
-                file: String(describing: fileLine?.file ?? #file),
+                file: String(describing: fileLine?.file ?? #filePath),
                 line: fileLine?.line ?? #line,
                 // https://developer.apple.com/documentation/xctest/xctestcase/1496269-recordfailure
                 // > true if the failure being reported was the result of a failed assertion,
@@ -53,7 +53,7 @@ public final class XcTestFailureRecorder: TestFailureRecorder {
                 ERROR: failure was recorded, but current XCTestCase was not found \
                 (e.g. all tests were already executed), \
                 failure description: \(description) \
-                file: \(fileLine?.file ?? #file) \
+                file: \(fileLine?.file ?? #filePath) \
                 line: \(fileLine?.line ?? #line)
                 """
             )

@@ -8,7 +8,7 @@ import MixboxFoundation
 //  }
 //
 // Q&A: The reasons of methods instead of vars:
-// 1. #file, #line
+// 1. #filePath, #line
 // 2. We only need setters
 //
 // Q&A: The reason of absence of `bundleId` in this facade:

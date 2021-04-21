@@ -6,7 +6,7 @@ extension BaseTestCase {
     func assert<T>(
         value: T,
         matches matcher: Matcher<T>,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let result = matcher.match(value: value)
@@ -21,7 +21,7 @@ extension BaseTestCase {
     
     func assert(
         logsAndFailures: LogsAndFailures,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         matches buildMatcher: (LogsAndFailuresMatcherBuilder) -> (Matcher<LogsAndFailures>))
     {

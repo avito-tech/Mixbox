@@ -19,7 +19,7 @@ final class VisibilityCheckImageColorShifterImplTests: TestCase {
     
     private func parameterized_test(
         targetPixelOfInteraction: IntPoint?,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let bytesPerPixel = 4

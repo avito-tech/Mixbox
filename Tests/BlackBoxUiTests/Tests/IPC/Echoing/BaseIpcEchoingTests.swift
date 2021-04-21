@@ -81,7 +81,7 @@ class BaseIpcEchoingTests: TestCase {
     
     // Functions
     
-    func checkEchoing<T: Equatable & Codable>(value: T, file: StaticString = #file, line: UInt = #line) {
+    func checkEchoing<T: Equatable & Codable>(value: T, file: StaticString = #filePath, line: UInt = #line) {
         let result: DataResult<T, IpcClientError> = synchronousIpcClient.call(
             method: EchoIpcMethod<T>(),
             arguments: value

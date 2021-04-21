@@ -23,7 +23,7 @@ extension TestFailureRecorder {
     public func recordMixboxInternalFailure(
         description: String,
         shouldContinueTest: Bool,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         recordFailure(

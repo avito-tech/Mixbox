@@ -6,7 +6,7 @@ import MixboxFoundation
 public final class UnavoidableFailure {
     public static func fail(
         _ message: String = "",
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Never
     {
@@ -34,7 +34,7 @@ public final class UnavoidableFailure {
     }
     
     public static func doOrFail<T>(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         body: () throws -> T)
         -> T

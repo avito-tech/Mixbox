@@ -45,7 +45,7 @@ extension UninterceptableErrorTracker {
         )
     }
     
-    func track(error: Error, file: StaticString = #file, line: UInt = #line) {
+    func track(error: Error, file: StaticString = #filePath, line: UInt = #line) {
         track(
             uninterceptableError: UninterceptableError(
                 error: error,
@@ -57,7 +57,7 @@ extension UninterceptableErrorTracker {
         )
     }
     
-    func trackAndFail(error: Error, file: StaticString = #file, line: UInt = #line) -> Never {
+    func trackAndFail(error: Error, file: StaticString = #filePath, line: UInt = #line) -> Never {
         trackAndFail(
             uninterceptableError: UninterceptableError(
                 error: error,
@@ -70,7 +70,7 @@ extension UninterceptableErrorTracker {
     }
     
     func doOrFail<T>(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         body: () throws -> T)
         -> T

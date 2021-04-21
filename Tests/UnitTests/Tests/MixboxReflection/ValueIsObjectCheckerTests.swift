@@ -15,7 +15,7 @@ final class ValueIsObjectCheckerTests: TestCase {
     
     private func checkIsObject(
         _ value: Any,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         XCTAssertTrue(
@@ -28,7 +28,7 @@ final class ValueIsObjectCheckerTests: TestCase {
     
     private func checkIsNotObject(
         _ value: Any,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         XCTAssertFalse(

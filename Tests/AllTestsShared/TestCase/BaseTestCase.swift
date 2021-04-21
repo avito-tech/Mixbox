@@ -323,7 +323,7 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
         return true
     }
     
-    private func reuseState<T>(file: StaticString = #file, line: UInt = #line, block: () -> (T)) -> T {
+    private func reuseState<T>(file: StaticString = #filePath, line: UInt = #line, block: () -> (T)) -> T {
         // TODO: Make it work!
         let itWorksAsExpectedOnCi = false
         

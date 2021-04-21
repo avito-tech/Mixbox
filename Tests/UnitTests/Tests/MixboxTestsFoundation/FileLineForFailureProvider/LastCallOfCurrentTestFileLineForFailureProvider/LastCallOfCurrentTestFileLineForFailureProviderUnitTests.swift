@@ -259,7 +259,7 @@ final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase
         trace: [ExtendedStackTraceEntry],
         patterns: [String],
         fileLine: RuntimeFileLine?,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         let provider = LastCallOfCurrentTestFileLineForFailureProvider(

@@ -2,7 +2,7 @@ import MixboxTestsFoundation
 
 public extension ElementWithText {
     func text(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> String
     {
@@ -12,7 +12,7 @@ public extension ElementWithText {
     }
     
     func accessibilityLabel(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> String
     {

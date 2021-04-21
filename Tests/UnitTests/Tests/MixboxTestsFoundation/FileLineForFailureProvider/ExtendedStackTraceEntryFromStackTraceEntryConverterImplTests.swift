@@ -46,7 +46,7 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
     // Symbolication using XCTest stopped working probably since Catalina.
     func disabled_test_onRealTestMethod() {
         let targetName = "UnitTests"
-        let stackTrace = StackTraceProviderImpl().stackTrace(); let file = "\(#file)"; let line = UInt(#line)
+        let stackTrace = StackTraceProviderImpl().stackTrace(); let file = "\(#filePath)"; let line = UInt(#line)
         
         guard let simpleEntry = stackTrace.first(where: { $0.symbol?.contains(targetName) == true }) else {
             XCTFail("Unable to perform test")
@@ -82,7 +82,7 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
         symbol: String?,
         demangledSymbol: String?,
         address: UInt64,
-        fileWhereExecuted: StaticString = #file,
+        fileWhereExecuted: StaticString = #filePath,
         lineWhereExecuted: UInt = #line)
     {
         check(
@@ -109,7 +109,7 @@ final class ExtendedStackTraceEntryFromStackTraceEntryConverterImplTests: XCTest
         symbolInXcode10_2_1: String?,
         demangledSymbol: String?,
         address expectedAddress: UInt64,
-        fileWhereExecuted: StaticString = #file,
+        fileWhereExecuted: StaticString = #filePath,
         lineWhereExecuted: UInt = #line)
     {
         XCTAssert(

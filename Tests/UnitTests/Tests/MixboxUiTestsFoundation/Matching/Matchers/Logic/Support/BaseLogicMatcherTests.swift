@@ -8,7 +8,7 @@ class BaseLogicMatcherTests: BaseMatcherTests {
     
     func assertMatches(
         matcher: Matcher<Int>,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assertMatches(
@@ -23,7 +23,7 @@ class BaseLogicMatcherTests: BaseMatcherTests {
         matcher: Matcher<Int>,
         percentageOfMatching: Double = 0,
         description: String? = nil,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assertMismatches(
@@ -39,7 +39,7 @@ class BaseLogicMatcherTests: BaseMatcherTests {
     func assertDescriptionIsCorrect(
         matcher: Matcher<Int>,
         description: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         assertDescriptionIsCorrect(

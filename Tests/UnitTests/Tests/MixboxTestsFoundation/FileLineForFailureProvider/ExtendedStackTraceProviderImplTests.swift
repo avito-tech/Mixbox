@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 import MixboxFoundation
 
 final class ExtendedStackTraceProviderImplTests: XCTestCase {
-    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> RuntimeFileLine {
+    private func currentFileLine(file: StaticString = #filePath, line: UInt = #line) -> RuntimeFileLine {
         return RuntimeFileLine(
             file: "\(file)",
             line: line

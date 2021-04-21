@@ -3,7 +3,7 @@ import MixboxFoundation
 extension TestFailureRecorder {
     public func recordUnavoidableFailure(
         description: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Never
     {

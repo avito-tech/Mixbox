@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 extension ElementWithText {
     public func assertHasText(
         _ expectedText: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
@@ -22,7 +22,7 @@ extension ElementWithText {
     
     public func assertTextMatches(
         _ regularExpression: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
@@ -41,7 +41,7 @@ extension ElementWithText {
     
     public func assertContainsText(
         _ text: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
@@ -60,7 +60,7 @@ extension ElementWithText {
     
     public func assertHasAccessibilityLabel(
         _ expectedLabel: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(
@@ -79,7 +79,7 @@ extension ElementWithText {
     
     public func assertAccessibilityLabelContains(
         _ text: String,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         _ = core.checkIsDisplayedAndMatches(

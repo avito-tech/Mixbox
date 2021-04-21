@@ -9,7 +9,7 @@ extension ElementWithUi {
         endPoint: SwipeActionEndPoint,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {
@@ -34,7 +34,7 @@ extension ElementWithUi {
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {
@@ -62,7 +62,7 @@ extension ElementWithUi {
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {
@@ -83,7 +83,7 @@ extension ElementWithUi {
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {
@@ -104,7 +104,7 @@ extension ElementWithUi {
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {
@@ -125,7 +125,7 @@ extension ElementWithUi {
         length: CGFloat? = nil,
         speed: TouchActionSpeed? = nil,
         failTest: Bool = true,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {

@@ -12,7 +12,7 @@ public protocol NetworkPlayer: class {
 extension NetworkPlayer {
     public func checkpoint(
         id: String? = nil,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         checkpointImpl(

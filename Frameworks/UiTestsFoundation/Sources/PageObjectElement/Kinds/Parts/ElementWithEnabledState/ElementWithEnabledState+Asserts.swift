@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 public extension ElementWithEnabledState {
     @discardableResult
     func assertIsEnabled(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {
@@ -21,7 +21,7 @@ public extension ElementWithEnabledState {
     
     @discardableResult
     func assertIsDisabled(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> Bool
     {

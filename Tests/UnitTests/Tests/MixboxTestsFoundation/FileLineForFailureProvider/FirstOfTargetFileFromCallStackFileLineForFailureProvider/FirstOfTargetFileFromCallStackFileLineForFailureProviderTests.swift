@@ -5,7 +5,7 @@ import MixboxTestsFoundation
 // TODO: Remove class and test?
 // Tests are disabled. Symbolication using XCTest stopped working probably since Catalina.
 final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTestCase {
-    private func currentFileLine(file: StaticString = #file, line: UInt = #line) -> RuntimeFileLine {
+    private func currentFileLine(file: StaticString = #filePath, line: UInt = #line) -> RuntimeFileLine {
         return RuntimeFileLine(
             file: "\(file)",
             line: line
@@ -17,7 +17,7 @@ final class FirstOfTargetFileFromCallStackFileLineForFailureProviderTests: XCTes
             stackTraceProvider: StackTraceProviderImpl(),
             extendedStackTraceEntryFromCallStackSymbolsConverter: ExtendedStackTraceEntryFromStackTraceEntryConverterImpl()
         ),
-        file: "\(#file)"
+        file: "\(#filePath)"
     )
     
     func disabled_test() {

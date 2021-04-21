@@ -141,10 +141,10 @@ public final class BuiltinIpcServer: IpcRouter {
     }
 }
 
-private func error(_ text: String, file: StaticString = #file, line: UInt = #line) -> GCDWebServerResponse? {
+private func error(_ text: String, file: StaticString = #filePath, line: UInt = #line) -> GCDWebServerResponse? {
     return GCDWebServerErrorResponse(
         serverError: .httpStatusCode_InternalServerError,
-        text: "\(text) \(#file):\(#line)"
+        text: "\(text) \(#filePath):\(#line)"
     )
 }
 

@@ -12,7 +12,7 @@
 //  }
 //
 //  public extension SuperTestUtility {
-//      func makeLifeEasier(file: StaticString = #file, line: UInt = #line) {
+//      func makeLifeEasier(file: StaticString = #filePath, line: UInt = #line) {
 //          makeLifeEasier(fileLine: FileLine(file: file, line: line))
 //      }
 //  }
@@ -54,13 +54,13 @@ extension FileLine {
     // E.g.:
     //
     // 0: func x(fileLine: FileLine = .current()) {}
-    // 1: func y(file: StaticString = #file, UInt = #line) {}
+    // 1: func y(file: StaticString = #filePath, UInt = #line) {}
     // 2:
     // 3: x() // line: 0, where .current() was used
     // 4: y() // line: 4, this line
     //
     public static func current(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
         -> FileLine
     {

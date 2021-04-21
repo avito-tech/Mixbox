@@ -19,17 +19,17 @@ class SurrogateCAAnimationDelegateFactory {
         let mbAnimationDidStopSEL = #selector(SurrogateCAAnimationDelegateObjC.mbswizzled_animationDidStop(_:finished:))
         
         guard let animationDidStartInstance = SurrogateCAAnimationDelegateObjC.instanceMethod(for: animationDidStartSEL) else {
-            fatalError("\(#file):\(#line): cannot find instance method \(animationDidStartSEL) for \(self)")
+            fatalError("\(#filePath):\(#line): cannot find instance method \(animationDidStartSEL) for \(self)")
         }
         guard let animationDidStopInstance = SurrogateCAAnimationDelegateObjC.instanceMethod(for: animationDidStopSEL) else {
-            fatalError("\(#file):\(#line): cannot find instance method \(animationDidStopSEL) for \(self)")
+            fatalError("\(#filePath):\(#line): cannot find instance method \(animationDidStopSEL) for \(self)")
         }
         
         guard let delegateAnimationDidStartInstance = delegate.method(for: animationDidStartSEL) else {
-            fatalError("\(#file):\(#line): cannot find instance method \(animationDidStartSEL) for \(delegate)")
+            fatalError("\(#filePath):\(#line): cannot find instance method \(animationDidStartSEL) for \(delegate)")
         }
         guard let delegateAnimationDidStopInstance = delegate.method(for: animationDidStopSEL) else {
-            fatalError("\(#file):\(#line): cannot find instance method \(animationDidStopSEL) for \(delegate)")
+            fatalError("\(#filePath):\(#line): cannot find instance method \(animationDidStopSEL) for \(delegate)")
         }
         
         let swizzler: Swizzler = SwizzlerImpl()
@@ -94,7 +94,7 @@ class SurrogateCAAnimationDelegateFactory {
                 .instanceMethod
             )
             if !swizzlingResult.isSuccessful {
-                fatalError("\(#file):\(#line): failed to swizzle \(originalSelector) to \(swizzledSelector) on \(delegateClass)")
+                fatalError("\(#filePath):\(#line): failed to swizzle \(originalSelector) to \(swizzledSelector) on \(delegateClass)")
             }
         }
         

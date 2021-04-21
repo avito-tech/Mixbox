@@ -4,7 +4,7 @@ import MixboxUiKit
 // swiftlint:disable function_body_length
 final class CGRect_Rounding_Tests: TestCase {
     func test___mb_integralInside() {
-        func assert(_ source: CGRect, _ expected: CGRect, file: StaticString = #file, line: UInt = #line) {
+        func assert(_ source: CGRect, _ expected: CGRect, file: StaticString = #filePath, line: UInt = #line) {
             Self.assert(source, { $0.mb_integralInside() }, expected, file: file, line: line)
         }
         
@@ -119,7 +119,7 @@ final class CGRect_Rounding_Tests: TestCase {
     }
     
     func test___mb_integralOutside() {
-        func assert(_ source: CGRect, _ expected: CGRect, file: StaticString = #file, line: UInt = #line) {
+        func assert(_ source: CGRect, _ expected: CGRect, file: StaticString = #filePath, line: UInt = #line) {
             Self.assert(source, { $0.mb_integralOutside() }, expected, file: file, line: line)
         }
         
@@ -252,7 +252,7 @@ final class CGRect_Rounding_Tests: TestCase {
         _ source: CGRect,
         _ transform: (CGRect) -> CGRect,
         _ expected: CGRect,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line)
     {
         func coordinates(_ rect: CGRect) -> String {

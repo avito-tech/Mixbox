@@ -104,7 +104,7 @@ final class LocatorsTests: TestCase {
     }
     
     private func assertExists(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         matcher: ElementMatcherBuilderClosure)
     {
@@ -114,7 +114,7 @@ final class LocatorsTests: TestCase {
     }
     
     private func assertDoesNotExist(
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line,
         matcher: ElementMatcherBuilderClosure)
     {
