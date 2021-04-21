@@ -12,7 +12,7 @@ final class DynamicBehaviorIntegrationalTests: TestCase {
     override func precondition() {
         super.precondition()
         
-        mocks.register(type: Generator<Int>.self) { _ in
+        mockedDependencies.register(type: Generator<Int>.self) { _ in
             ConstantGenerator(42)
         }
     }

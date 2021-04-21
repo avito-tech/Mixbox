@@ -3,16 +3,13 @@ import MixboxFoundation
 import MixboxDi
 
 open class BaseElementInteractionDependenciesFactory: ElementInteractionDependenciesFactory {
-    private let elementSettings: ElementSettings
     private let parentDi: DependencyResolver
     private let dependencyInjectionFactory: DependencyInjectionFactory
     
     public init(
-        elementSettings: ElementSettings,
         dependencyResolver: DependencyResolver,
         dependencyInjectionFactory: DependencyInjectionFactory)
     {
-        self.elementSettings = elementSettings
         self.parentDi = dependencyResolver
         self.dependencyInjectionFactory = dependencyInjectionFactory
     }
@@ -27,7 +24,8 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         fileLine: FileLine,
         elementInteractionWithDependenciesPerformer: ElementInteractionWithDependenciesPerformer,
         retriableTimedInteractionState: RetriableTimedInteractionState,
-        elementSettings: ElementSettings)
+        elementSettings: ElementSettings,
+        interactionSettings: InteractionSettings)
         -> ElementInteractionDependencies
     {
         let di = makeDi()
@@ -37,6 +35,9 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         }
         di.register(type: ElementSettings.self) { _ in
             elementSettings
+        }
+        di.register(type: InteractionSettings.self) { _ in
+            interactionSettings
         }
         di.register(type: ElementInteraction.self) { _ in
             interaction
@@ -67,7 +68,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         di.register(type: InteractionRetrier.self) { di in
             InteractionRetrierImpl(
                 dateProvider: try di.resolve(),
-                timeout: elementSettings.interactionTimeout,
+                timeout: interactionSettings.interactionTimeout,
                 retrier: try di.resolve(),
                 retriableTimedInteractionState: try di.resolve()
             )
@@ -102,7 +103,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         di.register(type: PerformerOfSpecificImplementationOfInteractionForVisibleElement.self) { di in
             PerformerOfSpecificImplementationOfInteractionForVisibleElementImpl(
                 elementVisibilityChecker: try di.resolve(),
-                elementSettings: try di.resolve(),
+                interactionSettings: try di.resolve(),
                 interactionFailureResultFactory: try di.resolve(),
                 scroller: try di.resolve()
             )
@@ -110,7 +111,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         di.register(type: ElementResolverWithScrollingAndRetries.self) { di in
             ElementResolverWithScrollingAndRetriesImpl(
                 elementResolver: try di.resolve(),
-                elementSettings: try di.resolve(),
+                interactionSettings: try di.resolve(),
                 applicationFrameProvider: try di.resolve(),
                 eventGenerator: try di.resolve(),
                 retrier: try di.resolve()
@@ -120,7 +121,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
             WaitingForQuiescenceElementResolver(
                 elementResolver: ElementResolverImpl(
                     elementFinder: try di.resolve(),
-                    elementSettings: try di.resolve()
+                    interactionSettings: try di.resolve()
                 ),
                 applicationQuiescenceWaiter: try di.resolve()
             )
@@ -132,7 +133,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
                 elementResolver: try di.resolve(),
                 applicationFrameProvider: try di.resolve(),
                 eventGenerator: try di.resolve(),
-                elementSettings: try di.resolve()
+                interactionSettings: try di.resolve()
             )
         }
         

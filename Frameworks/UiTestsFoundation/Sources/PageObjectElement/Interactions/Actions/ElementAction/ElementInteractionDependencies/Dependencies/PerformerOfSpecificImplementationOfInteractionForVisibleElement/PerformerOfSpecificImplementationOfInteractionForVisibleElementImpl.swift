@@ -5,18 +5,18 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
     PerformerOfSpecificImplementationOfInteractionForVisibleElement
 {
     private let elementVisibilityChecker: ElementVisibilityChecker
-    private let elementSettings: ElementSettings
+    private let interactionSettings: InteractionSettings
     private let interactionFailureResultFactory: InteractionFailureResultFactory
     private let scroller: Scroller
     
     public init(
         elementVisibilityChecker: ElementVisibilityChecker,
-        elementSettings: ElementSettings,
+        interactionSettings: InteractionSettings,
         interactionFailureResultFactory: InteractionFailureResultFactory,
         scroller: Scroller)
     {
         self.elementVisibilityChecker = elementVisibilityChecker
-        self.elementSettings = elementSettings
+        self.interactionSettings = interactionSettings
         self.interactionFailureResultFactory = interactionFailureResultFactory
         self.scroller = scroller
     }
@@ -32,12 +32,12 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
         -> InteractionResult
     {
         let minimalPercentageOfVisibleArea = overridenPercentageOfVisibleArea
-            ?? elementSettings.percentageOfVisibleArea
+            ?? interactionSettings.percentageOfVisibleArea
         
         var resolvedElementQuery = resolvedElementQuery
         let expectedIndexOfSnapshot: Int
         
-        switch elementSettings.interactionMode {
+        switch interactionSettings.interactionMode {
         case .useUniqueElement:
             expectedIndexOfSnapshot = 0
         case .useElementAtIndexInHierarchy(let index):
@@ -45,7 +45,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
         }
         
         if var snapshot = resolvedElementQuery.matchingSnapshots.mb_elementAtIndex(expectedIndexOfSnapshot) {
-            switch elementSettings.interactionMode {
+            switch interactionSettings.interactionMode {
             case .useUniqueElement:
                 if resolvedElementQuery.matchingSnapshots.count > 1 {
                     return interactionFailureResultFactory.elementIsNotUniqueResult()
@@ -120,7 +120,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
                         elementVisibilityCheckerResult = try elementVisibilityChecker.checkVisibility(
                             snapshot: snapshot,
                             interactionCoordinates: interactionCoordinates,
-                            useHundredPercentAccuracy: elementSettings.pixelPerfectVisibilityCheck
+                            useHundredPercentAccuracy: interactionSettings.pixelPerfectVisibilityCheck
                         )
                     }
                     

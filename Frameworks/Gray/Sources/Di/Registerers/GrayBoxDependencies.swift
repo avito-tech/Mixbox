@@ -154,5 +154,8 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
         di.register(type: PathGestureUtilsFactory.self) { _ in
             PathGestureUtilsFactoryImpl()
         }
+        di.register(type: InteractionSettingsDefaultsProvider.self) { _ in
+            InteractionSettingsDefaultsProviderImpl(preset: .grayBox)
+        }
     }
 }

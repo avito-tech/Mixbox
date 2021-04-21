@@ -7,6 +7,7 @@ public protocol ElementInteractionDependenciesFactory: class {
         fileLine: FileLine,
         elementInteractionWithDependenciesPerformer: ElementInteractionWithDependenciesPerformer,
         retriableTimedInteractionState: RetriableTimedInteractionState,
-        elementSettings: ElementSettings)
+        elementSettings: ElementSettings,
+        interactionSettings: InteractionSettings)
         -> ElementInteractionDependencies
 }

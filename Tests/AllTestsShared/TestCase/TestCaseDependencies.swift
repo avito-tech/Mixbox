@@ -75,7 +75,7 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
             ConfiguredMockManagerFactory(
                 testFailureRecorder: try di.resolve(),
                 waiter: try di.resolve(),
-                // TODO: Decrease to 3 or sync with ElementSettingsDefaultsProviderImpl,
+                // TODO: Decrease to 3 or sync with InteractionSettingsDefaultsProviderImpl,
                 // or maybe to add some new configurable entiry for storing default timeouts.
                 defaultTimeout: 15,
                 defaultPollingInterval: 0.1,

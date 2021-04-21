@@ -5,20 +5,17 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
     private let nestedInteractionPerformer: ElementInteractionWithDependenciesPerformer
     private let stepLogger: StepLogger
     private let screenshotAttachmentsMaker: ScreenshotAttachmentsMaker
-    private let elementSettings: ElementSettings
     private let dateProvider: DateProvider
     
     public init(
         nestedInteractionPerformer: ElementInteractionWithDependenciesPerformer,
         stepLogger: StepLogger,
         screenshotAttachmentsMaker: ScreenshotAttachmentsMaker,
-        elementSettings: ElementSettings,
         dateProvider: DateProvider)
     {
         self.nestedInteractionPerformer = nestedInteractionPerformer
         self.stepLogger = stepLogger
         self.screenshotAttachmentsMaker = screenshotAttachmentsMaker
-        self.elementSettings = elementSettings
         self.dateProvider = dateProvider
     }
     

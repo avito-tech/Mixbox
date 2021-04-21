@@ -13,56 +13,12 @@ public protocol ElementFactory: class {
         matcherBuilder: ElementMatcherBuilderClosure)
         -> T
     
-    func with(scrollMode: ScrollMode?) -> ElementFactory
-    func with(interactionMode: InteractionMode?) -> ElementFactory
-    func with(interactionTimeout: TimeInterval?) -> ElementFactory
-    func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory
-    func with(pixelPerfectVisibilityCheck: Bool?) -> ElementFactory
+    // Example: with.timeout(1)
+    var with: FieldBuilder<SubstructureFieldBuilderCallImplementation<ElementFactory, ElementFactoryElementSettings>> { get }
 }
 
-// Convenient functions
-public extension ElementFactory {
-    func element<T>(
-        name: String,
-        factory: (PageObjectElementCore) -> T,
-        file: StaticString = #file,
-        line: UInt = #line,
-        function: String = #function,
-        matcherBuilder: ElementMatcherBuilderClosure)
-        -> T
-    {
-        return element(
-            name: name,
-            factory: factory,
-            functionDeclarationLocation: FunctionDeclarationLocation(
-                fileLine: FileLine(file: file, line: line),
-                function: function
-            ),
-            matcherBuilder: matcherBuilder
-        )
-    }
-    
-    func element<T: ElementWithDefaultInitializer>(
-        _ name: String,
-        file: StaticString = #file,
-        line: UInt = #line,
-        function: String = #function,
-        matcherBuilder: ElementMatcherBuilderClosure)
-        -> T
-    {
-        return element(
-            name: name,
-            factory: T.init,
-            file: file,
-            line: line,
-            function: function,
-            matcherBuilder: matcherBuilder
-        )
-    }
-}
-
-// Modifiers.
-public extension ElementFactory {
+extension ElementFactory {
+    // MARK: - Modifiers.
     
     // Selects any element among elements that are matching.
     //
@@ -76,7 +32,7 @@ public extension ElementFactory {
     //          element.id == "myCell"
     //      }
     //  }
-    var any: ElementFactory {
+    public var any: ElementFactory {
         return atIndex(0)
     }
     
@@ -93,12 +49,12 @@ public extension ElementFactory {
     //          }
     //      }
     //  }
-    var withoutScrolling: ElementFactory {
+    public var withoutScrolling: ElementFactory {
         return with(scrollMode: .some(.none))
     }
     
     // Re-enables default scroll if `scrollMode` was previousely changed.
-    var withScrolling: ElementFactory {
+    public var withScrolling: ElementFactory {
         return with(scrollMode: .some(.default))
     }
     
@@ -108,7 +64,7 @@ public extension ElementFactory {
     //
     // Do not use unless default scrolling doesn't work.
     //
-    var withBlindScrolling: ElementFactory {
+    public var withBlindScrolling: ElementFactory {
         return with(scrollMode: .some(.blind))
     }
     
@@ -130,7 +86,69 @@ public extension ElementFactory {
     //          element.id == "foobar"
     //      }
     //  }
-    func atIndex(_ index: Int) -> ElementFactory {
+    public func atIndex(_ index: Int) -> ElementFactory {
         return with(interactionMode: .some(.useElementAtIndexInHierarchy(index)))
+    }
+    
+    // MARK: - Backward compatibility
+    
+    public func with(scrollMode: ScrollMode?) -> ElementFactory {
+        return with.scrollMode(CustomizableScalar<ScrollMode>.from(optional: scrollMode))
+    }
+    
+    public func with(interactionTimeout: TimeInterval?) -> ElementFactory {
+        return with.interactionTimeout(CustomizableScalar<TimeInterval>.from(optional: interactionTimeout))
+    }
+    
+    public func with(interactionMode: InteractionMode?) -> ElementFactory {
+        return with.interactionMode(CustomizableScalar<InteractionMode>.from(optional: interactionMode))
+    }
+    
+    public func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory {
+        return with.percentageOfVisibleArea(CustomizableScalar<CGFloat>.from(optional: percentageOfVisibleArea))
+    }
+    
+    public func with(pixelPerfectVisibilityCheck: Bool?) -> ElementFactory {
+        return with.pixelPerfectVisibilityCheck(CustomizableScalar<Bool>.from(optional: pixelPerfectVisibilityCheck))
+    }
+
+    // MARK: - Convenient functions
+    
+    public func element<T>(
+        name: String,
+        factory: (PageObjectElementCore) -> T,
+        file: StaticString = #file,
+        line: UInt = #line,
+        function: String = #function,
+        matcherBuilder: ElementMatcherBuilderClosure)
+        -> T
+    {
+        return element(
+            name: name,
+            factory: factory,
+            functionDeclarationLocation: FunctionDeclarationLocation(
+                fileLine: FileLine(file: file, line: line),
+                function: function
+            ),
+            matcherBuilder: matcherBuilder
+        )
+    }
+    
+    public func element<T: ElementWithDefaultInitializer>(
+        _ name: String,
+        file: StaticString = #file,
+        line: UInt = #line,
+        function: String = #function,
+        matcherBuilder: ElementMatcherBuilderClosure)
+        -> T
+    {
+        return element(
+            name: name,
+            factory: T.init,
+            file: file,
+            line: line,
+            function: function,
+            matcherBuilder: matcherBuilder
+        )
     }
 }

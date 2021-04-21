@@ -3,20 +3,20 @@ import UIKit
 
 public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWithScrollingAndRetries {
     private let elementResolver: ElementResolver
-    private let elementSettings: ElementSettings
+    private let interactionSettings: InteractionSettings
     private let applicationFrameProvider: ApplicationFrameProvider
     private let eventGenerator: EventGenerator
     private let retrier: Retrier
     
     public init(
         elementResolver: ElementResolver,
-        elementSettings: ElementSettings,
+        interactionSettings: InteractionSettings,
         applicationFrameProvider: ApplicationFrameProvider,
         eventGenerator: EventGenerator,
         retrier: Retrier)
     {
         self.elementResolver = elementResolver
-        self.elementSettings = elementSettings
+        self.interactionSettings = interactionSettings
         self.applicationFrameProvider = applicationFrameProvider
         self.eventGenerator = eventGenerator
         self.retrier = retrier
@@ -75,7 +75,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
         // an animation and it will be filtered out.
         let elementIsUnique: Bool
         
-        switch elementSettings.interactionMode {
+        switch interactionSettings.interactionMode {
         case .useUniqueElement:
             elementIsUnique = resolvedElementQuery.matchingSnapshots.count == 1
         case .useElementAtIndexInHierarchy:
@@ -99,7 +99,7 @@ public final class ElementResolverWithScrollingAndRetriesImpl: ElementResolverWi
                 return resolvedElementQuery.matchingSnapshots.isEmpty
             }
             
-            if elementSettings.scrollMode == .blind && elementSettings.scrollMode != .none {
+            if interactionSettings.scrollMode == .blind && interactionSettings.scrollMode != .none {
                 let scrollingDistance = 8
                 
                 for _ in 0..<scrollingDistance where needToScroll {

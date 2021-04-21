@@ -3,46 +3,32 @@ import UIKit
 
 public final class ElementFactoryImpl: ElementFactory {
     private let pageObjectDependenciesFactory: PageObjectDependenciesFactory
-    private let elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider
-    
-    private let scrollMode: ScrollMode
-    private let interactionTimeout: TimeInterval
-    private let interactionMode: InteractionMode
-    private let percentageOfVisibleArea: CGFloat
-    private let pixelPerfectVisibilityCheck: Bool
+    private let interactionSettingsDefaultsProvider: InteractionSettingsDefaultsProvider
+    private let elementFactoryElementSettings: ElementFactoryElementSettings
     
     public init(
         pageObjectDependenciesFactory: PageObjectDependenciesFactory,
-        elementSettingsDefaultsProvider: ElementSettingsDefaultsProvider,
-        scrollMode: ScrollMode,
-        interactionTimeout: TimeInterval,
-        interactionMode: InteractionMode,
-        percentageOfVisibleArea: CGFloat,
-        pixelPerfectVisibilityCheck: Bool)
+        interactionSettingsDefaultsProvider: InteractionSettingsDefaultsProvider,
+        elementFactoryElementSettings: ElementFactoryElementSettings)
     {
         self.pageObjectDependenciesFactory = pageObjectDependenciesFactory
-        self.elementSettingsDefaultsProvider = elementSettingsDefaultsProvider
-        self.scrollMode = scrollMode
-        self.interactionTimeout = interactionTimeout
-        self.interactionMode = interactionMode
-        self.percentageOfVisibleArea = percentageOfVisibleArea
-        self.pixelPerfectVisibilityCheck = pixelPerfectVisibilityCheck
+        self.interactionSettingsDefaultsProvider = interactionSettingsDefaultsProvider
+        self.elementFactoryElementSettings = elementFactoryElementSettings
     }
     
     public convenience init(
         pageObjectDependenciesFactory: PageObjectDependenciesFactory)
     {
-        let elementSettingsDefaultsProvider = pageObjectDependenciesFactory.elementSettingsDefaultsProvider
-        let elementSettingsDefaults = elementSettingsDefaultsProvider.elementSettingsDefaults()
-        
         self.init(
             pageObjectDependenciesFactory: pageObjectDependenciesFactory,
-            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
-            scrollMode: elementSettingsDefaults.scrollMode,
-            interactionTimeout: elementSettingsDefaults.interactionTimeout,
-            interactionMode: elementSettingsDefaults.interactionMode,
-            percentageOfVisibleArea: elementSettingsDefaults.percentageOfVisibleArea,
-            pixelPerfectVisibilityCheck: elementSettingsDefaults.pixelPerfectVisibilityCheck
+            interactionSettingsDefaultsProvider: pageObjectDependenciesFactory.interactionSettingsDefaultsProvider,
+            elementFactoryElementSettings: ElementFactoryElementSettings(
+                scrollMode: .automatic,
+                interactionTimeout: .automatic,
+                interactionMode: .automatic,
+                percentageOfVisibleArea: .automatic,
+                pixelPerfectVisibilityCheck: .automatic
+            )
         )
     }
     
@@ -64,63 +50,19 @@ public final class ElementFactoryImpl: ElementFactory {
         )
     }
     
-    public func with(scrollMode: ScrollMode?) -> ElementFactory {
-        return ElementFactoryImpl(
-            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
-            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
-            scrollMode: scrollMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().scrollMode,
-            interactionTimeout: interactionTimeout,
-            interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea,
-            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
-        )
-    }
-    
-    public func with(interactionTimeout: TimeInterval?) -> ElementFactory {
-        return ElementFactoryImpl(
-            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
-            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
-            scrollMode: scrollMode,
-            interactionTimeout: interactionTimeout ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionTimeout,
-            interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea,
-            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
-        )
-    }
-    
-    public func with(interactionMode: InteractionMode?) -> ElementFactory {
-        return ElementFactoryImpl(
-            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
-            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
-            scrollMode: scrollMode,
-            interactionTimeout: interactionTimeout,
-            interactionMode: interactionMode ?? elementSettingsDefaultsProvider.elementSettingsDefaults().interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea,
-            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
-        )
-    }
-    
-    public func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory {
-        return ElementFactoryImpl(
-            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
-            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
-            scrollMode: scrollMode,
-            interactionTimeout: interactionTimeout,
-            interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea ?? elementSettingsDefaultsProvider.elementSettingsDefaults().percentageOfVisibleArea,
-            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
-        )
-    }
-    
-    public func with(pixelPerfectVisibilityCheck: Bool?) -> ElementFactory {
-        return ElementFactoryImpl(
-            pageObjectDependenciesFactory: pageObjectDependenciesFactory,
-            elementSettingsDefaultsProvider: elementSettingsDefaultsProvider,
-            scrollMode: scrollMode,
-            interactionTimeout: interactionTimeout,
-            interactionMode: interactionMode,
-            percentageOfVisibleArea: percentageOfVisibleArea,
-            pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck ?? elementSettingsDefaultsProvider.elementSettingsDefaults().pixelPerfectVisibilityCheck
+    public var with: FieldBuilder<SubstructureFieldBuilderCallImplementation<ElementFactory, ElementFactoryElementSettings>> {
+        return FieldBuilder(
+            callImplementation: SubstructureFieldBuilderCallImplementation(
+                structure: self,
+                getSubstructure: { $0.elementFactoryElementSettings },
+                getResult: { structure, substructure in
+                    ElementFactoryImpl(
+                        pageObjectDependenciesFactory: structure.pageObjectDependenciesFactory,
+                        interactionSettingsDefaultsProvider: structure.interactionSettingsDefaultsProvider,
+                        elementFactoryElementSettings: substructure
+                    )
+                }
+            )
         )
     }
     
@@ -137,16 +79,11 @@ public final class ElementFactoryImpl: ElementFactory {
         
         return pageObjectElementCoreFactory.pageObjectElementCore(
             settings: ElementSettings(
-                name: name,
+                interactionSettingsDefaultsProvider: interactionSettingsDefaultsProvider,
+                elementFactoryElementSettings: elementFactoryElementSettings,
                 functionDeclarationLocation: functionDeclarationLocation,
-                matcher: matcherBuilderClosure(elementMatcherBuilder),
-                elementSettingsDefaults: ElementSettingsDefaults(
-                    scrollMode: scrollMode,
-                    interactionTimeout: interactionTimeout,
-                    interactionMode: interactionMode,
-                    percentageOfVisibleArea: percentageOfVisibleArea,
-                    pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck
-                )
+                name: name,
+                matcher: matcherBuilderClosure(elementMatcherBuilder)
             )
         )
     }

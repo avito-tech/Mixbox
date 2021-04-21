@@ -17,3 +17,17 @@ public protocol PageObjectElementCore: class {
     
     func with(settings: ElementSettings) -> PageObjectElementCore
 }
+
+extension PageObjectElementCore {
+    public var with: FieldBuilder<SubstructureFieldBuilderCallImplementation<PageObjectElementCore, ElementSettings.CustomizedSettings>> {
+        return FieldBuilder(
+            callImplementation: SubstructureFieldBuilderCallImplementation(
+                structure: self,
+                getSubstructure: { $0.settings.customizedSettings },
+                getResult: { structure, substructure in
+                    structure.with(settings: structure.settings.with(customizedSettings: substructure))
+                }
+            )
+        )
+    }
+}

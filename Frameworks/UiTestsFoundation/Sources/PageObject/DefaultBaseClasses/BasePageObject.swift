@@ -57,23 +57,7 @@ open class BasePageObject: PageObject, ElementFactory {
         )
     }
     
-    public func with(scrollMode: ScrollMode?) -> ElementFactory {
-        return elementFactory.with(scrollMode: scrollMode)
-    }
-    
-    public func with(interactionMode: InteractionMode?) -> ElementFactory {
-        return elementFactory.with(interactionMode: interactionMode)
-    }
-    
-    public func with(interactionTimeout: TimeInterval?) -> ElementFactory {
-        return elementFactory.with(interactionTimeout: interactionTimeout)
-    }
-    
-    public func with(percentageOfVisibleArea: CGFloat?) -> ElementFactory {
-        return elementFactory.with(percentageOfVisibleArea: percentageOfVisibleArea)
-    }
-    
-    public func with(pixelPerfectVisibilityCheck: Bool?) -> ElementFactory {
-        return elementFactory.with(pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck)
+    public var with: FieldBuilder<SubstructureFieldBuilderCallImplementation<ElementFactory, ElementFactoryElementSettings>> {
+        return elementFactory.with
     }
 }

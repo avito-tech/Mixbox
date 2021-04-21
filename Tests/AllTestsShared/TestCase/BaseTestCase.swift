@@ -13,8 +13,13 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
     private let mocksDependencyInjection = BuiltinDependencyInjection()
     
     // This enables mocking dependencies (improves testability).
-    var mocks: DependencyRegisterer {
+    var mockedDependencies: DependencyRegisterer {
         return mocksDependencyInjection
+    }
+    
+    // To register code-generated mocks
+    var mocks: MockRegisterer {
+        return dependencies.resolve()
     }
     
     // TODO: Rename to `di`, it's shorter and nicer.
@@ -89,12 +94,6 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
         return CompoundSetUpAction(
             setUpActions: setUpActions()
         )
-    }
-    
-    func register<M: Mock>(_ mock: M) -> M {
-        (dependencies.resolve() as MockRegisterer).register(mock: mock)
-        
-        return mock
     }
     
     private var recordingFailureRecursionCounter = 0

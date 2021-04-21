@@ -253,7 +253,6 @@
 		F84D12792166B37400A178B4 /* CellThatCrashesAtInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D12782166B37400A178B4 /* CellThatCrashesAtInit.swift */; };
 		F84D127B2166B3A700A178B4 /* CrashingCellException.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D127A2166B3A700A178B4 /* CrashingCellException.swift */; };
 		F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */; };
-		F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F851CADF239E74CB005F4F2C /* ElementSettingsTests.swift */; };
 		F8539643254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8539642254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift */; };
 		F8539645254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8539644254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift */; };
 		F8539647254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8539646254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift */; };
@@ -403,6 +402,7 @@
 		F8A395B72146CE40000E9E44 /* MovingElementTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B62146CE40000E9E44 /* MovingElementTestsView.swift */; };
 		F8A395B9214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395B8214701FE000E9E44 /* SituationsWhereHierarchyIsChangedOverTimeAreHandledProperlyTests.swift */; };
 		F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */; };
+		F8A4B73C2628CF6F004171D1 /* ElementSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4B73B2628CF6F004171D1 /* ElementSettingsTests.swift */; };
 		F8A6EF472566C8BD00003D56 /* LogEnvironmentSetUpAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6EF452566C8A500003D56 /* LogEnvironmentSetUpAction.swift */; };
 		F8A6EF482566C8BD00003D56 /* LogEnvironmentSetUpAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6EF452566C8A500003D56 /* LogEnvironmentSetUpAction.swift */; };
 		F8A6EF492566C8BE00003D56 /* LogEnvironmentSetUpAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A6EF452566C8A500003D56 /* LogEnvironmentSetUpAction.swift */; };
@@ -982,7 +982,6 @@
 		F84D12782166B37400A178B4 /* CellThatCrashesAtInit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellThatCrashesAtInit.swift; sourceTree = "<group>"; };
 		F84D127A2166B3A700A178B4 /* CrashingCellException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashingCellException.swift; sourceTree = "<group>"; };
 		F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticCurrentTestCaseProvider.swift; sourceTree = "<group>"; };
-		F851CADF239E74CB005F4F2C /* ElementSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementSettingsTests.swift; sourceTree = "<group>"; };
 		F8539642254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumImmutableValueReflectionTests.swift; sourceTree = "<group>"; };
 		F8539644254B12C00015FD37 /* ValueCodeGeneratorKnownIssuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorKnownIssuesTests.swift; sourceTree = "<group>"; };
 		F8539646254B1A5C0015FD37 /* ValueCodeGeneratorCollectionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCodeGeneratorCollectionsTests.swift; sourceTree = "<group>"; };
@@ -1119,6 +1118,7 @@
 		F8A395BA2147C243000E9E44 /* ChangingHierarchyTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangingHierarchyTestsView.swift; sourceTree = "<group>"; };
 		F8A395BD2147C599000E9E44 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F8A395BE2147E4FC000E9E44 /* CanTapMovingElementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanTapMovingElementTests.swift; sourceTree = "<group>"; };
+		F8A4B73B2628CF6F004171D1 /* ElementSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementSettingsTests.swift; sourceTree = "<group>"; };
 		F8A6EF452566C8A500003D56 /* LogEnvironmentSetUpAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEnvironmentSetUpAction.swift; sourceTree = "<group>"; };
 		F8A7530F2260E13D00396A89 /* LegacyNetworkStubbingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyNetworkStubbingTests.swift; sourceTree = "<group>"; };
 		F8A837C12270ED8E00145140 /* GrayScreenshotTakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayScreenshotTakerTests.swift; sourceTree = "<group>"; };
@@ -3194,7 +3194,7 @@
 				F8971D8722661A85001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProvider */,
 				F81144CA2268D15D00ED519B /* RecordedSessionStubber */,
 				F8DC8639236724D2003889C7 /* PerPixelSnapshotsComparatorTests.swift */,
-				F851CADF239E74CB005F4F2C /* ElementSettingsTests.swift */,
+				F8A4B73B2628CF6F004171D1 /* ElementSettingsTests.swift */,
 			);
 			path = MixboxUiTestsFoundation;
 			sourceTree = "<group>";
@@ -5275,6 +5275,7 @@
 				F8B5C695254AFAAE002DB0FB /* ValueCodeGeneratorEnumsTests.swift in Sources */,
 				F8F8320724EFEE8A007EEA45 /* EnumsGeneratorFacadeTests.swift in Sources */,
 				F8FD092E259B961800730EAF /* ValueIsObjectCheckerTests.swift in Sources */,
+				F8A4B73C2628CF6F004171D1 /* ElementSettingsTests.swift in Sources */,
 				F837EF5E258BDBBD00721A30 /* EasyClosureStubbingIntegrationalTests.swift in Sources */,
 				F80C2E1324D1DAFD00C6CAD4 /* RecordableStepLogger.swift in Sources */,
 				F89ED2EE2572DFFC00A32D54 /* UninterceptableErrorTrackerImpl.swift in Sources */,
@@ -5401,7 +5402,6 @@
 				F8FC4AD323AA687F00D3E911 /* AlwaysTrueMatcherTests.swift in Sources */,
 				F8971D8922661A8E001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.swift in Sources */,
 				F80C2E0B24D1DAFD00C6CAD4 /* FailureGatherer.swift in Sources */,
-				F851CAE0239E74CB005F4F2C /* ElementSettingsTests.swift in Sources */,
 				F8D262D324431D740006B707 /* BaseGeneratorTestCase.swift in Sources */,
 				F89ED2F22572E05A00A32D54 /* UninterceptableError.swift in Sources */,
 				F89ED2E72572CF3500A32D54 /* BaseMixboxMocksRuntimeTests.swift in Sources */,

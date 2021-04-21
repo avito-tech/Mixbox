@@ -7,6 +7,18 @@ public protocol Element: class {
 }
 
 extension Element {
+    public var with: FieldBuilder<SubstructureFieldBuilderCallImplementation<Self, ElementSettings.CustomizedSettings>> {
+        return FieldBuilder(
+            callImplementation: SubstructureFieldBuilderCallImplementation(
+                structure: self,
+                getSubstructure: { $0.core.settings.customizedSettings },
+                getResult: { structure, substructure in
+                    structure.with(settings: structure.core.settings.with(customizedSettings: substructure))
+                }
+            )
+        )
+    }
+    
     public var any: Self {
         return atIndex(0)
     }
@@ -46,31 +58,33 @@ extension Element {
         return with(matcher: old && additional)
     }
     
+    // Backward compatibility:
+    
     public func with(name: String) -> Self {
-        return with(settings: core.settings.with(name: name))
+        return with.name(name)
     }
     
     public func with(matcher: ElementMatcher) -> Self {
-        return with(settings: core.settings.with(matcher: matcher))
+        return with.matcher(matcher)
     }
     
     public func with(scrollMode: ScrollMode) -> Self {
-        return with(settings: core.settings.with(scrollMode: scrollMode))
+        return with.scrollMode(.customized(scrollMode))
     }
     
     public func with(interactionMode: InteractionMode) -> Self {
-        return with(settings: core.settings.with(interactionMode: interactionMode))
+        return with.interactionMode(.customized(interactionMode))
     }
     
     public func with(interactionTimeout: TimeInterval?) -> Self {
-        return with(settings: core.settings.with(interactionTimeout: interactionTimeout))
+        return with.interactionTimeout(.from(optional: interactionTimeout))
     }
     
     public func with(percentageOfVisibleArea: CGFloat) -> Self {
-        return with(settings: core.settings.with(percentageOfVisibleArea: percentageOfVisibleArea))
+        return with.percentageOfVisibleArea(.customized(percentageOfVisibleArea))
     }
     
     public func with(pixelPerfectVisibilityCheck: Bool) -> Self {
-        return with(settings: core.settings.with(pixelPerfectVisibilityCheck: pixelPerfectVisibilityCheck))
+        return with.pixelPerfectVisibilityCheck(.customized(pixelPerfectVisibilityCheck))
     }
 }

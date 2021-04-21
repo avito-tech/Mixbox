@@ -10,7 +10,7 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
     private let dateProvider: DateProvider
     
     // TODO: This is a kludge, usage of closure is dumb here.
-    private let elementInteractionDependenciesFactory: (ElementSettings) -> ElementInteractionDependenciesFactory
+    private let elementInteractionDependenciesFactory: () -> ElementInteractionDependenciesFactory
     
     private let performanceLogger: PerformanceLogger
     private let interactionFailureDebugger: InteractionFailureDebugger
@@ -22,7 +22,7 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
         screenshotAttachmentsMaker: ScreenshotAttachmentsMaker,
         stepLogger: StepLogger,
         dateProvider: DateProvider,
-        elementInteractionDependenciesFactory: @escaping (ElementSettings) -> ElementInteractionDependenciesFactory,
+        elementInteractionDependenciesFactory: @escaping () -> ElementInteractionDependenciesFactory,
         performanceLogger: PerformanceLogger,
         interactionFailureDebugger: InteractionFailureDebugger)
     {
@@ -48,7 +48,7 @@ public final class PageObjectElementCoreFactoryImpl: PageObjectElementCoreFactor
                 screenshotAttachmentsMaker: screenshotAttachmentsMaker,
                 stepLogger: stepLogger,
                 dateProvider: dateProvider,
-                elementInteractionDependenciesFactory: elementInteractionDependenciesFactory(elementSettings),
+                elementInteractionDependenciesFactory: elementInteractionDependenciesFactory(),
                 elementSettings: elementSettings,
                 performanceLogger: performanceLogger,
                 interactionFailureDebugger: interactionFailureDebugger

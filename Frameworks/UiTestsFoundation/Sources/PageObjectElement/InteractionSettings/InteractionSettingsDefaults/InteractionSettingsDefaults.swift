@@ -1,6 +1,6 @@
 import UIKit
 
-public final class ElementSettingsDefaults {
+public final class InteractionSettingsDefaults {
     public let scrollMode: ScrollMode
     public let interactionTimeout: TimeInterval
     public let interactionMode: InteractionMode

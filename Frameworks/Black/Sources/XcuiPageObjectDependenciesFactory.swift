@@ -26,9 +26,8 @@ public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependencies
                         screenshotAttachmentsMaker: try di.resolve(),
                         stepLogger: try di.resolve(),
                         dateProvider: try di.resolve(),
-                        elementInteractionDependenciesFactory: { elementSettings in
+                        elementInteractionDependenciesFactory: {
                             XcuiElementInteractionDependenciesFactory(
-                                elementSettings: elementSettings,
                                 dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
                                 dependencyInjectionFactory: dependencyInjectionFactory
                             )

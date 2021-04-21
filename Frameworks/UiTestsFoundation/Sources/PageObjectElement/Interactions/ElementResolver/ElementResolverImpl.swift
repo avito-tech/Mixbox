@@ -1,21 +1,21 @@
 public final class ElementResolverImpl: ElementResolver {
     private let elementFinder: ElementFinder
-    private let elementSettings: ElementSettings
+    private let interactionSettings: InteractionSettings
     
     public init(
         elementFinder: ElementFinder,
-        elementSettings: ElementSettings)
+        interactionSettings: InteractionSettings)
     {
         self.elementFinder = elementFinder
-        self.elementSettings = elementSettings
+        self.interactionSettings = interactionSettings
     }
     
     public func resolveElement() throws -> ResolvedElementQuery {
         let elementQuery = elementFinder.query(
-            elementMatcher: elementSettings.matcher, // TODO: move matcher from `filteringHiddenElement` here?
-            elementFunctionDeclarationLocation: elementSettings.functionDeclarationLocation
+            elementMatcher: interactionSettings.matcher, // TODO: move matcher from `filteringHiddenElement` here?
+            elementFunctionDeclarationLocation: interactionSettings.functionDeclarationLocation
         )
         
-        return elementQuery.resolveElement(interactionMode: elementSettings.interactionMode)
+        return elementQuery.resolveElement(interactionMode: interactionSettings.interactionMode)
     }
 }

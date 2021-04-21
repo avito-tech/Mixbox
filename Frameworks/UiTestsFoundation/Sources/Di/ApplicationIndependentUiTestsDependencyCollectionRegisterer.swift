@@ -73,8 +73,8 @@ public final class ApplicationIndependentUiTestsDependencyCollectionRegisterer: 
         di.register(type: PollingConfiguration.self) { _ in
             PollingConfiguration.reduceWorkload
         }
-        di.register(type: ElementSettingsDefaultsProvider.self) { _ in
-            ElementSettingsDefaultsProviderImpl()
+        di.register(type: InteractionSettingsDefaultsProvider.self) { _ in
+            InteractionSettingsDefaultsProviderImpl(preset: .universal)
         }
     }
     

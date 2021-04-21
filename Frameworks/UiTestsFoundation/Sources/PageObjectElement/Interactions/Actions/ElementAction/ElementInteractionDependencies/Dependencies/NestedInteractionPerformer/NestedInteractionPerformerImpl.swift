@@ -49,12 +49,15 @@ public final class NestedInteractionPerformerImpl: NestedInteractionPerformer {
         interaction: ElementInteraction)
         -> InteractionResult
     {
+        let interactionSettings = elementSettings.interactionSettings(interaction: interaction)
+        
         let elementInteractionDependencies = elementInteractionDependenciesFactory.elementInteractionDependencies(
             interaction: interaction,
             fileLine: fileLine,
             elementInteractionWithDependenciesPerformer: elementInteractionWithDependenciesPerformer,
             retriableTimedInteractionState: retriableTimedInteractionState.retriableTimedInteractionStateForNestedRetryOperation(),
-            elementSettings: elementSettings
+            elementSettings: elementSettings,
+            interactionSettings: interactionSettings
         )
         
         let elementInteractionWithDependencies = interaction.with(

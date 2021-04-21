@@ -5,12 +5,10 @@ import MixboxDi
 
 public final class XcuiElementInteractionDependenciesFactory: BaseElementInteractionDependenciesFactory {
     override public init(
-        elementSettings: ElementSettings,
         dependencyResolver: DependencyResolver,
         dependencyInjectionFactory: DependencyInjectionFactory)
     {
         super.init(
-            elementSettings: elementSettings,
             dependencyResolver: dependencyResolver,
             dependencyInjectionFactory: dependencyInjectionFactory
         )

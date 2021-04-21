@@ -1,3 +1,5 @@
+import MixboxFoundation
+
 /// Represent an argument to a function that is a closure.
 /// It is a real closure that can be created in your real application.
 ///

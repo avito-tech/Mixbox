@@ -23,7 +23,7 @@ extension BaseGeneratorFacadeTests {
     }
     
     @nonobjc func setRandom(_ values: [UInt64], continueSequenceWithMoreNumbers: Bool = true) {
-        mocks.register(type: RandomNumberProvider.self) { _ in
+        mockedDependencies.register(type: RandomNumberProvider.self) { _ in
             SequenceRandomNumberProvider(
                 sequence: values,
                 continuation: continueSequenceWithMoreNumbers
@@ -35,12 +35,12 @@ extension BaseGeneratorFacadeTests {
     
     @nonobjc func stubDefaultConstants() {
         let int: Int = generatedByDefault()
-        mocks.register(type: Generator<Int>.self) { _ in
+        mockedDependencies.register(type: Generator<Int>.self) { _ in
             ConstantGenerator(int)
         }
         
         let string: String = generatedByDefault()
-        mocks.register(type: Generator<String>.self) { _ in
+        mockedDependencies.register(type: Generator<String>.self) { _ in
             ConstantGenerator(string)
         }
     }

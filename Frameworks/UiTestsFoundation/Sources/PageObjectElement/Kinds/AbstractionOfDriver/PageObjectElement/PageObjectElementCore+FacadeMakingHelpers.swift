@@ -79,10 +79,6 @@ extension PageObjectElementCore {
     
     // TODO: Move to a better place. It is not for facades. It is a vital part of working with accessibility hierarchy.
     public var filteringHiddenElement: PageObjectElementCore {
-        return with(
-            settings: settings.with(
-                matcher: settings.matcher && IsNotDefinitelyHiddenMatcher()
-            )
-        )
+        return with.matcher(settings.matcher && IsNotDefinitelyHiddenMatcher())
     }
 }

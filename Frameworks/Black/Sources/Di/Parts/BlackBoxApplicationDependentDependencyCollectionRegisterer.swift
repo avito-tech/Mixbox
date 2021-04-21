@@ -1,11 +1,13 @@
 import MixboxDi
 import MixboxUiTestsFoundation
 
-public final class BlackBoxApplicationDependentDependencyCollectionRegisterer: DependencyCollectionRegisterer {
-    public init() {
+public final class BlackBoxApplicationDependentDependencyCollectionRegisterer: BaseBlackBoxDependencyCollectionRegisterer {
+    override public init() {
     }
     
-    public func register(dependencyRegisterer di: DependencyRegisterer) {
+    override public func register(dependencyRegisterer di: DependencyRegisterer) {
+        super.register(dependencyRegisterer: di)
+        
         di.register(type: ApplicationProvider.self) { _ in
             ApplicationProviderImpl { XCUIApplication() }
         }

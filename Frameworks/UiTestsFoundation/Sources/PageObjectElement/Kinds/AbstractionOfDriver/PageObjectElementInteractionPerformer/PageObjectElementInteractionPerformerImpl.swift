@@ -98,7 +98,6 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
             nestedInteractionPerformer: PerformingElementInteractionWithDependenciesPerformer(),
             stepLogger: stepLogger,
             screenshotAttachmentsMaker: screenshotAttachmentsMaker,
-            elementSettings: elementSettings,
             dateProvider: dateProvider
         )
     }
@@ -109,9 +108,11 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
         loggingElementInteractionWithDependenciesPerformer: LoggingElementInteractionWithDependenciesPerformer)
         -> ElementInteractionDependencies
     {
+        let interactionSettings = elementSettings.interactionSettings(interaction: interaction)
+        
         let retriableTimedInteractionState = RetriableTimedInteractionStateImpl(
             dateProvider: dateProvider,
-            timeout: elementSettings.interactionTimeout,
+            timeout: interactionSettings.interactionTimeout,
             startDateOfInteraction: dateProvider.currentDate(),
             parent: nil
         )
@@ -121,7 +122,8 @@ public final class PageObjectElementInteractionPerformerImpl: PageObjectElementI
             fileLine: fileLine,
             elementInteractionWithDependenciesPerformer: loggingElementInteractionWithDependenciesPerformer,
             retriableTimedInteractionState: retriableTimedInteractionState,
-            elementSettings: elementSettings
+            elementSettings: elementSettings,
+            interactionSettings: interactionSettings
         )
     }
     

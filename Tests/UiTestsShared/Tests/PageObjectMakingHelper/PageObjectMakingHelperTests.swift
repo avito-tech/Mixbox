@@ -19,7 +19,7 @@ final class PageObjectMakingHelperTests: TestCase {
     }
     
     override func setUp() {
-        mocks.register(type: InteractionFailureDebugger.self) { di in
+        mockedDependencies.register(type: InteractionFailureDebugger.self) { di in
             InteractionFailureDebuggerImpl(
                 synchronousAlertDisplayer: try di.resolve(),
                 synchronousPageObjectElementGenerationWizardRunner: try di.resolve()

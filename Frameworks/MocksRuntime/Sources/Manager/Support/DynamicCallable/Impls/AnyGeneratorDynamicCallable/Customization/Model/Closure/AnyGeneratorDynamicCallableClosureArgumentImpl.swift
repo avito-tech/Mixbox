@@ -1,4 +1,5 @@
 import MixboxGenerators
+import MixboxFoundation
 
 public final class AnyGeneratorDynamicCallableClosureArgumentImpl:
     AnyGeneratorDynamicCallableClosureArgument

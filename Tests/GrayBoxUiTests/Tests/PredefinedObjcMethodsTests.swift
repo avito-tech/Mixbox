@@ -20,8 +20,8 @@ final class PredefinedObjcMethodsTests: TestCase {
             .thenReturn(
                 // Value doesn't matter
                 AllMethodsWithUniqueImplementationAccessibilityLabelSwizzler(
-                    enhancedAccessibilityLabelMethodSwizzler: register(MockEnhancedAccessibilityLabelMethodSwizzler()),
-                    objcMethodsWithUniqueImplementationProvider: register(MockObjcMethodsWithUniqueImplementationProvider()),
+                    enhancedAccessibilityLabelMethodSwizzler: mocks.register(MockEnhancedAccessibilityLabelMethodSwizzler()),
+                    objcMethodsWithUniqueImplementationProvider: mocks.register(MockObjcMethodsWithUniqueImplementationProvider()),
                     baseClass: NSObject.self,
                     selector: #selector(NSObject.init),
                     methodType: .instanceMethod
@@ -102,7 +102,7 @@ final class PredefinedObjcMethodsTests: TestCase {
         // Given
         var fallbackWasUsed = false
         
-        let fallbackObjcMethodsWithUniqueImplementationProvider = register(MockObjcMethodsWithUniqueImplementationProvider())
+        let fallbackObjcMethodsWithUniqueImplementationProvider = mocks.register(MockObjcMethodsWithUniqueImplementationProvider())
         fallbackObjcMethodsWithUniqueImplementationProvider
             .stub()
             .objcMethodsWithUniqueImplementation()
