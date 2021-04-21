@@ -27,21 +27,34 @@ open class PropertyMatcherBuilder<TargetMatcherArgumentT, SourceMatcherArgumentT
         self.init(name, { $0[keyPath: keyPath] })
     }
     
-    public func nested<Nested>(
+    public func nested<Nested, NestedBuilder>(
         _ name: String,
-        _ getter: @escaping (SourceMatcherArgument) -> Nested)
-        -> PropertyMatcherBuilder<TargetMatcherArgumentT, Nested>
+        _ getter: @escaping (SourceMatcherArgument) -> Nested,
+        _ makeNestedBuilder: @escaping (String, @escaping (TargetMatcherArgumentT) -> Nested) -> NestedBuilder)
+        -> NestedBuilder
     {
         let nestedPropertyName = name
         let nestedPropertyGetter = getter
         
-        return PropertyMatcherBuilder<TargetMatcherArgumentT, Nested>(
+        return makeNestedBuilder(
             "\(self.name).\(nestedPropertyName)",
             {
                 let thisPropertyValue = self.getter($0)
                 return nestedPropertyGetter(thisPropertyValue)
             }
         )
+    }
+    
+    public func nested<Nested>(
+        _ name: String,
+        _ getter: @escaping (SourceMatcherArgument) -> Nested)
+        -> PropertyMatcherBuilder<TargetMatcherArgumentT, Nested>
+    {
+        return nested(name, getter) {
+            PropertyMatcherBuilder<TargetMatcherArgumentT, Nested>(
+                $0, $1
+            )
+        }
     }
     
     public func nested<Nested>(

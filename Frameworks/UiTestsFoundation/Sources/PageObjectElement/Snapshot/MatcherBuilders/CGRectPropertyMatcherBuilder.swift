@@ -1,13 +1,13 @@
 import MixboxTestsFoundation
 
-public final class CGRectPropertyMatcherBuilder<TargetMatcherArgumentT>:
-    PropertyMatcherBuilder<TargetMatcherArgumentT, CGRect>
+public final class CGRectPropertyMatcherBuilder<TargetMatcherArgument>:
+    PropertyMatcherBuilder<TargetMatcherArgument, CGRect>
 {
-    public var origin: MappingMatcherBuilderImpl<TargetMatcherArgumentT, CGPoint> {
-        return nested("origin", { $0.origin })
+    public var origin: CGPointPropertyMatcherBuilder<TargetMatcherArgument> {
+        return nested("origin", { $0.origin }, CGPointPropertyMatcherBuilder.init)
     }
-    
-    public var size: MappingMatcherBuilderImpl<TargetMatcherArgumentT, CGSize> {
-        return nested("size", { $0.size })
+
+    public var size: CGSizePropertyMatcherBuilder<TargetMatcherArgument> {
+        return nested("size", { $0.size }, CGSizePropertyMatcherBuilder.init)
     }
 }

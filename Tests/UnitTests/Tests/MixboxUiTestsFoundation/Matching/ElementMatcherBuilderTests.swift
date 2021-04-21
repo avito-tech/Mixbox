@@ -241,6 +241,100 @@ final class MatcherBuilderTests: BaseMatcherTests {
         )
     }
     
+    func test___operators_for_equatable() {
+        let rect = CGRect(x: 1, y: 2, width: 3, height: 4)
+        
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x == 1 }
+        )
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 1 == $0.frameRelativeToScreen.origin.x }
+        )
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x != 2 }
+        )
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 2 != $0.frameRelativeToScreen.origin.x }
+        )
+    }
+    
+    // swiftlint:disable:next function_body_length
+    func test___operators_for_comparable() {
+        let rect = CGRect(x: 1, y: 2, width: 3, height: 4)
+        
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x >= 1 }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x >= 2 }
+        )
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x <= 1 }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x <= 0 }
+        )
+        
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 1 <= $0.frameRelativeToScreen.origin.x }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 2 <= $0.frameRelativeToScreen.origin.x }
+        )
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 1 >= $0.frameRelativeToScreen.origin.x }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 0 >= $0.frameRelativeToScreen.origin.x }
+        )
+        
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x > 0 }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x > 1 }
+        )
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x < 2 }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen.origin.x < 1 }
+        )
+        
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 0 < $0.frameRelativeToScreen.origin.x }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 1 < $0.frameRelativeToScreen.origin.x }
+        )
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 2 > $0.frameRelativeToScreen.origin.x }
+        )
+        assertMismatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { 1 > $0.frameRelativeToScreen.origin.x }
+        )
+    }
+    
     // swiftlint:disable:next function_body_length
     func test_and() {
         assertMatches(
