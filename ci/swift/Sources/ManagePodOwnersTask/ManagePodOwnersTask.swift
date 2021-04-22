@@ -33,10 +33,10 @@ public final class ManagePodOwnersTask: LocalTask {
         
         // There is an assuption here that podspecs are pushed.
         // This task should only be executed after the release!
-        let podNames = try listOfPodspecsToPushProvider.listOfPodspecsToPush()
+        let podspecs = try listOfPodspecsToPushProvider.listOfPodspecsToPush()
         
-        for podName in podNames {
-            let info = try cocoapodsTrunkInfo.info(podName: podName)
+        for podspec in podspecs {
+            let info = try cocoapodsTrunkInfo.info(podName: podspec.name)
             
             let currentOwners = Set(info.owners.map { $0.email })
             
@@ -45,14 +45,14 @@ public final class ManagePodOwnersTask: LocalTask {
             
             for ownerEmail in ownersToRemove {
                 try cocoapodsTrunkRemoveOwner.removeOwner(
-                    podName: podName,
+                    podName: podspec.name,
                     ownerEmail: ownerEmail
                 )
             }
             
             for ownerEmail in ownersToAdd {
                 try cocoapodsTrunkAddOwner.addOwner(
-                    podName: podName,
+                    podName: podspec.name,
                     ownerEmail: ownerEmail
                 )
             }

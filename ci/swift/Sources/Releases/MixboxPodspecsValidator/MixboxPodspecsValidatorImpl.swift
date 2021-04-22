@@ -69,11 +69,11 @@ public final class MixboxPodspecsValidatorImpl: MixboxPodspecsValidator {
         
         let listOfPodspecsToPush = try listOfPodspecsToPushProvider.listOfPodspecsToPush()
         
-        try listOfPodspecsToPush.forEach { podspecName in
+        try listOfPodspecsToPush.forEach { podspec in
             try cocoapodsRepoPush.push(
                 repoName: sandboxRepoName,
                 pathToPodspec: repoRootPath.appending(
-                    pathComponent: "\(podspecName).podspec"
+                    pathComponent: "\(podspec.name).podspec"
                 ),
                 verbose: true,
                 localOnly: true,

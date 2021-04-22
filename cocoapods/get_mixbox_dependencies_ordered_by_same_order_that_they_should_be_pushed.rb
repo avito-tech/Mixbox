@@ -20,11 +20,13 @@ end
 while not podspecs_to_order.empty?
   podspecs_to_order.delete_if { |podspec|
     dependencies_blocking_push = podspec.dependencies.select { |dependency|
-      dependency.name.start_with?("Mixbox") and not specs_to_push_in_order.include?(dependency.name)
+      dependency.name.start_with?("Mixbox") and not specs_to_push_in_order.any? { |spec_to_push|
+        spec_to_push.name == dependency.name
+      }
     }
   
     if dependencies_blocking_push.empty?
-      specs_to_push_in_order.append(podspec.name)
+      specs_to_push_in_order.append(podspec)
       true
     else
       false

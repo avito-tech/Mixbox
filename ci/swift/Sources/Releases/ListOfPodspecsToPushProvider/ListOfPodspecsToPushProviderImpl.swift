@@ -15,7 +15,7 @@ public final class ListOfPodspecsToPushProviderImpl: ListOfPodspecsToPushProvide
         self.repoRootProvider = repoRootProvider
     }
     
-    public func listOfPodspecsToPush() throws -> [String] {
+    public func listOfPodspecsToPush() throws -> [JsonPodspec] {
         let getMixboxDependenciesScriptPath = try repoRootProvider
             .repoRootPath()
             .appending(
@@ -45,7 +45,7 @@ public final class ListOfPodspecsToPushProviderImpl: ListOfPodspecsToPushProvide
         }
         
         let listOfPodspecs = try JSONDecoder().decode(
-            [String].self,
+            [JsonPodspec].self,
             from: result.stdout.trimmedUtf8String().unwrapOrThrow().data(using: .utf8).unwrapOrThrow()
         )
         
@@ -68,8 +68,8 @@ public final class ListOfPodspecsToPushProviderImpl: ListOfPodspecsToPushProvide
             "MixboxMocksGeneration"
         ]
         
-        return listOfPodspecs.filter { podspecName in
-            !unsupportedPodspecs.contains(podspecName)
+        return listOfPodspecs.filter { podspec in
+            !unsupportedPodspecs.contains(podspec.name)
         }
     }
 }

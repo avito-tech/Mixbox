@@ -24,7 +24,7 @@ public final class MixboxPodspecsPusherImpl: MixboxPodspecsPusher {
     public func pushMixboxPodspecs() throws {
         let repoRoot = try repoRootProvider.repoRootPath()
         
-        try listOfPodspecsToPushProvider.listOfPodspecsToPush().forEach { podspecName in
+        try listOfPodspecsToPushProvider.listOfPodspecsToPush().forEach { podspec in
             // Sometimes there is this error:
             // ```
             // [!] An internal server error occurred. Please check for any known status issues at https://twitter.com/CocoaPods and try again later.'
@@ -32,7 +32,7 @@ public final class MixboxPodspecsPusherImpl: MixboxPodspecsPusher {
             
             try retrier.retry(timeouts: [30, 60, 120, 300]) {
                 try cocoapodsTrunkPush.push(
-                    pathToPodspec: repoRoot.appending(pathComponent: "\(podspecName).podspec"),
+                    pathToPodspec: repoRoot.appending(pathComponent: "\(podspec.name).podspec"),
                     allowWarnings: true,
                     skipImportValidation: true,
                     skipTests: true,

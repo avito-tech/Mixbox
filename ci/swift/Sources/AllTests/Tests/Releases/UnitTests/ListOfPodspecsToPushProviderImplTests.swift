@@ -17,7 +17,7 @@ public final class ListOfPodspecsToPushProviderImplTests: XCTestCase {
             )
             
             XCTAssertEqual(
-                try provider.listOfPodspecsToPush(),
+                try provider.listOfPodspecsToPush().map { $0.name },
                 // swiftlint:disable:next all
                 ["Mixbox", "MixboxAnyCodable", "MixboxDi", "MixboxFakeSettingsAppMain", "MixboxFoundation", "MixboxGenerators", "MixboxIoKit", "MixboxIpc", "MixboxIpcCommon", "MixboxReflection", "MixboxSBTUITestTunnelCommon", "MixboxSBTUITestTunnelServer", "MixboxTestability", "MixboxUiKit", "MixboxBuiltinDi", "MixboxBuiltinIpc", "MixboxIpcSbtuiHost", "MixboxSBTUITestTunnelClient", "MixboxTestsFoundation", "MixboxUiTestsFoundation", "MixboxInAppServices", "MixboxIpcSbtuiClient", "MixboxMocksRuntime", "MixboxStubbing", "MixboxBlack", "MixboxGray"]
             )

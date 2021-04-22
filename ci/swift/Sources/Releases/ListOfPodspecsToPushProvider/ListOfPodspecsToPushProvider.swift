@@ -8,5 +8,5 @@
 // Podspecs are just names like "MixboxFoundation". All podspecs
 // are just contained in a root directory of repo.
 public protocol ListOfPodspecsToPushProvider {
-    func listOfPodspecsToPush() throws -> [String]
+    func listOfPodspecsToPush() throws -> [JsonPodspec]
 }
