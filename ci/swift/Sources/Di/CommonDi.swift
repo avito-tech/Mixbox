@@ -158,7 +158,8 @@ open class CommonDi: BaseDi {
                 listOfPodspecsToPushProvider: try container.resolve(),
                 cocoapodsTrunkPush: try container.resolve(),
                 repoRootProvider: try container.resolve(),
-                retrier: try container.resolve()
+                retrier: try container.resolve(),
+                cocoapodsTrunkInfo: try container.resolve()
             )
         }
         container.register(type: MixboxPodspecsValidator.self) {
