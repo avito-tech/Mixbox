@@ -23,6 +23,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
     private let environmentProvider: EnvironmentProvider
     private let emceeVersionProvider: EmceeVersionProvider
+    private let retrier: Retrier
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -34,7 +35,8 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         remoteCacheConfigProvider: RemoteCacheConfigProvider,
         simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider,
         environmentProvider: EnvironmentProvider,
-        emceeVersionProvider: EmceeVersionProvider)
+        emceeVersionProvider: EmceeVersionProvider,
+        retrier: Retrier)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.emceeExecutable = emceeExecutable
@@ -46,6 +48,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
         self.environmentProvider = environmentProvider
         self.emceeVersionProvider = emceeVersionProvider
+        self.retrier = retrier
     }
     
     public func dump(
@@ -54,11 +57,13 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         -> RuntimeDump
     {
         do {
-            let jsonPath = try generateFile { jsonPath in
-                try emceeExecutable.execute(
-                    command: "dump",
-                    arguments: asStrings(arguments: arguments, jsonPath: jsonPath)
-                )
+            let jsonPath = try retrier.retry(retries: 3) {
+                try generateFile { jsonPath in
+                    try emceeExecutable.execute(
+                        command: "dump",
+                        arguments: asStrings(arguments: arguments, jsonPath: jsonPath)
+                    )
+                }
             }
             
             // I don't know why it is 2d array.

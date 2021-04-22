@@ -13,6 +13,7 @@ public final class InstallingEmceeProvider: EmceeProvider {
     private let simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider
     private let environmentProvider: EnvironmentProvider
     private let emceeVersionProvider: EmceeVersionProvider
+    private let retrier: Retrier
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -25,7 +26,8 @@ public final class InstallingEmceeProvider: EmceeProvider {
         remoteCacheConfigProvider: RemoteCacheConfigProvider,
         simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider,
         environmentProvider: EnvironmentProvider,
-        emceeVersionProvider: EmceeVersionProvider)
+        emceeVersionProvider: EmceeVersionProvider,
+        retrier: Retrier)
     {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
@@ -38,6 +40,7 @@ public final class InstallingEmceeProvider: EmceeProvider {
         self.simulatorOperationTimeoutsProvider = simulatorOperationTimeoutsProvider
         self.environmentProvider = environmentProvider
         self.emceeVersionProvider = emceeVersionProvider
+        self.retrier = retrier
     }
     
     public func emcee() throws -> Emcee {
@@ -57,12 +60,14 @@ public final class InstallingEmceeProvider: EmceeProvider {
                 remoteCacheConfigProvider: remoteCacheConfigProvider,
                 simulatorOperationTimeoutsProvider: simulatorOperationTimeoutsProvider,
                 environmentProvider: environmentProvider,
-                emceeVersionProvider: emceeVersionProvider
+                emceeVersionProvider: emceeVersionProvider,
+                retrier: retrier
             ),
             emceeRunTestsOnRemoteQueueCommand: EmceeRunTestsOnRemoteQueueCommandImpl(
                 emceeExecutable: emceeExecutable,
                 remoteCacheConfigProvider: remoteCacheConfigProvider,
-                emceeVersionProvider: emceeVersionProvider
+                emceeVersionProvider: emceeVersionProvider,
+                retrier: retrier
             )
         )
     }

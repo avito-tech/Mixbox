@@ -19,7 +19,7 @@ public final class ListOfPodspecsToPushProviderImplTests: XCTestCase {
             XCTAssertEqual(
                 try provider.listOfPodspecsToPush(),
                 // swiftlint:disable:next all
-                ["MixboxAnyCodable", "MixboxDi", "MixboxFakeSettingsAppMain", "MixboxFoundation", "MixboxGenerators", "MixboxIoKit", "MixboxIpc", "MixboxIpcCommon", "MixboxReflection", "MixboxSBTUITestTunnelCommon", "MixboxSBTUITestTunnelServer", "MixboxTestability", "MixboxUiKit", "MixboxBuiltinDi", "MixboxBuiltinIpc", "MixboxIpcSbtuiHost", "MixboxSBTUITestTunnelClient", "MixboxTestsFoundation", "MixboxUiTestsFoundation", "MixboxInAppServices", "MixboxIpcSbtuiClient", "MixboxMocksRuntime", "MixboxStubbing", "MixboxBlack", "MixboxGray"]
+                ["Mixbox", "MixboxAnyCodable", "MixboxDi", "MixboxFakeSettingsAppMain", "MixboxFoundation", "MixboxGenerators", "MixboxIoKit", "MixboxIpc", "MixboxIpcCommon", "MixboxReflection", "MixboxSBTUITestTunnelCommon", "MixboxSBTUITestTunnelServer", "MixboxTestability", "MixboxUiKit", "MixboxBuiltinDi", "MixboxBuiltinIpc", "MixboxIpcSbtuiHost", "MixboxSBTUITestTunnelClient", "MixboxTestsFoundation", "MixboxUiTestsFoundation", "MixboxInAppServices", "MixboxIpcSbtuiClient", "MixboxMocksRuntime", "MixboxStubbing", "MixboxBlack", "MixboxGray"]
             )
         }
     }
