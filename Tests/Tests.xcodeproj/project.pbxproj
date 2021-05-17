@@ -206,6 +206,12 @@
 		F8274A492143110D00A72C41 /* FailureGatherer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A482143110D00A72C41 /* FailureGatherer.swift */; };
 		F8274A4B2143112000A72C41 /* XcTestFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4A2143112000A72C41 /* XcTestFailure.swift */; };
 		F8274A4E21454ECF00A72C41 /* TestStateRecycling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8274A4D21454ECF00A72C41 /* TestStateRecycling.swift */; };
+		F828BC7F264D3E0A00EA61A1 /* RecordedCallsHolderImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F828BC7E264D3E0A00EA61A1 /* RecordedCallsHolderImplTests.swift */; };
+		F828BC82264D559200EA61A1 /* RecordedCall+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F828BC81264D559200EA61A1 /* RecordedCall+Equatable.swift */; };
+		F828BC84264D55A900EA61A1 /* RecordedCallArguments+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F828BC83264D55A900EA61A1 /* RecordedCallArguments+Equatable.swift */; };
+		F828BC86264D55B100EA61A1 /* RecordedCallArgument+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F828BC85264D55B100EA61A1 /* RecordedCallArgument+Equatable.swift */; };
+		F828BC88264D55BA00EA61A1 /* RecordedCallArgumentValue+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F828BC87264D55BA00EA61A1 /* RecordedCallArgumentValue+Equatable.swift */; };
+		F828BC8D264F0E1B00EA61A1 /* StubsHolderImplImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F828BC8C264F0E1B00EA61A1 /* StubsHolderImplImplTests.swift */; };
 		F82A05B921F755950008C2BB /* DummyForLaunchingUiTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82A05B821F755950008C2BB /* DummyForLaunchingUiTestsView.swift */; };
 		F82AC32D2572F4AE0008922E /* UninterceptableErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89ED2EA2572DCD300A32D54 /* UninterceptableErrorTracker.swift */; };
 		F82AC32E2572F4AE0008922E /* UninterceptableErrorTrackerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89ED2ED2572DFFC00A32D54 /* UninterceptableErrorTrackerImpl.swift */; };
@@ -949,6 +955,12 @@
 		F8274A482143110D00A72C41 /* FailureGatherer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureGatherer.swift; sourceTree = "<group>"; };
 		F8274A4A2143112000A72C41 /* XcTestFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcTestFailure.swift; sourceTree = "<group>"; };
 		F8274A4D21454ECF00A72C41 /* TestStateRecycling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStateRecycling.swift; sourceTree = "<group>"; };
+		F828BC7E264D3E0A00EA61A1 /* RecordedCallsHolderImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedCallsHolderImplTests.swift; sourceTree = "<group>"; };
+		F828BC81264D559200EA61A1 /* RecordedCall+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordedCall+Equatable.swift"; sourceTree = "<group>"; };
+		F828BC83264D55A900EA61A1 /* RecordedCallArguments+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordedCallArguments+Equatable.swift"; sourceTree = "<group>"; };
+		F828BC85264D55B100EA61A1 /* RecordedCallArgument+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordedCallArgument+Equatable.swift"; sourceTree = "<group>"; };
+		F828BC87264D55BA00EA61A1 /* RecordedCallArgumentValue+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordedCallArgumentValue+Equatable.swift"; sourceTree = "<group>"; };
+		F828BC8C264F0E1B00EA61A1 /* StubsHolderImplImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubsHolderImplImplTests.swift; sourceTree = "<group>"; };
 		F82A05AE21F6745F0008C2BB /* HostedAppLogicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HostedAppLogicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82A05B021F6745F0008C2BB /* HostedAppLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAppLogicTests.swift; sourceTree = "<group>"; };
 		F82A05B221F6745F0008C2BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1886,6 +1898,17 @@
 			path = TestStateRecycling;
 			sourceTree = "<group>";
 		};
+		F828BC80264D558500EA61A1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F828BC81264D559200EA61A1 /* RecordedCall+Equatable.swift */,
+				F828BC83264D55A900EA61A1 /* RecordedCallArguments+Equatable.swift */,
+				F828BC85264D55B100EA61A1 /* RecordedCallArgument+Equatable.swift */,
+				F828BC87264D55BA00EA61A1 /* RecordedCallArgumentValue+Equatable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		F82A05AF21F6745F0008C2BB /* HostedAppLogicTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2584,6 +2607,7 @@
 		F89ED2E52572CF1F00A32D54 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				F828BC80264D558500EA61A1 /* Extensions */,
 				F89ED2E62572CF3500A32D54 /* BaseMixboxMocksRuntimeTests.swift */,
 			);
 			path = Support;
@@ -3523,6 +3547,8 @@
 				F8340B37257E38BC004D29FE /* PublicInterfaceOfMocks */,
 				F8340B35257E3842004D29FE /* SupportForDifferentDeclarations */,
 				F8340B34257E381B004D29FE /* DynamicBehaviorGeneration */,
+				F828BC7E264D3E0A00EA61A1 /* RecordedCallsHolderImplTests.swift */,
+				F828BC8C264F0E1B00EA61A1 /* StubsHolderImplImplTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -5296,11 +5322,13 @@
 				F820873C2141A7D900DCBA2D /* BaseMatcherTests.swift in Sources */,
 				F8FC4AD123AA687700D3E911 /* OrMatcherTests.swift in Sources */,
 				F8539643254B07A20015FD37 /* EnumImmutableValueReflectionTests.swift in Sources */,
+				F828BC82264D559200EA61A1 /* RecordedCall+Equatable.swift in Sources */,
 				F830B5E02582208D00E5E444 /* DynamicBehaviorIntegrationalTestsProtocol.swift in Sources */,
 				F8208739214196D000DCBA2D /* ElementSnapshotStub.swift in Sources */,
 				F8B0346F2590F2D60014574B /* ArrayEqualsMatcherTests.swift in Sources */,
 				F80C2E2424D1E0E900C6CAD4 /* TestCaseDependencies.swift in Sources */,
 				F8C3AD1C243AFD5E004B6BA4 /* ConstantRandomNumberProvider.swift in Sources */,
+				F828BC84264D55A900EA61A1 /* RecordedCallArguments+Equatable.swift in Sources */,
 				F8B964CE2281DCC00054CE08 /* TestCase.swift in Sources */,
 				F89ED2F02572E00700A32D54 /* UninterceptableErrorRecorder.swift in Sources */,
 				F8DFA89D256BB50400016F40 /* Protocol2.swift in Sources */,
@@ -5323,6 +5351,7 @@
 				F8E160D02418674600B4912F /* MultiTouchEventFactoryTests.swift in Sources */,
 				F820873E2141AD8400DCBA2D /* ElementSnapshotStubTests.swift in Sources */,
 				F8B5C68B254AD731002DB0FB /* BaseValueCodeGeneratorTests.swift in Sources */,
+				F828BC88264D55BA00EA61A1 /* RecordedCallArgumentValue+Equatable.swift in Sources */,
 				F80C2E4D24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift in Sources */,
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
@@ -5351,6 +5380,7 @@
 				F8D262D0244313570006B707 /* GeneratorFacadeTests.swift in Sources */,
 				F84D127F2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift in Sources */,
 				F87D250024D050F000D6DBFA /* VisibilityCheckForLoopOptimizerImplTests.swift in Sources */,
+				F828BC86264D55B100EA61A1 /* RecordedCallArgument+Equatable.swift in Sources */,
 				F82BE56B243DF1150010FD6C /* RandomIntegerGeneratorTests.swift in Sources */,
 				F8A12E5325689AE9005E1963 /* MocksTestsFixtureBaseProtocolFromOtherFile.swift in Sources */,
 				F8933D4E23E33817002727AC /* BaseSerializationTestCase.swift in Sources */,
@@ -5375,6 +5405,7 @@
 				F853CFE1214AAE2D00EAFBCE /* FirstOfTargetFileFromCallStackFileLineForFailureProviderTests.swift in Sources */,
 				F8208736214195F900DCBA2D /* ElementMatcherBuilderTests.swift in Sources */,
 				F8DFA8A1256BB62600016F40 /* Protocol4.swift in Sources */,
+				F828BC8D264F0E1B00EA61A1 /* StubsHolderImplImplTests.swift in Sources */,
 				F899ACCB24E1A9500067E87C /* UiEventObservableImplTests.swift in Sources */,
 				F8D8556D235E54720068047A /* ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests.swift in Sources */,
 				F8C3AD1824384420004B6BA4 /* ConstantAnyGenerator.swift in Sources */,
@@ -5386,6 +5417,7 @@
 				F839A7EB214FC39F009F77AB /* LastCallOfCurrentTestFileLineForFailureProviderUnitTests.swift in Sources */,
 				F8AF0E652572930A0050D10A /* MixboxMocksDynamicResultTests.swift in Sources */,
 				F837EF60258BDD4B00721A30 /* EasyClosureStubbingIntegrationalTestsProtocol.swift in Sources */,
+				F828BC7F264D3E0A00EA61A1 /* RecordedCallsHolderImplTests.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
 				F8F8320524EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift in Sources */,
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,

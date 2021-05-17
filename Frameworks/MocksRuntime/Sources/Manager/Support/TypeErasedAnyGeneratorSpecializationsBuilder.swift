@@ -1,5 +1,6 @@
 import MixboxGenerators
 
+// Not thread-safe: is designed to be short-lived.
 public final class TypeErasedAnyGeneratorSpecializationsBuilder {
     public private(set) var specializations: [HashableType: TypeErasedAnyGeneratorSpecialization] = [:]
     

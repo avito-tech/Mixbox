@@ -2,6 +2,7 @@ import MixboxFoundation
 import MixboxTestsFoundation
 
 open class BaseMock: MockManagerSettable {
+    private var lock = NSLock()
     private var mockManager: MockManager
     private let fileLineWhereInitialized: FileLine
     
@@ -17,7 +18,7 @@ open class BaseMock: MockManagerSettable {
     // MARK: - Mock
     
     public func getMockManager(_: MixboxMocksRuntimeVoid.Type) -> MockManager {
-        return mockManager
+        return lock.lockWhile { mockManager }
     }
     
     @discardableResult
@@ -25,12 +26,14 @@ open class BaseMock: MockManagerSettable {
         _ newMockManager: MockManager)
         -> MixboxMocksRuntimeVoid
     {
-        let oldMockManager = self.mockManager
-        
-        oldMockManager.transferState(to: newMockManager)
-        
-        self.mockManager = newMockManager
-        
-        return MixboxMocksRuntimeVoid()
+        return lock.lockWhile {
+            let oldMockManager = self.mockManager
+            
+            oldMockManager.transferState(to: newMockManager)
+            
+            self.mockManager = newMockManager
+            
+            return MixboxMocksRuntimeVoid()
+        }
     }
 }

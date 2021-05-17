@@ -60,10 +60,10 @@ public final class MockManagerVerificationImpl: MockManagerVerification {
             }
         }
         
-        let timesMethodIsCalled = recordedCallsProvider.recordedCalls.mb_count {
-            $0.functionIdentifier == functionIdentifier
-                && recordedCallArgumentsMatcher.match(value: $0.arguments).matched
-        }
+        let timesMethodIsCalled = self.timesMethodIsCalled(
+            functionIdentifier: functionIdentifier,
+            recordedCallArgumentsMatcher: recordedCallArgumentsMatcher
+        )
         
         switch timesMethodWasCalledMatcher.match(timesMethodIsCalled: timesMethodIsCalled) {
         case .match:

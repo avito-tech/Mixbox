@@ -111,7 +111,9 @@ public final class MockManagerCallingImpl: MockManagerCalling {
             arguments: recordedCallArguments
         )
         
-        recordedCallsHolder.recordedCalls.append(recordedCall)
+        recordedCallsHolder.modifyRecordedCalls { recordedCalls in
+            recordedCalls.append(recordedCall)
+        }
 
         let returnValueOrNil: ReturnValue?
         do {

@@ -9,7 +9,9 @@ public final class MockManagerStubbingImpl: MockManagerStubbing {
         functionIdentifier: FunctionIdentifier,
         callStub: CallStub)
     {
-        stubsHolder.stubs[functionIdentifier, default: []]
-            .append(callStub)
+        stubsHolder.modifyStubs { stubs in
+            stubs[functionIdentifier, default: []]
+                .append(callStub)
+        }
     }
 }

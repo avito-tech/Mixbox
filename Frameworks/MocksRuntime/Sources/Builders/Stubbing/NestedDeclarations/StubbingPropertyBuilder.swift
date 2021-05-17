@@ -5,7 +5,7 @@ public class StubbingImmutablePropertyBuilder<PropertyType> {
     public typealias PropertyType = PropertyType
     
     fileprivate let mockManager: MockManager
-    fileprivate var variableName: String
+    fileprivate let variableName: String
     
     public init(
         variableName: String,

@@ -24,8 +24,10 @@ public final class MockManagerStateTransferringImpl: MockManagerStateTransferrin
     }
     
     public func appendRecordedCalls(from recordedCallsProvider: RecordedCallsProvider) {
-        recordedCallsHolder.recordedCalls.append(
-            contentsOf: recordedCallsProvider.recordedCalls
-        )
+        recordedCallsHolder.modifyRecordedCalls { recordedCalls in
+            recordedCalls.append(
+                contentsOf: recordedCallsProvider.recordedCalls
+            )
+        }
     }
 }

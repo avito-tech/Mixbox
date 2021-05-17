@@ -96,7 +96,7 @@ final class MixboxMocksDynamicResultTests: BaseMixboxMocksRuntimeTests {
         )
     }
     
-    func test___mock___doesnt_use_dynamicCallable_result___if_mock_is_stubbed_and_arguments_match_staub() {
+    func test___mock___doesnt_use_dynamicCallable_result___if_mock_is_stubbed_and_arguments_match_stab() {
         stubDynamicCallable()
             .thenReturn(.returned(123456789))
         

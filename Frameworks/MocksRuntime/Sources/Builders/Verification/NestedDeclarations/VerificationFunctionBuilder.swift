@@ -6,7 +6,7 @@ public final class VerificationFunctionBuilder<Arguments, ReturnType> {
     public typealias ReturnType = ReturnType
     
     private let mockManager: MockManager
-    private var functionIdentifier: FunctionIdentifier
+    private let functionIdentifier: FunctionIdentifier
     private let recordedCallArgumentsMatcher: Matcher<RecordedCallArguments>
     private let fileLine: FileLine
     
