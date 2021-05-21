@@ -59,16 +59,10 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
         return batch(
             iosMajorVersion: 14,
             methods: [
-                method(class: "NSObject"),
-                method(class: "UIActivityActionGroupCell"),
-                method(class: "UIActivityActionGroupCellAccessibility"),
                 method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
-                method(class: "UIShareGroupActivityCell"),
-                method(class: "UIShareGroupActivityCellAccessibility"),
-                method(class: "UIView"),
-                method(class: "__UIActivityActionGroupCellAccessibility_super"),
                 method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
-                method(class: "__UIShareGroupActivityCellAccessibility_super")
+                method(class: "UIView"),
+                method(class: "NSObject")
             ]
         )
     }

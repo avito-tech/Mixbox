@@ -5,11 +5,25 @@ import MixboxFoundation
 
 // TODO: Split. swiftlint:disable file_length
 public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
+    // MARK: - Dependencies:
     private let assertingSwizzler: AssertingSwizzler
-    private let onceToken = ThreadUnsafeOnceToken<Void>()
     
-    public init(assertingSwizzler: AssertingSwizzler) {
+    // In Apple's UI tests extended functionality of accessibility is enabled.
+    // We have to handle both cases. If it is enabled, we should not conflict with it,
+    // if it's not, we have to make our own version of some methods (that aren't present).
+    // I don't know what exactly AX means, maybe Accessibility Extensions, but it's a legit name.
+    private let appleAxEnabled: Bool
+    
+    // MARK: - State:
+    private let onceToken = ThreadUnsafeOnceToken<Void>()
+    fileprivate static var appleAxWasSwizzled = false
+    
+    public init(
+        assertingSwizzler: AssertingSwizzler,
+        appleAxEnabled: Bool)
+    {
         self.assertingSwizzler = assertingSwizzler
+        self.appleAxEnabled = appleAxEnabled
     }
     
     public func swizzle() {
@@ -45,16 +59,21 @@ public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
             swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_index(ofAccessibilityElement:)),
             shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
-        // Without swizzling that function below (with swizzling of functions of UIAccessibilityContainer only),
-        // XCUI will somehow somethime strangely mix unnecessary cells into AX hierarchy. I didn't understand
-        // how and why it does it. So, the default implementation of _accessibilityUserTestingChildren, which
-        // calls UIAccessibilityContainer, returns an array with extra objects. That function is private,
-        // the hack below was found after some reverse engineering.
-        swizzle(
-            originalSelector: Selector(("_accessibilityUserTestingChildren")),
-            swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren),
-            shouldAssertIfMethodIsSwizzledOnlyOneTime: true
-        )
+        
+        if appleAxEnabled {
+            // Without swizzling that function below (with swizzling of functions of UIAccessibilityContainer only),
+            // XCUI will somehow somethime strangely mix unnecessary cells into AX hierarchy. I didn't understand
+            // how and why it does it. So, the default implementation of _accessibilityUserTestingChildren, which
+            // calls UIAccessibilityContainer, returns an array with extra objects. That function is private,
+            // the hack below was found after some reverse engineering.
+            swizzle(
+                originalSelector: Selector(("_accessibilityUserTestingChildren")),
+                swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_accessibilityUserTestingChildren),
+                shouldAssertIfMethodIsSwizzledOnlyOneTime: true
+            )
+        }
+        
+        Self.appleAxWasSwizzled = appleAxEnabled
     }
     
     private func swizzle(
@@ -77,7 +96,18 @@ private var cachedFakeCells_associatedObjectKey = "UICollectionView_cachedFakeCe
 
 extension UICollectionView {
     @objc override open func mb_testability_children() -> [TestabilityElement] {
-        return collectionViewSwizzler_accessibilityUserTestingChildren().compactMap { $0 as? UIView }
+        if CollectionViewSwizzlerImpl.appleAxWasSwizzled {
+            return collectionViewSwizzler_accessibilityUserTestingChildren().compactMap { $0 as? UIView }
+        } else {
+            if cellsState.value.needToIgnoreCache {
+                return subviews
+            }
+            if cellsState.value.needToUpdateCache {
+                updateAccessibilityElements()
+            }
+            
+            return getAccessibilityElements()
+        }
     }
     
     private func changeStateInEverySuperview(cellsState: UICollectionView.CellsState) {

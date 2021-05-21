@@ -185,8 +185,23 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             )
         }
         di.register(type: CollectionViewSwizzler.self) { di in
-            CollectionViewSwizzlerImpl(
-                assertingSwizzler: try di.resolve()
+            let ipcStarterTypeProvider: IpcStarterTypeProvider = try di.resolve()
+            let ipcStarterType = try ipcStarterTypeProvider.ipcStarterType()
+            let appleAxEnabled: Bool
+            
+            // Little tech debt: the code assumes that blackbox tests uses Apple's UI testing
+            // (which is correct, and will be correct in imagineable future).
+            // But ideally we should have better solution, those two things shouldn't be directly dependent.
+            switch ipcStarterType {
+            case .blackbox, .sbtui:
+                appleAxEnabled = true
+            case .graybox:
+                appleAxEnabled = false
+            }
+            
+            return CollectionViewSwizzlerImpl(
+                assertingSwizzler: try di.resolve(),
+                appleAxEnabled: appleAxEnabled
             )
         }
         di.register(type: FakeCellsSwizzling.self) { di in

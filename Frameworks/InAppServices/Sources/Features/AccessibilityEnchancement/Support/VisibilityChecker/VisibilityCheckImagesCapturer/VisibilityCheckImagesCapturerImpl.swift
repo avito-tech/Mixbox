@@ -51,9 +51,8 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         // Find portion of search rect that is on screen and in view.
         let screenBounds = screen.bounds
         
-        let axFrame = view.accessibilityFrame
         let searchRectOnScreenInViewInScreenCoordinates = searchRectInScreenCoordinates.intersection(
-            axFrame.intersection(screenBounds)
+            view.mb_frameRelativeToScreen.intersection(screenBounds)
         )
         
         if searchRectOnScreenInViewInScreenCoordinates.isEmpty {

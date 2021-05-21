@@ -62,6 +62,10 @@ import UIKit
         @inline(__always) get { return mb_top + mb_height }
         @inline(__always) set { mb_top = newValue - mb_height }
     }
+    
+    final var mb_frameRelativeToScreen: CGRect {
+        return convert(bounds, to: nil)
+    }
 }
 
 #endif

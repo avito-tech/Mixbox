@@ -53,7 +53,7 @@ public final class ViewVisibilityCheckerImpl: ViewVisibilityChecker {
                 return notVisibleResult()
             }
             
-            let searchRectInScreenCoordinates = arguments.view.accessibilityFrame
+            let searchRectInScreenCoordinates = arguments.view.mb_frameRelativeToScreen
 
             let screenBounds = screen.bounds
 
