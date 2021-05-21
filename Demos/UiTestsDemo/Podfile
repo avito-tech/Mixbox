@@ -73,10 +73,10 @@ end
 
 target 'App' do
   # This is mandatory for app to be testable.
-  # Don't worry, no code will leak in production.
+  # Don't worry, no code will leak in production (except dummy code in `MixboxTestability`, see notice below).
   #
   # However, there would be empty frameworks (with no code, except some dummy in MixboxTestability),
-  # if you don't use any stripping tool (like Amimono), it will add a little overhead.
+  # if you don't use any application size optimization tool (like Amimono), it will add a very little overhead.
   # So in that case, consider using something like:
   #
   # ```
@@ -86,9 +86,13 @@ target 'App' do
   # Note also that in this case you have to define all its dependencies also (MixboxUiKit, MixboxFoundation, etc),
   # all of them should be in 'Test` configuration (or 'Debug' or whatever you use for tests).
   #
-  # The only exception is `MixboxTestability`. You can link it to your test configuration only, but we don't recommend it,
-  # as it will require you to use `#if TEST` or `#if DEBUG` (or whatever you use for conditional compilation) in all
-  # your code that works with extended information for testability (example: very good things like `testability_customValues`). 
+  # The only exception is `MixboxTestability`. You can link it to your test configuration only, but we don't recommend it.
+  # In other words. We recommend to link it in your release builds. It will contain only little code and the code will do nothing
+  # in your release build (assuming you didn't set `MIXBOX_ENABLE_IN_APP_SERVICES`, which is for your test/debug configuariton).
+  # This way you can use things like `testability_customValues` or other extensions of testability of your app without
+  # putting your code withing conditional compilation blocks (example: `#if TEST` or `#if DEBUG` + your code + `#endif`,
+  # or whatever flag you use for conditional compilation).
+  # Of course you can link it only in your test builds (not in release builds), but in our opinion, it doesn't worth the hassle. 
   
   mixbox.pod 'MixboxInAppServices'
 end

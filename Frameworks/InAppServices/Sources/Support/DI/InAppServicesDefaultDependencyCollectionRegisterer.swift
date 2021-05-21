@@ -191,7 +191,8 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             
             // Little tech debt: the code assumes that blackbox tests uses Apple's UI testing
             // (which is correct, and will be correct in imagineable future).
-            // But ideally we should have better solution, those two things shouldn't be directly dependent.
+            // But ideally we should have better solution, those two things (settings of IPC
+            // and settings of AX) shouldn't be directly dependent.
             switch ipcStarterType {
             case .blackbox, .sbtui:
                 appleAxEnabled = true

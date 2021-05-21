@@ -9,8 +9,10 @@ public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
     private let assertingSwizzler: AssertingSwizzler
     
     // In Apple's UI tests extended functionality of accessibility is enabled.
-    // We have to handle both cases. If it is enabled, we should not conflict with it,
-    // if it's not, we have to make our own version of some methods (that aren't present).
+    // In unit tests it is not enabled. The code enabling it is not public or open sourced.
+    // We have to handle both cases. If it is enabled, we should not conflict with it
+    // (see comments near usages of `_accessibilityUserTestingChildren`).
+    // If it's not, we have to make our own version of `_accessibilityUserTestingChildren`.
     // I don't know what exactly AX means, maybe Accessibility Extensions, but it's a legit name.
     private let appleAxEnabled: Bool
     
@@ -62,7 +64,7 @@ public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
         
         if appleAxEnabled {
             // Without swizzling that function below (with swizzling of functions of UIAccessibilityContainer only),
-            // XCUI will somehow somethime strangely mix unnecessary cells into AX hierarchy. I didn't understand
+            // XCUI will somehow sometime strangely mix unnecessary cells into AX hierarchy. I didn't understand
             // how and why it does it. So, the default implementation of _accessibilityUserTestingChildren, which
             // calls UIAccessibilityContainer, returns an array with extra objects. That function is private,
             // the hack below was found after some reverse engineering.
