@@ -10,6 +10,14 @@ platform :ios, :deployment_target => '9.0'
 use_frameworks!
 inhibit_all_warnings!
 
+# This code imitates as if Mixbox has been released to Cocoapods,
+# but it actually uses local code. Mixbox is automatically released to Cocoapods,
+# so in your project you may use just `pod SomePod`.
+# We use local pods here, because we test Demo on CI **before** release, so we can't really use
+# previously release versions to test next release.
+#
+# Feel free to delete it.
+#
 mixbox = Devpods::Repo.new(
     'ssh://git@github.com:avito-tech/Mixbox.git',
     lambda { |name, hash|
@@ -66,6 +74,21 @@ end
 target 'App' do
   # This is mandatory for app to be testable.
   # Don't worry, no code will leak in production.
+  #
+  # However, there would be empty frameworks (with no code, except some dummy in MixboxTestability),
+  # if you don't use any stripping tool (like Amimono), it will add a little overhead.
+  # So in that case, consider using something like:
+  #
+  # ```
+  # pod 'MixboxInAppServices, :configurations => ['Test']
+  # ```
+  #
+  # Note also that in this case you have to define all its dependencies also (MixboxUiKit, MixboxFoundation, etc),
+  # all of them should be in 'Test` configuration (or 'Debug' or whatever you use for tests).
+  #
+  # The only exception is `MixboxTestability`. You can link it to your test configuration only, but we don't recommend it,
+  # as it will require you to use `#if TEST` or `#if DEBUG` (or whatever you use for conditional compilation) in all
+  # your code that works with extended information for testability (example: very good things like `testability_customValues`). 
   
   mixbox.pod 'MixboxInAppServices'
 end
