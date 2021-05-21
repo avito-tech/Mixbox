@@ -2,7 +2,7 @@
 
 #import "UIAccessibilityAccessibilityInitializer.h"
 
-#include <dlfcn.h>
+#import "LoadSimulatorRuntimeLibrary.h"
 
 @interface UIAccessibilityInformationLoader
 
@@ -32,14 +32,15 @@
     BOOL shouldLoad = self->uiAccessibilityHandle == nil;
     
     if (!alreadyLoaded && shouldLoad) {
-        static NSString *path = @"/System/Library/PrivateFrameworks/UIAccessibility.framework/UIAccessibility";
-        
-        char const *const localPath = [path fileSystemRepresentation];
-        
-        self->uiAccessibilityHandle = dlopen(localPath, RTLD_GLOBAL);
+        NSString *error;
+        self->uiAccessibilityHandle = loadSimulatorRuntimeLibrary
+        (
+         @"/System/Library/PrivateFrameworks/UIAccessibility.framework/UIAccessibility",
+         &error
+         );
+        self->libraryLoadingError = error;
         
         if (!self->uiAccessibilityHandle) {
-            self->libraryLoadingError = [NSString stringWithFormat:@"dlopen couldn't open UIAccessibility at path %s", localPath];
             return self->libraryLoadingError;
         }
         

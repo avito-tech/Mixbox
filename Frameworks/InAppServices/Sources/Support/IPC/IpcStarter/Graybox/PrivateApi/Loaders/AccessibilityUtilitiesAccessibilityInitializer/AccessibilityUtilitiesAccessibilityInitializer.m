@@ -2,7 +2,7 @@
 
 #import "AccessibilityUtilitiesAccessibilityInitializer.h"
 
-#include <dlfcn.h>
+#import "LoadSimulatorRuntimeLibrary.h"
 
 @interface AXBackBoardServer
 
@@ -72,19 +72,18 @@
     if (self->accessibilityUtilitiesHandle) {
         return nil;
     } else {
-        static NSString *path = @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities";
+        NSString *error;
+        self->accessibilityUtilitiesHandle = loadSimulatorRuntimeLibrary
+        (
+         @"/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities",
+         &error
+         );
+        self->libraryLoadingError = error;
         
-        char const *const localPath = [path fileSystemRepresentation];
-        if (!localPath) {
-            return @"localPath should not be nil";
-        }
-        
-        self->accessibilityUtilitiesHandle = dlopen(localPath, RTLD_GLOBAL);
-        
-        if (self->accessibilityUtilitiesHandle) {
-            return nil;
+        if (!self->accessibilityUtilitiesHandle) {
+            return self->libraryLoadingError;
         } else {
-            return [NSString stringWithFormat:@"dlopen couldn't open AccessibilityUtilities at path %s", localPath];
+            return error;
         }
     }
 }
