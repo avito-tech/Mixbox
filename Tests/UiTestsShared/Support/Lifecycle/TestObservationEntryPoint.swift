@@ -10,9 +10,11 @@ final class TestObservationEntryPoint: BaseTestObservationEntryPoint {
     }
     
     private func exportAvailableTestCasesIfNeeded() {
-        if let exportPath = env("EMCEE_RUNTIME_TESTS_EXPORT_PATH") {
-            TestQuery(outputPath: exportPath).export()
+        guard let exportPath = env("EMCEE_RUNTIME_TESTS_EXPORT_PATH") else {
+            return
         }
+        
+        TestQuery(outputPath: exportPath).export()
     }
     
     private func setUpObservation() {
