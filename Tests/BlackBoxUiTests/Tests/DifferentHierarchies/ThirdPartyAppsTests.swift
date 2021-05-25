@@ -100,7 +100,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
     func deleteApp() {
         // At this moment UI will be probably stable:
         
-        switch iosVersion {
+        switch iosVersion.majorVersion {
         case ...12:
             mainAppIcon.press(duration: 1.5)
             mainAppIconDeleteButtonForIos12OrLower.tap()
@@ -139,7 +139,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
     }
     
     func scrollToMainAppIcon() {
-        if iosVersion <= 12 {
+        if iosVersion.majorVersion <= 12 {
             // This will trigger scroll:
             mainAppIcon.assertIsDisplayed()
         } else {
@@ -150,10 +150,6 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
                 anyWindow.swipeLeft()
             }
         }
-    }
-    
-    private var iosVersion: Int {
-        return UiDeviceIosVersionProvider(uiDevice: UIDevice.current).iosVersion().majorVersion
     }
     
     // There is no way to find delete button on iOS 13

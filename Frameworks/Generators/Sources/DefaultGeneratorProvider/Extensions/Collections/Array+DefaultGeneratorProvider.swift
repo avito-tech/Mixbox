@@ -10,7 +10,7 @@ extension Array: DefaultGeneratorProvider {
         case .random:
             return try RandomArrayGenerator(
                 anyGenerator: dependencyResolver.resolve(),
-                lengthGenerator: dependencyResolver.lengthGenerator()
+                lengthGenerator: dependencyResolver.arrayLengthGenerator()
             )
         }
     }

@@ -1,4 +1,6 @@
 import UIKit
+import MixboxTestsFoundation
+import MixboxUiKit
 
 // You can use this class in your tests.
 //
@@ -32,12 +34,23 @@ import UIKit
 // TODO: Actually this class can not be used in a real project if `elementFactory` is polymorphic. Invent a way for this case.
 //
 open class BasePageObject: PageObject, ElementFactory {
+    private let di: TestFailingDependencyResolver
     private let elementFactory: ElementFactory
     
     public init(pageObjectDependenciesFactory: PageObjectDependenciesFactory) {
         self.elementFactory = ElementFactoryImpl(
             pageObjectDependenciesFactory: pageObjectDependenciesFactory
         )
+        self.di = pageObjectDependenciesFactory.di
+    }
+    
+    // MARK: - Sugar
+    
+    // Shorthand for determining iOS version. For example,
+    // some standard views may be different on different iOS versions.
+    public var iosVersion: IosVersion {
+        let iosVersionProvider: IosVersionProvider = di.resolve()
+        return iosVersionProvider.iosVersion()
     }
     
     // MARK: - ElementFactory

@@ -40,6 +40,17 @@ public final class ReflectorImpl: Reflector {
         self.parents = parents
     }
     
+    public convenience init(
+        value: Any,
+        parents: Set<Parent> = [])
+    {
+        self.init(
+            value: value,
+            mirror: Mirror(reflecting: value),
+            parents: parents
+        )
+    }
+    
     public func nestedValueReflection(value: Any, mirror: Mirror) -> TypedImmutableValueReflection {
         let nextParents: Set<Parent>
         

@@ -28,9 +28,15 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
         di.register(type: Generator<Int>.self) { di in
             try RandomIntegerGenerator(randomNumberProvider: di.resolve())
         }
-        di.register(type: Generator<String>.self) { di in
-            try RandomStringGenerator(randomNumberProvider: di.resolve())
-        }
+        di.registerMultiple(type: RandomStringGenerator.self) { di in
+            try RandomStringGenerator(
+                randomNumberProvider: di.resolve(),
+                lengthGenerator: RandomIntegerGenerator(
+                    randomNumberProvider: try di.resolve(),
+                    сlosedRange: 0...20
+                )
+            )
+        }.reregister { $0 as Generator<String> }
         di.register(type: Generator<Int64>.self) { di in
             try RandomIntegerGenerator(randomNumberProvider: di.resolve())
         }
@@ -38,7 +44,7 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
             try RandomIntegerGenerator(randomNumberProvider: di.resolve())
         }
         di.register(type: Generator<URL>.self) { di in
-            let stringGenerator = try RandomStringGenerator(randomNumberProvider: di.resolve())
+            let stringGenerator: RandomStringGenerator = try di.resolve()
             return Generator {
                 let randomString = try stringGenerator.generate()
                 guard let url = URL(string: randomString) else {

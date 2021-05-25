@@ -30,6 +30,7 @@ class BaseMatcherTests: XCTestCase {
         case .match:
             break
         case let .mismatch(mismatchResult):
+            suppressElementSnapshotStubFailures(value: value)
             XCTFail("""
                 Expected: match
                 Actual: mismatch
@@ -72,6 +73,7 @@ class BaseMatcherTests: XCTestCase {
     {
         switch matcher.match(value: value) {
         case .match:
+            suppressElementSnapshotStubFailures(value: value)
             XCTFail("""
                 Expected: mismatch
                 Actual: match
@@ -85,6 +87,7 @@ class BaseMatcherTests: XCTestCase {
             let actualPercentageOfMatching = mismatchResult.percentageOfMatching
             
             if percentageOfMatching != actualPercentageOfMatching {
+                suppressElementSnapshotStubFailures(value: value)
                 XCTFail("""
                     Expected percentageOfMatching: \(percentageOfMatching)
                     Actual: \(actualPercentageOfMatching)
@@ -100,6 +103,7 @@ class BaseMatcherTests: XCTestCase {
                 let actualDescription = mismatchResult.mismatchDescription
                 
                 if description != actualDescription {
+                    suppressElementSnapshotStubFailures(value: value)
                     XCTFail("""
                         Expected mismatchDescription: \(description)
                         Actual: \(actualDescription)
@@ -127,5 +131,18 @@ class BaseMatcherTests: XCTestCase {
             file: file,
             line: line
         )
+    }
+    
+    // Printing value causes ElementSnapshotStub values to be read
+    // If values aren't stubbed it causes irrelevant failures.
+    // This code suppresses failures:
+    private func suppressElementSnapshotStubFailures(value: Any) {
+        if let stub = value as? ElementSnapshotStub {
+            stub.failForNotStubbedValues = false
+            
+            for child in stub.children {
+                suppressElementSnapshotStubFailures(value: child)
+            }
+        }
     }
 }

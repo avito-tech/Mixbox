@@ -1,4 +1,10 @@
-public protocol TestingView: ViewControllerContainerTypeProvider, InitializableWithTestingViewControllerSettings {
+import MixboxReflection
+
+public protocol TestingView:
+    ViewControllerContainerTypeProvider,
+    InitializableWithTestingViewControllerSettings,
+    ViewWithUtilities
+{
 }
 
 extension TestingView {

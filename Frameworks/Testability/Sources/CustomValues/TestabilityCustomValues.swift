@@ -8,6 +8,12 @@ public final class TestabilityCustomValues {
     public init() {
     }
     
+    public func remove(key: String) {
+        #if MIXBOX_ENABLE_IN_APP_SERVICES
+        return dictionary[key] = nil
+        #endif
+    }
+    
     public subscript <T: Codable>(_ key: String) -> T? {
         get {
             #if MIXBOX_ENABLE_IN_APP_SERVICES

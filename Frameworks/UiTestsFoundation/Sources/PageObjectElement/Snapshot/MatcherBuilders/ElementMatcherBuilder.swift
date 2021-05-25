@@ -78,14 +78,14 @@ public final class ElementMatcherBuilder {
     }
     
     public func isSubviewOf(
-        _ matcher: ElementMatcherBuilderClosure)
+        matcher: ElementMatcherBuilderClosure)
         -> ElementMatcher
     {
         return IsSubviewMatcher(matcher(self))
     }
     
     public func isDirectSubviewOf(
-        _ matcher: ElementMatcherBuilderClosure)
+        matcher: ElementMatcherBuilderClosure)
         -> ElementMatcher
     {
         return HasPropertyMatcher(
@@ -94,6 +94,47 @@ public final class ElementMatcherBuilder {
             },
             name: "superview",
             matcher: OptionalMatcher(matcher(self))
+        )
+    }
+    
+    // Matches only direct subviews
+    public func hasDirectSubview(
+        includingRootSnapshot: Bool = false,
+        depthRelativeToDirectSubviews: UInt = 0,
+        matcher: ElementMatcherBuilderClosure)
+        -> ElementMatcher
+    {
+        return SnapshotHierarchyMatcher(
+            matcher: matcher(self),
+            snapshotTreeDepthRange: .forDirectSubviewsMatching(
+                includingRootSnapshot: includingRootSnapshot,
+                depthRelativeToDirectSubviews: depthRelativeToDirectSubviews
+            )
+        )
+    }
+    
+    // Recursive matcher
+    public func hasSubview(
+        includingRootSnapshot: Bool = false,
+        matcher: ElementMatcherBuilderClosure)
+        -> ElementMatcher
+    {
+        return SnapshotHierarchyMatcher(
+            matcher: matcher(self),
+            snapshotTreeDepthRange: .forRecursiveMatching(
+                includingRootSnapshot: includingRootSnapshot
+            )
+        )
+    }
+    
+    // Recursive matcher including root element
+    public func matchesOrHasSubviewThatMatches(
+        matcher: ElementMatcherBuilderClosure)
+        -> ElementMatcher
+    {
+        return hasSubview(
+            includingRootSnapshot: true,
+            matcher: matcher
         )
     }
     

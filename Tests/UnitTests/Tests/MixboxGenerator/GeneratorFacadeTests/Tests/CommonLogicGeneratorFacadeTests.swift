@@ -34,8 +34,8 @@ final class CommonLogicGeneratorFacadeTests: BaseGeneratorFacadeTests {
         let object: FinalClass = generator.generate()
         
         XCTAssertEqual(object.int, 2947667278772165694)
-        XCTAssertEqual(object.string, "")
-        XCTAssertEqual(object.structure.int, 729919693006235833)
-        XCTAssertEqual(object.structure.string, "JA8GJGRxnuC")
+        XCTAssertEqual(object.string, "vUQAfGQNREuuC1ZHV")
+        XCTAssertEqual(object.structure.int, 5302155820127968924)
+        XCTAssertEqual(object.structure.string, "zu2")
     }
 }

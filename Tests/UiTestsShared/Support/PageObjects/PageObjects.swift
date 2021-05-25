@@ -49,6 +49,8 @@ final class PageObjects: BasePageObjects {
     var nonViewElementsTestsWebView: MainAppScreen<NonViewElementsTestsWebViewPageObject> { return mainAppScreen() }
     var nonViewElementsTestsCustomDrawingView: MainAppScreen<NonViewElementsTestsCustomDrawingViewPageObject> { return mainAppScreen() }
     
+    var navigationBarCanBeFoundTestsView: MainAppScreen<NavigationBarCanBeFoundTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             uikit: apps.mainUiKitHierarchy.pageObject(),

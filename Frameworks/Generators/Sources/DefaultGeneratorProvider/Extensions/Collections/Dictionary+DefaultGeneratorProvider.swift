@@ -10,7 +10,7 @@ extension Dictionary: DefaultGeneratorProvider {
         case .random:
             return try RandomDictionaryGenerator(
                 anyGenerator: dependencyResolver.resolve(),
-                lengthGenerator: dependencyResolver.lengthGenerator()
+                lengthGenerator: dependencyResolver.dictionaryLengthGenerator()
             )
         }
     }

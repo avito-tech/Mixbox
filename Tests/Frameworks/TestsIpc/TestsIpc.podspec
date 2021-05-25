@@ -16,4 +16,6 @@ Pod::Spec.new do |s|
   s.dependency 'MixboxIpc'
   s.dependency 'MixboxBuiltinIpc'
   s.dependency 'MixboxIpcCommon'
+  s.dependency 'MixboxReflection'
+  s.dependency 'MixboxGenerators'
 end
