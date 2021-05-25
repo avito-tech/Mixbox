@@ -185,6 +185,7 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             )
         }
         di.register(type: CollectionViewSwizzler.self) { di in
+            let iosVersionProvider: IosVersionProvider = try di.resolve()
             let ipcStarterTypeProvider: IpcStarterTypeProvider = try di.resolve()
             let ipcStarterType = try ipcStarterTypeProvider.ipcStarterType()
             let appleAxEnabled: Bool
@@ -197,7 +198,11 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             case .blackbox, .sbtui:
                 appleAxEnabled = true
             case .graybox:
-                appleAxEnabled = false
+                // 1. `AccessibilityOnSimulatorInitializer` works flawlessly on iOS 13 or prior
+                // and provides proper AX hierarchy.
+                // 2. `CollectionViewSwizzlerImpl` works flawlessly on iOS 14 with `appleAxEnabled` == false
+                // 3. It doesn't work otherwise.
+                appleAxEnabled = iosVersionProvider.iosVersion().majorVersion <= 13
             }
             
             return CollectionViewSwizzlerImpl(
