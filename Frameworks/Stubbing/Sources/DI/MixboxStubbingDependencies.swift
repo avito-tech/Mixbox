@@ -28,7 +28,7 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
         di.register(type: Generator<Int>.self) { di in
             try RandomIntegerGenerator(randomNumberProvider: di.resolve())
         }
-        di.registerMultiple(type: RandomStringGenerator.self) { di in
+        di.register(type: Generator<String>.self) { di in
             try RandomStringGenerator(
                 randomNumberProvider: di.resolve(),
                 lengthGenerator: RandomIntegerGenerator(
@@ -36,7 +36,7 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
                     сlosedRange: 0...20
                 )
             )
-        }.reregister { $0 as Generator<String> }
+        }
         di.register(type: Generator<Int64>.self) { di in
             try RandomIntegerGenerator(randomNumberProvider: di.resolve())
         }
@@ -44,14 +44,7 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
             try RandomIntegerGenerator(randomNumberProvider: di.resolve())
         }
         di.register(type: Generator<URL>.self) { di in
-            let stringGenerator: RandomStringGenerator = try di.resolve()
-            return Generator {
-                let randomString = try stringGenerator.generate()
-                guard let url = URL(string: randomString) else {
-                    throw GeneratorError("Could not initialize url with random string \(randomString)")
-                }
-                return url
-            }
+            try RandomUrlGenerator(randomNumberProvider: di.resolve())
         }
         di.register(type: RandomNumberProvider.self) { _ in
             MersenneTwisterRandomNumberProvider(seed: 0)
