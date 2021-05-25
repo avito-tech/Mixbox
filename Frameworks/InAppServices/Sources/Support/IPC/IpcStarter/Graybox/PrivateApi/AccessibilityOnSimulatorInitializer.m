@@ -12,12 +12,9 @@
 // Many methods are available at runtime. This class attempts to recreate same
 // behavior in unit tests (which is what we use for graybox UI testing).
 @interface AccessibilityOnSimulatorInitializer() {
-    void *accessibilityUtilitiesHandle;
-    void *libAccessibilityHandle;
-    
     // Our primary (and the only) method of enabling UI-tests-like accessibility before iOS 14.
     // It became unstable since iOS 14.
-    UIAccessibilityAccessibilityInitializer *uiAccessibilityAccessibilityInitializer;
+    AccessibilityUtilitiesAccessibilityInitializer *accessibilityUtilitiesAccessibilityInitializer;
     
     // A second version, not known to be working reliably either:
     LibAccessibilityAccessibilityInitializer *libAccessibilityAccessibilityInitializer;
@@ -30,7 +27,7 @@
     // used `AccessibilityUtilities` framework. First method gave 0 passed tests. Second gave
     // 56 passed tests (and 140 failed tests nonetheless). All errors I've seen were because
     // elements didn't provide their correct accessibilityFrame.
-    AccessibilityUtilitiesAccessibilityInitializer *accessibilityUtilitiesAccessibilityInitializer;
+    UIAccessibilityAccessibilityInitializer *uiAccessibilityAccessibilityInitializer;
 }
 
 @end
