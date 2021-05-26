@@ -28,13 +28,17 @@ public final class ResolvedElementQuery {
         
         var lines = [String]()
         for (index, result) in sortedResults {
+            let snapshot = elementQueryResolvingState.elementSnapshots[index]
+            
             switch result {
             case .match:
-                lines.append("Снепшот \(index), полное соответствие:")
-                let snapshotDescription = elementQueryResolvingState.elementSnapshots[index].debugDescription
+                lines.append("Snapshot \(index), full match:")
+                let snapshotDescription = snapshot.debugDescription
                 lines.append(snapshotDescription.mb_indent("    "))
             case .mismatch(let mismatchResult):
-                lines.append("Снепшот \(index), соответствие \(mismatchResult.percentageOfMatching):")
+                let idSuffix = snapshot.uniqueIdentifier.valueIfAvailable.map { " (uid: \($0)" }
+                    ?? (snapshot.accessibilityIdentifier.isEmpty ? "" : " (id: \(snapshot.accessibilityIdentifier)" )
+                lines.append("Snapshot \(index), percentage of matching \(mismatchResult.percentageOfMatching):\(idSuffix)")
                 lines.append(mismatchResult.mismatchDescription)
             }
         }
