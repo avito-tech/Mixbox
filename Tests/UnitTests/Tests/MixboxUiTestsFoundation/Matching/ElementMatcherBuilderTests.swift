@@ -41,6 +41,28 @@ final class MatcherBuilderTests: BaseMatcherTests {
         )
     }
     
+    func test___frame() {
+        let rect = CGRect(x: 1, y: 2, width: 3, height: 4)
+        
+        assertMatches(
+            stub: { $0.frame = .available(rect) },
+            check: { $0.frame == rect }
+        )
+        assertMismatches(
+            stub: { $0.frame = .unavailable },
+            check: { $0.frame == rect }
+        )
+    }
+    
+    func test___frameRelativeToScreen() {
+        let rect = CGRect(x: 1, y: 2, width: 3, height: 4)
+        
+        assertMatches(
+            stub: { $0.frameRelativeToScreen = rect },
+            check: { $0.frameRelativeToScreen == rect }
+        )
+    }
+    
     func test_hasKeyboardFocus() {
         assertMatches(
             stub: { $0.hasKeyboardFocus = true },

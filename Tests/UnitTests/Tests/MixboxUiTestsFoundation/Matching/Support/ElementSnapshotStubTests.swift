@@ -4,6 +4,7 @@ import MixboxUiTestsFoundation
 final class ElementSnapshotStubTests: XCTestCase {
     func test___ElementSnapshotStub___return_stubbed_values() {
         let stub = ElementSnapshotStub {
+            $0.frame = .available(CGRect(x: 1, y: 2, width: 3, height: 4))
             $0.frameRelativeToScreen = CGRect(x: 1, y: 2, width: 3, height: 4)
             $0.elementType = .button
             $0.hasKeyboardFocus = true
@@ -22,6 +23,7 @@ final class ElementSnapshotStubTests: XCTestCase {
             $0.customValues = .available(["customValues": "customValues"])
         }
         
+        XCTAssertEqual(stub.frame, .available(CGRect(x: 1, y: 2, width: 3, height: 4)))
         XCTAssertEqual(stub.frameRelativeToScreen, CGRect(x: 1, y: 2, width: 3, height: 4))
         XCTAssertEqual(stub.elementType, .button)
         XCTAssertEqual(stub.hasKeyboardFocus, true)
@@ -44,6 +46,7 @@ final class ElementSnapshotStubTests: XCTestCase {
         let stub = ElementSnapshotStub()
         stub.failForNotStubbedValues = false
         
+        XCTAssertEqual(stub.frame, .unavailable)
         XCTAssertEqual(stub.frameRelativeToScreen, .zero)
         XCTAssertNil(stub.elementType)
         XCTAssertEqual(stub.hasKeyboardFocus, false)
@@ -69,6 +72,10 @@ final class ElementSnapshotStubTests: XCTestCase {
         let stub = ElementSnapshotStub()
         
         stub.onFail = { failedProperties.append($0) }
+        
+        _ = stub.frame
+        XCTAssertEqual(failedProperties, ["frame"])
+        failedProperties.removeAll()
         
         _ = stub.frameRelativeToScreen
         XCTAssertEqual(failedProperties, ["frameRelativeToScreen"])

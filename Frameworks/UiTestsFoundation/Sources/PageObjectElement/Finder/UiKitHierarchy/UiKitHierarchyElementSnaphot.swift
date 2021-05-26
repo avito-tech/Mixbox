@@ -55,6 +55,10 @@ final class UiKitHierarchyElementSnaphot: ElementSnapshot {
         return data.accessibilityIdentifier ?? "" // TODO: Check if "" is a default value in XCUI
     }
     
+    var frame: OptionalAvailability<CGRect> {
+        return .available(data.frame)
+    }
+    
     var frameRelativeToScreen: CGRect {
         return data.frameRelativeToScreen
     }

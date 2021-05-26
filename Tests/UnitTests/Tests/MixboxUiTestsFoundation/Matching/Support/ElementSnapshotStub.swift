@@ -3,6 +3,14 @@ import UIKit
 import XCTest
 
 final class ElementSnapshotStub: ElementSnapshot {
+    var frame: OptionalAvailability<CGRect> {
+        set {
+            _frame = newValue
+        }
+        get {
+            return _frame ?? failAndFallback("frame", .unavailable)
+        }
+    }
     var frameRelativeToScreen: CGRect {
         set {
             _frameRelativeToScreen = newValue
@@ -146,6 +154,7 @@ final class ElementSnapshotStub: ElementSnapshot {
     
     var onFail: (_ propertyName: String) -> ()
     
+    private var _frame: OptionalAvailability<CGRect>?
     private var _frameRelativeToScreen: CGRect?
     private var _elementType: ElementType??
     private var _hasKeyboardFocus: Bool?

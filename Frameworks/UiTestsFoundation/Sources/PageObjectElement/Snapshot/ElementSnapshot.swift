@@ -22,6 +22,7 @@ public protocol ElementSnapshot: class, CustomDebugStringConvertible {
     
     // Mixbox specific (for apps with Mixbox support):
     
+    var frame: OptionalAvailability<CGRect> { get }
     var uniqueIdentifier: OptionalAvailability<String> { get }
     var isDefinitelyHidden: OptionalAvailability<Bool> { get }
     var text: OptionalAvailability<String?> { get }

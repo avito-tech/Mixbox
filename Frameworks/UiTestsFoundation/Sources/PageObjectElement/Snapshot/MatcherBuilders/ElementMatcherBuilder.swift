@@ -40,6 +40,11 @@ public final class ElementMatcherBuilder {
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
     }
     
+    public let frame = CGRectPropertyMatcherBuilder("frame") { (snapshot: ElementSnapshot) -> CGRect in
+        // TODO: Support unavailable values
+        snapshot.frame.valueIfAvailable ?? .null
+    }
+    
     public let frameRelativeToScreen = CGRectPropertyMatcherBuilder("frameRelativeToScreen", \ElementSnapshot.frameRelativeToScreen)
     
     public let id = PropertyMatcherBuilder("id", \ElementSnapshot.accessibilityIdentifier)

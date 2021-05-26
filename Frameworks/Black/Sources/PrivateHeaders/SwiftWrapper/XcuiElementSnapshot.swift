@@ -81,6 +81,10 @@ final class XcuiElementSnapshot: ElementSnapshot {
         return xcElementSnapshot.identifier ?? ""
     }
     
+    var frame: OptionalAvailability<CGRect> {
+        return .unavailable
+    }
+    
     var frameRelativeToScreen: CGRect {
         return xcElementSnapshot.frame
     }
