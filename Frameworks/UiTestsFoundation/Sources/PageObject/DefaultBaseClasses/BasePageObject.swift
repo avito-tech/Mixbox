@@ -21,7 +21,7 @@ import MixboxUiKit
 //
 //     public var accessoryViewDoneButton: ButtonElement {
 //         return additionalApplication.element("Done button in accessory view of keyboard") { element in
-//             element.id == "accessoryViewDoneButton"
+//             element.accessibilityLabel == "accessoryViewDoneButton"
 //         }
 //     }
 // }

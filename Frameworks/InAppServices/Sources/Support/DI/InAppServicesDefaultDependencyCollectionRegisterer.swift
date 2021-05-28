@@ -201,7 +201,7 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
                 // 1. `AccessibilityOnSimulatorInitializer` works flawlessly on iOS 13 or prior
                 // and provides proper AX hierarchy.
                 // 2. `CollectionViewSwizzlerImpl` works flawlessly on iOS 14 with `appleAxEnabled` == false
-                // 3. It doesn't work otherwise.
+                // 3. So one behavior os for 13-, other for 14+, otherwise it won't work flawlessly and tests can be flaky.
                 appleAxEnabled = iosVersionProvider.iosVersion().majorVersion <= 13
             }
             
