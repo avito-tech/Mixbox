@@ -1,10 +1,11 @@
+#if MIXBOX_ENABLE_IN_APP_SERVICES
+
 import Foundation
 
 private var testability_customValues_associatedObjectKey = 0
 
 extension TestabilityElement {
     public var mb_testability_customValues: TestabilityCustomValues {
-        #if MIXBOX_ENABLE_IN_APP_SERVICES
         if let value = objc_getAssociatedObject(self, &testability_customValues_associatedObjectKey) as? TestabilityCustomValues {
             return value
         } else {
@@ -17,8 +18,15 @@ extension TestabilityElement {
             )
             return newValue
         }
-        #else
-        return TestabilityCustomValues.dummy
-        #endif
     }
 }
+
+#else
+
+extension NSObject {
+    public var mb_testability_customValues: TestabilityCustomValues {
+        return TestabilityCustomValues.dummy
+    }
+}
+
+#endif

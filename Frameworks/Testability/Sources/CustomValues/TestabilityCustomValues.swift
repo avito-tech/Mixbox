@@ -1,34 +1,44 @@
-public final class TestabilityCustomValues {
-    public static let dummy = TestabilityCustomValues()
+#if MIXBOX_ENABLE_IN_APP_SERVICES
     
-    #if MIXBOX_ENABLE_IN_APP_SERVICES
+public final class TestabilityCustomValues {
     public private(set) var dictionary = [String: String]()
-    #endif
     
     public init() {
     }
     
     public func remove(key: String) {
-        #if MIXBOX_ENABLE_IN_APP_SERVICES
         return dictionary[key] = nil
-        #endif
     }
     
     public subscript <T: Codable>(_ key: String) -> T? {
         get {
-            #if MIXBOX_ENABLE_IN_APP_SERVICES
             return dictionary[key].flatMap {
                 GenericSerialization.deserialize(string: $0)
             }
-            #else
-            return nil
-            #endif
         }
         set {
-            #if MIXBOX_ENABLE_IN_APP_SERVICES
             dictionary[key] = GenericSerialization.serialize(value: newValue)
-            #else
-            #endif
         }
     }
 }
+
+#else
+
+public final class TestabilityCustomValues {
+    public static let dummy = TestabilityCustomValues()
+    
+    @inline(__always)
+    public func remove(key: String) {
+    }
+    
+    @inline(__always)
+    public subscript <T: Codable>(_ key: String) -> T? {
+        get {
+            return nil
+        }
+        set {
+        }
+    }
+}
+
+#endif

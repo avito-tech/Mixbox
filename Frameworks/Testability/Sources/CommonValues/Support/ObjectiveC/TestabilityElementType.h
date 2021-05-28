@@ -1,3 +1,5 @@
+@import Foundation;
+
 // TODO: Hide under `#ifdef MIXBOX_ENABLE_IN_APP_SERVICES`?
 //       Swift-to-Objective-C bridging doesn't support modification with #ifdef.
 //       I don't know a way to define MIXBOX_ENABLE_IN_APP_SERVICES while bridging header is being made.
