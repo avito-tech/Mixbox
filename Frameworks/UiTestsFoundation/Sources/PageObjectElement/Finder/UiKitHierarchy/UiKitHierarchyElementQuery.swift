@@ -174,7 +174,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
             attachments.append(
                 Attachment(
                     name: "Кандидаты",
-                    content: .text(candidatesDescription)
+                    content: .text(candidatesDescription.description)
                 )
             )
             attachments.append(
@@ -204,6 +204,9 @@ final class UiKitHierarchyElementQuery: ElementQuery {
                     )
                 )
             }
+            attachments.append(
+                contentsOf: candidatesDescription.attachments
+            )
         }
         
         return attachments

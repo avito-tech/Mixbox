@@ -281,8 +281,8 @@
 		F857C9DC20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */; };
 		F85876EE25178EE000DB933A /* NonViewElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EC48D0251286C5009B0813 /* NonViewElementsTests.swift */; };
 		F85876F12517956B00DB933A /* NonViewElementsTests+BlackBoxOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85876EF2517919900DB933A /* NonViewElementsTests+BlackBoxOnly.swift */; };
-		F85EBA93265D85B100E54FEC /* ViewWithUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85EBA92265D85B100E54FEC /* ViewWithUtilities.swift */; };
 		F85EBA91265D7EA100E54FEC /* RandomUrlGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85EBA90265D7EA100E54FEC /* RandomUrlGeneratorTests.swift */; };
+		F85EBA93265D85B100E54FEC /* ViewWithUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85EBA92265D85B100E54FEC /* ViewWithUtilities.swift */; };
 		F86038F324CF0BBC00C257E8 /* ImagePixelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */; };
 		F863CA0624B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA0524B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift */; };
 		F863CA1024B4B23B00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA0E24B4B1AE00423225 /* InteractionsUseVisiblePointTestsViewPageObject.swift */; };
@@ -1025,8 +1025,8 @@
 		F857C9D920CD8D8700E8BFF5 /* CustomIpcMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIpcMethods.swift; sourceTree = "<group>"; };
 		F857C9DB20CF8CD600E8BFF5 /* IpcEchoingUsingSbtuiTestTunnelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcEchoingUsingSbtuiTestTunnelTests.swift; sourceTree = "<group>"; };
 		F85876EF2517919900DB933A /* NonViewElementsTests+BlackBoxOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NonViewElementsTests+BlackBoxOnly.swift"; sourceTree = "<group>"; };
-		F85EBA92265D85B100E54FEC /* ViewWithUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithUtilities.swift; sourceTree = "<group>"; };
 		F85EBA90265D7EA100E54FEC /* RandomUrlGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUrlGeneratorTests.swift; sourceTree = "<group>"; };
+		F85EBA92265D85B100E54FEC /* ViewWithUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWithUtilities.swift; sourceTree = "<group>"; };
 		F86038F224CF0BBC00C257E8 /* ImagePixelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePixelDataTests.swift; sourceTree = "<group>"; };
 		F863CA0524B4AF9A00423225 /* InteractionsUseVisiblePointTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTestsView.swift; sourceTree = "<group>"; };
 		F863CA0C24B4B19C00423225 /* InteractionsUseVisiblePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsUseVisiblePointTests.swift; sourceTree = "<group>"; };

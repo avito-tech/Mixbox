@@ -63,11 +63,11 @@ final class XcuiElementQuery: ElementQuery {
             )
             
             var attachments = [Attachment]()
-            if let failureDescription = resolvedElementQuery.candidatesDescription() {
+            if let candidatesDescription = resolvedElementQuery.candidatesDescription() {
                 attachments.append(
                     Attachment(
                         name: "Кандидаты",
-                        content: .text(failureDescription)
+                        content: .text(candidatesDescription.description)
                     )
                 )
                 attachments.append(
@@ -97,6 +97,9 @@ final class XcuiElementQuery: ElementQuery {
                         )
                     )
                 }
+                attachments.append(
+                    contentsOf: candidatesDescription.attachments
+                )
             }
             
             return StepLoggerResultWrapper(

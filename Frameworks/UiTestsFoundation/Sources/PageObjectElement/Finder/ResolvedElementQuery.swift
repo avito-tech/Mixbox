@@ -1,3 +1,5 @@
+import MixboxTestsFoundation
+
 public final class ResolvedElementQuery {
     public var matchingSnapshots: [ElementSnapshot] {
         return elementQueryResolvingState.matchingSnapshots
@@ -16,7 +18,7 @@ public final class ResolvedElementQuery {
         self.elementQueryResolvingState = elementQueryResolvingState
     }
     
-    public func candidatesDescription() -> String? {
+    public func candidatesDescription() -> CandidatesDescription? {
         guard !elementQueryResolvingState.matchingResults.isEmpty else {
             return nil
         }
@@ -25,6 +27,8 @@ public final class ResolvedElementQuery {
             // from more matching to less matching
             left.element.percentageOfMatching > right.element.percentageOfMatching
         }
+        
+        var attachments = [Attachment]()
         
         var lines = [String]()
         for (index, result) in sortedResults {
@@ -40,8 +44,23 @@ public final class ResolvedElementQuery {
                     ?? (snapshot.accessibilityIdentifier.isEmpty ? "" : " (id: \(snapshot.accessibilityIdentifier)" )
                 lines.append("Snapshot \(index), percentage of matching \(mismatchResult.percentageOfMatching):\(idSuffix)")
                 lines.append(mismatchResult.mismatchDescription)
+                
+                let resultAttachments = mismatchResult.attachments
+                
+                if !resultAttachments.isEmpty {
+                    attachments.append(
+                        Attachment(
+                            name: "Snapshot \(index) mismatch attachments",
+                            content: .attachments(mismatchResult.attachments)
+                        )
+                    )
+                }
             }
         }
-        return lines.joined(separator: "\n")
+        
+        return CandidatesDescription(
+            description: lines.joined(separator: "\n"),
+            attachments: attachments
+        )
     }
 }
