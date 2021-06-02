@@ -46,10 +46,9 @@ open class BaseMutableTestabilityElement: TestabilityElement {
     
     public func set(frame: CGRect, container: UIView) {
         self.frame = frame
-        self.frameRelativeToScreen = UIAccessibility.convertToScreenCoordinates(
-            frame,
-            in: container
-        )
+        
+        self.frameRelativeToScreen = container.convert(frame, to: nil)
+        
         self.parent = container
     }
     
