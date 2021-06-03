@@ -39,14 +39,29 @@ public final class ScreenshotAttachmentsMakerImpl: ScreenshotAttachmentsMaker {
             
             // Simplifies error classification
             if includeHash {
-                let screenshotHash = imageHashCalculator.imageHash(image: screenshot)
-                let screenshotHashAttachment = Attachment(
-                    name: attachmentNameAndCircumstances(
-                        attachmentName: "hash скриншота \(type(of: imageHashCalculator))",
-                        beforeStep: beforeStep
-                    ),
-                    content: .text("\(screenshotHash)")
-                )
+                let screenshotHashAttachment: Attachment
+                
+                do {
+                    let screenshotHash = try imageHashCalculator.imageHash(image: screenshot)
+                    let screenshotHashString = String(describing: screenshotHash)
+                    
+                    screenshotHashAttachment = Attachment(
+                        name: attachmentNameAndCircumstances(
+                            attachmentName: "screenshot hash \(type(of: imageHashCalculator))",
+                            beforeStep: beforeStep
+                        ),
+                        content: .text(screenshotHashString)
+                    )
+                } catch {
+                    screenshotHashAttachment = Attachment(
+                        name: attachmentNameAndCircumstances(
+                            attachmentName: "screenshot hash failure",
+                            beforeStep: beforeStep
+                        ),
+                        content: .text("Failed to get screenshot hash \(type(of: imageHashCalculator)): \(error)")
+                    )
+                }
+                
                 attachments.append(screenshotHashAttachment)
             }
         }

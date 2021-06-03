@@ -1,5 +1,6 @@
 import CocoaImageHashing
 import UIKit
+import MixboxFoundation
 
 // I think it is this algorithm:
 // http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html
@@ -40,8 +41,19 @@ public final class DHashV0ImageHashCalculator: ImageHashCalculator {
     public init() {
     }
     
-    public func imageHash(image: UIImage) -> UInt64 {
-        return UInt64(bitPattern: OSImageHashing.sharedInstance().hashImage(image, with: .dHash))
+    public func imageHash(image: UIImage) throws -> UInt64 {
+        let hash = OSImageHashing.sharedInstance().hashImage(image, with: .dHash)
+        
+        if hash == OSHashTypeError {
+            let defaultErrorMessage = "OSImageHashing returned OSHashTypeError"
+            if image.pngData() == nil {
+                throw ErrorString("\(defaultErrorMessage). Probable reason: UIImagePNGRepresentation is nil")
+            } else {
+                throw ErrorString(defaultErrorMessage)
+            }
+        }
+        
+        return UInt64(bitPattern: hash)
     }
     
     public func hashDistance(lhsHash: UInt64, rhsHash: UInt64) -> UInt8 {

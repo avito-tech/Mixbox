@@ -9,6 +9,7 @@ public final class ImageHashCalculatorSnapshotsComparator: SnapshotsComparator {
         self.hashDistanceTolerance = hashDistanceTolerance
     }
     
+    // swiftlint:disable:next function_body_length
     public func compare(actualImage: UIImage, expectedImage: UIImage) -> SnapshotsComparisonResult {
         let maxHashDistance = UInt8(Int64.bitWidth)
         
@@ -24,8 +25,39 @@ public final class ImageHashCalculatorSnapshotsComparator: SnapshotsComparator {
             )
         }
         
-        let actualHash = imageHashCalculator.imageHash(image: actualImage)
-        let expectedHash = imageHashCalculator.imageHash(image: expectedImage)
+        if actualImage.size == .zero && expectedImage.size == .zero {
+            // This is unlkely to be expected case in tests (and probably person should
+            // be notified that unexpected situation happened), however, you can't say
+            // that images in this case aren't visually similar, so we just return
+            // that they are similar and do nothing else.
+            return .similar
+        }
+        
+        let actualHash: UInt64
+        
+        do {
+            actualHash = try imageHashCalculator.imageHash(image: actualImage)
+        } catch {
+            return Self.failedToGetHashResult(
+                error: error,
+                imageDescription: "actual image",
+                actualImage: actualImage,
+                expectedImage: expectedImage
+            )
+        }
+        
+        let expectedHash: UInt64
+        
+        do {
+            expectedHash = try imageHashCalculator.imageHash(image: expectedImage)
+        } catch {
+            return Self.failedToGetHashResult(
+                error: error,
+                imageDescription: "expected image",
+                actualImage: actualImage,
+                expectedImage: expectedImage
+            )
+        }
         
         let hashDistance = imageHashCalculator.hashDistance(
             lhsHash: actualHash,
@@ -80,7 +112,28 @@ public final class ImageHashCalculatorSnapshotsComparator: SnapshotsComparator {
                 messageFactory: {
                     """
                     \(valueName) is set to an inappropriate value \(value), \
-                    it should be >= \(range.lowerBound) and <= \(range.upperBound)"
+                    it should be >= \(range.lowerBound) and <= \(range.upperBound)
+                    """
+                },
+                actualImage: actualImage,
+                expectedImage: expectedImage
+            )
+        )
+    }
+    
+    private static func failedToGetHashResult(
+        error: Error,
+        imageDescription: String,
+        actualImage: UIImage,
+        expectedImage: UIImage)
+        -> SnapshotsComparisonResult
+    {
+        return .different(
+            LazySnapshotsDifferenceDescription(
+                percentageOfMatching: 0,
+                messageFactory: {
+                    """
+                    Failed to get hash of the "\(imageDescription)". Error: \(error)
                     """
                 },
                 actualImage: actualImage,

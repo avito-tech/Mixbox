@@ -3,6 +3,28 @@ import MixboxUiTestsFoundation
 
 extension UIImage {
     static func image(
+        width: Int,
+        height: Int,
+        byteOrder: ByteOrder? = nil,
+        scale: CGFloat = 0,
+        orientation: UIImage.Orientation = .down,
+        drawingFunction: (CGContext, CGRect) throws -> ())
+        throws
+        -> UIImage
+    {
+        return UIImage(
+            cgImage: try CGImage.image(
+                width: width,
+                height: height,
+                byteOrder: byteOrder,
+                drawingFunction: drawingFunction
+            ),
+            scale: scale,
+            orientation: orientation
+        )
+    }
+    
+    static func image(
         color: UIColor,
         size: CGSize)
         throws
@@ -23,6 +45,7 @@ extension UIImage {
         height: Int,
         color: CGColor,
         byteOrder: ByteOrder? = nil,
+        orientation: UIImage.Orientation = .down,
         scale: CGFloat = 0)
         throws
         -> UIImage
@@ -35,7 +58,7 @@ extension UIImage {
                 byteOrder: byteOrder
             ),
             scale: scale,
-            orientation: .down
+            orientation: orientation
         )
     }
 }

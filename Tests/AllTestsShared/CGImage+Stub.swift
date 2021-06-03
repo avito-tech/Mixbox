@@ -11,6 +11,26 @@ extension CGImage {
         throws
         -> CGImage
     {
+        return try image(
+            width: width,
+            height: height,
+            byteOrder: byteOrder,
+            drawingFunction: { context, frame in
+                context.setFillColor(color)
+                context.fill(frame)
+            }
+        )
+    }
+    
+    static func image(
+        width: Int,
+        height: Int,
+        byteOrder: ByteOrder? = nil,
+        alphaInfo: CGImageAlphaInfo = .premultipliedLast,
+        drawingFunction: (CGContext, CGRect) throws -> ())
+        throws
+        -> CGImage
+    {
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         let bitsPerByte = 8
         let bytesPerComponent = 1
@@ -25,15 +45,14 @@ extension CGImage {
             bitsPerComponent: bitsPerByte * bytesPerComponent,
             bytesPerRow: bytesPerRow,
             space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue | bitmapInfoMask(byteOrder: byteOrder)
+            bitmapInfo: alphaInfo.rawValue | bitmapInfoMask(byteOrder: byteOrder)
         )
         
         guard let context = contextOrNil else {
             throw ErrorString("Failed to create context")
         }
-
-        context.setFillColor(color)
-        context.fill(frame)
+        
+        try drawingFunction(context, frame)
         
         guard let image = context.makeImage() else {
             throw ErrorString("Failed to make image")

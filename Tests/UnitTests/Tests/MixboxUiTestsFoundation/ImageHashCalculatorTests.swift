@@ -1,20 +1,23 @@
 import XCTest
 import MixboxFoundation
+import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxUiKit
 
-class ImageHashCalculatorTests: XCTestCase {
+class ImageHashCalculatorTests: TestCase {
+    private let calculator = DHashV0ImageHashCalculator()
+    
     // Unfortunately, CocoaImageHashing doesn't make constant hashes for constant images on
     // different iOS versions.
-    func test_hashes_should_be_always_same() {
-        let calculator = DHashV0ImageHashCalculator()
-        
+    func test___imageHash___is_deterministic() {
         let images = ["size", "text", "color", "original", "aspect", "borders", "not_cat", "lots_of_text"].map {
             UIImage(named: "imagehash_cat_\($0)", in: Bundle(for: type(of: self)), compatibleWith: nil).unwrapOrFail()
         }
         
-        let hashes = images.map {
-            calculator.imageHash(image: $0)
+        let hashes = images.map { image in
+            UnavoidableFailure.doOrFail {
+                try calculator.imageHash(image: image)
+            }
         }
         
         func ios121OrHigher(no: UInt64, yes: UInt64) -> UInt64 {
@@ -37,5 +40,14 @@ class ImageHashCalculatorTests: XCTestCase {
         ]
         
         XCTAssertEqual(hashes, expectedHashes)
+    }
+    
+    // There is also another line of code inside "OSImageHashing" that returns "OSHashTypeError".
+    // That case is hard to reproduce. This error will not be classified and `imageHash` will
+    // just return "OSImageHashing returned OSHashTypeError".
+    func test___imageHash___throws_error___for_empty_image() {
+        assertThrows(error: "OSImageHashing returned OSHashTypeError. Probable reason: UIImagePNGRepresentation is nil") {
+            _ = try calculator.imageHash(image: UIImage())
+        }
     }
 }
