@@ -39,7 +39,7 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
             assertDifferent(snapshotsComparisonResult: compareSimilarImages()) { (snapshotsDifferenceDescription, _, _) in
                 XCTAssertEqual(
                     snapshotsDifferenceDescription.message,
-                    "hashDistanceTolerance (the argument of init of this class, ImageHashCalculatorSnapshotsComparator) is set to an inappropriate value \(hashDistanceTolerance), it should be >= 0 and <= 64"
+                    "hashDistanceTolerance (the argument of init of ImageHashCalculatorSnapshotsComparator) is set to an inappropriate value \(hashDistanceTolerance), it should be >= 0 and <= 64"
                 )
             }
             // This should fail either (I know that empty images are always similar regardless
