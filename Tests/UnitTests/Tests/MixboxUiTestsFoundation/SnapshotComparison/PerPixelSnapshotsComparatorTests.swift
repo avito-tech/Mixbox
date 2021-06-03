@@ -5,7 +5,10 @@ import XCTest
 
 final class PerPixelSnapshotsComparatorTests: BaseSnapshotsComparatorTestCase {
     override var comparator: SnapshotsComparator {
-        return PerPixelSnapshotsComparator()
+        return PerPixelSnapshotsComparator(
+            tolerance: 0,
+            forceUsingNonDiscretePercentageOfMatching: false
+        )
     }
     
     func test___compare___tells_images_are_similar___if_only_unrelated_image_settings_are_different_or_similar() {

@@ -342,4 +342,14 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
             return block()
         }
     }
+    
+    // MARK: - Loading resources
+    
+    func image(name: String) -> UIImage {
+        guard let image = UIImage(named: name, in: Bundle(for: type(of: self)), compatibleWith: nil) else {
+            UnavoidableFailure.fail("Couldn't load image '\(name)'")
+        }
+        
+        return image
+    }
 }

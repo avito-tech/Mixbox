@@ -3,13 +3,16 @@ import UIKit
 public final class ImageHashCalculatorSnapshotsComparator: SnapshotsComparator {
     private let imageHashCalculator: ImageHashCalculator
     private let hashDistanceTolerance: UInt8
+    private let shouldIgnoreTransparency: Bool
     
     public init(
         imageHashCalculator: ImageHashCalculator,
-        hashDistanceTolerance: UInt8)
+        hashDistanceTolerance: UInt8,
+        shouldIgnoreTransparency: Bool)
     {
         self.imageHashCalculator = imageHashCalculator
         self.hashDistanceTolerance = hashDistanceTolerance
+        self.shouldIgnoreTransparency = shouldIgnoreTransparency
     }
     
     public func compare(actualImage: UIImage, expectedImage: UIImage) -> SnapshotsComparisonResult {
@@ -17,7 +20,10 @@ public final class ImageHashCalculatorSnapshotsComparator: SnapshotsComparator {
             imageHashCalculator: imageHashCalculator,
             hashDistanceTolerance: hashDistanceTolerance,
             actualImage: actualImage,
-            expectedImage: expectedImage
+            expectedImage: expectedImage,
+            imagesForHashingProvider: ImagesForHashingProvider(
+                shouldIgnoreTransparency: shouldIgnoreTransparency
+            )
         ).compare()
     }
 }

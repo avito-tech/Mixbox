@@ -12,54 +12,20 @@ extension ImageHashCalculatorSnapshotsComparator {
         private let expectedImage: UIImage
         private let maxHashDistance = UInt8(Int64.bitWidth)
         private let hashDistanceRange: ClosedRange<UInt8>
-        
-        private final class ComparisonError: Error {
-            let snapshotsDifferenceDescription: SnapshotsDifferenceDescription
-            
-            init(snapshotsDifferenceDescription: SnapshotsDifferenceDescription) {
-                self.snapshotsDifferenceDescription = snapshotsDifferenceDescription
-            }
-        }
-        
-        private final class ImagesForHashing {
-            let actualImage: UIImage
-            let expectedImage: UIImage
-            
-            init(
-                actualImage: UIImage,
-                expectedImage: UIImage)
-            {
-                self.actualImage = actualImage
-                self.expectedImage = expectedImage
-            }
-        }
-        
-        private final class HashDifference {
-            let distance: UInt8
-            let actualHash: UInt64
-            let expectedHash: UInt64
-            
-            init(
-                distance: UInt8,
-                actualHash: UInt64,
-                expectedHash: UInt64)
-            {
-                self.distance = distance
-                self.actualHash = actualHash
-                self.expectedHash = expectedHash
-            }
-        }
+        private let imagesForHashingProvider: ImagesForHashingProvider
         
         init(
             imageHashCalculator: ImageHashCalculator,
             hashDistanceTolerance: UInt8,
             actualImage: UIImage,
-            expectedImage: UIImage)
+            expectedImage: UIImage,
+            imagesForHashingProvider: ImagesForHashingProvider)
         {
             self.imageHashCalculator = imageHashCalculator
             self.hashDistanceTolerance = hashDistanceTolerance
             self.actualImage = actualImage
             self.expectedImage = expectedImage
+            self.imagesForHashingProvider = imagesForHashingProvider
             
             hashDistanceRange = ClosedRange(
                 uncheckedBounds: (
@@ -94,8 +60,10 @@ extension ImageHashCalculatorSnapshotsComparator {
                 return
             }
             
+            let imagesForHashing = try self.imagesForHashing()
+            
             let hashDifference = try self.hashDifference(
-                imagesForHashing: imagesForHashing()
+                imagesForHashing: imagesForHashing
             )
             
             if hashDifference.distance > hashDistanceTolerance {
@@ -127,8 +95,8 @@ extension ImageHashCalculatorSnapshotsComparator {
             }
         }
         
-        private func imagesForHashing() -> ImagesForHashing {
-            return ImagesForHashing(
+        private func imagesForHashing() throws -> ImagesForHashing {
+            return try imagesForHashingProvider.imagesForHashing(
                 actualImage: actualImage,
                 expectedImage: expectedImage
             )
@@ -221,7 +189,7 @@ extension ImageHashCalculatorSnapshotsComparator {
             -> SnapshotsDifferenceDescription
         {
             return LazySnapshotsDifferenceDescription(
-                percentageOfMatching: 0,
+                percentageOfMatching: percentageOfMatching,
                 messageFactory: messageFactory,
                 actualImage: actualImage,
                 expectedImage: expectedImage
