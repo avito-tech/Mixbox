@@ -62,9 +62,6 @@ target 'GrayBoxUiTests' do
   mixbox.pod 'MixboxStubbing'
   mixbox.pod 'MixboxMocksRuntime'
   
-  # To suppess warning:
-  pod 'CocoaImageHashing', :inhibit_warnings => true
-  
   tests_ipc_pods
 end
 

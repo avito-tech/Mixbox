@@ -156,7 +156,7 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
     
     private func comparator(tolerance: UInt8) -> SnapshotsComparator {
         return ImageHashCalculatorSnapshotsComparator(
-            imageHashCalculator: DHashV0ImageHashCalculator(),
+            imageHashCalculator: DHashImageHashCalculator(),
             hashDistanceTolerance: tolerance,
             shouldIgnoreTransparency: true
         )

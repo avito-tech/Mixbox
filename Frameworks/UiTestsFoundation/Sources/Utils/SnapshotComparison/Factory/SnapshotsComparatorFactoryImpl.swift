@@ -11,7 +11,7 @@ public final class SnapshotsComparatorFactoryImpl: SnapshotsComparatorFactory {
             )
         case let .dHash(tolerance):
             return ImageHashCalculatorSnapshotsComparator(
-                imageHashCalculator: DHashV0ImageHashCalculator(),
+                imageHashCalculator: DHashImageHashCalculator(),
                 hashDistanceTolerance: tolerance,
                 shouldIgnoreTransparency: true
             )

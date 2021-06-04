@@ -35,6 +35,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
+                name: "CocoaImageHashing",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
+            ),
+            FrameworkInfo(
                 name: "Di",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),

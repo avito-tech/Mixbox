@@ -1,7 +1,3 @@
-import CocoaImageHashing
-import UIKit
-import MixboxFoundation
-
 // I think it is this algorithm:
 // http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html
 //
@@ -37,12 +33,20 @@ import MixboxFoundation
 // So we can not rely on compatibility of values between platforms. Quick check found that the only algorithm that
 // produces same hashes on different platforms (32/64 bit iOS/OSX) is dHash.
 //
-public final class DHashV0ImageHashCalculator: ImageHashCalculator {
-    public init() {
+
+import MixboxCocoaImageHashing
+import UIKit
+import MixboxFoundation
+
+open class BaseCocoaImageHashingImageHashCalculator: ImageHashCalculator {
+    private let osImageHashingProviderId: OSImageHashingProviderId
+    
+    public init(osImageHashingProviderId: OSImageHashingProviderId) {
+        self.osImageHashingProviderId = osImageHashingProviderId
     }
     
     public func imageHash(image: UIImage) throws -> UInt64 {
-        let hash = OSImageHashing.sharedInstance().hashImage(image, with: .dHash)
+        let hash = OSImageHashing.sharedInstance().hashImage(image, with: osImageHashingProviderId)
         
         if hash == OSHashTypeError {
             let defaultErrorMessage = "OSImageHashing returned OSHashTypeError"
@@ -60,7 +64,7 @@ public final class DHashV0ImageHashCalculator: ImageHashCalculator {
         let hashDistance = OSImageHashing.sharedInstance().hashDistance(
             Int64(bitPattern: lhsHash),
             to: Int64(bitPattern: rhsHash),
-            with: OSImageHashingProviderId.dHash
+            with: osImageHashingProviderId
         )
         
         // Actual range of the number is 0..64, so UInt will suit.

@@ -22,7 +22,7 @@ final class GrayScreenshotTakerTests: TestCase {
         }
         
         let comparator = ImageHashCalculatorSnapshotsComparator(
-            imageHashCalculator: DHashV0ImageHashCalculator(),
+            imageHashCalculator: DHashImageHashCalculator(),
             hashDistanceTolerance: 8,
             shouldIgnoreTransparency: true
         )

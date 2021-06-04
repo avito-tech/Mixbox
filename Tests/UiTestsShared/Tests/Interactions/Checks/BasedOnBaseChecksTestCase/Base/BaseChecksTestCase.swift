@@ -189,7 +189,7 @@ class BaseChecksTestCase: TestCase {
         
         if withScreenshotHashAttachment {
             let hasScreenshotHashAttachment = log.attachmentsAfter.contains { attachment in
-                attachment.name == "screenshot hash DHashV0ImageHashCalculator после"
+                attachment.name == "screenshot hash DHashImageHashCalculator после"
             }
             hasAllRequiredAttachments = hasAllRequiredAttachments && hasScreenshotHashAttachment
         }

@@ -15,7 +15,7 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
     
     override var comparator: SnapshotsComparator {
         return ImageHashCalculatorSnapshotsComparator(
-            imageHashCalculator: DHashV0ImageHashCalculator(),
+            imageHashCalculator: DHashImageHashCalculator(),
             hashDistanceTolerance: hashDistanceTolerance,
             shouldIgnoreTransparency: shouldIgnoreTransparency
         )
@@ -399,7 +399,7 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
         color1: UIColor,
         hashDistance: UInt8)
     {
-        let calculator = DHashV0ImageHashCalculator()
+        let calculator = DHashImageHashCalculator()
         let image0 = imageWithShape(
             backgroundColor: color0,
             foregroundColor: color1

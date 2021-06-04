@@ -2,7 +2,7 @@ import MixboxUiTestsFoundation
 import MixboxIpc
 import XCTest
 import MixboxFoundation
-import CocoaImageHashing
+import MixboxCocoaImageHashing
 import TestsIpc
 
 class AssertMatchesReferenceWithPerPixelComparatorTests: TestCase {

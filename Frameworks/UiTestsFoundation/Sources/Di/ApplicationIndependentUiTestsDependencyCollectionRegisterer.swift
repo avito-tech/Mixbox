@@ -66,7 +66,7 @@ public final class ApplicationIndependentUiTestsDependencyCollectionRegisterer: 
         }
         di.register(type: ScreenshotAttachmentsMaker.self) { di in
             ScreenshotAttachmentsMakerImpl(
-                imageHashCalculator: DHashV0ImageHashCalculator(),
+                imageHashCalculator: DHashImageHashCalculator(),
                 screenshotTaker: try di.resolve()
             )
         }

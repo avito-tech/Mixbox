@@ -7,7 +7,7 @@ Mixbox::FrameworkSpec.new do |s|
   s.dependency 'MixboxTestsFoundation'
   s.dependency 'MixboxUiKit'
   s.dependency 'MixboxAnyCodable'
-  s.dependency 'CocoaImageHashing'
+  s.dependency 'MixboxCocoaImageHashing'
   s.dependency 'MixboxIpcCommon'
   s.dependency 'MixboxDi'
 

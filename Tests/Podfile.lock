@@ -1,5 +1,4 @@
 PODS:
-  - CocoaImageHashing (1.7.0)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
@@ -18,6 +17,7 @@ PODS:
   - MixboxBuiltinIpc (0.0.1):
     - GCDWebServer
     - MixboxIpc
+  - MixboxCocoaImageHashing (0.0.1)
   - MixboxDi (0.0.1)
   - MixboxFakeSettingsAppMain (0.0.1)
   - MixboxFoundation (0.0.1)
@@ -76,8 +76,8 @@ PODS:
   - MixboxUiKit (0.0.1):
     - MixboxFoundation
   - MixboxUiTestsFoundation (0.0.1):
-    - CocoaImageHashing
     - MixboxAnyCodable
+    - MixboxCocoaImageHashing
     - MixboxDi
     - MixboxIpcCommon
     - MixboxTestsFoundation
@@ -109,12 +109,12 @@ PODS:
   - Yams (4.0.1)
 
 DEPENDENCIES:
-  - CocoaImageHashing
   - Mixbox (from `..`)
   - MixboxAnyCodable (from `..`)
   - MixboxBlack (from `..`)
   - MixboxBuiltinDi (from `..`)
   - MixboxBuiltinIpc (from `..`)
+  - MixboxCocoaImageHashing (from `..`)
   - MixboxDi (from `..`)
   - MixboxFakeSettingsAppMain (from `..`)
   - MixboxFoundation (from `..`)
@@ -146,7 +146,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - CocoaImageHashing
     - GCDWebServer
     - PathKit
     - SourceKittenFramework
@@ -165,6 +164,8 @@ EXTERNAL SOURCES:
   MixboxBuiltinDi:
     :path: ".."
   MixboxBuiltinIpc:
+    :path: ".."
+  MixboxCocoaImageHashing:
     :path: ".."
   MixboxDi:
     :path: ".."
@@ -240,13 +241,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/avito-tech/Sourcery.git
 
 SPEC CHECKSUMS:
-  CocoaImageHashing: 2c8efd6dd60f9030cd54086b34ffc48e927821c3
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Mixbox: e789fba3307115b0153e084432d4be1d07b0ffcc
   MixboxAnyCodable: fd0ff0d1478469c9042e19ffdcefe72572004cdf
   MixboxBlack: 597df26a833589feccda02959ebe20313015b607
   MixboxBuiltinDi: 016018c9f31a7bcd95bb58934afebbb4ee57cf8e
   MixboxBuiltinIpc: 4550cacb8add5a18ae5a6f826628188992ae9d71
+  MixboxCocoaImageHashing: c451dfeb2375c8803c07f1054c69d1067c68d723
   MixboxDi: 52a8dde8bbbf39ffd2bbd492a834264d75cfe35e
   MixboxFakeSettingsAppMain: 553af81744d58e93615654247cd30d626e2bb81c
   MixboxFoundation: 22743b6c0264af71d16694154431e73c43f821cb
@@ -268,7 +269,7 @@ SPEC CHECKSUMS:
   MixboxTestability: 5116edee152c55635434424269364e4189f75f26
   MixboxTestsFoundation: 880c9d16771365c3d8b2df9e365843dbc4019108
   MixboxUiKit: 064489bdb334af1b918432b8f4381c33dd591928
-  MixboxUiTestsFoundation: 58567635e5d0fc6faa36437bd2f523ad7771bf46
+  MixboxUiTestsFoundation: 4459ab88d8ca73f75bd27931177e1776dfd289f2
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
   SourceKittenFramework: 540d9d048c0bab3c0faa4668425364fabff12cb0
   Sourcery: 928a146ea9b777fa64b0c6ce915c4128b4488cff

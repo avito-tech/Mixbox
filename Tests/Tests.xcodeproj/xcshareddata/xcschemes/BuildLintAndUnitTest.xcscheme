@@ -130,6 +130,29 @@
                BlueprintName = "UnitTests"
                ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "OSAHashTests">
+               </Test>
+               <Test
+                  Identifier = "OSDHashTests">
+               </Test>
+               <Test
+                  Identifier = "OSFastGraphicsTests">
+               </Test>
+               <Test
+                  Identifier = "OSImageHashingBaseTest">
+               </Test>
+               <Test
+                  Identifier = "OSImageHashingTests">
+               </Test>
+               <Test
+                  Identifier = "OSPHashTests">
+               </Test>
+               <Test
+                  Identifier = "OSSimilaritySearchTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

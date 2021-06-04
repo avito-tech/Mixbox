@@ -5,7 +5,7 @@ import MixboxUiTestsFoundation
 import MixboxUiKit
 
 class ImageHashCalculatorTests: TestCase {
-    private let calculator = DHashV0ImageHashCalculator()
+    private let calculator = DHashImageHashCalculator()
     
     // Unfortunately, CocoaImageHashing doesn't make constant hashes for constant images on
     // different iOS versions.

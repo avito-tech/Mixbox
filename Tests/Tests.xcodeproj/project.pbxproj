@@ -402,6 +402,83 @@
 		F8971DEE226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DED226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift */; };
 		F8971DF62267A8B5001741C1 /* BuiltinIpcLaunchableApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8971DF52267A8B4001741C1 /* BuiltinIpcLaunchableApplication.swift */; };
 		F899ACCB24E1A9500067E87C /* UiEventObservableImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F899ACCA24E1A9500067E87C /* UiEventObservableImplTests.swift */; };
+		F89AED0226697CA70080E980 /* OSPHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECB126697CA70080E980 /* OSPHashTests.m */; };
+		F89AED0326697CA70080E980 /* OSSimilaritySearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECB226697CA70080E980 /* OSSimilaritySearchTests.m */; };
+		F89AED0426697CA70080E980 /* OSFastGraphicsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECB326697CA70080E980 /* OSFastGraphicsTests.m */; };
+		F89AED0526697CA70080E980 /* OSAHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECB426697CA70080E980 /* OSAHashTests.m */; };
+		F89AED0626697CA70080E980 /* OSDHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECB526697CA70080E980 /* OSDHashTests.m */; };
+		F89AED4C26697CA70080E980 /* CococaImageHashingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECFF26697CA70080E980 /* CococaImageHashingTests.m */; };
+		F89AED4D26697CA70080E980 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F89AED0026697CA70080E980 /* Info.plist */; };
+		F89AED4E26697CA70080E980 /* OSImageHashingBaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AED0126697CA70080E980 /* OSImageHashingBaseTest.m */; };
+		F89AEDA326697F4F0080E980 /* blur_england.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED5C26697F4E0080E980 /* blur_england.bmp */; };
+		F89AEDA426697F4F0080E980 /* blur_Scotland_castle_wedding.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED5D26697F4E0080E980 /* blur_Scotland_castle_wedding.bmp */; };
+		F89AEDA526697F4F0080E980 /* blur_targetjasperjohns.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED5E26697F4E0080E980 /* blur_targetjasperjohns.bmp */; };
+		F89AEDA626697F4F0080E980 /* blur_englandpath.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED5F26697F4E0080E980 /* blur_englandpath.bmp */; };
+		F89AEDA726697F4F0080E980 /* blur_Hhirst_BGE.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6026697F4E0080E980 /* blur_Hhirst_BGE.bmp */; };
+		F89AEDA826697F4F0080E980 /* blur_architecture1.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6126697F4E0080E980 /* blur_architecture1.bmp */; };
+		F89AEDA926697F4F0080E980 /* blur_johns_portrait_380x311.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6226697F4E0080E980 /* blur_johns_portrait_380x311.bmp */; };
+		F89AEDAA26697F4F0080E980 /* blur_architecture_2.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6326697F4E0080E980 /* blur_architecture_2.bmp */; };
+		F89AEDAB26697F4F0080E980 /* blur_diamondskull.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6426697F4E0080E980 /* blur_diamondskull.bmp */; };
+		F89AEDAC26697F4F0080E980 /* blur_bamarket115.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6526697F4E0080E980 /* blur_bamarket115.bmp */; };
+		F89AEDAD26697F4F0080E980 /* blur_damien_hirst_virgin_mother.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6626697F4E0080E980 /* blur_damien_hirst_virgin_mother.bmp */; };
+		F89AEDAE26697F4F0080E980 /* blur_Tower-Bridge-at-night--London--England_web.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6726697F4E0080E980 /* blur_Tower-Bridge-at-night--London--England_web.bmp */; };
+		F89AEDAF26697F4F0080E980 /* blur_latrobe.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6826697F4E0080E980 /* blur_latrobe.bmp */; };
+		F89AEDB026697F4F0080E980 /* blur_uk-golf-scotland.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6926697F4E0080E980 /* blur_uk-golf-scotland.bmp */; };
+		F89AEDB126697F4F0080E980 /* blur_doodle.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6A26697F4E0080E980 /* blur_doodle.bmp */; };
+		F89AEDB226697F4F0080E980 /* blur_damienhirst.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6B26697F4E0080E980 /* blur_damienhirst.bmp */; };
+		F89AEDB326697F4F0080E980 /* blur_butterflywallpaper.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6C26697F4E0080E980 /* blur_butterflywallpaper.bmp */; };
+		F89AEDB426697F4F0080E980 /* blur_dhirst_a3b9ddea.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6D26697F4E0080E980 /* blur_dhirst_a3b9ddea.bmp */; };
+		F89AEDB526697F4F0080E980 /* blur_jasper_johns.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6E26697F4E0080E980 /* blur_jasper_johns.bmp */; };
+		F89AEDB626697F4F0080E980 /* blur_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED6F26697F4E0080E980 /* blur_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp */; };
+		F89AEDB726697F4F0080E980 /* blur_wallacestevens.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7026697F4E0080E980 /* blur_wallacestevens.bmp */; };
+		F89AEDB826697F4F0080E980 /* blur_damien_hirst.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7126697F4E0080E980 /* blur_damien_hirst.bmp */; };
+		F89AEDB926697F4F0080E980 /* blur_damien_hirst_does_fashion_week.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7226697F4E0080E980 /* blur_damien_hirst_does_fashion_week.bmp */; };
+		F89AEDBA26697F4F0080E980 /* compr_england.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7426697F4F0080E980 /* compr_england.jpg */; };
+		F89AEDBB26697F4F0080E980 /* compr_englandpath.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7526697F4F0080E980 /* compr_englandpath.jpg */; };
+		F89AEDBC26697F4F0080E980 /* compr_damien_hirst_virgin_mother.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7626697F4F0080E980 /* compr_damien_hirst_virgin_mother.jpg */; };
+		F89AEDBD26697F4F0080E980 /* compr_dhirst_a3b9ddea.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7726697F4F0080E980 /* compr_dhirst_a3b9ddea.jpg */; };
+		F89AEDBE26697F4F0080E980 /* compr_doodle.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7826697F4F0080E980 /* compr_doodle.jpg */; };
+		F89AEDBF26697F4F0080E980 /* compr_johns_portrait_380x311.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7926697F4F0080E980 /* compr_johns_portrait_380x311.jpg */; };
+		F89AEDC026697F4F0080E980 /* compr_targetjasperjohns.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7A26697F4F0080E980 /* compr_targetjasperjohns.jpg */; };
+		F89AEDC126697F4F0080E980 /* compr_damien_hirst.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7B26697F4F0080E980 /* compr_damien_hirst.jpg */; };
+		F89AEDC226697F4F0080E980 /* compr_bamarket115.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7C26697F4F0080E980 /* compr_bamarket115.jpg */; };
+		F89AEDC326697F4F0080E980 /* compr_Hhirst_BGE.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7D26697F4F0080E980 /* compr_Hhirst_BGE.jpg */; };
+		F89AEDC426697F4F0080E980 /* compr_latrobe.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7E26697F4F0080E980 /* compr_latrobe.jpg */; };
+		F89AEDC526697F4F0080E980 /* compr_jasper_johns.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED7F26697F4F0080E980 /* compr_jasper_johns.jpg */; };
+		F89AEDC626697F4F0080E980 /* compr_wallacestevens.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8026697F4F0080E980 /* compr_wallacestevens.jpg */; };
+		F89AEDC726697F4F0080E980 /* compr_diamondskull.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8126697F4F0080E980 /* compr_diamondskull.jpg */; };
+		F89AEDC826697F4F0080E980 /* compr_Scotland_castle_wedding.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8226697F4F0080E980 /* compr_Scotland_castle_wedding.jpg */; };
+		F89AEDC926697F4F0080E980 /* compr_architecture1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8326697F4F0080E980 /* compr_architecture1.jpg */; };
+		F89AEDCA26697F4F0080E980 /* compr_damien_hirst_does_fashion_week.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8426697F4F0080E980 /* compr_damien_hirst_does_fashion_week.jpg */; };
+		F89AEDCB26697F4F0080E980 /* compr_Tower-Bridge-at-night--London--England_web.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8526697F4F0080E980 /* compr_Tower-Bridge-at-night--London--England_web.jpg */; };
+		F89AEDCC26697F4F0080E980 /* compr_architecture_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8626697F4F0080E980 /* compr_architecture_2.jpg */; };
+		F89AEDCD26697F4F0080E980 /* compr_Chang_PermanentMidnightintheChairofJasperJohns_large.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8726697F4F0080E980 /* compr_Chang_PermanentMidnightintheChairofJasperJohns_large.jpg */; };
+		F89AEDCE26697F4F0080E980 /* compr_damienhirst.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8826697F4F0080E980 /* compr_damienhirst.jpg */; };
+		F89AEDCF26697F4F0080E980 /* compr_butterflywallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8926697F4F0080E980 /* compr_butterflywallpaper.jpg */; };
+		F89AEDD026697F4F0080E980 /* compr_uk-golf-scotland.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8A26697F4F0080E980 /* compr_uk-golf-scotland.jpg */; };
+		F89AEDD126697F4F0080E980 /* misc_Hhirst_BGE.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8C26697F4F0080E980 /* misc_Hhirst_BGE.bmp */; };
+		F89AEDD226697F4F0080E980 /* misc_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8D26697F4F0080E980 /* misc_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp */; };
+		F89AEDD326697F4F0080E980 /* misc_diamondskull.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8E26697F4F0080E980 /* misc_diamondskull.bmp */; };
+		F89AEDD426697F4F0080E980 /* misc_england.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED8F26697F4F0080E980 /* misc_england.bmp */; };
+		F89AEDD526697F4F0080E980 /* misc_targetjasperjohns.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9026697F4F0080E980 /* misc_targetjasperjohns.bmp */; };
+		F89AEDD626697F4F0080E980 /* misc_latrobe.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9126697F4F0080E980 /* misc_latrobe.bmp */; };
+		F89AEDD726697F4F0080E980 /* misc_damienhirst.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9226697F4F0080E980 /* misc_damienhirst.bmp */; };
+		F89AEDD826697F4F0080E980 /* misc_wallacestevens.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9326697F4F0080E980 /* misc_wallacestevens.bmp */; };
+		F89AEDD926697F4F0080E980 /* misc_Tower-Bridge-at-night--London--England_web.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9426697F4F0080E980 /* misc_Tower-Bridge-at-night--London--England_web.bmp */; };
+		F89AEDDA26697F4F0080E980 /* misc_uk-golf-scotland.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9526697F4F0080E980 /* misc_uk-golf-scotland.bmp */; };
+		F89AEDDB26697F4F0080E980 /* misc_architecture_2.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9626697F4F0080E980 /* misc_architecture_2.bmp */; };
+		F89AEDDC26697F4F0080E980 /* misc_butterflywallpaper.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9726697F4F0080E980 /* misc_butterflywallpaper.bmp */; };
+		F89AEDDD26697F4F0080E980 /* misc_damien_hirst_does_fashion_week.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9826697F4F0080E980 /* misc_damien_hirst_does_fashion_week.bmp */; };
+		F89AEDDE26697F4F0080E980 /* misc_dhirst_a3b9ddea.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9926697F4F0080E980 /* misc_dhirst_a3b9ddea.bmp */; };
+		F89AEDDF26697F4F0080E980 /* misc_bamarket115.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9A26697F4F0080E980 /* misc_bamarket115.bmp */; };
+		F89AEDE026697F4F0080E980 /* misc_damien_hirst_virgin_mother.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9B26697F4F0080E980 /* misc_damien_hirst_virgin_mother.bmp */; };
+		F89AEDE126697F4F0080E980 /* misc_doodle.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9C26697F4F0080E980 /* misc_doodle.bmp */; };
+		F89AEDE226697F4F0080E980 /* misc_Scotland_castle_wedding.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9D26697F4F0080E980 /* misc_Scotland_castle_wedding.bmp */; };
+		F89AEDE326697F4F0080E980 /* misc_damien_hirst.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9E26697F4F0080E980 /* misc_damien_hirst.bmp */; };
+		F89AEDE426697F4F0080E980 /* misc_englandpath.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED9F26697F4F0080E980 /* misc_englandpath.bmp */; };
+		F89AEDE526697F4F0080E980 /* misc_johns_portrait_380x311.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AEDA026697F4F0080E980 /* misc_johns_portrait_380x311.bmp */; };
+		F89AEDE626697F4F0080E980 /* misc_jasper_johns.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AEDA126697F4F0080E980 /* misc_jasper_johns.bmp */; };
+		F89AEDE726697F4F0080E980 /* misc_architecture1.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AEDA226697F4F0080E980 /* misc_architecture1.bmp */; };
 		F89DFC7B21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */; };
 		F89ED2E22572B7B300A32D54 /* RecordIssueIsOverridenByRecordFailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89ED2E12572B7B300A32D54 /* RecordIssueIsOverridenByRecordFailureTests.swift */; };
 		F89ED2E72572CF3500A32D54 /* BaseMixboxMocksRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89ED2E62572CF3500A32D54 /* BaseMixboxMocksRuntimeTests.swift */; };
@@ -1133,6 +1210,84 @@
 		F8971DED226772E4001741C1 /* ProcessInfoIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessInfoIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8971DF52267A8B4001741C1 /* BuiltinIpcLaunchableApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuiltinIpcLaunchableApplication.swift; sourceTree = "<group>"; };
 		F899ACCA24E1A9500067E87C /* UiEventObservableImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiEventObservableImplTests.swift; sourceTree = "<group>"; };
+		F89AECB026697CA70080E980 /* OSImageHashingBaseTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSImageHashingBaseTest.h; sourceTree = "<group>"; };
+		F89AECB126697CA70080E980 /* OSPHashTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSPHashTests.m; sourceTree = "<group>"; };
+		F89AECB226697CA70080E980 /* OSSimilaritySearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSSimilaritySearchTests.m; sourceTree = "<group>"; };
+		F89AECB326697CA70080E980 /* OSFastGraphicsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFastGraphicsTests.m; sourceTree = "<group>"; };
+		F89AECB426697CA70080E980 /* OSAHashTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSAHashTests.m; sourceTree = "<group>"; };
+		F89AECB526697CA70080E980 /* OSDHashTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSDHashTests.m; sourceTree = "<group>"; };
+		F89AECFF26697CA70080E980 /* CococaImageHashingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CococaImageHashingTests.m; sourceTree = "<group>"; };
+		F89AED0026697CA70080E980 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F89AED0126697CA70080E980 /* OSImageHashingBaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSImageHashingBaseTest.m; sourceTree = "<group>"; };
+		F89AED5C26697F4E0080E980 /* blur_england.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_england.bmp; sourceTree = "<group>"; };
+		F89AED5D26697F4E0080E980 /* blur_Scotland_castle_wedding.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_Scotland_castle_wedding.bmp; sourceTree = "<group>"; };
+		F89AED5E26697F4E0080E980 /* blur_targetjasperjohns.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_targetjasperjohns.bmp; sourceTree = "<group>"; };
+		F89AED5F26697F4E0080E980 /* blur_englandpath.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_englandpath.bmp; sourceTree = "<group>"; };
+		F89AED6026697F4E0080E980 /* blur_Hhirst_BGE.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_Hhirst_BGE.bmp; sourceTree = "<group>"; };
+		F89AED6126697F4E0080E980 /* blur_architecture1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_architecture1.bmp; sourceTree = "<group>"; };
+		F89AED6226697F4E0080E980 /* blur_johns_portrait_380x311.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_johns_portrait_380x311.bmp; sourceTree = "<group>"; };
+		F89AED6326697F4E0080E980 /* blur_architecture_2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_architecture_2.bmp; sourceTree = "<group>"; };
+		F89AED6426697F4E0080E980 /* blur_diamondskull.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_diamondskull.bmp; sourceTree = "<group>"; };
+		F89AED6526697F4E0080E980 /* blur_bamarket115.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_bamarket115.bmp; sourceTree = "<group>"; };
+		F89AED6626697F4E0080E980 /* blur_damien_hirst_virgin_mother.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_damien_hirst_virgin_mother.bmp; sourceTree = "<group>"; };
+		F89AED6726697F4E0080E980 /* blur_Tower-Bridge-at-night--London--England_web.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = "blur_Tower-Bridge-at-night--London--England_web.bmp"; sourceTree = "<group>"; };
+		F89AED6826697F4E0080E980 /* blur_latrobe.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_latrobe.bmp; sourceTree = "<group>"; };
+		F89AED6926697F4E0080E980 /* blur_uk-golf-scotland.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = "blur_uk-golf-scotland.bmp"; sourceTree = "<group>"; };
+		F89AED6A26697F4E0080E980 /* blur_doodle.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_doodle.bmp; sourceTree = "<group>"; };
+		F89AED6B26697F4E0080E980 /* blur_damienhirst.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_damienhirst.bmp; sourceTree = "<group>"; };
+		F89AED6C26697F4E0080E980 /* blur_butterflywallpaper.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_butterflywallpaper.bmp; sourceTree = "<group>"; };
+		F89AED6D26697F4E0080E980 /* blur_dhirst_a3b9ddea.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_dhirst_a3b9ddea.bmp; sourceTree = "<group>"; };
+		F89AED6E26697F4E0080E980 /* blur_jasper_johns.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_jasper_johns.bmp; sourceTree = "<group>"; };
+		F89AED6F26697F4E0080E980 /* blur_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp; sourceTree = "<group>"; };
+		F89AED7026697F4E0080E980 /* blur_wallacestevens.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_wallacestevens.bmp; sourceTree = "<group>"; };
+		F89AED7126697F4E0080E980 /* blur_damien_hirst.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_damien_hirst.bmp; sourceTree = "<group>"; };
+		F89AED7226697F4E0080E980 /* blur_damien_hirst_does_fashion_week.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_damien_hirst_does_fashion_week.bmp; sourceTree = "<group>"; };
+		F89AED7426697F4F0080E980 /* compr_england.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_england.jpg; sourceTree = "<group>"; };
+		F89AED7526697F4F0080E980 /* compr_englandpath.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_englandpath.jpg; sourceTree = "<group>"; };
+		F89AED7626697F4F0080E980 /* compr_damien_hirst_virgin_mother.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_damien_hirst_virgin_mother.jpg; sourceTree = "<group>"; };
+		F89AED7726697F4F0080E980 /* compr_dhirst_a3b9ddea.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_dhirst_a3b9ddea.jpg; sourceTree = "<group>"; };
+		F89AED7826697F4F0080E980 /* compr_doodle.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_doodle.jpg; sourceTree = "<group>"; };
+		F89AED7926697F4F0080E980 /* compr_johns_portrait_380x311.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_johns_portrait_380x311.jpg; sourceTree = "<group>"; };
+		F89AED7A26697F4F0080E980 /* compr_targetjasperjohns.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_targetjasperjohns.jpg; sourceTree = "<group>"; };
+		F89AED7B26697F4F0080E980 /* compr_damien_hirst.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_damien_hirst.jpg; sourceTree = "<group>"; };
+		F89AED7C26697F4F0080E980 /* compr_bamarket115.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_bamarket115.jpg; sourceTree = "<group>"; };
+		F89AED7D26697F4F0080E980 /* compr_Hhirst_BGE.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_Hhirst_BGE.jpg; sourceTree = "<group>"; };
+		F89AED7E26697F4F0080E980 /* compr_latrobe.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_latrobe.jpg; sourceTree = "<group>"; };
+		F89AED7F26697F4F0080E980 /* compr_jasper_johns.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_jasper_johns.jpg; sourceTree = "<group>"; };
+		F89AED8026697F4F0080E980 /* compr_wallacestevens.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_wallacestevens.jpg; sourceTree = "<group>"; };
+		F89AED8126697F4F0080E980 /* compr_diamondskull.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_diamondskull.jpg; sourceTree = "<group>"; };
+		F89AED8226697F4F0080E980 /* compr_Scotland_castle_wedding.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_Scotland_castle_wedding.jpg; sourceTree = "<group>"; };
+		F89AED8326697F4F0080E980 /* compr_architecture1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_architecture1.jpg; sourceTree = "<group>"; };
+		F89AED8426697F4F0080E980 /* compr_damien_hirst_does_fashion_week.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_damien_hirst_does_fashion_week.jpg; sourceTree = "<group>"; };
+		F89AED8526697F4F0080E980 /* compr_Tower-Bridge-at-night--London--England_web.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "compr_Tower-Bridge-at-night--London--England_web.jpg"; sourceTree = "<group>"; };
+		F89AED8626697F4F0080E980 /* compr_architecture_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_architecture_2.jpg; sourceTree = "<group>"; };
+		F89AED8726697F4F0080E980 /* compr_Chang_PermanentMidnightintheChairofJasperJohns_large.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_Chang_PermanentMidnightintheChairofJasperJohns_large.jpg; sourceTree = "<group>"; };
+		F89AED8826697F4F0080E980 /* compr_damienhirst.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_damienhirst.jpg; sourceTree = "<group>"; };
+		F89AED8926697F4F0080E980 /* compr_butterflywallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = compr_butterflywallpaper.jpg; sourceTree = "<group>"; };
+		F89AED8A26697F4F0080E980 /* compr_uk-golf-scotland.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "compr_uk-golf-scotland.jpg"; sourceTree = "<group>"; };
+		F89AED8C26697F4F0080E980 /* misc_Hhirst_BGE.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_Hhirst_BGE.bmp; sourceTree = "<group>"; };
+		F89AED8D26697F4F0080E980 /* misc_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp; sourceTree = "<group>"; };
+		F89AED8E26697F4F0080E980 /* misc_diamondskull.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_diamondskull.bmp; sourceTree = "<group>"; };
+		F89AED8F26697F4F0080E980 /* misc_england.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_england.bmp; sourceTree = "<group>"; };
+		F89AED9026697F4F0080E980 /* misc_targetjasperjohns.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_targetjasperjohns.bmp; sourceTree = "<group>"; };
+		F89AED9126697F4F0080E980 /* misc_latrobe.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_latrobe.bmp; sourceTree = "<group>"; };
+		F89AED9226697F4F0080E980 /* misc_damienhirst.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_damienhirst.bmp; sourceTree = "<group>"; };
+		F89AED9326697F4F0080E980 /* misc_wallacestevens.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_wallacestevens.bmp; sourceTree = "<group>"; };
+		F89AED9426697F4F0080E980 /* misc_Tower-Bridge-at-night--London--England_web.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = "misc_Tower-Bridge-at-night--London--England_web.bmp"; sourceTree = "<group>"; };
+		F89AED9526697F4F0080E980 /* misc_uk-golf-scotland.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = "misc_uk-golf-scotland.bmp"; sourceTree = "<group>"; };
+		F89AED9626697F4F0080E980 /* misc_architecture_2.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_architecture_2.bmp; sourceTree = "<group>"; };
+		F89AED9726697F4F0080E980 /* misc_butterflywallpaper.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_butterflywallpaper.bmp; sourceTree = "<group>"; };
+		F89AED9826697F4F0080E980 /* misc_damien_hirst_does_fashion_week.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_damien_hirst_does_fashion_week.bmp; sourceTree = "<group>"; };
+		F89AED9926697F4F0080E980 /* misc_dhirst_a3b9ddea.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_dhirst_a3b9ddea.bmp; sourceTree = "<group>"; };
+		F89AED9A26697F4F0080E980 /* misc_bamarket115.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_bamarket115.bmp; sourceTree = "<group>"; };
+		F89AED9B26697F4F0080E980 /* misc_damien_hirst_virgin_mother.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_damien_hirst_virgin_mother.bmp; sourceTree = "<group>"; };
+		F89AED9C26697F4F0080E980 /* misc_doodle.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_doodle.bmp; sourceTree = "<group>"; };
+		F89AED9D26697F4F0080E980 /* misc_Scotland_castle_wedding.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_Scotland_castle_wedding.bmp; sourceTree = "<group>"; };
+		F89AED9E26697F4F0080E980 /* misc_damien_hirst.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_damien_hirst.bmp; sourceTree = "<group>"; };
+		F89AED9F26697F4F0080E980 /* misc_englandpath.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_englandpath.bmp; sourceTree = "<group>"; };
+		F89AEDA026697F4F0080E980 /* misc_johns_portrait_380x311.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_johns_portrait_380x311.bmp; sourceTree = "<group>"; };
+		F89AEDA126697F4F0080E980 /* misc_jasper_johns.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_jasper_johns.bmp; sourceTree = "<group>"; };
+		F89AEDA226697F4F0080E980 /* misc_architecture1.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = misc_architecture1.bmp; sourceTree = "<group>"; };
 		F89DFC7A21FCCA86001C0CA8 /* ThirdPartyAppsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyAppsTests.swift; sourceTree = "<group>"; };
 		F89ED2E12572B7B300A32D54 /* RecordIssueIsOverridenByRecordFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordIssueIsOverridenByRecordFailureTests.swift; sourceTree = "<group>"; };
 		F89ED2E62572CF3500A32D54 /* BaseMixboxMocksRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMixboxMocksRuntimeTests.swift; sourceTree = "<group>"; };
@@ -2674,6 +2829,123 @@
 			path = ProcessInfo;
 			sourceTree = "<group>";
 		};
+		F89AECAF26697CA70080E980 /* MixboxCocoaImageHashing */ = {
+			isa = PBXGroup;
+			children = (
+				F89AECB026697CA70080E980 /* OSImageHashingBaseTest.h */,
+				F89AECB126697CA70080E980 /* OSPHashTests.m */,
+				F89AECB226697CA70080E980 /* OSSimilaritySearchTests.m */,
+				F89AECB326697CA70080E980 /* OSFastGraphicsTests.m */,
+				F89AECB426697CA70080E980 /* OSAHashTests.m */,
+				F89AECB526697CA70080E980 /* OSDHashTests.m */,
+				F89AECB626697CA70080E980 /* Assets */,
+				F89AECFF26697CA70080E980 /* CococaImageHashingTests.m */,
+				F89AED0026697CA70080E980 /* Info.plist */,
+				F89AED0126697CA70080E980 /* OSImageHashingBaseTest.m */,
+			);
+			path = MixboxCocoaImageHashing;
+			sourceTree = "<group>";
+		};
+		F89AECB626697CA70080E980 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F89AED5B26697F4E0080E980 /* blur */,
+				F89AED7326697F4F0080E980 /* compr */,
+				F89AED8B26697F4F0080E980 /* misc */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		F89AED5B26697F4E0080E980 /* blur */ = {
+			isa = PBXGroup;
+			children = (
+				F89AED5C26697F4E0080E980 /* blur_england.bmp */,
+				F89AED5D26697F4E0080E980 /* blur_Scotland_castle_wedding.bmp */,
+				F89AED5E26697F4E0080E980 /* blur_targetjasperjohns.bmp */,
+				F89AED5F26697F4E0080E980 /* blur_englandpath.bmp */,
+				F89AED6026697F4E0080E980 /* blur_Hhirst_BGE.bmp */,
+				F89AED6126697F4E0080E980 /* blur_architecture1.bmp */,
+				F89AED6226697F4E0080E980 /* blur_johns_portrait_380x311.bmp */,
+				F89AED6326697F4E0080E980 /* blur_architecture_2.bmp */,
+				F89AED6426697F4E0080E980 /* blur_diamondskull.bmp */,
+				F89AED6526697F4E0080E980 /* blur_bamarket115.bmp */,
+				F89AED6626697F4E0080E980 /* blur_damien_hirst_virgin_mother.bmp */,
+				F89AED6726697F4E0080E980 /* blur_Tower-Bridge-at-night--London--England_web.bmp */,
+				F89AED6826697F4E0080E980 /* blur_latrobe.bmp */,
+				F89AED6926697F4E0080E980 /* blur_uk-golf-scotland.bmp */,
+				F89AED6A26697F4E0080E980 /* blur_doodle.bmp */,
+				F89AED6B26697F4E0080E980 /* blur_damienhirst.bmp */,
+				F89AED6C26697F4E0080E980 /* blur_butterflywallpaper.bmp */,
+				F89AED6D26697F4E0080E980 /* blur_dhirst_a3b9ddea.bmp */,
+				F89AED6E26697F4E0080E980 /* blur_jasper_johns.bmp */,
+				F89AED6F26697F4E0080E980 /* blur_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp */,
+				F89AED7026697F4E0080E980 /* blur_wallacestevens.bmp */,
+				F89AED7126697F4E0080E980 /* blur_damien_hirst.bmp */,
+				F89AED7226697F4E0080E980 /* blur_damien_hirst_does_fashion_week.bmp */,
+			);
+			path = blur;
+			sourceTree = "<group>";
+		};
+		F89AED7326697F4F0080E980 /* compr */ = {
+			isa = PBXGroup;
+			children = (
+				F89AED7426697F4F0080E980 /* compr_england.jpg */,
+				F89AED7526697F4F0080E980 /* compr_englandpath.jpg */,
+				F89AED7626697F4F0080E980 /* compr_damien_hirst_virgin_mother.jpg */,
+				F89AED7726697F4F0080E980 /* compr_dhirst_a3b9ddea.jpg */,
+				F89AED7826697F4F0080E980 /* compr_doodle.jpg */,
+				F89AED7926697F4F0080E980 /* compr_johns_portrait_380x311.jpg */,
+				F89AED7A26697F4F0080E980 /* compr_targetjasperjohns.jpg */,
+				F89AED7B26697F4F0080E980 /* compr_damien_hirst.jpg */,
+				F89AED7C26697F4F0080E980 /* compr_bamarket115.jpg */,
+				F89AED7D26697F4F0080E980 /* compr_Hhirst_BGE.jpg */,
+				F89AED7E26697F4F0080E980 /* compr_latrobe.jpg */,
+				F89AED7F26697F4F0080E980 /* compr_jasper_johns.jpg */,
+				F89AED8026697F4F0080E980 /* compr_wallacestevens.jpg */,
+				F89AED8126697F4F0080E980 /* compr_diamondskull.jpg */,
+				F89AED8226697F4F0080E980 /* compr_Scotland_castle_wedding.jpg */,
+				F89AED8326697F4F0080E980 /* compr_architecture1.jpg */,
+				F89AED8426697F4F0080E980 /* compr_damien_hirst_does_fashion_week.jpg */,
+				F89AED8526697F4F0080E980 /* compr_Tower-Bridge-at-night--London--England_web.jpg */,
+				F89AED8626697F4F0080E980 /* compr_architecture_2.jpg */,
+				F89AED8726697F4F0080E980 /* compr_Chang_PermanentMidnightintheChairofJasperJohns_large.jpg */,
+				F89AED8826697F4F0080E980 /* compr_damienhirst.jpg */,
+				F89AED8926697F4F0080E980 /* compr_butterflywallpaper.jpg */,
+				F89AED8A26697F4F0080E980 /* compr_uk-golf-scotland.jpg */,
+			);
+			path = compr;
+			sourceTree = "<group>";
+		};
+		F89AED8B26697F4F0080E980 /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				F89AED8C26697F4F0080E980 /* misc_Hhirst_BGE.bmp */,
+				F89AED8D26697F4F0080E980 /* misc_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp */,
+				F89AED8E26697F4F0080E980 /* misc_diamondskull.bmp */,
+				F89AED8F26697F4F0080E980 /* misc_england.bmp */,
+				F89AED9026697F4F0080E980 /* misc_targetjasperjohns.bmp */,
+				F89AED9126697F4F0080E980 /* misc_latrobe.bmp */,
+				F89AED9226697F4F0080E980 /* misc_damienhirst.bmp */,
+				F89AED9326697F4F0080E980 /* misc_wallacestevens.bmp */,
+				F89AED9426697F4F0080E980 /* misc_Tower-Bridge-at-night--London--England_web.bmp */,
+				F89AED9526697F4F0080E980 /* misc_uk-golf-scotland.bmp */,
+				F89AED9626697F4F0080E980 /* misc_architecture_2.bmp */,
+				F89AED9726697F4F0080E980 /* misc_butterflywallpaper.bmp */,
+				F89AED9826697F4F0080E980 /* misc_damien_hirst_does_fashion_week.bmp */,
+				F89AED9926697F4F0080E980 /* misc_dhirst_a3b9ddea.bmp */,
+				F89AED9A26697F4F0080E980 /* misc_bamarket115.bmp */,
+				F89AED9B26697F4F0080E980 /* misc_damien_hirst_virgin_mother.bmp */,
+				F89AED9C26697F4F0080E980 /* misc_doodle.bmp */,
+				F89AED9D26697F4F0080E980 /* misc_Scotland_castle_wedding.bmp */,
+				F89AED9E26697F4F0080E980 /* misc_damien_hirst.bmp */,
+				F89AED9F26697F4F0080E980 /* misc_englandpath.bmp */,
+				F89AEDA026697F4F0080E980 /* misc_johns_portrait_380x311.bmp */,
+				F89AEDA126697F4F0080E980 /* misc_jasper_johns.bmp */,
+				F89AEDA226697F4F0080E980 /* misc_architecture1.bmp */,
+			);
+			path = misc;
+			sourceTree = "<group>";
+		};
 		F89ED2E02572B78E00A32D54 /* SelfCheck */ = {
 			isa = PBXGroup;
 			children = (
@@ -3270,21 +3542,22 @@
 		F8B964CF2281E3B20054CE08 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				F89ED2E02572B78E00A32D54 /* SelfCheck */,
-				F8DFADC1256BC5A200016F40 /* MixboxMocksRuntime */,
-				F8B5C5AC254A74F0002DB0FB /* MixboxReflection */,
-				F8E979F825111D7F00ED131A /* MixboxTestability */,
-				F812A17424E59F8500BCCE06 /* MixboxDi */,
 				F88A403224DC851E008B290A /* MixboxBuiltinDi */,
+				F89AECAF26697CA70080E980 /* MixboxCocoaImageHashing */,
+				F812A17424E59F8500BCCE06 /* MixboxDi */,
 				F8B964D12281E3E30054CE08 /* MixboxFoundation */,
 				F8B39FEC2423F05500BFACD8 /* MixboxGenerator */,
 				F8E160CE2418671E00B4912F /* MixboxGray */,
 				F8D85529235DF59A0068047A /* MixboxInAppServices */,
 				F8C3656324182D10005DD578 /* MixboxIoKit */,
 				F80CEDE022DE27D8006C804D /* MixboxIpcCommon */,
+				F8DFADC1256BC5A200016F40 /* MixboxMocksRuntime */,
+				F8B5C5AC254A74F0002DB0FB /* MixboxReflection */,
+				F8E979F825111D7F00ED131A /* MixboxTestability */,
 				F8B964D22281E4000054CE08 /* MixboxTestsFoundation */,
 				F8B964C92281DC8C0054CE08 /* MixboxUiKit */,
 				F8B964D02281E3CE0054CE08 /* MixboxUiTestsFoundation */,
+				F89ED2E02572B78E00A32D54 /* SelfCheck */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -4338,14 +4611,84 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F89AEDA426697F4F0080E980 /* blur_Scotland_castle_wedding.bmp in Resources */,
+				F89AEDCB26697F4F0080E980 /* compr_Tower-Bridge-at-night--London--England_web.jpg in Resources */,
+				F89AEDA726697F4F0080E980 /* blur_Hhirst_BGE.bmp in Resources */,
 				F8A9D32E2168057300EC5D24 /* Media.xcassets in Resources */,
+				F89AEDC226697F4F0080E980 /* compr_bamarket115.jpg in Resources */,
+				F89AEDBC26697F4F0080E980 /* compr_damien_hirst_virgin_mother.jpg in Resources */,
+				F89AEDDD26697F4F0080E980 /* misc_damien_hirst_does_fashion_week.bmp in Resources */,
+				F89AEDBF26697F4F0080E980 /* compr_johns_portrait_380x311.jpg in Resources */,
+				F89AEDD826697F4F0080E980 /* misc_wallacestevens.bmp in Resources */,
 				F8971DCC226746AD001741C1 /* BundleResourcePathProviderImplTests_without_extension_json in Resources */,
+				F89AEDAC26697F4F0080E980 /* blur_bamarket115.bmp in Resources */,
+				F89AEDAA26697F4F0080E980 /* blur_architecture_2.bmp in Resources */,
+				F89AEDE726697F4F0080E980 /* misc_architecture1.bmp in Resources */,
+				F89AEDD326697F4F0080E980 /* misc_diamondskull.bmp in Resources */,
+				F89AEDCC26697F4F0080E980 /* compr_architecture_2.jpg in Resources */,
+				F89AEDE126697F4F0080E980 /* misc_doodle.bmp in Resources */,
+				F89AEDBA26697F4F0080E980 /* compr_england.jpg in Resources */,
+				F89AEDE326697F4F0080E980 /* misc_damien_hirst.bmp in Resources */,
+				F89AEDD426697F4F0080E980 /* misc_england.bmp in Resources */,
+				F89AEDDE26697F4F0080E980 /* misc_dhirst_a3b9ddea.bmp in Resources */,
+				F89AEDC926697F4F0080E980 /* compr_architecture1.jpg in Resources */,
+				F89AEDE526697F4F0080E980 /* misc_johns_portrait_380x311.bmp in Resources */,
+				F89AEDC626697F4F0080E980 /* compr_wallacestevens.jpg in Resources */,
+				F89AEDC326697F4F0080E980 /* compr_Hhirst_BGE.jpg in Resources */,
+				F89AEDDF26697F4F0080E980 /* misc_bamarket115.bmp in Resources */,
+				F89AEDB426697F4F0080E980 /* blur_dhirst_a3b9ddea.bmp in Resources */,
+				F89AEDCF26697F4F0080E980 /* compr_butterflywallpaper.jpg in Resources */,
+				F89AEDB026697F4F0080E980 /* blur_uk-golf-scotland.bmp in Resources */,
+				F89AEDD126697F4F0080E980 /* misc_Hhirst_BGE.bmp in Resources */,
+				F89AEDB126697F4F0080E980 /* blur_doodle.bmp in Resources */,
+				F89AEDBB26697F4F0080E980 /* compr_englandpath.jpg in Resources */,
+				F89AEDC726697F4F0080E980 /* compr_diamondskull.jpg in Resources */,
+				F89AEDD626697F4F0080E980 /* misc_latrobe.bmp in Resources */,
+				F89AEDE426697F4F0080E980 /* misc_englandpath.bmp in Resources */,
+				F89AEDAB26697F4F0080E980 /* blur_diamondskull.bmp in Resources */,
+				F89AEDC426697F4F0080E980 /* compr_latrobe.jpg in Resources */,
+				F89AEDB326697F4F0080E980 /* blur_butterflywallpaper.bmp in Resources */,
+				F89AEDB626697F4F0080E980 /* blur_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp in Resources */,
+				F89AEDDC26697F4F0080E980 /* misc_butterflywallpaper.bmp in Resources */,
 				F8971D8B22661B06001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.recordedNetworkSession.json in Resources */,
+				F89AEDB526697F4F0080E980 /* blur_jasper_johns.bmp in Resources */,
 				F8971D8D226620EF001741C1 /* AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.empty.json in Resources */,
+				F89AEDC826697F4F0080E980 /* compr_Scotland_castle_wedding.jpg in Resources */,
+				F89AEDD526697F4F0080E980 /* misc_targetjasperjohns.bmp in Resources */,
+				F89AEDCE26697F4F0080E980 /* compr_damienhirst.jpg in Resources */,
+				F89AEDA526697F4F0080E980 /* blur_targetjasperjohns.bmp in Resources */,
+				F89AEDC126697F4F0080E980 /* compr_damien_hirst.jpg in Resources */,
+				F89AEDB226697F4F0080E980 /* blur_damienhirst.bmp in Resources */,
+				F89AEDD026697F4F0080E980 /* compr_uk-golf-scotland.jpg in Resources */,
+				F89AEDA326697F4F0080E980 /* blur_england.bmp in Resources */,
+				F89AEDA626697F4F0080E980 /* blur_englandpath.bmp in Resources */,
+				F89AEDA826697F4F0080E980 /* blur_architecture1.bmp in Resources */,
 				F81144D12268D39C00ED519B /* mock_generation.sh in Resources */,
+				F89AEDAF26697F4F0080E980 /* blur_latrobe.bmp in Resources */,
+				F89AEDB826697F4F0080E980 /* blur_damien_hirst.bmp in Resources */,
+				F89AEDBD26697F4F0080E980 /* compr_dhirst_a3b9ddea.jpg in Resources */,
 				F8F4A1BD256821600093523E /* generate_mocks in Resources */,
+				F89AED4D26697CA70080E980 /* Info.plist in Resources */,
+				F89AEDAE26697F4F0080E980 /* blur_Tower-Bridge-at-night--London--England_web.bmp in Resources */,
+				F89AEDC526697F4F0080E980 /* compr_jasper_johns.jpg in Resources */,
+				F89AEDD926697F4F0080E980 /* misc_Tower-Bridge-at-night--London--England_web.bmp in Resources */,
+				F89AEDA926697F4F0080E980 /* blur_johns_portrait_380x311.bmp in Resources */,
+				F89AEDD226697F4F0080E980 /* misc_Chang_PermanentMidnightintheChairofJasperJohns_large.bmp in Resources */,
+				F89AEDE026697F4F0080E980 /* misc_damien_hirst_virgin_mother.bmp in Resources */,
+				F89AEDD726697F4F0080E980 /* misc_damienhirst.bmp in Resources */,
+				F89AEDDB26697F4F0080E980 /* misc_architecture_2.bmp in Resources */,
+				F89AEDCA26697F4F0080E980 /* compr_damien_hirst_does_fashion_week.jpg in Resources */,
+				F89AEDCD26697F4F0080E980 /* compr_Chang_PermanentMidnightintheChairofJasperJohns_large.jpg in Resources */,
+				F89AEDB926697F4F0080E980 /* blur_damien_hirst_does_fashion_week.bmp in Resources */,
 				F8971DCB226746AD001741C1 /* BundleResourcePathProviderImplTests_with_extension.json in Resources */,
+				F89AEDE626697F4F0080E980 /* misc_jasper_johns.bmp in Resources */,
+				F89AEDB726697F4F0080E980 /* blur_wallacestevens.bmp in Resources */,
+				F89AEDE226697F4F0080E980 /* misc_Scotland_castle_wedding.bmp in Resources */,
+				F89AEDC026697F4F0080E980 /* compr_targetjasperjohns.jpg in Resources */,
 				F8971DCD226746AD001741C1 /* BundleResourcePathProviderImplTests.with.lots.of.dots.json in Resources */,
+				F89AEDBE26697F4F0080E980 /* compr_doodle.jpg in Resources */,
+				F89AEDAD26697F4F0080E980 /* blur_damien_hirst_virgin_mother.bmp in Resources */,
+				F89AEDDA26697F4F0080E980 /* misc_uk-golf-scotland.bmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4667,7 +5010,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxSBTUITestTunnelCommon/MixboxSBTUITestTunnelCommon.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxCocoaImageHashing/MixboxCocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxTestsFoundation/MixboxTestsFoundation.framework",
@@ -4692,7 +5035,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxSBTUITestTunnelCommon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxCocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestsFoundation.framework",
@@ -4750,7 +5093,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxTestability/MixboxTestability.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxCocoaImageHashing/MixboxCocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
@@ -4778,7 +5121,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxTestability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxCocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
@@ -4817,7 +5160,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxCocoaImageHashing/MixboxCocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
@@ -4849,7 +5192,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxCocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
@@ -4891,7 +5234,7 @@
 				"${BUILT_PRODUCTS_DIR}/MixboxUiKit/MixboxUiKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TestsIpc/TestsIpc.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxFakeSettingsAppMain/MixboxFakeSettingsAppMain.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaImageHashing/CocoaImageHashing.framework",
+				"${BUILT_PRODUCTS_DIR}/MixboxCocoaImageHashing/MixboxCocoaImageHashing.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxGray/MixboxGray.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxMocksRuntime/MixboxMocksRuntime.framework",
 				"${BUILT_PRODUCTS_DIR}/MixboxStubbing/MixboxStubbing.framework",
@@ -4923,7 +5266,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxUiKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TestsIpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxFakeSettingsAppMain.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaImageHashing.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxCocoaImageHashing.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxGray.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxMocksRuntime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MixboxStubbing.framework",
@@ -5471,7 +5814,10 @@
 				F80C2E3B24D1E52900C6CAD4 /* Singletons+StepLogger.swift in Sources */,
 				F87D182C24CF7A8100D6DBFA /* InAppScreenshotTakerImplTests.swift in Sources */,
 				F8494C1B24D316D20035AB39 /* CGRect_Rounding_Tests.swift in Sources */,
+				F89AED0426697CA70080E980 /* OSFastGraphicsTests.m in Sources */,
+				F89AED4C26697CA70080E980 /* CococaImageHashingTests.m in Sources */,
 				F8A6EF492566C8BE00003D56 /* LogEnvironmentSetUpAction.swift in Sources */,
+				F89AED0626697CA70080E980 /* OSDHashTests.m in Sources */,
 				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
 				F81144D02268D39C00ED519B /* GeneratedMocks.ignored.swift in Sources */,
 				F87D2C0524D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift in Sources */,
@@ -5496,6 +5842,7 @@
 				F8C3A7332436E88F004B6BA4 /* MersenneTwisterRandomNumberProviderTests.swift in Sources */,
 				F8B5C5AE254A74FD002DB0FB /* ValueCodeGeneratorIntegrationTests.swift in Sources */,
 				F88A402924DC83EC008B290A /* DependencyInjectionImplTests.swift in Sources */,
+				F89AED0526697CA70080E980 /* OSAHashTests.m in Sources */,
 				F8DD5D8424F4434300FA6491 /* DictionaryGeneratorFacadeTests.swift in Sources */,
 				F8033887256D7EF600429290 /* MixboxMocksSettingMockManagerTests.swift in Sources */,
 				F8B40F1C2433D1DC008A05E8 /* AssociatedValueTests.swift in Sources */,
@@ -5529,6 +5876,7 @@
 				F837EF60258BDD4B00721A30 /* EasyClosureStubbingIntegrationalTestsProtocol.swift in Sources */,
 				F828BC7F264D3E0A00EA61A1 /* RecordedCallsHolderImplTests.swift in Sources */,
 				F853D02E214BFD8200EAFBCE /* LastCallOfCurrentTestFileLineForFailureProviderIntegrationTests.swift in Sources */,
+				F89AED0226697CA70080E980 /* OSPHashTests.m in Sources */,
 				F8F8320524EFEE59007EEA45 /* CommonLogicGeneratorFacadeTests.swift in Sources */,
 				F8AC3CF3235E5D5300516032 /* TestCase+AssertThrows.swift in Sources */,
 				F8B39FEE2423F08F00BFACD8 /* GeneratorTests.swift in Sources */,
@@ -5546,9 +5894,11 @@
 				F80C2E0B24D1DAFD00C6CAD4 /* FailureGatherer.swift in Sources */,
 				F8D262D324431D740006B707 /* BaseGeneratorTestCase.swift in Sources */,
 				F89ED2F22572E05A00A32D54 /* UninterceptableError.swift in Sources */,
+				F89AED4E26697CA70080E980 /* OSImageHashingBaseTest.m in Sources */,
 				F89ED2E72572CF3500A32D54 /* BaseMixboxMocksRuntimeTests.swift in Sources */,
 				F8C3AD102437A3B3004B6BA4 /* RandomBoolGeneratorTests.swift in Sources */,
 				F812A17624E59F8E00BCCE06 /* CompoundDependencyResolverTests.swift in Sources */,
+				F89AED0326697CA70080E980 /* OSSimilaritySearchTests.m in Sources */,
 				F8C3AD1E243AFF91004B6BA4 /* SequenceAnyGenerator.swift in Sources */,
 				F887BD272594CF6300B08A03 /* ValueCodeGeneratorRecursionTests.swift in Sources */,
 				F80C2E0A24D1DAFD00C6CAD4 /* LogsAndFailures.swift in Sources */,
