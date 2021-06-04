@@ -189,6 +189,10 @@ we need conditional compilation built in in sources to prevent linking the code 
 - **SBTUITestTunnel**. There was a bug with web views with versions newer than 3.0.6. Then several years later we experienced flakiness when building it. The fix was very primitive - copypaste everything to avoid problems. We could have dive deeper, but there is a plan to use native solution for IPC in the future, so we didn't bother. **Original repo:** <https://github.com/Subito-it/SBTUITestTunnel>
 - [**CocoaImageHashing**](Frameworks/CocoaImageHashing). We needed a fix that can't be merged due to backward compatibility (<https://github.com/ameingast/cocoaimagehashing/pull/13>), we don't need backward compatibility, so we use copypasted code. **Original repo:** <https://github.com/ameingast/cocoaimagehashing>
 
+Used in tests:
+
+- <https://github.com/akveo/eva-icons>: various icons for testing image similarity code (MIT licence).
+
 ## Other docs
 
 - [Why so many frameworks?](Docs/Frameworks.md)

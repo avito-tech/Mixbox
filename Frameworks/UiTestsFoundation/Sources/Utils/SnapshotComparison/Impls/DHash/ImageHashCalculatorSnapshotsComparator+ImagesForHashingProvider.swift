@@ -2,17 +2,6 @@ import UIKit
 import MixboxFoundation
 
 extension ImageHashCalculatorSnapshotsComparator {
-    // To reduce amout of arguments
-    private class ImageVariations {
-        init(uiImage: UIImage, cgImage: CGImage) {
-            self.uiImage = uiImage
-            self.cgImage = cgImage
-        }
-        
-        let uiImage: UIImage
-        let cgImage: CGImage
-    }
-    
     // Explanation of why this is needed and how it works.
     //
     // # Why
@@ -29,12 +18,21 @@ extension ImageHashCalculatorSnapshotsComparator {
     //
     // # How
     //
-    // To ignore transparent pixels we just cut transparent pixels from both of images.
-    // It will be replaced with opaque color later. So the transparent region will
-    // have same color in both of pictures. Note that we don't make images opaque here,
-    // because we rely on image hashing implementation that it will treat images as opaque.
-    // This is not very secure (implementation can be changed), but we have tests for that,
-    // and also we save a bit of time by not doing unneccessary work.
+    // Place expected image on a generated background that looks like background of actual image.
+    // Previous method (described below) didn't work and the whole enterprise seems to be futile...
+    // We can't use things like image hashing for such cases.
+    //
+    // NOTE: This was previous "How" and it didn't work:
+    //
+    // > To ignore transparent pixels we just cut transparent pixels from both of images.
+    // > It will be replaced with opaque color later. So the transparent region will
+    // > have same color in both of pictures. Note that we don't make images opaque here,
+    // > because we rely on image hashing implementation that it will treat images as opaque.
+    // > This is not very secure (implementation can be changed), but we have tests for that,
+    // > and also we save a bit of time by not doing unneccessary work.
+    //
+    // This is because intersection of small transparent icons ("outline"-like) was very
+    // small and icons looked like each other. It ignored important features of objects.
     //
     final class ImagesForHashingProvider {
         private let shouldIgnoreTransparency: Bool
@@ -50,24 +48,16 @@ extension ImageHashCalculatorSnapshotsComparator {
             -> ImagesForHashing
         {
             if shouldIgnoreTransparency {
-                let actualImage = try imageVariations(
-                    uiImage: actualImage,
-                    imageDescrption: "actual image"
-                )
-                
-                let expectedImage = try imageVariations(
-                    uiImage: expectedImage,
-                    imageDescrption: "expected image"
+                let actualImage = try toOpaque(
+                    image: actualImage,
+                    backgroundColor: .gray
                 )
                 
                 return ImagesForHashing(
-                    actualImage: try intersection(
-                        image: actualImage,
-                        mask: expectedImage
-                    ),
-                    expectedImage: try intersection(
-                        image: expectedImage,
-                        mask: actualImage
+                    actualImage: actualImage,
+                    expectedImage: try blend(
+                        background: actualImage,
+                        foreground: expectedImage
                     )
                 )
             } else {
@@ -78,65 +68,52 @@ extension ImageHashCalculatorSnapshotsComparator {
             }
         }
         
-        private func intersection(
-            image: ImageVariations,
-            mask: ImageVariations)
+        private func toOpaque(
+            image: UIImage,
+            backgroundColor: UIColor)
             throws
             -> UIImage
         {
-            // There are many ways thar UIImage can be rendered:
-            // https://developer.apple.com/library/archive/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/GraphicsDrawingOverview/GraphicsDrawingOverview.html#//apple_ref/doc/uid/TP40010156-CH14-SW4
-            // It can be flipped, offset, etc, depending on settings. All this logic exists
-            // in UIImage method `-(void)drawInRect:(struct CGRect)arg2 blendMode:(int)arg3 alpha:(double)arg4`.
-            // Disassembled code is very huge so there is no real justification of reimplementing that logic.
-            // We can afford an inefficient algorithm to not do that (inefficient, because we create
-            // an auxiliary mask image, for example, just extra work).
-            //
-            // If we don't account for this, images will be flipped seemingly randomly (from a point of view
-            // of a developer who can't care less about internal implementation of those things).
             return try self.uiImage(
-                size: image.uiImage.size,
+                size: image.size,
                 opaque: false,
-                scale: image.uiImage.scale,
-                body: { (_, frame) in
-                    image.uiImage.draw(
-                        in: frame,
-                        blendMode: .copy,
-                        alpha: 1
-                    )
+                scale: image.scale,
+                body: { (context, frame) in
+                    context.setFillColor(backgroundColor.cgColor)
+                    context.fill(frame)
                     
-                    mask.uiImage.draw(
+                    image.draw(
                         in: frame,
-                        blendMode: .destinationIn, // TODO: Test this. It was `.sourceIn`, it was wrong and test didn't find it.
+                        blendMode: .normal,
                         alpha: 1
                     )
                 }
             )
         }
         
-        private func imageVariations(
-            uiImage: UIImage,
-            imageDescrption: String)
+        private func blend(
+            background: UIImage,
+            foreground: UIImage)
             throws
-            -> ImageVariations
+            -> UIImage
         {
-            return ImageVariations(
-                uiImage: uiImage,
-                cgImage: try cgImage(
-                    uiImage: uiImage,
-                    imageDescrption: imageDescrption
-                )
-            )
-        }
-        
-        private func cgImage(
-            uiImage: UIImage,
-            imageDescrption: String)
-            throws
-            -> CGImage
-        {
-            return try uiImage.cgImage.unwrapOrThrow(
-                message: "Failed to get `cgImage` from \(imageDescrption)"
+            return try self.uiImage(
+                size: foreground.size,
+                opaque: false,
+                scale: foreground.scale,
+                body: { (_, frame) in
+                    background.draw(
+                        in: frame,
+                        blendMode: .copy,
+                        alpha: 1
+                    )
+                    
+                    foreground.draw(
+                        in: frame,
+                        blendMode: .normal,
+                        alpha: 1
+                    )
+                }
             )
         }
         
@@ -156,26 +133,6 @@ extension ImageHashCalculatorSnapshotsComparator {
                     try body(context, rect)
                     
                     return UIGraphicsGetImageFromCurrentImageContext()
-                }
-            )
-        }
-        
-        private func cgImage(
-            size: CGSize,
-            opaque: Bool,
-            scale: CGFloat,
-            body: (CGContext, CGRect) throws -> ())
-            throws
-            -> CGImage
-        {
-            return try image(
-                size: size,
-                opaque: opaque,
-                scale: scale,
-                body: { context, rect in
-                    try body(context, rect)
-                    
-                    return context.makeImage()
                 }
             )
         }

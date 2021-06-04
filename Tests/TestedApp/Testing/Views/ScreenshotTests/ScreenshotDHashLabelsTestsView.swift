@@ -2,7 +2,7 @@ import UIKit
 import MixboxUiKit
 
 final class ScreenshotDHashLabelsTestsView: UIView {
-    private let catView = UIImageView(image: UIImage(named: "imagehash_cat_original"))
+    private let catView = UIImageView(image: UIImage(named: "imagehash_cats/imagehash_cat_original"))
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -11,7 +11,7 @@ class ImageHashCalculatorTests: TestCase {
     // different iOS versions.
     func test___imageHash___is_deterministic() {
         let images = ["size", "text", "color", "original", "aspect", "borders", "not_cat", "lots_of_text"].map {
-            UIImage(named: "imagehash_cat_\($0)", in: Bundle(for: type(of: self)), compatibleWith: nil).unwrapOrFail()
+            UIImage(named: "imagehash_cats/imagehash_cat_\($0)", in: Bundle(for: type(of: self)), compatibleWith: nil).unwrapOrFail()
         }
         
         let hashes = images.map { image in

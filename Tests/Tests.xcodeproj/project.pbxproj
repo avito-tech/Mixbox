@@ -711,6 +711,7 @@
 		F8C8ED4F2298650E0009B9A7 /* UiTestCaseDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C8ED4A22985E200009B9A7 /* UiTestCaseDependencies.swift */; };
 		F8C8ED5122999A170009B9A7 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8FC39802159133D00A9C922 /* Media.xcassets */; };
 		F8C9BE0220C5BE3300EB3CDD /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */; };
+		F8D227A4266AD5F4005DE5DA /* SnapshotComparisonAccuracyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D227A3266AD5F4005DE5DA /* SnapshotComparisonAccuracyTests.swift */; };
 		F8D262D0244313570006B707 /* GeneratorFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D262CF244313570006B707 /* GeneratorFacadeTests.swift */; };
 		F8D262D324431D740006B707 /* BaseGeneratorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D262D224431D740006B707 /* BaseGeneratorTestCase.swift */; };
 		F8D53B22235F62E5004E4577 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D53B21235F62E5004E4577 /* TestCase.swift */; };
@@ -1423,6 +1424,7 @@
 		F8C8ED4A22985E200009B9A7 /* UiTestCaseDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTestCaseDependencies.swift; sourceTree = "<group>"; };
 		F8C9BE0120C5BE3300EB3CDD /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		F8D1AA9C24ED5AD9001147B6 /* PageObjectMakingHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageObjectMakingHelperTests.swift; sourceTree = "<group>"; };
+		F8D227A3266AD5F4005DE5DA /* SnapshotComparisonAccuracyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotComparisonAccuracyTests.swift; sourceTree = "<group>"; };
 		F8D262CF244313570006B707 /* GeneratorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorFacadeTests.swift; sourceTree = "<group>"; };
 		F8D262D224431D740006B707 /* BaseGeneratorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGeneratorTestCase.swift; sourceTree = "<group>"; };
 		F8D53B21235F62E5004E4577 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -3605,6 +3607,7 @@
 		F8BC20E126681268001C6BB5 /* SnapshotComparison */ = {
 			isa = PBXGroup;
 			children = (
+				F8D227A3266AD5F4005DE5DA /* SnapshotComparisonAccuracyTests.swift */,
 				F8DC8639236724D2003889C7 /* PerPixelSnapshotsComparatorTests.swift */,
 				F8BC20E226681278001C6BB5 /* ImageHashCalculatorSnapshotsComparatorTests.swift */,
 				F8BC20E426681296001C6BB5 /* BaseSnapshotsComparatorTestCase.swift */,
@@ -5806,6 +5809,7 @@
 				F80C2E4D24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift in Sources */,
 				F80084BC228480A700DF1DC6 /* CurrentApplicationCurrentSimulatorFileSystemRootProviderTests.swift in Sources */,
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
+				F8D227A4266AD5F4005DE5DA /* SnapshotComparisonAccuracyTests.swift in Sources */,
 				F8F4A1D425682F740093523E /* MocksTestsFixtureObjcProtocol.swift in Sources */,
 				F830B5DE2582205800E5E444 /* DynamicBehaviorIntegrationalTests.swift in Sources */,
 				F83668BB265D3BEB00C7F1FF /* SnapshotHierarchyMatcherTests.swift in Sources */,

@@ -32,7 +32,7 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
         }
         
         assertImageMatchesReference(
-            imageName: "imagehash_cat_size",
+            imageName: "imagehash_cats/imagehash_cat_size",
             // TODO: Should match with 0 tolerance.
             //       There is probably a bug with layout on iPhone 7 iOS 11.3 / Xcode 10.1 / High Sierra / Emcee runner.
             //       I can't reproduce it with iPhone 7 iOS 11.3 / Xcode 10.2 / Mojave / Xcode runner.
@@ -59,7 +59,7 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
         }
         
         assertImageMatchesReference(
-            imageName: "imagehash_cat_lots_of_text",
+            imageName: "imagehash_cats/imagehash_cat_lots_of_text",
             exactTolerance: exactTolerance
         )
     }
@@ -81,7 +81,7 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
         }
         
         assertImageMatchesReference(
-            imageName: "imagehash_cat_not_cat",
+            imageName: "imagehash_cats/imagehash_cat_not_cat",
             exactTolerance: exactTolerance
         )
     }

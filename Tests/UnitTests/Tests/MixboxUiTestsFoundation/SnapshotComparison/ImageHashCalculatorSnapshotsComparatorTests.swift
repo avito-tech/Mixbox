@@ -21,6 +21,10 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
         )
     }
     
+    override var reuseState: Bool {
+        false
+    }
+    
     override func precondition() {
         super.precondition()
         
@@ -222,7 +226,8 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
         }
     }
     
-    func test___compare___tells_images_are_similar___if_only_difference_is_transparency_of_pixels___and_shouldIgnoreTransparency_true() {
+    // swiftlint:disable:next function_body_length
+    func test___compare___handles_transparency_properly_when_shouldIgnoreTransparency_true() {
         shouldIgnoreTransparency = true
         
         iterateCombinations { isTransparent0, isTransparent1, isTransparent2, isTransparent3 in
@@ -230,6 +235,32 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
                 // ignore 100% equal images, no need to test it.
                 return
             }
+            
+            // Uncomment this line to debug:
+            let (isTransparent0, isTransparent1, isTransparent2, isTransparent3) = (true, true, false, false)
+            
+            let currentCombination = [isTransparent0, isTransparent1, isTransparent2, isTransparent3]
+            
+            // swiftlint:disable comma
+            let isSimilarByCombination: [[Bool]: Bool] = [
+                [ false , false , false , false ]:  true, // Identical images
+                [ false , false , false , true  ]:  true, // Partially matching
+                [ false , false , true  , false ]:  true, // Partially matching
+                [ false , false , true  , true  ]:  true, // Empty expected image
+                [ false , true  , false , false ]: false,
+                [ false , true  , false , true  ]:  true, // Identical images
+                [ false , true  , true  , false ]: false,
+                [ false , true  , true  , true  ]:  true, // Empty expected image
+                [ true  , false , false , false ]: false,
+                [ true  , false , false , true  ]: false,
+                [ true  , false , true  , false ]:  true, // Identical images
+                [ true  , false , true  , true  ]:  true, // Empty expected image
+                [ true  , true  , false , false ]:  true, // UNFORTUNATELY. Two monotone images are treated as equal.
+                [ true  , true  , false , true  ]: false,
+                [ true  , true  , true  , false ]: false,
+                [ true  , true  , true  , true  ]:  true  // Identical images
+            ]
+            // swiftlint:enable comma
             
             assertDoesntThrow {
                 let actualImage = imageWithShape(
@@ -245,13 +276,31 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
                     expectedImage: expectedImage
                 )
                 
-                assertSimilar(snapshotsComparisonResult: result) { _ in
-                    """
-                    Transparent pixels should be ignored when images are compared.
+                switch isSimilarByCombination[currentCombination] {
+                case true?:
+                    assertSimilar(snapshotsComparisonResult: result) { description in
+                        """
+                        Transparent pixels should be ignored when images are compared.
 
-                    Current combination: \([isTransparent0, isTransparent1, isTransparent2, isTransparent3])
-                    """
+                        Message: \(description.message)
+                        Percentage of matching: \(description.percentageOfMatching)
+                        Current combination: \(currentCombination)
+                        """
+                    }
+                case false?:
+                    assertDifferent(
+                        snapshotsComparisonResult: result,
+                        messageIfSimilar:
+                        """
+                        Images are expected to be different.
+                        
+                        Current combination: \(currentCombination)
+                        """
+                    )
+                default:
+                    XCTFail("Missing case")
                 }
+                
             }
         }
     }
@@ -310,7 +359,7 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
             shouldIgnoreTransparency: true
         )
         
-        let image = self.image(name: "imagehash_cat_original")
+        let image = self.image(name: "imagehash_cats/imagehash_cat_original")
         
         assertDoesntThrow {
             let imagesForHashing = try provider.imagesForHashing(actualImage: image, expectedImage: image)
