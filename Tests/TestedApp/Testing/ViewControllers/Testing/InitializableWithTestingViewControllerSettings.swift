@@ -1,3 +1,3 @@
-public protocol InitializableWithTestingViewControllerSettings: class {
+public protocol InitializableWithTestingViewControllerSettings: AnyObject {
     init(testingViewControllerSettings: TestingViewControllerSettings)
 }

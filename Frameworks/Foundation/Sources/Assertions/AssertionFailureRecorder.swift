@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol AssertionFailureRecorder: class {
+public protocol AssertionFailureRecorder: AnyObject {
     func recordAssertionFailure(
         message: String,
         fileLine: FileLine)

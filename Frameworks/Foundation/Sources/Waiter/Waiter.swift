@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol Waiter: class {
+public protocol Waiter: AnyObject {
     @discardableResult
     func wait(
         timeout: TimeInterval,

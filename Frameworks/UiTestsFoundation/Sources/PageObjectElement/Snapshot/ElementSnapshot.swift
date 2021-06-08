@@ -1,7 +1,7 @@
 import MixboxFoundation
 import UIKit
 
-public protocol ElementSnapshot: class, CustomDebugStringConvertible {
+public protocol ElementSnapshot: AnyObject, CustomDebugStringConvertible {
     // Common (can be retrieved via Apple's Accessibility feature):
     
     var frameRelativeToScreen: CGRect { get }

@@ -1,4 +1,4 @@
-public protocol NetworkRecorderLifecycle: class {
+public protocol NetworkRecorderLifecycle: AnyObject {
     func startRecording()
     func stopRecording()
 }

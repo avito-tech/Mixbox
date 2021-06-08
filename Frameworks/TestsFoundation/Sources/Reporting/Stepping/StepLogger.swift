@@ -17,7 +17,7 @@ import MixboxFoundation
 //
 // Note that the result is still same. No need to change other code.
 //
-public protocol StepLogger: class {
+public protocol StepLogger: AnyObject {
     // Returns StepLoggerResultWrapper<T> instead of T, because it is easier to nest one logger into another
     // and intercept all data.
     

@@ -1,7 +1,7 @@
 import MixboxIpcCommon
 import Foundation
 
-public protocol StubResponseBuilder: class {
+public protocol StubResponseBuilder: AnyObject {
     // Do not use directly, use functions from extensions.
     // This function should be used only for implementing basic functionality.
     func withResponse(

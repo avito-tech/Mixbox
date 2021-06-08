@@ -1,4 +1,4 @@
-public protocol ElementResolverWithScrollingAndRetries: class {
+public protocol ElementResolverWithScrollingAndRetries: AnyObject {
     func resolveElementWithRetries(
         isPossibleToRetryProvider: IsPossibleToRetryProvider)
         throws

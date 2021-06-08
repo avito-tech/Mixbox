@@ -1,5 +1,5 @@
 import MixboxIpcCommon
 
-public protocol ScrollingHintsProvider: class {
+public protocol ScrollingHintsProvider: AnyObject {
     func scrollingHint(element: ElementSnapshot) -> ScrollingHint
 }

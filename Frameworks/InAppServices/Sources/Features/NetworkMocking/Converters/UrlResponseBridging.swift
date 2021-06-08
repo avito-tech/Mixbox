@@ -2,7 +2,7 @@
 
 import MixboxIpcCommon
 
-public protocol UrlResponseBridging: class {
+public protocol UrlResponseBridging: AnyObject {
     func urlResponse(bridgedUrlResponse: BridgedUrlResponse)
         throws
         -> URLResponse

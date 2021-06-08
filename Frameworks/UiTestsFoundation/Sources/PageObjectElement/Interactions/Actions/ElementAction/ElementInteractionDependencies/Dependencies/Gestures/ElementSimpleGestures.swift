@@ -8,7 +8,7 @@ import UIKit
 //
 // TODO: Can it be completely replaced with EventsGenerator? Anyway, gestures are too limited now. We should use
 // more customizable things.
-public protocol ElementSimpleGestures: class {
+public protocol ElementSimpleGestures: AnyObject {
     func tap() throws
     func press(duration: TimeInterval) throws
 }

@@ -55,7 +55,8 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                 testFailureRecorder: try di.resolve(),
                 bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,
                 waiter: try di.resolve(),
-                performanceLogger: try di.resolve()
+                performanceLogger: try di.resolve(),
+                bundleId: "mixbox.Tests.TestedApp"
             )
         }
         di.register(type: TccDbApplicationPermissionSetterFactory.self) { di in

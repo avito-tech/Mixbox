@@ -1,3 +1,3 @@
-public protocol TouchInjectorFactory: class {
+public protocol TouchInjectorFactory: AnyObject {
     func touchInjector() -> TouchInjector
 }

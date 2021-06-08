@@ -2,7 +2,7 @@
 
 import MixboxFoundation
 
-public protocol ReadableIpcObjectRepository: class {
+public protocol ReadableIpcObjectRepository: AnyObject {
     associatedtype IpcObjectType
     
     func object(ipcObjectId: IpcObjectId) -> IpcObjectType?

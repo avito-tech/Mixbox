@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol ElementInteractionPerformer: class {
+public protocol ElementInteractionPerformer: AnyObject {
     func perform(
         interaction: ElementInteraction,
         interactionPerformingSettings: InteractionPerformingSettings)

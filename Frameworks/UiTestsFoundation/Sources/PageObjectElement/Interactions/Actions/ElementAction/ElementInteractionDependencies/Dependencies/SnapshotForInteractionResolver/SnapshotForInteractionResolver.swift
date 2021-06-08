@@ -6,7 +6,7 @@ import UIKit
 //
 // It is a temporary workaround to pause current refactoring.
 // Should be refactored further during implementation of Gray Box tests.
-public protocol SnapshotForInteractionResolver: class {
+public protocol SnapshotForInteractionResolver: AnyObject {
     func resolve(
         arguments: SnapshotForInteractionResolverArguments,
         completion: @escaping (SnapshotForInteractionResolverResult) -> (InteractionResult))

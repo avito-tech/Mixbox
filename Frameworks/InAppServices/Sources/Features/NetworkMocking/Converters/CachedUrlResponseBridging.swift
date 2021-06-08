@@ -2,7 +2,7 @@
 
 import MixboxIpcCommon
 
-public protocol CachedUrlResponseBridging: class {
+public protocol CachedUrlResponseBridging: AnyObject {
     func bridgedCachedUrlResponse(
         cachedUrlResponse: CachedURLResponse)
         throws

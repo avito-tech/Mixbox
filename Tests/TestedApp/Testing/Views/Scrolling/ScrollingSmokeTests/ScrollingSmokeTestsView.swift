@@ -1,2 +1,2 @@
 // Marker protocol
-public protocol ScrollingSmokeTestsView: class {}
+public protocol ScrollingSmokeTestsView: AnyObject {}

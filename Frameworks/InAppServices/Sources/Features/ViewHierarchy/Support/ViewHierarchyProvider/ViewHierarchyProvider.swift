@@ -3,7 +3,7 @@
 import MixboxIpcCommon
 import UIKit
 
-public protocol ViewHierarchyProvider: class {
+public protocol ViewHierarchyProvider: AnyObject {
     func viewHierarchy() -> ViewHierarchy
 }
 

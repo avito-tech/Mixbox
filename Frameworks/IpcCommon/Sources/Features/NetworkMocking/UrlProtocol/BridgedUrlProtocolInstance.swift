@@ -1,7 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 // Replicates instance object of URLProtocol
-public protocol BridgedUrlProtocolInstance: class {
+public protocol BridgedUrlProtocolInstance: AnyObject {
     func startLoading() throws
     func stopLoading() throws
     

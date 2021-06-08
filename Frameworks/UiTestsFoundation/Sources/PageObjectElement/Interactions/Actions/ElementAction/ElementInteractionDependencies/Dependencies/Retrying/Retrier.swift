@@ -1,4 +1,4 @@
-public protocol Retrier: class {
+public protocol Retrier: AnyObject {
     func retry<T>(
         firstAttempt: () throws -> T,
         everyNextAttempt: () throws -> T,

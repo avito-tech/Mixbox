@@ -1,7 +1,7 @@
 import MixboxFoundation
 import UIKit
 
-public protocol ElementFactory: class {
+public protocol ElementFactory: AnyObject {
     // These functions designed to be implemented by classes, not to be used in tests.
     //
     // See protocol extensions for client interface (your tests).

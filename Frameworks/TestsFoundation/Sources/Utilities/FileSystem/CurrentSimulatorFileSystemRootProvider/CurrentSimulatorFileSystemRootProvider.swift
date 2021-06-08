@@ -1,3 +1,3 @@
-public protocol CurrentSimulatorFileSystemRootProvider: class {
+public protocol CurrentSimulatorFileSystemRootProvider: AnyObject {
     func currentSimulatorFileSystemRoot() throws -> SimulatorFileSystemRoot
 }

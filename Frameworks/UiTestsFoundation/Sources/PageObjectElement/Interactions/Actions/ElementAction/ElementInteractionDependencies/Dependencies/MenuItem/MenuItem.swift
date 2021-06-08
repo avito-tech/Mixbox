@@ -6,7 +6,7 @@ import Foundation
 // Should be refactored further during implementation of Gray Box tests.
 
 // See also: MenuItemProvider
-public protocol MenuItem: class {
+public protocol MenuItem: AnyObject {
     func tap() throws
     func waitForExistence(timeout: TimeInterval) throws
 }

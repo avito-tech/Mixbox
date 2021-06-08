@@ -152,6 +152,9 @@
                <Test
                   Identifier = "OSSimilaritySearchTests">
                </Test>
+               <Test
+                  Identifier = "SnapshotComparisonTests">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

@@ -1,3 +1,3 @@
-public protocol ElementQuery: class {
+public protocol ElementQuery: AnyObject {
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery
 }

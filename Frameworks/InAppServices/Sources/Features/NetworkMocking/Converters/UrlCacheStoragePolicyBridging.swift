@@ -2,7 +2,7 @@
 
 import MixboxIpcCommon
 
-public protocol UrlCacheStoragePolicyBridging: class {
+public protocol UrlCacheStoragePolicyBridging: AnyObject {
     func urlCacheStoragePolicy(
         bridgedUrlCacheStoragePolicy: BridgedUrlCacheStoragePolicy)
         throws

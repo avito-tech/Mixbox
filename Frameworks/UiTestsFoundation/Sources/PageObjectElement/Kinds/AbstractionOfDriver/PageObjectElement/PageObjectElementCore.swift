@@ -11,7 +11,7 @@ import MixboxFoundation
 //
 // Or you can create your own elements with extended functionality.
 //
-public protocol PageObjectElementCore: class {
+public protocol PageObjectElementCore: AnyObject {
     var settings: ElementSettings { get }
     var interactionPerformer: PageObjectElementInteractionPerformer { get }
     

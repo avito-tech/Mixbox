@@ -1,3 +1,3 @@
-public protocol ElementResolver: class {
+public protocol ElementResolver: AnyObject {
     func resolveElement() throws -> ResolvedElementQuery
 }

@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol WriteableIpcObjectRepository: class {
+public protocol WriteableIpcObjectRepository: AnyObject {
     associatedtype IpcObjectType
     
     // Example of usage:

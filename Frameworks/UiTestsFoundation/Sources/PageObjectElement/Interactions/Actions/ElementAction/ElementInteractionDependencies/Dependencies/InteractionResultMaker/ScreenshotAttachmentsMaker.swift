@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-public protocol ScreenshotAttachmentsMaker: class {
+public protocol ScreenshotAttachmentsMaker: AnyObject {
     func makeScreenshotAttachments(
         beforeStep: Bool,
         includeHash: Bool)

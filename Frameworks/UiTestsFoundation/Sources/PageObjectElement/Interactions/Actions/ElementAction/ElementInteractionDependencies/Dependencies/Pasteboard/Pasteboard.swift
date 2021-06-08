@@ -2,7 +2,7 @@
 // For example, it setText action we use Pasteboard for storing string that is pasted into a textfield.
 // So this actions removes previous value from pasteboard. It can be undesirable.
 // Note that it is not as easy as it seems. You have to wait until pasteboard value is used before reverting it.
-public protocol Pasteboard: class {
+public protocol Pasteboard: AnyObject {
     func setString(_ string: String?) throws
     func getString() throws -> String?
 }

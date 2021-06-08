@@ -10,7 +10,7 @@ public typealias IpcClientError = Error
 // process and wait for connection. Because at the moment there are places where LazilyInitializedIpcClient is
 // used. And tests are failed if nested `ipcClient` is nil. But this feature (`LazilyInitializedIpcClient`) will be
 // needed inside tested application (to inject IpcClient in method handlers and wait for connection automatically).
-public protocol IpcClient: class {
+public protocol IpcClient: AnyObject {
     func call<Method: IpcMethod>(
         method: Method,
         arguments: Method.Arguments,

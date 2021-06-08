@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol TccPrivacySettingsManager: class {
+public protocol TccPrivacySettingsManager: AnyObject {
     func fetchPrivacySettingsState(
         service: TccService)
         throws

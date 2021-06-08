@@ -26,7 +26,10 @@ final class LaunchingAppTests: TestCase {
     
     private func sbtuiLaunchableApplication() -> LaunchableApplication {
         let launchableApplication = SbtuiLaunchableApplication(
-            tunneledApplication: SBTUITunneledApplication(),
+            tunneledApplication: SBTUITunneledApplication(
+                bundleId: "irrelevant",
+                shouldInstallApplication: true
+            ),
             applicationLifecycleObservable: applicationLifecycleObservable,
             testFailureRecorder: dependencies.resolve(),
             bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,

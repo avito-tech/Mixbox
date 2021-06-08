@@ -1,3 +1,3 @@
-public protocol PhotoStubber: class {
+public protocol PhotoStubber: AnyObject {
     func stubPhotos(minimalCount: Int) throws
 }

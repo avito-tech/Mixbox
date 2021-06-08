@@ -2,7 +2,7 @@
 
 import MixboxIpc
 
-public protocol IpcStarter: class {
+public protocol IpcStarter: AnyObject {
     // TODO: IpcClient should not be nil
     func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure])
         throws

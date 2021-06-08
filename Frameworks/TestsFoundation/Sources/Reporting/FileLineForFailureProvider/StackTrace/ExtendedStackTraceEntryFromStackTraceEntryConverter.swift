@@ -1,3 +1,3 @@
-public protocol ExtendedStackTraceEntryFromStackTraceEntryConverter: class {
+public protocol ExtendedStackTraceEntryFromStackTraceEntryConverter: AnyObject {
     func extendedStackTraceEntry(stackTraceEntry: StackTraceEntry) -> ExtendedStackTraceEntry
 }

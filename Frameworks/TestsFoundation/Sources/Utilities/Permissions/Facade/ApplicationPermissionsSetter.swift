@@ -33,7 +33,7 @@ import MixboxFoundation
 //  permissions.mainApp.geolocation.set(.allowed)
 //
 
-public protocol ApplicationPermissionsSetter: class {
+public protocol ApplicationPermissionsSetter: AnyObject {
     // TODO: Try to implement notDetermined for notifications
     var notifications: ApplicationPermissionWithoutNotDeterminedStateSetter  { get }
     

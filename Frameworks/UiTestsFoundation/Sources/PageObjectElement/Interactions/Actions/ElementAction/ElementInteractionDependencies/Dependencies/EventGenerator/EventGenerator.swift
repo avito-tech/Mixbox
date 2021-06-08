@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol EventGenerator: class {
+public protocol EventGenerator: AnyObject {
     func pressAndDrag(
         from: CGPoint,
         to: CGPoint,

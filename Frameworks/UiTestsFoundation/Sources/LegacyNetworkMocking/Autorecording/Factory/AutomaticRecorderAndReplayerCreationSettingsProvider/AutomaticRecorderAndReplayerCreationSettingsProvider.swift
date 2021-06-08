@@ -1,4 +1,4 @@
-public protocol AutomaticRecorderAndReplayerCreationSettingsProvider: class {
+public protocol AutomaticRecorderAndReplayerCreationSettingsProvider: AnyObject {
     func automaticRecorderAndReplayerCreationSettings(
         session: RecordedNetworkSessionPath)
         -> AutomaticRecorderAndReplayerCreationSettings

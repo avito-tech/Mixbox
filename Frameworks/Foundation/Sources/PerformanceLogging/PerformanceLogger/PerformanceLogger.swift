@@ -12,7 +12,7 @@
 //
 // Instances should be thread safe.
 //
-public protocol PerformanceLogger: class {
+public protocol PerformanceLogger: AnyObject {
     func startImpl(
         staticName: StaticString,
         dynamicName: @escaping () -> (String?),

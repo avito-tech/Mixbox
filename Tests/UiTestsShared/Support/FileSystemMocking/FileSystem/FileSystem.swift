@@ -1,7 +1,7 @@
 import MixboxFoundation
 
 // Facade for mocking file system
-public protocol FileSystem: class {
+public protocol FileSystem: AnyObject {
     func temporaryFile(name: String?) -> TemporaryFile
     func temporaryDirectory(name: String?) -> TemporaryDirectory
 }

@@ -1,6 +1,6 @@
 import MixboxIpcCommon
 
-public protocol UrlProtocolStubAdder: class {
+public protocol UrlProtocolStubAdder: AnyObject {
     func addStub(
         bridgedUrlProtocolClass: BridgedUrlProtocolClass)
         throws

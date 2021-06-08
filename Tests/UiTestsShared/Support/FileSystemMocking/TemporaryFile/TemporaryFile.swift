@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-public protocol TemporaryFile: class {
+public protocol TemporaryFile: AnyObject {
     var path: String { get }
 }
 

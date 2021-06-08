@@ -7,7 +7,7 @@ import UIKit
 /// Adds and observer and stores it using a `weak` reference, so there is no need for a `removeObserver(_:)` method.
 /// If an object calls the `addObserver` method twice, the completion blocks will be overwritten in favor of newer ones,
 /// but the object will not be added to the observers list more than once
-public protocol KeyboardFrameProvider: class {
+public protocol KeyboardFrameProvider: AnyObject {
     func addObserver(
         object: AnyObject,
         onKeyboardFrameWillChange: ((_ change: KeyboardFrameChange) -> ())?,

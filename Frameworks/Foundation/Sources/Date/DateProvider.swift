@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol DateProvider: class {
+public protocol DateProvider: AnyObject {
     func currentDate() -> Date
 }
 

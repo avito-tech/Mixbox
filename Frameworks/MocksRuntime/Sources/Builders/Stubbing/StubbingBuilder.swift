@@ -1,5 +1,5 @@
 import MixboxFoundation
 
-public protocol StubbingBuilder: class {
+public protocol StubbingBuilder: AnyObject {
     init(mockManager: MockManager, fileLine: FileLine)
 }

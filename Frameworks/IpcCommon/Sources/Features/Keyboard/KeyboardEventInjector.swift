@@ -2,7 +2,7 @@
 
 import MixboxFoundation
 
-public protocol KeyboardEventInjector: class {
+public protocol KeyboardEventInjector: AnyObject {
     func inject(events: [KeyboardEvent], completion: @escaping (ErrorString?) -> ())
 }
 

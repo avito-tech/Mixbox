@@ -2,7 +2,7 @@
 // Completion can be called on any thread.
 //
 // TODO: Add setUp method? E.g.: to clear some state.
-public protocol ReportingSystem: class {
+public protocol ReportingSystem: AnyObject {
     func reportTestCase(
         testCaseReport: TestCaseReport,
         completion: @escaping () -> ())

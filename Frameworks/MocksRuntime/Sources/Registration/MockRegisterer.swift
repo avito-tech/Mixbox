@@ -1,4 +1,4 @@
-public protocol MockRegisterer: class {
+public protocol MockRegisterer: AnyObject {
     func register(mock: StorableMock)
 }
 

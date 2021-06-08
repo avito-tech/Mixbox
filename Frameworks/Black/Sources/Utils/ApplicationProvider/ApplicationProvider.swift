@@ -17,6 +17,6 @@ import XCTest
 // not represent actual UI state).
 //
 // TODO: Rename to XcuiApplicationProvider
-public protocol ApplicationProvider: class {
+public protocol ApplicationProvider: AnyObject {
     var application: XCUIApplication { get }
 }

@@ -3,7 +3,7 @@
 import MixboxTestability
 import MixboxFoundation
 
-public protocol CollectionViewCellSwizzler: class {
+public protocol CollectionViewCellSwizzler: AnyObject {
     func swizzle()
 }
 

@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol DependencyResolver: class {
+public protocol DependencyResolver: AnyObject {
     // Use this function in custom implementations/wrappers of `DependencyResolver`.
     // See `CompoundDependencyResolver`. Use `resolve<T>()` for everything else, for
     // example, for resolving your dependencies.

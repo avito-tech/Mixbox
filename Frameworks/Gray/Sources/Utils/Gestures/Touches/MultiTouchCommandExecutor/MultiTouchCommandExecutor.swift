@@ -1,3 +1,3 @@
-public protocol MultiTouchCommandExecutor: class {
+public protocol MultiTouchCommandExecutor: AnyObject {
     func execute(command: MultiTouchCommand)
 }

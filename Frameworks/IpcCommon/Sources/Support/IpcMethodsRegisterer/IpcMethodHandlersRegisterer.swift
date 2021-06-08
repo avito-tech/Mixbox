@@ -2,7 +2,7 @@
 
 import MixboxIpc
 
-public protocol IpcMethodHandlersRegisterer: class {
+public protocol IpcMethodHandlersRegisterer: AnyObject {
     func registerIn(ipcRouter: IpcRouter)
 }
 

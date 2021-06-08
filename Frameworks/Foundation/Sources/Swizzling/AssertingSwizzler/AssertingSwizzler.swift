@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol AssertingSwizzler: class {
+public protocol AssertingSwizzler: AnyObject {
     func swizzle(
         originalClass: NSObject.Type,
         swizzlingClass: NSObject.Type,

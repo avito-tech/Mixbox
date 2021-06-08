@@ -1,3 +1,3 @@
-public protocol ExtendedStackTraceProvider: class {
+public protocol ExtendedStackTraceProvider: AnyObject {
     func extendedStackTrace() -> [ExtendedStackTraceEntry]
 }

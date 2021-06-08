@@ -92,7 +92,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
-             .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9")
+            .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9")
         ),
         .package(
             url: "https://github.com/Alamofire/Alamofire.git",

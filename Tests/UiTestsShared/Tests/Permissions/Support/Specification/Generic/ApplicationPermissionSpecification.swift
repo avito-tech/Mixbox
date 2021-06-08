@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-protocol ApplicationPermissionSpecification: class {
+protocol ApplicationPermissionSpecification: AnyObject {
     associatedtype PermissionStateType: CaseIterable
     
     var identifier: String { get }

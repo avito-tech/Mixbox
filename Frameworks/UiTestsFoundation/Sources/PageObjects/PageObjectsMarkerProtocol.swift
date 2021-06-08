@@ -14,5 +14,5 @@
 // Maybe it will be used gor getting list of all known page objects in the future.
 // Or something else.
 
-public protocol PageObjectsMarkerProtocol: class {
+public protocol PageObjectsMarkerProtocol: AnyObject {
 }

@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-public protocol PageObjectDependenciesFactory: class {
+public protocol PageObjectDependenciesFactory: AnyObject {
     var di: TestFailingDependencyResolver { get }
 }
  

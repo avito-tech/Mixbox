@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol FoundationNetworkModelsBridgingFactory: class {
+public protocol FoundationNetworkModelsBridgingFactory: AnyObject {
     var urlRequestBridging: UrlRequestBridging { get }
     var urlRequestCachePolicyBridging: UrlRequestCachePolicyBridging { get }
     var urlRequestNetworkServiceTypeBridging: UrlRequestNetworkServiceTypeBridging { get }

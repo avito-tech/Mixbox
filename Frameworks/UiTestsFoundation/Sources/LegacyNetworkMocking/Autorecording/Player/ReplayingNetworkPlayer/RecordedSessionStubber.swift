@@ -1,4 +1,4 @@
-public protocol RecordedSessionStubber: class {
+public protocol RecordedSessionStubber: AnyObject {
     func stub(
         recordedStub: RecordedStub)
         throws

@@ -2,7 +2,7 @@
 
 import MixboxIpc
 
-public protocol IpcClientHolder: class {
+public protocol IpcClientHolder: AnyObject {
     var ipcClient: IpcClient? { get }
 }
 

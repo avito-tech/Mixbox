@@ -1,4 +1,4 @@
-public protocol DefaultImplementationSettable: class {
+public protocol DefaultImplementationSettable: AnyObject {
     associatedtype MockedType
     
     // TODO: Should we allow resetting it (making argument optional)?

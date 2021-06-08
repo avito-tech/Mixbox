@@ -3,7 +3,7 @@ import UIKit
 // Easy way to store array of cell models for collection view,
 // Suitable for testing tests, not suitable for real app.
 
-protocol CellModel: class {
+protocol CellModel: AnyObject {
     var cellClass: UICollectionViewCell.Type { get }
     func update(cell: UICollectionViewCell)
 }

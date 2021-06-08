@@ -53,7 +53,8 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                 applicationLifecycleObservable: try di.resolve(),
                 testFailureRecorder: try di.resolve(),
                 bundleResourcePathProvider: bundleResourcePathProviderForTestsTarget,
-                waiter: try di.resolve()
+                waiter: try di.resolve(),
+                bundleId: "com.mixbox.UiTestsDemo"
             )
         }
         di.register(type: TccDbApplicationPermissionSetterFactory.self) { di in

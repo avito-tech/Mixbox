@@ -1,3 +1,3 @@
-public protocol AddedUrlProtocolStub: class {
+public protocol AddedUrlProtocolStub: AnyObject {
     func remove()
 }

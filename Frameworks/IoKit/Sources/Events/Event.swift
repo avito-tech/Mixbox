@@ -2,7 +2,7 @@
 
 import MixboxFoundation
 
-public protocol Event: class {
+public protocol Event: AnyObject {
     var iohidEventRef: IOHIDEventRef { get }
     init(iohidEventRef: IOHIDEventRef)
 }

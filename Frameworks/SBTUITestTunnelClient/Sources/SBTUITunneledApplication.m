@@ -29,7 +29,6 @@ const NSString *SBTUITunnelJsonMimeType = @"application/json";
 
 @property (nonatomic, assign) NSInteger connectionPort;
 @property (nonatomic, assign) BOOL connected;
-@property (nonatomic, assign) NSTimeInterval connectionTimeout;
 @property (nonatomic, strong) NSMutableArray *stubOnceIds;
 @property (nonatomic, strong) NSString *bonjourName;
 @property (nonatomic, strong) NSNetService *bonjourBrowser;
@@ -40,13 +39,20 @@ const NSString *SBTUITunnelJsonMimeType = @"application/json";
 
 @end
 
+@interface XCUIApplication (Private)
+- (id)initPrivateWithPath:(id)arg1 bundleID:(id)arg2;
+@end
+
 @implementation SBTUITunneledApplication
 
 static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
 
-- (instancetype)init
-{
-    self = [super init];
+- (nonnull instancetype)initWithBundleId:(nonnull NSString *)bundleId shouldInstallApplication:(BOOL)shouldInstallApplication {
+    if (shouldInstallApplication) {
+        self = [super init];
+    } else {
+        self = [super initPrivateWithPath:nil bundleID:bundleId];
+    }
     
     if (self) {
         _initialLaunchArguments = self.launchArguments;

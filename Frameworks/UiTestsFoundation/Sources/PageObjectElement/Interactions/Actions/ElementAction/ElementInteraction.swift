@@ -11,11 +11,11 @@
 //       ElementInteraction => ElementInteractionFactory
 //       ElementInteractionWithDependencies => ElementInteraction
 //
-public protocol ElementInteraction: class {
+public protocol ElementInteraction: AnyObject {
     func with(dependencies: ElementInteractionDependencies) -> ElementInteractionWithDependencies
 }
 
-public protocol ElementInteractionWithDependencies: class {
+public protocol ElementInteractionWithDependencies: AnyObject {
     // Return false if test can continue if interaction is failed (useful for tests with lots of checks)
     // TODO: Refactor. Maybe we should put it inside InteractionResult. Or outside of interaction.
     func interactionFailureShouldStopTest() -> Bool

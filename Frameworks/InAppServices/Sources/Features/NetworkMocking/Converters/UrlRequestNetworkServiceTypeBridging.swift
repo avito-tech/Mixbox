@@ -2,7 +2,7 @@
 
 import MixboxIpcCommon
 
-public protocol UrlRequestNetworkServiceTypeBridging: class {
+public protocol UrlRequestNetworkServiceTypeBridging: AnyObject {
     func urlRequestNetworkServiceType(
         bridgedUrlRequestNetworkServiceType: BridgedUrlRequestNetworkServiceType)
         throws

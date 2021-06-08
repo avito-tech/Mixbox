@@ -4,6 +4,6 @@
 // Should be refactored further during implementation of Gray Box tests.
 //
 // See also: MenuItem
-public protocol MenuItemProvider: class {
+public protocol MenuItemProvider: AnyObject {
     func menuItem(possibleTitles: [String]) -> MenuItem
 }

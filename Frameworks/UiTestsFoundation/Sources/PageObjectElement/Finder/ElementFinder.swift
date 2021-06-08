@@ -1,4 +1,4 @@
-public protocol ElementFinder: class {
+public protocol ElementFinder: AnyObject {
     func query(
         elementMatcher: ElementMatcher,
         elementFunctionDeclarationLocation: FunctionDeclarationLocation)

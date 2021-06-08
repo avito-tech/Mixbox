@@ -1,3 +1,3 @@
-public protocol ApplicationStateProvider: class {
+public protocol ApplicationStateProvider: AnyObject {
     func applicationState() throws -> ApplicationState
 }

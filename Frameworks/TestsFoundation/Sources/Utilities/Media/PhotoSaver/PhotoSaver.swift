@@ -1,5 +1,5 @@
 import MixboxFoundation
 
-public protocol PhotoSaver: class {
+public protocol PhotoSaver: AnyObject {
     func save(imagesProvider: ImagesProvider) throws
 }

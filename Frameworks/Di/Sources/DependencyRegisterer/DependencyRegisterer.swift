@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol DependencyRegisterer: class {
+public protocol DependencyRegisterer: AnyObject {
     func register<T>(
         scope: Scope,
         type: T.Type,

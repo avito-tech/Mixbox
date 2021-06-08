@@ -1,3 +1,3 @@
-public protocol ScheduledZeroToleranceTimer: class {
+public protocol ScheduledZeroToleranceTimer: AnyObject {
     func invalidate()
 }

@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-public protocol InteractionResultMaker: class {
+public protocol InteractionResultMaker: AnyObject {
     func decorateFailure(
         interactionFailure: InteractionFailure)
         -> InteractionResult

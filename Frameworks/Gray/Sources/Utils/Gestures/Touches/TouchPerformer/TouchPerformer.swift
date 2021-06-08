@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol TouchPerformer: class {
+public protocol TouchPerformer: AnyObject {
     func touch(
         touchPaths: [[CGPoint]],
         duration: TimeInterval,

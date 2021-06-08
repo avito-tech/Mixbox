@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol PushNotificationSender: class {
+public protocol PushNotificationSender: AnyObject {
     func send(pushNotification: [AnyHashable: Any]) throws
 }

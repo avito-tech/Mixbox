@@ -1,3 +1,3 @@
-public protocol RecordedCallsProvider: class {
+public protocol RecordedCallsProvider: AnyObject {
     var recordedCalls: [RecordedCall] { get }
 }

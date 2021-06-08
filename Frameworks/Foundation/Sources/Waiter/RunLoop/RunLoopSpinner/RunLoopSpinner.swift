@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol RunLoopSpinner: class {
+public protocol RunLoopSpinner: AnyObject {
     // Spins the current thread's run loop in the active mode using the given stop condition.
     //
     // Will always spin the run loop for at least the minimum number of run loop drains. Will always

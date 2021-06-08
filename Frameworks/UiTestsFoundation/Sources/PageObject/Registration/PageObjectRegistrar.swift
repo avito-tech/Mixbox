@@ -3,7 +3,7 @@
 public typealias BasePageObjectInitializer<PageObjectType> = (PageObjectDependenciesFactory) -> PageObjectType
 
 // TODO: Rename to PageObjectFactory.
-public protocol PageObjectRegistrar: class {
+public protocol PageObjectRegistrar: AnyObject {
     func pageObject<PageObjectType>(
         _ initializer: BasePageObjectInitializer<PageObjectType>)
         -> PageObjectType

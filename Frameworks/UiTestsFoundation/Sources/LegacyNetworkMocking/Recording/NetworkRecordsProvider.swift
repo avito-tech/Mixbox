@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol NetworkRecordsProvider: class {
+public protocol NetworkRecordsProvider: AnyObject {
     var allRequests: [MonitoredNetworkRequest] { get }
 }
 

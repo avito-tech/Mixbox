@@ -1,6 +1,6 @@
 import MixboxIpcCommon
 
-public protocol ElementVisibilityChecker: class {
+public protocol ElementVisibilityChecker: AnyObject {
     func checkVisibility(
         snapshot: ElementSnapshot,
         interactionCoordinates: InteractionCoordinates?,

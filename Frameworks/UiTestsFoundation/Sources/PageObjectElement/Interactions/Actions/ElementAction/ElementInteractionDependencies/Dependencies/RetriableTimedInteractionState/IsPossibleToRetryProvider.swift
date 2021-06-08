@@ -1,3 +1,3 @@
-public protocol IsPossibleToRetryProvider: class {
+public protocol IsPossibleToRetryProvider: AnyObject {
     func isPossibleToRetry() -> Bool
 }

@@ -1,4 +1,4 @@
-public protocol ApplicationBundleProvider: class {
+public protocol ApplicationBundleProvider: AnyObject {
     // Throws ErrorString
     func applicationBundle() throws -> Bundle
 }

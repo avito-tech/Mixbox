@@ -2,7 +2,7 @@ import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
 
-public protocol ElementInteractionDependencies: class {
+public protocol ElementInteractionDependencies: AnyObject {
     var di: TestFailingDependencyResolver { get }
 }
 

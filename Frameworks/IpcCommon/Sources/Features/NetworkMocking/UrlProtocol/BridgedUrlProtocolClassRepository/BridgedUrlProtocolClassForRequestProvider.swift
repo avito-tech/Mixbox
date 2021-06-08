@@ -2,7 +2,7 @@
 
 import MixboxFoundation
 
-public protocol BridgedUrlProtocolClassForRequestProvider: class {
+public protocol BridgedUrlProtocolClassForRequestProvider: AnyObject {
     func bridgedUrlProtocolClass(
         forRequest: BridgedUrlRequest)
         throws

@@ -79,7 +79,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         let timeoutValueThatReallyDisablesTimeout: TimeInterval = 100000
         // Disabling timeout really helps when running tests on CI. On CI everything can be unexpectedly slower.
         // Timeouts really don't work well. One global timeout for a test is enough.
-        SBTUITunneledApplication.setConnectionTimeout(timeoutValueThatReallyDisablesTimeout)
+        tunneledApplication.connectionTimeout = timeoutValueThatReallyDisablesTimeout
         
         var environment = environment
         environment["MIXBOX_IPC_STARTER_TYPE"] = IpcStarterType.sbtui.rawValue

@@ -1,6 +1,6 @@
 import MixboxTestsFoundation
 
-public protocol Element: class {
+public protocol Element: AnyObject {
     var core: PageObjectElementCore { get }
     
     func with(settings: ElementSettings) -> Self

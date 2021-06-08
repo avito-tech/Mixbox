@@ -7,7 +7,7 @@
 //
 // Example usage:
 //
-//  public protocol SuperTestUtility: class {
+//  public protocol SuperTestUtility: AnyObject {
 //      func makeLifeEasier(fileLine: FileLine)
 //  }
 //

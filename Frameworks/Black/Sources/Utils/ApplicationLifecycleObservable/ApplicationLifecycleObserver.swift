@@ -1,3 +1,3 @@
-public protocol ApplicationLifecycleObserver: class {
+public protocol ApplicationLifecycleObserver: AnyObject {
     func applicationStateChanged(applicationIsLaunched: Bool)
 }

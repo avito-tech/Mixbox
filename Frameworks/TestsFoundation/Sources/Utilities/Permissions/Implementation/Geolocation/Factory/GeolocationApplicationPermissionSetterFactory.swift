@@ -1,5 +1,5 @@
 import MixboxFoundation
 
-public protocol GeolocationApplicationPermissionSetterFactory: class {
+public protocol GeolocationApplicationPermissionSetterFactory: AnyObject {
     func geolocationApplicationPermissionSetter(bundleId: String) -> ApplicationPermissionSetter
 }

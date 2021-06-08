@@ -1,4 +1,4 @@
-public protocol TextTyper: class {
+public protocol TextTyper: AnyObject {
     func type(instructions: [TextTyperInstruction]) throws
 }
 

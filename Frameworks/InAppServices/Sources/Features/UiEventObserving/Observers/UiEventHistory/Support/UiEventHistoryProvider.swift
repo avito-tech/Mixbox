@@ -3,7 +3,7 @@
 import Foundation
 import MixboxIpcCommon
 
-public protocol UiEventHistoryProvider: class {
+public protocol UiEventHistoryProvider: AnyObject {
     func uiEventHistory(since startDate: Date) -> UiEventHistory
 }
 

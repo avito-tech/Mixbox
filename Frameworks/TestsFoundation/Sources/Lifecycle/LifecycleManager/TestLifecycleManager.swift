@@ -1,3 +1,3 @@
-public protocol TestLifecycleManager: class {
+public protocol TestLifecycleManager: AnyObject {
     func startObserving(testLifecycleObservable: TestLifecycleObservable)
 }

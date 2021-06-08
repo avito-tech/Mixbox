@@ -1,6 +1,6 @@
 import MixboxUiTestsFoundation
 
-public protocol LaunchableApplication: class {
+public protocol LaunchableApplication: AnyObject {
     var legacyNetworking: LegacyNetworking { get }
     
     func launch(

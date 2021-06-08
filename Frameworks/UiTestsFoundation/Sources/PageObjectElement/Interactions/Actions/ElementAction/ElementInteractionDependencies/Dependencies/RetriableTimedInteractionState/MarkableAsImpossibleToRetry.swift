@@ -1,3 +1,3 @@
-public protocol MarkableAsImpossibleToRetry: class {
+public protocol MarkableAsImpossibleToRetry: AnyObject {
     func markAsImpossibleToRetry()
 }

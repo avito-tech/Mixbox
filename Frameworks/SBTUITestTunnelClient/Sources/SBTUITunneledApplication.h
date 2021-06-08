@@ -23,6 +23,15 @@
 
 @interface SBTUITunneledApplication : XCUIApplication
 
+@property (nonatomic, assign) NSTimeInterval connectionTimeout;
+
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initWithBundleId:(nonnull NSString *)bundleId shouldInstallApplication:(BOOL)shouldInstallApplication;
+
+- (BOOL)ping;
+- (BOOL)isAppCruising;
+- (void)resetInternalState;
+
 /**
  *  Launch application synchronously waiting for the tunnel server connection to be established.
  */

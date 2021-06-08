@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol ElementInteractionWithDependenciesPerformer: class {
+public protocol ElementInteractionWithDependenciesPerformer: AnyObject {
     // TODO: FileLine is so lonely here on its level of abstraction, I think it needs some friends to play with.
     // Friends are important. They give us emotional support, general happiness and they prevent us from going
     // into a deep abyss of madness. They are fun. Everyone should have a friend. For example, back in school when

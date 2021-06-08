@@ -17,19 +17,22 @@ public final class LaunchableApplicationProvider {
     private let bundleResourcePathProvider: BundleResourcePathProvider
     private let waiter: RunLoopSpinningWaiter
     private let performanceLogger: PerformanceLogger
+    private let bundleId: String
     
     public init(
         applicationLifecycleObservable: ApplicationLifecycleObservable & ApplicationLifecycleObserver,
         testFailureRecorder: TestFailureRecorder,
         bundleResourcePathProvider: BundleResourcePathProvider,
         waiter: RunLoopSpinningWaiter,
-        performanceLogger: PerformanceLogger)
+        performanceLogger: PerformanceLogger,
+        bundleId: String)
     {
         self.applicationLifecycleObservable = applicationLifecycleObservable
         self.testFailureRecorder = testFailureRecorder
         self.bundleResourcePathProvider = bundleResourcePathProvider
         self.waiter = waiter
         self.performanceLogger = performanceLogger
+        self.bundleId = bundleId
     }
     
     private var launchableApplicationWasCreatedWithBuiltinIpc = false
@@ -62,7 +65,10 @@ public final class LaunchableApplicationProvider {
             )
         } else {
             launchableApplication = SbtuiLaunchableApplication(
-                tunneledApplication: SBTUITunneledApplication(),
+                tunneledApplication: SBTUITunneledApplication(
+                    bundleId: bundleId,
+                    shouldInstallApplication: true
+                ),
                 applicationLifecycleObservable: applicationLifecycleObservable,
                 testFailureRecorder: testFailureRecorder,
                 bundleResourcePathProvider: bundleResourcePathProvider,

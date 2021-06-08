@@ -1,4 +1,4 @@
-public protocol PageObject: class {
+public protocol PageObject: AnyObject {
 }
 
 public protocol PageObjectWithDefaultInitializer: PageObject {

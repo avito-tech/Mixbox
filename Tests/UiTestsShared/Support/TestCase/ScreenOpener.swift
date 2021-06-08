@@ -1,6 +1,6 @@
 import TestsIpc
 
-protocol ScreenOpener: class {
+protocol ScreenOpener: AnyObject {
     func openScreen(
         name: String,
         additionalEnvironment: [String: String]

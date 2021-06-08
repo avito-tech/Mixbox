@@ -6,7 +6,7 @@
 //
 // See: `PageObjectElementCore`
 
-public protocol PageObjectElementCoreFactory: class {
+public protocol PageObjectElementCoreFactory: AnyObject {
     func pageObjectElementCore(
         settings: ElementSettings)
         -> PageObjectElementCore

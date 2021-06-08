@@ -1,6 +1,6 @@
 // Do not use functions declared in protocol directly, use functions from extensions.
 // This function should be used only for implementing basic functionality.
-public protocol StubRequestBuilder: class {
+public protocol StubRequestBuilder: AnyObject {
     func withRequestStub(
         // Example of urlPattern: ".*?example.com/rest/foo/[^/]+?/bar($|\\?.+$)"
         // urlPattern matches `URL.absoluteString`! So it can access query.

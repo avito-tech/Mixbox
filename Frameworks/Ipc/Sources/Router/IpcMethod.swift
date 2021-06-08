@@ -10,7 +10,7 @@
 //     typealias ReturnValue = Int
 // }
 //
-public protocol IpcMethod: class {
+public protocol IpcMethod: AnyObject {
     associatedtype Arguments: Codable
     associatedtype ReturnValue: Codable
     

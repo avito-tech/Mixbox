@@ -2,7 +2,7 @@
 
 import MixboxIpcCommon
 
-public protocol UrlRequestCachePolicyBridging: class {
+public protocol UrlRequestCachePolicyBridging: AnyObject {
     func urlRequestCachePolicy(
         bridgedUrlRequestCachePolicy: BridgedUrlRequestCachePolicy)
         throws

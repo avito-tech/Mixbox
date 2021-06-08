@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol ScreenshotTaker: class {
+public protocol ScreenshotTaker: AnyObject {
     func takeScreenshot() -> UIImage?
 }
 

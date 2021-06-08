@@ -3,7 +3,7 @@
 import MixboxFoundation
 
 // Replicates URLProtocolClient
-public protocol BridgedUrlProtocolClient: class {
+public protocol BridgedUrlProtocolClient: AnyObject {
     func urlProtocolWasRedirectedTo(request: BridgedUrlRequest, redirectResponse: BridgedUrlResponse) throws
     func urlProtocolCachedResponseIsValid(cachedResponse: BridgedCachedUrlResponse) throws
     func urlProtocolDidReceive(response: BridgedUrlResponse, cacheStoragePolicy: BridgedUrlCacheStoragePolicy) throws

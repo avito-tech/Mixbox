@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol MeasureableTimedActivityLogger: class {
+public protocol MeasureableTimedActivityLogger: AnyObject {
     func start(
         staticName: StaticString,
         dynamicName: @escaping () -> (String?))

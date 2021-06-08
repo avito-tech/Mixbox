@@ -1,7 +1,7 @@
 import XCTest
 import MixboxTestsFoundation
 
-protocol FailureGatherer: class {
+protocol FailureGatherer: AnyObject {
     func gatherFailures<T>(body: () -> (T)) -> GatherFailuresResult<T>
 }
 

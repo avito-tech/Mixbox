@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public protocol NetworkAutomaticRecorderAndReplayerProvider: class {
+public protocol NetworkAutomaticRecorderAndReplayerProvider: AnyObject {
     func player(
         session: RecordedNetworkSessionPath)
         -> NetworkPlayer

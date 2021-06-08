@@ -1,6 +1,6 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-public protocol RunLoopSpinnerFactory: class {
+public protocol RunLoopSpinnerFactory: AnyObject {
     func runLoopSpinnerImpl(
         timeout: TimeInterval,
         minRunLoopDrains: Int,
