@@ -108,10 +108,6 @@ final class UIViewTestabilityWithAccessibilityDisabledTests: TestCase {
         )
     }
     
-    // NOTE: Accessibility is disabled in Unit Tests (see `AccessibilityOnSimulatorInitializer`).
-    // The selector `accessibilityPlaceholderValue` is unavailable. Value should be nil.
-    // This test duplicates test with same name from `UIViewTestabilityWithAccessibilityEnabledTests`,
-    // but with different expected result. It should be maintained as a duplicate.
     func test_mb_testability_accessibilityPlaceholderValue() {
         let view = UITextField()
         
@@ -130,7 +126,7 @@ final class UIViewTestabilityWithAccessibilityDisabledTests: TestCase {
         
         XCTAssertEqual(
             (view as TestabilityElement).mb_testability_accessibilityPlaceholderValue(),
-            nil
+            "text_field_placeholder"
         )
     }
     
