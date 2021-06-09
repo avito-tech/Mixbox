@@ -88,7 +88,7 @@ Guidelines:
 3. Should be in imperative. Example: "Fix scrolling" or "Improve performance of scrolling". Bad example: "Fixed bug"
 4. Be descriptive (>1 word). Bad examples: "Fixes"
 5. Avoid messages like "More fixes", "New code" or "WIP"
-6. First line should be short (80 characters max). You always can write a novel in other lines.
+6. First line should be short (120 characters max). You always can write a novel in other lines.
 7. Should not start with JIRA task, because repo is mirrored to github.
 
 Regex: '$(regex)'
@@ -125,7 +125,7 @@ regex() {
     local isShort=".{1,5}$"
     local isOnlyOneWord="[^\s]+$"
     local isJustHated="More|New|WIP|Fix bug$|Work$"
-    local withVeryLongFirstLine="[^\n]{80}"
+    local withVeryLongFirstLine="[^\n]{120}"
     
     # Good:
     local startsWithUppercaseLetter="[A-Z]"
