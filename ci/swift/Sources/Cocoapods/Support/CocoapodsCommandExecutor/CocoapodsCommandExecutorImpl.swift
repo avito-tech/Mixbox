@@ -15,30 +15,19 @@ public final class CocoapodsCommandExecutorImpl: CocoapodsCommandExecutor {
     public func executeImpl(
         arguments: [String],
         currentDirectory: String?,
-        environment: [String: String]?)
+        environment: [String: String]?,
+        shouldThrowOnNonzeroExitCode: Bool)
         throws
         -> ProcessResult
     {
-        let result = try bundledProcessExecutor.execute(
+        return try bundledProcessExecutor.execute(
             arguments: [
                 "ruby",
                 #file.deletingLastPathComponent.appending(pathComponent: "patched_pod.rb")
             ] + arguments,
             currentDirectory: currentDirectory,
-            environment: environment
+            environment: environment,
+            shouldThrowOnNonzeroExitCode: shouldThrowOnNonzeroExitCode
         )
-        
-        if result.code != 0 {
-            let argumentsJoined = arguments.joined(separator: " ")
-            
-            throw ErrorString(
-                """
-                pod \(argumentsJoined) failed with exit code \(result.code), \
-                stderr: \(result.stderr.trimmedUtf8String() ?? "")
-                """
-            )
-        }
-        
-        return result
     }
 }

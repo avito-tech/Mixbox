@@ -21,7 +21,8 @@ public final class CocoapodsTrunkInfoImpl: CocoapodsTrunkInfo {
             arguments: [
                 "info",
                 podName
-            ]
+            ],
+            shouldThrowOnNonzeroExitCode: false
         )
         
         return try cocoapodsTrunkInfoOutputParser.parse(

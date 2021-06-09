@@ -31,18 +31,9 @@ public final class ListOfPodspecsToPushProviderImpl: ListOfPodspecsToPushProvide
                 getMixboxDependenciesScriptPath
             ],
             currentDirectory: nil,
-            environment: nil
+            environment: nil,
+            shouldThrowOnNonzeroExitCode: true
         )
-        
-        if result.code != 0 {
-            throw ErrorString(
-                """
-                ruby get_mixbox_dependencies.rb failed with exit code \(result.code), \
-                stdout: \(result.stdout.trimmedUtf8String() ?? ""), \
-                stderr: \(result.stderr.trimmedUtf8String() ?? "")
-                """
-            )
-        }
         
         let listOfPodspecs = try JSONDecoder().decode(
             [JsonPodspec].self,

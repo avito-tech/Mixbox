@@ -197,14 +197,16 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
         let headCommitHash = try revisions.first.unwrapOrThrow()
         
         let nextReleaseVersionProvider = NextReleaseVersionProviderImpl(
-            gitTagsProvider: GitTagsProviderMock(
-                gitTags: tags
-            ),
-            gitRevListProvider: GitRevListProviderMock(
-                revList: revisions
-            ),
-            headCommitHashProvider: HeadCommitHashProviderMock(
-                headCommitHash: headCommitHash
+            repositoryVersioningInfoProvider: RepositoryVersioningInfoProviderImpl(
+                gitTagsProvider: GitTagsProviderMock(
+                    gitTags: tags
+                ),
+                gitRevListProvider: GitRevListProviderMock(
+                    revList: revisions
+                ),
+                headCommitHashProvider: HeadCommitHashProviderMock(
+                    headCommitHash: headCommitHash
+                )
             )
         )
         

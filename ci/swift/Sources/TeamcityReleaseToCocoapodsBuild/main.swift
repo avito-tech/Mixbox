@@ -13,6 +13,9 @@ BuildDsl.teamcity.main { di in
         beforeReleaseTagsSetter: di.resolve(),
         mixboxPodspecsValidator: di.resolve(),
         mixboxPodspecsPusher: di.resolve(),
-        mixboxReleaseSettingsProvider: di.resolve()
+        mixboxReleaseSettingsProvider: di.resolve(),
+        environmentProvider: di.resolve(),
+        afterReleaseTagsSetterForExistingReleaseProvider: di.resolve(),
+        currentReleaseVersionProvider: di.resolve()
     )
 }

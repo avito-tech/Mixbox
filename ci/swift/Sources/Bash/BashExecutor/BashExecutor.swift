@@ -83,7 +83,8 @@ extension BashExecutor {
         },
         stderrDataHandler: @escaping (Data) -> () = { data in
             FileHandle.standardError.write(data)
-        })
+        },
+        shouldThrowOnNonzeroExitCode: Bool = true)
         throws
         -> BashResult
     {
@@ -95,7 +96,7 @@ extension BashExecutor {
             stderrDataHandler: stderrDataHandler
         )
         
-        if bashResult.code != 0 {
+        if shouldThrowOnNonzeroExitCode && bashResult.code != 0 {
             throw NonZeroExitCodeBashError(
                 bashResult: bashResult
             )

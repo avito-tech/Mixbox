@@ -50,9 +50,14 @@ public final class MixboxPodspecsPusherImpl: MixboxPodspecsPusher {
     private func shouldSkip(podspec: JsonPodspec) throws -> Bool {
         let info = try cocoapodsTrunkInfo.info(podName: podspec.name)
         
-        return info.versions.contains {
-            // Check if podspec with this version is already released
-            $0.versionString == podspec.version
+        switch info {
+        case .found(let info):
+            return info.versions.contains {
+                // Check if podspec with this version is already released
+                $0.versionString == podspec.version
+            }
+        case .notFound:
+            return false
         }
     }
     

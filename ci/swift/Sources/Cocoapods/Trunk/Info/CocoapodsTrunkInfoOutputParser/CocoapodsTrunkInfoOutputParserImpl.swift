@@ -6,9 +6,18 @@ public final class CocoapodsTrunkInfoOutputParserImpl: CocoapodsTrunkInfoOutputP
     }
     
     public func parse(output: String) throws -> CocoapodsTrunkInfoResult {
-        let scanner = ThrowingScannerImpl(string: output)
+        let trimmedOutput = output.trimmingCharacters(in: .whitespacesAndNewlines)
+        let notFoundMessage = "[!] No pod found with the specified name."
         
-        return try scanner.scanResult()
+        if trimmedOutput == notFoundMessage {
+            return .notFound
+        } else {
+            let scanner = ThrowingScannerImpl(string: output)
+            
+            return .found(
+                try scanner.scanResult()
+            )
+        }
     }
 }
 
@@ -20,22 +29,22 @@ private extension ThrowingScanner {
     //     - Owners:
     //       - Artyom Razinov <artyom.razinov@gmail.com>
     //       - Artyom Razinov <arazinov@avito.ru>
-    func scanResult() throws -> CocoapodsTrunkInfoResult {
+    func scanResult() throws -> CocoapodsTrunkInfoResult.Info {
         // MixboxFoundation
         let podName = try scanUntil(.whitespacesAndNewlines)
         
         let versions = try scanVersions()
         let owners = try scanOwners()
         
-        return CocoapodsTrunkInfoResult(
+        return CocoapodsTrunkInfoResult.Info(
             podName: podName,
             versions: versions,
             owners: owners
         )
     }
     
-    func scanVersions() throws -> [CocoapodsTrunkInfoResult.Version] {
-        var versions = [CocoapodsTrunkInfoResult.Version]()
+    func scanVersions() throws -> [CocoapodsTrunkInfoResult.Info.Version] {
+        var versions = [CocoapodsTrunkInfoResult.Info.Version]()
         
         try scanWhile(.whitespacesAndNewlines)
         try scanWhile("- Versions:\n")
@@ -68,8 +77,8 @@ private extension ThrowingScanner {
         return versions
     }
     
-    func scanOwners() throws -> [CocoapodsTrunkInfoResult.Owner] {
-        var owners = [CocoapodsTrunkInfoResult.Owner]()
+    func scanOwners() throws -> [CocoapodsTrunkInfoResult.Info.Owner] {
+        var owners = [CocoapodsTrunkInfoResult.Info.Owner]()
         
         do {
             while !isAtEnd {

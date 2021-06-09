@@ -20,7 +20,8 @@ public final class BundledProcessExecutorImpl: BundledProcessExecutor {
     public func execute(
         arguments: [String],
         currentDirectory: String?,
-        environment: [String: String]?)
+        environment: [String: String]?,
+        shouldThrowOnNonzeroExitCode: Bool)
         throws
         -> ProcessResult
     {
@@ -31,7 +32,8 @@ public final class BundledProcessExecutorImpl: BundledProcessExecutor {
             currentDirectory: currentDirectory,
             environment: environment.map { .custom($0) } ?? .current,
             stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
+            stderrDataHandler: { _ in },
+            shouldThrowOnNonzeroExitCode: shouldThrowOnNonzeroExitCode
         )
         
         return ProcessResult(

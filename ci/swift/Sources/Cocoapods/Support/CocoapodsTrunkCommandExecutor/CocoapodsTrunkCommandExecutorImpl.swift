@@ -16,8 +16,9 @@ public final class CocoapodsTrunkCommandExecutorImpl: CocoapodsTrunkCommandExecu
         self.environmentProvider = environmentProvider
     }
     
-    public func execute(
-        arguments: [String])
+    public func executeImpl(
+        arguments: [String],
+        shouldThrowOnNonzeroExitCode: Bool)
         throws
         -> ProcessResult
     {
@@ -27,7 +28,8 @@ public final class CocoapodsTrunkCommandExecutorImpl: CocoapodsTrunkCommandExecu
             arguments: arguments,
             environment: [
                 "COCOAPODS_TRUNK_TOKEN": cocoapodsTrunkTokenProvider.cocoapodsTrunkToken()
-            ].merging(environmentProvider.environment, uniquingKeysWith: { left, _ in left })
+            ].merging(environmentProvider.environment, uniquingKeysWith: { left, _ in left }),
+            shouldThrowOnNonzeroExitCode: shouldThrowOnNonzeroExitCode
         )
     }
 }

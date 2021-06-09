@@ -36,7 +36,14 @@ public final class ManagePodOwnersTask: LocalTask {
         let podspecs = try listOfPodspecsToPushProvider.listOfPodspecsToPush()
         
         for podspec in podspecs {
-            let info = try cocoapodsTrunkInfo.info(podName: podspec.name)
+            let info: CocoapodsTrunkInfoResult.Info
+            
+            switch try cocoapodsTrunkInfo.info(podName: podspec.name) {
+            case .found(let foundInfo):
+                info = foundInfo
+            case .notFound:
+                continue
+            }
             
             let currentOwners = Set(info.owners.map { $0.email })
             

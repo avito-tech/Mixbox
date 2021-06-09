@@ -16,8 +16,8 @@ import Bundler
 import Releases
 
 // TODO: Fix retain-cycle in DI. Container retains itself.
-// swiftlint:disable file_length
-// swiftlint:disable:next type_body_length
+// TODO: Split this. Put code in frameworks. `MixboxDi` will allow to do this neatly (now we use `Dip` here).
+// swiftlint:disable file_length function_body_length type_body_length
 open class CommonDi: BaseDi {
     override open func registerAll(container: DependencyContainer) {
         registerGit(container: container)
@@ -72,7 +72,6 @@ open class CommonDi: BaseDi {
         }
     }
     
-    // swiftlint:disable:next function_body_length
     private func registerCocoapods(container: DependencyContainer) {
         container.register(type: CocoapodsCommandExecutor.self) {
             CocoapodsCommandExecutorImpl(
@@ -141,11 +140,17 @@ open class CommonDi: BaseDi {
     }
     
     private func registerReleases(container: DependencyContainer) {
-        container.register(type: BeforeReleaseTagsSetter.self) {
+        container.register(type: BeforeReleaseTagsSetterImpl.self) {
             BeforeReleaseTagsSetterImpl(
                 gitTagAdder: try container.resolve(),
                 gitTagDeleter: try container.resolve()
             )
+        }
+        container.register(type: BeforeReleaseTagsSetter.self) {
+            try container.resolve() as BeforeReleaseTagsSetterImpl
+        }
+        container.register(type: AfterReleaseTagsSetterForExistingReleaseProvider.self) {
+            try container.resolve() as BeforeReleaseTagsSetterImpl
         }
         container.register(type: ListOfPodspecsToPushProvider.self) {
             ListOfPodspecsToPushProviderImpl(
@@ -176,11 +181,21 @@ open class CommonDi: BaseDi {
         container.register(type: MixboxReleaseSettingsProvider.self) {
             MixboxReleaseSettingsProviderImpl()
         }
-        container.register(type: NextReleaseVersionProvider.self) {
-            NextReleaseVersionProviderImpl(
+        container.register(type: RepositoryVersioningInfoProvider.self) {
+            RepositoryVersioningInfoProviderImpl(
                 gitTagsProvider: try container.resolve(),
                 gitRevListProvider: try container.resolve(),
                 headCommitHashProvider: try container.resolve()
+            )
+        }
+        container.register(type: CurrentReleaseVersionProvider.self) {
+            CurrentReleaseVersionProviderImpl(
+                repositoryVersioningInfoProvider: try container.resolve()
+            )
+        }
+        container.register(type: NextReleaseVersionProvider.self) {
+            NextReleaseVersionProviderImpl(
+                repositoryVersioningInfoProvider: try container.resolve()
             )
         }
         container.register(type: PodspecsPatcher.self) {

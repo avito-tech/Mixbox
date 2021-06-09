@@ -1,6 +1,9 @@
 import Git
 
-public final class BeforeReleaseTagsSetterImpl: BeforeReleaseTagsSetter {
+public final class BeforeReleaseTagsSetterImpl:
+    BeforeReleaseTagsSetter,
+    AfterReleaseTagsSetterForExistingReleaseProvider
+{
     private let gitTagAdder: GitTagAdder
     private let gitTagDeleter: GitTagDeleter
     
@@ -39,19 +42,49 @@ public final class BeforeReleaseTagsSetterImpl: BeforeReleaseTagsSetter {
             remote: remote
         )
         
-        let unfinishedReleaseMarkerTagName = "UnfinishedRelease_\(versionString)"
+        let unfinishedReleaseMarkerTagName = self.unfinishedReleaseMarkerTagName(
+            versionString: versionString
+        )
         
         try gitTagAdder.addAndPushTag(
             tagName: unfinishedReleaseMarkerTagName,
             commitHash: commitHash,
             remote: remote
         )
-
+        
+        return afterReleaseTagsSetter(
+            unfinishedReleaseMarkerTagName: unfinishedReleaseMarkerTagName,
+            remoteName: remote
+        )
+    }
+    
+    public func afterReleaseTagsSetterForExistingRelease(
+        version: Version,
+        remote: String)
+        -> AfterReleaseTagsSetter
+    {
+        return afterReleaseTagsSetter(
+            unfinishedReleaseMarkerTagName: unfinishedReleaseMarkerTagName(
+                versionString: version.toString()
+            ),
+            remoteName: remote
+        )
+    }
+    
+    private func afterReleaseTagsSetter(
+        unfinishedReleaseMarkerTagName: String,
+        remoteName: String)
+        -> AfterReleaseTagsSetter
+    {
         return AfterReleaseTagsSetterImpl { [gitTagDeleter] in
             try gitTagDeleter.deleteLocalAndRemoteTag(
                 tagName: unfinishedReleaseMarkerTagName,
-                remoteName: remote
+                remoteName: remoteName
             )
         }
+    }
+    
+    private func unfinishedReleaseMarkerTagName(versionString: String) -> String {
+        return "UnfinishedRelease_\(versionString)"
     }
 }
