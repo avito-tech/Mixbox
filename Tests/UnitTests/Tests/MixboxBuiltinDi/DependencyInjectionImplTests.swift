@@ -38,6 +38,68 @@ final class BuiltinDependencyInjectionTests: TestCase {
         }
     }
     
+    // Doesn't work. TODO?
+    func disabled_test___resolve___avoids_recursion_by_throwing_error___0() {
+        assertThrows {
+            let di = dependencyInjectionFactory.dependencyInjection()
+            
+            class A {
+                let b: B
+                init(b: B) {
+                    self.b = b
+                }
+            }
+            
+            class B {
+                let c: C
+                init(c: C) {
+                    self.c = c
+                }
+            }
+            
+            class C {
+                let a: A
+                init(a: A) {
+                    self.a = a
+                }
+            }
+            
+            di.register(type: A.self) { di in A(b: try di.resolve()) }
+            di.register(type: B.self) { di in B(c: try di.resolve()) }
+            di.register(type: C.self) { di in C(a: try di.resolve()) }
+            
+            _ = try di.resolve() as A
+        }
+    }
+    
+    // Doesn't work. TODO?
+    func disabled_test___resolve___avoids_recursion_by_throwing_error___1() {
+        assertThrows {
+            let di = dependencyInjectionFactory.dependencyInjection()
+            
+            class A {}
+            
+            di.register(type: A.self) { di in try di.resolve() }
+            
+            _ = try di.resolve() as A
+        }
+    }
+    
+    // Doesn't work. TODO?
+    func disabled_test___resolve___avoids_recursion_by_throwing_error___2() {
+        assertThrows {
+            let di0 = dependencyInjectionFactory.dependencyInjection()
+            let di1 = dependencyInjectionFactory.dependencyInjection()
+            
+            class A {}
+            
+            di0.register(type: A.self) { _ in try di1.resolve() }
+            di1.register(type: A.self) { _ in try di0.resolve() }
+            
+            _ = try di0.resolve() as A
+        }
+    }
+    
     func test___resolve___uses_nestedDependencyResolver_passed_as_an_argument() {
         assertDoesntThrow {
             struct Container {
