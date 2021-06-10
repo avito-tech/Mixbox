@@ -4,7 +4,7 @@ import XCTest
 import MixboxIpcCommon
 
 final class NSObjectTestabilityWithAccessibilityEnabledTests: TestCase {
-    // NOTE: Accessibility is explicitly enabled in Gray Box Tests (see `AccessibilityOnSimulatorInitializer`).
+    // NOTE: Accessibility is explicitly enabled in Gray Box Tests (see `AccessibilityForTestAutomationInitializer`).
     // The selector `accessibilityPlaceholderValue` is available.
     func test_mb_testability_accessibilityPlaceholderValue() {
         XCTAssertEqual(

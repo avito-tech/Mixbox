@@ -1,12 +1,13 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
-import MixboxIpc
+import MixboxDi
 
-public protocol IpcStarter: AnyObject {
+public protocol InAppServicesStarter {
     func start(
+        dependencyResolver: DependencyResolver,
         commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure])
         throws
-        -> StartedIpc
+        -> StartedInAppServices
 }
 
 #endif

@@ -1,7 +1,7 @@
 #if MIXBOX_ENABLE_IN_APP_SERVICES
 
 extension Optional {
-    func map<T>(
+    public func map<T>(
         default: @autoclosure () -> T,
         transform: (Wrapped) throws -> T)
         rethrows
@@ -10,7 +10,7 @@ extension Optional {
         return try map(transform) ?? `default`()
     }
     
-    func flatMap<T>(
+    public func flatMap<T>(
         default: @autoclosure () -> T,
         transform: (Wrapped) throws -> T?)
         rethrows

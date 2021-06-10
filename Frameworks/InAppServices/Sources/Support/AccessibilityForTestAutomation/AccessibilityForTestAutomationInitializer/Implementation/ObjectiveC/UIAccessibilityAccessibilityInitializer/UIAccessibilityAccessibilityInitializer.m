@@ -26,7 +26,7 @@
 
 // Note: this loads private methods such as `_accessibilityUserTestingChildren`.
 // Maybe it does something else, it wasn't thoroughly researched.
-- (NSString *)setupAccessibilityOrReturnError {
+- (nullable NSString *)initializeAccessibilityOrReturnError {
     Class UIAccessibilityInformationLoaderClass = NSClassFromString(@"UIAccessibilityInformationLoader");
     BOOL alreadyLoaded = UIAccessibilityInformationLoaderClass != nil;
     BOOL shouldLoad = self->uiAccessibilityHandle == nil;

@@ -26,7 +26,7 @@ class TestCase: BaseTestCase {
             return
         }
         
-        lazilyInitializedIpcClient.ipcClient = startedInAppServices.client
+        lazilyInitializedIpcClient.ipcClient = startedInAppServices.startedIpc.ipcClient
     }
     
     // MARK: - Private

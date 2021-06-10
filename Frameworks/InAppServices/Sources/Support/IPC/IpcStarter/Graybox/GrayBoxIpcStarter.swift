@@ -7,14 +7,17 @@ public final class GrayBoxIpcStarter: IpcStarter {
     private let sameProcessIpcClientServer = SameProcessIpcClientServer()
     private let synchronousIpcClientFactory: SynchronousIpcClientFactory
     
-    public init(synchronousIpcClientFactory: SynchronousIpcClientFactory) {
+    public init(
+        synchronousIpcClientFactory: SynchronousIpcClientFactory)
+    {
         self.synchronousIpcClientFactory = synchronousIpcClientFactory
     }
     
-    public func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure]) throws -> (IpcRouter, IpcClient?) {
-        // TODO: Remove from IpcStarter. It has nothing to do with IPC.
-        try setUpAccessibilityForSimulator()
-        
+    public func start(
+        commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure])
+        throws
+        -> StartedIpc
+    {
         let dependencies = IpcMethodHandlerRegistrationDependencies(
             ipcRouter: sameProcessIpcClientServer,
             ipcClient: sameProcessIpcClientServer,
@@ -25,13 +28,10 @@ public final class GrayBoxIpcStarter: IpcStarter {
             try command(dependencies)
         }
         
-        return (sameProcessIpcClientServer, sameProcessIpcClientServer)
-    }
-    
-    private func setUpAccessibilityForSimulator() throws {
-        if let error = AccessibilityOnSimulatorInitializer().setupAccessibilityOrReturnError() {
-            throw ErrorString("Couldn't start set up accessibility: \(error)")
-        }
+        return StartedIpc(
+            ipcRouter: sameProcessIpcClientServer,
+            ipcClient: sameProcessIpcClientServer
+        )
     }
 }
 

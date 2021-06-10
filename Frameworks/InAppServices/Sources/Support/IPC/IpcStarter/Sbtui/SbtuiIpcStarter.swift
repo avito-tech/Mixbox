@@ -19,7 +19,11 @@ final class SbtuiIpcStarter: IpcStarter {
         self.synchronousIpcClientFactory = synchronousIpcClientFactory
     }
     
-    func start(commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure]) throws -> (IpcRouter, IpcClient?) {
+    func start(
+        commandsForAddingRoutes: [IpcMethodHandlerRegistrationTypeErasedClosure])
+        throws
+        -> StartedIpc
+    {
         SBTUITestTunnelServer.takeOff()
         
         let ipcClient: IpcClient? = nil
@@ -34,7 +38,10 @@ final class SbtuiIpcStarter: IpcStarter {
         
         try commandsForAddingRoutes.forEach { try $0(dependencies) }
         
-        return (ipcRouter, ipcClient)
+        return StartedIpc(
+            ipcRouter: ipcRouter,
+            ipcClient: ipcClient
+        )
     }
 }
 

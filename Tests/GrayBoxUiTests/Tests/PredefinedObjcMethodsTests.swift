@@ -46,8 +46,8 @@ final class PredefinedObjcMethodsTests: TestCase {
                 checkForIosFrom11()
             case 14:
                 // TODO: There are problems with this test. This test is unstable.
-                // Probably due to issues with `AccessibilityOnSimulatorInitializer`.
-                // This isn't too bad, as, currently, failure in `AccessibilityOnSimulatorInitializer`
+                // Probably due to issues with `AccessibilityForTestAutomationInitializer`.
+                // This isn't too bad, as, currently, failure in `AccessibilityForTestAutomationInitializer`
                 // only causes unexpected values in accessibilutyLabel and accessibilutyValue in
                 // gray box tests. Also it is only mildly unstable and there are lots of tests
                 // for those particular cases.

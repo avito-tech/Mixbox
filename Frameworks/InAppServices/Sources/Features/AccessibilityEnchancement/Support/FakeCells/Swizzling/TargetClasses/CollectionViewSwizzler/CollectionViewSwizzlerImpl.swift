@@ -7,14 +7,7 @@ import MixboxFoundation
 public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
     // MARK: - Dependencies:
     private let assertingSwizzler: AssertingSwizzler
-    
-    // In Apple's UI tests extended functionality of accessibility is enabled.
-    // In unit tests it is not enabled. The code enabling it is not public or open sourced.
-    // We have to handle both cases. If it is enabled, we should not conflict with it
-    // (see comments near usages of `_accessibilityUserTestingChildren`).
-    // If it's not, we have to make our own version of `_accessibilityUserTestingChildren`.
-    // I don't know what exactly AX means, maybe Accessibility Extensions, but it's a legit name.
-    private let appleAxEnabled: Bool
+    private let accessibilityInitializationStatusProvider: AccessibilityInitializationStatusProvider
     
     // MARK: - State:
     private let onceToken = ThreadUnsafeOnceToken<Void>()
@@ -22,10 +15,10 @@ public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
     
     public init(
         assertingSwizzler: AssertingSwizzler,
-        appleAxEnabled: Bool)
+        accessibilityInitializationStatusProvider: AccessibilityInitializationStatusProvider)
     {
         self.assertingSwizzler = assertingSwizzler
-        self.appleAxEnabled = appleAxEnabled
+        self.accessibilityInitializationStatusProvider = accessibilityInitializationStatusProvider
     }
     
     public func swizzle() {
@@ -61,6 +54,14 @@ public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
             swizzledSelector: #selector(UIView.swizzled_CollectionViewSwizzler_index(ofAccessibilityElement:)),
             shouldAssertIfMethodIsSwizzledOnlyOneTime: true
         )
+        
+        // In Apple's UI tests extended functionality of accessibility is enabled.
+        // In unit tests it is not enabled. The code enabling it is not public or open sourced.
+        // We have to handle both cases. If it is enabled, we should not conflict with it
+        // (see comments near usages of `_accessibilityUserTestingChildren`).
+        // If it's not, we have to make our own version of `_accessibilityUserTestingChildren`.
+        // I don't know what exactly AX means, maybe Accessibility Extensions, but it's a legit name.
+        let appleAxEnabled = accessibilityInitializationStatusProvider.accessibilityInitializationStatus.isInitialized
         
         if appleAxEnabled {
             // Without swizzling that function below (with swizzling of functions of UIAccessibilityContainer only),

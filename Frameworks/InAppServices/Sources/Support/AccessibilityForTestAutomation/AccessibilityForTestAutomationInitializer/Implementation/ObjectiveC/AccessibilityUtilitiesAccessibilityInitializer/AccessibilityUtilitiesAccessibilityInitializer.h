@@ -4,7 +4,7 @@
 
 @interface AccessibilityUtilitiesAccessibilityInitializer : NSObject
 
-- (NSString *)setupAccessibilityOrReturnError;
+- (nullable NSString *)initializeAccessibilityOrReturnError;
 
 @end
 

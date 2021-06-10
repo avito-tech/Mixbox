@@ -13,6 +13,10 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
     }
     
     public func register(dependencyRegisterer di: DependencyRegisterer) {
+        di.register(type: InAppServicesStarter.self) { _ in
+            InAppServicesStarterImpl()
+        }
+        
         registerUtilities(di: di)
         registerIpc(di: di)
         registerEventInjection(di: di)
@@ -22,6 +26,7 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         registerVisibilityCheck(di: di)
         registerLogging(di:di)
         registerPageObjectMakingHelper(di: di)
+        registerAccessibilityInitialization(di: di)
     }
     
     private func registerUtilities(di: DependencyRegisterer) {
@@ -60,6 +65,19 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             ViewHierarchyProviderImpl(
                 applicationWindowsProvider: try di.resolve(),
                 floatValuesForSr5346Patcher: try di.resolve()
+            )
+        }
+        di.register(type: RunLoopSpinnerFactory.self) { di in
+            RunLoopSpinnerFactoryImpl(
+                runLoopModesStackProvider: try di.resolve()
+            )
+        }
+        di.register(type: RunLoopModesStackProvider.self) { _ in
+            RunLoopModesStackProviderImpl()
+        }
+        di.register(type: RunLoopSpinningWaiter.self) { di in
+            RunLoopSpinningWaiterImpl(
+                runLoopSpinnerFactory: try di.resolve()
             )
         }
     }
@@ -185,29 +203,9 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             )
         }
         di.register(type: CollectionViewSwizzler.self) { di in
-            let iosVersionProvider: IosVersionProvider = try di.resolve()
-            let ipcStarterTypeProvider: IpcStarterTypeProvider = try di.resolve()
-            let ipcStarterType = try ipcStarterTypeProvider.ipcStarterType()
-            let appleAxEnabled: Bool
-            
-            // Little tech debt: the code assumes that blackbox tests uses Apple's UI testing
-            // (which is correct, and will be correct in imagineable future).
-            // But ideally we should have better solution, those two things (settings of IPC
-            // and settings of AX) shouldn't be directly dependent.
-            switch ipcStarterType {
-            case .blackbox, .sbtui:
-                appleAxEnabled = true
-            case .graybox:
-                // 1. `AccessibilityOnSimulatorInitializer` works flawlessly on iOS 13 or prior
-                // and provides proper AX hierarchy.
-                // 2. `CollectionViewSwizzlerImpl` works flawlessly on iOS 14 with `appleAxEnabled` == false
-                // 3. So one behavior os for 13-, other for 14+, otherwise it won't work flawlessly and tests can be flaky.
-                appleAxEnabled = iosVersionProvider.iosVersion().majorVersion <= 13
-            }
-            
-            return CollectionViewSwizzlerImpl(
+            CollectionViewSwizzlerImpl(
                 assertingSwizzler: try di.resolve(),
-                appleAxEnabled: appleAxEnabled
+                accessibilityInitializationStatusProvider: try di.resolve()
             )
         }
         di.register(type: FakeCellsSwizzling.self) { di in
@@ -295,6 +293,15 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
                 uiEventObservableProvider: try di.resolve(),
                 viewHierarchyProvider: try di.resolve()
             )
+        }
+    }
+    
+    private func registerAccessibilityInitialization(di: DependencyRegisterer) {
+        di.register(type: AccessibilityForTestAutomationInitializer.self) { _ in
+            NoopAccessibilityForTestAutomationInitializer()
+        }
+        di.register(type: AccessibilityInitializationStatusProvider.self) { _ in
+            AccessibilityInitializationStatusProviderImpl()
         }
     }
 }

@@ -62,7 +62,7 @@ final class NSObjectTestabilityWithAccessibilityDisabledTests: TestCase {
         )
     }
     
-    // NOTE: Accessibility is disabled in Unit Tests (see `AccessibilityOnSimulatorInitializer`).
+    // NOTE: Accessibility is disabled in Unit Tests (see `AccessibilityForTestAutomationInitializer`).
     // The selector `accessibilityPlaceholderValue` is unavailable. Value should be nil.
     func test_mb_testability_accessibilityPlaceholderValue() {
         XCTAssertEqual(

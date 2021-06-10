@@ -16,7 +16,7 @@
 
 // Copypasted from here: https://github.com/cashapp/AccessibilitySnapshot/blob/master/Sources/AccessibilitySnapshot/Core/ObjC/ASAccessibilityEnabler.m
 // And they copypasted it from KIF.
-- (NSString *)setupAccessibilityOrReturnError {
+- (nullable NSString *)initializeAccessibilityOrReturnError {
     void *handle = [self loadLibAccessibilityIfNeededAndReturnHandle];
     
     if (!handle) {
