@@ -45,6 +45,12 @@ final class ThirdPartyAppsTests: TestCase {
         pageObjects.springboard.anyWindow.swipeRight()
         pageObjects.springboard.anyWindow.swipeRight()
         pageObjects.springboard.anyWindow.swipeRight()
+        
+        while pageObjects.springboard.okButton.tap(failTest: false) {
+            // skip alert, example alert (on iOS 14):
+            // Refreshed Widgets
+            // Press and hold a widget to reorganize it. In jiggle mode, tap the plus at the top to add more widgets.
+        }
     }
 }
 
