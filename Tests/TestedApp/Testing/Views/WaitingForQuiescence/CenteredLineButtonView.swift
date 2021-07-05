@@ -6,7 +6,7 @@ final class CenteredLineButtonView: UIView {
         case horizontal // Button will look like this: -
     }
     
-    private let button = ButtonWithClosures()
+    private let button = TapIndicatorButton()
     private let layout: Layout
     
     init(layout: Layout) {
@@ -18,11 +18,7 @@ final class CenteredLineButtonView: UIView {
         button.backgroundColor = .blue
         addSubview(button)
         
-        mb_testability_customValues["isTapped"] = false
-        
-        button.onTap = { [weak self] in
-            self?.mb_testability_customValues["isTapped"] = true
-        }
+        button.accessibilityIdentifier = "button"
     }
     
     required init?(coder: NSCoder) {
