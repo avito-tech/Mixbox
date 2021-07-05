@@ -125,8 +125,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                 jobGroupId: JobGroupId(UUID().uuidString),
                 jobGroupPriority: try Priority(intValue: priority),
                 jobId: JobId(UUID().uuidString),
-                jobPriority: try Priority(intValue: priority),
-                persistentMetricsJobId: "MixboxTests"
+                jobPriority: try Priority(intValue: priority)
             ),
             testDestinationConfigurations: testDestinationConfigurations
         )

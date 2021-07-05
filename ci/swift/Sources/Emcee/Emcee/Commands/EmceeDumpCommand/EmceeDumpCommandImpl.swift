@@ -144,8 +144,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                 jobGroupId: JobGroupId(UUID().uuidString),
                 jobGroupPriority: Priority.medium,
                 jobId: JobId(UUID().uuidString),
-                jobPriority: Priority.medium,
-                persistentMetricsJobId: "MixboxTests"
+                jobPriority: Priority.medium
             ),
             testDestinationConfigurations: arguments.testDestinationConfigurations
         )
