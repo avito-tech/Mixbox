@@ -8,7 +8,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private let elementMatcher: ElementMatcher
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
-    private let screenshotTaker: ScreenshotTaker
+    private let applicationScreenshotTaker: ApplicationScreenshotTaker
     private let performanceLogger: PerformanceLogger
     private let dateProvider: DateProvider
     private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
@@ -18,7 +18,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         elementMatcher: ElementMatcher,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
-        screenshotTaker: ScreenshotTaker,
+        applicationScreenshotTaker: ApplicationScreenshotTaker,
         performanceLogger: PerformanceLogger,
         dateProvider: DateProvider,
         elementFunctionDeclarationLocation: FunctionDeclarationLocation)
@@ -27,7 +27,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         self.elementMatcher = elementMatcher
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
-        self.screenshotTaker = screenshotTaker
+        self.applicationScreenshotTaker = applicationScreenshotTaker
         self.performanceLogger = performanceLogger
         self.dateProvider = dateProvider
         self.elementFunctionDeclarationLocation = elementFunctionDeclarationLocation
@@ -196,7 +196,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
                     )
                 )
             )
-            if let screenshot = screenshotTaker.takeScreenshot() {
+            if let screenshot = try? applicationScreenshotTaker.takeApplicationScreenshot() {
                 attachments.append(
                     Attachment(
                         name: "Скриншот",

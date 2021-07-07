@@ -94,7 +94,10 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                     XcuiElementFinder(
                         stepLogger: try di.resolve(),
                         applicationProviderThatDropsCaches: provider,
-                        screenshotTaker: try di.resolve(),
+                        // TODO: Use same instance in `XcuiPageObjectDependenciesFactory`
+                        applicationScreenshotTaker: XcuiApplicationScreenshotTaker(
+                            applicationProvider: provider
+                        ),
                         dateProvider: try di.resolve()
                     ),
                     try di.resolve()
@@ -109,28 +112,37 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                     XcuiElementFinder(
                         stepLogger: try di.resolve(),
                         applicationProviderThatDropsCaches: provider,
-                        screenshotTaker: try di.resolve(),
+                        applicationScreenshotTaker: XcuiApplicationScreenshotTaker(
+                            applicationProvider: provider
+                        ),
                         dateProvider: try di.resolve()
                     ),
                     nil
                 )
             }
             
-            let mainAppXcuiHierarchy = try xcuiApp { XCUIApplication() }
-            
-            return Apps(
-                mainUiKitHierarchy: try app(
-                    ApplicationProviderImpl { XCUIApplication() },
+            let mainApp: () throws -> XcuiPageObjectDependenciesFactory = {
+                let mainApplicationProvider = ApplicationProviderImpl { XCUIApplication() }
+                return try app(
+                    mainApplicationProvider,
                     UiKitHierarchyElementFinder(
                         ipcClient: try di.resolve(),
                         testFailureRecorder: try di.resolve(),
                         stepLogger: try di.resolve(),
-                        screenshotTaker: try di.resolve(),
+                        applicationScreenshotTaker: XcuiApplicationScreenshotTaker(
+                            applicationProvider: mainApplicationProvider
+                        ),
                         performanceLogger: try di.resolve(),
                         dateProvider: try di.resolve()
                     ),
                     try di.resolve()
-                ),
+                )
+            }
+            
+            let mainAppXcuiHierarchy = try xcuiApp { XCUIApplication() }
+            
+            return Apps(
+                mainUiKitHierarchy: try mainApp(),
                 mainXcuiHierarchy: mainAppXcuiHierarchy,
                 mainDefaultHierarchy: mainAppXcuiHierarchy,
                 settings: try thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") },

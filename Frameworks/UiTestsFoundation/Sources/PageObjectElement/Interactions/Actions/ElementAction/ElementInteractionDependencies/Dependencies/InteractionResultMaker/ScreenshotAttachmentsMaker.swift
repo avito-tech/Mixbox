@@ -9,14 +9,14 @@ public protocol ScreenshotAttachmentsMaker: AnyObject {
 
 public final class ScreenshotAttachmentsMakerImpl: ScreenshotAttachmentsMaker {
     private let imageHashCalculator: ImageHashCalculator
-    private let screenshotTaker: ScreenshotTaker
+    private let deviceScreenshotTaker: DeviceScreenshotTaker
     
     public init(
         imageHashCalculator: ImageHashCalculator,
-        screenshotTaker: ScreenshotTaker)
+        deviceScreenshotTaker: DeviceScreenshotTaker)
     {
         self.imageHashCalculator = imageHashCalculator
-        self.screenshotTaker = screenshotTaker
+        self.deviceScreenshotTaker = deviceScreenshotTaker
     }
     
     public func makeScreenshotAttachments(
@@ -26,7 +26,7 @@ public final class ScreenshotAttachmentsMakerImpl: ScreenshotAttachmentsMaker {
     {
         var attachments = [Attachment]()
         
-        if let screenshot = screenshotTaker.takeScreenshot() {
+        if let screenshot = try? deviceScreenshotTaker.takeDeviceScreenshot() {
             let screenshotAttachment = Attachment(
                 name: attachmentNameAndCircumstances(
                     attachmentName: "Скриншот",

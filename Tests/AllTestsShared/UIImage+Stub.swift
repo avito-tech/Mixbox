@@ -6,7 +6,7 @@ extension UIImage {
         width: Int,
         height: Int,
         byteOrder: ByteOrder? = nil,
-        scale: CGFloat = 0,
+        scale: CGFloat = UIScreen.main.scale,
         orientation: UIImage.Orientation = .down,
         drawingFunction: (CGContext, CGRect) throws -> ())
         throws
@@ -26,12 +26,11 @@ extension UIImage {
     
     static func image(
         color: UIColor,
-        size: CGSize)
+        size: CGSize,
+        scale: CGFloat = UIScreen.main.scale)
         throws
         -> UIImage
     {
-        let scale = UIScreen.main.scale
-        
         return try image(
             width: Int(size.width * scale),
             height: Int(size.height * scale),
@@ -46,7 +45,7 @@ extension UIImage {
         color: CGColor,
         byteOrder: ByteOrder? = nil,
         orientation: UIImage.Orientation = .down,
-        scale: CGFloat = 0)
+        scale: CGFloat = UIScreen.main.scale)
         throws
         -> UIImage
     {

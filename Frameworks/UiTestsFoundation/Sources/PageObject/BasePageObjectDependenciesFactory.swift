@@ -28,6 +28,19 @@ open class BasePageObjectDependenciesFactory: PageObjectDependenciesFactory {
                 ipcClient: try di.resolve()
             )
         }
+        localDi.register(type: ElementMatcherBuilder.self) { di in
+            ElementMatcherBuilder(
+                elementImageProvider: try di.resolve(),
+                snapshotsDifferenceAttachmentGenerator: try di.resolve(),
+                snapshotsComparatorFactory: try di.resolve()
+            )
+        }
+        localDi.register(type: ElementImageProvider.self) { di in
+            ElementImageProviderImpl(
+                screenshotTaker: try di.resolve(),
+                applicationFrameProvider: try di.resolve()
+            )
+        }
         
         self.di = MixboxDiTestFailingDependencyResolver(dependencyResolver: compoundDi)
         

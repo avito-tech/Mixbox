@@ -6,8 +6,8 @@ public class BaseBlackBoxDependencyCollectionRegisterer: DependencyCollectionReg
     }
     
     public func register(dependencyRegisterer di: DependencyRegisterer) {
-        di.register(type: ScreenshotTaker.self) { _ in
-            XcuiScreenshotTaker()
+        di.register(type: DeviceScreenshotTaker.self) { _ in
+            XcuiDeviceScreenshotTaker()
         }
         di.register(type: InteractionSettingsDefaultsProvider.self) { _ in
             InteractionSettingsDefaultsProviderImpl(preset: .blackBox)

@@ -3,7 +3,7 @@ import MixboxUiTestsFoundation
 final class ElementMatcherBuilderFactory {
     static func elementMatcherBuilder() -> ElementMatcherBuilder {
         return ElementMatcherBuilder(
-            screenshotTaker: MockScreenshotTaker(),
+            elementImageProvider: MockElementImageProvider(),
             snapshotsDifferenceAttachmentGenerator: MockSnapshotsDifferenceAttachmentGenerator(),
             snapshotsComparatorFactory: MockSnapshotsComparatorFactory()
         )

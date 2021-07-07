@@ -53,7 +53,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         di.register(type: InteractionResultMaker.self) { di in
             InteractionResultMakerImpl(
                 elementHierarchyDescriptionProvider: try di.resolve(),
-                screenshotTaker: try di.resolve(),
+                deviceScreenshotTaker: try di.resolve(),
                 extendedStackTraceProvider: try di.resolve(),
                 fileLine: fileLine
             )
@@ -95,7 +95,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         di.register(type: InteractionResultMaker.self) { di in
             InteractionResultMakerImpl(
                 elementHierarchyDescriptionProvider: try di.resolve(),
-                screenshotTaker: try di.resolve(),
+                deviceScreenshotTaker: try di.resolve(),
                 extendedStackTraceProvider: try di.resolve(),
                 fileLine: fileLine
             )

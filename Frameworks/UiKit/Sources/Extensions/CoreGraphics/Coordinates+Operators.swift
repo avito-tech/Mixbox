@@ -11,6 +11,7 @@ public func +(left: CGPoint, right: CGVector) -> CGPoint {
     )
 }
 
+@_transparent
 public func +(left: CGVector, right: CGPoint) -> CGPoint {
     return right + left
 }
@@ -57,6 +58,7 @@ public func *(left: CGSize, right: CGVector) -> CGSize {
     )
 }
 
+@_transparent
 public func *(left: CGVector, right: CGSize) -> CGSize {
     return right * left
 }
@@ -68,6 +70,7 @@ public func *(left: CGPoint, right: CGVector) -> CGPoint {
     )
 }
 
+@_transparent
 public func *(left: CGVector, right: CGPoint) -> CGPoint {
     return right * left
 }
@@ -79,6 +82,7 @@ public func *(left: CGVector, right: CGFloat) -> CGVector {
     )
 }
 
+@_transparent
 public func *(left: CGFloat, right: CGVector) -> CGVector {
     return right * left
 }
@@ -113,6 +117,7 @@ public func *(left: CGRect, right: CGFloat) -> CGRect {
     )
 }
 
+@_transparent
 public func *(left: CGFloat, right: CGRect) -> CGRect {
     return right * left
 }
@@ -124,6 +129,7 @@ public func *(left: CGPoint, right: CGFloat) -> CGPoint {
     )
 }
 
+@_transparent
 public func *(left: CGFloat, right: CGPoint) -> CGPoint {
     return right * left
 }

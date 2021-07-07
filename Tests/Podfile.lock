@@ -106,6 +106,7 @@ PODS:
     - MixboxIpc
     - MixboxIpcCommon
     - MixboxReflection
+    - MixboxUiKit
   - Yams (4.0.1)
 
 DEPENDENCIES:
@@ -279,7 +280,7 @@ SPEC CHECKSUMS:
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
-  TestsIpc: dd4b9498868d98ff18cb8dad0578420de9d2588c
+  TestsIpc: 16c0187bc9c4c77d93bdfcb5c3e16f2266c5b0bf
   Yams: 8c1dd4d1458197e98e5e8df8afbb68c29f1d9bf3
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000

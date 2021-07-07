@@ -183,6 +183,18 @@ public func -(left: CGSize, right: CGSize) -> CGSize {
     )
 }
 
+public func +(left: CGVector, right: CGSize) -> CGSize {
+    return CGSize(
+        width: left.dx + right.width,
+        height: left.dy + right.height
+    )
+}
+
+@_transparent
+public func +(left: CGSize, right: CGVector) -> CGSize {
+    return right + left
+}
+
 public func *(left: CGFloat, right: CGSize) -> CGSize {
     return CGSize(
         width: left * right.width,
@@ -190,6 +202,7 @@ public func *(left: CGFloat, right: CGSize) -> CGSize {
     )
 }
 
+@_transparent
 public func *(left: CGSize, right: CGFloat) -> CGSize {
     return right * left
 }
@@ -198,6 +211,13 @@ public func /(left: CGSize, right: CGFloat) -> CGSize {
     return CGSize(
         width: left.width / right,
         height: left.height / right
+    )
+}
+
+public func /(left: CGSize, right: CGSize) -> CGVector {
+    return CGVector(
+        dx: left.width / right.width,
+        dy: left.height / right.height
     )
 }
 

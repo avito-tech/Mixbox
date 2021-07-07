@@ -39,11 +39,14 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
                 applicationWindowsProvider: try di.resolve()
             )
         }
-        di.register(type: ScreenshotTaker.self) { di in
+        di.registerMultiple(type: GrayScreenshotTaker.self) { di in
             GrayScreenshotTaker(
                 inAppScreenshotTaker: try di.resolve()
             )
         }
+            .reregister { $0 as ApplicationScreenshotTaker }
+            .reregister { $0 as DeviceScreenshotTaker }
+        
         di.register(type: ScreenInContextDrawer.self) { di in
             ScreenInContextDrawerImpl(
                 orderedWindowsProvider: try di.resolve(),
@@ -60,7 +63,7 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
                 ipcClient: try di.resolve(),
                 testFailureRecorder: try di.resolve(),
                 stepLogger: try di.resolve(),
-                screenshotTaker: try di.resolve(),
+                applicationScreenshotTaker: try di.resolve(),
                 performanceLogger: try di.resolve(),
                 dateProvider: try di.resolve()
             )

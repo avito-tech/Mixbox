@@ -26,16 +26,16 @@ import MixboxTestsFoundation
 public typealias ElementMatcherBuilderClosure = (ElementMatcherBuilder) -> ElementMatcher
 
 public final class ElementMatcherBuilder {
-    private let screenshotTaker: ScreenshotTaker
+    private let elementImageProvider: ElementImageProvider
     private let snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator
     private let snapshotsComparatorFactory: SnapshotsComparatorFactory
     
     public init(
-        screenshotTaker: ScreenshotTaker,
+        elementImageProvider: ElementImageProvider,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator,
         snapshotsComparatorFactory: SnapshotsComparatorFactory)
     {
-        self.screenshotTaker = screenshotTaker
+        self.elementImageProvider = elementImageProvider
         self.snapshotsDifferenceAttachmentGenerator = snapshotsDifferenceAttachmentGenerator
         self.snapshotsComparatorFactory = snapshotsComparatorFactory
     }
@@ -149,7 +149,7 @@ public final class ElementMatcherBuilder {
         -> ElementMatcher
     {
         return ReferenceImageMatcher(
-            screenshotTaker: screenshotTaker,
+            elementImageProvider: elementImageProvider,
             referenceImage: image,
             snapshotsComparator: comparator,
             snapshotsDifferenceAttachmentGenerator: snapshotsDifferenceAttachmentGenerator

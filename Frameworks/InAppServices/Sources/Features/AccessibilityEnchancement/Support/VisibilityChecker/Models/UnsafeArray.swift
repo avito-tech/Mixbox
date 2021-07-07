@@ -13,7 +13,8 @@ public final class UnsafeArray<T> {
         pointer.deallocate()
     }
     
-    public subscript(index: Int) -> T {
+    @inline(__always)
+    public final subscript(index: Int) -> T {
         get {
             return pointer[index]
         }

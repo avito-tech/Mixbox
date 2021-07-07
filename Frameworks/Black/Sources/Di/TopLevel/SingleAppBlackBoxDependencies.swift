@@ -24,4 +24,10 @@ public final class SingleAppBlackBoxDependencies: BaseTopLevelDependencyCollecti
             BlackBoxApplicationDependentDependencyCollectionRegisterer()
         ]
     }
+    
+    override public  func registerAdditionalDependencies(di: DependencyRegisterer) {
+        di.register(type: ApplicationProvider.self) { _ in
+            ApplicationProviderImpl { XCUIApplication() }
+        }
+    }
 }

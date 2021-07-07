@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 
 public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
     public init(
-        screenshotTaker: ScreenshotTaker,
+        elementImageProvider: ElementImageProvider,
         referenceImage: UIImage,
         snapshotsComparator: SnapshotsComparator,
         snapshotsDifferenceAttachmentGenerator: SnapshotsDifferenceAttachmentGenerator)
@@ -13,10 +13,14 @@ public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
                 "Совпадает с референсным скрином"
             },
             matchingFunction: { snapshot -> MatchingResult in
-                guard let actualImage = screenshotTaker.elementImage(elementShanpshot: snapshot) else {
+                let actualImage: UIImage
+                
+                do {
+                    actualImage = try elementImageProvider.elementImage(elementShanpshot: snapshot)
+                } catch {
                     return MatchingResult.exactMismatch(
                         mismatchDescription: {
-                            "Не удалось создать скрин элемента"
+                            "Failed to get screenshot of the element: \(error)"
                         },
                         attachments: { [] }
                     )

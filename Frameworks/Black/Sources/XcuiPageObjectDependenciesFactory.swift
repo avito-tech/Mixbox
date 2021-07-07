@@ -59,6 +59,11 @@ public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependencies
                     
                     return ipcPasteboard ?? UikitPasteboard(uiPasteboard: .general)
                 }
+                di.register(type: ApplicationScreenshotTaker.self) { di in
+                    XcuiApplicationScreenshotTaker(
+                        applicationProvider: try di.resolve()
+                    )
+                }
             }
         )
     }

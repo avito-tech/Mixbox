@@ -3,18 +3,18 @@ import MixboxFoundation
 
 public final class InteractionResultMakerImpl: InteractionResultMaker {
     private let elementHierarchyDescriptionProvider: ElementHierarchyDescriptionProvider
-    private let screenshotTaker: ScreenshotTaker
+    private let deviceScreenshotTaker: DeviceScreenshotTaker
     private let extendedStackTraceProvider: ExtendedStackTraceProvider
     private let fileLine: FileLine
     
     public init(
         elementHierarchyDescriptionProvider: ElementHierarchyDescriptionProvider,
-        screenshotTaker: ScreenshotTaker,
+        deviceScreenshotTaker: DeviceScreenshotTaker,
         extendedStackTraceProvider: ExtendedStackTraceProvider,
         fileLine: FileLine)
     {
         self.elementHierarchyDescriptionProvider = elementHierarchyDescriptionProvider
-        self.screenshotTaker = screenshotTaker
+        self.deviceScreenshotTaker = deviceScreenshotTaker
         self.extendedStackTraceProvider = extendedStackTraceProvider
         self.fileLine = fileLine
     }

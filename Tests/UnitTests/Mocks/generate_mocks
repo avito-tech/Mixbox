@@ -12,7 +12,7 @@ apply_mocks() {
     module "MixboxUiTestsFoundation"
     mock "StubRequestBuilder"
     mock "StubResponseBuilder"
-    mock "ScreenshotTaker"
+    mock "ElementImageProvider"
     mock "SnapshotsDifferenceAttachmentGenerator"
     mock "SnapshotsComparatorFactory"
     mock "PageObjectDependenciesFactory"

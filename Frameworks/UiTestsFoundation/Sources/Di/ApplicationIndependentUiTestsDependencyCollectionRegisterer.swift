@@ -51,13 +51,6 @@ public final class ApplicationIndependentUiTestsDependencyCollectionRegisterer: 
     }
     
     private func registerInteractionDependencies(di: DependencyRegisterer) {
-        di.register(type: ElementMatcherBuilder.self) { di in
-            ElementMatcherBuilder(
-                screenshotTaker: try di.resolve(),
-                snapshotsDifferenceAttachmentGenerator: try di.resolve(),
-                snapshotsComparatorFactory: try di.resolve()
-            )
-        }
         di.register(type: Retrier.self) { di in
             RetrierImpl(
                 pollingConfiguration: try di.resolve(),
@@ -67,7 +60,7 @@ public final class ApplicationIndependentUiTestsDependencyCollectionRegisterer: 
         di.register(type: ScreenshotAttachmentsMaker.self) { di in
             ScreenshotAttachmentsMakerImpl(
                 imageHashCalculator: DHashImageHashCalculator(),
-                screenshotTaker: try di.resolve()
+                deviceScreenshotTaker: try di.resolve()
             )
         }
         di.register(type: PollingConfiguration.self) { _ in

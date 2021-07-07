@@ -146,7 +146,7 @@ final class ElementSettingsTests: TestCase {
         }
         di.register(type: ElementMatcherBuilder.self) { [mocks] _ in
             ElementMatcherBuilder(
-                screenshotTaker: mocks.register(MockScreenshotTaker()),
+                elementImageProvider: mocks.register(MockElementImageProvider()),
                 snapshotsDifferenceAttachmentGenerator: mocks.register(MockSnapshotsDifferenceAttachmentGenerator()),
                 snapshotsComparatorFactory: mocks.register(MockSnapshotsComparatorFactory())
             )

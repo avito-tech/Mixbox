@@ -1,4 +1,5 @@
 import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import MixboxGray
 import MixboxUiKit
 import XCTest
@@ -12,13 +13,14 @@ final class GrayScreenshotTakerTests: TestCase {
         
         open(screen: screen)
         
-        let grayScreenshotTaker = dependencies.resolve() as ScreenshotTaker
+        let applicationScreenshotTaker = dependencies.resolve() as ApplicationScreenshotTaker
+        let deviceScreenshotTaker = dependencies.resolve() as DeviceScreenshotTaker
         
-        XCTAssert(grayScreenshotTaker is GrayScreenshotTaker)
+        XCTAssert(applicationScreenshotTaker is GrayScreenshotTaker)
+        XCTAssertIdentical(applicationScreenshotTaker, deviceScreenshotTaker)
         
-        guard let screenshot = grayScreenshotTaker.takeScreenshot() else {
-            XCTFail("takeScreenshot() should not be nil")
-            return
+        let screenshot = UnavoidableFailure.doOrFail {
+            try applicationScreenshotTaker.takeApplicationScreenshot()
         }
         
         let comparator = ImageHashCalculatorSnapshotsComparator(

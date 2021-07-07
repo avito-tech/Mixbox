@@ -28,7 +28,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         self.visibilityCheckImageColorShifter = visibilityCheckImageColorShifter
     }
     
-    // swiftlint:disable:next cyclomatic_complexity function_body_length
+    // swiftlint:disable:next function_body_length
     public func capture(
         view: UIView,
         searchRectInScreenCoordinates: CGRect,
@@ -83,9 +83,14 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         
         let screenshotBeforeMetric = performanceLogger.start(staticName: "VC.capture.snapshot")
         
-        guard let beforeScreenshot = inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true) else {
-            throw ErrorString("beforeScreenshot is nil")
-        }
+        let beforeScreenshot = try ErrorString.map(
+            body: {
+                try inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true)
+            },
+            transform: { error in
+                "Failed to get beforeScreenshot: \(error)"
+            }
+        )
         
         guard let beforeScreenshotCgImage = beforeScreenshot.cgImage else {
             throw ErrorString("beforeScreenshotCgImage is nil")
@@ -163,9 +168,14 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         
         let screenshotAfterMetric = performanceLogger.start(staticName: "VC.capture.snapshot")
         
-        guard let afterScreenshot = imageAfterAddingSubview(shiftedView: shiftedView, toView: view) else {
-            throw ErrorString("afterScreenshot is nil")
-        }
+        let afterScreenshot = try ErrorString.map(
+            body: {
+                try imageAfterAddingSubview(shiftedView: shiftedView, toView: view)
+            },
+            transform: { error in
+                "Failed to get afterScreenshot: \(error)"
+            }
+        )
         
         guard let afterScreenshotCgImage = afterScreenshot.cgImage else {
             throw ErrorString("afterScreenshotCgImage is nil")
@@ -195,9 +205,10 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     private func imageAfterAddingSubview(
         shiftedView: UIView,
         toView view: UIView)
-        -> UIImage?
+        throws
+        -> UIImage
     {
-        return prepareViewForVisibilityCheck(view: view) {
+        return try prepareViewForVisibilityCheck(view: view) {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             view.addSubview(shiftedView)
@@ -209,7 +220,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
             CATransaction.flush()
             CATransaction.commit()
             
-            let shiftedImage = inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true)
+            let shiftedImage = try inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true)
             shiftedView.removeFromSuperview()
             
             return shiftedImage
@@ -219,7 +230,12 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     // Prepares `view` for visibility check by modifying visual aspects that interfere with
     // pixel intensities. Then, executes `body`, restores view's properties and returns the result of
     // executing the `body` to the caller.
-    private func prepareViewForVisibilityCheck<T>(view: UIView, body: () -> T) -> T {
+    private func prepareViewForVisibilityCheck<T>(
+        view: UIView,
+        body: () throws -> T)
+        rethrows
+        -> T
+    {
         let previousValueOfDisableActions = CATransaction.disableActions()
         let previousValueOfShouldRasterize = view.layer.shouldRasterize
         
@@ -242,7 +258,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         CATransaction.flush()
         CATransaction.commit()
         
-        let retVal = body()
+        let retVal = try body()
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)

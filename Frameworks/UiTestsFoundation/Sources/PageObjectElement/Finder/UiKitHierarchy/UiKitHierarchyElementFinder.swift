@@ -7,7 +7,7 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
     private let ipcClient: SynchronousIpcClient
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
-    private let screenshotTaker: ScreenshotTaker
+    private let applicationScreenshotTaker: ApplicationScreenshotTaker
     private let performanceLogger: PerformanceLogger
     private let dateProvider: DateProvider
     
@@ -15,14 +15,14 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
         ipcClient: SynchronousIpcClient,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
-        screenshotTaker: ScreenshotTaker,
+        applicationScreenshotTaker: ApplicationScreenshotTaker,
         performanceLogger: PerformanceLogger,
         dateProvider: DateProvider)
     {
         self.ipcClient = ipcClient
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
-        self.screenshotTaker = screenshotTaker
+        self.applicationScreenshotTaker = applicationScreenshotTaker
         self.performanceLogger = performanceLogger
         self.dateProvider = dateProvider
     }
@@ -37,7 +37,7 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
             elementMatcher: elementMatcher,
             testFailureRecorder: testFailureRecorder,
             stepLogger: stepLogger,
-            screenshotTaker: screenshotTaker,
+            applicationScreenshotTaker: applicationScreenshotTaker,
             performanceLogger: performanceLogger,
             dateProvider: dateProvider,
             elementFunctionDeclarationLocation: elementFunctionDeclarationLocation

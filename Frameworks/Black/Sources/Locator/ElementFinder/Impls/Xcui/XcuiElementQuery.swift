@@ -7,7 +7,7 @@ final class XcuiElementQuery: ElementQuery {
     private let xcuiElementQuery: XCUIElementQuery
     private let elementQueryResolvingState: ElementQueryResolvingState
     private let stepLogger: StepLogger
-    private let screenshotTaker: ScreenshotTaker
+    private let applicationScreenshotTaker: ApplicationScreenshotTaker
     private let applicationProvider: ApplicationProvider
     private let dateProvider: DateProvider
     private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
@@ -16,7 +16,7 @@ final class XcuiElementQuery: ElementQuery {
         xcuiElementQuery: XCUIElementQuery,
         elementQueryResolvingState: ElementQueryResolvingState,
         stepLogger: StepLogger,
-        screenshotTaker: ScreenshotTaker,
+        applicationScreenshotTaker: ApplicationScreenshotTaker,
         applicationProvider: ApplicationProvider,
         dateProvider: DateProvider,
         elementFunctionDeclarationLocation: FunctionDeclarationLocation)
@@ -24,7 +24,7 @@ final class XcuiElementQuery: ElementQuery {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
         self.stepLogger = stepLogger
-        self.screenshotTaker = screenshotTaker
+        self.applicationScreenshotTaker = applicationScreenshotTaker
         self.applicationProvider = applicationProvider
         self.dateProvider = dateProvider
         self.elementFunctionDeclarationLocation = elementFunctionDeclarationLocation
@@ -89,7 +89,7 @@ final class XcuiElementQuery: ElementQuery {
                         )
                     )
                 )
-                if let screenshot = screenshotTaker.takeScreenshot() {
+                if let screenshot = try? applicationScreenshotTaker.takeApplicationScreenshot() {
                     attachments.append(
                         Attachment(
                             name: "Скриншот",

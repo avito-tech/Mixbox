@@ -1,3 +1,4 @@
+import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxGray
 import MixboxUiKit
@@ -36,7 +37,9 @@ final class InAppScreenshotTakerImplTests {
             screenInContextDrawer: FakeScreenInContextDrawer()
         )
         
-        let screenshot = inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true).unwrapOrFail()
+        let screenshot = UnavoidableFailure.doOrFail {
+            try inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true)
+        }
         
         let image = screenshot.cgImage.unwrapOrFail()
         
