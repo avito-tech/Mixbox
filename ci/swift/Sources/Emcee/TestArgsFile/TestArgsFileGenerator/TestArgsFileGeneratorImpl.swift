@@ -201,7 +201,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     {
         return TypedResourceLocation(
             ResourceLocation.remoteUrl(
-                try emceeFileUploader.upload(path: path)
+                try emceeFileUploader.upload(path: path),
+                nil
             )
         )
     }
