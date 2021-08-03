@@ -48,11 +48,12 @@ public final class RunUnitTestsTask: LocalTask {
             ]
         )
         
-        try iosProjectBuilder.test(
+        try iosProjectBuilder.buildPreparationAndCleanup(
             projectDirectoryFromRepoRoot: "Tests",
+            action: .test,
             scheme: "UnitTests",
             workspaceName: "Tests",
-            testDestination: try mixboxTestDestinationProvider.mixboxTestDestination(),
+            destination: try mixboxTestDestinationProvider.mixboxTestDestination(),
             xcodebuildPipeFilter: xcodebuildPipeFilter
         )
     }

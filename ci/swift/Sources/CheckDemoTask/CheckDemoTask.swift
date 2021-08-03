@@ -45,29 +45,37 @@ public final class CheckDemoTask: LocalTask {
             ]
         )
         
-        _ = try iosProjectBuilder.build(
-            projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
-            action: .build,
-            scheme: "Demo",
-            workspaceName: "UiTestsDemo",
-            testDestination: try mixboxTestDestinationProvider.mixboxTestDestination(),
-            xcodebuildPipeFilter: "cat"
-        )
-        
-        try iosProjectBuilder.test(
-            projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
-            scheme: "BlackBoxTests",
-            workspaceName: "UiTestsDemo",
-            testDestination: try mixboxTestDestinationProvider.mixboxTestDestination(),
-            xcodebuildPipeFilter: xcodebuildPipeFilter
-        )
-        
-        try iosProjectBuilder.test(
-            projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
-            scheme: "GrayBoxTests",
-            workspaceName: "UiTestsDemo",
-            testDestination: try mixboxTestDestinationProvider.mixboxTestDestination(),
-            xcodebuildPipeFilter: xcodebuildPipeFilter
+        try iosProjectBuilder.withPreparationAndCleanup(
+            rebootSimulator: true,
+            destination: try mixboxTestDestinationProvider.mixboxTestDestination(),
+            body: { builder, destination in
+                _ = try builder.build(
+                    projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
+                    action: .build,
+                    scheme: "Demo",
+                    workspaceName: "UiTestsDemo",
+                    destination: destination,
+                    xcodebuildPipeFilter: "cat"
+                )
+                
+                _ = try builder.build(
+                    projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
+                    action: .test,
+                    scheme: "BlackBoxTests",
+                    workspaceName: "UiTestsDemo",
+                    destination: destination,
+                    xcodebuildPipeFilter: xcodebuildPipeFilter
+                )
+                
+                _ = try builder.build(
+                    projectDirectoryFromRepoRoot: "Demos/UiTestsDemo",
+                    action: .test,
+                    scheme: "GrayBoxTests",
+                    workspaceName: "UiTestsDemo",
+                    destination: destination,
+                    xcodebuildPipeFilter: xcodebuildPipeFilter
+                )
+            }
         )
     }
 }

@@ -42,12 +42,12 @@ public final class RunBlackBoxTestsTask: LocalTask {
             throw ErrorString("Expected to have at least one destination for building")
         }
         
-        let xcodebuildResult = try iosProjectBuilder.build(
+        let xcodebuildResult = try iosProjectBuilder.buildPreparationAndCleanup(
             projectDirectoryFromRepoRoot: "Tests",
             action: .buildForTesting,
             scheme: "BlackBoxUiTests",
             workspaceName: "Tests",
-            testDestination: destinationForBuilding,
+            destination: destinationForBuilding,
             xcodebuildPipeFilter: bashEscapedCommandMaker.escapedCommand(
                 arguments: [
                     "bash",

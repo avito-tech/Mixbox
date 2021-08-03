@@ -44,12 +44,12 @@ public final class RunGrayBoxTestsTask: LocalTask {
         
         let testsTargetAndSchemeName = "GrayBoxUiTests"
         
-        let xcodebuildResult = try iosProjectBuilder.build(
+        let xcodebuildResult = try iosProjectBuilder.buildPreparationAndCleanup(
             projectDirectoryFromRepoRoot: "Tests",
             action: .buildForTesting,
             scheme: testsTargetAndSchemeName,
             workspaceName: "Tests",
-            testDestination: destinationForBuilding,
+            destination: destinationForBuilding,
             xcodebuildPipeFilter: bashEscapedCommandMaker.escapedCommand(
                 arguments: [
                     "bash",

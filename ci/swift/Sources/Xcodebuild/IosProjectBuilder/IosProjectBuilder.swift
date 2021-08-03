@@ -1,48 +1,57 @@
 import Destinations
 
 public protocol IosProjectBuilder {
-    func prepareForIosTesting(rebootSimulator: Bool, testDestination: MixboxTestDestination) throws
+    func prepare(rebootSimulator: Bool, destination: MixboxTestDestination) throws
     
     func build(
         projectDirectoryFromRepoRoot: String,
         action: XcodebuildAction,
         scheme: String,
         workspaceName: String,
-        testDestination: MixboxTestDestination,
+        destination: MixboxTestDestination,
         xcodebuildPipeFilter: String)
         throws
         -> XcodebuildResult
     
-    func cleanUpAfterIosTesting() throws
+    func cleanUp(destination: MixboxTestDestination) throws
 }
 
 extension IosProjectBuilder {
-    public func withPreparationAndCleanup(rebootSimulator: Bool, testDestination: MixboxTestDestination, body: (IosProjectBuilder, MixboxTestDestination) throws -> ()) throws {
-        try prepareForIosTesting(rebootSimulator: rebootSimulator, testDestination: testDestination)
+    public func withPreparationAndCleanup<T>(
+        rebootSimulator: Bool = true,
+        destination: MixboxTestDestination,
+        body: (IosProjectBuilder, MixboxTestDestination) throws -> T
+    ) throws -> T {
+        try prepare(rebootSimulator: rebootSimulator, destination: destination)
         
-        try body(self, testDestination)
+        let result = try body(self, destination)
         
-        try cleanUpAfterIosTesting()
+        try cleanUp(destination: destination)
+        
+        return result
     }
     
-    public func test(
+    public func buildPreparationAndCleanup(
+        rebootSimulator: Bool = true,
         projectDirectoryFromRepoRoot: String,
+        action: XcodebuildAction,
         scheme: String,
         workspaceName: String,
-        testDestination: MixboxTestDestination,
+        destination: MixboxTestDestination,
         xcodebuildPipeFilter: String)
         throws
+        -> XcodebuildResult
     {
-        try withPreparationAndCleanup(
-            rebootSimulator: true,
-            testDestination: testDestination,
-            body: { iosProjectBuilder, testDestination in
-                _ = try iosProjectBuilder.build(
+        return try withPreparationAndCleanup(
+            rebootSimulator: rebootSimulator,
+            destination: destination,
+            body: { builder, destination in
+                try builder.build(
                     projectDirectoryFromRepoRoot: projectDirectoryFromRepoRoot,
-                    action: .test,
+                    action: action,
                     scheme: scheme,
                     workspaceName: workspaceName,
-                    testDestination: testDestination,
+                    destination: destination,
                     xcodebuildPipeFilter: xcodebuildPipeFilter
                 )
             }
