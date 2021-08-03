@@ -293,6 +293,7 @@
 		F863CA1824B4B7F100423225 /* BaseUiTestCase+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA1624B4B7D800423225 /* BaseUiTestCase+Info.swift */; };
 		F863CA1924B4B7F200423225 /* BaseUiTestCase+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = F863CA1624B4B7D800423225 /* BaseUiTestCase+Info.swift */; };
 		F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */; };
+		F866991626B9B14A00C4668B /* RandomSetGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F866991526B9B14A00C4668B /* RandomSetGeneratorTests.swift */; };
 		F8676ED821552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676ED721552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift */; };
 		F8676EDA21552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676ED921552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift */; };
 		F8676EE4215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */; };
@@ -1117,6 +1118,7 @@
 		F866756D2121E81E00396F02 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F866756F2121E81E00396F02 /* SimulatorFileSystemRootTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorFileSystemRootTests.swift; sourceTree = "<group>"; };
 		F86675712121E81E00396F02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F866991526B9B14A00C4668B /* RandomSetGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSetGeneratorTests.swift; sourceTree = "<group>"; };
 		F8676ED721552D3B007DDB7C /* CallbackFromAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackFromAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8676ED921552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
 		F8676EE3215533D9007DDB7C /* NestedCallbacksToAppIpcMethodHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedCallbacksToAppIpcMethodHandler.swift; sourceTree = "<group>"; };
@@ -3681,6 +3683,7 @@
 				F8C3AD112437A3BC004B6BA4 /* RandomDictionaryGeneratorTests.swift */,
 				F8C3AD132437A3C7004B6BA4 /* RandomFloatGeneratorTests.swift */,
 				F82BE56A243DF1150010FD6C /* RandomIntegerGeneratorTests.swift */,
+				F866991526B9B14A00C4668B /* RandomSetGeneratorTests.swift */,
 			);
 			path = Random;
 			sourceTree = "<group>";
@@ -5884,6 +5887,7 @@
 				F8C3AD1824384420004B6BA4 /* ConstantAnyGenerator.swift in Sources */,
 				F8F8320B24EFEEE6007EEA45 /* BaseGeneratorFacadeTests+SharedCode.swift in Sources */,
 				F8F8320D24EFEF0C007EEA45 /* NestedFieldsGeneratorFacadeTests.swift in Sources */,
+				F866991626B9B14A00C4668B /* RandomSetGeneratorTests.swift in Sources */,
 				F86675702121E81E00396F02 /* SimulatorFileSystemRootTests.swift in Sources */,
 				F8C3AD20243AFF9E004B6BA4 /* SequenceRandomNumberProvider.swift in Sources */,
 				F80C2E4C24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift in Sources */,
