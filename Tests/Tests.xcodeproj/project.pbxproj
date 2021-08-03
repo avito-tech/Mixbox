@@ -145,6 +145,7 @@
 		F80CEDE222DE27E9006C804D /* IpcThrowingFunctionResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEDE122DE27E9006C804D /* IpcThrowingFunctionResultTests.swift */; };
 		F80CEDE822DE37D6006C804D /* BidirectionalIpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */; };
 		F80D360A2313F96F0058E118 /* IsSubviewMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */; };
+		F80D5FCB26B876EF00FA3B3C /* DynamicMatcherBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D5FCA26B876EF00FA3B3C /* DynamicMatcherBuilderTests.swift */; };
 		F81144CC2268D16600ED519B /* RecordedSessionStubberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */; };
 		F81144D02268D39C00ED519B /* GeneratedMocks.ignored.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */; };
 		F81144D12268D39C00ED519B /* mock_generation.sh in Resources */ = {isa = PBXBuildFile; fileRef = F81144CF2268D39C00ED519B /* mock_generation.sh */; };
@@ -993,6 +994,7 @@
 		F80CEDE122DE27E9006C804D /* IpcThrowingFunctionResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpcThrowingFunctionResultTests.swift; sourceTree = "<group>"; };
 		F80CEDE522DE3781006C804D /* BidirectionalIpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalIpcTests.swift; sourceTree = "<group>"; };
 		F80D36092313F96F0058E118 /* IsSubviewMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsSubviewMatcherTests.swift; sourceTree = "<group>"; };
+		F80D5FCA26B876EF00FA3B3C /* DynamicMatcherBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicMatcherBuilderTests.swift; sourceTree = "<group>"; };
 		F81144CB2268D16600ED519B /* RecordedSessionStubberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedSessionStubberTests.swift; sourceTree = "<group>"; };
 		F81144CE2268D39C00ED519B /* GeneratedMocks.ignored.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.ignored.swift; sourceTree = "<group>"; };
 		F81144CF2268D39C00ED519B /* mock_generation.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = mock_generation.sh; sourceTree = "<group>"; };
@@ -1717,6 +1719,14 @@
 				F8FC4AD723AA691200D3E911 /* Logic */,
 			);
 			path = Matchers;
+			sourceTree = "<group>";
+		};
+		F80D5FC926B876DF00FA3B3C /* DynamicMatcherBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				F80D5FCA26B876EF00FA3B3C /* DynamicMatcherBuilderTests.swift */,
+			);
+			path = DynamicMatcherBuilder;
 			sourceTree = "<group>";
 		};
 		F81144CA2268D15D00ED519B /* RecordedSessionStubber */ = {
@@ -3593,6 +3603,7 @@
 		F8B964D22281E4000054CE08 /* MixboxTestsFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				F80D5FC926B876DF00FA3B3C /* DynamicMatcherBuilder */,
 				F80C2E4B24D1F11700C6CAD4 /* Collection_ElementOrFail_Tests.swift */,
 				F80C2E4A24D1F11700C6CAD4 /* Collection_OnlyOrFail_Tests.swift */,
 				F84D127E2167709D00A178B4 /* AutomaticCurrentTestCaseProvider.swift */,
@@ -5793,6 +5804,7 @@
 				F8F4A1AD2568165E0093523E /* MocksTestsFixtureProtocol.swift in Sources */,
 				F8971DA222665D9D001741C1 /* ThreadUnsafeOnceTokenTests.swift in Sources */,
 				F8F8320924EFEE94007EEA45 /* NonFinalClassesGeneratorFacadeTests.swift in Sources */,
+				F80D5FCB26B876EF00FA3B3C /* DynamicMatcherBuilderTests.swift in Sources */,
 				F80C2E2224D1E0C900C6CAD4 /* WhiteBoxTestCaseDependencies.swift in Sources */,
 				F8E160C92418634E00B4912F /* BaseEventTestCase.swift in Sources */,
 				F89ED2E22572B7B300A32D54 /* RecordIssueIsOverridenByRecordFailureTests.swift in Sources */,
