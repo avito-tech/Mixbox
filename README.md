@@ -2,123 +2,193 @@
 
 ![Version](https://cocoapod-badges.herokuapp.com/v/MixboxFoundation/badge.png)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-[![Build Status](https://travis-ci.org/avito-tech/Mixbox.svg?branch=master)](https://travis-ci.org/avito-tech/Mixbox)
 
 Powerful E2E UI testing framework for iOS.
 
-Currently it is used in Avito, where we have 700+ E2E UI tests, about 90% of them are green and they helped us to reduce
-manual testing for already 2 years. We run about 25% on PR and we are working towards executing 100% of tests on pull request, partially by switching from Black Box E2E to Gray Box testing. We are running those tests on 3 platforms and it takes ~40 minutes (total duration of tests is 30+ hours), because we are using [Emcee](https://github.com/avito-tech/Emcee), a test runner that runs tests on multiple machines (note that Mixbox doesn't require Emcee). We're writing Gray Box tests too (where we mock classes, network and everything), but we just started.
+Currently it is mostly used in [Avito](https://avito.ru), where we have about 700 black box E2E UI tests, about 1.3K non-E2E gray box UI tests, about 2K unit tests for a main application. All of them can be run successfully on pull requests.
 
-If you are enthusiastic about using it in your company, file us an issue. We are making it to be usable by community,
-however, it is not our main goal.
+We also like to recommend [Emcee](https://github.com/avito-tech/Emcee) that helps us to run tens of hours of tests within tens of minutes of real time. It's a test runner that distributes jobs to a pool of agents (e.g. mac mini's). Note that Emcee and Mixbox are independent of each other.
+
+We recommend you to try it if you are enthusiastic about using it in your company. We are making it to be usable by community, however, it is not our main goal. Mixbox is used few other companies as far as we know, with almost no questions about how to use it, despite lack of documentation. 
+
+The document is actual as of 2021.08.04.
 
 ## Features
 
-- Actions and checks (obviously)
-- Per-pixel visibility check
-- Everything has polling
-- Fully automatic scrolling
-- Black box AND gray box testing!
-    - Black box tests are run in a separate app and are able to launch app. You can test more application features with
-      this type of testing. You can use mocks, but it will require you to write more code (use launch arguments or 
-      implement inter-process communication).
-    - Gray box tests are run within the application (as in [EarlGrey](https://github.com/google/EarlGrey)), but tests 
-      are **runtime compatible** with black box tests, so you can share your test model, page objects, test helpers,
-      etc. You can mock easily anything, because test are executed within same process. You can't test starting your app 
-      up without using mocks.
+- Black box, gray box, white box testing
+  
+    - Almost 100% UI testing features are available for black box testing (you start the app and tests work with it) and for gray box testing (your tests show your UI component and test it within same process). Code is runtime compatible, meaning that you can share your code or extensions to Mixbox in a single library and it will work in all your tests.
+    - Some features are specific for black box or gray box testing, for example, you can't start an app in gray box tests (those tests are running within the app).
+
+- Easily customizable
+
+    - Custom UI actions or checks. See `ElementInteraction`.
+    - Custom IPC methods (for example, if you want to pass data between your tests and app). See `IpcMethodHandler` and `InAppServices`.
+    - Custom UI elements with their own methods (which all are handy aliases for low level code), see usages of `BaseElementWithDefaultInitializer`.
+    - All those things would work for both black box and gray box testing without you thinking about it. They all use abstractions. Custom page objects also can be shared between those tests.
+  
+- Highly customizable
+  
+    - Everything in DI can be redefined. DI is used (almost) everywhere. The objects are instantiated in DI containers that you can alter or in factories, and you can inject different factories.
+    - We may lack support of SPM or Carthage (so you may want to fork it), but we built Mixbox with this requirement in mind: it should not require you to fork it. Please, send your pull requests if you fork Mixbox.
+    - Also everything can be disabled. There is no code that is running unless you said so (e.g. no `+(void)load` and such things).
+
+- Working with UI
+  
+  - Actions and checks have per-pixel visibility check. If user can see it, tests can to. If user can not see it, test can not see it too.
+  - Everything has polling.
+  - Fully automatic scrolling.
+  - Everything above can be customized or disabled per action or per page object element.
+  - Every cell inside UICollectionView is accessible in tests (including offscreen cells). This feature has little side effects. This is not implemented for UITableView. See `UICollectionViewCell+Testability.swift` about overcoming side effects (e.g. might happen if use singleton in a cell or your cell lifecycle creates side effects; those can be handled anyway).
+
+- Actions
+  
+  - Tapping
+  - Pressing
+  - Swiping/dragging (with different options)  
+  - Setting text (with different options)
+  - Your custom actions that inherit from `ElementInteraction` can use tools that work for black box and gray box tests. 
+  - Note: it is not easy to add custom gestures, see Limitations.
+  
+- Checks, matchers and locators
+
+  - Checks are made using matchers. Matchers can match 17 properties of element, not including nested properties. Examples:
+
+    ```swift
+    pageObjects.myPageObject.myView.item(at: 0).title.assertMatches {
+        $0.frame.size.height.isLessThan(oneLineLabelMaxHeight)
+    }
+    ```
     
-    Most of the code is shared between gray box and black box tests, as the most of the features. Both options have
-    their own benefits. Use both approaches to have a good [test pyramid](https://martinfowler.com/bliki/TestPyramid.html).
+  - Same matchers are used in page object element locators:
+    ```swift
+    pageObjects.searchResults.categoryWidget.item(at: 0).title.assertMatches {
+        $0.frame.size.height.isLessThan(oneLineLabelMaxHeight)
+    }
+    ```
+
+  - There is a native support of custom values of an object. In application you can set a value and read it from tests. They are typed, so you can do this (example code):
+  
+    ```swift
+    public var mySwitch: ViewElement {
+        return element("свитчер пушей для Новости") { element in
+            element.type == .switch && element.isSubviewOf { element in
+                element.id == "sectionItemavito_newspush"
+            }
+        }
+    }
+    ```
     
-- Page Objects
-    - Can have functions with any code inside
-    - Page object elements can nest elements (however, it requires some not-so-good looking boilreplate)
-    - Everything (actions/checks) is fully extensible. If you implement custom action or check, it will automatically
-      work for black box and gray box testing (see `SwipeAction`, all builtin actions are really extensions).
-    
-- Every cell inside UICollectionView is visible in tests (including offscreen cells)
-- Customizable inter-process communication between app and tests
-- Custom values for views that are visible in tests
+  - See `ElementMatcherBuilder` for all options.
+
 - Network mocking (via NSURLSessionProtocol)
-- Setting permissions (camera/geolocation/notifications/etc)
+- Setting permissions (camera/geolocation/notifications/etc; 24 different kinds of services in total)
 - Simulation of push-notifications (limitations: only inside active app!)
 - Opening url from tests
 - Geolocation simulation
-- Hardware keyboard (very few key codes are defined, however it can be easily implemented)
-- Customizable without forking repository
-- Swift & Objective-C
-- Tested
-    - 176 black box UI tests on 3 device configurations
-    - 155 gray box UI tests on 3 device configurations
-    - 100 unit tests on 4 device configurations
-    - SwiftLint + custom linter
-    - All tests are executed per every pull request to Mixbox, and usually 1 PR equals 1 commit.
-    - Two demos are tested with 5 versions of Xcode (10.0, 10.1, 10.2.1, 10.3, 11.0).
-- Configurable reports (e.g.: `Tests` project has integration with Allure, an open sourced reporting system with web UI,
-  and in Avito we use in-house solution for reports; you can write your own implementation)
+- Generation of random data for tests with little boilerplate. See `MixboxGenerators`.
+- Supports Swift & Objective-C apps (custom values of views are only avaliable for Swift apps)
+- Supports Swift (only) in tests
+- Doesn't leak code in your release builds
+  - There are several levels of defence against it.
+  - There is a trick in Mixbox that notifies you if you do it at the linking stage.
+  - All code is under conditional compilation flag `MIXBOX_ENABLE_IN_APP_SERVICES`.
+  - Exception! `MixboxTestability` has little dummy code in release configuration, but you can not link it in release builds). See demo projects.
+  - You can simply not link anything in your release configuration. This actually have to be done if you ae not using any optimization/merging technology (amimono for cocoapods or SPM), because empty frameworks add a little overhead.
+  - `MIXBOX_ENABLE_IN_APP_SERVICES` is in every framework that should be linked in an app, it is verified by a CI build (we can't merge commit into a main branch that violates this rule).
+  - Note that frameworks that are purely for tests do not have it, don't link them in your app!
+- Well tested
+  - 221 black box UI tests on 4 device configurations
+  - 204 gray box UI tests on 4 device configurations
+  - 446 white box (unit) tests on 4 device configurations
+  - SwiftLint + custom linter
+  - All tests are executed per every pull request to Mixbox, and usually 1 PR equals 1 commit.
+- Is regularly released to Cocoapods, it's a main method of distribution for our in-house projects.
+
+# Limitations
+
+Known issues
+
+- !!! Russian language in reports !!! (we are slowly rewriting it in English, we decided that we won't do internationalization and will just use English; it's not done yet)
+- Crashes on iOS 11.2 (works ok on iOS 11.3, iOS 11.4)
+- Setting permissions doesn't work on physical devices (and maybe something else, we don't test on physical devices;
+  basic things work)
+- Device rotation was not tested, may not be working
+- iPads were not tested
+
+Lack of support of proper customization (PRs welcome).
+
+- Unfortunately, we didn't made it easy to add custom UI gestures. Touch event generation code exists for both types of tests, but separately, not under an easy abstraction. So, ideally, this requires contributing to Mixbox, but this is not a requirement (theoretically you can implement it without forking Mixbox, but that would be not easy).
+- Configurable reports (is not represented in Demo; there are a lot of useful reports out of the box, but you have to connect it to your reporting system)
+- Hardware keyboard (very few key codes are defined inside Mixbox, though, something like cmd, C, V, A, used for copy-pasting text)
+- Getting all assertion failures from app (see `GetRecordedAssertionFailuresIpcMethod`, you have to set it up yourself)
 
 In development / not open sourced yet:
 
 - Code generation of page objects
-- Getting all assertion failures from app
-- Facade for working with springboard
-- Switching accessibility values between release and test builds
+- Code generation of mocks (a very simple code is used in `Tests` project, but in Avito we use our own code generation that is fast and simple to use (just annotate the class and you're good to go); there are no plans to convert it to open source code)
+- Code generation for `MixboxGenerators` is not open sourced in any form. So you have to write a little boilerplate for it (1 line per field of the type + little constant overhead). If we open sourced code generation, there will be purely zero boilerplate.
+  
+## What's black box and gray box testing?
+
+Black box tests and app are run in a separate processes. Tests launching the app and testing it, the app is "black box" (however, both Mixbox and Apple UI tests use IPC for obtaining information about the app, such as hierarchy of elements). You can test more application features with this type of testing. You can use mocks, but it will require you to write more code (use launch arguments or implement inter-process communication).
+
+Gray box tests are run within the application. It is like in the [EarlGrey](https://github.com/google/EarlGrey)), but tests are **runtime compatible** with black box tests, so you can share your test model, page objects, test helpers, etc. You can mock easily anything, because test are executed within same process. You can't test starting your app up without using mocks.
+    
+Most of the code is shared between gray box and black box tests, as the most of the features. Both options have their own benefits. Use both approaches to have a good [test pyramid](https://martinfowler.com/bliki/TestPyramid.html).
 
 ## Installation
 
-There are two ways to use Mixbox.
+See [Demo](Demos/UiTestsDemo), it is beyond simple, though. It shows how to get a minimal setup, but lacks demo of most of the features.
 
-First is described in [Demo](Demos), it is oversimplified, basically you just use `pod SomePod`.
+The [Tests](Tests) project has all the features, but it's not how we use Mixbox.
 
-The second we use in Avito and it looks like this: [Tests](Tests) (see Podfile there).
-
-There are not enough docs yet, so you can try simple approach of linking Mixbox ([Demo](Demos)), but use code examples from [Tests](Tests).
+There are not enough docs yet, so you can try simple approach of linking Mixbox ([Demo](Demos/OsxIpcDemo)), but use code examples from [Tests](Tests). You can also read code.
 
 ## Supported iOS/Xcode/Swift versions
 
-- Xcode 11
+- Xcode 12.5
 - Swift 5
-- iOS 10.3, iOS 11.4, iOS 12.1, intermediate versions may work or may not, the mentioned versions
-  are tested on CI
-- Cocoapods 1.8.4
-- Mac OS 10.14.6
+- iOS 11.4, iOS 12.4, iOS 13.7, iOS 14.1, intermediate versions may work or may not, the mentioned versions are tested on CI. It probably works on iOS 10.3, we just don't test on it, because we don't support this version.
 
-Xcode 9/10 and older versions are not supported anymore. If you are planning to use the project on different environment and have problems, let us know.
-
-## Known issues
-
-- Crashes on iOS 11.2 (works ok on iOS 11.3, iOS 11.4)
-- Setting permissions doesn't work on physical devices (and maybe something else, we don't test on physical devices;
-  basic things work)
-- Device rotation was not tested, I think we have bugs with it
-- iPads were not tested
-- Russian language in reports (will be fixed soon)
+Xcode 9/10 and older versions are not supported anymore. We don't know if it works on them.
 
 # Examples
 
 For real examples, see `Tests` project. It is most up-to-date open sourced examples of how to use it, but it lacks realism (doesn't show it how to tests are written for a real app).
 
-Example of test that show basic features:
+Example of test that show basic features (black box tests):
 
-```
+```swift
 func test() {
     // Setting permissions
     permissions.camera.set(.allowed)
     permissions.photos.set(.notDetermined)
 
     // Functions are useful in page objects and allows
-    // reusing code, for example, for transitions between states of the app
+    // reusing code, for example, for transitions between states of the app.
+    // The following functions are custom.
     pageObjects.initial
         .authorize(user: testUser)
         .goToCvScreen()
         
-    // Aliases for simple assertions (you can add your own):
+    // Aliases for simple assertions.
+    // You can add your own: you can extend existing classes/protocols or add your own.
     pageObjects.simpleCv.view.assertIsDisplayed()
     pageObjects.simpleCv.title.assertHasText("My CV")
     
-    // Fully customizable assertions
+    // Fully customizable assertions.
+    //
+    // There are matchers for strings like isEmpty, isNotEmpty, for regular expressions, etc.
+    // For Equatable or Comparable objects (==, <, >, <=, =>).
+    // `isClose` for floats.
+    // You can write your extensions.
+    // See `MappingMatcherBuilder`. 
+    //
+    // See also `ElementMatcherBuilder` for DSL for UI elements. Also, if you want
+    // such DSL for your own types, see `DynamicMatcherBuilder`.
     pageObjects.simpleCv.addressField.assertMatches { element in
-        element.text != addressFieldInitialText && element.text.isNotEmpty
+        element.text != addressFieldInitialText && element.text.isNotEmpty()
     }
     
     // Network stubbing.
@@ -132,6 +202,61 @@ func test() {
     pageObjects.simpleCV.occupationField.setText("iOS developer")
     pageObjects.simpleCV.createCVButton.tap()
 }
+```
+
+Example that also shows data generation (`MixboxGenerators`):
+
+Only relevant fields are defined, other are filled automatically.
+
+```swift
+  func test___vacancy_snippet___shopTitle___is_displayed() {
+      openAdvertisement {
+          $0.sellerInfo = $0.generate {
+              $0.name = "Work here"
+          }
+      }
+      
+      advertisement.shopTitle.assertHasText("Work here")
+  }
+  
+  func test___vacancy_snippet___sellerAvatar___is_displayed() {
+      openAdvertisement {
+          $0.sellerInfo = $0.generate {
+              $0.avatar = $0.some()
+          }
+      }
+      
+      advertisement.sellerAvatar.assertIsDisplayed()
+  }
+```
+
+Example that also shows verification in mocks (`MixboxMocksRuntime`):
+
+```swift
+// Method `updateSomething` can have many parameters that can be omitted in verification
+// They are matched with `any()` by default.
+somethingSomethingUpdatingService
+    .verify()
+    .updateSomething(
+        something: equals(["foo", "bar"]),
+    )
+    .isCalled()
+```
+
+Note that stubbing of mocks is automatic (including asynchronous calls), unless it is customized as shown here:
+
+```swift
+pushService
+    .stub()
+    .delegate
+    .get()
+    .thenReturn(delegate)
+
+pushService
+    .stub()
+    .pushNotificationsStatus()
+    .thenCall
+    .completion(.allowed)
 ```
 
 Declaring page objects:
@@ -181,8 +306,7 @@ public final class RatingStarsElement:
 
 ## Copypasted code
 
-This library includes some code copypasted from other libraries. Sometimes it is a single file, some times it is because
-we need conditional compilation built in in sources to prevent linking the code in release builds.
+This library includes some code copypasted from other libraries. Sometimes it is a single file, some times it is because we need conditional compilation built in sources to prevent linking the code in release builds (`MIXBOX_ENABLE_IN_APP_SERVICES` flag).
 
 - **EarlGrey** (every source file that used `EarlGrey` contains `EarlGrey` substring somewhere). [License is here (Apache)](Docs/EarlGreyLicense/LICENSE). It is visibility checker, setting up accessibility, etc. **Original repo:** <https://github.com/google/EarlGrey>
 - [**AnyCodable**](Frameworks/AnyCodable). `#if` clauses were added. **Original repo:** <https://github.com/Flight-School/AnyCodable>
