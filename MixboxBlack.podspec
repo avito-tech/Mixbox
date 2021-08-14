@@ -4,10 +4,15 @@ Mixbox::FrameworkSpec.new do |s|
   s.name = 'MixboxBlack'
   s.platforms = [:ios]
 
+  s.dependency 'MixboxFoundation'
   s.dependency 'MixboxUiTestsFoundation'
   s.dependency 'MixboxIpcSbtuiClient'
   s.dependency 'MixboxSBTUITestTunnelClient'
+  s.dependency 'MixboxSBTUITestTunnelCommon'
   s.dependency 'MixboxDi'
+  s.dependency 'MixboxIpc'
+  s.dependency 'MixboxIpcCommon'
+  s.dependency 'MixboxTestsFoundation'
   
   s.frameworks = 'XCTest', 'XCTAutomationSupport'
   

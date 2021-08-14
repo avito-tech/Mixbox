@@ -9,8 +9,13 @@ PODS:
   - MixboxAnyCodable (0.0.1)
   - MixboxBlack (0.0.1):
     - MixboxDi
+    - MixboxFoundation
+    - MixboxIpc
+    - MixboxIpcCommon
     - MixboxIpcSbtuiClient
     - MixboxSBTUITestTunnelClient
+    - MixboxSBTUITestTunnelCommon
+    - MixboxTestsFoundation
     - MixboxUiTestsFoundation
   - MixboxBuiltinDi (0.0.1):
     - MixboxDi
@@ -34,6 +39,7 @@ PODS:
     - MixboxIoKit
     - MixboxIpcCommon
     - MixboxIpcSbtuiHost
+    - MixboxSBTUITestTunnelServer
     - MixboxTestability
     - MixboxUiKit
   - MixboxIoKit (0.0.1):
@@ -245,7 +251,7 @@ SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Mixbox: e789fba3307115b0153e084432d4be1d07b0ffcc
   MixboxAnyCodable: fd0ff0d1478469c9042e19ffdcefe72572004cdf
-  MixboxBlack: 597df26a833589feccda02959ebe20313015b607
+  MixboxBlack: f36a951a2d2f20c8b8c7f85570b577a0c0539f16
   MixboxBuiltinDi: 016018c9f31a7bcd95bb58934afebbb4ee57cf8e
   MixboxBuiltinIpc: 4550cacb8add5a18ae5a6f826628188992ae9d71
   MixboxCocoaImageHashing: c451dfeb2375c8803c07f1054c69d1067c68d723
@@ -254,7 +260,7 @@ SPEC CHECKSUMS:
   MixboxFoundation: 22743b6c0264af71d16694154431e73c43f821cb
   MixboxGenerators: 059c931dd575953ffe4f9c34cc547613b2abf8d9
   MixboxGray: 1751aab35172dd00e69d2cd91b1466eff74a327b
-  MixboxInAppServices: 544753ea39f16d9fce93db7d9920bbb5189c8141
+  MixboxInAppServices: 2384e01bf85cf15d60e779b37c3eb3dd7ab2901d
   MixboxIoKit: 942e8568eb8f3c4a61a5994946adb65c6a4c6d18
   MixboxIpc: 976a69e9e60dd56df973bd73d253e53504a940a8
   MixboxIpcCommon: 070c4d25f86734fe843b09931060f98eae42009f

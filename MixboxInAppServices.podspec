@@ -11,6 +11,7 @@ Mixbox::FrameworkSpec.new do |s|
   s.dependency 'MixboxBuiltinIpc'
   s.dependency 'MixboxIoKit'
   s.dependency 'MixboxBuiltinDi'
+  s.dependency 'MixboxSBTUITestTunnelServer'
   
   s.frameworks = 'UIKit'
 end
