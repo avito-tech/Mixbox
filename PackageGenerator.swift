@@ -216,7 +216,7 @@ func sourceryPackage() -> String {
         """
     } catch {
         return """
-        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("4f311aca6c474ee93cac3186399089dc18fc12bd")),
+        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("06654be0da1ff6468c8ac1405e765e99f0a4067f")),
         """
     }
 }

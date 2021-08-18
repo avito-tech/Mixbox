@@ -92,7 +92,6 @@ PODS:
   - SourceKittenFramework (0.30.1):
     - SWXMLHash (~> 5.0.1)
     - Yams (~> 4.0)
-  - Sourcery (1.0.0)
   - SourceryFramework (1.0.0):
     - SourceKittenFramework (~> 0.30.1)
     - SourceryRuntime
@@ -113,7 +112,7 @@ PODS:
     - MixboxIpcCommon
     - MixboxReflection
     - MixboxUiKit
-  - Yams (4.0.1)
+  - Yams (4.0.6)
 
 DEPENDENCIES:
   - Mixbox (from `..`)
@@ -144,10 +143,9 @@ DEPENDENCIES:
   - MixboxTestsFoundation (from `..`)
   - MixboxUiKit (from `..`)
   - MixboxUiTestsFoundation (from `..`)
-  - Sourcery (from `https://github.com/avito-tech/Sourcery.git`, branch `avito`)
-  - SourceryFramework (from `https://github.com/avito-tech/Sourcery.git`, branch `avito`)
-  - SourceryRuntime (from `https://github.com/avito-tech/Sourcery.git`, branch `avito`)
-  - SourceryUtils (from `https://github.com/avito-tech/Sourcery.git`, branch `avito`)
+  - SourceryFramework (from `https://github.com/avito-tech/Sourcery.git`, commit `06654be0da1ff6468c8ac1405e765e99f0a4067f`)
+  - SourceryRuntime (from `https://github.com/avito-tech/Sourcery.git`, commit `06654be0da1ff6468c8ac1405e765e99f0a4067f`)
+  - SourceryUtils (from `https://github.com/avito-tech/Sourcery.git`, commit `06654be0da1ff6468c8ac1405e765e99f0a4067f`)
   - SwiftLint (= 0.36.0)
   - TestsIpc (from `Frameworks/TestsIpc`)
 
@@ -218,33 +216,27 @@ EXTERNAL SOURCES:
     :path: ".."
   MixboxUiTestsFoundation:
     :path: ".."
-  Sourcery:
-    :branch: avito
-    :git: https://github.com/avito-tech/Sourcery.git
   SourceryFramework:
-    :branch: avito
+    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryRuntime:
-    :branch: avito
+    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryUtils:
-    :branch: avito
+    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
     :git: https://github.com/avito-tech/Sourcery.git
   TestsIpc:
     :path: "Frameworks/TestsIpc"
 
 CHECKOUT OPTIONS:
-  Sourcery:
-    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
-    :git: https://github.com/avito-tech/Sourcery.git
   SourceryFramework:
-    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
+    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryRuntime:
-    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
+    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryUtils:
-    :commit: 4f311aca6c474ee93cac3186399089dc18fc12bd
+    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
     :git: https://github.com/avito-tech/Sourcery.git
 
 SPEC CHECKSUMS:
@@ -279,7 +271,6 @@ SPEC CHECKSUMS:
   MixboxUiTestsFoundation: 4459ab88d8ca73f75bd27931177e1776dfd289f2
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
   SourceKittenFramework: 540d9d048c0bab3c0faa4668425364fabff12cb0
-  Sourcery: 928a146ea9b777fa64b0c6ce915c4128b4488cff
   SourceryFramework: 52f80f61c513f49ec96e83496c16dd24dd668734
   SourceryRuntime: 5a4dbc3f00116ad28ecb0d79655183540e415ed5
   SourceryUtils: ed18f31b5a6d600d06bd59359f457e6e81f92d10
@@ -287,7 +278,7 @@ SPEC CHECKSUMS:
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
   TestsIpc: 16c0187bc9c4c77d93bdfcb5c3e16f2266c5b0bf
-  Yams: 8c1dd4d1458197e98e5e8df8afbb68c29f1d9bf3
+  Yams: ed1c49f0d6be84f305ad3f93f997b1df039afd9e
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 

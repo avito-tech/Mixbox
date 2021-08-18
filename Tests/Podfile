@@ -29,6 +29,7 @@ sourcery = Devpods::Repo.new(
       pod name, local_hash
     }
 )
+sourcery.commit_value = '06654be0da1ff6468c8ac1405e765e99f0a4067f'
 sourcery.branch_value = 'avito'
 sourcery.local_path_env = 'MIXBOX_SOURCERY_LOCAL_PATH'
 
@@ -89,7 +90,8 @@ end
 target 'OsxUnitTests' do
   platform :osx, '10.14'
 
-  sourcery.pod_all_osx
+  sourcery.pod 'SourceryFramework'
+  sourcery.pod 'SourceryRuntime'
   mixbox.pod_all_osx
 end
 
