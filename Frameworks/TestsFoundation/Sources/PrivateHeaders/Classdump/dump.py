@@ -191,10 +191,71 @@ class PublicTypeEntry:
         else:
             self.public_declarations = public_declarations
 
+class RedefinitionKind(Enum):
+    struct = "typedef struct"
+
+class RedefinedTypeEntry:
+    def __init__(
+        self,
+        name: str,
+        kind: RedefinitionKind,
+        header: str = None,
+        ios_min_version: int = 0,
+        ios_max_version: int = 2147483647
+    ):
+        self.name = name
+        self.kind = kind
+        self.ios_min_version = ios_min_version
+        self.ios_max_version = ios_max_version
+        
+        if header is None:
+            self.header = f'{name}.h'
+        else:
+            self.header = header
+
+    def matches(self, xcode: Xcode):
+        return self.ios_min_version <= xcode.ios_min_version and self.ios_max_version >= xcode.ios_max_version
+
+class BlacklistedFileEntry:
+    def __init__(
+        self,
+        filename: str,
+        ios_min_version: int = 0,
+        ios_max_version: int = 2147483647
+    ):
+        self.filename = filename
+        self.ios_min_version = ios_min_version
+        self.ios_max_version = ios_max_version
+
+    def matches(self, xcode: Xcode):
+        return self.ios_min_version <= xcode.ios_min_version and self.ios_max_version >= xcode.ios_max_version
+
 class Dump:
     def __init__(self):
         self.already_generated_files = set([])
         self.dumped_public_types = self.make_dumped_public_types()
+        self.black_list = [
+            BlacklistedFileEntry(
+                filename = "DTXConnection-XCTestAdditions.h",
+                ios_min_version = 150000,
+                ios_max_version = 160000
+            ),
+            BlacklistedFileEntry(
+                filename = "XCTExpectedFailure.h",
+                ios_min_version = 150000,
+                ios_max_version = 160000
+            ),
+            BlacklistedFileEntry(
+                filename = "XCTExpectedFailureOptions.h",
+                ios_min_version = 150000,
+                ios_max_version = 160000
+            ),
+            BlacklistedFileEntry(
+                filename = "XCTPerformanceMeasurement.h",
+                ios_min_version = 150000,
+                ios_max_version = 160000
+            ),
+        ]
         
     def dumpAll(self):
         args = self.parse_args()
@@ -251,7 +312,13 @@ class Dump:
                 name="Xcode_12_0",
                 path=args.xcode12_0,
                 ios_min_version=140000,
-                ios_max_version=150000, # this is subject to change when new xcode is released
+                ios_max_version=150000,
+            ),
+            Xcode(
+                name="Xcode_13_0",
+                path=args.xcode13_0,
+                ios_min_version=150000,
+                ios_max_version=160000, # this is subject to change when new xcode is released
             ),
         ]
         
@@ -265,6 +332,11 @@ class Dump:
                     framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework",
                     xcode=xcode
                 )
+                if xcode.ios_min_version >= 150000:
+                    self.dump(
+                        framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTestCore.framework",
+                        xcode=xcode
+                    )
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
@@ -305,7 +377,26 @@ class Dump:
             required=False
         )
         
+        parser.add_argument(
+            '--xcode13_0',
+            dest='xcode13_0',
+            required=False
+        )
+        
         return parser.parse_args()
+
+    def check_blacklist(
+        self,
+        source_path: str, 
+        entry: str, 
+        xcode: Xcode
+    ):
+        for blacklist_entry in self.black_list:
+            if blacklist_entry.matches(xcode) and blacklist_entry.filename == entry:
+                print(fr"unlinked {blacklist_entry.filename} == {entry}")
+                os.unlink(source_path)
+                return True
+        return False
 
     def dump(
         self,
@@ -336,6 +427,9 @@ class Dump:
             
             source_path = os.path.join(destination_dir, entry)
             target_path = os.path.join(destination_dir, target_basename)
+
+            if self.check_blacklist(source_path, entry, xcode):
+                continue
             
             # Remove dumped headers of duplicated classes (e.g. class with same name is generated for different frameworks)
             if target_basename in self.already_generated_files or re.match(r"^NS[A-Z][A-Za-z0-9_]+(-Protocol)?\.h$", entry):
@@ -596,6 +690,7 @@ f"""
 @property(readonly) id value;
 @property(readonly) XCUIElement *firstMatch;
 @property(readonly, copy) XCUIElementQuery *disclosedChildRows;
+@property(readonly) _Bool hasFocus;
 """,
             ),
             PublicTypeEntry(
@@ -650,6 +745,8 @@ f"""
 - (_Bool)tearDownWithError:(id *)arg1;
 - (_Bool)setUpWithError:(id *)arg1;
 @property(readonly) XCTestRun *testRun; // @synthesize testRun=_testRun;
+- (void)tearDownWithCompletionHandler:(CDUnknownBlockType)arg1;
+- (void)setUpWithCompletionHandler:(CDUnknownBlockType)arg1;
 """
             ),
             PublicTypeEntry(
@@ -955,7 +1052,10 @@ f'''
         contents = self.patch_adding_missing_imports_for_used_symbols(contents=contents, xcode=xcode)
         contents = self.patch_replacing_imports_of_public_headers_with_imports_of_private_headers(contents=contents, xcode=xcode)
         contents = self.patch_replacing_imports_of_private_headers_with_imports_of_public_headers(contents=contents, xcode=xcode)
-        contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, xcode=xcode)
+        contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/', xcode=xcode)
+        if xcode.ios_min_version >= 150000:
+            contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTestCore.framework/Headers/', xcode=xcode)
+        contents = self.patch_removing_redeclarations(contents=contents, basename=basename, framework_name=framework_name, xcode = xcode)
 
         contents = self.patch_specific_methods(contents=contents, basename=basename, xcode=xcode)
 
@@ -996,11 +1096,38 @@ f'''
             )
             
         return contents
+
+    def patch_removing_redeclarations(
+        self,
+        contents: str,
+        basename: str,
+        framework_name: str,
+        xcode: Xcode
+    ):
+        redeclarations_list = [
+            RedefinedTypeEntry(
+                name = 'CDStruct_70511ce9',
+                kind = RedefinitionKind.struct,
+                header = 'XCTestCore_CDStructures.h',
+                ios_min_version = 150000,
+                ios_max_version = 160000
+            ),
+        ]
+
+        for entry in redeclarations_list:
+            full_header_name = fr"{framework_name}_{basename}"
+            if full_header_name == entry.header and entry.matches(xcode):
+                print(fr"{framework_name}_{basename} == {entry.header}")
+                template = r"{[a-zA-Z0-9_\s;\*\[\]\/`.]+}"
+                contents = re.sub(fr"typedef struct {template} {entry.name};", "", contents, flags = re.M)
+
+        return contents
         
     def patch_removing_duplicated_declarations(
         self,
         contents: str,
         basename: str,
+        framework_path: str,
         xcode: Xcode
     ):
         class_name = re.sub(r"(.*?)\.h", "\\1", basename)
@@ -1015,12 +1142,12 @@ f'''
         ]
 
         if class_name == "XCTElementSetCodableTransformer" or class_name == "XCTElementDisclosedChildRowsTransformer":
-            print(f'class_name: {class_name}, contents: {contents}')
+            # print(f'class_name: {class_name}, contents: {contents}')
 
             contents = re.sub(r"_Bool _stopsOnFirstMatch;", "", contents)
             contents = re.sub(r"NSString \*_transformationDescription;", "", contents)
 
-            print(f'after: {contents}')
+            # print(f'after: {contents}')
 
         public_type = self.dumped_public_types.get(name=class_name, xcode=xcode)
         if public_type:
@@ -1029,10 +1156,12 @@ f'''
             declarations_to_remove = common_declarations_to_remove
 
         for declaration_to_remove in declarations_to_remove:
+            if class_name == "XCTest":
+                print(fr"{declarations_to_remove} in {class_name}")
             contents = contents.replace(declaration_to_remove + "\n", "")
             
         try:
-            public_header = File(path=f"{xcode.path}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/{class_name}.h")
+            public_header = File(path=f"{xcode.path}{framework_path}{class_name}.h")
             public_header_contents = public_header.read()
         except:
             return contents
@@ -1231,6 +1360,11 @@ f'''
             contents
         )
         contents = re.sub(
+            r'#import <XCTestCore/(.*?)>', 
+            f'#import "\\1"', 
+            contents
+        )
+        contents = re.sub(
             r'#import <XCTAutomationSupport/(.*?)>', 
             f'#import "\\1"', 
             contents
@@ -1243,7 +1377,9 @@ f'''
             '- (void).cxx_destruct;\n',
             '<OS_dispatch_queue>',
             '<OS_dispatch_semaphore>',
-            '<OS_xpc_object>'
+            '<OS_xpc_object>',
+            '<OS_dispatch_group>',
+            '<_XCTMessaging_VoidProtocol>',
         ]
         
         for code in code_to_remove:

@@ -53,7 +53,7 @@ final class ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests: TestCas
             proxyClassNames = [
                 "_PFPlaceholderMulticaster"
             ]
-        case 13, 14:
+        case 13, 14, 15:
             proxyClassNames = [
                 "_PFPlaceholderMulticaster",
                 "UIKeyboardCandidateViewStyle",
