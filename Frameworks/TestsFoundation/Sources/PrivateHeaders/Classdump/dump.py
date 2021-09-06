@@ -13,8 +13,7 @@
 #
 # Maybe you will add a class that is new in newer version of some framework, add its public interface (we remove public interface from generated headers
 # to avoid errors in Xcode about code duplication), etc, etc. Enjoy.
-#
-# TODO: Support all Xcode 10 versions (Xcode 10.0, Xcode 10.1, Xcode 10.2, Xcode 10.2.1)
+
 import errno
 import os
 import shutil
@@ -25,6 +24,7 @@ from enum import Enum
 from typing import Union, List, Dict, Optional
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
+
 
 class File:
     def __init__(self, path):
@@ -57,9 +57,11 @@ class File:
             f.write(string)
             f.close()
 
+
 class DeclarationKind(Enum):
     objc_class = "class"
     objc_protocol = "protocol"
+
 
 class Xcode:
     # name:
@@ -116,6 +118,7 @@ class BasenamePatcher:
             )
         )
 
+
 @dataclass
 class PublicTypeXcodeVersionDependentInfo:
     name: str
@@ -132,10 +135,12 @@ class PublicTypeXcodeVersionDependentInfo:
     def matches(self, xcode: Xcode):
         return self.ios_min_version <= xcode.ios_min_version and self.ios_max_version >= xcode.ios_max_version
 
+
 @dataclass
 class PublicType:
     name: str
     infos: List[PublicTypeXcodeVersionDependentInfo]
+
 
 @dataclass
 class PublicTypes:
@@ -191,10 +196,76 @@ class PublicTypeEntry:
         else:
             self.public_declarations = public_declarations
 
+
+class RedefinitionKind(Enum):
+    struct = "typedef struct"
+
+
+class RedefinedTypeEntry:
+    def __init__(
+        self,
+        name: str,
+        kind: RedefinitionKind,
+        header: str = None,
+        ios_min_version: int = 0,
+        ios_max_version: int = 2147483647
+    ):
+        self.name = name
+        self.kind = kind
+        self.ios_min_version = ios_min_version
+        self.ios_max_version = ios_max_version
+        
+        if header is None:
+            self.header = f'{name}.h'
+        else:
+            self.header = header
+
+    def matches(self, xcode: Xcode):
+        return self.ios_min_version <= xcode.ios_min_version and self.ios_max_version >= xcode.ios_max_version
+
+class BlacklistedFileEntry:
+    def __init__(
+        self,
+        basename: str,
+        ios_min_version: int = 0,
+        ios_max_version: int = 2147483647
+    ):
+        self.basename = basename
+        self.ios_min_version = ios_min_version
+        self.ios_max_version = ios_max_version
+
+    def matches(self, xcode: Xcode, basename: str):
+        return self.matches_xcode(xcode=xcode) and self.basename == basename
+
+    def matches_xcode(self, xcode: Xcode):
+        return self.ios_min_version <= xcode.ios_min_version and self.ios_max_version >= xcode.ios_max_version
+
 class Dump:
     def __init__(self):
         self.already_generated_files = set([])
         self.dumped_public_types = self.make_dumped_public_types()
+        self.files_to_ignore = [
+            BlacklistedFileEntry(
+                basename="DTXConnection-XCTestAdditions.h",
+                ios_min_version=150000,
+                ios_max_version=160000
+            ),
+            BlacklistedFileEntry(
+                basename="XCTExpectedFailure.h",
+                ios_min_version=150000,
+                ios_max_version=160000
+            ),
+            BlacklistedFileEntry(
+                basename="XCTExpectedFailureOptions.h",
+                ios_min_version=150000,
+                ios_max_version=160000
+            ),
+            BlacklistedFileEntry(
+                basename="XCTPerformanceMeasurement.h",
+                ios_min_version=150000,
+                ios_max_version=160000
+            ),
+        ]
         
     def dumpAll(self):
         args = self.parse_args()
@@ -251,7 +322,13 @@ class Dump:
                 name="Xcode_12_0",
                 path=args.xcode12_0,
                 ios_min_version=140000,
-                ios_max_version=150000, # this is subject to change when new xcode is released
+                ios_max_version=150000,
+            ),
+            Xcode(
+                name="Xcode_13_0",
+                path=args.xcode13_0,
+                ios_min_version=150000,
+                ios_max_version=160000, # this is subject to change when new xcode is released
             ),
         ]
         
@@ -265,6 +342,11 @@ class Dump:
                     framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework",
                     xcode=xcode
                 )
+                if xcode.ios_min_version >= 150000:
+                    self.dump(
+                        framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTestCore.framework",
+                        xcode=xcode
+                    )
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
@@ -305,7 +387,26 @@ class Dump:
             required=False
         )
         
+        parser.add_argument(
+            '--xcode13_0',
+            dest='xcode13_0',
+            required=False
+        )
+        
         return parser.parse_args()
+
+    def should_ignore_file(
+        self,
+        source_path: str, 
+        source_basename: str,
+        xcode: Xcode
+    ) -> bool:
+        for file_to_ignore in self.files_to_ignore:
+            if file_to_ignore.matches(xcode=xcode, basename=source_basename):
+                print(f'Ignoring file {source_basename}')
+                os.unlink(source_path)
+                return True
+        return False
 
     def dump(
         self,
@@ -314,7 +415,11 @@ class Dump:
     ):
         framework_dir = os.path.join(xcode.path, framework)
         framework_basename = os.path.basename(framework_dir)
-        framework_name = re.sub("\.framework$", "", framework_basename)
+        framework_name = re.sub(
+            pattern=r"\.framework$",
+            repl="",
+            string=framework_basename
+        )
         
         destination_dir = f"{script_dir}/{framework_name}/{xcode.name}"
         
@@ -325,25 +430,28 @@ class Dump:
     
         os.system(f'class-dump -o "{destination_dir}" -H "{framework_dir}"')
     
-        for entry in os.listdir(destination_dir):
+        for source_basename in os.listdir(destination_dir):
             # print(entry)
             
             target_basename = BasenamePatcher.patch_basename(
-                basename=entry,
+                basename=source_basename,
                 framework_name=framework_name,
                 xcode=xcode
             ) 
             
-            source_path = os.path.join(destination_dir, entry)
+            source_path = os.path.join(destination_dir, source_basename)
             target_path = os.path.join(destination_dir, target_basename)
+
+            if self.should_ignore_file(source_path, source_basename, xcode):
+                continue
             
             # Remove dumped headers of duplicated classes (e.g. class with same name is generated for different frameworks)
-            if target_basename in self.already_generated_files or re.match(r"^NS[A-Z][A-Za-z0-9_]+(-Protocol)?\.h$", entry):
+            if target_basename in self.already_generated_files or re.match(r"^NS[A-Z][A-Za-z0-9_]+(-Protocol)?\.h$", source_basename):
                 os.unlink(source_path)
                 continue
             self.already_generated_files.add(target_basename)
 
-            if entry in self.entries_to_ignore():
+            if source_basename in self.entries_to_ignore():
                 os.unlink(source_path)
                 continue
             
@@ -354,13 +462,13 @@ class Dump:
                     for t in self.dumped_public_types.matching(xcode=xcode)
                 ]
             )
-            if entry in public_protocol_files:
+            if source_basename in public_protocol_files:
                 os.unlink(source_path)
                 continue
                 
             contents = self.patch(
                 contents=File(path=source_path).read(),
-                basename=entry,
+                basename=source_basename,
                 framework_name=framework_name,
                 xcode=xcode
             )
@@ -371,10 +479,10 @@ class Dump:
                 contents
             )
     
-        for entry in os.listdir(destination_dir):
-            if entry.endswith("-Protocol.h"):
-                file_basename = entry.replace("-Protocol.h", ".h")
-                protocol_file = os.path.join(destination_dir, entry)
+        for source_basename in os.listdir(destination_dir):
+            if source_basename.endswith("-Protocol.h"):
+                file_basename = source_basename.replace("-Protocol.h", ".h")
+                protocol_file = os.path.join(destination_dir, source_basename)
                 class_file = os.path.join(destination_dir, file_basename)
                 
                 protocol_code = ""
@@ -596,6 +704,7 @@ f"""
 @property(readonly) id value;
 @property(readonly) XCUIElement *firstMatch;
 @property(readonly, copy) XCUIElementQuery *disclosedChildRows;
+@property(readonly) _Bool hasFocus;
 """,
             ),
             PublicTypeEntry(
@@ -650,6 +759,8 @@ f"""
 - (_Bool)tearDownWithError:(id *)arg1;
 - (_Bool)setUpWithError:(id *)arg1;
 @property(readonly) XCTestRun *testRun; // @synthesize testRun=_testRun;
+- (void)tearDownWithCompletionHandler:(CDUnknownBlockType)arg1;
+- (void)setUpWithCompletionHandler:(CDUnknownBlockType)arg1;
 """
             ),
             PublicTypeEntry(
@@ -955,7 +1066,10 @@ f'''
         contents = self.patch_adding_missing_imports_for_used_symbols(contents=contents, xcode=xcode)
         contents = self.patch_replacing_imports_of_public_headers_with_imports_of_private_headers(contents=contents, xcode=xcode)
         contents = self.patch_replacing_imports_of_private_headers_with_imports_of_public_headers(contents=contents, xcode=xcode)
-        contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, xcode=xcode)
+        contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/', xcode=xcode)
+        if xcode.ios_min_version >= 150000:
+            contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTestCore.framework/Headers/', xcode=xcode)
+        contents = self.patch_removing_redeclarations(contents=contents, basename=basename, framework_name=framework_name, xcode = xcode)
 
         contents = self.patch_specific_methods(contents=contents, basename=basename, xcode=xcode)
 
@@ -996,14 +1110,50 @@ f'''
             )
             
         return contents
+
+    def patch_removing_redeclarations(
+        self,
+        contents: str,
+        basename: str,
+        framework_name: str,
+        xcode: Xcode
+    ):
+        redeclarations_list = [
+            RedefinedTypeEntry(
+                name = 'CDStruct_70511ce9',
+                kind = RedefinitionKind.struct,
+                header = 'XCTestCore_CDStructures.h',
+                ios_min_version = 150000,
+                ios_max_version = 160000
+            ),
+        ]
+
+        for entry in redeclarations_list:
+            full_header_name = fr"{framework_name}_{basename}"
+            if full_header_name == entry.header and entry.matches(xcode):
+                print(fr"{framework_name}_{basename} == {entry.header}")
+                template = r"{[a-zA-Z0-9_\s;\*\[\]\/`.]+}"
+                contents = re.sub(
+                    pattern=fr"typedef struct {template} {entry.name};",
+                    repl="",
+                    string=contents,
+                    flags=re.M,
+                )
+
+        return contents
         
     def patch_removing_duplicated_declarations(
         self,
         contents: str,
         basename: str,
+        framework_path: str,
         xcode: Xcode
     ):
-        class_name = re.sub(r"(.*?)\.h", "\\1", basename)
+        class_name = re.sub(
+            pattern=r"(.*?)\.h",
+            repl="\\1",
+            string=basename,
+        )
 
         contents = contents + "\n"
         
@@ -1015,12 +1165,20 @@ f'''
         ]
 
         if class_name == "XCTElementSetCodableTransformer" or class_name == "XCTElementDisclosedChildRowsTransformer":
-            print(f'class_name: {class_name}, contents: {contents}')
+            # print(f'class_name: {class_name}, contents: {contents}')
 
-            contents = re.sub(r"_Bool _stopsOnFirstMatch;", "", contents)
-            contents = re.sub(r"NSString \*_transformationDescription;", "", contents)
+            contents = re.sub(
+                pattern=r"_Bool _stopsOnFirstMatch;",
+                repl="",
+                string=contents,
+            )
+            contents = re.sub(
+                pattern=r"NSString \*_transformationDescription;",
+                repl="",
+                string=contents,
+            )
 
-            print(f'after: {contents}')
+            # print(f'after: {contents}')
 
         public_type = self.dumped_public_types.get(name=class_name, xcode=xcode)
         if public_type:
@@ -1029,20 +1187,34 @@ f'''
             declarations_to_remove = common_declarations_to_remove
 
         for declaration_to_remove in declarations_to_remove:
+            if class_name == "XCTest":
+                print(fr"{declarations_to_remove} in {class_name}")
             contents = contents.replace(declaration_to_remove + "\n", "")
             
         try:
-            public_header = File(path=f"{xcode.path}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/{class_name}.h")
+            public_header = File(path=f"{xcode.path}{framework_path}{class_name}.h")
             public_header_contents = public_header.read()
         except:
             return contents
 
         properties = re.findall(r'@property.*?([a-zA-Z0-9_]+)(?: [a-zA-Z0-9_]+\(.*?\))?;$', public_header_contents, flags=re.M)
         for property in properties:
-            contents = re.sub(fr"@property.*?{property};\n", "", contents)
+            contents = re.sub(
+                pattern=fr"@property.*?{property};\n",
+                repl="",
+                string=contents
+            )
             # TODO: Handle class and instance properties correctly.
-            contents = re.sub(fr"\+ \(.*?\){property};\n", "", contents)
-            contents = re.sub(fr"- \(.*?\){property};\n", "", contents)
+            contents = re.sub(
+                pattern=fr"\+ \(.*?\){property};\n",
+                repl="",
+                string=contents
+            )
+            contents = re.sub(
+                pattern=fr"- \(.*?\){property};\n",
+                repl="",
+                string=contents
+            )
         
         for method_type in ["-", "\+"]:
             methods = re.findall(fr'(?:^|\n)({method_type} \(.*?;)', public_header_contents, flags=re.S)
@@ -1051,22 +1223,50 @@ f'''
                 method_pattern = method
                 
                 # Remove prefix
-                method_pattern = re.sub(fr"{method_type} \(.*?\)(.*);", "\\1", method_pattern, flags=re.S)
+                method_pattern = re.sub(
+                    pattern=fr"{method_type} \(.*?\)(.*);",
+                    repl="\\1",
+                    string=method_pattern,
+                    flags=re.S
+                )
                 
                 # Remove newlines
-                method_pattern = re.sub('\s+', ' ', method_pattern, flags=re.S)
+                method_pattern = re.sub(
+                    pattern=r'\s+',
+                    repl=' ',
+                    string=method_pattern,
+                    flags=re.S
+                )
             
                 # Remove annotations like: XCT_UNAVAILABLE("Use XCUIElementQuery to create XCUIElement instances.")
-                method_pattern = re.sub(r"[A-Za-z0-9_]\(.*?\)$", "", method_pattern, flags=re.M)
+                method_pattern = re.sub(
+                    pattern=r"[A-Za-z0-9_]\(.*?\)$",
+                    repl="",
+                    string=method_pattern,
+                    flags=re.M,
+                )
                 # Remove annotations like: NS_UNAVAILABLE
-                method_pattern = re.sub(r" [A-Za-z0-9_]+$", "", method_pattern, flags=re.M)
+                method_pattern = re.sub(
+                    pattern=r" [A-Za-z0-9_]+$",
+                    repl="",
+                    string=method_pattern,
+                    flags=re.M,
+                )
             
                 old_value=None
                 while "(" in method_pattern and method_pattern != old_value:
                     old_value = method_pattern
-                    method_pattern = re.sub(r":\(.*?( [a-zA-Z0-9_]+?:|$)", ":.*?\\1", method_pattern)
+                    method_pattern = re.sub(
+                        pattern=r":\(.*?( [a-zA-Z0-9_]+?:|$)",
+                        repl=":.*?\\1",
+                        string=method_pattern,
+                    )
 
-                method_pattern = re.sub(r":[^:]+$", ":.*", method_pattern)
+                method_pattern = re.sub(
+                    pattern=r":[^:]+$",
+                    repl=":.*",
+                    string=method_pattern,
+                )
             
                 method_pattern = fr'^{method_type} (.*?){method_pattern}$'
             
@@ -1074,15 +1274,20 @@ f'''
                 method_pattern = method_pattern.replace("(", "\\(")
                 method_pattern = method_pattern.replace(")", "\\)")
             
-                contents = re.sub(method_pattern, "", contents, flags=re.M)
+                contents = re.sub(
+                    pattern=method_pattern,
+                    repl="",
+                    string=contents,
+                    flags=re.M,
+                )
     
         return contents
         
     def patch_replacing_unknown_types(self, contents, xcode):
         contents = re.sub(
-            r'((const )?struct __AXUIElement) \*', 
-            '/* unknown type (\\1) was removed in dump.py */ void *', 
-            contents
+            pattern=r'((const )?struct __AXUIElement) \*',
+            repl='/* unknown type (\\1) was removed in dump.py */ void *',
+            string=contents,
         )
         # `id *` triggers this error: `Pointer to non-const type 'id' with no explicit ownership`
         # We don't want to deal with it. It is clearly a pointer, so let it be `void *` instead.
@@ -1098,18 +1303,18 @@ f'''
         # The following code is a workaround to do so. It ignores the fact that variable is defined in a struct.
         # But it works and doesn't do harm. 
         contents = re.sub(
-            r'(\s)id \*(.*?);',
-            '\\1/* was `id *` before dump.py */ void * \\2;',
-            contents
+            pattern=r'(\s)id \*(.*?);',
+            repl='\\1/* was `id *` before dump.py */ void * \\2;',
+            string=contents
         )
         
         return contents
         
     def patch_removing_duplicated_newlines(self, contents, xcode):
         contents = re.sub(
-            r'\n{2,}', 
-            '\n\n', 
-            contents,
+            pattern=r'\n{2,}',
+            repl='\n\n',
+            string=contents,
             flags=re.S
         )
         return contents
@@ -1117,9 +1322,9 @@ f'''
     def patch_fixing_classdump_bugs(self, contents, xcode):
         # id <XCTestManager_IDEInterface><NSObject> => id <XCTestManager_IDEInterface>
         contents = re.sub(
-            r'(id <.*?>)<.*?>', 
-            '\\1', 
-            contents
+            pattern=r'(id <.*?>)<.*?>',
+            repl='\\1',
+            string=contents
         )
         return contents
             
@@ -1129,9 +1334,9 @@ f'''
         imports = sorted(set(imports))
         
         contents = re.sub(
-            r'(#import .*)', 
-            '',
-            contents
+            pattern=r'(#import .*)',
+            repl='',
+            string=contents
         )
         
         joined_imports = "\n".join(imports)
@@ -1147,14 +1352,14 @@ f'''
             declarations = [
                 declaration
                 for declaration in declarations
-                    if not re.match(r"NS[A-Z][A-Za-z0-9_]+", declaration) and not re.match(r"CDStruct_[0-9a-f]{8,}", declaration)
+                if not re.match(r"NS[A-Z][A-Za-z0-9_]+", declaration) and not re.match(r"CDStruct_[0-9a-f]{8,}", declaration)
             ]
             declarations = sorted(set(declarations))
             
             contents = re.sub(
-                fr'@{declaration_type} .+?;', 
-                '',
-                contents
+                pattern=fr'@{declaration_type} .+?;',
+                repl='',
+                string=contents
             )
             
             if len(declarations) > 0:
@@ -1188,9 +1393,9 @@ f'''
         
         for struct in public_structs:
             contents = re.sub(
-                fr'struct {struct} {{.*?}};', 
-                '', 
-                contents,
+                pattern=fr'struct {struct} {{.*?}};',
+                repl='',
+                string=contents,
                 flags=re.S
             )
     
@@ -1203,9 +1408,9 @@ f'''
     ):
         for info in self.dumped_public_types.matching(xcode=xcode):
             contents = re.sub(
-                fr'(@interface {info.name}) : [A-Z].*',
-                '\\1 ()',
-                contents
+                pattern=fr'(@interface {info.name}) : [A-Z].*',
+                repl='\\1 ()',
+                string=contents
             )
             
         return contents
@@ -1218,22 +1423,27 @@ f'''
         ) 
     
         contents = re.sub(
-            r'#import "(.*?\.h)"', 
-            basename_patcher.patch_match, 
-            contents
+            pattern=r'#import "(.*?\.h)"',
+            repl=basename_patcher.patch_match,
+            string=contents
         )
         return contents
         
     def patch_replacing_imports_of_public_headers_with_imports_of_private_headers(self, contents, xcode):
         contents = re.sub(
-            r'#import <XCTest/(.*?)>', 
-            f'#import "\\1"', 
-            contents
+            pattern=r'#import <XCTest/(.*?)>',
+            repl=f'#import "\\1"',
+            string=contents
         )
         contents = re.sub(
-            r'#import <XCTAutomationSupport/(.*?)>', 
-            f'#import "\\1"', 
-            contents
+            pattern=r'#import <XCTestCore/(.*?)>',
+            repl=f'#import "\\1"',
+            string=contents
+        )
+        contents = re.sub(
+            pattern=r'#import <XCTAutomationSupport/(.*?)>',
+            repl=f'#import "\\1"',
+            string=contents
         )
         
         return contents
@@ -1243,7 +1453,9 @@ f'''
             '- (void).cxx_destruct;\n',
             '<OS_dispatch_queue>',
             '<OS_dispatch_semaphore>',
-            '<OS_xpc_object>'
+            '<OS_xpc_object>',
+            '<OS_dispatch_group>',
+            '<_XCTMessaging_VoidProtocol>',
         ]
         
         for code in code_to_remove:
@@ -1263,16 +1475,16 @@ f'''
         
         for prefix, imported_header in import_by_prefix.items():
             contents = re.sub(
-                fr'#import "{prefix}[A-Z].*?\.h"', 
-                f'#import {imported_header}', 
-                contents
+                pattern=fr'#import "{prefix}[A-Z].*?\.h"',
+                repl=f'#import {imported_header}',
+                string=contents
             )
 
         for type_info in self.dumped_public_types.matching(xcode=xcode):
             contents = re.sub(
-                fr'#import "{type_info.name}\.h"',
-                f'#import <{type_info.framework}/{type_info.header}>',
-                contents
+                pattern=fr'#import "{type_info.name}\.h"',
+                repl=f'#import <{type_info.framework}/{type_info.header}>',
+                string=contents
             )
             
         return contents
