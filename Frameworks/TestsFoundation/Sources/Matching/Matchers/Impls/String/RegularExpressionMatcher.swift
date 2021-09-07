@@ -1,30 +1,80 @@
+import MixboxFoundation
+
 public final class RegularExpressionMatcher<T: StringProtocol>: Matcher<T> {
-    public init<U: StringProtocol>(regularExpression: U) {
+    public init(
+        pattern: String,
+        regularExpressionCompilationResult: Result<NSRegularExpression, Error>
+    ) {
         super.init(
             description: {
-                "текст соответствует регулярке \"\(regularExpression)\""
+                "текст соответствует регулярке \"\(pattern)\""
             },
             matchingFunction: { (actualValue: T) -> MatchingResult in
-                let matches: Bool
-                
-                #if swift(>=4.3)
-                matches = actualValue.range(of: regularExpression, options: .regularExpression) != nil
-                #else
-                matches = String(actualValue).range(of: regularExpression, options: .regularExpression) != nil
-                #endif
-                
-                if matches {
-                    return .match
-                } else {
+                switch regularExpressionCompilationResult {
+                case let .success(regularExpression):
+                    let actualValue = String(actualValue)
+                    
+                    let firstMatch = regularExpression.firstMatch(
+                        in: actualValue,
+                        range: NSRange(
+                            location: 0,
+                            length: (actualValue as NSString).length
+                        )
+                    )
+                    
+                    if firstMatch != nil {
+                        return .match
+                    } else {
+                        return .exactMismatch(
+                            mismatchDescription: {
+                                "string doesn't match regular expression '\(pattern)',"
+                                    + " actual string: '\(actualValue)'"
+                            },
+                            attachments: { [] }
+                        )
+                    }
+                case let .failure(error):
                     return .exactMismatch(
                         mismatchDescription: {
-                            "текст не прошел проверку регуляркой '\(regularExpression)',"
-                                + " актуальный текст: '\(actualValue)'"
+                            "regular expression '\(pattern)' failed to compile: \(error)"
                         },
                         attachments: { [] }
                     )
                 }
             }
         )
+    }
+    
+    public convenience init(
+        regularExpression: NSRegularExpression
+    ) {
+        self.init(
+            pattern: regularExpression.pattern,
+            regularExpressionCompilationResult: .success(regularExpression)
+        )
+    }
+    
+    public convenience init<U: StringProtocol>(
+        regularExpression pattern: U,
+        options: NSRegularExpression.Options = []
+    ) {
+        let pattern = String(pattern)
+        
+        do {
+            self.init(
+                pattern: pattern,
+                regularExpressionCompilationResult: .success(
+                    try NSRegularExpression(
+                        pattern: pattern,
+                        options: options
+                    )
+                )
+            )
+        } catch {
+            self.init(
+                pattern: pattern,
+                regularExpressionCompilationResult: .failure(error)
+            )
+        }
     }
 }

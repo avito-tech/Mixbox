@@ -23,8 +23,9 @@ final class AssertTextMatchesInteractionTests: BaseChecksTestCase {
     // TODO: Fix description of check. Failure message is far from perfect.
     func test___assertTextMatches___fails_properly_if_text_mismatches() {
         checkAssertFailsWithDefaultLogs(
-            failureMessage: """
-                "проверить, что в "checkText1" текст соответствует регулярке "^not passing regexp$"" неуспешно, так как: проверка неуспешна (Имеет проперти text: текст соответствует регулярке "^not passing regexp$"): текст не прошел проверку регуляркой '^not passing regexp$', актуальный текст: 'Частичное соответствие'
+            failureMessage:
+                """
+                "проверить, что в "checkText1" текст соответствует регулярке "^not passing regexp$"" неуспешно, так как: проверка неуспешна (Имеет проперти text: текст соответствует регулярке "^not passing regexp$"): string doesn't match regular expression '^not passing regexp$', actual string: 'Частичное соответствие'
                 """,
             body: {
                 screen.checkText1.withoutTimeout.assertTextMatches("^not passing regexp$")
