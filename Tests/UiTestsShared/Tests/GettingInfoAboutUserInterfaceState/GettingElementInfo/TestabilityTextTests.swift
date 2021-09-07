@@ -218,28 +218,14 @@ final class TestabilityTextTests: TestCase {
         screen.element("textView_plain_text==Текст")
             .assertHasText("Текст")
         
-        // TODO: There is a very unplesant bug here!
-        //
-        // Steps to reproduce:
-        // 1. iPhone 11, iOS 14.0. (note that it works fine on iPhone 11, iOS 13.2).
-        // 2. Run this test.
-        //
-        // Scrolling action performs gesture that is recognised as an intent to focus
-        // on a text view, instead of an intent to scroll. This opens keyboard and
-        // the following element becomes hidden (it's at the end of scroll view and
-        // the insets are static, so it's always beneath the keyboard). The bug is
-        // that this gesture should be recognized as panning of scroll view, not something else.
-        //
-        if iosVersionProvider.iosVersion().majorVersion != 14 {
-            screen.element("textView_attributed_textIsNil")
-                .assertHasText("")
-            
-            screen.element("textView_attributed_textIsEmpty")
-                .assertHasText("")
-            
-            screen.element("textView_attributed_text==Текст")
-                .assertHasText("Текст")
-        }
+        screen.element("textView_attributed_textIsNil")
+            .assertHasText("")
+        
+        screen.element("textView_attributed_textIsEmpty")
+            .assertHasText("")
+        
+        screen.element("textView_attributed_text==Текст")
+            .assertHasText("Текст")
     }
 }
 

@@ -57,6 +57,8 @@ final class TextTestsView: TestStackScrollView {
                     } else {
                         $0.placeholder = text_p
                     }
+                    
+                    $0.setUserInteractionEnabledToFalseToAvoidStartingEditingWhenScrolling()
                 }
             }
         }
@@ -68,6 +70,8 @@ final class TextTestsView: TestStackScrollView {
                 } else {
                     $0.text = text
                 }
+                
+                $0.setUserInteractionEnabledToFalseToAvoidStartingEditingWhenScrolling()
             }
         }
     }
@@ -88,5 +92,13 @@ final class TextTestsView: TestStackScrollView {
                 closure(text, isAttributed, elementName)
             }
         }
+    }
+}
+
+extension UIView {
+    // Kludge. Sometimes scroller scrolls and view is selected (when we wanted just scrolling).
+    // It reproduces at the end of the scrollview, when scroller scrolls a little bit.
+    fileprivate func setUserInteractionEnabledToFalseToAvoidStartingEditingWhenScrolling() {
+        isUserInteractionEnabled = false
     }
 }
