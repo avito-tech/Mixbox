@@ -11,7 +11,6 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     private let temporaryFileProvider: TemporaryFileProvider
     private let bashExecutor: BashExecutor
     private let queueServerRunConfigurationUrl: URL
-    private let sharedQueueDeploymentDestinationsUrl: URL
     private let testArgFileJsonGenerator: TestArgFileJsonGenerator
     private let fileDownloader: FileDownloader
     private let environmentProvider: EnvironmentProvider
@@ -21,7 +20,6 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
         temporaryFileProvider: TemporaryFileProvider,
         bashExecutor: BashExecutor,
         queueServerRunConfigurationUrl: URL,
-        sharedQueueDeploymentDestinationsUrl: URL,
         testArgFileJsonGenerator: TestArgFileJsonGenerator,
         fileDownloader: FileDownloader,
         environmentProvider: EnvironmentProvider)
@@ -30,7 +28,6 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
         self.temporaryFileProvider = temporaryFileProvider
         self.bashExecutor = bashExecutor
         self.queueServerRunConfigurationUrl = queueServerRunConfigurationUrl
-        self.sharedQueueDeploymentDestinationsUrl = sharedQueueDeploymentDestinationsUrl
         self.testArgFileJsonGenerator = testArgFileJsonGenerator
         self.fileDownloader = fileDownloader
         self.environmentProvider = environmentProvider
@@ -61,7 +58,6 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
                     additionalAppPaths: additionalAppPaths,
                     priority: 500
                 ),
-                queueServerDestination: fileDownloader.download(url: sharedQueueDeploymentDestinationsUrl),
                 queueServerRunConfigurationLocation: queueServerRunConfigurationUrl.absoluteString,
                 tempFolder: temporaryFileProvider.temporaryFilePath(),
                 junit: junit,

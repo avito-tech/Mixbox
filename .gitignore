@@ -30,6 +30,7 @@ dist/
 .coverage
 *.egg-info
 *.pyc
+*.cache
 
 # Utility
 *.ignored*

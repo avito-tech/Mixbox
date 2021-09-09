@@ -4,7 +4,6 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
     
     // Configs
     public let testArgFile: String
-    public let queueServerDestination: String
     public let queueServerRunConfigurationLocation: String
     
     // Required args
@@ -17,7 +16,6 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
     public init(
         jobId: String,
         testArgFile: String,
-        queueServerDestination: String,
         queueServerRunConfigurationLocation: String,
         tempFolder: String,
         junit: String,
@@ -25,7 +23,6 @@ public final class EmceeRunTestsOnRemoteQueueCommandArguments {
     {
         self.jobId = jobId
         self.testArgFile = testArgFile
-        self.queueServerDestination = queueServerDestination
         self.queueServerRunConfigurationLocation = queueServerRunConfigurationLocation
         self.tempFolder = tempFolder
         self.junit = junit
