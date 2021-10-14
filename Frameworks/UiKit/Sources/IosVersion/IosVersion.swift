@@ -4,10 +4,11 @@ import MixboxFoundation
 
 // MARK: - IosVersion
 
-public final class IosVersion: Comparable {
-    public let versionComponents: [Int]
+public final class IosVersion: Comparable, CustomStringConvertible {
+    public typealias VersionComponent = Int
+    public let versionComponents: [VersionComponent]
     
-    public var majorVersion: Int {
+    public var majorVersion: VersionComponent {
         return versionComponents.first ?? 0
     }
     
@@ -19,12 +20,30 @@ public final class IosVersion: Comparable {
         return versionComponents.dropLast().map { String($0) } .joined(separator: ".")
     }
     
-    public init(versionComponents: [Int]) {
+    public init(versionComponents: [VersionComponent]) {
         self.versionComponents = versionComponents
     }
     
-    public convenience init(major: Int, minor: Int? = nil, patch: Int? = nil) {
+    public convenience init(major: VersionComponent, minor: VersionComponent? = nil, patch: VersionComponent? = nil) {
         self.init(versionComponents: [major, minor, patch].compactMap { $0 })
+    }
+    
+    public convenience init(versionString: String) throws {
+        try self.init(
+            versionComponents: versionString
+                .components(separatedBy: ".")
+                .map {
+                    try Int($0).unwrapOrThrow(
+                        message: "Version component can not be converted to \(VersionComponent.self). Component: \($0)"
+                    )
+                }
+        )
+    }
+    
+    public var description: String {
+        return versionComponents
+            .map { String(describing: $0) }
+            .joined(separator: ".")
     }
 }
 

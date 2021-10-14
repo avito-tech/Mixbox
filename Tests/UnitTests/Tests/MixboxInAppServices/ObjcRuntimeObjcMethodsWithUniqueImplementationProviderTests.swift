@@ -45,23 +45,20 @@ final class ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests: TestCas
     private func methodsOfProxies(selector: Selector) -> [ObjcMethodWithUniqueImplementation] {
         var methodsOfProxies = [ObjcMethodWithUniqueImplementation]()
         
-        let proxyClassNames: [String]
-        
         // There are some kinds of proxy that are not NSProxy that create selectors for everything
-        switch UiDeviceIosVersionProvider(uiDevice: UIDevice.current).iosVersion().majorVersion {
-        case 12:
-            proxyClassNames = [
+        let proxyClassNames = valuesByIosVersion(type: [String].self)
+            .value([])
+            .since(ios: 12)
+            .value([
                 "_PFPlaceholderMulticaster"
-            ]
-        case 13, 14, 15:
-            proxyClassNames = [
+            ])
+            .since(ios: 13)
+            .value([
                 "_PFPlaceholderMulticaster",
                 "UIKeyboardCandidateViewStyle",
                 "UIKeyboardCandidateViewState"
-            ]
-        default:
-            proxyClassNames = []
-        }
+            ])
+            .getValue()
         
         for className in proxyClassNames {
             if let `class` = NSClassFromString(className),

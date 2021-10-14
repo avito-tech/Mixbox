@@ -38,23 +38,16 @@ final class PredefinedObjcMethodsTests: TestCase {
         assertDoesntThrow {
             _ = try accessibilityLabelSwizzlerFactory.accessibilityLabelSwizzler()
             
-            let iosVersion = iosVersionProvider.iosVersion().majorVersion
-            switch iosVersion {
-            case 10:
-                checkForIos10()
-            case 11...13:
-                checkForIosFrom11()
-            case 14:
-                // TODO: There are problems with this test. This test is unstable.
-                // Probably due to issues with `AccessibilityForTestAutomationInitializer`.
-                // This isn't too bad, as, currently, failure in `AccessibilityForTestAutomationInitializer`
-                // only causes unexpected values in accessibilutyLabel and accessibilutyValue in
-                // gray box tests. Also it is only mildly unstable and there are lots of tests
-                // for those particular cases.
-                break
-            default:
-                XCTFail("Current iOS version is not supported in this test: \(iosVersion). Please test it carefully.")
-            }
+            let check = valuesByIosVersion()
+                .since(ios: 10).value {
+                    self.checkForIos10()
+                }
+                .since(ios: 11).value {
+                    self.checkForIosFrom11()
+                }
+                .getValue()
+            
+            check()
         }
     }
     

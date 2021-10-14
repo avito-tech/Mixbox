@@ -29,7 +29,7 @@ sourcery = Devpods::Repo.new(
       pod name, local_hash
     }
 )
-sourcery.commit_value = '06654be0da1ff6468c8ac1405e765e99f0a4067f'
+sourcery.commit_value = '0564feccdc8fade6c68376bdf7f8dab9b79863fe'
 sourcery.branch_value = 'avito'
 sourcery.local_path_env = 'MIXBOX_SOURCERY_LOCAL_PATH'
 

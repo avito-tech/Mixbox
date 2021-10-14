@@ -143,9 +143,9 @@ DEPENDENCIES:
   - MixboxTestsFoundation (from `..`)
   - MixboxUiKit (from `..`)
   - MixboxUiTestsFoundation (from `..`)
-  - SourceryFramework (from `https://github.com/avito-tech/Sourcery.git`, commit `06654be0da1ff6468c8ac1405e765e99f0a4067f`)
-  - SourceryRuntime (from `https://github.com/avito-tech/Sourcery.git`, commit `06654be0da1ff6468c8ac1405e765e99f0a4067f`)
-  - SourceryUtils (from `https://github.com/avito-tech/Sourcery.git`, commit `06654be0da1ff6468c8ac1405e765e99f0a4067f`)
+  - SourceryFramework (from `https://github.com/avito-tech/Sourcery.git`, commit `0564feccdc8fade6c68376bdf7f8dab9b79863fe`)
+  - SourceryRuntime (from `https://github.com/avito-tech/Sourcery.git`, commit `0564feccdc8fade6c68376bdf7f8dab9b79863fe`)
+  - SourceryUtils (from `https://github.com/avito-tech/Sourcery.git`, commit `0564feccdc8fade6c68376bdf7f8dab9b79863fe`)
   - SwiftLint (= 0.36.0)
   - TestsIpc (from `Frameworks/TestsIpc`)
 
@@ -217,26 +217,26 @@ EXTERNAL SOURCES:
   MixboxUiTestsFoundation:
     :path: ".."
   SourceryFramework:
-    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
+    :commit: 0564feccdc8fade6c68376bdf7f8dab9b79863fe
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryRuntime:
-    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
+    :commit: 0564feccdc8fade6c68376bdf7f8dab9b79863fe
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryUtils:
-    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
+    :commit: 0564feccdc8fade6c68376bdf7f8dab9b79863fe
     :git: https://github.com/avito-tech/Sourcery.git
   TestsIpc:
     :path: "Frameworks/TestsIpc"
 
 CHECKOUT OPTIONS:
   SourceryFramework:
-    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
+    :commit: 0564feccdc8fade6c68376bdf7f8dab9b79863fe
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryRuntime:
-    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
+    :commit: 0564feccdc8fade6c68376bdf7f8dab9b79863fe
     :git: https://github.com/avito-tech/Sourcery.git
   SourceryUtils:
-    :commit: 06654be0da1ff6468c8ac1405e765e99f0a4067f
+    :commit: 0564feccdc8fade6c68376bdf7f8dab9b79863fe
     :git: https://github.com/avito-tech/Sourcery.git
 
 SPEC CHECKSUMS:

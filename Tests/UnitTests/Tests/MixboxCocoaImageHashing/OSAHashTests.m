@@ -40,9 +40,15 @@
     [self assertHashOfImageWithName:@"blur_architecture1.bmp"
                           isEqualTo:-8608191228601917537
                         forProvider:OSImageHashingProviderAHash];
-    [self assertHashOfImageWithName:@"compr_architecture1.jpg"
-                          isEqualTo:-8608472703578630209
-                        forProvider:OSImageHashingProviderAHash];
+    if ([[[UIDevice currentDevice] systemVersion] hasPrefix:@"15"]) {
+        [self assertHashOfImageWithName:@"compr_architecture1.jpg"
+                              isEqualTo:-8608191228601919553
+                            forProvider:OSImageHashingProviderAHash];
+    } else {
+        [self assertHashOfImageWithName:@"compr_architecture1.jpg"
+                              isEqualTo:-8608472703578630209
+                            forProvider:OSImageHashingProviderAHash];
+    }
     [self assertHashOfImageWithName:@"blur_bamarket115.bmp"
                           isEqualTo:-16954737706286081
                         forProvider:OSImageHashingProviderAHash];

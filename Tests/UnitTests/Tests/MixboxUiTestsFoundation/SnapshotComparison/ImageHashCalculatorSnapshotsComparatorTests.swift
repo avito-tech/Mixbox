@@ -164,17 +164,31 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
                     // I have no idea why it is happening, I didn't debug it. Let it be it for now.
                     // But it's an indicator of some kind of issue. Maybe clipping inside `ImagesForHashingProvider`
                     // is too hard on edges (e.g. treats alpha discretely, as zeroes and ones).
+                    
+                    let percentageOfMatchingAndMessage = shouldIgnoreTransparency
+                        ? (
+                            0.3148148148148148,
+                            "Actual hashDistance is below hashDistanceTolerance. hashDistance: (47). hashDistanceTolerance: (10). Image hash of actual image: 1110000000110000001100000011010000110000001100000110000010000000. Image hash of expected image: 1110000111110001111100011111100100111000001110000111000000100000."
+                        )
+                        : valuesByIosVersion(type: (Double, String).self)
+                            .value((
+                                0.25925925925925924,
+                                "Actual hashDistance is below hashDistanceTolerance. hashDistance: (50). hashDistanceTolerance: (10). Image hash of actual image: 1110000111100001110010011111100011111000111110000111000001100000. Image hash of expected image: 1100000110000001100001011000000110000001100000001110000001100000."
+                            ))
+                            .since(ios: 15)
+                            .value((
+                                0.2777777777777778,
+                                "Actual hashDistance is below hashDistanceTolerance. hashDistance: (49). hashDistanceTolerance: (10). Image hash of actual image: 1110000111000001110010011111100011111000111110000111000001100000. Image hash of expected image: 1100000110000001100001011000000110000001100000001110000001100000."
+                            ))
+                            .getValue()
+                    
                     XCTAssertEqual(
                         snapshotsDifferenceDescription.percentageOfMatching,
-                        shouldIgnoreTransparency
-                            ? 0.3148148148148148
-                            : 0.25925925925925924
+                        percentageOfMatchingAndMessage.0
                     )
                     XCTAssertEqual(
                         snapshotsDifferenceDescription.message,
-                        shouldIgnoreTransparency
-                            ? "Actual hashDistance is below hashDistanceTolerance. hashDistance: (47). hashDistanceTolerance: (10). Image hash of actual image: 1110000000110000001100000011010000110000001100000110000010000000. Image hash of expected image: 1110000111110001111100011111100100111000001110000111000000100000."
-                            : "Actual hashDistance is below hashDistanceTolerance. hashDistance: (50). hashDistanceTolerance: (10). Image hash of actual image: 1110000111100001110010011111100011111000111110000111000001100000. Image hash of expected image: 1100000110000001100001011000000110000001100000001110000001100000."
+                        percentageOfMatchingAndMessage.1
                     )
                 }
             )
@@ -399,39 +413,46 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: oppositeOpaqueColors.0,
             color1: oppositeOpaqueColors.1,
-            hashDistance: 50
+            hashDistance: valuesByIosVersion()
+                .value(50).since(ios: 15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: color(isTransparent: false),
             color1: color(isTransparent: true),
-            hashDistance: 50
+            hashDistance: valuesByIosVersion()
+                .value(50).since(ios: 15).value(49)
         )
         
         // This is for you to know:
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor.red,
             color1: UIColor.clear,
-            hashDistance: 50
+            hashDistance: valuesByIosVersion()
+                .value(50).since(ios: 15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor.green,
             color1: UIColor.clear,
-            hashDistance: 50
+            hashDistance: valuesByIosVersion()
+                .value(50).since(ios: 15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor.blue,
             color1: UIColor.clear,
-            hashDistance: 50
+            hashDistance: valuesByIosVersion()
+                .value(50).since(ios: 15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor.white,
             color1: UIColor.clear,
-            hashDistance: 50
+            hashDistance: valuesByIosVersion()
+                .value(50).since(ios: 15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1),
             color1: UIColor(red: 0, green: 0, blue: 0.2, alpha: 1),
-            hashDistance: 58
+            hashDistance: valuesByIosVersion()
+                .value(58).since(ios: 15).value(57)
         )
         
         // Example of which colors aren't suitable.
@@ -446,8 +467,9 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
     func check___this_test_imageWithShape___generates_images_with_usable_hashes(
         color0: UIColor,
         color1: UIColor,
-        hashDistance: UInt8)
+        hashDistance: ValuesByIosVersion<UInt8>)
     {
+        let hashDistance = hashDistance.getValue()
         let calculator = DHashImageHashCalculator()
         let image0 = imageWithShape(
             backgroundColor: color0,

@@ -16,21 +16,6 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
     }
     
     func test___image_with_different_resolution___match() {
-        let exactTolerance: UInt8
-        
-        switch iosVersionProvider.iosVersion().majorVersion {
-        case 11:
-            exactTolerance = 10
-        case 12:
-            exactTolerance = 1
-        case 13:
-            exactTolerance = 1
-        case 14:
-            exactTolerance = 1
-        default:
-            exactTolerance = 2
-        }
-        
         assertImageMatchesReference(
             imageName: "imagehash_cats/imagehash_cat_size",
             // TODO: Should match with 0 tolerance.
@@ -38,51 +23,30 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
             //       I can't reproduce it with iPhone 7 iOS 11.3 / Xcode 10.2 / Mojave / Xcode runner.
             //       And I don't have reports on CI.
             // UPDATE: Same in Xcode 12.4 in 2021.
-            exactTolerance: exactTolerance
+            exactTolerance: valuesByIosVersion()
+                .since(ios: 11).value(10)
+                .since(ios: 12).value(1)
+                .since(ios: 15).value(2)
         )
     }
     
     func test___image_overlapped_with_lots_of_text___doesnt_match_with_low_tolerance() {
-        let exactTolerance: UInt8
-        
-        switch iosVersionProvider.iosVersion().majorVersion {
-        case 11:
-            exactTolerance = 20
-        case 12:
-            exactTolerance = 14
-        case 13:
-            exactTolerance = 15
-        case 14:
-            exactTolerance = 14
-        default:
-            exactTolerance = 14
-        }
-        
         assertImageMatchesReference(
             imageName: "imagehash_cats/imagehash_cat_lots_of_text",
-            exactTolerance: exactTolerance
+            exactTolerance: valuesByIosVersion()
+                .since(ios: 11).value(20)
+                .since(ios: 12).value(14)
+                .since(ios: 13).value(15)
+                .since(ios: 14).value(14)
         )
     }
     
     func test___different_image___doesnt_match_with_low_tolerance() {
-        let exactTolerance: UInt8
-        
-        switch iosVersionProvider.iosVersion().majorVersion {
-        case 11:
-            exactTolerance = 39
-        case 12:
-            exactTolerance = 41
-        case 13:
-            exactTolerance = 41
-        case 14:
-            exactTolerance = 41
-        default:
-            exactTolerance = 41
-        }
-        
         assertImageMatchesReference(
             imageName: "imagehash_cats/imagehash_cat_not_cat",
-            exactTolerance: exactTolerance
+            exactTolerance: valuesByIosVersion()
+                .since(ios: 11).value(39)
+                .since(ios: 12).value(41)
         )
     }
     
@@ -90,10 +54,12 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
     // on different sides of that boundary.
     private func assertImageMatchesReference(
         imageName: String,
-        exactTolerance: UInt8,
+        exactTolerance: ValuesByIosVersion<UInt8>,
         file: StaticString = #filePath,
         line: UInt = #line)
     {
+        let exactTolerance = exactTolerance.getValue()
+        
         // TODO: This test is unstable for whatever reason.
         let accuracy: UInt8 = 2 // 0 - perfect accuracy
         
