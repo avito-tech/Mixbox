@@ -15,6 +15,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+
 @interface XCUIDevice ()
 {
     _Bool _isLocal;
@@ -27,7 +28,7 @@
     id <XCUIXcodeApplicationManaging> _xcodeApplicationManager;
     id <XCUIDeviceEventAndStateInterface> _deviceEventAndStateInterface;
     id <XCUIApplicationAutomationSessionProviding> _applicationAutomationSessionProvider;
-    XCUISiriService *_siriService;
+    id /* XCUISiriService */ _siriService;
     id <XCUIScreenDataSource> _screenDataSource;
     NSString *_uniqueIdentifier;
     XCUIRemote *_remote;

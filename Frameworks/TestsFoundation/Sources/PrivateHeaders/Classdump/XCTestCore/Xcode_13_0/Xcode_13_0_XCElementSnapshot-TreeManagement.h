@@ -34,18 +34,15 @@
 
 // Remaining properties
 @property(readonly) NSArray *children;
-@property(readonly) unsigned long long elementType;
 @property(readonly, getter=isEnabled) _Bool enabled;
 @property(readonly) struct CGRect frame;
 @property(readonly) _Bool hasFocus;
-@property(readonly) long long horizontalSizeClass;
 @property(readonly) NSString *identifier;
 @property(readonly, copy) NSString *label;
 @property(readonly) NSString *placeholderValue;
 @property(readonly, getter=isSelected) _Bool selected;
 @property(readonly, copy) NSString *title;
 @property(readonly) id value;
-@property(readonly) long long verticalSizeClass;
 @end
 
 #endif
