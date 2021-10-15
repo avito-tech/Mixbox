@@ -1,0 +1,16 @@
+[
+    {
+        "testDestination": {
+            "deviceType": "iPhone 13 mini",
+            "iOSVersion": "15.0",
+            "iOSVersionShort": "15.0",
+            "iOSVersionLong": "15.0",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-13-mini",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-15-0"
+        },
+        "reportOutput": {
+            "junit": "tests-artifacts/ios_15.xml",
+            "tracingReport": "tests-artifacts/ios_15.trace"
+        }
+    }
+]
