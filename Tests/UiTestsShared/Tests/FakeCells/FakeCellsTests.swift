@@ -40,28 +40,38 @@ final class FakeCellsTests: TestCase {
         }
     }
     
-    func test_ifEveryInvisibleElementCanBeAccessed_noReload() {
+    func test___mixbox___can_access_every_invisible_element_in_collection_view___after_no_reload() {
         parameterized_test_ifEveryInvisibleElementCanBeAccessed(
             reloadType: nil,
             function: #function
         )
     }
     
-    func test_ifEveryInvisibleElementCanBeAccessed_reloadData() {
+    func test___mixbox___can_access_every_invisible_element_in_collection_view___after_reloadData() {
         parameterized_test_ifEveryInvisibleElementCanBeAccessed(
             reloadType: .reloadData,
             function: #function
         )
     }
     
-    func test_ifEveryInvisibleElementCanBeAccessed_performBatchUpdates_reload() {
+    func test___mixbox___can_access_every_invisible_element_in_collection_view___after_performBatchUpdates_using_reloadItems() {
         parameterized_test_ifEveryInvisibleElementCanBeAccessed(
-            reloadType: .performBatchUpdates(.reload),
+            reloadType: .performBatchUpdates(.reloadItems),
             function: #function
         )
     }
     
-    func test_ifEveryInvisibleElementCanBeAccessed_performBatchUpdates_deleteAndInsert() {
+    func test___mixbox___can_access_every_invisible_element_in_collection_view___after_performBatchUpdates_using_reconfigureItems() {
+        // `reconfigureItems` is only available in iOS 15
+        if iosVersionProvider.iosVersion().majorVersion >= 15 {
+            parameterized_test_ifEveryInvisibleElementCanBeAccessed(
+                reloadType: .performBatchUpdates(.reconfigureItems),
+                function: #function
+            )
+        }
+    }
+    
+    func test___mixbox___can_access_every_invisible_element_in_collection_view___after_performBatchUpdates_using_deleteAndInsert() {
         parameterized_test_ifEveryInvisibleElementCanBeAccessed(
             reloadType: .performBatchUpdates(.deleteAndInsert),
             function: #function
@@ -231,7 +241,7 @@ final class FakeCellsTests: TestCase {
         generation = synchronousIpcClient.callOrFail(
             method: FakeCellsReloadIpcMethod(),
             arguments: reloadType
-        )
+        ).getReturnValueOrFail()
     }
 }
 

@@ -4,7 +4,8 @@ public enum FakeCellsReloadType: Codable {
 
     public enum PerformBatchUpdatesStyle: String, Codable {
         case deleteAndInsert
-        case reload
+        case reloadItems
+        case reconfigureItems
     }
     
 // sourcery:inline:auto:FakeCellsReloadType.Codable

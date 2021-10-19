@@ -1,5 +1,7 @@
 import UIKit
 import TestsIpc
+import MixboxIpcCommon
+import MixboxFoundation
 
 final class FakeCellsTestsView: CollectionView, TestingView {
     private var generation: Int = -1
@@ -36,8 +38,9 @@ final class FakeCellsTestsView: CollectionView, TestingView {
         
         viewIpc.register(method: FakeCellsReloadIpcMethod()) { [weak self] type, completion in
             guard let strongSelf = self else {
-                completion(0)
-                assertionFailure("self is nil")
+                completion(
+                    IpcThrowingFunctionResult.threw(ErrorString("self is nil"))
+                )
                 return
             }
             
@@ -67,30 +70,44 @@ final class FakeCellsTestsView: CollectionView, TestingView {
         setUpCellModels()
     }
     
-    private func regenerate(type: FakeCellsReloadType, completion: @escaping (Int) -> ()) {
+    private func regenerate(
+        type: FakeCellsReloadType,
+        completion: @escaping (IpcThrowingFunctionResult<Int>) -> ()
+    ) {
         switch type {
         case .performBatchUpdates(let style):
+            var error: ErrorString?
             performBatchUpdates(
                 {
                     setUpCellModels()
                     let indexPaths = cellModels.enumerated().map { IndexPath(item: $0.0, section: 0) }
                     
                     switch style {
-                    case .reload:
+                    case .reloadItems:
                         reloadItems(at: indexPaths)
                     case .deleteAndInsert:
                         deleteItems(at: indexPaths)
                         insertItems(at: indexPaths)
+                    case .reconfigureItems:
+                        if #available(iOS 15.0, *) {
+                            reconfigureItems(at: indexPaths)
+                        } else {
+                            error = ErrorString("reconfigureItems is unavaliable for current iOS")
+                        }
                     }
                 },
                 completion: { _ in
-                    completion(self.generation)
+                    if let error = error {
+                        completion(IpcThrowingFunctionResult.threw(error))
+                    } else {
+                        completion(IpcThrowingFunctionResult.returned(self.generation))
+                    }
                 }
             )
         case .reloadData:
             setUpCellModels()
             reloadData()
-            completion(self.generation)
+            completion(IpcThrowingFunctionResult.returned(self.generation))
         }
     }
     
