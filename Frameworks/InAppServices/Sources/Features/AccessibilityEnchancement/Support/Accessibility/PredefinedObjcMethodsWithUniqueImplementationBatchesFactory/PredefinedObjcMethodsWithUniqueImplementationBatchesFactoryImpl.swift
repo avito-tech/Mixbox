@@ -19,7 +19,8 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
             ios11Till12Batch(iosMajorVersion: 11),
             ios11Till12Batch(iosMajorVersion: 12),
             ios13Batch(),
-            ios14Batch()
+            ios14Till15Batch(iosMajorVersion: 14),
+            ios14Till15Batch(iosMajorVersion: 15)
         ]
     }
     
@@ -55,9 +56,9 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
         )
     }
     
-    private func ios14Batch() -> PredefinedObjcMethodsWithUniqueImplementationBatch {
+    private func ios14Till15Batch(iosMajorVersion: Int) -> PredefinedObjcMethodsWithUniqueImplementationBatch {
         return batch(
-            iosMajorVersion: 14,
+            iosMajorVersion: iosMajorVersion,
             methods: [
                 method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
                 method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
