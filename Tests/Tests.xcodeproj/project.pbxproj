@@ -434,7 +434,6 @@
 		F89AED0526697CA70080E980 /* OSAHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECB426697CA70080E980 /* OSAHashTests.m */; };
 		F89AED0626697CA70080E980 /* OSDHashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECB526697CA70080E980 /* OSDHashTests.m */; };
 		F89AED4C26697CA70080E980 /* CococaImageHashingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AECFF26697CA70080E980 /* CococaImageHashingTests.m */; };
-		F89AED4D26697CA70080E980 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F89AED0026697CA70080E980 /* Info.plist */; };
 		F89AED4E26697CA70080E980 /* OSImageHashingBaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F89AED0126697CA70080E980 /* OSImageHashingBaseTest.m */; };
 		F89AEDA326697F4F0080E980 /* blur_england.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED5C26697F4E0080E980 /* blur_england.bmp */; };
 		F89AEDA426697F4F0080E980 /* blur_Scotland_castle_wedding.bmp in Resources */ = {isa = PBXBuildFile; fileRef = F89AED5D26697F4E0080E980 /* blur_Scotland_castle_wedding.bmp */; };
@@ -1252,7 +1251,6 @@
 		F89AECB426697CA70080E980 /* OSAHashTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSAHashTests.m; sourceTree = "<group>"; };
 		F89AECB526697CA70080E980 /* OSDHashTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSDHashTests.m; sourceTree = "<group>"; };
 		F89AECFF26697CA70080E980 /* CococaImageHashingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CococaImageHashingTests.m; sourceTree = "<group>"; };
-		F89AED0026697CA70080E980 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F89AED0126697CA70080E980 /* OSImageHashingBaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSImageHashingBaseTest.m; sourceTree = "<group>"; };
 		F89AED5C26697F4E0080E980 /* blur_england.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_england.bmp; sourceTree = "<group>"; };
 		F89AED5D26697F4E0080E980 /* blur_Scotland_castle_wedding.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = blur_Scotland_castle_wedding.bmp; sourceTree = "<group>"; };
@@ -2905,7 +2903,6 @@
 				F89AECB526697CA70080E980 /* OSDHashTests.m */,
 				F89AECB626697CA70080E980 /* Assets */,
 				F89AECFF26697CA70080E980 /* CococaImageHashingTests.m */,
-				F89AED0026697CA70080E980 /* Info.plist */,
 				F89AED0126697CA70080E980 /* OSImageHashingBaseTest.m */,
 			);
 			path = MixboxCocoaImageHashing;
@@ -4737,7 +4734,6 @@
 				F89AEDB826697F4F0080E980 /* blur_damien_hirst.bmp in Resources */,
 				F89AEDBD26697F4F0080E980 /* compr_dhirst_a3b9ddea.jpg in Resources */,
 				F8F4A1BD256821600093523E /* generate_mocks in Resources */,
-				F89AED4D26697CA70080E980 /* Info.plist in Resources */,
 				F89AEDAE26697F4F0080E980 /* blur_Tower-Bridge-at-night--London--England_web.bmp in Resources */,
 				F89AEDC526697F4F0080E980 /* compr_jasper_johns.jpg in Resources */,
 				F89AEDD926697F4F0080E980 /* misc_Tower-Bridge-at-night--London--England_web.bmp in Resources */,

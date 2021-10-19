@@ -1,6 +1,10 @@
 #!/bin/bash
 
-REPO_ROOT=$(cd "${PROJECT_DIR}/.."; pwd)
+set -ueo pipefail
+
+script_root=$(cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "${script_root}/../.." && pwd)
+
 source "$REPO_ROOT/Tests/Scripts/mock_generation.sh"
 
 build_generator_if_needed

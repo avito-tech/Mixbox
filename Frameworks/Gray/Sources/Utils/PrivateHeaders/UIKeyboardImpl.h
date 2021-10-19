@@ -4,7 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-#import <UIKit/UIView.h>
+@import UIKit;
 
 @class NSDictionary, NSMutableArray, NSMutableDictionary, NSString, TIKeyboardCandidateResultSet, TIKeyboardInputManagerState, TIKeyboardInputManagerStub, TIKeyboardLayout, TIKeyboardState, TIKeyboardTouchEvent, TISmartPunctuationController, UIAlertView, UIAutocorrectInlinePrompt, UIDelayedAction, UIKeyboardAutocorrectionController, UIKeyboardLayout, UIKeyboardScheduledTask, UIKeyboardTaskQueue, UILexicon, UIPhysicalKeyboardEvent, UITextInputArrowKeyHistory, UITextInputTraits, UITextSelectionView, _UIActionWhenIdle, _UIKeyboardFeedbackGenerator, _UIKeyboardTextSelectionController;
 

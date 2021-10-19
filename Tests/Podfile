@@ -36,6 +36,10 @@ sourcery.local_path_env = 'MIXBOX_SOURCERY_LOCAL_PATH'
 def tests_ipc_pods
   pod 'TestsIpc', :path => 'Frameworks/TestsIpc'
 end
+
+def execute_shell_or_raise(shell_command)
+   system(shell_command) or raise "Shell command failed: #{shell_command}"
+end
  
 ### TARGETS
 
@@ -107,6 +111,15 @@ target 'Lint' do
   platform :ios, '9.0'
   
   pod 'SwiftLint', '0.36.0', :inhibit_warnings => true # TODO: Update.
+end
+
+pre_install do |installer|
+  # Xcode with new build system requires all files to be added to ".xcodeproj" before
+  # building the project (even if source files are generated before being compiled).
+  # So this will create files (and also generate proper code)
+  execute_shell_or_raise("'#{__dir__}/Scripts/warm_up_code_generation'")
+  execute_shell_or_raise("'#{__dir__}/GrayBoxUiTests/Mocks/generate_mocks'")
+  execute_shell_or_raise("'#{__dir__}/UnitTests/Mocks/generate_mocks'")
 end
 
 post_install do |installer|
