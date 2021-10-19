@@ -2,6 +2,7 @@
 
 import MixboxTestability
 import MixboxFoundation
+import UIKit
 
 // TODO: Split. swiftlint:disable file_length
 public final class CollectionViewSwizzlerImpl: CollectionViewSwizzler {
@@ -207,21 +208,22 @@ fileprivate extension UICollectionView {
     // TODO: Cache subviews, this function should not be called for every accessibility element
     func getAccessibilityElements() -> [NSObject] {
         var collectionViewCells = [UIView]()
-        var visibleCells = Set<UIView>()
+        let indexPathsForVisibleItems = Set(indexPathsForVisibleItems)
         
         for fakeCell in cachedFakeCells.value {
             let cell: UIView
             
             assert(fakeCell.mb_fakeCellInfo != nil)
             
-            if let indexPath = fakeCell.mb_fakeCellInfo?.indexPath,
-                let visibleCell = cellForItem(at: indexPath)
-            {
+            if let visibleCell = visibleCellFor(
+                fakeOrRealCell: fakeCell,
+                indexPathsForVisibleItems: indexPathsForVisibleItems
+            ) {
                 cell = visibleCell
-                visibleCells.insert(visibleCell)
             } else {
                 cell = fakeCell
             }
+            
             collectionViewCells.append(cell)
         }
         
@@ -249,16 +251,29 @@ fileprivate extension UICollectionView {
         // How it should working:
         // subview1 fakeCell1 visibleCell1 subview2 visibleCell2 fakeCell2 fakeCell3 subview3
         
-        return (collectionViewCells + allSubviewsThatAreNotCells).map { cell in
-            if let cell = cell as? UICollectionViewCell {
-                if let indexPath = cell.mb_fakeCellInfo?.indexPath {
-                    if let visibleCell = cellForItem(at: indexPath) {
-                        return visibleCell
-                    }
-                }
+        return (collectionViewCells + allSubviewsThatAreNotCells).map { view in
+            if let cell = view as? UICollectionViewCell, let visibleCell = visibleCellFor(
+                fakeOrRealCell: cell,
+                indexPathsForVisibleItems: indexPathsForVisibleItems
+            ) {
+                return visibleCell
             }
             
-            return cell
+            return view
+        }
+    }
+    
+    private func visibleCellFor(
+        fakeOrRealCell: UICollectionViewCell,
+        indexPathsForVisibleItems: Set<IndexPath>
+    ) -> UICollectionViewCell? {
+        if let indexPath = fakeOrRealCell.mb_fakeCellInfo?.indexPath,
+           indexPathsForVisibleItems.contains(indexPath),
+           let visibleCell = cellForItem(at: indexPath)
+        {
+            return visibleCell
+        } else {
+            return nil
         }
     }
     

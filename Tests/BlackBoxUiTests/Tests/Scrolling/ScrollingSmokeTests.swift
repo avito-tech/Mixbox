@@ -36,11 +36,11 @@ final class ScrollingSmokeTests: TestCase {
         // third        v | v |
         
         screen.first.assertIsDisplayed() // #0
-        screen.second.assertIsDisplayed() // #1
-        screen.third.assertIsDisplayed() // #2
-        screen.first.assertIsDisplayed() // #3
-        screen.third.assertIsDisplayed() // #4
-        screen.second.assertIsDisplayed() // #5
-        screen.first.assertIsDisplayed() // #6
+        screen.second.withoutTimeout.assertIsDisplayed() // #1
+        screen.third.withoutTimeout.assertIsDisplayed() // #2
+        screen.first.withoutTimeout.assertIsDisplayed() // #3
+        screen.third.withoutTimeout.assertIsDisplayed() // #4
+        screen.second.withoutTimeout.assertIsDisplayed() // #5
+        screen.first.withoutTimeout.assertIsDisplayed() // #6
     }
 }
