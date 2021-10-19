@@ -3,6 +3,14 @@ import MixboxTestsFoundation
 import XCTest
 import TestsIpc
 
+// This test check if "Fake Cells" mechanism works.
+// This mechanism make all cells in collection view accessible by
+// testing framework, even those that are not on screen and have
+// no views in hierarchy. This test performs `assertIsDisplayed` checks
+// on UI elements, those UI elements should have known frames,
+// because they are provided by "Fake Cells" mechanism, which
+// instantiate cells in memory based on collection view data source and delegate.
+// The test scrolls in known direction and views become visible on screen.
 // TODO: Test also UITableView.
 final class FakeCellsTests: TestCase {
     override var reuseState: Bool {
@@ -15,7 +23,7 @@ final class FakeCellsTests: TestCase {
         openScreen(name: "FakeCellsTestsView")
     }
     
-    func test_ifTestIsConfiguredProperly() {
+    func test___this_test___is_configured_properly() {
         // If every element in test is visible on screen
         // then the test is not checking what it is supposed to check.
         
@@ -24,7 +32,7 @@ final class FakeCellsTests: TestCase {
             .withoutScrolling
             .assertIsDisplayed()
         
-        // None of elements of last set is visible
+        // None of elements of last set is visible (initially)
         for id in allElementIds {
             pageObjects.screen.element(id: id, set: lastSetId)
                 .withoutScrolling.withoutTimeout
@@ -108,27 +116,29 @@ final class FakeCellsTests: TestCase {
         let screenHeight = applicationFrameProvider.applicationFrame.size.height
         
         for id in patchedAllElementIds {
-            // isDisplayed triggers scrolling. We need to hide last element.
-            // TODO: Add some scrolling function
-            elementToScrollToToHideTargetElement.withoutTimeout.assertIsDisplayed()
-            
-            reloadCells(generation: &generation, reloadType: reloadType)
-            
-            let targetElement = pageObjects.screen.element(id: id, set: lastSetId, generation: generation)
-            
-            // Check if previous action had effect
-            targetElement.withoutScrolling.withoutTimeout.assertIsNotDisplayed()
-            
-            // Target check: we should be able to find any view in a cell that is not displayed / exists in view hierarchy
-            targetElement.withoutTimeout.assertIsDisplayed()
-            
-            reloadCells(generation: &generation, reloadType: reloadType)
-            
-            checkCountOfSubviews(
-                generation: generation,
-                screenHeight: screenHeight,
-                function: function
-            )
+            logBlock(text: "Checking \(id)") {
+                // isDisplayed triggers scrolling. We need to hide last element.
+                // TODO: Add some scrolling function
+                elementToScrollToToHideTargetElement.withoutTimeout.assertIsDisplayed()
+                
+                reloadCells(generation: &generation, reloadType: reloadType)
+                
+                let targetElement = pageObjects.screen.element(id: id, set: lastSetId, generation: generation)
+                
+                // Check if previous action had effect
+                targetElement.withoutScrolling.withoutTimeout.assertIsNotDisplayed()
+                
+                // Target check: we should be able to find any view in a cell that is not displayed / exists in view hierarchy
+                targetElement.withoutTimeout.assertIsDisplayed()
+                
+                reloadCells(generation: &generation, reloadType: reloadType)
+                
+                checkCountOfSubviews(
+                    generation: generation,
+                    screenHeight: screenHeight,
+                    function: function
+                )
+            }
         }
     }
     
@@ -228,7 +238,7 @@ final class FakeCellsTests: TestCase {
 // Just a shortcut
 let lastSetId = FakeCellsTestsConstants.lastSetId
 
-final class ElementId {
+final class ElementId: CustomStringConvertible {
     let caseId: String
     let viewType: String
     let suffix: String?
@@ -237,6 +247,10 @@ final class ElementId {
         self.caseId = caseId
         self.viewType = viewType
         self.suffix = suffix
+    }
+    
+    var description: String {
+        return [caseId, viewType, suffix].compactMap { $0 }.joined(separator: "-")
     }
 }
 
