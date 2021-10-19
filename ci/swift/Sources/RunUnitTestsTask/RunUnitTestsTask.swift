@@ -48,7 +48,7 @@ public final class RunUnitTestsTask: LocalTask {
             ]
         )
         
-        try iosProjectBuilder.buildPreparationAndCleanup(
+        _ = try iosProjectBuilder.buildPreparationAndCleanup(
             projectDirectoryFromRepoRoot: "Tests",
             action: .test,
             scheme: "UnitTests",

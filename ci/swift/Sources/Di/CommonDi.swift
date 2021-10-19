@@ -225,9 +225,10 @@ open class CommonDi: BaseDi {
     
     private func registerRemoteFiles(container: DependencyContainer) {
         container.register(type: FileUploader.self) {
-            FileUploaderImpl(
-                fileUploaderExecutableProvider: try container.resolve(),
-                processExecutor: try container.resolve()
+            try FileUploaderImpl(
+                fileUploaderExecutableProvider: container.resolve(),
+                processExecutor: container.resolve(),
+                retrier: container.resolve()
             )
         }
         container.register(type: FileDownloader.self) {
