@@ -1,6 +1,7 @@
 import Simctl
 import Destinations
 import CiFoundation
+import Bash
 
 public final class IosProjectBuilderImpl: IosProjectBuilder {
     private let xcodebuild: Xcodebuild
@@ -33,15 +34,17 @@ public final class IosProjectBuilderImpl: IosProjectBuilder {
         throws
         -> XcodebuildResult
     {
-        return try xcodebuild.build(
-            xcodebuildPipeFilter: xcodebuildPipeFilter,
-            projectDirectoryFromRepoRoot: projectDirectoryFromRepoRoot,
-            action: action,
-            workspaceName: workspaceName,
-            scheme: scheme,
-            sdk: "iphonesimulator",
-            destination: try xcodeDestination(destination: destination)
-        )
+        try buildWithRetries {
+            try xcodebuild.build(
+               xcodebuildPipeFilter: xcodebuildPipeFilter,
+               projectDirectoryFromRepoRoot: projectDirectoryFromRepoRoot,
+               action: action,
+               workspaceName: workspaceName,
+               scheme: scheme,
+               sdk: "iphonesimulator",
+               destination: try xcodeDestination(destination: destination)
+           )
+        }
     }
     
     public func prepare(
@@ -71,6 +74,30 @@ public final class IosProjectBuilderImpl: IosProjectBuilder {
         if let deviceUdid = try? destinationDeviceUdid(destination: destination) {
             shutdownSimulator(deviceUdid: deviceUdid)
         }
+    }
+    
+    private func buildWithRetries<T>(attemptToBuild: () throws -> T) throws -> T {
+        let numberOfAttempts = 5
+        
+        for _ in 0..<(numberOfAttempts - 1) {
+            do {
+                return try attemptToBuild()
+            } catch let error as NonZeroExitCodeBashError {
+                // Example:
+                // ```
+                // The requested device could not be found because no available devices matched the request.
+                // ```
+                let simulatorUnavailableError = XcodebuildExitCode.internalSoftwareError.rawValue
+                
+                if error.bashResult.code == simulatorUnavailableError {
+                    continue
+                } else {
+                    throw error
+                }
+            }
+        }
+        
+        return try attemptToBuild()
     }
     
     private func xcodeDestination(destination: MixboxTestDestination) throws -> String {
