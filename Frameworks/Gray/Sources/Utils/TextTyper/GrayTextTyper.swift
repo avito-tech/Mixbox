@@ -1,5 +1,6 @@
 import MixboxUiTestsFoundation
 import MixboxFoundation
+import MixboxInAppServices
 
 public final class GrayTextTyper: TextTyper {
     public func type(instructions: [TextTyperInstruction]) throws {
@@ -15,12 +16,8 @@ public final class GrayTextTyper: TextTyper {
         }
     }
     
-    private func keyboard() throws -> UIKeyboardImpl {
-        guard let keyboard = UIKeyboardImpl.sharedInstance() else {
-            throw ErrorString("UIKeyboardImpl.sharedInstance() is nil")
-        }
-        
-        return keyboard
+    private func keyboard() throws -> KeyboardPrivateApi {
+        try KeyboardPrivateApi.sharedInstance()
     }
     
     private func type(text: String) throws {
@@ -29,7 +26,7 @@ public final class GrayTextTyper: TextTyper {
         // How it looks without the line:
         // type(text: "foo") ===> "FOO" is typed (strangely all characters in text are uppercased).
         // This repoduced on iOS 12 and not on iOS 9/10/11.
-        try keyboard().setShift(false, autoshift: false)
+        try keyboard().set(shift: false, autoshift: false)
         
         try keyboard().addInputString(text)
     }

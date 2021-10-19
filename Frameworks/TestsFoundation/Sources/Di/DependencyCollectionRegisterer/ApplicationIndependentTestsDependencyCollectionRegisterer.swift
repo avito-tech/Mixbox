@@ -112,9 +112,17 @@ public final class ApplicationIndependentTestsDependencyCollectionRegisterer: De
         di.register(type: DateProvider.self) { _ in
             SystemClockDateProvider()
         }
-        di.register(type: IosVersionProvider.self) { _ in
+        di.register(type: UIDevice.self) { _ in
+            UIDevice.current
+        }
+        di.register(type: IosVersionProvider.self) { di in
             UiDeviceIosVersionProvider(
-                uiDevice: UIDevice.current
+                uiDevice: try di.resolve()
+            )
+        }
+        di.register(type: UserInterfaceIdiomProvider.self) { di in
+            UiDeviceUserInterfaceIdiomProvider(
+                uiDevice: try di.resolve()
             )
         }
         di.register(type: CurrentSimulatorFileSystemRootProvider.self) { _ in

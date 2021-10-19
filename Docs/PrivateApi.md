@@ -31,5 +31,6 @@ There is a list of open-sourced projects for iOS UI testing, ordered by how much
 - [ClassDump.md](PrivateApi/ClassDump.md)
 - [Disassembling.md](PrivateApi/Disassembling.md)
 - [Runtime.md](PrivateApi/Runtime.md)
+- [ExploringSimulator.md](PrivateApi/ExploringSimulator.md)
 - [Examples.md](PrivateApi/Examples.md)
     - [FixingInjectionOfEventsExample.md](PrivateApi/FixingInjectionOfEventsExample.md)

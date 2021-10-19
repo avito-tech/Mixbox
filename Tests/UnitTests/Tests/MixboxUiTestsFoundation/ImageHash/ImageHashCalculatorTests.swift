@@ -95,9 +95,7 @@ class ImageHashCalculatorTests: TestCase {
             try calculator.imageHash(image: image)
         }
         
-        let iosVersion = UiDeviceIosVersionProvider(
-            uiDevice: UIDevice.current
-        ).iosVersion()
+        let iosVersion = iosVersionProvider.iosVersion()
         
         XCTAssertEqual(
             actualHash,

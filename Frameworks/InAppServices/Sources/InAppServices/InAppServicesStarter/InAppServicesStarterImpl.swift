@@ -15,6 +15,9 @@ public final class InAppServicesStarterImpl: InAppServicesStarter {
         let accessibilityForTestAutomationInitializer: AccessibilityForTestAutomationInitializer = try dependencyResolver.resolve()
         try accessibilityForTestAutomationInitializer.initializeAccessibility()
         
+        let simulatorStateInitializer: SimulatorStateInitializer = try dependencyResolver.resolve()
+        try simulatorStateInitializer.initializeSimulatorState()
+        
         let ipcStarterProvider: IpcStarterProvider = try dependencyResolver.resolve()
         let ipcStarter = try ipcStarterProvider.ipcStarter()
         

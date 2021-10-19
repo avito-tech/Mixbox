@@ -8,6 +8,7 @@ import MixboxUiKit
 import MixboxIoKit
 import MixboxDi
 
+// swiftlint:disable type_body_length
 public final class InAppServicesDefaultDependencyCollectionRegisterer: DependencyCollectionRegisterer {
     public init() {
     }
@@ -27,6 +28,7 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         registerLogging(di:di)
         registerPageObjectMakingHelper(di: di)
         registerAccessibilityInitialization(di: di)
+        registerSimulatorInitialization(di: di)
     }
     
     private func registerUtilities(di: DependencyRegisterer) {
@@ -47,8 +49,18 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
                 assertionFailureRecorder: try di.resolve()
             )
         }
-        di.register(type: IosVersionProvider.self) { _ in
-            UiDeviceIosVersionProvider(uiDevice: UIDevice.current)
+        di.register(type: UIDevice.self) { _ in
+            UIDevice.current
+        }
+        di.register(type: IosVersionProvider.self) { di in
+            UiDeviceIosVersionProvider(
+                uiDevice: try di.resolve()
+            )
+        }
+        di.register(type: UserInterfaceIdiomProvider.self) { di in
+            UiDeviceUserInterfaceIdiomProvider(
+                uiDevice: try di.resolve()
+            )
         }
         di.register(type: ApplicationWindowsProvider.self) { di in
             UiApplicationWindowsProvider(
@@ -302,6 +314,20 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         }
         di.register(type: AccessibilityInitializationStatusProvider.self) { _ in
             AccessibilityInitializationStatusProviderImpl()
+        }
+    }
+    
+    private func registerSimulatorInitialization(di: DependencyRegisterer) {
+        di.register(type: TextInputFrameworkProvider.self) { di in
+            try TextInputFrameworkProviderImpl(
+                iosVersionProvider: di.resolve(),
+                userInterfaceIdiomProvider: di.resolve()
+            )
+        }
+        di.register(type: SimulatorStateInitializer.self) { di in
+            try SimulatorStateInitializerImpl(
+                textInputFrameworkProvider: di.resolve()
+            )
         }
     }
 }

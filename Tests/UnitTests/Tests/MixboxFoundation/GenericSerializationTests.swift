@@ -68,9 +68,7 @@ final class GenericSerializationTests: BaseSerializationTestCase {
     
     func test___deserialize___can_deserialize_values_wounded_up_as_NaN___using_workaround() {
         let patcher = FloatValuesForSr5346PatcherImpl(
-            iosVersionProvider: UiDeviceIosVersionProvider(
-                uiDevice: UIDevice.current
-            )
+            iosVersionProvider: iosVersionProvider
         )
         
         dataSetForCheckingSr5346.forEach {
@@ -101,7 +99,7 @@ final class GenericSerializationTests: BaseSerializationTestCase {
     }
     
     private func convertFloatMimicingEncodingBugInNSJsonSerialization(float: CGFloat) throws -> CGFloat {
-        if UiDeviceIosVersionProvider(uiDevice: UIDevice.current).iosVersion().majorVersion <= 10 {
+        if iosVersionProvider.iosVersion().majorVersion <= 10 {
             let stringFromFloat = NSNumber(value: Double(float)).stringValue
             
             let numberFormatter: NumberFormatter = NumberFormatter()
