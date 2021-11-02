@@ -65,8 +65,6 @@
 @property(readonly, nonatomic) XCUIApplication *application;
 @property(readonly, copy) XCUIElement *elementBoundByAccessibilityElement;
 - (id)initWithElementQuery:(id)arg1;
-- (id)screenshot;
-
 - (_Bool)_allUIInterruptionsHandledForElementSnapshot:(id)arg1 error:(id *)arg2;
 - (_Bool)_shouldDispatchEvent:(id *)arg1;
 - (void)_dispatchEvent:(id)arg1 eventBuilder:(DispatchEventEventBuilder)arg2;

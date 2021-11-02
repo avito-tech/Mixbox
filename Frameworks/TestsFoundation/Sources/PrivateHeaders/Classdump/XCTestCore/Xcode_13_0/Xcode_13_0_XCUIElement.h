@@ -73,7 +73,6 @@
 @property(readonly, copy) XCUIElement *elementBoundByAccessibilityElement;
 - (id)initWithElementQuery:(id)arg1;
 - (id)screenshotWithEncoding:(id)arg1;
-- (id)screenshot;
 - (id)screenshotAttachmentWithName:(id)arg1 lifetime:(long long)arg2;
 - (id)screenshotAttachment;
 - (_Bool)_allUIInterruptionsHandledForElementSnapshot:(id)arg1 error:(id *)arg2;
