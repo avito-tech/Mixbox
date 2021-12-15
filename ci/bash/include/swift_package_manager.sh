@@ -53,8 +53,7 @@ spm_generate_xcodeproj() {
     [ -e "$xcconfig_path" ] && swift_arguments=("${swift_arguments[@]}" --xcconfig-overrides "$xcconfig_path")
     
     spm_generate_package \
-        && swift package generate-xcodeproj --enable-code-coverage \
-        && spm_patch_macosx_deployment_target
+        && swift package generate-xcodeproj --enable-code-coverage
 }
 
 # Prevents the following error:
@@ -86,11 +85,7 @@ spm_build_project() {
     args=( \
         swift build \
         -c release \
-        -Xswiftc -Onone \
-        -Xswiftc -whole-module-optimization \
-        -Xswiftc -target \
-        -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET" \
-        --static-swift-stdlib \
+        --triple "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET" \
     )
     
     if ! [ -z "$product" ]
@@ -103,15 +98,13 @@ spm_build_project() {
 
 spm_test_project() {
     swift test \
-        -Xswiftc -target \
-        -Xswiftc "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET"
+        --triple "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET"
 }
 
 spm_make_file_main() {
     local action=$1
     
-    __MIXBOX_CI_MACOS_DEPLOYMENT_TARGET=x86_64-apple-macosx10.14
-    
+    __MIXBOX_CI_MACOS_DEPLOYMENT_TARGET=x86_64-apple-macosx11.0
     cd "$SCRIPT_ROOT"
 
     case "$action" in

@@ -243,7 +243,7 @@ SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Mixbox: e789fba3307115b0153e084432d4be1d07b0ffcc
   MixboxAnyCodable: fd0ff0d1478469c9042e19ffdcefe72572004cdf
-  MixboxBlack: f36a951a2d2f20c8b8c7f85570b577a0c0539f16
+  MixboxBlack: 5af2a84d0b98c5c6fd2bfe3d18c87d12cd8523fc
   MixboxBuiltinDi: 016018c9f31a7bcd95bb58934afebbb4ee57cf8e
   MixboxBuiltinIpc: 4550cacb8add5a18ae5a6f826628188992ae9d71
   MixboxCocoaImageHashing: c451dfeb2375c8803c07f1054c69d1067c68d723
@@ -251,12 +251,12 @@ SPEC CHECKSUMS:
   MixboxFakeSettingsAppMain: 553af81744d58e93615654247cd30d626e2bb81c
   MixboxFoundation: 22743b6c0264af71d16694154431e73c43f821cb
   MixboxGenerators: 059c931dd575953ffe4f9c34cc547613b2abf8d9
-  MixboxGray: 1751aab35172dd00e69d2cd91b1466eff74a327b
+  MixboxGray: 1d9d167c1297a22f12a74f875bab37fcdb8fab1a
   MixboxInAppServices: 2384e01bf85cf15d60e779b37c3eb3dd7ab2901d
   MixboxIoKit: 942e8568eb8f3c4a61a5994946adb65c6a4c6d18
   MixboxIpc: 976a69e9e60dd56df973bd73d253e53504a940a8
   MixboxIpcCommon: 070c4d25f86734fe843b09931060f98eae42009f
-  MixboxIpcSbtuiClient: c9c9036b90dbfd6ce95dbd8cf35156b006635524
+  MixboxIpcSbtuiClient: 281f88b0ebeedd133ffa5df3a07b697c3b6ab5b1
   MixboxIpcSbtuiHost: b1b5609f65ab721293c1ad74ef3eb0dd08a5a8ff
   MixboxMocksGeneration: 53548046b29e5aefd9510cf1d9d850c214e23d63
   MixboxMocksRuntime: d51213b3111e7c9e7371c34380cee041aa414740
@@ -264,11 +264,11 @@ SPEC CHECKSUMS:
   MixboxSBTUITestTunnelClient: 41b4db205753be8c1aa4cf6cc9f62763339db1a1
   MixboxSBTUITestTunnelCommon: eac072e9d1dfde9bd1b4a25d39a61a48a2d00d69
   MixboxSBTUITestTunnelServer: d30cf87cf9b01bf7752c381c2e3223ce462408db
-  MixboxStubbing: 6915a51179085eda397f7a0eaabdcc45c00194c4
+  MixboxStubbing: 25c1764e26985e44fa6eb925fefd67d2c0a1fdbd
   MixboxTestability: 5116edee152c55635434424269364e4189f75f26
-  MixboxTestsFoundation: 880c9d16771365c3d8b2df9e365843dbc4019108
+  MixboxTestsFoundation: 81417ed96a36ac93222fc9fb7058576c1826c246
   MixboxUiKit: 064489bdb334af1b918432b8f4381c33dd591928
-  MixboxUiTestsFoundation: 4459ab88d8ca73f75bd27931177e1776dfd289f2
+  MixboxUiTestsFoundation: 9a1bd5d4e1315a467e95f576c000b0e102823186
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
   SourceKittenFramework: 540d9d048c0bab3c0faa4668425364fabff12cb0
   SourceryFramework: 52f80f61c513f49ec96e83496c16dd24dd668734
@@ -282,4 +282,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.11.2

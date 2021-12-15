@@ -88,17 +88,7 @@ execute() {
     # The function contains exact paths for different Xcode. It is simple and robust.
     # If something is changed in new Xcode we will update this script.
     
-    # Xcode 10.1
-    executable="./.build/x86_64-apple-macosx10.10/release/$MIXBOX_CI_BUILD_EXECUTABLE"
-    if [ -x "$executable" ]
-    then
-        echo "Executing $executable"
-        "$executable"
-        return $?
-    fi
-    
-    # Xcode 10.2.1
-    executable="./.build/x86_64-apple-macosx/release/$MIXBOX_CI_BUILD_EXECUTABLE"
+    executable="./.build/release/$MIXBOX_CI_BUILD_EXECUTABLE"
     if [ -x "$executable" ]
     then
         echo "Executing $executable"

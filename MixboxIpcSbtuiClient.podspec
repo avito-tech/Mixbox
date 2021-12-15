@@ -12,12 +12,9 @@ Mixbox::FrameworkSpec.new do |s|
   s.dependency 'MixboxUiTestsFoundation'
   
   s.framework = "XCTest"
-  
-  s.user_target_xcconfig = {
-    'FRAMEWORK_SEARCH_PATHS' => '$(PLATFORM_DIR)/Developer/Library/Frameworks'
-  }
-  
-  s.xcconfig = {
-    'ENABLE_TESTING_SEARCH_PATHS' => 'YES'
+
+  s.pod_target_xcconfig = {
+    'ENABLE_TESTING_SEARCH_PATHS' => 'YES',
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'
   }
 end

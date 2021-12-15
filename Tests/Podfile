@@ -62,6 +62,7 @@ target 'GrayBoxUiTests' do
   
   # Code being tested:
   mixbox.pod 'MixboxGray'
+  mixbox.pod 'MixboxTestsFoundation'
   
   # Helpers:
   mixbox.pod 'MixboxStubbing'
@@ -75,6 +76,7 @@ target 'BlackBoxUiTests' do
   
   # Code being tested:
   mixbox.pod 'MixboxBlack'
+  mixbox.pod 'MixboxTestsFoundation'
   
   # Helpers:
   mixbox.pod 'MixboxMocksRuntime'
@@ -87,6 +89,7 @@ target 'UnitTests' do
   platform :ios, '9.0'
   
   mixbox.pod_all_ios
+  mixbox.pod 'MixboxTestsFoundation'
   
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
@@ -103,6 +106,7 @@ target 'HostedAppLogicTests' do
   platform :ios, '9.0'
   
   mixbox.pod_all_ios
+  mixbox.pod 'MixboxTestsFoundation'
   
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
