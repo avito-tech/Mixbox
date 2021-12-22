@@ -29,18 +29,18 @@ SOFT_LINK(
            uint32_t contextID,
            uint8_t systemGestureisPossible,
            uint8_t isSystemGestureStateChangeEvent,
-           CFStringRef displayUUID,
-           CFTimeInterval initialTouchTimestamp,
-           float maxForce
+           CFStringRef displayUUID
+//           CFTimeInterval initialTouchTimestamp,
+//           float maxForce
            ),
           (
            digitizerEvent,
            contextID,
            systemGestureisPossible,
            isSystemGestureStateChangeEvent,
-           displayUUID,
-           initialTouchTimestamp,
-           maxForce
+           displayUUID
+//           initialTouchTimestamp,
+//           maxForce
            )
           );
 
@@ -72,8 +72,10 @@ SOFT_LINK(
     
     if (contextId) {
         // Without the following line sent events were ignored by UIKit. It is very important.
-        BKSHIDEventSetDigitizerInfo(event, contextId, false, false, NULL, 0, 0);
-        [application _enqueueHIDEvent:event];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_MSEC * 500), dispatch_get_main_queue(), ^{
+            BKSHIDEventSetDigitizerInfo(event, contextId, false, false, NULL);
+            [application _enqueueHIDEvent:event];
+        });
         
         return nil;
     } else {
@@ -110,7 +112,7 @@ SOFT_LINK(
         auto contextId = application.keyWindow._contextId;
         
         if (contextId) {
-            BKSHIDEventSetDigitizerInfo(markerEvent, contextId, false, false, NULL, 0, 0);
+            BKSHIDEventSetDigitizerInfo(markerEvent, contextId, false, false, NULL);
             [application _enqueueHIDEvent:markerEvent];
         } else {
             completionBlock([self unexpectedZeroContextIdErrorMessage]);
