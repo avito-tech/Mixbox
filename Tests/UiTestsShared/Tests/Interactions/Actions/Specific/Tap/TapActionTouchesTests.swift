@@ -1,8 +1,46 @@
 import XCTest
+import UIKit
+
+class MyController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .red
+        
+        let subview = UIButton(type: .system)
+        subview.titleLabel?.text = "WINDOW BUTTON"
+        view.addSubview(subview)
+        subview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        subview.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+}
+
+class MyWindow: UIWindow {
+    init() {
+        super.init(frame: .zero)
+        rootViewController = MyController()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        return nil
+    }
+}
+
+var storeWindow: UIWindow?
 
 final class TapActionTouchesTests: BaseTouchesTestCase {
     func test___tap___produces_expected_touches() {
         do {
+            let window = MyWindow()
+            window.windowLevel = .normal + 1
+//            window.backgroundColor = .clear
+            window.isHidden = false
+            storeWindow = window
+            window.makeKeyAndVisible()
+            
             recordUiEvents {
                 screen.targetView.tap()
             }

@@ -111,9 +111,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                         runner: nil,
                         xcTestBundle: XcTestBundle(
                             location: TestBundleLocation(ResourceLocation.from(arguments.xctestBundle)),
-                            testDiscoveryMode: arguments.appPath == nil
-                                ? .runtimeLogicTest
-                                : .runtimeAppTest
+                            testDiscoveryMode: .parseFunctionSymbols
                         ),
                         additionalApplicationBundles: [] as [AdditionalAppBundleLocation]
                     ),

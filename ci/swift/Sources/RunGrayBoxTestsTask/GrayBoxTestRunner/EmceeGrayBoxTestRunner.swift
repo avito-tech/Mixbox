@@ -79,7 +79,7 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                 environment: environment(),
                 testType: .appTest,
-                testDiscoveryMode: .runtimeAppTest,
+                testDiscoveryMode: .parseFunctionSymbols,
                 priority: priority
             )
         )
