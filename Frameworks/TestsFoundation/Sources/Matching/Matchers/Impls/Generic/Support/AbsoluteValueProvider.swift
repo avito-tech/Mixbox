@@ -19,8 +19,3 @@ extension CGFloat: AbsoluteValueProvider {
         return abs(self)
     }
 }
-extension Float80: AbsoluteValueProvider {
-    public func absoluteValue() -> Float80 {
-        return abs(self)
-    }
-}

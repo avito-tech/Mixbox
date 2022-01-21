@@ -19,8 +19,3 @@ extension CGFloat: DoubleValueProvider {
         return Double(self)
     }
 }
-extension Float80: DoubleValueProvider {
-    public func doubleValue() -> Double {
-        return Double(self)
-    }
-}

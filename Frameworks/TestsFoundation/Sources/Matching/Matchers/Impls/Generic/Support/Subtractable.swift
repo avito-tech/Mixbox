@@ -19,8 +19,3 @@ extension CGFloat: Subtractable {
         return self - other
     }
 }
-extension Float80: Subtractable {
-    public func bySubtracting(_ other: Float80) -> Float80 {
-        return self - other
-    }
-}

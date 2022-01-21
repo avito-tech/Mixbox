@@ -19,8 +19,3 @@ extension CGFloat: Divisible {
         return self / other
     }
 }
-extension Float80: Divisible {
-    public func byDividing(_ other: Float80) -> Float80 {
-        return self / other
-    }
-}

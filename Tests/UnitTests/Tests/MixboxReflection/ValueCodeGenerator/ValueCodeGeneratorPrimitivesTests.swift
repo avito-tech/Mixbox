@@ -48,15 +48,6 @@ final class ValueCodeGeneratorPrimitivesTests: BaseValueCodeGeneratorTests {
         )
     }
     
-    func test___generateCode___generates_code___for_Float80() {
-        check(
-            Float80(1.0),
-            """
-            Float80(1.0)
-            """
-        )
-    }
-    
     func test___generateCode___generates_code___for_CGFloat() {
         check(
             CGFloat(1.0),
