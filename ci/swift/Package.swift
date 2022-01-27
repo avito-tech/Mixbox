@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 // swiftlint:disable trailing_comma file_length
 
 // This file is generated via MakePackage python code. Do not modify it.
@@ -8,7 +8,7 @@ import PackageDescription
 let package = Package(
     name: "MixboxSwiftCI",
     platforms: [
-        .macOS(.v10_15),
+        .macOS(.v11),
     ],
     products: [
         .executable(
@@ -88,7 +88,7 @@ let package = Package(
         .package(
             name: "EmceeTestRunner",
             url: "https://github.com/avito-tech/Emcee", 
-            .revision("9c901aa0ec6ab82a7f759b0fadbcdc18351b564e")
+            .revision("312b38ba3de954ee880521f52be792c9c7fff3bc")
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
@@ -127,32 +127,12 @@ let package = Package(
                 "CiFoundation",
                 "Cocoapods",
                 "Git",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
         .target(
             name: "Tasks",
             dependencies: [
-            ]
-        ),
-        .target(
-            name: "Di",
-            dependencies: [
-                "Bash",
-                "Brew",
-                "Bundler",
-                "CiFoundation",
-                "Cocoapods",
-                "Destinations",
-                "Dip",
-                "Emcee",
-                "Git",
-                "Releases",
-                "RemoteFiles",
-                "Simctl",
-                "SingletonHell",
-                "Tasks",
-                "Xcodebuild",
-                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
         .target(
@@ -205,6 +185,7 @@ let package = Package(
                 "SingletonHell",
                 "Tasks",
                 "Xcodebuild",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
         .target(
@@ -298,6 +279,27 @@ let package = Package(
             ]
         ),
         .target(
+            name: "CiDi",
+            dependencies: [
+                "Bash",
+                "Brew",
+                "Bundler",
+                "CiFoundation",
+                "Cocoapods",
+                "Destinations",
+                "Dip",
+                "Emcee",
+                "Git",
+                "Releases",
+                "RemoteFiles",
+                "Simctl",
+                "SingletonHell",
+                "Tasks",
+                "Xcodebuild",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
+            ]
+        ),
+        .target(
             name: "Bash",
             dependencies: [
                 "CiFoundation",
@@ -306,7 +308,7 @@ let package = Package(
         .target(
             name: "BuildDsl",
             dependencies: [
-                "Di",
+                "CiDi",
                 "Dip",
                 "Tasks",
                 "TeamcityDi",
@@ -363,6 +365,7 @@ let package = Package(
                 "SingletonHell",
                 "Tasks",
                 "Xcodebuild",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
         .target(
@@ -388,10 +391,10 @@ let package = Package(
             name: "TeamcityDi",
             dependencies: [
                 "Bundler",
+                "CiDi",
                 "CiFoundation",
                 "Cocoapods",
                 "Destinations",
-                "Di",
                 "Dip",
                 "Emcee",
                 "RemoteFiles",
@@ -404,8 +407,8 @@ let package = Package(
             name: "TravisDi",
             dependencies: [
                 "Bundler",
+                "CiDi",
                 "CiFoundation",
-                "Di",
                 "Dip",
                 "Tasks",
             ]
@@ -445,6 +448,7 @@ let package = Package(
                 "Bash",
                 "Bundler",
                 "CiFoundation",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
         .target(

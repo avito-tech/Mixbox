@@ -1,6 +1,6 @@
 import Cocoapods
 import Git
-import Extensions
+import EmceeExtensions
 import CiFoundation
 
 public final class MixboxPodspecsPusherImpl: MixboxPodspecsPusher {

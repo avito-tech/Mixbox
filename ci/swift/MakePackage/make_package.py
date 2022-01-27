@@ -7,7 +7,7 @@ import re
 swift_ci_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
 def emcee_commit_hash():
-    return '9c901aa0ec6ab82a7f759b0fadbcdc18351b564e'
+    return '312b38ba3de954ee880521f52be792c9c7fff3bc'
 
 def comment_saying_that_this_file_is_code_generated():
     return 'This file is generated via MakePackage python code. Do not modify it.' 
@@ -20,7 +20,7 @@ def generate_all():
     )
     generate(
         template_name="EmceeVersionProviderImpl.swift.template",
-        output_file_name="Sources/Di/Emcee/EmceeVersionProviderImpl.swift",
+        output_file_name="Sources/CiDi/Emcee/EmceeVersionProviderImpl.swift",
         dict_to_render=get_dict_to_render_for_emcee_version_provider()
     )
         
@@ -79,7 +79,8 @@ def get_targets():
         'TestArgFile',
         'TestDiscovery',
         'TypedResourceLocation',
-        'WorkerCapabilitiesModels'
+        'WorkerCapabilitiesModels',
+        'EmceeExtensions'
     ]
     
     external_product_by_module_name = {

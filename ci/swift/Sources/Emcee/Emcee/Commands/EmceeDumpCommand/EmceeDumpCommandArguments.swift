@@ -1,24 +1,22 @@
 import TestArgFile
 import Foundation
+import BuildArtifacts
 
 public final class EmceeDumpCommandArguments {
     public let jobId: String
-    public let xctestBundle: String
+    public let iosBuildArtifacts: IosBuildArtifacts
     public let testDestinationConfigurations: [TestDestinationConfiguration]
-    public let appPath: String?
     public let tempFolder: String
     
     public init(
         jobId: String,
-        xctestBundle: String,
+        iosBuildArtifacts: IosBuildArtifacts,
         testDestinationConfigurations: [TestDestinationConfiguration],
-        appPath: String?,
         tempFolder: String)
     {
         self.jobId = jobId
-        self.xctestBundle = xctestBundle
+        self.iosBuildArtifacts = iosBuildArtifacts
         self.testDestinationConfigurations = testDestinationConfigurations
-        self.appPath = appPath
         self.tempFolder = tempFolder
     }
 }

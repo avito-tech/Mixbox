@@ -5,6 +5,8 @@ import Bash
 import SingletonHell
 import RemoteFiles
 import Destinations
+import BuildArtifacts
+import ResourceLocation
 
 public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
     private let emceeProvider: EmceeProvider
@@ -72,14 +74,15 @@ public final class EmceeGrayBoxTestRunner: GrayBoxTestRunner {
     {
         return try testArgFileJsonGenerator.testArgFile(
             arguments: TestArgFileGeneratorArguments(
-                runnerPath: nil,
-                appPath: appPath,
-                additionalAppPaths: [],
-                xctestBundlePath: xctestBundle,
+                iosBuildArtifacts: IosBuildArtifacts.iosApplicationTests(
+                    xcTestBundle: XcTestBundle(
+                        location: TestBundleLocation(ResourceLocation.localFilePath(xctestBundle)),
+                        testDiscoveryMode: .parseFunctionSymbols
+                    ),
+                    appBundle: AppBundleLocation(ResourceLocation.localFilePath(appPath))
+                ),
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                 environment: environment(),
-                testType: .appTest,
-                testDiscoveryMode: .runtimeAppTest,
                 priority: priority
             )
         )

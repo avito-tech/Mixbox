@@ -56,22 +56,6 @@ spm_generate_xcodeproj() {
         && swift package generate-xcodeproj --enable-code-coverage
 }
 
-# Prevents the following error:
-# `Compiling for macOS 10.13, but module 'AtomicModels' has a minimum deployment target of macOS 10.14: /some/path/AtomicModels.framework/Modules/AtomicModels.swiftmodule/x86_64-apple-macos.swiftmodule`
-# TODO: Fix SPM in Emcee?
-spm_patch_macosx_deployment_target() {  
-    local xcodeproj_relative=`ls -1|grep ".xcodeproj"`
-    local pbxproj_absolute=$SCRIPT_ROOT/$xcodeproj_relative/project.pbxproj
-    local temporary_file=/tmp/`uuidgen`
-    
-    cat "$pbxproj_absolute" \
-        | perl -pe 's/MACOSX_DEPLOYMENT_TARGET = "10.13"/MACOSX_DEPLOYMENT_TARGET = "10.14"/' \
-        > "$temporary_file"
-    
-    rm "$pbxproj_absolute"
-    mv "$temporary_file" "$pbxproj_absolute"
-}
-
 spm_clean_project() {
     swift package clean
     swift package reset
@@ -85,7 +69,6 @@ spm_build_project() {
     args=( \
         swift build \
         -c release \
-        --triple "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET" \
     )
     
     if ! [ -z "$product" ]
@@ -97,14 +80,12 @@ spm_build_project() {
 }
 
 spm_test_project() {
-    swift test \
-        --triple "$__MIXBOX_CI_MACOS_DEPLOYMENT_TARGET"
+    swift test --triple
 }
 
 spm_make_file_main() {
     local action=$1
     
-    __MIXBOX_CI_MACOS_DEPLOYMENT_TARGET=x86_64-apple-macosx11.0
     cd "$SCRIPT_ROOT"
 
     case "$action" in

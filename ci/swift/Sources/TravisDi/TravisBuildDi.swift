@@ -1,6 +1,6 @@
 import Dip
 import Tasks
-import Di
+import CiDi
 import Bundler
 
 public final class TravisBuildDi: CommonDi {

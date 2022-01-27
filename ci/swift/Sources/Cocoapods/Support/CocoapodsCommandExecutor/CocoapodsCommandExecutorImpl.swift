@@ -1,7 +1,7 @@
 import Bundler
 import Bash
 import CiFoundation
-import Extensions
+import EmceeExtensions
 
 public final class CocoapodsCommandExecutorImpl: CocoapodsCommandExecutor {
     private let bundledProcessExecutor: BundledProcessExecutor

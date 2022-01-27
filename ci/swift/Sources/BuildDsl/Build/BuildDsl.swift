@@ -1,5 +1,5 @@
 import Tasks
-import Di
+import CiDi
 import TeamcityDi
 import TravisDi
 import Dip

@@ -11,6 +11,7 @@ import SingletonHell
 import LoggingSetup
 import WorkerCapabilitiesModels
 import MetricsExtensions
+import ScheduleStrategy
 
 public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let temporaryFileProvider: TemporaryFileProvider
@@ -99,42 +100,30 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         return jsonPath
     }
     
-    // swiftlint:disable:next function_body_length
     private func asStrings(arguments: EmceeDumpCommandArguments, jsonPath: String) throws -> [String] {
         let testArgFile = TestArgFile(
             entries: [
                 try TestArgFileEntry(
-                    buildArtifacts: BuildArtifacts(
-                        appBundle: arguments.appPath.map {
-                            AppBundleLocation(try ResourceLocation.from($0))
-                        },
-                        runner: nil,
-                        xcTestBundle: XcTestBundle(
-                            location: TestBundleLocation(ResourceLocation.from(arguments.xctestBundle)),
-                            testDiscoveryMode: arguments.appPath == nil
-                                ? .runtimeLogicTest
-                                : .runtimeAppTest
-                        ),
-                        additionalApplicationBundles: [] as [AdditionalAppBundleLocation]
-                    ),
+                    buildArtifacts: arguments.iosBuildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: [:],
+                    userInsertedLibraries: [],
                     numberOfRetries: 5,
-                    pluginLocations: Set(),
-                    scheduleStrategy: .progressive,
-                    simulatorControlTool: SimulatorControlTool(
-                        location: .insideUserLibrary,
-                        tool: .simctl
+                    testRetryMode: .retryThroughQueue,
+                    logCapturingMode: .noLogs,
+                    runnerWasteCleanupPolicy: .clean,
+                    pluginLocations: [],
+                    scheduleStrategy: ScheduleStrategy(
+                        testSplitterType: .progressive
                     ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,
-                    testRunnerTool: .xcodebuild,
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
                     ),
-                    testType: TestType.logicTest,
+                    testAttachmentLifetime: .keepNever,
                     testsToRun: [],
                     workerCapabilityRequirements: []
                 )

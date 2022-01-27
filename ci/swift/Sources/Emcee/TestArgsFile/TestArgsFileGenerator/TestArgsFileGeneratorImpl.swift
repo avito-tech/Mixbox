@@ -12,6 +12,7 @@ import TypedResourceLocation
 import LoggingSetup
 import WorkerCapabilitiesModels
 import MetricsExtensions
+import ScheduleStrategy
 
 public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeProvider: EmceeProvider
@@ -58,9 +59,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     testDestinationConfigurations: testDestinationConfigurations
                 )
             ),
-            buildArtifacts: try buildArtifacts(arguments: arguments),
+            iosBuildArtifacts: arguments.iosBuildArtifacts,
             environment: arguments.environment,
-            testType: arguments.testType,
             priority: arguments.priority
         )
     }
@@ -87,9 +87,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private func testArgFile(
         testDestinationConfigurations: [TestDestinationConfiguration],
         testsToRun: [TestToRun],
-        buildArtifacts: BuildArtifacts,
+        iosBuildArtifacts: IosBuildArtifacts,
         environment: [String: String],
-        testType: TestType,
         priority: UInt)
         throws
         -> TestArgFile
@@ -97,25 +96,26 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         return TestArgFile(
             entries: try testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFileEntry in
                 try TestArgFileEntry(
-                    buildArtifacts: buildArtifacts,
+                    buildArtifacts: iosBuildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: environment,
+                    userInsertedLibraries: [],
                     numberOfRetries: 4,
-                    pluginLocations: Set(),
-                    scheduleStrategy: .progressive,
-                    simulatorControlTool: SimulatorControlTool(
-                        location: .insideUserLibrary,
-                        tool: .simctl
+                    testRetryMode: .retryThroughQueue,
+                    logCapturingMode: .noLogs,
+                    runnerWasteCleanupPolicy: .clean,
+                    pluginLocations: [],
+                    scheduleStrategy: ScheduleStrategy(
+                        testSplitterType: .progressive
                     ),
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,
-                    testRunnerTool: .xcodebuild,
                     testTimeoutConfiguration: TestTimeoutConfiguration(
                         singleTestMaximumDuration: 420,
                         testRunnerMaximumSilenceDuration: 420
                     ),
-                    testType: testType,
+                    testAttachmentLifetime: .keepNever,
                     testsToRun: testsToRun,
                     workerCapabilityRequirements: []
                 )
@@ -131,24 +131,6 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         )
     }
     
-    private func buildArtifacts(
-        arguments: TestArgFileGeneratorArguments)
-        throws
-        -> BuildArtifacts
-    {
-        return BuildArtifacts(
-            appBundle: try upload(path: arguments.appPath),
-            runner: try uploadOptional(path: arguments.runnerPath),
-            xcTestBundle: XcTestBundle(
-                location: try upload(path: arguments.xctestBundlePath),
-                testDiscoveryMode: arguments.testDiscoveryMode
-            ),
-            additionalApplicationBundles: try arguments.additionalAppPaths.map { additionalAppPath in
-                try upload(path: additionalAppPath)
-            }
-        )
-    }
-    
     private func runtimeDump(
         arguments: TestArgFileGeneratorArguments,
         testDestinationConfigurations: [TestDestinationConfiguration])
@@ -157,25 +139,11 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     {
         let emcee = try emceeProvider.emcee()
         
-        let appPathDumpArgument: String?
-        
-        switch arguments.testDiscoveryMode {
-        case .runtimeAppTest:
-            appPathDumpArgument = arguments.appPath
-        case .runtimeLogicTest:
-            appPathDumpArgument = nil
-        case .parseFunctionSymbols:
-            throw ErrorString("parseFunctionSymbols mode is not supported")
-        case .runtimeExecutableLaunch:
-            throw ErrorString("runtimeExecutableLaunch mode is not supported")
-        }
-        
         return try emcee.dump(
             arguments: EmceeDumpCommandArguments(
                 jobId: UUID().uuidString,
-                xctestBundle: arguments.xctestBundlePath,
+                iosBuildArtifacts: arguments.iosBuildArtifacts,
                 testDestinationConfigurations: testDestinationConfigurations,
-                appPath: appPathDumpArgument,
                 tempFolder: temporaryFileProvider.temporaryFilePath()
             )
         )

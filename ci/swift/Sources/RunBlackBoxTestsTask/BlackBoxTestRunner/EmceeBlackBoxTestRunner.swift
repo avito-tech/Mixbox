@@ -5,6 +5,8 @@ import Bash
 import SingletonHell
 import RemoteFiles
 import Destinations
+import BuildArtifacts
+import ResourceLocation
 
 public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     private let emceeProvider: EmceeProvider
@@ -78,14 +80,27 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     {
         return try testArgFileJsonGenerator.testArgFile(
             arguments: TestArgFileGeneratorArguments(
-                runnerPath: runnerPath,
-                appPath: appPath,
-                additionalAppPaths: additionalAppPaths,
-                xctestBundlePath: xctestBundle,
+                iosBuildArtifacts: IosBuildArtifacts.iosUiTests(
+                    xcTestBundle: XcTestBundle(
+                        location: TestBundleLocation(
+                            ResourceLocation.localFilePath(xctestBundle)
+                        ),
+                        testDiscoveryMode: .parseFunctionSymbols
+                    ),
+                    appBundle: AppBundleLocation(
+                        ResourceLocation.localFilePath(appPath)
+                    ),
+                    runner: RunnerAppLocation(
+                        ResourceLocation.localFilePath(runnerPath)
+                    ),
+                    additionalApplicationBundles: additionalAppPaths.map {
+                        AdditionalAppBundleLocation(
+                            ResourceLocation.localFilePath($0)
+                        )
+                    }
+                ),
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
                 environment: environment(),
-                testType: .uiTest,
-                testDiscoveryMode: .runtimeLogicTest,
                 priority: priority
             )
         )

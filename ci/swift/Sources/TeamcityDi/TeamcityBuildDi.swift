@@ -5,7 +5,7 @@ import CiFoundation
 import SingletonHell
 import Emcee
 import Cocoapods
-import Di
+import CiDi
 import Bundler
 
 public final class TeamcityBuildDi: CommonDi {
