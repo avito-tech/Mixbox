@@ -1,19 +1,17 @@
 import Bash
 
 public final class SimctlBootImpl: SimctlBoot {
-    private let bashExecutor: BashExecutor
+    private let simctlExecutor: SimctlExecutor
     
     public init(
-        bashExecutor: BashExecutor)
+        simctlExecutor: SimctlExecutor)
     {
-        self.bashExecutor = bashExecutor
+        self.simctlExecutor = simctlExecutor
     }
     
     public func boot(device: String) throws {
-        _ = try bashExecutor.executeOrThrow(
-            command: """
-            xcrun simctl boot "\(device)"
-            """
+        _ = try simctlExecutor.execute(
+            arguments: ["boot", device]
         )
     }
 }

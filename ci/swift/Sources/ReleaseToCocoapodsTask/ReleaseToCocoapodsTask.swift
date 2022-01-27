@@ -11,8 +11,6 @@ import Git
 import Releases
 
 public final class ReleaseToCocoapodsTask: LocalTask {
-    public let name = "ReleaseToCocoapodsTask"
-    
     private let headCommitHashProvider: HeadCommitHashProvider
     private let nextReleaseVersionProvider: NextReleaseVersionProvider
     private let beforeReleaseTagsSetter: BeforeReleaseTagsSetter

@@ -14,7 +14,6 @@ public final class MacosProjectBuilderImpl: MacosProjectBuilder {
         -> XcodebuildResult
     {
         return try xcodebuild.build(
-            xcodebuildPipeFilter: "tee",
             projectDirectoryFromRepoRoot: projectDirectoryFromRepoRoot,
             action: action,
             workspaceName: workspaceName,

@@ -23,26 +23,12 @@ public final class GitCommandExecutorImpl: GitCommandExecutor {
     {
         let arguments = ["/usr/bin/git"] + arguments
         
-        let result = try processExecutor.execute(
+        let result = try processExecutor.executeOrThrow(
             arguments: arguments,
             currentDirectory: try repoRootProvider.repoRootPath(),
             environment: environmentProvider.environment,
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
+            outputHandling: .ignore
         )
-        
-        if result.code != 0 {
-            let argumentsAsString = arguments.joined(separator: " ")
-            throw ErrorString(
-                """
-                Failed to execute "\(argumentsAsString)" with exit code \(result.code)
-                Stderr:
-                \(result.stderr.utf8String() ?? "")
-                Stdout:
-                \(result.stdout.utf8String() ?? "")
-                """
-            )
-        }
         
         return try result.stdout.trimmedUtf8String().unwrapOrThrow()
     }

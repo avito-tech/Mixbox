@@ -3,8 +3,6 @@ import Releases
 import Tasks
 
 public final class ManagePodOwnersTask: LocalTask {
-    public let name = "ManagePodOwnersTask"
-    
     private let cocoapodsTrunkInfo: CocoapodsTrunkInfo
     private let cocoapodsTrunkAddOwner: CocoapodsTrunkAddOwner
     private let cocoapodsTrunkRemoveOwner: CocoapodsTrunkRemoveOwner

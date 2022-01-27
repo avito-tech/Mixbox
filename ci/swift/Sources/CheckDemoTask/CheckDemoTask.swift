@@ -7,8 +7,6 @@ import Destinations
 import Bundler
 
 public final class CheckDemoTask: LocalTask {
-    public let name = "CheckDemoTask"
-    
     private let bashExecutor: BashExecutor
     private let iosProjectBuilder: IosProjectBuilder
     private let environmentProvider: EnvironmentProvider
@@ -33,18 +31,6 @@ public final class CheckDemoTask: LocalTask {
     }
     
     public func execute() throws {
-        let reportsPath = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_REPORTS_PATH)
-        
-        let xcodebuildPipeFilter = bashEscapedCommandMaker.escapedCommand(
-            arguments: [
-                "bash",
-                "-c",
-                try bundlerBashCommandGenerator.bashCommandRunningCommandBundler(
-                    arguments: ["xcpretty", "-r", "junit", "-o", "\(reportsPath)/junit.xml"]
-                )
-            ]
-        )
-        
         try iosProjectBuilder.withPreparationAndCleanup(
             rebootSimulator: true,
             destination: try mixboxTestDestinationProvider.mixboxTestDestination(),
@@ -54,8 +40,7 @@ public final class CheckDemoTask: LocalTask {
                     action: .build,
                     scheme: "Demo",
                     workspaceName: "UiTestsDemo",
-                    destination: destination,
-                    xcodebuildPipeFilter: "cat"
+                    destination: destination
                 )
                 
                 _ = try builder.build(
@@ -63,8 +48,7 @@ public final class CheckDemoTask: LocalTask {
                     action: .test,
                     scheme: "BlackBoxTests",
                     workspaceName: "UiTestsDemo",
-                    destination: destination,
-                    xcodebuildPipeFilter: xcodebuildPipeFilter
+                    destination: destination
                 )
                 
                 _ = try builder.build(
@@ -72,8 +56,7 @@ public final class CheckDemoTask: LocalTask {
                     action: .test,
                     scheme: "GrayBoxTests",
                     workspaceName: "UiTestsDemo",
-                    destination: destination,
-                    xcodebuildPipeFilter: xcodebuildPipeFilter
+                    destination: destination
                 )
             }
         )

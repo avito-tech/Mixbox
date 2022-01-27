@@ -4,3 +4,9 @@ public protocol LocalTask {
     
     func execute() throws
 }
+
+extension LocalTask {
+    public var name: String {
+        String(describing: type(of: self))
+    }
+}

@@ -3,24 +3,21 @@ import Foundation
 import Bash
 
 public final class SimctlCreateImpl: SimctlCreate {
-    private let bashExecutor: BashExecutor
+    private let simctlExecutor: SimctlExecutor
     
     public init(
-        bashExecutor: BashExecutor)
+        simctlExecutor: SimctlExecutor)
     {
-        self.bashExecutor = bashExecutor
+        self.simctlExecutor = simctlExecutor
     }
     
     public func create(
         name: String,
         deviceTypeIdentifier: String,
-        runtimeId: String)
-        throws
-    {
-        _ = try bashExecutor.executeOrThrow(
-            command: """
-            xcrun simctl create "\(name)" "\(deviceTypeIdentifier)" "\(runtimeId)"
-            """
+        runtimeId: String
+    ) throws {
+        _ = try simctlExecutor.execute(
+            arguments: ["create", name, deviceTypeIdentifier, runtimeId]
         )
     }
 }

@@ -7,8 +7,6 @@ import Git
 import SingletonHell
 
 public final class StaticChecksTask: LocalTask {
-    public let name = "StaticChecksTask"
-    
     private let swiftLint: SwiftLint
     private let conditionalCompilationClausesChecker: ConditionalCompilationClausesChecker
     

@@ -11,8 +11,6 @@ import Git
 import Releases
 
 public final class CheckReleaseToCocoapodsTask: LocalTask {
-    public let name = "CheckReleaseToCocoapodsTask"
-    
     private let headCommitHashProvider: HeadCommitHashProvider
     private let nextReleaseVersionProvider: NextReleaseVersionProvider
     private let gitTagAdder: GitTagAdder

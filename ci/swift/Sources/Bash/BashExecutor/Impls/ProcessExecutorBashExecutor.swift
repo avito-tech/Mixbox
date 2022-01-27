@@ -17,11 +17,8 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
         command: String,
         currentDirectory: String?,
         environment bashExecutorEnvironment: BashExecutorEnvironment,
-        stdoutDataHandler: @escaping (Data) -> (),
-        stderrDataHandler: @escaping (Data) -> ())
-        throws
-        -> BashResult
-    {
+        outputHandling: ProcessExecutorOutputHandling
+    ) throws -> BashResult {
         let environment: [String: String]
             
         switch bashExecutorEnvironment {
@@ -35,8 +32,7 @@ public final class ProcessExecutorBashExecutor: BashExecutor {
             arguments: ["/bin/bash", "-l", "-c", command],
             currentDirectory: currentDirectory,
             environment: environment,
-            stdoutDataHandler: stdoutDataHandler,
-            stderrDataHandler: stderrDataHandler
+            outputHandling: outputHandling
         )
         
         return BashResult(

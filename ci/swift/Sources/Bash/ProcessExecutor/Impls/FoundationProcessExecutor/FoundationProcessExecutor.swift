@@ -9,8 +9,7 @@ public final class FoundationProcessExecutor: ProcessExecutor {
         arguments: [String],
         currentDirectory: String?,
         environment: [String: String],
-        stdoutDataHandler: @escaping (Data) -> (),
-        stderrDataHandler: @escaping (Data) -> ())
+        outputHandling: ProcessExecutorOutputHandling)
         throws
         -> ProcessResult
     {
@@ -45,8 +44,8 @@ public final class FoundationProcessExecutor: ProcessExecutor {
             arguments: arguments,
             currentDirectory: currentDirectory,
             environment: environment,
-            stdoutDataHandler: stdoutDataHandler,
-            stderrDataHandler: stderrDataHandler
+            stdoutDataHandler: outputHandling.stdoutDataHandler,
+            stderrDataHandler: outputHandling.stderrDataHandler
         )
         
         process.execute()
