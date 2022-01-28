@@ -29,7 +29,7 @@ public final class RunGrayBoxTestsTask: LocalTask {
                 )
             },
             additionalEnvironment: [
-                Env.MIXBOX_IPC_STARTER_TYPE.rawValue: "graybox",
+                Env.MIXBOX_IPC_STARTER_TYPE.rawValue: "graybox"
             ]
         )
     }

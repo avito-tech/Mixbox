@@ -95,7 +95,7 @@ public final class EmceeTestRunner: TestRunner {
         
         environment.merge(
             additionalEnvironment,
-            uniquingKeysWith: { old, additional in
+            uniquingKeysWith: { _, additional in
                 additional
             }
         )
