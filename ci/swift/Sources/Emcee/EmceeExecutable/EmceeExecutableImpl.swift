@@ -15,24 +15,11 @@ public final class EmceeExecutableImpl: EmceeExecutable {
     }
     
     public func execute(command: String, arguments: [String]) throws {
-        let result = try processExecutor.execute(
+        _ = try processExecutor.executeOrThrow(
             arguments: [executablePath, command] + arguments,
             currentDirectory: nil,
             environment: [:],
-            stdoutDataHandler: { data in
-                FileHandle.standardOutput.write(data)
-            },
-            stderrDataHandler: { data in
-                FileHandle.standardError.write(data)
-            }
+            outputHandling: .bypass
         )
-        
-        if result.code != 0 {
-            throw ErrorString(
-                """
-                Emcee failed to execute command "\(command)" with exit code \(result.code)"
-                """
-            )
-        }
     }
 }

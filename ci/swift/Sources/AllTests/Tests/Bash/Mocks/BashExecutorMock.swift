@@ -33,11 +33,8 @@ final class BashExecutorMock: BashExecutor {
         command: String,
         currentDirectory: String?,
         environment: BashExecutorEnvironment,
-        stdoutDataHandler: @escaping (Data) -> (),
-        stderrDataHandler: @escaping (Data) -> ())
-        throws
-        -> BashResult
-    {
+        outputHandling: ProcessExecutorOutputHandling
+    ) throws -> BashResult {
         executedCommands.append(command)
         
         return bashResult

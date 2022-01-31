@@ -60,8 +60,7 @@ public final class SwiftLintImpl: SwiftLint {
             arguments: [setUpSwiftLint.swiftlintScriptPath],
             currentDirectory: setUpSwiftLint.sourcesToLintPath,
             environment: [:],
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
+            outputHandling: .ignore
         )
     }
     

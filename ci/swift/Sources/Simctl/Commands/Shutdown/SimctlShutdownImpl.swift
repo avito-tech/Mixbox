@@ -1,19 +1,17 @@
 import Bash
 
 public final class SimctlShutdownImpl: SimctlShutdown {
-    private let bashExecutor: BashExecutor
+    private let simctlExecutor: SimctlExecutor
     
     public init(
-        bashExecutor: BashExecutor)
+        simctlExecutor: SimctlExecutor)
     {
-        self.bashExecutor = bashExecutor
+        self.simctlExecutor = simctlExecutor
     }
     
     public func shutdown(device: String) throws {
-        _ = try bashExecutor.executeOrThrow(
-            command: """
-            xcrun simctl shutdown "\(device)"
-            """
+        _ = try simctlExecutor.execute(
+            arguments: ["shutdown", device]
         )
     }
 }

@@ -29,14 +29,12 @@ public final class IosProjectBuilderImpl: IosProjectBuilder {
         action: XcodebuildAction,
         scheme: String,
         workspaceName: String,
-        destination: MixboxTestDestination,
-        xcodebuildPipeFilter: String)
+        destination: MixboxTestDestination)
         throws
         -> XcodebuildResult
     {
         try buildWithRetries {
             try xcodebuild.build(
-               xcodebuildPipeFilter: xcodebuildPipeFilter,
                projectDirectoryFromRepoRoot: projectDirectoryFromRepoRoot,
                action: action,
                workspaceName: workspaceName,

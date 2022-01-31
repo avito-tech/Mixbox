@@ -7,7 +7,7 @@ module Mixbox
     def initialize()
       super()
       
-      mixbox_version = get_mixbox_version
+      mixbox_version = MixboxVersionProvider.get_mixbox_version
       
       attributes_hash['module_name'] = self.name
       attributes_hash['version'] = mixbox_version
@@ -36,25 +36,6 @@ module Mixbox
       end
     end
     
-    def get_mixbox_version()
-      # Can be used to avoid unnecessary changes in Podfile.lock (if development pods are used)
-      if ENV["MIXBOX_SET_VERSION_TO_001"] == "true"
-        return "0.0.1"
-      end
-      
-      # This code:
-      # 1. Gets all revisions as tags
-      # 2. Filters only version tags
-      # 3. Gets first (latest) version tag.
-      # The fallback value is 0.0.1
-      return %x(
-        git describe --always --abbrev=0 --tags `git rev-list --tags` | \
-        grep -oE "^[0-9]+\.[0-9]+\.[0-9]+$" | \
-        head -1 2>/dev/null \
-        || echo 0.0.1
-      ).strip
-    end
-    
     def get_source_files_mask()
       return '*.{swift,h,m,mm,c}'
     end
@@ -77,6 +58,33 @@ module Mixbox
     
     def get_framework_folder_name()
       return self.name.sub(/^Mixbox/, '')
+    end
+  end
+  
+  class MixboxVersionProvider
+    @@cached_version = nil
+    
+    def self.get_mixbox_version()
+      # Can be used to avoid unnecessary changes in Podfile.lock (if development pods are used)
+      if ENV["MIXBOX_SET_VERSION_TO_001"] == "true"
+        return "0.0.1"
+      end
+      
+      if not @@cached_version
+        # This code:
+        # 1. Gets all revisions as tags
+        # 2. Filters only version tags
+        # 3. Gets first (latest) version tag.
+        # The fallback value is 0.0.1
+        @@cached_version = %x(
+          git describe --always --abbrev=0 --tags `git rev-list --tags` | \
+          grep -oE "^[0-9]+\.[0-9]+\.[0-9]+$" | \
+          head -1 2>/dev/null \
+          || echo 0.0.1
+        ).strip
+      end
+      
+      @@cached_version
     end
   end
 end

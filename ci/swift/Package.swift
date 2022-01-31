@@ -176,16 +176,8 @@ let package = Package(
         .target(
             name: "RunBlackBoxTestsTask",
             dependencies: [
-                "Bash",
-                "Bundler",
-                "CiFoundation",
-                "Destinations",
-                "Emcee",
-                "RemoteFiles",
-                "SingletonHell",
                 "Tasks",
-                "Xcodebuild",
-                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
+                "TestRunning",
             ]
         ),
         .target(
@@ -316,6 +308,21 @@ let package = Package(
             ]
         ),
         .target(
+            name: "TestRunning",
+            dependencies: [
+                "Bash",
+                "Bundler",
+                "CiFoundation",
+                "Destinations",
+                "Emcee",
+                "RemoteFiles",
+                "SingletonHell",
+                "Tasks",
+                "Xcodebuild",
+                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
+            ]
+        ),
+        .target(
             name: "Simctl",
             dependencies: [
                 "Bash",
@@ -356,16 +363,8 @@ let package = Package(
         .target(
             name: "RunGrayBoxTestsTask",
             dependencies: [
-                "Bash",
-                "Bundler",
-                "CiFoundation",
-                "Destinations",
-                "Emcee",
-                "RemoteFiles",
-                "SingletonHell",
                 "Tasks",
-                "Xcodebuild",
-                .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
+                "TestRunning",
             ]
         ),
         .target(
@@ -400,6 +399,7 @@ let package = Package(
                 "RemoteFiles",
                 "SingletonHell",
                 "Tasks",
+                "TestRunning",
                 .product(name: "EmceeInterfaces", package: "EmceeTestRunner"),
             ]
         ),
@@ -484,15 +484,8 @@ let package = Package(
         .target(
             name: "RunUnitTestsTask",
             dependencies: [
-                "Bash",
-                "Bundler",
-                "CiFoundation",
-                "Cocoapods",
-                "Destinations",
-                "Git",
-                "SingletonHell",
                 "Tasks",
-                "Xcodebuild",
+                "TestRunning",
             ]
         ),
     ],

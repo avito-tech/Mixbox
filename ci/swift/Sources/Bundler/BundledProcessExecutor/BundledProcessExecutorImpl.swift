@@ -31,8 +31,7 @@ public final class BundledProcessExecutorImpl: BundledProcessExecutor {
             ),
             currentDirectory: currentDirectory,
             environment: environment.map { .custom($0) } ?? .current,
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in },
+            outputHandling: .ignore,
             shouldThrowOnNonzeroExitCode: shouldThrowOnNonzeroExitCode
         )
         

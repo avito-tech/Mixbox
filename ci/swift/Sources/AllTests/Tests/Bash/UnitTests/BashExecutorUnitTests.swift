@@ -34,8 +34,7 @@ final class BashExecutorUnitTests: XCTestCase {
                 command: command,
                 currentDirectory: "a",
                 environment: .custom(["b": "c"]),
-                stdoutDataHandler: { _ in },
-                stderrDataHandler: { _ in }
+                outputHandling: .ignore
             )
             
             // Then
@@ -72,8 +71,7 @@ final class BashExecutorUnitTests: XCTestCase {
                 command: anyString(),
                 currentDirectory: anyString(),
                 environment: .current,
-                stdoutDataHandler: { _ in },
-                stderrDataHandler: { _ in }
+                outputHandling: .ignore
             )
         } catch {
             XCTFail("\(error)")

@@ -6,22 +6,21 @@ import Git
 import Destinations
 import SingletonHell
 
-// Stupid implementation of xcodebuild derived from some stupid bash scripts
 public final class XcodebuildImpl: Xcodebuild {
-    private let bashExecutor: BashExecutor
+    private let processExecutor: ProcessExecutor
     private let derivedDataPathProvider: DerivedDataPathProvider
     private let cocoapodsInstall: CocoapodsInstall
     private let repoRootProvider: RepoRootProvider
     private let environmentProvider: EnvironmentProvider
     
     public init(
-        bashExecutor: BashExecutor,
+        processExecutor: ProcessExecutor,
         derivedDataPathProvider: DerivedDataPathProvider,
         cocoapodsInstall: CocoapodsInstall,
         repoRootProvider: RepoRootProvider,
         environmentProvider: EnvironmentProvider)
     {
-        self.bashExecutor = bashExecutor
+        self.processExecutor = processExecutor
         self.derivedDataPathProvider = derivedDataPathProvider
         self.cocoapodsInstall = cocoapodsInstall
         self.repoRootProvider = repoRootProvider
@@ -29,7 +28,6 @@ public final class XcodebuildImpl: Xcodebuild {
     }
     
     public func build(
-        xcodebuildPipeFilter: String,
         projectDirectoryFromRepoRoot: String,
         action: XcodebuildAction,
         workspaceName: String,
@@ -49,7 +47,9 @@ public final class XcodebuildImpl: Xcodebuild {
         try? FileManager.default.removeItem(atPath: derivedDataPath)
         try FileManager.default.createDirectory(atPath: derivedDataPath, withIntermediateDirectories: true, attributes: nil)
         
-        try cocoapodsInstall.install(projectDirectory: projectDirectory)
+        try cocoapodsInstall.install(
+            projectDirectory: projectDirectory
+        )
         
         let args = xcodebuildArgs(
             action: action,
@@ -60,26 +60,11 @@ public final class XcodebuildImpl: Xcodebuild {
             derivedDataPath: derivedDataPath
         )
         
-        let argsString = args.map { "\"\($0)\"" }.joined(separator: " ")
-        
-        _ = try bashExecutor.executeOrThrow(
-            command:
-            """
-            set -o pipefail
-            xcodebuild \(argsString) | \(xcodebuildPipeFilter)
-            """,
-            currentDirectory: projectDirectory
-        )
-        
-        // TODO: Try to remove? I think it is outdated.
-        _ = try? bashExecutor.executeOrThrow(
-            command: """
-            # Work around a bug when xcodebuild puts Build and Indexes folders to a pwd instead of dd/
-            
-            [ -d "Build" ] && echo "Moving Build/ -> \(derivedDataPath)/" && mv -f "Build" "\(derivedDataPath)" || true
-            [ -d "Index" ] && echo "Moving Index/ -> \(derivedDataPath)/" && mv -f "Index" "\(derivedDataPath)" || true
-            """,
-            currentDirectory: projectDirectory
+        _ = try processExecutor.executeOrThrow(
+            arguments: ["/usr/bin/xcodebuild"] + args,
+            currentDirectory: projectDirectory,
+            environment: environmentProvider.environment,
+            outputHandling: .bypass
         )
         
         return XcodebuildResult(derivedDataPath: derivedDataPath)

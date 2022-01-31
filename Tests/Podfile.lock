@@ -243,7 +243,7 @@ SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   Mixbox: e789fba3307115b0153e084432d4be1d07b0ffcc
   MixboxAnyCodable: fd0ff0d1478469c9042e19ffdcefe72572004cdf
-  MixboxBlack: 5af2a84d0b98c5c6fd2bfe3d18c87d12cd8523fc
+  MixboxBlack: 50a3e7f53a2c3ad5b8295f1b8c4e9fb523d4475f
   MixboxBuiltinDi: 016018c9f31a7bcd95bb58934afebbb4ee57cf8e
   MixboxBuiltinIpc: 4550cacb8add5a18ae5a6f826628188992ae9d71
   MixboxCocoaImageHashing: c451dfeb2375c8803c07f1054c69d1067c68d723
@@ -251,7 +251,7 @@ SPEC CHECKSUMS:
   MixboxFakeSettingsAppMain: 553af81744d58e93615654247cd30d626e2bb81c
   MixboxFoundation: 22743b6c0264af71d16694154431e73c43f821cb
   MixboxGenerators: 059c931dd575953ffe4f9c34cc547613b2abf8d9
-  MixboxGray: 1d9d167c1297a22f12a74f875bab37fcdb8fab1a
+  MixboxGray: 82f709c70b3073683f2fab7482dd54247ea030c2
   MixboxInAppServices: 2384e01bf85cf15d60e779b37c3eb3dd7ab2901d
   MixboxIoKit: 942e8568eb8f3c4a61a5994946adb65c6a4c6d18
   MixboxIpc: 976a69e9e60dd56df973bd73d253e53504a940a8
@@ -266,7 +266,7 @@ SPEC CHECKSUMS:
   MixboxSBTUITestTunnelServer: d30cf87cf9b01bf7752c381c2e3223ce462408db
   MixboxStubbing: 25c1764e26985e44fa6eb925fefd67d2c0a1fdbd
   MixboxTestability: 5116edee152c55635434424269364e4189f75f26
-  MixboxTestsFoundation: 81417ed96a36ac93222fc9fb7058576c1826c246
+  MixboxTestsFoundation: 9ddcc3293fa94d24f70fd69d6b5209b4cfc88a7c
   MixboxUiKit: 064489bdb334af1b918432b8f4381c33dd591928
   MixboxUiTestsFoundation: 9a1bd5d4e1315a467e95f576c000b0e102823186
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6

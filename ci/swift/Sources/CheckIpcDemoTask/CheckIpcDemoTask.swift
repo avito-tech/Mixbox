@@ -4,8 +4,6 @@ import SingletonHell
 import Xcodebuild
 
 public final class CheckIpcDemoTask: LocalTask {
-    public let name = "CheckIpcDemoTask"
-    
     private let bashExecutor: BashExecutor
     private let macosProjectBuilder: MacosProjectBuilder
     

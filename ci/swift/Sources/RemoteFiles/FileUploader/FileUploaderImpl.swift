@@ -26,22 +26,12 @@ public final class FileUploaderImpl: FileUploader {
         let fileUploaderExecutable = try fileUploaderExecutableProvider.fileUploaderExecutable()
         
         return try retrier.retry(timeouts: [30, 60, 120, 300]) {
-            let result = try processExecutor.execute(
+            let result = try processExecutor.executeOrThrow(
                 arguments: [fileUploaderExecutable, file, remoteName],
                 currentDirectory: nil,
                 environment: [:],
-                stdoutDataHandler: { _ in },
-                stderrDataHandler: { _ in }
+                outputHandling: .ignore
             )
-            
-            if result.code != 0 {
-                throw ErrorString(
-                    """
-                    Failed to execute "\(fileUploaderExecutable)" with exit code \(result.code)"
-                    """
-                )
-            }
-            
             let remotePath = try result.stdout.trimmedUtf8String().unwrapOrThrow()
             return try URL.from(string: remotePath)
         }

@@ -16,8 +16,7 @@ public final class LoggingProcessExecutor: ProcessExecutor {
         arguments: [String],
         currentDirectory: String?,
         environment: [String: String],
-        stdoutDataHandler: @escaping (Data) -> (),
-        stderrDataHandler: @escaping (Data) -> ())
+        outputHandling: ProcessExecutorOutputHandling)
         throws
         -> ProcessResult
     {
@@ -31,8 +30,7 @@ public final class LoggingProcessExecutor: ProcessExecutor {
             arguments: arguments,
             currentDirectory: currentDirectory,
             environment: environment,
-            stdoutDataHandler: stdoutDataHandler,
-            stderrDataHandler: stderrDataHandler
+            outputHandling: outputHandling
         )
     }
     

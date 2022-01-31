@@ -14,6 +14,7 @@ import Xcodebuild
 import Destinations
 import Bundler
 import Releases
+import TestRunning
 
 // TODO: Fix retain-cycle in DI. Container retains itself.
 // TODO: Split this. Put code in frameworks. `MixboxDi` will allow to do this neatly (now we use `Dip` here).
@@ -32,6 +33,7 @@ open class CommonDi: BaseDi {
         registerDestinations(container: container)
         registerXcodebuild(container: container)
         registerSimctl(container: container)
+        registerTestRunning(container: container)
     }
     
     private func registerGit(container: DependencyContainer) {
@@ -389,7 +391,7 @@ open class CommonDi: BaseDi {
     private func registerXcodebuild(container: DependencyContainer) {
         container.register(type: Xcodebuild.self) {
             XcodebuildImpl(
-                bashExecutor: try container.resolve(),
+                processExecutor: try container.resolve(),
                 derivedDataPathProvider: try container.resolve(),
                 cocoapodsInstall: try container.resolve(),
                 repoRootProvider: try container.resolve(),
@@ -418,25 +420,46 @@ open class CommonDi: BaseDi {
     }
     
     private func registerSimctl(container: DependencyContainer) {
+        container.register(type: SimctlExecutor.self) {
+            SimctlExecutorImpl(
+                processExecutor: try container.resolve(),
+                environmentProvider: try container.resolve()
+            )
+        }
         container.register(type: SimctlList.self) {
             SimctlListImpl(
-                bashExecutor: try container.resolve(),
-                temporaryFileProvider: try container.resolve()
+                simctlExecutor: try container.resolve()
             )
         }
         container.register(type: SimctlBoot.self) {
             SimctlBootImpl(
-                bashExecutor: try container.resolve()
+                simctlExecutor: try container.resolve()
             )
         }
         container.register(type: SimctlShutdown.self) {
             SimctlShutdownImpl(
-                bashExecutor: try container.resolve()
+                simctlExecutor: try container.resolve()
             )
         }
         container.register(type: SimctlCreate.self) {
             SimctlCreateImpl(
-                bashExecutor: try container.resolve()
+                simctlExecutor: try container.resolve()
+            )
+        }
+    }
+    
+    private func registerTestRunning(container: DependencyContainer) {
+        container.register(type: TestsTaskRunner.self) {
+            try TestsTaskRunnerImpl(
+                testRunner: container.resolve(),
+                mixboxTestDestinationConfigurationsProvider: container.resolve(),
+                iosProjectBuilder: container.resolve(),
+                iosBuildArtifactsProviderFactory: container.resolve()
+            )
+        }
+        container.register(type: IosBuildArtifactsProviderFactory.self) {
+            IosBuildArtifactsProviderFactoryImpl(
+                testDiscoveryMode: .parseFunctionSymbols
             )
         }
     }

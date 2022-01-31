@@ -8,8 +8,7 @@ public protocol IosProjectBuilder {
         action: XcodebuildAction,
         scheme: String,
         workspaceName: String,
-        destination: MixboxTestDestination,
-        xcodebuildPipeFilter: String)
+        destination: MixboxTestDestination)
         throws
         -> XcodebuildResult
     
@@ -37,8 +36,7 @@ extension IosProjectBuilder {
         action: XcodebuildAction,
         scheme: String,
         workspaceName: String,
-        destination: MixboxTestDestination,
-        xcodebuildPipeFilter: String)
+        destination: MixboxTestDestination)
         throws
         -> XcodebuildResult
     {
@@ -51,8 +49,7 @@ extension IosProjectBuilder {
                     action: action,
                     scheme: scheme,
                     workspaceName: workspaceName,
-                    destination: destination,
-                    xcodebuildPipeFilter: xcodebuildPipeFilter
+                    destination: destination
                 )
             }
         )

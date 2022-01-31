@@ -11,37 +11,43 @@ public final class XcodebuildResult {
     }
     
     public func uiTestXctestBundlePath(testsTarget: String) throws -> String {
-        return try existingPath(
-            path: try xctestBundlePath(
+        try existingPath(
+            path: try bundledInApplicationXctestBundlePath(
                 appPath: try uiTestRunnerAppPath(testsTarget: testsTarget),
                 testsTarget: testsTarget
             )
         )
     }
     
-    public func unitTestXctestBundlePath(appName: String, testsTarget: String) throws -> String {
-        return try existingPath(
-            path: try xctestBundlePath(
+    public func standaloneXctestBundlePath(testsTarget: String) throws -> String {
+        try existingPath(
+            path: "\(products)/\(testsTarget).xctest"
+        )
+    }
+    
+    public func bundledInApplicationXctestBundlePath(appName: String, testsTarget: String) throws -> String {
+        try existingPath(
+            path: try bundledInApplicationXctestBundlePath(
                 appPath: testedAppPath(appName: appName),
                 testsTarget: testsTarget
             )
         )
     }
     
-    public func xctestBundlePath(appPath: String, testsTarget: String) throws -> String {
-        return try existingPath(
+    public func bundledInApplicationXctestBundlePath(appPath: String, testsTarget: String) throws -> String {
+        try existingPath(
             path: "\(appPath)/PlugIns/\(testsTarget).xctest"
         )
     }
     
     public func uiTestRunnerAppPath(testsTarget: String) throws -> String {
-        return try existingPath(
+        try existingPath(
             path: "\(products)/\(testsTarget)-Runner.app"
         )
     }
     
     public func testedAppPath(appName: String) throws -> String {
-        return try existingPath(
+        try existingPath(
             path: "\(products)/\(appName)"
         )
     }

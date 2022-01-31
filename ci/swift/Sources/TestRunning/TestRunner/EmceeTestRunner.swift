@@ -8,7 +8,7 @@ import Destinations
 import BuildArtifacts
 import ResourceLocation
 
-public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
+public final class EmceeTestRunner: TestRunner {
     private let emceeProvider: EmceeProvider
     private let temporaryFileProvider: TemporaryFileProvider
     private let bashExecutor: BashExecutor
@@ -36,13 +36,10 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     }
     
     public func runTests(
-        xctestBundle: String,
-        runnerPath: String,
-        appPath: String,
-        additionalAppPaths: [String],
-        mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration])
-        throws
-    {
+        iosBuildArtifacts: IosBuildArtifacts,
+        mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
+        additionalEnvironment: [String: String]
+    ) throws {
         let emcee = try emceeProvider.emcee()
         
         let reportsPath = try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_REPORTS_PATH)
@@ -53,12 +50,10 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
             arguments: EmceeRunTestsOnRemoteQueueCommandArguments(
                 jobId: UUID().uuidString,
                 testArgFile: testArgFile(
+                    iosBuildArtifacts: iosBuildArtifacts,
                     mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
-                    xctestBundle: xctestBundle,
-                    runnerPath: runnerPath,
-                    appPath: appPath,
-                    additionalAppPaths: additionalAppPaths,
-                    priority: 500
+                    priority: 500,
+                    additionalEnvironment: additionalEnvironment
                 ),
                 queueServerRunConfigurationLocation: queueServerRunConfigurationUrl.absoluteString,
                 tempFolder: temporaryFileProvider.temporaryFilePath(),
@@ -69,44 +64,26 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
     }
     
     private func testArgFile(
+        iosBuildArtifacts: IosBuildArtifacts,
         mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
-        xctestBundle: String,
-        runnerPath: String,
-        appPath: String,
-        additionalAppPaths: [String],
-        priority: UInt)
-        throws
-        -> String
-    {
+        priority: UInt,
+        additionalEnvironment: [String: String]
+    ) throws -> String {
         return try testArgFileJsonGenerator.testArgFile(
             arguments: TestArgFileGeneratorArguments(
-                iosBuildArtifacts: IosBuildArtifacts.iosUiTests(
-                    xcTestBundle: XcTestBundle(
-                        location: TestBundleLocation(
-                            ResourceLocation.localFilePath(xctestBundle)
-                        ),
-                        testDiscoveryMode: .parseFunctionSymbols
-                    ),
-                    appBundle: AppBundleLocation(
-                        ResourceLocation.localFilePath(appPath)
-                    ),
-                    runner: RunnerAppLocation(
-                        ResourceLocation.localFilePath(runnerPath)
-                    ),
-                    additionalApplicationBundles: additionalAppPaths.map {
-                        AdditionalAppBundleLocation(
-                            ResourceLocation.localFilePath($0)
-                        )
-                    }
-                ),
+                iosBuildArtifacts: iosBuildArtifacts,
                 mixboxTestDestinationConfigurations: mixboxTestDestinationConfigurations,
-                environment: environment(),
+                environment: environment(
+                    additionalEnvironment: additionalEnvironment
+                ),
                 priority: priority
             )
         )
     }
     
-    private func environment() -> [String: String] {
+    private func environment(
+        additionalEnvironment: [String: String]
+    ) -> [String: String] {
         var environment = [
             Env.MIXBOX_CI_USES_FBXCTEST.rawValue: "true",
             Env.MIXBOX_CI_IS_CI_BUILD.rawValue: "true"
@@ -115,6 +92,13 @@ public final class EmceeBlackBoxTestRunner: BlackBoxTestRunner {
         environment[Env.MIXBOX_CI_GRAPHITE_HOST.rawValue] = environmentProvider.environment[Env.MIXBOX_CI_GRAPHITE_HOST.rawValue]
         environment[Env.MIXBOX_CI_GRAPHITE_PORT.rawValue] = environmentProvider.environment[Env.MIXBOX_CI_GRAPHITE_PORT.rawValue]
         environment[Env.MIXBOX_CI_GRAPHITE_PREFIX.rawValue] = environmentProvider.environment[Env.MIXBOX_CI_GRAPHITE_PREFIX.rawValue]
+        
+        environment.merge(
+            additionalEnvironment,
+            uniquingKeysWith: { _, additional in
+                additional
+            }
+        )
         
         return environment
     }

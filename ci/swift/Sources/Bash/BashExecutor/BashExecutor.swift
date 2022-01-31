@@ -6,10 +6,8 @@ public protocol BashExecutor {
         command: String,
         currentDirectory: String?,
         environment: BashExecutorEnvironment,
-        stdoutDataHandler: @escaping (Data) -> (),
-        stderrDataHandler: @escaping (Data) -> ())
-        throws
-        -> BashResult
+        outputHandling: ProcessExecutorOutputHandling
+    ) throws -> BashResult
 }
 
 extension BashExecutor {
@@ -78,12 +76,7 @@ extension BashExecutor {
         command: String,
         currentDirectory: String? = nil,
         environment: BashExecutorEnvironment = .current,
-        stdoutDataHandler: @escaping (Data) -> () = { data in
-            FileHandle.standardOutput.write(data)
-        },
-        stderrDataHandler: @escaping (Data) -> () = { data in
-            FileHandle.standardError.write(data)
-        },
+        outputHandling: ProcessExecutorOutputHandling = .bypass,
         shouldThrowOnNonzeroExitCode: Bool = true)
         throws
         -> BashResult
@@ -92,8 +85,7 @@ extension BashExecutor {
             command: command,
             currentDirectory: currentDirectory,
             environment: environment,
-            stdoutDataHandler: stdoutDataHandler,
-            stderrDataHandler: stderrDataHandler
+            outputHandling: outputHandling
         )
         
         if shouldThrowOnNonzeroExitCode && bashResult.code != 0 {
@@ -120,8 +112,7 @@ extension BashExecutor {
             command: command,
             currentDirectory: currentDirectory,
             environment: environment,
-            stdoutDataHandler: { _ in },
-            stderrDataHandler: { _ in }
+            outputHandling: .ignore
         )
         
         if bashResult.code != 0 {
