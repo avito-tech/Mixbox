@@ -1,5 +1,7 @@
 public final class AllMocksTemplate {
     private let parsedModule: ParsedModule
+    private let additionalModuleNamesForImporting: Set<String>
+    private let additionalTestableModuleNamesForImporting: Set<String>
     private let destinationModuleName: String
     
     /// `destinationModuleName`: name of module that will include generated code.
@@ -12,9 +14,13 @@ public final class AllMocksTemplate {
     ///
     public init(
         parsedModule: ParsedModule,
+        additionalModuleNamesForImporting: Set<String>,
+        additionalTestableModuleNamesForImporting: Set<String>,
         destinationModuleName: String)
     {
         self.parsedModule = parsedModule
+        self.additionalModuleNamesForImporting = additionalModuleNamesForImporting
+        self.additionalTestableModuleNamesForImporting = additionalTestableModuleNamesForImporting
         self.destinationModuleName = destinationModuleName
     }
     
@@ -25,6 +31,7 @@ public final class AllMocksTemplate {
             "MixboxTestsFoundation"
         ]
         
+        moduleNamesForImporting.formUnion(additionalModuleNamesForImporting)
         moduleNamesForImporting.formUnion(parsedModule.moduleScope.allImports)
         moduleNamesForImporting.remove(destinationModuleName)
         
@@ -32,6 +39,7 @@ public final class AllMocksTemplate {
             parsedModule.moduleScope.moduleName
         ]
         
+        testableModuleNamesForImporting.formUnion(additionalTestableModuleNamesForImporting)
         testableModuleNamesForImporting.remove(destinationModuleName)
         
         // If module should be testable, we can't import it without @testable,

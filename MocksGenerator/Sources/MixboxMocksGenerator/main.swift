@@ -23,6 +23,8 @@ do {
     
     let template = AllMocksTemplate(
         parsedModule: parsedModule,
+        additionalModuleNamesForImporting: [],
+        additionalTestableModuleNamesForImporting: [],
         destinationModuleName: destinationModuleName
     )
     
