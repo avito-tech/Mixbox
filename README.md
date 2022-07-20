@@ -32,7 +32,7 @@ however, it is not our main goal.
     
 - Page Objects
     - Can have functions with any code inside
-    - Page object elements can nest elements (however, it requires some not-so-good looking boilreplate)
+    - Page object elements can nest elements (however, it requires some not-so-good looking boilerplate)
     - Everything (actions/checks) is fully extensible. If you implement custom action or check, it will automatically
       work for black box and gray box testing (see `SwipeAction`, all builtin actions are really extensions).
     
