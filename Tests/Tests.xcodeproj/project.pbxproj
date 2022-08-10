@@ -59,6 +59,7 @@
 
 /* Begin PBXBuildFile section */
 		145A75A2B44787A4ED137B5D /* Pods_Lint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B60ED96BAF599D304F89BB /* Pods_Lint.framework */; };
+		1FEF58BE28A301CB00B49D78 /* EventOptionBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */; };
 		26EC7E4F90D6BD5075C83255 /* Pods_OsxUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */; };
 		46CD4B6904207EBCC3D1EEA9 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */; };
 		598DEE17E1D63A4642B70C84 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */; };
@@ -963,6 +964,7 @@
 
 /* Begin PBXFileReference section */
 		18F103602061AD5C6BC92921 /* Pods-HostedAppLogicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.debug.xcconfig"; path = "Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOptionBitsTests.swift; sourceTree = "<group>"; };
 		2334CBC37E807E632DE8295A /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2917F62FA6584ECB1E3D3C45 /* Pods-Lint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lint.release.xcconfig"; path = "Target Support Files/Pods-Lint/Pods-Lint.release.xcconfig"; sourceTree = "<group>"; };
 		2CB74C666F3705EFED495BE1 /* Pods-MocksGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGenerator.release.xcconfig"; path = "Target Support Files/Pods-MocksGenerator/Pods-MocksGenerator.release.xcconfig"; sourceTree = "<group>"; };
@@ -3689,6 +3691,7 @@
 				F8C3656424182D22005DD578 /* DigitizerFingerEventTests.swift */,
 				F8E160C6241862A600B4912F /* DigitizerEventTests.swift */,
 				F8E160C82418634E00B4912F /* BaseEventTestCase.swift */,
+				1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */,
 			);
 			path = MixboxIoKit;
 			sourceTree = "<group>";
@@ -5849,6 +5852,7 @@
 				F8C3AD0E2437A3A9004B6BA4 /* RandomArrayGeneratorTests.swift in Sources */,
 				F8FF7BA725739E2700F976A7 /* MixboxMocksGenericFunctionsTests.swift in Sources */,
 				F80C2E0C24D1DAFD00C6CAD4 /* XcTestFailure.swift in Sources */,
+				1FEF58BE28A301CB00B49D78 /* EventOptionBitsTests.swift in Sources */,
 				F8F1E45D2347D486005B5525 /* DebugDescriptionBuilderTests.swift in Sources */,
 				F8B5C693254AD7E0002DB0FB /* ValueCodeGeneratorPrimitivesTests.swift in Sources */,
 				F8C3A7312436E5F2004B6BA4 /* OverflowingUInt64Tests.swift in Sources */,

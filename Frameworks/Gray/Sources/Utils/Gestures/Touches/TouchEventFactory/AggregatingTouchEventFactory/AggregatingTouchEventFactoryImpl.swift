@@ -11,6 +11,19 @@ public final class AggregatingTouchEventFactoryImpl: AggregatingTouchEventFactor
         time: AbsoluteTime)
         -> DigitizerEvent
     {
+        let touch = touch(dequeuedMultiTouchInfo: dequeuedMultiTouchInfo)
+        
+        var options: EventOptionBits = [
+            .isAbsolute,
+            .isPixelUnits,
+            .isBuiltIn,
+            .transducer.displayIntegrated
+        ]
+        
+        if touch {
+            options = options.union([.transducer.touch])
+        }
+        
         let event = DigitizerEvent(
             allocator: kCFAllocatorDefault,
             timeStamp: time,
@@ -25,8 +38,8 @@ public final class AggregatingTouchEventFactoryImpl: AggregatingTouchEventFactor
             tipPressure: 0,
             twist: 0,
             range: false,
-            touch: touch(dequeuedMultiTouchInfo: dequeuedMultiTouchInfo),
-            options: [.isPixelUnits, .isBuiltIn]
+            touch: touch,
+            options: options
         )
         
         event.isDisplayIntegrated = true

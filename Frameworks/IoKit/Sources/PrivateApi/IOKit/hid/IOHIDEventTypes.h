@@ -197,12 +197,32 @@ typedef NS_OPTIONS(uint32_t, IOHIDDigitizerEventMask) {
 };
 
 typedef NS_OPTIONS(uint32_t, IOHIDEventOptionBits) {
-    kIOHIDEventOptionNone                                   = 0,
-    kIOHIDEventOptionIsAbsolute                             = 1<<0,
-    kIOHIDEventOptionIsCollection                           = 1<<1,
-    kIOHIDEventOptionIsPixelUnits                           = 1<<2,
-    kIOHIDEventOptionIsCenterOrigin                         = 1<<3,
-    kIOHIDEventOptionIsBuiltIn                              = 1<<4,
+    kIOHIDEventOptionNone             = 0x00000000, // 0
+    kIOHIDEventOptionIsAbsolute       = 0x00000001, // 0x1 << 0
+    kIOHIDEventOptionIsCollection     = 0x00000002, // 0x1 << 1
+    kIOHIDEventOptionPixelUnits       = 0x00000004, // 0x1 << 2
+    kIOHIDEventOptionIsCenterOrigin   = 0x00000008, // 0x1 << 3
+    kIOHIDEventOptionIsBuiltIn        = 0x00000010, // 0x1 << 4
+    
+    // These options are defined in separate unnamed enum in original header,
+    // they also clash with other enum:
+    kIOHIDEventOptionIgnore           = 0xf0000000, // 0xF << 28
+    kIOHIDEventOptionIsRepeat         = 0x00010000, // 0x1 << 10
+    kIOHIDEventOptionIsZeroEvent      = 0x00800000, // 0x1 << 4
+    
+    // Context-dependent (separate enum in original header, but shared in same field):
+    kIOHIDKeyboardIsRepeat            = 0x00010000, // 0x1 << 10; Note: deprecated in favor of `kIOHIDEventOptionIsRepeat`
+    kIOHIDKeyboardStickyKeyDown       = 0x00020000, // 0x1 << 11
+    kIOHIDKeyboardStickyKeyLocked     = 0x00040000, // 0x1 << 12
+    kIOHIDKeyboardStickyKeyUp         = 0x00080000, // 0x1 << 13
+    kIOHIDKeyboardStickyKeysOn        = 0x00200000, // 0x1 << 15
+    kIOHIDKeyboardStickyKeysOff       = 0x00400000, // 0x1 << 16
+    
+    // Context-dependent (separate enum in original header, but shared in same field):
+    kIOHIDTransducerRange             = 0x00010000, // 0x1 << 10
+    kIOHIDTransducerTouch             = 0x00020000, // 0x1 << 11
+    kIOHIDTransducerInvert            = 0x00040000, // 0x1 << 12
+    kIOHIDTransducerDisplayIntegrated = 0x00080000  // 0x1 << 13
 };
 
 #ifndef KERNEL

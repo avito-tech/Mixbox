@@ -13,16 +13,25 @@ extension Event {
     public var fields: EventFieldsByValueType {
         return EventFieldsByValueType(iohidEventRef: iohidEventRef)
     }
-}
 
-extension Event {
     public var timeStamp: AbsoluteTime {
-        let timeStamp = IOHIDEventGetTimeStamp(iohidEventRef)
-        return AbsoluteTime(lo: timeStamp.lo, hi: timeStamp.hi)
+        get {
+            AbsoluteTime(
+                darwinAbsoluteTime: IOHIDEventGetTimeStamp(iohidEventRef)
+            )
+        }
+        set {
+            IOHIDEventSetTimeStamp(iohidEventRef, newValue.darwinAbsoluteTime)
+        }
     }
     
     public var options: EventOptionBits {
-        return EventOptionBits(rawValue: IOHIDEventGetEventFlags(iohidEventRef))
+        get {
+            EventOptionBits(rawValue: IOHIDEventGetEventFlags(iohidEventRef))
+        }
+        set {
+            IOHIDEventSetEventFlags(iohidEventRef, newValue.iohidEventOptionBits.rawValue)
+        }
     }
     
     public var type: EventType {
@@ -112,6 +121,10 @@ extension Event {
         case .unknown:
             return NotImplementedEvent(iohidEventRef: iohidEventRef)
         }
+    }
+    
+    public var nativeDebugDescription: String {
+        NSString(format: "%@", Int(bitPattern: iohidEventRef)) as String
     }
 }
 

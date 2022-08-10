@@ -4,6 +4,7 @@ import MixboxFoundation
 import XCTest
 
 // Note: events were produced using AppForCheckingPureXctest, simulator and cliclick (brew instal cliclick)
+// Note: `nativeDebugDescription` can be used to view event properties, it uses IOKit.
 //
 // TODO: Not checked: `Total Latency`, `SenderID`, `BuiltIn`,
 //       `AttributeDataLength`, `AttributeData`, `ValueType`, `TransducerIndex`,
@@ -171,7 +172,7 @@ final class MultiTouchEventFactoryTests: BaseEventTestCase {
         XCTAssertEqual(event.timeStamp, time)
         XCTAssertEqual(event.type, .digitizer)
         // TODO: Remove clamping (& 0x1F)
-        XCTAssertEqual(event.options.rawValue & 0x1F, 0x80015 & 0x1F)
+        XCTAssertEqual(event.options.rawValue, 0x80015)
         XCTAssertEqual(event.isDisplayIntegrated, true)
         XCTAssertEqual(event.transducer, .hand)
         XCTAssertEqual(event.identity, 0)
@@ -230,7 +231,7 @@ final class MultiTouchEventFactoryTests: BaseEventTestCase {
         XCTAssertEqual(childEvent.timeStamp, time)
         XCTAssertEqual(childEvent.type, .digitizer)
         // TODO: Remove clamping (& 0x1F)
-        XCTAssertEqual(childEvent.options.rawValue & 0x1F, 0x80001 & 0x1F)
+        XCTAssertEqual(childEvent.options.rawValue, 0x80001)
         XCTAssertEqual(childEvent.isDisplayIntegrated, true)
         XCTAssertEqual(childEvent.transducer, .finger)
         XCTAssertEqual(childEvent.identity, 2)

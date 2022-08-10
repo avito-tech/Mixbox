@@ -95,6 +95,7 @@ __BEGIN_DECLS
 												 uint32_t index, uint32_t identity, IOHIDDigitizerEventMask eventMask, uint32_t buttonMask,
 												 IOHIDFloat x, IOHIDFloat y, IOHIDFloat z, IOHIDFloat tipPressure, IOHIDFloat barrelPressure,
 												 Boolean range, Boolean touch, IOHIDEventOptionBits options);
+
 	IOHIDEventRef IOHIDEventCreateDigitizerFingerEventWithQuality(CFAllocatorRef allocator, AbsoluteTime timeStamp,
 																  uint32_t index, uint32_t identity, IOHIDDigitizerEventMask eventMask,
 																  IOHIDFloat x, IOHIDFloat y, IOHIDFloat z, IOHIDFloat tipPressure, IOHIDFloat twist,

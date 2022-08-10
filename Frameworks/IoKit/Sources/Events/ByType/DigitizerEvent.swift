@@ -49,6 +49,22 @@ public final class DigitizerEvent: BaseDigitizerEvent {
                 options.iohidEventOptionBits
             )
         )
+        
+        // Very strange thing. Option bits after `IOHIDEventCreateDigitizerEvent` are equal to (options bits || 0x20000)
+        // It was expected that options of iohid event will equal to those passed via constructor.
+        // Note: 0x20000 is either `keyboard.stickyKeyDown` or `transducer.touch` (see `EventOptionBits`)
+        if self.options != options {
+            // TODO: Assert that this worked
+            self.options = options
+        }
+        
+        if self.range != range {
+            self.range = range
+        }
+        
+        if self.touch != touch {
+            self.touch = touch
+        }
     }
 }
 

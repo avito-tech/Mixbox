@@ -65,26 +65,12 @@ typedef struct _IOHIDVendorDefinedEventData {
     uint8_t         data[0];
 } IOHIDVendorDefinedEventData;
 
-enum {
-    kIOHIDKeyboardIsRepeat      = 0x00010000
-};
-
 typedef struct _IOHIDKeyboardEventData {
     IOHIDEVENT_BASE;                            // options = kHIDKeyboardRepeat
     uint16_t        usagePage;
     uint16_t        usage;
     boolean_t       down;
 } IOHIDKeyboardEventData;
-
-enum {
-    kIOHIDEventOptionIgnore     = 0xf0000000
-};
-
-enum {
-    kIOHIDTransducerRange       = 0x00010000,
-    kIOHIDTransducerTouch       = 0x00020000,
-    kIOHIDTransducerInvert      = 0x00040000,
-};
 
 enum {
     kIOHIDDigitizerOrientationTypeTilt = 0,

@@ -85,7 +85,7 @@ final class DigitizerEventTests: BaseEventTestCase {
     func test___touch___returns_value_set_in_init() {
         for value in [false, true] {
             checkValueIsPassedViaInit(value: value) {
-                digitizerEvent(range: $0).range
+                digitizerEvent(touch: $0).touch
             }
         }
     }
