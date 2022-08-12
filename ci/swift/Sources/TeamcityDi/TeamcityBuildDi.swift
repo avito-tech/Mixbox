@@ -70,5 +70,8 @@ public final class TeamcityBuildDi: CommonDi {
                 environmentProvider: container.resolve()
             )
         }
+        container.register(type: CiLogger.self) {
+            TeamcityCiLogger()
+        }
     }
 }

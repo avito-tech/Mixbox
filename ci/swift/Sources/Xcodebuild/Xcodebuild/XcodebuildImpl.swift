@@ -12,19 +12,22 @@ public final class XcodebuildImpl: Xcodebuild {
     private let cocoapodsInstall: CocoapodsInstall
     private let repoRootProvider: RepoRootProvider
     private let environmentProvider: EnvironmentProvider
+    private let ciLogger: CiLogger
     
     public init(
         processExecutor: ProcessExecutor,
         derivedDataPathProvider: DerivedDataPathProvider,
         cocoapodsInstall: CocoapodsInstall,
         repoRootProvider: RepoRootProvider,
-        environmentProvider: EnvironmentProvider)
-    {
+        environmentProvider: EnvironmentProvider,
+        ciLogger: CiLogger
+    ) {
         self.processExecutor = processExecutor
         self.derivedDataPathProvider = derivedDataPathProvider
         self.cocoapodsInstall = cocoapodsInstall
         self.repoRootProvider = repoRootProvider
         self.environmentProvider = environmentProvider
+        self.ciLogger = ciLogger
     }
     
     public func build(
@@ -60,12 +63,14 @@ public final class XcodebuildImpl: Xcodebuild {
             derivedDataPath: derivedDataPath
         )
         
-        _ = try processExecutor.executeOrThrow(
-            arguments: ["/usr/bin/xcodebuild"] + args,
-            currentDirectory: projectDirectory,
-            environment: environmentProvider.environment,
-            outputHandling: .bypass
-        )
+        try ciLogger.logBlock(name: "Building \(workspaceName)->\(scheme)") {
+            _ = try processExecutor.executeOrThrow(
+                arguments: ["/usr/bin/xcodebuild"] + args,
+                currentDirectory: projectDirectory,
+                environment: environmentProvider.environment,
+                outputHandling: .bypass
+            )
+        }
         
         return XcodebuildResult(derivedDataPath: derivedDataPath)
     }

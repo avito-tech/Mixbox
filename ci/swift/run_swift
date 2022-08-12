@@ -2,8 +2,10 @@
 
 set -xueo pipefail
 
-SCRIPT_ROOT=$(cd "$(dirname "$0")"; pwd)
-REPO_ROOT=$(cd "$SCRIPT_ROOT"; cd "$(git rev-parse --show-toplevel)"; pwd)
+# ====== bash_ci ======
+# This section should be same across all bash files in the project
+source "$(builtin cd "$(dirname "$0")" && git rev-parse --show-toplevel)/ci/bash/bash_ci.sh"
+# =====================
 
 # The only job of this script is to
 # run swift code with proper dependencies, including proper version of swift
@@ -11,7 +13,6 @@ REPO_ROOT=$(cd "$SCRIPT_ROOT"; cd "$(git rev-parse --show-toplevel)"; pwd)
 main() {
     print_status
     print_instructions_to_reproduce_this_build
-    check_dependencies
     build
     execute
 }
@@ -35,39 +36,19 @@ print_mixbox_ci_environments() {
         | sed 's/\*\*\*\*\*\*\*/some_password_hidden_by_ci/'
 }
 
-check_dependencies() {
-    install_command_line_tools_if_needed
-}
-
-install_command_line_tools_if_needed() {
-    pkgutil --pkg-info=com.apple.pkg.CLTools_Executables || install_command_line_tools
-}
-
-install_command_line_tools() {
-    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-
-    local savedIFS=$IFS
-    IFS=$'\n'
-    for packageName in $(softwareupdate -l|grep "\*.*Command Line"|awk -F"*" '{print $2}'|sed -e 's/^ *//')
-    do
-        softwareupdate -i "$packageName"
-    done
-    IFS=$savedIFS
-}
-
 build() {
     cd "$SCRIPT_ROOT"
     
-    lastExitCode=0
-    maxAttempts=3
-    for attempt in `seq 1 $maxAttempts`
+    local lastExitCode=0
+    local maxAttempts=3
+    for attempt in $(seq 1 $maxAttempts)
     do
         # Workaround for this:
         #   Failed to connect to github.com port 443: Operation timed out
         # Also this:
         #   /xxx/yyy/DeveloperDirLocator.swift:2:8: error: no such module 'Models'
         # The latter is maybe due to some SPM cache problems that can be solved (TODO: solve)
-        if "$SCRIPT_ROOT/make.sh" build "$MIXBOX_CI_BUILD_EXECUTABLE"; then
+        if build_once "$attempt"; then
             echo "Build was successful"
             lastExitCode=0
             break
@@ -80,6 +61,16 @@ build() {
     cd -
     
     return $lastExitCode
+}
+
+build_once() {
+    local attempt_number=$1
+
+    body() {
+        "$SCRIPT_ROOT/make.sh" build "$MIXBOX_CI_BUILD_EXECUTABLE"
+    }
+
+    { set +x; } 2>/dev/null && ci_log_block "Building... (attempt $attempt_number)" body ${@+"$@"}
 }
 
 execute() {

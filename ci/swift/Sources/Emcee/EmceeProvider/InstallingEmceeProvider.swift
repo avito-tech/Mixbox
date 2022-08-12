@@ -14,6 +14,7 @@ public final class InstallingEmceeProvider: EmceeProvider {
     private let environmentProvider: EnvironmentProvider
     private let emceeVersionProvider: EmceeVersionProvider
     private let retrier: Retrier
+    private let ciLogger: CiLogger
     
     public init(
         temporaryFileProvider: TemporaryFileProvider,
@@ -27,8 +28,9 @@ public final class InstallingEmceeProvider: EmceeProvider {
         simulatorOperationTimeoutsProvider: SimulatorOperationTimeoutsProvider,
         environmentProvider: EnvironmentProvider,
         emceeVersionProvider: EmceeVersionProvider,
-        retrier: Retrier)
-    {
+        retrier: Retrier,
+        ciLogger: CiLogger
+    ) {
         self.temporaryFileProvider = temporaryFileProvider
         self.processExecutor = processExecutor
         self.emceeInstaller = emceeInstaller
@@ -41,12 +43,14 @@ public final class InstallingEmceeProvider: EmceeProvider {
         self.environmentProvider = environmentProvider
         self.emceeVersionProvider = emceeVersionProvider
         self.retrier = retrier
+        self.ciLogger = ciLogger
     }
     
     public func emcee() throws -> Emcee {
         let emceeExecutable = EmceeExecutableImpl(
             processExecutor: processExecutor,
-            executablePath: try emceeInstaller.installEmcee()
+            executablePath: try emceeInstaller.installEmcee(),
+            ciLogger: ciLogger
         )
         
         return DelegatingEmcee(

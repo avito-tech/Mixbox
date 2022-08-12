@@ -10,21 +10,25 @@ source "$(builtin cd "$(dirname "$0")" && git rev-parse --show-toplevel)/ci/bash
 # Overrides
 
 spm_generate_package() {
-    if [ -z "$EMCEE_REPOSITORY_URL" ]; then
-        echo "Error: EMCEE_REPOSITORY_URL environment variable is not set"
-        echo "Note: This CI uses proprietary code (Emcee with versions later than 2022) and will not work without proprietary software of specified version"
-    fi
-    
-    bash_ci_require_pyenv make_v1
-    bash_ci_require_python_packages ./MakePackage/requirements.txt
-    bash_ci_run_python3 ./MakePackage/make_package.py
-    
-    swift \
-        package \
-        config \
-        set-mirror \
-        --original-url "https://github.com/avito-tech/Emcee" \
-        --mirror-url "$EMCEE_REPOSITORY_URL"
+    body() {
+        if [ -z "$EMCEE_REPOSITORY_URL" ]; then
+            echo "Error: EMCEE_REPOSITORY_URL environment variable is not set"
+            echo "Note: This CI uses proprietary code (Emcee with versions later than 2022) and will not work without proprietary software of specified version"
+        fi
+
+        bash_ci_require_pyenv make_v1
+        bash_ci_require_python_packages ./MakePackage/requirements.txt
+        bash_ci_run_python3 ./MakePackage/make_package.py
+
+        swift \
+            package \
+            config \
+            set-mirror \
+            --original-url "https://github.com/avito-tech/Emcee" \
+            --mirror-url "$EMCEE_REPOSITORY_URL"
+    }
+
+    { set +x; } 2>/dev/null && ci_log_block "Generating package" body ${@+"$@"}
 }
 
 # Main

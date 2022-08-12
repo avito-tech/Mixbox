@@ -289,20 +289,21 @@ open class CommonDi: BaseDi {
             DefaultSimulatorOperationTimeoutsProvider()
         }
         container.register(type: EmceeProvider.self) {
-            CachingEmceeProvider(
+            try CachingEmceeProvider(
                 emceeProvider: InstallingEmceeProvider(
-                    temporaryFileProvider: try container.resolve(),
-                    processExecutor: try container.resolve(),
-                    emceeInstaller: try container.resolve(),
-                    decodableFromJsonFileLoader: try container.resolve(),
-                    jsonFileFromEncodableGenerator: try container.resolve(),
-                    simulatorSettingsProvider: try container.resolve(),
-                    developerDirProvider: try container.resolve(),
-                    remoteCacheConfigProvider: try container.resolve(),
-                    simulatorOperationTimeoutsProvider: try container.resolve(),
-                    environmentProvider: try container.resolve(),
-                    emceeVersionProvider: try container.resolve(),
-                    retrier: try container.resolve()
+                    temporaryFileProvider: container.resolve(),
+                    processExecutor: container.resolve(),
+                    emceeInstaller: container.resolve(),
+                    decodableFromJsonFileLoader: container.resolve(),
+                    jsonFileFromEncodableGenerator: container.resolve(),
+                    simulatorSettingsProvider: container.resolve(),
+                    developerDirProvider: container.resolve(),
+                    remoteCacheConfigProvider: container.resolve(),
+                    simulatorOperationTimeoutsProvider: container.resolve(),
+                    environmentProvider: container.resolve(),
+                    emceeVersionProvider: container.resolve(),
+                    retrier: container.resolve(),
+                    ciLogger: container.resolve()
                 )
             )
         }
@@ -369,6 +370,9 @@ open class CommonDi: BaseDi {
         container.register(type: Retrier.self) {
             RetrierImpl()
         }
+        container.register(type: CiLogger.self) {
+            StdoutCiLogger()
+        }
     }
     
     private func registerDestinations(container: DependencyContainer) {
@@ -395,7 +399,8 @@ open class CommonDi: BaseDi {
                 derivedDataPathProvider: try container.resolve(),
                 cocoapodsInstall: try container.resolve(),
                 repoRootProvider: try container.resolve(),
-                environmentProvider: try container.resolve()
+                environmentProvider: try container.resolve(),
+                ciLogger: try container.resolve()
             )
         }
         container.register(type: IosProjectBuilder.self) {
