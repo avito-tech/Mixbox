@@ -13,6 +13,7 @@ PYTHON_ROOT="$REPO_ROOT"
 
 # EXPOSE BASH FUNCTIONS
 
+source "$REPO_ROOT"/ci/bash/include/install_python.sh
 source "$REPO_ROOT"/ci/bash/include/python.sh
 source "$REPO_ROOT"/ci/bash/include/error_handling.sh
 source "$REPO_ROOT"/ci/bash/include/swift_package_manager.sh

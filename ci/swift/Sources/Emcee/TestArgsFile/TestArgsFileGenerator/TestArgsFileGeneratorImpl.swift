@@ -9,10 +9,11 @@ import RunnerModels
 import QueueModels
 import SimulatorPoolModels
 import TypedResourceLocation
-import LoggingSetup
 import WorkerCapabilitiesModels
 import MetricsExtensions
 import ScheduleStrategy
+import CommonTestModels
+import TestDestination
 
 public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeProvider: EmceeProvider
@@ -47,7 +48,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     public func testArgFile(
         arguments: TestArgFileGeneratorArguments)
         throws
-        -> TestArgFile
+        -> TestArgFile<AppleTestArgFileEntry>
     {
         let testDestinationConfigurations = try self.testDestinationConfigurations(arguments: arguments)
         
@@ -72,13 +73,19 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     {
         return try arguments.mixboxTestDestinationConfigurations.map {
             TestDestinationConfiguration(
-                testDestination: try TestDestination(
-                    deviceType: $0.testDestination.deviceType,
-                    runtime: $0.testDestination.iOSVersion
-                ),
+                testDestination: TestDestination()
+                    .add(
+                        key: AppleTestDestinationFields.deviceType,
+                        value: $0.testDestination.deviceType
+                    )
+                    .add(
+                        key: AppleTestDestinationFields.runtime,
+                        value: $0.testDestination.iOSVersion
+                    ),
                 reportOutput: ReportOutput(
                     junit: $0.reportOutput.junit,
-                    tracingReport: $0.reportOutput.tracingReport
+                    tracingReport: $0.reportOutput.tracingReport,
+                    resultBundle: nil
                 )
             )
         }
@@ -87,15 +94,15 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private func testArgFile(
         testDestinationConfigurations: [TestDestinationConfiguration],
         testsToRun: [TestToRun],
-        iosBuildArtifacts: IosBuildArtifacts,
+        iosBuildArtifacts: AppleBuildArtifacts,
         environment: [String: String],
         priority: UInt)
         throws
-        -> TestArgFile
+        -> TestArgFile<AppleTestArgFileEntry>
     {
         return TestArgFile(
-            entries: try testDestinationConfigurations.map { testDestinationConfiguration -> TestArgFileEntry in
-                try TestArgFileEntry(
+            entries: try testDestinationConfigurations.map { testDestinationConfiguration -> AppleTestArgFileEntry in
+                try AppleTestArgFileEntry(
                     buildArtifacts: iosBuildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: environment,
@@ -127,7 +134,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                 jobId: JobId(UUID().uuidString),
                 jobPriority: try Priority(intValue: priority)
             ),
-            testDestinationConfigurations: testDestinationConfigurations
+            testDestinationConfigurations: testDestinationConfigurations,
+            allowQueueToTrackJobGeneratorAliveness: true
         )
     }
     

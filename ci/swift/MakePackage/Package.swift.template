@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 // swiftlint:disable trailing_comma file_length
 
 // {{comment_saying_that_this_file_is_code_generated}}
@@ -8,7 +8,7 @@ import PackageDescription
 let package = Package(
     name: "MixboxSwiftCI",
     platforms: [
-        .macOS(.v11),
+        .macOS(.v12),
     ],
     products: [
         {%- for executable in executables %}
@@ -28,11 +28,11 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/AliSoftware/Dip",
-            .revision("e02f1697155cdcb546ee350e5803ecc6fc66cfa9")
+            .exact("7.1.1")
         ),
         .package(
             url: "https://github.com/Alamofire/Alamofire.git",
-            .exact("4.8.2")
+            .exact("5.6.2")
         )
     ],
     targets: [
@@ -46,9 +46,6 @@ let package = Package(
             ]
         ),
         {%- endfor %}
-    ],
-    swiftLanguageVersions: [
-        .v5
     ]
 )
 

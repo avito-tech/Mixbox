@@ -1,34 +1,33 @@
 #!/bin/bash
 
-set -e
-set -x
+set -xueo pipefail
 
-SCRIPT_ROOT=$(cd `dirname $0`; pwd)
-REPO_ROOT=$(cd "$SCRIPT_ROOT" cd `git rev-parse --show-toplevel`; pwd)
+SCRIPT_ROOT=$(cd "$(dirname "$0")"; pwd)
+REPO_ROOT=$(cd "$SCRIPT_ROOT"; cd "$(git rev-parse --show-toplevel)"; pwd)
 
 # The only job of this script is to
 # run swift code with proper dependencies, including proper version of swift
 
 main() {
-    printStatus
-    printInstructionsToReproduceThisBuild
-    checkDependencies
+    print_status
+    print_instructions_to_reproduce_this_build
+    check_dependencies
     build
     execute
 }
 
-printStatus() {
+print_status() {
     echo "##teamcity[progressMessage '$MIXBOX_CI_BUILD_EXECUTABLE']"
 }
 
-printInstructionsToReproduceThisBuild() {
+print_instructions_to_reproduce_this_build() {
     echo "Reproduce this build:"
     echo
-    echo "$(printMixboxCiEnvironments) MIXBOX_CI_REPORTS_PATH=/tmp $0"
+    echo "$(print_mixbox_ci_environments) MIXBOX_CI_REPORTS_PATH=/tmp $0"
     echo
 }
 
-printMixboxCiEnvironments() {
+print_mixbox_ci_environments() {
     env \
         | grep -E "^(MIXBOX_|EMCEE_)" \
         | grep -v MIXBOX_CI_REPORTS_PATH \
@@ -36,15 +35,15 @@ printMixboxCiEnvironments() {
         | sed 's/\*\*\*\*\*\*\*/some_password_hidden_by_ci/'
 }
 
-checkDependencies() {
-    installCommandLineToolsIfNeeded
+check_dependencies() {
+    install_command_line_tools_if_needed
 }
 
-installCommandLineToolsIfNeeded() {
-    pkgutil --pkg-info=com.apple.pkg.CLTools_Executables || installCommandLineTools
+install_command_line_tools_if_needed() {
+    pkgutil --pkg-info=com.apple.pkg.CLTools_Executables || install_command_line_tools
 }
 
-installCommandLineTools() {
+install_command_line_tools() {
     touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
 
     local savedIFS=$IFS
@@ -68,8 +67,7 @@ build() {
         # Also this:
         #   /xxx/yyy/DeveloperDirLocator.swift:2:8: error: no such module 'Models'
         # The latter is maybe due to some SPM cache problems that can be solved (TODO: solve)
-        if ./make.sh build "${build_options[@]}"
-        then
+        if "$SCRIPT_ROOT/make.sh" build "$MIXBOX_CI_BUILD_EXECUTABLE"; then
             echo "Build was successful"
             lastExitCode=0
             break
@@ -78,27 +76,14 @@ build() {
             echo "Failed to build, attempt #$attempt/$maxAttempts"; sleep 10
         fi
     done
+
+    cd -
     
     return $lastExitCode
 }
 
 execute() {
-    local executable
-    
-    # The function contains exact paths for different Xcode. It is simple and robust.
-    # If something is changed in new Xcode we will update this script.
-    
-    executable="./.build/release/$MIXBOX_CI_BUILD_EXECUTABLE"
-    if [ -x "$executable" ]
-    then
-        echo "Executing $executable"
-        "$executable"
-        return $?
-    fi
-    
-    echo "Failed to find executable $MIXBOX_CI_BUILD_EXECUTABLE inside .build directory"
-    echo "Note that you may update this script. Here is output of find:"
-    find . -name "$MIXBOX_CI_BUILD_EXECUTABLE"
+    "$SCRIPT_ROOT/make.sh" launch "$MIXBOX_CI_BUILD_EXECUTABLE"
 }
 
 main "$@"

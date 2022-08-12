@@ -36,7 +36,7 @@ public final class EmceeTestRunner: TestRunner {
     }
     
     public func runTests(
-        iosBuildArtifacts: IosBuildArtifacts,
+        iosBuildArtifacts: AppleBuildArtifacts,
         mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
         additionalEnvironment: [String: String]
     ) throws {
@@ -64,7 +64,7 @@ public final class EmceeTestRunner: TestRunner {
     }
     
     private func testArgFile(
-        iosBuildArtifacts: IosBuildArtifacts,
+        iosBuildArtifacts: AppleBuildArtifacts,
         mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
         priority: UInt,
         additionalEnvironment: [String: String]

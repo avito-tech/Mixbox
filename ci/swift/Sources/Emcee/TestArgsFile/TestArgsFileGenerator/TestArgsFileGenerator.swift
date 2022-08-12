@@ -4,5 +4,5 @@ public protocol TestArgFileGenerator {
     func testArgFile(
         arguments: TestArgFileGeneratorArguments)
         throws
-        -> TestArgFile
+    -> TestArgFile<AppleTestArgFileEntry>
 }

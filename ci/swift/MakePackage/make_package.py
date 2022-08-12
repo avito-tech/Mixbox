@@ -7,7 +7,7 @@ import re
 swift_ci_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
 def emcee_commit_hash():
-    return '312b38ba3de954ee880521f52be792c9c7fff3bc'
+    return '2e349487931b707d10d3d732379e89ab32eb4744'
 
 def comment_saying_that_this_file_is_code_generated():
     return 'This file is generated via MakePackage python code. Do not modify it.' 
@@ -38,6 +38,7 @@ def get_dict_to_render_for_package_swift():
     
     dict_to_render = {
         "comment_saying_that_this_file_is_code_generated": comment_saying_that_this_file_is_code_generated(),
+        "emcee_repository_url": os.environ["EMCEE_REPOSITORY_URL"],
         "emcee_commit_hash": emcee_commit_hash(),
         "targets": targets,
         "executables": [target for target in targets if target.is_executable],

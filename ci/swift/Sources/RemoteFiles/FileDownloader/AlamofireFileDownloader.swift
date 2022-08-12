@@ -48,17 +48,20 @@ public final class AlamofireFileDownloader: FileDownloader {
         var completed: Bool = false
         
         DispatchQueue.global(qos: .background).async {
-            Alamofire.request(url).responseData { response in
+            AF.request(url).responseData { response in
                 if let error = response.error {
                     errorOrNil = error
-                } else if let data = response.result.value {
-                    do {
-                        try data.write(to: URL(fileURLWithPath: downloadedFilePath), options: .atomicWrite)
-                    } catch {
-                        errorOrNil = error
-                    }
                 } else {
-                    errorOrNil = ErrorString("Alamofire didn't return neither error, nor data in responseData")
+                    switch response.result {
+                    case .failure(let error):
+                        errorOrNil = error
+                    case .success(let data):
+                        do {
+                            try data.write(to: URL(fileURLWithPath: downloadedFilePath), options: .atomicWrite)
+                        } catch {
+                            errorOrNil = error
+                        }
+                    }
                 }
                 
                 completed = true

@@ -5,13 +5,13 @@ import BuildArtifacts
 import RunnerModels
 
 public final class TestArgFileGeneratorArguments {
-    public let iosBuildArtifacts: IosBuildArtifacts
+    public let iosBuildArtifacts: AppleBuildArtifacts
     public let mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration]
     public let environment: [String: String]
     public let priority: UInt
     
     public init(
-        iosBuildArtifacts: IosBuildArtifacts,
+        iosBuildArtifacts: AppleBuildArtifacts,
         mixboxTestDestinationConfigurations: [MixboxTestDestinationConfiguration],
         environment: [String: String],
         priority: UInt)

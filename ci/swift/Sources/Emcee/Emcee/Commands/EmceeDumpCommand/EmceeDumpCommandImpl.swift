@@ -8,10 +8,10 @@ import SimulatorPoolModels
 import RunnerModels
 import QueueModels
 import SingletonHell
-import LoggingSetup
 import WorkerCapabilitiesModels
 import MetricsExtensions
 import ScheduleStrategy
+import CommonTestModels
 
 public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     private let temporaryFileProvider: TemporaryFileProvider
@@ -101,9 +101,9 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
     }
     
     private func asStrings(arguments: EmceeDumpCommandArguments, jsonPath: String) throws -> [String] {
-        let testArgFile = TestArgFile(
+        let testArgFile = TestArgFile<AppleTestArgFileEntry>(
             entries: [
-                try TestArgFileEntry(
+                try AppleTestArgFileEntry(
                     buildArtifacts: arguments.iosBuildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: [:],
@@ -135,7 +135,8 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                 jobId: JobId(UUID().uuidString),
                 jobPriority: Priority.medium
             ),
-            testDestinationConfigurations: arguments.testDestinationConfigurations
+            testDestinationConfigurations: arguments.testDestinationConfigurations,
+            allowQueueToTrackJobGeneratorAliveness: true
         )
         
         let staticArguments = [

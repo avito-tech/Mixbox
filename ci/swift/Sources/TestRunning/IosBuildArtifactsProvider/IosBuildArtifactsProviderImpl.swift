@@ -16,7 +16,7 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
     
     public func iosLogicTests(
         testsTarget: String
-    ) throws -> IosBuildArtifacts {
+    ) throws -> AppleBuildArtifacts {
         return try iosLogicTests(
             xctestBundlePath: xcodebuildResult.standaloneXctestBundlePath(
                 testsTarget: testsTarget
@@ -27,7 +27,7 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
     public func iosApplicationTests(
         appName: String,
         testsTarget: String
-    ) throws -> IosBuildArtifacts {
+    ) throws -> AppleBuildArtifacts {
         return try iosApplicationTests(
             xctestBundlePath: xcodebuildResult.bundledInApplicationXctestBundlePath(
                 appName: appName,
@@ -43,7 +43,7 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
         appName: String,
         testsTarget: String,
         additionalApps: [String]
-    ) throws -> IosBuildArtifacts {
+    ) throws -> AppleBuildArtifacts {
         return try iosUiTests(
             xctestBundlePath: xcodebuildResult.uiTestXctestBundlePath(
                 testsTarget: testsTarget
@@ -62,8 +62,8 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
     
     private func iosLogicTests(
         xctestBundlePath: String
-    ) -> IosBuildArtifacts {
-        IosBuildArtifacts.iosLogicTests(
+    ) -> AppleBuildArtifacts {
+        AppleBuildArtifacts.iosLogicTests(
             xcTestBundle: xcTestBundle(
                 xctestBundlePath: xctestBundlePath
             )
@@ -73,8 +73,8 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
     private func iosApplicationTests(
         xctestBundlePath: String,
         appPath: String
-    ) -> IosBuildArtifacts {
-        IosBuildArtifacts.iosApplicationTests(
+    ) -> AppleBuildArtifacts {
+        AppleBuildArtifacts.iosApplicationTests(
             xcTestBundle: xcTestBundle(
                 xctestBundlePath: xctestBundlePath
             ),
@@ -89,8 +89,8 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
         runnerPath: String,
         appPath: String,
         additionalAppPaths: [String]
-    ) -> IosBuildArtifacts {
-        IosBuildArtifacts.iosUiTests(
+    ) -> AppleBuildArtifacts {
+        AppleBuildArtifacts.iosUiTests(
             xcTestBundle: xcTestBundle(
                 xctestBundlePath: xctestBundlePath
             ),

@@ -4,13 +4,13 @@ import BuildArtifacts
 
 public final class EmceeDumpCommandArguments {
     public let jobId: String
-    public let iosBuildArtifacts: IosBuildArtifacts
+    public let iosBuildArtifacts: AppleBuildArtifacts
     public let testDestinationConfigurations: [TestDestinationConfiguration]
     public let tempFolder: String
     
     public init(
         jobId: String,
-        iosBuildArtifacts: IosBuildArtifacts,
+        iosBuildArtifacts: AppleBuildArtifacts,
         testDestinationConfigurations: [TestDestinationConfiguration],
         tempFolder: String)
     {

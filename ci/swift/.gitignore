@@ -1,1 +1,3 @@
 *.xcodeproj
+Package.swift
+.swiftpm/configuration/mirrors.json

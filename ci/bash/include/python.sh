@@ -1,7 +1,7 @@
 # Isolates Python Environment.
 bash_ci_require_pyenv() {
     local pyenv_name=$1
-    local python_version=${2:-"3.7.1"}
+    local python_version=${2:-$(get_default_python_version)}
     
     if [ -z "$pyenv_name" ]
     then
@@ -13,17 +13,11 @@ bash_ci_require_pyenv() {
         return 0
     fi
     
-    # Seems to be not working:
-    # __install_command_line_tools_if_needed
-    # __install_mac_os_sdk_headers_if_needed
-    
     which pyenv || brew install pyenv
     which pyenv-virtualenv || brew install pyenv-virtualenv
     brew ls --versions zlib || brew install zlib
 
-    LDFLAGS="-L/usr/local/opt/zlib/lib" \
-    CPPFLAGS="-I/usr/local/opt/zlib/include" \
-    pyenv install -s "$python_version"
+    install_python_via_pyenv "$python_version"
 
     pyenv virtualenv "$python_version" "$pyenv_name" || true
 
@@ -79,28 +73,6 @@ __bash_ci_pip3_install() {
         --no-cache \
         -i "https://pypi.org/simple" \
         "$@"
-}
-
-__install_command_line_tools_if_needed() {
-    pkgutil --pkg-info=com.apple.pkg.CLTools_Executables || __install_command_line_tools
-}
-
-__install_command_line_tools() {
-    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-
-    local saved_IFS=$IFS
-    IFS=$'\n'
-    for package_name in $(softwareupdate -l|grep "\*.*Command Line"|awk -F"*" '{print $2}'|sed -e 's/^ *//')
-    do
-        softwareupdate -i "$package_name"
-    done
-    IFS=$saved_IFS
-}
-
-__install_mac_os_sdk_headers_if_needed() {
-    # Example: "10.14"
-    local short_mac_os_version=`system_profiler SPSoftwareDataType | grep "System Version" | awk '{print $4}' | sed "s:.[[:digit:]]*.$::g"`
-    pkgutil --pkg-info="com.apple.pkg.macOS_SDK_headers_for_macOS_$short_mac_os_version"
 }
 
 __assert_pyenv_is_set_up() {

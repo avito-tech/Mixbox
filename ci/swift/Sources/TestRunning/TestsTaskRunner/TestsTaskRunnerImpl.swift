@@ -29,7 +29,7 @@ public final class TestsTaskRunnerImpl: TestsTaskRunner {
     
     public func runTests(
         build: (IosProjectBuilder, MixboxTestDestination) throws -> XcodebuildResult,
-        artifacts: (IosBuildArtifactsProvider) throws -> IosBuildArtifacts,
+        artifacts: (IosBuildArtifactsProvider) throws -> AppleBuildArtifacts,
         additionalEnvironment: [String: String]
     ) throws {
         let mixboxTestDestinationConfigurations = try mixboxTestDestinationConfigurationsProvider
