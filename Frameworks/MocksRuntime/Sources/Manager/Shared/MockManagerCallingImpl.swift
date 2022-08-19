@@ -141,7 +141,7 @@ public final class MockManagerCallingImpl: MockManagerCalling {
             )
             
             let messageAboutUnstubbedCall = """
-            Call to function \(functionIdentifier) with args \(tupledArguments) and return \
+            Call to function \(functionIdentifier) of mocked type \(MockedType.self) with args \(tupledArguments) and return \
             value of type \(ReturnValue.self) was not stubbed
             """
             
