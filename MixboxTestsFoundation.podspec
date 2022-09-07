@@ -9,9 +9,10 @@ Mixbox::FrameworkSpec.new do |s|
   s.dependency 'MixboxBuiltinDi'
   
   s.dependency 'SQLite.swift'
+
+  s.dependency 'AutomationInfrastructureIntegrationTests'
   
   s.pod_target_xcconfig = {
-    'OTHER_LDFLAGS': '-framework XCTAutomationSupport -framework XCTest -framework CoreLocation',
     'ENABLE_TESTING_SEARCH_PATHS' => 'YES',
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/usr/lib" "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'
