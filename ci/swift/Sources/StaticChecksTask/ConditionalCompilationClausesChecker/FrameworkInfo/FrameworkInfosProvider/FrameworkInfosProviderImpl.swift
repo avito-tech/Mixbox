@@ -23,6 +23,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
             ),
             FrameworkInfo(
+                name: "AutomationInfrastructureIntegrationTests",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
+            ),
+            FrameworkInfo(
                 name: "Black",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
@@ -81,6 +85,10 @@ public final class FrameworkInfosProviderImpl: FrameworkInfosProvider {
             FrameworkInfo(
                 name: "IpcSbtuiHost",
                 requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: true
+            ),
+            FrameworkInfo(
+                name: "LinkXCTAutomationSupport",
+                requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds: false
             ),
             FrameworkInfo(
                 name: "MocksGeneration",

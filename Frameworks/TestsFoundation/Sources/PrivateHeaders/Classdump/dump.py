@@ -330,6 +330,12 @@ class Dump:
                 ios_min_version=150000,
                 ios_max_version=160000, # this is subject to change when new xcode is released
             ),
+            Xcode(
+                name="Xcode_14_0",
+                path=args.xcode14_0,
+                ios_min_version=160000,
+                ios_max_version=170000,
+            ),
         ]
         
         for xcode in xcodes:
@@ -345,8 +351,8 @@ class Dump:
                 if xcode.ios_min_version >= 150000:
                     self.dump(
                         framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTestCore.framework",
-                        xcode=xcode
-                    )
+                    xcode=xcode
+                )
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
@@ -390,6 +396,12 @@ class Dump:
         parser.add_argument(
             '--xcode13_0',
             dest='xcode13_0',
+            required=False
+        )
+
+        parser.add_argument(
+            '--xcode14_0',
+            dest='xcode14_0',
             required=False
         )
         

@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "Cryptor",
+        "repositoryURL": "https://github.com/Kitura/BlueCryptor.git",
+        "state": {
+          "branch": null,
+          "revision": "88fc6e132f41ece53e49acc0e4f67b0331c15b90",
+          "version": "2.0.1"
+        }
+      },
+      {
         "package": "Signals",
         "repositoryURL": "https://github.com/IBM-Swift/BlueSignals.git",
         "state": {
@@ -38,21 +47,12 @@
         }
       },
       {
-        "package": "Socket",
-        "repositoryURL": "https://github.com/IBM-Swift/BlueSocket",
-        "state": {
-          "branch": null,
-          "revision": "ccc671b022bc60e5fffcb2aa15f499c6331bfd18",
-          "version": "1.0.46"
-        }
-      },
-      {
         "package": "CommandLineToolkit",
         "repositoryURL": "https://github.com/avito-tech/CommandLineToolkit.git",
         "state": {
           "branch": null,
-          "revision": "cf710c25675bfdb9b7487ba8f3c502cae05f294b",
-          "version": "1.0.15"
+          "revision": "870a01960b59172f726d75f581e5265cdd9e915a",
+          "version": null
         }
       },
       {
@@ -96,7 +96,7 @@
         "repositoryURL": "https://github.com/avito-tech/Emcee",
         "state": {
           "branch": null,
-          "revision": "2e349487931b707d10d3d732379e89ab32eb4744",
+          "revision": "614bcac59b511fd69c12b3585be8fefd91c2a9d6",
           "version": null
         }
       },
@@ -143,6 +143,15 @@
           "branch": null,
           "revision": "ebdc260ea64e68f7569c62e8744b5cd15d3a49d6",
           "version": "3.0.6"
+        }
+      },
+      {
+        "package": "swift-algorithms",
+        "repositoryURL": "https://github.com/apple/swift-algorithms.git",
+        "state": {
+          "branch": null,
+          "revision": "b14b7f4c528c942f121c8b860b9410b2bf57825e",
+          "version": "1.0.0"
         }
       },
       {
@@ -195,8 +204,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "8fc79cae9d03a5e623c52cc2dbd2df165a7832b0",
-          "version": "1.4.3"
+          "revision": "6fe203dc33195667ce1759bf0182975e4653ba1c",
+          "version": "1.4.4"
         }
       },
       {
@@ -254,6 +263,15 @@
         }
       },
       {
+        "package": "swift-numerics",
+        "repositoryURL": "https://github.com/apple/swift-numerics",
+        "state": {
+          "branch": null,
+          "revision": "0a5bc04095a675662cf24757cc0640aa2204253b",
+          "version": "1.0.2"
+        }
+      },
+      {
         "package": "Swifter",
         "repositoryURL": "https://github.com/httpswift/swifter.git",
         "state": {
@@ -267,8 +285,8 @@
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "a2c1e5d9903103e6f0c458e84e6bd11effd0e4a1",
-          "version": "4.55.4"
+          "revision": "971becba16d6faf5c4cb869d2e3026e822d09059",
+          "version": "4.65.1"
         }
       },
       {

@@ -10,7 +10,6 @@ Mixbox::FrameworkSpec.new do |s|
   s.dependency 'MixboxDi'
   
   s.pod_target_xcconfig = {
-    'OTHER_LDFLAGS': '-framework XCTAutomationSupport -framework XCTest',
     'ENABLE_TESTING_SEARCH_PATHS' => 'YES',
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/usr/lib" "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"'

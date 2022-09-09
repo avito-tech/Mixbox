@@ -8,8 +8,10 @@ module Mixbox
       super()
       
       mixbox_version = MixboxVersionProvider.get_mixbox_version
-      
-      attributes_hash['module_name'] = self.name
+
+      if attributes_hash['module_name'].nil?
+        attributes_hash['module_name'] = name
+      end
       attributes_hash['version'] = mixbox_version
       
       if self.summary.blank?

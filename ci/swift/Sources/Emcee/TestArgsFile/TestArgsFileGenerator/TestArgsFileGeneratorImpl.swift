@@ -75,12 +75,12 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             TestDestinationConfiguration(
                 testDestination: TestDestination()
                     .add(
-                        key: AppleTestDestinationFields.deviceType,
-                        value: $0.testDestination.deviceType
+                        key: AppleTestDestinationFields.simDeviceType,
+                        value: $0.testDestination.deviceTypeId
                     )
                     .add(
-                        key: AppleTestDestinationFields.runtime,
-                        value: $0.testDestination.iOSVersion
+                        key: AppleTestDestinationFields.simRuntime,
+                        value: $0.testDestination.runtimeId
                     ),
                 reportOutput: ReportOutput(
                     junit: $0.reportOutput.junit,
