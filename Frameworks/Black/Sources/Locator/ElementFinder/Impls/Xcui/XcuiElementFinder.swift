@@ -4,22 +4,19 @@ import MixboxUiTestsFoundation
 import XCTest
 
 public final class XcuiElementFinder: ElementFinder {
-    private let stepLogger: StepLogger
     // See ChangingHierarchyTests if you want to know why dropping cache is needed.
     private let applicationProviderThatDropsCaches: ApplicationProvider
-    private let applicationScreenshotTaker: ApplicationScreenshotTaker
-    private let dateProvider: DateProvider
+    private let resolvedElementQueryLogger: ResolvedElementQueryLogger
+    private let assertionFailureRecorder: AssertionFailureRecorder
     
     public init(
-        stepLogger: StepLogger,
         applicationProviderThatDropsCaches: ApplicationProvider,
-        applicationScreenshotTaker: ApplicationScreenshotTaker,
-        dateProvider: DateProvider)
-    {
-        self.stepLogger = stepLogger
+        resolvedElementQueryLogger: ResolvedElementQueryLogger,
+        assertionFailureRecorder: AssertionFailureRecorder
+    ) {
         self.applicationProviderThatDropsCaches = applicationProviderThatDropsCaches
-        self.applicationScreenshotTaker = applicationScreenshotTaker
-        self.dateProvider = dateProvider
+        self.resolvedElementQueryLogger = resolvedElementQueryLogger
+        self.assertionFailureRecorder = assertionFailureRecorder
     }
     
     public func query(
@@ -52,11 +49,10 @@ public final class XcuiElementFinder: ElementFinder {
         return XcuiElementQuery(
             xcuiElementQuery: xcuiElementQuery,
             elementQueryResolvingState: elementQueryResolvingState,
-            stepLogger: stepLogger,
-            applicationScreenshotTaker: applicationScreenshotTaker,
             applicationProvider: applicationProviderThatDropsCaches,
-            dateProvider: dateProvider,
-            elementFunctionDeclarationLocation: elementFunctionDeclarationLocation
+            elementFunctionDeclarationLocation: elementFunctionDeclarationLocation,
+            resolvedElementQueryLogger: resolvedElementQueryLogger,
+            assertionFailureRecorder: assertionFailureRecorder
         )
     }
 }

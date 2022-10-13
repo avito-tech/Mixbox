@@ -141,5 +141,8 @@ public final class ApplicationIndependentTestsDependencyCollectionRegisterer: De
                 processInfo: ProcessInfo.processInfo
             )
         }
+        di.register(type: AssertionFailureRecorder.self) { _ in
+            StandardLibraryAssertionFailureRecorder()
+        }
     }
 }

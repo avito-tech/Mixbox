@@ -1,7 +1,7 @@
 import MixboxIpcCommon
 import XCTest
 
-final class UiKitHierarchyElementSnaphot: ElementSnapshot {
+final class IpcUiKitHierarchyElementSnaphot: ElementSnapshot {
     private let data: ViewHierarchyElement
     
     private(set) var parent: ElementSnapshot?
@@ -65,7 +65,7 @@ final class UiKitHierarchyElementSnaphot: ElementSnapshot {
     
     var children: [ElementSnapshot] {
         return data.children.map { child in
-            UiKitHierarchyElementSnaphot(
+            IpcUiKitHierarchyElementSnaphot(
                 element: child,
                 parent: self
             )

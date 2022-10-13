@@ -22,6 +22,15 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
     public func register(dependencyRegisterer di: DependencyRegisterer) {
         nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
         
+        di.register(type: ResolvedElementQueryLogger.self) { di in
+            try ResolvedElementQueryLoggerImpl(
+                stepLogger: di.resolve(),
+                dateProvider: di.resolve(),
+                applicationScreenshotTaker: di.resolve(),
+                performanceLogger: di.resolve(),
+                testFailureRecorder: di.resolve()
+            )
+        }
         di.register(type: ApplicationStateProvider.self) { _ in
             GrayApplicationStateProvider()
         }
@@ -59,13 +68,10 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
             )
         }
         di.register(type: ElementFinder.self) { di in
-            UiKitHierarchyElementFinder(
-                ipcClient: try di.resolve(),
-                testFailureRecorder: try di.resolve(),
-                stepLogger: try di.resolve(),
-                applicationScreenshotTaker: try di.resolve(),
-                performanceLogger: try di.resolve(),
-                dateProvider: try di.resolve()
+            try IpcUiKitHierarchyElementFinder(
+                ipcClient: di.resolve(),
+                performanceLogger: di.resolve(),
+                resolvedElementQueryLogger: di.resolve()
             )
         }
         di.register(type: ApplicationQuiescenceWaiter.self) { di in

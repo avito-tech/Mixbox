@@ -29,13 +29,10 @@ public final class BlackBoxApplicationDependentDependencyCollectionRegisterer: B
             )
         }
         di.register(type: ElementFinder.self) { di in
-            UiKitHierarchyElementFinder(
-                ipcClient: try di.resolve(),
-                testFailureRecorder: try di.resolve(),
-                stepLogger: try di.resolve(),
-                applicationScreenshotTaker: try di.resolve(),
-                performanceLogger: try di.resolve(),
-                dateProvider: try di.resolve()
+            try IpcUiKitHierarchyElementFinder(
+                ipcClient: di.resolve(),
+                performanceLogger: di.resolve(),
+                resolvedElementQueryLogger: di.resolve()
             )
         }
         di.register(type: EventGenerator.self) { di in
@@ -49,12 +46,61 @@ public final class BlackBoxApplicationDependentDependencyCollectionRegisterer: B
             )
         }
         di.register(type: PageObjectDependenciesFactory.self) { di in
+            // WORKAROUND!
+            //
+            // `XcuiPageObjectDependenciesFactory` creates its own local di and uses `CompoundDependencyResolver`,
+            // which consists of 2 resolvers. One is `parentDi` here, one is temporary for interactions (taps, checks, etc).
+            // `XcuiPageObjectDependenciesFactory`. Both are instances of `BuiltinDependencyInjection` and both
+            // store cached signleton dependencies.
+            //
+            // `IpcClientsDependencyCollectionRegisterer` is used in `XcuiPageObjectDependenciesFactory`
+            // because in case of multiple applications with IPC we need multiple `IpcClient`'s and multiple entities that use
+            // those separate `IpcClient`'s.
+            //
+            // The problem is that `IpcClientsDependencyCollectionRegisterer` is registered in both DI's.
+            // When `IpcClient` is resolved from `parentDi`, it's one instance, when resolved from local DI, it's another instance.
+            // This is because resolvers have separate Dictionary of cached dependencies (with `.singleton` scope).
+            //
+            // Both are instances of `LazilyInitializedIpcClient` and only one receives its `IpcClient` instance after IPC
+            // is initialized between the app and test target.
+            //
+            // So, one of them don't work.
+            //
+            // Workaround: forcibly register same instance of `IpcClient` from parent di in local di.
+            //
+            // Possible better solutions:
+            //
+            // 1. Extend the DI interfaces, implement cloning, because what we need for temporary DI is a clone of DI with temporary dependencies.
+            //
+            //    Pros: will solve the issue, it's what we actually need.
+            //
+            //    Cons: this will require us to extend the interfaces with cloning functionality, but simpler interfaces are preferred.
+            //
+            // 2. Extend the DI interfaces, add the ability to check which dependencies are registered. Use this abiluty to not
+            //    register IpcClient in the local DI, or other entities with same problem.
+            //
+            //    Pros: will solve the issue, can be used for reflection, what is registered and when, adds the ability for users of Mixbox
+            //    to fine-tune the DI, for example, they may want to register an entity only if it wasn't registered (currently we can only
+            //    override dependencies).
+            //
+            //    Cons: same as before
+            //
+            // 3. Extend the DI interfaces, and support sharing of dependencies. So, both resolvers will have references to same storage.
+            //    Note, that it we need to not modify the original DI, so the cached dependencies should be only for reading, not writing.
+            //
+            //    Pros: will solve the issue
+            //
+            //    Cons: same as before, seems to be a worse solution than cloning
+            //
+            // NOTE: Currently the case with multiple apps with IPC is not implemened neither in Demo, nor in Tests,
+            // but it's important, because Mixbox supports it and its clients use it.
+            //
             XcuiPageObjectDependenciesFactory(
                 dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
                 dependencyInjectionFactory: try di.resolve(),
-                ipcClient: try di.resolve(),
-                elementFinder: try di.resolve(),
-                applicationProvider: try di.resolve()
+                ipcClient: { _ in try di.resolve() },
+                elementFinder: { _ in try di.resolve() },
+                applicationProvider: { _ in try di.resolve() }
             )
         }
         di.register(type: ApplicationFrameProvider.self) { di in

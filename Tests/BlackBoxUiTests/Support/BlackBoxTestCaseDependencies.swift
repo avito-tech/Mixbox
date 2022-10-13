@@ -76,7 +76,11 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
         }
         
         di.register(type: Apps.self) { di in
-            let app: (_ applicationProvider: ApplicationProvider, _ elementFinder: ElementFinder, _ ipcClient: IpcClient?) throws -> XcuiPageObjectDependenciesFactory = { applicationProvider, elementFinder, ipcClient in
+            func app(
+                applicationProvider: @escaping (DependencyResolver) throws -> ApplicationProvider,
+                elementFinder: @escaping (DependencyResolver) throws -> ElementFinder,
+                ipcClient: @escaping (DependencyResolver) throws -> IpcClient
+            ) throws -> XcuiPageObjectDependenciesFactory {
                 XcuiPageObjectDependenciesFactory(
                     dependencyResolver: WeakDependencyResolver(dependencyResolver: di),
                     dependencyInjectionFactory: try di.resolve(),
@@ -86,65 +90,60 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                 )
             }
             
-            let xcuiApp: (_ application: @escaping () -> XCUIApplication) throws -> XcuiPageObjectDependenciesFactory = { application in
+            func thirdPartyApp(
+                application: @escaping () -> XCUIApplication
+            ) throws -> XcuiPageObjectDependenciesFactory {
                 let provider = ApplicationProviderImpl(closure: application)
                 
                 return try app(
-                    provider,
-                    XcuiElementFinder(
-                        stepLogger: try di.resolve(),
-                        applicationProviderThatDropsCaches: provider,
-                        // TODO: Use same instance in `XcuiPageObjectDependenciesFactory`
-                        applicationScreenshotTaker: XcuiApplicationScreenshotTaker(
-                            applicationProvider: provider
-                        ),
-                        dateProvider: try di.resolve()
-                    ),
-                    try di.resolve()
+                    applicationProvider: { _ in provider },
+                    elementFinder: { di in
+                        try XcuiElementFinder(
+                            applicationProviderThatDropsCaches: provider,
+                            resolvedElementQueryLogger: di.resolve(),
+                            assertionFailureRecorder: di.resolve()
+                        )
+                    },
+                    ipcClient: { _ in AlwaysFailingIpcClient() }
                 )
             }
             
-            let thirdPartyApp: (_ application: @escaping () -> XCUIApplication) throws -> XcuiPageObjectDependenciesFactory = { application in
-                let provider = ApplicationProviderImpl(closure: application)
-                
-                return try app(
-                    provider,
-                    XcuiElementFinder(
-                        stepLogger: try di.resolve(),
-                        applicationProviderThatDropsCaches: provider,
-                        applicationScreenshotTaker: XcuiApplicationScreenshotTaker(
-                            applicationProvider: provider
-                        ),
-                        dateProvider: try di.resolve()
-                    ),
-                    nil
-                )
+            let mainApplicationProvider = ApplicationProviderImpl { XCUIApplication() }
+            
+            // See WORKAROUND in `BlackBoxApplicationDependentDependencyCollectionRegisterer` near:
+            // `di.register(type: PageObjectDependenciesFactory.self) { di in`.
+            let mainAppIpcClientFactory: (DependencyResolver) throws -> IpcClient = { [parentDi = di] _ in
+                try parentDi.resolve()
             }
             
-            let mainApp: () throws -> XcuiPageObjectDependenciesFactory = {
-                let mainApplicationProvider = ApplicationProviderImpl { XCUIApplication() }
-                return try app(
-                    mainApplicationProvider,
-                    UiKitHierarchyElementFinder(
-                        ipcClient: try di.resolve(),
-                        testFailureRecorder: try di.resolve(),
-                        stepLogger: try di.resolve(),
-                        applicationScreenshotTaker: XcuiApplicationScreenshotTaker(
-                            applicationProvider: mainApplicationProvider
-                        ),
-                        performanceLogger: try di.resolve(),
-                        dateProvider: try di.resolve()
-                    ),
-                    try di.resolve()
-                )
-            }
+            let mainUiKitHierarchy = try app(
+                applicationProvider: { _ in mainApplicationProvider },
+                elementFinder: { di in
+                    try IpcUiKitHierarchyElementFinder(
+                        ipcClient: di.resolve(),
+                        performanceLogger: di.resolve(),
+                        resolvedElementQueryLogger: di.resolve()
+                    )
+                },
+                ipcClient: mainAppIpcClientFactory
+            )
             
-            let mainAppXcuiHierarchy = try xcuiApp { XCUIApplication() }
+            let mainXcuiHierarchy = try app(
+                applicationProvider: { _ in mainApplicationProvider },
+                elementFinder: { di in
+                    try XcuiElementFinder(
+                        applicationProviderThatDropsCaches: mainApplicationProvider,
+                        resolvedElementQueryLogger: di.resolve(),
+                        assertionFailureRecorder: di.resolve()
+                    )
+                },
+                ipcClient: mainAppIpcClientFactory
+            )
             
             return Apps(
-                mainUiKitHierarchy: try mainApp(),
-                mainXcuiHierarchy: mainAppXcuiHierarchy,
-                mainDefaultHierarchy: mainAppXcuiHierarchy,
+                mainUiKitHierarchy: mainUiKitHierarchy,
+                mainXcuiHierarchy: mainXcuiHierarchy,
+                mainDefaultHierarchy: mainXcuiHierarchy,
                 settings: try thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.Preferences") },
                 springboard: try thirdPartyApp { XCUIApplication(privateWithPath: nil, bundleID: "com.apple.springboard") }
             )

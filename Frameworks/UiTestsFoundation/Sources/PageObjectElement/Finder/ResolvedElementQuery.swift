@@ -64,3 +64,9 @@ public final class ResolvedElementQuery {
         )
     }
 }
+
+extension ResolvedElementQuery {
+    public var elementWasFound: Bool {
+        !matchingSnapshots.isEmpty
+    }
+}

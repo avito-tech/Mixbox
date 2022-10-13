@@ -39,8 +39,8 @@ final class UiTestCaseDependencies: DependencyCollectionRegisterer {
             NsTemporaryDirectoryPathProvider()
         }
         di.register(type: PageObjects.self) { di in
-            PageObjects(
-                apps: try di.resolve()
+            try PageObjects(
+                apps: di.resolve()
             )
         }
     }

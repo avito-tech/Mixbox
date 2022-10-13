@@ -6,28 +6,25 @@ import XCTest
 final class XcuiElementQuery: ElementQuery {
     private let xcuiElementQuery: XCUIElementQuery
     private let elementQueryResolvingState: ElementQueryResolvingState
-    private let stepLogger: StepLogger
-    private let applicationScreenshotTaker: ApplicationScreenshotTaker
     private let applicationProvider: ApplicationProvider
-    private let dateProvider: DateProvider
     private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
+    private let resolvedElementQueryLogger: ResolvedElementQueryLogger
+    private let assertionFailureRecorder: AssertionFailureRecorder
     
     init(
         xcuiElementQuery: XCUIElementQuery,
         elementQueryResolvingState: ElementQueryResolvingState,
-        stepLogger: StepLogger,
-        applicationScreenshotTaker: ApplicationScreenshotTaker,
         applicationProvider: ApplicationProvider,
-        dateProvider: DateProvider,
-        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
-    {
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation,
+        resolvedElementQueryLogger: ResolvedElementQueryLogger,
+        assertionFailureRecorder: AssertionFailureRecorder
+    ) {
         self.xcuiElementQuery = xcuiElementQuery
         self.elementQueryResolvingState = elementQueryResolvingState
-        self.stepLogger = stepLogger
-        self.applicationScreenshotTaker = applicationScreenshotTaker
         self.applicationProvider = applicationProvider
-        self.dateProvider = dateProvider
         self.elementFunctionDeclarationLocation = elementFunctionDeclarationLocation
+        self.resolvedElementQueryLogger = resolvedElementQueryLogger
+        self.assertionFailureRecorder = assertionFailureRecorder
     }
     
     func resolveElement(interactionMode: InteractionMode) -> ResolvedElementQuery {
@@ -39,79 +36,53 @@ final class XcuiElementQuery: ElementQuery {
         }
     }
     
-    // TODO: fix linter
-    // swiftlint:disable:next function_body_length
-    private func resolveElement(_ closure: (XCUIElementQuery) -> (XCUIElement)) -> ResolvedElementQuery {
-        let stepLogBefore = StepLogBefore(
-            date: dateProvider.currentDate(),
-            title: "Поиск элемента"
+    private func resolveElement(
+        _ closure: (XCUIElementQuery) -> (XCUIElement)
+    ) -> ResolvedElementQuery {
+        return resolvedElementQueryLogger.logResolvingElement(
+            resolveElement: {
+                resolveElementWithoutLogging(
+                    closure: closure
+                )
+            },
+            elementFunctionDeclarationLocation: elementFunctionDeclarationLocation
+        )
+    }
+    
+    private func resolveElementWithoutLogging(
+        closure: (XCUIElementQuery) -> (XCUIElement)
+    ) -> ResolvedElementQueryLoggerResolvingInfo {
+        let element = closure(xcuiElementQuery)
+        
+        elementQueryResolvingState.start()
+        // TODO?: Optimize logging. Do not log if element is found.
+        let elementExists = element.exists
+        elementQueryResolvingState.stop()
+        
+        let resolvedElementQuery = ResolvedElementQuery(
+            elementQueryResolvingState: elementQueryResolvingState
         )
         
-        let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
-            () -> StepLoggerResultWrapper<ResolvedElementQuery>
-            in
-            
-            let element = closure(xcuiElementQuery)
-            
-            elementQueryResolvingState.start()
-            // TODO?: Optimize logging. Do not log if element is found.
-            let elementExists = element.exists
-            elementQueryResolvingState.stop()
-            
-            let resolvedElementQuery = ResolvedElementQuery(
-                elementQueryResolvingState: elementQueryResolvingState
-            )
-            
-            var attachments = [Attachment]()
-            if let candidatesDescription = resolvedElementQuery.candidatesDescription() {
-                attachments.append(
-                    Attachment(
-                        name: "Кандидаты",
-                        content: .text(candidatesDescription.description)
-                    )
-                )
-                attachments.append(
-                    Attachment(
-                        name: "Строка и файл где объявлен локатор",
-                        content: .text(
-                            """
-                            \(elementFunctionDeclarationLocation.fileLine.file):\(elementFunctionDeclarationLocation.fileLine.line):
-                            \(elementFunctionDeclarationLocation.function)
-                            """
-                        )
-                    )
-                )
-                attachments.append(
-                    Attachment(
-                        name: "Иерархия вьюх",
-                        content: .text(
-                            applicationProvider.application.debugDescription
-                        )
-                    )
-                )
-                if let screenshot = try? applicationScreenshotTaker.takeApplicationScreenshot() {
-                    attachments.append(
-                        Attachment(
-                            name: "Скриншот",
-                            content: .screenshot(screenshot)
-                        )
-                    )
-                }
-                attachments.append(
-                    contentsOf: candidatesDescription.attachments
-                )
-            }
-            
-            return StepLoggerResultWrapper(
-                stepLogAfter: StepLogAfter(
-                    date: dateProvider.currentDate(),
-                    wasSuccessful: elementExists,
-                    attachments: attachments
-                ),
-                wrappedResult: resolvedElementQuery
+        let elementWasFound = resolvedElementQuery.elementWasFound
+        
+        if elementExists != elementWasFound {
+            assertionFailureRecorder.recordAssertionFailure(
+                message:
+                """
+                Value of \(XCUIElement.self)'s property `exists` (\(elementExists)) \
+                is not equal to value of \(ResolvedElementQuery.self)'s property `elementWasFound` (\(elementWasFound)).
+                """
             )
         }
         
-        return wrapper.wrappedResult
+        return ResolvedElementQueryLoggerResolvingInfo(
+            status: .queryWasPerformed(
+                resolvedElementQuery: resolvedElementQuery,
+                provideViewHierarcyDescription: { [applicationProvider] in
+                    applicationProvider.application.debugDescription
+                }
+            ),
+            elementFunctionDeclarationLocation: elementFunctionDeclarationLocation
+        )
     }
 }

@@ -6,13 +6,47 @@ import MixboxFoundation
 import MixboxDi
 
 public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependenciesFactory {
+    public convenience init(
+        dependencyResolver: DependencyResolver,
+        dependencyInjectionFactory: DependencyInjectionFactory,
+        ipcClient: @escaping (DependencyResolver) throws -> IpcClient,
+        elementFinder: @escaping (DependencyResolver) throws -> ElementFinder,
+        applicationProvider: @escaping (DependencyResolver) throws -> ApplicationProvider
+    ) {
+        self.init(
+            dependencyResolver: dependencyResolver,
+            dependencyInjectionFactory: dependencyInjectionFactory,
+            registerAdditionalSpecificDependencies: { di in
+                di.register(type: IpcClient.self) { di in
+                    try ipcClient(di)
+                }
+                di.register(type: Pasteboard.self) { di in
+                    let synchronousIpcClientFactory: SynchronousIpcClientFactory = try di.resolve()
+                    let ipcClient: IpcClient = try di.resolve()
+                    
+                    return IpcPasteboard(
+                        ipcClient: synchronousIpcClientFactory.synchronousIpcClient(
+                            ipcClient: ipcClient
+                        )
+                    )
+                }
+                di.register(type: ElementFinder.self) { di in
+                    try elementFinder(di)
+                }
+                di.register(type: ApplicationProvider.self) { di in
+                    try applicationProvider(di)
+                }
+            }
+        )
+    }
+        
     public init(
         dependencyResolver: DependencyResolver,
         dependencyInjectionFactory: DependencyInjectionFactory,
-        ipcClient: IpcClient?,
-        elementFinder: ElementFinder,
-        applicationProvider: ApplicationProvider)
-    {
+        // Note: `ApplicationProvider`, `ElementFinder` and `IpcClient` are not registered by default.
+        // `IpcPasteboard` is `UikitPasteboard` by default.
+        registerAdditionalSpecificDependencies: (DependencyRegisterer) -> ()
+    ) {
         super.init(
             dependencyResolver: dependencyResolver,
             dependencyInjectionFactory: dependencyInjectionFactory,
@@ -36,34 +70,30 @@ public final class XcuiPageObjectDependenciesFactory: BasePageObjectDependencies
                         interactionFailureDebugger: try di.resolve()
                     )
                 }
-                di.register(type: ElementFinder.self) { _ in
-                    elementFinder
-                }
-                di.register(type: ApplicationProvider.self) { _ in
-                    applicationProvider
-                }
                 di.register(type: SynchronousIpcClient.self) { di in
                     let synchronousIpcClientFactory: SynchronousIpcClientFactory = try di.resolve()
                 
                     return synchronousIpcClientFactory.synchronousIpcClient(ipcClient: try di.resolve())
                 }
-                di.register(type: IpcClient.self) { _ in
-                    ipcClient ?? AlwaysFailingIpcClient()
-                }
-                di.register(type: Pasteboard.self) { di in
-                    let synchronousIpcClientFactory: SynchronousIpcClientFactory = try di.resolve()
-                    
-                    let ipcPasteboard = ipcClient.map {
-                        IpcPasteboard(ipcClient: synchronousIpcClientFactory.synchronousIpcClient(ipcClient: $0))
-                    }
-                    
-                    return ipcPasteboard ?? UikitPasteboard(uiPasteboard: .general)
+                di.register(type: Pasteboard.self) { _ in
+                    UikitPasteboard(uiPasteboard: .general)
                 }
                 di.register(type: ApplicationScreenshotTaker.self) { di in
-                    XcuiApplicationScreenshotTaker(
-                        applicationProvider: try di.resolve()
+                    try XcuiApplicationScreenshotTaker(
+                        applicationProvider: di.resolve()
                     )
                 }
+                di.register(type: ResolvedElementQueryLogger.self) { di in
+                    try ResolvedElementQueryLoggerImpl(
+                        stepLogger: di.resolve(),
+                        dateProvider: di.resolve(),
+                        applicationScreenshotTaker: di.resolve(),
+                        performanceLogger: di.resolve(),
+                        testFailureRecorder: di.resolve()
+                    )
+                }
+                
+                registerAdditionalSpecificDependencies(di)
             }
         )
     }
