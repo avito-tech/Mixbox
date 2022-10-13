@@ -38,7 +38,6 @@ def get_dict_to_render_for_package_swift():
     
     dict_to_render = {
         "comment_saying_that_this_file_is_code_generated": comment_saying_that_this_file_is_code_generated(),
-        "emcee_repository_url": os.environ["EMCEE_REPOSITORY_URL"],
         "emcee_commit_hash": emcee_commit_hash(),
         "targets": targets,
         "executables": [target for target in targets if target.is_executable],

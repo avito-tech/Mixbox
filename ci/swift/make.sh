@@ -11,21 +11,21 @@ source "$(builtin cd "$(dirname "$0")" && git rev-parse --show-toplevel)/ci/bash
 
 spm_generate_package() {
     body() {
-        if [ -z "$EMCEE_REPOSITORY_URL" ]; then
-            echo "Error: EMCEE_REPOSITORY_URL environment variable is not set"
-            echo "Note: This CI uses proprietary code (Emcee with versions later than 2022) and will not work without proprietary software of specified version"
-        fi
 
         bash_ci_require_pyenv make_v1
         bash_ci_require_python_packages ./MakePackage/requirements.txt
         bash_ci_run_python3 ./MakePackage/make_package.py
 
-        swift \
-            package \
-            config \
-            set-mirror \
-            --original-url "https://github.com/avito-tech/Emcee" \
-            --mirror-url "$EMCEE_REPOSITORY_URL"
+        if [ -z "$MIRRORS_JSON_FILE_PATH" ]; then
+            echo "Error: MIRRORS_JSON_FILE_PATH environment variable is not set"
+            echo "Note: This CI uses proprietary code (Emcee with versions later than April 2022) and will not work without proprietary software of specified version"
+        else
+            # Note: mirrors will stay here after being copied once.
+            # It's useful for local development.
+            # To remove mirrors you have to remove them manually.
+            mkdir -p .swiftpm/configuration
+            cp -f "$MIRRORS_JSON_FILE_PATH" .swiftpm/configuration/mirrors.json
+        fi
     }
 
     { set +x; } 2>/dev/null && ci_log_block "Generating package" body ${@+"$@"}
