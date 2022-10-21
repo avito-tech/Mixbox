@@ -84,8 +84,8 @@ def get_targets():
     ]
     
     external_product_by_module_name = {
-        'Dip': '"Dip"',
-        'Alamofire': '"Alamofire"',
+        'Dip': '.product(name: "Dip", package: "dip")',
+        'Alamofire': '.product(name: "Alamofire", package: "alamofire")',
     }
     
     for emcee_framework in emcee_frameworks:

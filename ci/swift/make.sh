@@ -16,7 +16,7 @@ spm_generate_package() {
         bash_ci_require_python_packages ./MakePackage/requirements.txt
         bash_ci_run_python3 ./MakePackage/make_package.py
 
-        if [ -z "$MIRRORS_JSON_FILE_PATH" ]; then
+        if [ -z "${MIRRORS_JSON_FILE_PATH:-}" ]; then
             echo "Error: MIRRORS_JSON_FILE_PATH environment variable is not set"
             echo "Note: This CI uses proprietary code (Emcee with versions later than April 2022) and will not work without proprietary software of specified version"
         else
