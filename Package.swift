@@ -47,7 +47,7 @@ let package = Package(
             ],
             path: "Frameworks/BuiltinDi/Sources",
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+                .define("MIXBOX_ENABLE_ALL_FRAMEWORKS")
             ]
         ),
         .target(
@@ -58,7 +58,7 @@ let package = Package(
             ],
             path: "Frameworks/Di/Sources",
             swiftSettings: [
-                .define("MIXBOX_ENABLE_IN_APP_SERVICES")
+                .define("MIXBOX_ENABLE_ALL_FRAMEWORKS")
             ]
         ),
         .target(

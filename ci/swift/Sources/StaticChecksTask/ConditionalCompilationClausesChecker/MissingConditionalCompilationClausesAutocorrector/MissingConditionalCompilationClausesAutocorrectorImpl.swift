@@ -5,25 +5,85 @@ public final class MissingConditionalCompilationClausesAutocorrectorImpl: Missin
         self.ifClauseInfoByPathProvider = ifClauseInfoByPathProvider
     }
     
-    public func autocorrect(missingConditionalCompilationClauses: [MissingConditionalCompilationClause]) throws {
+    public func autocorrect(missingConditionalCompilationClauses: Set<MissingConditionalCompilationClause>) throws {
         try missingConditionalCompilationClauses.forEach(autocorrect)
     }
     
-    public func autocorrect(missingConditionalCompilationClause: MissingConditionalCompilationClause) throws {
-        let path = missingConditionalCompilationClause.fileNameWithMissingClause
+    private func autocorrect(missingConditionalCompilationClause: MissingConditionalCompilationClause) throws {
+        let filePath = missingConditionalCompilationClause.fileNameWithMissingClause
         
-        if let ifClauseInfo = ifClauseInfoByPathProvider.ifClauseInfo(path: path) {
-            let originalContents = try String(contentsOfFile: path)
-            
-            var autocorrectedContents = ifClauseInfo.clauseOpening + "\n\n" + originalContents
-            
-            if !autocorrectedContents.hasSuffix("\n") {
-                autocorrectedContents += "\n"
+        if let ifClauseInfo = ifClauseInfoByPathProvider.ifClauseInfo(
+            frameworkName: missingConditionalCompilationClause.frameworkName,
+            filePath: filePath
+        ) {
+            try rewrite(filePath: filePath) { originalContents in
+                autocorrect(
+                    originalContents: originalContents,
+                    ifClauseInfo: ifClauseInfo
+                )
             }
-            
-            autocorrectedContents.append("\n" + ifClauseInfo.clauseClosing + "\n")
-            
-            try autocorrectedContents.write(toFile: path, atomically: true, encoding: .utf8)
         }
+    }
+    
+    private func autocorrect(
+        originalContents: String,
+        ifClauseInfo: IfClauseInfo
+    ) -> String {
+        let oldSwiftClause = "#if MIXBOX_ENABLE_IN_APP_SERVICES"
+        let oldObjectiveCClause = "#ifdef MIXBOX_ENABLE_IN_APP_SERVICES"
+        
+        if originalContents.contains(oldSwiftClause) {
+            return replaceOldClause(
+                originalContents: originalContents,
+                oldClause: oldSwiftClause,
+                ifClauseInfo: ifClauseInfo
+            )
+        } else if originalContents.contains(oldObjectiveCClause) {
+            return replaceOldClause(
+                originalContents: originalContents,
+                oldClause: oldObjectiveCClause,
+                ifClauseInfo: ifClauseInfo
+            )
+        } else {
+            return addMissingClause(
+                originalContents: originalContents,
+                ifClauseInfo: ifClauseInfo
+            )
+        }
+    }
+    
+    private func replaceOldClause(
+        originalContents: String,
+        oldClause: String,
+        ifClauseInfo: IfClauseInfo
+    ) -> String {
+        originalContents.replacingOccurrences(
+            of: oldClause,
+            with: ifClauseInfo.disablingAndEnablingCompilation
+        )
+    }
+    
+    private func addMissingClause(
+        originalContents: String,
+        ifClauseInfo: IfClauseInfo
+    ) -> String {
+        var autocorrectedContents = ifClauseInfo.disablingAndEnablingCompilation + "\n\n" + originalContents
+        
+        if !autocorrectedContents.hasSuffix("\n") {
+            autocorrectedContents += "\n"
+        }
+        
+        autocorrectedContents.append("\n" + ifClauseInfo.closing + "\n")
+        
+        return autocorrectedContents
+    }
+    
+    private func rewrite(
+        filePath: String,
+        transformContents: (String) -> String
+    ) throws {
+        try transformContents(
+            String(contentsOfFile: filePath)
+        ).write(toFile: filePath, atomically: true, encoding: .utf8)
     }
 }

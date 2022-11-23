@@ -88,7 +88,7 @@ target 'App' do
   #
   # The only exception is `MixboxTestability`. You can link it to your test configuration only, but we don't recommend it.
   # In other words. We recommend to link it in your release builds. It will contain only little code and the code will do nothing
-  # in your release build (assuming you didn't set `MIXBOX_ENABLE_IN_APP_SERVICES`, which is for your test/debug configuariton).
+  # in your release build (assuming you didn't set `MIXBOX_ENABLE_ALL_FRAMEWORKS`, which is for your test/debug configuariton).
   # This way you can use things like `testability_customValues` or other extensions of testability of your app without
   # putting your code withing conditional compilation blocks (example: `#if TEST` or `#if DEBUG` + your code + `#endif`,
   # or whatever flag you use for conditional compilation).

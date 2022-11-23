@@ -195,6 +195,7 @@ Used in tests:
 
 ## Other docs
 
+- [Changelog](CHANGELOG.md)
 - [Why so many frameworks?](Docs/Frameworks.md)
 - [How-To Private API](Docs/PrivateApi.md)
 - [Code of conduct](CODE_OF_CONDUCT.md)

@@ -1,8 +1,8 @@
 @import Foundation;
 
-// TODO: Hide under `#ifdef MIXBOX_ENABLE_IN_APP_SERVICES`?
+// TODO: Hide under `#if`-clause like in neighbouring files?
 //       Swift-to-Objective-C bridging doesn't support modification with #ifdef.
-//       I don't know a way to define MIXBOX_ENABLE_IN_APP_SERVICES while bridging header is being made.
+//       I don't know a way to define, for example, MIXBOX_ENABLE_ALL_FRAMEWORKS while bridging header is being made.
 //       This makes `TestabilityElementType` not available in Swift in other modules.
 
 typedef NS_CLOSED_ENUM(NSUInteger, TestabilityElementType) {

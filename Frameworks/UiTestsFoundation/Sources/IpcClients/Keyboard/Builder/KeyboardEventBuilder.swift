@@ -1,5 +1,3 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
-
 import MixboxIpcCommon
 
 // Very simple builder for very limited task. Typing CMD, A, V and Backspace.
@@ -63,5 +61,3 @@ public final class KeyboardEventBuilder {
         }
     }
 }
-
-#endif

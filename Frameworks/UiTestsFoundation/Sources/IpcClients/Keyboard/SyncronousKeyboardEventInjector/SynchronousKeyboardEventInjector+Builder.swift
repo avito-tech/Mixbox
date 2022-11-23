@@ -1,5 +1,3 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
-
 import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxIpcCommon
@@ -15,5 +13,3 @@ extension SynchronousKeyboardEventInjector {
         try inject(events: events)
     }
 }
-
-#endif

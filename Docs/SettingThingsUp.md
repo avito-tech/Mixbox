@@ -22,7 +22,7 @@ Do not use Cocoapods' global spec repo, currently the Mixbox is not uploaded the
 There are several measures to avoid code leaking into production code:
 
 1. Your code won't link if you misconfigure Mixbox (the source code is in `EnsureReleaseAppIsNotAffected.swift`).
-2. Everything is under conditional compilation like `#if MIXBOX_ENABLE_IN_APP_SERVICES`.
+2. Everything is under conditional compilation like `#if MIXBOX_ENABLE_ALL_FRAMEWORKS`.
 3. If some file misses conditional compilation clause, then the commit wouldn't pass CI checks and wouldn't be merged into master. So at any given commit there is no chance that something is missed.
 4. **The last and the most important:** you shouldn't link Mixbox with your app in your release configuration. This can be done via standard Cocoapods API or via `Devpods` API (as in Demo). But anyway, the code wouldn't leak if you forget something.
 

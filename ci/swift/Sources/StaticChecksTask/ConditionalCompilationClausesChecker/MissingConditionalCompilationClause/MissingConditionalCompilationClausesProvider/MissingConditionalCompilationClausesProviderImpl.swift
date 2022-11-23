@@ -19,20 +19,18 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
         self.ifClauseInfoByPathProvider = ifClauseInfoByPathProvider
     }
     
-    public func missingConditionalCompilationClauses()
-        throws
-        -> [MissingConditionalCompilationClause]
-    {
+    public func missingConditionalCompilationClauses(
+    ) throws -> Set<MissingConditionalCompilationClause> {
         let frameworkInfoByName = try self.frameworkInfoByName()
-        var missingConditionalCompilationClauses = [MissingConditionalCompilationClause]()
+        var missingConditionalCompilationClauses = Set<MissingConditionalCompilationClause>()
         
         try mixboxFrameworksEnumerator.enumerateFrameworks { frameworkDirectory, frameworkName in
             guard let frameworkInfo = frameworkInfoByName[frameworkName] else {
                 throw ErrorString("Framework is unknown: \(frameworkDirectory)")
             }
             
-            missingConditionalCompilationClauses.append(
-                contentsOf: try self.missingConditionalCompilationClauses(
+            missingConditionalCompilationClauses.formUnion(
+                try self.missingConditionalCompilationClauses(
                     frameworkInfo: frameworkInfo,
                     frameworkDirectory: frameworkDirectory
                 )
@@ -46,19 +44,18 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
     
     private func missingConditionalCompilationClauses(
         frameworkInfo: FrameworkInfo,
-        frameworkDirectory: String)
-        throws
-        -> [MissingConditionalCompilationClause]
-    {
-        var missingConditionalCompilationClauses = [MissingConditionalCompilationClause]()
+        frameworkDirectory: String
+    ) throws -> Set<MissingConditionalCompilationClause> {
+        var missingConditionalCompilationClauses = Set<MissingConditionalCompilationClause>()
         
         if frameworkInfo.requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds {
             let filesMissingConditionalCompilationClauses = try self.filesMissingConditionalCompilationClauses(
+                frameworkName: frameworkInfo.name,
                 frameworkDirectory: frameworkDirectory
             )
             
             for file in filesMissingConditionalCompilationClauses {
-                missingConditionalCompilationClauses.append(
+                missingConditionalCompilationClauses.insert(
                     MissingConditionalCompilationClause(
                         frameworkName: frameworkInfo.name,
                         fileNameWithMissingClause: file
@@ -71,27 +68,33 @@ public final class MissingConditionalCompilationClausesProviderImpl: MissingCond
     }
     
     private func filesMissingConditionalCompilationClauses(
+        frameworkName: String,
         frameworkDirectory: String)
         throws
         -> [String]
     {
         var filesWithoutIfs = [String]()
         
-        try filesEnumerator.enumerateFiles(directory: frameworkDirectory) { _, path in
-            if let expectedContents = expectedContentsByFileExtension(path: path) {
-                let contents = try String(contentsOf: URL(fileURLWithPath: path))
+        try filesEnumerator.enumerateFiles(directory: frameworkDirectory) { _, filePath in
+            if let ifClauseInfo = ifClauseInfoByPathProvider.ifClauseInfo(
+                frameworkName: frameworkName,
+                filePath: filePath
+            ) {
+                let contents = try String(contentsOf: URL(fileURLWithPath: filePath))
                 
-                if !contents.contains(expectedContents) {
-                    filesWithoutIfs.append(path)
+                let requiredCodeParts = [
+                    ifClauseInfo.disablingCompilation,
+                    ifClauseInfo.enablingCompilation,
+                    ifClauseInfo.closing
+                ]
+                
+                if !requiredCodeParts.allSatisfy({ contents.contains($0) }) {
+                    filesWithoutIfs.append(filePath)
                 }
             }
         }
         
         return filesWithoutIfs
-    }
-    
-    private func expectedContentsByFileExtension(path: String) -> String? {
-        return ifClauseInfoByPathProvider.ifClauseInfo(path: path)?.clauseOpening
     }
     
     private func frameworkInfoByName() throws -> [String: FrameworkInfo] {

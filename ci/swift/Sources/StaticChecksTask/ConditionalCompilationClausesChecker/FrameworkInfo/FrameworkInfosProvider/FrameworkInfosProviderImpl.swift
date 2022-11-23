@@ -2,7 +2,7 @@
 // if it is accidentally linked in release build. It acts as an additional protective measure.
 //
 // Example: `InAppServices` is linked to app directly. Every source inside this framework should contain
-// `#if MIXBOX_ENABLE_IN_APP_SERVICES` + `#endif` to disable compilation if it is accidentally linked in release.
+// `#if MIXBOX_ENABLE_ALL_FRAMEWORKS` + `#endif` to disable compilation if it is accidentally linked in release.
 //
 // So `requiresConditionalCompilationClausesToDisableCodeInReleaseBuilds` is `true`.
 //

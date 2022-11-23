@@ -36,7 +36,7 @@ end
 def enable_testing_with_mixbox_for_module_configuration(config)
   # NOTE: You may want to add add '-Onone' for your debug builds so they will be compiled faster.
 
-  # MIXBOX_ENABLE_IN_APP_SERVICES enables code for testing. You should not include that code in release builds.
-  config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'MIXBOX_ENABLE_IN_APP_SERVICES']
-  config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_IN_APP_SERVICES=1']
+  # MIXBOX_ENABLE_ALL_FRAMEWORKS enables code for testing. You should not include that code in release builds.
+  config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited)', '-D', 'MIXBOX_ENABLE_ALL_FRAMEWORKS']
+  config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'MIXBOX_ENABLE_ALL_FRAMEWORKS=1']
 end

@@ -1,3 +1,5 @@
 public protocol MissingConditionalCompilationClausesAutocorrector {
-    func autocorrect(missingConditionalCompilationClauses: [MissingConditionalCompilationClause]) throws
+    func autocorrect(
+        missingConditionalCompilationClauses: Set<MissingConditionalCompilationClause>
+    ) throws
 }

@@ -1,4 +1,4 @@
-public final class MissingConditionalCompilationClause: Comparable, CustomDebugStringConvertible {
+public final class MissingConditionalCompilationClause: Hashable, Comparable, CustomDebugStringConvertible {
     public let frameworkName: String
     public let fileNameWithMissingClause: String
     
@@ -22,5 +22,10 @@ public final class MissingConditionalCompilationClause: Comparable, CustomDebugS
     public static func <(lhs: MissingConditionalCompilationClause, rhs: MissingConditionalCompilationClause) -> Bool {
         return (lhs.frameworkName, lhs.fileNameWithMissingClause)
             < (rhs.frameworkName, rhs.fileNameWithMissingClause)
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(frameworkName)
+        hasher.combine(fileNameWithMissingClause)
     }
 }

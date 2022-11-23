@@ -172,7 +172,7 @@ func generate(moduleName: String, path: String, isTestTarget: Bool, hasCondition
         deps: dependencies, 
         path: String(path),
         isTest: isTestTarget,
-        defines: hasConditionalCompilation ? ["MIXBOX_ENABLE_IN_APP_SERVICES"] : []
+        defines: hasConditionalCompilation ? ["MIXBOX_ENABLE_ALL_FRAMEWORKS"] : []
     )
 }
 

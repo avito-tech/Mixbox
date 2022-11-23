@@ -28,19 +28,31 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
                 ifClauseInfoByPathProvider: IfClauseInfoByPathProviderImpl()
             )
             
-            let missingConditionalCompilationClauses = try missingConditionalCompilationClausesProvider
+            let actualClauses = try missingConditionalCompilationClausesProvider
                 .missingConditionalCompilationClauses()
             
-            XCTAssertGreaterThan(missingConditionalCompilationClauses.count, 0)
-            XCTAssertEqual(
-                missingConditionalCompilationClauses.sorted(),
-                preparedFileSystem.filesMissingIfs.map {
-                    MissingConditionalCompilationClause(
-                        frameworkName: preparedFileSystem.frameworkName,
-                        fileNameWithMissingClause: $0
-                    )
-                }.sorted()
-            )
+            let expectedClauses = Set(preparedFileSystem.filesMissingIfs.map {
+                MissingConditionalCompilationClause(
+                    frameworkName: preparedFileSystem.frameworkName,
+                    fileNameWithMissingClause: $0
+                )
+            })
+            
+            XCTAssertGreaterThan(actualClauses.count, 0)
+            
+            if actualClauses != expectedClauses {
+                let fileNamesExpectedToHaveClauses = actualClauses.subtracting(expectedClauses).sorted().map { $0.fileNameWithMissingClause.lastPathComponent }
+                let fileNamesExpectedToMissClauses = expectedClauses.subtracting(actualClauses).sorted().map { $0.fileNameWithMissingClause.lastPathComponent }
+                
+                XCTFail(
+                    """
+                    Actual clauses do not equal to expected clauses.
+                                        
+                    Following files are expected to have clauses: \(fileNamesExpectedToHaveClauses)
+                    Following files are expected to miss clauses: \(fileNamesExpectedToMissClauses)
+                    """
+                )
+            }
         } catch {
             XCTFail("\(error)")
         }
@@ -60,7 +72,7 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
         
         let frameworksDirectory = temporaryFileProvider.temporaryFilePath()
         
-        let frameworkName = "Framework"
+        let frameworkName = "FooBar"
         let frameworkPath = "\(frameworksDirectory)/\(frameworkName)"
         
         try FileManager.default.createDirectory(
@@ -97,94 +109,88 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
             }
         }
         
-        try makeFile(
-            name: "fileMissingIfs.swift",
-            contents:
+        let expectedSwiftFileContents = """
+            #if MIXBOX_ENABLE_FRAMEWORK_FOO_BAR && MIXBOX_DISABLE_FRAMEWORK_FOO_BAR
+            #error("FooBar is marked as both enabled and disabled, choose one of the flags")
+            #elseif MIXBOX_DISABLE_FRAMEWORK_FOO_BAR || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_FOO_BAR)
+            // The compilation is disabled
+            #else
             """
-            class X {}
-            """,
-            missingIfs: true
-        )
         
-        try makeFile(
-            name: "fileMissingIfs.h",
-            contents:
+        let expectedCFileContents = """
+            #if defined(MIXBOX_ENABLE_FRAMEWORK_FOO_BAR) && defined(MIXBOX_DISABLE_FRAMEWORK_FOO_BAR)
+            #error "FooBar is marked as both enabled and disabled, choose one of the flags"
+            #elif defined(MIXBOX_DISABLE_FRAMEWORK_FOO_BAR) || (!defined(MIXBOX_ENABLE_ALL_FRAMEWORKS) && !defined(MIXBOX_ENABLE_FRAMEWORK_FOO_BAR))
+            // The compilation is disabled
+            #else
             """
-            @import UIKit;
-            """,
-            missingIfs: true
-        )
         
-        try makeFile(
-            name: "fileMissingIfs.m",
-            contents:
-            """
-            @import UIKit;
-            """,
-            missingIfs: true
-        )
+        for fileExtension in ["swift"] {
+            
+            try makeFile(
+                name: "fileMissingIfs.\(fileExtension)",
+                contents:
+                """
+                class X {}
+                """,
+                missingIfs: true
+            )
+            
+            try makeFile(
+                name: "fileNotMissingIfs.\(fileExtension)",
+                contents:
+                """
+                \(expectedSwiftFileContents)
+                class X {}
+                #endif
+                """,
+                missingIfs: false
+            )
+            
+            try makeFile(
+                name: "fileWithWrongIfs.\(fileExtension)",
+                contents:
+                """
+                \(expectedCFileContents)
+                class X {}
+                #endif
+                """,
+                missingIfs: true
+            )
+        }
         
-        try makeFile(
-            name: "fileMissingIfs.mm",
-            contents:
-            """
-            @import UIKit;
-            """,
-            missingIfs: true
-        )
-        
-        try makeFile(
-            name: "fileMissingIfs.c",
-            contents:
-            """
-            @import UIKit;
-            """,
-            missingIfs: true
-        )
-        
-        try makeFile(
-            name: "fileNotMissingIfs.swift",
-            contents:
-            """
-            #if MIXBOX_ENABLE_IN_APP_SERVICES
-            class X {}
-            #endif
-            """,
-            missingIfs: false
-        )
-        
-        try makeFile(
-            name: "fileNotMissingIfs.h",
-            contents:
-            """
-            #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
-            @import UIKit;
-            #endif
-            """,
-            missingIfs: false
-        )
-        
-        try makeFile(
-            name: "fileNotMissingIfs.m",
-            contents:
-            """
-            #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
-            @import UIKit;
-            #endif
-            """,
-            missingIfs: false
-        )
-        
-        try makeFile(
-            name: "fileNotMissingIfs.mm",
-            contents:
-            """
-            #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
-            @import UIKit;
-            #endif
-            """,
-            missingIfs: false
-        )
+        for fileExtension in ["h", "c", "hh", "cc", "cpp", "hpp", "cxx", "hxx", "m", "mm", "c++"] {
+            try makeFile(
+                name: "fileNotMissingIfs.\(fileExtension)",
+                contents:
+                """
+                \(expectedCFileContents)
+                @import UIKit;
+                #endif
+                """,
+                missingIfs: false
+            )
+            
+            try makeFile(
+                name: "fileWithWrongIfs.\(fileExtension)",
+                contents:
+                """
+                \(expectedSwiftFileContents)
+                @import UIKit;
+                #endif
+                """,
+                missingIfs: true
+            )
+            
+            try makeFile(
+                name: "fileMissingIfs.\(fileExtension)",
+                contents:
+                """
+                @import UIKit;
+                """,
+                missingIfs: true
+            )
+        }
         
         try makeFile(
             name: "nonSwiftFile.json",
@@ -195,28 +201,6 @@ final class MissingConditionalCompilationClausesProviderImplTests: XCTestCase {
             }
             """,
             missingIfs: false
-        )
-        
-        try makeFile(
-            name: "fileWithWrongIfs.swift",
-            contents:
-            """
-            #ifdef MIXBOX_ENABLE_IN_APP_SERVICES
-            class X {}
-            #endif
-            """,
-            missingIfs: true
-        )
-        
-        try makeFile(
-            name: "fileWithWrongIfs.hh",
-            contents:
-            """
-            #if MIXBOX_ENABLE_IN_APP_SERVICES
-            @import UIKit;
-            #endif
-            """,
-            missingIfs: true
         )
         
         return PreparedFileSystem(

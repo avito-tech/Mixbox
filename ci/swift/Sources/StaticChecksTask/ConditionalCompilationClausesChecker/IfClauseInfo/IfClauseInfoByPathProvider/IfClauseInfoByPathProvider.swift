@@ -1,3 +1,6 @@
 public protocol IfClauseInfoByPathProvider {
-    func ifClauseInfo(path: String) -> IfClauseInfo?
+    func ifClauseInfo(
+        frameworkName: String,
+        filePath: String
+    ) -> IfClauseInfo?
 }
