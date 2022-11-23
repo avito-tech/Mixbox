@@ -1,4 +1,8 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
+#if MIXBOX_ENABLE_FRAMEWORK_FOUNDATION && MIXBOX_DISABLE_FRAMEWORK_FOUNDATION
+#error("Foundation is marked as both enabled and disabled, choose one of the flags")
+#elseif MIXBOX_DISABLE_FRAMEWORK_FOUNDATION || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_FOUNDATION)
+// The compilation is disabled
+#else
 
 // Zips 2 arrays, pads arrays if they aren't of same length
 public func mb_zip<T>(_ a: [T], _ b: [T], pad: T) -> Zip2Sequence<[T], [T]> {

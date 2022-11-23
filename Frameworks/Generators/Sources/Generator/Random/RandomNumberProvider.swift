@@ -1,4 +1,8 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
+#if MIXBOX_ENABLE_FRAMEWORK_GENERATORS && MIXBOX_DISABLE_FRAMEWORK_GENERATORS
+#error("Generators is marked as both enabled and disabled, choose one of the flags")
+#elseif MIXBOX_DISABLE_FRAMEWORK_GENERATORS || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_GENERATORS)
+// The compilation is disabled
+#else
 
 // Same as Swift's RandomNumberGenerator, but requires you to implement its methods
 // instead of crashing with EXC_BAD_ACCESS if methods are not implemented.

@@ -1,6 +1,10 @@
 import Foundation
 
-#if MIXBOX_ENABLE_IN_APP_SERVICES
+#if MIXBOX_ENABLE_FRAMEWORK_TESTABILITY && MIXBOX_DISABLE_FRAMEWORK_TESTABILITY
+#error("Testability is marked as both enabled and disabled, choose one of the flags")
+#elseif MIXBOX_DISABLE_FRAMEWORK_TESTABILITY || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_TESTABILITY)
+// The compilation is disabled
+#else
 
 // Extension that allows you to tune Fake Cells for your specific implementation of collection view.
 //
@@ -20,11 +24,17 @@ import Foundation
 //
 //  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //      ...
-//      #if MIXBOX_ENABLE_IN_APP_SERVICES
+//      #if MIXBOX_ENABLE_FRAMEWORK_TESTABILITY && MIXBOX_DISABLE_FRAMEWORK_TESTABILITY
+//      #error("Testability is marked as both enabled and disabled, choose one of the flags")
+//      #elseif MIXBOX_DISABLE_FRAMEWORK_TESTABILITY || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_TESTABILITY)
+//      // The compilation is disabled
+//      #else
+//
 //      // To not update fake cell instead of a real one:
 //      if !cell.mb_isFakeCell() {
 //          someService.someCallback = { cell.someUpdateFunction() }
 //      }
+//
 //      #endif
 //      ...
 //  }
@@ -33,10 +43,16 @@ import Foundation
 //
 //  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //      ...
-//      #if MIXBOX_ENABLE_IN_APP_SERVICES
+//      #if MIXBOX_ENABLE_FRAMEWORK_TESTABILITY && MIXBOX_DISABLE_FRAMEWORK_TESTABILITY
+//      #error("Testability is marked as both enabled and disabled, choose one of the flags")
+//      #elseif MIXBOX_DISABLE_FRAMEWORK_TESTABILITY || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_TESTABILITY)
+//      // The compilation is disabled
+//      #else
+//
 //      if cell.mb_isFakeCell() {
 //          cell.mb_configureAsFakeCell = { [weak cell] in cell?.someUpdateFunction() }
 //      }
+//
 //      #endif
 //      ...
 //  }
@@ -46,6 +62,8 @@ import Foundation
 //      cell?.someUpdateFunction()
 //      ...
 //  }
+//
+// Note: instead of those scary #if-clauses you may want to use something simple like `#if TEST` in your project (you have to define it in compilation settings, though).
 //
 
 extension UICollectionViewCell {

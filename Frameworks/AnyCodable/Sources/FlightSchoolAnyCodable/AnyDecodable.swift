@@ -1,6 +1,10 @@
 // swiftlint:disable cyclomatic_complexity
 
-#if MIXBOX_ENABLE_IN_APP_SERVICES
+#if MIXBOX_ENABLE_FRAMEWORK_ANY_CODABLE && MIXBOX_DISABLE_FRAMEWORK_ANY_CODABLE
+#error("AnyCodable is marked as both enabled and disabled, choose one of the flags")
+#elseif MIXBOX_DISABLE_FRAMEWORK_ANY_CODABLE || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_ANY_CODABLE)
+// The compilation is disabled
+#else
 
 import Foundation
 

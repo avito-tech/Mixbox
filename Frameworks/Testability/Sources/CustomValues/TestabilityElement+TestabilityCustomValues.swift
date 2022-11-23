@@ -1,4 +1,14 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
+#if MIXBOX_ENABLE_FRAMEWORK_TESTABILITY && MIXBOX_DISABLE_FRAMEWORK_TESTABILITY
+#error("Testability is marked as both enabled and disabled, choose one of the flags")
+#elseif MIXBOX_DISABLE_FRAMEWORK_TESTABILITY || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_TESTABILITY)
+
+extension NSObject {
+    public var mb_testability_customValues: TestabilityCustomValues {
+        return TestabilityCustomValues.dummy
+    }
+}
+
+#else
 
 import Foundation
 
@@ -18,14 +28,6 @@ extension TestabilityElement {
             )
             return newValue
         }
-    }
-}
-
-#else
-
-extension NSObject {
-    public var mb_testability_customValues: TestabilityCustomValues {
-        return TestabilityCustomValues.dummy
     }
 }
 

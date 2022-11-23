@@ -1,4 +1,8 @@
-#if MIXBOX_ENABLE_IN_APP_SERVICES
+#if MIXBOX_ENABLE_FRAMEWORK_GENERATORS && MIXBOX_DISABLE_FRAMEWORK_GENERATORS
+#error("Generators is marked as both enabled and disabled, choose one of the flags")
+#elseif MIXBOX_DISABLE_FRAMEWORK_GENERATORS || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_GENERATORS)
+// The compilation is disabled
+#else
 
 // Fields is used to populate fields of object with minimal boilerplate (as in InitializableWithFields).
 // Logic of getting specific field can also be reused (e.g. as in DynamicLookupGenerator).

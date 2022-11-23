@@ -1,4 +1,8 @@
-#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+#if defined(MIXBOX_ENABLE_FRAMEWORK_FOUNDATION) && defined(MIXBOX_DISABLE_FRAMEWORK_FOUNDATION)
+#error "Foundation is marked as both enabled and disabled, choose one of the flags"
+#elif defined(MIXBOX_DISABLE_FRAMEWORK_FOUNDATION) || (!defined(MIXBOX_ENABLE_ALL_FRAMEWORKS) && !defined(MIXBOX_ENABLE_FRAMEWORK_FOUNDATION))
+// The compilation is disabled
+#else
 
 #ifndef mixbox_absoluteTime_h
 #define mixbox_absoluteTime_h

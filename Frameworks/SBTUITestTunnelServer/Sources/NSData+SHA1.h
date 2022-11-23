@@ -1,4 +1,8 @@
-#ifdef MIXBOX_ENABLE_IN_APP_SERVICES
+#if defined(MIXBOX_ENABLE_FRAMEWORK_S_B_T_U_I_TEST_TUNNEL_SERVER) && defined(MIXBOX_DISABLE_FRAMEWORK_S_B_T_U_I_TEST_TUNNEL_SERVER)
+#error "SBTUITestTunnelServer is marked as both enabled and disabled, choose one of the flags"
+#elif defined(MIXBOX_DISABLE_FRAMEWORK_S_B_T_U_I_TEST_TUNNEL_SERVER) || (!defined(MIXBOX_ENABLE_ALL_FRAMEWORKS) && !defined(MIXBOX_ENABLE_FRAMEWORK_S_B_T_U_I_TEST_TUNNEL_SERVER))
+// The compilation is disabled
+#else
 
 //  NSData+SHA1.h
 //
