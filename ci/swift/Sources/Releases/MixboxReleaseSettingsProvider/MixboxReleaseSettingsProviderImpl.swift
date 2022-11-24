@@ -9,7 +9,7 @@ public final class MixboxReleaseSettingsProviderImpl: MixboxReleaseSettingsProvi
     }
     
     public var minorVersion: Int {
-        return 2
+        return 3
     }
     
     public var releaseBranchName: String {
