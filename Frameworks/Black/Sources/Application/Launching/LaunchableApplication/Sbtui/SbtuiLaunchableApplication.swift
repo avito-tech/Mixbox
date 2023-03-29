@@ -23,6 +23,7 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         bundleResourcePathProvider: BundleResourcePathProvider,
         waiter: RunLoopSpinningWaiter,
         networkReplayingObserver: NetworkReplayingObserver,
+        requestUrlPattern: String = ".*",
         performanceLogger: PerformanceLogger)
     {
         self.tunneledApplication = tunneledApplication
@@ -38,7 +39,8 @@ public final class SbtuiLaunchableApplication: LaunchableApplication {
         self.networkRecordsProvider = SbtuiNetworkRecordsProvider(
             tunneledApplication: tunneledApplication,
             testFailureRecorder: testFailureRecorder,
-            applicationLifecycleObservable: applicationLifecycleObservable
+            applicationLifecycleObservable: applicationLifecycleObservable,
+            requestUrlPattern: requestUrlPattern
         )
         
         let stubRequestBuilder = SbtuiStubRequestBuilder(

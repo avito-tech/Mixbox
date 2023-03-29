@@ -10,6 +10,7 @@ public final class SbtuiNetworkRecordsProvider:
 {
     private let testFailureRecorder: TestFailureRecorder
     private let tunneledApplication: SBTUITunneledApplication
+    private let requestUrlPattern: String
     
     // MARK: - State
     
@@ -30,10 +31,12 @@ public final class SbtuiNetworkRecordsProvider:
     public init(
         tunneledApplication: SBTUITunneledApplication,
         testFailureRecorder: TestFailureRecorder,
-        applicationLifecycleObservable: ApplicationLifecycleObservable)
+        applicationLifecycleObservable: ApplicationLifecycleObservable,
+        requestUrlPattern: String)
     {
         self.tunneledApplication = tunneledApplication
         self.testFailureRecorder = testFailureRecorder
+        self.requestUrlPattern = requestUrlPattern
         
         applicationLifecycleObservable.addObserver(self)
         tunnelWasLaunched = applicationLifecycleObservable.applicationIsLaunched
@@ -76,7 +79,7 @@ public final class SbtuiNetworkRecordsProvider:
         if tunnelWasLaunched {
             if recordingShouldBeStarted && !recordingWasStarted {
                 let requestId = tunneledApplication.monitorRequests(
-                    matching: SBTRequestMatch(url: ".*")
+                    matching: SBTRequestMatch(url: requestUrlPattern)
                 )
                 
                 if requestId == nil {
