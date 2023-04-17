@@ -2,7 +2,6 @@ import CiFoundation
 import Foundation
 import TestArgFile
 import TestDiscovery
-import BuildArtifacts
 import ResourceLocation
 import SimulatorPoolModels
 import RunnerModels
@@ -104,7 +103,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         let testArgFile = TestArgFile<AppleTestArgFileEntry>(
             entries: [
                 try AppleTestArgFileEntry(
-                    buildArtifacts: arguments.iosBuildArtifacts,
+                    appleBuildArtifacts: arguments.iosBuildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: [:],
                     userInsertedLibraries: [],
@@ -119,10 +118,8 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: arguments.testDestinationConfigurations.first.unwrapOrThrow().testDestination,
-                    testTimeoutConfiguration: TestTimeoutConfiguration(
-                        singleTestMaximumDuration: 420,
-                        testRunnerMaximumSilenceDuration: 420
-                    ),
+                    testMaximumDuration: 420,
+                    testRunnerMaximumSilenceDuration: 420,
                     testAttachmentLifetime: .keepNever,
                     testsToRun: [],
                     workerCapabilityRequirements: []

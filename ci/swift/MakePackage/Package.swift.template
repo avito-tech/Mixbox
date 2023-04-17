@@ -33,6 +33,12 @@ let package = Package(
         .package(
             url: "https://github.com/Alamofire/Alamofire.git",
             .exact("5.6.2")
+        ),
+        // TODO: Remove after updating Emcee. Current Emcee doesn't have proper version for CommandLineToolkit.
+        .package(
+            name: "CommandLineToolkit",
+            url: "https://github.com/avito-tech/CommandLineToolkit.git",
+            .revision("83a7b95cb097ad6f7ee28651c4c45b4d1ffb5da7")
         )
     ],
     targets: [

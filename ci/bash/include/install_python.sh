@@ -1,5 +1,5 @@
 get_default_python_version() {
-    echo "3.9.4"
+    echo "3.9.10"
 }
 
 install_python_via_pyenv() {

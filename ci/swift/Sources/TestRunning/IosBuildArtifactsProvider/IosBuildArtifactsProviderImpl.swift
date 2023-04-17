@@ -1,6 +1,6 @@
-import BuildArtifacts
 import ResourceLocation
 import Xcodebuild
+import BuildArtifactsApple
 
 public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
     private let xcodebuildResult: XcodebuildResult
@@ -63,10 +63,11 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
     private func iosLogicTests(
         xctestBundlePath: String
     ) -> AppleBuildArtifacts {
-        AppleBuildArtifacts.iosLogicTests(
+        AppleBuildArtifacts(
             xcTestBundle: xcTestBundle(
                 xctestBundlePath: xctestBundlePath
-            )
+            ),
+            testRunModeArtifacts: .logicTest
         )
     }
     
@@ -74,12 +75,14 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
         xctestBundlePath: String,
         appPath: String
     ) -> AppleBuildArtifacts {
-        AppleBuildArtifacts.iosApplicationTests(
+        AppleBuildArtifacts(
             xcTestBundle: xcTestBundle(
                 xctestBundlePath: xctestBundlePath
             ),
-            appBundle: appBundle(
-                appPath: appPath
+            testRunModeArtifacts: .applicationTest(
+                appBundle(
+                    appPath: appPath
+                )
             )
         )
     }
@@ -90,18 +93,20 @@ public final class IosBuildArtifactsProviderImpl: IosBuildArtifactsProvider {
         appPath: String,
         additionalAppPaths: [String]
     ) -> AppleBuildArtifacts {
-        AppleBuildArtifacts.iosUiTests(
+        AppleBuildArtifacts(
             xcTestBundle: xcTestBundle(
                 xctestBundlePath: xctestBundlePath
             ),
-            appBundle: appBundle(
-                appPath: appPath
-            ),
-            runner: runner(
-                runnerPath: runnerPath
-            ),
-            additionalApplicationBundles: additionalApplicationBundles(
-                additionalAppPaths: additionalAppPaths
+            testRunModeArtifacts: .uiTest(
+                appBundle(
+                    appPath: appPath
+                ),
+                runner(
+                    runnerPath: runnerPath
+                ),
+                additionalApplicationBundles(
+                    additionalAppPaths: additionalAppPaths
+                )
             )
         )
     }

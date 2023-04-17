@@ -1,5 +1,5 @@
 import Xcodebuild
-import BuildArtifacts
+import BuildArtifactsApple
 
 public final class IosBuildArtifactsProviderFactoryImpl: IosBuildArtifactsProviderFactory {
     private let testDiscoveryMode: XcTestBundleTestDiscoveryMode

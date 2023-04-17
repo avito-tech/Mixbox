@@ -3,7 +3,6 @@ import Foundation
 import CiFoundation
 import Destinations
 import TestArgFile
-import BuildArtifacts
 import ResourceLocation
 import RunnerModels
 import QueueModels
@@ -14,6 +13,8 @@ import MetricsExtensions
 import ScheduleStrategy
 import CommonTestModels
 import TestDestination
+import BuildArtifactsApple
+import EmceeTypes
 
 public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeProvider: EmceeProvider
@@ -103,7 +104,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         return TestArgFile(
             entries: try testDestinationConfigurations.map { testDestinationConfiguration -> AppleTestArgFileEntry in
                 try AppleTestArgFileEntry(
-                    buildArtifacts: iosBuildArtifacts,
+                    appleBuildArtifacts: iosBuildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: environment,
                     userInsertedLibraries: [],
@@ -118,10 +119,8 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
                     simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
                     testDestination: testDestinationConfiguration.testDestination,
-                    testTimeoutConfiguration: TestTimeoutConfiguration(
-                        singleTestMaximumDuration: 420,
-                        testRunnerMaximumSilenceDuration: 420
-                    ),
+                    testMaximumDuration: 420,
+                    testRunnerMaximumSilenceDuration: 420,
                     testAttachmentLifetime: .keepNever,
                     testsToRun: testsToRun,
                     workerCapabilityRequirements: []
@@ -171,13 +170,15 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     }
     
     private func upload<T: ResourceLocationType>(
-        path: String)
-        throws
-        -> TypedResourceLocation<T>
-    {
+        path: String
+    ) throws -> TypedResourceLocation<T> {
         return TypedResourceLocation(
             ResourceLocation.remoteUrl(
-                try emceeFileUploader.upload(path: path),
+                try NetworkLocationURL(
+                    url: try emceeFileUploader.upload(
+                        path: path
+                    )
+                ),
                 nil
             )
         )

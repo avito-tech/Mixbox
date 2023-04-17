@@ -48,7 +48,7 @@
       },
       {
         "package": "Socket",
-        "repositoryURL": "https://github.com/IBM-Swift/BlueSocket",
+        "repositoryURL": "https://github.com/Kitura/BlueSocket.git",
         "state": {
           "branch": null,
           "revision": "c46a3d41f5b2401d18bcb46d0101cdc5cd13e307",
@@ -60,7 +60,7 @@
         "repositoryURL": "https://github.com/avito-tech/CommandLineToolkit.git",
         "state": {
           "branch": null,
-          "revision": "870a01960b59172f726d75f581e5265cdd9e915a",
+          "revision": "83a7b95cb097ad6f7ee28651c4c45b4d1ffb5da7",
           "version": null
         }
       },
@@ -92,6 +92,15 @@
         }
       },
       {
+        "package": "EmceePluginSupport",
+        "repositoryURL": "https://github.com/avito-tech/EmceePluginSupport.git",
+        "state": {
+          "branch": null,
+          "revision": "7915308097179bb28af3999bbe9c39324142c34d",
+          "version": "18.0.0"
+        }
+      },
+      {
         "package": "Glob",
         "repositoryURL": "https://github.com/Bouke/Glob",
         "state": {
@@ -102,11 +111,20 @@
       },
       {
         "package": "EmceeTestRunner",
-        "repositoryURL": "https://github.com/avito-tech/Emcee.git/",
+        "repositoryURL": "https://github.com/avito-tech/Emcee",
         "state": {
           "branch": null,
-          "revision": "55b53c9388af00652a4178e2406da5293a49d990",
+          "revision": "c6301a82d8b68d8b9b77dc8dffc5e4c17eebaa2e",
           "version": null
+        }
+      },
+      {
+        "package": "JSEN",
+        "repositoryURL": "https://github.com/rogerluan/JSEN.git",
+        "state": {
+          "branch": null,
+          "revision": "dd73b21b170e002c709e397dbfa915c30b47a53b",
+          "version": "1.2.1"
         }
       },
       {

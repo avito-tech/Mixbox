@@ -1,6 +1,6 @@
 import Xcodebuild
-import BuildArtifacts
 import Destinations
+import BuildArtifactsApple
 
 public protocol TestsTaskRunner {
     func runTests(

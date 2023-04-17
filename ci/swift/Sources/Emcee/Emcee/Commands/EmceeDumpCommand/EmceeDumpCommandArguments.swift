@@ -1,6 +1,6 @@
 import TestArgFile
 import Foundation
-import BuildArtifacts
+import BuildArtifactsApple
 
 public final class EmceeDumpCommandArguments {
     public let jobId: String

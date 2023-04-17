@@ -1,8 +1,8 @@
 import TestDiscovery
 import Foundation
 import Destinations
-import BuildArtifacts
 import RunnerModels
+import BuildArtifactsApple
 
 public final class TestArgFileGeneratorArguments {
     public let iosBuildArtifacts: AppleBuildArtifacts

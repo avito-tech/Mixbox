@@ -1,5 +1,5 @@
 import Xcodebuild
-import BuildArtifacts
+import BuildArtifactsApple
 
 public protocol IosBuildArtifactsProvider {
     func iosLogicTests(

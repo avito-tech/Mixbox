@@ -7,7 +7,7 @@ import Emcee
 import Destinations
 import Xcodebuild
 import Bundler
-import BuildArtifacts
+import BuildArtifactsApple
 
 public final class TestsTaskRunnerImpl: TestsTaskRunner {
     private let testRunner: TestRunner

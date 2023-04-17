@@ -6,7 +6,7 @@ bash_ci_require_pyenv() {
 
         if [ -z "$pyenv_name" ]
         then
-            __fatalError "Error: bash_ci_require_pyenv should be called with 1 argument: pyenv_name. Example: build_for_testing_v1"
+            fatal_error "Error: bash_ci_require_pyenv should be called with 1 argument: pyenv_name. Example: build_for_testing_v1"
         fi
 
         if [ "${__PYENV_IS_ALREADY_SET_UP:-false}" == "true" ]
@@ -14,9 +14,9 @@ bash_ci_require_pyenv() {
             return 0
         fi
 
-        which pyenv || brew install pyenv
-        which pyenv-virtualenv || brew install pyenv-virtualenv
-        brew ls --versions zlib || brew install zlib
+        which pyenv || fatal_error "pyenv is not installed. try: brew install pyenv"
+        which pyenv-virtualenv || fatal_error "pyenv-virtualenv is not installed. try: brew install pyenv-virtualenv"
+        brew ls --versions zlib || fatal_error "zlib is not installed. try: brew install zlib"
 
         install_python_via_pyenv "$python_version"
 

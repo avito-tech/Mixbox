@@ -5,8 +5,8 @@ import Bash
 import SingletonHell
 import RemoteFiles
 import Destinations
-import BuildArtifacts
 import ResourceLocation
+import BuildArtifactsApple
 
 public final class EmceeTestRunner: TestRunner {
     private let emceeProvider: EmceeProvider

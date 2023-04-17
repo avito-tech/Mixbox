@@ -1,5 +1,5 @@
-import BuildArtifacts
 import Destinations
+import BuildArtifactsApple
 
 public protocol TestRunner {
     func runTests(
