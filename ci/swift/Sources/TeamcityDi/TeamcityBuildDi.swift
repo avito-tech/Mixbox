@@ -22,11 +22,8 @@ public final class TeamcityBuildDi: CommonDi {
         container.register(type: RemoteCacheConfigProvider.self) {
             let environmentProvider: EnvironmentProvider = try container.resolve()
             
-            return RemoteCacheConfigProviderImpl(
-                fileDownloader: try container.resolve(),
-                remoteCacheConfigJsonUrl: try environmentProvider.getUrlOrThrow(
-                    env: Env.MIXBOX_CI_EMCEE_REMOTE_CACHE_CONFIG
-                )
+            return try RemoteCacheConfigProviderImpl(
+                remoteCacheConfigJsonFilePath: environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_REMOTE_CACHE_CONFIG)
             )
         }
         container.register(type: DeveloperDirProvider.self) {

@@ -7,8 +7,9 @@ public enum Env: String {
     
     // Swift CI external envs:
     case MIXBOX_CI_DESTINATION
-    case MIXBOX_CI_FILE_UPLOADER_URL
+    case MIXBOX_CI_FILE_UPLOADER_BASE64_ENCODED
     case MIXBOX_CI_XCODE_VERSION
+    case MIXBOX_CI_MIRRORS_JSON_FILE_PATH
     
     // Swift CI external envs, Emcee:
     case MIXBOX_CI_EMCEE_PATH

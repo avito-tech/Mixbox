@@ -27,7 +27,7 @@ public final class FileUploaderImpl: FileUploader {
         
         return try retrier.retry(timeouts: [30, 60, 120, 300]) {
             let result = try processExecutor.executeOrThrow(
-                arguments: [fileUploaderExecutable, file, remoteName],
+                arguments: [fileUploaderExecutable.path.pathString, file, remoteName],
                 currentDirectory: nil,
                 environment: [:],
                 outputHandling: .ignore

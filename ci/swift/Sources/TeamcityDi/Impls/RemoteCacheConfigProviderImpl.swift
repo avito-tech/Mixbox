@@ -3,18 +3,15 @@ import Emcee
 import Foundation
 
 public class RemoteCacheConfigProviderImpl: RemoteCacheConfigProvider {
-    private let fileDownloader: FileDownloader
-    private let remoteCacheConfigJsonUrl: URL
+    private let storedRemoteCacheConfigJsonFilePath: String
     
     public init(
-        fileDownloader: FileDownloader,
-        remoteCacheConfigJsonUrl: URL)
-    {
-        self.fileDownloader = fileDownloader
-        self.remoteCacheConfigJsonUrl = remoteCacheConfigJsonUrl
+        remoteCacheConfigJsonFilePath: String
+    ) {
+        self.storedRemoteCacheConfigJsonFilePath = remoteCacheConfigJsonFilePath
     }
     
-    public func remoteCacheConfigJsonFilePath() throws -> String {
-        return try fileDownloader.download(url: remoteCacheConfigJsonUrl)
+    public func remoteCacheConfigJsonFilePath() -> String {
+        return storedRemoteCacheConfigJsonFilePath
     }
 }

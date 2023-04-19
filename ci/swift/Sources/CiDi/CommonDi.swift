@@ -8,7 +8,6 @@ import Simctl
 import Foundation
 import Emcee
 import SingletonHell
-import Brew
 import RemoteFiles
 import Xcodebuild
 import Destinations
@@ -26,7 +25,6 @@ open class CommonDi: BaseDi {
         registerReleases(container: container)
         registerBash(container: container)
         registerRemoteFiles(container: container)
-        registerBrew(container: container)
         registerEmcee(container: container)
         registerBundler(container: container)
         registerCiFoundation(container: container)
@@ -241,20 +239,12 @@ open class CommonDi: BaseDi {
         container.register(type: FileUploaderExecutableProvider.self) {
             let environmentProvider: EnvironmentProvider = try container.resolve()
             
-            return CachingFileUploaderExecutableProvider(
-                fileUploaderExecutableProvider: DownloadingFileUploaderExecutableProvider(
-                    fileDownloader: try container.resolve(),
-                    fileUploaderUrl: try URL.from(
-                        string: try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_FILE_UPLOADER_URL)
-                    )
-                )
+            return try FileUploaderExecutableProviderImpl(
+                temporaryFileProvider: container.resolve(),
+                dataWriter: container.resolve(),
+                pathDeleter: container.resolve(),
+                fileUploaderExecutableBase64: environmentProvider.getOrThrow(env: Env.MIXBOX_CI_FILE_UPLOADER_BASE64_ENCODED)
             )
-        }
-    }
-    
-    private func registerBrew(container: DependencyContainer) {
-        container.register(type: Brew.self) {
-            BrewImpl(bashExecutor: try container.resolve())
         }
     }
     
@@ -314,10 +304,7 @@ open class CommonDi: BaseDi {
             let environmentProvider: EnvironmentProvider = try container.resolve()
             
             return EmceeInstallerImpl(
-                brew: try container.resolve(),
-                fileDownloader: try container.resolve(),
-                bashExecutor: try container.resolve(),
-                emceeExecutableUrl: try environmentProvider.getUrlOrThrow(env: Env.MIXBOX_CI_EMCEE_URL) // FIXME
+                emceeExecutablePath: try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_PATH)
             )
         }
     }

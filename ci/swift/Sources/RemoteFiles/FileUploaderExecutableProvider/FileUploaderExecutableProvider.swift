@@ -10,5 +10,5 @@
 // everything should be written in Swift.
 //
 public protocol FileUploaderExecutableProvider {
-    func fileUploaderExecutable() throws -> String
+    func fileUploaderExecutable() throws -> FileUploaderExecutable
 }
