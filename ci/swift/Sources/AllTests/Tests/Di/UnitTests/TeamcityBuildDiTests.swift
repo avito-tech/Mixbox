@@ -1,23 +1,61 @@
 import XCTest
 import TeamcityDi
-import Bash
+import DI
+import BuildDsl
+import CiFoundation
+import SingletonHell
+
+import TeamcityBlackBoxTestsBuild
+import TeamcityCheckReleaseToCocoapodsBuild
+import TeamcityGrayBoxTestsBuild
+import TeamcityIpcDemoBuild
+import TeamcityLogicTestsBuild
+import TeamcityManagePodOwnersBuild
+import TeamcityReleaseToCocoapodsBuild
+import TeamcityStaticChecksBuild
+import TeamcityUiTestsDemoBuild
 
 final class TeamcityBuildDiTests: XCTestCase {
-    func test___TeamcityBuildDi___is_valid() {
-        let di = TeamcityBuildDi()
-        
-        XCTAssertNoThrow(try {
-            try di.bootstrap(overrides: { _ in })
-            try di.validate()
-            }())
+    func test() {
+        for build in allBuilds() {
+            let di = build.di()
+            
+            di.register(type: EnvironmentProvider.self) { _ in
+                Self.environmentProvider()
+            }
+            
+            XCTAssertNoThrow(try build.task(di: di))
+        }
     }
     
-    func test___TeamcityBuildDi___resolved() {
-        let di = TeamcityBuildDi()
-        
-        XCTAssertNoThrow(try {
-            try di.bootstrap(overrides: { _ in })
-            _ = try di.resolve() as BashExecutor
-            }())
+    private func allBuilds() -> [TeamcityBuild] {
+        [
+            TeamcityBlackBoxTestsBuild(),
+            TeamcityCheckReleaseToCocoapodsBuild(),
+            TeamcityGrayBoxTestsBuild(),
+            TeamcityIpcDemoBuild(),
+            TeamcityLogicTestsBuild(),
+            TeamcityManagePodOwnersBuild(),
+            TeamcityReleaseToCocoapodsBuild(),
+            TeamcityStaticChecksBuild(),
+            TeamcityUiTestsDemoBuild()
+        ]
+    }
+    
+    private static func environmentProvider() -> EnvironmentProvider {
+        EnvironmentProviderMock(
+            environment: ProcessInfoEnvironmentProvider(
+                processInfo: ProcessInfo.processInfo
+            ).environment.merging(
+                Dictionary(
+                    uniqueKeysWithValues: Env.allCases.map {
+                        (key: $0.rawValue, value: "irrelevant")
+                    }
+                ),
+                uniquingKeysWith: { lhs, _ in
+                    lhs
+                }
+            )
+        )
     }
 }

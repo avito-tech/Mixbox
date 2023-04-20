@@ -1,9 +1,17 @@
 import BuildDsl
 import CheckIpcDemoTask
+import Tasks
+import DI
 
-BuildDsl.teamcity.main { di in
-    try CheckIpcDemoTask(
-        bashExecutor: di.resolve(),
-        macosProjectBuilder: di.resolve()
-    )
+public final class TeamcityIpcDemoBuild: TeamcityBuild {
+    public func task(di: DependencyResolver) throws -> LocalTask  {
+        try CheckIpcDemoTask(
+            bashExecutor: di.resolve(),
+            macosProjectBuilder: di.resolve()
+        )
+    }
 }
+
+BuildRunner.run(
+    build: TeamcityIpcDemoBuild()
+)

@@ -1,10 +1,10 @@
 import BuildDsl
 import CheckDemoTask
-import Cocoapods
-import Bundler
+import Tasks
+import DI
 
-BuildDsl.travis.main(
-    makeLocalTask: { di in
+public final class TravisOversimplifiedDemoBuild: TravisBuild {
+    public func task(di: DependencyResolver) throws -> LocalTask {
         try CheckDemoTask(
             bashExecutor: di.resolve(),
             iosProjectBuilder: di.resolve(),
@@ -14,4 +14,8 @@ BuildDsl.travis.main(
             bashEscapedCommandMaker: di.resolve()
         )
     }
+}
+
+BuildRunner.run(
+    build: TravisOversimplifiedDemoBuild()
 )

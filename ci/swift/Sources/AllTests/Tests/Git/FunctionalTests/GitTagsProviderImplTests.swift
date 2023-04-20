@@ -2,12 +2,13 @@ import Bash
 import Git
 import XCTest
 import TeamcityDi
+import DI
 
 public final class GitTagsProviderImplTests: XCTestCase {
     func test() {
         assertDoesntThrow {
-            let di = TeamcityBuildDi()
-            try di.bootstrap(overrides: { _ in })
+            let di = DiMaker<TeamcityBuildDependencies>.makeDi()
+            
             let gitTagsProvider: GitTagsProvider = try di.resolve()
             
             let gitTags = try gitTagsProvider.gitTags()

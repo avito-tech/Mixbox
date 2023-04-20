@@ -1,9 +1,17 @@
 import BuildDsl
 import CheckIpcDemoTask
+import Tasks
+import DI
 
-BuildDsl.travis.main { di in
-    try CheckIpcDemoTask(
-        bashExecutor: di.resolve(),
-        macosProjectBuilder: di.resolve()
-    )
+public final class TravisIpcDemoBuild: TravisBuild {
+    public func task(di: DependencyResolver) throws -> LocalTask  {
+        try CheckIpcDemoTask(
+            bashExecutor: di.resolve(),
+            macosProjectBuilder: di.resolve()
+        )
+    }
 }
+
+BuildRunner.run(
+    build: TravisIpcDemoBuild()
+)

@@ -1,19 +1,19 @@
-import Dip
+import DI
 import Tasks
 import CiDi
 import Bundler
 
-public final class TravisBuildDi: CommonDi {
-    override public func registerAll(container: DependencyContainer) {
-        super.registerAll(container: container)
+public final class TravisBuildDependencies: CommonBuildDependencies {
+    override public func registerDependenciesOfCurrentModule(di: DependencyRegisterer) {
+        super.registerDependenciesOfCurrentModule(di: di)
         
-        container.register(type: LocalTaskExecutor.self) {
+        di.register(type: LocalTaskExecutor.self) {
             TravisLocalTaskExecutor()
         }
-        container.register(type: BundlerBashCommandGenerator.self) {
-            BundlerBashCommandGeneratorImpl(
-                gemfileLocationProvider: try container.resolve(),
-                bashEscapedCommandMaker: try container.resolve(),
+        di.register(type: BundlerBashCommandGenerator.self) { di in
+            try BundlerBashCommandGeneratorImpl(
+                gemfileLocationProvider: di.resolve(),
+                bashEscapedCommandMaker: di.resolve(),
                 bundlerToUse: .install(version: "2.1.2")
             )
         }

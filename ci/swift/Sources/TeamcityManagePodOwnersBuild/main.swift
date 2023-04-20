@@ -1,11 +1,19 @@
 import BuildDsl
 import ManagePodOwnersTask
+import Tasks
+import DI
 
-BuildDsl.teamcity.main { di in
-    try ManagePodOwnersTask(
-        cocoapodsTrunkInfo: di.resolve(),
-        cocoapodsTrunkAddOwner: di.resolve(),
-        cocoapodsTrunkRemoveOwner: di.resolve(),
-        listOfPodspecsToPushProvider: di.resolve()
-    )
+public final class TeamcityManagePodOwnersBuild: TeamcityBuild {
+    public func task(di: DependencyResolver) throws -> LocalTask  {
+        try ManagePodOwnersTask(
+            cocoapodsTrunkInfo: di.resolve(),
+            cocoapodsTrunkAddOwner: di.resolve(),
+            cocoapodsTrunkRemoveOwner: di.resolve(),
+            listOfPodspecsToPushProvider: di.resolve()
+        )
+    }
 }
+
+BuildRunner.run(
+    build: TeamcityManagePodOwnersBuild()
+)

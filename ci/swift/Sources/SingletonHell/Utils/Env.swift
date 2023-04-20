@@ -1,7 +1,7 @@
 import Foundation
 import CiFoundation
 
-public enum Env: String {
+public enum Env: String, CaseIterable {
     // Bash CI (to select Swift CI build)
     case MIXBOX_CI_BUILD_EXECUTABLE
     

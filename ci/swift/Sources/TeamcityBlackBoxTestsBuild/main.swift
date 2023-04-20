@@ -1,12 +1,16 @@
 import BuildDsl
-import SingletonHell
 import RunBlackBoxTestsTask
-import Foundation
-import CiFoundation
-import Destinations
+import Tasks
+import DI
 
-BuildDsl.teamcity.main { di in
-    try RunBlackBoxTestsTask(
-        testsTaskRunner: di.resolve()
-    )
+public final class TeamcityBlackBoxTestsBuild: TeamcityBuild {
+    public func task(di: DependencyResolver) throws -> LocalTask  {
+        try RunBlackBoxTestsTask(
+            testsTaskRunner: di.resolve()
+        )
+    }
 }
+
+BuildRunner.run(
+    build: TeamcityBlackBoxTestsBuild()
+)

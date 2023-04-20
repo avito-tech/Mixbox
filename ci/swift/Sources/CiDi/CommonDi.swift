@@ -1,4 +1,4 @@
-import Dip
+import DI
 import Bash
 import CiFoundation
 import Tasks
@@ -14,294 +14,302 @@ import Destinations
 import Bundler
 import Releases
 import TestRunning
+import FileSystem
 
-// TODO: Fix retain-cycle in DI. Container retains itself.
-// TODO: Split this. Put code in frameworks. `MixboxDi` will allow to do this neatly (now we use `Dip` here).
 // swiftlint:disable file_length function_body_length type_body_length
-open class CommonDi: BaseDi {
-    override open func registerAll(container: DependencyContainer) {
-        registerGit(container: container)
-        registerCocoapods(container: container)
-        registerReleases(container: container)
-        registerBash(container: container)
-        registerRemoteFiles(container: container)
-        registerEmcee(container: container)
-        registerBundler(container: container)
-        registerCiFoundation(container: container)
-        registerDestinations(container: container)
-        registerXcodebuild(container: container)
-        registerSimctl(container: container)
-        registerTestRunning(container: container)
+open class CommonBuildDependencies: ModuleDependencies, InitializableWithNoArguments {
+    public required init() {
     }
     
-    private func registerGit(container: DependencyContainer) {
-        container.register(type: RepoRootProvider.self) {
+    open func registerDependenciesOfCurrentModule(di: DependencyRegisterer) {
+        registerGit(di: di)
+        registerCocoapods(di: di)
+        registerReleases(di: di)
+        registerBash(di: di)
+        registerRemoteFiles(di: di)
+        registerEmcee(di: di)
+        registerBundler(di: di)
+        registerCiFoundation(di: di)
+        registerDestinations(di: di)
+        registerXcodebuild(di: di)
+        registerSimctl(di: di)
+        registerTestRunning(di: di)
+    }
+    
+    public func otherModulesDependecies() -> [ModuleDependencies] {
+        [
+            FileSystemModuleDependencies()
+        ]
+    }
+    
+    private func registerGit(di: DependencyRegisterer) {
+        di.register(type: RepoRootProvider.self) { _ in
             RepoRootProviderImpl()
         }
-        container.register(type: GitTagsProvider.self) {
-            GitTagsProviderImpl(
-                gitCommandExecutor: try container.resolve()
+        di.register(type: GitTagsProvider.self) { di in
+            try GitTagsProviderImpl(
+                gitCommandExecutor: di.resolve()
             )
         }
-        container.register(type: GitRevListProvider.self) {
-            GitRevListProviderImpl(
-                gitCommandExecutor: try container.resolve()
+        di.register(type: GitRevListProvider.self) { di in
+            try GitRevListProviderImpl(
+                gitCommandExecutor: di.resolve()
             )
         }
-        container.register(type: HeadCommitHashProvider.self) {
-            HeadCommitHashProviderImpl(
-                gitCommandExecutor: try container.resolve()
+        di.register(type: HeadCommitHashProvider.self) { di in
+            try HeadCommitHashProviderImpl(
+                gitCommandExecutor: di.resolve()
             )
         }
-        container.register(type: GitTagAdder.self) {
-            GitTagAdderImpl(
-                gitCommandExecutor: try container.resolve()
+        di.register(type: GitTagAdder.self) { di in
+            try GitTagAdderImpl(
+                gitCommandExecutor: di.resolve()
             )
         }
-        container.register(type: GitTagDeleter.self) {
-            GitTagDeleterImpl(
-                gitCommandExecutor: try container.resolve()
+        di.register(type: GitTagDeleter.self) { di in
+            try GitTagDeleterImpl(
+                gitCommandExecutor: di.resolve()
             )
         }
-        container.register(type: GitCommandExecutor.self) {
-            GitCommandExecutorImpl(
-                processExecutor: try container.resolve(),
-                repoRootProvider: try container.resolve(),
-                environmentProvider: try container.resolve()
+        di.register(type: GitCommandExecutor.self) { di in
+            try GitCommandExecutorImpl(
+                processExecutor: di.resolve(),
+                repoRootProvider: di.resolve(),
+                environmentProvider: di.resolve()
             )
         }
     }
     
-    private func registerCocoapods(container: DependencyContainer) {
-        container.register(type: CocoapodsCommandExecutor.self) {
-            CocoapodsCommandExecutorImpl(
-                bundledProcessExecutor: try container.resolve()
+    private func registerCocoapods(di: DependencyRegisterer) {
+        di.register(type: CocoapodsCommandExecutor.self) { di in
+            try CocoapodsCommandExecutorImpl(
+                bundledProcessExecutor: di.resolve()
             )
         }
-        container.register(type: CocoapodsInstall.self) {
-            CocoapodsInstallImpl(
-                cocoapodsCommandExecutor: try container.resolve(),
-                environmentProvider: try container.resolve()
+        di.register(type: CocoapodsInstall.self) { di in
+            try CocoapodsInstallImpl(
+                cocoapodsCommandExecutor: di.resolve(),
+                environmentProvider: di.resolve()
             )
         }
-        container.register(type: CocoapodsSearch.self) {
-            CocoapodsSearchImpl(
-                cocoapodsCommandExecutor: try container.resolve(),
-                environmentProvider: try container.resolve(),
-                cocoapodsSearchOutputParser: try container.resolve()
+        di.register(type: CocoapodsSearch.self) { di in
+            try CocoapodsSearchImpl(
+                cocoapodsCommandExecutor: di.resolve(),
+                environmentProvider: di.resolve(),
+                cocoapodsSearchOutputParser: di.resolve()
             )
         }
-        container.register(type: CocoapodsRepoAdd.self) {
-            CocoapodsRepoAddImpl(
-                cocoapodsCommandExecutor: try container.resolve()
+        di.register(type: CocoapodsRepoAdd.self) { di in
+            try CocoapodsRepoAddImpl(
+                cocoapodsCommandExecutor: di.resolve()
             )
         }
-        container.register(type: CocoapodsRepoPush.self) {
-            CocoapodsRepoPushImpl(
-                cocoapodsCommandExecutor: try container.resolve()
+        di.register(type: CocoapodsRepoPush.self) { di in
+            try CocoapodsRepoPushImpl(
+                cocoapodsCommandExecutor: di.resolve()
             )
         }
-        container.register(type: CocoapodCacheClean.self) {
-            CocoapodCacheCleanImpl(
-                cocoapodsCommandExecutor: try container.resolve()
+        di.register(type: CocoapodCacheClean.self) { di in
+            try CocoapodCacheCleanImpl(
+                cocoapodsCommandExecutor: di.resolve()
             )
         }
-        container.register(type: CocoapodsTrunkCommandExecutor.self) {
-            CocoapodsTrunkCommandExecutorImpl(
-                cocoapodsCommandExecutor: try container.resolve(),
-                cocoapodsTrunkTokenProvider: try container.resolve(),
-                environmentProvider: try container.resolve()
+        di.register(type: CocoapodsTrunkCommandExecutor.self) { di in
+            try CocoapodsTrunkCommandExecutorImpl(
+                cocoapodsCommandExecutor: di.resolve(),
+                cocoapodsTrunkTokenProvider: di.resolve(),
+                environmentProvider: di.resolve()
             )
         }
-        container.register(type: CocoapodsTrunkPush.self) {
-            CocoapodsTrunkPushImpl(
-                cocoapodsTrunkCommandExecutor: try container.resolve()
+        di.register(type: CocoapodsTrunkPush.self) { di in
+            try CocoapodsTrunkPushImpl(
+                cocoapodsTrunkCommandExecutor: di.resolve()
             )
         }
-        container.register(type: CocoapodsTrunkAddOwner.self) {
-            CocoapodsTrunkAddOwnerImpl(
-                cocoapodsTrunkCommandExecutor: try container.resolve()
+        di.register(type: CocoapodsTrunkAddOwner.self) { di in
+            try CocoapodsTrunkAddOwnerImpl(
+                cocoapodsTrunkCommandExecutor: di.resolve()
             )
         }
-        container.register(type: CocoapodsTrunkRemoveOwner.self) {
-            CocoapodsTrunkRemoveOwnerImpl(
-                cocoapodsTrunkCommandExecutor: try container.resolve()
+        di.register(type: CocoapodsTrunkRemoveOwner.self) { di in
+            try CocoapodsTrunkRemoveOwnerImpl(
+                cocoapodsTrunkCommandExecutor: di.resolve()
             )
         }
-        container.register(type: CocoapodsTrunkInfoOutputParser.self) {
+        di.register(type: CocoapodsTrunkInfoOutputParser.self) {
             CocoapodsTrunkInfoOutputParserImpl()
         }
-        container.register(type: CocoapodsTrunkInfo.self) {
-            CocoapodsTrunkInfoImpl(
-                cocoapodsTrunkCommandExecutor: try container.resolve(),
-                cocoapodsTrunkInfoOutputParser: try container.resolve()
+        di.register(type: CocoapodsTrunkInfo.self) { di in
+            try CocoapodsTrunkInfoImpl(
+                cocoapodsTrunkCommandExecutor: di.resolve(),
+                cocoapodsTrunkInfoOutputParser: di.resolve()
             )
         }
     }
     
-    private func registerReleases(container: DependencyContainer) {
-        container.register(type: BeforeReleaseTagsSetterImpl.self) {
-            BeforeReleaseTagsSetterImpl(
-                gitTagAdder: try container.resolve(),
-                gitTagDeleter: try container.resolve()
+    private func registerReleases(di: DependencyRegisterer) {
+        di.register(type: BeforeReleaseTagsSetterImpl.self) { di in
+            try BeforeReleaseTagsSetterImpl(
+                gitTagAdder: di.resolve(),
+                gitTagDeleter: di.resolve()
             )
         }
-        container.register(type: BeforeReleaseTagsSetter.self) {
-            try container.resolve() as BeforeReleaseTagsSetterImpl
+        di.register(type: BeforeReleaseTagsSetter.self) { di in
+            try di.resolve() as BeforeReleaseTagsSetterImpl
         }
-        container.register(type: AfterReleaseTagsSetterForExistingReleaseProvider.self) {
-            try container.resolve() as BeforeReleaseTagsSetterImpl
+        di.register(type: AfterReleaseTagsSetterForExistingReleaseProvider.self) { di in
+            try di.resolve() as BeforeReleaseTagsSetterImpl
         }
-        container.register(type: ListOfPodspecsToPushProvider.self) {
-            ListOfPodspecsToPushProviderImpl(
-                bundledProcessExecutor: try container.resolve(),
-                repoRootProvider: try container.resolve()
+        di.register(type: ListOfPodspecsToPushProvider.self) { di in
+            try ListOfPodspecsToPushProviderImpl(
+                bundledProcessExecutor: di.resolve(),
+                repoRootProvider: di.resolve()
             )
         }
-        container.register(type: MixboxPodspecsPusher.self) {
-            MixboxPodspecsPusherImpl(
-                listOfPodspecsToPushProvider: try container.resolve(),
-                cocoapodsTrunkPush: try container.resolve(),
-                repoRootProvider: try container.resolve(),
-                retrier: try container.resolve(),
-                cocoapodsTrunkInfo: try container.resolve()
+        di.register(type: MixboxPodspecsPusher.self) { di in
+            try MixboxPodspecsPusherImpl(
+                listOfPodspecsToPushProvider: di.resolve(),
+                cocoapodsTrunkPush: di.resolve(),
+                repoRootProvider: di.resolve(),
+                retrier: di.resolve(),
+                cocoapodsTrunkInfo: di.resolve()
             )
         }
-        container.register(type: MixboxPodspecsValidator.self) {
-            MixboxPodspecsValidatorImpl(
-                repoRootProvider: try container.resolve(),
-                listOfPodspecsToPushProvider: try container.resolve(),
-                cocoapodCacheClean: try container.resolve(),
-                cocoapodsRepoAdd: try container.resolve(),
-                cocoapodsRepoPush: try container.resolve(),
-                environmentProvider: try container.resolve(),
-                podspecsPatcher: try container.resolve()
+        di.register(type: MixboxPodspecsValidator.self) { di in
+            try MixboxPodspecsValidatorImpl(
+                repoRootProvider: di.resolve(),
+                listOfPodspecsToPushProvider: di.resolve(),
+                cocoapodCacheClean: di.resolve(),
+                cocoapodsRepoAdd: di.resolve(),
+                cocoapodsRepoPush: di.resolve(),
+                environmentProvider: di.resolve(),
+                podspecsPatcher: di.resolve()
             )
         }
-        container.register(type: MixboxReleaseSettingsProvider.self) {
+        di.register(type: MixboxReleaseSettingsProvider.self) {
             MixboxReleaseSettingsProviderImpl()
         }
-        container.register(type: RepositoryVersioningInfoProvider.self) {
-            RepositoryVersioningInfoProviderImpl(
-                gitTagsProvider: try container.resolve(),
-                gitRevListProvider: try container.resolve(),
-                headCommitHashProvider: try container.resolve()
+        di.register(type: RepositoryVersioningInfoProvider.self) { di in
+            try RepositoryVersioningInfoProviderImpl(
+                gitTagsProvider: di.resolve(),
+                gitRevListProvider: di.resolve(),
+                headCommitHashProvider: di.resolve()
             )
         }
-        container.register(type: CurrentReleaseVersionProvider.self) {
-            CurrentReleaseVersionProviderImpl(
-                repositoryVersioningInfoProvider: try container.resolve()
+        di.register(type: CurrentReleaseVersionProvider.self) { di in
+            try CurrentReleaseVersionProviderImpl(
+                repositoryVersioningInfoProvider: di.resolve()
             )
         }
-        container.register(type: NextReleaseVersionProvider.self) {
-            NextReleaseVersionProviderImpl(
-                repositoryVersioningInfoProvider: try container.resolve()
+        di.register(type: NextReleaseVersionProvider.self) { di in
+            try NextReleaseVersionProviderImpl(
+                repositoryVersioningInfoProvider: di.resolve()
             )
         }
-        container.register(type: PodspecsPatcher.self) {
-            PodspecsPatcherImpl(
-                repoRootProvider: try container.resolve()
+        di.register(type: PodspecsPatcher.self) { di in
+            try PodspecsPatcherImpl(
+                repoRootProvider: di.resolve()
             )
         }
     }
     
-    private func registerBash(container: DependencyContainer) {
-        container.register(type: BashEscapedCommandMaker.self) {
+    private func registerBash(di: DependencyRegisterer) {
+        di.register(type: BashEscapedCommandMaker.self) { _ in
             BashEscapedCommandMakerImpl()
         }
-        container.register(type: BashExecutor.self) {
-            ProcessExecutorBashExecutor(
-                processExecutor: try container.resolve(),
-                environmentProvider: try container.resolve()
+        di.register(type: BashExecutor.self) { di in
+            try ProcessExecutorBashExecutor(
+                processExecutor: di.resolve(),
+                environmentProvider: di.resolve()
             )
         }
-        container.register(type: ProcessExecutor.self) {
-            LoggingProcessExecutor(
+        di.register(type: ProcessExecutor.self) { di in
+            try LoggingProcessExecutor(
                 originalProcessExecutor: FoundationProcessExecutor(),
-                bashEscapedCommandMaker: try container.resolve()
+                bashEscapedCommandMaker: di.resolve()
             )
         }
     }
     
-    private func registerRemoteFiles(container: DependencyContainer) {
-        container.register(type: FileUploader.self) {
+    private func registerRemoteFiles(di: DependencyRegisterer) {
+        di.register(type: FileUploader.self) { di in
             try FileUploaderImpl(
-                fileUploaderExecutableProvider: container.resolve(),
-                processExecutor: container.resolve(),
-                retrier: container.resolve()
+                fileUploaderExecutableProvider: di.resolve(),
+                processExecutor: di.resolve(),
+                retrier: di.resolve()
             )
         }
-        container.register(type: FileDownloader.self) {
-            AlamofireFileDownloader(
-                temporaryFileProvider: try container.resolve()
+        di.register(type: FileDownloader.self) { di in
+            try AlamofireFileDownloader(
+                temporaryFileProvider: di.resolve()
             )
         }
-        container.register(type: FileUploaderExecutableProvider.self) {
-            let environmentProvider: EnvironmentProvider = try container.resolve()
+        di.register(type: FileUploaderExecutableProvider.self) { di in
+            let environmentProvider: EnvironmentProvider = try di.resolve()
             
             return try FileUploaderExecutableProviderImpl(
-                temporaryFileProvider: container.resolve(),
-                dataWriter: container.resolve(),
-                pathDeleter: container.resolve(),
+                temporaryFileProvider: di.resolve(),
+                dataWriter: di.resolve(),
+                pathDeleter: di.resolve(),
                 fileUploaderExecutableBase64: environmentProvider.getOrThrow(env: Env.MIXBOX_CI_FILE_UPLOADER_BASE64_ENCODED)
             )
         }
     }
     
     // swiftlint:disable:next function_body_length
-    private func registerEmcee(container: DependencyContainer) {
-        container.register(type: TestArgFileJsonGenerator.self) {
-            TestArgFileJsonGeneratorImpl(
-                testArgFileGenerator: try container.resolve(),
-                jsonFileFromEncodableGenerator: try container.resolve()
+    private func registerEmcee(di: DependencyRegisterer) {
+        di.register(type: TestArgFileJsonGenerator.self) { di in
+            try TestArgFileJsonGeneratorImpl(
+                testArgFileGenerator: di.resolve(),
+                jsonFileFromEncodableGenerator: di.resolve()
             )
         }
-        container.register(type: TestArgFileGenerator.self) {
-            TestArgFileGeneratorImpl(
-                emceeProvider: try container.resolve(),
-                temporaryFileProvider: try container.resolve(),
-                decodableFromJsonFileLoader: try container.resolve(),
-                emceeFileUploader: try container.resolve(),
-                jsonFileFromEncodableGenerator: try container.resolve(),
-                simulatorSettingsProvider: try container.resolve(),
-                developerDirProvider: try container.resolve(),
-                simulatorOperationTimeoutsProvider: try container.resolve()
+        di.register(type: TestArgFileGenerator.self) { di in
+            try TestArgFileGeneratorImpl(
+                emceeProvider: di.resolve(),
+                temporaryFileProvider: di.resolve(),
+                decodableFromJsonFileLoader: di.resolve(),
+                emceeFileUploader: di.resolve(),
+                jsonFileFromEncodableGenerator: di.resolve(),
+                simulatorSettingsProvider: di.resolve(),
+                developerDirProvider: di.resolve(),
+                simulatorOperationTimeoutsProvider: di.resolve()
             )
         }
-        container.register(type: EmceeFileUploader.self) {
-            EmceeFileUploaderImpl(
-                fileUploader: try container.resolve(),
-                temporaryFileProvider: try container.resolve(),
-                bashExecutor: try container.resolve()
+        di.register(type: EmceeFileUploader.self) { di in
+            try EmceeFileUploaderImpl(
+                fileUploader: di.resolve(),
+                temporaryFileProvider: di.resolve(),
+                bashExecutor: di.resolve()
             )
         }
-        container.register(type: SimulatorOperationTimeoutsProvider.self) {
+        di.register(type: SimulatorOperationTimeoutsProvider.self) {
             DefaultSimulatorOperationTimeoutsProvider()
         }
-        container.register(type: EmceeProvider.self) {
+        di.register(type: EmceeProvider.self) { di in
             try CachingEmceeProvider(
                 emceeProvider: InstallingEmceeProvider(
-                    temporaryFileProvider: container.resolve(),
-                    processExecutor: container.resolve(),
-                    emceeInstaller: container.resolve(),
-                    decodableFromJsonFileLoader: container.resolve(),
-                    jsonFileFromEncodableGenerator: container.resolve(),
-                    simulatorSettingsProvider: container.resolve(),
-                    developerDirProvider: container.resolve(),
-                    remoteCacheConfigProvider: container.resolve(),
-                    simulatorOperationTimeoutsProvider: container.resolve(),
-                    environmentProvider: container.resolve(),
-                    emceeVersionProvider: container.resolve(),
-                    retrier: container.resolve(),
-                    ciLogger: container.resolve()
+                    temporaryFileProvider: di.resolve(),
+                    processExecutor: di.resolve(),
+                    emceeInstaller: di.resolve(),
+                    decodableFromJsonFileLoader: di.resolve(),
+                    jsonFileFromEncodableGenerator: di.resolve(),
+                    simulatorSettingsProvider: di.resolve(),
+                    developerDirProvider: di.resolve(),
+                    remoteCacheConfigProvider: di.resolve(),
+                    simulatorOperationTimeoutsProvider: di.resolve(),
+                    environmentProvider: di.resolve(),
+                    emceeVersionProvider: di.resolve(),
+                    retrier: di.resolve(),
+                    ciLogger: di.resolve()
                 )
             )
         }
-        container.register(type: EmceeVersionProvider.self) {
+        di.register(type: EmceeVersionProvider.self) { _ in
             EmceeVersionProviderImpl()
         }
-        container.register(type: EmceeInstaller.self) {
-            let environmentProvider: EnvironmentProvider = try container.resolve()
+        di.register(type: EmceeInstaller.self) { di in
+            let environmentProvider: EnvironmentProvider = try di.resolve()
             
             return EmceeInstallerImpl(
                 emceeExecutablePath: try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_EMCEE_PATH)
@@ -309,24 +317,24 @@ open class CommonDi: BaseDi {
         }
     }
     
-    private func registerBundler(container: DependencyContainer) {
-        container.register(type: BundledProcessExecutor.self) {
-            BundledProcessExecutorImpl(
-                bashExecutor: try container.resolve(),
-                gemfileLocationProvider: try container.resolve(),
-                bundlerBashCommandGenerator: try container.resolve()
+    private func registerBundler(di: DependencyRegisterer) {
+        di.register(type: BundledProcessExecutor.self) { di in
+            try BundledProcessExecutorImpl(
+                bashExecutor: di.resolve(),
+                gemfileLocationProvider: di.resolve(),
+                bundlerBashCommandGenerator: di.resolve()
             )
         }
-        container.register(type: GemfileLocationProvider.self) {
-            GemfileLocationProviderImpl(
-                repoRootProvider: try container.resolve(),
+        di.register(type: GemfileLocationProvider.self) { di in
+            try GemfileLocationProviderImpl(
+                repoRootProvider: di.resolve(),
                 gemfileBasename: "Gemfile_cocoapods"
             )
         }
     }
     
-    private func registerCiFoundation(container: DependencyContainer) {
-        container.register(type: EnvironmentProvider.self) {
+    private func registerCiFoundation(di: DependencyRegisterer) {
+        di.register(type: EnvironmentProvider.self) { _ in
             // TODO: Try to remove hacks with DebugEnvironmentProvider
             
             let environmentProvider = ProcessInfoEnvironmentProvider(
@@ -343,113 +351,113 @@ open class CommonDi: BaseDi {
                 return environmentProvider
             }
         }
-        container.register(type: TemporaryFileProvider.self) {
+        di.register(type: TemporaryFileProvider.self) {
             TemporaryFileProviderImpl()
         }
-        container.register(type: JsonFileFromEncodableGenerator.self) {
-            JsonFileFromEncodableGeneratorImpl(
-                temporaryFileProvider: try container.resolve()
+        di.register(type: JsonFileFromEncodableGenerator.self) { di in
+            try JsonFileFromEncodableGeneratorImpl(
+                temporaryFileProvider: di.resolve()
             )
         }
-        container.register(type: DecodableFromJsonFileLoader.self) {
+        di.register(type: DecodableFromJsonFileLoader.self) { _ in
             DecodableFromJsonFileLoaderImpl()
         }
-        container.register(type: Retrier.self) {
+        di.register(type: Retrier.self) { _ in
             RetrierImpl()
         }
-        container.register(type: CiLogger.self) {
+        di.register(type: CiLogger.self) { _ in
             StdoutCiLogger()
         }
     }
     
-    private func registerDestinations(container: DependencyContainer) {
-        container.register(type: MixboxTestDestinationConfigurationsProvider.self) {
-            let environmentProvider: EnvironmentProvider = try container.resolve()
+    private func registerDestinations(di: DependencyRegisterer) {
+        di.register(type: MixboxTestDestinationConfigurationsProvider.self) { di in
+            let environmentProvider: EnvironmentProvider = try di.resolve()
             
-            return MixboxTestDestinationConfigurationsProviderImpl(
-                decodableFromJsonFileLoader: try container.resolve(),
-                destinationFileBaseName: try environmentProvider.getOrThrow(env: Env.MIXBOX_CI_DESTINATION),
-                repoRootProvider: try container.resolve()
+            return try MixboxTestDestinationConfigurationsProviderImpl(
+                decodableFromJsonFileLoader: di.resolve(),
+                destinationFileBaseName: environmentProvider.getOrThrow(env: Env.MIXBOX_CI_DESTINATION),
+                repoRootProvider: di.resolve()
             )
         }
-        container.register(type: MixboxTestDestinationProvider.self) {
-            MixboxTestDestinationProviderImpl(
-                mixboxTestDestinationConfigurationsProvider: try container.resolve()
-            )
-        }
-    }
-    
-    private func registerXcodebuild(container: DependencyContainer) {
-        container.register(type: Xcodebuild.self) {
-            XcodebuildImpl(
-                processExecutor: try container.resolve(),
-                derivedDataPathProvider: try container.resolve(),
-                cocoapodsInstall: try container.resolve(),
-                repoRootProvider: try container.resolve(),
-                environmentProvider: try container.resolve(),
-                ciLogger: try container.resolve()
-            )
-        }
-        container.register(type: IosProjectBuilder.self) {
-            IosProjectBuilderImpl(
-                xcodebuild: try container.resolve(),
-                simctlList: try container.resolve(),
-                simctlBoot: try container.resolve(),
-                simctlShutdown: try container.resolve(),
-                simctlCreate: try container.resolve()
-            )
-        }
-        container.register(type: MacosProjectBuilder.self) {
-            MacosProjectBuilderImpl(
-                xcodebuild: try container.resolve()
-            )
-        }
-        container.register(type: DerivedDataPathProvider.self) {
-            DerivedDataPathProviderImpl(
-                temporaryFileProvider: try container.resolve()
+        di.register(type: MixboxTestDestinationProvider.self) { di in
+            try MixboxTestDestinationProviderImpl(
+                mixboxTestDestinationConfigurationsProvider: di.resolve()
             )
         }
     }
     
-    private func registerSimctl(container: DependencyContainer) {
-        container.register(type: SimctlExecutor.self) {
-            SimctlExecutorImpl(
-                processExecutor: try container.resolve(),
-                environmentProvider: try container.resolve()
+    private func registerXcodebuild(di: DependencyRegisterer) {
+        di.register(type: Xcodebuild.self) { di in
+            try XcodebuildImpl(
+                processExecutor: di.resolve(),
+                derivedDataPathProvider: di.resolve(),
+                cocoapodsInstall: di.resolve(),
+                repoRootProvider: di.resolve(),
+                environmentProvider: di.resolve(),
+                ciLogger: di.resolve()
             )
         }
-        container.register(type: SimctlList.self) {
-            SimctlListImpl(
-                simctlExecutor: try container.resolve()
+        di.register(type: IosProjectBuilder.self) { di in
+            try IosProjectBuilderImpl(
+                xcodebuild: di.resolve(),
+                simctlList: di.resolve(),
+                simctlBoot: di.resolve(),
+                simctlShutdown: di.resolve(),
+                simctlCreate: di.resolve()
             )
         }
-        container.register(type: SimctlBoot.self) {
-            SimctlBootImpl(
-                simctlExecutor: try container.resolve()
+        di.register(type: MacosProjectBuilder.self) { di in
+            try MacosProjectBuilderImpl(
+                xcodebuild: di.resolve()
             )
         }
-        container.register(type: SimctlShutdown.self) {
-            SimctlShutdownImpl(
-                simctlExecutor: try container.resolve()
-            )
-        }
-        container.register(type: SimctlCreate.self) {
-            SimctlCreateImpl(
-                simctlExecutor: try container.resolve()
+        di.register(type: DerivedDataPathProvider.self) { di in
+            try DerivedDataPathProviderImpl(
+                temporaryFileProvider: di.resolve()
             )
         }
     }
     
-    private func registerTestRunning(container: DependencyContainer) {
-        container.register(type: TestsTaskRunner.self) {
+    private func registerSimctl(di: DependencyRegisterer) {
+        di.register(type: SimctlExecutor.self) { di in
+            try SimctlExecutorImpl(
+                processExecutor: di.resolve(),
+                environmentProvider: di.resolve()
+            )
+        }
+        di.register(type: SimctlList.self) { di in
+            try SimctlListImpl(
+                simctlExecutor: di.resolve()
+            )
+        }
+        di.register(type: SimctlBoot.self) { di in
+            try SimctlBootImpl(
+                simctlExecutor: di.resolve()
+            )
+        }
+        di.register(type: SimctlShutdown.self) { di in
+            try SimctlShutdownImpl(
+                simctlExecutor: di.resolve()
+            )
+        }
+        di.register(type: SimctlCreate.self) { di in
+            try SimctlCreateImpl(
+                simctlExecutor: di.resolve()
+            )
+        }
+    }
+    
+    private func registerTestRunning(di: DependencyRegisterer) {
+        di.register(type: TestsTaskRunner.self) { di in
             try TestsTaskRunnerImpl(
-                testRunner: container.resolve(),
-                mixboxTestDestinationConfigurationsProvider: container.resolve(),
-                iosProjectBuilder: container.resolve(),
-                iosBuildArtifactsProviderFactory: container.resolve()
+                testRunner: di.resolve(),
+                mixboxTestDestinationConfigurationsProvider: di.resolve(),
+                iosProjectBuilder: di.resolve(),
+                iosBuildArtifactsProviderFactory: di.resolve()
             )
         }
-        container.register(type: IosBuildArtifactsProviderFactory.self) {
+        di.register(type: IosBuildArtifactsProviderFactory.self) { _ in
             IosBuildArtifactsProviderFactoryImpl(
                 testDiscoveryMode: .parseFunctionSymbols
             )

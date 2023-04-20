@@ -84,7 +84,6 @@ def get_targets():
     ]
     
     external_product_by_module_name = {
-        'Dip': '.product(name: "Dip", package: "dip")',
         'Alamofire': '.product(name: "Alamofire", package: "alamofire")',
     }
     

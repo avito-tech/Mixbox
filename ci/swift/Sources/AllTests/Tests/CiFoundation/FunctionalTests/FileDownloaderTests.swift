@@ -3,12 +3,13 @@ import CiFoundation
 import Bash
 import RemoteFiles
 import TeamcityDi
+import DI
 
 public final class FileDownloaderTests: XCTestCase {
     func test() {
         do {
-            let di = TeamcityBuildDi()
-            try di.bootstrap(overrides: { _ in })
+            let di = DiMaker<TeamcityBuildDependencies>.makeDi()
+            
             let fileDownloader: FileDownloader = try di.resolve()
             
             guard let url = URL(string: "https://example.com") else {

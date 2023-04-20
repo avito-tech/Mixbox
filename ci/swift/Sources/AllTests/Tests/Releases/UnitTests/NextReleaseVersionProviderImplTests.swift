@@ -3,6 +3,7 @@ import Git
 import XCTest
 import Releases
 import TeamcityDi
+import DI
 
 // swiftlint:disable multiline_arguments multiline_parameters
 
@@ -10,8 +11,8 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
     // Integration test without mocks
     func test___nextReleaseVersion___doesnt_throw() {
         assertDoesntThrow {
-            let di = TeamcityBuildDi()
-            try di.bootstrap(overrides: { _ in })
+            let di = DiMaker<TeamcityBuildDependencies>.makeDi()
+            
             let nextReleaseVersionProvider: NextReleaseVersionProvider = try di.resolve()
             let headCommitHashProvider: HeadCommitHashProvider = try di.resolve()
             let settings: MixboxReleaseSettingsProvider = try di.resolve()
