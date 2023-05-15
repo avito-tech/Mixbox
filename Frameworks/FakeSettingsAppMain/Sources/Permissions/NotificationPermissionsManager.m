@@ -16,9 +16,42 @@
 
 @end
 
-@protocol NotificationPermissionManager_declaration_for_suppressing_undeclared_selector_warning
+@protocol BBSectionInfoSettings <NSObject>
 
-- (void)setSectionInfo:(id)a0 forSectionID:(id)a1 withCompletion:(id)a2;
+@property (nonatomic) unsigned long alertType;
+@property (nonatomic) BOOL allowsNotifications;
+@property (nonatomic) unsigned long pushSettings;
+@property (nonatomic) BOOL showsInLockScreen;
+@property (nonatomic) BOOL showsInNotificationCenter;
+@property (nonatomic) BOOL showsOnExternalDevices;
+@property (nonatomic) long carPlaySetting;
+@property (nonatomic) long contentPreviewSetting;
+
+- (void)setValue:(nullable id)value forKey:(NSString *)key;
+
+@end
+
+@protocol BBSectionInfo <NSObject, NSCoding>
+
+@property (nonatomic) BOOL suppressFromSettings;
+@property (nonatomic) unsigned long suppressedSettings;
+@property (nonatomic) long sectionCategory;
+@property (nonatomic) long subsectionPriority;
+@property (nonatomic) long sectionType;
+@property (nonatomic) BOOL hideWeeApp;
+@property (copy, nonatomic) NSString* displayName;
+@property (copy, nonatomic) NSString* sectionID;
+@property (nonatomic) BOOL displaysCriticalBulletins; // iOS 9 (or maybe lower) -> iOS 12. Unavailable in iOS 13.
+@property (copy, nonatomic) id<BBSectionInfoSettings> sectionInfoSettings;
+
+- (void)setValue:(nullable id)value forKey:(NSString *)key;
+
+@end
+
+@protocol BBSettingsGateway <NSObject>
+
+- (void)setSectionInfo:(id<BBSectionInfo>)a0 forSectionID:(NSString *)a1 withCompletion:(id)a2;
+- (id<BBSectionInfo>)sectionInfoForSectionID:(NSString *)a0;
 
 @end
 
@@ -34,9 +67,7 @@
 }
 
 - (ErrorString *)setNotificationPermissionsStatus:(NSString *)status timeout:(NSTimeInterval)timeout {
-    __block ErrorString *error = nil;
-    
-    id sectionInfo = nil;
+    id<BBSectionInfo> sectionInfo = nil;
     
     if ([status isEqualToString:@"allowed"]) {
         sectionInfo = [self sectionInfoForForSettingNotificationsEnabled:YES];
@@ -49,14 +80,17 @@
         return [ErrorString stringWithFormat:@"status is not supported: %@", status];
     }
     
+    NSBundle *bundle = [self bulletinBoardFrameworkBundle];
+    
+    id<BBSettingsGateway> settingsGateway = [[bundle classNamed:@"BBSettingsGateway"] new];
+    
     dispatch_group_t dispatchGroup = dispatch_group_create();
 
     dispatch_group_enter(dispatchGroup);
     
     __block BOOL completionHandlerWasCalled = NO;
-
-    [self setSectionInfo:sectionInfo completionHandler:^(NSError *localError) {
-        error = [localError localizedDescription];
+    
+    [settingsGateway setSectionInfo:sectionInfo forSectionID:_bundleIdentifier withCompletion:^{
         completionHandlerWasCalled = YES;
 
         dispatch_group_leave(dispatchGroup);
@@ -64,8 +98,19 @@
 
     dispatch_group_wait(dispatchGroup, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC)));
     
-    if (!completionHandlerWasCalled) {
-        error = [ErrorString stringWithFormat:@"Timed out waiting for setSectionInfo completion (timeout = %@)", @(timeout)];
+    id<BBSectionInfo> sectionInfoAfterSetting = [settingsGateway sectionInfoForSectionID:_bundleIdentifier];
+    
+    NSString *error = nil;
+    
+    if (![self isSectionInfoApplied:sectionInfo actualSectionInfo:sectionInfoAfterSetting]) {
+        NSString *errorSuffix = completionHandlerWasCalled ? @"" : @", also completion handler of -setSectionInfo:forSectionID:withCompletion: was not called (it was not expected and is an indication of an error)";
+        
+        NSString *error = [ErrorString stringWithFormat:
+                 @"Failed to setSectionInfo. Section info  %@ receinved after setSectionInfo does not have certain desired attributes of expected section %@%@",
+                 sectionInfoAfterSetting,
+                 sectionInfo,
+                 errorSuffix
+        ];
         
         CFStringRef entitlementKey = CFSTR("com.apple.bulletinboard.settings");
         NSString *nsStringEntitlementKey = (__bridge NSString *)entitlementKey;
@@ -131,47 +176,28 @@
     return [pathToBulletinBoardFramework URLByStandardizingPath];
 }
 
-- (void)setSectionInfo:(id)sectionInfo completionHandler:(void(^)(NSError* error))completionHandler {
+- (id<BBSectionInfo>)sectionInfoForForSettingNotificationsEnabled:(BOOL)enabled {
     NSBundle *bundle = [self bulletinBoardFrameworkBundle];
     
-    id settingsGateway = [[bundle classNamed:@"BBSettingsGateway"] new];
-    
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[settingsGateway methodSignatureForSelector:@selector(setSectionInfo:forSectionID:withCompletion:)]];
-    
-    [invocation setTarget:settingsGateway];
-    [invocation setSelector:@selector(setSectionInfo:forSectionID:withCompletion:)];
-    [invocation setArgument:&sectionInfo atIndex:2];
-    [invocation setArgument:&_bundleIdentifier atIndex:3];
-    
-    [invocation retainArguments];
-    
-    [invocation setArgument:&completionHandler atIndex:4];
-    [invocation invoke];
-}
-
-- (id)sectionInfoForForSettingNotificationsEnabled:(BOOL)enabled {
-    NSBundle *bundle = [self bulletinBoardFrameworkBundle];
-    
-    
-    id sectionInfo = [[bundle classNamed:@"BBSectionInfo"] new];
+    id<BBSectionInfo> sectionInfo = [[bundle classNamed:@"BBSectionInfo"] new];
     
     [self printPropertiesOfInstance:sectionInfo];
     
-    [sectionInfo setValue:@NO forKey:@"suppressFromSettings"];
-    [sectionInfo setValue:@0 forKey:@"suppressedSettings"];
-    [sectionInfo setValue:@0 forKey:@"sectionCategory"];
-    [sectionInfo setValue:@0 forKey:@"subsectionPriority"];
-    [sectionInfo setValue:@0 forKey:@"sectionType"];
-    [sectionInfo setValue:@NO forKey:@"hideWeeApp"];
-    [sectionInfo setValue:_displayName forKey:@"displayName"];
-    [sectionInfo setValue:_bundleIdentifier forKey:@"sectionID"];
+    sectionInfo.suppressFromSettings = NO;
+    sectionInfo.suppressedSettings = 0;
+    sectionInfo.sectionCategory = 0;
+    sectionInfo.subsectionPriority = 0;
+    sectionInfo.sectionType = 0;
+    sectionInfo.hideWeeApp = NO;
+    sectionInfo.displayName = _displayName;
+    sectionInfo.sectionID = _bundleIdentifier;
     
     switch ([self osMajorVersion]) {
         case 9:
         case 10:
         case 11:
         case 12: {
-            [sectionInfo setValue:@NO forKey:@"displaysCriticalBulletins"];
+            sectionInfo.displaysCriticalBulletins = NO;
             break;
         }
         case 13:
@@ -181,51 +207,41 @@
         }
     }
     
-    id settings = [self sectionInfoSettingsForForSettingNotificationsEnabled:enabled];
-    [sectionInfo setValue:settings forKey:@"sectionInfoSettings"];
+    id<BBSectionInfoSettings> settings = [self sectionInfoSettingsForForSettingNotificationsEnabled:enabled];
+    
+    sectionInfo.sectionInfoSettings = settings;
     
     return sectionInfo;
 }
 
-- (id)sectionInfoSettingsForForSettingNotificationsEnabled:(BOOL)enabled {
+- (BOOL)isSectionInfoApplied:(id<BBSectionInfo>)expectedSectionInfo actualSectionInfo:(id<BBSectionInfo>)actualSectionInfo {
+    if (expectedSectionInfo.sectionInfoSettings.allowsNotifications != actualSectionInfo.sectionInfoSettings.allowsNotifications) {
+        return NO;
+    }
+    if (![expectedSectionInfo.displayName isEqual:actualSectionInfo.displayName]) {
+        return NO;
+    }
+    if (![expectedSectionInfo.sectionID isEqual:actualSectionInfo.sectionID]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (id<BBSectionInfoSettings>)sectionInfoSettingsForForSettingNotificationsEnabled:(BOOL)enabled {
     NSBundle *bundle = [self bulletinBoardFrameworkBundle];
     
-    id settings = [[bundle classNamed:@"BBSectionInfoSettings"] new];
+    id<BBSectionInfoSettings> settings = [[bundle classNamed:@"BBSectionInfoSettings"] new];
     
     [self printPropertiesOfInstance:settings];
     
-    id alertType = @1;
-    id allowsNotifications = @(enabled);
-    id pushSettings = @63;
-    id showsInLockScreen = @YES;
-    id showsInNotificationCenter = @YES;
-    id showsOnExternalDevices = @YES;
-    id showsMessagePreview = @NO;
-    id carPlaySetting = @NO;
-    id contentPreviewSetting = @0;
-    
-    [settings setValue:alertType forKey:@"alertType"];
-    [settings setValue:allowsNotifications forKey:@"allowsNotifications"];
-    [settings setValue:pushSettings forKey:@"pushSettings"];
-    [settings setValue:showsInLockScreen forKey:@"showsInLockScreen"];
-    [settings setValue:showsInNotificationCenter forKey:@"showsInNotificationCenter"];
-    [settings setValue:showsOnExternalDevices forKey:@"showsOnExternalDevices"];
-    
-    switch ([self osMajorVersion]) {
-        case 9: {
-            [settings setValue:showsMessagePreview forKey:@"showsMessagePreview"];
-            break;
-        }
-        case 10:
-        case 11:
-        case 12:
-        case 13:
-        default: {
-            [settings setValue:carPlaySetting forKey:@"carPlaySetting"];
-            [settings setValue:contentPreviewSetting forKey:@"contentPreviewSetting"];
-            break;
-        }
-    }
+    settings.alertType = 1;
+    settings.allowsNotifications = enabled;
+    settings.pushSettings = 63;
+    settings.showsInLockScreen = YES;
+    settings.showsInNotificationCenter = YES;
+    settings.showsOnExternalDevices = YES;
+    settings.carPlaySetting = NO;
+    settings.contentPreviewSetting = 0;
     
     return settings;
 }
