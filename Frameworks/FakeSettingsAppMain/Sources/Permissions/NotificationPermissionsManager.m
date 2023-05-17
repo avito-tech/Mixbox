@@ -31,7 +31,7 @@
 
 @end
 
-@protocol BBSectionInfo <NSObject, NSCoding>
+@protocol BBSectionInfo <NSObject>
 
 @property (nonatomic) BOOL suppressFromSettings;
 @property (nonatomic) unsigned long suppressedSettings;
