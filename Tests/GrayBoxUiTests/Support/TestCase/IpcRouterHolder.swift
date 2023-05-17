@@ -1,4 +1,4 @@
-import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import MixboxIpc
 
 final class IpcRouterHolder: IpcRouterProvider {

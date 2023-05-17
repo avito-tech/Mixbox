@@ -79,6 +79,8 @@ PODS:
   - MixboxTestsFoundation (0.0.1):
     - MixboxBuiltinDi
     - MixboxFoundation
+    - MixboxIpc
+    - MixboxIpcCommon
     - MixboxLinkXCTAutomationSupport
     - MixboxUiKit
     - SQLite.swift
@@ -273,7 +275,7 @@ SPEC CHECKSUMS:
   MixboxSBTUITestTunnelServer: d30cf87cf9b01bf7752c381c2e3223ce462408db
   MixboxStubbing: 25c1764e26985e44fa6eb925fefd67d2c0a1fdbd
   MixboxTestability: 5116edee152c55635434424269364e4189f75f26
-  MixboxTestsFoundation: 2e20470edf46d46cbc8fed8bb85f280884937786
+  MixboxTestsFoundation: 1a4588c69d10123cfca7aa3cdcebb508b9ad7fdc
   MixboxUiKit: 064489bdb334af1b918432b8f4381c33dd591928
   MixboxUiTestsFoundation: 9a1bd5d4e1315a467e95f576c000b0e102823186
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
@@ -289,4 +291,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.12.1

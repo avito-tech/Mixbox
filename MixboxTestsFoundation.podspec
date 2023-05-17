@@ -12,6 +12,10 @@ Mixbox::FrameworkSpec.new do |s|
 
   s.dependency 'MixboxLinkXCTAutomationSupport'
   
+  # TODO: Remove IPC from here. IPC is not needed neither in white, nor in gray box tests.
+  s.dependency 'MixboxIpc'
+  s.dependency 'MixboxIpcCommon'
+  
   s.pod_target_xcconfig = {
     'ENABLE_TESTING_SEARCH_PATHS' => 'YES',
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) "$(PLATFORM_DIR)/Developer/usr/lib" "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(PLATFORM_DIR)/Developer/Library/PrivateFrameworks"',

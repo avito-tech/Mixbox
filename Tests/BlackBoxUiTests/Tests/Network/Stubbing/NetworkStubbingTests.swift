@@ -1,5 +1,5 @@
 import MixboxIpcCommon
-import MixboxUiTestsFoundation
+import MixboxTestsFoundation
 import XCTest
 
 // TODO: BlackBox tests
