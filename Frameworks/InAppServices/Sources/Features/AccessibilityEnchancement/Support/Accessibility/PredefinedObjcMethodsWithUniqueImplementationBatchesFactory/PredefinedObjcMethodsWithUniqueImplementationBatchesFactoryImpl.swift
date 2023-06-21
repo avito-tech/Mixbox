@@ -23,8 +23,9 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
             ios11Till12Batch(iosMajorVersion: 11),
             ios11Till12Batch(iosMajorVersion: 12),
             ios13Batch(),
-            ios14Till15Batch(iosMajorVersion: 14),
-            ios14Till15Batch(iosMajorVersion: 15)
+            ios14Till16Batch(iosMajorVersion: 14),
+            ios14Till16Batch(iosMajorVersion: 15),
+            ios14Till16Batch(iosMajorVersion: 16)
         ]
     }
     
@@ -60,7 +61,7 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
         )
     }
     
-    private func ios14Till15Batch(iosMajorVersion: Int) -> PredefinedObjcMethodsWithUniqueImplementationBatch {
+    private func ios14Till16Batch(iosMajorVersion: Int) -> PredefinedObjcMethodsWithUniqueImplementationBatch {
         return batch(
             iosMajorVersion: iosMajorVersion,
             methods: [

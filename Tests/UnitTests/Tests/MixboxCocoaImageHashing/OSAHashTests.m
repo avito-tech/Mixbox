@@ -44,6 +44,10 @@
         [self assertHashOfImageWithName:@"compr_architecture1.jpg"
                               isEqualTo:-8608191228601919553
                             forProvider:OSImageHashingProviderAHash];
+    } else if ([[[UIDevice currentDevice] systemVersion] hasPrefix:@"16"]) {
+        [self assertHashOfImageWithName:@"compr_architecture1.jpg"
+                              isEqualTo:-8608191228601919553
+                            forProvider:OSImageHashingProviderAHash];
     } else {
         [self assertHashOfImageWithName:@"compr_architecture1.jpg"
                               isEqualTo:-8608472703578630209

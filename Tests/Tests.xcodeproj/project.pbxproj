@@ -59,7 +59,6 @@
 
 /* Begin PBXBuildFile section */
 		145A75A2B44787A4ED137B5D /* Pods_Lint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B60ED96BAF599D304F89BB /* Pods_Lint.framework */; };
-		1F0C80C72A14F3B1002FBC52 /* NetworkStubbingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3200922CF87F30094D2EA /* NetworkStubbingTests.swift */; };
 		1FEF58BE28A301CB00B49D78 /* EventOptionBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */; };
 		26EC7E4F90D6BD5075C83255 /* Pods_OsxUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */; };
 		46CD4B6904207EBCC3D1EEA9 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */; };
@@ -1682,6 +1681,7 @@
 		BC6CF99B231040EE003F40C0 /* Stubbing */ = {
 			isa = PBXGroup;
 			children = (
+				F8E3200922CF87F30094D2EA /* NetworkStubbingTests.swift */,
 				BC6CF99C2310412A003F40C0 /* NetworkStubbingTestCase.swift */,
 			);
 			path = Stubbing;
@@ -2872,7 +2872,6 @@
 		F8971DAE226662E5001741C1 /* Stubbing */ = {
 			isa = PBXGroup;
 			children = (
-				F8E3200922CF87F30094D2EA /* NetworkStubbingTests.swift */,
 				F8A7530F2260E13D00396A89 /* LegacyNetworkStubbingTests.swift */,
 			);
 			path = Stubbing;
@@ -5620,7 +5619,6 @@
 				F8AC3CF8235E5D7A00516032 /* CuckooMatchers.swift in Sources */,
 				F8A837CE2270F8F500145140 /* MainAppScreen.swift in Sources */,
 				F820307322385D7C006D2F70 /* SetTextActionCanBeRunSubsequentlyWithSameResultTests.swift in Sources */,
-				1F0C80C72A14F3B1002FBC52 /* NetworkStubbingTests.swift in Sources */,
 				F84C85A627187652008496D8 /* ValuesByIosVersionInFinalState.swift in Sources */,
 				F8274A432142DA7A00A72C41 /* AssertingCustomValuesTests.swift in Sources */,
 				F84D126F2166ABF800A178B4 /* FakeCellsDoNotCrashAppTests.swift in Sources */,

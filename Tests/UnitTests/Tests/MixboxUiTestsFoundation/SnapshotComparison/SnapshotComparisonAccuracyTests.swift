@@ -16,6 +16,8 @@ class SnapshotComparisonTests: TestCase {
         }
     }
     
+    private lazy var deviceArchitectureProvider: DeviceArchitectureProvider = dependencies.resolve()
+    
     override var reuseState: Bool {
         false
     }
@@ -31,24 +33,28 @@ class SnapshotComparisonTests: TestCase {
                 tolerance: 0,
                 forceUsingNonDiscretePercentageOfMatching: false
             ),
-            expectedComparatorAccuracy: .accuracyForKnownIosVersion(1)
+            expectedComparatorAccuracy: .known(1)
         )
     }
     
     // I'm not sure if it depends on iOS, at least it depends
     // on iOS & DeviceType pair.
     private enum ExpectedComparatorAccuracy {
-        case accuracyForKnownIosVersion(Double)
+        case known(intel: Double, m1: Double)
         case unknown
+        
+        static func known(_ accuracy: Double) -> ExpectedComparatorAccuracy {
+            return .known(intel: accuracy, m1: accuracy)
+        }
     }
     
     func test___AHash() {
         let expectedComparatorAccuracy = valuesByIosVersion(type: ExpectedComparatorAccuracy.self)
-            .since(ios: 11)
-            .value(.accuracyForKnownIosVersion(0.7935483870967742))
-            .since(ios: 12)
-            .value(.accuracyForKnownIosVersion(0.8043010752688172))
-            .until(ios: 16)
+            .since(ios: 14)
+            .value(.known(0.8043010752688172))
+            .since(ios: 16)
+            .value(.known(0.8043010752688172))
+            .until(ios: 17)
             .getValue(defaultValue: .unknown)
         
         check(
@@ -62,13 +68,13 @@ class SnapshotComparisonTests: TestCase {
     
     func test___DHash() {
         let expectedComparatorAccuracy = valuesByIosVersion(type: ExpectedComparatorAccuracy.self)
-            .since(ios: 11)
-            .value(.accuracyForKnownIosVersion(0.8688172043010752))
-            .since(ios: 12)
-            .value(.accuracyForKnownIosVersion(0.8817204301075269))
+            .since(ios: 14)
+            .value(.known(intel: 0.8817204301075269, m1: 0.8795698924731182))
             .since(ios: 15)
-            .value(.accuracyForKnownIosVersion(0.886021505376344))
-            .until(ios: 16)
+            .value(.known(intel: 0.886021505376344, m1: 0.8903225806451613))
+            .since(ios: 16)
+            .value(.known(0.8903225806451613))
+            .until(ios: 17)
             .getValue(defaultValue: .unknown)
         
         check(
@@ -82,11 +88,13 @@ class SnapshotComparisonTests: TestCase {
     
     func test___PHash() {
         let expectedComparatorAccuracy = valuesByIosVersion(type: ExpectedComparatorAccuracy.self)
-            .since(ios: 11)
-            .value(.accuracyForKnownIosVersion(0.9698924731182795))
-            .since(ios: 12)
-            .value(.accuracyForKnownIosVersion(0.9849462365591398))
-            .until(ios: 16)
+            .since(ios: 14)
+            .value(.known(intel: 0.9849462365591398, m1: 0.9806451612903225))
+            .since(ios: 15)
+            .value(.known(intel: 0.9849462365591398, m1: 0.9827956989247312))
+            .since(ios: 16)
+            .value(.known(0.9827956989247312))
+            .until(ios: 17)
             .getValue(defaultValue: .unknown)
         
         check(
@@ -109,78 +117,111 @@ class SnapshotComparisonTests: TestCase {
         )
     }
     
+    // TODO: Fix
+    // swiftlint:disable:next cyclomatic_complexity
     private func check(
         comparator: SnapshotsComparator,
         expectedComparatorAccuracy: ExpectedComparatorAccuracy,
         limitImages: Int? = nil,
         file: StaticString = #filePath,
-        line: UInt = #line)
-    {
-        let allImages = self.allImages(limit: limitImages)
-        var failures = [String]()
-        var checksCount = 0
-        
-        for (i, lhs) in allImages.enumerated() {
-            for (j, rhs) in allImages.enumerated() {
-                if j < i {
-                    // skip; check only half of matrix, including diagonal line
-                    // this will be enough
-                    continue
-                }
-                
-                let isSameImage = lhs.name == rhs.name
-                
-                let result = comparator.compare(
-                    actualImage: lhs.image,
-                    expectedImage: rhs.image
-                )
-                
-                checksCount += 1
-                
-                switch result {
-                case .similar:
-                    if !isSameImage {
-                        failures.append(
-                            """
-                            Expected images to be different, but comparator tells they are same.
-                            `lhs`: \(lhs.name)
-                            `rhs`: \(rhs.name)
-                            """
-                        )
+        line: UInt = #line
+    ) {
+        assertDoesntThrow {
+            let allImages = self.allImages(limit: limitImages)
+            var failures = [String]()
+            var checksCount = 0
+            
+            for (i, lhs) in allImages.enumerated() {
+                for (j, rhs) in allImages.enumerated() {
+                    if j < i {
+                        // skip; check only half of matrix, including diagonal line
+                        // this will be enough
+                        continue
                     }
-                case .different(let description):
-                    if isSameImage {
-                        failures.append(
-                            """
-                            Expected images to be same, but comparator tells they are different.
-                            `lhs`: \(lhs.name)
-                            `rhs`: \(rhs.name)
-                            `message`: \(description.message)
-                            `percentageOfMatching`: \(description.percentageOfMatching)
-                            """
-                        )
+                    
+                    let isSameImage = lhs.name == rhs.name
+                    
+                    let result = comparator.compare(
+                        actualImage: lhs.image,
+                        expectedImage: rhs.image
+                    )
+                    
+                    checksCount += 1
+                    
+                    switch result {
+                    case .similar:
+                        if !isSameImage {
+                            failures.append(
+                                """
+                                Expected images to be different, but comparator tells they are same.
+                                `lhs`: \(lhs.name)
+                                `rhs`: \(rhs.name)
+                                """
+                            )
+                        }
+                    case .different(let description):
+                        if isSameImage {
+                            failures.append(
+                                """
+                                Expected images to be same, but comparator tells they are different.
+                                `lhs`: \(lhs.name)
+                                `rhs`: \(rhs.name)
+                                `message`: \(description.message)
+                                `percentageOfMatching`: \(description.percentageOfMatching)
+                                """
+                            )
+                        }
                     }
                 }
             }
-        }
-        
-        let actualComparatorAccuracy = Double(checksCount - failures.count) / Double(checksCount)
-        
-        switch expectedComparatorAccuracy {
-        case let .accuracyForKnownIosVersion(expectedComparatorAccuracy):
-            let difference = (expectedComparatorAccuracy - actualComparatorAccuracy).magnitude
             
-            let isOk = expectedComparatorAccuracy == 1
+            let actualComparatorAccuracy = Double(checksCount - failures.count) / Double(checksCount)
+            
+            switch expectedComparatorAccuracy {
+            case let .known(intel: expectedComparatorAccuracyForIntelSimulators, m1: expectedComparatorAccuracyForM1Simulators):
+                let expectedComparatorAccuracy: Double
+                
+                switch try deviceArchitectureProvider.deviceArchitecture() {
+                case .x86_64h:
+                    expectedComparatorAccuracy = expectedComparatorAccuracyForIntelSimulators
+                case .arm64e:
+                    expectedComparatorAccuracy = expectedComparatorAccuracyForM1Simulators
+                }
+                
+                let difference = (expectedComparatorAccuracy - actualComparatorAccuracy).magnitude
+                
+                let isOk = expectedComparatorAccuracy == 1
                 ? difference == 0
                 : difference <= 0.0001
-            
-            if !isOk {
+                
+                if !isOk {
+                    XCTFail(
+                        """
+                        Comparator has \(actualComparatorAccuracy) accuracy at differentiating icons.
+                        Expected accuracy is \(expectedComparatorAccuracy)
+                        
+                        First 10 failures:
+                        
+                        \(failures.prefix(10).joined(separator: "\n\n"))
+                        """,
+                        file: file,
+                        line: line
+                    )
+                }
+            case .unknown:
                 XCTFail(
                     """
                     Comparator has \(actualComparatorAccuracy) accuracy at differentiating icons.
-                    Expected accuracy is \(expectedComparatorAccuracy)
+                    Current iOS major version is \(iosVersionProvider.iosVersion().majorVersion).
                     
-                    First 10 failures:
+                    Change tests accordingly. E.g.
+                    
+                    ```
+                    .since(ios: \(iosVersionProvider.iosVersion().majorVersion))
+                    .value(.accuracyForKnownIosVersion(\(actualComparatorAccuracy)))
+                    ```
+                    
+                    First 3 failures:
                     
                     \(failures.prefix(10).joined(separator: "\n\n"))
                     """,
@@ -188,26 +229,6 @@ class SnapshotComparisonTests: TestCase {
                     line: line
                 )
             }
-        case .unknown:
-            XCTFail(
-                """
-                Comparator has \(actualComparatorAccuracy) accuracy at differentiating icons.
-                Current iOS major version is \(iosVersionProvider.iosVersion().majorVersion).
-                
-                Add this case to switches in tests. E.g.
-                
-                ```
-                case \(iosVersionProvider.iosVersion().majorVersion):
-                    return .accuracyForKnownIosVersion(\(actualComparatorAccuracy))
-                ```
-                
-                First 10 failures:
-                
-                \(failures.prefix(10).joined(separator: "\n\n"))
-                """,
-                file: file,
-                line: line
-            )
         }
     }
     

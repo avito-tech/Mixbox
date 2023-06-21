@@ -137,12 +137,9 @@ public final class VisiblePixelDataCalculatorImpl: VisiblePixelDataCalculator {
         screenScale: CGFloat)
         -> CGPoint
     {
-        // Without this line tests fail to tap single pixel views:
-        let centerOfPixel = screenScale / 2
-        
         let pointInView = CGPoint(
-            x: CGFloat(intPoint.x) / CGFloat(imageSize.width) * searchRectInScreenCoordinates.width + centerOfPixel,
-            y: CGFloat(intPoint.y) / CGFloat(imageSize.height) * searchRectInScreenCoordinates.height + centerOfPixel
+            x: CGFloat(intPoint.x) / CGFloat(imageSize.width) * searchRectInScreenCoordinates.width,
+            y: CGFloat(intPoint.y) / CGFloat(imageSize.height) * searchRectInScreenCoordinates.height
         )
         
         return pointInView + searchRectInScreenCoordinates.origin

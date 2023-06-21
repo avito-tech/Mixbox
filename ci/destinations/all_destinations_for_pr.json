@@ -1,34 +1,6 @@
 [
     {
 		"testDestination": {
-			"deviceType": "iPhone X",
-			"iOSVersion": "12.4",
-			"iOSVersionShort": "12.4",
-			"iOSVersionLong": "12.4",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-X",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-12-4"
-		},
-		"reportOutput": {
-			"junit": "tests-artifacts/ios_12.xml",
-			"tracingReport": "tests-artifacts/ios_12.trace"
-		}
-	},
-    {
-		"testDestination": {
-			"deviceType": "iPhone 11",
-			"iOSVersion": "13.7",
-			"iOSVersionShort": "13.7",
-			"iOSVersionLong": "13.7",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-11",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-13-7"
-		},
-		"reportOutput": {
-			"junit": "tests-artifacts/ios_13.xml",
-			"tracingReport": "tests-artifacts/ios_13.trace"
-		}
-	},
-    {
-		"testDestination": {
 			"deviceType": "iPhone 12",
 			"iOSVersion": "14.1",
 			"iOSVersionShort": "14.1",
@@ -41,18 +13,32 @@
 			"tracingReport": "tests-artifacts/ios_14.trace"
 		}
 	},
-    {
+	{
 		"testDestination": {
 			"deviceType": "iPhone 13 mini",
 			"iOSVersion": "15.0",
 			"iOSVersionShort": "15.0",
 			"iOSVersionLong": "15.0",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-13-mini",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-15-0"
+			"deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-13-mini",
+			"runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-15-0"
 		},
 		"reportOutput": {
 			"junit": "tests-artifacts/ios_15.xml",
 			"tracingReport": "tests-artifacts/ios_15.trace"
+		}
+	},
+	{
+		"testDestination": {
+			"deviceType": "iPhone 14 Pro Max",
+			"iOSVersion": "16.1",
+			"iOSVersionShort": "16.1",
+			"iOSVersionLong": "16.1",
+			"deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-14-Pro-Max",
+			"runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-16-1"
+		},
+		"reportOutput": {
+			"junit": "tests-artifacts/ios_16.xml",
+			"tracingReport": "tests-artifacts/ios_16.trace"
 		}
 	}
 ]

@@ -276,7 +276,8 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
             // Helpful addition for JUnit:
             let device = UIDevice.mb_platformType.rawValue
             let os = iosVersionProvider.iosVersion().majorAndMinor
-            let environment = "\(device), iOS \(os)"
+            let architecture = try? (dependencies.resolve() as DeviceArchitectureProvider).deviceArchitecture().rawValue
+            let environment = [device, "iOS \(os)", architecture].compactMap { $0 }.joined(separator: ", ")
             let patchedDescription = originalDescription.split(separator: "\n").joined(separator: " ")
             let hostname = ProcessInfo.processInfo.hostName
             

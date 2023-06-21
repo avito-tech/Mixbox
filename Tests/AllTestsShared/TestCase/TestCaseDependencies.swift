@@ -68,6 +68,9 @@ final class TestCaseDependencies: DependencyCollectionRegisterer {
                 shouldNeverContinueTestAfterFailure: false
             )
         }
+        di.register(type: DeviceArchitectureProvider.self) { _ in
+            DeviceArchitectureProviderImpl()
+        }
     }
     
     private func registerMocks(di: DependencyRegisterer) {
