@@ -68,10 +68,10 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             percentageOfMatching: 0.5,
             description:
             """
-            не найден superview, который матчится матчером "Всё из [
+            не найден superview, который матчится матчером "All of [
                 Имеет проперти id: equals to non_existent_id
                 Имеет проперти isEnabled: equals to true
-            ]", лучший кандидат зафейлился: Всё из [
+            ]", лучший кандидат зафейлился: All of [
                 (x) value is not equal to 'non_existent_id', actual value: 'superview1'
                 (v) Имеет проперти isEnabled: equals to true
             ]

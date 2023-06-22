@@ -7,14 +7,14 @@ class AlwaysFalseMatcherTests: BaseLogicMatcherTests {
         assertMismatches(
             matcher: AlwaysFalseMatcher(),
             percentageOfMatching: 0,
-            description: "Всегда ложно"
+            description: "Always false"
         )
     }
     
     func test___description___is_correct() {
         assertDescriptionIsCorrect(
             matcher: AlwaysFalseMatcher(),
-            description: "Всегда ложно"
+            description: "Always false"
         )
     }
 }

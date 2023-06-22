@@ -59,6 +59,8 @@
 
 /* Begin PBXBuildFile section */
 		145A75A2B44787A4ED137B5D /* Pods_Lint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B60ED96BAF599D304F89BB /* Pods_Lint.framework */; };
+		1F4987352A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987342A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift */; };
+		1F49873C2A448BDC00CF5F54 /* TestFailingMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F49873B2A448BDC00CF5F54 /* TestFailingMatcher.swift */; };
 		1FEF58BE28A301CB00B49D78 /* EventOptionBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */; };
 		26EC7E4F90D6BD5075C83255 /* Pods_OsxUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */; };
 		46CD4B6904207EBCC3D1EEA9 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */; };
@@ -964,6 +966,8 @@
 
 /* Begin PBXFileReference section */
 		18F103602061AD5C6BC92921 /* Pods-HostedAppLogicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.debug.xcconfig"; path = "Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F4987342A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingLazyMappingSequenceTests.swift; sourceTree = "<group>"; };
+		1F49873B2A448BDC00CF5F54 /* TestFailingMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFailingMatcher.swift; sourceTree = "<group>"; };
 		1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOptionBitsTests.swift; sourceTree = "<group>"; };
 		2334CBC37E807E632DE8295A /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2917F62FA6584ECB1E3D3C45 /* Pods-Lint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lint.release.xcconfig"; path = "Target Support Files/Pods-Lint/Pods-Lint.release.xcconfig"; sourceTree = "<group>"; };
@@ -3345,6 +3349,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B034702590F7EC0014574B /* BaseLogicMatcherTests.swift */,
+				1F49873B2A448BDC00CF5F54 /* TestFailingMatcher.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -3655,6 +3660,7 @@
 				F8F1E45C2347D486005B5525 /* DebugDescriptionBuilderTests.swift */,
 				F8933D3823E20225002727AC /* GenericSerializationTests.swift */,
 				F8C39E3825665FDD00CE2A03 /* UnwrapOrThrowTests.swift */,
+				1F4987342A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift */,
 			);
 			path = MixboxFoundation;
 			sourceTree = "<group>";
@@ -5900,6 +5906,7 @@
 				F80C2E2924D1E15100C6CAD4 /* BaseTestCase+ResolveFunctions.swift in Sources */,
 				F8D227A4266AD5F4005DE5DA /* SnapshotComparisonAccuracyTests.swift in Sources */,
 				F8F4A1D425682F740093523E /* MocksTestsFixtureObjcProtocol.swift in Sources */,
+				1F49873C2A448BDC00CF5F54 /* TestFailingMatcher.swift in Sources */,
 				F830B5DE2582205800E5E444 /* DynamicBehaviorIntegrationalTests.swift in Sources */,
 				F83668BB265D3BEB00C7F1FF /* SnapshotHierarchyMatcherTests.swift in Sources */,
 				F8B5C68F254AD74D002DB0FB /* BaseValueCodeGeneratorTests+SharedFunctions.swift in Sources */,
@@ -5912,6 +5919,7 @@
 				F8A6EF492566C8BE00003D56 /* LogEnvironmentSetUpAction.swift in Sources */,
 				F89AED0626697CA70080E980 /* OSDHashTests.m in Sources */,
 				F84D126A2166A7BB00A178B4 /* ObjectiveCExceptionCatcherTests.swift in Sources */,
+				1F4987352A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift in Sources */,
 				F81144D02268D39C00ED519B /* GeneratedMocks.ignored.swift in Sources */,
 				F87D2C0524D0D76500D6DBFA /* VisibilityCheckImageColorShifterImplTests.swift in Sources */,
 				F8FC4AD623AA68FE00D3E911 /* NotMatcherTests.swift in Sources */,

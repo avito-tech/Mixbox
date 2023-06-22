@@ -11,7 +11,7 @@ class AlwaysTrueMatcherTests: BaseLogicMatcherTests {
     func test___description___is_correct() {
         assertDescriptionIsCorrect(
             matcher: AlwaysTrueMatcher(),
-            description: "Всегда истинно"
+            description: "Always true"
         )
     }
 }

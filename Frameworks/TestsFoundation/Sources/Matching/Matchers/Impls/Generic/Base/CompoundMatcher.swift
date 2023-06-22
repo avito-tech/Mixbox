@@ -1,21 +1,52 @@
+import MixboxFoundation
+
+public enum CompoundMatcherMode {
+    case alwaysUseAllMatchers
+    
+    // If `exactMatch` does not execute `match` for every matcher, do not continue to execute them.
+    // `AndMatcher` can exit early when finds first mismatch, `OrMatcher` can exit early when finds first match.
+    // This may greatly increase performance, for example, in cases when matchers are slow (example: comparing images).
+    // However, the quality of result may get worse. `percentageOfMatching` will not take into account all results,
+    // since some results are not received. Also, `mismatchDescription` will not contain all mismatches.
+    case skipMatchingWhenMatchOrMismatchIsDetected(
+        skippedMatchingResultsFactory: () -> MatchingResult
+    )
+}
+
 public class CompoundMatcher<T>: Matcher<T> {
     public init(
         prefix: String,
         matchers: [Matcher<T>],
-        exactMatch: @escaping ([MatchingResult]) -> Bool,
-        percentageOfMatching: @escaping ([MatchingResult]) -> Double)
-    {
+        exactMatch: @escaping (CachingLazyMappingSequence<Matcher<T>, MatchingResult>) -> Bool,
+        percentageOfMatching: @escaping ([MatchingResult]) -> Double,
+        compoundMatcherMode: CompoundMatcherMode
+    ) {
         super.init(
             description: CompoundMatcher.joinedDescriptions(
                 prefix: prefix,
                 matchers: matchers
             ),
             matchingFunction: { value in
-                let matchingResults = matchers.map { $0.match(value: value) }
+                let lazyMatchingResults = CachingLazyMappingSequence(
+                    sourceElements: matchers,
+                    transform: { $0.match(value: value) }
+                )
                 
-                if exactMatch(matchingResults) {
+                if exactMatch(lazyMatchingResults) {
                     return MatchingResult.match
                 } else {
+                    let matchingResults: [MatchingResult]
+                    
+                    switch compoundMatcherMode {
+                    case .alwaysUseAllMatchers:
+                        matchingResults = lazyMatchingResults.allElements
+                    case .skipMatchingWhenMatchOrMismatchIsDetected(let skippedMatchingResultsFactory):
+                        matchingResults = lazyMatchingResults.mappedElements + Array(
+                            repeating: skippedMatchingResultsFactory(),
+                            count: lazyMatchingResults.sourceElements.count - lazyMatchingResults.mappedElements.count
+                        )
+                    }
+                    
                     return MatchingResult.partialMismatch(
                         percentageOfMatching: percentageOfMatching(matchingResults),
                         mismatchDescription: CompoundMatcher.joinedFails(

@@ -54,10 +54,24 @@ class OrMatcherTests: BaseLogicMatcherTests {
             matcher: OrMatcher([AlwaysFalseMatcher()]),
             description:
             """
-            Любое из [
-                Всегда ложно
+            Any of [
+                Always false
             ]
             """
         )
+    }
+    
+    func test___match___does_not_use_matcher_after_first_success__if_skipMatchingWhenMatchOrMismatchIsDetected_is_true() {
+        let matcher = OrMatcher<Int>(
+            [
+                AlwaysTrueMatcher(),
+                TestFailingMatcher()
+            ],
+            skipMatchingWhenMatchOrMismatchIsDetected: true
+        )
+        
+        let actualResult = matcher.match(value: 0)
+        
+        XCTAssertEqual(actualResult, .match)
     }
 }

@@ -1,10 +1,10 @@
 public class AlwaysFalseMatcher<T>: Matcher<T> {
     public init() {
         super.init(
-            description: { "Всегда ложно" },
+            description: { "Always false" },
             matchingFunction: { _ in
                 MatchingResult.exactMismatch(
-                    mismatchDescription: { "Всегда ложно" },
+                    mismatchDescription: { "Always false" },
                     attachments: { [] }
                 )
             }

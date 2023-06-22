@@ -64,10 +64,43 @@ class AndMatcherTests: BaseLogicMatcherTests {
             matcher: AndMatcher([AlwaysFalseMatcher()]),
             description:
             """
-            Всё из [
-                Всегда ложно
+            All of [
+                Always false
             ]
             """
         )
+    }
+    
+    func test___match___does_not_use_matcher_after_first_failure__if_skipMatchingWhenMatchOrMismatchIsDetected_is_true() {
+        let matcher = AndMatcher<Int>(
+            [
+                AlwaysTrueMatcher(),
+                AlwaysFalseMatcher(),
+                AlwaysTrueMatcher(),
+                TestFailingMatcher()
+            ],
+            skipMatchingWhenMatchOrMismatchIsDetected: true
+        )
+        
+        let actualResult = matcher.match(value: 0)
+        
+        let expectedResult = MatchingResult.mismatch(
+            LazyMismatchResult(
+                percentageOfMatching: 0.25, // 1 out of 4, skipped matchers are treated as not matching
+                mismatchDescriptionFactory: {
+                    """
+                    All of [
+                        (v) Always true
+                        (x) Always false
+                        (x) Skipped due to `skipMatchingWhenMatchOrMismatchIsDetected` == true and matching failure
+                        (x) Skipped due to `skipMatchingWhenMatchOrMismatchIsDetected` == true and matching failure
+                    ]
+                    """
+                },
+                attachmentsFactory: { [] }
+            )
+        )
+        
+        XCTAssertEqual(actualResult, expectedResult)
     }
 }

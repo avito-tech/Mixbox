@@ -1,4 +1,4 @@
-public enum MatchingResult {
+public enum MatchingResult: Equatable {
     public static let exactMismatchPercentage: Double = 0
     public static let exactMatchPercentage: Double = 1
     
@@ -49,5 +49,18 @@ public enum MatchingResult {
                 attachments: attachments
             )
         )
+    }
+    
+    public static func == (lhs: MatchingResult, rhs: MatchingResult) -> Bool {
+        switch (lhs, rhs) {
+        case (.match, .match):
+            return true
+        case let (.mismatch(lhs), .mismatch(rhs)):
+            return lhs.mismatchDescription == rhs.mismatchDescription
+                && lhs.percentageOfMatching == rhs.percentageOfMatching
+                && lhs.attachments == rhs.attachments
+        case (.match, .mismatch), (.mismatch, .match):
+            return false
+        }
     }
 }

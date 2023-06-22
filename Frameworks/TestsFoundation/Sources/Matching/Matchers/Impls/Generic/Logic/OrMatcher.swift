@@ -1,7 +1,12 @@
 public class OrMatcher<T>: CompoundMatcher<T> {
-    public init(_ matchers: [Matcher<T>]) {
+    public init(
+        _ matchers: [Matcher<T>],
+        // Set to true to increase preformance and decrease quality of result.
+        // See `CompoundMatcherMode`
+        skipMatchingWhenMatchOrMismatchIsDetected: Bool = false
+    ) {
         super.init(
-            prefix: "Любое из",
+            prefix: "Any of",
             matchers: matchers,
             exactMatch: { matchingResults in
                 matchingResults.contains(where: { (matchingResult) -> Bool in
@@ -13,7 +18,12 @@ public class OrMatcher<T>: CompoundMatcher<T> {
                 matchingResults.reduce(Double(0)) { result, matchingResult in
                     max(result, matchingResult.percentageOfMatching)
                 }
-            }
+            },
+            compoundMatcherMode: skipMatchingWhenMatchOrMismatchIsDetected ? .skipMatchingWhenMatchOrMismatchIsDetected(
+                skippedMatchingResultsFactory: {
+                    MatchingResult.match
+                }
+            ) : .alwaysUseAllMatchers
         )
     }
 }
