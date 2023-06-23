@@ -200,13 +200,13 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     if ([command isEqualToString:SBTUITunneledApplicationCommandCustom]) {
         NSString *customCommandName = request.parameters[SBTUITunnelCustomCommandKey];
         NSData *objData = [[NSData alloc] initWithBase64EncodedString:request.parameters[SBTUITunnelObjectKey] options:0];
-        NSObject *inObj = [NSKeyedUnarchiver unarchiveObjectWithData:objData];
+        NSObject *inObj = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSObject class] fromData:objData error:nil];
         
         NSObject *(^block)(NSObject *) = [[SBTUITestTunnelServer customCommands] objectForKey:customCommandName];
         if (block) {
             NSObject *outObject = block(inObj);
             
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:outObject];
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:outObject requiringSecureCoding:NO error:nil];
             
             NSString *ret = data ? [data base64EncodedStringWithOptions:0] : @"";
             *returnObject = @{ SBTUITunnelResponseResultKey: ret };
@@ -251,10 +251,10 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     
     if ([self validStubRequest:tunnelRequest]) {
         NSData *requestMatchData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelStubMatchRuleKey] options:0];
-        requestMatch = [NSKeyedUnarchiver unarchiveObjectWithData:requestMatchData];
+        requestMatch = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTRequestMatch class] fromData:requestMatchData error:nil];
         
         NSData *responseData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelStubResponseKey] options:0];
-        SBTStubResponse *response = [NSKeyedUnarchiver unarchiveObjectWithData:responseData];
+        SBTStubResponse *response = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTStubResponse class] fromData:responseData error:nil];
 
         NSString *requestIdentifier = [self identifierForStubRequest:tunnelRequest];
         
@@ -298,7 +298,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (NSDictionary *)commandStubRequestsRemove:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *responseData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelStubMatchRuleKey] options:0];
-    NSString *stubId = [NSKeyedUnarchiver unarchiveObjectWithData:responseData];
+    NSString *stubId = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class] fromData:responseData error:nil];
     
     NSString *ret = @"NO";
     if ([self.stubsToRemoveAfterCount countForObject:stubId] == 0) {
@@ -324,10 +324,10 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     
     if ([self validRewriteRequest:tunnelRequest]) {
         NSData *requestMatchData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelRewriteMatchRuleKey] options:0];
-        requestMatch = [NSKeyedUnarchiver unarchiveObjectWithData:requestMatchData];
+        requestMatch = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTRequestMatch class] fromData:requestMatchData error:nil];
         
         NSData *rewriteData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelRewriteKey] options:0];
-        SBTRewrite *rewrite = [NSKeyedUnarchiver unarchiveObjectWithData:rewriteData];
+        SBTRewrite *rewrite = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTRewrite class] fromData:rewriteData error:nil];
         
         NSString *requestIdentifier = [self identifierForRewriteRequest:tunnelRequest];
         
@@ -371,7 +371,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (NSDictionary *)commandRewriteRemove:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *responseData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelRewriteMatchRuleKey] options:0];
-    NSString *rewriteId = [NSKeyedUnarchiver unarchiveObjectWithData:responseData];
+    NSString *rewriteId = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class] fromData:responseData error:nil];
     
     NSString *ret = @"NO";
     if ([self.rewritesToRemoveAfterCount countForObject:rewriteId] == 0) {
@@ -397,7 +397,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     
     if ([self validMonitorRequest:tunnelRequest]) {
         NSData *requestMatchData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelProxyQueryRuleKey] options:0];
-        requestMatch = [NSKeyedUnarchiver unarchiveObjectWithData:requestMatchData];
+        requestMatch = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTRequestMatch class] fromData:requestMatchData error:nil];
         
         reqId = [SBTProxyURLProtocol proxyRequestsMatching:requestMatch delayResponse:0.0 responseBlock:^(NSURLRequest *request, NSURLRequest *originalRequest, NSHTTPURLResponse *response, NSData *responseData, NSTimeInterval requestTime, BOOL isStubbed, BOOL isRewritten) {
             SBTMonitoredNetworkRequest *monitoredRequest = [[SBTMonitoredNetworkRequest alloc] init];
@@ -424,7 +424,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (NSDictionary *)commandMonitorRemove:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *responseData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelProxyQueryRuleKey] options:0];
-    NSString *reqId = [NSKeyedUnarchiver unarchiveObjectWithData:responseData];
+    NSString *reqId = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class] fromData:responseData error:nil];
     
     NSString *ret = [SBTProxyURLProtocol proxyRequestsRemoveWithId:reqId] ? @"YES" : @"NO";
     
@@ -452,7 +452,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
         
         requestsToPeek = [strongSelf.monitoredRequests copy];
         
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:requestsToPeek];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:requestsToPeek requiringSecureCoding:NO error:nil];
         if (data) {
             ret = [data base64EncodedStringWithOptions:0];
         }
@@ -494,7 +494,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
         requestsToFlush = [strongSelf.monitoredRequests copy];
         strongSelf.monitoredRequests = [NSMutableArray array];
         
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:requestsToFlush];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:requestsToFlush requiringSecureCoding:NO error:nil];
         if (data) {
             ret = [data base64EncodedStringWithOptions:0];
         }
@@ -530,7 +530,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     
     if ([self validThrottleRequest:tunnelRequest]) {
         NSData *requestMatchData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelProxyQueryRuleKey] options:0];
-        requestMatch = [NSKeyedUnarchiver unarchiveObjectWithData:requestMatchData];
+        requestMatch = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTRequestMatch class] fromData:requestMatchData error:nil];
         NSTimeInterval responseDelayTime = [tunnelRequest.parameters[SBTUITunnelProxyQueryResponseTimeKey] doubleValue];
         
         reqId = [SBTProxyURLProtocol proxyRequestsMatching:requestMatch delayResponse:responseDelayTime responseBlock:nil];
@@ -542,7 +542,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (NSDictionary *)commandThrottleRemove:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *responseData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelProxyQueryRuleKey] options:0];
-    NSString *reqId = [NSKeyedUnarchiver unarchiveObjectWithData:responseData];
+    NSString *reqId = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class] fromData:responseData error:nil];
     
     NSString *ret = [SBTProxyURLProtocol proxyRequestsRemoveWithId:reqId] ? @"YES" : @"NO";
     return @{ SBTUITunnelResponseResultKey: ret };
@@ -564,7 +564,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     
     if ([self validCookieBlockRequest:tunnelRequest]) {
         NSData *requestMatchData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelCookieBlockMatchRuleKey] options:0];
-        requestMatch = [NSKeyedUnarchiver unarchiveObjectWithData:requestMatchData];
+        requestMatch = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTRequestMatch class] fromData:requestMatchData error:nil];
         
         NSString *requestIdentifier = [self identifierForCookieBlockRequest:tunnelRequest];
         
@@ -608,7 +608,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (NSDictionary *)commandCookiesBlockRemove:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *responseData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelCookieBlockMatchRuleKey] options:0];
-    NSString *reqId = [NSKeyedUnarchiver unarchiveObjectWithData:responseData];
+    NSString *reqId = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class] fromData:responseData error:nil];
     
     NSString *ret = [SBTProxyURLProtocol cookieBlockRequestsRemoveWithId:reqId] ? @"YES" : @"NO";
     return @{ SBTUITunnelResponseResultKey: ret };
@@ -628,7 +628,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     NSString *objKey = tunnelRequest.parameters[SBTUITunnelObjectKeyKey];
     NSString *suiteName = tunnelRequest.parameters[SBTUITunnelUserDefaultSuiteNameKey];
     NSData *objData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelObjectKey] options:0];
-    id obj = [NSKeyedUnarchiver unarchiveObjectWithData:objData];
+    id obj = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSObject class] fromData:objData error:nil];
     
     NSString *ret = @"NO";
     if (objKey) {
@@ -665,7 +665,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     NSUserDefaults *userDefault = [[NSUserDefaults alloc] initWithSuiteName:([suiteName length] > 0) ? suiteName : nil];
     
     NSObject *obj = [userDefault objectForKey:objKey];
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj requiringSecureCoding:NO error:nil];
     NSString *ret = @"";
     if (data) {
         ret = [data base64EncodedStringWithOptions:0];
@@ -690,7 +690,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 
 - (NSDictionary *)commandMainBundleInfoDictionary:(GCDWebServerRequest *)tunnelRequest
 {
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[[NSBundle mainBundle] infoDictionary]];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[[NSBundle mainBundle] infoDictionary] requiringSecureCoding:NO error:nil];
     NSString *ret = @"";
     if (data) {
         ret = [data base64EncodedStringWithOptions:0];
@@ -704,7 +704,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (NSDictionary *)commandUpload:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *fileData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelUploadDataKey] options:0];
-    NSString *destPath = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelUploadDestPathKey] options:0]];
+    NSString *destPath = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class] fromData:[[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelUploadDestPathKey] options:0] error: nil];
     NSSearchPathDirectory basePath = [tunnelRequest.parameters[SBTUITunnelUploadBasePathKey] intValue];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(basePath, NSUserDomainMask, YES);
@@ -741,7 +741,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
     
     NSArray *basePathContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:basePath error:nil];
     
-    NSString *filesToMatch = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelDownloadPathKey] options:0]];
+    NSString *filesToMatch = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSString class] fromData:[[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelDownloadPathKey] options:0] error:nil];
     NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"SELF like %@", filesToMatch];
     NSArray *matchingFiles = [basePathContent filteredArrayUsingPredicate:filterPredicate];
     
@@ -752,7 +752,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
         [filesDataArr addObject:fileData];
     }
     
-    NSData *filesDataArrData = [NSKeyedArchiver archivedDataWithRootObject:filesDataArr];
+    NSData *filesDataArrData = [NSKeyedArchiver archivedDataWithRootObject:filesDataArr requiringSecureCoding:NO error:nil];
     
     NSString *ret = [filesDataArrData base64EncodedStringWithOptions:0];
     
@@ -891,7 +891,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (SBTStubResponse *)responseForStubRequest:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *stubResponseData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelStubResponseKey] options:0];
-    SBTStubResponse *stubResponse = [NSKeyedUnarchiver unarchiveObjectWithData:stubResponseData];
+    SBTStubResponse *stubResponse = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTStubResponse class] fromData:stubResponseData error:nil];
 
     if (![stubResponse isKindOfClass:[SBTStubResponse class]]) {
         NSLog(@"[UITestTunnelServer] serialize response data");
@@ -915,7 +915,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 - (SBTRewrite *)rewriteForRequest:(GCDWebServerRequest *)tunnelRequest
 {
     NSData *rewriteData = [[NSData alloc] initWithBase64EncodedString:tunnelRequest.parameters[SBTUITunnelRewriteKey] options:0];
-    SBTRewrite *rewrite = [NSKeyedUnarchiver unarchiveObjectWithData:rewriteData];
+    SBTRewrite *rewrite = [NSKeyedUnarchiver unarchivedObjectOfClass:[SBTRewrite class] fromData:rewriteData error:nil];
     
     if (![rewrite isKindOfClass:[SBTRewrite class]]) {
         NSLog(@"[UITestTunnelServer] serialize response data");

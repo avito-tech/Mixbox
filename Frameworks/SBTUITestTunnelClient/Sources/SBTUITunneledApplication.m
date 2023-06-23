@@ -305,7 +305,7 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
     if (objectBase64) {
         NSData *objectData = [[NSData alloc] initWithBase64EncodedString:objectBase64 options:0];
         
-        return [NSKeyedUnarchiver unarchiveObjectWithData:objectData] ?: @[];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:[NSArray class] fromData:objectData error:nil] ?: @[];
     }
     
     return nil;
@@ -317,7 +317,7 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
     if (objectBase64) {
         NSData *objectData = [[NSData alloc] initWithBase64EncodedString:objectBase64 options:0];
         
-        return [NSKeyedUnarchiver unarchiveObjectWithData:objectData] ?: @[];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:[NSArray class] fromData:objectData error:nil] ?: @[];
     }
     
     return nil;
@@ -547,7 +547,7 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
     if (objectBase64) {
         NSData *objectData = [[NSData alloc] initWithBase64EncodedString:objectBase64 options:0];
         
-        return [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:[NSObject class] fromData:objectData error:nil];
     }
     
     return nil;
@@ -569,7 +569,7 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
     if (objectBase64) {
         NSData *objectData = [[NSData alloc] initWithBase64EncodedString:objectBase64 options:0];
         
-        return [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDictionary class] fromData:objectData error:nil];
     }
     
     return nil;
@@ -604,7 +604,7 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
     if (itemsBase64) {
         NSData *itemsData = [[NSData alloc] initWithBase64EncodedString:itemsBase64 options:0];
         
-        return [NSKeyedUnarchiver unarchiveObjectWithData:itemsData];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:[NSArray class] fromData:itemsData error:nil];
     }
     
     return nil;
@@ -622,7 +622,7 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
     if (objectBase64) {
         NSData *objectData = [[NSData alloc] initWithBase64EncodedString:objectBase64 options:0];
         
-        return [NSKeyedUnarchiver unarchiveObjectWithData:objectData];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:[NSObject class] fromData:objectData error:nil];
     }
     
     return nil;
@@ -648,7 +648,7 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
 
 - (NSString *)base64SerializeObject:(id)obj
 {
-    NSData *objData = [NSKeyedArchiver archivedDataWithRootObject:obj];
+    NSData *objData = [NSKeyedArchiver archivedDataWithRootObject:obj requiringSecureCoding:NO error:nil];
     
     return [self base64SerializeData:objData];
 }

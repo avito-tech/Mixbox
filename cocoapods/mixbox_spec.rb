@@ -1,4 +1,5 @@
 require_relative 'mixbox_podspecs_source'
+require_relative 'software_versions'
 
 module Mixbox
   class BaseSpec < Pod::Spec
@@ -22,15 +23,15 @@ module Mixbox
       attributes_hash['license'] = 'MIT'
       attributes_hash['authors'] = { 'Hive of coders from Avito' => 'avito.ru' }
       attributes_hash['source'] = { :git => $mixbox_podspecs_source, :tag => mixbox_version }
-      attributes_hash['swift_version'] = '5.0'
+      attributes_hash['swift_version'] = $mixbox_swift_version
       attributes_hash['requires_arc'] = true
       
       if self.platforms.include? :ios
-        ios.deployment_target  = '9.0'
+        ios.deployment_target  = $mixbox_ios_version
       end
       
       if self.platforms.include? :osx
-        osx.deployment_target  = '10.14'
+        osx.deployment_target  = $mixbox_osx_version
       end
       
       if self.platforms.empty?
@@ -60,6 +61,20 @@ module Mixbox
     
     def get_framework_folder_name()
       return self.name.sub(/^Mixbox/, '')
+    end
+  end
+  
+  class TestsSupportFrameworkSpec < BaseSpec
+    def initialize()
+      super()
+      
+      attributes_hash['source_files'] = "Sources/**/#{self.get_source_files_mask}"
+      
+      # Podspec doesn't validate if there are no resource files and `resources` is set.
+      resources_folder_glob = "Resources/**/*"
+      if not Dir.glob(resources_folder_glob).empty?
+        attributes_hash['resources'] = resources_folder_glob
+      end
     end
   end
   

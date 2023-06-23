@@ -80,12 +80,6 @@ extension UILabel {
     }
 }
 
-extension UIWebView {
-    @objc override open func mb_testability_elementType() -> TestabilityElementType {
-        return .webView
-    }
-}
-
 extension UIScrollView {
     @objc override open func mb_testability_elementType() -> TestabilityElementType {
         return .scrollView

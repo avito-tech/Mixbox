@@ -1,6 +1,6 @@
 import MixboxFoundation
 
-public extension Singletons {
+extension Singletons {
     public static let performanceLogger = performanceLoggingRelatedClasses.logger
     public static let measureableTimedActivityMetricSenderWaiter = performanceLoggingRelatedClasses.waiter
     

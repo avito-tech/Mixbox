@@ -148,8 +148,6 @@ public final class InAppServicesImpl: InAppServices {
         
         router.register(methodHandler: OpenUrlIpcMethodHandler())
         
-        router.register(methodHandler: PushNotificationIpcMethodHandler())
-        
         router.register(methodHandler: SimulateLocationIpcMethodHandler())
         router.register(methodHandler: StopLocationSimulationIpcMethodHandler())
         

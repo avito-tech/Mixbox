@@ -600,7 +600,7 @@ typedef void(^SBTStubUpdateBlock)(NSURLRequest *request);
 {
     NSString *identifier = nil;
     if ([rule.allKeys containsObject:SBTProxyURLProtocolMatchingRuleKey]) {
-        NSData *ruleData = [NSKeyedArchiver archivedDataWithRootObject:rule[SBTProxyURLProtocolMatchingRuleKey]];
+        NSData *ruleData = [NSKeyedArchiver archivedDataWithRootObject:rule[SBTProxyURLProtocolMatchingRuleKey] requiringSecureCoding:NO error:nil];
         
         identifier = [ruleData SHA1];
     } else {

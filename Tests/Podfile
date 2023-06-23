@@ -1,5 +1,6 @@
 require_relative '../cocoapods/lock_patcher'
 require_relative '../cocoapods/repo'
+require_relative '../cocoapods/software_versions'
 
 ENV["MIXBOX_SET_VERSION_TO_001"] = "true"
 
@@ -7,9 +8,8 @@ project 'Tests.xcodeproj'
 workspace 'Tests.xcworkspace'
 
 use_frameworks!
-inhibit_all_warnings!
 
-mixbox = Devpods::Repo.new(
+@mixbox = Devpods::Repo.new(
     'ssh://git@github.com:avito-tech/Mixbox.git',
     lambda { |name, hash|
       local_hash = hash.clone
@@ -18,7 +18,7 @@ mixbox = Devpods::Repo.new(
       pod name, local_hash
     }
 )
-mixbox.local_path_value = '..'
+@mixbox.local_path_value = '..'
 
 sourcery = Devpods::Repo.new(
     'https://github.com/avito-tech/Sourcery.git',
@@ -37,86 +37,92 @@ def tests_ipc_pods
   pod 'TestsIpc', :path => 'Frameworks/TestsIpc'
 end
 
+def tests_foundation_pod()
+  @mixbox.pod 'MixboxTestsFoundation'
+  pod 'SQLite.swift', :inhibit_warnings => true
+end
+
 def execute_shell_or_raise(shell_command)
-   system(shell_command) or raise "Shell command failed: #{shell_command}"
+  puts "Executing #{shell_command}..."
+  system(shell_command, { :out => File::NULL, :err => File::NULL }) or raise "Shell command failed: #{shell_command}"
 end
  
 ### TARGETS
 
 target 'TestedApp' do
-  platform :ios, '9.0'
+  platform :ios, $mixbox_ios_version
   
-  mixbox.pod 'MixboxInAppServices'
+  @mixbox.pod 'MixboxInAppServices'
 
   tests_ipc_pods
 end
 
 target 'FakeSettingsApp' do
-  platform :ios, '9.0'
+  platform :ios, $mixbox_ios_version
   
-  mixbox.pod 'MixboxFakeSettingsAppMain'
+  @mixbox.pod 'MixboxFakeSettingsAppMain'
 end
 
 target 'GrayBoxUiTests' do
-  platform :ios, '9.0'
+  platform :ios, $mixbox_ios_version
   
   # Code being tested:
-  mixbox.pod 'MixboxGray'
-  mixbox.pod 'MixboxTestsFoundation'
-  mixbox.pod 'MixboxLinkXCTAutomationSupport'
+  @mixbox.pod 'MixboxGray'
+  tests_foundation_pod
+  @mixbox.pod 'MixboxLinkXCTAutomationSupport'
   
   # Helpers:
-  mixbox.pod 'MixboxStubbing'
-  mixbox.pod 'MixboxMocksRuntime'
+  @mixbox.pod 'MixboxStubbing'
+  @mixbox.pod 'MixboxMocksRuntime'
   
   tests_ipc_pods
 end
 
 target 'BlackBoxUiTests' do
-  platform :ios, '9.0'
+  platform :ios, $mixbox_ios_version
   
   # Code being tested:
-  mixbox.pod 'MixboxBlack'
-  mixbox.pod 'MixboxTestsFoundation'
-  mixbox.pod 'MixboxLinkXCTAutomationSupport'
+  @mixbox.pod 'MixboxBlack'
+  tests_foundation_pod
+  @mixbox.pod 'MixboxLinkXCTAutomationSupport'
   
   # Helpers:
-  mixbox.pod 'MixboxMocksRuntime'
-  mixbox.pod 'MixboxStubbing'
+  @mixbox.pod 'MixboxMocksRuntime'
+  @mixbox.pod 'MixboxStubbing'
 
   tests_ipc_pods
 end
   
 target 'UnitTests' do
-  platform :ios, '9.0'
+  platform :ios, $mixbox_ios_version
   
-  mixbox.pod_all_ios
-  mixbox.pod 'MixboxTestsFoundation'
-  mixbox.pod 'MixboxLinkXCTAutomationSupport'
+  @mixbox.pod_all_ios
+  tests_foundation_pod
+  @mixbox.pod 'MixboxLinkXCTAutomationSupport'
   
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
 
 target 'OsxUnitTests' do
-  platform :osx, '10.14'
+  platform :osx, $mixbox_osx_version
 
   sourcery.pod 'SourceryFramework'
   sourcery.pod 'SourceryRuntime'
-  mixbox.pod_all_osx
+  @mixbox.pod_all_osx
 end
 
 target 'HostedAppLogicTests' do
-  platform :ios, '9.0'
+  platform :ios, $mixbox_ios_version
   
-  mixbox.pod_all_ios
-  mixbox.pod 'MixboxTestsFoundation'
-  mixbox.pod 'MixboxLinkXCTAutomationSupport'
+  @mixbox.pod_all_ios
+  tests_foundation_pod
+  @mixbox.pod 'MixboxLinkXCTAutomationSupport'
   
   tests_ipc_pods # A kludge to access Singletons unrelated to IPC from TestsIpc (nice!).
 end
 
 target 'Lint' do
-  platform :ios, '9.0'
+  platform :ios, $mixbox_ios_version
   
   pod 'SwiftLint', '0.36.0', :inhibit_warnings => true # TODO: Update.
 end
@@ -145,8 +151,52 @@ post_install do |installer|
     
     remove_default_imports_from_target(target)
   end
-
+  
+  inhibit_update_to_recommended_settings_warning(installer)
   patch_to_be_able_to_run_executable(installer)
+end
+
+at_exit do
+  inhibit_simulator_deployment_target_warning()
+end
+
+# Inhibits this warning in Xcode:
+# ```
+# Update to recommended settings
+# ```
+def inhibit_update_to_recommended_settings_warning(installer)
+  # For example, for Xcode 14.2 the version is 1420
+  far_future_xcode_version = 9999
+  
+  installer.pods_project.root_object.attributes['LastSwiftMigration'] = far_future_xcode_version
+  installer.pods_project.root_object.attributes['LastSwiftUpdateCheck'] = far_future_xcode_version
+  installer.pods_project.root_object.attributes['LastUpgradeCheck'] = far_future_xcode_version
+
+  shared_data_dir = Xcodeproj::XCScheme.user_data_dir(installer.pods_project.path)
+  Dir["#{shared_data_dir}/*.xcscheme"].each do |scheme_path|
+    scheme = Xcodeproj::XCScheme.new scheme_path
+    scheme.doc.root.attributes['LastUpgradeVersion'] = far_future_xcode_version
+    scheme.save!
+  end
+end
+
+# Inhibit this warning in Xcode:
+# ```
+# The iOS Simulator deployment target 'IPHONEOS_DEPLOYMENT_TARGET' is set to 8.0, 
+# but the range of supported deployment target versions is 11.0 to 16.2.99.
+# ```
+def inhibit_simulator_deployment_target_warning()
+  project = Xcodeproj::Project.open('Pods/Pods.xcodeproj')
+  
+  project.native_targets.each do |target|
+    if target.name == 'GCDWebServer-iOS' || target.name == 'GCDWebServer-macOS' || target.name == 'SQLite.swift'
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = $mixbox_ios_version
+      end
+    end
+  end
+  
+  project.save
 end
 
 def patch_to_be_able_to_run_executable(installer)

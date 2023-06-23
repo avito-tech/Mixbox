@@ -1,5 +1,4 @@
 import MixboxIpcCommon
-import MixboxTestsFoundation
 
 // TODO: It is unused. Use or delete.
 public final class BridgedUrlRequestMatcherBuilder {

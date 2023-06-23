@@ -9,6 +9,7 @@
 #import "OSCategories.h"
 #import "OSImageHashing.h"
 #import "OSSimilaritySearch.h"
+#include <os/lock.h>
 
 @import Darwin.libkern.OSAtomic;
 
@@ -41,7 +42,7 @@
     if (!hashingProvider) {
         return;
     }
-    OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
+    os_unfair_lock __block lock = OS_UNFAIR_LOCK_INIT;
     for (;;) {
         OSTuple<NSString *, NSData *> __block *inputTuple = imageStreamHandler();
         if (!inputTuple) {
@@ -58,9 +59,9 @@
               OSHashResultTuple<NSString *> *resultTuple = [OSHashResultTuple new];
               resultTuple->_first = inputTuple->_first;
               resultTuple->_hashResult = hashResult;
-              OSSpinLockLock(&lock);
+              os_unfair_lock_lock(&lock);
               [fingerPrintedTuples addObject:resultTuple];
-              OSSpinLockUnlock(&lock);
+              os_unfair_lock_unlock(&lock);
           }
           dispatch_semaphore_signal(hashingSemaphore);
         });
@@ -80,16 +81,16 @@
 {
     NSAssert(imageStreamHandler, @"Image stream handler must not be nil");
     NSMutableArray<OSTuple<NSString *, NSString *> *> *tuples = [NSMutableArray new];
-    OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
+    os_unfair_lock __block lock = OS_UNFAIR_LOCK_INIT;
     [self similarImagesWithProvider:imageHashingProviderId
           withHashDistanceThreshold:hashDistanceThreshold
               forImageStreamHandler:imageStreamHandler
                    forResultHandler:^(OSImageId * __unsafe_unretained leftHandImageId, OSImageId * __unsafe_unretained rightHandImageId) {
                      OSTuple<OSImageId *, OSImageId *> *tuple = [OSTuple tupleWithFirst:leftHandImageId
                                                                               andSecond:rightHandImageId];
-                     OSSpinLockLock(&lock);
+                     os_unfair_lock_lock(&lock);
                      [tuples addObject:tuple];
-                     OSSpinLockUnlock(&lock);
+                     os_unfair_lock_unlock(&lock);
                    }];
     return tuples;
 }

@@ -5,7 +5,9 @@ require_relative 'cocoapods/enable_testing_with_mixbox'
 project 'UiTestsDemo.xcodeproj'
 workspace 'UiTestsDemo.xcworkspace'
 
-platform :ios, :deployment_target => '9.0'
+# Note: you don't need this, this is just to keep demo up-to-date with other code
+require_relative 'cocoapods/software_versions'
+platform :ios, :deployment_target => $mixbox_ios_version
 
 use_frameworks!
 inhibit_all_warnings!

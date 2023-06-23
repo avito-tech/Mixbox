@@ -1,7 +1,9 @@
+require_relative '../../cocoapods/software_versions'
+
 project 'IpcDemo.xcodeproj'
 workspace 'IpcDemo.xcworkspace'
 
-platform :osx, :deployment_target => '10.14'
+platform :osx, :deployment_target => $mixbox_osx_version
 
 inhibit_all_warnings!
 use_frameworks!

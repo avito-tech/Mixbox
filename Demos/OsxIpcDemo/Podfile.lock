@@ -2,11 +2,11 @@ PODS:
   - GCDWebServer (3.5.2):
     - GCDWebServer/Core (= 3.5.2)
   - GCDWebServer/Core (3.5.2)
-  - MixboxBuiltinIpc (0.2.3):
+  - MixboxBuiltinIpc (0.3.7):
     - GCDWebServer
     - MixboxIpc
-  - MixboxFoundation (0.2.3)
-  - MixboxIpc (0.2.3):
+  - MixboxFoundation (0.3.7)
+  - MixboxIpc (0.3.7):
     - MixboxFoundation
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ DEPENDENCIES:
   - MixboxIpc (from `../..`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  http://nexus-speed.msk.avito.ru/repository/ios-speed-cocoapods-proxy/:
     - GCDWebServer
 
 EXTERNAL SOURCES:
@@ -28,11 +28,11 @@ EXTERNAL SOURCES:
     :path: "../.."
 
 SPEC CHECKSUMS:
-  GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
-  MixboxBuiltinIpc: 26880327fbb22e9f6e96a13b26ef7015749bf946
-  MixboxFoundation: adbfd517f145b40403bd43699181f487d33758ed
-  MixboxIpc: 03e3a25d4c9fa699c87d3f0c166e47363f8d25e1
+  GCDWebServer: 9840f4fbd880a8cbd1b5df05c101aef56d7e4780
+  MixboxBuiltinIpc: 842cc1e369cf4bcb27d3b0214b383d5a9af01266
+  MixboxFoundation: 14b8921f970ecae2b3b292f1c9a6750ce93f30cf
+  MixboxIpc: a9497d68feb98cc314781f563feca18ca25e649a
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.9.0.beta.2
+COCOAPODS: 1.12.1

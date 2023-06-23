@@ -8,6 +8,7 @@
 
 #import "OSCategories.h"
 #import "OSTypes+Internal.h"
+#include <os/lock.h>
 
 @import Darwin.libkern.OSAtomic;
 
@@ -18,13 +19,13 @@
 - (NSArray<OSTuple<id, id> *> *)arrayWithPairCombinations
 {
     NSMutableArray<OSTuple<id, id> *> *pairs = [NSMutableArray new];
-    OSSpinLock volatile __block lock = OS_SPINLOCK_INIT;
+    os_unfair_lock __block lock = OS_UNFAIR_LOCK_INIT;
     [self enumeratePairCombinationsUsingBlock:^(id __unsafe_unretained leftHand, id __unsafe_unretained rightHand) {
       OSTuple<id, id> *tuple = [OSTuple tupleWithFirst:leftHand
                                              andSecond:rightHand];
-      OSSpinLockLock(&lock);
+      os_unfair_lock_lock(&lock);
       [pairs addObject:tuple];
-      OSSpinLockUnlock(&lock);
+      os_unfair_lock_unlock(&lock);
     }];
     return pairs;
 }
