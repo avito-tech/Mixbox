@@ -41,15 +41,3 @@ public class AndMatcher<T>: CompoundMatcher<T> {
         )
     }
 }
-
-//public final class SequenceOf<Element, Iterator: IteratorProtocol>: Sequence where Iterator.Element == Element {
-//    private let makeIteratorClosure: () -> Iterator
-//
-//    public init<Other: Sequence>(sequence: Other) where Other.Element == Element, Other.Iterator == Iterator {
-//        self.makeIteratorClosure = sequence.makeIterator
-//    }
-//
-//    public func makeIterator() -> Iterator {
-//        return makeIteratorClosure()
-//    }
-//}
