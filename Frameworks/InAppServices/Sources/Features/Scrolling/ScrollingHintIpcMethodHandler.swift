@@ -13,8 +13,24 @@ final class ScrollingHintIpcMethodHandler: IpcMethodHandler {
     func handle(arguments: String, completion: @escaping (ScrollingHint) -> ()) {
         let viewId = arguments
         
-        guard let view = AccessibilityUniqueObjectMap.shared.locate(uniqueIdentifier: viewId) as? UIView else {
-            completion(.internalError("Вьюшка \(viewId) не найдена"))
+        guard let element = AccessibilityUniqueObjectMap.shared.locate(uniqueIdentifier: viewId) else {
+            completion(
+                .internalError(
+                    """
+                    UI element \(viewId) was not found. This can happen if element deallocates or if it wasn't registered in \(AccessibilityUniqueObjectMap.self)
+                    """
+                )
+            )
+            return
+        }
+        
+        guard let view = element as? UIView else {
+            completion(.internalError(
+                """
+                UI element \(viewId) is not a view, scrolling to a non-view element is not supported yet. Note that scrolling is not necessary if element is visible on screen,
+                if element is visible on screen, scrolling does not happen and this error is not raised.
+                """
+            ))
             return
         }
         

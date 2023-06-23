@@ -143,6 +143,10 @@ public final class ElementMatcherBuilder {
         )
     }
     
+    public var hasNoSuperview: ElementMatcher {
+        return HasNoSuperviewMatcher()
+    }
+    
     public func matchesReference(
         image: UIImage,
         comparator: SnapshotsComparator)

@@ -12,6 +12,8 @@
 
 @import UIKit;
 
+#import "UIKeyboardLayout.h"
+
 @class NSDictionary, NSMutableArray, NSMutableDictionary, NSString, TIKeyboardCandidateResultSet, TIKeyboardInputManagerState, TIKeyboardInputManagerStub, TIKeyboardLayout, TIKeyboardState, TIKeyboardTouchEvent, TISmartPunctuationController, UIAlertView, UIAutocorrectInlinePrompt, UIDelayedAction, UIKeyboardAutocorrectionController, UIKeyboardLayout, UIKeyboardScheduledTask, UIKeyboardTaskQueue, UILexicon, UIPhysicalKeyboardEvent, UITextInputArrowKeyHistory, UITextInputTraits, UITextSelectionView, _UIActionWhenIdle, _UIKeyboardFeedbackGenerator, _UIKeyboardTextSelectionController;
 
 typedef void (^CDUnknownBlockType)(void);
@@ -814,7 +816,7 @@ typedef void (^CDUnknownBlockType)(void);
 - (double)biasedKeyboardWidthRatio;
 - (long long)currentHandBias;
 - (_Bool)allowsReachableKeyboard;
-- (id)_layout;
+- (nullable UIKeyboardLayout *)_layout;
 - (_Bool)isUsingDictationLayout;
 - (void)setTextInputChangesIgnored:(_Bool)arg1;
 - (void)finishSplitTransitionWithProgress:(double)arg1;

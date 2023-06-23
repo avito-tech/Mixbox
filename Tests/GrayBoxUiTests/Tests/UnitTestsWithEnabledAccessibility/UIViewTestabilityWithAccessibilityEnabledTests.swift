@@ -14,7 +14,7 @@ final class UIViewTestabilityWithAccessibilityEnabledTests: TestCase {
         
         // This is how UIKit works:
         XCTAssertEqual(
-            view.accessibilityPlaceholderValue() as? String,
+            view.perform(Selector(("accessibilityPlaceholderValue")))?.takeRetainedValue() as? String,
             ""
         )
         

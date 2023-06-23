@@ -53,8 +53,12 @@ public final class NonViewVisibilityCheckerImpl: NonViewVisibilityChecker {
                     || view.alpha < alphaThreshold
                     || view.frame.mb_area <= 0
             } else {
-                isHidden = element.mb_testability_isDefinitelyHidden()
-                    || element.mb_testability_frame().mb_area <= 0
+                // Note: Checking `frameRelativeToScreen` instead of `frame` is better, because it mostly works correctly for `UIAccessibilityElement`'s,
+                // `frameRelativeToScreen` is provided by `accessibilityFrame`, which is implemented correctly, while `frame`, which is provided by
+                // `accessibilityFrameInContainerSpace` may be `.infinite` for some elements (example: `UIAccessibilityElementKBKey`)
+                let hasNoArea = element.mb_testability_frameRelativeToScreen().mb_area <= 0
+                
+                isHidden = element.mb_testability_isDefinitelyHidden() || hasNoArea
             }
             
             if isHidden {

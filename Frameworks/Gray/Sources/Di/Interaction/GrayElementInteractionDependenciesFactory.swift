@@ -20,12 +20,18 @@ public final class GrayElementInteractionDependenciesFactory: BaseElementInterac
             GrayElementHierarchyDescriptionProvider(
                 viewHierarchyProvider: ViewHierarchyProviderImpl(
                     applicationWindowsProvider: try di.resolve(),
-                    floatValuesForSr5346Patcher: NoopFloatValuesForSr5346Patcher()
+                    floatValuesForSr5346Patcher: NoopFloatValuesForSr5346Patcher(),
+                    keyboardPrivateApi: try di.resolve()
                 )
             )
         }
-        di.register(type: TextTyper.self) { _ in
-            GrayTextTyper()
+        di.register(type: KeyboardPrivateApi.self) { _ in
+            try KeyboardPrivateApi.sharedInstance()
+        }
+        di.register(type: TextTyper.self) { di in
+            try GrayTextTyper(
+                keyboardPrivateApi: di.resolve()
+            )
         }
         di.register(type: MenuItemProvider.self) { di in
             GrayMenuItemProvider(

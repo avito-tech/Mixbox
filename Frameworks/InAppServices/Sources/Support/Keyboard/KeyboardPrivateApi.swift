@@ -5,6 +5,7 @@
 #else
 
 import MixboxFoundation
+import Foundation
 
 public final class KeyboardPrivateApi {
     private let uiKeyboardImpl: UIKeyboardImpl
@@ -37,6 +38,10 @@ public final class KeyboardPrivateApi {
     
     public func set(automaticMinimizationEnabled: Bool) {
         uiKeyboardImpl.setAutomaticMinimizationEnabled(automaticMinimizationEnabled)
+    }
+    
+    public func layout() -> NSObject? {
+        uiKeyboardImpl._layout()
     }
 }
 

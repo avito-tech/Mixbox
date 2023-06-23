@@ -2,9 +2,11 @@
 
 `class-dump` is an OSS for getting Objective-C headers from binaries.
 
-Install:
+Installation options:
 
-`brew install classdump`
+- `brew install classdump` (became unavailable at some point, checked on 2023.06.22)
+- Fork with recent updates: `brew install manicmaniac/tap/class-dump` (failed to work on UIKitCore, checked on 2023.06.22)
+- Other means of obtaining it.
 
 Location of framework by its name (sorted):
 

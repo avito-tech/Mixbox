@@ -3,6 +3,14 @@ import MixboxFoundation
 import MixboxInAppServices
 
 public final class GrayTextTyper: TextTyper {
+    private let keyboardPrivateApi: KeyboardPrivateApi
+    
+    public init(
+        keyboardPrivateApi: KeyboardPrivateApi
+    ) {
+        self.keyboardPrivateApi = keyboardPrivateApi
+    }
+    
     public func type(instructions: [TextTyperInstruction]) throws {
         try instructions.forEach(type)
     }
@@ -16,27 +24,21 @@ public final class GrayTextTyper: TextTyper {
         }
     }
     
-    private func keyboard() throws -> KeyboardPrivateApi {
-        try KeyboardPrivateApi.sharedInstance()
-    }
-    
     private func type(text: String) throws {
         // The following line prevents text to be shifted if autoshift is enabled.
         // Note that autoshift is often enabled if text is empty.
         // How it looks without the line:
         // type(text: "foo") ===> "FOO" is typed (strangely all characters in text are uppercased).
         // This repoduced on iOS 12 and not on iOS 9/10/11.
-        try keyboard().set(shift: false, autoshift: false)
+        keyboardPrivateApi.set(shift: false, autoshift: false)
         
-        try keyboard().addInputString(text)
+        keyboardPrivateApi.addInputString(text)
     }
     
     private func type(key: TextTyperKey) throws {
-        let keyboard = try self.keyboard()
-        
         switch key {
         case .delete:
-            keyboard.deleteBackward()
+            keyboardPrivateApi.deleteBackward()
         }
     }
 }

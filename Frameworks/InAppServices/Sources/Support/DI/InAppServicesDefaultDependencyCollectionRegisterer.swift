@@ -35,7 +35,12 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         registerSimulatorInitialization(di: di)
     }
     
+    // TODO: Fix
+    // swiftlint:disable:next function_body_length
     private func registerUtilities(di: DependencyRegisterer) {
+        di.register(type: KeyboardPrivateApi.self) { _ in
+            try KeyboardPrivateApi.sharedInstance()
+        }
         di.registerMultiple { _ in RecordedAssertionFailuresHolder() }
             .reregister { $0 as AssertionFailureRecorder }
             .reregister { $0 as RecordedAssertionFailuresProvider }
@@ -78,9 +83,10 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             )
         }
         di.register(type: ViewHierarchyProvider.self) { di in
-            ViewHierarchyProviderImpl(
-                applicationWindowsProvider: try di.resolve(),
-                floatValuesForSr5346Patcher: try di.resolve()
+            try ViewHierarchyProviderImpl(
+                applicationWindowsProvider: di.resolve(),
+                floatValuesForSr5346Patcher: di.resolve(),
+                keyboardPrivateApi: di.resolve()
             )
         }
         di.register(type: RunLoopSpinnerFactory.self) { di in

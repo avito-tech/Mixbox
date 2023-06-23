@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     @objc override open func mb_testability_elementType() -> TestabilityElementType {
-        return .other
+        return super.mb_testability_elementType()
     }
 }
 

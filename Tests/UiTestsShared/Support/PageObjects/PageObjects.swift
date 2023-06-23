@@ -51,6 +51,8 @@ final class PageObjects: BasePageObjects {
     
     var navigationBarCanBeFoundTestsView: MainAppScreen<NavigationBarCanBeFoundTestsViewPageObject> { return mainAppScreen() }
     
+    var canTapKeyboardTestsView: MainAppScreen<CanTapKeyboardTestsViewPageObject> { return mainAppScreen() }
+    
     private func mainAppScreen<PageObjectType>() -> MainAppScreen<PageObjectType> {
         return MainAppScreen(
             uikit: apps.mainUiKitHierarchy.pageObject(),

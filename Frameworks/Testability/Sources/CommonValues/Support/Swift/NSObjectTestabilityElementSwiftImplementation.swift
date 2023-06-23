@@ -59,7 +59,17 @@ public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
     }
     
     @objc override public func mb_testability_elementType() -> TestabilityElementType {
-        return DefaultTestabilityElementValues.elementType
+        if responds(to: #selector(_accessibilityAutomationType)) {
+            let accessibilityAutomationType = _accessibilityAutomationType()
+            
+            if accessibilityAutomationType.rawValue == 0 {
+                return .other
+            } else {
+                return accessibilityAutomationType
+            }
+        } else {
+            return .other
+        }
     }
     
     @objc override public func mb_testability_frame() -> CGRect {

@@ -6,7 +6,7 @@
 //       This makes `TestabilityElementType` not available in Swift in other modules.
 
 typedef NS_CLOSED_ENUM(NSUInteger, TestabilityElementType) {
-    TestabilityElementType_Other = 0,
+    TestabilityElementType_Other = 1,
     TestabilityElementType_Application,
     TestabilityElementType_Group,
     TestabilityElementType_Window,
