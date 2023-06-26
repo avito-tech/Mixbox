@@ -8,16 +8,23 @@ import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
 import MixboxTestability
+import MixboxUiKit
 
 final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
     let method = CheckVisibilityIpcMethod()
     
     private let viewVisibilityChecker: ViewVisibilityChecker
     private let nonViewVisibilityChecker: NonViewVisibilityChecker
+    private let iosVersionProvider: IosVersionProvider
     
-    init(viewVisibilityChecker: ViewVisibilityChecker, nonViewVisibilityChecker: NonViewVisibilityChecker) {
+    init(
+        viewVisibilityChecker: ViewVisibilityChecker,
+        nonViewVisibilityChecker: NonViewVisibilityChecker,
+        iosVersionProvider: IosVersionProvider
+    ) {
         self.viewVisibilityChecker = viewVisibilityChecker
         self.nonViewVisibilityChecker = nonViewVisibilityChecker
+        self.iosVersionProvider = iosVersionProvider
     }
     
     func handle(
@@ -42,10 +49,39 @@ final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
         completion: @escaping (CheckVisibilityIpcMethod.ReturnValue) -> ())
     {
         if let view = element as? UIView {
-            checkVisibilityOfView(view: view, arguments: arguments, completion: completion)
+            if shouldUseViewVisibilityChecker(view: view) {
+                checkVisibilityOfView(view: view, arguments: arguments, completion: completion)
+            } else {
+                checkVisibilityOfNonView(element: element, arguments: arguments, completion: completion)
+            }
         } else {
             checkVisibilityOfNonView(element: element, arguments: arguments, completion: completion)
         }
+    }
+    
+    // Kludge for keyboard for iOS 16+.
+    // Screenshot of keyboard can not be captured on iOS 16+.
+    // This means that we can't use normal visiblity checker, because the view is not visible on screenshots.
+    private func shouldUseViewVisibilityChecker(view: UIView) -> Bool {
+        guard iosVersionProvider.iosVersion().majorVersion >= 16 else {
+            // No problems on iOS 15
+            return true
+        }
+        
+        guard let window = view.window else {
+            // Still ok to delegate responsibility to ViewVisibilityChecker
+            return true
+        }
+        
+        // Note: KVC is a workaround for `error: 'class()' is unavailable in Swift: use 'type(of:)'
+        guard window.responds(to: Selector(("className"))), let className = window.value(forKey: "className") as? String else {
+            // Can't apply kludge that is specific for keyboard.
+            // This is not a view inside keyboard, because view inside keyboard behaves predictably and responds to this selector.
+            // We do not need specific kludges for view that is not related to keybord.
+            return true
+        }
+          
+        return className != "UIRemoteKeyboardWindow"
     }
     
     private func checkVisibilityOfView(

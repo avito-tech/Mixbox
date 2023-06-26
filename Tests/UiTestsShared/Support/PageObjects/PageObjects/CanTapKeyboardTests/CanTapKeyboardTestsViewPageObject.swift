@@ -16,11 +16,17 @@ public final class CanTapKeyboardTestsViewPageObject: BasePageObjectWithDefaultI
         }
     }
     
-    public var doneButton: ViewElement {
-        return element("doneButton") {
+    public var returnKeyButton: ViewElement {
+        return element("returnKeyButton") {
             $0.customValues["MixboxBuiltinCustomValue.UIKBKey.name"] == "Return-Key" && $0.isDirectSubviewOf {
                 $0.type == .keyboard && $0.hasNoSuperview
             }
+        }
+    }
+    
+    public var keyboard: ViewElement {
+        return element("doneButton") {
+            $0.type == .keyboard && $0.hasNoSuperview
         }
     }
 }
