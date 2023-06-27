@@ -3,7 +3,7 @@ import MixboxTestsFoundation
 import XCTest
 
 // TODO: Check attachments
-class BaseMatcherTests: XCTestCase {
+class BaseMatcherTests: TestCase {
     let matcherBuilder = ElementMatcherBuilderFactory.elementMatcherBuilder()
     
     func assertMatches(

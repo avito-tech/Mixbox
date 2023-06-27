@@ -1,4 +1,3 @@
-import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 
 // TODO: Test descriptions

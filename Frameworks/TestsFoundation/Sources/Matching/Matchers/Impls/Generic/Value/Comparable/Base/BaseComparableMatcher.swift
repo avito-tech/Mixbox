@@ -1,11 +1,14 @@
-public final class IsGreaterMatcher<T: Comparable>: Matcher<T> {
-    public init(_ otherValue: T) {
+open class BaseComparableMatcher<T: Comparable>: Matcher<T> {
+    public init(
+        otherValue: T,
+        comparisonOperatorInfo: ComparisonOperatorInfo<T>
+    ) {
         super.init(
             description: {
-                "is greater than \(otherValue)"
+                "is \(comparisonOperatorInfo.description) \(otherValue)"
             },
             matchingFunction: { actualValue in
-                if actualValue > otherValue {
+                if comparisonOperatorInfo.comparisonOperator(actualValue, otherValue) {
                     return .match
                 } else {
                     return .exactMismatch(
