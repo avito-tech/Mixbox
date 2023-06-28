@@ -48,10 +48,15 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
             .reregister { $0 as DeviceScreenshotTaker }
         
         di.register(type: ScreenInContextDrawer.self) { di in
-            ScreenInContextDrawerImpl(
-                orderedWindowsProvider: try di.resolve(),
-                screen: UIScreen.main
+            try ScreenInContextDrawerImpl(
+                orderedWindowsProvider: di.resolve(),
+                screen: UIScreen.main,
+                iosVersionProvider: di.resolve(),
+                keyboardPrivateApi: di.resolve()
             )
+        }
+        di.register(type: KeyboardPrivateApi.self) { _ in
+            try KeyboardPrivateApi.sharedInstance()
         }
         di.register(type: InAppScreenshotTaker.self) { di in
             InAppScreenshotTakerImpl(

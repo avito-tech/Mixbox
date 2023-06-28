@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-@interface UIKeyboardLayout: NSObject
+@interface UIKeyboardLayout: UIView
 
 @end
 

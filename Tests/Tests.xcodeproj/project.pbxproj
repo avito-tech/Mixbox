@@ -61,9 +61,9 @@
 		145A75A2B44787A4ED137B5D /* Pods_Lint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B60ED96BAF599D304F89BB /* Pods_Lint.framework */; };
 		1F4987352A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987342A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift */; };
 		1F49873C2A448BDC00CF5F54 /* TestFailingMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F49873B2A448BDC00CF5F54 /* TestFailingMatcher.swift */; };
-		1F4987442A44A46600CF5F54 /* CanTapKeyboardTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987432A44A46600CF5F54 /* CanTapKeyboardTestsView.swift */; };
-		1F4987452A44ACDD00CF5F54 /* CanTapKeyboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987402A44A42D00CF5F54 /* CanTapKeyboardTests.swift */; };
-		1F4987492A44ACDF00CF5F54 /* CanTapKeyboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987402A44A42D00CF5F54 /* CanTapKeyboardTests.swift */; };
+		1F4987442A44A46600CF5F54 /* SoftwareKeyboardTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987432A44A46600CF5F54 /* SoftwareKeyboardTestsView.swift */; };
+		1F4987452A44ACDD00CF5F54 /* SoftwareKeyboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */; };
+		1F4987492A44ACDF00CF5F54 /* SoftwareKeyboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */; };
 		1F4987692A45E87C00CF5F54 /* CanTapKeyboardTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987672A45E80200CF5F54 /* CanTapKeyboardTestsViewPageObject.swift */; };
 		1F49876A2A45E87C00CF5F54 /* CanTapKeyboardTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987672A45E80200CF5F54 /* CanTapKeyboardTestsViewPageObject.swift */; };
 		1FD9707F2A4AD20800BB4B90 /* IsLessMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD9707E2A4AD20800BB4B90 /* IsLessMatcherTests.swift */; };
@@ -981,8 +981,8 @@
 		18F103602061AD5C6BC92921 /* Pods-HostedAppLogicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostedAppLogicTests.debug.xcconfig"; path = "Target Support Files/Pods-HostedAppLogicTests/Pods-HostedAppLogicTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1F4987342A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingLazyMappingSequenceTests.swift; sourceTree = "<group>"; };
 		1F49873B2A448BDC00CF5F54 /* TestFailingMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFailingMatcher.swift; sourceTree = "<group>"; };
-		1F4987402A44A42D00CF5F54 /* CanTapKeyboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanTapKeyboardTests.swift; sourceTree = "<group>"; };
-		1F4987432A44A46600CF5F54 /* CanTapKeyboardTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanTapKeyboardTestsView.swift; sourceTree = "<group>"; };
+		1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareKeyboardTests.swift; sourceTree = "<group>"; };
+		1F4987432A44A46600CF5F54 /* SoftwareKeyboardTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareKeyboardTestsView.swift; sourceTree = "<group>"; };
 		1F4987672A45E80200CF5F54 /* CanTapKeyboardTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanTapKeyboardTestsViewPageObject.swift; sourceTree = "<group>"; };
 		1FD9707E2A4AD20800BB4B90 /* IsLessMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsLessMatcherTests.swift; sourceTree = "<group>"; };
 		1FD970812A4AD30600BB4B90 /* IsGreaterOrEqualsWithAccuracyMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsGreaterOrEqualsWithAccuracyMatcherTests.swift; sourceTree = "<group>"; };
@@ -1688,20 +1688,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F4987422A44A45E00CF5F54 /* CanTapKeyboardTestsView */ = {
-			isa = PBXGroup;
-			children = (
-				1F4987432A44A46600CF5F54 /* CanTapKeyboardTestsView.swift */,
-			);
-			path = CanTapKeyboardTestsView;
-			sourceTree = "<group>";
-		};
 		1F4987662A45E7F500CF5F54 /* CanTapKeyboardTests */ = {
 			isa = PBXGroup;
 			children = (
 				1F4987672A45E80200CF5F54 /* CanTapKeyboardTestsViewPageObject.swift */,
 			);
 			path = CanTapKeyboardTests;
+			sourceTree = "<group>";
+		};
+		1FD9708F2A4B16B200BB4B90 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		1FD9707D2A4AD1E500BB4B90 /* Value */ = {
@@ -1996,7 +1996,6 @@
 		F813CB14209CD82A00E6A27C /* Actions */ = {
 			isa = PBXGroup;
 			children = (
-				1F4987422A44A45E00CF5F54 /* CanTapKeyboardTestsView */,
 				F8A395C02147E61B000E9E44 /* MovingElementTests */,
 				F863CA0324B4AF5800423225 /* ActionsTestsView */,
 			);
@@ -2086,7 +2085,6 @@
 				F8252DB32279D9EB003190D0 /* TapActionTouchesTests.swift */,
 				F8A395BE2147E4FC000E9E44 /* CanTapMovingElementTests.swift */,
 				F8203068223854A3006D2F70 /* TapActionTests.swift */,
-				1F4987402A44A42D00CF5F54 /* CanTapKeyboardTests.swift */,
 			);
 			path = Tap;
 			sourceTree = "<group>";
@@ -2619,6 +2617,7 @@
 		F8785C682361D29600571718 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				1F4987432A44A46600CF5F54 /* SoftwareKeyboardTestsView.swift */,
 				F8785C692361D29E00571718 /* KeyboardEventInjectorImplTestsView.swift */,
 			);
 			path = Keyboard;
@@ -3220,6 +3219,7 @@
 		F8A837AA2270D4CC00145140 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				1FD9708F2A4B16B200BB4B90 /* Keyboard */,
 				F8EC48CF251286BF009B0813 /* NonViewElementsTests */,
 				F8D1AA9B24ED5AC6001147B6 /* PageObjectMakingHelper */,
 				F8494BEF24D2F35E0035AB39 /* Visibility */,
@@ -5570,7 +5570,7 @@
 				F8EC48C9251279E1009B0813 /* SingleResponseWebServer.swift in Sources */,
 				F8C7090C2153E3620015A10B /* NetworkStubbingTestsView.swift in Sources */,
 				F857C9D620CD8BC400E8BFF5 /* EchoIpcMethodHandler.swift in Sources */,
-				1F4987442A44A46600CF5F54 /* CanTapKeyboardTestsView.swift in Sources */,
+				1F4987442A44A46600CF5F54 /* SoftwareKeyboardTestsView.swift in Sources */,
 				F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */,
 				F88609D824DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift in Sources */,
 				F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */,
@@ -5742,7 +5742,7 @@
 				F8B33B2F224CEEA900AA1EB9 /* SetTextActionWaitsElementTests.swift in Sources */,
 				F83090BC24B7443000C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */,
 				F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */,
-				1F4987492A44ACDF00CF5F54 /* CanTapKeyboardTests.swift in Sources */,
+				1F4987492A44ACDF00CF5F54 /* SoftwareKeyboardTests.swift in Sources */,
 				F801CC182254F9C60074F0E9 /* RecordingStepLoggerImpl.swift in Sources */,
 				F84C859D27187541008496D8 /* BaseTestCase+ValuesByIosVersion.swift in Sources */,
 				F8EC48DF2513C611009B0813 /* NonViewElementsTestsCustomDrawingViewPageObject.swift in Sources */,
@@ -6251,7 +6251,7 @@
 				F8A837AE2270D57F00145140 /* AssertSpec.swift in Sources */,
 				F8A83E8B2272223700145140 /* TapActionTests.swift in Sources */,
 				F8C8ED112298505D0009B9A7 /* TestabilityTextTests.swift in Sources */,
-				1F4987452A44ACDD00CF5F54 /* CanTapKeyboardTests.swift in Sources */,
+				1F4987452A44ACDD00CF5F54 /* SoftwareKeyboardTests.swift in Sources */,
 				F8252DCD2279DD10003190D0 /* TouchesTestsViewPageObject.swift in Sources */,
 				F8DB35A322738C9B00EE0FB8 /* ActionSpecifications.swift in Sources */,
 				F8300D3E2719F73A0023E43F /* BaseTestCase+Logging.swift in Sources */,

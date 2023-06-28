@@ -37,9 +37,28 @@ extension ElementWithUi {
     }
     
     public func assertIsNotDisplayed(
+        maximumAllowedPercentageOfVisibleArea: CGFloat,
         file: StaticString = #filePath,
-        line: UInt = #line)
-    {
+        line: UInt = #line
+    ) {
+        _ = core.interactionPerformer.perform(
+            interaction: IsNotDisplayedCheck(
+                maximumAllowedPercentageOfVisibleArea: maximumAllowedPercentageOfVisibleArea
+            ),
+            interactionPerformingSettings: InteractionPerformingSettings(
+                failTest: true,
+                fileLine: FileLine(
+                    file: file,
+                    line: line
+                )
+            )
+        )
+    }
+    
+    public func assertIsNotDisplayed(
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
         _ = core.interactionPerformer.perform(
             interaction: IsNotDisplayedCheck(),
             interactionPerformingSettings: InteractionPerformingSettings(

@@ -7,12 +7,13 @@
 import UIKit
 
 public extension UIEdgeInsets {
-    static func mb_init(top: CGFloat) -> UIEdgeInsets {
-        return self.init(top: top, left: 0, bottom: 0, right: 0)
-    }
-    
-    static func mb_init(top: CGFloat, bottom: CGFloat) -> UIEdgeInsets {
-        return self.init(top: top, left: 0, bottom: bottom, right: 0)
+    static func mb_init(
+        top: CGFloat = 0,
+        left: CGFloat = 0,
+        bottom: CGFloat = 0,
+        right: CGFloat = 0
+    ) -> UIEdgeInsets {
+        return self.init(top: top, left: left, bottom: bottom, right: right)
     }
     
     func mb_inverted() -> UIEdgeInsets {

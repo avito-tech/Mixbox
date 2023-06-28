@@ -25,9 +25,6 @@ public final class GrayElementInteractionDependenciesFactory: BaseElementInterac
                 )
             )
         }
-        di.register(type: KeyboardPrivateApi.self) { _ in
-            try KeyboardPrivateApi.sharedInstance()
-        }
         di.register(type: TextTyper.self) { di in
             try GrayTextTyper(
                 keyboardPrivateApi: di.resolve()

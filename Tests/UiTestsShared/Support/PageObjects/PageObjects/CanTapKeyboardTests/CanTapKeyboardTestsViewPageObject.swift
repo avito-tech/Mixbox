@@ -1,19 +1,15 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
 
-public final class CanTapKeyboardTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
-    public let viewName = "CanTapKeyboardTestsView"
+public final class SoftwareKeyboardTestsViewPageObject: BasePageObjectWithDefaultInitializer, OpenableScreen {
+    public let viewName = "SoftwareKeyboardTestsView"
     
     public var textField: ViewElement {
-        return element("textField") {
-            $0.id == "textField"
-        }
+        return byId("textField")
     }
     
     public var statusLabel: LabelElement {
-        return element("statusLabel") {
-            $0.id == "statusLabel"
-        }
+        return byId("statusLabel")
     }
     
     public var returnKeyButton: ViewElement {
@@ -28,5 +24,9 @@ public final class CanTapKeyboardTestsViewPageObject: BasePageObjectWithDefaultI
         return element("doneButton") {
             $0.type == .keyboard && $0.hasNoSuperview
         }
+    }
+    
+    public var viewThatCanBeHiddenBelowKeyboard: ViewElement {
+        return byId("viewThatCanBeHiddenBelowKeyboard")
     }
 }

@@ -81,7 +81,7 @@ final class AssertIsNotDisplayedInteractionTests: BaseChecksTestCase {
         }
         
         let failureMessage = """
-            ""isDisplayed0" не является видимым" неуспешно, так как: является видимым
+            ""isDisplayed0" is not visible" неуспешно, так как: is visible
             """
         
         assert(logsAndFailures: logsAndFailures) { logsAndFailures in

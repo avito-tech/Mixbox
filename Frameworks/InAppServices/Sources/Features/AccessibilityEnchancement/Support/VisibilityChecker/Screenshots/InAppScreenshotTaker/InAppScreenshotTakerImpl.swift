@@ -12,8 +12,8 @@ public final class InAppScreenshotTakerImpl: InAppScreenshotTaker  {
     private let screenInContextDrawer: ScreenInContextDrawer
     
     public init(
-        screenInContextDrawer: ScreenInContextDrawer)
-    {
+        screenInContextDrawer: ScreenInContextDrawer
+    ) {
         self.screenInContextDrawer = screenInContextDrawer
     }
     

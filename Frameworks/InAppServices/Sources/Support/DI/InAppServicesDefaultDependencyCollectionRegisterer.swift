@@ -241,19 +241,23 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         }
     }
     
+    // TODO: Fix linter.
+    // swiftlint:disable:next function_body_length
     private func registerVisibilityCheck(di: DependencyRegisterer) {
         di.register(type: ImagePixelDataFromImageCreator.self) { _ in
             ImagePixelDataFromImageCreatorImpl()
         }
         di.register(type: ScreenInContextDrawer.self) { di in
-            ScreenInContextDrawerImpl(
+            try ScreenInContextDrawerImpl(
                 orderedWindowsProvider: OrderedWindowsProviderImpl(
                     applicationWindowsProvider: UiApplicationWindowsProvider(
-                        uiApplication: try di.resolve(),
-                        iosVersionProvider: try di.resolve()
+                        uiApplication: di.resolve(),
+                        iosVersionProvider: di.resolve()
                     )
                 ),
-                screen: try di.resolve()
+                screen: di.resolve(),
+                iosVersionProvider: di.resolve(),
+                keyboardPrivateApi: di.resolve()
             )
         }
         di.register(type: VisibilityCheckForLoopOptimizerFactory.self) { _ in

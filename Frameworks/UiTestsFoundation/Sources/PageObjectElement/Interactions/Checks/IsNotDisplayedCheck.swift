@@ -9,8 +9,8 @@ public final class IsNotDisplayedCheck: ElementInteraction {
     // maximumAllowedPercentageOfVisibleArea == 0.01: If less than 1% of view is visible it is considered "not displayed"
     // do not use value `0`, use `CGFloat.leastNonzeroMagnitude`, because visible area can not be less than 0%.
     public init(
-        maximumAllowedPercentageOfVisibleArea: CGFloat)
-    {
+        maximumAllowedPercentageOfVisibleArea: CGFloat
+    ) {
         self.maximumAllowedPercentageOfVisibleArea = maximumAllowedPercentageOfVisibleArea
     }
     
@@ -42,7 +42,7 @@ public final class IsNotDisplayedCheck: ElementInteraction {
         
         public func description() -> String {
             return """
-                "\(dependencies.elementInfo.elementName)" не является видимым
+                "\(dependencies.elementInfo.elementName)" is not visible
                 """
         }
         
@@ -63,7 +63,7 @@ public final class IsNotDisplayedCheck: ElementInteraction {
                 
                 switch isDisplayedResult {
                 case .success:
-                    return dependencies.interactionResultMaker.failure(message: "является видимым")
+                    return dependencies.interactionResultMaker.failure(message: "is visible")
                 case .failure:
                     return .success
                 }

@@ -73,15 +73,12 @@ final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
             return true
         }
         
-        // Note: KVC is a workaround for `error: 'class()' is unavailable in Swift: use 'type(of:)'
-        guard window.responds(to: Selector(("className"))), let className = window.value(forKey: "className") as? String else {
-            // Can't apply kludge that is specific for keyboard.
-            // This is not a view inside keyboard, because view inside keyboard behaves predictably and responds to this selector.
-            // We do not need specific kludges for view that is not related to keybord.
+        guard let remoteKeyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow") else {
+            // Can't apply kludge
             return true
         }
           
-        return className != "UIRemoteKeyboardWindow"
+        return !window.isKind(of: remoteKeyboardWindowClass)
     }
     
     private func checkVisibilityOfView(
