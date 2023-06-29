@@ -151,4 +151,3 @@ Location: `Frameworks/TestsFoundation/PrivateHeaders/Classdump/dump.py`
     ```
     
     All tests passed on iOS 13 (but one failed on iOS 14: `ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests` which was very expected). That test has a more or less descriptive message so I just updated switch-case statement and added iOS 14, because it behaves just like iOS 13 in this case. I also made failure message more descriptive for people who don't know what this test is ("the boy scout rule").
-

@@ -39,5 +39,3 @@ Some code is shared between tests and app:
 * **MixboxIpc**: abstraction over IPC, e.g.: "send me data".
 * **MixboxBuiltinIpc**: implementation.
 * **MixboxIpcCommon**: interfaces of specific IPC, e.g.: "send me percentage of visible area".
-
-

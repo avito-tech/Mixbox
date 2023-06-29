@@ -40,4 +40,3 @@ You should commit changes fast to make them as small as possible. Because simula
 ```
 COMMIT=$((COMMIT+1)); git add . && git commit -m $COMMIT
 ```
-
