@@ -1696,14 +1696,6 @@
 			path = CanTapKeyboardTests;
 			sourceTree = "<group>";
 		};
-		1FD9708F2A4B16B200BB4B90 /* Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */,
-			);
-			path = Keyboard;
-			sourceTree = "<group>";
-		};
 		1FD9707D2A4AD1E500BB4B90 /* Value */ = {
 			isa = PBXGroup;
 			children = (
@@ -1725,6 +1717,14 @@
 				1FD9707E2A4AD20800BB4B90 /* IsLessMatcherTests.swift */,
 			);
 			path = Comparable;
+			sourceTree = "<group>";
+		};
+		1FD9708F2A4B16B200BB4B90 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		AB15AD35FB63246BDD8CE9FB /* Frameworks */ = {

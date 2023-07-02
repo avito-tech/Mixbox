@@ -12,12 +12,19 @@ import MixboxUiKit
 import MixboxIoKit
 import MixboxDi
 
-// swiftlint:disable type_body_length
 public final class InAppServicesDefaultDependencyCollectionRegisterer: DependencyCollectionRegisterer {
     public init() {
     }
     
+    private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
+        return [
+            InAppServicesAndGrayBoxSharedDependencyCollectionRegisterer()
+        ]
+    }
+    
     public func register(dependencyRegisterer di: DependencyRegisterer) {
+        nestedRegisterers().forEach { $0.register(dependencyRegisterer: di) }
+        
         di.register(type: InAppServicesStarter.self) { _ in
             InAppServicesStarterImpl()
         }
@@ -36,11 +43,7 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
     }
     
     // TODO: Fix
-    // swiftlint:disable:next function_body_length
     private func registerUtilities(di: DependencyRegisterer) {
-        di.register(type: KeyboardPrivateApi.self) { _ in
-            try KeyboardPrivateApi.sharedInstance()
-        }
         di.registerMultiple { _ in RecordedAssertionFailuresHolder() }
             .reregister { $0 as AssertionFailureRecorder }
             .reregister { $0 as RecordedAssertionFailuresProvider }
@@ -71,22 +74,9 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
                 uiDevice: try di.resolve()
             )
         }
-        di.register(type: ApplicationWindowsProvider.self) { di in
-            UiApplicationWindowsProvider(
-                uiApplication: try di.resolve(),
-                iosVersionProvider: try di.resolve()
-            )
-        }
         di.register(type: FloatValuesForSr5346Patcher.self) { di in
             FloatValuesForSr5346PatcherImpl(
                 iosVersionProvider: try di.resolve()
-            )
-        }
-        di.register(type: ViewHierarchyProvider.self) { di in
-            try ViewHierarchyProviderImpl(
-                applicationWindowsProvider: di.resolve(),
-                floatValuesForSr5346Patcher: di.resolve(),
-                keyboardPrivateApi: di.resolve()
             )
         }
         di.register(type: RunLoopSpinnerFactory.self) { di in
@@ -160,12 +150,6 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
     }
     
     private func registerSystemSingletons(di: DependencyRegisterer) {
-        di.register(type: UIScreen.self) { _ in
-            UIScreen.main
-        }
-        di.register(type: UIApplication.self) { _ in
-            UIApplication.shared
-        }
         di.register(type: ProcessInfo.self) { _ in
             ProcessInfo.processInfo
         }
@@ -242,23 +226,9 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
     }
     
     // TODO: Fix linter.
-    // swiftlint:disable:next function_body_length
     private func registerVisibilityCheck(di: DependencyRegisterer) {
         di.register(type: ImagePixelDataFromImageCreator.self) { _ in
             ImagePixelDataFromImageCreatorImpl()
-        }
-        di.register(type: ScreenInContextDrawer.self) { di in
-            try ScreenInContextDrawerImpl(
-                orderedWindowsProvider: OrderedWindowsProviderImpl(
-                    applicationWindowsProvider: UiApplicationWindowsProvider(
-                        uiApplication: di.resolve(),
-                        iosVersionProvider: di.resolve()
-                    )
-                ),
-                screen: di.resolve(),
-                iosVersionProvider: di.resolve(),
-                keyboardPrivateApi: di.resolve()
-            )
         }
         di.register(type: VisibilityCheckForLoopOptimizerFactory.self) { _ in
             VisibilityCheckForLoopOptimizerFactoryImpl(
@@ -270,11 +240,6 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         }
         di.register(type: VisibilityCheckImageColorShifter.self) { _ in
             VisibilityCheckImageColorShifterImpl()
-        }
-        di.register(type: InAppScreenshotTaker.self) { di in
-            InAppScreenshotTakerImpl(
-                screenInContextDrawer: try di.resolve()
-            )
         }
         di.register(type: VisiblePixelDataCalculator.self) { di in
             VisiblePixelDataCalculatorImpl(

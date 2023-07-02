@@ -5,6 +5,7 @@
 #else
 
 import MixboxIpcCommon
+import MixboxFoundation
 
 public final class PageObjectElementGenerationWizardImpl: PageObjectElementGenerationWizard, UiEventObserver {
     private let view: PageObjectElementGenerationWizardView
@@ -26,7 +27,7 @@ public final class PageObjectElementGenerationWizardImpl: PageObjectElementGener
     // MARK: - PageObjectElementGenerationWizard
     
     public func start() {
-        viewHierarchy = viewHierarchyProvider.viewHierarchy()
+        viewHierarchy = try? viewHierarchyProvider.viewHierarchy()
     }
     
     public func set(onFinish: (() -> ())?) {
@@ -86,8 +87,8 @@ public final class PageObjectElementGenerationWizardImpl: PageObjectElementGener
     
     private func intersectingViewHierarchyElements(
         point: CGPoint,
-        elements: [ViewHierarchyElement])
-        -> [ViewHierarchyElement]
+        elements: RandomAccessCollectionOf<ViewHierarchyElement, Int>)
+        -> RandomAccessCollectionOf<ViewHierarchyElement, Int>
     {
         var intersectingElements = [ViewHierarchyElement]()
         
@@ -106,7 +107,7 @@ public final class PageObjectElementGenerationWizardImpl: PageObjectElementGener
             )
         }
         
-        return intersectingElements
+        return RandomAccessCollectionOf(intersectingElements)
     }
 }
 

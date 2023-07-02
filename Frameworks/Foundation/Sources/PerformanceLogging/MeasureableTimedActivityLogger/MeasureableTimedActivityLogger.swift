@@ -33,11 +33,11 @@ extension MeasureableTimedActivityLogger {
     {
         let activity = start(staticName: staticName, dynamicName: dynamicName)
         
-        let returnValue = try body()
+        defer {
+            activity.stop()
+        }
         
-        activity.stop()
-        
-        return returnValue
+        return try body()
     }
 }
 

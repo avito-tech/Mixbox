@@ -44,21 +44,19 @@ extension PerformanceLogger {
         staticName: StaticString,
         dynamicName: @escaping () -> (String?) = nilString,
         destinations: Set<PerformanceLoggerDestination> = PerformanceLoggerDestination.allDestinations,
-        body: () throws -> T)
-        rethrows
-        -> T
-    {
+        body: () throws -> T
+    ) rethrows -> T {
         let activity = startImpl(
             staticName: staticName,
             dynamicName: dynamicName,
             destinations: destinations
         )
         
-        let returnValue = try body()
+        defer {
+            activity.stop()
+        }
         
-        activity.stop()
-        
-        return returnValue
+        return try body()
     }
     
     @inline(__always)

@@ -31,16 +31,18 @@ final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
         arguments: CheckVisibilityIpcMethod.Arguments,
         completion: @escaping (CheckVisibilityIpcMethod.ReturnValue) -> ())
     {
-        let uniqueIdentifier = arguments.elementUniqueIdentifier
-        
-        guard let element = AccessibilityUniqueObjectMap.shared.locate(uniqueIdentifier: uniqueIdentifier) else {
-            completion(.error(ErrorString(
-                "Failed to locate element with id '\(uniqueIdentifier)' in AccessibilityUniqueObjectMap"
-            )))
-            return
+        DispatchQueue.main.async {
+            let uniqueIdentifier = arguments.elementUniqueIdentifier
+            
+            guard let element = AccessibilityUniqueObjectMap.shared.locate(uniqueIdentifier: uniqueIdentifier) else {
+                completion(.error(ErrorString(
+                    "Failed to locate element with id '\(uniqueIdentifier)' in AccessibilityUniqueObjectMap"
+                )))
+                return
+            }
+            
+            self.checkVisibility(element: element, arguments: arguments, completion: completion)
         }
-        
-        checkVisibility(element: element, arguments: arguments, completion: completion)
     }
     
     private func checkVisibility(

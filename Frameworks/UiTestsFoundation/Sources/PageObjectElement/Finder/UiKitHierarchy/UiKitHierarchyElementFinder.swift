@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 
 public final class UiKitHierarchyElementFinder: ElementFinder {
-    private let ipcClient: SynchronousIpcClient
+    private let viewHierarchyProvider: ViewHierarchyProvider
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
     private let applicationScreenshotTaker: ApplicationScreenshotTaker
@@ -12,14 +12,14 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
     private let dateProvider: DateProvider
     
     public init(
-        ipcClient: SynchronousIpcClient,
+        viewHierarchyProvider: ViewHierarchyProvider,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
         applicationScreenshotTaker: ApplicationScreenshotTaker,
         performanceLogger: PerformanceLogger,
-        dateProvider: DateProvider)
-    {
-        self.ipcClient = ipcClient
+        dateProvider: DateProvider
+    ) {
+        self.viewHierarchyProvider = viewHierarchyProvider
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
         self.applicationScreenshotTaker = applicationScreenshotTaker
@@ -33,7 +33,7 @@ public final class UiKitHierarchyElementFinder: ElementFinder {
         -> ElementQuery
     {
         return UiKitHierarchyElementQuery(
-            ipcClient: ipcClient,
+            viewHierarchyProvider: viewHierarchyProvider,
             elementMatcher: elementMatcher,
             testFailureRecorder: testFailureRecorder,
             stepLogger: stepLogger,

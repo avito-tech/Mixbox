@@ -4,11 +4,12 @@
 // The compilation is disabled
 #else
 
-import MixboxIpcCommon
-import UIKit
-
-public protocol ViewHierarchyProvider: AnyObject {
-    func viewHierarchy() -> ViewHierarchy
+public protocol ViewInContextDrawer {
+    func draw(
+        view: UIView,
+        context: CGContext,
+        afterScreenUpdates: Bool
+    )
 }
 
 #endif

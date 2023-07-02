@@ -19,14 +19,16 @@ public final class InAppScreenshotTakerImpl: InAppScreenshotTaker  {
     
     public func takeScreenshot(afterScreenUpdates: Bool) throws -> UIImage {
         return try image { context in
-            screenInContextDrawer.drawScreen(
+            try screenInContextDrawer.drawScreen(
                 context: context,
                 afterScreenUpdates: afterScreenUpdates
             )
         }
     }
     
-    private func image(configureContext: (CGContext) -> ()) throws -> UIImage {
+    private func image(
+        configureContext: (CGContext) throws -> ()
+    ) throws -> UIImage {
         UIGraphicsBeginImageContextWithOptions(
             screenInContextDrawer.screenBounds().size, // size
             true, // opaque
@@ -41,7 +43,7 @@ public final class InAppScreenshotTakerImpl: InAppScreenshotTaker  {
             UIGraphicsEndImageContext()
         }
         
-        configureContext(context)
+        try configureContext(context)
         
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
             throw ErrorString("Failed to UIGraphicsGetImageFromCurrentImageContext")

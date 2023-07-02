@@ -15,14 +15,14 @@ public final class SoftwareKeyboardTestsViewPageObject: BasePageObjectWithDefaul
     public var returnKeyButton: ViewElement {
         return element("returnKeyButton") {
             $0.customValues["MixboxBuiltinCustomValue.UIKBKey.name"] == "Return-Key" && $0.isDirectSubviewOf {
-                $0.type == .keyboard && $0.hasNoSuperview
+                $0.type == .keyboard
             }
         }
     }
     
     public var keyboard: ViewElement {
-        return element("doneButton") {
-            $0.type == .keyboard && $0.hasNoSuperview
+        return element("keyboard") {
+            $0.type == .keyboard
         }
     }
     

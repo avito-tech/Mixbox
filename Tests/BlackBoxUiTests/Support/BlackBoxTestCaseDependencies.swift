@@ -126,16 +126,18 @@ final class BlackBoxTestCaseDependencies: DependencyCollectionRegisterer {
                 return try app(
                     mainApplicationProvider,
                     UiKitHierarchyElementFinder(
-                        ipcClient: try di.resolve(),
-                        testFailureRecorder: try di.resolve(),
-                        stepLogger: try di.resolve(),
+                        viewHierarchyProvider: IpcViewHierarchyProvider(
+                            synchronousIpcClient: di.resolve()
+                        ),
+                        testFailureRecorder: di.resolve(),
+                        stepLogger: di.resolve(),
                         applicationScreenshotTaker: XcuiApplicationScreenshotTaker(
                             applicationProvider: mainApplicationProvider
                         ),
-                        performanceLogger: try di.resolve(),
-                        dateProvider: try di.resolve()
+                        performanceLogger: di.resolve(),
+                        dateProvider: di.resolve()
                     ),
-                    try di.resolve()
+                    di.resolve()
                 )
             }
             

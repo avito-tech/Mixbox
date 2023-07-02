@@ -32,7 +32,7 @@ final class SoftwareKeyboardTests: TestCase {
                 // by a keyboard, Mixbox taps on keyboard instead, so tests work incorrecly and fail.
                 // TODO: Fix this scenario. It can either be improvement of visibility check or something else,
                 // like checking if hit test returnes desired view.
-                screen.viewThatCanBeHiddenBelowKeyboard.assertIsNotDisplayed()
+                screen.viewThatCanBeHiddenBelowKeyboard.withoutTimeout.assertIsNotDisplayed()
             }
         )
     }
@@ -47,9 +47,31 @@ final class SoftwareKeyboardTests: TestCase {
                 // TODO: Improve visibility check.
                 // We want 100% of view to be calculated as not disblayed (0% as visible).
                 // In a real case (example for iPhone 14 Pro Max, iOS 16.0) view's visible area is calculated at 63% even if we want that it should be calculated as 0%.
-                screen.viewThatCanBeHiddenBelowKeyboard.assertIsNotDisplayed(
+                screen.viewThatCanBeHiddenBelowKeyboard.withoutTimeout.assertIsNotDisplayed(
                     maximumAllowedPercentageOfVisibleArea: 0.7
                 )
+            }
+        )
+    }
+    
+    func test___keyboard_accessory_view_page_object___is_working_correctly() {
+        let id = "hideKeyboardButton"
+        let text = "Hide keyboard"
+        
+        func hideKeyboardButton(screen: SoftwareKeyboardTestsViewPageObject) -> ButtonElement {
+            return screen.byId(id)
+        }
+        
+        checkKeyboardPageObject(
+            keyboardAccessoryView: .hideKeyboardButton(id: id, text: text),
+            hideKeyboard: { screen in
+                hideKeyboardButton(screen: screen).tap()
+            },
+            whenKeyboardIsClosed: { screen in
+                hideKeyboardButton(screen: screen).withoutTimeout.assertIsNotDisplayed()
+            },
+            whenKeyboardIsOpened: { screen in
+                hideKeyboardButton(screen: screen).assertHasText(text)
             }
         )
     }
@@ -58,7 +80,7 @@ final class SoftwareKeyboardTests: TestCase {
     func test___keyboard_page_object_element___is_working_correctly___for_keyboard_returnKeyType_default() {
         checkKeyboardPageObject(
             whenKeyboardIsClosed: { screen in
-                screen.keyboard.assertIsNotDisplayed()
+                screen.keyboard.withoutTimeout.assertIsNotDisplayed()
             },
             whenKeyboardIsOpened: { screen in
                 screen.keyboard.assertIsDisplayed()
@@ -74,43 +96,43 @@ final class SoftwareKeyboardTests: TestCase {
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_go() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .go)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_google() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .google)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_join() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .join)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_next() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .next)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_route() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .route)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_search() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .search)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_send() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .send)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_yahoo() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .yahoo)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_done() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .done)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_emergencyCall() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .emergencyCall)
     }
-    
+
     func test___keyboard_return_key_page_object_element___is_working_correctly___for_keyboard_returnKeyType_continue() {
         check_keyboard_return_key_page_object_element___is_working_correctly(returnKeyType: .continue)
     }
@@ -121,7 +143,7 @@ final class SoftwareKeyboardTests: TestCase {
         checkKeyboardPageObject(
             returnKeyType: returnKeyType,
             whenKeyboardIsClosed: { screen in
-                screen.returnKeyButton.assertIsNotDisplayed()
+                screen.returnKeyButton.withoutTimeout.assertIsNotDisplayed()
             },
             whenKeyboardIsOpened: { screen in
                 screen.returnKeyButton.assertIsDisplayed()
@@ -132,6 +154,8 @@ final class SoftwareKeyboardTests: TestCase {
     private func checkKeyboardPageObject(
         returnKeyType: UIReturnKeyType = .default,
         viewThatCanBeHiddenBelowKeyboard: SoftwareKeyboardTestsViewConfiguration.ViewThatCanBeHiddenBelowKeyboard = .hidden,
+        keyboardAccessoryView: SoftwareKeyboardTestsViewConfiguration.KeyboardAccessoryView = .none,
+        hideKeyboard: (SoftwareKeyboardTestsViewPageObject) -> () = { screen in screen.returnKeyButton.tap() },
         whenKeyboardIsClosed: (SoftwareKeyboardTestsViewPageObject) -> (),
         whenKeyboardIsOpened: (SoftwareKeyboardTestsViewPageObject) -> ()
     ) {
@@ -139,7 +163,8 @@ final class SoftwareKeyboardTests: TestCase {
         
         resetUi(
             returnKeyType: returnKeyType,
-            viewThatCanBeHiddenBelowKeyboard: viewThatCanBeHiddenBelowKeyboard
+            viewThatCanBeHiddenBelowKeyboard: viewThatCanBeHiddenBelowKeyboard,
+            keyboardAccessoryView: keyboardAccessoryView
         )
         
         screen.statusLabel.withoutTimeout.assertHasText("Initial")
@@ -150,7 +175,7 @@ final class SoftwareKeyboardTests: TestCase {
         
         whenKeyboardIsOpened(screen)
         
-        screen.returnKeyButton.tap()
+        hideKeyboard(screen)
         
         screen.statusLabel.assertHasText("Resigned")
         
@@ -159,12 +184,14 @@ final class SoftwareKeyboardTests: TestCase {
     
     private func resetUi(
         returnKeyType: UIReturnKeyType,
-        viewThatCanBeHiddenBelowKeyboard: SoftwareKeyboardTestsViewConfiguration.ViewThatCanBeHiddenBelowKeyboard
+        viewThatCanBeHiddenBelowKeyboard: SoftwareKeyboardTestsViewConfiguration.ViewThatCanBeHiddenBelowKeyboard,
+        keyboardAccessoryView: SoftwareKeyboardTestsViewConfiguration.KeyboardAccessoryView
     ) {
         resetUi(
             argument: SoftwareKeyboardTestsViewConfiguration(
                 returnKeyType: returnKeyType,
-                viewThatCanBeHiddenBelowKeyboard: viewThatCanBeHiddenBelowKeyboard
+                viewThatCanBeHiddenBelowKeyboard: viewThatCanBeHiddenBelowKeyboard,
+                keyboardAccessoryView: keyboardAccessoryView
             )
         )
     }

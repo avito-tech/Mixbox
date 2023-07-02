@@ -17,7 +17,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             method: ViewHierarchyIpcMethod()
         )
         
-        let rootElements = result.rootElements
+        let rootElements = result.getReturnValueOrFail().codableRootElements
         
         var uniqueIdentifiers = [String]()
         fillIdentifiersFrom(viewHierarchyElements: rootElements, in: &uniqueIdentifiers)
@@ -143,19 +143,19 @@ final class GettingUiKitHierarchyTests: TestCase {
         }
     }
     
-    private func fillIdentifiersFrom(viewHierarchyElements: [ViewHierarchyElement], in result: inout [String]) {
+    private func fillIdentifiersFrom(viewHierarchyElements: [CodableViewHierarchyElement], in result: inout [String]) {
         result.append(
             contentsOf: viewHierarchyElements.map { $0.uniqueIdentifier }
         )
         
         viewHierarchyElements.forEach {
-            fillIdentifiersFrom(viewHierarchyElements: $0.children, in: &result)
+            fillIdentifiersFrom(viewHierarchyElements: $0.codableChildren, in: &result)
         }
     }
     
-    private func countOfElementsIn(viewHierarchyElements: [ViewHierarchyElement]) -> Int {
+    private func countOfElementsIn(viewHierarchyElements: [CodableViewHierarchyElement]) -> Int {
         return viewHierarchyElements.count + viewHierarchyElements.reduce(0) {
-            $0 + countOfElementsIn(viewHierarchyElements: $1.children)
+            $0 + countOfElementsIn(viewHierarchyElements: $1.codableChildren)
         }
     }
 }

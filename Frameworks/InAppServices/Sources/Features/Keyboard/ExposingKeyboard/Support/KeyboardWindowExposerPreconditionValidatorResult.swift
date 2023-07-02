@@ -4,14 +4,9 @@
 // The compilation is disabled
 #else
 
-public protocol ScreenInContextDrawer {
-    func screenScale() -> CGFloat
-    func screenBounds() -> CGRect
-    
-    func drawScreen(
-        context: CGContext,
-        afterScreenUpdates: Bool
-    ) throws
+enum KeyboardWindowExposerPreconditionValidatorResult {
+    case shouldContinue(KeyboardWindowExposerPrecondition)
+    case shouldReturnResult(KeyboardWindowExposerResult)
 }
 
 #endif

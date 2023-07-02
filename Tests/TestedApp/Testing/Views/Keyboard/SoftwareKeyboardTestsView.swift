@@ -6,10 +6,7 @@ final class SoftwareKeyboardTestsView: UIView, UITextFieldDelegate, TestingView 
     private let textField = UITextField()
     private let statusLabel = UILabel()
     private let viewThatCanBeHiddenBelowKeyboard = UILabel()
-    private var configuration = SoftwareKeyboardTestsViewConfiguration(
-        returnKeyType: .default,
-        viewThatCanBeHiddenBelowKeyboard: .hidden
-    )
+    private var configuration = SoftwareKeyboardTestsViewConfiguration.default()
     private var keyboardHeight: CGFloat = 0
     
     init(testingViewControllerSettings: TestingViewControllerSettings) {
@@ -49,6 +46,7 @@ final class SoftwareKeyboardTestsView: UIView, UITextFieldDelegate, TestingView 
         textField.delegate = self
         textField.accessibilityIdentifier = "textField"
         textField.returnKeyType = configuration.returnKeyType
+        textField.inputAccessoryView = makeAccessoryView()
         
         statusLabel.backgroundColor = .red
         statusLabel.text = "Initial"
@@ -97,13 +95,38 @@ final class SoftwareKeyboardTestsView: UIView, UITextFieldDelegate, TestingView 
         viewThatCanBeHiddenBelowKeyboard.mb_bottom = bounds.mb_bottom
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    private func makeAccessoryView() -> UIView? {
+        switch configuration.keyboardAccessoryView {
+        case .none:
+            return nil
+        case let .hideKeyboardButton(id, text):
+            let button = TapIndicatorButton { [weak self] in
+                self?.hideKeyboard()
+            }
+            
+            button.setTitle(text, for: .normal)
+            button.accessibilityIdentifier = id
+            button.mb_height = 60
+            
+            return button
+        }
+    }
+    
+    private func hideKeyboard() {
         statusLabel.text = "Resigned"
         textField.resignFirstResponder()
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        hideKeyboard()
         return true
     }
     
-    @objc func keyboardWillChangeFrame(_ notification: Notification) {
+    // MARK: - NotificationCenter
+    
+    @objc private func keyboardWillChangeFrame(_ notification: Notification) {
         guard let userInfo = notification.userInfo else {
             keyboardHeight = 0
             setNeedsLayout()

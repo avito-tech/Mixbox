@@ -12,6 +12,7 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
     
     private func nestedRegisterers() -> [DependencyCollectionRegisterer] {
         return [
+            InAppServicesAndGrayBoxSharedDependencyCollectionRegisterer(),
             IpcClientsDependencyCollectionRegisterer(),
             ApplicationIndependentUiTestsDependencyCollectionRegisterer(),
             ApplicationIndependentTestsDependencyCollectionRegisterer()
@@ -28,17 +29,6 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
         di.register(type: ApplicationFrameProvider.self) { _ in
             GrayApplicationFrameProvider()
         }
-        di.register(type: ApplicationWindowsProvider.self) { di in
-            UiApplicationWindowsProvider(
-                uiApplication: UIApplication.shared,
-                iosVersionProvider: try di.resolve()
-            )
-        }
-        di.register(type: OrderedWindowsProvider.self) { di in
-            OrderedWindowsProviderImpl(
-                applicationWindowsProvider: try di.resolve()
-            )
-        }
         di.registerMultiple(type: GrayScreenshotTaker.self) { di in
             GrayScreenshotTaker(
                 inAppScreenshotTaker: try di.resolve()
@@ -46,31 +36,14 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
         }
             .reregister { $0 as ApplicationScreenshotTaker }
             .reregister { $0 as DeviceScreenshotTaker }
-        
-        di.register(type: ScreenInContextDrawer.self) { di in
-            try ScreenInContextDrawerImpl(
-                orderedWindowsProvider: di.resolve(),
-                screen: UIScreen.main,
-                iosVersionProvider: di.resolve(),
-                keyboardPrivateApi: di.resolve()
-            )
-        }
-        di.register(type: KeyboardPrivateApi.self) { _ in
-            try KeyboardPrivateApi.sharedInstance()
-        }
-        di.register(type: InAppScreenshotTaker.self) { di in
-            InAppScreenshotTakerImpl(
-                screenInContextDrawer: try di.resolve()
-            )
-        }
         di.register(type: ElementFinder.self) { di in
-            UiKitHierarchyElementFinder(
-                ipcClient: try di.resolve(),
-                testFailureRecorder: try di.resolve(),
-                stepLogger: try di.resolve(),
-                applicationScreenshotTaker: try di.resolve(),
-                performanceLogger: try di.resolve(),
-                dateProvider: try di.resolve()
+            try UiKitHierarchyElementFinder(
+                viewHierarchyProvider: di.resolve(),
+                testFailureRecorder: di.resolve(),
+                stepLogger: di.resolve(),
+                applicationScreenshotTaker: di.resolve(),
+                performanceLogger: di.resolve(),
+                dateProvider: di.resolve()
             )
         }
         di.register(type: ApplicationQuiescenceWaiter.self) { di in
@@ -164,6 +137,27 @@ public final class GrayBoxDependencies: DependencyCollectionRegisterer {
         }
         di.register(type: InteractionSettingsDefaultsProvider.self) { _ in
             InteractionSettingsDefaultsProviderImpl(preset: .grayBox)
+        }
+        di.register(type: FloatValuesForSr5346Patcher.self) { _ in
+            NoopFloatValuesForSr5346Patcher()
+        }
+        di.register(type: ElementHierarchyDescriptionProvider.self) { di in
+            try GrayElementHierarchyDescriptionProvider(
+                viewHierarchyProvider: di.resolve()
+            )
+        }
+        di.register(type: TextTyper.self) { di in
+            try GrayTextTyper(
+                keyboardPrivateApi: di.resolve()
+            )
+        }
+        di.register(type: MenuItemProvider.self) { di in
+            try GrayMenuItemProvider(
+                elementMatcherBuilder: di.resolve(),
+                elementFinder: di.resolve(),
+                elementSimpleGesturesProvider: di.resolve(),
+                runLoopSpinnerFactory: di.resolve()
+            )
         }
     }
 }

@@ -4,14 +4,10 @@
 // The compilation is disabled
 #else
 
-public protocol ScreenInContextDrawer {
-    func screenScale() -> CGFloat
-    func screenBounds() -> CGRect
-    
-    func drawScreen(
-        context: CGContext,
-        afterScreenUpdates: Bool
-    ) throws
+public protocol KeyboardWindowExposer {
+    func exposeKeyboardWindow(
+        windows: [UIWindow]
+    ) throws -> KeyboardWindowExposerResult
 }
 
 #endif

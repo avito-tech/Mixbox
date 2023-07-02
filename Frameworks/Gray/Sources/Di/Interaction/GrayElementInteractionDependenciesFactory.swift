@@ -16,28 +16,7 @@ public final class GrayElementInteractionDependenciesFactory: BaseElementInterac
     }
     
     override public func registerSpecificDependencies(di: DependencyRegisterer, fileLine: FileLine) {
-        di.register(type: ElementHierarchyDescriptionProvider.self) { di in
-            GrayElementHierarchyDescriptionProvider(
-                viewHierarchyProvider: ViewHierarchyProviderImpl(
-                    applicationWindowsProvider: try di.resolve(),
-                    floatValuesForSr5346Patcher: NoopFloatValuesForSr5346Patcher(),
-                    keyboardPrivateApi: try di.resolve()
-                )
-            )
-        }
-        di.register(type: TextTyper.self) { di in
-            try GrayTextTyper(
-                keyboardPrivateApi: di.resolve()
-            )
-        }
-        di.register(type: MenuItemProvider.self) { di in
-            GrayMenuItemProvider(
-                elementMatcherBuilder: try di.resolve(),
-                elementFinder: try di.resolve(),
-                elementSimpleGesturesProvider: try di.resolve(),
-                runLoopSpinnerFactory: try di.resolve()
-            )
-        }
+        // TODO: Remove? Duplicates code from `IpcClientsDependencyCollectionRegisterer`
         di.register(type: Pasteboard.self) { _ in
             UikitPasteboard(uiPasteboard: .general)
         }

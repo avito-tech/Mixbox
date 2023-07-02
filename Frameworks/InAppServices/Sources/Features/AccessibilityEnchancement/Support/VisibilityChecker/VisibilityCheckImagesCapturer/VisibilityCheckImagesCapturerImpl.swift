@@ -8,6 +8,8 @@ import MixboxFoundation
 import MixboxUiKit
 
 // TODO: Split this class.
+// swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCapturer {
     private let imagePixelDataFromImageCreator: ImagePixelDataFromImageCreator
     private let inAppScreenshotTaker: InAppScreenshotTaker
@@ -32,17 +34,64 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         self.visibilityCheckImageColorShifter = visibilityCheckImageColorShifter
     }
     
-    // swiftlint:disable:next function_body_length
     public func capture(
         view: UIView,
         searchRectInScreenCoordinates: CGRect,
         targetPointOfInteraction: CGPoint?,
-        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer)
-        throws
-        -> VisibilityCheckImagesCaptureResult
-    {
-        let preconditionMetric = performanceLogger.start(staticName: "VC.capture.precond")
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer
+    ) throws -> VisibilityCheckImagesCaptureResult {
+        let precondition = try performanceLogger.log(staticName: "VC.capture.precond") {
+            try self.precondition(
+                view: view,
+                searchRectInScreenCoordinates: searchRectInScreenCoordinates
+            )
+        }
         
+        let screenshotBefore = try performanceLogger.log(staticName: "VC.capture.snapshot") {
+            try captureScreenshotBefore(
+                screenshotSearchRectInPixels: precondition.screenshotSearchRectInPixels
+            )
+        }
+        
+        let colorShiftingResult = try performanceLogger.log(staticName: "VC.capture.shift") {
+            try shiftColors(
+                view: view,
+                searchRectOnScreenInViewInScreenCoordinates: precondition.searchRectOnScreenInViewInScreenCoordinates,
+                searchRectInScreenCoordinates: searchRectInScreenCoordinates,
+                screenshotSearchRectInPixels: precondition.screenshotSearchRectInPixels,
+                targetPointOfInteraction: targetPointOfInteraction,
+                screenshotBefore: screenshotBefore,
+                visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
+            )
+        }
+        
+        let afterImagePixelData = try performanceLogger.log(staticName: "VC.capture.snapshot") {
+            try captureScreenshotAfter(
+                view: view,
+                shiftedView: colorShiftingResult.shiftedView,
+                screenshotSearchRectInPixels: precondition.screenshotSearchRectInPixels
+            )
+        }
+        
+        return VisibilityCheckImagesCaptureResult(
+            beforeImagePixelData: screenshotBefore.imagePixelData,
+            afterImagePixelData: afterImagePixelData,
+            intersectionOrigin: precondition.intersectionOrigin,
+            visibilityCheckTargetCoordinates: colorShiftingResult.visibilityCheckTargetCoordinates,
+            screenScale: screen.scale
+        )
+    }
+    
+    private struct Precondition {
+        let searchRectOnScreenInViewInScreenCoordinates: CGRect
+        let screenshotSearchRectInPixels: CGRect
+        let intersectionOrigin: CGPoint
+    }
+    
+    private func precondition(
+        view: UIView,
+        searchRectInScreenCoordinates: CGRect
+    ) throws -> Precondition {
         // A quick visibility check is done here to rule out any definitely hidden views.
         if view.mb_testability_isDefinitelyHidden() {
             throw ErrorString("View is not visible")
@@ -83,11 +132,23 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         CATransaction.flush()
         CATransaction.commit()
         
-        preconditionMetric.stop()
-        
-        let screenshotBeforeMetric = performanceLogger.start(staticName: "VC.capture.snapshot")
-        
-        let beforeScreenshot = try ErrorString.map(
+        return Precondition(
+            searchRectOnScreenInViewInScreenCoordinates: searchRectOnScreenInViewInScreenCoordinates,
+            screenshotSearchRectInPixels: screenshotSearchRectInPixels,
+            intersectionOrigin: intersectionOrigin
+        )
+    }
+    
+    struct ScreenshotBefore {
+        let imagePixelData: ImagePixelData
+        let screenshot: UIImage
+        let image: CGImage
+    }
+    
+    private func captureScreenshotBefore(
+        screenshotSearchRectInPixels: CGRect
+    ) throws -> ScreenshotBefore {
+        let screenshot = try ErrorString.map(
             body: {
                 try inAppScreenshotTaker.takeScreenshot(afterScreenUpdates: true)
             },
@@ -96,18 +157,62 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
             }
         )
         
-        guard let beforeScreenshotCgImage = beforeScreenshot.cgImage else {
+        guard let screenshotCgImage = screenshot.cgImage else {
             throw ErrorString("beforeScreenshotCgImage is nil")
         }
         
-        guard let beforeImage = beforeScreenshotCgImage.cropping(to: screenshotSearchRectInPixels) else {
+        guard let image = screenshotCgImage.cropping(to: screenshotSearchRectInPixels) else {
             throw ErrorString("beforeImage is nil")
         }
         
-        screenshotBeforeMetric.stop()
+        return ScreenshotBefore(
+            imagePixelData: try imagePixelDataFromImageCreator.createImagePixelData(
+                image: image
+            ),
+            screenshot: screenshot,
+            image: image
+        )
+    }
+    
+    private func captureScreenshotAfter(
+        view: UIView,
+        shiftedView: UIView,
+        screenshotSearchRectInPixels: CGRect
+    ) throws -> ImagePixelData {
+        let afterScreenshot = try ErrorString.map(
+            body: {
+                try imageAfterAddingSubview(shiftedView: shiftedView, toView: view)
+            },
+            transform: { error in
+                "Failed to get afterScreenshot: \(error)"
+            }
+        )
         
-        let shiftingColorsMetric = performanceLogger.start(staticName: "VC.capture.shift")
+        guard let afterScreenshotCgImage = afterScreenshot.cgImage else {
+            throw ErrorString("afterScreenshotCgImage is nil")
+        }
         
+        guard let afterImage = afterScreenshotCgImage.cropping(to: screenshotSearchRectInPixels) else {
+            throw ErrorString("afterImage should not be null")
+        }
+        
+        return try imagePixelDataFromImageCreator.createImagePixelData(image: afterImage)
+    }
+    
+    private struct ColorShiftingResult {
+        let visibilityCheckTargetCoordinates: VisibilityCheckTargetCoordinates?
+        let shiftedView: UIView
+    }
+    
+    private func shiftColors(
+        view: UIView,
+        searchRectOnScreenInViewInScreenCoordinates: CGRect,
+        searchRectInScreenCoordinates: CGRect,
+        screenshotSearchRectInPixels: CGRect,
+        targetPointOfInteraction: CGPoint?,
+        screenshotBefore: ScreenshotBefore,
+        visibilityCheckForLoopOptimizer: VisibilityCheckForLoopOptimizer
+    ) throws -> ColorShiftingResult {
         guard let window = view.window else {
             throw ErrorString("Window is nil")
         }
@@ -147,13 +252,11 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
     
         let searchRectOffset = CGPoint(x: searchRectOffsetX, y: searchRectOffsetY)
         
-        let beforeImagePixelData = try imagePixelDataFromImageCreator.createImagePixelData(image: beforeImage)
-        
         let visibilityCheckTargetCoordinates = targetPointOfInteraction.map { targetPointOfInteraction in
             VisibilityCheckTargetCoordinates(
                 targetPixelOfInteraction: targetPixelOfInteraction(
                      targetPointOfInteraction: targetPointOfInteraction,
-                     imageSize: beforeImagePixelData.size,
+                     imageSize: screenshotBefore.imagePixelData.size,
                      searchRectInScreenCoordinates: searchRectInScreenCoordinates
                 ),
                 targetPointOfInteraction: targetPointOfInteraction
@@ -161,44 +264,16 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
         }
         
         let shiftedView = try imageViewWithShiftedColor(
-            beforeImagePixelData: beforeImagePixelData,
+            beforeImagePixelData: screenshotBefore.imagePixelData,
             frameOffset: searchRectOffset,
-            orientation: beforeScreenshot.imageOrientation,
+            orientation: screenshotBefore.screenshot.imageOrientation,
             targetPixelOfInteraction: visibilityCheckTargetCoordinates?.targetPixelOfInteraction,
             visibilityCheckForLoopOptimizer: visibilityCheckForLoopOptimizer
         )
         
-        shiftingColorsMetric.stop()
-        
-        let screenshotAfterMetric = performanceLogger.start(staticName: "VC.capture.snapshot")
-        
-        let afterScreenshot = try ErrorString.map(
-            body: {
-                try imageAfterAddingSubview(shiftedView: shiftedView, toView: view)
-            },
-            transform: { error in
-                "Failed to get afterScreenshot: \(error)"
-            }
-        )
-        
-        guard let afterScreenshotCgImage = afterScreenshot.cgImage else {
-            throw ErrorString("afterScreenshotCgImage is nil")
-        }
-        
-        guard let afterImage = afterScreenshotCgImage.cropping(to: screenshotSearchRectInPixels) else {
-            throw ErrorString("afterImage should not be null")
-        }
-        
-        let afterImagePixelData = try imagePixelDataFromImageCreator.createImagePixelData(image: afterImage)
-        
-        screenshotAfterMetric.stop()
-        
-        return VisibilityCheckImagesCaptureResult(
-            beforeImagePixelData: beforeImagePixelData,
-            afterImagePixelData: afterImagePixelData,
-            intersectionOrigin: intersectionOrigin,
+        return ColorShiftingResult(
             visibilityCheckTargetCoordinates: visibilityCheckTargetCoordinates,
-            screenScale: screen.scale
+            shiftedView: shiftedView
         )
     }
     

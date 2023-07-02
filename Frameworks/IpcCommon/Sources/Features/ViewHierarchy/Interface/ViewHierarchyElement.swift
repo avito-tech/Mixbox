@@ -5,28 +5,29 @@
 #else
 
 import UIKit
+import MixboxFoundation
 
-public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
-    public let frame: CGRect
+public protocol ViewHierarchyElement {
+    var frame: CGRect { get }
     
     // Note that there is no way to calculate this from fields, because the logic of coordinates conversion
     // is not constant for every view (and is proprietary for many views).
-    public let frameRelativeToScreen: CGRect
+    var frameRelativeToScreen: CGRect { get }
     
-    public let customClass: String
-    public let elementType: ViewHierarchyElementType
-    public let accessibilityIdentifier: String?
-    public let accessibilityLabel: String?
-    public let accessibilityValue: String?
-    public let accessibilityPlaceholderValue: String?
+    var customClass: String { get }
+    var elementType: ViewHierarchyElementType { get }
+    var accessibilityIdentifier: String? { get }
+    var accessibilityLabel: String? { get }
+    var accessibilityValue: String? { get }
+    var accessibilityPlaceholderValue: String? { get }
     
     // Text that user will see if the view is visible. Can be calculated from different propeties.
     // For example, it can be `var placeholder` for UITextView if placeholder is displayed, or `var text` otherwise.
-    public let text: String?
+    var text: String? { get }
     
     // Unique identifier of the element. Can be used to request info about the element,
     // for example, percentage of visible area of the view, etc.
-    public let uniqueIdentifier: String
+    var uniqueIdentifier: String { get }
     
     // true: is hidden, can not be visible even after scrolling.
     // false: we don't know
@@ -34,57 +35,21 @@ public final class ViewHierarchyElement: Codable, CustomDebugStringConvertible {
     // It violates SRP. It is used for many purposes:
     // - As an optimization for expensive check for visibility
     // - To filter out collection view cells that are not visible, but used for fade animations. They are hidden most of the time.
-    public let isDefinitelyHidden: Bool
+    var isDefinitelyHidden: Bool { get }
     
-    public let isEnabled: Bool
+    var isEnabled: Bool { get }
     
-    public let hasKeyboardFocus: Bool
+    var hasKeyboardFocus: Bool { get }
     
     // Custom values that can be set in the application for testing. Example: you can set coordinates of the map
     // inside a property in the app and validate them in tests.
-    public let customValues: [String: String]
+    var customValues: [String: String] { get }
     
-    public let children: [ViewHierarchyElement]
-    
-    // MARK: - Init
+    var children: RandomAccessCollectionOf<ViewHierarchyElement, Int> { get }
+}
 
-// sourcery:inline:auto:ViewHierarchyElement.Init
-    public init(
-        frame: CGRect,
-        frameRelativeToScreen: CGRect,
-        customClass: String,
-        elementType: ViewHierarchyElementType,
-        accessibilityIdentifier: String?,
-        accessibilityLabel: String?,
-        accessibilityValue: String?,
-        accessibilityPlaceholderValue: String?,
-        text: String?,
-        uniqueIdentifier: String,
-        isDefinitelyHidden: Bool,
-        isEnabled: Bool,
-        hasKeyboardFocus: Bool,
-        customValues: [String: String],
-        children: [ViewHierarchyElement])
-    {
-        self.frame = frame
-        self.frameRelativeToScreen = frameRelativeToScreen
-        self.customClass = customClass
-        self.elementType = elementType
-        self.accessibilityIdentifier = accessibilityIdentifier
-        self.accessibilityLabel = accessibilityLabel
-        self.accessibilityValue = accessibilityValue
-        self.accessibilityPlaceholderValue = accessibilityPlaceholderValue
-        self.text = text
-        self.uniqueIdentifier = uniqueIdentifier
-        self.isDefinitelyHidden = isDefinitelyHidden
-        self.isEnabled = isEnabled
-        self.hasKeyboardFocus = hasKeyboardFocus
-        self.customValues = customValues
-        self.children = children
-    }
-// sourcery:end
-    
-    public var debugDescription: String {
+extension ViewHierarchyElement {
+    var debugDescription: String {
         let childrenDescription = children
             .map { $0.debugDescription }
             .joined(separator: ",\n")

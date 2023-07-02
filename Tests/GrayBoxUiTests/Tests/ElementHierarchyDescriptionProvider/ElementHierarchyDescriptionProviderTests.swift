@@ -3,6 +3,7 @@ import MixboxGray
 import XCTest
 import MixboxInAppServices
 import MixboxIpcCommon
+import MixboxFoundation
 
 final class ElementHierarchyDescriptionProviderTests: TestCase {
     private let elementHierarchyDescriptionProvider = GrayElementHierarchyDescriptionProvider(
@@ -44,13 +45,13 @@ final class ElementHierarchyDescriptionProviderTests: TestCase {
 
 private final class FakeViewHierarchyProvider: ViewHierarchyProvider {
     func viewHierarchy() -> ViewHierarchy {
-        return ViewHierarchy(
-            rootElements: [random(children: 2)]
+        return CodableViewHierarchy(
+            codableRootElements: [random(children: 2)]
         )
     }
     
-    private func random(children: Int) -> ViewHierarchyElement {
-        return ViewHierarchyElement(
+    private func random(children: Int) -> CodableViewHierarchyElement {
+        return CodableViewHierarchyElement(
             frame: CGRect(x: 12, y: 34, width: 56, height: 78),
             frameRelativeToScreen: CGRect(x: 90, y: 12, width: 34, height: 56),
             customClass: "UIFooBarView",
@@ -65,7 +66,7 @@ private final class FakeViewHierarchyProvider: ViewHierarchyProvider {
             isEnabled: true,
             hasKeyboardFocus: true,
             customValues: ["A": "B"],
-            children: children > 0 ? (0..<children).map { _ in random(children: children - 1) } : []
+            codableChildren: children > 0 ? (0..<children).map { _ in random(children: children - 1) } : []
         )
     }
 }

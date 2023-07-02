@@ -4,14 +4,17 @@
 // The compilation is disabled
 #else
 
-public protocol ScreenInContextDrawer {
-    func screenScale() -> CGFloat
-    func screenBounds() -> CGRect
+import MixboxIpcCommon
+import MixboxFoundation
+
+public final class DtoViewHierarchy: ViewHierarchy {
+    public let rootElements: RandomAccessCollectionOf<ViewHierarchyElement, Int>
     
-    func drawScreen(
-        context: CGContext,
-        afterScreenUpdates: Bool
-    ) throws
+    public init(
+        rootElements: RandomAccessCollectionOf<ViewHierarchyElement, Int>
+    ) {
+        self.rootElements = rootElements
+    }
 }
 
 #endif

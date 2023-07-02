@@ -4,14 +4,8 @@
 // The compilation is disabled
 #else
 
-import MixboxIpc
-
-public final class ViewHierarchyIpcMethod: IpcMethod {
-    public typealias Arguments = IpcVoid
-    public typealias ReturnValue = IpcThrowingFunctionResult<CodableViewHierarchy>
-    
-    public init() {
-    }
+public protocol ViewHierarchyProvider: AnyObject {
+    func viewHierarchy() throws -> ViewHierarchy
 }
 
 #endif

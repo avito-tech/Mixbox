@@ -1,6 +1,8 @@
 import UIKit
 
 final class TapIndicatorButton: UIButton {
+    var onTap: (() -> ())?
+    
     var tapped: Bool {
         get {
             return mb_testability_customValues["isTapped"] ?? false
@@ -10,10 +12,14 @@ final class TapIndicatorButton: UIButton {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(
+        onTap: (() -> ())? = nil
+    ) {
+        self.onTap = onTap
         
-        addTarget(self, action: #selector(onTap(_:)), for: .touchUpInside)
+        super.init(frame: .zero)
+        
+        addTarget(self, action: #selector(handleTouchUpInside(_:)), for: .touchUpInside)
         
         reset()
     }
@@ -27,8 +33,9 @@ final class TapIndicatorButton: UIButton {
         backgroundColor = .blue
     }
     
-    @objc private func onTap(_ recognizer: UITapGestureRecognizer) {
+    @objc private func handleTouchUpInside(_ recognizer: UITapGestureRecognizer) {
         tapped = true
         backgroundColor = .green
+        onTap?()
     }
 }

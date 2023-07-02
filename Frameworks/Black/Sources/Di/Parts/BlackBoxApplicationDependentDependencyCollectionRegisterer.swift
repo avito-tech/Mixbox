@@ -1,5 +1,6 @@
 import MixboxDi
 import MixboxUiTestsFoundation
+import MixboxIpcCommon
 
 // Dependencies that depend on specific application.
 //
@@ -28,9 +29,14 @@ public final class BlackBoxApplicationDependentDependencyCollectionRegisterer: B
                 applicationProvider: try di.resolve()
             )
         }
+        di.register(type: ViewHierarchyProvider.self) { di in
+            IpcViewHierarchyProvider(
+                synchronousIpcClient: try di.resolve()
+            )
+        }
         di.register(type: ElementFinder.self) { di in
             UiKitHierarchyElementFinder(
-                ipcClient: try di.resolve(),
+                viewHierarchyProvider: try di.resolve(),
                 testFailureRecorder: try di.resolve(),
                 stepLogger: try di.resolve(),
                 applicationScreenshotTaker: try di.resolve(),

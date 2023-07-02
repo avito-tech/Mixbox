@@ -4,7 +4,7 @@ import MixboxIpc
 import MixboxIpcCommon
 
 final class UiKitHierarchyElementQuery: ElementQuery {
-    private let ipcClient: SynchronousIpcClient
+    private let viewHierarchyProvider: ViewHierarchyProvider
     private let elementMatcher: ElementMatcher
     private let testFailureRecorder: TestFailureRecorder
     private let stepLogger: StepLogger
@@ -14,16 +14,16 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private let elementFunctionDeclarationLocation: FunctionDeclarationLocation
     
     init(
-        ipcClient: SynchronousIpcClient,
+        viewHierarchyProvider: ViewHierarchyProvider,
         elementMatcher: ElementMatcher,
         testFailureRecorder: TestFailureRecorder,
         stepLogger: StepLogger,
         applicationScreenshotTaker: ApplicationScreenshotTaker,
         performanceLogger: PerformanceLogger,
         dateProvider: DateProvider,
-        elementFunctionDeclarationLocation: FunctionDeclarationLocation)
-    {
-        self.ipcClient = ipcClient
+        elementFunctionDeclarationLocation: FunctionDeclarationLocation
+    ) {
+        self.viewHierarchyProvider = viewHierarchyProvider
         self.elementMatcher = elementMatcher
         self.testFailureRecorder = testFailureRecorder
         self.stepLogger = stepLogger
@@ -52,24 +52,21 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     // TODO: Write test. There is no test for that. E.g.: trying to get element #2 from matching element should
     //       produce proper failure if there is only 1 matching element. Maybe there should be also some other logic.
     private func resolveElementWhileBeingLoggedToStepLogger(
-        interactionMode: InteractionMode)
-        -> StepLoggerResultWrapper<ResolvedElementQuery>
-    {
-        switch viewHierarchy() {
-        case .data(let viewHierarchy):
-            return getResolvedElementQueryWhileBeingLoggedToStepLogger(viewHierarchy: viewHierarchy)
-        case .error(let error):
+        interactionMode: InteractionMode
+    ) -> StepLoggerResultWrapper<ResolvedElementQuery> {
+        do {
+            return getResolvedElementQueryWhileBeingLoggedToStepLogger(
+                interactionMode: interactionMode,
+                viewHierarchy: try viewHierarchy()
+            )
+        } catch {
             return reportIpcFailedWhileGettingHierarchy(error: error)
         }
     }
     
-    private func viewHierarchy()
-        -> DataResult<ViewHierarchy, Error>
-    {
-        return performanceLogger.logSignpost(staticName: "RVHEQ viewHierarchy") {
-            ipcClient.call(
-                method: ViewHierarchyIpcMethod()
-            )
+    private func viewHierarchy() throws -> ViewHierarchy {
+        return try performanceLogger.logSignpost(staticName: "RVHEQ viewHierarchy") {
+            try viewHierarchyProvider.viewHierarchy()
         }
     }
     
@@ -103,19 +100,26 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         )
     }
     
-    private func getResolvedElementQueryWhileBeingLoggedToStepLogger(viewHierarchy: ViewHierarchy)
-        -> StepLoggerResultWrapper<ResolvedElementQuery>
-    {
+    private func getResolvedElementQueryWhileBeingLoggedToStepLogger(
+        interactionMode: InteractionMode,
+        viewHierarchy: ViewHierarchy
+    ) -> StepLoggerResultWrapper<ResolvedElementQuery>{
         let resolvedElementQuery = performanceLogger.logSignpost(staticName: "RVHEQ resolveElementQuery") {
             resolveElementQuery(viewHierarchy: viewHierarchy)
         }
         
         return performanceLogger.logSignpost(staticName: "RVHEQ log to StepLogger") {
-            log(resolvedElementQuery: resolvedElementQuery, viewHierarchy: viewHierarchy)
+            log(
+                resolvedElementQuery: resolvedElementQuery,
+                viewHierarchy: viewHierarchy,
+                interactionMode: interactionMode
+            )
         }
     }
     
-    private func resolveElementQuery(viewHierarchy: ViewHierarchy) -> ResolvedElementQuery {
+    private func resolveElementQuery(
+        viewHierarchy: ViewHierarchy
+    ) -> ResolvedElementQuery {
         let elementQueryResolvingState = ElementQueryResolvingState()
         
         // We don't actually need start/stop. It is a kludge for XCUI. TODO: Get rid of it.
@@ -135,8 +139,8 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     private func matchRecursively(
         element: ViewHierarchyElement,
         parent: ElementSnapshot? = nil,
-        state: ElementQueryResolvingState)
-    {
+        state: ElementQueryResolvingState
+    ) {
         let snapshot = UiKitHierarchyElementSnaphot(element: element, parent: parent)
         let matchingResult = performanceLogger.logSignpost(staticName: "RVHEQ elementMatcher.matches") {
             elementMatcher.match(value: snapshot)
@@ -148,15 +152,26 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         }
     }
     
-    private func log(resolvedElementQuery: ResolvedElementQuery, viewHierarchy: ViewHierarchy)
-        -> StepLoggerResultWrapper<ResolvedElementQuery>
-    {
-        let elementWasFound = !resolvedElementQuery.matchingSnapshots.isEmpty
+    private func log(
+        resolvedElementQuery: ResolvedElementQuery,
+        viewHierarchy: ViewHierarchy,
+        interactionMode: InteractionMode
+    ) -> StepLoggerResultWrapper<ResolvedElementQuery> {
+        let wasSuccessful: Bool
+        
+        // TODO: This logic is copypasted, see code with `return interactionFailureResultFactory.elementIsNotUniqueResult()`
+        //       i.e. add property `result` to `ElementQueryResolvingState`.
+        switch interactionMode {
+        case .useUniqueElement:
+            wasSuccessful = resolvedElementQuery.matchingSnapshots.count == 1
+        case .useElementAtIndexInHierarchy(let index):
+            wasSuccessful = !resolvedElementQuery.matchingSnapshots.isEmpty && resolvedElementQuery.matchingSnapshots.count < index
+        }
         
         return StepLoggerResultWrapper(
             stepLogAfter: StepLogAfter(
                 date: dateProvider.currentDate(),
-                wasSuccessful: elementWasFound,
+                wasSuccessful: wasSuccessful,
                 attachments: attachmentsForLog(
                     resolvedElementQuery: resolvedElementQuery,
                     viewHierarchy: viewHierarchy
@@ -167,47 +182,56 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     }
     
     // TODO: This logic is copypasted from XcuiElementQuery. Share.
-    private func attachmentsForLog(resolvedElementQuery: ResolvedElementQuery, viewHierarchy: ViewHierarchy) -> [Attachment] {
+    private func attachmentsForLog(
+        resolvedElementQuery: ResolvedElementQuery,
+        viewHierarchy: ViewHierarchy
+    ) -> [Attachment] {
+        guard let candidatesDescription = resolvedElementQuery.candidatesDescription() else {
+            return []
+        }
+        
         var attachments = [Attachment]()
         
-        if let candidatesDescription = resolvedElementQuery.candidatesDescription() {
-            attachments.append(
-                Attachment(
-                    name: "Кандидаты",
-                    content: .text(candidatesDescription.description)
+        attachments.append(
+            Attachment(
+                name: "Кандидаты",
+                content: .text(candidatesDescription.description)
+            )
+        )
+        
+        attachments.append(
+            Attachment(
+                name: "Иерархия вьюх",
+                content: .text(
+                    viewHierarchy.debugDescription
                 )
             )
-            attachments.append(
-                Attachment(
-                    name: "Иерархия вьюх",
-                    content: .text(
-                        viewHierarchy.debugDescription
-                    )
+        )
+        
+        attachments.append(
+            Attachment(
+                name: "Строка и файл где объявлен локатор",
+                content: .text(
+                    """
+                    \(elementFunctionDeclarationLocation.fileLine.file):\(elementFunctionDeclarationLocation.fileLine.line):
+                    \(elementFunctionDeclarationLocation.function)
+                    """
                 )
             )
+        )
+        
+        if let screenshot = try? applicationScreenshotTaker.takeApplicationScreenshot() {
             attachments.append(
                 Attachment(
-                    name: "Строка и файл где объявлен локатор",
-                    content: .text(
-                        """
-                        \(elementFunctionDeclarationLocation.fileLine.file):\(elementFunctionDeclarationLocation.fileLine.line):
-                        \(elementFunctionDeclarationLocation.function)
-                        """
-                    )
+                    name: "Скриншот",
+                    content: .screenshot(screenshot)
                 )
-            )
-            if let screenshot = try? applicationScreenshotTaker.takeApplicationScreenshot() {
-                attachments.append(
-                    Attachment(
-                        name: "Скриншот",
-                        content: .screenshot(screenshot)
-                    )
-                )
-            }
-            attachments.append(
-                contentsOf: candidatesDescription.attachments
             )
         }
+        
+        attachments.append(
+            contentsOf: candidatesDescription.attachments
+        )
         
         return attachments
     }

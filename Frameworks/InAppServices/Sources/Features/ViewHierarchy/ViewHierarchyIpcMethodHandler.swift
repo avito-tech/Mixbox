@@ -18,10 +18,15 @@ final class ViewHierarchyIpcMethodHandler: IpcMethodHandler {
         self.viewHierarchyProvider = viewHierarchyProvider
     }
     
-    func handle(arguments: IpcVoid, completion: @escaping (ViewHierarchy) -> ()) {
+    func handle(arguments: ViewHierarchyIpcMethod.Arguments, completion: @escaping (ViewHierarchyIpcMethod.ReturnValue) -> ()) {
         DispatchQueue.main.async { [viewHierarchyProvider] in
-            let viewHieherarchy = viewHierarchyProvider.viewHierarchy()
-            completion(viewHieherarchy)
+            completion(
+                IpcThrowingFunctionResult {
+                    CodableViewHierarchy(
+                        viewHierarchy: try viewHierarchyProvider.viewHierarchy()
+                    )
+                }
+            )
         }
     }
 }

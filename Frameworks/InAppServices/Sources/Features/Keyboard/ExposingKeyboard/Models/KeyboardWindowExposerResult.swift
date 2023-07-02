@@ -4,14 +4,9 @@
 // The compilation is disabled
 #else
 
-public protocol ScreenInContextDrawer {
-    func screenScale() -> CGFloat
-    func screenBounds() -> CGRect
-    
-    func drawScreen(
-        context: CGContext,
-        afterScreenUpdates: Bool
-    ) throws
+public enum KeyboardWindowExposerResult {
+    case keyboardIsNotVisible(description: String)
+    case exposedKeyboard(ExposedKeyboard)
 }
 
 #endif

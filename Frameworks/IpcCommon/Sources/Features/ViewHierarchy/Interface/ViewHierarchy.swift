@@ -6,13 +6,11 @@
 
 import MixboxFoundation
 
-public final class ViewHierarchy: Codable, CustomDebugStringConvertible {
-    public let rootElements: [ViewHierarchyElement]
-    
-    public init(rootElements: [ViewHierarchyElement]) {
-        self.rootElements = rootElements
-    }
-    
+public protocol ViewHierarchy: CustomDebugStringConvertible {
+    var rootElements: RandomAccessCollectionOf<ViewHierarchyElement, Int> { get }
+}
+
+extension ViewHierarchy {
     public var debugDescription: String {
         return rootElements
             .map { $0.debugDescription }
