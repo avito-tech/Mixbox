@@ -33,9 +33,9 @@ public final class RetrierImpl: Retrier {
     }
     
     private func waitRespectingPollingConfiguration() {
-        if case .reduceWorkload = pollingConfiguration {
+        if pollingConfiguration.pollingTimeInterval > 0 {
             // TODO: Implement retrying using Waiter functionality.
-            waiter.wait(timeout: 1)
+            waiter.wait(timeout: pollingConfiguration.pollingTimeInterval)
         }
     }
 }
