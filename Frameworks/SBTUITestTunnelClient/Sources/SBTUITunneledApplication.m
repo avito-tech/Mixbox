@@ -1,3 +1,6 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 // SBTUITunneledApplication.m
 //
 // Copyright (C) 2016 Subito.it S.r.l (www.subito.it)
@@ -747,3 +750,5 @@ static NSTimeInterval SBTUITunneledApplicationDefaultTimeout = 30.0;
 }
 
 @end
+
+#pragma clang diagnostic pop

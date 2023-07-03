@@ -4,6 +4,9 @@
 // The compilation is disabled
 #else
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 // SBTProxyURLProtocol.m
 //
 // Copyright (C) 2016 Subito.it S.r.l (www.subito.it)
@@ -636,5 +639,7 @@ typedef void(^SBTStubUpdateBlock)(NSURLRequest *request);
 }
 
 @end
+
+#pragma clang diagnostic pop
 
 #endif

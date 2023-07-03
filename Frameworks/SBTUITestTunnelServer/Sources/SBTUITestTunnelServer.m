@@ -4,6 +4,9 @@
 // The compilation is disabled
 #else
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 // SBTUITestTunnelServer.m
 //
 // Copyright (C) 2016 Subito.it S.r.l (www.subito.it)
@@ -1034,5 +1037,7 @@ static NSTimeInterval SBTUITunneledServerDefaultTimeout = 60.0;
 }
 
 @end
+
+#pragma clang diagnostic pop
 
 #endif
