@@ -36,7 +36,7 @@ public final class TextInputPreferencesControllerImpl: TextInputPreferencesContr
     }
     
     public func setDidShowGestureKeyboardIntroduction(_ value: Bool) {
-        guard iosVersionProvider.iosVersion().majorVersion >= 11 else {
+        guard iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Outdated.iOS11.majorVersion else {
             return
         }
         
@@ -47,7 +47,7 @@ public final class TextInputPreferencesControllerImpl: TextInputPreferencesContr
     }
     
     public func setDidShowContinuousPathIntroduction(_ value: Bool) {
-        guard iosVersionProvider.iosVersion().majorVersion >= 13 else {
+        guard iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Outdated.iOS13.majorVersion else {
             return
         }
         

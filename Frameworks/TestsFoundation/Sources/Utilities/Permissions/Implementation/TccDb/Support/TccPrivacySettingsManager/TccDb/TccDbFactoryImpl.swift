@@ -30,7 +30,7 @@ public final class TccDbFactoryImpl: TccDbFactory {
     }
     
     private func tccDb(path: String) throws -> TccDb {
-        if iosVersionProvider.iosVersion().majorVersion >= 14 {
+        if iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Supported.iOS14.majorVersion {
             return try TccDb_iOS_from_14(path: path)
         } else {
             return try TccDb_iOS_from_10_to_13(path: path)

@@ -27,32 +27,32 @@ class ImageHashCalculatorTests: TestCase {
             image: "size",
             expectedHash: valuesByIosVersion()
                 .value(2170628984350433018)
-                .since(ios: 12, 1)
+                .since(MixboxIosVersions.Outdated.iOS12_1)
                 .value(2170628984349908730)
         )
         check(
             image: "text",
             expectedHash: valuesByIosVersion()
                 .value(10817540268901261050)
-                .since(ios: 12, 1)
+                .since(MixboxIosVersions.Outdated.iOS12_1)
                 .value(10817540268901785338)
-                .since(ios: 15)
+                .since(MixboxIosVersions.Supported.iOS15)
                 .value(10817540268901195514)
         )
         check(
             image: "color",
             expectedHash: valuesByIosVersion()
                 .value(2170628984358756090)
-                .since(ios: 15)
+                .since(MixboxIosVersions.Supported.iOS15)
                 .value(2170628984358231802)
         )
         check(
             image: "original",
             expectedHash: valuesByIosVersion()
                 .value(2170628984349908730)
-                .since(ios: 12, 1)
+                .since(MixboxIosVersions.Outdated.iOS12_1)
                 .value(2170628984350433018)
-                .since(ios: 15)
+                .since(MixboxIosVersions.Supported.iOS15)
                 .value(2170628984349843194)
         )
         check(

@@ -20,7 +20,7 @@ public final class NavigationBarCanBeFoundTestsViewPageObject: BasePageObjectWit
     
     public var defaultBackButton: ViewElement {
         return element("defaultBackButton") { element in
-            if iosVersion.majorVersion >= 14 {
+            if iosVersion.majorVersion >= MixboxIosVersions.Supported.iOS14.majorVersion {
                 return element.isInstanceOf("_UIButtonBarButton") && element.hasDirectSubview { element in
                     element.isInstanceOf("_UIModernBarButton") && element.text == "Back"
                 }

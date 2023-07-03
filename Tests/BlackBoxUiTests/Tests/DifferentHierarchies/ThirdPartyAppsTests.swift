@@ -6,14 +6,6 @@ import MixboxUiKit
 // TODO: Rewrite, split into smaller atomic tests. Note that this test found bugs before, so it is importand.
 final class ThirdPartyAppsTests: TestCase {
     func test() {
-        // Kludge! TODO: Enable this test! It fails with Emcee on CI.
-        switch iosVersionProvider.iosVersion().majorVersion {
-        case 9, 12:
-            return
-        default:
-            break
-        }
-        
         installApp()
         goToFirstPageOnHomeScreen()
         
@@ -107,10 +99,10 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
         // At this moment UI will be probably stable:
         
         switch iosVersion.majorVersion {
-        case ...12:
+        case ...MixboxIosVersions.Outdated.iOS12.majorVersion:
             mainAppIcon.press(duration: 1.5)
             mainAppIconDeleteButtonForIos12OrLower.tap()
-        case 13:
+        case MixboxIosVersions.Outdated.iOS13.majorVersion:
             // iOS 13 introduced and intermediate menu, but longer press works fine (> 3 secs)
             mainAppIcon.press(duration: 5)
             
@@ -118,7 +110,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
                 normalizedCoordinate: CGPoint(x: 0, y: 0),
                 absoluteOffset: CGVector(dx: 5, dy: 5)
             )
-        case 14...:
+        case MixboxIosVersions.Supported.iOS14.majorVersion...:
             mainAppIcon.press(duration: 5)
             
             // iOS 14 introduced also an alert (some "feature discovery" thing, I didn't remember the text)
@@ -145,7 +137,7 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
     }
     
     func scrollToMainAppIcon() {
-        if iosVersion.majorVersion <= 12 {
+        if iosVersion.majorVersion <= MixboxIosVersions.Outdated.iOS12.majorVersion {
             // This will trigger scroll:
             mainAppIcon.assertIsDisplayed()
         } else {

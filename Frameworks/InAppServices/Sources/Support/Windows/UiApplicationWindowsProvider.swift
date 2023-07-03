@@ -32,7 +32,7 @@ public final class UiApplicationWindowsProvider: ApplicationWindowsProvider {
     }
     
     public var statusBarWindow: UIWindow? {
-        return iosVersionProvider.iosVersion().majorVersion < 13
+        return iosVersionProvider.iosVersion().majorVersion < MixboxIosVersions.Outdated.iOS13.majorVersion
             ? uiApplication.statusBarWindow()
             : nil
     }

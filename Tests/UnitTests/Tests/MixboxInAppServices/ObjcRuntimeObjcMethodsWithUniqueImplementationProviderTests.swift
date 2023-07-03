@@ -48,11 +48,11 @@ final class ObjcRuntimeObjcMethodsWithUniqueImplementationProviderTests: TestCas
         // There are some kinds of proxy that are not NSProxy that create selectors for everything
         let proxyClassNames = valuesByIosVersion(type: [String].self)
             .value([])
-            .since(ios: 12)
+            .since(MixboxIosVersions.Outdated.iOS12)
             .value([
                 "_PFPlaceholderMulticaster"
             ])
-            .since(ios: 13)
+            .since(MixboxIosVersions.Outdated.iOS13)
             .value([
                 "_PFPlaceholderMulticaster",
                 "UIKeyboardCandidateViewStyle",

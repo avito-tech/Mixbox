@@ -39,10 +39,10 @@ final class PredefinedObjcMethodsTests: TestCase {
             _ = try accessibilityLabelSwizzlerFactory.accessibilityLabelSwizzler()
             
             let check = valuesByIosVersion()
-                .since(ios: 10).value {
+                .since(MixboxIosVersions.Outdated.iOS10).value {
                     self.checkForIos10()
                 }
-                .since(ios: 11).value {
+                .since(MixboxIosVersions.Outdated.iOS11).value {
                     self.checkForIosFrom11()
                 }
                 .getValue()

@@ -1,5 +1,6 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
+import MixboxUiKit
 import XCTest
 
 // TODO: Rename
@@ -24,9 +25,9 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
             //       And I don't have reports on CI.
             // UPDATE: Same in Xcode 12.4 in 2021.
             exactTolerance: valuesByIosVersion()
-                .since(ios: 11).value(10)
-                .since(ios: 12).value(1)
-                .since(ios: 15).value(2)
+                .since(MixboxIosVersions.Outdated.iOS11).value(10)
+                .since(MixboxIosVersions.Outdated.iOS12).value(1)
+                .since(MixboxIosVersions.Supported.iOS15).value(2)
         )
     }
     
@@ -34,10 +35,10 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
         assertImageMatchesReference(
             imageName: "imagehash_cats/imagehash_cat_lots_of_text",
             exactTolerance: valuesByIosVersion()
-                .since(ios: 11).value(20)
-                .since(ios: 12).value(14)
-                .since(ios: 13).value(15)
-                .since(ios: 14).value(14)
+                .since(MixboxIosVersions.Outdated.iOS11).value(20)
+                .since(MixboxIosVersions.Outdated.iOS12).value(14)
+                .since(MixboxIosVersions.Outdated.iOS13).value(15)
+                .since(MixboxIosVersions.Supported.iOS14).value(14)
         )
     }
     
@@ -45,8 +46,8 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
         assertImageMatchesReference(
             imageName: "imagehash_cats/imagehash_cat_not_cat",
             exactTolerance: valuesByIosVersion()
-                .since(ios: 11).value(39)
-                .since(ios: 12).value(41)
+                .since(MixboxIosVersions.Outdated.iOS11).value(39)
+                .since(MixboxIosVersions.Outdated.iOS12).value(41)
         )
     }
     

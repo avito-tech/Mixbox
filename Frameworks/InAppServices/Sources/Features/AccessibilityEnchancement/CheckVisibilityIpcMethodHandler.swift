@@ -65,7 +65,7 @@ final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
     // Screenshot of keyboard can not be captured on iOS 16+.
     // This means that we can't use normal visiblity checker, because the view is not visible on screenshots.
     private func shouldUseViewVisibilityChecker(view: UIView) -> Bool {
-        guard iosVersionProvider.iosVersion().majorVersion >= 16 else {
+        guard iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Supported.iOS16 else {
             // No problems on iOS 15
             return true
         }

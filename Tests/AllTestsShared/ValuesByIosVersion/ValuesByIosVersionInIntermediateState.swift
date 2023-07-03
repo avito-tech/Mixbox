@@ -49,12 +49,8 @@ final class ValuesByIosVersionInIntermediateState<T>: ValuesByIosVersion<T> {
     // MARK: - Builder
     
     func since(
-        ios versionComponents: IosVersion.VersionComponent...
+        _ iosVersion: IosVersion
     ) -> ValuesByIosVersionBuilderWithIosVersion<T> {
-        let iosVersion = IosVersion(
-            versionComponents: versionComponents
-        )
-        
         if valuesForLaterIosVersions.contains(where: { $0.iosVersion >= iosVersion }) {
             UnavoidableFailure.fail("You should specify iOS versions in ascending order")
         }
@@ -68,14 +64,12 @@ final class ValuesByIosVersionInIntermediateState<T>: ValuesByIosVersion<T> {
     }
     
     func until(
-        ios versionComponents: IosVersion.VersionComponent...
+        _ iosVersion: IosVersion
     ) -> ValuesByIosVersionInFinalState<T> {
         return ValuesByIosVersionInFinalState<T>(
             iosVersionProvider: iosVersionProvider,
             previousState: self,
-            laterNotSupportedVersion: IosVersion(
-                versionComponents: versionComponents
-            )
+            laterNotSupportedVersion: iosVersion
         )
     }
 }

@@ -122,7 +122,7 @@ public final class PhotoSaverImpl: PhotoSaver {
         // Maybe it's better to have retries/fallbacks.
         let ios11OrLowerLimit = 1
         
-        let maximumSimultaneousImageWriteToSavedPhotosAlbumOperationsAllowed = iosVersionProvider.iosVersion().majorVersion >= 12
+        let maximumSimultaneousImageWriteToSavedPhotosAlbumOperationsAllowed = iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Outdated.iOS12.majorVersion
             ? ios12Limit
             : ios11OrLowerLimit
         

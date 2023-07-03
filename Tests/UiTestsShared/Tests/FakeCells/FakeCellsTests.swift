@@ -1,5 +1,6 @@
 import MixboxUiTestsFoundation
 import MixboxTestsFoundation
+import MixboxUiKit
 import XCTest
 import TestsIpc
 
@@ -63,7 +64,7 @@ final class FakeCellsTests: TestCase {
     
     func test___mixbox___can_access_every_invisible_element_in_collection_view___after_performBatchUpdates_using_reconfigureItems() {
         // `reconfigureItems` is only available in iOS 15
-        if iosVersionProvider.iosVersion().majorVersion >= 15 {
+        if iosVersionProvider.iosVersion() >= MixboxIosVersions.Supported.iOS15 {
             parameterized_test_ifEveryInvisibleElementCanBeAccessed(
                 reloadType: .performBatchUpdates(.reconfigureItems),
                 function: #function

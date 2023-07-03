@@ -12,7 +12,7 @@ public final class FloatValuesForSr5346PatcherImpl: FloatValuesForSr5346Patcher 
     private let shouldApplyPatch: Bool
     
     public init(iosVersionProvider: IosVersionProvider) {
-        self.shouldApplyPatch = iosVersionProvider.iosVersion().majorVersion <= 10
+        self.shouldApplyPatch = iosVersionProvider.iosVersion().majorVersion <= MixboxIosVersions.Outdated.iOS10
     }
     
     // See https://bugs.swift.org/browse/SR-5346, it is a bug in JSONEncoder,

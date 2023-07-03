@@ -1,5 +1,6 @@
 import UIKit
 import MixboxTestsFoundation
+import MixboxUiKit
 import MixboxFoundation
 import XCTest
 @testable import MixboxUiTestsFoundation
@@ -175,7 +176,7 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
                                 0.25925925925925924,
                                 "Actual hashDistance is below hashDistanceTolerance. hashDistance: (50). hashDistanceTolerance: (10). Image hash of actual image: 1110000111100001110010011111100011111000111110000111000001100000. Image hash of expected image: 1100000110000001100001011000000110000001100000001110000001100000."
                             ))
-                            .since(ios: 15)
+                            .since(MixboxIosVersions.Supported.iOS15)
                             .value((
                                 0.2777777777777778,
                                 "Actual hashDistance is below hashDistanceTolerance. hashDistance: (49). hashDistanceTolerance: (10). Image hash of actual image: 1110000111000001110010011111100011111000111110000111000001100000. Image hash of expected image: 1100000110000001100001011000000110000001100000001110000001100000."
@@ -414,13 +415,13 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
             color0: oppositeOpaqueColors.0,
             color1: oppositeOpaqueColors.1,
             hashDistance: valuesByIosVersion()
-                .value(50).since(ios: 15).value(49)
+                .value(50).since(MixboxIosVersions.Supported.iOS15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: color(isTransparent: false),
             color1: color(isTransparent: true),
             hashDistance: valuesByIosVersion()
-                .value(50).since(ios: 15).value(49)
+                .value(50).since(MixboxIosVersions.Supported.iOS15).value(49)
         )
         
         // This is for you to know:
@@ -428,31 +429,31 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
             color0: UIColor.red,
             color1: UIColor.clear,
             hashDistance: valuesByIosVersion()
-                .value(50).since(ios: 15).value(49)
+                .value(50).since(MixboxIosVersions.Supported.iOS15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor.green,
             color1: UIColor.clear,
             hashDistance: valuesByIosVersion()
-                .value(50).since(ios: 15).value(49)
+                .value(50).since(MixboxIosVersions.Supported.iOS15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor.blue,
             color1: UIColor.clear,
             hashDistance: valuesByIosVersion()
-                .value(50).since(ios: 15).value(49)
+                .value(50).since(MixboxIosVersions.Supported.iOS15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor.white,
             color1: UIColor.clear,
             hashDistance: valuesByIosVersion()
-                .value(50).since(ios: 15).value(49)
+                .value(50).since(MixboxIosVersions.Supported.iOS15).value(49)
         )
         check___this_test_imageWithShape___generates_images_with_usable_hashes(
             color0: UIColor(red: 1, green: 0.8, blue: 0.8, alpha: 1),
             color1: UIColor(red: 0, green: 0, blue: 0.2, alpha: 1),
             hashDistance: valuesByIosVersion()
-                .value(58).since(ios: 15).value(57)
+                .value(58).since(MixboxIosVersions.Supported.iOS15).value(57)
         )
         
         // Example of which colors aren't suitable.

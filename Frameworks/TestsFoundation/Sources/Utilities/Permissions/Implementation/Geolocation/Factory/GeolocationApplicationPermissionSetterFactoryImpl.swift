@@ -20,7 +20,7 @@ public final class GeolocationApplicationPermissionSetterFactoryImpl: Geolocatio
     }
     
     public func geolocationApplicationPermissionSetter(bundleId: String) -> ApplicationPermissionSetter {
-        if iosVersionProvider.iosVersion().majorVersion <= 11 {
+        if iosVersionProvider.iosVersion().majorVersion <= MixboxIosVersions.Outdated.iOS11.majorVersion {
             return IosFrom9To11GeolocationApplicationPermissionSetter(
                 bundleId: bundleId,
                 waiter: waiter

@@ -50,11 +50,11 @@ class SnapshotComparisonTests: TestCase {
     
     func test___AHash() {
         let expectedComparatorAccuracy = valuesByIosVersion(type: ExpectedComparatorAccuracy.self)
-            .since(ios: 14)
+            .since(MixboxIosVersions.Supported.iOS14)
             .value(.known(0.8043010752688172))
-            .since(ios: 16)
+            .since(MixboxIosVersions.Supported.iOS16)
             .value(.known(0.8043010752688172))
-            .until(ios: 17)
+            .until(MixboxIosVersions.Future.iOS17)
             .getValue(defaultValue: .unknown)
         
         check(
@@ -68,13 +68,13 @@ class SnapshotComparisonTests: TestCase {
     
     func test___DHash() {
         let expectedComparatorAccuracy = valuesByIosVersion(type: ExpectedComparatorAccuracy.self)
-            .since(ios: 14)
+            .since(MixboxIosVersions.Supported.iOS14)
             .value(.known(intel: 0.8817204301075269, m1: 0.8795698924731182))
-            .since(ios: 15)
+            .since(MixboxIosVersions.Supported.iOS15)
             .value(.known(intel: 0.886021505376344, m1: 0.8903225806451613))
-            .since(ios: 16)
+            .since(MixboxIosVersions.Supported.iOS16)
             .value(.known(0.8903225806451613))
-            .until(ios: 17)
+            .until(MixboxIosVersions.Future.iOS17)
             .getValue(defaultValue: .unknown)
         
         check(
@@ -88,13 +88,13 @@ class SnapshotComparisonTests: TestCase {
     
     func test___PHash() {
         let expectedComparatorAccuracy = valuesByIosVersion(type: ExpectedComparatorAccuracy.self)
-            .since(ios: 14)
+            .since(MixboxIosVersions.Supported.iOS14)
             .value(.known(intel: 0.9849462365591398, m1: 0.9806451612903225))
-            .since(ios: 15)
+            .since(MixboxIosVersions.Supported.iOS15)
             .value(.known(intel: 0.9849462365591398, m1: 0.9827956989247312))
-            .since(ios: 16)
+            .since(MixboxIosVersions.Supported.iOS16)
             .value(.known(0.9827956989247312))
-            .until(ios: 17)
+            .until(MixboxIosVersions.Future.iOS17)
             .getValue(defaultValue: .unknown)
         
         check(

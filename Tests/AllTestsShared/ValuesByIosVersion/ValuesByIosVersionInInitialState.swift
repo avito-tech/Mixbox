@@ -9,9 +9,9 @@ import MixboxUiKit
 ///
 /// ```
 ///     .value("value 1")
-///     .since(ios: 12, 1)
+///     .since(MixboxIosVersions.Outdated.iOS12_1)
 ///     .value("value 2")
-///     .since(ios: 15, 3)
+///     .since(MixboxIosVersions.Supported.iOS15_3)
 ///     .value("value 3")
 ///     .getValue() // "value 2" for iOS 13, for example
 /// ```
@@ -33,15 +33,13 @@ final class ValuesByIosVersionInInitialState<T> {
     }
     
     func since(
-        ios versionComponents: IosVersion.VersionComponent...
+        _ iosVersion: IosVersion
     ) -> ValuesByIosVersionBuilderWithIosVersion<T> {
         return ValuesByIosVersionBuilderWithIosVersion<T>(
             iosVersionProvider: iosVersionProvider,
             valueForPriorIosVersions: nil,
             valuesForLaterIosVersions: [],
-            iosVerson: IosVersion(
-                versionComponents: versionComponents
-            )
+            iosVerson: iosVersion
         )
     }
 }

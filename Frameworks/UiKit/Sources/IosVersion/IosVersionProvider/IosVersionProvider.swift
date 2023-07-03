@@ -14,6 +14,8 @@
 // case 9...10.1: break // iOS 9, iOS 10, iOS 10.1 suits
 // default: break
 // }
+//
+// NOTE: Use `MixboxIosVersions` instead of magic numbers. See docs inside that class.
 
 public protocol IosVersionProvider {
     func iosVersion() -> IosVersion

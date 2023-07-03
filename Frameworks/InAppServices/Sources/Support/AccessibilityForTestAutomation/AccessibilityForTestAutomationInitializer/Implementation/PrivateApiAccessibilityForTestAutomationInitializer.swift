@@ -84,7 +84,7 @@ public final class PrivateApiAccessibilityForTestAutomationInitializer:
         
         // It was never necessary on iOS versions prior to 14, so there's no need to call it,
         // because what it does is really unknown.
-        if iosVersionProvider.iosVersion().majorVersion >= 14 {
+        if iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Supported.iOS14 {
             if let error = libAccessibilityAccessibilityInitializer.initializeAccessibilityOrReturnError() {
                 errors.append(error)
             }
@@ -108,7 +108,7 @@ public final class PrivateApiAccessibilityForTestAutomationInitializer:
         
         // Last resort (for iOS 14, because it works fine on previous iOS versions without it,
         // and we don't want it to fail silently on previously fine iOS versions):
-        if iosVersionProvider.iosVersion().majorVersion >= 14 {
+        if iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Supported.iOS14 {
             let error = uiAccessibilityAccessibilityInitializer.initializeAccessibilityOrReturnError()
             let status = accessibilityInitializationStatusProvider.accessibilityInitializationStatus
             let wrappedFallbackError: String

@@ -3,6 +3,7 @@ import XCTest
 import MixboxInAppServices
 import MixboxUiKit
 
+// TODO: Is the bug still present on iOS 14 and later? If no, delete the workaround. Or at least this test.
 final class GenericSerializationTests: BaseSerializationTestCase {
     private let dataSetForCheckingSr5346: [CGFloat] = [
         // Do not use CGFloat.greatestFiniteMagnitude, see test___dataSetForCheckingSr5346___is_set_up_properly
@@ -99,7 +100,7 @@ final class GenericSerializationTests: BaseSerializationTestCase {
     }
     
     private func convertFloatMimicingEncodingBugInNSJsonSerialization(float: CGFloat) throws -> CGFloat {
-        if iosVersionProvider.iosVersion().majorVersion <= 10 {
+        if iosVersionProvider.iosVersion().majorVersion <= MixboxIosVersions.Outdated.iOS10 {
             let stringFromFloat = NSNumber(value: Double(float)).stringValue
             
             let numberFormatter: NumberFormatter = NumberFormatter()

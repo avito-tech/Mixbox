@@ -83,9 +83,7 @@ public final class KeyboardWindowExposerImpl: KeyboardWindowExposer {
     private static func keyboardDrawingMode(
         precondition: KeyboardWindowExposerPrecondition
     ) throws -> KeyboardDrawingMode {
-        let minimalIosVersionForPatch = 16
-        
-        guard precondition.iosVersionProvider.iosVersion().majorVersion >= minimalIosVersionForPatch else {
+        guard precondition.iosVersionProvider.iosVersion().majorVersion >= MixboxIosVersions.Supported.iOS16 else {
             // Everything is fine below iOS 16
             return .drawOriginalWindows
         }
