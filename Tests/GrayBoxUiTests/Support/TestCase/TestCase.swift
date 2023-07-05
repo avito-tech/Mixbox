@@ -10,6 +10,10 @@ import TestsIpc
 @testable import TestedApp
 
 class TestCase: BaseUiTestCase, ScreenOpener {
+    var testType: TestType {
+        .grayBox
+    }
+    
     // TODO: Fix according to comment in `BaseUiTestCase+ResolveFunctions`
     lazy var permissions: ApplicationPermissionsSetter = {
         applicationPermissionsSetterFactory.applicationPermissionsSetter(

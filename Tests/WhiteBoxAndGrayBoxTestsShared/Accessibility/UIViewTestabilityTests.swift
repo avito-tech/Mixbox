@@ -1,8 +1,10 @@
 import XCTest
 import MixboxTestability
-@testable import MixboxInAppServices
+import UIKit
+import TestsIpc
+import MixboxInAppServices
 
-final class UIViewTestabilityWithAccessibilityDisabledTests: TestCase {
+final class UIViewTestabilityTests: BaseTestabilityTestCase {
     private let view = UIView()
     
     func test_mb_testability_frame() {
@@ -121,6 +123,27 @@ final class UIViewTestabilityWithAccessibilityDisabledTests: TestCase {
             nil
         )
         
+        // ---
+        
+        switch accessibilityStatus {
+        case .unknown:
+            break
+        case .full:
+            // This is how UIKit works:
+            XCTAssertEqual(
+                view.value(forKey: "accessibilityPlaceholderValue") as? String,
+                ""
+            )
+        case .basic:
+            // If we try to call `value(forKey: "accessibilityPlaceholderValue")`
+            // without initialized accessibility, we get this error:
+            //
+            // ```
+            // NSUnknownKeyException: [<UITextInputTraits 0x7fe4fa90a480> valueForUndefinedKey:]: this class is not key value coding-compliant for the key accessibilityPlaceholderValue."
+            // ```
+            break
+        }
+        
         view.placeholder = "text_field_placeholder"
         view.text = "text_field_text"
         
@@ -198,14 +221,14 @@ final class UIViewTestabilityWithAccessibilityDisabledTests: TestCase {
     private func assertOverrides(object: NSObject, selector: String) {
         assertOverrides(
             object: object,
-            selector: Selector(privateName: selector)
+            selector: Selector.mb_init(privateName: selector)
         )
     }
     
     private func assertDoesntOverride(object: NSObject, selector: String) {
         assertDoesntOverride(
             object: object,
-            selector: Selector(privateName: selector)
+            selector: Selector.mb_init(privateName: selector)
         )
     }
     

@@ -36,11 +36,11 @@ public final class ViewControllerIdlingResourceSwizzlerImpl: ViewControllerIdlin
             swizzledSelector: #selector(UIViewController.swizzled_ViewControllerSwizzlerImpl_viewDidDisappear(_:))
         )
         swizzle(
-            originalSelector: Selector(privateName: "viewWillMoveToWindow:"),
+            originalSelector: Selector.mb_init(privateName: "viewWillMoveToWindow:"),
             swizzledSelector: #selector(UIViewController.swizzled_ViewControllerSwizzlerImpl_viewWillMoveToWindow(_:))
         )
         swizzle(
-            originalSelector: Selector(privateName: "viewDidMoveToWindow:shouldAppearOrDisappear:"),
+            originalSelector: Selector.mb_init(privateName: "viewDidMoveToWindow:shouldAppearOrDisappear:"),
             swizzledSelector: #selector(UIViewController.swizzled_ViewControllerSwizzlerImpl_viewDidMoveToWindow(_:shouldAppearOrDisappear:))
         )
         

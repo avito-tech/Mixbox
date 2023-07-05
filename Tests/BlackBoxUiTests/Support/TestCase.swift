@@ -12,6 +12,10 @@ import MixboxFoundation
 import TestsIpc
 
 class TestCase: BaseUiTestCase, ScreenOpener {
+    var testType: TestType {
+        .blackBox
+    }
+    
     // Prototype of fast launching, see usage:
     // UPD: Implemented in Avito. TODO: Sync with Mixbox.
     static var everLaunched = false

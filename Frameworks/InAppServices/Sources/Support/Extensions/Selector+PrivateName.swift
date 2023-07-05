@@ -7,8 +7,8 @@
 // TODO: Use everywhere
 extension Selector {
     // Suppresses `Use '#selector' instead of explicitly constructing a 'Selector'` warning
-    init(privateName: String) {
-        self.init(privateName)
+    public static func mb_init(privateName: String) -> Selector {
+        Selector(privateName)
     }
 }
 

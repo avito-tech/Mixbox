@@ -1,9 +1,10 @@
+import Foundation
 import XCTest
 @testable import MixboxTestability
 @testable import MixboxInAppServices
 import MixboxIpcCommon
 
-final class NSObjectTestabilityWithAccessibilityDisabledTests: TestCase {
+final class NSObjectTestabilityTests: BaseTestabilityTestCase {
     private let object = NSObject() as TestabilityElement
     
     func test_mb_testability_frame() {
@@ -25,6 +26,8 @@ final class NSObjectTestabilityWithAccessibilityDisabledTests: TestCase {
             object.mb_testability_customClass(),
             "NSObject"
         )
+        
+        class SwiftClass: NSObject {}
         
         XCTAssertEqual(
             (SwiftClass() as TestabilityElement).mb_testability_customClass(),
@@ -62,8 +65,8 @@ final class NSObjectTestabilityWithAccessibilityDisabledTests: TestCase {
         )
     }
     
-    // NOTE: Accessibility is disabled in Unit Tests (see `AccessibilityForTestAutomationInitializer`).
-    // The selector `accessibilityPlaceholderValue` is unavailable. Value should be nil.
+    // Regardless of the `accessibilityStatus`, the `Valuemb_testability_accessibilityPlaceholderValue` is nil.
+    // TODO: If `accessibilityPlaceholder` selector is available (`accessibilityStatus` is .full) check the value.
     func test_mb_testability_accessibilityPlaceholderValue() {
         XCTAssertEqual(
             object.mb_testability_accessibilityPlaceholderValue(),
@@ -119,5 +122,3 @@ final class NSObjectTestabilityWithAccessibilityDisabledTests: TestCase {
         )
     }
 }
-
-private class SwiftClass: NSObject {}

@@ -15,15 +15,15 @@ public final class ScrollViewIdlingResourceSwizzlerImpl: ScrollViewIdlingResourc
     
     public func swizzle() {
         swizzle(
-            originalSelector: Selector(privateName: "_scrollViewWillBeginDragging"),
+            originalSelector: Selector.mb_init(privateName: "_scrollViewWillBeginDragging"),
             swizzledSelector: #selector(UIScrollView.swizzled_ScrollViewIdlingResourceSwizzler__scrollViewWillBeginDragging)
         )
         swizzle(
-            originalSelector: Selector(privateName: "_scrollViewDidEndDraggingWithDeceleration:"),
+            originalSelector: Selector.mb_init(privateName: "_scrollViewDidEndDraggingWithDeceleration:"),
             swizzledSelector: #selector(UIScrollView.swizzled_ScrollViewIdlingResourceSwizzler__scrollViewDidEndDraggingWithDeceleration)
         )
         swizzle(
-            originalSelector: Selector(privateName: "_stopScrollDecelerationNotify:"),
+            originalSelector: Selector.mb_init(privateName: "_stopScrollDecelerationNotify:"),
             swizzledSelector: #selector(UIScrollView.swizzled_ScrollViewIdlingResourceSwizzler__stopScrollDecelerationNotify)
         )
     }

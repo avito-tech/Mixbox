@@ -17,13 +17,12 @@ final class InAppServicesDependencyCollectionRegisterer: DependencyCollectionReg
         di.register(type: PerformanceLogger.self) { _ in
             Singletons.performanceLogger
         }
-        // We have few tests that check this. (for example, `UIViewTestabilityWithAccessibilityEnabledTests`)
-        // Ideally it should be tested with a separate app, because this is
-        // not a default behavior. Main tests should be tested with default settings.
-        //
-        // Note: we want to test both cases, we sacrifice iOS 14 for this purpose
         di.register(type: AccessibilityForTestAutomationInitializer.self) { di in
-            if (try di.resolve() as IosVersionProvider).iosVersion().majorVersion == MixboxIosVersions.Supported.iOS14.majorVersion {
+            let shouldUsePrivateApi = AccessibilityForTestAutomationInitializerSettings.shouldUsePrivateApi(
+                iosVersion: (try di.resolve() as IosVersionProvider).iosVersion()
+            )
+            
+            if shouldUsePrivateApi {
                 return PrivateApiAccessibilityForTestAutomationInitializer(
                     runLoopSpinningWaiter: try di.resolve(),
                     accessibilityInitializationStatusProvider: try di.resolve(),

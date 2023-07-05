@@ -16,14 +16,18 @@ public final class Singletons {
             processInfo: ProcessInfo.processInfo
         )
         
-        let isRunningFromXcode: Bool = ProcessInfo.processInfo.environment["__XCODE_BUILT_PRODUCTS_DIR_PATHS"] != nil
-        
-        if isRunningFromXcode {
+        if ProcessInfo.processInfo.isRunningFromXcode {
             return DebugEnvironmentProvider(
                 originalEnvironmentProvider: environmentProvider
             )
         } else {
             return environmentProvider
         }
+    }
+}
+
+extension ProcessInfo {
+    public var isRunningFromXcode: Bool {
+        ProcessInfo.processInfo.environment["__XCODE_BUILT_PRODUCTS_DIR_PATHS"] != nil
     }
 }

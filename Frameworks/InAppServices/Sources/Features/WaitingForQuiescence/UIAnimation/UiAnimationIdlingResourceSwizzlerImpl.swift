@@ -64,7 +64,7 @@ public class UiAnimationIdlingResourceSwizzlerImpl: NSObject, UiAnimationIdlingR
      but by calling class_getMethodImplementation one can fetch the swizzled out implementation.
      */
     private typealias MarkStartFunction = @convention(c) (AnyObject, Selector, TimeInterval) -> Void
-    private var markStartSelector: Selector { return Selector(privateName: "markStart:") }
+    private var markStartSelector: Selector { return Selector.mb_init(privateName: "markStart:") }
     @objc fileprivate func swizzled_markStart(startTime: TimeInterval) {
         trackedAnimation.value = IdlingResourceObjectTracker.instance.track(parent: self)
         
@@ -73,7 +73,7 @@ public class UiAnimationIdlingResourceSwizzlerImpl: NSObject, UiAnimationIdlingR
     }
 
     private typealias MarkStopFunction = @convention(c) (AnyObject, Selector) -> Void
-    private var markStopSelector: Selector { return Selector(privateName: "markStop") }
+    private var markStopSelector: Selector { return Selector.mb_init(privateName: "markStop") }
     @objc fileprivate func swizzled_markStop() {
         trackedAnimation.value?.untrack()
 
