@@ -115,6 +115,10 @@ public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
             return newValue
         }
     }
+    
+    @objc override public func mb_testability_getSerializedCustomValues() -> [String: String] {
+        nsObject.mb_testability_customValues.serializedDictionary
+    }
 }
 
 private var mb_testability_uniqueIdentifier_associatedValueKey = 0

@@ -121,7 +121,7 @@ public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabel
             uniqueIdentifier: element.mb_testability_uniqueIdentifier(),
             isDefinitelyHidden: element.mb_testability_isDefinitelyHidden(),
             text: element.mb_testability_text(),
-            customValues: element.mb_testability_customValues.dictionary
+            customValues: element.mb_testability_getSerializedCustomValues()
         )
         
         AccessibilityUniqueObjectMap.shared.register(element: element)

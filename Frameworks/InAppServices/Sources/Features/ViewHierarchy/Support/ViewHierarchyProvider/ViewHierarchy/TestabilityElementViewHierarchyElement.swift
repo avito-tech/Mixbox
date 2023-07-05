@@ -88,7 +88,7 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     }
     
     public var customValues: [String: String] {
-        testabilityElement.mb_testability_customValues.dictionary
+        testabilityElement.mb_testability_getSerializedCustomValues()
     }
     
     public var children: RandomAccessCollectionOf<ViewHierarchyElement, Int> {

@@ -247,7 +247,7 @@ final class ScrollingHintsProvider {
         let targetRect = instruction.targetRect
         
         if let scrollViewSuperview = scrollView.superview {
-            let visibleScrollViewFrameInWindow = scrollViewSuperview.convert(scrollView.frame, to: nil)
+            let visibleScrollViewFrameInWindow = scrollViewSuperview.convert(scrollView.frame, to: nil) // TODO: use scrollView.mb_frameRelativeToScreen()
                 .mb_shrinked(scrollView.contentInset)
                 .mb_cutBottom(keyboardFrameService.nextKeyboardFrameInWindow)
             

@@ -15,6 +15,7 @@ import Foundation
 private var testability_customValues_associatedObjectKey = 0
 
 extension TestabilityElement {
+    // Associated custom values.
     public var mb_testability_customValues: TestabilityCustomValues {
         if let value = objc_getAssociatedObject(self, &testability_customValues_associatedObjectKey) as? TestabilityCustomValues {
             return value

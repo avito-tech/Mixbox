@@ -13,6 +13,8 @@
 
 @implementation NSObject (Testability)
 
+// MARK: - Fields
+ 
 - (CGRect)mb_testability_frame {
     return [self.impl mb_testability_frame];
 }
@@ -72,6 +74,12 @@
 - (nullable id<TestabilityElement>)mb_testability_parent {
     return [self.impl mb_testability_parent];
 }
+
+- (nonnull NSDictionary<NSString *, NSString *> *)mb_testability_getSerializedCustomValues {
+    return [self.impl mb_testability_getSerializedCustomValues];
+}
+
+// MARK: - Support
 
 - (NSObjectTestabilityElementSwiftImplementation *)impl {
     return [[NSObjectTestabilityElementSwiftImplementation alloc] initWithNsObject:self];

@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
-extension NSObject: TestabilityElement {}
+extension NSObject: TestabilityElement {
+}
 
 #endif

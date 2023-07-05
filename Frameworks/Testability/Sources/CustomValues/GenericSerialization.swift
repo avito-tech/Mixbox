@@ -50,6 +50,7 @@ public final class GenericSerialization {
             return nil
         }
         
+        // TODO: Handle errors
         return try? decoder.decode(Container<T>.self, from: data).value
     }
 }

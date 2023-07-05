@@ -26,6 +26,7 @@
 - (BOOL)mb_testability_hasKeyboardFocus;
 - (nullable id<TestabilityElement>)mb_testability_parent;
 - (nonnull NSArray<id<TestabilityElement>> *)mb_testability_children;
+- (nonnull NSDictionary<NSString *, NSString *> *)mb_testability_getSerializedCustomValues;
 
 @end
 

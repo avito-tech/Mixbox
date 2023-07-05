@@ -10,6 +10,9 @@ import MixboxIpcCommon
 import MixboxFoundation
 import MixboxTestability
 
+// TODO: If feature will be stable, this class can be simplified. It is turning out that
+// we just want to patch windows, and existing code of drawing and getting view hierarchy can just operate
+// with patched windows, no `keyboardDrawingMode` and `patchedElementHierarchy` are needed.
 public final class KeyboardWindowExposerImpl: KeyboardWindowExposer {
     private let keyboardWindowExposerPreconditionValidator: KeyboardWindowExposerPreconditionValidator
     
@@ -56,27 +59,10 @@ public final class KeyboardWindowExposerImpl: KeyboardWindowExposer {
             precondition: precondition,
             shouldThrowErrorIfPublicUiRemoteKeyboardWindowIsPresentInHierarchy: false
         ).map { window -> ViewHierarchyElement in
-            if window === precondition.privateUiRemoteKeyboardWindow {
-                return OverridingChildrenTestabilityElementViewHierarchyElement(
-                    testabilityElement: window,
-                    floatValuesForSr5346Patcher: precondition.floatValuesForSr5346Patcher,
-                    overrideChild: { testabilityElement in
-                        if testabilityElement === precondition.keyboardLayout {
-                            return KeyboardLayoutViewHierarchyElement(
-                                keyboardLayout: precondition.keyboardLayout,
-                                floatValuesForSr5346Patcher: precondition.floatValuesForSr5346Patcher
-                            )
-                        } else {
-                            return nil
-                        }
-                    }
-                )
-            } else {
-                return TestabilityElementViewHierarchyElement(
-                    testabilityElement: window,
-                    floatValuesForSr5346Patcher: precondition.floatValuesForSr5346Patcher
-                )
-            }
+            TestabilityElementViewHierarchyElement(
+                testabilityElement: window,
+                floatValuesForSr5346Patcher: precondition.floatValuesForSr5346Patcher
+            )
         }
     }
     

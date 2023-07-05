@@ -2,7 +2,6 @@
 
 #import "TestabilityElementType.h"
 
-// NOTE: `customValues` is purely a Swift feature.
 @protocol TestabilityElement
 
 - (CGRect)mb_testability_frame;
@@ -91,5 +90,7 @@
 - (nullable id<TestabilityElement>)mb_testability_parent;
 
 - (nonnull NSArray<id<TestabilityElement>> *)mb_testability_children;
+
+- (nonnull NSDictionary<NSString *, NSString *> *)mb_testability_getSerializedCustomValues;
 
 @end

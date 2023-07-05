@@ -92,6 +92,10 @@ open class BaseTestabilityElement: TestabilityElement {
     open func mb_testability_uniqueIdentifier() -> String {
         return uniqueIdentifier
     }
+    
+    open func mb_testability_getSerializedCustomValues() -> [String: String] {
+        return mb_testability_customValues.serializedDictionary
+    }
 }
 
 #endif

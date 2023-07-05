@@ -43,6 +43,7 @@ public protocol ViewHierarchyElement {
     
     // Custom values that can be set in the application for testing. Example: you can set coordinates of the map
     // inside a property in the app and validate them in tests.
+    // NOTE: Values are serialized. Use `TestabilityCustomValues` to serialize/deserialize.
     var customValues: [String: String] { get }
     
     var children: RandomAccessCollectionOf<ViewHierarchyElement, Int> { get }

@@ -40,8 +40,13 @@ public final class KeyboardPrivateApi {
         uiKeyboardImpl.setAutomaticMinimizationEnabled(automaticMinimizationEnabled)
     }
     
-    public func layout() -> UIView? {
-        uiKeyboardImpl._layout()
+    public func layout() -> KeyboardLayout? {
+        uiKeyboardImpl._layout().map {
+            KeyboardLayout(
+                underlyingPrivateApiObject: $0,
+                underlyingPublicApiObject: $0
+            )
+        }
     }
     
     public func subtractKeyboardFrame(rect: CGRect, view: UIView) -> CGRect {

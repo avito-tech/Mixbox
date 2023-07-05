@@ -85,11 +85,11 @@ final class KeyboardWindowExposerPreconditionValidator {
     private func findPrivateKeyboardViews(
         uiInputSetHostViewClass: AnyClass,
         uiRemoteKeyboardWindowClass: AnyClass,
-        keyboardLayout: UIView
+        keyboardLayout: KeyboardLayout
     ) throws -> PrivateKeyboardViews {
         var uiInputSetHostViewOrNil: UIView?
         
-        var viewPointer = keyboardLayout
+        var viewPointer: UIView = keyboardLayout.underlyingObject
         while let superview = viewPointer.superview {
             if viewPointer.isKind(of: uiInputSetHostViewClass) {
                 uiInputSetHostViewOrNil = viewPointer

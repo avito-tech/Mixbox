@@ -18,7 +18,7 @@ struct KeyboardWindowExposerPrecondition {
     let publicUiRemoteKeyboardWindow: UIWindow? // Not present on iOS 16
     let privateUiRemoteKeyboardWindow: UIWindow
     let privateUiRemoteKeyboardWindowInputSetHostView: UIView
-    let keyboardLayout: UIView
+    let keyboardLayout: KeyboardLayout
     
     let uiTextEffectsWindowClass: AnyClass
     let uiRemoteKeyboardWindowClass: AnyClass

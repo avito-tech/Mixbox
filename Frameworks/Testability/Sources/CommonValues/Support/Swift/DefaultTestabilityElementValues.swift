@@ -8,19 +8,19 @@ import UIKit
 
 // Default return values for `TestabilityElement`, can be used in various implementations.
 public final class DefaultTestabilityElementValues {
-    static let accessibilityIdentifier: String? = nil
-    static let accessibilityLabel: String? = nil
-    static let accessibilityPlaceholderValue: String? = nil
-    static let accessibilityValue: String? = nil
-    static let parent: TestabilityElement? = nil
-    static let children: [TestabilityElement] = []
-    static let elementType: TestabilityElementType = .other
-    static let frame: CGRect = .null
-    static let frameRelativeToScreen: CGRect = .null
-    static let hasKeyboardFocus: Bool = false
-    static let isDefinitelyHidden: Bool = false
-    static let isEnabled: Bool = false
-    static let text: String? = nil
+    static var accessibilityIdentifier: String? { nil }
+    static var accessibilityLabel: String? { nil }
+    static var accessibilityPlaceholderValue: String? { nil }
+    static var accessibilityValue: String? { nil }
+    static var parent: TestabilityElement? { nil }
+    static var children: [TestabilityElement] { [] }
+    static var elementType: TestabilityElementType { .other }
+    static var frame: CGRect { .null }
+    static var frameRelativeToScreen: CGRect { .null }
+    static var hasKeyboardFocus: Bool { false }
+    static var isDefinitelyHidden: Bool { false }
+    static var isEnabled: Bool { false }
+    static var text: String? { nil }
 }
 
 #endif

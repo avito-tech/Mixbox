@@ -4,7 +4,13 @@
 // The compilation is disabled
 #else
 
+@import UIKit;
+
+#import "UIKBTree.h"
+
 @interface UIKeyboardLayout: UIView
+
+- (nullable UIKBTree *)keyplane; // We did not check if it is non-nullable or nullable.
 
 @end
 

@@ -24,6 +24,7 @@ public final class DtoTestabilityElement: TestabilityElement {
     public let isEnabled: Bool
     public let text: String?
     public let uniqueIdentifier: String
+    public let testabilityCustomValues: [String: String]
     
     public init(
         accessibilityIdentifier: String?,
@@ -40,8 +41,9 @@ public final class DtoTestabilityElement: TestabilityElement {
         isDefinitelyHidden: Bool,
         isEnabled: Bool,
         text: String?,
-        uniqueIdentifier: String)
-    {
+        uniqueIdentifier: String,
+        testabilityCustomValues: [String: String]
+    ) {
         self.accessibilityIdentifier = accessibilityIdentifier
         self.accessibilityLabel = accessibilityLabel
         self.accessibilityPlaceholderValue = accessibilityPlaceholderValue
@@ -57,6 +59,7 @@ public final class DtoTestabilityElement: TestabilityElement {
         self.isEnabled = isEnabled
         self.text = text
         self.uniqueIdentifier = uniqueIdentifier
+        self.testabilityCustomValues = testabilityCustomValues
     }
     
     public func mb_testability_accessibilityIdentifier() -> String? {
@@ -117,6 +120,10 @@ public final class DtoTestabilityElement: TestabilityElement {
 
     public func mb_testability_uniqueIdentifier() -> String {
         return uniqueIdentifier
+    }
+    
+    public func mb_testability_getSerializedCustomValues() -> [String: String] {
+        return testabilityCustomValues
     }
 }
 
