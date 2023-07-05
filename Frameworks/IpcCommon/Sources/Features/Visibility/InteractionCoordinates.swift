@@ -32,11 +32,13 @@ public final class InteractionCoordinates: Codable {
     public let mode: Mode?
     
     // Default: use visible point closest to center
-    public static let `default` = InteractionCoordinates(
-        normalizedCoordinate: nil,
-        absoluteOffset: nil,
-        mode: nil
-    )
+    public static var `default`: InteractionCoordinates {
+        InteractionCoordinates(
+            normalizedCoordinate: nil,
+            absoluteOffset: nil,
+            mode: nil
+        )
+    }
     
     public init(
         normalizedCoordinate: CGPoint? = nil,

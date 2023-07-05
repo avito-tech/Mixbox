@@ -11,7 +11,10 @@ import MixboxTestability
 public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabelFunctionReplacement {
     private var thisPointersInStack = [NSObject?]()
     
-    public init() {
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
+    
+    public init(accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap) {
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
     }
     
     public func accessibilityLabel(
@@ -124,7 +127,7 @@ public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabel
             customValues: element.mb_testability_getSerializedCustomValues()
         )
         
-        AccessibilityUniqueObjectMap.shared.register(element: element)
+        accessibilityUniqueObjectMap.register(element: element)
         
         return (label.toAccessibilityLabel() as NSString?) ?? unwrappedOriginalAccessibilityLabel
     }

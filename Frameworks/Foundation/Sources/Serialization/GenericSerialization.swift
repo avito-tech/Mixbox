@@ -10,7 +10,7 @@
 // you should expect is that you can decode encoded object and get the same object.
 // TODO: Use Decodable and Encodable separately.
 public final class GenericSerialization {
-    private static let encoding: String.Encoding = .utf8
+    private static var encoding: String.Encoding { .utf8 }
     
     public static func serialize<T: Codable>(
         value: T)

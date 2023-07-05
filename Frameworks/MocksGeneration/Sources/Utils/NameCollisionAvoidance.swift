@@ -36,16 +36,18 @@ public final class NameCollisionAvoidance {
         }
     }
     
-    private static let determinsticRandomStrings = [
-        "apggwNGy1a",
-        "WcY2UCRXln",
-        "vJbFri7odJ",
-        "hgKBtZm3ha",
-        "TGKuoqfXS5",
-        "8r9FS3bi5B",
-        "mHcek7gVNv",
-        "tS8pdaJ0Rk",
-        "uwyWmDEyYP",
-        "VckWL54R2n"
-    ]
+    private static var determinsticRandomStrings: [String] {
+        [
+            "apggwNGy1a",
+            "WcY2UCRXln",
+            "vJbFri7odJ",
+            "hgKBtZm3ha",
+            "TGKuoqfXS5",
+            "8r9FS3bi5B",
+            "mHcek7gVNv",
+            "tS8pdaJ0Rk",
+            "uwyWmDEyYP",
+            "VckWL54R2n"
+        ]
+    }
 }

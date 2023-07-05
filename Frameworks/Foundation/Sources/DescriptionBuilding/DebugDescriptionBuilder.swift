@@ -5,9 +5,9 @@
 #else
 
 public final class DebugDescriptionBuilder: CustomDebugStringConvertible {
-    private static let indentation = "    "
-    private static let descriptionOfNil = "nil"
-    private static let doubledIndentation = String(repeating: indentation, count: 2)
+    private static var indentation: String { "    " }
+    private static var descriptionOfNil: String { "nil" }
+    private static var doubledIndentation: String { String(repeating: indentation, count: 2) }
     
     private let name: String
     

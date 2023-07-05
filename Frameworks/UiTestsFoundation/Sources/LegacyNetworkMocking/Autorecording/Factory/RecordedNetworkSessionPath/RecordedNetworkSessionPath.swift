@@ -4,7 +4,7 @@ public final class RecordedNetworkSessionPath {
     public let resourceName: String // e.g.: "session.json"
     public let sourceCodePath: String // e.g.: "/path/to/session.json"
     
-    public static let defaultExtension = "recordedNetworkSession.json"
+    public static var defaultExtension: String { "recordedNetworkSession.json" }
     
     public init(
         resourceName: String,

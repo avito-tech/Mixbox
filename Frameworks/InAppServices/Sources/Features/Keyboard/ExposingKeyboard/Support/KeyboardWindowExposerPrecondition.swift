@@ -12,6 +12,7 @@ struct KeyboardWindowExposerPrecondition {
     let keyboardPrivateApi: KeyboardPrivateApi
     let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
     let iosVersionProvider: IosVersionProvider
+    let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     
     // These are calculated properties
     let uiTextEffectsWindow: UIWindow

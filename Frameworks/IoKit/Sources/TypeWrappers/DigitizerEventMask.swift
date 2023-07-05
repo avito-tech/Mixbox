@@ -11,21 +11,21 @@ public struct DigitizerEventMask: OptionSet {
         self.rawValue = rawValue
     }
     
-    public static let range = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.range.rawValue)
-    public static let touch = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.touch.rawValue)
-    public static let position = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.position.rawValue)
-    public static let stop = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.stop.rawValue)
-    public static let peak = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.peak.rawValue)
-    public static let identity = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.identity.rawValue)
-    public static let attribute = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.attribute.rawValue)
-    public static let cancel = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.cancel.rawValue)
-    public static let start = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.start.rawValue)
-    public static let resting = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.resting.rawValue)
-    public static let swipeUp = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeUp.rawValue)
-    public static let swipeDown = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeDown.rawValue)
-    public static let swipeLeft = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeLeft.rawValue)
-    public static let swipeRight = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeRight.rawValue)
-    public static let swipeMask = DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeMask.rawValue)
+    public static var range: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.range.rawValue) }
+    public static var touch: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.touch.rawValue) }
+    public static var position: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.position.rawValue) }
+    public static var stop: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.stop.rawValue) }
+    public static var peak: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.peak.rawValue) }
+    public static var identity: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.identity.rawValue) }
+    public static var attribute: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.attribute.rawValue) }
+    public static var cancel: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.cancel.rawValue) }
+    public static var start: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.start.rawValue) }
+    public static var resting: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.resting.rawValue) }
+    public static var swipeUp: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeUp.rawValue) }
+    public static var swipeDown: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeDown.rawValue) }
+    public static var swipeLeft: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeLeft.rawValue) }
+    public static var swipeRight: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeRight.rawValue) }
+    public static var swipeMask: DigitizerEventMask { DigitizerEventMask(rawValue: IOHIDDigitizerEventMask.swipeMask.rawValue) }
     
     public var iohidDigitizerEventMask: IOHIDDigitizerEventMask {
         return IOHIDDigitizerEventMask(rawValue: rawValue)

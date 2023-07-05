@@ -11,16 +11,19 @@ import MixboxIpcCommon
 open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     private let testabilityElement: TestabilityElement
     private let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     
     public init(
         testabilityElement: TestabilityElement,
-        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
+        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     ) {
-        // TODO: Remove AccessibilityUniqueObjectMap singleton
-        AccessibilityUniqueObjectMap.shared.register(element: testabilityElement)
+        // TODO: Remove side-effects from init
+        accessibilityUniqueObjectMap.register(element: testabilityElement)
         
         self.testabilityElement = testabilityElement
         self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
     }
     
     public var frame: CGRect {
@@ -93,10 +96,11 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     
     public var children: RandomAccessCollectionOf<ViewHierarchyElement, Int> {
         RandomAccessCollectionOf(
-            testabilityElement.mb_testability_children().lazy.map { [floatValuesForSr5346Patcher] testabilityElement in
+            testabilityElement.mb_testability_children().lazy.map { [floatValuesForSr5346Patcher, accessibilityUniqueObjectMap] testabilityElement in
                 TestabilityElementViewHierarchyElement(
                     testabilityElement: testabilityElement,
-                    floatValuesForSr5346Patcher: floatValuesForSr5346Patcher
+                    floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
+                    accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
                 )
             }
         )

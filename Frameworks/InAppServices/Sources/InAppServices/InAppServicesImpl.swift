@@ -134,11 +134,15 @@ public final class InAppServicesImpl: InAppServices {
         dependencyResolver: DependencyResolver)
         throws
     {
-        router.register(methodHandler: ScrollingHintIpcMethodHandler())
-        router.register(methodHandler: CheckVisibilityIpcMethodHandler(
-            viewVisibilityChecker: try dependencyResolver.resolve(),
-            nonViewVisibilityChecker: try dependencyResolver.resolve(),
-            iosVersionProvider: try dependencyResolver.resolve()
+        router.register(methodHandler: try ScrollingHintIpcMethodHandler(
+            scrollingHintsForViewProvider: dependencyResolver.resolve(),
+            accessibilityUniqueObjectMap: dependencyResolver.resolve()
+        ))
+        router.register(methodHandler: try CheckVisibilityIpcMethodHandler(
+            viewVisibilityChecker: dependencyResolver.resolve(),
+            nonViewVisibilityChecker: dependencyResolver.resolve(),
+            iosVersionProvider: dependencyResolver.resolve(),
+            accessibilityUniqueObjectMap: dependencyResolver.resolve()
         ))
         router.register(
             methodHandler: ViewHierarchyIpcMethodHandler(
@@ -148,8 +152,12 @@ public final class InAppServicesImpl: InAppServices {
         
         router.register(methodHandler: OpenUrlIpcMethodHandler())
         
-        router.register(methodHandler: SimulateLocationIpcMethodHandler())
-        router.register(methodHandler: StopLocationSimulationIpcMethodHandler())
+        router.register(methodHandler: try SimulateLocationIpcMethodHandler(
+            locationSimulationManager: dependencyResolver.resolve()
+        ))
+        router.register(methodHandler: try StopLocationSimulationIpcMethodHandler(
+            locationSimulationManager: dependencyResolver.resolve()
+        ))
         
         router.register(
             methodHandler: InjectKeyboardEventsIpcMethodHandler(

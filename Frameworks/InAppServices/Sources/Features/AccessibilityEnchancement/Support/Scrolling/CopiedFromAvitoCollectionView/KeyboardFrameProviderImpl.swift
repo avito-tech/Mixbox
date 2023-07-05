@@ -36,7 +36,7 @@ private class KeyboardFrameObservers {
 }
 
 // MARK: -
-public final class KeyboardFrameService: KeyboardFrameProvider {
+public final class KeyboardFrameProviderImpl: KeyboardFrameProvider {
     private let keyboardFrameObservers = KeyboardFrameObservers()
     
     // Note: Keyboard frames are relative to screen (can be converted from view nil)

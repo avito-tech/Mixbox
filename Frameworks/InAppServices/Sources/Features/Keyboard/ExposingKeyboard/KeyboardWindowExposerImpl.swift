@@ -15,16 +15,20 @@ import MixboxTestability
 // with patched windows, no `keyboardDrawingMode` and `patchedElementHierarchy` are needed.
 public final class KeyboardWindowExposerImpl: KeyboardWindowExposer {
     private let keyboardWindowExposerPreconditionValidator: KeyboardWindowExposerPreconditionValidator
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     
     public init(
         keyboardPrivateApi: KeyboardPrivateApi,
         iosVersionProvider: IosVersionProvider,
-        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
+        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     ) {
-        keyboardWindowExposerPreconditionValidator = KeyboardWindowExposerPreconditionValidator(
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
+        self.keyboardWindowExposerPreconditionValidator = KeyboardWindowExposerPreconditionValidator(
             keyboardPrivateApi: keyboardPrivateApi,
             iosVersionProvider: iosVersionProvider,
-            floatValuesForSr5346Patcher: floatValuesForSr5346Patcher
+            floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
+            accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
         )
     }
     
@@ -61,7 +65,8 @@ public final class KeyboardWindowExposerImpl: KeyboardWindowExposer {
         ).map { window -> ViewHierarchyElement in
             TestabilityElementViewHierarchyElement(
                 testabilityElement: window,
-                floatValuesForSr5346Patcher: precondition.floatValuesForSr5346Patcher
+                floatValuesForSr5346Patcher: precondition.floatValuesForSr5346Patcher,
+                accessibilityUniqueObjectMap: precondition.accessibilityUniqueObjectMap
             )
         }
     }

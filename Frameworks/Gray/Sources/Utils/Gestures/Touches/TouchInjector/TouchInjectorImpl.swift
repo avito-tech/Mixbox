@@ -26,8 +26,8 @@ public final class TouchInjectorImpl: TouchInjector {
     }
     
     public final class Constants {
-        static let injectionFrequency: TimeInterval = 60
-        static let timeIntervalBetweenEachTouchInjection: TimeInterval = 1 / injectionFrequency
+        static var injectionFrequency: TimeInterval { 60 }
+        static var timeIntervalBetweenEachTouchInjection: TimeInterval { 1 / injectionFrequency }
     }
     
     // MARK: - Dependencies

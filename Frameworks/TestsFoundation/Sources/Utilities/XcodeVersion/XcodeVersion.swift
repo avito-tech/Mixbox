@@ -4,12 +4,24 @@ public final class XcodeVersion: Comparable {
     public let minor: Int
     public let patch: Int
     
-    public static let xcode_10_0 = XcodeVersion(major: 10, minor: 0)
-    public static let xcode_10_1 = XcodeVersion(major: 10, minor: 1)
-    public static let xcode_10_2 = XcodeVersion(major: 10, minor: 2)
-    public static let xcode_10_2_1 = XcodeVersion(major: 10, minor: 2, patch: 1)
-    public static let xcode_10_3 = XcodeVersion(major: 10, minor: 3)
-    public static let xcode_11_0 = XcodeVersion(major: 11, minor: 0)
+    public static var xcode_10_0: XcodeVersion {
+        XcodeVersion(major: 10, minor: 0)
+    }
+    public static var xcode_10_1: XcodeVersion {
+        XcodeVersion(major: 10, minor: 1)
+    }
+    public static var xcode_10_2: XcodeVersion {
+        XcodeVersion(major: 10, minor: 2)
+    }
+    public static var xcode_10_2_1: XcodeVersion {
+        XcodeVersion(major: 10, minor: 2, patch: 1)
+    }
+    public static var xcode_10_3: XcodeVersion {
+        XcodeVersion(major: 10, minor: 3)
+    }
+    public static var xcode_11_0: XcodeVersion {
+        XcodeVersion(major: 11, minor: 0)
+    }
     
     public init(
         major: Int,

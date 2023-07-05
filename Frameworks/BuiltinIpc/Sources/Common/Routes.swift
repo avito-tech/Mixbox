@@ -5,7 +5,7 @@
 #else
 
 final class Routes {
-    static let ipcMethod = "ipcMethod"
+    static var ipcMethod: String { "ipcMethod" }
 }
 
 #endif

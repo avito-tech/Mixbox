@@ -11,15 +11,18 @@ final class KeyboardWindowExposerPreconditionValidator {
     private let keyboardPrivateApi: KeyboardPrivateApi
     private let iosVersionProvider: IosVersionProvider
     private let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     
     init(
         keyboardPrivateApi: KeyboardPrivateApi,
         iosVersionProvider: IosVersionProvider,
-        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
+        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     ) {
         self.keyboardPrivateApi = keyboardPrivateApi
         self.iosVersionProvider = iosVersionProvider
         self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
     }
     
     func validatePreconditionForExposure(
@@ -63,6 +66,7 @@ final class KeyboardWindowExposerPreconditionValidator {
                 keyboardPrivateApi: keyboardPrivateApi,
                 floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
                 iosVersionProvider: iosVersionProvider,
+                accessibilityUniqueObjectMap: accessibilityUniqueObjectMap,
                 
                 uiTextEffectsWindow: uiTextEffectsWindow,
                 publicUiRemoteKeyboardWindow: publicUiRemoteKeyboardWindow,

@@ -2,12 +2,12 @@ import UIKit
 
 // It is shared between a view and a test that uses the view.
 public final class FakeCellsTestsConstants {
-    public static let setsCount = 4 // tested on iPhone 6 Plus
-    public static let cellsInSetCount = 4
-    public static let customSubviewsCount = 2  // one at the top, one at the bottom
+    public static var setsCount: Int { 4 } // tested on iPhone 6 Plus
+    public static var cellsInSetCount: Int { 4 }
+    public static var customSubviewsCount: Int { 2 }  // one at the top, one at the bottom
     
     public static var lastSetId = setsCount - 1
-    public static let itemHeight: CGFloat = 80
+    public static var itemHeight: CGFloat { 80 }
     
     public static func accessibilityId(
         _ caseId: String,

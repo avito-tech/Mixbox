@@ -1,5 +1,5 @@
 extension String {
-    private static let newLine = "\n"
+    private static var newLine: String { "\n" }
     
     func indent(level: Int = 1, includingFirstLine: Bool = false) -> String {
         let indentation = String(repeating: " ", count: level * 4)

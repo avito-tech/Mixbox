@@ -7,31 +7,28 @@
 import Foundation
 import CoreLocation
 
-final class LocationSimulationManager {
-    
-    static let shared: LocationSimulationManager = LocationSimulationManager()
-    
+public final class LocationSimulationManagerImpl: LocationSimulationManager {
     private let manager: CLSimulationManager = CLSimulationManager()
     
-    private init() {}
+    public init() {}
     
-    func startLocationSimulation() {
+    public func startLocationSimulation() {
         manager.startLocationSimulation()
     }
     
-    func stopLocationSimulation() {
+    public func stopLocationSimulation() {
         manager.stopLocationSimulation()
     }
     
-    func appendSimulatedLocation(_ location: CLLocation) {
+    public func appendSimulatedLocation(_ location: CLLocation) {
         manager.appendSimulatedLocation(location)
     }
     
-    func clearSimulatedLocations() {
+    public func clearSimulatedLocations() {
         manager.clearSimulatedLocations()
     }
     
-    func flush() {
+    public func flush() {
         manager.flush()
     }
 }

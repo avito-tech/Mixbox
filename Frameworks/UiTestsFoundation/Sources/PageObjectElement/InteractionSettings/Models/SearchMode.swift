@@ -22,5 +22,5 @@ public enum ScrollMode: Equatable {
     // gestures can not be calculated until it visually appears on screen).
     case blind
     
-    public static let `default`: ScrollMode = .definite
+    public static var `default`: ScrollMode { .definite }
 }

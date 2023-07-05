@@ -245,13 +245,13 @@ extension UIDevice {
         }
     }
     
-    public static let mb_isSimulator: Bool = {
+    public static var mb_isSimulator: Bool {
         #if targetEnvironment(simulator)
         return true
         #else
         return false
         #endif
-    }()
+    }
     
     public static var mb_platform: String {
         if UIDevice.mb_isSimulator {

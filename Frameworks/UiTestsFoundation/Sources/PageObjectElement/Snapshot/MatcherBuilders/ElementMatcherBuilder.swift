@@ -174,5 +174,7 @@ public final class ElementMatcherBuilder {
     // We were comparing `String` to `String?` before, this is a temporary kludge to achieve same behavior.
     // Before: func a(b: String, c: String?) { return b == c } // if c == nil, then false is returned
     // After: func a(b: String, c: String) { return b == c } // if c is uuid, then false is returned
-    private static let valueToMimicComparisonOfStringToNil = "(the value is actually nil) This string is a kludge, it is used as a replacement for nils, because optional matcher builders are not implemented."
+    private static var valueToMimicComparisonOfStringToNil: String {
+        "(the value is actually nil) This string is a kludge, it is used as a replacement for nils, because optional matcher builders are not implemented."
+    }
 }

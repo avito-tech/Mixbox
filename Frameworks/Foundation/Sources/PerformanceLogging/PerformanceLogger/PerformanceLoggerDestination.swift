@@ -8,8 +8,13 @@ public enum PerformanceLoggerDestination: Int, Hashable {
     case signpost
     case graphite
     
-    public static let allDestinations: Set<PerformanceLoggerDestination> = [.signpost, .graphite]
-    public static let signpostDestinations: Set<PerformanceLoggerDestination> = [.signpost]
+    public static var allDestinations: Set<PerformanceLoggerDestination> {
+        [.signpost, .graphite]
+    }
+    
+    public static var signpostDestinations: Set<PerformanceLoggerDestination> {
+        [.signpost]
+    }
 }
 
 #endif

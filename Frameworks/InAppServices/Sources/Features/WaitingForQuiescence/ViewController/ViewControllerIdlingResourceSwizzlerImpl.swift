@@ -74,7 +74,7 @@ public final class ViewControllerIdlingResourceSwizzlerImpl: ViewControllerIdlin
 }
 
 extension UIViewController {
-    private static let keyboardRelatedViewControllerClasses: [AnyClass] = {
+    private static var keyboardRelatedViewControllerClasses: [AnyClass] {
         var classes = [AnyClass]()
         
         let classNames = [
@@ -89,7 +89,7 @@ extension UIViewController {
         }
         
         return classes
-    }()
+    }
     
     private func isKeyboardRelatedViewControllerClass() -> Bool {
         return UIViewController.keyboardRelatedViewControllerClasses.contains { keyboardRelatedViewControllerClass in

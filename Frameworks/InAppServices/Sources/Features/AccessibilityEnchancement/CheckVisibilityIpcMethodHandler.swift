@@ -16,25 +16,28 @@ final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {
     private let viewVisibilityChecker: ViewVisibilityChecker
     private let nonViewVisibilityChecker: NonViewVisibilityChecker
     private let iosVersionProvider: IosVersionProvider
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     
     init(
         viewVisibilityChecker: ViewVisibilityChecker,
         nonViewVisibilityChecker: NonViewVisibilityChecker,
-        iosVersionProvider: IosVersionProvider
+        iosVersionProvider: IosVersionProvider,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     ) {
         self.viewVisibilityChecker = viewVisibilityChecker
         self.nonViewVisibilityChecker = nonViewVisibilityChecker
         self.iosVersionProvider = iosVersionProvider
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
     }
     
     func handle(
         arguments: CheckVisibilityIpcMethod.Arguments,
         completion: @escaping (CheckVisibilityIpcMethod.ReturnValue) -> ())
     {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [accessibilityUniqueObjectMap] in
             let uniqueIdentifier = arguments.elementUniqueIdentifier
             
-            guard let element = AccessibilityUniqueObjectMap.shared.locate(uniqueIdentifier: uniqueIdentifier) else {
+            guard let element = accessibilityUniqueObjectMap.locate(uniqueIdentifier: uniqueIdentifier) else {
                 completion(.error(ErrorString(
                     "Failed to locate element with id '\(uniqueIdentifier)' in AccessibilityUniqueObjectMap"
                 )))

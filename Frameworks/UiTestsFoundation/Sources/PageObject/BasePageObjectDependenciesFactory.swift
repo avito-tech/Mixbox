@@ -24,7 +24,7 @@ open class BasePageObjectDependenciesFactory: PageObjectDependenciesFactory {
             )
         }
         localDi.register(type: ScrollingHintsProvider.self) { di in
-            ScrollingHintsProviderImpl(
+            IpcScrollingHintsProvider(
                 ipcClient: try di.resolve()
             )
         }

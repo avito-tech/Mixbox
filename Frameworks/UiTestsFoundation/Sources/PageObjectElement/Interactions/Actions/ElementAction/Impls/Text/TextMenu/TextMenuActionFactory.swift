@@ -1,5 +1,13 @@
 final class TextMenuTitles {
-    static let selectAll = ["Выбрать все", "Select All"]
-    static let cut = ["Вырезать", "Cut"]
-    static let paste = ["Вставить", "Paste"]
+    static var selectAll: [String] {
+        ["Выбрать все", "Select All"]
+    }
+    
+    static var cut: [String] {
+        ["Вырезать", "Cut"]
+    }
+    
+    static var paste: [String] {
+        ["Вставить", "Paste"]
+    }
 }

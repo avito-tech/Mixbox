@@ -5,8 +5,6 @@
 #else
 
 #import "UIKeyboardLayout+Testability.h"
-#import "TestabilityElementType.h"
-#import "TestabilityElement.h"
 
 #import <MixboxInAppServices/MixboxInAppServices-Swift.h>
 

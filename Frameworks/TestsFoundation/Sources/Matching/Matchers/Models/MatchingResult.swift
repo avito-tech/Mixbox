@@ -1,6 +1,6 @@
 public enum MatchingResult: Equatable {
-    public static let exactMismatchPercentage: Double = 0
-    public static let exactMatchPercentage: Double = 1
+    public static var exactMismatchPercentage: Double { 0 }
+    public static var exactMatchPercentage: Double { 1 }
     
     case mismatch(MismatchResult)
     case match

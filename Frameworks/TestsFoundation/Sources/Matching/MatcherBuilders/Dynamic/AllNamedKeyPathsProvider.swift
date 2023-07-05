@@ -8,9 +8,11 @@
 ///     let a: Int
 ///     let b: Int
 ///
-///     static let allNamedKeyPaths = NamedKeyPaths<Self> {
-///         $0.a = "a"
-///         $0.b = "b"
+///     static var allNamedKeyPaths: NamedKeyPaths<Self> {
+///         NamedKeyPaths {
+///             $0.a = "a"
+///             $0.b = "b"
+///         }
 ///     }
 /// }
 /// ```
@@ -22,11 +24,13 @@
 ///     let a: Int
 ///     let b: Int
 ///
-///     static let allNamedKeyPaths = NamedKeyPaths<Self>(
-///         keyPathByName: [
-///             "a": \MyStruct.a,
-///             "b": \MyStruct.b,
-///         ]
+///     static var allNamedKeyPaths: NamedKeyPaths<Self> {
+///         NamedKeyPaths(
+///             keyPathByName: [
+///                 "a": \MyStruct.a,
+///                 "b": \MyStruct.b,
+///             ]
+///         )
 ///     }
 /// }
 /// ```

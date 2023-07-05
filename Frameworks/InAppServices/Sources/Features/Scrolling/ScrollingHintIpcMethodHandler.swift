@@ -7,17 +7,28 @@
 import MixboxIpc
 import MixboxIpcCommon
 
-final class ScrollingHintIpcMethodHandler: IpcMethodHandler {
-    let method = ScrollingHintIpcMethod()
+public final class ScrollingHintIpcMethodHandler: IpcMethodHandler {
+    public let method = ScrollingHintIpcMethod()
     
-    func handle(arguments: String, completion: @escaping (ScrollingHint) -> ()) {
+    private let scrollingHintsForViewProvider: ScrollingHintsForViewProvider
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
+    
+    public init(
+        scrollingHintsForViewProvider: ScrollingHintsForViewProvider,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
+    ) {
+        self.scrollingHintsForViewProvider = scrollingHintsForViewProvider
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
+    }
+    
+    public func handle(arguments: String, completion: @escaping (ScrollingHint) -> ()) {
         let viewId = arguments
         
-        guard let element = AccessibilityUniqueObjectMap.shared.locate(uniqueIdentifier: viewId) else {
+        guard let element = accessibilityUniqueObjectMap.locate(uniqueIdentifier: viewId) else {
             completion(
                 .internalError(
                     """
-                    UI element \(viewId) was not found. This can happen if element deallocates or if it wasn't registered in \(AccessibilityUniqueObjectMap.self)
+                    UI element \(viewId) was not found. This can happen if element deallocates or if it wasn't registered in \(accessibilityUniqueObjectMap)
                     """
                 )
             )
@@ -34,8 +45,8 @@ final class ScrollingHintIpcMethodHandler: IpcMethodHandler {
             return
         }
         
-        DispatchQueue.main.async {
-            let result = ScrollingHintsProvider.instance.scrollingHint(forScrollingToView: view)
+        DispatchQueue.main.async { [scrollingHintsForViewProvider] in
+            let result = scrollingHintsForViewProvider.scrollingHint(forScrollingToView: view)
             completion(result)
         }
     }

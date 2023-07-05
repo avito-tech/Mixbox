@@ -32,7 +32,8 @@ final class PredefinedObjcMethodsTests: TestCase {
     func test() {
         let accessibilityLabelSwizzlerFactory = AccessibilityLabelSwizzlerFactoryImpl(
             allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: factory,
-            iosVersionProvider: iosVersionProvider
+            iosVersionProvider: iosVersionProvider,
+            accessibilityUniqueObjectMap: dependencies.resolve()
         )
         
         assertDoesntThrow {

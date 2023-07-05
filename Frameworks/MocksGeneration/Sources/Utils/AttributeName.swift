@@ -67,17 +67,19 @@ public enum AttributeName: String {
         .unknown
     ]
     
-    public static let attributesNamesWithoutParenthesisRawValues = Set<String>(
-        attributesNamesWithoutParenthesis.map { $0.rawValue }
-    )
+    public static var attributesNamesWithoutParenthesisRawValues: Set<String> {
+        Set(attributesNamesWithoutParenthesis.map { $0.rawValue })
+    }
     
-    public static let attributesNamesWithParenthesis: Set<AttributeName> = [
-        .available,
-        .objc,
-        .convention
-    ]
+    public static var attributesNamesWithParenthesis: Set<AttributeName> {
+        [
+            .available,
+            .objc,
+            .convention
+        ]
+    }
     
-    public static let attributesNamesWithParenthesisRawValues = Set<String>(
-        attributesNamesWithParenthesis.map { $0.rawValue }
-    )
+    public static var attributesNamesWithParenthesisRawValues: Set<String> {
+        Set(attributesNamesWithParenthesis.map { $0.rawValue })
+    }
 }

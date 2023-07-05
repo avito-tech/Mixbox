@@ -1,7 +1,7 @@
 import UIKit
 
 public final class ScreenshotTestsConstants {
-    public static let viewsCount = 9
+    public static var viewsCount: Int { 9 }
     
     public static func viewId(index: Int) -> String {
         return "view_\(index)"

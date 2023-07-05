@@ -10,7 +10,7 @@ import MixboxUiKit
 
 // TODO: Split to classes.
 // swiftlint:disable file_length
-final class ScrollingHintsProvider {
+public final class ScrollingHintsForViewProviderImpl: ScrollingHintsForViewProvider {
     // Suitable for programmatic scroll
     // Can be converted to DraggingInstruction (that is suitable for more black-box way of scrolling: via touches)
     private struct ScrollingInstruction {
@@ -19,21 +19,21 @@ final class ScrollingHintsProvider {
         let targetViewUniqueIdentifier: String?
     }
     
-    static let instance = ScrollingHintsProvider()
+    private let keyboardFrameProvider: KeyboardFrameProvider
     
-    private let keyboardFrameService = KeyboardFrameService()
-    
-    // Hardcoded toggle for programmatic scroll. Will be useful to debug tests faster.
+    // Toggle for programmatic scroll. Will be useful to debug tests faster.
     // Will be probably useful to run tests faster. With ability to toggle it depending on how honestly you
     // want to test the app at that time (e.g.: it can be switched on on PRs, but switched off when you
     // test your app before the release).
-    private let scrollInsideAppProgrammatically = false
+    //
+    // TODO: Test this.
+    private let scrollInsideAppProgrammatically: Bool
     
     // 1. We don't want to scroll for few pixels
     // 2. We can not scroll  for few pixels precisely.
     // So we want to ignore some precision and win at performance and amount of side-effects in tests.
     // (there might be multimple unnecerrary scrolls without any threshold for scrolling)
-    private let offsetThresholdForUsefulHint: CGFloat = 15
+    private let offsetThresholdForUsefulHint: CGFloat
     
     // A value for a heuristic for determining area suitable for scrolling.
     // Set to (0.5, 0.5) to start scrolling from the center of the view.
@@ -70,17 +70,26 @@ final class ScrollingHintsProvider {
     //        |         |    |    |    |    |         |    |         | < 0.2
     //        |         |    |    V    |    |         |    |         | < 0.1
     //        +---------+    +---------+    +---------+    +---------+ < 0.0
-    private let touchableAreaNormalized = UIEdgeInsets(
-        top: 0.3,
-        left: 0.1,
-        bottom: 0.3,
-        right: 0.1
-    )
+    private let touchableAreaNormalized: UIEdgeInsets
     
-    private init() {
+    public init(
+        keyboardFrameProvider: KeyboardFrameProvider,
+        scrollInsideAppProgrammatically: Bool = false,
+        offsetThresholdForUsefulHint: CGFloat = 15,
+        touchableAreaNormalized: UIEdgeInsets = UIEdgeInsets(
+            top: 0.3,
+            left: 0.1,
+            bottom: 0.3,
+            right: 0.1
+        )
+    ) {
+        self.keyboardFrameProvider = keyboardFrameProvider
+        self.scrollInsideAppProgrammatically = scrollInsideAppProgrammatically
+        self.offsetThresholdForUsefulHint = offsetThresholdForUsefulHint
+        self.touchableAreaNormalized = touchableAreaNormalized
     }
     
-    func scrollingHint(forScrollingToView view: UIView) -> ScrollingHint {
+    public func scrollingHint(forScrollingToView view: UIView) -> ScrollingHint {
         let scrollingInstructions = self.scrollingInstructions(forScrollingToView: view)
         
         return scrollingHint(fromScrollingInstructions: scrollingInstructions)
@@ -249,7 +258,7 @@ final class ScrollingHintsProvider {
         if let scrollViewSuperview = scrollView.superview {
             let visibleScrollViewFrameInWindow = scrollViewSuperview.convert(scrollView.frame, to: nil) // TODO: use scrollView.mb_frameRelativeToScreen()
                 .mb_shrinked(scrollView.contentInset)
-                .mb_cutBottom(keyboardFrameService.nextKeyboardFrameInWindow)
+                .mb_cutBottom(keyboardFrameProvider.nextKeyboardFrameInWindow)
             
             // Beginning of the touch lies within the visible frame of scrollview.
             let absoluteFrameFrom = visibleScrollViewFrameInWindow
@@ -426,7 +435,7 @@ final class ScrollingHintsProvider {
         
         if let scrollViewSuperview = scrollView.superview {
             visibleScrollViewFrame = visibleScrollViewFrame
-                .mb_cutBottom(keyboardFrameService.nextKeyboardFrameInView(scrollViewSuperview))
+                .mb_cutBottom(keyboardFrameProvider.nextKeyboardFrameInView(scrollViewSuperview))
         }
         
         var rectToBeVisible: CGRect = CGRect(

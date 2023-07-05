@@ -51,9 +51,9 @@ extension TypeName {
     }
     
     // Very simple pattern, covers only most used cases:
-    private static let identifierPattern = "[a-zA-Z_][a-zA-Z_0-9]*"
+    private static var identifierPattern: String { "[a-zA-Z_][a-zA-Z_0-9]*" }
     
-    private static let labeledClosureArgumentRegexCommonPart = "_ \(identifierPattern): ?(.*?\\) ?-> ?\\()"
+    private static var labeledClosureArgumentRegexCommonPart: String { "_ \(identifierPattern): ?(.*?\\) ?-> ?\\()" }
     
     private static let labeledClosureFirstArgumentRegex = try? NSRegularExpression(
         pattern: "(\\()\(labeledClosureArgumentRegexCommonPart)",

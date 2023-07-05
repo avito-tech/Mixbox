@@ -10,17 +10,22 @@ import MixboxUiKit
 public class AccessibilityLabelSwizzlerFactoryImpl: AccessibilityLabelSwizzlerFactory {
     private let allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory
     private let iosVersionProvider: IosVersionProvider
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     
     public init(
         allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory,
-        iosVersionProvider: IosVersionProvider)
-    {
+        iosVersionProvider: IosVersionProvider,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
+    ) {
         self.allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory = allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory
         self.iosVersionProvider = iosVersionProvider
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
     }
     
     public func accessibilityLabelSwizzler() throws -> AccessibilityLabelSwizzler {
-        let accessibilityLabelFunctionReplacement = AccessibilityLabelFunctionReplacementImpl()
+        let accessibilityLabelFunctionReplacement = AccessibilityLabelFunctionReplacementImpl(
+            accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
+        )
         let objcRuntimeObjcMethodsWithUniqueImplementationProvider = ObjcRuntimeObjcMethodsWithUniqueImplementationProvider()
         
         let predefinedObjcMethodsWithUniqueImplementationProvider = PredefinedObjcMethodsWithUniqueImplementationProvider(

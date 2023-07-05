@@ -14,15 +14,18 @@ public final class InProcessViewHierarchyProvider: ViewHierarchyProvider {
     private let applicationWindowsProvider: ApplicationWindowsProvider
     private let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
     private let keyboardWindowExposer: KeyboardWindowExposer
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     
     public init(
         applicationWindowsProvider: ApplicationWindowsProvider,
         floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher,
-        keyboardWindowExposer: KeyboardWindowExposer
+        keyboardWindowExposer: KeyboardWindowExposer,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     ) {
         self.applicationWindowsProvider = applicationWindowsProvider
         self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
         self.keyboardWindowExposer = keyboardWindowExposer
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
     }
     
     public func viewHierarchy() throws -> ViewHierarchy {
@@ -40,10 +43,11 @@ public final class InProcessViewHierarchyProvider: ViewHierarchyProvider {
         
         func originalElements() -> RandomAccessCollectionOf<ViewHierarchyElement, Int> {
             RandomAccessCollectionOf(
-                windows.lazy.map { [floatValuesForSr5346Patcher] in
+                windows.lazy.map { [accessibilityUniqueObjectMap, floatValuesForSr5346Patcher] in
                     TestabilityElementViewHierarchyElement(
                         testabilityElement: $0,
-                        floatValuesForSr5346Patcher: floatValuesForSr5346Patcher
+                        floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
+                        accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
                     )
                 }
             )

@@ -2,5 +2,7 @@ public enum TextEditingActionMode {
     case replace
     case append
     
-    static let `default`: TextEditingActionMode = .replace
+    static var `default`: TextEditingActionMode {
+        .replace
+    }
 }

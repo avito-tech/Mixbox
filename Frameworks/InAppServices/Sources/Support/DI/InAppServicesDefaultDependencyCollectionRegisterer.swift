@@ -28,6 +28,17 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
         di.register(type: InAppServicesStarter.self) { _ in
             InAppServicesStarterImpl()
         }
+        di.register(type: ScrollingHintsForViewProvider.self) { di in
+            try ScrollingHintsForViewProviderImpl(
+                keyboardFrameProvider: di.resolve()
+            )
+        }
+        di.register(type: KeyboardFrameProvider.self) { _ in
+            KeyboardFrameProviderImpl()
+        }
+        di.register(type: LocationSimulationManager.self) { _ in
+            LocationSimulationManagerImpl()
+        }
         
         registerUtilities(di: di)
         registerIpc(di: di)
@@ -198,9 +209,10 @@ public final class InAppServicesDefaultDependencyCollectionRegisterer: Dependenc
             )
         }
         di.register(type: AccessibilityLabelSwizzlerFactory.self) { di in
-            AccessibilityLabelSwizzlerFactoryImpl(
+            try AccessibilityLabelSwizzlerFactoryImpl(
                 allMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactory: AllMethodsWithUniqueImplementationAccessibilityLabelSwizzlerFactoryImpl(),
-                iosVersionProvider: try di.resolve()
+                iosVersionProvider: di.resolve(),
+                accessibilityUniqueObjectMap: di.resolve()
             )
         }
         di.register(type: CollectionViewCellSwizzler.self) { di in

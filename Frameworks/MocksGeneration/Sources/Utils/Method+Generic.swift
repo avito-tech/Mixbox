@@ -45,5 +45,7 @@ extension Method {
         )
     }
     
-    private static let delimiters: (open: String, close: String) = ("<[({", "})]>")
+    private static var delimiters: (open: String, close: String) {
+        ("<[({", "})]>")
+    }
 }

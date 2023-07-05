@@ -6,7 +6,9 @@ public final class InteractionSettingsDefaultsProviderImpl: InteractionSettingsD
         case grayBox
         
         // `blackBox` preset is like `grayBox`, but less optimized and more safe for general case.
-        public static let universal = Preset.blackBox
+        public static var universal: Preset {
+            Preset.blackBox
+        }
     }
     
     private let preset: Preset

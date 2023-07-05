@@ -4,9 +4,9 @@
 // The compilation is disabled
 #else
 
+// Useful methods for creating CustomDebugStringConvertible
 extension String {
-    // Useful methods for creating CustomDebugStringConvertible
-    private static let newLine = "\n"
+    private static var newLine: String { "\n" }
     
     public func mb_indent(_ indentation: String = "    ") -> String {
         return self

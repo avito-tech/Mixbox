@@ -5,7 +5,9 @@ public final class SetTextActionFactory {
         case selectElement(ensureElementGainsFocus: Bool)
         case doNotSelectElement
         
-        public static let `default`: ElementSelectionMethod = .selectElement(ensureElementGainsFocus: true)
+        public static var `default`: ElementSelectionMethod {
+            .selectElement(ensureElementGainsFocus: true)
+        }
     }
     
     public enum InputMethod {
@@ -13,7 +15,9 @@ public final class SetTextActionFactory {
         case paste // fastest
         case pasteUsingPopupMenus
         
-        public static let `default`: InputMethod = .paste
+        public static var `default`: InputMethod {
+            .paste
+        }
     }
     
     // MARK: - Public

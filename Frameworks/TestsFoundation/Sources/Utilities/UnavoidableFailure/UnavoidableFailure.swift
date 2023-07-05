@@ -63,7 +63,9 @@ public final class UnavoidableFailure {
         }
     }
     
-    private static let unavoidableFailureException = NSExceptionName(rawValue: "UnavoidableFailureException")
+    private static var unavoidableFailureException: NSExceptionName {
+        NSExceptionName(rawValue: "UnavoidableFailureException")
+    }
     
     private init() {}
 }

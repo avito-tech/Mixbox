@@ -3,8 +3,8 @@ import MixboxIpcCommon
 import UIKit
 
 public final class SwipeActionPathCalculator {
-    public static let defaultVelocity: CGFloat = 2000
-    public static let defaultSwipeLengthForSwipingToDirection: CGFloat = 100
+    public static var defaultVelocity: CGFloat { 2000 }
+    public static var defaultSwipeLengthForSwipingToDirection: CGFloat { 100 }
     
     private let swipeActionPathSettings: SwipeActionPathSettings
     

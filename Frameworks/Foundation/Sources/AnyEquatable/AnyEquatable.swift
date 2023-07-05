@@ -19,11 +19,13 @@ public final class AnyEquatable: CustomDebugStringConvertible, Equatable {
     private let equalsFunction: EqualsFunction
     private let debugDescriptionFunction: DebugDescriptionFunction
     
-    public static let void = AnyEquatable(
-        value: Void(),
-        equals: { _ in true },
-        debugDescription: { "Void()" }
-    )
+    public static var void: AnyEquatable {
+        AnyEquatable(
+            value: Void(),
+            equals: { _ in true },
+            debugDescription: { "Void()" }
+        )
+    }
     
     public init(
         value: Any,

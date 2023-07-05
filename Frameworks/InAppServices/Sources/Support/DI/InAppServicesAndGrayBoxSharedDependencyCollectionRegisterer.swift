@@ -11,6 +11,8 @@ public final class InAppServicesAndGrayBoxSharedDependencyCollectionRegisterer: 
     public init() {
     }
     
+    // TODO: fix linter
+    // swiftlint:disable:next function_body_length
     public func register(dependencyRegisterer di: DependencyRegisterer) {
         di.register(type: UIScreen.self) { _ in
             UIScreen.main
@@ -32,11 +34,15 @@ public final class InAppServicesAndGrayBoxSharedDependencyCollectionRegisterer: 
         di.register(type: ViewInContextDrawer.self) { _ in
             ViewInContextDrawerImpl()
         }
+        di.register(type: AccessibilityUniqueObjectMap.self) { _ in
+            AccessibilityUniqueObjectMapImpl.shared
+        }
         di.register(type: KeyboardWindowExposer.self) { di in
             try KeyboardWindowExposerImpl(
                 keyboardPrivateApi: di.resolve(),
                 iosVersionProvider: di.resolve(),
-                floatValuesForSr5346Patcher: di.resolve()
+                floatValuesForSr5346Patcher: di.resolve(),
+                accessibilityUniqueObjectMap: di.resolve()
             )
         }
         di.register(type: ScreenInContextDrawerWindowPatcher.self) { di in
@@ -64,7 +70,8 @@ public final class InAppServicesAndGrayBoxSharedDependencyCollectionRegisterer: 
             try InProcessViewHierarchyProvider(
                 applicationWindowsProvider: di.resolve(),
                 floatValuesForSr5346Patcher: di.resolve(),
-                keyboardWindowExposer: di.resolve()
+                keyboardWindowExposer: di.resolve(),
+                accessibilityUniqueObjectMap: di.resolve()
             )
         }
     }

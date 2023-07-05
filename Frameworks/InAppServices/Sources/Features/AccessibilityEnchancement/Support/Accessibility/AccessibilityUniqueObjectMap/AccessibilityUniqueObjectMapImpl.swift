@@ -8,17 +8,22 @@ import Foundation
 import MixboxFoundation
 import MixboxTestability
 
-final class AccessibilityUniqueObjectMap {
-    static let shared = AccessibilityUniqueObjectMap()
+// TODO: Rename. It has nothing to do with accessibility.
+public final class AccessibilityUniqueObjectMapImpl: AccessibilityUniqueObjectMap {
+    // TODO: Remove singleton.
+    //       Properly share DI between MixboxInAppServices and MixboxGray, so they use same instances.
+    public static let shared: AccessibilityUniqueObjectMap = AccessibilityUniqueObjectMapImpl()
     
-    private init() {}
     private var weaklyBoxedElements = [String: WeakBox<TestabilityElement>]()
     
-    func register(element: TestabilityElement) {
+    public init() {
+    }
+    
+    public func register(element: TestabilityElement) {
         weaklyBoxedElements[element.mb_testability_uniqueIdentifier()] = WeakBox(element)
     }
     
-    func locate(uniqueIdentifier: String) -> TestabilityElement? {
+    public func locate(uniqueIdentifier: String) -> TestabilityElement? {
         return weaklyBoxedElements[uniqueIdentifier]?.value
     }
 }

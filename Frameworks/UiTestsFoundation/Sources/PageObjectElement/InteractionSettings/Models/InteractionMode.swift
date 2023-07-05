@@ -5,9 +5,9 @@ public enum InteractionMode: Equatable {
     case useUniqueElement
     case useElementAtIndexInHierarchy(Int)
     
-    public static let `default`: InteractionMode = .useUniqueElement
+    public static var `default`: InteractionMode { .useUniqueElement }
     
-    public static let any: InteractionMode = .useElementAtIndexInHierarchy(0)
+    public static var any: InteractionMode { .useElementAtIndexInHierarchy(0) }
     
     public static func ==(lhs: InteractionMode, rhs: InteractionMode) -> Bool {
         switch (lhs, rhs) {

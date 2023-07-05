@@ -23,6 +23,7 @@ public protocol KeyboardFrameProvider: AnyObject {
     /// Returns intersection of keyboard frame and view
     func keyboardFrameInView(_ view: UIView) -> CGRect
     func nextKeyboardFrameInView(_ view: UIView) -> CGRect
+    var nextKeyboardFrameInWindow: CGRect { get }
 }
 
 #endif
