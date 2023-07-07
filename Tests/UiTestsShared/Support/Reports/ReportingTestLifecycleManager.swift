@@ -61,25 +61,38 @@ public final class ReportingTestLifecycleManager:
     // MARK: - TestLifecycleManager
     
     public func startObserving(testLifecycleObservable: TestLifecycleObservable) {
-        let testLifecycleObserver = TestLifecycleObserver()
+        let testLifecycleTestBundleObserver = MutableClosuresTestLifecycleTestBundleObserver()
+        let testLifecycleTestSuiteObserver = MutableClosuresTestLifecycleTestSuiteObserver()
+        let testLifecycleTestCaseObserver = MutableClosuresTestLifecycleTestCaseObserver()
         
-        testLifecycleObserver.testSuiteObserver.onStart = { [weak self] testSuite in
+        testLifecycleTestBundleObserver.onStop = { [weak self] testCase in
+            let startDate = Date()
+            
+            let timeout: TimeInterval = 60
+            self?.reportingSystem.waitForLastReportBeingSent(timeout: timeout)
+            
+            let stopDate = Date()
+            let actualTime = stopDate.timeIntervalSince(startDate)
+            print("Waiting for reports to be sent: \(actualTime) seconds")
+        }
+        
+        testLifecycleTestSuiteObserver.onStart = { [weak self] testSuite in
             self?.handleTestSuiteStarted(testSuite: testSuite)
         }
         
-        testLifecycleObserver.testSuiteObserver.onStop = { [weak self] testSuite in
+        testLifecycleTestSuiteObserver.onStop = { [weak self] testSuite in
             self?.handleTestSuiteStopped(testSuite: testSuite)
         }
         
-        testLifecycleObserver.testCaseObserver.onStart = { [weak self] testCase in
+        testLifecycleTestCaseObserver.onStart = { [weak self] testCase in
             self?.handleTestMethodStarted(testCase: testCase)
         }
         
-        testLifecycleObserver.testCaseObserver.onStop = { [weak self] testCase in
+        testLifecycleTestCaseObserver.onStop = { [weak self] testCase in
             self?.handleTestMethodStopped(testCase: testCase)
         }
         
-        testLifecycleObserver.testCaseObserver.onFail = { [weak self] testCase, description, file, line in
+        testLifecycleTestCaseObserver.onFail = { [weak self] testCase, description, file, line in
             self?.handleTestMethodFailed(
                 testCase: testCase,
                 description: description,
@@ -88,18 +101,13 @@ public final class ReportingTestLifecycleManager:
             )
         }
         
-        testLifecycleObserver.testBundleObserver.onStop = { [weak self] testCase in
-            let startDate = Date()
-            
-            let timeout: TimeInterval = 60
-            self?.reportingSystem.waitForLastReportBeingSent(timeout: timeout)
-            
-            let stopDate = Date()
-            let actualTime = stopDate.timeIntervalSince(startDate)
-            print("Waiting for reports being sent: \(actualTime) seconds")
-        }
-        
-        testLifecycleObservable.addObserver(testLifecycleObserver)
+        testLifecycleObservable.add(
+            testLifecycleObservers: DtoTestLifecycleObservers(
+                testLifecycleTestBundleObserver: testLifecycleTestBundleObserver,
+                testLifecycleTestSuiteObserver: testLifecycleTestSuiteObserver,
+                testLifecycleTestCaseObserver: testLifecycleTestCaseObserver
+            )
+        )
     }
     
     // MARK: - Event handling
@@ -138,8 +146,6 @@ public final class ReportingTestLifecycleManager:
                 return .error
             }
         }
-        
-        // TODO: Deterministic IDs?
         
         let testCaseReport = TestCaseReport(
             uuid: NSUUID(),

@@ -1,6 +1,5 @@
 import MixboxUiKit
 import MixboxFoundation
-import TestsIpc
 
 // We have few tests that check accesibility initialization via private API
 // (for example, `UIViewTestabilityWithAccessibilityEnabledTests`)

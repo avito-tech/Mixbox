@@ -10,12 +10,12 @@ public final class MeasureableTimedActivityMetricSenderWaiterTestLifecycleManage
     // MARK: - TestLifecycleManager
     
     public func startObserving(testLifecycleObservable: TestLifecycleObservable) {
-        let testLifecycleObserver = TestLifecycleObserver()
+        let testLifecycleTestBundleObserver = MutableClosuresTestLifecycleTestBundleObserver()
         
-        testLifecycleObserver.testBundleObserver.onStop = { _ in
+        testLifecycleTestBundleObserver.onStop = { _ in
             Singletons.measureableTimedActivityMetricSenderWaiter.waitForAllMetricsAreSent()
         }
         
-        testLifecycleObservable.addObserver(testLifecycleObserver)
+        testLifecycleObservable.add(testLifecycleTestBundleObserver: testLifecycleTestBundleObserver)
     }
 }
