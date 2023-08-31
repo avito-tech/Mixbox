@@ -12,7 +12,7 @@ All changes to Mixbox are made inside that project.
 
 ## Testing
 
-Testing is practically impossible on a local machine. It tooks 7 hours to test everything on a local machine. We have 70 mac minis and it takes only 20 minutes on average (sometimes 10 minutes).
+Testing is practically impossible on a local machine. It takes several hours to test everything on a local machine.
 
 You can run specific tests. There are BlackBoxTests, GrayBoxTests and UnitTests. Choose a target and run specific tests.
 
@@ -35,5 +35,15 @@ Write code in Xcode, run tests and you are okay to make a pull request.
 
 There's none at the moment. There was one pull request from community and I just saw it, run tests
 in our private CI and merged it by myself via private CI. We have no plans to make public CI, because it is hard.
-We have 70 mac minis in our company and all tests are executing fo 20 minutes on all mac minis.
+We have hundreds of mac minis in our company and all tests are executing for few minutes on all mac minis.
 We can't make them public.
+
+## Updating Mixbox to support new Xcode
+
+See [documentation](Docs/PrivateApi/DumpPy.md) for [dump.py](Frameworks/TestsFoundation/Sources/PrivateHeaders/Classdump/dump.py)
+
+- See and understand `dump.py`
+- Run it for new Xcode
+- Run `BuildLintAndUnitTest` scheme in `Tests` project.
+- Fix all compilation errors
+- Fix all unit tests
