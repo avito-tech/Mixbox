@@ -1,3 +1,3 @@
 public protocol EmceeVersionProvider {
-    func emceeVersion() -> String
+    func emceeVersion() throws -> String
 }

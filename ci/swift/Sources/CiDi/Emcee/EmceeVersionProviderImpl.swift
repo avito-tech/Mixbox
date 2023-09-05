@@ -1,12 +1,25 @@
-// This file is generated via MakePackage python code. Do not modify it.
-
 import Emcee
+import Git
+import FileSystem
+import PathLib
 
 public final class EmceeVersionProviderImpl: EmceeVersionProvider {
-    public init() {
+    private let repoRootProvider: RepoRootProvider
+    private let fileReader: FileReader
+    
+    public init(
+        repoRootProvider: RepoRootProvider,
+        fileReader: FileReader
+    ) {
+        self.repoRootProvider = repoRootProvider
+        self.fileReader = fileReader
     }
     
-    public func emceeVersion() -> String {
-        return String("c6301a82d8b68d8b9b77dc8dffc5e4c17eebaa2e".prefix(7))
+    public func emceeVersion() throws -> String {
+        let emceeCommitHash = try fileReader.string(
+            filePath: AbsolutePath(repoRootProvider.repoRootPath()).appending("ci/swift/.emceeversion")
+        ).trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        return String(emceeCommitHash.prefix(7))
     }
 }

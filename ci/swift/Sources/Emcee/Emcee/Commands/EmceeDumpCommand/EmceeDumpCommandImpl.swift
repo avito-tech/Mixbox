@@ -112,6 +112,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     logCapturingMode: .noLogs,
                     runnerWasteCleanupPolicy: .clean,
                     pluginLocations: [],
+                    pluginTeardownTimeout: 60,
                     scheduleStrategy: ScheduleStrategy(
                         testSplitterType: .progressive
                     ),

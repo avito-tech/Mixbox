@@ -15,6 +15,7 @@ import CommonTestModels
 import TestDestination
 import BuildArtifactsApple
 import EmceeTypes
+import RequestSenderModels
 
 public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     private let emceeProvider: EmceeProvider
@@ -51,7 +52,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         throws
         -> TestArgFile<AppleTestArgFileEntry>
     {
-        let testDestinationConfigurations = try self.testDestinationConfigurations(arguments: arguments)
+        let testDestinationConfigurations = self.testDestinationConfigurations(arguments: arguments)
         
         return try testArgFile(
             testDestinationConfigurations: testDestinationConfigurations,
@@ -68,11 +69,9 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
     }
     
     private func testDestinationConfigurations(
-        arguments: TestArgFileGeneratorArguments)
-        throws
-    -> [TestDestinationConfiguration]
-    {
-        return try arguments.mixboxTestDestinationConfigurations.map {
+        arguments: TestArgFileGeneratorArguments
+    ) -> [TestDestinationConfiguration] {
+        return arguments.mixboxTestDestinationConfigurations.map {
             TestDestinationConfiguration(
                 testDestination: TestDestination()
                     .add(
@@ -83,11 +82,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                         key: AppleTestDestinationFields.simRuntime,
                         value: $0.testDestination.runtimeId
                     ),
-                reportOutput: ReportOutput(
-                    junit: $0.reportOutput.junit,
-                    tracingReport: $0.reportOutput.tracingReport,
-                    resultBundle: nil
-                )
+                reportOutput: $0.reportOutput
             )
         }
     }
@@ -113,6 +108,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     logCapturingMode: .noLogs,
                     runnerWasteCleanupPolicy: .clean,
                     pluginLocations: [],
+                    pluginTeardownTimeout: 60,
                     scheduleStrategy: ScheduleStrategy(
                         testSplitterType: .progressive
                     ),
@@ -123,7 +119,12 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                     testRunnerMaximumSilenceDuration: 420,
                     testAttachmentLifetime: .keepNever,
                     testsToRun: testsToRun,
-                    workerCapabilityRequirements: []
+                    workerCapabilityRequirements: [
+                        WorkerCapabilityRequirement(
+                            capabilityName: "emcee.cpu.architecture",
+                            constraint: .equal("arm64")
+                        )
+                    ]
                 )
             },
             prioritizedJob: PrioritizedJob(

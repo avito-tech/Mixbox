@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "allure-xcresult",
+        "repositoryURL": "ssh://git@stash.msk.avito.ru:7999/iedm/allure-xcresult.git",
+        "state": {
+          "branch": null,
+          "revision": "b871155eeb1e17d5911032c9744da01014a553ae",
+          "version": null
+        }
+      },
+      {
         "package": "async-http-client",
         "repositoryURL": "https://github.com/swift-server/async-http-client.git",
         "state": {
@@ -44,24 +53,6 @@
           "branch": null,
           "revision": "b7331c8bef913f5f8b3cffa6ecfcce679f7c2531",
           "version": "1.0.21"
-        }
-      },
-      {
-        "package": "Socket",
-        "repositoryURL": "https://github.com/Kitura/BlueSocket.git",
-        "state": {
-          "branch": null,
-          "revision": "c46a3d41f5b2401d18bcb46d0101cdc5cd13e307",
-          "version": "1.0.52"
-        }
-      },
-      {
-        "package": "CommandLineToolkit",
-        "repositoryURL": "https://github.com/avito-tech/CommandLineToolkit.git",
-        "state": {
-          "branch": null,
-          "revision": "83a7b95cb097ad6f7ee28651c4c45b4d1ffb5da7",
-          "version": null
         }
       },
       {
@@ -101,11 +92,20 @@
         }
       },
       {
+        "package": "CommandLineToolkit",
+        "repositoryURL": "https://github.com/avito-tech/CommandLineToolkit.git",
+        "state": {
+          "branch": null,
+          "revision": "997d49a88fbd099cb7b7dd423b831a4ef96f9fa6",
+          "version": null
+        }
+      },
+      {
         "package": "EmceeTestRunner",
         "repositoryURL": "https://github.com/avito-tech/Emcee",
         "state": {
           "branch": null,
-          "revision": "c6301a82d8b68d8b9b77dc8dffc5e4c17eebaa2e",
+          "revision": "87ff5e79069fc96141c76031a5f66ce6a4f47f97",
           "version": null
         }
       },
@@ -159,8 +159,8 @@
         "repositoryURL": "https://github.com/daltoniam/Starscream.git",
         "state": {
           "branch": null,
-          "revision": "ebdc260ea64e68f7569c62e8744b5cd15d3a49d6",
-          "version": "3.0.6"
+          "revision": "a063fda2b8145a231953c20e7a646be254365396",
+          "version": "3.1.2"
         }
       },
       {
@@ -177,8 +177,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "9f39744e025c7d377987f30b03770805dcb0bcd1",
-          "version": "1.1.4"
+          "revision": "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
+          "version": "1.2.2"
         }
       },
       {
@@ -213,8 +213,8 @@
         "repositoryURL": "https://github.com/apple/swift-crypto.git",
         "state": {
           "branch": null,
-          "revision": "a8911e0fadc25aef1071d582355bd1037a176060",
-          "version": "2.0.4"
+          "revision": "d9825fa541df64b1a7b182178d61b9a82730d01f",
+          "version": "2.1.0"
         }
       },
       {
@@ -222,8 +222,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "6fe203dc33195667ce1759bf0182975e4653ba1c",
-          "version": "1.4.4"
+          "revision": "32e8d724467f8fe623624570367e3d50c5638e46",
+          "version": "1.5.2"
         }
       },
       {
@@ -314,6 +314,15 @@
           "branch": null,
           "revision": "2d9d2188a08eef4a869d368daab21b3c08510991",
           "version": "2.6.1"
+        }
+      },
+      {
+        "package": "XCResultKit",
+        "repositoryURL": "ssh://git@stash.msk.avito.ru:7999/iedm/xcresultkit.git",
+        "state": {
+          "branch": null,
+          "revision": "ddffedb50d4e68f5fef2a266e759a4e60ea4defd",
+          "version": null
         }
       }
     ]

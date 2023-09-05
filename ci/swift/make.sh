@@ -13,7 +13,7 @@ spm_generate_package() {
     body() {
         bash_ci_require_pyenv make_v1
         bash_ci_require_python_packages ./MakePackage/requirements.txt
-        bash_ci_run_python3 ./MakePackage/make_package.py
+        bash_ci_run_python3 ./MakePackage/make_package.py || fatal_error "Failed to make package"
 
         if [ -z "${MIXBOX_CI_MIRRORS_JSON_FILE_PATH:-}" ]; then
             echo "Error: MIXBOX_CI_MIRRORS_JSON_FILE_PATH environment variable is not set"

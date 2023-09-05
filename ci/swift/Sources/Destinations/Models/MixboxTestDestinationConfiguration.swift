@@ -1,3 +1,5 @@
+import TestArgFile
+
 public final class MixboxTestDestinationConfiguration: Codable {
     public let testDestination: MixboxTestDestination
     public let reportOutput: ReportOutput

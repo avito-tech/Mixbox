@@ -3,37 +3,49 @@
 import jinja2
 import os
 import re
+from typing import Any, List, Dict
+from dataclasses import dataclass
 
-swift_ci_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+this_script_parent_directory = os.path.dirname(os.path.abspath(__file__))
+swift_ci_root = os.path.join(this_script_parent_directory, "..")
 
-def emcee_commit_hash():
-    return 'c6301a82d8b68d8b9b77dc8dffc5e4c17eebaa2e'
 
-def comment_saying_that_this_file_is_code_generated():
+@dataclass(frozen=True)
+class Target:
+    name: str
+    dependencies: List[str]
+    type: str
+    is_executable: bool
+
+
+def emcee_commit_hash() -> str:
+    with open(os.path.join(this_script_parent_directory, '../.emceeversion'), 'r', encoding='utf8') as file:
+        return file.read().strip()
+
+
+def comment_saying_that_this_file_is_code_generated() -> str:
     return 'This file is generated via MakePackage python code. Do not modify it.' 
-    
-def generate_all():
+
+
+def generate_all() -> None:
     generate(
         template_name="Package.swift.template",
         output_file_name="Package.swift",
         dict_to_render=get_dict_to_render_for_package_swift()
     )
-    generate(
-        template_name="EmceeVersionProviderImpl.swift.template",
-        output_file_name="Sources/CiDi/Emcee/EmceeVersionProviderImpl.swift",
-        dict_to_render=get_dict_to_render_for_emcee_version_provider()
-    )
-        
-def generate(template_name, output_file_name, dict_to_render):
+
+
+def generate(template_name: str, output_file_name: str, dict_to_render: Dict[str, Any]) -> None:
     generated_string = render(
         dict_to_render=dict_to_render,
         template_name=template_name
     )
     
-    with open(os.path.join(swift_ci_root, output_file_name), 'w') as f:
-        f.write(generated_string)
+    with open(os.path.join(swift_ci_root, output_file_name), 'w') as file:
+        file.write(generated_string)
 
-def get_dict_to_render_for_package_swift():
+
+def get_dict_to_render_for_package_swift() -> Dict[str, Any]:
     targets = get_targets()
     
     dict_to_render = {
@@ -44,14 +56,16 @@ def get_dict_to_render_for_package_swift():
     }
     
     return dict_to_render
-    
-def get_dict_to_render_for_emcee_version_provider():
+
+
+def get_dict_to_render_for_emcee_version_provider() -> Dict[str, Any]:
     return {
         "comment_saying_that_this_file_is_code_generated": comment_saying_that_this_file_is_code_generated(),
         "emcee_commit_hash": emcee_commit_hash(),
     }
 
-def render(dict_to_render, template_name):
+
+def render(dict_to_render: Dict[str, Any], template_name: str) -> str:
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     loader = jinja2.FileSystemLoader(script_dir)
@@ -60,7 +74,8 @@ def render(dict_to_render, template_name):
 
     return template.render(dict_to_render)
 
-def get_targets():
+
+def get_targets() -> List[Target]:
     sources = os.path.join(swift_ci_root, "Sources")
     directory_names = [
         file_name
@@ -104,7 +119,8 @@ def get_targets():
         for directory_name in directory_names
     ]
 
-def get_target(target_name, directory, product_by_module_name):
+
+def get_target(target_name, directory, product_by_module_name) -> Target:
     imported_modules = []
     
     for root, subdirs, files in os.walk(directory):
@@ -131,14 +147,5 @@ def get_target(target_name, directory, product_by_module_name):
         is_executable=target_name.endswith("Build")
     )
 
-class Target:
-    def __init__(self, name, dependencies, type, is_executable):
-        self.name = name
-        self.dependencies = dependencies
-        self.type = type
-        self.is_executable = is_executable
-        
-    def __repr__(self):
-        return f'Target(name={self.name}, dependencies={self.dependencies}, is_executable={self.is_executable})'
-        
+
 generate_all()

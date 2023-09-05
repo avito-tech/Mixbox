@@ -305,8 +305,11 @@ open class CommonBuildDependencies: ModuleDependencies, InitializableWithNoArgum
                 )
             )
         }
-        di.register(type: EmceeVersionProvider.self) { _ in
-            EmceeVersionProviderImpl()
+        di.register(type: EmceeVersionProvider.self) { di in
+            try EmceeVersionProviderImpl(
+                repoRootProvider: di.resolve(),
+                fileReader: di.resolve()
+            )
         }
         di.register(type: EmceeInstaller.self) { di in
             let environmentProvider: EnvironmentProvider = try di.resolve()
