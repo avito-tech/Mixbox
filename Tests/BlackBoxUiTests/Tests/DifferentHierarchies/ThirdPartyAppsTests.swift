@@ -110,11 +110,20 @@ private class Springboard: BasePageObjectWithDefaultInitializer {
                 normalizedCoordinate: CGPoint(x: 0, y: 0),
                 absoluteOffset: CGVector(dx: 5, dy: 5)
             )
-        case MixboxIosVersions.Supported.iOS14.majorVersion...:
+        case MixboxIosVersions.Supported.iOS14.majorVersion...MixboxIosVersions.Supported.iOS15.majorVersion:
             mainAppIcon.press(duration: 5)
             
             // iOS 14 introduced also an alert (some "feature discovery" thing, I didn't remember the text)
             okButton.tap(failTest: false)
+            
+            mainAppIcon.tap(
+                normalizedCoordinate: CGPoint(x: 0, y: 0),
+                absoluteOffset: CGVector(dx: 5, dy: 5)
+            )
+            
+            intermediateDeleteAppAlertButton.tap()
+        case MixboxIosVersions.Supported.iOS16.majorVersion...:
+            mainAppIcon.press(duration: 5)
             
             mainAppIcon.tap(
                 normalizedCoordinate: CGPoint(x: 0, y: 0),
