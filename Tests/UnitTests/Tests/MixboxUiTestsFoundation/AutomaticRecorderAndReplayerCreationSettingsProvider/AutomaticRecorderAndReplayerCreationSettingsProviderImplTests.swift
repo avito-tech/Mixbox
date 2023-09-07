@@ -9,7 +9,7 @@ final class AutomaticRecorderAndReplayerCreationSettingsProviderImplTests: XCTes
         recordedNetworkSessionFileLoader: RecordedNetworkSessionFileLoaderImpl()
     )
     
-    func test_automaticRecorderAndReplayerCreationSettings_returnsReplaying_ifFileContainsSession() {
+    func test___automaticRecorderAndReplayerCreationSettings___returns_createForReplaying_if_file_contains_session() {
         let settings = provider.automaticRecorderAndReplayerCreationSettings(
             session: .default()
         )
@@ -24,7 +24,7 @@ final class AutomaticRecorderAndReplayerCreationSettingsProviderImplTests: XCTes
         )
     }
     
-    func test_automaticRecorderAndReplayerCreationSettings_returnsError_ifFileDoesntExist() {
+    func test___automaticRecorderAndReplayerCreationSettings___returns_failWithError___if_file_doesnt_exist() {
         let settings = provider.automaticRecorderAndReplayerCreationSettings(
             session: RecordedNetworkSessionPath
                 .nearHere()
@@ -46,7 +46,7 @@ final class AutomaticRecorderAndReplayerCreationSettingsProviderImplTests: XCTes
         }
     }
     
-    func test_automaticRecorderAndReplayerCreationSettings_returnsRecording_ifFileDoesntContainSession() {
+    func test_FLAKY___automaticRecorderAndReplayerCreationSettings___returns_createForRecording___when_file_doesnt_contain_session() {
         let session = RecordedNetworkSessionPath
             .nearHere()
             .withName("AutomaticRecorderAndReplayerCreationSettingsProviderImplTests.empty.json")

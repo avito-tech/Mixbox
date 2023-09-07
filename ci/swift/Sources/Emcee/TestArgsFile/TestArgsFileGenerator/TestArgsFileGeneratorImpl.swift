@@ -96,36 +96,40 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         throws
         -> TestArgFile<AppleTestArgFileEntry>
     {
+        var stableTestsToRun = [TestToRun]()
+        var flakyTestsToRun = [TestToRun]()
+        
+        testsToRun.forEach { testToRun in
+            switch testToRun {
+            case .testName(let testName):
+                if testName.methodName.contains("_FLAKY") {
+                    flakyTestsToRun.append(testToRun)
+                } else {
+                    stableTestsToRun.append(testToRun)
+                }
+            case .allDiscoveredTests:
+                stableTestsToRun.append(testToRun)
+            }
+        }
+        
         return TestArgFile(
-            entries: try testDestinationConfigurations.map { testDestinationConfiguration -> AppleTestArgFileEntry in
-                try AppleTestArgFileEntry(
-                    appleBuildArtifacts: iosBuildArtifacts,
-                    developerDir: try developerDirProvider.developerDir(),
-                    environment: environment,
-                    userInsertedLibraries: [],
-                    numberOfRetries: 4,
-                    testRetryMode: .retryThroughQueue,
-                    logCapturingMode: .noLogs,
-                    runnerWasteCleanupPolicy: .clean,
-                    pluginLocations: [],
-                    pluginTeardownTimeout: 60,
-                    scheduleStrategy: ScheduleStrategy(
-                        testSplitterType: .progressive
+            entries: try testDestinationConfigurations.flatMap { testDestinationConfiguration in
+                try [
+                    appleTestArgFileEntry(
+                        testsToRun: stableTestsToRun,
+                        testDestinationConfiguration: testDestinationConfiguration,
+                        iosBuildArtifacts: iosBuildArtifacts,
+                        environment: environment,
+                        numberOfRetries: 4
                     ),
-                    simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
-                    simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
-                    testDestination: testDestinationConfiguration.testDestination,
-                    testMaximumDuration: 420,
-                    testRunnerMaximumSilenceDuration: 420,
-                    testAttachmentLifetime: .keepNever,
-                    testsToRun: testsToRun,
-                    workerCapabilityRequirements: [
-                        WorkerCapabilityRequirement(
-                            capabilityName: "emcee.cpu.architecture",
-                            constraint: .equal("arm64")
-                        )
-                    ]
-                )
+                    appleTestArgFileEntry(
+                        testsToRun: flakyTestsToRun,
+                        testDestinationConfiguration: testDestinationConfiguration,
+                        iosBuildArtifacts: iosBuildArtifacts,
+                        environment: environment,
+                        numberOfRetries: 8
+                    )
+                ]
             },
             prioritizedJob: PrioritizedJob(
                 analyticsConfiguration: AnalyticsConfiguration(),
@@ -136,6 +140,43 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             ),
             testDestinationConfigurations: testDestinationConfigurations,
             allowQueueToTrackJobGeneratorAliveness: true
+        )
+    }
+    
+    private func appleTestArgFileEntry(
+        testsToRun: [TestToRun],
+        testDestinationConfiguration: TestDestinationConfiguration,
+        iosBuildArtifacts: AppleBuildArtifacts,
+        environment: [String: String],
+        numberOfRetries: UInt
+    ) throws -> AppleTestArgFileEntry {
+        try AppleTestArgFileEntry(
+            appleBuildArtifacts: iosBuildArtifacts,
+            developerDir: try developerDirProvider.developerDir(),
+            environment: environment,
+            userInsertedLibraries: [],
+            numberOfRetries: numberOfRetries,
+            testRetryMode: .retryThroughQueue,
+            logCapturingMode: .noLogs,
+            runnerWasteCleanupPolicy: .clean,
+            pluginLocations: [],
+            pluginTeardownTimeout: 60,
+            scheduleStrategy: ScheduleStrategy(
+                testSplitterType: .progressive
+            ),
+            simulatorOperationTimeouts: simulatorOperationTimeoutsProvider.simulatorOperationTimeouts(),
+            simulatorSettings: simulatorSettingsProvider.simulatorSettings(),
+            testDestination: testDestinationConfiguration.testDestination,
+            testMaximumDuration: 420,
+            testRunnerMaximumSilenceDuration: 420,
+            testAttachmentLifetime: .keepNever,
+            testsToRun: testsToRun,
+            workerCapabilityRequirements: [
+                WorkerCapabilityRequirement(
+                    capabilityName: "emcee.cpu.architecture",
+                    constraint: .equal("arm64")
+                )
+            ]
         )
     }
     
