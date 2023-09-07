@@ -5,6 +5,7 @@
 #else
 
 import MixboxFoundation
+import MixboxUiKit
 
 public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryImpl:
     PredefinedObjcMethodsWithUniqueImplementationBatchesFactory
@@ -20,12 +21,12 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
         -> [PredefinedObjcMethodsWithUniqueImplementationBatch]
     {
         return [
-            ios11Till12Batch(iosMajorVersion: 11),
-            ios11Till12Batch(iosMajorVersion: 12),
+            ios11Till12Batch(iosMajorVersion: MixboxIosVersions.Outdated.iOS11.majorVersion),
+            ios11Till12Batch(iosMajorVersion: MixboxIosVersions.Outdated.iOS12.majorVersion),
             ios13Batch(),
-            ios14Till16Batch(iosMajorVersion: 14),
-            ios14Till16Batch(iosMajorVersion: 15),
-            ios14Till16Batch(iosMajorVersion: 16)
+            ios14Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS14.majorVersion),
+            ios14Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS15.majorVersion),
+            ios14Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS16.majorVersion)
         ]
     }
     
@@ -44,7 +45,7 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
     
     private func ios13Batch() -> PredefinedObjcMethodsWithUniqueImplementationBatch {
         return batch(
-            iosMajorVersion: 13,
+            iosMajorVersion: MixboxIosVersions.Outdated.iOS13.majorVersion,
             methods: [
                 method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
                 method(class: "UIAccessibilityTextFieldElement"),
@@ -68,7 +69,10 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
                 method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
                 method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
                 method(class: "UIView"),
-                method(class: "NSObject")
+                method(class: "NSObject"),
+                method(class: "UIKeyboardCandidateViewStyle"),
+                method(class: "UIKeyboardCandidateViewState"),
+                method(class: "_PFPlaceholderMulticaster")
             ]
         )
     }
