@@ -128,12 +128,22 @@ spm_make_file_main() {
 
     case "$action" in
         generate) spm_generate_package;;
-        reopen) spm_reopen_project;;
+        open) spm_reopen_project;;
         clean) spm_clean_project;;
         build) spm_generate_package; spm_build_project "${2:-}";;
         test) spm_generate_package; spm_test_project;;
         launch) shift; spm_launch_product "$@";;
-        *) fatal_error "Unknown action: $action. Known actions: generate, reopen, reopen-fast, clean, build <target_name>, test";;
+        *) fatal_error "Unknown action: $action.
+        
+Known actions:
+
+    - generate
+    - open
+    - clean
+    - build <target_name>
+    - test
+    - launch <target_name>
+    ";;
     esac
 }
 

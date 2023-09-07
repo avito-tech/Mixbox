@@ -4,8 +4,7 @@
 
 ```
 cd Tests
-make pod
-open Tests.xcworkspace
+make open
 ```
 
 All changes to Mixbox are made inside that project.
@@ -22,12 +21,10 @@ To test compilation of whole project, run linter and unit tests, choose `BuildLi
 
 ```
 cd ci/swift
-make r
+make open
 ```
 
 Project will be opened if not open or saved and reopened.
-
-`make r` is a shortcut for `make reopen`, and it also doesn't clean caches, so it is faster.
 
 Write code in Xcode, run tests and you are okay to make a pull request.
 
