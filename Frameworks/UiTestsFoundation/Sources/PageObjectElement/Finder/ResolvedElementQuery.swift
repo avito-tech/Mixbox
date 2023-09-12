@@ -38,7 +38,7 @@ public final class ResolvedElementQuery {
             case .match:
                 lines.append("Snapshot \(index), full match:")
                 let snapshotDescription = snapshot.debugDescription
-                lines.append(snapshotDescription.mb_indent("    "))
+                lines.append(snapshotDescription.mb_indent(includingFirstLine: true))
             case .mismatch(let mismatchResult):
                 let idSuffix = snapshot.uniqueIdentifier.valueIfAvailable.map { " (uid: \($0)" }
                     ?? (snapshot.accessibilityIdentifier.isEmpty ? "" : " (id: \(snapshot.accessibilityIdentifier)" )

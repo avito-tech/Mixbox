@@ -11,7 +11,7 @@ final class IdlingResourceObjectTrackerTests: TestCase {
     }
     
     func test___tracker___is_busy___if_resource_is_tracked() {
-        let resource = tracker.track(parent: object)
+        let resource = track(parent: object)
         
         withExtendedLifetime(resource) {
             assertIsBusy()
@@ -19,7 +19,7 @@ final class IdlingResourceObjectTrackerTests: TestCase {
     }
     
     func test___tracker___is_idle___if_resource_is_tracked_and_then_untracked() {
-        let resource = tracker.track(parent: object)
+        let resource = track(parent: object)
         
         withExtendedLifetime(resource) {
             resource.untrack()
@@ -33,7 +33,7 @@ final class IdlingResourceObjectTrackerTests: TestCase {
         
         do {
             let temporaryObject = NSObject()
-            resource = tracker.track(parent: temporaryObject)
+            resource = track(parent: temporaryObject)
         }
         
         withExtendedLifetime(resource) {
@@ -43,7 +43,7 @@ final class IdlingResourceObjectTrackerTests: TestCase {
     
     func test___tracker___is_idle___if_resource_is_tracked_and_then_is_deallocated() {
         do {
-            _ = tracker.track(parent: object)
+            _ = track(parent: object)
         }
         
         assertIsIdle()
@@ -53,10 +53,10 @@ final class IdlingResourceObjectTrackerTests: TestCase {
     // so uniqueness of objects was violated and app was crashing.
     func test___tracker___is_idle___if_multiple_tracked_resources_are_deallocated() {
         do {
-            _ = tracker.track(parent: object)
+            _ = track(parent: object)
         }
         do {
-            _ = tracker.track(parent: object)
+            _ = track(parent: object)
         }
         
         assertIsIdle()
@@ -65,12 +65,12 @@ final class IdlingResourceObjectTrackerTests: TestCase {
     func test___tracker___works_properly___if_multiple_resource_are_tracked_and_then_untracked() {
         assertIsIdle()
         
-        let resource1 = tracker.track(parent: object)
+        let resource1 = track(parent: object)
         
         withExtendedLifetime(resource1) {
             assertIsBusy()
 
-            let resource2 = tracker.track(parent: object)
+            let resource2 = track(parent: object)
             
             withExtendedLifetime(resource2) {
                 assertIsBusy()
@@ -84,6 +84,60 @@ final class IdlingResourceObjectTrackerTests: TestCase {
                 assertIsIdle()
             }
         }
+    }
+    
+    func test___resourceDescription___is_correct() {
+        XCTAssertEqual(tracker.resourceDescription, "IdlingResourceObjectTracker {}")
+        
+        let parent: NSString = "nsstring"
+        let resource = track(
+            parent: parent,
+            resourceDescription: {
+                TrackedIdlingResourceDescription(
+                    name: "name",
+                    causeOfResourceBeingTracked: "causeOfResourceBeingTracked",
+                    likelyCauseOfResourceStillBeingTracked: "likelyCauseOfResourceStillBeingTracked",
+                    listOfConditionsThatWillCauseResourceToBeUntracked: ["condition 1", "condition 2"],
+                    customProperties: [(key: "name", value: "duplicated name for whatever reason")]
+                )
+            }
+        )
+        
+        XCTAssertEqual(
+            tracker.resourceDescription,
+            """
+            IdlingResourceObjectTracker {
+                \(resource.identifier): TrackedIdlingResource {
+                    parent: nsstring,
+                    name: name,
+                    causeOfResourceBeingTracked: causeOfResourceBeingTracked,
+                    likelyCauseOfResourceStillBeingTracked: likelyCauseOfResourceStillBeingTracked,
+                    listOfConditionsThatWillCauseResourceToBeUntracked: {
+                        - condition 1
+                        - condition 2
+                    },
+                    name: duplicated name for whatever reason
+                }
+            }
+            """
+        )
+    }
+    
+    private func track(
+        parent: AnyObject,
+        resourceDescription: @escaping () -> TrackedIdlingResourceDescription = {
+            TrackedIdlingResourceDescription(
+                name: "irrelevant",
+                causeOfResourceBeingTracked: "irrelevant",
+                likelyCauseOfResourceStillBeingTracked: "irrelevant",
+                listOfConditionsThatWillCauseResourceToBeUntracked: ["irrelevant"]
+            )
+        }
+    ) -> TrackedIdlingResource {
+        tracker.track(
+            parent: parent,
+            resourceDescription: resourceDescription
+        )
     }
     
     private func assertIsIdle() {

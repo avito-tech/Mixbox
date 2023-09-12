@@ -61,7 +61,7 @@ extension CAAnimation {
             
             switch newValue {
             case .started:
-                mb_trackForDurationOfAnimation()
+                mb_trackForDurationOfAnimation(reason: "animation has started")
             case .stopped:
                 mb_untrack()
             case .pendingStart:
@@ -73,18 +73,39 @@ extension CAAnimation {
         }
     }
     
-    func mb_trackForDurationOfAnimation() {
-        animationTrackedIdlingResource.value = IdlingResourceObjectTracker.instance.track(parent: self)
-
-        var animRuntimeTime = duration + Double(repeatCount) * duration + repeatDuration
+    func mb_trackForDurationOfAnimation(reason: String) {
+        let animationRuntimeTime = duration + Double(repeatCount) * duration + repeatDuration
         
         // Add extra padding to the animation runtime just as a safeguard. This comes into play when
         // animatonDidStop delegate is not invoked before the expected end-time is reached.
         // The state is then automatically cleared for this animation as it should have finished by now.
-        animRuntimeTime += min(animRuntimeTime, 1.0)
+        let timeToUntrack = animationRuntimeTime + min(animationRuntimeTime, 1.0)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + animRuntimeTime) {
-            self.mb_untrack()
+        let trackedIdlingResource = IdlingResourceObjectTracker.instance.track(
+            parent: self,
+            resourceDescription: { [duration, repeatCount, repeatDuration] in
+                TrackedIdlingResourceDescription(
+                    name: "animation",
+                    causeOfResourceBeingTracked: reason,
+                    likelyCauseOfResourceStillBeingTracked: "animation is too long",
+                    listOfConditionsThatWillCauseResourceToBeUntracked: [
+                        "\(timeToUntrack) seconds passes"
+                    ],
+                    customProperties: [
+                        (key: "total animation runtime", value: String(describing: animationRuntimeTime)),
+                        (key: "duration", value: String(describing: duration)),
+                        (key: "repeatCount", value: String(describing: repeatCount)),
+                        (key: "repeatDuration", value: String(describing: repeatDuration))
+                    ]
+                )
+            }
+        )
+        
+        animationTrackedIdlingResource.value?.untrack()
+        animationTrackedIdlingResource.value = trackedIdlingResource
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeToUntrack) {
+            trackedIdlingResource.untrack()
         }
     }
     

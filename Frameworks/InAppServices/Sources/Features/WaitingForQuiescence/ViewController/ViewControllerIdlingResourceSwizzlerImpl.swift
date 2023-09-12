@@ -102,7 +102,25 @@ extension UIViewController {
         
         // For some keyboard have issue with untracking.
         if !isKeyboardRelatedViewControllerClass() {
-            trackAppearanceStateWillChange { $0.trackedViewAppearing }
+            trackAppearanceStateWillChange(
+                resourceDescription: {
+                    TrackedIdlingResourceDescription(
+                        name: "view appearing",
+                        causeOfResourceBeingTracked: "`-UIViewController.viewWillAppear(_:)` was called",
+                        likelyCauseOfResourceStillBeingTracked: "viewDidAppear was not called",
+                        listOfConditionsThatWillCauseResourceToBeUntracked: [
+                            "`-UIViewController.viewDidAppear(_:)` is called",
+                            "`-UIViewController.viewWillAppear(_:)` is called again",
+                            "`-UIViewController.viewDidDisappear(_:)` is called",
+                            "`-UIViewController.viewDidMoveToWindow(_:shouldAppearOrDisappear:)` is called with first argument `nil` (window: UIWindow)",
+                            "if view controller was rootViewController for window and window changed it's rootViewController to another view controller"
+                        ]
+                    )
+                },
+                trackedIdlingResource: {
+                    $0.trackedViewAppearing
+                }
+            )
         }
         
         swizzled_ViewControllerSwizzlerImpl_viewWillAppear(animated)
@@ -118,7 +136,23 @@ extension UIViewController {
     }
     
     @objc fileprivate func swizzled_ViewControllerSwizzlerImpl_viewWillDisappear(_ animated: Bool) {
-        trackAppearanceStateWillChange { $0.trackedViewDisappearing }
+        trackAppearanceStateWillChange(
+            resourceDescription: {
+                TrackedIdlingResourceDescription(
+                    name: "view disappearing",
+                    causeOfResourceBeingTracked: "`-UIViewController.viewWillDisappear(_:)` was called",
+                    likelyCauseOfResourceStillBeingTracked: "viewDidDisappear was not called",
+                    listOfConditionsThatWillCauseResourceToBeUntracked: [
+                        "`-UIViewController.viewDidDisappear(_:)` is called",
+                        "`-UIViewController.viewWillDisappear(_:)` is called again",
+                        "`-UIViewController.viewDidMoveToWindow(_:shouldAppearOrDisappear:)` is called with first argument `nil` (window: UIWindow)"
+                    ]
+                )
+            },
+            trackedIdlingResource: {
+                $0.trackedViewDisappearing
+            }
+        )
         
         swizzled_ViewControllerSwizzlerImpl_viewWillDisappear(animated)
     }
@@ -152,8 +186,9 @@ extension UIViewController {
     }
     
     private func trackAppearanceStateWillChange(
-        trackedIdlingResource: @escaping (UIViewController) -> AssociatedObject<TrackedIdlingResource>)
-    {
+        resourceDescription: @escaping () -> TrackedIdlingResourceDescription,
+        trackedIdlingResource: @escaping (UIViewController) -> AssociatedObject<TrackedIdlingResource>
+    ) {
         guard !isMovingToNilWindow.value else {
             return
         }
@@ -178,18 +213,46 @@ extension UIViewController {
             }
         }
         
-        trackedIdlingResource(self).value = IdlingResourceObjectTracker.instance.track(parent: self)
+        trackedIdlingResource(self).value?.untrack()
+        trackedIdlingResource(self).value = IdlingResourceObjectTracker.instance.track(
+            parent: self,
+            resourceDescription: resourceDescription
+        )
     }
     
-    fileprivate func trackAsRootViewController(window: UIWindow?) {
-        // Untrack state for hidden (or nil) windows. When window becomes visible, this method will be
-        // called again.
-        if window == nil || window?.isHidden == true {
+    fileprivate func trackAsRootViewController(
+        window: UIWindow,
+        methodDescription: String
+    ) {
+        if window.isHidden {
+            // Untrack state for hidden windows. When window becomes visible, this method will be called again.
             trackedViewAppearing.value?.untrack()
             trackedRootViewControllerAppearing.value?.untrack()
         } else if !didAppear.value {
-            trackedRootViewControllerAppearing.value = IdlingResourceObjectTracker.instance.track(parent: self)
+            trackedRootViewControllerAppearing.value?.untrack()
+            trackedRootViewControllerAppearing.value = IdlingResourceObjectTracker.instance.track(
+                parent: self,
+                resourceDescription: {
+                    TrackedIdlingResourceDescription(
+                        name: "root view controller appearing",
+                        causeOfResourceBeingTracked: "`\(methodDescription)` was called",
+                        likelyCauseOfResourceStillBeingTracked: "unknown", // I have no idea
+                        listOfConditionsThatWillCauseResourceToBeUntracked: [
+                            "`-UIWindow.setRootViewController(_:)` is called and previous root view controller is currently tracked view controller",
+                            "`-UIWindow.setHidden(_:)` is called with argument `true` (hidden: Bool) and root view controller is currently tracked view controller",
+                            "`-UIViewController.viewDidAppear(_:)` is called",
+                            "`-UIViewController.viewDidDisappear(_:)` is called",
+                            "`-UIViewController.viewDidMoveToWindow(_:shouldAppearOrDisappear:)` is called with first argument `nil` (window: UIWindow)"
+                        ]
+                    )
+                }
+            )
         }
+    }
+    
+    fileprivate func untrackDueToRootViewControllerChangedForWindow() {
+        trackedViewAppearing.value?.untrack()
+        trackedRootViewControllerAppearing.value?.untrack()
     }
     
     private var isMovingToNilWindow: AssociatedValue<Bool> {
@@ -220,8 +283,11 @@ extension UIWindow {
         // Don't track the same rootviewcontroller more than once.
         let isAlreadyBeingTracked = oldValue == newValue
         if !isAlreadyBeingTracked {
-            oldValue?.trackAsRootViewController(window: nil)
-            newValue?.trackAsRootViewController(window: self)
+            oldValue?.untrackDueToRootViewControllerChangedForWindow()
+            newValue?.trackAsRootViewController(
+                window: self,
+                methodDescription: "-UIWindow.setRootViewController(_:)"
+            )
         }
         
         swizzled_setRootViewController(newValue)
@@ -231,7 +297,10 @@ extension UIWindow {
         swizzled_setHidden(hidden)
         
         // Method should be called after isHidden is set.
-        rootViewController?.trackAsRootViewController(window: self)
+        rootViewController?.trackAsRootViewController(
+            window: self,
+            methodDescription: "-UIWindow.setHidden(_:)"
+        )
     }
 }
 

@@ -10,6 +10,8 @@
 //
 public protocol IdlingResource {
     func isIdle() -> Bool
+    
+    var resourceDescription: String { get }
 }
 
 #endif

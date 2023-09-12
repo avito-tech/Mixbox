@@ -16,6 +16,14 @@ public final class CompoundIdlingResource: IdlingResource {
             $0.isIdle()
         }
     }
+    
+    public var resourceDescription: String {
+        let wrappedChildrenDescription = idlingResources.map { idlingResource in
+            "\(idlingResource.isIdle() ? "IDLE" : "BUSY"): \(idlingResource.resourceDescription)"
+        }.joined(separator: ",\n").mb_wrapAndIndent(prefix: "{", postfix: "}", ifEmpty: "{}")
+        
+        return "CompoundIdlingResource \(wrappedChildrenDescription)"
+    }
 }
 
 #endif

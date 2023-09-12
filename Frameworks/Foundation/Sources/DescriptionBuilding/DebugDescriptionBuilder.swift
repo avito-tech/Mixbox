@@ -53,9 +53,9 @@ public final class DebugDescriptionBuilder: CustomDebugStringConvertible {
                 .map { description($0) }
                 .joined(separator: ",\n")
                 .mb_wrapAndIndent(
+                    indentation: DebugDescriptionBuilder.doubledIndentation, // additional indentation for array
                     prefix: "[",
                     postfix: "\(DebugDescriptionBuilder.indentation)]",
-                    indentation: DebugDescriptionBuilder.doubledIndentation, // additional indentation for array
                     ifEmpty: "[]"
                 )
         } else {
@@ -80,9 +80,9 @@ public final class DebugDescriptionBuilder: CustomDebugStringConvertible {
                 .map { "\(description($0)): \(description($1))" }
                 .joined(separator: ",\n")
                 .mb_wrapAndIndent(
+                    indentation: DebugDescriptionBuilder.doubledIndentation, // additional indentation for dictionary
                     prefix: "[",
                     postfix: "\(DebugDescriptionBuilder.indentation)]",
-                    indentation: DebugDescriptionBuilder.doubledIndentation, // additional indentation for dictionary
                     ifEmpty: "[]"
                 )
         } else {

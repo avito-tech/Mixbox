@@ -75,6 +75,7 @@
 		1F4987492A44ACDF00CF5F54 /* SoftwareKeyboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */; };
 		1F4987692A45E87C00CF5F54 /* CanTapKeyboardTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987672A45E80200CF5F54 /* CanTapKeyboardTestsViewPageObject.swift */; };
 		1F49876A2A45E87C00CF5F54 /* CanTapKeyboardTestsViewPageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4987672A45E80200CF5F54 /* CanTapKeyboardTestsViewPageObject.swift */; };
+		1F94D1442AB0C3F600A1DD71 /* String_Indentation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F94D1432AB0C3F600A1DD71 /* String_Indentation_Tests.swift */; };
 		1FD9707F2A4AD20800BB4B90 /* IsLessMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD9707E2A4AD20800BB4B90 /* IsLessMatcherTests.swift */; };
 		1FD970882A4AD30700BB4B90 /* IsGreaterOrEqualsWithAccuracyMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD970812A4AD30600BB4B90 /* IsGreaterOrEqualsWithAccuracyMatcherTests.swift */; };
 		1FD970892A4AD30700BB4B90 /* IsLessOrEqualsWithAccuracyMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD970822A4AD30700BB4B90 /* IsLessOrEqualsWithAccuracyMatcherTests.swift */; };
@@ -992,6 +993,7 @@
 		1F4987402A44A42D00CF5F54 /* SoftwareKeyboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareKeyboardTests.swift; sourceTree = "<group>"; };
 		1F4987432A44A46600CF5F54 /* SoftwareKeyboardTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareKeyboardTestsView.swift; sourceTree = "<group>"; };
 		1F4987672A45E80200CF5F54 /* CanTapKeyboardTestsViewPageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanTapKeyboardTestsViewPageObject.swift; sourceTree = "<group>"; };
+		1F94D1432AB0C3F600A1DD71 /* String_Indentation_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String_Indentation_Tests.swift; sourceTree = "<group>"; };
 		1FD9707E2A4AD20800BB4B90 /* IsLessMatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsLessMatcherTests.swift; sourceTree = "<group>"; };
 		1FD970812A4AD30600BB4B90 /* IsGreaterOrEqualsWithAccuracyMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsGreaterOrEqualsWithAccuracyMatcherTests.swift; sourceTree = "<group>"; };
 		1FD970822A4AD30700BB4B90 /* IsLessOrEqualsWithAccuracyMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsLessOrEqualsWithAccuracyMatcherTests.swift; sourceTree = "<group>"; };
@@ -3742,6 +3744,7 @@
 				F8933D3823E20225002727AC /* GenericSerializationTests.swift */,
 				F8C39E3825665FDD00CE2A03 /* UnwrapOrThrowTests.swift */,
 				1F4987342A44787400CF5F54 /* CachingLazyMappingSequenceTests.swift */,
+				1F94D1432AB0C3F600A1DD71 /* String_Indentation_Tests.swift */,
 			);
 			path = MixboxFoundation;
 			sourceTree = "<group>";
@@ -6047,6 +6050,7 @@
 				F8DFADC3256BC6C900016F40 /* MixboxMocksThrowingFunctionsTests.swift in Sources */,
 				F8B964CB2281DC9F0054CE08 /* CGVector_Extensions_Tests.swift in Sources */,
 				F8DEAAED2363A2E90002AB81 /* ElementMatcherBuilderFactory.swift in Sources */,
+				1F94D1442AB0C3F600A1DD71 /* String_Indentation_Tests.swift in Sources */,
 				F80C2E0924D1DAFD00C6CAD4 /* LogsAndFailuresMatcherBuilder.swift in Sources */,
 				F8DD5D8624F4434C00FA6491 /* OptionalGeneratorFacadeTests.swift in Sources */,
 				1FD970892A4AD30700BB4B90 /* IsLessOrEqualsWithAccuracyMatcherTests.swift in Sources */,

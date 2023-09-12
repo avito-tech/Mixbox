@@ -8,26 +8,30 @@
 extension String {
     private static var newLine: String { "\n" }
     
-    public func mb_indent(_ indentation: String = "    ") -> String {
+    public func mb_indent(
+        level: Int = 1,
+        indentation: String = "    ",
+        includingFirstLine: Bool
+    ) -> String {
+        let indentation = String(repeating: indentation, count: level)
+        
         return self
             .components(separatedBy: String.newLine)
-            .map { indentation + $0 }
+            .enumerated()
+            .map { index, line in (index == 0 && !includingFirstLine) ? line : indentation + line }
             .joined(separator: String.newLine)
     }
     
     public func mb_wrapAndIndent(
+        indentation: String = "    ",
         prefix: String = "",
         postfix: String = "",
-        indentation: String = "    ",
-        ifEmpty stringIfEmpty: String? = "[]")
-        -> String
-    {
-        if isEmpty, let stringIfEmpty = stringIfEmpty {
+        ifEmpty stringIfEmpty: String? = "[]"
+    ) -> String {
+        if isEmpty, let stringIfEmpty {
             return stringIfEmpty
         } else {
-            return prefix + String.newLine
-                + mb_indent(indentation) + String.newLine
-                + postfix
+            return "\(prefix)\(String.newLine)\(mb_indent(indentation: indentation, includingFirstLine: true))\(String.newLine)\(postfix)"
         }
     }
 }

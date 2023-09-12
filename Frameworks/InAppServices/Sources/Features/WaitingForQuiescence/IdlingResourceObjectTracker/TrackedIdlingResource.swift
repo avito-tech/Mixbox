@@ -9,30 +9,36 @@ public final class TrackedIdlingResource {
     // Unique identifier for tracked resource.
     public let identifier: UUID
     
-    // Reference to an parent object that holds resource,
+    // Reference to a parent object that holds resource,
     // once it is deallocated, resource is considered free.
     // Parent can have different resources (with different identifiers).
     public weak var parent: AnyObject?
+    
+    public let resourceDescription: () -> TrackedIdlingResourceDescription
     
     private let untrackClosure: (TrackedIdlingResource) -> ()
     
     public init(
         identifier: UUID,
         parent: AnyObject,
+        resourceDescription: @escaping () -> TrackedIdlingResourceDescription,
         untrack: @escaping (TrackedIdlingResource) -> ())
     {
         self.identifier = identifier
         self.parent = parent
+        self.resourceDescription = resourceDescription
         self.untrackClosure = untrack
     }
     
     public convenience init(
         parent: AnyObject,
+        resourceDescription: @escaping () -> TrackedIdlingResourceDescription,
         untrack: @escaping (TrackedIdlingResource) -> ())
     {
         self.init(
             identifier: UUID(),
             parent: parent,
+            resourceDescription: resourceDescription,
             untrack: untrack
         )
     }

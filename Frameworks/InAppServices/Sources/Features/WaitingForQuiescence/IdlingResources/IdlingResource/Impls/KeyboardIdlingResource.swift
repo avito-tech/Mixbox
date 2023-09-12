@@ -6,31 +6,42 @@
 
 public final class KeyboardIdlingResource: IdlingResource {
     private var observers = [NSObjectProtocol]()
-    private var idle = true
+    
+    private var isShowing = false
+    private var isHiding = false
     
     public init() {
         subscribeToNotifications()
     }
     
+    public var resourceDescription: String {
+        """
+        KeyboardIdlingResource {
+            isShowing: \(isShowing),
+            isHiding: \(isHiding),
+        }
+        """
+    }
+    
     public func isIdle() -> Bool {
-        return idle
+        return !isShowing && !isHiding
     }
     
     private func subscribeToNotifications() {
         let keyboardWillShowNotificationObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.idle = false
+            self?.isShowing = true
         }
         
         let keyboardDidShowNotificationObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.idle = true
+            self?.isShowing = false
         }
         
         let keyboardWillHideNotificationObservcer = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.idle = false
+            self?.isHiding = true
         }
 
         let keyboardDidHideNotificationObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: nil) { [weak self] _ in
-            self?.idle = true
+            self?.isHiding = false
         }
         
         observers.append(contentsOf: [

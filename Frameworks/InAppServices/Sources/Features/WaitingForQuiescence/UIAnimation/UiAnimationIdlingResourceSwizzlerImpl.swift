@@ -10,6 +10,8 @@ public class UiAnimationIdlingResourceSwizzlerImpl: NSObject, UiAnimationIdlingR
     public let assertingSwizzler: AssertingSwizzler
     public let assertionFailureRecorder: AssertionFailureRecorder
     
+    private var uiAnimationClassName = "UIAnimation"
+    
     public init(
         assertingSwizzler: AssertingSwizzler,
         assertionFailureRecorder: AssertionFailureRecorder) {
@@ -32,7 +34,7 @@ public class UiAnimationIdlingResourceSwizzlerImpl: NSObject, UiAnimationIdlingR
         originalSelector: Selector,
         swizzledSelector: Selector)
     {
-        guard let uiAnimationClass = NSClassFromString("UIAnimation") as? NSObject.Type else {
+        guard let uiAnimationClass = NSClassFromString(uiAnimationClassName) as? NSObject.Type else {
             assertionFailureRecorder.recordAssertionFailure(
                 message: "Class UIAnimation not found"
             )
@@ -66,7 +68,20 @@ public class UiAnimationIdlingResourceSwizzlerImpl: NSObject, UiAnimationIdlingR
     private typealias MarkStartFunction = @convention(c) (AnyObject, Selector, TimeInterval) -> Void
     private var markStartSelector: Selector { return Selector.mb_init(privateName: "markStart:") }
     @objc fileprivate func swizzled_markStart(startTime: TimeInterval) {
-        trackedAnimation.value = IdlingResourceObjectTracker.instance.track(parent: self)
+        trackedAnimation.value?.untrack()
+        trackedAnimation.value = IdlingResourceObjectTracker.instance.track(
+            parent: self,
+            resourceDescription: { [uiAnimationClassName, markStartSelector, markStopSelector] in
+                TrackedIdlingResourceDescription(
+                    name: "animation",
+                    causeOfResourceBeingTracked: "`-\(uiAnimationClassName)\(markStartSelector)` was called",
+                    likelyCauseOfResourceStillBeingTracked: "animation is too long",
+                    listOfConditionsThatWillCauseResourceToBeUntracked: [
+                        "`-\(uiAnimationClassName)\(markStopSelector)` is called"
+                    ]
+                )
+            }
+        )
         
         let originalImp = class_getMethodImplementation(UiAnimationIdlingResourceSwizzlerImpl.self, #selector(swizzled_markStart))
         unsafeBitCast(originalImp, to: MarkStartFunction.self)(self, markStartSelector, startTime)

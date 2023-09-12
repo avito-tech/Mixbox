@@ -30,9 +30,13 @@ public final class IdlingResourceObjectTracker: IdlingResource {
     public init() {
     }
     
-    public func track(parent: AnyObject) -> TrackedIdlingResource {
+    public func track(
+        parent: AnyObject,
+        resourceDescription: @escaping () -> TrackedIdlingResourceDescription
+    ) -> TrackedIdlingResource {
         let resource = TrackedIdlingResource(
             parent: parent,
+            resourceDescription: resourceDescription,
             untrack: { [weak self] resource in
                 self?.busyResources[resource.identifier] = nil
             }
@@ -53,6 +57,64 @@ public final class IdlingResourceObjectTracker: IdlingResource {
         busyResources = newResources
         
         return newResources.isEmpty
+    }
+    
+    public var resourceDescription: String {
+        let wrappedChildrenDescription = busyResources.map { uuid, trackedIdlingResourceWeakBox in
+            "\(uuid.uuidString): \(resourceDescription(trackedIdlingResourceWeakBox: trackedIdlingResourceWeakBox))"
+        }.joined(separator: ",\n").mb_wrapAndIndent(prefix: "{", postfix: "}", ifEmpty: "{}")
+        
+        return "IdlingResourceObjectTracker \(wrappedChildrenDescription)"
+    }
+    
+    private func resourceDescription(trackedIdlingResourceWeakBox: WeakBox<TrackedIdlingResource>) -> String {
+        if let value = trackedIdlingResourceWeakBox.value {
+            return resourceDescription(trackedIdlingResource: value)
+        } else {
+            return "nil"
+        }
+    }
+
+    private func resourceDescription(trackedIdlingResource: TrackedIdlingResource) -> String {
+        var properties = [(key: String, value: String)]()
+        
+        if let parent = trackedIdlingResource.parent {
+            properties.append((key: "parent", value: String(describing: parent)))
+        }
+        
+        let resourceDescription = trackedIdlingResource.resourceDescription()
+        
+        properties.append((key: "name", value: resourceDescription.name))
+        properties.append((key: "causeOfResourceBeingTracked", value: resourceDescription.causeOfResourceBeingTracked))
+        properties.append((key: "likelyCauseOfResourceStillBeingTracked", value: resourceDescription.likelyCauseOfResourceStillBeingTracked))
+        properties.append(
+            (
+                key: "listOfConditionsThatWillCauseResourceToBeUntracked",
+                value: resourceDescription.listOfConditionsThatWillCauseResourceToBeUntracked.map {
+                    "- \($0)"
+                }.joined(
+                    separator: "\n"
+                ).mb_wrapAndIndent(
+                    prefix: "{",
+                    postfix: "}",
+                    ifEmpty: "ERROR: no conditions given, `listOfConditionsThatWillCauseResourceToBeUntracked` is empty, please, fix it in Mixbox"
+                )
+            )
+        )
+        
+        properties.append(contentsOf: resourceDescription.customProperties)
+        
+        return "TrackedIdlingResource " + properties.map {
+            "\($0.key): \($0.value)"
+        }.joined(separator: ",\n").mb_wrapAndIndent(prefix: "{", postfix: "}", ifEmpty: "{}")
+    }
+
+    private func resourceDescription(trackedIdlingResourceParent: Any?) -> String {
+        if let trackedIdlingResourceParent {
+            return String(describing: trackedIdlingResourceParent)
+        } else {
+            return "nil"
+        }
     }
     
     private func resourceOrItsParentIsDeallocated(_ box: WeakBox<TrackedIdlingResource>) -> Bool {

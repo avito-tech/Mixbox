@@ -73,21 +73,27 @@ final class CALayerIdlingSupport {
 extension CALayer {
     @objc func mbswizzled_setNeedsDisplay() {
         // Next runloop drain will perform the draw pass.
-        trackUntilNextRunloopDrain()
+        trackUntilNextRunloopDrain(
+            methodDescription: "-CALayer.setNeedsDisplay()"
+        )
         
         mbswizzled_setNeedsDisplay()
     }
     
     @objc func mbswizzled_setNeedsDisplayInRect(_ r: CGRect) {
         // Next runloop drain will perform the draw pass.
-        trackUntilNextRunloopDrain()
+        trackUntilNextRunloopDrain(
+            methodDescription: "-CALayer.setNeedsDisplay(_:)"
+        )
         
         mbswizzled_setNeedsDisplayInRect(r)
     }
     
     @objc func mbswizzled_setNeedsLayout() {
         // Next runloop drain will perform the layout pass.
-        trackUntilNextRunloopDrain()
+        trackUntilNextRunloopDrain(
+            methodDescription: "-CALayer.setNeedsLayout()"
+        )
         
         mbswizzled_setNeedsLayout()
     }
@@ -97,16 +103,18 @@ extension CALayer {
 
         // At this point, the app could be in idle state and the next runloop drain may trigger this
         // animation so track this LAYER (not animation) until next runloop drain.
-        trackUntilNextRunloopDrain()
+        trackUntilNextRunloopDrain(
+            methodDescription: "CALayer.add(_:forKey:)"
+        )
 
         mbswizzled_add(animation: animation, key: key)
     }
     
     @objc func mbswizzled_set(speed: CGFloat) {
         if speed == 0 && self.speed != 0 {
-            handleLayerSpeedSetToZero()
+            handleLayerSpeedChangedToZero()
         } else if speed != 0 && self.speed == 0 {
-            handleLayerSpeedSetToNonZero()
+            handleLayerSpeedChangedToNonZero()
         }
         
         mbswizzled_set(speed: speed)
@@ -150,7 +158,7 @@ extension CALayer {
         }
     }
     
-    private func handleLayerSpeedSetToZero() {
+    private func handleLayerSpeedChangedToZero() {
         guard let animationKeys = self.animationKeys(), !animationKeys.isEmpty else { return }
         
         pausedAnimationKeys.value = Set(animationKeys)
@@ -162,11 +170,11 @@ extension CALayer {
         }
         
         for sublayer in sublayers ?? [] {
-            sublayer.handleLayerSpeedSetToZero()
+            sublayer.handleLayerSpeedChangedToZero()
         }
     }
     
-    private func handleLayerSpeedSetToNonZero() {
+    private func handleLayerSpeedChangedToNonZero() {
         for key in pausedAnimationKeys.value {
             guard let animation = self.animation(forKey: key) else {
                 continue
@@ -174,7 +182,7 @@ extension CALayer {
             
             switch animation.mb_state {
             case .started:
-                animation.mb_trackForDurationOfAnimation()
+                animation.mb_trackForDurationOfAnimation(reason: "layer speed changed to non-zero and animation is in state `started`")
             case .stopped, .pendingStart:
                 break
             }
@@ -183,7 +191,7 @@ extension CALayer {
         pausedAnimationKeys.value = []
         
         for sublayer in sublayers ?? [] where sublayer.speed != 0 {
-            sublayer.handleLayerSpeedSetToNonZero()
+            sublayer.handleLayerSpeedChangedToNonZero()
         }
     }
     
@@ -191,8 +199,22 @@ extension CALayer {
         return AssociatedValue(container: self, key: #function, defaultValue: [])
     }
     
-    private func trackUntilNextRunloopDrain() {
-        let trackedIdlingResource = IdlingResourceObjectTracker.instance.track(parent: self)
+    private func trackUntilNextRunloopDrain(
+        methodDescription: String
+    ) {
+        let trackedIdlingResource = IdlingResourceObjectTracker.instance.track(
+            parent: self,
+            resourceDescription: {
+                TrackedIdlingResourceDescription(
+                    name: methodDescription,
+                    causeOfResourceBeingTracked: "`\(methodDescription)` was called",
+                    likelyCauseOfResourceStillBeingTracked: "unknown", // seems to be impossible
+                    listOfConditionsThatWillCauseResourceToBeUntracked: [
+                        "main queue executes sheduled task"
+                    ]
+                )
+            }
+        )
         
         DispatchQueue.main.async {
             trackedIdlingResource.untrack()

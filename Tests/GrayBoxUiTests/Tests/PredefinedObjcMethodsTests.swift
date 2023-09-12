@@ -182,8 +182,12 @@ final class PredefinedObjcMethodsTests: TestCase {
             }
             .joined(separator: ",\n")
         
-        return String(joined)
-            .mb_wrapAndIndent(prefix: "[", postfix: "]", indentation: "    ", ifEmpty: "[]")
+        return String(joined).mb_wrapAndIndent(
+            indentation: "    ",
+            prefix: "[",
+            postfix: "]",
+            ifEmpty: "[]"
+        )
     }
     
     private func copypastableDescription(_ methods: [ObjcMethodWithUniqueImplementation]) -> String {
@@ -195,8 +199,12 @@ final class PredefinedObjcMethodsTests: TestCase {
             }
             .joined(separator: ",\n")
         
-        return String(joined)
-            .mb_wrapAndIndent(prefix: "[", postfix: "]", indentation: "    ", ifEmpty: "[]")
+        return String(joined).mb_wrapAndIndent(
+            indentation: "    ",
+            prefix: "[",
+            postfix: "]",
+            ifEmpty: "[]"
+        )
     }
     
     private func method(
