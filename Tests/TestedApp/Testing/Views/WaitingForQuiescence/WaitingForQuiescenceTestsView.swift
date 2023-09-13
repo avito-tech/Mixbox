@@ -136,6 +136,11 @@ public final class WaitingForQuiescenceTestsView:
         
         addSubview(scrollView)
         
+        // TODO: Make visibility checking work with default color of navigation bar
+        //       Issue: sometimes scrollview is swiped so the button is under navigation bar, and visibility check thinks it's visible
+        //       (because navbar is somewhat transparent?)
+        navigationController?.navigationBar.backgroundColor = .black
+        
         completion()
     }
     
