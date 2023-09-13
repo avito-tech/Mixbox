@@ -44,16 +44,16 @@ The project follows this terminology:
 
 Black box tests and gray box tests share very similar APIs, but deep inside they have different implementations. You can share a lot of your code between black box and gray box tests.
 
-Here are some stats about speed and stability of black box vs gray box tests from a real application (Avito).
+Here are some stats about speed and stability of black box vs gray box tests from a real application (Avito), as of September 2023.
 
 ### Speed
 
-**Black box**: 49.8 seconds per test on average.
+**Black box**: 122 seconds per test on average.
 
-**Gray box**: 20 seconds per test on average. Note that we have really high level tests that were just moved from black box tests, that take like 3 minutes to run, that are not atomic and do a lot of things. You can do better, but also you can do whatever you want.
+**Gray box**: 6.5 seconds per test on average. Note that we have really high level tests that were just moved from black box tests, that take like 3 minutes to run, that are not atomic and do a lot of things. You can do better, but also you can do whatever you want.
 
 ### Stability
 
-**Black box**: We run between 100 and 200 tests on pull request. We select the most stable ones. Also we have retries and comparison between source and target branch (to eliminate problems where the issue is in infrastructure and not in the source code; tests that are failing on modified and not modified code do not block pull request). And even with the last feature (comparison to target branch) I wouldn't run every test on every pull request, because it will be not stable (we have about 700 tests and some of them are unstable, because of E2E nature). We only test on 1 platform on pull request.
+**Black box**: We have about 800 of them. They are not stable mainly because they are E2E. We do not run them on PR (in most cases). We have retries and comparison between source and target branch (to eliminate problems where the issue is in infrastructure and not in the source code; tests that are failing on both source and target branch do not block pull request). The comparison to target branch works well and if we run all tests on PR (rarely), PR is not blocked (about 100-200 tests fail, but they are compared to target branch and fail there also and those tests are ignored).
 
-**Gray box**: We run every test on 2 platforms (minimal and maximal supported iOS version). We require every test to be successful, otherwise PR will be blocked. They are more stable. They do not use real network. Everything is mocked. Because mocking is very easy to do with this kind of tests. And because of that those tests are more stable. Fun fact: the gray box tests are in fact less stable, but only because we run 5-10 times more such tests and don't filter them or compare them to target branch (they are required to be successful at any time in our main branch).
+**Gray box**: We run about 4000 tests on PR on a single device/iOS. Some tests (about 50) are marked as flaky and do not block PR. They are more stable than black box tests. They do not use real network. Everything is mocked. Because mocking is very easy to do with this kind of tests. And because of that those tests are more stable. Though, we have a problem with unstable PR builds.

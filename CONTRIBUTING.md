@@ -44,3 +44,14 @@ See [documentation](Docs/PrivateApi/DumpPy.md) for [dump.py](Frameworks/TestsFou
 - Run `BuildLintAndUnitTest` scheme in `Tests` project.
 - Fix all compilation errors
 - Fix all unit tests
+
+## How Mixbox works
+
+Mixbox is named as such, because the main idea behind it is to support all levels of testing: blackbox/graybox/whitebox.
+
+Mixbox now is mainly about UI testing, though. Blackbox testing is when tests launch app and work with it as with a black box. Graybox testing is when tests run application code directly from tests, open small components like screens or views and test them quickly.
+
+Code for both blackbox and graybox tests is shared. You can reuse same code like page objects in both kinds of tests.
+
+All APIs are the same for both kinds of tests, only implementations are different. Mostly the difference is that in black box tests there are two processes, tests and application, and there is inter-process communication (IPC) between them. And the implementations in gray box tests just use same IPC interfaces, but don't actually do IPC and just call Swift code from Swift code in same process.
+

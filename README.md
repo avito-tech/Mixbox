@@ -6,11 +6,13 @@
 
 Powerful E2E UI testing framework for iOS.
 
-Currently it is used in Avito, where we have 700+ E2E UI tests, about 90% of them are green and they helped us to reduce
-manual testing for already 2 years. We run about 25% on PR and we are working towards executing 100% of tests on pull request, partially by switching from Black Box E2E to Gray Box testing. We are running those tests on 3 platforms and it takes ~40 minutes (total duration of tests is 30+ hours), because we are using [Emcee](https://github.com/avito-tech/Emcee), a test runner that runs tests on multiple machines (note that Mixbox doesn't require Emcee). We're writing Gray Box tests too (where we mock classes, network and everything), but we just started.
+Currently it is used in Avito, where we have 700+ E2E UI tests (called black box tests in Mixbox), 3900+ gray box tests 
+that are more atomic and check single things on single screens and are very fast (last 6 seconds on average).
+We like to recommend [Emcee](https://github.com/avito-tech/Emcee),
+a test runner that runs tests on multiple machines (note that Mixbox doesn't require Emcee and vice versa), it
+allows us to run 10 hours of tests on PR in just 20 minutes or so (we have about 30-50 pull requests a day), we have about 150 apple machines.
 
-If you are enthusiastic about using it in your company, file us an issue. We are making it to be usable by community,
-however, it is not our main goal.
+We made Mixbox to be usable by community, however, it is not our main goal. If you don't understand something, file us an issue.
 
 ## Features
 
@@ -45,24 +47,15 @@ however, it is not our main goal.
 - Opening url from tests
 - Geolocation simulation
 - Hardware keyboard (very few key codes are defined, however it can be easily implemented)
-- Customizable without forking repository
-- Swift & Objective-C
-- Tested
-    - 176 black box UI tests on 3 device configurations
-    - 155 gray box UI tests on 3 device configurations
-    - 100 unit tests on 4 device configurations
+- Customizable without forking repository (except when you have SPM, SPM is not supported and people made forks for that),
+  because everything can be injected via DI and override builtin functionality. Nothing is executed automatically either
+  (i.e. in +(void)load methods), so you have full control of what is executed and when.
+- Tested (stats as of September 2023)
+    - 236 black box, 241 gray box, 462 unit tests are run on all supported iOS versions
     - SwiftLint + custom linter
     - All tests are executed per every pull request to Mixbox, and usually 1 PR equals 1 commit.
-    - Two demos are tested with 5 versions of Xcode (10.0, 10.1, 10.2.1, 10.3, 11.0).
 - Configurable reports (e.g.: `Tests` project has integration with Allure, an open sourced reporting system with web UI,
   and in Avito we use in-house solution for reports; you can write your own implementation)
-
-In development / not open sourced yet:
-
-- Code generation of page objects
-- Getting all assertion failures from app
-- Facade for working with springboard
-- Switching accessibility values between release and test builds
 
 ## Installation
 
@@ -74,20 +67,8 @@ The second we use in Avito and it looks like this: [Tests](Tests) (see Podfile t
 
 There are not enough docs yet, so you can try simple approach of linking Mixbox ([Demo](Demos)), but use code examples from [Tests](Tests).
 
-## Supported iOS/Xcode/Swift versions
-
-- Xcode 11
-- Swift 5
-- iOS 10.3, iOS 11.4, iOS 12.1, intermediate versions may work or may not, the mentioned versions
-  are tested on CI
-- Cocoapods 1.8.4
-- Mac OS 10.14.6
-
-Xcode 9/10 and older versions are not supported anymore. If you are planning to use the project on different environment and have problems, let us know.
-
 ## Known issues
 
-- Crashes on iOS 11.2 (works ok on iOS 11.3, iOS 11.4)
 - Setting permissions doesn't work on physical devices (and maybe something else, we don't test on physical devices;
   basic things work)
 - Device rotation was not tested, I think we have bugs with it
