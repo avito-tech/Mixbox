@@ -2,7 +2,7 @@ public final class ContainsMatcher<T: StringProtocol>: Matcher<T> {
     public init<U: StringProtocol>(string: U) {
         super.init(
             description: {
-                "содержит строку \"\(string)\""
+                "contains string \"\(string)\""
             },
             matchingFunction: { (actualValue: T) -> MatchingResult in
                 let contains: Bool
@@ -18,7 +18,7 @@ public final class ContainsMatcher<T: StringProtocol>: Matcher<T> {
                 } else {
                     return .exactMismatch(
                         mismatchDescription: {
-                            "ожидалось содержание '\(string)' в строке, которая по факту равна '\(actualValue)'"
+                            "expected that given string contains '\(string)', but given string is equal to '\(actualValue)'"
                         },
                         attachments: { [] }
                     )

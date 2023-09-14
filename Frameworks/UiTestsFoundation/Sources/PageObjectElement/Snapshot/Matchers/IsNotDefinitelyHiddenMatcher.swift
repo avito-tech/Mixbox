@@ -4,13 +4,13 @@ public final class IsNotDefinitelyHiddenMatcher: Matcher<ElementSnapshot> {
     public init() {
         super.init(
             description: {
-                "не является явно скрытым"
+                "element is not definitely hidden"
             },
             matchingFunction: { snapshot in
                 if let isDefinitelyHidden = snapshot.isDefinitelyHidden.valueIfAvailable {
                     if isDefinitelyHidden {
                         return .exactMismatch(
-                            mismatchDescription: { "вьюшка или один из ее родителей скрыты" },
+                            mismatchDescription: { "element or one of its parents are hidden" },
                             attachments: { [] }
                         )
                     } else {

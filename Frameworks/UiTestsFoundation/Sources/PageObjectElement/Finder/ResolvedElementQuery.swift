@@ -18,7 +18,7 @@ public final class ResolvedElementQuery {
         self.elementQueryResolvingState = elementQueryResolvingState
     }
     
-    public func candidatesDescription() -> CandidatesDescription? {
+    public func elementMatchingResultsDescription() -> CandidatesDescription? {
         guard !elementQueryResolvingState.matchingResults.isEmpty else {
             return nil
         }

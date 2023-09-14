@@ -29,7 +29,7 @@ extension ElementWithUi {
                 ),
                 descriptionBuilder: { dependencies in
                     """
-                    получить значение "\(valueTitle)" видимого элемента "\(dependencies.elementInfo.elementName)"
+                    getting value "\(valueTitle)" of visible element "\(dependencies.elementInfo.elementName)"
                     """
                 }
             ),

@@ -61,7 +61,7 @@ open class BaseElementInteractionDependenciesFactory: ElementInteractionDependen
         di.register(type: InteractionFailureResultFactory.self) { di in
             InteractionFailureResultFactoryImpl(
                 applicationStateProvider: try di.resolve(),
-                messagePrefix: "Действие неуспешно",
+                messagePrefix: "Interaction failed",
                 interactionResultMaker: try di.resolve()
             )
         }

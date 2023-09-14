@@ -3,7 +3,7 @@ public final class StartsWithMatcher<T: StringProtocol>: Matcher<T> {
         super.init(
             description: {
                 """
-                начинается со строки "\(string)"
+                starts with string "\(string)"
                 """
             },
             matchingFunction: { (actualValue: T) -> MatchingResult in
@@ -17,7 +17,7 @@ public final class StartsWithMatcher<T: StringProtocol>: Matcher<T> {
                     return .exactMismatch(
                         mismatchDescription: {
                             """
-                            ожидалось, что строка начинается с "\(string)"'", actual value строки: "\(actualValue)"
+                            expected that string starts with "\(string)"'", actual value: "\(actualValue)"
                             """
                         },
                         attachments: { [] }

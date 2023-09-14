@@ -42,7 +42,7 @@ public final class SetTextByPastingUsingKeyboard: ElementInteraction {
         public func description() -> String {
             let keyToReplaceSelection = text.isEmpty ? "Delete" : "⌘V"
             return """
-                заменить текст элемента "\(dependencies.elementInfo.elementName)" на "\(text)" с помощью ⌘A + \(keyToReplaceSelection)
+                change text of element "\(dependencies.elementInfo.elementName)" to "\(text)" using ⌘A + \(keyToReplaceSelection)
                 """
         }
         

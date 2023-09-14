@@ -10,7 +10,7 @@ public final class ReferenceImageMatcher: Matcher<ElementSnapshot> {
     {
         super.init(
             description: {
-                "Совпадает с референсным скрином"
+                "Matches reference image"
             },
             matchingFunction: { snapshot -> MatchingResult in
                 let actualImage: UIImage

@@ -9,7 +9,9 @@ public final class CutTextAction: BaseElementInteractionWrapper {
             wrappedInteraction: AndElementInteraction(
                 descriptionBuilder: HumanReadableInteractionDescriptionBuilderImpl(
                     buildFunction: { info in
-                        "вырезать текст из '\(info.elementName)'"
+                        """
+                        cut text from "\(info.elementName)"
+                        """
                     }
                 ),
                 interactions: [

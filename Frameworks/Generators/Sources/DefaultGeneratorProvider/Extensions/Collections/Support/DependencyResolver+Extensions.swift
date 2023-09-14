@@ -10,7 +10,7 @@ extension DependencyResolver {
     func arrayLengthGenerator() throws -> Generator<Int> {
         return RandomIntegerGenerator(
             randomNumberProvider: try resolve(),
-            сlosedRange: 0...2
+            closedRange: 0...2
         )
     }
     

@@ -17,3 +17,9 @@ open class Matcher<MatchedType> {
         return matchingFunction(value)
     }
 }
+
+extension Matcher {
+    var wrappedDescription: String {
+        return description.mb_wrapAndIndent(prefix: "{", postfix: "}", ifEmpty: "{}")
+    }
+}

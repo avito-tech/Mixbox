@@ -33,7 +33,7 @@ public final class MixboxStubbingDependencies: DependencyCollectionRegisterer {
                 randomNumberProvider: di.resolve(),
                 lengthGenerator: RandomIntegerGenerator(
                     randomNumberProvider: try di.resolve(),
-                    сlosedRange: 0...20
+                    closedRange: 0...20
                 )
             )
         }

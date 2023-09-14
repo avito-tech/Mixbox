@@ -72,15 +72,21 @@ final class DynamicMatcherBuilderTests: TestCase {
     func test___DynamicMatcherBuilder___produce_matcher_that_has_correct_description() {
         XCTAssertEqual(
             (builder.fieldWithName == 0).description,
-            "Имеет проперти fieldWithName: equals to 0"
+            """
+            has property "fieldWithName": equals to 0
+            """
         )
         XCTAssertEqual(
             (builder.fieldWithoutName == 0).description,
-            "Имеет проперти (property with unknown name, please check that `StructWithNamedFields` conforms to `AllNamedKeyPathsProvider` properly): equals to 0"
+            """
+            has property "(property with unknown name, please check that `StructWithNamedFields` conforms to `AllNamedKeyPathsProvider` properly)": equals to 0
+            """
         )
         XCTAssertEqual(
             (builder.nestedAllNamedKeyPathsProvider.field == 0).description,
-            "Имеет проперти nestedAllNamedKeyPathsProvider.field: equals to 0"
+            """
+            has property "nestedAllNamedKeyPathsProvider.field": equals to 0
+            """
         )
         
         // Does not compile (correct behavior!):
@@ -92,7 +98,9 @@ final class DynamicMatcherBuilderTests: TestCase {
         //
         // XCTAssertEqual(
         //     (builder.nestedNotAllNamedKeyPathsProvider.field == 0).description,
-        //     "Имеет проперти field: equals to 0"
+        //     """
+        //     has property "field": equals to 0"
+        //     """
         // )
     }
     

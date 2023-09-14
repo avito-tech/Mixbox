@@ -108,7 +108,7 @@ final class AssertMatchesReferenceWithDhashComparatorTests: TestCase {
         
         let errorRegex = e(
             """
-            "проверить, что "catView" соответствует референсному изображению" неуспешно, так как: проверка неуспешна (Совпадает с референсным скрином): Actual hashDistance is below hashDistanceTolerance.
+            "check that "catView" matches reference image" failed, because: check failed (Matches reference image): Actual hashDistance is below hashDistanceTolerance.
             """)
             + e(" hashDistance: (") + decimalHashDistance
             + e("). hashDistanceTolerance: (") + decimalHashDistance

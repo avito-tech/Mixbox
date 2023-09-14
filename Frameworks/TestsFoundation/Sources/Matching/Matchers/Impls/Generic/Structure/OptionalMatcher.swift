@@ -6,12 +6,12 @@ public final class OptionalMatcher<T>: Matcher<T?> {
             description: {
                 if let matcher = matcher {
                     return matcher.description.mb_wrapAndIndent(
-                        prefix: "является не nil и {",
+                        prefix: "is not nil and {",
                         postfix: "}",
                         ifEmpty: nil
                     )
                 } else {
-                    return "является nil"
+                    return "is nil"
                 }
             },
             matchingFunction: { value in
@@ -22,12 +22,12 @@ public final class OptionalMatcher<T>: Matcher<T?> {
                     return matcher.match(value: value)
                 case let (.none, .some(value)):
                     return .exactMismatch(
-                        mismatchDescription: { "ожидалось nil, по факту \(value)" },
+                        mismatchDescription: { "expected nil, actual value: \(value)" },
                         attachments: { [] }
                     )
                 case (.some, .none):
                     return .exactMismatch(
-                        mismatchDescription: { "ожидалось не-nil, по факту nil" },
+                        mismatchDescription: { "expected non-nil, actual value: nil" },
                         attachments: { [] }
                     )
                 }

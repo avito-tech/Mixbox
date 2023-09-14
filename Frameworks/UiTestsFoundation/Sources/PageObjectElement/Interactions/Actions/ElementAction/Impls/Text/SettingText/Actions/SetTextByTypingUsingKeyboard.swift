@@ -40,8 +40,8 @@ public final class SetTextByTypingUsingKeyboard: ElementInteraction {
         
         public func description() -> String {
             return """
-                напечатать посимвольно текст "\(text)" в "\(dependencies.elementInfo.elementName)" \
-                с помощью физической клавиатуры"
+                type "\(text)" character by character into "\(dependencies.elementInfo.elementName)" \
+                using physical keyboard"
                 """
         }
         

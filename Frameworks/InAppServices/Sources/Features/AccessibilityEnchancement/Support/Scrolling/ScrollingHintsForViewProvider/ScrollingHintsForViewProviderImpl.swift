@@ -457,7 +457,7 @@ public final class ScrollingHintsForViewProviderImpl: ScrollingHintsForViewProvi
         } else {
             // Is not possible, because contentRect is a rect that contains the entire scroll view,
             // and it is incorrect to scroll beyound the area that is valid for the scrollview.
-            assertionFailure("Ошибка в рассчетах фреймов. Фрейм для доскролла выходит за границы контента scroll view.")
+            assertionFailure("Error in the calculation of frames. Frame for scrolling exceeds bounds of scroll view's content.")
             scrollView.scrollRectToVisible(sourceRect, animated: false)
         }
     }

@@ -44,7 +44,7 @@ final class XcuiElementQuery: ElementQuery {
     private func resolveElement(_ closure: (XCUIElementQuery) -> (XCUIElement)) -> ResolvedElementQuery {
         let stepLogBefore = StepLogBefore(
             date: dateProvider.currentDate(),
-            title: "Поиск элемента"
+            title: "Searching for element"
         )
         
         let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
@@ -63,16 +63,16 @@ final class XcuiElementQuery: ElementQuery {
             )
             
             var attachments = [Attachment]()
-            if let candidatesDescription = resolvedElementQuery.candidatesDescription() {
+            if let elementMatchingResultsDescription = resolvedElementQuery.elementMatchingResultsDescription() {
                 attachments.append(
                     Attachment(
-                        name: "Кандидаты",
-                        content: .text(candidatesDescription.description)
+                        name: "Element matching results",
+                        content: .text(elementMatchingResultsDescription.description)
                     )
                 )
                 attachments.append(
                     Attachment(
-                        name: "Строка и файл где объявлен локатор",
+                        name: "File and line where locator is declared",
                         content: .text(
                             """
                             \(elementFunctionDeclarationLocation.fileLine.file):\(elementFunctionDeclarationLocation.fileLine.line):
@@ -83,7 +83,7 @@ final class XcuiElementQuery: ElementQuery {
                 )
                 attachments.append(
                     Attachment(
-                        name: "Иерархия вьюх",
+                        name: "Element hierarchy",
                         content: .text(
                             applicationProvider.application.debugDescription
                         )
@@ -92,13 +92,13 @@ final class XcuiElementQuery: ElementQuery {
                 if let screenshot = try? applicationScreenshotTaker.takeApplicationScreenshot() {
                     attachments.append(
                         Attachment(
-                            name: "Скриншот",
+                            name: "Screenshot",
                             content: .screenshot(screenshot)
                         )
                     )
                 }
                 attachments.append(
-                    contentsOf: candidatesDescription.attachments
+                    contentsOf: elementMatchingResultsDescription.attachments
                 )
             }
             

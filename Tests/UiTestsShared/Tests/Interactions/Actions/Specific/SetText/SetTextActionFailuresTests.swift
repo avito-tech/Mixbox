@@ -40,7 +40,7 @@ final class SetTextActionFailuresTests: BaseActionTestCase {
         }
         
         let expectedFailure = """
-            "сфокусироваться на элементе и вставить текст 'Text' в 'input non-existing-element' с помощью физической клавиатуры" неуспешно, так как: "сфокусироваться на элементе "input non-existing-element"" неуспешно, так как: "тапнуть по "input non-existing-element"" неуспешно, так как: элемент не найден в иерархии
+            "focus on element and paste text 'Text' into 'input non-existing-element' using physical keyboard" failed, because: "focus on element "input non-existing-element"" failed, because: "tap "input non-existing-element"" failed, because: element was not found in hierarchy
             """
         
         // Fails properly
@@ -51,16 +51,16 @@ final class SetTextActionFailuresTests: BaseActionTestCase {
         // Logs properly
         assert(logsAndFailures: logsAndFailures) { logsAndFailures in
             logsAndFailures.logs.contains { log in
-                log.title == "сфокусироваться на элементе и вставить текст 'Text' в 'input non-existing-element' с помощью физической клавиатуры"
+                log.title == "focus on element and paste text 'Text' into 'input non-existing-element' using physical keyboard"
                     && log.wasSuccessful == false
                     && log.steps.contains { log in
-                        log.title == "сфокусироваться на элементе \"input non-existing-element\""
+                        log.title == "focus on element \"input non-existing-element\""
                             && log.wasSuccessful == false
                             && log.steps.contains { log in
-                                log.title == "тапнуть по \"input non-existing-element\""
+                                log.title == "tap \"input non-existing-element\""
                                     && log.wasSuccessful == false
                                     && log.steps.contains { log in
-                                        log.title == "Поиск элемента" && log.wasSuccessful == false
+                                        log.title == "Searching for element" && log.wasSuccessful == false
                                     }
                             }
                     }

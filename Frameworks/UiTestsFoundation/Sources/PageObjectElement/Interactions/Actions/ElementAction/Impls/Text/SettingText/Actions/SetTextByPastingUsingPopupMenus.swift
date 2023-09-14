@@ -48,8 +48,8 @@ public final class SetTextByPastingUsingPopupMenus: ElementInteraction {
         
         public func description() -> String {
             return """
-                вставить текст "\(text)" из буфера обмена в "\(dependencies.elementInfo.elementName)" \
-                через всплывающие меню на экране
+                paste text "\(text)" from pasteboard into "\(dependencies.elementInfo.elementName)" \
+                via popup menus
                 """
         }
         

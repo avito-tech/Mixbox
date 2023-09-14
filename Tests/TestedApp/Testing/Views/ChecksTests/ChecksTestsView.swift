@@ -75,11 +75,11 @@ final class ChecksTestsView: TestStackScrollView, TestingView {
         removeAllViews()
         
         addLabel(id: "checkText0") {
-            $0.text = "Полное соответствие"
+            $0.text = "Full match"
         }
         
         addLabel(id: "checkText1") {
-            $0.text = "Частичное соответствие"
+            $0.text = "Partial match"
         }
         
         addLabel(id: "hasValue0") {

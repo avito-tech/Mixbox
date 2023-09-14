@@ -68,12 +68,12 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             percentageOfMatching: 0.5,
             description:
             """
-            не найден superview, который матчится матчером "All of [
-                Имеет проперти id: equals to non_existent_id
-                Имеет проперти isEnabled: equals to true
-            ]", лучший кандидат зафейлился: All of [
+            found no superview that matches "All of [
+                has property "id": equals to non_existent_id
+                has property "isEnabled": equals to true
+            ]", best candidate mismatched: All of [
                 (x) value is not equal to 'non_existent_id', actual value: 'superview1'
-                (v) Имеет проперти isEnabled: equals to true
+                (v) has property "isEnabled": equals to true
             ]
             """
         )
@@ -97,7 +97,7 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             percentageOfMatching: 0,
             description:
             """
-            не найден superview, который матчится матчером "Имеет проперти id: equals to non_existent_id", лучший кандидат зафейлился: value is not equal to 'non_existent_id', actual value: 'superview0'
+            found no superview that matches "has property "id": equals to non_existent_id", best candidate mismatched: value is not equal to 'non_existent_id', actual value: 'superview0'
             """
         )
     }
@@ -117,8 +117,8 @@ class IsSubviewMatcherTests: BaseMatcherTests {
             value: viewThatIsBeingMatched,
             description:
             """
-            Является сабвью {
-                Имеет проперти id: equals to superview
+            is subview of {
+                has property "id": equals to superview
             }
             """
         )

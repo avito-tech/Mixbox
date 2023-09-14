@@ -16,7 +16,7 @@ final class AssertTextMatchesInteractionTests: BaseChecksTestCase {
     private func passingAssertSpecification() -> AssertSpecification<LabelElement> {
         return AssertSpecification(
             element: { screen in screen.checkText1 },
-            assert: { $0.assertTextMatches("Час[а-я]+\\W.+(This text doesn't exist|$)") }
+            assert: { $0.assertTextMatches("Parti[a-z]+\\W.+(This text doesn't exist|$)") }
         )
     }
     
@@ -25,7 +25,7 @@ final class AssertTextMatchesInteractionTests: BaseChecksTestCase {
         checkAssertFailsWithDefaultLogs(
             failureMessage:
                 """
-                "проверить, что в "checkText1" текст соответствует регулярке "^not passing regexp$"" неуспешно, так как: проверка неуспешна (Имеет проперти text: текст соответствует регулярке "^not passing regexp$"): string doesn't match regular expression '^not passing regexp$', actual string: 'Частичное соответствие'
+                "check that text in "checkText1" matches regular expression "^not passing regexp$"" failed, because: check failed (has property "text": text matches regular expression "^not passing regexp$"): string doesn't match regular expression '^not passing regexp$', actual string: 'Partial match'
                 """,
             body: {
                 screen.checkText1.withoutTimeout.assertTextMatches("^not passing regexp$")

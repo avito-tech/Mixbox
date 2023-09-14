@@ -23,7 +23,7 @@ final class AssertIsDisplayedInteractionTests: BaseChecksTestCase {
     func test___assertIsDisplayed___failsProperlyIfElementIsNotDisplayed() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что отображается "isNotDisplayed0"" неуспешно, так как: элемент не найден в иерархии
+                "check that "isNotDisplayed0" is displayed" failed, because: element was not found in hierarchy
                 """,
             body: {
                 screen.isNotDisplayed0.withoutTimeout.assertIsDisplayed()
@@ -32,7 +32,7 @@ final class AssertIsDisplayedInteractionTests: BaseChecksTestCase {
         
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что отображается "isNotDisplayed1"" неуспешно, так как: элемент не найден в иерархии
+                "check that "isNotDisplayed1" is displayed" failed, because: element was not found in hierarchy
                 """,
             body: {
                 screen.isNotDisplayed1.withoutTimeout.assertIsDisplayed()

@@ -15,7 +15,7 @@ final class AssertBecomesTallerAfterInteractionTests: BaseChecksTestCase {
     func test___assertBecomesTallerAfter___fails_properly_if_element_is_not_changed() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что высота "expandingLabel" увеличилась" неуспешно, так как: проверка неуспешна (checkPositiveHeightDifference, main matcher): ожидалось, что элемент увеличится в высоту, но он уменьшился на 0.0
+                "check that height of "expandingLabel" increased" failed, because: check failed (checkPositiveHeightDifference, main matcher): expected that height of element increases, but it decreased by 0.0
                 """,
             body: {
                 screen.expandingLabel.assertBecomesTallerAfter {

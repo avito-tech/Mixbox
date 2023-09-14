@@ -22,15 +22,15 @@ extension InteractionFailure {
     public func testFailureDescription() -> String {
         let joinedFailures = nestedFailures
             .map { $0.testFailureDescription() }
-            .joined(separator: ", а также")
+            .joined(separator: ", also")
         
         switch nestedFailures.count {
         case 0:
             return message
         case 1:
-            return "\(message), так как: \(joinedFailures)"
+            return "\(message), because: \(joinedFailures)"
         default:
-            return "\(message), так как: (\(joinedFailures))"
+            return "\(message), because: (\(joinedFailures))"
         }
     }
 }

@@ -81,7 +81,7 @@ final class AssertIsNotDisplayedInteractionTests: BaseChecksTestCase {
         }
         
         let failureMessage = """
-            ""isDisplayed0" is not visible" неуспешно, так как: is visible
+            ""isDisplayed0" is not visible" failed, because: is visible
             """
         
         assert(logsAndFailures: logsAndFailures) { logsAndFailures in
@@ -96,7 +96,7 @@ final class AssertIsNotDisplayedInteractionTests: BaseChecksTestCase {
                 }
                 
                 let hasErrorMessageAttachment = log.attachmentsAfter.contains { attachment in
-                    attachment.name == "Сообщение об ошибке"
+                    attachment.name == "Failure message"
                         && attachment.content == AttachmentContent.text(failureMessage)
                 }
                 

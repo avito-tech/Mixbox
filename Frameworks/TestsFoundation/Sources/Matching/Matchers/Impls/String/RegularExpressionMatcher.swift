@@ -7,7 +7,7 @@ public final class RegularExpressionMatcher<T: StringProtocol>: Matcher<T> {
     ) {
         super.init(
             description: {
-                "текст соответствует регулярке \"\(pattern)\""
+                "text matches regular expression \"\(pattern)\""
             },
             matchingFunction: { (actualValue: T) -> MatchingResult in
                 switch regularExpressionCompilationResult {

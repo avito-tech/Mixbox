@@ -37,7 +37,7 @@ public final class TextMenuAction: ElementInteraction {
             let titlesDescription = possibleMenuTitlesDescription()
             
             return """
-                тапнуть по высплывающему меню в возможными вариантами названий: \(titlesDescription)
+                tap popup menu with one of the following titles: \(titlesDescription)
                 """
         }
         
@@ -67,7 +67,7 @@ public final class TextMenuAction: ElementInteraction {
         private func possibleMenuTitlesDescription() -> String {
             return possibleMenuTitles
                 .map { "\"\($0)\"" }
-                .joined(separator: " или ")
+                .joined(separator: " or ")
         }
     }
 }

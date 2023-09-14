@@ -49,11 +49,9 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
         }
         
         public func description() -> String {
-            let matcher = buildMatcher(dependencies.elementMatcherBuilder)
-            
-            return """
-                элемент \(dependencies.elementInfo.elementName) матчится матчером "\(matcher.description)"
-                """
+            """
+            element "\(dependencies.elementInfo.elementName)" matches matcher "\(buildMatcher(dependencies.elementMatcherBuilder).description)"
+            """
         }
         
         public func interactionFailureShouldStopTest() -> Bool {
@@ -71,7 +69,7 @@ public final class IsDisplayedAndMatchesCheck: ElementInteraction {
                             return .success
                         case let .mismatch(mismatchResult):
                             return dependencies.interactionResultMaker.failure(
-                                message: "проверка неуспешна (\(matcher.description)): \(mismatchResult.mismatchDescription)",
+                                message: "check failed (\(matcher.description)): \(mismatchResult.mismatchDescription)",
                                 attachments: mismatchResult.attachments
                             )
                         }

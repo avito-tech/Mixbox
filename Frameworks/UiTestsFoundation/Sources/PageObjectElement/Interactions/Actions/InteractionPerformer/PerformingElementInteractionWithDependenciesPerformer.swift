@@ -19,7 +19,7 @@ public final class PerformingElementInteractionWithDependenciesPerformer: Elemen
         case .failure(let failureToBeNested):
             let failure = InteractionFailure(
                 message: """
-                "\(interaction.description())" неуспешно
+                "\(interaction.description())" failed
                 """,
                 attachments: [],
                 nestedFailures: [failureToBeNested]

@@ -49,7 +49,7 @@ final class OpenUrlIpcMethodHandler: IpcMethodHandler {
         completion(
             IpcThrowingFunctionResult.void {
                 if !result {
-                    throw ErrorString("Не удалось открыть диплинк '\(url)', убедитесь в его валидности")
+                    throw ErrorString("Failed to open deep link '\(url)', ensure it's valid")
                 }
             }
         )

@@ -12,8 +12,8 @@ extension ElementWithText {
             },
             description: { dependencies in
                 expectedText.isEmpty
-                    ? "в \"\(dependencies.elementInfo.elementName)\" нет текста"
-                    : "в \"\(dependencies.elementInfo.elementName)\" текст равен \"\(expectedText)\""
+                    ? "text is empty inside \"\(dependencies.elementInfo.elementName)\""
+                    : "text in \"\(dependencies.elementInfo.elementName)\" is equal to \"\(expectedText)\""
             },
             file: file,
             line: line
@@ -31,7 +31,7 @@ extension ElementWithText {
             },
             description: { dependencies in
                 """
-                в "\(dependencies.elementInfo.elementName)" текст соответствует регулярке "\(regularExpression)"
+                text in "\(dependencies.elementInfo.elementName)" matches regular expression "\(regularExpression)"
                 """
             },
             file: file,
@@ -50,7 +50,7 @@ extension ElementWithText {
             },
             description: { dependencies in
                 """
-                в "\(dependencies.elementInfo.elementName)" содержится текст "\(text)"
+                "\(dependencies.elementInfo.elementName)" contains text "\(text)"
                 """
             },
             file: file,
@@ -69,8 +69,8 @@ extension ElementWithText {
             },
             description: { dependencies in
                 expectedLabel.isEmpty
-                    ? "в \"\(dependencies.elementInfo.elementName)\" нет accessibilityLabel"
-                    : "в \"\(dependencies.elementInfo.elementName)\" accessibilityLabel равен \"\(expectedLabel)\""
+                    ? "accessibilityLabel is empty in \"\(dependencies.elementInfo.elementName)\" accessibilityLabel"
+                    : "accessibilityLabel in \"\(dependencies.elementInfo.elementName)\" is equal to \"\(expectedLabel)\""
             },
             file: file,
             line: line
@@ -88,7 +88,7 @@ extension ElementWithText {
             },
             description: { dependencies in
                 """
-                в "\(dependencies.elementInfo.elementName)" accessibilityLabel содержит "\(text)"
+                accessibilityLabel in "\(dependencies.elementInfo.elementName)" contains text "\(text)"
                 """
             },
             file: file,

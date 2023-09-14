@@ -261,7 +261,7 @@ final class RandomIntegerGeneratorTests: TestCase {
             randomNumber: randomNumber,
             generator: RandomIntegerGenerator<T>(
                 randomNumberProvider: ConstantRandomNumberProvider(randomNumber),
-                сlosedRange: range
+                closedRange: range
             ),
             rangeDescription: "\(range)",
             expectedResult: expectedResult,

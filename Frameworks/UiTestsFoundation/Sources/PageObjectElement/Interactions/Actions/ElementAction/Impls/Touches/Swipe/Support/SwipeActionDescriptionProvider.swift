@@ -13,7 +13,7 @@ public final class SwipeActionDescriptionProvider {
     }
     
     public func swipeActionDescription(elementName: String) -> String {
-        return "в \(elementName) свайп из \(startPointDescription()) в \(endPointDescription())"
+        return "swipe in \(elementName) \(startPointDescription()) \(endPointDescription())"
     }
     
     private func endPointDescription() -> String {
@@ -21,12 +21,13 @@ public final class SwipeActionDescriptionProvider {
         case let .directionWithDefaultLength(direction):
             return directionDescription(direction: direction)
         case let .directionWithLength(direction, length):
-            return "\(directionDescription(direction: direction)) на \(length) поинтов"
+            return "\(directionDescription(direction: direction)) by \(length) points"
         case let .interactionCoordinates(interactionCoordinates):
             return interactionCoordinatesDescription(
                 interactionCoordinates: interactionCoordinates,
-                nonCenterDescription: "точку",
-                centerDescription: "центр элемента"
+                preposition: "to",
+                nonCenterDescription: "point",
+                centerDescription: "center of the element"
             )
         }
     }
@@ -34,22 +35,23 @@ public final class SwipeActionDescriptionProvider {
     private func directionDescription(direction: SwipeDirection) -> String {
         switch direction {
         case .up:
-            return "вверх"
+            return "up"
         case .down:
-            return "вниз"
+            return "down"
         case .left:
-            return "влево"
+            return "left"
         case .right:
-            return "вправо"
+            return "right"
         }
     }
     
     private func startPointDescription() -> String {
-        let nonCenterDescription = "точки"
-        let centerDescription = "центра элемента"
+        let nonCenterDescription = "point"
+        let centerDescription = "center of element"
         
         return interactionCoordinatesDescription(
             interactionCoordinates: startPoint,
+            preposition: "from",
             nonCenterDescription: nonCenterDescription,
             centerDescription: centerDescription
         )
@@ -57,6 +59,7 @@ public final class SwipeActionDescriptionProvider {
     
     private func interactionCoordinatesDescription(
         interactionCoordinates: InteractionCoordinates,
+        preposition: String,
         nonCenterDescription: String,
         centerDescription: String)
         -> String
@@ -69,19 +72,19 @@ public final class SwipeActionDescriptionProvider {
             let y = normalizedCoordinate.y
             
             if x == 0.5 && y == 0.5 {
-                normalizedCoordinatesDesription = centerDescription
+                normalizedCoordinatesDesription = "\(preposition) \(centerDescription)"
             } else {
-                normalizedCoordinatesDesription = "\(nonCenterDescription) по относительным координатам (\(x); \(y))"
+                normalizedCoordinatesDesription = "\(preposition) \(nonCenterDescription) with relative normalized coordinates (\(x); \(y))"
             }
         } else {
-            normalizedCoordinatesDesription = centerDescription
+            normalizedCoordinatesDesription = "\(preposition) \(centerDescription)"
         }
         
         if let absoluteOffset = interactionCoordinates.absoluteOffset {
             let x = absoluteOffset.dx
             let y = absoluteOffset.dy
             
-            absoluteCoordinatesDesription = "с абсолютным смещением (\(x); \(y))"
+            absoluteCoordinatesDesription = "with absolute offset (\(x); \(y))"
         } else {
             absoluteCoordinatesDesription = nil
         }

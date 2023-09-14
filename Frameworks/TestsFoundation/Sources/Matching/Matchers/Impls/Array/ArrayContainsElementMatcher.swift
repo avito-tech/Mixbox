@@ -3,7 +3,7 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
         super.init(
             description: {
                 """
-                содержит элемент, который матчится матчером "\(matcher.description)"
+                contains element that is matched by matcher: \(matcher.wrappedDescription)"
                 """
             },
             matchingFunction: { (actualArray: [T]) -> MatchingResult in
@@ -33,9 +33,9 @@ public final class ArrayContainsElementMatcher<T>: Matcher<[T]> {
                             .mb_wrapAndIndent(prefix: "[", postfix: "]", ifEmpty: "[]")
                         
                         return """
-                            ожидалось содержание элемента, который матчится матчером "\(matcher.description)", \
-                            в массиве, актуальный массив: \(actualArrayJoined), \
-                            описание ошибок по элементам: \(mismatchDescriptionsJoined)
+                            expected that array contains element that is matched by "\(matcher.description)", \
+                            actual array: \(actualArrayJoined), \
+                            mismatch descriptions for elements: \(mismatchDescriptionsJoined)
                             """
                     },
                     attachments: {

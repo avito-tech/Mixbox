@@ -5,22 +5,22 @@
 #else
 
 public final class RandomIntegerGenerator<T: FixedWidthInteger>: Generator<T> {
-    public init(randomNumberProvider: RandomNumberProvider, сlosedRange: ClosedRange<T> = T.min...T.max) {
-        if сlosedRange == T.min...T.max {
+    public init(randomNumberProvider: RandomNumberProvider, closedRange: ClosedRange<T> = T.min...T.max) {
+        if closedRange == T.min...T.max {
             super.init {
                 T(
                     truncatingIfNeeded: randomNumberProvider.nextRandomNumber()
                 )
             }
-        } else if сlosedRange.upperBound < сlosedRange.lowerBound {
+        } else if closedRange.upperBound < closedRange.lowerBound {
             super.init {
-                throw GeneratorError("upperBound < lowerBound in \(сlosedRange)")
+                throw GeneratorError("upperBound < lowerBound in \(closedRange)")
             }
         } else {
             super.init {
                 try RandomIntegerGenerator.generateAssumingSpecialCasesWereChecked(
                     randomNumberProvider: randomNumberProvider,
-                    сlosedRange: сlosedRange
+                    closedRange: closedRange
                 )
             }
         }
@@ -35,7 +35,7 @@ public final class RandomIntegerGenerator<T: FixedWidthInteger>: Generator<T> {
             super.init {
                 try RandomIntegerGenerator.generateAssumingSpecialCasesWereChecked(
                     randomNumberProvider: randomNumberProvider,
-                    сlosedRange: try ClosedRange(
+                    closedRange: try ClosedRange(
                         lowerBound: range.lowerBound,
                         upperBound: range.upperBound - 1
                     )
@@ -46,7 +46,7 @@ public final class RandomIntegerGenerator<T: FixedWidthInteger>: Generator<T> {
     
     private static func generateAssumingSpecialCasesWereChecked(
         randomNumberProvider: RandomNumberProvider,
-        сlosedRange: ClosedRange<T>)
+        closedRange: ClosedRange<T>)
         throws
         -> T
     {
@@ -63,7 +63,7 @@ public final class RandomIntegerGenerator<T: FixedWidthInteger>: Generator<T> {
         // We want to convert -1..<+2 range not to +7..<+2 but to 3..<6, clamp random number and then
         // convert it back to signed type (we don't want lower bound to be higher than upper).
         //
-        let unsignedRange: ClosedRange<UInt64> = try сlosedRange.swapSignBit()
+        let unsignedRange: ClosedRange<UInt64> = try closedRange.swapSignBit()
         
         let clampedNumber = randomNumber % (1 + unsignedRange.upperBound - unsignedRange.lowerBound) + unsignedRange.lowerBound
         

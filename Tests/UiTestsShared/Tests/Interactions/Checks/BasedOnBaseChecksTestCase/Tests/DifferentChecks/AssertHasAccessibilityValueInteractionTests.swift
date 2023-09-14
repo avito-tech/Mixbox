@@ -24,7 +24,7 @@ final class AssertHasAccessibilityValueInteractionTests: BaseChecksTestCase {
     func test___assertHasAccessibilityValue___failsProperlyIfAccessibilityValueMismatches() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что в "hasValue0" accessibility value = Accessibility [check shall not pass] Value" неуспешно, так как: проверка неуспешна (Имеет проперти value: equals to Accessibility [check shall not pass] Value): value is not equal to 'Accessibility [check shall not pass] Value', actual value: 'Accessibility Value'
+                "check that accessibilityValue in "hasValue0" is equal to "Accessibility [check shall not pass] Value"" failed, because: check failed (has property "value": equals to Accessibility [check shall not pass] Value): value is not equal to 'Accessibility [check shall not pass] Value', actual value: 'Accessibility Value'
                 """,
             body: {
                 screen.hasValue0

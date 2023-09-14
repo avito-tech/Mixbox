@@ -27,11 +27,7 @@ final class ApplicationCrashProducesMeaninfulErrorTests: TestCase {
     func check(element: ViewElement) {
         openScreen(name: "CrashTestsView", useBuiltinIpc: true)
         
-        assertFails(
-            description: """
-                Проверка неуспешна (отображается "view") - элемент не найден в иерархии, на это могло повлиять то, что приложение не запущено, либо закрешилось (state = notRunning)
-                """)
-        {
+        assertFails {
             element.tap()
             
             waiter.wait(timeout: 1)

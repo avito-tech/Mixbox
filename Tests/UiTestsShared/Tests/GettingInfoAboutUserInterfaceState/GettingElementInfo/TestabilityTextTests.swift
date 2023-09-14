@@ -20,8 +20,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("label_plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("label_plain_text==Текст")
-            .assertHasText("Текст")
+        screen.element("label_plain_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
         
         screen.element("label_attributed_textIsNil")
             .assertHasText("")
@@ -29,8 +29,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("label_attributed_textIsEmpty")
             .assertHasText("")
         
-        screen.element("label_attributed_text==Текст")
-            .assertHasText("Текст")
+        screen.element("label_attributed_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
     }
     
     func test_button_normal() {
@@ -40,8 +40,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_normal_plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("button_normal_plain_text==Текст")
-            .assertHasText("Текст")
+        screen.element("button_normal_plain_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
         
         screen.element("button_normal_attributed_textIsNil")
             .assertHasText("")
@@ -49,8 +49,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_normal_attributed_textIsEmpty")
             .assertHasText("")
         
-        screen.element("button_normal_attributed_text==Текст")
-            .assertHasText("Текст")
+        screen.element("button_normal_attributed_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
     }
     
     func test_button_disabled() {
@@ -62,8 +62,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_disabled_plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("button_disabled_plain_text==Текст")
-            .assertHasText("Текст")
+        screen.element("button_disabled_plain_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
         
         screen.element("button_disabled_attributed_textIsNil")
             .assertHasText("Normal State Text")
@@ -71,8 +71,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_disabled_attributed_textIsEmpty")
             .assertHasText("Normal State Text")
         
-        screen.element("button_disabled_attributed_text==Текст")
-            .assertHasText("Текст")
+        screen.element("button_disabled_attributed_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
     }
     
     func test_button_selected() {
@@ -84,8 +84,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_selected_plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("button_selected_plain_text==Текст")
-            .assertHasText("Текст")
+        screen.element("button_selected_plain_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
         
         screen.element("button_selected_attributed_textIsNil")
             .assertHasText("Normal State Text")
@@ -93,8 +93,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("button_selected_attributed_textIsEmpty")
             .assertHasText("Normal State Text")
         
-        screen.element("button_selected_attributed_text==Текст")
-            .assertHasText("Текст")
+        screen.element("button_selected_attributed_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
     }
     
     // swiftlint:disable:next function_body_length
@@ -105,8 +105,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:plain_textIsNil_placeholder:plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:plain_textIsNil_placeholder:plain_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:plain_textIsNil_placeholder:plain_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
         screen.element("textField_text:plain_textIsNil_placeholder:attributed_textIsNil")
             .assertHasText("")
@@ -114,8 +114,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:plain_textIsNil_placeholder:attributed_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:plain_textIsNil_placeholder:attributed_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:plain_textIsNil_placeholder:attributed_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
         screen.element("textField_text:plain_textIsEmpty_placeholder:plain_textIsNil")
             .assertHasText("")
@@ -123,8 +123,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:plain_textIsEmpty_placeholder:plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:plain_textIsEmpty_placeholder:plain_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:plain_textIsEmpty_placeholder:plain_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
         screen.element("textField_text:plain_textIsEmpty_placeholder:attributed_textIsNil")
             .assertHasText("")
@@ -132,26 +132,26 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:plain_textIsEmpty_placeholder:attributed_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:plain_textIsEmpty_placeholder:attributed_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:plain_textIsEmpty_placeholder:attributed_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
-        screen.element("textField_text:plain_text==Текст_placeholder:plain_textIsNil")
-            .assertHasText("Текст")
+        screen.element("textField_text:plain_text==SOME_TEXT_placeholder:plain_textIsNil")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:plain_text==Текст_placeholder:plain_textIsEmpty")
-            .assertHasText("Текст")
+        screen.element("textField_text:plain_text==SOME_TEXT_placeholder:plain_textIsEmpty")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:plain_text==Текст_placeholder:plain_text==Плейсхолдер")
-            .assertHasText("Текст")
+        screen.element("textField_text:plain_text==SOME_TEXT_placeholder:plain_text==PLACEHOLDER_TEXT")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:plain_text==Текст_placeholder:attributed_textIsNil")
-            .assertHasText("Текст")
+        screen.element("textField_text:plain_text==SOME_TEXT_placeholder:attributed_textIsNil")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:plain_text==Текст_placeholder:attributed_textIsEmpty")
-            .assertHasText("Текст")
+        screen.element("textField_text:plain_text==SOME_TEXT_placeholder:attributed_textIsEmpty")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:plain_text==Текст_placeholder:attributed_text==Плейсхолдер")
-            .assertHasText("Текст")
+        screen.element("textField_text:plain_text==SOME_TEXT_placeholder:attributed_text==PLACEHOLDER_TEXT")
+            .assertHasText("SOME_TEXT")
         
         screen.element("textField_text:attributed_textIsNil_placeholder:plain_textIsNil")
             .assertHasText("")
@@ -159,8 +159,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:attributed_textIsNil_placeholder:plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:attributed_textIsNil_placeholder:plain_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:attributed_textIsNil_placeholder:plain_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
         screen.element("textField_text:attributed_textIsNil_placeholder:attributed_textIsNil")
             .assertHasText("")
@@ -168,8 +168,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:attributed_textIsNil_placeholder:attributed_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:attributed_textIsNil_placeholder:attributed_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:attributed_textIsNil_placeholder:attributed_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
         screen.element("textField_text:attributed_textIsEmpty_placeholder:plain_textIsNil")
             .assertHasText("")
@@ -177,8 +177,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:attributed_textIsEmpty_placeholder:plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:attributed_textIsEmpty_placeholder:plain_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:attributed_textIsEmpty_placeholder:plain_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
         screen.element("textField_text:attributed_textIsEmpty_placeholder:attributed_textIsNil")
             .assertHasText("")
@@ -186,26 +186,26 @@ final class TestabilityTextTests: TestCase {
         screen.element("textField_text:attributed_textIsEmpty_placeholder:attributed_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textField_text:attributed_textIsEmpty_placeholder:attributed_text==Плейсхолдер")
-            .assertHasText("Плейсхолдер")
+        screen.element("textField_text:attributed_textIsEmpty_placeholder:attributed_text==PLACEHOLDER_TEXT")
+            .assertHasText("PLACEHOLDER_TEXT")
         
-        screen.element("textField_text:attributed_text==Текст_placeholder:plain_textIsNil")
-            .assertHasText("Текст")
+        screen.element("textField_text:attributed_text==SOME_TEXT_placeholder:plain_textIsNil")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:attributed_text==Текст_placeholder:plain_textIsEmpty")
-            .assertHasText("Текст")
+        screen.element("textField_text:attributed_text==SOME_TEXT_placeholder:plain_textIsEmpty")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:attributed_text==Текст_placeholder:plain_text==Плейсхолдер")
-            .assertHasText("Текст")
+        screen.element("textField_text:attributed_text==SOME_TEXT_placeholder:plain_text==PLACEHOLDER_TEXT")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:attributed_text==Текст_placeholder:attributed_textIsNil")
-            .assertHasText("Текст")
+        screen.element("textField_text:attributed_text==SOME_TEXT_placeholder:attributed_textIsNil")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:attributed_text==Текст_placeholder:attributed_textIsEmpty")
-            .assertHasText("Текст")
+        screen.element("textField_text:attributed_text==SOME_TEXT_placeholder:attributed_textIsEmpty")
+            .assertHasText("SOME_TEXT")
         
-        screen.element("textField_text:attributed_text==Текст_placeholder:attributed_text==Плейсхолдер")
-            .assertHasText("Текст")
+        screen.element("textField_text:attributed_text==SOME_TEXT_placeholder:attributed_text==PLACEHOLDER_TEXT")
+            .assertHasText("SOME_TEXT")
     }
     
     func test_textViews() {
@@ -215,8 +215,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textView_plain_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textView_plain_text==Текст")
-            .assertHasText("Текст")
+        screen.element("textView_plain_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
         
         screen.element("textView_attributed_textIsNil")
             .assertHasText("")
@@ -224,8 +224,8 @@ final class TestabilityTextTests: TestCase {
         screen.element("textView_attributed_textIsEmpty")
             .assertHasText("")
         
-        screen.element("textView_attributed_text==Текст")
-            .assertHasText("Текст")
+        screen.element("textView_attributed_text==SOME_TEXT")
+            .assertHasText("SOME_TEXT")
     }
 }
 

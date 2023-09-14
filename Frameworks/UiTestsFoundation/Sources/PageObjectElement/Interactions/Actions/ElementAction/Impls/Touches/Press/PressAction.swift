@@ -40,7 +40,9 @@ public class PressAction: ElementInteraction {
         }
         
         public func description() -> String {
-            return "нажать \"\(dependencies.elementInfo.elementName)\" и удерживать \(duration) секунд"
+            """
+            tap "\(dependencies.elementInfo.elementName)" and hold \(duration) seconds
+            """
         }
         
         public func interactionFailureShouldStopTest() -> Bool {

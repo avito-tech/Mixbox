@@ -44,7 +44,7 @@ public final class SetTextActionFactory {
                 
                 return [focusingActionDescription, settingTextActionDescription]
                     .compactMap { $0 }
-                    .joined(separator: " и ")
+                    .joined(separator: " and ")
             },
             focusingAction: focusingAction(
                 interactionCoordinates: interactionCoordinates,
@@ -68,9 +68,9 @@ public final class SetTextActionFactory {
         switch elementSelectionMethod {
         case .selectElement(let ensureElementGainsFocus):
             if ensureElementGainsFocus {
-                return "сфокусироваться на элементе"
+                return "focus on element"
             } else {
-                return "сфокусироваться на элементе, не ожидая фокусировки,"
+                return "focus on element, while not waiting until focused,"
             }
         case .doNotSelectElement:
             return nil
@@ -85,11 +85,11 @@ public final class SetTextActionFactory {
     {
         switch inputMethod {
         case .type:
-            return "напечатать текст '\(text)' в '\(elementName)' с помощью физической клавиатуры"
+            return "type text '\(text)' into '\(elementName)' using physical keyboard"
         case .paste:
-            return "вставить текст '\(text)' в '\(elementName)' с помощью физической клавиатуры"
+            return "paste text '\(text)' into '\(elementName)' using physical keyboard"
         case .pasteUsingPopupMenus:
-            return "вставить текст '\(text)' в '\(elementName)' с помощью всплывающего меню"
+            return "paste text '\(text)' into '\(elementName)' using popup menus"
         }
     }
     

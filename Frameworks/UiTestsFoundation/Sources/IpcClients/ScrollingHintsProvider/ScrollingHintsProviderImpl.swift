@@ -27,7 +27,7 @@ public final class IpcScrollingHintsProvider: ScrollingHintsProvider {
             // Maybe we should add String describing reason.
             // Maybe we should merge hintsAreNotAvailableForCurrentElement with canNotProvideHintForCurrentRequest.
             // When we'll experience any bug, we should fix it.
-            return .internalError("Не удалось получить scrollingHint: \(error)")
+            return .internalError("Failed to get scrollingHint: \(error)")
         }
     }
 }

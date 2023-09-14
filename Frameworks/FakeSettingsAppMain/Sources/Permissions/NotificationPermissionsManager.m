@@ -1,4 +1,4 @@
-// За основу взято это:
+// Based on:
 // https://github.com/wix/detox/blob/master/detox/ios/DetoxHelper/DetoxHelper/Extension/SetNotificationPermissionOperation.m
 
 @import UIKit;
@@ -74,7 +74,7 @@
     } else if ([status isEqualToString:@"denied"]) {
         sectionInfo = [self sectionInfoForForSettingNotificationsEnabled:NO];
     } else if ([status isEqualToString:@"notDetermined"]) {
-        // TODO: notDetermined не работает. Попробовать сделать.
+        // TODO: notDetermined doesn't work.
         sectionInfo = nil;
     } else {
         return [ErrorString stringWithFormat:@"status is not supported: %@", status];

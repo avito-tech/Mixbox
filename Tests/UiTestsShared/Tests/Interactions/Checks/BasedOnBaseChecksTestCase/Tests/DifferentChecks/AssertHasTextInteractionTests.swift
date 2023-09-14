@@ -16,7 +16,7 @@ final class AssertHasTextInteractionTests: BaseChecksTestCase {
     private func passingAssertSpecification() -> AssertSpecification<LabelElement> {
         return AssertSpecification(
             element: { screen in screen.checkText0 },
-            assert: { $0.assertHasText("Полное соответствие") }
+            assert: { $0.assertHasText("Full match") }
         )
     }
     
@@ -24,10 +24,10 @@ final class AssertHasTextInteractionTests: BaseChecksTestCase {
     func test___assertHasText___failsProperly() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что в "checkText0" текст равен "Полное [check shall not pass] соответствие"" неуспешно, так как: проверка неуспешна (Имеет проперти text: equals to Полное [check shall not pass] соответствие): value is not equal to 'Полное [check shall not pass] соответствие', actual value: 'Полное соответствие'
+                "check that text in "checkText0" is equal to "Full [check shall not pass] match"" failed, because: check failed (has property "text": equals to Full [check shall not pass] match): value is not equal to 'Full [check shall not pass] match', actual value: 'Full match'
                 """,
             body: {
-                screen.checkText0.withoutTimeout.assertHasText("Полное [check shall not pass] соответствие")
+                screen.checkText0.withoutTimeout.assertHasText("Full [check shall not pass] match")
             }
         )
     }

@@ -5,14 +5,14 @@ public class CastMatcher<Source, Target>: Matcher<Source> {
     {
         super.init(
             description: {
-                "является \(Target.self) и " + matcher.description
+                "is inherited from \(Target.self) and \(matcher.wrappedDescription)"
             },
             matchingFunction: { value in
                 if let castedValue = castingOperator(value) {
                     return matcher.match(value: castedValue)
                 } else {
                     return .exactMismatch(
-                        mismatchDescription: { "Не является \(Target.self)" },
+                        mismatchDescription: { "is not inherited from \(Target.self)" },
                         attachments: { [] }
                     ) 
                 }

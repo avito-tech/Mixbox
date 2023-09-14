@@ -44,8 +44,8 @@ final class TextTestsView: TestStackScrollView {
             }
         }
         
-        iterateTextVariants(nonEmptyText: "Текст") { text_t, isAttributed_t, elementName_t in
-            iterateTextVariants(nonEmptyText: "Плейсхолдер") { text_p, isAttributed_p, elementName_p in
+        iterateTextVariants(nonEmptyText: "SOME_TEXT") { text_t, isAttributed_t, elementName_t in
+            iterateTextVariants(nonEmptyText: "PLACEHOLDER_TEXT") { text_p, isAttributed_p, elementName_p in
                 addTextField(id: "textField_text:\(elementName_t)_placeholder:\(elementName_p)") {
                     if isAttributed_t {
                         $0.attributedText = text_t.flatMap { text in NSAttributedString(string: text) }
@@ -80,7 +80,7 @@ final class TextTestsView: TestStackScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func iterateTextVariants(nonEmptyText: String = "Текст", _ closure: (_ text: String?, _ isAttributed: Bool, _ elementName: String) -> ()) {
+    private func iterateTextVariants(nonEmptyText: String = "SOME_TEXT", _ closure: (_ text: String?, _ isAttributed: Bool, _ elementName: String) -> ()) {
         for isAttributed: Bool in [false, true] {
             for text: String? in [nil, "", nonEmptyText] {
                 let isAttributedToElementName: String = (isAttributed ? "attributed" : "plain")

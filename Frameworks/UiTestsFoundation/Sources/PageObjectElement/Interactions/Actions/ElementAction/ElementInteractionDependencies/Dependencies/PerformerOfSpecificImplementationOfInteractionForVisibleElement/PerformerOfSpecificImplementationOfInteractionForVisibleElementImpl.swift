@@ -79,7 +79,7 @@ public final class PerformerOfSpecificImplementationOfInteractionForVisibleEleme
             case .alreadyVisible(let elementVisibilityCheckerResult):
                 alreadyCalculatedElementVisibilityCheckerResult = elementVisibilityCheckerResult
             case .elementWasLostAfterScroll:
-                potentialCauseOfFailure = "ошибка при автоскролле - элемент пропал из иерархии после скролла"
+                potentialCauseOfFailure = "error in auto-scrolling: element has disappeared from hierarchy after scrolling"
             case .error(let message):
                 potentialCauseOfFailure = message
             }

@@ -37,7 +37,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         return performanceLogger.logSignpost(staticName: "RVHEQ resolveElement") {
             let stepLogBefore = StepLogBefore(
                 date: dateProvider.currentDate(),
-                title: "Поиск элемента"
+                title: "Searching for element"
             )
             
             let wrapper = stepLogger.logStep(stepLogBefore: stepLogBefore) {
@@ -76,7 +76,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
     {
         // TODO: better FileLine (should point to invocation in test)
         testFailureRecorder.recordFailure(
-            description: "Не удалось получить иерархию вьюх из приложения: \(error)",
+            description: "Failed to get element hierarchy from application: \(error)",
             fileLine: FileLine.current(),
             shouldContinueTest: false
         )
@@ -186,7 +186,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         resolvedElementQuery: ResolvedElementQuery,
         viewHierarchy: ViewHierarchy
     ) -> [Attachment] {
-        guard let candidatesDescription = resolvedElementQuery.candidatesDescription() else {
+        guard let elementMatchingResultsDescription = resolvedElementQuery.elementMatchingResultsDescription() else {
             return []
         }
         
@@ -194,14 +194,14 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         
         attachments.append(
             Attachment(
-                name: "Кандидаты",
-                content: .text(candidatesDescription.description)
+                name: "Element matching results",
+                content: .text(elementMatchingResultsDescription.description)
             )
         )
         
         attachments.append(
             Attachment(
-                name: "Иерархия вьюх",
+                name: "Element hierarchy",
                 content: .text(
                     viewHierarchy.debugDescription
                 )
@@ -210,7 +210,7 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         
         attachments.append(
             Attachment(
-                name: "Строка и файл где объявлен локатор",
+                name: "File and line where locator is declared",
                 content: .text(
                     """
                     \(elementFunctionDeclarationLocation.fileLine.file):\(elementFunctionDeclarationLocation.fileLine.line):
@@ -223,14 +223,14 @@ final class UiKitHierarchyElementQuery: ElementQuery {
         if let screenshot = try? applicationScreenshotTaker.takeApplicationScreenshot() {
             attachments.append(
                 Attachment(
-                    name: "Скриншот",
+                    name: "Screenshot",
                     content: .screenshot(screenshot)
                 )
             )
         }
         
         attachments.append(
-            contentsOf: candidatesDescription.attachments
+            contentsOf: elementMatchingResultsDescription.attachments
         )
         
         return attachments

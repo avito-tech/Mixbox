@@ -32,7 +32,7 @@ public final class TapAction: ElementInteraction {
         }
         
         public func description() -> String {
-            return "тапнуть по \"\(dependencies.elementInfo.elementName)\""
+            return "tap \"\(dependencies.elementInfo.elementName)\""
         }
         
         public func interactionFailureShouldStopTest() -> Bool {

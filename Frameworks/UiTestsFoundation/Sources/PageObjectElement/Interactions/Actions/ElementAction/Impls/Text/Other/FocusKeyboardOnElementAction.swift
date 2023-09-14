@@ -40,7 +40,7 @@ public final class FocusKeyboardOnElementAction: ElementInteraction {
         
         public func description() -> String {
             return """
-                сфокусироваться на элементе "\(dependencies.elementInfo.elementName)"
+                focus on element "\(dependencies.elementInfo.elementName)"
                 """
         }
         

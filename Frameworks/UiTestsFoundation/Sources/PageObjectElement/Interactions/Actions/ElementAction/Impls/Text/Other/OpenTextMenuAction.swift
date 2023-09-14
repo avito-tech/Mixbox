@@ -15,7 +15,7 @@ public final class OpenTextMenuAction: BaseElementInteractionWrapper {
                 ),
                 descriptionBuilder: { dependencies in
                     """
-                    тапнуть по "\(dependencies.elementInfo.elementName)" и удерживать \(longTapTimeToActivateMenu) секунд, чтобы открыть меню действий с текстом
+                    tap "\(dependencies.elementInfo.elementName)" and hold \(longTapTimeToActivateMenu) seconds, to open menu of actions
                     """
                 }
             )

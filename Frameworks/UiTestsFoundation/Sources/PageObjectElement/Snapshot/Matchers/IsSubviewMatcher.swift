@@ -6,7 +6,7 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
         super.init(
             description: {
                 parentMatcher.description.mb_wrapAndIndent(
-                    prefix: "Является сабвью {",
+                    prefix: "is subview of {",
                     postfix: "}"
                 )
             },
@@ -17,7 +17,7 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                 
                 if parentPointer == nil {
                     return .exactMismatch(
-                        mismatchDescription: { "Является сабвью (актуальный результат - не имеет супервью)" },
+                        mismatchDescription: { "Is not subview (doesn't have superview)" },
                         attachments: { [] }
                     )
                 }
@@ -62,13 +62,13 @@ public final class IsSubviewMatcher: Matcher<ElementSnapshot> {
                 // We can't show mismatches for every superview, because when nesting multiple IsSubviewMatcher`s,
                 // logging it has exponential complexity, O(N^E) where N - number of views, E - number of nested IsSubviewMatcher`s.
                 if let bestMismatchResult = bestMismatchResult {
-                    bestCandidateMismatchDescription = "лучший кандидат зафейлился: \(bestMismatchResult.mismatchDescription)"
+                    bestCandidateMismatchDescription = "best candidate mismatched: \(bestMismatchResult.mismatchDescription)"
                 } else {
-                    bestCandidateMismatchDescription = "произошла внутренняя ошибка в IsSubviewMatcher, не удалось получить описание фейла лучшего кандидата"
+                    bestCandidateMismatchDescription = "error occured in IsSubviewMatcher, failed to get best candidate mismatch description"
                 }
                 
                 return """
-                не найден superview, который матчится матчером "\(parentMatcher.description)", \
+                found no superview that matches "\(parentMatcher.description)", \
                 \(bestCandidateMismatchDescription)
                 """
             },

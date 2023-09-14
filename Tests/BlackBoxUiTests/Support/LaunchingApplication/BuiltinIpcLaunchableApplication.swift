@@ -37,7 +37,7 @@ public final class BuiltinIpcLaunchableApplication: LaunchableApplication {
         // Initialize client/server pairs
         let handshaker = KnownPortHandshakeWaiter()
         guard let port = handshaker.start() else {
-            preconditionFailure("Не удалось стартовать сервер.")
+            preconditionFailure("Failed to start server")
         }
         
         application.launchArguments = arguments

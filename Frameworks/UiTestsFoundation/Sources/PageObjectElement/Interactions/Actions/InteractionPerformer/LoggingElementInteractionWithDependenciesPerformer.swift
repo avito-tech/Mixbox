@@ -93,7 +93,7 @@ public final class LoggingElementInteractionWithDependenciesPerformer: ElementIn
         case .failure(let interactionFailure):
             stepAttachments.append(
                 Attachment(
-                    name: "Сообщение об ошибке",
+                    name: "Failure message",
                     content: .text(interactionFailure.testFailureDescription())
                 )
             )

@@ -19,7 +19,9 @@ class NotMatcherTests: BaseLogicMatcherTests {
             matcher: NotMatcher(AlwaysFalseMatcher()),
             description:
             """
-            Отрицание матчера Always false
+            not {
+                Always false
+            }
             """
         )
     }

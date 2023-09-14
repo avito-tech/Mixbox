@@ -11,7 +11,7 @@ public extension ElementWithEnabledState {
             buildMatcher: { element in element.isEnabled == true },
             description: { dependencies in
                 """
-                "\(dependencies.elementInfo.elementName)" доступно для нажатия
+                "\(dependencies.elementInfo.elementName)" is enabled
                 """
             },
             file: file,
@@ -29,7 +29,7 @@ public extension ElementWithEnabledState {
             buildMatcher: { element in element.isEnabled == false },
             description: { dependencies in
                 """
-                "\(dependencies.elementInfo.elementName)" недоступно для нажатия
+                "\(dependencies.elementInfo.elementName)" is not enabled
                 """
             },
             file: file,

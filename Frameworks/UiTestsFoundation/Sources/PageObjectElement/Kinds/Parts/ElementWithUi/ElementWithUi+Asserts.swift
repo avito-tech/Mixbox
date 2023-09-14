@@ -11,7 +11,7 @@ extension ElementWithUi {
             matcher: AlwaysTrueMatcher(), // check for visibility is built in `IsDisplayedAndMatchesCheck`
             description: { dependencies in
                 """
-                отображается "\(dependencies.elementInfo.elementName)"
+                "\(dependencies.elementInfo.elementName)" is displayed
                 """
             },
             failTest: false,
@@ -28,7 +28,7 @@ extension ElementWithUi {
             matcher: AlwaysTrueMatcher(), // check for visibility is built in `IsDisplayedAndMatchesCheck`
             description: { dependencies in
                 """
-                отображается "\(dependencies.elementInfo.elementName)"
+                "\(dependencies.elementInfo.elementName)" is displayed
                 """
             },
             file: file,
@@ -79,7 +79,7 @@ extension ElementWithUi {
             matcher: AlwaysTrueMatcher(), // check for existing in hierarchy is built in `isDisplayedAndMatches`
             description: { dependencies in
                 """
-                "\(dependencies.elementInfo.elementName)" присутствует в иерархии
+                "\(dependencies.elementInfo.elementName)" is in hierarchy
                 """
             },
             overridenPercentageOfVisibleArea: 0.0, // this check doesn't require visibility
@@ -99,7 +99,7 @@ extension ElementWithUi {
             },
             description: { dependencies in
                 """
-                в "\(dependencies.elementInfo.elementName)" accessibility value = \(value)
+                accessibilityValue in "\(dependencies.elementInfo.elementName)" is equal to "\(value)"
                 """
             },
             file: file,
@@ -116,7 +116,7 @@ extension ElementWithUi {
             buildMatcher: matcher,
             description: { dependencies in
                 """
-                в "\(dependencies.elementInfo.elementName)" \(matcher(dependencies.elementMatcherBuilder).description)
+                in "\(dependencies.elementInfo.elementName)" \(matcher(dependencies.elementMatcherBuilder).description)
                 """
             },
             file: file,
@@ -138,7 +138,7 @@ extension ElementWithUi {
             buildMatcher: buildMatcher,
             description: { dependencies in
                 """
-                "\(dependencies.elementInfo.elementName)" соответствует референсному изображению
+                "\(dependencies.elementInfo.elementName)" matches reference image
                 """
             },
             overridenPercentageOfVisibleArea: 1.0,
@@ -161,7 +161,7 @@ extension ElementWithUi {
             buildMatcher: buildMatcher,
             description: { dependencies in
                 """
-                "\(dependencies.elementInfo.elementName)" соответствует референсному изображению
+                "\(dependencies.elementInfo.elementName)" matches reference image
                 """
             },
             overridenPercentageOfVisibleArea: 1.0,
@@ -182,11 +182,11 @@ extension ElementWithUi {
             },
             description: { dependencies in
                 """
-                высота "\(dependencies.elementInfo.elementName)" увеличилась
+                height of "\(dependencies.elementInfo.elementName)" increased
                 """
             },
             negativeDifferenceFailureMessage: { difference in
-                "ожидалось, что элемент увеличится в высоту, но он уменьшился на \(abs(difference))"
+                "expected that height of element increases, but it decreased by \(abs(difference))"
             },
             file: file,
             line: line
@@ -205,11 +205,11 @@ extension ElementWithUi {
             },
             description: { dependencies in
                 """
-                высота "\(dependencies.elementInfo.elementName)" уменьшилась
+                height of "\(dependencies.elementInfo.elementName)" decreased
                 """
             },
             negativeDifferenceFailureMessage: { difference in
-                "ожидалось, что элемент уменьшится в высоту, но он увеличился на \(abs(difference))"
+                "expected that height of element decreases, but it increased by \(abs(difference))"
             },
             file: file,
             line: line
@@ -236,7 +236,7 @@ extension ElementWithUi {
                 matchingFunction: { snapshot in
                     guard let heightBefore = heightBefore else {
                         return .exactMismatch(
-                            mismatchDescription: { "не удалось получить значение высоты до действия" },
+                            mismatchDescription: { "failed to get value of height before interaction" },
                             attachments: { [] }
                         )
                     }

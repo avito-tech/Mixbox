@@ -21,7 +21,7 @@ extension PageObjectElementCore {
                     }
                 ),
                 descriptionBuilder: { args in
-                    "проверить, что \(description(args))"
+                    "check that \(description(args))"
                 }
             ),
             interactionPerformingSettings: InteractionPerformingSettings(

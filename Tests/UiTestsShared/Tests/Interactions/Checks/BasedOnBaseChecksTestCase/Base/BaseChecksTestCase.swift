@@ -145,22 +145,22 @@ class BaseChecksTestCase: TestCase {
         -> Matcher<StepLog>
     {
         let hasSearchStep = log.steps.contains { log in
-            let isSearchStep = log.title == "Поиск элемента"
+            let isSearchStep = log.title == "Searching for element"
             
             let hasCandidatesAttachment = log.attachmentsAfter.contains { attachment in
-                attachment.name == "Кандидаты"
+                attachment.name == "Element matching results"
             }
             
             let hasFunctionDeclarationLocationAttachment = log.attachmentsAfter.contains { attachment in
-                attachment.name == "Строка и файл где объявлен локатор"
+                attachment.name == "File and line where locator is declared"
             }
             
             let hasScreenshotAttachment = log.attachmentsAfter.contains { attachment in
-                attachment.name == "Скриншот"
+                attachment.name == "Screenshot"
             }
             
             let hasHierarchyAttachment = log.attachmentsAfter.contains { attachment in
-                attachment.name == "Иерархия вьюх"
+                attachment.name == "Element hierarchy"
             }
             
             let hasAllRequiredAttachments = hasCandidatesAttachment
@@ -172,11 +172,11 @@ class BaseChecksTestCase: TestCase {
         }
         
         let hasScreenshotBeforeAttachment = log.attachmentsBefore.contains { attachment in
-            attachment.name == "Скриншот до"
+            attachment.name == "Screenshot before"
         }
         
         let hasScreenshotAfterAttachment = log.attachmentsAfter.contains { attachment in
-            attachment.name == "Скриншот после"
+            attachment.name == "Screenshot after"
         }
         
         let hasFileLineAttachment = log.attachmentsAfter.contains { attachment in
@@ -189,7 +189,7 @@ class BaseChecksTestCase: TestCase {
         
         if withScreenshotHashAttachment {
             let hasScreenshotHashAttachment = log.attachmentsAfter.contains { attachment in
-                attachment.name == "screenshot hash DHashImageHashCalculator после"
+                attachment.name == "screenshot hash DHashImageHashCalculator after"
             }
             hasAllRequiredAttachments = hasAllRequiredAttachments && hasScreenshotHashAttachment
         }

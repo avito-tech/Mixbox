@@ -24,7 +24,7 @@ final class AssertIsDisabledInteractionTests: BaseChecksTestCase {
     func test___assertIsDisabled___fails_properly_if_element_is_enabled() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "проверить, что "isEnabled0" недоступно для нажатия" неуспешно, так как: проверка неуспешна (Имеет проперти isEnabled: equals to false): value is not equal to 'false', actual value: 'true'
+                "check that "isEnabled0" is not enabled" failed, because: check failed (has property "isEnabled": equals to false): value is not equal to 'false', actual value: 'true'
                 """,
             body: {
                 screen.isEnabled0.withoutTimeout.assertIsDisabled()

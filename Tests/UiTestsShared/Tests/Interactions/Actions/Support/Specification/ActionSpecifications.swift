@@ -34,7 +34,7 @@ final class ActionSpecifications {
     static let clearText = ActionSpecification<InputElement>(
         elementId: "text",
         action: { element in
-            element.setText("Введенная строка")
+            element.setText("Some text")
             element.clearText()
         },
         expectedResult: .uiWasTriggered("text: ")

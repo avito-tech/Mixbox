@@ -29,7 +29,7 @@ public final class ScreenshotAttachmentsMakerImpl: ScreenshotAttachmentsMaker {
         if let screenshot = try? deviceScreenshotTaker.takeDeviceScreenshot() {
             let screenshotAttachment = Attachment(
                 name: attachmentNameAndCircumstances(
-                    attachmentName: "Скриншот",
+                    attachmentName: "Screenshot",
                     beforeStep: beforeStep
                 ),
                 content: .screenshot(screenshot)
@@ -74,7 +74,7 @@ public final class ScreenshotAttachmentsMakerImpl: ScreenshotAttachmentsMaker {
         beforeStep: Bool)
         -> String
     {
-        let interactionTime = beforeStep ? "до" : "после"
+        let interactionTime = beforeStep ? "before" : "after"
         
         return "\(attachmentName) \(interactionTime)"
     }

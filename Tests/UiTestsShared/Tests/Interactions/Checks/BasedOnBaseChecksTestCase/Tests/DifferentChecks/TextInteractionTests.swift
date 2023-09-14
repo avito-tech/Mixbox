@@ -13,7 +13,7 @@ final class TextInteractionTests: BaseChecksTestCase {
     private func passingAssertSpecification() -> AssertSpecification<LabelElement> {
         return AssertSpecification(
             element: { screen in screen.checkText0 },
-            assert: { XCTAssertEqual($0.text(), "Полное соответствие") }
+            assert: { XCTAssertEqual($0.text(), "Full match") }
         )
     }
     
@@ -21,7 +21,7 @@ final class TextInteractionTests: BaseChecksTestCase {
     func test___text___fails_properly_if_text_mismatches() {
         checkAssertFailsWithDefaultLogs(
             failureMessage: """
-                "получить значение "text" видимого элемента "isNotDisplayed0"" неуспешно, так как: элемент не найден в иерархии
+                "getting value "text" of visible element "isNotDisplayed0"" failed, because: element was not found in hierarchy
                 """,
             body: {
                 _ = screen.isNotDisplayed0.withoutTimeout.text()

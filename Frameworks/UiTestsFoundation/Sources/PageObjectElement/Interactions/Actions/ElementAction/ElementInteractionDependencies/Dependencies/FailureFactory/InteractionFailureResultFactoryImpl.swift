@@ -19,7 +19,7 @@ public final class InteractionFailureResultFactoryImpl: InteractionFailureResult
         -> InteractionResult
     {
         return failureResult(
-            message: "элемент есть в иерархии, но спрятан"
+            message: "element is present in hierarchy, but is hidden"
         )
     }
     
@@ -30,14 +30,16 @@ public final class InteractionFailureResultFactoryImpl: InteractionFailureResult
         -> InteractionResult
     {
         let suffix = potentialCauseOfFailure.flatMap { message in
-            ", на это могла повлиять ошибка: \(message)"
-        }
+            ", which might (or might not) be caused by: \(message)"
+        } ?? ""
         
         return failureResult(
-            message: "элемент не полностью видим"
-                + " (видимая площадь: \(percentageOfVisibleArea),"
-                + " ожидалось: \(minimalPercentageOfVisibleArea))"
-                + (suffix ?? "")
+            message:
+            """
+            element is not sufficiently visible \
+            (actual percentage of visible area: \(percentageOfVisibleArea), \
+            expected percentage of visible area: \(minimalPercentageOfVisibleArea))\(suffix)
+            """
         )
     }
     
@@ -51,13 +53,13 @@ public final class InteractionFailureResultFactoryImpl: InteractionFailureResult
             
             applicationStateNotice = applicationState == .runningForeground
                 ? ""
-                : ", на это могло повлиять то, что приложение не запущено, либо закрешилось (state = \(applicationState))"
+                : ", this might be because application wasn't started or crashed (application state = \(applicationState))"
         } catch {
-            applicationStateNotice = ", при попытке получить стейт приложения, чтобы определить закрешилось приложение или нет возникла ошибка: \(error)"
+            applicationStateNotice = ", also an error occured while getting application state: \(error)"
         }
         
         return failureResult(
-            message: "элемент не найден в иерархии\(applicationStateNotice)"
+            message: "element was not found in hierarchy\(applicationStateNotice)"
         )
     }
     
@@ -65,7 +67,7 @@ public final class InteractionFailureResultFactoryImpl: InteractionFailureResult
         -> InteractionResult
     {
         return failureResult(
-            message: "найдено несколько элементов по заданным критериям"
+            message: "expected unique element, but found multiple matching elements"
         )
     }
     

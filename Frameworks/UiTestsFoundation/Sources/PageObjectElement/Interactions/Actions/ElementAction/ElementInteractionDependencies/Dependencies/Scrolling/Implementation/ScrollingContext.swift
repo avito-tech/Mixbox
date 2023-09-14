@@ -74,7 +74,7 @@ final class ScrollingContext {
         }
         
         let finalStatus: ScrollingResult.Status = status
-            ?? .error("скролл израсходовал \(scrollingAttempts) из \(maxScrollingAttempts) попыток")
+            ?? .error("auto-scrolling exhausted \(scrollingAttempts) out of \(maxScrollingAttempts) attempts")
         
         return ScrollingResult(
             status: finalStatus,
@@ -95,16 +95,16 @@ final class ScrollingContext {
             do {
                 try reloadSnapshots()
             } catch {
-                status = .error("ошибка получения подсказки по скроллу, не удалось понять как доскроллить до элемента")
+                status = .error("failed to get scrolling hint, can't figure out how to scroll to the element")
             }
         case .canNotProvideHintForCurrentRequest:
             // TODO: use fallback?
-            status = .error("ошибка получения подсказки по скроллу, не удалось понять как доскроллить до элемента")
+            status = .error("failed to get scrolling hint, can't figure out how to scroll to the element")
         case .hintsAreNotAvailableForCurrentElement:
             // Fallback:
             try scrollUsingInformationFromSnapshot(snapshot: snapshot)
         case .internalError(let message):
-            status = .error("ошибка получения подсказки по скроллу: \(message)")
+            status = .error("failed to get scrolling hint: \(message)")
         }
         
         scrollingAttempts += 1
@@ -187,13 +187,13 @@ final class ScrollingContext {
                     try reloadSnapshots()
                 } catch {
                     status = .error(
-                        "произошла ошибка при скрроллинге: \(error)"
+                        "error occured during scrolling: \(error)"
                     )
                 }
             } else {
                 let joined = stuckedTouchesDescriptions.joined(separator: ", ")
                 status = .error(
-                    "cкролл застрял, ничего не произошло после скролла (\(joined))"
+                    "scrolling stuck: nothing happened after scrolling (\(joined))"
                 )
             }
         } else {
@@ -229,7 +229,7 @@ final class ScrollingContext {
                 let pointA = instruction.initialTouchPoint
                 let pointB = instruction.targetTouchPoint
                 
-                let stuckedTouchDescription = "из точки \(pointA) в точку \(pointB)"
+                let stuckedTouchDescription = "from point \(pointA) to point \(pointB)"
                 stuckedTouchesDescriptions.append(stuckedTouchDescription)
                 
                 if let elementUniqueIdentifier = instruction.elementUniqueIdentifier {

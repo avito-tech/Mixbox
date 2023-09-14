@@ -4,7 +4,7 @@ public final class HasKeyboardFocusOrHasDescendantThatHasKeyboardFocusElementSna
     public init() {
         super.init(
             description: {
-                "имеет фокус клавиатуры или один из вложенных элементов имеет фокус клавиатуры"
+                "has keyboard focus or one of the nested elements has keyboard focus"
             },
             matchingFunction: { snapshot in
                 if snapshot.hasKeyboardFocusOrHasDescendantThatHasKeyboardFocus() {
@@ -12,7 +12,7 @@ public final class HasKeyboardFocusOrHasDescendantThatHasKeyboardFocusElementSna
                 } else {
                     return .exactMismatch(
                         mismatchDescription: {
-                            "не имеет фокус клавиатуры и ни один из вложенных элементов не имеет фокус клавиатуры"
+                            "hasn't keyboard focus and none of the nested elements has keyboard focus"
                         },
                         attachments: { [] }
                     )
