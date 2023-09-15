@@ -159,7 +159,10 @@ final class PredefinedObjcMethodsTests: TestCase {
             Actual methods:
             \(reviewableDescription(actualMethods))\(fallbackWasUsed ? fallbackWasUsedMessageInfix() : "")
             You may want to copy-paste this into `\(PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryImpl.self)`:
-            \(copypastableDescription(expectedMethods))`
+            \(copypastableDescription(expectedMethods))
+            Note that if this test is flaky, you can see different methods in failures. \
+            If one time you see methods A and B and one time B and C, just add all of them (A, B, C). \
+            It is safe. If method or class doesn't exist in runtime, it will be simply ignored.
             """
         )
     }

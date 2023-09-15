@@ -7,6 +7,7 @@
 import MixboxFoundation
 import MixboxUiKit
 
+// See: `PredefinedObjcMethodsWithUniqueImplementationProvider`
 public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryImpl:
     PredefinedObjcMethodsWithUniqueImplementationBatchesFactory
 {
@@ -24,9 +25,9 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
             ios11Till12Batch(iosMajorVersion: MixboxIosVersions.Outdated.iOS11.majorVersion),
             ios11Till12Batch(iosMajorVersion: MixboxIosVersions.Outdated.iOS12.majorVersion),
             ios13Batch(),
-            ios14Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS14.majorVersion),
-            ios14Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS15.majorVersion),
-            ios14Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS16.majorVersion)
+            ios14Batch(),
+            ios15Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS15.majorVersion),
+            ios15Till16Batch(iosMajorVersion: MixboxIosVersions.Supported.iOS16.majorVersion)
         ]
     }
     
@@ -47,22 +48,40 @@ public final class PredefinedObjcMethodsWithUniqueImplementationBatchesFactoryIm
         return batch(
             iosMajorVersion: MixboxIosVersions.Outdated.iOS13.majorVersion,
             methods: [
-                method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
-                method(class: "UIAccessibilityTextFieldElement"),
                 method(class: "NSObject"),
-                method(class: "UIShareGroupActivityCellAccessibility"),
-                method(class: "UIActivityActionGroupCellAccessibility"),
-                method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
-                method(class: "__UIActivityActionGroupCellAccessibility_super"),
-                method(class: "__UIShareGroupActivityCellAccessibility_super"),
+                method(class: "UIAccessibilityTextFieldElement"),
                 method(class: "UIActivityActionGroupCell"),
+                method(class: "UIActivityActionGroupCellAccessibility"),
+                method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
                 method(class: "UIShareGroupActivityCell"),
-                method(class: "UIView")
+                method(class: "UIShareGroupActivityCellAccessibility"),
+                method(class: "UIView"),
+                method(class: "__UIActivityActionGroupCellAccessibility_super"),
+                method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
+                method(class: "__UIShareGroupActivityCellAccessibility_super")
             ]
         )
     }
     
-    private func ios14Till16Batch(iosMajorVersion: Int) -> PredefinedObjcMethodsWithUniqueImplementationBatch {
+    private func ios14Batch() -> PredefinedObjcMethodsWithUniqueImplementationBatch {
+        return batch(
+            iosMajorVersion: MixboxIosVersions.Supported.iOS14.majorVersion,
+            methods: [
+                method(class: "NSObject"),
+                method(class: "UIActivityActionGroupCell"),
+                method(class: "UIActivityActionGroupCellAccessibility"),
+                method(class: "UINavigationBarAccessibility_UIViewAccessibilityAdditions"),
+                method(class: "UIShareGroupActivityCell"),
+                method(class: "UIShareGroupActivityCellAccessibility"),
+                method(class: "UIView"),
+                method(class: "__UIActivityActionGroupCellAccessibility_super"),
+                method(class: "__UINavigationBarAccessibility_UIViewAccessibilityAdditions_super"),
+                method(class: "__UIShareGroupActivityCellAccessibility_super")
+            ]
+        )
+    }
+    
+    private func ios15Till16Batch(iosMajorVersion: Int) -> PredefinedObjcMethodsWithUniqueImplementationBatch {
         return batch(
             iosMajorVersion: iosMajorVersion,
             methods: [
