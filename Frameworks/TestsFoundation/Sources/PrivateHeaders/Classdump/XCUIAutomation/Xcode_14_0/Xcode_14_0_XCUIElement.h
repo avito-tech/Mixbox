@@ -114,7 +114,6 @@
 - (void)clickForDuration:(double)arg1;
 - (void)playBackEventStreamAtURL:(id)arg1 withSpeed:(double)arg2;
 - (id)screenshotWithPreferredEncoding:(id)arg1 options:(unsigned long long)arg2;
-//- (id)screenshot;
 - (id)screenshotAttachmentWithName:(id)arg1 lifetime:(long long)arg2;
 - (id)screenshotAttachment;
 

@@ -1,0 +1,2 @@
+@interface DTXConnection: NSObject
+@end

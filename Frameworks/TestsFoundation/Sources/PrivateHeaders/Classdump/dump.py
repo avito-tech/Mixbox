@@ -179,12 +179,14 @@ class PublicTypeEntry:
         header: str = None,
         public_declarations: Union[str, List[str]] = '',
         ios_min_version: int = 0,
-        ios_max_version: int = 2147483647
+        ios_max_version: int = 2147483647,
+        framework: str = 'XCTest'
     ):
         self.name = name
         self.kind = kind
         self.ios_min_version = ios_min_version
         self.ios_max_version = ios_max_version
+        self.framework = framework
         
         if header is None:
             self.header = f'{name}.h'
@@ -258,12 +260,12 @@ class Dump:
             BlacklistedFileEntry(
                 basename="XCTExpectedFailureOptions.h",
                 ios_min_version=150000,
-                ios_max_version=160000
+                ios_max_version=180000
             ),
             BlacklistedFileEntry(
                 basename="XCTPerformanceMeasurement.h",
                 ios_min_version=150000,
-                ios_max_version=160000
+                ios_max_version=180000
             ),
         ]
         
@@ -328,13 +330,19 @@ class Dump:
                 name="Xcode_13_0",
                 path=args.xcode13_0,
                 ios_min_version=150000,
-                ios_max_version=160000, # this is subject to change when new xcode is released
+                ios_max_version=160000,
             ),
             Xcode(
                 name="Xcode_14_0",
                 path=args.xcode14_0,
                 ios_min_version=160000,
                 ios_max_version=170000,
+            ),
+            Xcode(
+                name="Xcode_15_0",
+                path=args.xcode15_0,
+                ios_min_version=170000,
+                ios_max_version=180000, # this is subject to change when new xcode is released
             ),
         ]
         
@@ -348,11 +356,20 @@ class Dump:
                     framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework",
                     xcode=xcode
                 )
-                if xcode.ios_min_version >= 150000:
+                if xcode.ios_min_version >= 150000 and xcode.ios_min_version < 170000:
                     self.dump(
                         framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTestCore.framework",
-                    xcode=xcode
-                )
+                        xcode=xcode
+                    )
+                elif xcode.ios_min_version >= 170000:
+                    self.dump(
+                        framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework",
+                        xcode=xcode
+                    )
+                    self.dump(
+                        framework="Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCUIAutomation.framework",
+                        xcode=xcode
+                    )
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
@@ -404,6 +421,12 @@ class Dump:
             dest='xcode14_0',
             required=False
         )
+
+        parser.add_argument(
+            '--xcode15_0',
+            dest='xcode15_0',
+            required=False
+        )
         
         return parser.parse_args()
 
@@ -439,12 +462,10 @@ class Dump:
             raise Exception(f"{framework_dir} doesn't seem to be a path to framework! Should have .framework extension.")
     
         shutil.rmtree(destination_dir, ignore_errors=True)
-    
+
         os.system(f'class-dump -o "{destination_dir}" -H "{framework_dir}"')
     
         for source_basename in os.listdir(destination_dir):
-            # print(entry)
-            
             target_basename = BasenamePatcher.patch_basename(
                 basename=source_basename,
                 framework_name=framework_name,
@@ -717,6 +738,7 @@ f"""
 @property(readonly) XCUIElement *firstMatch;
 @property(readonly, copy) XCUIElementQuery *disclosedChildRows;
 @property(readonly) _Bool hasFocus;
+- (id)screenshot;
 """,
             ),
             PublicTypeEntry(
@@ -813,7 +835,8 @@ f"""{public_declarations_of_XCUIElementTypeQueryProvider}
 @property(readonly) Class testRunClass;
 @property(readonly, copy) NSString *name;
 @property(readonly) unsigned long long testCaseCount;
-@property(readonly, copy) XCUIElementQuery *disclosedChildRows;"""
+@property(readonly, copy) XCUIElementQuery *disclosedChildRows;""",
+                framework='XCTest',
             ),
             PublicTypeEntry(
                 name="XCTActivity",
@@ -1031,7 +1054,32 @@ f'''
                 name='_XCTSkipFailureException',
                 kind=DeclarationKind.objc_class,
                 header="XCTestSkippingImpl.h",
-                ios_min_version=140000
+                ios_min_version=140000,
+            ),
+            PublicTypeEntry(
+                name="XCTExpectedFailure",
+                kind=DeclarationKind.objc_class,
+                ios_min_version=170000,
+            ),
+            PublicTypeEntry(
+                name="XCTExpectedFailureOptions",
+                kind=DeclarationKind.objc_class,
+                ios_min_version=170000,
+            ),
+            PublicTypeEntry(
+                name="XCUIAccessibilityAuditIssue",
+                kind=DeclarationKind.objc_class,
+                ios_min_version=170000,
+            ),
+            PublicTypeEntry(
+                name="XCUILocation",
+                kind=DeclarationKind.objc_class,
+                ios_min_version=170000,
+            ),
+            PublicTypeEntry(
+                name="XCUISystem",
+                kind=DeclarationKind.objc_class,
+                ios_min_version=170000,
             ),
         ]
 
@@ -1052,7 +1100,7 @@ f'''
                 PublicTypeXcodeVersionDependentInfo(
                     name=entry.name,
                     kind=entry.kind,
-                    framework='XCTest',
+                    framework=entry.framework,
                     header=entry.header,
                     public_declarations=entry.public_declarations,
                     ios_min_version=entry.ios_min_version,
@@ -1068,7 +1116,6 @@ f'''
         return ["XCElementSnapshot-XCUIElementSnapshot.h"]
         
     def patch(self, contents, basename, framework_name, xcode):
-        contents = self.patch_removing_strings(contents=contents, xcode=xcode)
         contents = self.patch_removing_public_definitions(contents=contents, xcode=xcode)
         contents = self.patch_fixing_classdump_bugs(contents=contents, xcode=xcode)
         contents = self.patch_replacing_unknown_types(contents=contents, xcode=xcode)
@@ -1079,8 +1126,15 @@ f'''
         contents = self.patch_replacing_imports_of_public_headers_with_imports_of_private_headers(contents=contents, xcode=xcode)
         contents = self.patch_replacing_imports_of_private_headers_with_imports_of_public_headers(contents=contents, xcode=xcode)
         contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/', xcode=xcode)
-        if xcode.ios_min_version >= 150000:
+
+        if xcode.ios_min_version >= 150000 and xcode.ios_min_version < 170000:
             contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTestCore.framework/Headers/', xcode=xcode)
+        elif xcode.ios_min_version >= 170000:
+            contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework/Headers/', xcode=xcode)
+            contents = self.patch_removing_duplicated_declarations(contents=contents, basename=basename, framework_path='/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/XCUIAutomation.framework/Headers/', xcode=xcode)
+
+        contents = self.patch_removing_strings(contents=contents, xcode=xcode)
+
         contents = self.patch_removing_redeclarations(contents=contents, basename=basename, framework_name=framework_name, xcode = xcode)
 
         contents = self.patch_specific_methods(contents=contents, basename=basename, xcode=xcode)
@@ -1138,6 +1192,20 @@ f'''
                 ios_min_version = 150000,
                 ios_max_version = 160000
             ),
+            RedefinedTypeEntry(
+                name = 'CDStruct_70511ce9',
+                kind = RedefinitionKind.struct,
+                header = 'XCTestCore_CDStructures.h',
+                ios_min_version = 170000,
+                ios_max_version = 180000
+            ),
+            RedefinedTypeEntry(
+                name = 'CDStruct_2ec95fd7',
+                kind = RedefinitionKind.struct,
+                header = 'XCUIAutomation_CDStructures.h',
+                ios_min_version = 170000,
+                ios_max_version = 180000
+            ),
         ]
 
         for entry in redeclarations_list:
@@ -1177,8 +1245,6 @@ f'''
         ]
 
         if class_name == "XCTElementSetCodableTransformer" or class_name == "XCTElementDisclosedChildRowsTransformer":
-            # print(f'class_name: {class_name}, contents: {contents}')
-
             contents = re.sub(
                 pattern=r"_Bool _stopsOnFirstMatch;",
                 repl="",
@@ -1190,8 +1256,6 @@ f'''
                 string=contents,
             )
 
-            # print(f'after: {contents}')
-
         public_type = self.dumped_public_types.get(name=class_name, xcode=xcode)
         if public_type:
             declarations_to_remove = public_type.public_declarations + common_declarations_to_remove
@@ -1199,8 +1263,6 @@ f'''
             declarations_to_remove = common_declarations_to_remove
 
         for declaration_to_remove in declarations_to_remove:
-            if class_name == "XCTest":
-                print(fr"{declarations_to_remove} in {class_name}")
             contents = contents.replace(declaration_to_remove + "\n", "")
             
         try:
@@ -1442,32 +1504,32 @@ f'''
         return contents
         
     def patch_replacing_imports_of_public_headers_with_imports_of_private_headers(self, contents, xcode):
-        contents = re.sub(
-            pattern=r'#import <XCTest/(.*?)>',
-            repl=f'#import "\\1"',
-            string=contents
-        )
-        contents = re.sub(
-            pattern=r'#import <XCTestCore/(.*?)>',
-            repl=f'#import "\\1"',
-            string=contents
-        )
-        contents = re.sub(
-            pattern=r'#import <XCTAutomationSupport/(.*?)>',
-            repl=f'#import "\\1"',
-            string=contents
-        )
+        frameworks = [
+            'XCTest',
+            'XCTestCore',
+            'XCTAutomationSupport',
+            'XCUIAutomation',
+        ]
+        for framework in frameworks:
+            contents = re.sub(
+                pattern=fr'#import <{framework}/(.*?)>',
+                repl=f'#import "\\1"',
+                string=contents
+            )
         
         return contents
             
     def patch_removing_strings(self, contents, xcode):
         code_to_remove = [
             '- (void).cxx_destruct;\n',
+            '- (id).cxx_construct;\n',
             '<OS_dispatch_queue>',
             '<OS_dispatch_semaphore>',
             '<OS_xpc_object>',
             '<OS_dispatch_group>',
             '<_XCTMessaging_VoidProtocol>',
+            '@class CDUnknownFunctionPointerType;\n',
+            '<NSPredicateVisitor>',
         ]
         
         for code in code_to_remove:
