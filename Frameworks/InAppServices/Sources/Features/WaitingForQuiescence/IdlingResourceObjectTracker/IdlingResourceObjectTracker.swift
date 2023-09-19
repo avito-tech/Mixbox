@@ -25,7 +25,8 @@ public final class IdlingResourceObjectTracker: IdlingResource {
     // TODO: Inject `IdlingResourceObjectTracker` in swizzlers, keep singletons near swizzlers.
     public static let instance = IdlingResourceObjectTracker()
     
-    private var busyResources: [UUID: WeakBox<TrackedIdlingResource>] = [:]
+    private var threadUnsafeBusyResources: [UUID: WeakBox<TrackedIdlingResource>] = [:]
+    private let readWriteLock = ReadWriteLock()
     
     public init() {
     }
@@ -38,33 +39,53 @@ public final class IdlingResourceObjectTracker: IdlingResource {
             parent: parent,
             resourceDescription: resourceDescription,
             untrack: { [weak self] resource in
-                self?.busyResources[resource.identifier] = nil
+                self?.untrack(identifier: resource.identifier)
             }
         )
         
-        busyResources[resource.identifier] = WeakBox(resource)
+        readWriteLock.write {
+            threadUnsafeBusyResources[resource.identifier] = WeakBox(resource)
+        }
         
         return resource
     }
     
     public func isIdle() -> Bool {
-        var newResources = busyResources
+        let oldResources = readWriteLock.read {
+            threadUnsafeBusyResources
+        }
         
-        for (identifier, resourceBox) in busyResources where resourceOrItsParentIsDeallocated(resourceBox) {
+        var newResources = oldResources
+        
+        for (identifier, resourceBox) in oldResources where resourceOrItsParentIsDeallocated(resourceBox) {
             newResources[identifier] = nil
         }
         
-        busyResources = newResources
+        if newResources.count != oldResources.count {
+            readWriteLock.write {
+                threadUnsafeBusyResources = newResources
+            }
+        }
         
         return newResources.isEmpty
     }
     
     public var resourceDescription: String {
+        let busyResources = readWriteLock.read {
+            threadUnsafeBusyResources
+        }
+        
         let wrappedChildrenDescription = busyResources.map { uuid, trackedIdlingResourceWeakBox in
             "\(uuid.uuidString): \(resourceDescription(trackedIdlingResourceWeakBox: trackedIdlingResourceWeakBox))"
         }.joined(separator: ",\n").mb_wrapAndIndent(prefix: "{", postfix: "}", ifEmpty: "{}")
         
         return "IdlingResourceObjectTracker \(wrappedChildrenDescription)"
+    }
+    
+    private func untrack(identifier: UUID) {
+        readWriteLock.write {
+            threadUnsafeBusyResources[identifier] = nil
+        }
     }
     
     private func resourceDescription(trackedIdlingResourceWeakBox: WeakBox<TrackedIdlingResource>) -> String {
