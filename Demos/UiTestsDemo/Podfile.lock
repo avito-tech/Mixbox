@@ -2,8 +2,8 @@ PODS:
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
-  - MixboxAnyCodable (0.3.11)
-  - MixboxBlack (0.3.11):
+  - MixboxAnyCodable (0.3.39)
+  - MixboxBlack (0.3.39):
     - MixboxDi
     - MixboxFoundation
     - MixboxIpc
@@ -14,20 +14,20 @@ PODS:
     - MixboxSBTUITestTunnelCommon
     - MixboxTestsFoundation
     - MixboxUiTestsFoundation
-  - MixboxBuiltinDi (0.3.11):
+  - MixboxBuiltinDi (0.3.39):
     - MixboxDi
-  - MixboxBuiltinIpc (0.3.11):
+  - MixboxBuiltinIpc (0.3.39):
     - GCDWebServer
     - MixboxIpc
-  - MixboxCocoaImageHashing (0.3.11)
-  - MixboxDi (0.3.11)
-  - MixboxFoundation (0.3.11)
-  - MixboxGray (0.3.11):
+  - MixboxCocoaImageHashing (0.3.39)
+  - MixboxDi (0.3.39)
+  - MixboxFoundation (0.3.39)
+  - MixboxGray (0.3.39):
     - MixboxDi
     - MixboxInAppServices
     - MixboxUiKit
     - MixboxUiTestsFoundation
-  - MixboxInAppServices (0.3.11):
+  - MixboxInAppServices (0.3.39):
     - MixboxBuiltinDi
     - MixboxBuiltinIpc
     - MixboxIoKit
@@ -36,30 +36,30 @@ PODS:
     - MixboxSBTUITestTunnelServer
     - MixboxTestability
     - MixboxUiKit
-  - MixboxIoKit (0.3.11):
+  - MixboxIoKit (0.3.39):
     - MixboxFoundation
-  - MixboxIpc (0.3.11):
+  - MixboxIpc (0.3.39):
     - MixboxFoundation
-  - MixboxIpcCommon (0.3.11):
+  - MixboxIpcCommon (0.3.39):
     - MixboxAnyCodable
     - MixboxIpc
-  - MixboxIpcSbtuiClient (0.3.11):
+  - MixboxIpcSbtuiClient (0.3.39):
     - MixboxIpc
     - MixboxSBTUITestTunnelClient
     - MixboxTestsFoundation
     - MixboxUiTestsFoundation
-  - MixboxIpcSbtuiHost (0.3.11):
+  - MixboxIpcSbtuiHost (0.3.39):
     - MixboxIpc
     - MixboxSBTUITestTunnelServer
-  - MixboxLinkXCTAutomationSupport (0.3.11)
-  - MixboxSBTUITestTunnelClient (0.3.11):
+  - MixboxLinkXCTAutomationSupport (0.3.39)
+  - MixboxSBTUITestTunnelClient (0.3.39):
     - MixboxSBTUITestTunnelCommon
-  - MixboxSBTUITestTunnelCommon (0.3.11)
-  - MixboxSBTUITestTunnelServer (0.3.11):
+  - MixboxSBTUITestTunnelCommon (0.3.39)
+  - MixboxSBTUITestTunnelServer (0.3.39):
     - GCDWebServer (~> 3.0)
     - MixboxSBTUITestTunnelCommon
-  - MixboxTestability (0.3.11)
-  - MixboxTestsFoundation (0.3.11):
+  - MixboxTestability (0.3.39)
+  - MixboxTestsFoundation (0.3.39):
     - MixboxBuiltinDi
     - MixboxFoundation
     - MixboxIpc
@@ -67,9 +67,9 @@ PODS:
     - MixboxLinkXCTAutomationSupport
     - MixboxUiKit
     - SQLite.swift
-  - MixboxUiKit (0.3.11):
+  - MixboxUiKit (0.3.39):
     - MixboxFoundation
-  - MixboxUiTestsFoundation (0.3.11):
+  - MixboxUiTestsFoundation (0.3.39):
     - MixboxAnyCodable
     - MixboxCocoaImageHashing
     - MixboxDi
@@ -162,30 +162,30 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  MixboxAnyCodable: e2c72d7a88b8f040bba26ec3277ca961e69a07e7
-  MixboxBlack: 3db36600be93610661a99306ce7735b28ac9fb36
-  MixboxBuiltinDi: 8f2d7f12264c794e29160b7a7bab90b1a6c08a55
-  MixboxBuiltinIpc: 599ed333a6b0eb3f07dbcb59c24854459d8b5ca8
-  MixboxCocoaImageHashing: a5b9499e5f03e29bcebe5495833d5c384bb433c2
-  MixboxDi: 3283312980604ea0585f9a58fce91d875ba00ac3
-  MixboxFoundation: 15bf1efbbcfc510490cbeea887b4bad87c59107d
-  MixboxGray: a6520f7352c74ac92f0b60fd82482449ffd7ba4a
-  MixboxInAppServices: 5db7f773085ed3b0d565a0d241f2336b4c4279bc
-  MixboxIoKit: f2efdbe44affed4f77b12ef2d994c81e60a9e3ba
-  MixboxIpc: 75e8d7383efe7b5773b55247c132edcf5b3cc1c2
-  MixboxIpcCommon: 29f811863016e573d8738e371c788ff841bf1ab8
-  MixboxIpcSbtuiClient: aee3ca74c1ae7ebe2702de512123d00031c122ce
-  MixboxIpcSbtuiHost: 367322759499cf3052e4330af81aee57c173df0c
-  MixboxLinkXCTAutomationSupport: 5e8d69730d796e75e61de76dffd6ca2128d88818
-  MixboxSBTUITestTunnelClient: 91e8ca79e3c8d8a5f3778365cf902cf71056dd19
-  MixboxSBTUITestTunnelCommon: 6e0b1a45d8dfa0ea89df02d3594b9a6a9aec1365
-  MixboxSBTUITestTunnelServer: 29582be3eabc46cff52329340d490c0d0d29348f
-  MixboxTestability: 80b31846ccffb1a87bbc3b95b6d2c5b4e818cb21
-  MixboxTestsFoundation: 45a9f820e4a2909d5e158a1ae2139384f76dc39e
-  MixboxUiKit: 97cee45423b1503e50017c3c9815d38df4ddf147
-  MixboxUiTestsFoundation: 9d8e77de2f092ce761ac20ba2946123898f5a453
+  MixboxAnyCodable: 5c94286f0d93dd57a395c6dedea3f900ccb25c39
+  MixboxBlack: f05f173a6c77de198b6dfabafb0e6534f52ed144
+  MixboxBuiltinDi: 00ff16bf9ecdeba721cae52987bce246f37524b5
+  MixboxBuiltinIpc: f923a628ae0e5d6e3b43913c542f3eeb140cb1d9
+  MixboxCocoaImageHashing: 5c837a8fd53af7486fc9552fb665bd4ec452de78
+  MixboxDi: f9669ecbfd0c37ec6b3dcbd40d0d06fd18b5d7b6
+  MixboxFoundation: 046c9bfee287dd0e5bdcc0d583637afadb27ec74
+  MixboxGray: d0c47d492335f6c990df5558605ed173b49df52b
+  MixboxInAppServices: 892fab716aa050d09f80de62a3a32da02ef93125
+  MixboxIoKit: df1c2f7c7f2039644f5979a6ae23bfb839aeda53
+  MixboxIpc: 39684a6dcf4b706c17808efc6487cdaafb385412
+  MixboxIpcCommon: 20fb6b831e1ae7141587ddb82d968292e2cdc433
+  MixboxIpcSbtuiClient: 3ee915c02e15adba38ffeb4aba7471edd13a4edf
+  MixboxIpcSbtuiHost: 51d75905456af79bbd2adfb582d10fb9eba25381
+  MixboxLinkXCTAutomationSupport: 0aba24931a45d906d0caeb10c7c5583c99272c41
+  MixboxSBTUITestTunnelClient: 67f5ce3a53bdd287ec84b41298f14ecd36436122
+  MixboxSBTUITestTunnelCommon: aee0797c9a304298b96c19f043e8726959426e85
+  MixboxSBTUITestTunnelServer: 891512ec3141841c24bf9bb05cb6406443c8f1ed
+  MixboxTestability: 74d213f5163a21b6298b7eb9db89e65f2b0ec3cd
+  MixboxTestsFoundation: 800f24302ae499ca45bd71fc27f556f513644347
+  MixboxUiKit: a6eac7bf3f44c7fde80668311a87a0f1744eefb8
+  MixboxUiTestsFoundation: 651771cb15f377a922fa26e1223328744c2fecbb
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
-  UiTestsSharedCode: 8ec30971ab071d55614c751e05703f46074eb472
+  UiTestsSharedCode: f9480ce7cd550d410db96740d53f391b2e889b83
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 

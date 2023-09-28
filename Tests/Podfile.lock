@@ -250,35 +250,35 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  Mixbox: 0258e9828f1d37181560e76d003a5356b707e461
-  MixboxAnyCodable: 95fd02da4570adea7b3e54601a713d44954d8902
-  MixboxBlack: 5eb08b03e1bb19d52fc69756e886bea4ce498d0e
-  MixboxBuiltinDi: 4215deb2717f3d5caa0665abb4db58c210e1204f
-  MixboxBuiltinIpc: 3eaa3ecfccf6f7c3d47d8d747a005e688b254041
-  MixboxCocoaImageHashing: eb053ccdf71a9b9c1de0976de656fa01e107603b
-  MixboxDi: 542b623137ca99796d31a61646436479bd56376f
-  MixboxFakeSettingsAppMain: 57e4f7d2053f0132549404d779037fbbdbfd178b
-  MixboxFoundation: 9bc4800fb5a9371a83d9e675598982223ec4bc1c
-  MixboxGenerators: 989b044042d05c642c70f28118837b32e6e6a2c6
-  MixboxGray: 09a5339d08ffa7a267da0863675aa3cbbc9c5f97
-  MixboxInAppServices: 465fb68932e604802c63e7894e498650bde721c5
-  MixboxIoKit: d574ca2fbe950e44358770e91e481aa80ecf31c3
-  MixboxIpc: 2739eba402cc27e8ed14289e7bd04bda3867005d
-  MixboxIpcCommon: 69f92666a3eea194983541211322db5268316003
-  MixboxIpcSbtuiClient: 8c80b5507bcd46c56d1aa994a7e6b57abaeb069f
-  MixboxIpcSbtuiHost: 48df6361096d96aed3e8fae51ff4bfd8e97b4745
-  MixboxLinkXCTAutomationSupport: 5c8c72d2cfe6e189fac7446a7ededa257657f94c
+  Mixbox: 7962fd7d7d2a849a78c460a22a6730a6d77e85b1
+  MixboxAnyCodable: d068cc03457477ac812d79f293ee55458d15437f
+  MixboxBlack: 67d60d8641bf7dbe9f4600e6353a02561156f663
+  MixboxBuiltinDi: bc2d5868a60b900369d3610a855b76622506eed3
+  MixboxBuiltinIpc: 4a4ec5fa12492055d1a09cf125c2855920ef9b6e
+  MixboxCocoaImageHashing: 2baf63c8d6d7c3907ab96eaf54d6c951d49ef2a4
+  MixboxDi: 215a31f0001c0fe2008af3472902826e2dca6eb3
+  MixboxFakeSettingsAppMain: c48ba4ef5a22f8a21ca108549526c3c49a22732d
+  MixboxFoundation: b8ff60b6610a5014d2b14b1b9eb4dfcaebd8afac
+  MixboxGenerators: 23caf7f0d69cc58072cfe363947d908d9529ddaf
+  MixboxGray: 6fe1533d54067862d65d6844befdd412d8070eb2
+  MixboxInAppServices: 0f261cb0130372b6d7b29fe60e93e18c10ad734c
+  MixboxIoKit: 7d6ccb3e7953980b3fee146c0a569fc78381b85f
+  MixboxIpc: 96d482347edbbfa6a5f995a46ba9a93de4b03a6e
+  MixboxIpcCommon: 63b5517328affd67ff6699ed44616675742d01bb
+  MixboxIpcSbtuiClient: 0ce5a6153ef260362141744adcde0d9dc9b860e4
+  MixboxIpcSbtuiHost: 5017a97366866216a1f47d8b458311aa678454f0
+  MixboxLinkXCTAutomationSupport: 11e4e0277d3e3c147a0be65b5993bc8f74a89498
   MixboxMocksGeneration: 093ae070f1ad75118f0144ca48f2405bbb18fdc4
-  MixboxMocksRuntime: 7e03b4b839b0504b34c550a82babc0f6b4329dac
-  MixboxReflection: ef704c0a15b8388bd5b7547fd2a581a584009115
-  MixboxSBTUITestTunnelClient: 2fa84782f9b8b8c4b2ae7af5603040958e093902
-  MixboxSBTUITestTunnelCommon: b705d6d9a1fc09951d53b79c8376b33ea2810b40
-  MixboxSBTUITestTunnelServer: b973a68ff02828ce15dfbecd1da89b0ac7f00666
-  MixboxStubbing: 9c89b9af06c6398a64c3285cd289b6bf3539d439
-  MixboxTestability: 9a0659f507e7067df708d229fc4fa7c7a602d151
-  MixboxTestsFoundation: cc89c8095f11a3a6fe04c0b2ac8e82e93e36bc19
-  MixboxUiKit: 2ea523c9dcdb8e1c2eff647af6da5d85377395a7
-  MixboxUiTestsFoundation: b32e24677b73364e7aac17f3f30fe69688f05cd0
+  MixboxMocksRuntime: 5ada368be8f5fe148e81a5fe05b6c030532c8c93
+  MixboxReflection: e153e43e14064d9114cb8d2d416413372038fd2a
+  MixboxSBTUITestTunnelClient: 451b3b59f7a623f0b8bb62efbb009ba1b4913951
+  MixboxSBTUITestTunnelCommon: 102e5346fc80c7a548c22a4edbd437abc178f9cd
+  MixboxSBTUITestTunnelServer: cbc32956fadc0af04953f562cde579cd532927a2
+  MixboxStubbing: 0daf9050e92f6cbe16d308018ec0af0c6e387c48
+  MixboxTestability: 3d46a2d1343d6c9c3291606953f165495fbb8443
+  MixboxTestsFoundation: c33f099370f34facde8d95cb798e8342788bb278
+  MixboxUiKit: d106c8493a34b397a7bf76cd399316d63fda8232
+  MixboxUiTestsFoundation: 058b4437f1196d51b1589de957e19bc659d91c7e
   PathKit: 364e0de7fb5adb142aecab4e112187e5548fc4b6
   SourceKittenFramework: 540d9d048c0bab3c0faa4668425364fabff12cb0
   SourceryFramework: 52f80f61c513f49ec96e83496c16dd24dd668734
@@ -287,7 +287,7 @@ SPEC CHECKSUMS:
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
-  TestsIpc: d1246edf0ec1ae86c719513fa8ce15310a49bfb7
+  TestsIpc: fa824f1dc258b39d17dac385d25ad46328703fd1
   Yams: ed1c49f0d6be84f305ad3f93f997b1df039afd9e
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
