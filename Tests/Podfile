@@ -155,6 +155,7 @@ post_install do |installer|
   
   inhibit_update_to_recommended_settings_warning(installer)
   patch_to_be_able_to_run_executable(installer)
+  # Fix for cocoapods lower than 1.13 on xcode 15
   patch_xcconfigs_toolchain_dir(installer)
 end
 

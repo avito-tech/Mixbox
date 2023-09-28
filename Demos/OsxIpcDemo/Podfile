@@ -1,4 +1,5 @@
 require_relative '../../cocoapods/software_versions'
+require_relative '../../cocoapods/patch_xcconfigs_toolchain_dir'
 
 project 'IpcDemo.xcodeproj'
 workspace 'IpcDemo.xcworkspace'
@@ -26,6 +27,9 @@ post_install do |installer|
       config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = 'YES'
     end
   end
+
+  # Fix for cocoapods lower than 1.13 on xcode 15
+  patch_xcconfigs_toolchain_dir(installer)
 end
 
 # Podfile.lock содержит PODFILE CHECKSUM, из-за которого постоянно возникают конфликты, а он на самом деле не нужен.

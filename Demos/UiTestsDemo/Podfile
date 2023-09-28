@@ -1,6 +1,7 @@
 require_relative 'cocoapods/lock_patcher'
 require_relative 'cocoapods/repo'
 require_relative 'cocoapods/enable_testing_with_mixbox'
+require_relative '../../cocoapods/patch_xcconfigs_toolchain_dir'
 
 project 'UiTestsDemo.xcodeproj'
 workspace 'UiTestsDemo.xcworkspace'
@@ -96,7 +97,12 @@ target 'App' do
   # or whatever flag you use for conditional compilation).
   # Of course you can link it only in your test builds (not in release builds), but in our opinion, it doesn't worth the hassle. 
   
-  mixbox.pod 'MixboxInAppServices'
+  mixbox.pod 'MixboxInAppServices'  
 end
 
-enable_testing_with_mixbox_for_configuration_name('Debug')
+post_install do |installer|
+  enable_testing_with_mixbox_for_configuration_name(installer, 'Debug')
+
+  # Fix for cocoapods lower than 1.13 on xcode 15
+  patch_xcconfigs_toolchain_dir(installer)  
+end

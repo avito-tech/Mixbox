@@ -21,13 +21,11 @@
 #
 # pod 'MixboxBlack', :configurations => ['Debug'], :git => 'ssh://git@github.com:avito-tech/Mixbox.git', :branch => 'master'
 #
-def enable_testing_with_mixbox_for_configuration_name(configuration_name)
-  post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |configuration|
-        if configuration.name == configuration_name
-          enable_testing_with_mixbox_for_module_configuration(configuration)
-        end
+def enable_testing_with_mixbox_for_configuration_name(installer, configuration_name)  
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |configuration|
+      if configuration.name == configuration_name
+        enable_testing_with_mixbox_for_module_configuration(configuration)
       end
     end
   end
