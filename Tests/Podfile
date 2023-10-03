@@ -2,6 +2,7 @@ require_relative '../cocoapods/lock_patcher'
 require_relative '../cocoapods/repo'
 require_relative '../cocoapods/software_versions'
 require_relative '../cocoapods/patch_xcconfigs_toolchain_dir'
+require_relative '../cocoapods/patch_deployment_target'
 
 ENV["MIXBOX_SET_VERSION_TO_001"] = "true"
 
@@ -161,7 +162,7 @@ post_install do |installer|
 end
 
 at_exit do
-  inhibit_simulator_deployment_target_warning()
+  inhibit_pod_deployment_target_warning()
 end
 
 # Inhibits this warning in Xcode:
@@ -182,25 +183,6 @@ def inhibit_update_to_recommended_settings_warning(installer)
     scheme.doc.root.attributes['LastUpgradeVersion'] = far_future_xcode_version
     scheme.save!
   end
-end
-
-# Inhibit this warning in Xcode:
-# ```
-# The iOS Simulator deployment target 'IPHONEOS_DEPLOYMENT_TARGET' is set to 8.0, 
-# but the range of supported deployment target versions is 11.0 to 16.2.99.
-# ```
-def inhibit_simulator_deployment_target_warning()
-  project = Xcodeproj::Project.open('Pods/Pods.xcodeproj')
-  
-  project.native_targets.each do |target|
-    if target.name == 'GCDWebServer-iOS' || target.name == 'GCDWebServer-macOS' || target.name == 'SQLite.swift'
-      target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = $mixbox_ios_version
-      end
-    end
-  end
-  
-  project.save
 end
 
 def patch_to_be_able_to_run_executable(installer)

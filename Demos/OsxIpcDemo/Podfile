@@ -1,5 +1,6 @@
 require_relative '../../cocoapods/software_versions'
 require_relative '../../cocoapods/patch_xcconfigs_toolchain_dir'
+require_relative '../../cocoapods/patch_deployment_target'
 
 project 'IpcDemo.xcodeproj'
 workspace 'IpcDemo.xcworkspace'
@@ -67,4 +68,8 @@ at_exit do
   # Записываем в Podfile.lock и Manifest.lock
   File.open(podfile_lock_path, "w") {|file| file.puts podfile_lock_contents }
   File.open(manifest_lock_path, "w") {|file| file.puts podfile_lock_contents }
+end
+
+at_exit do
+  inhibit_pod_deployment_target_warning()
 end

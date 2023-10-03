@@ -2,6 +2,7 @@ require_relative 'cocoapods/lock_patcher'
 require_relative 'cocoapods/repo'
 require_relative 'cocoapods/enable_testing_with_mixbox'
 require_relative '../../cocoapods/patch_xcconfigs_toolchain_dir'
+require_relative '../../cocoapods/patch_deployment_target'
 
 project 'UiTestsDemo.xcodeproj'
 workspace 'UiTestsDemo.xcworkspace'
@@ -105,4 +106,8 @@ post_install do |installer|
 
   # Fix for cocoapods lower than 1.13 on xcode 15
   patch_xcconfigs_toolchain_dir(installer)  
+end
+
+at_exit do
+  inhibit_pod_deployment_target_warning()
 end
