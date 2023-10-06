@@ -19,6 +19,7 @@ import os
 import shutil
 import argparse
 import re
+import subprocess
 from dataclasses import dataclass
 from enum import Enum
 from typing import Union, List, Dict, Optional
@@ -463,7 +464,7 @@ class Dump:
     
         shutil.rmtree(destination_dir, ignore_errors=True)
 
-        os.system(f'class-dump -o "{destination_dir}" -H "{framework_dir}"')
+        subprocess.check_output(['class-dump', '-o', destination_dir, '-H', framework_dir])
     
         for source_basename in os.listdir(destination_dir):
             target_basename = BasenamePatcher.patch_basename(
