@@ -1,16 +1,16 @@
 [
     {
         "testDestination": {
-            "deviceType": "iPhone 13 mini",
-            "iOSVersion": "15.0",
-            "iOSVersionShort": "15.0",
-            "iOSVersionLong": "15.0",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-13-mini",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-15-0"
+            "deviceType": "iPhone 15",
+            "iOSVersion": "17.2",
+            "iOSVersionShort": "17.2",
+            "iOSVersionLong": "17.2",
+            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-15",
+            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-17-2"
         },
         "reportOutput": {
-            "junit": "tests-artifacts/ios_15.xml",
-            "tracingReport": "tests-artifacts/ios_15.trace"
+            "junit": "tests-artifacts/ios_17.xml",
+            "tracingReport": "tests-artifacts/ios_17.trace"
         }
     }
 ]
