@@ -73,31 +73,43 @@ final class AssertingCustomValuesTests: TestCase {
     
     private func check<T: Codable & Equatable>(
         customValue id: String,
-        equals value: T)
-    {
-        check(id: id) {
+        equals value: T,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        check(id: id, file: file, line: line) {
             $0.customValues[AssertingCustomValuesTests.valueKey] == value
         }
     }
     
     private func checkFails(
         id: String,
-        matcher: @escaping ElementMatcherBuilderClosure)
-    {
-        check(id: id, passes: false, matcher: matcher)
+        file: StaticString = #filePath,
+        line: UInt = #line,
+        matcher: @escaping ElementMatcherBuilderClosure
+    ) {
+        check(
+            id: id,
+            passes: false,
+            file: file,
+            line: line,
+            matcher: matcher
+        )
     }
     
     private func check(
         id: String,
         passes: Bool = true,
-        matcher: @escaping ElementMatcherBuilderClosure)
-    {
+        file: StaticString = #filePath,
+        line: UInt = #line,
+        matcher: @escaping ElementMatcherBuilderClosure
+    ) {
         let element: ViewElement = pageObjects.screen.element(id) { $0.id == id }
         
-        element.withoutTimeout.assertIsDisplayed()
-        
-        assert(passes: passes) {
-            element.withoutTimeout.assertMatches {
+        element.withoutTimeout.assertIsDisplayed(file: file, line: line)
+
+        assert(passes: passes, fileOfThisAssertion: file, lineOfThisAssertion: line) {
+            element.withoutTimeout.assertMatches(file: file, line: line) {
                 matcher($0)
             }
         }
