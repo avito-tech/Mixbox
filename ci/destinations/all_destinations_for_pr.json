@@ -1,18 +1,4 @@
 [
-    {
-		"testDestination": {
-			"deviceType": "iPhone 12",
-			"iOSVersion": "14.1",
-			"iOSVersionShort": "14.1",
-			"iOSVersionLong": "14.1",
-            "deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-12",
-            "runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-14-1"
-		},
-		"reportOutput": {
-			"junit": "tests-artifacts/ios_14.xml",
-			"tracingReport": "tests-artifacts/ios_14.trace"
-		}
-	},
 	{
 		"testDestination": {
 			"deviceType": "iPhone 13 mini",
