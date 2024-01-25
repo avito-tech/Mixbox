@@ -13,6 +13,11 @@ final class AssertingCustomValuesTests: TestCase {
     
     func test_equals() {
         check(
+            customValue: "swift_button",
+            equals: "swift_button"
+        )
+
+        check(
             customValue: "string",
             equals: "the string"
         )
