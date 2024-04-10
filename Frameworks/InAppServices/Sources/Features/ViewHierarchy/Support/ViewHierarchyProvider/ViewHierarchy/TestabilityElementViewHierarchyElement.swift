@@ -159,7 +159,7 @@ private final class SwiftUIViewHierarchyElementExtractor {
         return DTOViewHierarchyElement(
             frame: .zero,                                   // TODO
             frameRelativeToScreen: frameRelativeToScreen,
-            customClass: "todo",                            // TODO
+            customClass: String(describing: type(of: accessibilityElement)),
             elementType: .other,                            // TODO
             accessibilityIdentifier: accessibilityIdentifier,
             accessibilityLabel: accessibilityLabel,
