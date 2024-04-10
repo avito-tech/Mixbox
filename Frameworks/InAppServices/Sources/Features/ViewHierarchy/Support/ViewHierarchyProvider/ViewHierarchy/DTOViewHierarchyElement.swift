@@ -9,21 +9,21 @@ import MixboxTestability
 import MixboxIpcCommon
 
 final class DTOViewHierarchyElement: ViewHierarchyElement {
-    let frame: CGRect
-    let frameRelativeToScreen: CGRect
-    let customClass: String
-    let elementType: ViewHierarchyElementType
-    let accessibilityIdentifier: String?
-    let accessibilityLabel: String?
-    let accessibilityValue: String?
-    let accessibilityPlaceholderValue: String?
-    let text: String?
-    let uniqueIdentifier: String
-    let isDefinitelyHidden: Bool
-    let isEnabled: Bool
-    let hasKeyboardFocus: Bool
-    let customValues: [String: String]
-    let children: RandomAccessCollectionOf<ViewHierarchyElement, Int>
+    var frame: CGRect
+    var frameRelativeToScreen: CGRect
+    var customClass: String
+    var elementType: ViewHierarchyElementType
+    var accessibilityIdentifier: String?
+    var accessibilityLabel: String?
+    var accessibilityValue: String?
+    var accessibilityPlaceholderValue: String?
+    var text: String?
+    var uniqueIdentifier: String
+    var isDefinitelyHidden: Bool
+    var isEnabled: Bool
+    var hasKeyboardFocus: Bool
+    var customValues: [String: String]
+    var children: RandomAccessCollectionOf<ViewHierarchyElement, Int>
 
     init(
         frame: CGRect,
@@ -57,6 +57,24 @@ final class DTOViewHierarchyElement: ViewHierarchyElement {
         self.hasKeyboardFocus = hasKeyboardFocus
         self.customValues = customValues
         self.children = children
+    }
+
+    init<T>(_ other: T) where T: ViewHierarchyElement {
+        self.frame = other.frame
+        self.frameRelativeToScreen = other.frameRelativeToScreen
+        self.customClass = other.customClass
+        self.elementType = other.elementType
+        self.accessibilityIdentifier = other.accessibilityIdentifier
+        self.accessibilityLabel = other.accessibilityLabel
+        self.accessibilityValue = other.accessibilityValue
+        self.accessibilityPlaceholderValue = other.accessibilityPlaceholderValue
+        self.text = other.text
+        self.uniqueIdentifier = other.uniqueIdentifier
+        self.isDefinitelyHidden = other.isDefinitelyHidden
+        self.isEnabled = other.isEnabled
+        self.hasKeyboardFocus = other.hasKeyboardFocus
+        self.customValues = other.customValues
+        self.children = other.children
     }
 }
 

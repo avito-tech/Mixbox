@@ -12,6 +12,17 @@ final class SwiftUIViewHierarchyElementExtractor {
     private typealias AccessibilityTraitsMethod = @convention(c) (NSObject, Selector) -> UInt64
     private typealias AccessibilityFrameMethod = @convention(c) (NSObject, Selector) -> CGRect
 
+    private let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
+    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
+
+    init(
+        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher,
+        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
+    ) {
+        self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
+        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
+    }
+
     func extractViewHierarchyElement(from view: UIView) -> ViewHierarchyElement? {
         guard view.isHostingView else {
             return nil
@@ -21,26 +32,19 @@ final class SwiftUIViewHierarchyElementExtractor {
     }
 
     private func extractElement(from view: UIView, window: UIWindow) -> ViewHierarchyElement {
-        let accessibilityChildren = (view.accessibilityElements ?? []).compactMap(extractElement(from:))
-        let viewChildren = view.subviews.map { extractElement(from: $0, window: window) }
-
-        return DTOViewHierarchyElement(
-            frame: view.frame,
-            frameRelativeToScreen: view.convert(view.frame, to: window),
-            customClass: String(describing: type(of: view)),
-            elementType: elementType(for: view) ?? .other,
-            accessibilityIdentifier: view.accessibilityIdentifier,
-            accessibilityLabel: view.accessibilityLabel,
-            accessibilityValue: view.accessibilityValue,
-            accessibilityPlaceholderValue: nil,             // TODO
-            text: nil,                                      // TODO
-            uniqueIdentifier: String(describing: ObjectIdentifier(view)),   // TODO
-            isDefinitelyHidden: view.isHidden,
-            isEnabled: true,
-            hasKeyboardFocus: false,                        // TODO
-            customValues: [:],                              // TODO
-            children: RandomAccessCollectionOf<ViewHierarchyElement, Int>(accessibilityChildren + viewChildren)
+        let testabilityHierarchyElement = TestabilityElementViewHierarchyElement(
+            testabilityElement: view,
+            floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
+            accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
         )
+
+        let testabilityChildren = testabilityHierarchyElement.children
+        let accessibilityChildren = (view.accessibilityElements ?? []).compactMap(extractElement(from:))
+
+        let dtoElement = DTOViewHierarchyElement(testabilityHierarchyElement)
+        dtoElement.children = RandomAccessCollectionOf(testabilityChildren + accessibilityChildren)
+
+        return dtoElement
     }
 
     private func extractElement(from accessibilityElement: Any) -> ViewHierarchyElement? {

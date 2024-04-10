@@ -12,8 +12,7 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     private let testabilityElement: TestabilityElement
     private let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
     private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
-
-    private let swiftUIViewHierarchyElementExtractor = SwiftUIViewHierarchyElementExtractor()
+    private let swiftUIViewHierarchyElementExtractor: SwiftUIViewHierarchyElementExtractor
 
     public init(
         testabilityElement: TestabilityElement,
@@ -26,6 +25,11 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
         self.testabilityElement = testabilityElement
         self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
         self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
+
+        self.swiftUIViewHierarchyElementExtractor = SwiftUIViewHierarchyElementExtractor(
+            floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
+            accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
+        )
     }
     
     public var frame: CGRect {
