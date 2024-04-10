@@ -14,6 +14,8 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
     private let swiftUIViewHierarchyElementExtractor: SwiftUIViewHierarchyElementExtractor
 
+    private var shouldUseAccessibility = false
+
     public init(
         testabilityElement: TestabilityElement,
         floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher,
@@ -25,11 +27,7 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
         self.testabilityElement = testabilityElement
         self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
         self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
-
-        self.swiftUIViewHierarchyElementExtractor = SwiftUIViewHierarchyElementExtractor(
-            floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
-            accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
-        )
+        self.swiftUIViewHierarchyElementExtractor = SwiftUIViewHierarchyElementExtractor()
     }
     
     public var frame: CGRect {
@@ -101,19 +99,40 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     }
     
     public var children: RandomAccessCollectionOf<ViewHierarchyElement, Int> {
-        RandomAccessCollectionOf(
-            testabilityElement.mb_testability_children().lazy.map { [floatValuesForSr5346Patcher, accessibilityUniqueObjectMap, swiftUIViewHierarchyElementExtractor] testabilityElement in
-                if let view = testabilityElement as? UIView, let element = swiftUIViewHierarchyElementExtractor.extractViewHierarchyElement(from: view) {
-                    return element
-                } else {
-                    return TestabilityElementViewHierarchyElement(
-                        testabilityElement: testabilityElement,
-                        floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
-                        accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
-                    )
-                }
-            }
-        )
+        let shouldUseAccessibility = testabilityElement.shouldUseAccessibility || self.shouldUseAccessibility
+
+        let testabilityChildren = testabilityElement.mb_testability_children().lazy.map { [floatValuesForSr5346Patcher, accessibilityUniqueObjectMap] in
+            let element = TestabilityElementViewHierarchyElement(
+                testabilityElement: $0,
+                floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
+                accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
+            )
+
+            element.shouldUseAccessibility = shouldUseAccessibility
+
+            return element as ViewHierarchyElement
+        }
+
+        if shouldUseAccessibility, let view = testabilityElement as? UIView {
+            let accessibilityChildren = swiftUIViewHierarchyElementExtractor.extractAccessibilityElements(from: view)
+            return RandomAccessCollectionOf(testabilityChildren + Array(accessibilityChildren))
+        }
+
+        return RandomAccessCollectionOf(testabilityChildren)
+    }
+}
+
+// MARK: - Helpers
+
+extension TestabilityElement {
+    fileprivate var shouldUseAccessibility: Bool {
+        (self as? UIView)?.isHostingView ?? false
+    }
+}
+
+extension UIView {
+    fileprivate var isHostingView: Bool {
+        String(describing: type(of: self)).starts(with: "_UIHostingView")
     }
 }
 

@@ -12,42 +12,13 @@ final class SwiftUIViewHierarchyElementExtractor {
     private typealias AccessibilityTraitsMethod = @convention(c) (NSObject, Selector) -> UInt64
     private typealias AccessibilityFrameMethod = @convention(c) (NSObject, Selector) -> CGRect
 
-    private let floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher
-    private let accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
-
-    init(
-        floatValuesForSr5346Patcher: FloatValuesForSr5346Patcher,
-        accessibilityUniqueObjectMap: AccessibilityUniqueObjectMap
-    ) {
-        self.floatValuesForSr5346Patcher = floatValuesForSr5346Patcher
-        self.accessibilityUniqueObjectMap = accessibilityUniqueObjectMap
-    }
-
-    func extractViewHierarchyElement(from view: UIView) -> ViewHierarchyElement? {
-        guard view.isHostingView else {
-            return nil
-        }
-
-        return extractElement(from: view, window: view.window!)
-    }
-
-    private func extractElement(from view: UIView, window: UIWindow) -> ViewHierarchyElement {
-        let testabilityHierarchyElement = TestabilityElementViewHierarchyElement(
-            testabilityElement: view,
-            floatValuesForSr5346Patcher: floatValuesForSr5346Patcher,
-            accessibilityUniqueObjectMap: accessibilityUniqueObjectMap
+    func extractAccessibilityElements(from view: UIView) -> RandomAccessCollectionOf<ViewHierarchyElement, Int> {
+        RandomAccessCollectionOf(
+            (view.accessibilityElements ?? []).lazy.map(extractElement(from:))
         )
-
-        let testabilityChildren = testabilityHierarchyElement.children
-        let accessibilityChildren = (view.accessibilityElements ?? []).compactMap(extractElement(from:))
-
-        let dtoElement = DTOViewHierarchyElement(testabilityHierarchyElement)
-        dtoElement.children = RandomAccessCollectionOf(testabilityChildren + accessibilityChildren)
-
-        return dtoElement
     }
 
-    private func extractElement(from accessibilityElement: Any) -> ViewHierarchyElement? {
+    private func extractElement(from accessibilityElement: Any) -> ViewHierarchyElement {
         let accessibilityIdentifier = extractString(from: accessibilityElement, key: "accessibilityIdentifier")
         let accessibilityLabel = extractString(from: accessibilityElement, key: "accessibilityLabel")
         let accessibilityValue = extractString(from: accessibilityElement, key: "accessibilityValue")
@@ -61,7 +32,7 @@ final class SwiftUIViewHierarchyElementExtractor {
             ?? elementType(for: traits)
             ?? .other
 
-        let children = accessibilityElements.compactMap(extractElement(from:))
+        let children = accessibilityElements.lazy.map(extractElement(from:))
 
         return DTOViewHierarchyElement(
             frame: .zero,                                   // TODO
@@ -141,16 +112,6 @@ final class SwiftUIViewHierarchyElementExtractor {
         let methodImp = object.method(for: selector)
         let method = unsafeBitCast(methodImp, to: AccessibilityFrameMethod.self)
         return method(object, selector)
-    }
-}
-
-extension UIView {
-    fileprivate var isHostingView: Bool {
-        String(describing: type(of: self)).starts(with: "_UIHostingView")
-    }
-
-    fileprivate var topSuperview: UIView {
-        superview?.topSuperview ?? self
     }
 }
 
