@@ -122,18 +122,18 @@ private final class SwiftUIViewHierarchyElementExtractor {
             return nil
         }
 
-        return extract(from: view, window: view.window!)
+        return extractElement(from: view, window: view.window!)
     }
 
-    private func extract(from view: UIView, window: UIWindow) -> ViewHierarchyElement {
-        let accessibilityChildren = (view.accessibilityElements ?? []).compactMap(extract(from:))
-        let viewChildren = view.subviews.map { extract(from: $0, window: window) }
+    private func extractElement(from view: UIView, window: UIWindow) -> ViewHierarchyElement {
+        let accessibilityChildren = (view.accessibilityElements ?? []).compactMap(extractElement(from:))
+        let viewChildren = view.subviews.map { extractElement(from: $0, window: window) }
 
         return DTOViewHierarchyElement(
             frame: view.frame,
             frameRelativeToScreen: view.convert(view.frame, to: window),
             customClass: String(describing: type(of: view)),
-            elementType: .other,                            // TODO
+            elementType: elementType(for: view) ?? .other,
             accessibilityIdentifier: view.accessibilityIdentifier,
             accessibilityLabel: view.accessibilityLabel,
             accessibilityValue: view.accessibilityValue,
@@ -148,19 +148,24 @@ private final class SwiftUIViewHierarchyElementExtractor {
         )
     }
 
-    private func extract(from accessibilityElement: Any) -> ViewHierarchyElement? {
+    private func extractElement(from accessibilityElement: Any) -> ViewHierarchyElement? {
         let accessibilityIdentifier = extractString(from: accessibilityElement, key: "accessibilityIdentifier")
         let accessibilityLabel = extractString(from: accessibilityElement, key: "accessibilityLabel")
         let accessibilityValue = extractString(from: accessibilityElement, key: "accessibilityValue")
 
         let traits = extractAccessibilityTraits(from: accessibilityElement)
         let frameRelativeToScreen = extractAccessibilityFrame(from: accessibilityElement)
+        let customClass = String(describing: type(of: accessibilityElement))
+
+        let elementType = elementType(for: accessibilityElement)
+            ?? elementType(for: traits)
+            ?? .other
 
         return DTOViewHierarchyElement(
             frame: .zero,                                   // TODO
             frameRelativeToScreen: frameRelativeToScreen,
-            customClass: String(describing: type(of: accessibilityElement)),
-            elementType: .other,                            // TODO
+            customClass: customClass,
+            elementType: elementType,
             accessibilityIdentifier: accessibilityIdentifier,
             accessibilityLabel: accessibilityLabel,
             accessibilityValue: accessibilityValue,
@@ -173,6 +178,38 @@ private final class SwiftUIViewHierarchyElementExtractor {
             customValues: [:],                              // TODO
             children: RandomAccessCollectionOf<ViewHierarchyElement, Int>([])   // TODO
         )
+    }
+
+    private func elementType(for instance: Any) -> ViewHierarchyElementType? {
+        switch instance {
+        case is UICollectionView:
+            return .collectionView
+
+        case is UICollectionViewCell:
+            return .cell
+
+        case is UIScrollView:
+            return .scrollView
+
+        default:
+            return nil
+        }
+    }
+
+    private func elementType(for traits: UIAccessibilityTraits) -> ViewHierarchyElementType? {
+        if traits.contains(.staticText) {
+            return .staticText
+        } else if traits.contains(.button) {
+            return .button
+        } else if traits.contains(.image) {
+            return .image
+        } else if #available(iOS 17.0, *), traits.contains(.toggleButton) {
+            return .toggle
+        } else if traits.contains(.link) {
+            return .link
+        } else {
+            return nil
+        }
     }
 
     // https://medium.com/swlh/calling-ios-and-macos-hidden-api-in-style-1a924f244ad1
