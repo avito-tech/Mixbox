@@ -152,6 +152,7 @@ private final class SwiftUIViewHierarchyElementExtractor {
         let accessibilityIdentifier = extractString(from: accessibilityElement, key: "accessibilityIdentifier")
         let accessibilityLabel = extractString(from: accessibilityElement, key: "accessibilityLabel")
         let accessibilityValue = extractString(from: accessibilityElement, key: "accessibilityValue")
+        let accessibilityElements = extractValue(from: accessibilityElement, key: "accessibilityElements") as? [Any] ?? []
 
         let traits = extractAccessibilityTraits(from: accessibilityElement)
         let frameRelativeToScreen = extractAccessibilityFrame(from: accessibilityElement)
@@ -160,6 +161,8 @@ private final class SwiftUIViewHierarchyElementExtractor {
         let elementType = elementType(for: accessibilityElement)
             ?? elementType(for: traits)
             ?? .other
+
+        let children = accessibilityElements.compactMap(extractElement(from:))
 
         return DTOViewHierarchyElement(
             frame: .zero,                                   // TODO
@@ -176,7 +179,7 @@ private final class SwiftUIViewHierarchyElementExtractor {
             isEnabled: !traits.contains(.notEnabled),
             hasKeyboardFocus: false,                        // TODO
             customValues: [:],                              // TODO
-            children: RandomAccessCollectionOf<ViewHierarchyElement, Int>([])   // TODO
+            children: RandomAccessCollectionOf<ViewHierarchyElement, Int>(children)
         )
     }
 
