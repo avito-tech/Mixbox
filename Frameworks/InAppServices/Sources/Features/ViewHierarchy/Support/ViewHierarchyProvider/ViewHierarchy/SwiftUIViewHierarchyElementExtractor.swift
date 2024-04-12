@@ -21,6 +21,7 @@ final class SwiftUIViewHierarchyElementExtractor {
     private func extractElement(from accessibilityElement: Any) -> ViewHierarchyElement {
         let accessibilityIdentifier = extractString(from: accessibilityElement, key: "accessibilityIdentifier")
         let accessibilityLabel = extractString(from: accessibilityElement, key: "accessibilityLabel")
+        let accessibilityHint = extractString(from: accessibilityElement, key: "accessibilityHint")
         let accessibilityValue = extractString(from: accessibilityElement, key: "accessibilityValue")
         let accessibilityElements = extractValue(from: accessibilityElement, key: "accessibilityElements") as? [Any] ?? []
 
@@ -48,7 +49,7 @@ final class SwiftUIViewHierarchyElementExtractor {
             isDefinitelyHidden: false,                      // TODO
             isEnabled: !traits.contains(.notEnabled),
             hasKeyboardFocus: false,                        // TODO
-            customValues: [:],                              // TODO
+            customValues: customValues(fromHint: accessibilityHint),
             children: RandomAccessCollectionOf<ViewHierarchyElement, Int>(children)
         )
     }
@@ -83,6 +84,18 @@ final class SwiftUIViewHierarchyElementExtractor {
         } else {
             return nil
         }
+    }
+
+    private func customValues(fromHint hint: String?) -> [String: String] {
+        guard 
+            let hint,
+            let data = hint.data(using: .utf8),
+            let json = try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed]) as? [String: String]
+        else {
+            return [:]
+        }
+
+        return json
     }
 
     // https://medium.com/swlh/calling-ios-and-macos-hidden-api-in-style-1a924f244ad1
