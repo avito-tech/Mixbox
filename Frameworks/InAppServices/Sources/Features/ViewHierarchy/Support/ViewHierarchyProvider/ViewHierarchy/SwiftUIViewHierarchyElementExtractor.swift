@@ -13,12 +13,17 @@ final class SwiftUIViewHierarchyElementExtractor {
     private typealias AccessibilityFrameMethod = @convention(c) (NSObject, Selector) -> CGRect
 
     func extractAccessibilityElements(from view: UIView) -> RandomAccessCollectionOf<ViewHierarchyElement, Int> {
-        RandomAccessCollectionOf(
-            (view.accessibilityElements ?? []).lazy.map(extractElement(from:))
+        let frameRelativeToScreen = view.mb_testability_frameRelativeToScreen()
+
+        return RandomAccessCollectionOf(
+            (view.accessibilityElements ?? []).lazy.map { self.extractElement(from: $0, parentFrameRelativeToScreen: frameRelativeToScreen) }
         )
     }
 
-    private func extractElement(from accessibilityElement: Any) -> ViewHierarchyElement {
+    private func extractElement(
+        from accessibilityElement: Any,
+        parentFrameRelativeToScreen: CGRect
+    ) -> ViewHierarchyElement {
         let accessibilityIdentifier = extractString(from: accessibilityElement, key: "accessibilityIdentifier")
         let accessibilityLabel = extractString(from: accessibilityElement, key: "accessibilityLabel")
         let accessibilityHint = extractString(from: accessibilityElement, key: "accessibilityHint")
@@ -33,10 +38,15 @@ final class SwiftUIViewHierarchyElementExtractor {
             ?? elementType(for: traits)
             ?? .other
 
-        let children = accessibilityElements.lazy.map(extractElement(from:))
+        let children = accessibilityElements.lazy.map { self.extractElement(from: $0, parentFrameRelativeToScreen: frameRelativeToScreen) }
+
+        let frameOrigin = CGPoint(
+            x: frameRelativeToScreen.origin.x - parentFrameRelativeToScreen.origin.x,
+            y: frameRelativeToScreen.origin.y - parentFrameRelativeToScreen.origin.y
+        )
 
         return DTOViewHierarchyElement(
-            frame: .zero,                                   // TODO
+            frame: CGRect(origin: frameOrigin, size: frameRelativeToScreen.size),
             frameRelativeToScreen: frameRelativeToScreen,
             customClass: customClass,
             elementType: elementType,
