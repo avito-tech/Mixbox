@@ -16,14 +16,25 @@ final class SwiftUIViewHierarchyElementExtractor {
         let frameRelativeToScreen = view.mb_testability_frameRelativeToScreen()
 
         return RandomAccessCollectionOf(
-            (view.accessibilityElements ?? []).lazy.map { self.extractElement(from: $0, parentFrameRelativeToScreen: frameRelativeToScreen) }
+            (view.accessibilityElements ?? []).lazy.compactMap {
+                self.extractElement(
+                    from: $0,
+                    parentFrameRelativeToScreen: frameRelativeToScreen
+                )
+            }
         )
     }
 
     private func extractElement(
         from accessibilityElement: Any,
         parentFrameRelativeToScreen: CGRect
-    ) -> ViewHierarchyElement {
+    ) -> ViewHierarchyElement? {
+        // This filter ensures that we don't visit views twice
+        // because they are already handled by TestabilityElementViewHierarchyElement.
+        guard !(accessibilityElement is UIView) else {
+            return nil
+        }
+
         let accessibilityIdentifier = extractString(from: accessibilityElement, key: "accessibilityIdentifier")
         let accessibilityLabel = extractString(from: accessibilityElement, key: "accessibilityLabel")
         let accessibilityHint = extractString(from: accessibilityElement, key: "accessibilityHint")
@@ -34,11 +45,14 @@ final class SwiftUIViewHierarchyElementExtractor {
         let frameRelativeToScreen = extractAccessibilityFrame(from: accessibilityElement)
         let customClass = String(describing: type(of: accessibilityElement))
 
-        let elementType = elementType(for: accessibilityElement)
-            ?? elementType(for: traits)
-            ?? .other
+        let elementType = elementType(for: traits) ?? .other
 
-        let children = accessibilityElements.lazy.map { self.extractElement(from: $0, parentFrameRelativeToScreen: frameRelativeToScreen) }
+        let children = accessibilityElements.compactMap {
+            self.extractElement(
+                from: $0,
+                parentFrameRelativeToScreen: frameRelativeToScreen
+            )
+        }
 
         let frameOrigin = CGPoint(
             x: frameRelativeToScreen.origin.x - parentFrameRelativeToScreen.origin.x,
@@ -54,30 +68,15 @@ final class SwiftUIViewHierarchyElementExtractor {
             accessibilityLabel: accessibilityLabel,
             accessibilityValue: accessibilityValue,
             accessibilityPlaceholderValue: nil,             // TODO
-            text: nil,                                      // TODO
-            uniqueIdentifier: String(describing: ObjectIdentifier(accessibilityElement as AnyObject)),  // TODO
-            isDefinitelyHidden: false,                      // TODO
+            text: accessibilityLabel,
+            uniqueIdentifier: UUID().uuidString,
+            isDefinitelyHidden: false,
             isEnabled: !traits.contains(.notEnabled),
-            hasKeyboardFocus: false,                        // TODO
+            hasKeyboardFocus: false,    // Seems like all views that can be first responders are UIKit views
+                                        // so we can assume everything else cannot have keyboard focus.
             customValues: customValues(fromHint: accessibilityHint),
-            children: RandomAccessCollectionOf<ViewHierarchyElement, Int>(children)
+            children: RandomAccessCollectionOf(children)
         )
-    }
-
-    private func elementType(for instance: Any) -> ViewHierarchyElementType? {
-        switch instance {
-        case is UICollectionView:
-            return .collectionView
-
-        case is UICollectionViewCell:
-            return .cell
-
-        case is UIScrollView:
-            return .scrollView
-
-        default:
-            return nil
-        }
     }
 
     private func elementType(for traits: UIAccessibilityTraits) -> ViewHierarchyElementType? {
