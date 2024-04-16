@@ -8,8 +8,8 @@ import UIKit
 import MixboxFoundation
 
 public protocol ViewHierarchyElement {
-    var frame: CGRect { get }
-    
+    var frame: OptionalAvailability<CGRect> { get }
+
     // Note that there is no way to calculate this from fields, because the logic of coordinates conversion
     // is not constant for every view (and is proprietary for many views).
     var frameRelativeToScreen: CGRect { get }
@@ -73,13 +73,13 @@ extension ViewHierarchyElement {
         
         fields.append((key: "axLabel", value: accessibilityLabel))
         fields.append((key: "axValue", value: accessibilityValue))
-        fields.append((key: "type", value: elementType.debugDescription))
-        fields.append((key: "frameOnScreen", value: frameRelativeToScreen.debugDescription))
-        fields.append((key: "frame", value: frame.debugDescription))
+        fields.append((key: "type", value: String(reflecting: elementType)))
+        fields.append((key: "frameOnScreen", value: String(reflecting: frameRelativeToScreen)))
+        fields.append((key: "frame", value: String(reflecting: frame)))
         fields.append((key: "axPlaceholderValue", value: accessibilityPlaceholderValue))
-        fields.append((key: "isDefinitelyHidden", value: isDefinitelyHidden.description))
-        fields.append((key: "isEnabled", value: isEnabled.description))
-        fields.append((key: "hasKeyboardFocus", value: hasKeyboardFocus.description))
+        fields.append((key: "isDefinitelyHidden", value: String(reflecting: isDefinitelyHidden)))
+        fields.append((key: "isEnabled", value: String(reflecting: isEnabled)))
+        fields.append((key: "hasKeyboardFocus", value: String(reflecting: hasKeyboardFocus)))
         fields.append((key: "uniqueIdentifier", value: uniqueIdentifier))
         
         let fieldsWithValues = fields.compactMap { (key: String, value: String?) -> (key: String, value: String)? in

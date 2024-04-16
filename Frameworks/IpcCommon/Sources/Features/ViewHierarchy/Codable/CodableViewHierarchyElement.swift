@@ -8,7 +8,7 @@ import UIKit
 import MixboxFoundation
 
 public final class CodableViewHierarchyElement: ViewHierarchyElement, Codable {
-    public let frame: CGRect
+    public let frame: OptionalAvailability<CGRect>
     public let frameRelativeToScreen: CGRect
     public let customClass: String
     public let elementType: ViewHierarchyElementType
@@ -27,7 +27,7 @@ public final class CodableViewHierarchyElement: ViewHierarchyElement, Codable {
     // MARK: - Init
 
     public init(
-        frame: CGRect,
+        frame: OptionalAvailability<CGRect>,
         frameRelativeToScreen: CGRect,
         customClass: String,
         elementType: ViewHierarchyElementType,

@@ -1,3 +1,4 @@
+import MixboxFoundation
 import MixboxIpcCommon
 import XCTest
 
@@ -56,7 +57,7 @@ final class UiKitHierarchyElementSnaphot: ElementSnapshot {
     }
     
     var frame: OptionalAvailability<CGRect> {
-        return .available(data.frame)
+        return data.frame
     }
     
     var frameRelativeToScreen: CGRect {

@@ -56,7 +56,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTAssertEqual(label.isEnabled, false)
             XCTAssertEqual(label.hasKeyboardFocus, false)
             XCTAssertEqual(label.customValues, ["label.mb_testability_customValues": "label.mb_testability_customValues"])
-            XCTAssertEqual(label.frame, CGRect(x: 0, y: 1, width: 100, height: 101))
+            XCTAssertEqual(label.frame, .available(CGRect(x: 0, y: 1, width: 100, height: 101)))
         } else {
             XCTFail("Did not find label")
         }
@@ -72,7 +72,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTAssertEqual(hiddenLabel.hasKeyboardFocus, false)
             XCTAssertEqual(hiddenLabel.customValues, ["hiddenLabel.mb_testability_customValues": "hiddenLabel.mb_testability_customValues"])
             XCTAssertEqual(hiddenLabel.elementType, .staticText)
-            XCTAssertEqual(hiddenLabel.frame, CGRect(x: 5, y: 5, width: 30, height: 30))
+            XCTAssertEqual(hiddenLabel.frame, .available(CGRect(x: 5, y: 5, width: 30, height: 30)))
         } else {
             XCTFail("Did not find hiddenLabel")
         }
@@ -88,7 +88,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTAssertEqual(button.hasKeyboardFocus, false)
             XCTAssertEqual(button.customValues, ["button.mb_testability_customValues": "button.mb_testability_customValues"])
             XCTAssertEqual(button.elementType, .button)
-            XCTAssertEqual(button.frame, CGRect(x: -10000, y: 1, width: 100, height: 101))
+            XCTAssertEqual(button.frame, .available(CGRect(x: -10000, y: 1, width: 100, height: 101)))
         } else {
             XCTFail("Did not find button")
         }
@@ -104,7 +104,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTAssertEqual(hiddenButton.hasKeyboardFocus, false)
             XCTAssertEqual(hiddenButton.customValues, ["hiddenButton.mb_testability_customValues": "hiddenButton.mb_testability_customValues"])
             XCTAssertEqual(hiddenButton.elementType, .button)
-            XCTAssertEqual(hiddenButton.frame, CGRect(x: 10000, y: 10, width: 100, height: 101))
+            XCTAssertEqual(hiddenButton.frame, .available(CGRect(x: 10000, y: 10, width: 100, height: 101)))
         } else {
             XCTFail("Did not find hiddenButton")
         }
@@ -121,7 +121,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTAssertEqual(focusedTextField.hasKeyboardFocus, true)
             XCTAssertEqual(focusedTextField.customValues, ["focusedTextField.mb_testability_customValues": "focusedTextField.mb_testability_customValues"])
             XCTAssertEqual(focusedTextField.elementType, .secureTextField)
-            XCTAssertEqual(focusedTextField.frame, CGRect(x: 10000, y: 1, width: 100, height: 101))
+            XCTAssertEqual(focusedTextField.frame, .available(CGRect(x: 10000, y: 1, width: 100, height: 101)))
         } else {
             XCTFail("Did not find focusedTextField")
         }
@@ -137,7 +137,7 @@ final class GettingUiKitHierarchyTests: TestCase {
             XCTAssertEqual(notFocusedTextField.hasKeyboardFocus, false)
             XCTAssertEqual(notFocusedTextField.customValues, ["notFocusedTextView.mb_testability_customValues": "notFocusedTextView.mb_testability_customValues"])
             XCTAssertEqual(notFocusedTextField.elementType, .textView)
-            XCTAssertEqual(notFocusedTextField.frame, CGRect(x: 1000, y: 1, width: 100, height: 101))
+            XCTAssertEqual(notFocusedTextField.frame, .available(CGRect(x: 1000, y: 1, width: 100, height: 101)))
         } else {
             XCTFail("Did not find notFocusedTextField")
         }

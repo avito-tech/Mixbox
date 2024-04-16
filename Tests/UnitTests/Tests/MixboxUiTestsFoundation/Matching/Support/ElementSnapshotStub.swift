@@ -1,3 +1,4 @@
+import MixboxFoundation
 import MixboxUiTestsFoundation
 import UIKit
 import XCTest

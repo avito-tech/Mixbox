@@ -52,7 +52,7 @@ private final class FakeViewHierarchyProvider: ViewHierarchyProvider {
     
     private func random(children: Int) -> CodableViewHierarchyElement {
         return CodableViewHierarchyElement(
-            frame: CGRect(x: 12, y: 34, width: 56, height: 78),
+            frame: .available(CGRect(x: 12, y: 34, width: 56, height: 78)),
             frameRelativeToScreen: CGRect(x: 90, y: 12, width: 34, height: 56),
             customClass: "UIFooBarView",
             elementType: .staticText,

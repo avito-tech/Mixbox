@@ -9,7 +9,7 @@ import MixboxTestability
 import MixboxIpcCommon
 
 final class DTOViewHierarchyElement: ViewHierarchyElement {
-    var frame: CGRect
+    var frame: OptionalAvailability<CGRect>
     var frameRelativeToScreen: CGRect
     var customClass: String
     var elementType: ViewHierarchyElementType
@@ -26,7 +26,7 @@ final class DTOViewHierarchyElement: ViewHierarchyElement {
     var children: RandomAccessCollectionOf<ViewHierarchyElement, Int>
 
     init(
-        frame: CGRect,
+        frame: OptionalAvailability<CGRect>,
         frameRelativeToScreen: CGRect,
         customClass: String,
         elementType: ViewHierarchyElementType,

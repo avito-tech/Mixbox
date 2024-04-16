@@ -5,7 +5,7 @@
 public enum OptionalAvailability<T> {
     case available(T)
     case unavailable
-    
+
     public init(_ value: T?) {
         switch value {
         case .some(let value):
@@ -14,13 +14,25 @@ public enum OptionalAvailability<T> {
             self = .unavailable
         }
     }
-    
+
     public var valueIfAvailable: T? {
         switch self {
         case .available(let value):
             return value
         case .unavailable:
             return nil
+        }
+    }
+}
+
+extension OptionalAvailability: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case let .available(value):
+            return String(reflecting: value)
+
+        case .unavailable:
+            return "unavailable"
         }
     }
 }
@@ -37,3 +49,5 @@ extension OptionalAvailability: Equatable where T: Equatable {
         }
     }
 }
+
+extension OptionalAvailability: Codable where T: Codable { }

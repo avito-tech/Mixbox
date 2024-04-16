@@ -13,22 +13,14 @@ final class SwiftUIViewHierarchyElementExtractor {
     private typealias AccessibilityFrameMethod = @convention(c) (NSObject, Selector) -> CGRect
 
     func extractAccessibilityElements(from view: UIView) -> RandomAccessCollectionOf<ViewHierarchyElement, Int> {
-        let frameRelativeToScreen = view.mb_testability_frameRelativeToScreen()
-
-        return RandomAccessCollectionOf(
+        RandomAccessCollectionOf(
             (view.accessibilityElements ?? []).lazy.compactMap {
-                self.extractElement(
-                    from: $0,
-                    parentFrameRelativeToScreen: frameRelativeToScreen
-                )
+                self.extractElement(from: $0)
             }
         )
     }
 
-    private func extractElement(
-        from accessibilityElement: Any,
-        parentFrameRelativeToScreen: CGRect
-    ) -> ViewHierarchyElement? {
+    private func extractElement(from accessibilityElement: Any) -> ViewHierarchyElement? {
         // This filter ensures that we don't visit views twice
         // because they are already handled by TestabilityElementViewHierarchyElement.
         guard !(accessibilityElement is UIView) else {
@@ -48,19 +40,11 @@ final class SwiftUIViewHierarchyElementExtractor {
         let elementType = elementType(for: traits) ?? .other
 
         let children = accessibilityElements.compactMap {
-            self.extractElement(
-                from: $0,
-                parentFrameRelativeToScreen: frameRelativeToScreen
-            )
+            self.extractElement(from: $0)
         }
 
-        let frameOrigin = CGPoint(
-            x: frameRelativeToScreen.origin.x - parentFrameRelativeToScreen.origin.x,
-            y: frameRelativeToScreen.origin.y - parentFrameRelativeToScreen.origin.y
-        )
-
         return DTOViewHierarchyElement(
-            frame: CGRect(origin: frameOrigin, size: frameRelativeToScreen.size),
+            frame: .unavailable,
             frameRelativeToScreen: frameRelativeToScreen,
             customClass: customClass,
             elementType: elementType,

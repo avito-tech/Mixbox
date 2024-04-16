@@ -30,10 +30,12 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
         self.swiftUIViewHierarchyElementExtractor = SwiftUIViewHierarchyElementExtractor()
     }
     
-    public var frame: CGRect {
-        floatValuesForSr5346Patcher.patched(
+    public var frame: OptionalAvailability<CGRect> {
+        let frame = floatValuesForSr5346Patcher.patched(
             frame: testabilityElement.mb_testability_frame()
         )
+
+        return .available(frame)
     }
     
     public var frameRelativeToScreen: CGRect {
