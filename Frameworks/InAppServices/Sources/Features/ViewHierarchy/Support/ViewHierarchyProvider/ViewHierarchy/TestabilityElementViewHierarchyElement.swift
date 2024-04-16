@@ -134,6 +134,8 @@ extension TestabilityElement {
 
 extension UIView {
     fileprivate var isHostingView: Bool {
+        // _UIHostingView is generic over its body so full class name can look like this: _UIHostingView<MyView>.
+        // That's why we have to use starts(with:).
         String(describing: type(of: self)).starts(with: "_UIHostingView")
     }
 }
