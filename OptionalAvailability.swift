@@ -1,3 +1,9 @@
+#if MIXBOX_ENABLE_FRAMEWORK_FOUNDATION && MIXBOX_DISABLE_FRAMEWORK_FOUNDATION
+#error("Foundation is marked as both enabled and disabled, choose one of the flags")
+#elseif MIXBOX_DISABLE_FRAMEWORK_FOUNDATION || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_FOUNDATION)
+// The compilation is disabled
+#else
+
 // Equivalent to Optional, but emphasizes the meaning:
 // the value can not be get if `.unavailable`. So, there is a difference between "view doesn't contain something" and
 // "view can not contain something". E.g. difference between `.unavailable` and `.available(nil)`. So it matters if
@@ -51,3 +57,5 @@ extension OptionalAvailability: Equatable where T: Equatable {
 }
 
 extension OptionalAvailability: Codable where T: Codable { }
+
+#endif
