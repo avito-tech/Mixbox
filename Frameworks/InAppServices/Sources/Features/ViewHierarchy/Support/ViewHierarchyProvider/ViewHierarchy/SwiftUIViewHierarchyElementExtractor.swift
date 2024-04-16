@@ -104,7 +104,10 @@ final class SwiftUIViewHierarchyElementExtractor {
     }
 
     private func extractAccessibilityTraits(from object: Any) -> UIAccessibilityTraits {
-        let object = object as! NSObject
+        guard let object = object as? NSObject else {
+            return .none
+        }
+
         let selector = NSSelectorFromString("accessibilityTraits")
         let methodImp = object.method(for: selector)
         let method = unsafeBitCast(methodImp, to: AccessibilityTraitsMethod.self)
@@ -113,7 +116,10 @@ final class SwiftUIViewHierarchyElementExtractor {
     }
 
     private func extractAccessibilityFrame(from object: Any) -> CGRect {
-        let object = object as! NSObject
+        guard let object = object as? NSObject else {
+            return .zero
+        }
+
         let selector = NSSelectorFromString("accessibilityFrame")
         let methodImp = object.method(for: selector)
         let method = unsafeBitCast(methodImp, to: AccessibilityFrameMethod.self)
