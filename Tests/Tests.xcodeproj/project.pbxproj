@@ -87,6 +87,10 @@
 		1FEF58BE28A301CB00B49D78 /* EventOptionBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */; };
 		1FFD93DF2AB368C10022E829 /* SwipeActionFailuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFD93DE2AB368C10022E829 /* SwipeActionFailuresTests.swift */; };
 		1FFD93E02AB368C10022E829 /* SwipeActionFailuresTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFD93DE2AB368C10022E829 /* SwipeActionFailuresTests.swift */; };
+		1FFFAF162BD012C8004F39D4 /* UIHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFAF142BD012C8004F39D4 /* UIHostingView.swift */; };
+		1FFFAF172BD012C8004F39D4 /* SwiftUITestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFAF152BD012C8004F39D4 /* SwiftUITestsView.swift */; };
+		1FFFAF1A2BD0256E004F39D4 /* SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFAF182BD02259004F39D4 /* SwiftUITests.swift */; };
+		1FFFAF1B2BD0256F004F39D4 /* SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFAF182BD02259004F39D4 /* SwiftUITests.swift */; };
 		26EC7E4F90D6BD5075C83255 /* Pods_OsxUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */; };
 		46CD4B6904207EBCC3D1EEA9 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */; };
 		598DEE17E1D63A4642B70C84 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */; };
@@ -1006,6 +1010,9 @@
 		1FD970872A4AD30700BB4B90 /* IsLessWithAccuracyMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsLessWithAccuracyMatcherTests.swift; sourceTree = "<group>"; };
 		1FEF58BD28A301CB00B49D78 /* EventOptionBitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventOptionBitsTests.swift; sourceTree = "<group>"; };
 		1FFD93DE2AB368C10022E829 /* SwipeActionFailuresTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionFailuresTests.swift; sourceTree = "<group>"; };
+		1FFFAF142BD012C8004F39D4 /* UIHostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHostingView.swift; sourceTree = "<group>"; };
+		1FFFAF152BD012C8004F39D4 /* SwiftUITestsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUITestsView.swift; sourceTree = "<group>"; };
+		1FFFAF182BD02259004F39D4 /* SwiftUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUITests.swift; sourceTree = "<group>"; };
 		2334CBC37E807E632DE8295A /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2917F62FA6584ECB1E3D3C45 /* Pods-Lint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lint.release.xcconfig"; path = "Target Support Files/Pods-Lint/Pods-Lint.release.xcconfig"; sourceTree = "<group>"; };
 		2CB74C666F3705EFED495BE1 /* Pods-MocksGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGenerator.release.xcconfig"; path = "Target Support Files/Pods-MocksGenerator/Pods-MocksGenerator.release.xcconfig"; sourceTree = "<group>"; };
@@ -1746,6 +1753,15 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
+		1FFFAF132BD012C8004F39D4 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				1FFFAF142BD012C8004F39D4 /* UIHostingView.swift */,
+				1FFFAF152BD012C8004F39D4 /* SwiftUITestsView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		AB15AD35FB63246BDD8CE9FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1999,6 +2015,7 @@
 				CC78DE3021395C5000599258 /* HierarchyTests */,
 				F813CB12209CD82A00E6A27C /* ChecksTests */,
 				F813CB14209CD82A00E6A27C /* Actions */,
+				1FFFAF132BD012C8004F39D4 /* SwiftUI */,
 				F82A05B821F755950008C2BB /* DummyForLaunchingUiTestsView.swift */,
 			);
 			path = Views;
@@ -4123,6 +4140,7 @@
 		F8E6CC7C2181ECF500D7A0C1 /* GettingInfoAboutUserInterfaceState */ = {
 			isa = PBXGroup;
 			children = (
+				1FFFAF182BD02259004F39D4 /* SwiftUITests.swift */,
 				F86AD186265D058A00AA94E1 /* StandardLibraryViews */,
 				F8E6CC802181EE3300D7A0C1 /* GettingElementInfo */,
 				F8E6CC7F2181EE2D00D7A0C1 /* FindingElement */,
@@ -5587,6 +5605,7 @@
 				F857C9DA20CD8D8700E8BFF5 /* CustomIpcMethods.swift in Sources */,
 				F88609D824DD78C900A92523 /* InAppServicesDependencyCollectionRegisterer.swift in Sources */,
 				F8A395BB2147C243000E9E44 /* ChangingHierarchyTestsView.swift in Sources */,
+				1FFFAF172BD012C8004F39D4 /* SwiftUITestsView.swift in Sources */,
 				F813CB21209CD82A00E6A27C /* TextViewWithClosures.swift in Sources */,
 				F8EC48DC2513C1CA009B0813 /* NonViewElementsTestsCustomDrawingView.swift in Sources */,
 				F8E855E7242C8F9100A29CD8 /* IntermediateBetweenTestsViewController.swift in Sources */,
@@ -5622,6 +5641,7 @@
 				F8B34126224E5C6100AA1EB9 /* PhotosPermissionInfo.swift in Sources */,
 				F8BB4409240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift in Sources */,
 				F8E8BB2620E2A00300524185 /* CellModel.swift in Sources */,
+				1FFFAF162BD012C8004F39D4 /* UIHostingView.swift in Sources */,
 				647EA60C24589E12002615DA /* TrackingCAAnimationDelegate.swift in Sources */,
 				F813CB23209CD82A00E6A27C /* ActionsTestsView.swift in Sources */,
 				F84D12722166AC3D00A178B4 /* FakeCellsDoNotCrashAppTestsView.swift in Sources */,
@@ -5753,6 +5773,7 @@
 				F8971D2622651E3A001741C1 /* CreatedTemporaryDirectory.swift in Sources */,
 				F8E8BAE320DD752200524185 /* FakeCellsTests.swift in Sources */,
 				F8B33B2F224CEEA900AA1EB9 /* SetTextActionWaitsElementTests.swift in Sources */,
+				1FFFAF1A2BD0256E004F39D4 /* SwiftUITests.swift in Sources */,
 				F83090BC24B7443000C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */,
 				F88B33B4232153DC00F68B75 /* BaseTouchesTestCase+Asserts.swift in Sources */,
 				1F4987492A44ACDF00CF5F54 /* SoftwareKeyboardTests.swift in Sources */,
@@ -6252,6 +6273,7 @@
 				F8B0A257220A0EF30089C1EE /* TestReportAttachment.swift in Sources */,
 				F863CA1424B4B24200423225 /* InteractionsUseVisiblePointTests.swift in Sources */,
 				F8C8ED142298505D0009B9A7 /* ScrollingSmokeTests.swift in Sources */,
+				1FFFAF1B2BD0256F004F39D4 /* SwiftUITests.swift in Sources */,
 				F8A83E812272223700145140 /* RunningActionsInRandomOrderTests.swift in Sources */,
 				F84C85AC27187808008496D8 /* ValuesByIosVersion.swift in Sources */,
 				F8341977232FE9B500E9EC3A /* LocatorsPerformanceTestsViewPageObject.swift in Sources */,
