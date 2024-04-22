@@ -92,6 +92,9 @@
 		1FFFAF1A2BD0256E004F39D4 /* SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFAF182BD02259004F39D4 /* SwiftUITests.swift */; };
 		1FFFAF1B2BD0256F004F39D4 /* SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFAF182BD02259004F39D4 /* SwiftUITests.swift */; };
 		26EC7E4F90D6BD5075C83255 /* Pods_OsxUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */; };
+		2E4439442BD6A2CA006B4849 /* SwiftUIListTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4439432BD6A2CA006B4849 /* SwiftUIListTestsView.swift */; };
+		2E4439482BD6A327006B4849 /* SwiftUIListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */; };
+		2E4439492BD6A328006B4849 /* SwiftUIListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */; };
 		46CD4B6904207EBCC3D1EEA9 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */; };
 		598DEE17E1D63A4642B70C84 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */; };
 		59A93B39599EA114CB701795 /* Pods_TestedApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E12B265F8D0DEEEC4E9C59 /* Pods_TestedApp.framework */; };
@@ -1016,6 +1019,8 @@
 		2334CBC37E807E632DE8295A /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2917F62FA6584ECB1E3D3C45 /* Pods-Lint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lint.release.xcconfig"; path = "Target Support Files/Pods-Lint/Pods-Lint.release.xcconfig"; sourceTree = "<group>"; };
 		2CB74C666F3705EFED495BE1 /* Pods-MocksGenerator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGenerator.release.xcconfig"; path = "Target Support Files/Pods-MocksGenerator/Pods-MocksGenerator.release.xcconfig"; sourceTree = "<group>"; };
+		2E4439432BD6A2CA006B4849 /* SwiftUIListTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIListTestsView.swift; sourceTree = "<group>"; };
+		2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIListTests.swift; sourceTree = "<group>"; };
 		35A68FF0C2C0AE41F478867E /* Pods_MocksGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MocksGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48B908E1BA16A691135DC20B /* Pods-MocksGeneratorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGeneratorTests.release.xcconfig"; path = "Target Support Files/Pods-MocksGeneratorTests/Pods-MocksGeneratorTests.release.xcconfig"; sourceTree = "<group>"; };
 		4C4D6D4D32D77EB0E8DEF3CA /* Pods-TestedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.release.xcconfig"; path = "Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -1758,6 +1763,15 @@
 			children = (
 				1FFFAF142BD012C8004F39D4 /* UIHostingView.swift */,
 				1FFFAF152BD012C8004F39D4 /* SwiftUITestsView.swift */,
+				2E4439432BD6A2CA006B4849 /* SwiftUIListTestsView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		2E4439452BD6A30F006B4849 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3257,6 +3271,7 @@
 		F8A837AA2270D4CC00145140 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				2E4439452BD6A30F006B4849 /* SwiftUI */,
 				1FD9708F2A4B16B200BB4B90 /* Keyboard */,
 				F8EC48CF251286BF009B0813 /* NonViewElementsTests */,
 				F8D1AA9B24ED5AC6001147B6 /* PageObjectMakingHelper */,
@@ -5641,6 +5656,7 @@
 				F8B34126224E5C6100AA1EB9 /* PhotosPermissionInfo.swift in Sources */,
 				F8BB4409240937BD00B3F0A4 /* SetTextActionWaitsForElementToGainFocusTestsView.swift in Sources */,
 				F8E8BB2620E2A00300524185 /* CellModel.swift in Sources */,
+				2E4439442BD6A2CA006B4849 /* SwiftUIListTestsView.swift in Sources */,
 				1FFFAF162BD012C8004F39D4 /* UIHostingView.swift in Sources */,
 				647EA60C24589E12002615DA /* TrackingCAAnimationDelegate.swift in Sources */,
 				F813CB23209CD82A00E6A27C /* ActionsTestsView.swift in Sources */,
@@ -5755,6 +5771,7 @@
 				F8AD079F2250D5DD00D5FB93 /* PhotosApplicationPermissionTests.swift in Sources */,
 				F8AD079C2250D5DD00D5FB93 /* CameraApplicationPermissionSpecification.swift in Sources */,
 				F8B010DF21FF319D0026360D /* ReportingSystems.swift in Sources */,
+				2E4439482BD6A327006B4849 /* SwiftUIListTests.swift in Sources */,
 				F854F8252344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift in Sources */,
 				F8EBBCE7213D541300D320A4 /* AssertMatchesReferenceWithPerPixelComparatorTests.swift in Sources */,
 				F8971D0522650A62001741C1 /* FileSystemImpl.swift in Sources */,
@@ -6177,6 +6194,7 @@
 				F8A83825227215C300145140 /* AssertIsDisplayedInteractionTests.swift in Sources */,
 				F80C2E1B24D1DD3200C6CAD4 /* BaseTestCase.swift in Sources */,
 				F8A83E8F2272223700145140 /* ActionsTestsScreen.swift in Sources */,
+				2E4439492BD6A328006B4849 /* SwiftUIListTests.swift in Sources */,
 				F8A837C42270EE9800145140 /* OpenableScreen.swift in Sources */,
 				F82AC32D2572F4AE0008922E /* UninterceptableErrorTracker.swift in Sources */,
 				F83090BD24B7443200C79892 /* MeasureableTimedActivityMetricSenderWaiterTestLifecycleManager.swift in Sources */,
