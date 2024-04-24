@@ -49,7 +49,7 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     }
     
     public var elementType: ViewHierarchyElementType {
-        TestabilityElementTypeConverter.covertToViewHierarchyElementType(
+        TestabilityElementTypeConverter.convertToViewHierarchyElementType(
             elementType: testabilityElement.mb_testability_elementType()
         )
     }
@@ -117,6 +117,11 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
 
         if shouldUseAccessibility, let view = testabilityElement as? UIView {
             let accessibilityChildren = swiftUIViewHierarchyElementExtractor.extractAccessibilityElements(from: view)
+
+            for child in accessibilityChildren {
+                accessibilityUniqueObjectMap.register(element: child)
+            }
+
             return RandomAccessCollectionOf(testabilityChildren + Array(accessibilityChildren))
         }
 

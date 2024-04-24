@@ -37,7 +37,7 @@ final class NSObjectTestabilityTests: BaseTestabilityTestCase {
     
     func test_mb_testability_elementType() {
         XCTAssertEqual(
-            TestabilityElementTypeConverter.covertToViewHierarchyElementType(
+            TestabilityElementTypeConverter.convertToViewHierarchyElementType(
                 elementType: object.mb_testability_elementType()
             ),
             ViewHierarchyElementType.other

@@ -9,9 +9,9 @@ import MixboxFoundation
 import MixboxIpcCommon
 
 final class SwiftUIViewHierarchyElementExtractor {
-    func extractAccessibilityElements(from view: UIView) -> RandomAccessCollectionOf<ViewHierarchyElement, Int> {
+    func extractAccessibilityElements(from view: UIView) -> RandomAccessCollectionOf<ViewHierarchyElement & TestabilityElement, Int> {
         RandomAccessCollectionOf(
-            (view.accessibilityElements ?? []).lazy.compactMap(SwiftUIViewHierarchyElement.init)
+            (view.accessibilityElements ?? []).lazy.compactMap { SwiftUIViewHierarchyElement(accessibilityElement: $0, parent: view) }
         )
     }
 }
@@ -23,6 +23,7 @@ private final class SwiftUIViewHierarchyElement: ViewHierarchyElement {
     let uniqueIdentifier: String
 
     private let accessibilityElement: Any
+    private let parent: TestabilityElement?
 
     private var accessibilityTraits: UIAccessibilityTraits {
         guard let object = accessibilityElement as? NSObject else {
@@ -47,7 +48,7 @@ private final class SwiftUIViewHierarchyElement: ViewHierarchyElement {
         return method(object, selector)
     }
 
-    init?(accessibilityElement: Any) {
+    init?(accessibilityElement: Any, parent: TestabilityElement?) {
         // This filter ensures that we don't visit views twice
         // because they are already handled by TestabilityElementViewHierarchyElement.
         guard !(accessibilityElement is UIView) else {
@@ -55,6 +56,7 @@ private final class SwiftUIViewHierarchyElement: ViewHierarchyElement {
         }
 
         self.accessibilityElement = accessibilityElement
+        self.parent = parent
         self.uniqueIdentifier = UUID().uuidString
     }
 
@@ -136,10 +138,14 @@ private final class SwiftUIViewHierarchyElement: ViewHierarchyElement {
     }
 
     var children: RandomAccessCollectionOf<ViewHierarchyElement, Int> {
+        RandomAccessCollectionOf(typedChildren.lazy.map { $0 as ViewHierarchyElement })
+    }
+
+    private var typedChildren: RandomAccessCollectionOf<SwiftUIViewHierarchyElement, Int> {
         let accessibilityElements = extractValue(key: "accessibilityElements") as? [Any] ?? []
 
         return RandomAccessCollectionOf(
-            accessibilityElements.lazy.compactMap(SwiftUIViewHierarchyElement.init)
+            accessibilityElements.lazy.compactMap { SwiftUIViewHierarchyElement(accessibilityElement: $0, parent: self) }
         )
     }
 
@@ -153,6 +159,72 @@ private final class SwiftUIViewHierarchyElement: ViewHierarchyElement {
 
     private func extractString(key: String) -> String? {
         extractValue(key: key) as? String
+    }
+}
+
+extension SwiftUIViewHierarchyElement: TestabilityElement {
+    func mb_testability_frame() -> CGRect {
+        frame.valueIfAvailable ?? .zero
+    }
+    
+    func mb_testability_frameRelativeToScreen() -> CGRect {
+        frameRelativeToScreen
+    }
+    
+    func mb_testability_customClass() -> String {
+        customClass
+    }
+    
+    func mb_testability_elementType() -> TestabilityElementType {
+        ViewHierarchyElementTypeConverter.convert(elementType)
+    }
+    
+    func mb_testability_accessibilityIdentifier() -> String? {
+        accessibilityIdentifier
+    }
+    
+    func mb_testability_accessibilityLabel() -> String? {
+        accessibilityLabel
+    }
+    
+    func mb_testability_accessibilityValue() -> String? {
+        accessibilityValue
+    }
+    
+    func mb_testability_accessibilityPlaceholderValue() -> String? {
+        accessibilityPlaceholderValue
+    }
+    
+    func mb_testability_text() -> String? {
+        text
+    }
+    
+    func mb_testability_uniqueIdentifier() -> String {
+        uniqueIdentifier
+    }
+    
+    func mb_testability_isDefinitelyHidden() -> Bool {
+        isDefinitelyHidden
+    }
+    
+    func mb_testability_isEnabled() -> Bool {
+        isEnabled
+    }
+    
+    func mb_testability_hasKeyboardFocus() -> Bool {
+        hasKeyboardFocus
+    }
+    
+    func mb_testability_parent() -> TestabilityElement? {
+        parent
+    }
+    
+    func mb_testability_children() -> [TestabilityElement] {
+        Array(typedChildren)
+    }
+    
+    func mb_testability_getSerializedCustomValues() -> [String: String] {
+        customValues
     }
 }
 
