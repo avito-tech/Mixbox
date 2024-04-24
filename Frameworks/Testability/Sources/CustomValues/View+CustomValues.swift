@@ -15,7 +15,13 @@ extension View {
 extension View {
     @ViewBuilder
     public func mb_testability_customValues(_ values: [String: Any]) -> some View {
-        let serializedValues = values.mapValues { serialize($0) ?? "" }
+        let serializedValues = values.mapValues { value -> String in
+            guard let codable = value as? Codable else {
+                return ""
+            }
+
+            return GenericSerialization.serialize(value: codable) ?? ""
+        }
 
         if #available(iOS 14.0, *), let string = serialize(serializedValues) {
             accessibilityHint(Text(string))
