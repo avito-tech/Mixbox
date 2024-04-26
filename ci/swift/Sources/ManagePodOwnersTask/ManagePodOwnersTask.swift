@@ -24,9 +24,9 @@ public final class ManagePodOwnersTask: LocalTask {
         let ownerEmails = [
             "artyom.razinov@gmail.com",
             "arazinov@avito.ru",
-            "vvalekseev@avito.ru",
-            "tssolonin@avito.ru",
-            "ashpirko@avito.ru"
+            "asgoncharov@avito.ru",
+            "vvvakulenko@avito.ru",
+            "aailinykh@avito.ru"
         ]
         
         // There is an assuption here that podspecs are pushed.
