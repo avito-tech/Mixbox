@@ -90,10 +90,8 @@
 		1FFFAF162BD012C8004F39D4 /* UIHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFAF142BD012C8004F39D4 /* UIHostingView.swift */; };
 		26EC7E4F90D6BD5075C83255 /* Pods_OsxUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A635E02375031CA0DD2E9FA5 /* Pods_OsxUnitTests.framework */; };
 		2E4439442BD6A2CA006B4849 /* SwiftUIListTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4439432BD6A2CA006B4849 /* SwiftUIListTestsView.swift */; };
-		2E4439482BD6A327006B4849 /* SwiftUIListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */; };
 		2E4439492BD6A328006B4849 /* SwiftUIListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */; };
 		2E44394B2BD6A7A3006B4849 /* SwiftUICustomValuesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44394A2BD6A7A3006B4849 /* SwiftUICustomValuesTestsView.swift */; };
-		2E44394E2BD6A9D9006B4849 /* SwiftUICustomValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44394C2BD6A9D2006B4849 /* SwiftUICustomValuesTests.swift */; };
 		2E44394F2BD6A9DA006B4849 /* SwiftUICustomValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44394C2BD6A9D2006B4849 /* SwiftUICustomValuesTests.swift */; };
 		46CD4B6904207EBCC3D1EEA9 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */; };
 		598DEE17E1D63A4642B70C84 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */; };
@@ -5771,7 +5769,6 @@
 				F8AD079F2250D5DD00D5FB93 /* PhotosApplicationPermissionTests.swift in Sources */,
 				F8AD079C2250D5DD00D5FB93 /* CameraApplicationPermissionSpecification.swift in Sources */,
 				F8B010DF21FF319D0026360D /* ReportingSystems.swift in Sources */,
-				2E4439482BD6A327006B4849 /* SwiftUIListTests.swift in Sources */,
 				F854F8252344D2B6009A715B /* IpcEchoingUsingBuiltinIpcTests.swift in Sources */,
 				F8EBBCE7213D541300D320A4 /* AssertMatchesReferenceWithPerPixelComparatorTests.swift in Sources */,
 				F8971D0522650A62001741C1 /* FileSystemImpl.swift in Sources */,
@@ -5780,7 +5777,6 @@
 				F839A807215124A9009F77AB /* ApplicationCrashProducesMeaninfulErrorTests.swift in Sources */,
 				F801CC162254F9C60074F0E9 /* StartedStepLoggerRecording.swift in Sources */,
 				F8252DBD2279DCED003190D0 /* BaseTouchesTestCase.swift in Sources */,
-				2E44394E2BD6A9D9006B4849 /* SwiftUICustomValuesTests.swift in Sources */,
 				F8E0B5112199E18300C66BA9 /* MixboxHelperClient.swift in Sources */,
 				F888EE1D23206137009CF8B7 /* BaseTouchesTestCase+AllTouches.swift in Sources */,
 				F86AD197265D203800AA94E1 /* NavigationBarCanBeFoundTests.swift in Sources */,
