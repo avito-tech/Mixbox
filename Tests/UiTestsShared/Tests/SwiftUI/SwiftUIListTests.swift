@@ -12,6 +12,10 @@ final class SwiftUIListTests: TestCase {
     private static let elementRange = 1...100
 
     func test_elementsPresent() {
+        guard #available(iOS 17.1, *) else {
+            return
+        }
+
         for elementIndex in Self.elementRange {
             checkIsPresent(text: "\(elementIndex)")
         }

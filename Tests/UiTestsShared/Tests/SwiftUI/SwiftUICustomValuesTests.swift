@@ -12,6 +12,10 @@ final class SwiftUICustomValuesTests: TestCase {
     }
 
     func test_equals() {
+        guard #available(iOS 17.1, *) else {
+            return
+        }
+
         check(customValue: "string", equals: "value")
         check(customValue: "int", equals: 42)
         check(customValue: "double", equals: 3.14)
