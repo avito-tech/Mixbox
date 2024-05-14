@@ -5,12 +5,7 @@
 #else
 
 /*    CFRuntime.h
-    Copyright (c) 1999-2018, Apple Inc. All rights reserved.
- 
-    Portions Copyright (c) 2014-2018, Apple Inc. and the Swift project authors
-    Licensed under Apache License v2.0 with Runtime Library Exception
-    See http://swift.org/LICENSE.txt for license information
-    See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
+    Copyright (c) 1999-2013, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFRUNTIME__)
@@ -22,19 +17,31 @@
 
 CF_EXTERN_C_BEGIN
 
-#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE) && !__x86_64h__)
+#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-// Although we no longer support GC, we leave exported symbols in place for now to avoid any lockstep dependency issues.
+// GC: until we link against ObjC must use indirect functions.  Overridden in CFSetupFoundationBridging
 CF_EXPORT bool kCFUseCollectableAllocator;
 CF_EXPORT bool (*__CFObjCIsCollectable)(void *);
+
+CF_INLINE Boolean _CFAllocatorIsSystemDefault(CFAllocatorRef allocator) {
+    if (allocator == kCFAllocatorSystemDefault) return true;
+    if (NULL == allocator || kCFAllocatorDefault == allocator) {
+        return (kCFAllocatorSystemDefault == CFAllocatorGetDefault());
+    }
+    return false;
+}
+
+// is GC on?
+#define CF_USING_COLLECTABLE_MEMORY (kCFUseCollectableAllocator)
+// is GC on and is this the GC allocator?
+#define CF_IS_COLLECTABLE_ALLOCATOR(allocator) (kCFUseCollectableAllocator && (NULL == (allocator) || kCFAllocatorSystemDefault == (allocator) || 0))
+// is this allocated by the collector?
+#define CF_IS_COLLECTABLE(obj) (__CFObjCIsCollectable ? __CFObjCIsCollectable((void*)obj) : false)
 
 #else
 
 #define kCFUseCollectableAllocator 0
 #define __CFObjCIsCollectable 0
-
-#endif
-
 
 CF_INLINE Boolean _CFAllocatorIsSystemDefault(CFAllocatorRef allocator) {
     if (allocator == kCFAllocatorSystemDefault) return true;
@@ -45,8 +52,9 @@ CF_INLINE Boolean _CFAllocatorIsSystemDefault(CFAllocatorRef allocator) {
 }
 
 #define CF_USING_COLLECTABLE_MEMORY 0
-#define CF_IS_COLLECTABLE_ALLOCATOR(allocator) (0 && allocator) // prevent allocator from being claimed to be un-used
-#define CF_IS_COLLECTABLE(obj) (0 && obj) // prevent obj from being claimed to be un-used
+#define CF_IS_COLLECTABLE_ALLOCATOR(allocator) 0
+#define CF_IS_COLLECTABLE(obj) 0
+#endif
 
 enum {
     _kCFRuntimeNotATypeID = 0
@@ -56,7 +64,6 @@ enum { // Version field constants
     _kCFRuntimeScannedObject =     (1UL << 0),
     _kCFRuntimeResourcefulObject = (1UL << 2),  // tells CFRuntime to make use of the reclaim field
     _kCFRuntimeCustomRefCount =    (1UL << 3),  // tells CFRuntime to make use of the refcount field
-    _kCFRuntimeRequiresAlignment = (1UL << 4),  // tells CFRuntime to make use of the requiredAlignment field
 };
 
 typedef struct __CFRuntimeClass {
@@ -71,23 +78,18 @@ typedef struct __CFRuntimeClass {
     CFStringRef (*copyDebugDesc)(CFTypeRef cf);    // return str with retain
 
 #define CF_RECLAIM_AVAILABLE 1
-    void (*reclaim)(CFTypeRef cf); // Or in _kCFRuntimeResourcefulObject in the .version to indicate this field should be used
+    void (*reclaim)(CFTypeRef cf); // Set _kCFRuntimeResourcefulObject in the .version to indicate this field should be used
 
 #define CF_REFCOUNT_AVAILABLE 1
-    uint32_t (*refcount)(intptr_t op, CFTypeRef cf); // Or in _kCFRuntimeCustomRefCount in the .version to indicate this field should be used
+    uint32_t (*refcount)(intptr_t op, CFTypeRef cf); // Set _kCFRuntimeCustomRefCount in the .version to indicate this field should be used
         // this field must be non-NULL when _kCFRuntimeCustomRefCount is in the .version field
         // - if the callback is passed 1 in 'op' it should increment the 'cf's reference count and return 0
         // - if the callback is passed 0 in 'op' it should return the 'cf's reference count, up to 32 bits
-        // - if the callback is passed -1 in 'op' it should decrement the 'cf's reference count; if it is now zero, 'cf' should be cleaned up and deallocated; then return 0
+        // - if the callback is passed -1 in 'op' it should decrement the 'cf's reference count; if it is now zero, 'cf' should be cleaned up and deallocated (the finalize callback above will NOT be called unless the process is running under GC, and CF does not deallocate the memory for you; if running under GC, finalize should do the object tear-down and free the object memory); then return 0
         // remember to use saturation arithmetic logic and stop incrementing and decrementing when the ref count hits UINT32_MAX, or you will have a security bug
         // remember that reference count incrementing/decrementing must be done thread-safely/atomically
         // objects should be created/initialized with a custom ref-count of 1 by the class creation functions
         // do not attempt to use any bits within the CFRuntimeBase for your reference count; store that in some additional field in your CF object
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
-#define CF_REQUIRED_ALIGNMENT_AVAILABLE 1
-    uintptr_t requiredAlignment; // Or in _kCFRuntimeRequiresAlignment in the .version field to indicate this field should be used; the allocator to _CFRuntimeCreateInstance() will be ignored in this case; if this is less than the minimum alignment the system supports, you'll get higher alignment; if this is not an alignment the system supports (e.g., most systems will only support powers of two, or if it is too high), the result (consequences) will be up to CF or the system to decide
 
 } CFRuntimeClass;
 
@@ -117,8 +119,6 @@ CF_EXPORT CFTypeID _CFRuntimeRegisterClass(const CFRuntimeClass * const cls);
      *   CFGetTypeID(), CFRetain(), CFRelease(), CFGetRetainCount(),
      *   and CFGetAllocator() are valid on it when the init
      *   function if any is called.
-         * - copy field should always be NULL. Generic copying of CF
-         *   objects has never been defined (and is unlikely).
      * - finalize field points to a function which destroys an
      *   instance when the retain count has fallen to zero; if
      *   this is NULL, finalization does nothing. Note that if
@@ -194,35 +194,18 @@ CF_EXPORT void _CFRuntimeUnregisterClassWithTypeID(CFTypeID typeID);
  * compatibility for uses of this struct is not guaranteed from
  * release to release.
  */
-#if DEPLOYMENT_RUNTIME_SWIFT
-
-typedef struct __attribute__((__aligned__(8))) __CFRuntimeBase {
-    // This matches the isa and retain count storage in Swift
-    uintptr_t _cfisa;
-    uintptr_t _swift_rc;
-    // This is for CF's use, and must match __NSCFType/_CFInfo layout
-    _Atomic(uint64_t) _cfinfoa;
-} CFRuntimeBase;
-
-#define INIT_CFRUNTIME_BASE(...) {0, _CF_CONSTANT_OBJECT_STRONG_RC, 0x0000000000000080ULL}
-
-#else
-
 typedef struct __CFRuntimeBase {
     uintptr_t _cfisa;
-#if TARGET_RT_64_BIT
-    _Atomic(uint64_t) _cfinfoa;
-#else
-    _Atomic(uint32_t) _cfinfoa;
+    uint8_t _cfinfo[4];
+#if __LP64__
+    uint32_t _rc;
 #endif
 } CFRuntimeBase;
 
-#if TARGET_RT_64_BIT
-#define INIT_CFRUNTIME_BASE(...) {0, 0x0000000000000080ULL}
+#if __BIG_ENDIAN__
+#define INIT_CFRUNTIME_BASE(...) {0, {0, 0, 0, 0x80}}
 #else
-#define INIT_CFRUNTIME_BASE(...) {0, 0x00000080UL}
-#endif
-
+#define INIT_CFRUNTIME_BASE(...) {0, {0x80, 0, 0, 0}}
 #endif
 
 CF_EXPORT CFTypeRef _CFRuntimeCreateInstance(CFAllocatorRef allocator, CFTypeID typeID, CFIndex extraBytes, unsigned char *category);
@@ -253,8 +236,6 @@ CF_EXPORT void _CFRuntimeSetInstanceTypeID(CFTypeRef cf, CFTypeID typeID);
          * _kCFRuntimeCustomRefCount class.
      */
 
-#if DEPLOYMENT_RUNTIME_SWIFT
-#else
 CF_EXPORT void _CFRuntimeInitStaticInstance(void *memory, CFTypeID typeID);
     /* This function initializes a memory block to be a constant
      * (unreleaseable) CF object of the given typeID.
@@ -273,5 +254,3 @@ CF_EXPORT void _CFRuntimeInitStaticInstance(void *memory, CFTypeID typeID);
 CF_EXTERN_C_END
 
 #endif /* ! __COREFOUNDATION_CFRUNTIME__ */
-
-#endif
