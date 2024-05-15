@@ -4,8 +4,9 @@
 // The compilation is disabled
 #else
 
+// https://opensource.apple.com/source/CF/CF-1153.18/CFRuntime.h.auto.html
 /*    CFRuntime.h
-    Copyright (c) 1999-2013, Apple Inc. All rights reserved.
+    Copyright (c) 1999-2014, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFRUNTIME__)
@@ -64,6 +65,7 @@ enum { // Version field constants
     _kCFRuntimeScannedObject =     (1UL << 0),
     _kCFRuntimeResourcefulObject = (1UL << 2),  // tells CFRuntime to make use of the reclaim field
     _kCFRuntimeCustomRefCount =    (1UL << 3),  // tells CFRuntime to make use of the refcount field
+    _kCFRuntimeRequiresAlignment = (1UL << 4),  // tells CFRuntime to make use of the requiredAlignment field
 };
 
 typedef struct __CFRuntimeClass {
@@ -78,10 +80,10 @@ typedef struct __CFRuntimeClass {
     CFStringRef (*copyDebugDesc)(CFTypeRef cf);    // return str with retain
 
 #define CF_RECLAIM_AVAILABLE 1
-    void (*reclaim)(CFTypeRef cf); // Set _kCFRuntimeResourcefulObject in the .version to indicate this field should be used
+    void (*reclaim)(CFTypeRef cf); // Or in _kCFRuntimeResourcefulObject in the .version to indicate this field should be used
 
 #define CF_REFCOUNT_AVAILABLE 1
-    uint32_t (*refcount)(intptr_t op, CFTypeRef cf); // Set _kCFRuntimeCustomRefCount in the .version to indicate this field should be used
+    uint32_t (*refcount)(intptr_t op, CFTypeRef cf); // Or in _kCFRuntimeCustomRefCount in the .version to indicate this field should be used
         // this field must be non-NULL when _kCFRuntimeCustomRefCount is in the .version field
         // - if the callback is passed 1 in 'op' it should increment the 'cf's reference count and return 0
         // - if the callback is passed 0 in 'op' it should return the 'cf's reference count, up to 32 bits
@@ -90,6 +92,11 @@ typedef struct __CFRuntimeClass {
         // remember that reference count incrementing/decrementing must be done thread-safely/atomically
         // objects should be created/initialized with a custom ref-count of 1 by the class creation functions
         // do not attempt to use any bits within the CFRuntimeBase for your reference count; store that in some additional field in your CF object
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+#define CF_REQUIRED_ALIGNMENT_AVAILABLE 1
+    uintptr_t requiredAlignment; // Or in _kCFRuntimeRequiresAlignment in the .version field to indicate this field should be used; the allocator to _CFRuntimeCreateInstance() will be ignored in this case; if this is less than the minimum alignment the system supports, you'll get higher alignment; if this is not an alignment the system supports (e.g., most systems will only support powers of two, or if it is too high), the result (consequences) will be up to CF or the system to decide
 
 } CFRuntimeClass;
 
@@ -119,6 +126,8 @@ CF_EXPORT CFTypeID _CFRuntimeRegisterClass(const CFRuntimeClass * const cls);
      *   CFGetTypeID(), CFRetain(), CFRelease(), CFGetRetainCount(),
      *   and CFGetAllocator() are valid on it when the init
      *   function if any is called.
+         * - copy field should always be NULL. Generic copying of CF
+         *   objects has never been defined (and is unlikely).
      * - finalize field points to a function which destroys an
      *   instance when the retain count has fallen to zero; if
      *   this is NULL, finalization does nothing. Note that if
@@ -249,8 +258,9 @@ CF_EXPORT void _CFRuntimeInitStaticInstance(void *memory, CFTypeID typeID);
      * _kCFRuntimeCustomRefCount classes.
      */
 #define CF_HAS_INIT_STATIC_INSTANCE 1
-#endif
 
 CF_EXTERN_C_END
 
 #endif /* ! __COREFOUNDATION_CFRUNTIME__ */
+
+#endif
