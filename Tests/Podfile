@@ -126,7 +126,7 @@ end
 target 'Lint' do
   platform :ios, $mixbox_ios_version
   
-  pod 'SwiftLint', '0.36.0', :inhibit_warnings => true # TODO: Update.
+  pod 'SwiftLint', '0.50.3', :inhibit_warnings => true # TODO: Update.
 end
 
 pre_install do |installer|

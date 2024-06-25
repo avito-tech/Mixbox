@@ -108,7 +108,7 @@ PODS:
   - SQLite.swift (0.12.2):
     - SQLite.swift/standard (= 0.12.2)
   - SQLite.swift/standard (0.12.2)
-  - SwiftLint (0.36.0)
+  - SwiftLint (0.50.3)
   - SWXMLHash (5.0.1)
   - TestsIpc (0.0.1):
     - MixboxBuiltinIpc
@@ -153,7 +153,7 @@ DEPENDENCIES:
   - SourceryRuntime (from `https://github.com/avito-tech/Sourcery.git`, commit `0564feccdc8fade6c68376bdf7f8dab9b79863fe`)
   - SourceryUtils (from `https://github.com/avito-tech/Sourcery.git`, commit `0564feccdc8fade6c68376bdf7f8dab9b79863fe`)
   - SQLite.swift
-  - SwiftLint (= 0.36.0)
+  - SwiftLint (= 0.50.3)
   - TestsIpc (from `Frameworks/TestsIpc`)
 
 SPEC REPOS:
@@ -285,11 +285,11 @@ SPEC CHECKSUMS:
   SourceryRuntime: 5a4dbc3f00116ad28ecb0d79655183540e415ed5
   SourceryUtils: ed18f31b5a6d600d06bd59359f457e6e81f92d10
   SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
-  SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
+  SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
   TestsIpc: fa824f1dc258b39d17dac385d25ad46328703fd1
   Yams: ed1c49f0d6be84f305ad3f93f997b1df039afd9e
 
 PODFILE CHECKSUM: f000000000000000000000000000000000000000
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.15.2
