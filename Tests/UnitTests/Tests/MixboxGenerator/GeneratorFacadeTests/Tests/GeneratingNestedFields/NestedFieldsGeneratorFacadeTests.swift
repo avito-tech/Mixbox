@@ -582,3 +582,4 @@ final class NestedFieldsGeneratorFacadeTests: BaseGeneratorFacadeTests {
         return generator.generate(configure: configure)
     }
 }
+// swiftlint:enable type_body_length

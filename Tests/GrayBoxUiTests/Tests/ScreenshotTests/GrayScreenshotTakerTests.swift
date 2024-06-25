@@ -11,6 +11,7 @@ final class GrayScreenshotTakerTests: TestCase {
         // dynamic subviews for other kind of tests is not a good solution.
         let screen = pageObjects.screenshotTestsView.uikit
         
+        // swiftlint:disable:next lower_acl_than_parent
         open(screen: screen)
         
         let applicationScreenshotTaker = dependencies.resolve() as ApplicationScreenshotTaker

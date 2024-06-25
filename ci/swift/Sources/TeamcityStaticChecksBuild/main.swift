@@ -7,6 +7,7 @@ import DI
 
 public final class TeamcityStaticChecksBuild: TeamcityBuild {
     // TODO: Do not override anything?
+    // swiftlint:disable:next function_body_length
     override public func di() -> DependencyInjection {
         let di = super.di()
         

@@ -12,6 +12,7 @@ import MixboxUiKit
 import MixboxIoKit
 import MixboxDi
 
+// swiftlint:disable:next type_body_length
 public final class InAppServicesDefaultDependencyCollectionRegisterer: DependencyCollectionRegisterer {
     public init() {
     }

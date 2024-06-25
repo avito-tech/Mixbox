@@ -1,13 +1,13 @@
 import XCTest
 import MixboxUiKit
 
-// swiftlint:disable function_body_length
 final class CGRect_Rounding_Tests: TestCase {
+    // swiftlint:disable:next function_body_length
     func test___mb_integralInside() {
         func assert(_ source: CGRect, _ expected: CGRect, file: StaticString = #filePath, line: UInt = #line) {
             Self.assert(source, { $0.mb_integralInside() }, expected, file: file, line: line)
         }
-        
+                
         func expectedRect(
             left: CGFloat = 1,
             right: CGFloat = 1,
@@ -118,6 +118,7 @@ final class CGRect_Rounding_Tests: TestCase {
         )
     }
     
+    // swiftlint:disable:next function_body_length
     func test___mb_integralOutside() {
         func assert(_ source: CGRect, _ expected: CGRect, file: StaticString = #filePath, line: UInt = #line) {
             Self.assert(source, { $0.mb_integralOutside() }, expected, file: file, line: line)

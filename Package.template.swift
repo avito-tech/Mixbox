@@ -42,3 +42,5 @@ let package = Package(
 <__TARGETS__>
     ]
 )
+
+// swiftlint:enable all

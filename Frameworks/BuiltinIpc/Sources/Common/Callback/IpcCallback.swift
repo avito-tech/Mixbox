@@ -77,6 +77,7 @@ public final class IpcCallback<Arguments: Codable, ReturnValue: Codable>: Codabl
         }
     }
     
+    // swiftlint:disable:next function_body_length
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let callbackId = try container.decode(String.self, forKey: .id)

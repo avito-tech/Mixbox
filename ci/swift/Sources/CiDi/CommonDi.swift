@@ -16,7 +16,7 @@ import Releases
 import TestRunning
 import FileSystem
 
-// swiftlint:disable file_length function_body_length type_body_length
+// swiftlint:disable file_length type_body_length
 open class CommonBuildDependencies: ModuleDependencies, InitializableWithNoArguments {
     public required init() {
     }
@@ -80,6 +80,7 @@ open class CommonBuildDependencies: ModuleDependencies, InitializableWithNoArgum
         }
     }
     
+    // swiftlint:disable:next function_body_length
     private func registerCocoapods(di: DependencyRegisterer) {
         di.register(type: CocoapodsCommandExecutor.self) { di in
             try CocoapodsCommandExecutorImpl(
@@ -146,7 +147,8 @@ open class CommonBuildDependencies: ModuleDependencies, InitializableWithNoArgum
             )
         }
     }
-    
+
+    // swiftlint:disable:next function_body_length
     private func registerReleases(di: DependencyRegisterer) {
         di.register(type: BeforeReleaseTagsSetterImpl.self) { di in
             try BeforeReleaseTagsSetterImpl(
@@ -467,3 +469,5 @@ open class CommonBuildDependencies: ModuleDependencies, InitializableWithNoArgum
         }
     }
 }
+
+// swiftlint:enable file_length type_body_length

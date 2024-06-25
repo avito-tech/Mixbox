@@ -219,3 +219,5 @@ final class NextReleaseVersionProviderImplTests: XCTestCase {
         )
     }
 }
+
+// swiftlint:enable multiline_arguments multiline_parameters

@@ -145,3 +145,4 @@ extension AnyDecodable: CustomDebugStringConvertible {
 }
 
 #endif
+// swiftlint:enable cyclomatic_complexity

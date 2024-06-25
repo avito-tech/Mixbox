@@ -10,6 +10,7 @@ import Bundler
 import TestRunning
 
 public final class TeamcityBuildDependencies: CommonBuildDependencies {
+    // swiftlint:disable:next function_body_length
     override public func registerDependenciesOfCurrentModule(di: DependencyRegisterer) {
         super.registerDependenciesOfCurrentModule(di: di)
         

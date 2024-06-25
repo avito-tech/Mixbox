@@ -144,3 +144,5 @@ protocol MocksTestsFixtureProtocol:
 extension MocksTestsFixtureProtocol {
     func functionThatIsAlsoInExtension(_ someDifferentArgumentName: Int) {}
 }
+
+// swiftlint:enable syntactic_sugar implicitly_unwrapped_optional

@@ -71,7 +71,7 @@ final class MersenneTwisterRandomNumberProviderTests: TestCase {
         let maxCount = Int(singleOrderingCountIfEquallyDistributed / accuracy)
         
         for count in orderings {
-            // swiftlint:disable empty_count
+            // swiftlint:disable:next empty_count
             if count == 0 {
                 continue
             }

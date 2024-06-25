@@ -22,6 +22,7 @@ public class LastCallOfCurrentTestFileLineForFailureProvider: FileLineForFailure
         }
         
         for pattern in testSymbolPatterns {
+            // swiftlint:disable:next for_where
             if demangledSymbol.range(of: pattern, options: .regularExpression, range: nil, locale: nil) != nil {
                 return true
             }

@@ -255,7 +255,7 @@ class BaseTestCase: TestCaseSuppressingWarningAboutDeprecatedRecordFailure, Fail
             super.recordFailureBySuper(
                 description: failureDescription(
                     originalDescription: failure.description
-                ) ,
+                ),
                 file: failure.file,
                 line: failure.line,
                 expected: failure.expected

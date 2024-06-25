@@ -4,7 +4,7 @@ import MixboxTestsFoundation
 import MixboxUiTestsFoundation
 import MixboxUiKit
 
-// swiftlint:disable file_length function_body_length
+// swiftlint:disable file_length
 class SnapshotComparisonTests: TestCase {
     private final class NamedImage {
         let name: String
@@ -118,7 +118,7 @@ class SnapshotComparisonTests: TestCase {
     }
     
     // TODO: Fix
-    // swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     private func check(
         comparator: SnapshotsComparator,
         expectedComparatorAccuracy: ExpectedComparatorAccuracy,

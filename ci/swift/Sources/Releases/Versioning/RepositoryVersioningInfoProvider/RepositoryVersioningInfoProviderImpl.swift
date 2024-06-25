@@ -15,7 +15,8 @@ public final class RepositoryVersioningInfoProviderImpl: RepositoryVersioningInf
         self.gitRevListProvider = gitRevListProvider
         self.headCommitHashProvider = headCommitHashProvider
     }
-    
+
+    // swiftlint:disable:next function_body_length
     public func repositoryVersioningInfo(
         commitHashToRelease: String,
         releaseBranchName: String)

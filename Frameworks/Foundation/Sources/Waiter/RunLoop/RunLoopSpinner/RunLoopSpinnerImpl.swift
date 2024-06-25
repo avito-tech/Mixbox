@@ -188,7 +188,7 @@ public final class RunLoopSpinnerImpl: RunLoopSpinner {
     {
         var numNestedRunLoopModes = 0
         
-        let observerBlock: ((_ observer: CFRunLoopObserver?, _ activity: CFRunLoopActivity) -> Void)? = { observer, activity in
+        let observerBlock: ((_ observer: CFRunLoopObserver?, _ activity: CFRunLoopActivity) -> Void)? = { _, activity in
             if activity.rawValue & CFRunLoopActivity.entry.rawValue != 0 {
                 // When entering a run loop in @c mode, increment the nesting count.
                 numNestedRunLoopModes += 1

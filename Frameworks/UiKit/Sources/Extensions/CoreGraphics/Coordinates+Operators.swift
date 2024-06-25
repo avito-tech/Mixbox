@@ -16,7 +16,7 @@ public func +(left: CGPoint, right: CGVector) -> CGPoint {
 }
 
 public func +=(left: inout CGPoint, right: CGVector) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left + right
 }
 
@@ -33,7 +33,7 @@ public func +(left: CGPoint, right: CGPoint) -> CGPoint {
 }
 
 public func +=(left: inout CGPoint, right: CGPoint) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left + right
 }
 
@@ -45,7 +45,7 @@ public func -(left: CGPoint, right: CGVector) -> CGPoint {
 }
 
 public func -=(left: inout CGPoint, right: CGVector) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left - right
 }
 
@@ -78,7 +78,7 @@ public func *(left: CGSize, right: CGVector) -> CGSize {
 }
 
 public func *=(left: inout CGSize, right: CGVector) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left * right
 }
 
@@ -95,7 +95,7 @@ public func *(left: CGPoint, right: CGVector) -> CGPoint {
 }
 
 public func *=(left: inout CGPoint, right: CGVector) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left * right
 }
 
@@ -112,7 +112,7 @@ public func *(left: CGVector, right: CGFloat) -> CGVector {
 }
 
 public func *=(left: inout CGVector, right: CGFloat) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left * right
 }
 
@@ -129,7 +129,7 @@ public func /(left: CGVector, right: CGFloat) -> CGVector {
 }
 
 public func /=(left: inout CGVector, right: CGFloat) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left / right
 }
 
@@ -141,7 +141,7 @@ public func /(left: CGSize, right: CGVector) -> CGSize {
 }
 
 public func /=(left: inout CGSize, right: CGFloat) {
-    // swiftlint:disable:next shorthand_operator
+
     left = left / right
 }
 
@@ -155,7 +155,6 @@ public func /(left: CGVector, right: CGSize) -> CGVector {
 }
 
 public func /=(left: inout CGVector, right: CGSize) {
-    // swiftlint:disable:next shorthand_operator
     left = left / right
 }
 
@@ -166,8 +165,7 @@ public func *(left: CGRect, right: CGFloat) -> CGRect {
     )
 }
 
-public func *=(left: inout CGRect, right: CGFloat) {
-    // swiftlint:disable:next shorthand_operator
+public func *=(left: inout CGRect, right: CGFloat) {    
     left = left * right
 }
 
@@ -184,7 +182,6 @@ public func *(left: CGPoint, right: CGFloat) -> CGPoint {
 }
 
 public func *=(left: inout CGPoint, right: CGFloat) {
-    // swiftlint:disable:next shorthand_operator
     left = left * right
 }
 

@@ -1,6 +1,7 @@
 @testable import MixboxGenerators
 import XCTest
 
+// swiftlint:disable:next type_body_length
 final class RandomIntegerGeneratorTests: TestCase {
     func test___RandomIntegerGenerator___works___for_various_types() {
         check(signedType: Int64.self, unsignedType: UInt64.self)

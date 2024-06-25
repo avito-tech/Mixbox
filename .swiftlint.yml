@@ -27,6 +27,14 @@ disabled_rules:
   
   # Remove after updating SwiftLint and Xcode and fixing every warning
   - implicit_getter # this rule is triggering only in Xcode 11.4.1 and not in Xcode 11.3.1 and only in old SwiftLint. New swiftlint rules are for Xcode 11.4.1, which is not fully supported
+
+  # Requre code refactoring
+  - inclusive_language
+  - legacy_random
+
+  - for_where
+  - computed_accessors_order
+  - implicit_return
   
 opt_in_rules:
   - array_init

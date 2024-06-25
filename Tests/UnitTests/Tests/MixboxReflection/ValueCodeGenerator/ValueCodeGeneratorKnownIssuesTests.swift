@@ -37,11 +37,9 @@ final class ValueCodeGeneratorKnownIssuesTests: BaseValueCodeGeneratorTests {
     
     func test___generateCode___generates_ambigous_code_when_class_names_from_different_namespaces_have_same_names() {
         class A {
-            // swiftlint:disable:next nesting
             class C {}
         }
         class B {
-            // swiftlint:disable:next nesting
             class C {}
         }
         
@@ -62,7 +60,7 @@ final class ValueCodeGeneratorKnownIssuesTests: BaseValueCodeGeneratorTests {
     func test___generateCode___can_not_generate_enum_case_name_for_case_without_associated_value_if_type_is_not_enum() {
         struct NotEnum: CustomReflectable {
             var customMirror: Mirror {
-                return Mirror(
+                Mirror(
                     self,
                     children: [],
                     displayStyle: Mirror.DisplayStyle.enum
@@ -109,7 +107,7 @@ final class ValueCodeGeneratorKnownIssuesTests: BaseValueCodeGeneratorTests {
     // This is obvious, however, let this test be. It shows what is generated.
     func test___generateCode___can_not_generate_code_for_closures() {
         checkKnownIssue(
-            {},
+            { },
             """
             () -> ()((Function))
             """

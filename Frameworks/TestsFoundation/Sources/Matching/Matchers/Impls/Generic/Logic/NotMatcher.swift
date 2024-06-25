@@ -9,7 +9,7 @@ public class NotMatcher<T>: Matcher<T> {
                 case .match:
                     return MatchingResult.exactMismatch(
                         mismatchDescription: { "NotMatcher failed, nested matcher: " + matcher.description },
-                        attachments:  { [] }
+                        attachments: { [] }
                     )
                 case .mismatch:
                     return .match

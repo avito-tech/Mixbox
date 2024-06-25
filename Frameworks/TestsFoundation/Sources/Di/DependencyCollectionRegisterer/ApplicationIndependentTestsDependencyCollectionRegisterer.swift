@@ -65,7 +65,7 @@ public final class ApplicationIndependentTestsDependencyCollectionRegisterer: De
             PhotoStubberImpl(
                 stubImagesProvider: try di.resolve(),
                 tccDbApplicationPermissionSetterFactory: try di.resolve(),
-                photoSaver: try di.resolve() ,
+                photoSaver: try di.resolve(),
                 testFailureRecorder: try di.resolve()
             )
         }

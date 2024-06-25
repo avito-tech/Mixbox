@@ -294,7 +294,7 @@ public final class VisibilityCheckImagesCapturerImpl: VisibilityCheckImagesCaptu
 
             // It was working for 3 years without this line working.
             // We can implement it (see `grey_keepSubviewOnTopAndFrameFixed` in EarlGray) if needed.
-            //[view grey_keepSubviewOnTopAndFrameFixed:shiftedView];
+            // [view grey_keepSubviewOnTopAndFrameFixed:shiftedView];
             
             CATransaction.flush()
             CATransaction.commit()

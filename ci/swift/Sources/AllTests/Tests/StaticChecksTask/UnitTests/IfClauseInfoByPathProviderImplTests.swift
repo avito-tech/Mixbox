@@ -16,12 +16,12 @@ final class IfClauseInfoByPathProviderImplTests: XCTestCase {
         checker: Checker
     ) {
         // Table is from comment from `IfClauseInfoByPathProviderImpl.swift`
-        // swiftlint:disable comma
+        // swiftlint:disable comma operator_usage_whitespace
         let enableAll =                        [false, true,  false, true,  false, true,  false,  true]
         let enableFramework =                  [false, false, true,  true,  false, false, true,   true]
         let disableFramework =                 [false, false, false, false, true,  true,  true,   true]
         let codeIsCompiled: [CodeIsCompiled] = [.no,   .yes,  .yes,  .yes,  .no,   .no,   .error, .error]
-        // swiftlint:enable comma
+        // swiftlint:enable comma operator_usage_whitespace
         
         XCTAssertEqual(enableAll.count, enableFramework.count)
         XCTAssertEqual(enableAll.count, disableFramework.count)

@@ -10,6 +10,7 @@ import MixboxUiKit
 
 // TODO: Split to classes.
 // swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 public final class ScrollingHintsForViewProviderImpl: ScrollingHintsForViewProvider {
     // Suitable for programmatic scroll
     // Can be converted to DraggingInstruction (that is suitable for more black-box way of scrolling: via touches)
@@ -250,7 +251,6 @@ public final class ScrollingHintsForViewProviderImpl: ScrollingHintsForViewProvi
     
     // Converts universal instruction (suitable for programmatic scroll)
     // to more specific instructions for scrolling via touches.
-    // TODO: Fix swiftlint:disable:next function_body_length
     private func draggingInstructionsFromInstruction(_ instruction: ScrollingInstruction) -> [DraggingInstruction] {
         let scrollView = instruction.scrollView
         let targetRect = instruction.targetRect

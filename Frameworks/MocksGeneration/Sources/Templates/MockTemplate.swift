@@ -12,7 +12,6 @@ public final class MockTemplate {
         self.moduleName = moduleName
     }
     
-    // swiftlint:disable function_body_length
     public func render() throws -> String {
         let stubbingBuilderTemplate = BuilderTemplate(
             protocolType: protocolType,

@@ -2,7 +2,8 @@ import SourceryRuntime
 import Foundation
 
 // TODO: Split?
-// swiftlint:disable file_length type_body_length
+// swiftlint:disable file_length 
+// swiftlint:disable:next type_body_length
 public class ProtocolImplementationFunctionTemplate {
     private let method: SourceryRuntime.Method
     

@@ -119,7 +119,8 @@ extension FailureGatherer {
             )
         }
     }
-    
+
+    // swiftlint:disable:next function_body_length
     func assertFails(
         descriptionMatcher: Matcher<String>? = nil,
         file: String? = nil,

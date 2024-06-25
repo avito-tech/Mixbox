@@ -21,6 +21,7 @@ public final class BlackBoxApplicationDependentDependencyCollectionRegisterer: B
     override public init() {
     }
     
+    // swiftlint:disable:next function_body_length
     override public func register(dependencyRegisterer di: DependencyRegisterer) {
         super.register(dependencyRegisterer: di)
         

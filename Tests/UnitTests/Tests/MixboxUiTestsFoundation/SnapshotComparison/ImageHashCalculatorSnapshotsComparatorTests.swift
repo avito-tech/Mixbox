@@ -619,3 +619,5 @@ final class ImageHashCalculatorSnapshotsComparatorTests: BaseSnapshotsComparator
             : opaqueColor
     }
 }
+
+// swiftlint:enable type_body_length

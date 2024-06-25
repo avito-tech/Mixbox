@@ -16,8 +16,6 @@ public final class TestabilityCustomValues {
         get {
             return nil
         }
-        set {
-        }
     }
 }
 

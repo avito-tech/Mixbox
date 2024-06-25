@@ -56,6 +56,9 @@ extension CAAnimation {
     
     // Is used here and in `CALayerIdlingSupport` to track state of the animation.
     var mb_state: CAAnimationState {
+        get {
+            stateAssociatedValue.value
+        }
         set {
             stateAssociatedValue.value = newValue
             
@@ -67,9 +70,6 @@ extension CAAnimation {
             case .pendingStart:
                 break
             }
-        }
-        get {
-            return stateAssociatedValue.value
         }
     }
     

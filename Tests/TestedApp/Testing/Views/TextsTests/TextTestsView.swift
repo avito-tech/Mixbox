@@ -11,6 +11,7 @@ extension UIButton {
 }
 
 final class TextTestsView: TestStackScrollView {
+    // swiftlint:disable:next function_body_length
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -87,7 +88,7 @@ final class TextTestsView: TestStackScrollView {
                 let textToElementName: String = text.flatMap { $0.isEmpty ? "textIsEmpty" : "text==" + $0 }
                     ?? "textIsNil"
                 
-                let elementName =  "\(isAttributedToElementName)_\(textToElementName)"
+                let elementName = "\(isAttributedToElementName)_\(textToElementName)"
                 
                 closure(text, isAttributed, elementName)
             }

@@ -330,3 +330,5 @@ extension String {
 // MARK: - Main
 
 try main()
+
+// swiftlint:enable all

@@ -108,3 +108,4 @@ final class EnumsGeneratorFacadeTests: BaseGeneratorFacadeTests {
         case case1
     }
 }
+// swiftlint:enable multiline_arguments

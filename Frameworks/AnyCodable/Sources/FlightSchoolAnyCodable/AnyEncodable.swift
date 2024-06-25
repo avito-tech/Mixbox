@@ -1,4 +1,4 @@
-// swiftlint:disable cyclomatic_complexity function_body_length switch_case_alignment fatal_error_message
+// swiftlint:disable cyclomatic_complexity fatal_error_message
 
 #if MIXBOX_ENABLE_FRAMEWORK_ANY_CODABLE && MIXBOX_DISABLE_FRAMEWORK_ANY_CODABLE
 #error("AnyCodable is marked as both enabled and disabled, choose one of the flags")
@@ -248,3 +248,4 @@ extension _AnyEncodable {
 }
 
 #endif
+// swiftlint:enable cyclomatic_complexity fatal_error_message

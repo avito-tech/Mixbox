@@ -107,3 +107,4 @@ extension AnyCodable: ExpressibleByArrayLiteral {}
 extension AnyCodable: ExpressibleByDictionaryLiteral {}
 
 #endif
+// swiftlint:enable cyclomatic_complexity

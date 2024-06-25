@@ -13,7 +13,6 @@ final class MultiTouchEventFactoryTests: BaseEventTestCase {
     private lazy var time: AbsoluteTime = random()
     private let point = CGPoint(x: 123, y: 125)
     
-    // swiftlint:disable:next function_body_length
     func test___aggregatingTouchEvent___produces_event_similar_to_real___for_tap_began() {
         let event = self.event(phase: .began)
         
@@ -134,7 +133,6 @@ final class MultiTouchEventFactoryTests: BaseEventTestCase {
         XCTAssertEqual(childEvent.qualityRadiiAccuracy, 0)
     }
     
-    // swiftlint:disable:next function_body_length
     func test___aggregatingTouchEvent___produces_event_similar_to_real___for_tap_ended() {
         let event = self.event(phase: .ended)
         

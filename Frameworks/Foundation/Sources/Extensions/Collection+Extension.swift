@@ -70,6 +70,7 @@ extension Collection {
         var count = 0
         
         for element in self {
+            // swiftlint:disable:next for_where
             if try isMatching(element) {
                 count += 1
             }

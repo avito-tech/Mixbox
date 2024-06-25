@@ -74,7 +74,7 @@ public enum EventType: Equatable {
         }
     }
     
-    // swiftlint:disable:next function_body_length cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity
     public init(iohidEventType: IOHIDEventType) {
         switch iohidEventType {
         case .NULL:

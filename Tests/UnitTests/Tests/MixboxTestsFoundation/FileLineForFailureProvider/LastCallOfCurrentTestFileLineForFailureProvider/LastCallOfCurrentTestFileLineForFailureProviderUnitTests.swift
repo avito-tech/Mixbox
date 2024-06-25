@@ -2,6 +2,7 @@ import XCTest
 import MixboxFoundation
 import MixboxTestsFoundation
 
+// swiftlint:disable:next type_body_length
 final class LastCallOfCurrentTestFileLineForFailureProviderUnitTests: XCTestCase {
     func test_example() {
         parameterized_test(

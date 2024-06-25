@@ -102,6 +102,7 @@ public final class CompoundBridgedUrlProtocolClass:
         // Q: Why reversed?
         // A: Last added classes have higher priority.
         for bridgedUrlProtocolClass in bridgedUrlProtocolClasses.reversed() {
+            // swiftlint:disable:next for_where
             if try bridgedUrlProtocolClass.canInit(with: request) {
                 return bridgedUrlProtocolClass
             }

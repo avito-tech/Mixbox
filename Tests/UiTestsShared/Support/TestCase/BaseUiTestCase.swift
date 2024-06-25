@@ -7,7 +7,7 @@ import MixboxUiKit
 import MixboxIpcCommon
 import TestsIpc
 
-class BaseUiTestCase: BaseTestCase {
+class BaseUiTestCase: BaseTestCase {    
     override func setUp() {
         super.setUp()
     }

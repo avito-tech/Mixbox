@@ -90,3 +90,4 @@ final class VisibilityCheckImageColorShifterImplTests: TestCase {
         }
     }
 }
+// swiftlint:enable comma function_body_length

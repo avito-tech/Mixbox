@@ -65,7 +65,7 @@ public final class ReportingTestLifecycleManager:
         let testLifecycleTestSuiteObserver = MutableClosuresTestLifecycleTestSuiteObserver()
         let testLifecycleTestCaseObserver = MutableClosuresTestLifecycleTestCaseObserver()
         
-        testLifecycleTestBundleObserver.onStop = { [weak self] testCase in
+        testLifecycleTestBundleObserver.onStop = { [weak self] _ in
             let startDate = Date()
             
             let timeout: TimeInterval = 60

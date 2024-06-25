@@ -15,12 +15,12 @@ public final class ConditionLock {
     
     /// Sets the current condition or returns it.
     public var condition: Int {
+        get {
+            conditionLock.condition
+        }
         set {
             conditionLock.lock()
             conditionLock.unlock(withCondition: newValue)
-        }
-        get {
-            return conditionLock.condition
         }
     }
     

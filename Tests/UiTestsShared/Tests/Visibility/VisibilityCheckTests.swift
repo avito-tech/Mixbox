@@ -444,3 +444,5 @@ final class VisibilityCheckTests: TestCase {
         return alignRectToPixelGrid(rect: visibleRect)
     }
 }
+
+// swiftlint:enable type_body_length

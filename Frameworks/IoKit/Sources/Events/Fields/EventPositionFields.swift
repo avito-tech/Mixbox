@@ -16,7 +16,7 @@ public final class EventPositionFields {
             return IOHIDEventGetPosition(iohidEventRef, field)
         }
         set {
-            return IOHIDEventSetPosition(iohidEventRef, field, newValue)
+            IOHIDEventSetPosition(iohidEventRef, field, newValue)
         }
     }
 }

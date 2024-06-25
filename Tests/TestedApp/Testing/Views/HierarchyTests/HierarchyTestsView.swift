@@ -1,8 +1,8 @@
 import UIKit
 
-// TODO: Better code in this test, see swiftlint:disable
-//  swiftlint:disable function_body_length
+// TODO: Better code in this test, see swiftlint disable
 final class HierarchyTestsView: UIView {
+    //  swiftlint:disable:next function_body_length
     init() {
         super.init(frame: CGRect(x: 10000, y: 10000, width: 10000, height: 10000))
         
