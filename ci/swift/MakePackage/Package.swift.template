@@ -23,7 +23,7 @@ let package = Package(
     dependencies: [
         .package(
             name: "EmceeTestRunner",
-            url: "https://github.com/avito-tech/Emcee", 
+            url: "https://github.com/avito-tech/Emcee.git", 
             .revision("{{emcee_commit_hash}}")
         ),
         .package(

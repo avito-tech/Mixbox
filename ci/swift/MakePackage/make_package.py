@@ -122,9 +122,11 @@ def get_targets() -> List[Target]:
 
 def get_target(target_name, directory, product_by_module_name) -> Target:
     imported_modules = []
-    
+    has_main = False
     for root, subdirs, files in os.walk(directory):
         for file_name in files:
+            if file_name == 'main.swift':
+                has_main = True
             if file_name.endswith(".swift"):
                 path = os.path.join(root, file_name)
             
@@ -139,11 +141,11 @@ def get_target(target_name, directory, product_by_module_name) -> Target:
         for module_name in imported_modules
             if module_name in product_by_module_name
     ])))
-        
+    target_type = 'executableTarget' if has_main else 'testTarget' if target_name.endswith("Tests") else 'target'
     return Target(
         name=target_name,
         dependencies=dependencies,
-        type="testTarget" if target_name.endswith("Tests") else "target",
+        type=target_type,
         is_executable=target_name.endswith("Build")
     )
 
