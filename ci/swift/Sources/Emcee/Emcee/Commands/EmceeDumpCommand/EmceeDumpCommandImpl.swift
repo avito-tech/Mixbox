@@ -103,6 +103,7 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
         let testArgFile = TestArgFile<AppleTestArgFileEntry>(
             entries: [
                 try AppleTestArgFileEntry(
+                    bundleId: nil,
                     appleBuildArtifacts: arguments.iosBuildArtifacts,
                     developerDir: try developerDirProvider.developerDir(),
                     environment: [:],
@@ -110,7 +111,9 @@ public final class EmceeDumpCommandImpl: EmceeDumpCommand {
                     numberOfRetries: 5,
                     testRetryMode: .retryThroughQueue,
                     logCapturingMode: .noLogs,
+                    preferredScreenCaptureFormat: .screenshots,
                     runnerWasteCleanupPolicy: .clean,
+                    proxySettings: nil,
                     pluginLocations: [],
                     pluginTeardownTimeout: 60,
                     scheduleStrategy: ScheduleStrategy(

@@ -109,6 +109,12 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
                 }
             case .allDiscoveredTests:
                 stableTestsToRun.append(testToRun)
+            case .allTestsInClass(className: let className):
+                if className.contains("_FLAKY") {
+                    flakyTestsToRun.append(testToRun)
+                } else {
+                    stableTestsToRun.append(testToRun)
+                }
             }
         }
         
@@ -151,6 +157,7 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
         numberOfRetries: UInt
     ) throws -> AppleTestArgFileEntry {
         try AppleTestArgFileEntry(
+            bundleId: nil,
             appleBuildArtifacts: iosBuildArtifacts,
             developerDir: try developerDirProvider.developerDir(),
             environment: environment,
@@ -158,7 +165,9 @@ public final class TestArgFileGeneratorImpl: TestArgFileGenerator {
             numberOfRetries: numberOfRetries,
             testRetryMode: .retryThroughQueue,
             logCapturingMode: .noLogs,
+            preferredScreenCaptureFormat: .screenshots,
             runnerWasteCleanupPolicy: .clean,
+            proxySettings: nil,
             pluginLocations: [],
             pluginTeardownTimeout: 60,
             scheduleStrategy: ScheduleStrategy(
