@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 // May be used to assert if there were no conflicts in swizzling
 // And if swizzling was successful
 public enum SwizzlingResult {

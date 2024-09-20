@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol RunLoopSpinnerFactory: AnyObject {
     func runLoopSpinnerImpl(
         timeout: TimeInterval,

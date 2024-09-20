@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol RunLoopSpinnerLockFactory: AnyObject {
     func runLoopSpinnerLock(pollingInterval: TimeInterval) -> RunLoopSpinnerLock
 }

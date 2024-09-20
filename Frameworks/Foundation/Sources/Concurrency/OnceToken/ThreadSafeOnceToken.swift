@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Dispatch
+
 public final class ThreadSafeOnceToken<T>: OnceToken {
     private let semaphore = DispatchSemaphore(value: 1)
     private var value: T?

@@ -4,6 +4,9 @@
 // The compilation is disabled
 #else
 
+import Foundation
+import Dispatch
+
 public final class GraphiteMeasureableTimedActivityMetricSenderImpl:
     GraphiteMeasureableTimedActivityMetricSender,
     MeasureableTimedActivityMetricSenderWaiter

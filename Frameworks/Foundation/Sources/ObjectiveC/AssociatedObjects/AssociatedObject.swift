@@ -22,6 +22,9 @@
 //
 // See also: AssociatedValue
 //
+
+import Foundation
+ 
 public final class AssociatedObject<T: AnyObject> {
     private let container: NSObject
     private let unsafeRawPointerKey: UnsafeRawPointer

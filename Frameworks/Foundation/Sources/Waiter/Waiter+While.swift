@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 extension Waiter {
     @discardableResult
     public func wait(

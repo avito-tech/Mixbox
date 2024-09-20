@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 // Like AssociatedObject, but for structs (like CGRect) or primitives (like Int)
 public final class AssociatedValue<T> {
     private let associatedObject: AssociatedObject<Box<T>>

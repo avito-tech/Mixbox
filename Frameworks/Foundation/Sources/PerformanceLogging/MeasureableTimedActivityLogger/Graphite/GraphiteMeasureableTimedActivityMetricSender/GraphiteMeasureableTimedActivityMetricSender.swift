@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol GraphiteMeasureableTimedActivityMetricSender {
     func send(
         staticName: StaticString,

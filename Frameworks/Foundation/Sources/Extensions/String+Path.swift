@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 extension String {
     public var mb_deletingLastPathComponent: String {
         return (self as NSString).deletingLastPathComponent

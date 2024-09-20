@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol AssertingSwizzler: AnyObject {
     func swizzle(
         originalClass: NSObject.Type,

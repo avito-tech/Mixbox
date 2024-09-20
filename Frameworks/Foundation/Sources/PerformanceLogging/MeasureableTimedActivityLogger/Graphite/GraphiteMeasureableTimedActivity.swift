@@ -6,6 +6,8 @@
 
 import os
 
+import Foundation
+
 public final class GraphiteMeasureableTimedActivity: MeasureableTimedActivity {
     private let graphiteMeasureableTimedActivityMetricSender: GraphiteMeasureableTimedActivityMetricSender
     private let dateProvider: DateProvider

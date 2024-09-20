@@ -10,6 +10,9 @@
 //
 // This class is thread safe.
 //
+
+import Foundation
+
 public protocol RunLoopSpinnerLock: AnyObject {
     func enter()
     func leave() throws

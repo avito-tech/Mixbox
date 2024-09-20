@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class RunLoopSpinnerFactoryImpl: RunLoopSpinnerFactory {
     private let runLoopModesStackProvider: RunLoopModesStackProvider
     

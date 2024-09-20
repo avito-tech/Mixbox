@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class AssertingSwizzlerImpl: AssertingSwizzler {
     private let swizzler: Swizzler
     private let swizzlingSynchronization: SwizzlingSynchronization

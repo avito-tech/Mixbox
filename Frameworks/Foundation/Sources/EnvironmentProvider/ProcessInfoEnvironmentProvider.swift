@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class ProcessInfoEnvironmentProvider: EnvironmentProvider {
     private let processInfo: ProcessInfo
     

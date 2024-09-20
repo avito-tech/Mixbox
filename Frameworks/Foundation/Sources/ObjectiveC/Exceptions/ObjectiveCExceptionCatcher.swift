@@ -4,6 +4,9 @@
 // The compilation is disabled
 #else
 
+import Foundation
+import FoundationObjcSwift
+
 public final class ObjectiveCExceptionCatcher {
     public static func `catch`<T>(
         try: () -> (T),
@@ -12,7 +15,7 @@ public final class ObjectiveCExceptionCatcher {
         -> T
     {
         var result: T?
-        
+
         ObjectiveCExceptionCatcherHelper_try(
             {
                 result = `try`()

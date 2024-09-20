@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class GraphiteMeasureableTimedActivityLogger: MeasureableTimedActivityLogger {
     private let graphiteMeasureableTimedActivityMetricSender: GraphiteMeasureableTimedActivityMetricSender
     private let dateProvider: DateProvider

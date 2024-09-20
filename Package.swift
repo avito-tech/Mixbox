@@ -8,30 +8,43 @@ let package = Package(
     name: "Mixbox",
     platforms: [.macOS(.v10_15)],
     products: [
+        //        .library(
+        //            name: "MixboxMocksGeneration",
+        //            targets: [
+        //                "MixboxMocksGeneration"
+        //            ]
+        //        ),
+        //        .library(
+        //            name: "MixboxDi",
+        //            targets: [
+        //                "MixboxDi"
+        //            ]
+        //        ),
+        //        .library(
+        //            name: "MixboxBuiltinDi",
+        //            targets: [
+        //                "MixboxBuiltinDi"
+        //            ]
+        //        ),
+        //        .library(
+        //            name: "MixboxBuiltinDi",
+        //            targets: [
+        //                "MixboxBuiltinDi"
+        //            ]
+        //        ),
         .library(
-            name: "MixboxMocksGeneration",
+            name: "MixboxFoundation",
             targets: [
-                "MixboxMocksGeneration"
+                "MixboxFoundation",
+                "FoundationObjcSwift"
             ]
         ),
-        .library(
-            name: "MixboxDi",
-            targets: [
-                "MixboxDi"
-            ]
-        ),
-        .library(
-            name: "MixboxBuiltinDi",
-            targets: [
-                "MixboxBuiltinDi"
-            ]
-        ),
-        .executable(
-            name: "MixboxMocksGenerator",
-            targets: [
-                "MixboxMocksGenerator"
-            ]
-        )
+        //        .executable(
+        //            name: "MixboxMocksGenerator",
+        //            targets: [
+        //                "MixboxMocksGenerator"
+        //            ]
+        //        )
     ],
     dependencies: [
         .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
@@ -57,6 +70,30 @@ let package = Package(
                 
             ],
             path: "Frameworks/Di/Sources",
+            swiftSettings: [
+                .define("MIXBOX_ENABLE_ALL_FRAMEWORKS")
+            ]
+        ),
+        .target(
+            // MARK: FoundationObjcSwift
+            name: "FoundationObjcSwift",
+            dependencies: [
+                
+            ],
+            path: "Frameworks/Foundation/ObjcSwift",
+            publicHeadersPath: ".",
+            cSettings: [
+                .headerSearchPath("."),
+                .define("MIXBOX_ENABLE_FRAMEWORK_FOUNDATION"),
+            ]
+        ),
+        .target(
+            // MARK: MixboxFoundation
+            name: "MixboxFoundation",
+            dependencies: [
+                "FoundationObjcSwift"
+            ],
+            path: "Frameworks/Foundation/Sources",
             swiftSettings: [
                 .define("MIXBOX_ENABLE_ALL_FRAMEWORKS")
             ]

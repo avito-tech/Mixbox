@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol Waiter: AnyObject {
     @discardableResult
     func wait(

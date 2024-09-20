@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class SwizzlingSynchronizationImpl: SwizzlingSynchronization {
     private var swizzledMethods = Set<Method>()
     

@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 // Silly utility.
 // Converts anything to string and back.
 // Note that serialization method is not specified. The only thing
