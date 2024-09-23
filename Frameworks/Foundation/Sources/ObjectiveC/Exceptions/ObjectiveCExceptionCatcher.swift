@@ -5,7 +5,7 @@
 #else
 
 import Foundation
-import FoundationObjcSwift
+import MixboxFoundationObjc
 
 public final class ObjectiveCExceptionCatcher {
     public static func `catch`<T>(
