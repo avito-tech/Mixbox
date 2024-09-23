@@ -1,6 +1,7 @@
 // swiftlint:disable all
 
 import Foundation
+import Darwin
 
 let knownImportsToIgnore = [
     "Foundation",
@@ -47,6 +48,7 @@ let moduleDescriptions: [ModuleDescription] = [
 ]
 
 func main() throws {
+    exit(EXIT_FAILURE)
     var generatedTargetStatements = [String]()
     let sortedModuleDescriptions: [ModuleDescription] = moduleDescriptions.sorted { $0.name < $1.name }
     

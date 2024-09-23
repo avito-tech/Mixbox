@@ -1,8 +1,41 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.5
 
 // swiftlint:disable all
 
 import PackageDescription
+import Foundation
+
+func cSettings() -> [CSetting] {
+    return [
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(configuration: .debug)),
+        .define("SWIFT_PACKAGE")
+        //.define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
+    ]
+}
+
+func linkedLibraries() -> [LinkerSetting] {
+    return [
+        .linkedFramework("XCTest")
+    ]
+}
+
+func cxxSettings() -> [CXXSetting] {
+    return [
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when( configuration: .debug)),
+        .define("SWIFT_PACKAGE")
+        
+//        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
+    ]
+}
+
+func swiftSettings() -> [SwiftSetting] {
+    return [
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(configuration: .debug)),
+            .define("SWIFT_PACKAGE")
+//            .define("XCODE_145")
+    ]
+}
+
 
 let package = Package(
     name: "Mixbox",
