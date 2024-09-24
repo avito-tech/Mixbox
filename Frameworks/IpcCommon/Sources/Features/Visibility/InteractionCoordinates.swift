@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-import UIKit
+import Foundation
 
 public final class InteractionCoordinates: Codable {
     //  If point is not specified it will be a center (for all cases).

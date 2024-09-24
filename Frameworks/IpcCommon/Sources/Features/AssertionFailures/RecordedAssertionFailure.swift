@@ -5,6 +5,7 @@
 #else
 
 import MixboxFoundation
+import Foundation
 
 public final class RecordedAssertionFailure: Codable {
     public let date: Date

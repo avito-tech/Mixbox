@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-import UIKit
+import Foundation
 
 // Mirrors UIEvent (incompletely)
 public final class UiEvent: Codable {

@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-import UIKit
+import Foundation
 
 // TODO: Clean-up automatically (on deinit)
 // TODO: Type-erased identifier? (Hashable/Codable; e.g. AnyHashable & AnyCodable)

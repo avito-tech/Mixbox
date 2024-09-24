@@ -153,6 +153,8 @@ let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
 let mixboxAnyCodable = MixboxFramework(name: "AnyCodable")
 let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixboxDi.mixboxName])
 let mixboxSBTUITestTunnelCommon = MixboxFramework(name: "SBTUITestTunnelCommon", language: .objc)
+let mixboxIpc = MixboxFramework(name: "Ipc", language: .swift, dependencies: ["MixboxFoundation"])
+let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", language: .swift, dependencies: ["MixboxIpc", "MixboxAnyCodable"])
 
 let targets = [
     mixboxFoundation,
@@ -161,7 +163,9 @@ let targets = [
     mixboxCocoaImageHashing,
     mixboxAnyCodable,
     mixboxGenerators,
-    mixboxSBTUITestTunnelCommon
+    mixboxSBTUITestTunnelCommon,
+    mixboxIpc,
+    mixboxIpcCommon
 ].flatMap(\.targets)
 
 let products = [
@@ -170,7 +174,9 @@ let products = [
     mixboxBuiltinDi,
     mixboxCocoaImageHashing,
     mixboxAnyCodable,
-    mixboxGenerators
+    mixboxGenerators,
+    mixboxIpc,
+    mixboxIpcCommon
 ].map(\.product)
 
 let commoTargets: [Target] = [

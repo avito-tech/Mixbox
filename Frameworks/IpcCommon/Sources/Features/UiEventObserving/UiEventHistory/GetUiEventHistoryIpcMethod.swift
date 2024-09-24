@@ -6,6 +6,7 @@
 
 import MixboxIpc
 import MixboxFoundation
+import Foundation
 
 public final class GetUiEventHistoryIpcMethod: IpcMethod {
     public final class _Arguments: Codable {

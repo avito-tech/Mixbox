@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-import UIKit
+import Foundation
 
 // Points are in coordinate space of window.
 public final class DraggingInstruction: Codable, Equatable {

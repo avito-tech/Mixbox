@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-import UIKit
+import Foundation
 
 // Mirrors UIKit.UITouch (incompletely)
 public final class UiTouch: Codable {

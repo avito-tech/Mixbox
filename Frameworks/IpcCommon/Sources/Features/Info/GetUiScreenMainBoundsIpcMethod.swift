@@ -5,7 +5,7 @@
 #else
 
 import MixboxIpc
-import UIKit
+import Foundation
 
 // Apple's UI test runner app can have different screen settings than tested app
 // so if you want to get screen settings of app, use this method

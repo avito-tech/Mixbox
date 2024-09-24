@@ -5,6 +5,7 @@
 #else
 
 import MixboxFoundation
+import Foundation
 
 // Replicates URLProtocolClient
 public protocol BridgedUrlProtocolClient: AnyObject {

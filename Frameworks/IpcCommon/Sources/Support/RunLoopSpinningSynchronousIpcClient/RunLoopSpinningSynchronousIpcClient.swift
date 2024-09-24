@@ -6,6 +6,7 @@
 
 import MixboxIpc
 import MixboxFoundation
+import Foundation
 
 public final class RunLoopSpinningSynchronousIpcClient: SynchronousIpcClient {
     private let ipcClient: IpcClient

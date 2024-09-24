@@ -5,7 +5,7 @@
 #else
 
 import MixboxIpc
-import UIKit
+import Foundation
 import MixboxFoundation
 
 // Checks visibility of a UIView (per-pixel) or tries to approximately determine if element is

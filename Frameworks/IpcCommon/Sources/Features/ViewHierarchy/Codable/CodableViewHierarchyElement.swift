@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-import UIKit
+import Foundation
 import MixboxFoundation
 
 public final class CodableViewHierarchyElement: ViewHierarchyElement, Codable {
