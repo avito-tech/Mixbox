@@ -50,7 +50,16 @@ struct MixboxFramework {
         }
     }
     
-    internal init(name: String, language: Language = .swift, dependencies: [String] = []) {
+    /// convenience init
+    init(name: String, language: Language = .swift, dependencies: [MixboxFramework], customDependencies: [String] = []) {
+        self.init(
+            name: name,
+            language: language,
+            dependencies: dependencies.map(\.dependency) + customDependencies
+        )
+    }
+    
+    init(name: String, language: Language = .swift, dependencies: [String] = []) {
         self.name = name
         self.language = language
         self.dependencies = dependencies
@@ -67,6 +76,15 @@ struct MixboxFramework {
             mixboxName
         case .mixed:
             mixboxName + "Objc"
+        }
+    }
+    
+    var dependency: String {
+        switch language {
+        case .swift, .mixed:
+            mixboxName
+        case .objc:
+            mixboxNameObjc
         }
     }
     
@@ -193,28 +211,26 @@ let dependencyGCDWebServer: Package.Dependency = .package(
 
 let mixboxFoundation = MixboxFramework(name: "Foundation", language: .mixed)
 let mixboxDi = MixboxFramework(name: "Di")
-let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName, mixboxFoundation.mixboxName])
+let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi, mixboxFoundation])
 let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
 let mixboxAnyCodable = MixboxFramework(name: "AnyCodable")
-let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixboxDi.mixboxName])
+let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixboxDi])
 
 let mixboxSBTUITestTunnelCommon = MixboxFramework(name: "SBTUITestTunnelCommon", language: .objc)
 let mixboxSBTUITestTunnelServer = MixboxFramework(
     name: "SBTUITestTunnelServer",
     language: .objc, 
-    dependencies: [
-        mixboxSBTUITestTunnelCommon.mixboxNameObjc,
-        dependencyGCDWebServer.name!
-    ]
+    dependencies: [mixboxSBTUITestTunnelCommon],
+    customDependencies: [dependencyGCDWebServer.name!]    
 )
 let mixboxSBTUITestTunnelClient = MixboxFramework(
     name: "SBTUITestTunnelClient",
     language: .objc,
-    dependencies: [mixboxSBTUITestTunnelCommon.mixboxNameObjc]
+    dependencies: [mixboxSBTUITestTunnelCommon]
 )
-let mixboxUiKit = MixboxFramework(name: "UiKit", dependencies: [mixboxFoundation.mixboxName, mixboxSBTUITestTunnelServer.mixboxNameObjc])
-let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation.mixboxName])
-let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc.mixboxName, mixboxAnyCodable.mixboxName])
+let mixboxUiKit = MixboxFramework(name: "UiKit", dependencies: [mixboxFoundation, mixboxSBTUITestTunnelServer])
+let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation])
+let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc, mixboxAnyCodable])
 let mixboxReflection = MixboxFramework(name: "Reflection")
 
 let targets = [
