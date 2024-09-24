@@ -7,24 +7,37 @@ import Foundation
 
 
 struct MixboxFramework {
-    internal init(name: String, hasObjc: Bool = false, dependencies: [String] = []) {
+    enum Language {
+        case swift, objc, mixed
+        
+        var hasObjc: Bool {
+            switch self {
+            case .objc, .mixed:
+                true
+            default:
+                false
+            }
+        }
+    }
+    
+    internal init(name: String, language: Language = .swift, dependencies: [String] = []) {
         self.name = name
-        self.hasObjc = hasObjc
+        self.language = language
         self.dependencies = dependencies
     }
     
     let name: String
-    let hasObjc: Bool
+    let language: Language
     let dependencies: [String]
     
     var mixboxName: String { "Mixbox" + name }
     var mixboxNameObjc: String { mixboxName + "Objc" }
     
     var targets: [Target] {
-        let dependenciesNames = dependencies + (hasObjc ? [mixboxNameObjc] : [])
-        let exclude: [String] = hasObjc ? ["ObjectiveC"] : []
+        let dependenciesNames = dependencies + (language == .mixed ? [mixboxNameObjc] : [])
+        let exclude: [String] = language == .mixed ? ["ObjectiveC"] : []
 
-        let mainTarget = Target.target(
+        let swiftTarget = Target.target(
             name: mixboxName,
             dependencies: dependenciesNames.map(Target.Dependency.init(stringLiteral:)),
             path: "Frameworks/\(name)/Sources",
@@ -32,10 +45,13 @@ struct MixboxFramework {
             swiftSettings: swiftSettings(),
             linkerSettings: linkedLibraries()
         )
+        let objcPath = language == .mixed
+            ? "Frameworks/\(name)/Sources/ObjectiveC"
+            : "Frameworks/\(name)/Sources"
         let objTarget = Target.target(
             name: mixboxNameObjc,
             dependencies: [],
-            path: "Frameworks/\(name)/Sources/ObjectiveC",
+            path: objcPath,
 //            sources: ["/dummy.m"],
             publicHeadersPath: ".",
             cSettings: cSettings() + [
@@ -50,7 +66,14 @@ struct MixboxFramework {
             ],
             linkerSettings: linkedLibraries()
         )
-        return hasObjc ? [mainTarget, objTarget] : [mainTarget]
+        return switch language {
+        case .swift:
+            [swiftTarget]
+        case .objc:
+            [objTarget]
+        case .mixed:
+            [swiftTarget, objTarget]
+        }
     }
     
     var targetNames: [String] {
@@ -110,7 +133,7 @@ struct MixboxFramework {
     }
 }
 
-let mixboxFoundation = MixboxFramework(name: "Foundation", hasObjc: true)
+let mixboxFoundation = MixboxFramework(name: "Foundation", language: .mixed)
 let mixboxDi = MixboxFramework(name: "Di")
 let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName, mixboxFoundation.mixboxName])
 let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
