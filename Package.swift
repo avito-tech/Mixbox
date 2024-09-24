@@ -155,6 +155,7 @@ let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixbox
 let mixboxSBTUITestTunnelCommon = MixboxFramework(name: "SBTUITestTunnelCommon", language: .objc)
 let mixboxIpc = MixboxFramework(name: "Ipc", language: .swift, dependencies: ["MixboxFoundation"])
 let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", language: .swift, dependencies: ["MixboxIpc", "MixboxAnyCodable"])
+let mixboxReflection = MixboxFramework(name: "Reflection", language: .swift)
 
 let targets = [
     mixboxFoundation,
@@ -165,7 +166,8 @@ let targets = [
     mixboxGenerators,
     mixboxSBTUITestTunnelCommon,
     mixboxIpc,
-    mixboxIpcCommon
+    mixboxIpcCommon,
+    mixboxReflection
 ].flatMap(\.targets)
 
 let products = [
@@ -176,7 +178,8 @@ let products = [
     mixboxAnyCodable,
     mixboxGenerators,
     mixboxIpc,
-    mixboxIpcCommon
+    mixboxIpcCommon,
+    mixboxReflection
 ].map(\.product)
 
 let commoTargets: [Target] = [
