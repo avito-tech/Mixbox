@@ -19,9 +19,13 @@
 
 #import "SBTUITunneledApplication.h"
 
+#if SWIFT_PACKAGE
+@import MixboxSBTUITestTunnelCommon;
+#else
 #import <MixboxSBTUITestTunnelCommon/SBTUITestTunnel.h>
 #import <MixboxSBTUITestTunnelCommon/NSURLRequest+SBTUITestTunnelMatch.h>
 #import <MixboxSBTUITestTunnelCommon/SBTMonitoredNetworkRequest.h>
+#endif
 
 #include <ifaddrs.h>
 #include <arpa/inet.h>

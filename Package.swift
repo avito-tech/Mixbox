@@ -207,10 +207,16 @@ let mixboxSBTUITestTunnelServer = MixboxFramework(
         dependencyGCDWebServer.name!
     ]
 )
+let mixboxSBTUITestTunnelClient = MixboxFramework(
+    name: "SBTUITestTunnelClient",
+    language: .objc,
+    dependencies: [mixboxSBTUITestTunnelCommon.mixboxNameObjc]
+)
 
-let mixboxIpc = MixboxFramework(name: "Ipc", language: .swift, dependencies: ["MixboxFoundation"])
-let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", language: .swift, dependencies: ["MixboxIpc", "MixboxAnyCodable"])
-let mixboxReflection = MixboxFramework(name: "Reflection", language: .swift)
+
+let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation.mixboxName])
+let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc.mixboxName, mixboxAnyCodable.mixboxName])
+let mixboxReflection = MixboxFramework(name: "Reflection")
 
 let targets = [
     mixboxFoundation,
@@ -221,6 +227,7 @@ let targets = [
     mixboxGenerators,
     mixboxSBTUITestTunnelCommon,
     mixboxSBTUITestTunnelServer,
+    mixboxSBTUITestTunnelClient,
     mixboxIpc,
     mixboxIpcCommon,
     mixboxReflection
@@ -235,6 +242,7 @@ let products = [
     mixboxGenerators,
     mixboxSBTUITestTunnelCommon, 
     mixboxSBTUITestTunnelServer,
+    mixboxSBTUITestTunnelClient,
     mixboxIpc,
     mixboxIpcCommon,
     mixboxReflection
