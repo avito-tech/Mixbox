@@ -81,6 +81,7 @@ struct MixboxFramework {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
             .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
+            .define("MIXBOX_ENABLE_FRAMEWORK_\(name.uppercased())", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
             
             //.define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
@@ -91,6 +92,7 @@ struct MixboxFramework {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
             .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
+            .define("MIXBOX_ENABLE_FRAMEWORK_\(name.uppercased())", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
             
     //        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
@@ -101,6 +103,7 @@ struct MixboxFramework {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
             .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
+            .define("MIXBOX_ENABLE_FRAMEWORK_\(name.uppercased())", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
     //            .define("XCODE_145")
         ]
@@ -109,18 +112,24 @@ struct MixboxFramework {
 
 let mixboxFoundation = MixboxFramework(name: "Foundation", hasObjc: true)
 let mixboxDi = MixboxFramework(name: "Di")
-let builtinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName])
+let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName])
+let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
+let mixboxAnyCodable = MixboxFramework(name: "AnyCodable")
 
 let targets = [
     mixboxFoundation,
     mixboxDi,
-    builtinDi
+    mixboxBuiltinDi,
+    mixboxCocoaImageHashing,
+    mixboxAnyCodable
 ].flatMap(\.targets)
 
 let products = [
     mixboxFoundation,
     mixboxDi,
-    builtinDi
+    mixboxBuiltinDi,
+    mixboxCocoaImageHashing,
+    mixboxAnyCodable
 ].map(\.product)
 
 let commoTargets: [Target] = [
