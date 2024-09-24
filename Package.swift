@@ -22,7 +22,7 @@ struct MixboxFramework {
     
     var targets: [Target] {
         let dependenciesNames = dependencies + (hasObjc ? [mixboxNameObjc] : [])
-        let exclude: [String] = hasObjc ? ["Objc"] : []
+        let exclude: [String] = hasObjc ? ["ObjectiveC"] : []
 
         let mainTarget = Target.target(
             name: mixboxName,
@@ -35,8 +35,8 @@ struct MixboxFramework {
         let objTarget = Target.target(
             name: mixboxNameObjc,
             dependencies: [],
-            path: "Frameworks/\(name)/",
-            sources: ["Sources/Objc/dummy.m"],
+            path: "Frameworks/\(name)/Sources/ObjectiveC",
+//            sources: ["/dummy.m"],
             publicHeadersPath: ".",
             cSettings: cSettings() + [
                 .headerSearchPath("./**"),
@@ -115,24 +115,6 @@ let targets = [
 let products = [
     mixboxFoundation
 ].map(\.product)
-
-//let mixboxFoundationTargets : [Target] = [
-//    .target(
-//        name: "MixboxFoundationObjc",
-//        path: "Frameworks/Foundation",
-//        sources: ["Sources/Objc/dummy.m"],
-//        publicHeadersPath: ".",
-//        cSettings: [
-//            .headerSearchPath("./**"),
-//            .define("MIXBOX_ENABLE_FRAMEWORK_FOUNDATION", to: "1"),
-//        ] + cSettings(),
-//        cxxSettings: [
-//            .headerSearchPath("./**"),
-//            .define("MIXBOX_ENABLE_FRAMEWORK_FOUNDATION", to: "1"),
-//        ] + cxxSettings(),
-//        swiftSettings: swiftSettings()
-//    ),
-//]
 
 let commoTargets: [Target] = [
     .target(
