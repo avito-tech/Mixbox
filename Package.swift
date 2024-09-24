@@ -212,8 +212,7 @@ let mixboxSBTUITestTunnelClient = MixboxFramework(
     language: .objc,
     dependencies: [mixboxSBTUITestTunnelCommon.mixboxNameObjc]
 )
-
-
+let mixboxUiKit = MixboxFramework(name: "UiKit", dependencies: [mixboxFoundation.mixboxName, mixboxSBTUITestTunnelServer.mixboxNameObjc])
 let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation.mixboxName])
 let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc.mixboxName, mixboxAnyCodable.mixboxName])
 let mixboxReflection = MixboxFramework(name: "Reflection")
@@ -228,6 +227,7 @@ let targets = [
     mixboxSBTUITestTunnelCommon,
     mixboxSBTUITestTunnelServer,
     mixboxSBTUITestTunnelClient,
+    mixboxUiKit,
     mixboxIpc,
     mixboxIpcCommon,
     mixboxReflection
@@ -243,6 +243,7 @@ let products = [
     mixboxSBTUITestTunnelCommon, 
     mixboxSBTUITestTunnelServer,
     mixboxSBTUITestTunnelClient,
+    mixboxUiKit,
     mixboxIpc,
     mixboxIpcCommon,
     mixboxReflection
