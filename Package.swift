@@ -48,7 +48,7 @@ struct MixboxFramework {
         let objcPath = language == .mixed
             ? "Frameworks/\(name)/Sources/ObjectiveC"
             : "Frameworks/\(name)/Sources"
-        let objTarget = Target.target(
+        let objcTarget = Target.target(
             name: mixboxNameObjc,
             dependencies: [],
             path: objcPath,
@@ -70,9 +70,9 @@ struct MixboxFramework {
         case .swift:
             [swiftTarget]
         case .objc:
-            [objTarget]
+            [objcTarget]
         case .mixed:
-            [swiftTarget, objTarget]
+            [swiftTarget, objcTarget]
         }
     }
     
