@@ -112,16 +112,18 @@ struct MixboxFramework {
 
 let mixboxFoundation = MixboxFramework(name: "Foundation", hasObjc: true)
 let mixboxDi = MixboxFramework(name: "Di")
-let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName])
+let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName, mixboxFoundation.mixboxName])
 let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
 let mixboxAnyCodable = MixboxFramework(name: "AnyCodable")
+let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixboxDi.mixboxName])
 
 let targets = [
     mixboxFoundation,
     mixboxDi,
     mixboxBuiltinDi,
     mixboxCocoaImageHashing,
-    mixboxAnyCodable
+    mixboxAnyCodable,
+    mixboxGenerators
 ].flatMap(\.targets)
 
 let products = [
@@ -129,7 +131,8 @@ let products = [
     mixboxDi,
     mixboxBuiltinDi,
     mixboxCocoaImageHashing,
-    mixboxAnyCodable
+    mixboxAnyCodable,
+    mixboxGenerators
 ].map(\.product)
 
 let commoTargets: [Target] = [
