@@ -177,6 +177,7 @@ let products = [
     mixboxCocoaImageHashing,
     mixboxAnyCodable,
     mixboxGenerators,
+    mixboxSBTUITestTunnelCommon, 
     mixboxIpc,
     mixboxIpcCommon,
     mixboxReflection
