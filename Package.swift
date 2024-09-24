@@ -84,17 +84,17 @@ struct MixboxFramework {
     }
     
     var targets: [Target] {
-        let dependenciesNames = dependencies + (language == .mixed ? [mixboxNameObjc] : [])
-        let exclude: [String] = language == .mixed ? ["ObjectiveC"] : []
-
-        let swiftTarget = Target.target(
-            name: mixboxName,
-            dependencies: dependenciesNames.map(Target.Dependency.init(stringLiteral:)),
-            path: "Frameworks/\(name)/Sources",
-            exclude: exclude,
-            swiftSettings: swiftSettings(),
-            linkerSettings: linkedLibraries()
-        )
+        let commonDependencies: [Target.Dependency] = dependencies.map(Target.Dependency.init(stringLiteral:))
+        
+        let swiftDependencies: [Target.Dependency] = if language == .mixed {
+            commonDependencies + [
+                Target.Dependency(stringLiteral: mixboxNameObjc)
+            ]
+        } else {
+            commonDependencies
+        }
+        let objcDependencies: [Target.Dependency] = commonDependencies
+        
         let objcPath = language == .mixed
             ? "Frameworks/\(name)/Sources/ObjectiveC"
             : "Frameworks/\(name)"
@@ -104,9 +104,20 @@ struct MixboxFramework {
         let objcPublicHeadersPath = language == .mixed
             ? "."
             : "Sources"
+                           
+        let exclude: [String] = language == .mixed ? ["ObjectiveC"] : []
+
+        let swiftTarget = Target.target(
+            name: mixboxName,
+            dependencies: swiftDependencies,
+            path: "Frameworks/\(name)/Sources",
+            exclude: exclude,
+            swiftSettings: swiftSettings(),
+            linkerSettings: linkedLibraries()
+        )
         let objcTarget = Target.target(
             name: mixboxNameObjc,
-            dependencies: [],
+            dependencies: objcDependencies,
             path: objcPath,
             sources: objcSources,
             publicHeadersPath: objcPublicHeadersPath,
