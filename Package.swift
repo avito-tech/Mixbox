@@ -7,7 +7,7 @@ import Foundation
 
 
 struct MixboxFramework {
-    internal init(name: String, hasObjc: Bool, dependencies: [String] = []) {
+    internal init(name: String, hasObjc: Bool = false, dependencies: [String] = []) {
         self.name = name
         self.hasObjc = hasObjc
         self.dependencies = dependencies
@@ -77,10 +77,10 @@ struct MixboxFramework {
         ]
     }
 
-
     func cSettings() -> [CSetting] {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
             
             //.define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
@@ -90,6 +90,7 @@ struct MixboxFramework {
     func cxxSettings() -> [CXXSetting] {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
             
     //        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
@@ -99,7 +100,7 @@ struct MixboxFramework {
     func swiftSettings() -> [SwiftSetting] {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
-            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS"),
+            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
     //            .define("XCODE_145")
         ]
@@ -107,38 +108,22 @@ struct MixboxFramework {
 }
 
 let mixboxFoundation = MixboxFramework(name: "Foundation", hasObjc: true)
+let mixboxDi = MixboxFramework(name: "Di")
+let builtinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName])
 
 let targets = [
-    mixboxFoundation
+    mixboxFoundation,
+    mixboxDi,
+    builtinDi
 ].flatMap(\.targets)
 
 let products = [
-    mixboxFoundation
+    mixboxFoundation,
+    mixboxDi,
+    builtinDi
 ].map(\.product)
 
 let commoTargets: [Target] = [
-    .target(
-        // MARK: MixboxBuiltinDi
-        name: "MixboxBuiltinDi",
-        dependencies: [
-            "MixboxDi"
-        ],
-        path: "Frameworks/BuiltinDi/Sources",
-        swiftSettings: [
-            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS")
-        ]
-    ),
-    .target(
-        // MARK: MixboxDi
-        name: "MixboxDi",
-        dependencies: [
-            
-        ],
-        path: "Frameworks/Di/Sources",
-        swiftSettings: [
-            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS")
-        ]
-    ),
     .target(
         // MARK: MixboxMocksGeneration
         name: "MixboxMocksGeneration",
@@ -174,34 +159,6 @@ let package = Package(
         //                "MixboxMocksGeneration"
         //            ]
         //        ),
-        //        .library(
-        //            name: "MixboxDi",
-        //            targets: [
-        //                "MixboxDi"
-        //            ]
-        //        ),
-        //        .library(
-        //            name: "MixboxBuiltinDi",
-        //            targets: [
-        //                "MixboxBuiltinDi"
-        //            ]
-        //        ),
-        //        .library(
-        //            name: "MixboxBuiltinDi",
-        //            targets: [
-        //                "MixboxBuiltinDi"
-        //            ]
-        //        ),
-    
-    
-//        .library(
-//            name: "MixboxFoundation",
-//            type: .dynamic,
-//            targets: [
-//                "MixboxFoundation",
-//                "MixboxFoundationObjc"
-//            ]
-//        ),
     
     
         //        .executable(
@@ -221,7 +178,7 @@ let package = Package(
 //        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
 //        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("0564feccdc8fade6c68376bdf7f8dab9b79863fe")),
     ],
-    targets: targets //+ commoTargets
+    targets: targets
 )
 
 // swiftlint:enable all
