@@ -24,18 +24,23 @@
 // limitations under the License.
 
 #import "SBTUITestTunnelServer.h"
+#if SWIFT_PACKAGE
+@import MixboxSBTUITestTunnelCommon;
+@import GCDWebServer;
+#else
 #import <MixboxSBTUITestTunnelCommon/SBTUITestTunnel.h>
 #import <MixboxSBTUITestTunnelCommon/NSURLRequest+SBTUITestTunnelMatch.h>
-#import "UITextField+DisableAutocomplete.h"
-#import "SBTProxyURLProtocol.h"
-#import <GCDWebServer/GCDWebServer.h>
-#import <GCDWebServer/GCDWebServerURLEncodedFormRequest.h>
-#import <GCDWebServer/GCDWebServerDataResponse.h>
-#import "NSData+SHA1.h"
-#import <CoreLocation/CoreLocation.h>
 #import <MixboxSBTUITestTunnelCommon/SBTStubResponse.h>
 #import <MixboxSBTUITestTunnelCommon/SBTRewrite.h>
 #import <MixboxSBTUITestTunnelCommon/SBTMonitoredNetworkRequest.h>
+#import <GCDWebServer/GCDWebServer.h>
+#import <GCDWebServer/GCDWebServerURLEncodedFormRequest.h>
+#import <GCDWebServer/GCDWebServerDataResponse.h>
+#endif
+#import "UITextField+DisableAutocomplete.h"
+#import "SBTProxyURLProtocol.h"
+#import "NSData+SHA1.h"
+#import <CoreLocation/CoreLocation.h>
 
 #if !defined(NS_BLOCK_ASSERTIONS)
 

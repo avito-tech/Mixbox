@@ -25,9 +25,13 @@
 
 #import "SBTProxyURLProtocol.h"
 #import "NSData+SHA1.h"
+#if SWIFT_PACKAGE
+@import MixboxSBTUITestTunnelCommon;
+#else
 #import <MixboxSBTUITestTunnelCommon/SBTStubResponse.h>
 #import <MixboxSBTUITestTunnelCommon/SBTRewrite.h>
 #import <MixboxSBTUITestTunnelCommon/NSURLRequest+SBTUITestTunnelMatch.h>
+#endif
 
 static NSString * const SBTProxyURLOriginalRequestKey = @"SBTProxyURLOriginalRequestKey";
 static NSString * const SBTProxyURLProtocolHandledKey = @"SBTProxyURLProtocolHandledKey";

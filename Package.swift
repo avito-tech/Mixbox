@@ -184,14 +184,30 @@ struct MixboxFramework {
     }
 }
 
+let dependencyGCDWebServer: Package.Dependency = .package(
+    name: "GCDWebServer",
+    url: "https://github.com/SlaunchaMan/GCDWebServer.git",
+    .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
+)
+
+
 let mixboxFoundation = MixboxFramework(name: "Foundation", language: .mixed)
 let mixboxDi = MixboxFramework(name: "Di")
 let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi.mixboxName, mixboxFoundation.mixboxName])
 let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
 let mixboxAnyCodable = MixboxFramework(name: "AnyCodable")
 let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixboxDi.mixboxName])
+
 let mixboxSBTUITestTunnelCommon = MixboxFramework(name: "SBTUITestTunnelCommon", language: .objc)
-let mixboxSBTUITestTunnelServer = MixboxFramework(name: "SBTUITestTunnelServer", language: .objc, dependencies: [mixboxSBTUITestTunnelCommon.mixboxNameObjc])
+let mixboxSBTUITestTunnelServer = MixboxFramework(
+    name: "SBTUITestTunnelServer",
+    language: .objc, 
+    dependencies: [
+        mixboxSBTUITestTunnelCommon.mixboxNameObjc,
+        dependencyGCDWebServer.name!
+    ]
+)
+
 let mixboxIpc = MixboxFramework(name: "Ipc", language: .swift, dependencies: ["MixboxFoundation"])
 let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", language: .swift, dependencies: ["MixboxIpc", "MixboxAnyCodable"])
 let mixboxReflection = MixboxFramework(name: "Reflection", language: .swift)
@@ -254,6 +270,7 @@ let package = Package(
 //        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
 //        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
 //        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("0564feccdc8fade6c68376bdf7f8dab9b79863fe")),
+        dependencyGCDWebServer,
     ],
     targets: targets
 )
