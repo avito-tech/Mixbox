@@ -33,6 +33,19 @@ struct MixboxFramework {
     var mixboxName: String { "Mixbox" + name }
     var mixboxNameObjc: String { mixboxName + "Objc" }
     
+    var frameworkEnableDefine: String {
+        // SBTUITestTunnelCommon -> S_B_T_U_I_TEST_TUNNEL_COMMON
+        let convertedName = String(
+            name
+                .split(separator: #/(?=[A-Z])/#)
+                .map { "\($0)_" }
+                .joined()
+                .dropLast()
+        ).uppercased()
+        
+        return "MIXBOX_ENABLE_FRAMEWORK_\(convertedName)"
+    }
+    
     var targets: [Target] {
         let dependenciesNames = dependencies + (language == .mixed ? [mixboxNameObjc] : [])
         let exclude: [String] = language == .mixed ? ["ObjectiveC"] : []
@@ -104,7 +117,7 @@ struct MixboxFramework {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
             .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-            .define("MIXBOX_ENABLE_FRAMEWORK_\(name.uppercased())", .when(platforms: nil, configuration: .debug)),
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
             
             //.define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
@@ -115,7 +128,7 @@ struct MixboxFramework {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
             .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-            .define("MIXBOX_ENABLE_FRAMEWORK_\(name.uppercased())", .when(platforms: nil, configuration: .debug)),
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
             
     //        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
@@ -126,7 +139,7 @@ struct MixboxFramework {
         return [
             .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
             .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-            .define("MIXBOX_ENABLE_FRAMEWORK_\(name.uppercased())", .when(platforms: nil, configuration: .debug)),
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug)),
             .define("SWIFT_PACKAGE")
     //            .define("XCODE_145")
         ]
