@@ -5,6 +5,37 @@
 import PackageDescription
 import Foundation
 
+func defaultCSettings() -> [CSetting] {
+    return [
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
+        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "170000", .when(platforms: nil, configuration: .debug)),
+        .define("SWIFT_PACKAGE")
+        
+        //.define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
+    ]
+}
+
+func defaultCXXSettings() -> [CXXSetting] {
+    return [
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
+        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
+        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "170000", .when(platforms: nil, configuration: .debug)),
+        .define("SWIFT_PACKAGE")
+        
+//        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
+    ]
+}
+
+func defaultSwiftSettings() -> [SwiftSetting] {
+    return [
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
+        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
+        .define("SWIFT_PACKAGE")
+//            .define("XCODE_153")
+    ]
+}
+
 struct MixboxFramework {
     enum Language {
         case swift, objc, mixed
@@ -124,36 +155,20 @@ struct MixboxFramework {
     }
 
     func cSettings() -> [CSetting] {
-        return [
-            .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
-            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug)),
-            .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "170000", .when(platforms: nil, configuration: .debug)),
-            .define("SWIFT_PACKAGE")
-            
-            //.define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
+        return defaultCSettings() + [
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
         ]
     }
 
     func cxxSettings() -> [CXXSetting] {
-        return [
-            .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
-            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug)),
-            .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "170000", .when(platforms: nil, configuration: .debug)),
-            .define("SWIFT_PACKAGE")
-            
-    //        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
+        return defaultCXXSettings() + [
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
         ]
     }
 
     func swiftSettings() -> [SwiftSetting] {
-        return [
-            .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
-            .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug)),
-            .define("SWIFT_PACKAGE")
-    //            .define("XCODE_145")
+        return defaultSwiftSettings() + [
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
         ]
     }
 }
