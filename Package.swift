@@ -5,14 +5,14 @@
 import PackageDescription
 import Foundation
 
+let iphoneOSMaxAllowed = "170000"
+
 func defaultCSettings() -> [CSetting] {
     return [
         .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
         .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "170000", .when(platforms: nil, configuration: .debug)),
+        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: iphoneOSMaxAllowed, .when(platforms: nil, configuration: .debug)),
         .define("SWIFT_PACKAGE")
-        
-        //.define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
     ]
 }
 
@@ -20,10 +20,8 @@ func defaultCXXSettings() -> [CXXSetting] {
     return [
         .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
         .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "170000", .when(platforms: nil, configuration: .debug)),
+        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: iphoneOSMaxAllowed, .when(platforms: nil, configuration: .debug)),
         .define("SWIFT_PACKAGE")
-        
-//        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: "150000", .when(platforms: nil, configuration: .debug))
     ]
 }
 
