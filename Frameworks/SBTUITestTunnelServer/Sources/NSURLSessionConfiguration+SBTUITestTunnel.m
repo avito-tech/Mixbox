@@ -24,8 +24,14 @@
 
 #import "NSURLSessionConfiguration+SBTUITestTunnel.h"
 
+#if SWIFT_PACKAGE
+@import MixboxSBTUITestTunnelCommon;
+#else
 #import <MixboxSBTUITestTunnelCommon/SBTSwizzleHelpers.h>
+#endif
+
 #import "SBTProxyURLProtocol.h"
+
 
 @implementation NSURLSessionConfiguration (SBTUITestTunnel)
 

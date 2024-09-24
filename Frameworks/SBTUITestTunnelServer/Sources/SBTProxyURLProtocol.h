@@ -21,7 +21,12 @@
 // limitations under the License.
 
 #import <Foundation/Foundation.h>
+
+#if SWIFT_PACKAGE
+@import MixboxSBTUITestTunnelCommon;
+#else
 #import <MixboxSBTUITestTunnelCommon/SBTRequestMatch.h>
+#endif
 
 @class SBTStubResponse;
 @class SBTRewrite;

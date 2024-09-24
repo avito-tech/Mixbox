@@ -22,8 +22,12 @@
 
 #import "NSURLSession+HTTPBodyFix.h"
 
+#if SWIFT_PACKAGE
+@import MixboxSBTUITestTunnelCommon;
+#else
 #import <MixboxSBTUITestTunnelCommon/SBTSwizzleHelpers.h>
 #import <MixboxSBTUITestTunnelCommon/SBTUITestTunnel.h>
+#endif
 
 @implementation NSURLSession (HTTPBodyFix)
 
