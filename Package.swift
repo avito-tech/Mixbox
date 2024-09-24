@@ -139,6 +139,7 @@ let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi
 let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
 let mixboxAnyCodable = MixboxFramework(name: "AnyCodable")
 let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixboxDi.mixboxName])
+let mixboxSBTUITestTunnelCommon = MixboxFramework(name: "SBTUITestTunnelCommon", language: .objc)
 
 let targets = [
     mixboxFoundation,
@@ -146,7 +147,8 @@ let targets = [
     mixboxBuiltinDi,
     mixboxCocoaImageHashing,
     mixboxAnyCodable,
-    mixboxGenerators
+    mixboxGenerators,
+    mixboxSBTUITestTunnelCommon
 ].flatMap(\.targets)
 
 let products = [
