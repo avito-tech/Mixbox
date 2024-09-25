@@ -1,6 +1,10 @@
 import XCTest
 import MixboxFoundation
 
+#if SWIFT_PACKAGE
+import MixboxTestsFoundationObjc
+#endif
+
 public final class XcTestFailureRecorder: TestFailureRecorder {
     private let currentTestCaseProvider: CurrentTestCaseProvider
     private let shouldNeverContinueTestAfterFailure: Bool

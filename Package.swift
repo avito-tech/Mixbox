@@ -46,7 +46,7 @@ struct MixboxFramework {
     ) {
         let frameworkDependencies = frameworks
             .map(\.dependency)
-            .map(Target.Dependency.init(stringLiteral:))
+            .map { Target.Dependency.target(name:$0) }
         self.name = name
         self.language = language
         self.dependencies = customDependencies + frameworkDependencies
