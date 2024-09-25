@@ -5,6 +5,8 @@
 import PackageDescription
 import Foundation
 
+// MARK: - Build settings -
+
 let iphoneOSMaxAllowed = "170000"
 
 func defaultCSettings() -> [CSetting] {
@@ -34,7 +36,15 @@ func defaultSwiftSettings() -> [SwiftSetting] {
     ]
 }
 
-struct MixboxFramework {
+// MARK: - Specs -
+
+protocol Spec {
+    var products: [Product] { get }
+    var targets: [ Target] { get }
+    
+}
+
+struct MixboxFramework: Spec {
     enum Language {
         case swift, objc, mixed
     }
@@ -142,12 +152,14 @@ struct MixboxFramework {
         targets.map(\.name)
     }
     
-    var product: Product {
-        Product.library(
-            name: mixboxName,
-            type: .static,
-            targets: targetNames
-        )
+    var products: [Product] {
+        [
+            Product.library(
+                name: mixboxName,
+                type: .static,
+                targets: targetNames
+            )
+        ]
     }
         
     func linkedLibraries() -> [LinkerSetting] {
@@ -239,49 +251,63 @@ let mixboxBuiltinIpc = MixboxFramework(name: "BuiltinIpc", language: .mixed, dep
 let mixboxIpcSbtuiHost = MixboxFramework(name: "IpcSbtuiHost", language: .swift, dependencies: [mixboxIpc, mixboxSBTUITestTunnelServer])
 let mixboxReflection = MixboxFramework(name: "Reflection")
 
-enum MixboxTestsFoundation {
-    static let objcTarget = Target.target(
-        name: "MixboxTestsFoundationObjc",
-        dependencies: [],
-        path: "Frameworks/TestsFoundation",
-        exclude: [
-            "Sources/ObjectiveC/PrivateHeaders"
-        ],
-        sources: [
-            "Sources/ObjectiveC"
-        ],
-        publicHeadersPath: "PublicHeaders",
-        cSettings: defaultCSettings(),
-        cxxSettings: defaultCXXSettings(),
-        swiftSettings: defaultSwiftSettings()
-    )
+struct MixboxTestsFoundation: Spec {
+    static let spec = MixboxTestsFoundation()
     
-    static let swiftTarget = Target.target(
-        name: "MixboxTestsFoundation",
-        dependencies: [
-            mixboxIpcCommon.dependency,
-            mixboxUiKit.dependency,
-            mixboxBuiltinDi.dependency,
-            dependencySqlite.target,
-            "MixboxTestsFoundationObjc"
-        ],
-        path: "Frameworks/TestsFoundation",
-        exclude: [ "Sources/ObjectiveC" ],
-        sources: [ "Sources" ],
-        cSettings: defaultCSettings(),
-        cxxSettings: defaultCXXSettings(),
-        swiftSettings: defaultSwiftSettings()
-    )
+    init() {
+        let name = "TestsFoundation"
+        let mixboxName: String = "Mixbox" + name
+        let mixboxNameObjc: String = mixboxName + "Objc"
+        let path = "Frameworks/TestsFoundation"
+        let objcSources = "Sources/ObjectiveC"
+        
+        objcTarget = Target.target(
+            name: mixboxNameObjc,
+            dependencies: [],
+            path: path,
+            exclude: [
+                "Sources/ObjectiveC/PrivateHeaders"
+            ],
+            sources: [ objcSources ],
+            publicHeadersPath: "PublicHeaders",
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings()
+        )
+        
+        swiftTarget = Target.target(
+            name: mixboxName,
+            dependencies: [
+                mixboxIpcCommon.dependency,
+                mixboxUiKit.dependency,
+                mixboxBuiltinDi.dependency,
+                dependencySqlite.target,
+                .target(name: mixboxNameObjc)
+            ],
+            path: path,
+            exclude: [ objcSources ],
+            sources: [ "Sources" ],
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings()
+        )
+        
+        product = Product.library(
+            name: mixboxName,
+            type: .static,
+            targets: [mixboxName, mixboxNameObjc]
+        )
+    }
     
-    static let product = Product.library(
-        name: "MixboxTestsFoundation",
-        type: .static,
-        targets: ["MixboxTestsFoundation", "MixboxTestsFoundationObjc"]
-    )
+    let objcTarget: Target
+    let swiftTarget: Target
+    let product: Product
+    
+    var targets: [Target] { [objcTarget, swiftTarget] }
+    var products: [Product] { [product] }
 }
 
-
-let targets = [
+let targetSpecs: [any Spec] = [
     mixboxFoundation,
     mixboxDi,
     mixboxBuiltinDi,
@@ -294,29 +320,35 @@ let targets = [
     mixboxUiKit,
     mixboxIpc,
     mixboxIpcCommon,
+    mixboxReflection,
     mixboxBuiltinIpc,
     mixboxIpcSbtuiHost,
-    mixboxReflection
-].flatMap(\.targets) + [ MixboxTestsFoundation.objcTarget,
-                         MixboxTestsFoundation.swiftTarget ]
+    MixboxTestsFoundation.spec
+]
 
-let products = [
+let targets: [Target] = targetSpecs.flatMap(\.targets)
+
+let productSpecs: [any Spec] = [
     mixboxFoundation,
     mixboxDi,
     mixboxBuiltinDi,
     mixboxCocoaImageHashing,
     mixboxAnyCodable,
     mixboxGenerators,
-    mixboxSBTUITestTunnelCommon, 
+    mixboxSBTUITestTunnelCommon,
     mixboxSBTUITestTunnelServer,
     mixboxSBTUITestTunnelClient,
     mixboxUiKit,
     mixboxIpc,
     mixboxIpcCommon,
+    mixboxReflection,
     mixboxBuiltinIpc,
     mixboxIpcSbtuiHost,
-    mixboxReflection
-].map(\.product) + [ MixboxTestsFoundation.product ]
+    MixboxTestsFoundation.spec
+]
+
+let products: [Product] = productSpecs.flatMap(\.products)
+
 
 // TODO: - Remove this
 let commoTargets: [Target] = [
