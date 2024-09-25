@@ -44,12 +44,9 @@ struct MixboxFramework {
          dependencies frameworks: [MixboxFramework] = [],
          customDependencies: [Target.Dependency] = []
     ) {
-        let frameworkDependencies = frameworks
-            .map(\.dependency)
-            .map { Target.Dependency.target(name:$0) }
         self.name = name
         self.language = language
-        self.dependencies = customDependencies + frameworkDependencies
+        self.dependencies = customDependencies + frameworks.map(\.dependency)
     }
     
     let name: String
@@ -66,13 +63,14 @@ struct MixboxFramework {
         }
     }
     
-    var dependency: String {
-        switch language {
+    var dependency: Target.Dependency {
+        let name = switch language {
         case .swift, .mixed:
             mixboxName
         case .objc:
             mixboxNameObjc
         }
+        return Target.Dependency.target(name: name)
     }
     
     var frameworkEnableDefine: String {
