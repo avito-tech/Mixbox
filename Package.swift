@@ -261,6 +261,7 @@ let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIp
 let mixboxBuiltinIpc = MixboxFramework(name: "BuiltinIpc", language: .mixed, dependencies: [mixboxFoundation, mixboxIpc], customDependencies: [ThirdParty.GCDWebServer.target])
 let mixboxIpcSbtuiHost = MixboxFramework(name: "IpcSbtuiHost", language: .swift, dependencies: [mixboxIpc, mixboxSBTUITestTunnelServer])
 let mixboxReflection = MixboxFramework(name: "Reflection")
+let mixboxFakeSettingsAppMain = MixboxFramework(name: "FakeSettingsAppMain", language: .objc)
 
 struct MixboxTestsFoundation: Spec {
     static let spec = MixboxTestsFoundation()
@@ -410,7 +411,8 @@ let targetSpecs: [any Spec] = [
     mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec,
     MixboxIoKit.spec,
-    mixboxIpcSbtuiClient
+    mixboxIpcSbtuiClient,
+    mixboxFakeSettingsAppMain
 ]
 
 let targets: [Target] = targetSpecs.flatMap(\.targets)
@@ -434,7 +436,8 @@ let productSpecs: [any Spec] = [
     mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec,
     MixboxIoKit.spec,
-    mixboxIpcSbtuiClient
+    mixboxIpcSbtuiClient,
+    mixboxFakeSettingsAppMain
 ]
 
 let products: [Product] = productSpecs.flatMap(\.products)
