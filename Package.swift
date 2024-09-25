@@ -80,11 +80,7 @@ struct MixboxFramework {
     var frameworkEnableDefine: String {
         // SBTUITestTunnelCommon -> S_B_T_U_I_TEST_TUNNEL_COMMON
         let convertedName = String(
-            name
-                .split(separator: #/(?=[A-Z])/#)
-                .map { "\($0)_" }
-                .joined()
-                .dropLast()
+            name.replacing(#/(?=[A-Z])/#, with: "_").trimmingPrefix("_")
         ).uppercased()
         
         return "MIXBOX_ENABLE_FRAMEWORK_\(convertedName)"
