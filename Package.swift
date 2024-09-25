@@ -41,6 +41,7 @@ func defaultSwiftSettings() -> [SwiftSetting] {
 protocol Spec {
     var products: [Product] { get }
     var targets: [ Target] { get }
+    var dependency: Target.Dependency { get }
     
 }
 
@@ -51,17 +52,20 @@ struct MixboxFramework: Spec {
     
     init(name: String,
          language: Language = .swift,
-         dependencies frameworks: [MixboxFramework] = [],
-         customDependencies: [Target.Dependency] = []
+         dependencies frameworks: [any Spec] = [],
+         customDependencies: [Target.Dependency] = [],
+         exclude: [String] = []
     ) {
         self.name = name
         self.language = language
         self.dependencies = customDependencies + frameworks.map(\.dependency)
+        self.excludePaths = exclude
     }
     
     let name: String
     let language: Language
     let dependencies: [Target.Dependency]
+    let excludePaths: [String]
     
     var mixboxName: String { "Mixbox" + name }
     var mixboxNameObjc: String {
@@ -112,13 +116,15 @@ struct MixboxFramework: Spec {
             ? "."
             : "Sources"
                            
-        let exclude: [String] = language == .mixed ? ["ObjectiveC"] : []
+        let mixedExclude: [String] = language == .mixed ? ["ObjectiveC"] : []
+        let swiftExclude = excludePaths + mixedExclude
+        let objcExclude = excludePaths
 
         let swiftTarget = Target.target(
             name: mixboxName,
             dependencies: swiftDependencies,
             path: "Frameworks/\(name)/Sources",
-            exclude: exclude,
+            exclude: swiftExclude,
             swiftSettings: swiftSettings(),
             linkerSettings: linkedLibraries()
         )
@@ -126,6 +132,7 @@ struct MixboxFramework: Spec {
             name: mixboxNameObjc,
             dependencies: objcDependencies,
             path: objcPath,
+            exclude: objcExclude,
             sources: objcSources,
             publicHeadersPath: objcPublicHeadersPath,
             cSettings: cSettings() + [
@@ -297,11 +304,14 @@ struct MixboxTestsFoundation: Spec {
             type: .static,
             targets: [mixboxName, mixboxNameObjc]
         )
+        
+        dependency = Target.Dependency.target(name: mixboxName)
     }
     
     let objcTarget: Target
     let swiftTarget: Target
     let product: Product
+    let dependency: Target.Dependency
     
     var targets: [Target] { [objcTarget, swiftTarget] }
     var products: [Product] { [product] }

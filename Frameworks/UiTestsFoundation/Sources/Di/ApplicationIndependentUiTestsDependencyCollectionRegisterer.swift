@@ -1,3 +1,4 @@
+import Foundation
 import MixboxDi
 import MixboxFoundation
 import MixboxTestsFoundation
