@@ -9,26 +9,26 @@ let iphoneOSMaxAllowed = "170000"
 
 func defaultCSettings() -> [CSetting] {
     return [
-        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
-        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: iphoneOSMaxAllowed, .when(platforms: nil, configuration: .debug)),
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: [Platform.iOS], configuration: .debug)),
+        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: [Platform.iOS], configuration: .debug)),
+        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: iphoneOSMaxAllowed, .when(platforms: [Platform.iOS], configuration: .debug)),
         .define("SWIFT_PACKAGE")
     ]
 }
 
 func defaultCXXSettings() -> [CXXSetting] {
     return [
-        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: nil, configuration: .debug)),
-        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
-        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: iphoneOSMaxAllowed, .when(platforms: nil, configuration: .debug)),
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", to: "1", .when(platforms: [Platform.iOS], configuration: .debug)),
+        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: [Platform.iOS], configuration: .debug)),
+        .define("__IPHONE_OS_VERSION_MAX_ALLOWED", to: iphoneOSMaxAllowed, .when(platforms: [Platform.iOS], configuration: .debug)),
         .define("SWIFT_PACKAGE")
     ]
 }
 
 func defaultSwiftSettings() -> [SwiftSetting] {
     return [
-        .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: nil, configuration: .debug)),
-        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: nil, configuration: .debug)),
+        .define("MIXBOX_ENABLE_IN_APP_SERVICES", .when(platforms: [Platform.iOS], configuration: .debug)),
+        .define("MIXBOX_ENABLE_ALL_FRAMEWORKS", .when(platforms: [Platform.iOS], configuration: .debug)),
         .define("SWIFT_PACKAGE")
 //            .define("XCODE_153")
     ]
@@ -37,15 +37,6 @@ func defaultSwiftSettings() -> [SwiftSetting] {
 struct MixboxFramework {
     enum Language {
         case swift, objc, mixed
-        
-        var hasObjc: Bool {
-            switch self {
-            case .objc, .mixed:
-                true
-            default:
-                false
-            }
-        }
     }
     
     /// convenience init
@@ -200,11 +191,20 @@ struct MixboxFramework {
     }
 }
 
+// MARK: - Dependencies -
+
 let dependencyGCDWebServer: Package.Dependency = .package(
     name: "GCDWebServer",
     url: "https://github.com/SlaunchaMan/GCDWebServer.git",
     .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
 )
+
+//        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
+//        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
+//        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("0564feccdc8fade6c68376bdf7f8dab9b79863fe")),
+
+
+// MARK: - Frameworks -
 
 
 let mixboxFoundation = MixboxFramework(name: "Foundation", language: .mixed)
@@ -285,14 +285,13 @@ let commoTargets: [Target] = [
     )
 ]
 
+// MARK: - Package -
+
 let package = Package(
     name: "Mixbox",
     platforms: [.iOS(.v15)],
     products: products,
     dependencies: [
-//        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
-//        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
-//        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("0564feccdc8fade6c68376bdf7f8dab9b79863fe")),
         dependencyGCDWebServer,
     ],
     targets: targets
