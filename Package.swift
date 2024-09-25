@@ -238,6 +238,7 @@ let mixboxUiKit = MixboxFramework(name: "UiKit", dependencies: [mixboxFoundation
 let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation])
 let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc, mixboxAnyCodable])
 let mixboxBuiltinIpc = MixboxFramework(name: "BuiltinIpc", language: .mixed, dependencies: [mixboxFoundation, mixboxIpc], customDependencies: [dependencyGCDWebServer.target])
+let mixboxIpcSbtuiHost = MixboxFramework(name: "IpcSbtuiHost", language: .swift, dependencies: [mixboxIpc, mixboxSBTUITestTunnelServer])
 let mixboxReflection = MixboxFramework(name: "Reflection")
 
 let mixboxTestsFoundation = MixboxFramework(
@@ -267,6 +268,7 @@ let targets = [
     mixboxIpc,
     mixboxIpcCommon,
     mixboxBuiltinIpc,
+    mixboxIpcSbtuiHost,
     mixboxReflection
 ].flatMap(\.targets)
 
@@ -284,6 +286,7 @@ let products = [
     mixboxIpc,
     mixboxIpcCommon,
     mixboxBuiltinIpc,
+    mixboxIpcSbtuiHost,
     mixboxReflection
 ].map(\.product)
 
