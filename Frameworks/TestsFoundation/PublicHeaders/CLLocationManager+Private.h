@@ -1,0 +1,1 @@
+.././Sources/ObjectiveC/PrivateHeaders/Manual/CoreLocation/CLLocationManager+Private.h

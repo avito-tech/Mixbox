@@ -1,0 +1,1 @@
+.././Sources/ObjectiveC/PrivateHeaders/Manual/XCTest/DTXProxyChannel/Xcode_10_0_DTXProxyChannel.h

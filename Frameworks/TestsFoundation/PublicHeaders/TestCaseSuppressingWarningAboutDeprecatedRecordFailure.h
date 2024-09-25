@@ -1,0 +1,1 @@
+.././Sources/ObjectiveC/WorkaroundForDeprecatonWarning/TestCaseSuppressingWarningAboutDeprecatedRecordFailure.h
