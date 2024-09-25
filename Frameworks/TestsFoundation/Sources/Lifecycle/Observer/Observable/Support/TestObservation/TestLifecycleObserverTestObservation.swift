@@ -1,4 +1,5 @@
 import Foundation
+import XCTest
 
 public final class TestLifecycleObserverTestObservation: NSObject, XCTestObservation {
     private let testLifecycleTestBundleObserver: TestLifecycleTestBundleObserver

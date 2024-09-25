@@ -1,3 +1,5 @@
+import XCTest
+
 // Note: Thread unsafe (observation is set up from main thread anyway)
 public final class TestLifecycleObservableImpl: TestLifecycleObservable {
     private var testLifecycleObserverTestObservation: TestLifecycleObserverTestObservation?

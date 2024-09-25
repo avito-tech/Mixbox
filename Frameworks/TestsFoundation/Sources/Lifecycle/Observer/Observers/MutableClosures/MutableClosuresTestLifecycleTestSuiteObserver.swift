@@ -1,3 +1,5 @@
+import XCTest
+
 public final class MutableClosuresTestLifecycleTestSuiteObserver: TestLifecycleTestSuiteObserver {
     public var onStart: ((_ testSuite: XCTestSuite) -> ())?
     public var onStop: ((_ testSuite: XCTestSuite) -> ())?

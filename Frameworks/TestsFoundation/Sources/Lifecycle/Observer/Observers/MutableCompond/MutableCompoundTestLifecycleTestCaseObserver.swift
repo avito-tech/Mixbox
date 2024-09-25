@@ -1,3 +1,5 @@
+import XCTest
+
 public final class MutableCompoundTestLifecycleTestCaseObserver: TestLifecycleTestCaseObserver {
     public var testLifecycleTestCaseObservers: [TestLifecycleTestCaseObserver]
     

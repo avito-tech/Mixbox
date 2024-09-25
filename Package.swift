@@ -235,16 +235,21 @@ let mixboxSBTUITestTunnelClient = MixboxFramework(
 )
 let mixboxUiKit = MixboxFramework(name: "UiKit", dependencies: [mixboxFoundation, mixboxSBTUITestTunnelServer])
 
-let mixboxTestsFoundation = MixboxFramework(
-    name: "TestsFoundation",
-    language: .mixed,
-    dependencies: [],
-    customDependencies: [dependencySqlite.target]
-)
-
 let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation])
 let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc, mixboxAnyCodable])
 let mixboxReflection = MixboxFramework(name: "Reflection")
+
+let mixboxTestsFoundation = MixboxFramework(
+    name: "TestsFoundation",
+    language: .mixed,
+    dependencies: [
+        mixboxIpcCommon,
+        mixboxUiKit,
+        mixboxBuiltinDi
+    ],
+    customDependencies: [dependencySqlite.target]
+)
+
 
 let targets = [
     mixboxFoundation,
