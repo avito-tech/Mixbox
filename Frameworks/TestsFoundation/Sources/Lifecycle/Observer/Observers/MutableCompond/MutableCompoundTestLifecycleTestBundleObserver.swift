@@ -1,3 +1,5 @@
+import Foundation
+
 public final class MutableCompoundTestLifecycleTestBundleObserver: TestLifecycleTestBundleObserver {
     public var testLifecycleTestBundleObservers: [TestLifecycleTestBundleObserver]
     

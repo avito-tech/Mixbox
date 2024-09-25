@@ -1,4 +1,5 @@
 import MixboxFoundation
+import Foundation
 
 public final class BundleResourcePathProviderImpl: BundleResourcePathProvider {
     private let bundle: Bundle

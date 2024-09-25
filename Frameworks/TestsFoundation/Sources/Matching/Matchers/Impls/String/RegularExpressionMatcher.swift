@@ -1,4 +1,5 @@
 import MixboxFoundation
+import Foundation
 
 public final class RegularExpressionMatcher<T: StringProtocol>: Matcher<T> {
     public init(

@@ -1,4 +1,5 @@
 import MixboxFoundation
+import Foundation
 
 public final class IosFrom9To11GeolocationApplicationPermissionSetter: ApplicationPermissionSetter {
     private let bundleId: String

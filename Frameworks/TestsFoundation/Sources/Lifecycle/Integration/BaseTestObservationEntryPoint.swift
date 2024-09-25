@@ -36,6 +36,7 @@
 // Note also that we have NSPrincipalClass property set in Info.plist
 
 import MixboxFoundation
+import Foundation
 
 open class BaseTestObservationEntryPoint: NSObject {
     private var testLifecycleManagers = [TestLifecycleManager]()

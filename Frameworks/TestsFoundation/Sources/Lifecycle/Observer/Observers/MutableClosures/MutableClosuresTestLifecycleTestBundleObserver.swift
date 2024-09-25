@@ -1,3 +1,5 @@
+import Foundation
+
 public final class MutableClosuresTestLifecycleTestBundleObserver: TestLifecycleTestBundleObserver {
     public var onStart: ((_ bundle: Bundle) -> ())?
     public var onStop: ((_ bundle: Bundle) -> ())?

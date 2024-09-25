@@ -1,3 +1,5 @@
+import Foundation
+
 public final class TestLifecycleObserverTestObservation: NSObject, XCTestObservation {
     private let testLifecycleTestBundleObserver: TestLifecycleTestBundleObserver
     private let testLifecycleTestSuiteObserver: TestLifecycleTestSuiteObserver

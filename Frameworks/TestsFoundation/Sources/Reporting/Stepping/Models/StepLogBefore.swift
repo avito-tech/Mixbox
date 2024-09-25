@@ -1,4 +1,5 @@
 import MixboxFoundation
+import Foundation
 
 public final class StepLogBefore: CustomDebugStringConvertible, Equatable {
     public let date: Date

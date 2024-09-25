@@ -1,3 +1,5 @@
+import Foundation
+
 public final class IsSameInstanceMatcher<T>: Matcher<T> {
     private init(_ otherValue: T, _ areEqual: @escaping (T, T) -> Bool) {
         super.init(
