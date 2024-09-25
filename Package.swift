@@ -205,24 +205,24 @@ struct MixboxFramework: Spec {
 struct ThirdParty {
     let package: Package.Dependency
     let target: Target.Dependency
+    
+    static let GCDWebServer = ThirdParty(
+        package: .package(
+            name: "GCDWebServer",
+            url: "https://github.com/SlaunchaMan/GCDWebServer.git",
+            .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
+        ),
+        target: "GCDWebServer"
+    )
+    
+    static let sqlite =  ThirdParty(
+        package: .package(
+            url: "https://github.com/stephencelis/SQLite.swift.git",
+            from: "0.15.0"
+        ),
+        target: .product(name: "SQLite", package: "SQLite.swift")
+    )
 }
-
-let dependencyGCDWebServer = ThirdParty(
-    package: .package(
-        name: "GCDWebServer",
-        url: "https://github.com/SlaunchaMan/GCDWebServer.git",
-        .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
-    ),
-    target: "GCDWebServer"
-)
-
-let dependencySqlite =  ThirdParty(
-    package: .package(
-        url: "https://github.com/stephencelis/SQLite.swift.git",
-        from: "0.15.0"
-    ),
-    target: .product(name: "SQLite", package: "SQLite.swift")
-)
 
 //        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
 //        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
@@ -247,7 +247,7 @@ let mixboxSBTUITestTunnelServer = MixboxFramework(
     name: "SBTUITestTunnelServer",
     language: .objc, 
     dependencies: [mixboxSBTUITestTunnelCommon],
-    customDependencies: [dependencyGCDWebServer.target]
+    customDependencies: [ThirdParty.GCDWebServer.target]
 )
 let mixboxSBTUITestTunnelClient = MixboxFramework(
     name: "SBTUITestTunnelClient",
@@ -258,7 +258,7 @@ let mixboxUiKit = MixboxFramework(name: "UiKit", dependencies: [mixboxFoundation
 
 let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation])
 let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc, mixboxAnyCodable])
-let mixboxBuiltinIpc = MixboxFramework(name: "BuiltinIpc", language: .mixed, dependencies: [mixboxFoundation, mixboxIpc], customDependencies: [dependencyGCDWebServer.target])
+let mixboxBuiltinIpc = MixboxFramework(name: "BuiltinIpc", language: .mixed, dependencies: [mixboxFoundation, mixboxIpc], customDependencies: [ThirdParty.GCDWebServer.target])
 let mixboxIpcSbtuiHost = MixboxFramework(name: "IpcSbtuiHost", language: .swift, dependencies: [mixboxIpc, mixboxSBTUITestTunnelServer])
 let mixboxReflection = MixboxFramework(name: "Reflection")
 
@@ -292,7 +292,7 @@ struct MixboxTestsFoundation: Spec {
                 mixboxIpcCommon.dependency,
                 mixboxUiKit.dependency,
                 mixboxBuiltinDi.dependency,
-                dependencySqlite.target,
+                ThirdParty.sqlite.target,
                 .target(name: mixboxNameObjc)
             ],
             path: path,
@@ -408,8 +408,8 @@ let package = Package(
     platforms: [.iOS(.v15)],
     products: products,
     dependencies: [
-        dependencyGCDWebServer.package,
-        dependencySqlite.package
+        ThirdParty.GCDWebServer.package,
+        ThirdParty.sqlite.package
     ],
     targets: targets
 )
