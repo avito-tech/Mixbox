@@ -1,5 +1,9 @@
 import XCTest
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import MixboxTestsFoundationObjc
+#endif
+
 
 // TODO: Split:
 // - Parsing output of backtrace_symbols

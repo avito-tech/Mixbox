@@ -1,4 +1,7 @@
 import XCTest
+#if SWIFT_PACKAGE
+import MixboxTestsFoundationObjc
+#endif
 
 public final class AutomaticCurrentTestCaseProvider: CurrentTestCaseProvider {
     public init() {

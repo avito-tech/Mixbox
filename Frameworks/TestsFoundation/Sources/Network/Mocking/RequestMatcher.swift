@@ -1,3 +1,4 @@
+import Foundation
 import MixboxIpcCommon
 
 // TODO: It is unused. Use or delete.

@@ -1,4 +1,8 @@
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import MixboxTestsFoundationObjc
+#endif
+
 
 public final class XcodeVersionProvider {
     public static func xcodeVersion() throws -> XcodeVersion {

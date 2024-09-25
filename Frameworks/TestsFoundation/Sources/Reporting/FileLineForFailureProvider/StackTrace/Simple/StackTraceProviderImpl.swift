@@ -1,3 +1,7 @@
+#if SWIFT_PACKAGE
+import MixboxTestsFoundationObjc
+#endif
+
 // See: https://github.com/apple/swift-corelibs-foundation/blob/master/Foundation/Thread.swift
 // Note that Thread has no option to return array of both symbol (String) and address (UInt64)
 public final class StackTraceProviderImpl: StackTraceProvider {
