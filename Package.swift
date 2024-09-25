@@ -269,7 +269,7 @@ struct MixboxTestsFoundation: Spec {
         let name = "TestsFoundation"
         let mixboxName: String = "Mixbox" + name
         let mixboxNameObjc: String = mixboxName + "Objc"
-        let path = "Frameworks/TestsFoundation"
+        let path = "Frameworks/\(name)"
         let objcSources = "Sources/ObjectiveC"
         
         objcTarget = Target.target(
@@ -277,7 +277,7 @@ struct MixboxTestsFoundation: Spec {
             dependencies: [],
             path: path,
             exclude: [
-                "Sources/ObjectiveC/PrivateHeaders"
+                "\(objcSources)/PrivateHeaders"
             ],
             sources: [ objcSources ],
             publicHeadersPath: "PublicHeaders",
@@ -321,7 +321,6 @@ struct MixboxTestsFoundation: Spec {
     var products: [Product] { [product] }
 }
 
-
 let mixboxUiTestsFoundation = MixboxFramework(
     name: "UiTestsFoundation",
     dependencies: [
@@ -332,6 +331,60 @@ let mixboxUiTestsFoundation = MixboxFramework(
         mixboxIpcCommon
     ]
 )
+
+struct MixboxIoKit: Spec {
+    static let spec = MixboxIoKit()
+    
+    init() {
+        let name = "IoKit"
+        let mixboxName: String = "Mixbox" + name
+        let mixboxNameObjc: String = mixboxName + "Objc"
+        let path = "Frameworks/\(name)"
+        let objcSources = [
+            "Sources/IOKitExtensions/EnumRawValues.m",
+            "Sources/MBIohidEventSender/MBIohidEventSender.mm",
+            "Sources/SoftLinking",
+            "Sources/PrivateApi"
+        ]
+        let excludeHeaders = [
+            "Sources/MBIohidEventSender/MBIohidEventSender.h",
+            "Sources/IOKitExtensions/EnumRawValues.h",
+        ]
+        
+        let objcTarget = Target.target(
+            name: mixboxNameObjc,
+            dependencies: [],
+            path: path,
+            sources: objcSources,
+            publicHeadersPath: ".",
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings()
+        )
+        let swiftTarget = Target.target(
+            name: mixboxName,
+            dependencies: [
+                .target(name: mixboxNameObjc),
+                mixboxFoundation.dependency
+            ],
+            path: path,
+            exclude: objcSources + excludeHeaders,
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings(),
+            linkerSettings: [.linkedFramework("IOKit")]
+        )
+        targets = [objcTarget, swiftTarget]
+        dependency = Target.Dependency.target(name: mixboxName)
+        products = [ Product.library(name: mixboxName, type: .static, targets: [mixboxName, mixboxNameObjc]) ]
+    }
+    
+    let products: [Product]
+    let targets: [Target]
+    let dependency: Target.Dependency
+}
+
+// MARK: - Lists -
 
 let targetSpecs: [any Spec] = [
     mixboxFoundation,
@@ -350,7 +403,8 @@ let targetSpecs: [any Spec] = [
     mixboxBuiltinIpc,
     mixboxIpcSbtuiHost,
     mixboxUiTestsFoundation,
-    MixboxTestsFoundation.spec
+    MixboxTestsFoundation.spec,
+    MixboxIoKit.spec
 ]
 
 let targets: [Target] = targetSpecs.flatMap(\.targets)
@@ -372,7 +426,8 @@ let productSpecs: [any Spec] = [
     mixboxBuiltinIpc,
     mixboxIpcSbtuiHost,
     mixboxUiTestsFoundation,
-    MixboxTestsFoundation.spec
+    MixboxTestsFoundation.spec,
+    MixboxIoKit.spec
 ]
 
 let products: [Product] = productSpecs.flatMap(\.products)

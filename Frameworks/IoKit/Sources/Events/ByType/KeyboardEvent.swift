@@ -5,6 +5,9 @@
 #else
 
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
 
 public final class KeyboardEvent: Event {
     public let iohidEventRef: IOHIDEventRef

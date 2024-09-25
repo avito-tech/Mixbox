@@ -4,6 +4,12 @@
 // The compilation is disabled
 #else
 
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+import MixboxFoundationObjc
+import MixboxFoundation
+#endif
+
 // Types are defined as there:
 // https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-1090.220.12/tools/hidutil/HIDEvent.m.auto.html
 public protocol BaseDigitizerEvent: Event {}

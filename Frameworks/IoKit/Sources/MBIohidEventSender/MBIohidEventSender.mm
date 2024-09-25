@@ -6,9 +6,27 @@
 
 #import "MBIohidEventSender.h"
 
-#import "IOHIDEventSystemClient.h"
+#if SWIFT_PACKAGE
+#import "../SoftLinking/SoftLinking.h"
+#import "../PrivateApi/IOKit/hid/IOHIDEventSystemClient.h"
+static AbsoluteTime mixbox_absoluteTimeFromUInt32(UInt32 hi, UInt32 lo) {
+    AbsoluteTime absoluteTime;
+    absoluteTime.hi = hi;
+    absoluteTime.lo = lo;
+    return absoluteTime;
+}
+
+static AbsoluteTime mixbox_absoluteTimeFromUInt64(UInt64 time) {
+    UInt32 hi = time >> sizeof(UInt32) * CHAR_BIT;
+    UInt32 lo = time & UINT32_MAX;
+    
+    return mixbox_absoluteTimeFromUInt32(hi, lo);
+}
+#else
 #import "SoftLinking.h"
+#import "IOHIDEventSystemClient.h"
 #import <MixboxFoundation/AbsoluteTime.h>
+#endif
 
 #include <mach/mach_time.h>
 

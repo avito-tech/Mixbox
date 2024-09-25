@@ -4,6 +4,12 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
+
 public final class UiApplicationHandleIohidEventObserver: Hashable {
     public let uiApplicationHandledIohidEvent: (_ iohidEvent: IOHIDEventRef) -> ()
     private let uniqueNumberForHash: UInt32

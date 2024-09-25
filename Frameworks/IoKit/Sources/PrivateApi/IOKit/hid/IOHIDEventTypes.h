@@ -35,7 +35,11 @@
 
 __BEGIN_DECLS
 
+#if SWIFT_PACKAGE
+#include "../IOTypes.h"
+#else
 #include "IOTypes.h"
+#endif
 
 #define IOHIDEventTypeMask(type) (1<<type)
 #define IOHIDEventFieldBase(type) (type << 16)

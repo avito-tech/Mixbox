@@ -41,12 +41,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef IOKIT_HID_IOHIDEVENT_H
 #define IOKIT_HID_IOHIDEVENT_H 1
 
+#if SWIFT_PACKAGE
+#include "../IOTypes.h"
+#include "../../CoreFoundation/CFRuntime.h"
+#else
 #include "IOTypes.h"
+#include "CFRuntime.h"
+#endif
+
 #include "IOHIDEventTypes.h"
 #include "IOHIDEventData.h"
 #include "IOHIDEventField.h"
 #include <CoreFoundation/CoreFoundation.h>
-#include "CFRuntime.h"
 
 __BEGIN_DECLS
 	

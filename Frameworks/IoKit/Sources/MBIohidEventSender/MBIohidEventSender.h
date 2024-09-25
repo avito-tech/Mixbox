@@ -7,7 +7,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#if SWIFT_PACKAGE
+#include "../PrivateApi/IOKit/hid/IOHIDEvent.h"
+#else
 #include "IOHIDEvent.h"
+#endif
 
 // This class is Objective-C, because it uses Soft-Linking.
 @interface MBIohidEventSender : NSObject

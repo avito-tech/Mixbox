@@ -4,6 +4,10 @@
 // The compilation is disabled
 #else
 
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
+
 public enum EventType: Equatable {
     case null
     case vendorDefined

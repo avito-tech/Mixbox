@@ -28,7 +28,11 @@
  */
 
 #include <CoreFoundation/CFArray.h>
+#if SWIFT_PACKAGE
+#include "../IOKitLib.h"
+#else
 #include "IOKitLib.h"
+#endif
 #include "IOPMLibDefs.h"
 #include "IOPMKeys.h"
 #include <Availability.h>

@@ -4,7 +4,11 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
 
 public final class HandleHidEventSwizzlerImpl: HandleHidEventSwizzler {
     private let assertingSwizzler: AssertingSwizzler

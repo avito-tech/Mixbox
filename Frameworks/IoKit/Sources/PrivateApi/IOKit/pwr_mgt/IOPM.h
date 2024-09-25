@@ -34,9 +34,15 @@
 #ifndef _IOKIT_IOPM_H
 #define _IOKIT_IOPM_H
 
+#if SWIFT_PACKAGE
+#include "../IOTypes.h"
+#include "../IOMessage.h"
+#include "../IOReturn.h"
+#else
 #include "IOTypes.h"
 #include "IOMessage.h"
 #include "IOReturn.h"
+#endif
 
 /*! @header IOPM.h
     @abstract Defines power management constants and keys used by both in-kernel and user space power management.

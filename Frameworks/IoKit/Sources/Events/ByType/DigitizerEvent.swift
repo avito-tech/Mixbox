@@ -5,6 +5,9 @@
 #else
 
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
 
 // TODO: Make it struct & support COW via `isKnownUniquelyReferenced`
 // https://developer.apple.com/documentation/swift/2429905-isknownuniquelyreferenced

@@ -31,9 +31,13 @@
 #ifndef _IOKIT_HID_IOHIDEVENTDATA_H
 #define _IOKIT_HID_IOHIDEVENTDATA_H
 
+#if SWIFT_PACKAGE
+#include "../IOTypes.h"
+#else
 #include "IOTypes.h"
-#include "IOHIDEventTypes.h"
+#endif
 
+#include "IOHIDEventTypes.h"
 #include "IOHIDEvent.h"
 
 typedef struct IOHIDEventData IOHIDEventData;

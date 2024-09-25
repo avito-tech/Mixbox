@@ -32,7 +32,11 @@
 #define _IOKIT_HID_IOHIDUSERDEVICE_USER_H
 
 #include <CoreFoundation/CoreFoundation.h>
+#if SWIFT_PACKAGE
+#include "../IOKitLib.h"
+#else
 #include "IOKitLib.h"
+#endif
 
 __BEGIN_DECLS
 

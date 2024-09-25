@@ -5,6 +5,9 @@
 #else
 
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
 
 public protocol Event: AnyObject {
     var iohidEventRef: IOHIDEventRef { get }

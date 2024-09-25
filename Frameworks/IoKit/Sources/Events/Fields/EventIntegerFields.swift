@@ -4,6 +4,10 @@
 // The compilation is disabled
 #else
 
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
+
 public final class EventIntegerFields {
     private let iohidEventRef: IOHIDEventRef
     

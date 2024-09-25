@@ -5,6 +5,9 @@
 #else
 
 import MixboxFoundation
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
 
 public final class DigitizerFingerEvent: BaseDigitizerEvent {
     public let iohidEventRef: IOHIDEventRef
