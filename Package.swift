@@ -384,6 +384,72 @@ struct MixboxIoKit: Spec {
     let dependency: Target.Dependency
 }
 
+struct MixboxInAppServices: Spec {
+    static let spec = MixboxInAppServices()
+    
+    init() {
+        let name = "InAppServices"
+        let mixboxName: String = "Mixbox" + name
+        let mixboxNameObjc: String = mixboxName + "Objc"
+        let mixboxNameAnimationDelegate: String = mixboxName + "AnimationDelegate"
+        let path = "Frameworks/\(name)"
+        let objcSources: [String] = [
+            "Sources/Support/AccessibilityForTestAutomation/AccessibilityForTestAutomationInitializer/Implementation/ObjectiveC",
+            "Sources/Support/SimulatorStateInitializer/TIPreferencesControllerObjCWrapper"
+        ]
+        let excludeFiles: [String] = [
+            "Sources/Features/AccessibilityEnchancement/Support/VisibilityChecker/VisibilityChecker.md"
+        ]
+        let animationDelegateSources: [String] = [
+            "Sources/Features/WaitingForQuiescence/CoreAnimation/SurrogateCAAnimationDelegate/SurrogateCAAnimationDelegateObjC.m",
+            "Sources/Features/WaitingForQuiescence/CoreAnimation/SurrogateCAAnimationDelegate/SurrogateCAAnimationDelegateObjC.h"
+        ]
+        
+        let objcTarget = Target.target(
+            name: mixboxNameObjc,
+            dependencies: [],
+            path: path,
+            sources: objcSources,
+            publicHeadersPath: ".",
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings()
+        )
+        let swiftTarget = Target.target(
+            name: mixboxName,
+            dependencies: [
+                .target(name: mixboxNameObjc),
+            ],
+            path: path,
+            exclude: objcSources + excludeFiles + animationDelegateSources,
+            sources: [ "Sources" ],
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings(),
+            linkerSettings: [.linkedFramework("IOKit")]
+        )
+        let animationDelegateTarget = Target.target(
+            name: mixboxNameAnimationDelegate,
+            dependencies: [
+                .target(name: mixboxName),
+            ],
+            path: path,
+            sources: animationDelegateSources,
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings()
+        )
+        
+        targets = [objcTarget, swiftTarget, animationDelegateTarget]
+        dependency = Target.Dependency.target(name: mixboxName)
+        products = [ Product.library(name: mixboxName, type: .static, targets: [mixboxName, mixboxNameObjc, mixboxNameAnimationDelegate]) ]
+    }
+    
+    let products: [Product]
+    let targets: [Target]
+    let dependency: Target.Dependency
+}
+
 // MARK: - Lists -
 
 let targetSpecs: [any Spec] = [
@@ -404,7 +470,8 @@ let targetSpecs: [any Spec] = [
     mixboxIpcSbtuiHost,
     mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec,
-    MixboxIoKit.spec
+    MixboxIoKit.spec,
+    MixboxInAppServices.spec
 ]
 
 let targets: [Target] = targetSpecs.flatMap(\.targets)
@@ -427,7 +494,8 @@ let productSpecs: [any Spec] = [
     mixboxIpcSbtuiHost,
     mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec,
-    MixboxIoKit.spec
+    MixboxIoKit.spec,
+    MixboxInAppServices.spec
 ]
 
 let products: [Product] = productSpecs.flatMap(\.products)
