@@ -147,7 +147,7 @@ struct MixboxFramework {
     var product: Product {
         Product.library(
             name: mixboxName,
-            type: .dynamic,
+            type: .static,
             targets: targetNames
         )
     }
