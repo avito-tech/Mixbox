@@ -6,6 +6,7 @@
 
 import MixboxFoundation
 import MixboxIpc
+import Foundation
 
 public typealias AsyncFunction<Arguments, ReturnValue> = (Arguments, @escaping (ReturnValue) -> ()) -> ()
 public typealias SyncFunction<Arguments, ReturnValue> = (Arguments) -> ReturnValue

@@ -5,6 +5,7 @@
 #else
 
 import MixboxFoundation
+import Foundation
 
 // Finds services (uses Foundations's NetService type) via Bonjour.
 //

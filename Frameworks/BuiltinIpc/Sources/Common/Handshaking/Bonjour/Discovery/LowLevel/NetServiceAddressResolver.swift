@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 // Resolves address for NetService.
 //
 // For example, you acquire NetService via Bonjour, it might have port -1.

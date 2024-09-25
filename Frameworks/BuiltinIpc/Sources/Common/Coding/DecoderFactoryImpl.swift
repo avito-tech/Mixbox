@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class DecoderFactoryImpl: DecoderFactory {
     public let ipcClientHolder: IpcClientHolder
     public weak var encoderFactory: EncoderFactory?

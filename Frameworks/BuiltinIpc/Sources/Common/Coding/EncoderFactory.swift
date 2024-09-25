@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol EncoderFactory: AnyObject {
     func encoder() -> JSONEncoder
 }

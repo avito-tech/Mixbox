@@ -6,6 +6,7 @@
 
 import MixboxFoundation
 import MixboxIpc
+import Foundation
 
 public final class BuiltinIpcClient: IpcClient {
     private let port: UInt

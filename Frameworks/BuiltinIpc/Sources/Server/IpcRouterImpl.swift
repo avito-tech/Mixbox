@@ -6,6 +6,7 @@
 
 import MixboxIpc
 import GCDWebServer
+import MixboxBuiltinIpcObjc
 
 // TODO: Pass error string back to client instead of 500 status code in case of error
 public final class BuiltinIpcServer: IpcRouter {
