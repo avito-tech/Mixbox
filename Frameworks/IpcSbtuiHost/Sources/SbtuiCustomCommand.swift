@@ -7,7 +7,8 @@
 import MixboxIpc
 import MixboxFoundation
 import MixboxSBTUITestTunnelServer
-    
+import Foundation
+
 final class SbtuiCustomCommand {
     private typealias HandleFunction = (_ request: NSObject?) -> (NSObject?)
     
