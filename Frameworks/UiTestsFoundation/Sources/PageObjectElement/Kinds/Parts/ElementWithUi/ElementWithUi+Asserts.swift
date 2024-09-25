@@ -1,3 +1,5 @@
+import Foundation
+import UIKit
 import MixboxFoundation
 import MixboxTestsFoundation
 

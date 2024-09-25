@@ -1,1 +1,1 @@
-#import "CocoaImageHashing.h"
+//#import "CocoaImageHashing.h"

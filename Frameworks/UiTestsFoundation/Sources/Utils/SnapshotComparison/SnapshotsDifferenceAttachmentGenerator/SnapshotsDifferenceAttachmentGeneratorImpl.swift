@@ -1,3 +1,4 @@
+import UIKit
 import MixboxTestsFoundation
 
 public final class SnapshotsDifferenceAttachmentGeneratorImpl: SnapshotsDifferenceAttachmentGenerator {

@@ -1,3 +1,4 @@
+import Foundation
 import MixboxTestsFoundation
 
 public protocol Element: AnyObject {

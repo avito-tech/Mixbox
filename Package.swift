@@ -234,7 +234,11 @@ let dependencySqlite =  ThirdParty(
 let mixboxFoundation = MixboxFramework(name: "Foundation", language: .mixed)
 let mixboxDi = MixboxFramework(name: "Di")
 let mixboxBuiltinDi = MixboxFramework(name: "BuiltinDi", dependencies: [mixboxDi, mixboxFoundation])
-let mixboxCocoaImageHashing = MixboxFramework(name: "CocoaImageHashing")
+let mixboxCocoaImageHashing = MixboxFramework(
+    name: "CocoaImageHashing",
+    language: .objc,
+    exclude: ["Sources/include/module.modulemap"]
+)
 let mixboxAnyCodable = MixboxFramework(name: "AnyCodable")
 let mixboxGenerators = MixboxFramework(name: "Generators", dependencies: [mixboxDi])
 
@@ -317,6 +321,18 @@ struct MixboxTestsFoundation: Spec {
     var products: [Product] { [product] }
 }
 
+
+let mixboxUiTestsFoundation = MixboxFramework(
+    name: "UiTestsFoundation",
+    dependencies: [
+        MixboxTestsFoundation.spec,
+        mixboxUiKit,
+        mixboxAnyCodable,
+        mixboxCocoaImageHashing,
+        mixboxIpcCommon
+    ]
+)
+
 let targetSpecs: [any Spec] = [
     mixboxFoundation,
     mixboxDi,
@@ -333,6 +349,7 @@ let targetSpecs: [any Spec] = [
     mixboxReflection,
     mixboxBuiltinIpc,
     mixboxIpcSbtuiHost,
+    mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec
 ]
 
@@ -354,6 +371,7 @@ let productSpecs: [any Spec] = [
     mixboxReflection,
     mixboxBuiltinIpc,
     mixboxIpcSbtuiHost,
+    mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec
 ]
 

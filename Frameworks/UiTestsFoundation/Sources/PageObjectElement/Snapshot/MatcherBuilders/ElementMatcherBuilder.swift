@@ -1,3 +1,4 @@
+import UIKit
 import MixboxTestsFoundation
 
 // Helper for building ElementMatcher

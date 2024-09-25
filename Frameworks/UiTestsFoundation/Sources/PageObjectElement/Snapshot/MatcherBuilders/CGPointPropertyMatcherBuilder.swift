@@ -1,3 +1,4 @@
+import Foundation
 import MixboxTestsFoundation
 
 public final class CGPointPropertyMatcherBuilder<TargetMatcherArgumentT>: PropertyMatcherBuilder<TargetMatcherArgumentT, CGPoint> {

@@ -1,3 +1,4 @@
+import Foundation
 import MixboxTestsFoundation
 
 // Not only inverts `isNotDisplayed` check. Also waits element to disappear.
