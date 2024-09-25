@@ -331,6 +331,11 @@ let mixboxUiTestsFoundation = MixboxFramework(
         mixboxIpcCommon
     ]
 )
+let mixboxIpcSbtuiClient = MixboxFramework(
+    name: "IpcSbtuiClient",
+    language: .swift,
+    dependencies: [mixboxIpc, mixboxSBTUITestTunnelClient, MixboxTestsFoundation.spec, mixboxUiTestsFoundation]
+)
 
 struct MixboxIoKit: Spec {
     static let spec = MixboxIoKit()
@@ -404,7 +409,8 @@ let targetSpecs: [any Spec] = [
     mixboxIpcSbtuiHost,
     mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec,
-    MixboxIoKit.spec
+    MixboxIoKit.spec,
+    mixboxIpcSbtuiClient
 ]
 
 let targets: [Target] = targetSpecs.flatMap(\.targets)
@@ -427,7 +433,8 @@ let productSpecs: [any Spec] = [
     mixboxIpcSbtuiHost,
     mixboxUiTestsFoundation,
     MixboxTestsFoundation.spec,
-    MixboxIoKit.spec
+    MixboxIoKit.spec,
+    mixboxIpcSbtuiClient
 ]
 
 let products: [Product] = productSpecs.flatMap(\.products)
