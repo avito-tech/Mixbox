@@ -195,6 +195,11 @@ let dependencyGCDWebServer: Package.Dependency = .package(
     .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
 )
 
+let dependencySqlite: Package.Dependency = .package(
+    url: "https://github.com/stephencelis/SQLite.swift.git",
+    from: "0.12.0"
+)
+
 //        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
 //        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
 //        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("0564feccdc8fade6c68376bdf7f8dab9b79863fe")),
