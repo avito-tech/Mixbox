@@ -39,24 +39,22 @@ struct MixboxFramework {
         case swift, objc, mixed
     }
     
-    /// convenience init
-    init(name: String, language: Language = .swift, dependencies: [MixboxFramework], customDependencies: [String] = []) {
-        self.init(
-            name: name,
-            language: language,
-            dependencies: dependencies.map(\.dependency) + customDependencies
-        )
-    }
-    
-    init(name: String, language: Language = .swift, dependencies: [String] = []) {
+    init(name: String,
+         language: Language = .swift,
+         dependencies frameworks: [MixboxFramework] = [],
+         customDependencies: [Target.Dependency] = []
+    ) {
+        let frameworkDependencies = frameworks
+            .map(\.dependency)
+            .map(Target.Dependency.init(stringLiteral:))
         self.name = name
         self.language = language
-        self.dependencies = dependencies
+        self.dependencies = customDependencies + frameworkDependencies
     }
     
     let name: String
     let language: Language
-    let dependencies: [String]
+    let dependencies: [Target.Dependency]
     
     var mixboxName: String { "Mixbox" + name }
     var mixboxNameObjc: String {
@@ -87,16 +85,14 @@ struct MixboxFramework {
     }
     
     var targets: [Target] {
-        let commonDependencies: [Target.Dependency] = dependencies.map(Target.Dependency.init(stringLiteral:))
-        
         let swiftDependencies: [Target.Dependency] = if language == .mixed {
-            commonDependencies + [
+            dependencies + [
                 Target.Dependency(stringLiteral: mixboxNameObjc)
             ]
         } else {
-            commonDependencies
+            dependencies
         }
-        let objcDependencies: [Target.Dependency] = commonDependencies
+        let objcDependencies: [Target.Dependency] = dependencies
         
         let objcPath = language == .mixed
             ? "Frameworks/\(name)/Sources/ObjectiveC"
@@ -187,17 +183,28 @@ struct MixboxFramework {
     }
 }
 
-// MARK: - Dependencies -
+// MARK: - ThirdParty -
 
-let dependencyGCDWebServer: Package.Dependency = .package(
-    name: "GCDWebServer",
-    url: "https://github.com/SlaunchaMan/GCDWebServer.git",
-    .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
+struct ThirdParty {
+    let package: Package.Dependency
+    let target: Target.Dependency
+}
+
+let dependencyGCDWebServer = ThirdParty(
+    package: .package(
+        name: "GCDWebServer",
+        url: "https://github.com/SlaunchaMan/GCDWebServer.git",
+        .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
+    ),
+    target: "GCDWebServer"
 )
 
-let dependencySqlite: Package.Dependency = .package(
-    url: "https://github.com/stephencelis/SQLite.swift.git",
-    from: "0.12.0"
+let dependencySqlite =  ThirdParty(
+    package: .package(
+        url: "https://github.com/stephencelis/SQLite.swift.git",
+        from: "0.15.0"
+    ),
+    target: .product(name: "SQLite", package: "SQLite.swift")
 )
 
 //        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
@@ -206,7 +213,6 @@ let dependencySqlite: Package.Dependency = .package(
 
 
 // MARK: - Frameworks -
-
 
 let mixboxFoundation = MixboxFramework(name: "Foundation", language: .mixed)
 let mixboxDi = MixboxFramework(name: "Di")
@@ -220,7 +226,7 @@ let mixboxSBTUITestTunnelServer = MixboxFramework(
     name: "SBTUITestTunnelServer",
     language: .objc, 
     dependencies: [mixboxSBTUITestTunnelCommon],
-    customDependencies: [dependencyGCDWebServer.name!]    
+    customDependencies: [dependencyGCDWebServer.target]
 )
 let mixboxSBTUITestTunnelClient = MixboxFramework(
     name: "SBTUITestTunnelClient",
@@ -228,6 +234,14 @@ let mixboxSBTUITestTunnelClient = MixboxFramework(
     dependencies: [mixboxSBTUITestTunnelCommon]
 )
 let mixboxUiKit = MixboxFramework(name: "UiKit", dependencies: [mixboxFoundation, mixboxSBTUITestTunnelServer])
+
+let mixboxTestsFoundation = MixboxFramework(
+    name: "TestsFoundation",
+    language: .mixed,
+    dependencies: [],
+    customDependencies: [dependencySqlite.target]
+)
+
 let mixboxIpc = MixboxFramework(name: "Ipc", dependencies: [mixboxFoundation])
 let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIpc, mixboxAnyCodable])
 let mixboxReflection = MixboxFramework(name: "Reflection")
@@ -243,6 +257,7 @@ let targets = [
     mixboxSBTUITestTunnelServer,
     mixboxSBTUITestTunnelClient,
     mixboxUiKit,
+    mixboxTestsFoundation,
     mixboxIpc,
     mixboxIpcCommon,
     mixboxReflection
@@ -259,6 +274,7 @@ let products = [
     mixboxSBTUITestTunnelServer,
     mixboxSBTUITestTunnelClient,
     mixboxUiKit,
+    mixboxTestsFoundation,
     mixboxIpc,
     mixboxIpcCommon,
     mixboxReflection
@@ -293,7 +309,8 @@ let package = Package(
     platforms: [.iOS(.v15)],
     products: products,
     dependencies: [
-        dependencyGCDWebServer,
+        dependencyGCDWebServer.package,
+        dependencySqlite.package
     ],
     targets: targets
 )
