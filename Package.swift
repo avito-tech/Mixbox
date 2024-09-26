@@ -261,7 +261,14 @@ let mixboxIpcCommon = MixboxFramework(name: "IpcCommon", dependencies: [mixboxIp
 let mixboxBuiltinIpc = MixboxFramework(name: "BuiltinIpc", language: .mixed, dependencies: [mixboxFoundation, mixboxIpc], customDependencies: [ThirdParty.GCDWebServer.target])
 let mixboxIpcSbtuiHost = MixboxFramework(name: "IpcSbtuiHost", language: .swift, dependencies: [mixboxIpc, mixboxSBTUITestTunnelServer])
 let mixboxReflection = MixboxFramework(name: "Reflection")
-let mixboxFakeSettingsAppMain = MixboxFramework(name: "FakeSettingsAppMain", language: .objc)
+let mixboxFakeSettingsAppMain = MixboxFramework(
+    name: "FakeSettingsAppMain",
+    language: .objc,
+    exclude: [
+        "Sources/Docs/Images",
+        "Sources/Example/Entitlements.entitlements"
+    ]
+)
 
 struct MixboxTestsFoundation: Spec {
     static let spec = MixboxTestsFoundation()
