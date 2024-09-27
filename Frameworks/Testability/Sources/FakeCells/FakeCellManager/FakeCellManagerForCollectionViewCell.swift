@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public protocol FakeCellManagerForCollectionViewCell: AnyObject {
     func isFakeCell(forCell: UICollectionViewCell) -> Bool
     func startCollectionViewUpdates(forCollectionView: UICollectionView) -> MixboxCollectionViewUpdatesActivity

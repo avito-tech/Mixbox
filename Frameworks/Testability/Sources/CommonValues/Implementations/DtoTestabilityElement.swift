@@ -5,6 +5,9 @@
 #else
 
 import UIKit
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 
 // "Data Transfer Object", a variation of `TestabilityElement` that can
 // be created from fields and doesn't have any behavior.

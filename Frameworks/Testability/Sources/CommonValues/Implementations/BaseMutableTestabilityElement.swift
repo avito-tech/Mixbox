@@ -5,6 +5,10 @@
 #else
 
 import UIKit
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
 
 // Same as `BaseTestabilityElement`, but it also allows to mutate properties to
 // inject return values of functions of `TestabilityElement`.

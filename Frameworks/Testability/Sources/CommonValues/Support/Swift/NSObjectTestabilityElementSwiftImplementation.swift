@@ -7,6 +7,11 @@
 import UIKit
 import CommonCrypto
 
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
+
 // For use in NSObject+TestabilityElement.m
 //
 // This class allows to use Swift implementation in Objective-C code.
@@ -59,17 +64,18 @@ public final class NSObjectTestabilityElementSwiftImplementation: NSObject {
     }
     
     @objc override public func mb_testability_elementType() -> TestabilityElementType {
-        if responds(to: #selector(_accessibilityAutomationType)) {
-            let accessibilityAutomationType = _accessibilityAutomationType()
-            
-            if accessibilityAutomationType.rawValue == 0 {
-                return .other
-            } else {
-                return accessibilityAutomationType
-            }
-        } else {
-            return .other
-        }
+        return DefaultTestabilityElementValues.elementType
+//        if responds(to: #selector(_accessibilityAutomationType)) {
+//            let accessibilityAutomationType = _accessibilityAutomationType()
+//            
+//            if accessibilityAutomationType.rawValue == 0 {
+//                return .other
+//            } else {
+//                return accessibilityAutomationType
+//            }
+//        } else {
+//            return .other
+//        }
     }
     
     @objc override public func mb_testability_frame() -> CGRect {

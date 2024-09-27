@@ -6,6 +6,10 @@
 
 import UIKit
 
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
 extension UIAccessibilityElement {
     @objc override open func mb_testability_parent() -> TestabilityElement? {
         return accessibilityContainer.map {

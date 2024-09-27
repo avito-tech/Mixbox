@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public protocol FakeCellManagerForCollectionView: AnyObject {
     func createFakeCellInside(closure: () -> (UICollectionViewCell)) -> UICollectionViewCell
 }

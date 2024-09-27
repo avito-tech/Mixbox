@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public final class DisabledFakeCellManager: FakeCellManager {
     public func createFakeCellInside(closure: () -> (UICollectionViewCell)) -> UICollectionViewCell {
         return closure()

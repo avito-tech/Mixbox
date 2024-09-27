@@ -5,6 +5,7 @@
 #else
 
 import CommonCrypto
+import Foundation
 
 public final class NonTestabilityElementFallbackTestabilityElement: BaseTestabilityElement {
     private let anyElement: Any

@@ -6,6 +6,10 @@
 
 import UIKit
 
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
 // Default return values for `TestabilityElement`, can be used in various implementations.
 public final class DefaultTestabilityElementValues {
     public static var accessibilityIdentifier: String? { nil }

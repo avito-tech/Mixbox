@@ -5,6 +5,9 @@
 #else
 
 import UIKit
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 
 // TODO: find a method that returns the type for XCUI and use it.
 

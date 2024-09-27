@@ -5,6 +5,9 @@
 #elseif MIXBOX_DISABLE_FRAMEWORK_TESTABILITY || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_TESTABILITY)
 // The compilation is disabled
 #else
+
+import Foundation
+
 // Silly utility.
 // Converts anything to string and back.
 // Note that serialization method is not specified. The only thing

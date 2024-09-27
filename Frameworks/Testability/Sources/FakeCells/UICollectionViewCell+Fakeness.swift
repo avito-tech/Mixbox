@@ -4,6 +4,12 @@
 // The compilation is disabled
 #else
 
+import UIKit
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
+
 extension UICollectionViewCell {
     // Note: getting value for a real cell can cause resetting property (to nil).
     // This is due to a decision that observing fakeness will cost us more than resetting properties while getting them.

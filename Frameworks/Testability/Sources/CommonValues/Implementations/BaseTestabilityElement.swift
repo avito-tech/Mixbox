@@ -5,6 +5,10 @@
 #else
 
 import UIKit
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
 
 // For subclassing in Swift code. This class takes care of:
 // - Defining all function (with default return values).

@@ -5,6 +5,10 @@
 #else
 
 import UIKit
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
 
 extension UIView {
     @objc override open func mb_testability_parent() -> TestabilityElement? {

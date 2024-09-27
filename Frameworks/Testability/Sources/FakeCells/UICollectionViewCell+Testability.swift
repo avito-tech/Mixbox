@@ -6,6 +6,12 @@ import Foundation
 // The compilation is disabled
 #else
 
+import UIKit
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
+
 // Extension that allows you to tune Fake Cells for your specific implementation of collection view.
 //
 // How-to:

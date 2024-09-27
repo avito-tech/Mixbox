@@ -5,6 +5,10 @@
 #else
 
 import Foundation
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
+
 
 public final class TestabilityElementFromAnyConverter {
     private init() {

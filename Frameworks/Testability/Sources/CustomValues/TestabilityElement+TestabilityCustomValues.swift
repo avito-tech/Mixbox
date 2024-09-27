@@ -11,6 +11,9 @@ extension NSObject {
 #else
 
 import Foundation
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 
 private var testability_customValues_associatedObjectKey = 0
 

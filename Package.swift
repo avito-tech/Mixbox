@@ -397,6 +397,12 @@ struct MixboxIoKit: Spec {
     let dependency: Target.Dependency
 }
 
+let mixboxTestability = MixboxFramework(
+    name: "Testability",
+    language: .mixed,
+    dependencies: [mixboxFoundation, mixboxUiKit]
+)
+
 // MARK: - Lists -
 
 let targetSpecs: [any Spec] = [
@@ -419,6 +425,7 @@ let targetSpecs: [any Spec] = [
     MixboxTestsFoundation.spec,
     MixboxIoKit.spec,
     mixboxIpcSbtuiClient,
+    mixboxTestability,
     mixboxFakeSettingsAppMain
 ]
 
@@ -444,6 +451,7 @@ let productSpecs: [any Spec] = [
     MixboxTestsFoundation.spec,
     MixboxIoKit.spec,
     mixboxIpcSbtuiClient,
+    mixboxTestability,
     mixboxFakeSettingsAppMain
 ]
 
