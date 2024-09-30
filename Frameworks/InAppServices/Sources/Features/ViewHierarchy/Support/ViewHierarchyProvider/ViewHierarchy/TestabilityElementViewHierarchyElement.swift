@@ -60,9 +60,17 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     
     public var accessibilityLabel: String? {
         // TODO: Avoid using swizzled implementation and return originalAccessibilityLabel directly from view.
-        EnhancedAccessibilityLabel.originalAccessibilityLabel(
+        guard let originalLabel = EnhancedAccessibilityLabel.originalAccessibilityLabel(
             accessibilityLabel: testabilityElement.mb_testability_accessibilityLabel()
-        )
+        ) else {
+            return nil
+        }
+
+        return if testabilityElement.isBarItemHost {
+            originalLabel + "_container"
+        } else {
+            originalLabel
+        }
     }
     
     public var accessibilityValue: String? {
@@ -133,15 +141,23 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
 
 extension TestabilityElement {
     fileprivate var shouldUseAccessibility: Bool {
-        (self as? UIView)?.isHostingView ?? false
-    }
-}
+        guard let view = self as? UIView else {
+            return false
+        }
 
-extension UIView {
+        return view.isHostingView || view.isBarItemHost
+    }
+
     fileprivate var isHostingView: Bool {
-        // _UIHostingView is generic over its body so full class name can look like this: _UIHostingView<MyView>.
-        // That's why we have to use starts(with:).
-        String(describing: type(of: self)).starts(with: "_UIHostingView")
+        typeHasPrefix("_UIHostingView")
+    }
+
+    fileprivate var isBarItemHost: Bool {
+        typeHasPrefix("UIKitBarItemHost")
+    }
+
+    private func typeHasPrefix(_ prefix: String) -> Bool {
+        String(describing: type(of: self)).starts(with: prefix)
     }
 }
 

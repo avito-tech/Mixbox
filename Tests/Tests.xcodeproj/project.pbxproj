@@ -93,6 +93,8 @@
 		2E4439492BD6A328006B4849 /* SwiftUIListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */; };
 		2E44394B2BD6A7A3006B4849 /* SwiftUICustomValuesTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44394A2BD6A7A3006B4849 /* SwiftUICustomValuesTestsView.swift */; };
 		2E44394F2BD6A9DA006B4849 /* SwiftUICustomValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44394C2BD6A9D2006B4849 /* SwiftUICustomValuesTests.swift */; };
+		2EFA9A5F2CAAAA19002C191B /* SwiftUINavigationBarItemTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA9A5E2CAAAA19002C191B /* SwiftUINavigationBarItemTestsView.swift */; };
+		2EFA9A622CAAAB93002C191B /* SwiftUINavigationBarItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFA9A602CAAAB8A002C191B /* SwiftUINavigationBarItemTests.swift */; };
 		46CD4B6904207EBCC3D1EEA9 /* Pods_BlackBoxUiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA113B03E72C6127A89FDC9B /* Pods_BlackBoxUiTests.framework */; };
 		598DEE17E1D63A4642B70C84 /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC8D662849A19333D57F8B09 /* Pods_UnitTests.framework */; };
 		59A93B39599EA114CB701795 /* Pods_TestedApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E12B265F8D0DEEEC4E9C59 /* Pods_TestedApp.framework */; };
@@ -1019,6 +1021,8 @@
 		2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIListTests.swift; sourceTree = "<group>"; };
 		2E44394A2BD6A7A3006B4849 /* SwiftUICustomValuesTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICustomValuesTestsView.swift; sourceTree = "<group>"; };
 		2E44394C2BD6A9D2006B4849 /* SwiftUICustomValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICustomValuesTests.swift; sourceTree = "<group>"; };
+		2EFA9A5E2CAAAA19002C191B /* SwiftUINavigationBarItemTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUINavigationBarItemTestsView.swift; sourceTree = "<group>"; };
+		2EFA9A602CAAAB8A002C191B /* SwiftUINavigationBarItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUINavigationBarItemTests.swift; sourceTree = "<group>"; };
 		35A68FF0C2C0AE41F478867E /* Pods_MocksGenerator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MocksGenerator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48B908E1BA16A691135DC20B /* Pods-MocksGeneratorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MocksGeneratorTests.release.xcconfig"; path = "Target Support Files/Pods-MocksGeneratorTests/Pods-MocksGeneratorTests.release.xcconfig"; sourceTree = "<group>"; };
 		4C4D6D4D32D77EB0E8DEF3CA /* Pods-TestedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestedApp.release.xcconfig"; path = "Target Support Files/Pods-TestedApp/Pods-TestedApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -1762,6 +1766,7 @@
 				1FFFAF142BD012C8004F39D4 /* UIHostingView.swift */,
 				2E4439432BD6A2CA006B4849 /* SwiftUIListTestsView.swift */,
 				2E44394A2BD6A7A3006B4849 /* SwiftUICustomValuesTestsView.swift */,
+				2EFA9A5E2CAAAA19002C191B /* SwiftUINavigationBarItemTestsView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -1771,6 +1776,7 @@
 			children = (
 				2E4439462BD6A31D006B4849 /* SwiftUIListTests.swift */,
 				2E44394C2BD6A9D2006B4849 /* SwiftUICustomValuesTests.swift */,
+				2EFA9A602CAAAB8A002C191B /* SwiftUINavigationBarItemTests.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -5637,6 +5643,7 @@
 				F8B34145224E662D00AA1EB9 /* MicrophonePermissionInfo.swift in Sources */,
 				F88ADF63223AA4330024CCBE /* ActionTestsViewViewRegistrar.swift in Sources */,
 				F8B0A271220A12C00089C1EE /* ApplicationNameProvider.swift in Sources */,
+				2EFA9A5F2CAAAA19002C191B /* SwiftUINavigationBarItemTestsView.swift in Sources */,
 				F8274A462142DBE000A72C41 /* AssertingCustomValuesTestsView.swift in Sources */,
 				F8EBBCBB213AB83F00D320A4 /* HierarchySourcesTestsView.swift in Sources */,
 				F8676EDA21552D68007DDB7C /* CallbackToAppIpcMethodHandler.swift in Sources */,
@@ -6349,6 +6356,7 @@
 				F826711B22E7622E00B0B02A /* LegacyNetworkStubbingTests.swift in Sources */,
 				1F2AA7C42A55D28700CF8779 /* TestType.swift in Sources */,
 				F8C8ED212298505D0009B9A7 /* ApplicationPermissionSpecification.swift in Sources */,
+				2EFA9A622CAAAB93002C191B /* SwiftUINavigationBarItemTests.swift in Sources */,
 				F8D8556E235E5C150068047A /* PredefinedObjcMethodsTests.swift in Sources */,
 				F86E60FF229C2D7E00C227CE /* ApplicationNameProvider.swift in Sources */,
 				F879831922492BD0004DD770 /* TestCanNotBeContinuedException.swift in Sources */,
