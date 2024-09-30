@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 
 // swiftlint:disable all
 
@@ -224,6 +224,19 @@ struct ThirdParty {
     )
 }
 
+struct SourceryPackage {
+    let package: Package.Dependency = .package(
+        name: "Sourcery",
+        url: "https://github.com/krzysztofzablocki/Sourcery.git",
+        from: "2.2.5"
+    )
+    let framework: Target.Dependency = .product(name: "SourceryFramework", package: "Sourcery")
+    let runtime: Target.Dependency = .product(name: "SourceryRuntime", package: "Sourcery")
+
+    static let sourcery = SourceryPackage()
+    
+}
+
 //        .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.1")),
 //        .package(url: "https://github.com/kylef/PathKit.git", .branch("master")),
 //        .package(url: "https://github.com/avito-tech/Sourcery.git", .revision("0564feccdc8fade6c68376bdf7f8dab9b79863fe")),
@@ -268,6 +281,12 @@ let mixboxFakeSettingsAppMain = MixboxFramework(
         "Sources/Docs/Images",
         "Sources/Example/Entitlements.entitlements"
     ]
+)
+let mixboxMocksGeneration = MixboxFramework(
+    name: "MocksGeneration",
+    language: .swift,
+    dependencies: [],
+    customDependencies: [SourceryPackage.sourcery.runtime, SourceryPackage.sourcery.framework]
 )
 
 struct MixboxTestsFoundation: Spec {
@@ -406,53 +425,53 @@ let mixboxTestability = MixboxFramework(
 // MARK: - Lists -
 
 let targetSpecs: [any Spec] = [
-    mixboxFoundation,
-    mixboxDi,
-    mixboxBuiltinDi,
-    mixboxCocoaImageHashing,
-    mixboxAnyCodable,
-    mixboxGenerators,
-    mixboxSBTUITestTunnelCommon,
-    mixboxSBTUITestTunnelServer,
-    mixboxSBTUITestTunnelClient,
-    mixboxUiKit,
-    mixboxIpc,
-    mixboxIpcCommon,
-    mixboxReflection,
-    mixboxBuiltinIpc,
-    mixboxIpcSbtuiHost,
-    mixboxUiTestsFoundation,
-    MixboxTestsFoundation.spec,
-    MixboxIoKit.spec,
-    mixboxIpcSbtuiClient,
-    mixboxTestability,
-    mixboxFakeSettingsAppMain
+//    mixboxFoundation,
+//    mixboxDi,
+//    mixboxBuiltinDi,
+//    mixboxCocoaImageHashing,
+//    mixboxAnyCodable,
+//    mixboxGenerators,
+//    mixboxSBTUITestTunnelCommon,
+//    mixboxSBTUITestTunnelServer,
+//    mixboxSBTUITestTunnelClient,
+//    mixboxUiKit,
+//    mixboxIpc,
+//    mixboxIpcCommon,
+//    mixboxReflection,
+//    mixboxBuiltinIpc,
+//    mixboxIpcSbtuiHost,
+//    mixboxUiTestsFoundation,
+//    MixboxTestsFoundation.spec,
+//    MixboxIoKit.spec,
+//    mixboxIpcSbtuiClient,
+//    mixboxFakeSettingsAppMain,
+    mixboxMocksGeneration
 ]
 
 let targets: [Target] = targetSpecs.flatMap(\.targets)
 
 let productSpecs: [any Spec] = [
-    mixboxFoundation,
-    mixboxDi,
-    mixboxBuiltinDi,
-    mixboxCocoaImageHashing,
-    mixboxAnyCodable,
-    mixboxGenerators,
-    mixboxSBTUITestTunnelCommon,
-    mixboxSBTUITestTunnelServer,
-    mixboxSBTUITestTunnelClient,
-    mixboxUiKit,
-    mixboxIpc,
-    mixboxIpcCommon,
-    mixboxReflection,
-    mixboxBuiltinIpc,
-    mixboxIpcSbtuiHost,
-    mixboxUiTestsFoundation,
-    MixboxTestsFoundation.spec,
-    MixboxIoKit.spec,
-    mixboxIpcSbtuiClient,
-    mixboxTestability,
-    mixboxFakeSettingsAppMain
+//    mixboxFoundation,
+//    mixboxDi,
+//    mixboxBuiltinDi,
+//    mixboxCocoaImageHashing,
+//    mixboxAnyCodable,
+//    mixboxGenerators,
+//    mixboxSBTUITestTunnelCommon,
+//    mixboxSBTUITestTunnelServer,
+//    mixboxSBTUITestTunnelClient,
+//    mixboxUiKit,
+//    mixboxIpc,
+//    mixboxIpcCommon,
+//    mixboxReflection,
+//    mixboxBuiltinIpc,
+//    mixboxIpcSbtuiHost,
+//    mixboxUiTestsFoundation,
+//    MixboxTestsFoundation.spec,
+//    MixboxIoKit.spec,
+//    mixboxIpcSbtuiClient,
+//    mixboxFakeSettingsAppMain,
+    mixboxMocksGeneration
 ]
 
 let products: [Product] = productSpecs.flatMap(\.products)
@@ -485,11 +504,12 @@ let commoTargets: [Target] = [
 
 let package = Package(
     name: "Mixbox",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v15), .macOS(.v13)],
     products: products,
     dependencies: [
         ThirdParty.GCDWebServer.package,
-        ThirdParty.sqlite.package
+        ThirdParty.sqlite.package,
+        SourceryPackage.sourcery.package
     ],
     targets: targets
 )
