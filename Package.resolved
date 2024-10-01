@@ -1,25 +1,139 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "GCDWebServer",
-        "repositoryURL": "https://github.com/SlaunchaMan/GCDWebServer.git",
-        "state": {
-          "branch": null,
-          "revision": "5cc010813d797c3f40557c740a4f620bf84da4dd",
-          "version": null
-        }
-      },
-      {
-        "package": "SQLite.swift",
-        "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "a95fc6df17d108bd99210db5e8a9bac90fe984b8",
-          "version": "0.15.3"
-        }
+  "pins" : [
+    {
+      "identity" : "aexml",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tadija/AEXML.git",
+      "state" : {
+        "revision" : "38f7d00b23ecd891e1ee656fa6aeebd6ba04ecc3",
+        "version" : "4.6.1"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "commandant",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Carthage/Commandant.git",
+      "state" : {
+        "revision" : "a1671cf728db837cf5ec1980a80d276bbba748f6",
+        "version" : "0.18.0"
+      }
+    },
+    {
+      "identity" : "commander",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kylef/Commander.git",
+      "state" : {
+        "revision" : "26a7eeb8bea1a9125e927c665902f54b2c952c7f",
+        "version" : "0.7.1"
+      }
+    },
+    {
+      "identity" : "gcdwebserver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SlaunchaMan/GCDWebServer.git",
+      "state" : {
+        "revision" : "5cc010813d797c3f40557c740a4f620bf84da4dd"
+      }
+    },
+    {
+      "identity" : "pathkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kylef/PathKit.git",
+      "state" : {
+        "revision" : "e2f5be30e4c8f531c9c1e8765aa7b71c0a45d7a0",
+        "version" : "0.9.2"
+      }
+    },
+    {
+      "identity" : "shellout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JohnSundell/ShellOut.git",
+      "state" : {
+        "revision" : "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
+        "version" : "2.3.0"
+      }
+    },
+    {
+      "identity" : "sourcekitten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/SourceKitten.git",
+      "state" : {
+        "revision" : "4870ca3e99887a7cd05dd3ba0ac9c5831922e1f3",
+        "version" : "0.23.1"
+      }
+    },
+    {
+      "identity" : "sourcery",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzysztofzablocki/Sourcery.git",
+      "state" : {
+        "revision" : "0c6dc860b1e7afc2e025cb63f66ab5dfd69bb743",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "spectre",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kylef/Spectre.git",
+      "state" : {
+        "revision" : "f79d4ecbf8bc4e1579fbd86c3e1d652fb6876c53",
+        "version" : "0.9.2"
+      }
+    },
+    {
+      "identity" : "sqlite.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stephencelis/SQLite.swift.git",
+      "state" : {
+        "revision" : "a95fc6df17d108bd99210db5e8a9bac90fe984b8",
+        "version" : "0.15.3"
+      }
+    },
+    {
+      "identity" : "stencil",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stencilproject/Stencil.git",
+      "state" : {
+        "revision" : "0e9a78d6584e3812cd9c09494d5c7b483e8f533c",
+        "version" : "0.13.1"
+      }
+    },
+    {
+      "identity" : "stencilswiftkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftGen/StencilSwiftKit.git",
+      "state" : {
+        "revision" : "cf0f76b3911d4aee0f2496570461095d18d9d784",
+        "version" : "2.7.0"
+      }
+    },
+    {
+      "identity" : "swxmlhash",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/drmohundro/SWXMLHash.git",
+      "state" : {
+        "revision" : "f43166a8e18fdd0857f29e303b1bb79a5428bca0",
+        "version" : "4.9.0"
+      }
+    },
+    {
+      "identity" : "xcodeproj",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tuist/XcodeProj.git",
+      "state" : {
+        "revision" : "5253c22f208558264e3a64a3a29f11537ca1b41a",
+        "version" : "4.3.1"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams.git",
+      "state" : {
+        "revision" : "c947a306d2e80ecb2c0859047b35c73b8e1ca27f",
+        "version" : "2.0.0"
+      }
+    }
+  ],
+  "version" : 2
 }
