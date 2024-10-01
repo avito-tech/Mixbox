@@ -423,6 +423,16 @@ let mixboxTestability = MixboxFramework(
     dependencies: [mixboxFoundation, mixboxUiKit]
 )
 
+let mixboxStubbing = MixboxFramework(
+    name: "Stubbing",
+    language: .swift,
+    dependencies: [
+        MixboxTestsFoundation.spec,
+        mixboxGenerators
+    ]
+)
+
+
 // MARK: - Lists -
 
 let targetSpecs: [any Spec] = [
@@ -447,7 +457,8 @@ let targetSpecs: [any Spec] = [
     mixboxIpcSbtuiClient,
     mixboxTestability,
     mixboxFakeSettingsAppMain,
-    mixboxMocksGeneration
+    mixboxMocksGeneration,
+    mixboxStubbing
 ]
 
 let targets: [Target] = targetSpecs.flatMap(\.targets)
@@ -474,7 +485,8 @@ let productSpecs: [any Spec] = [
     mixboxIpcSbtuiClient,
     mixboxTestability,
     mixboxFakeSettingsAppMain,
-    mixboxMocksGeneration
+    mixboxMocksGeneration,
+    mixboxStubbing
 ]
 
 let products: [Product] = productSpecs.flatMap(\.products)
