@@ -78,19 +78,19 @@ class BaseSpec: Spec {
     
     func cSettings() -> [CSetting] {
         return defaultCSettings() + [
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
+            .define(frameworkEnableDefine, .when(configuration: .debug))
         ]
     }
 
     func cxxSettings() -> [CXXSetting] {
         return defaultCXXSettings() + [
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
+            .define(frameworkEnableDefine, .when(configuration: .debug))
         ]
     }
 
     func swiftSettings() -> [SwiftSetting] {
         return defaultSwiftSettings() + [
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
+            .define(frameworkEnableDefine, .when(configuration: .debug))
         ]
     }
     
@@ -247,9 +247,8 @@ struct ThirdParty {
     
     static let GCDWebServer = ThirdParty(
         package: .package(
-            name: "GCDWebServer",
             url: "https://github.com/SlaunchaMan/GCDWebServer.git",
-            .revision("5cc010813d797c3f40557c740a4f620bf84da4dd")
+            revision: "5cc010813d797c3f40557c740a4f620bf84da4dd"
         ),
         target: "GCDWebServer"
     )
@@ -265,7 +264,6 @@ struct ThirdParty {
 
 struct SourceryPackage {
     let package: Package.Dependency = .package(
-        name: "Sourcery",
         url: "https://github.com/krzysztofzablocki/Sourcery.git",
         from: "1.0.0"
     )
