@@ -45,47 +45,27 @@ protocol Spec {
     
 }
 
-struct MixboxFramework: Spec {
-    enum Language {
-        case swift, objc, mixed
-    }
-    
-    init(name: String,
-         language: Language = .swift,
-         dependencies frameworks: [any Spec] = [],
-         customDependencies: [Target.Dependency] = [],
-         exclude: [String] = []
+class BaseSpec: Spec {
+    init(
+        name: String,
+        dependencies frameworks: [any Spec] = [],
+        customDependencies: [Target.Dependency] = []
     ) {
         self.name = name
-        self.language = language
         self.dependencies = customDependencies + frameworks.map(\.dependency)
-        self.excludePaths = exclude
     }
     
     let name: String
-    let language: Language
     let dependencies: [Target.Dependency]
-    let excludePaths: [String]
     
+    var products: [Product] { [] }
+    var targets: [ Target] { [] }
+    var dependency: Target.Dependency { Target.Dependency.target(name: mixboxName) }
+    
+    var frameworkPath: String { "Frameworks/\(name)" }
+    var objcSourcesFolder: String { "Sources/ObjectiveC" }
     var mixboxName: String { "Mixbox" + name }
-    var mixboxNameObjc: String {
-        switch language {
-        case .swift, .objc:
-            mixboxName
-        case .mixed:
-            mixboxName + "Objc"
-        }
-    }
-    
-    var dependency: Target.Dependency {
-        let name = switch language {
-        case .swift, .mixed:
-            mixboxName
-        case .objc:
-            mixboxNameObjc
-        }
-        return Target.Dependency.target(name: name)
-    }
+    var mixboxNameObjc: String { mixboxName + "Objc" }
     
     var frameworkEnableDefine: String {
         // SBTUITestTunnelCommon -> S_B_T_U_I_TEST_TUNNEL_COMMON
@@ -96,7 +76,77 @@ struct MixboxFramework: Spec {
         return "MIXBOX_ENABLE_FRAMEWORK_\(convertedName)"
     }
     
-    var targets: [Target] {
+    func cSettings() -> [CSetting] {
+        return defaultCSettings() + [
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
+        ]
+    }
+
+    func cxxSettings() -> [CXXSetting] {
+        return defaultCXXSettings() + [
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
+        ]
+    }
+
+    func swiftSettings() -> [SwiftSetting] {
+        return defaultSwiftSettings() + [
+            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
+        ]
+    }
+    
+    func linkedLibraries() -> [LinkerSetting] {
+        return [
+            .linkedFramework("Foundation")
+        ]
+    }
+    
+    func linkedTestLibraries() -> [LinkerSetting] {
+        return [
+            .linkedFramework("XCTest")
+        ]
+    }
+}
+
+final class MixboxFramework: BaseSpec {
+    enum Language {
+        case swift, objc, mixed
+    }
+    
+    init(name: String,
+         language: Language = .swift,
+         dependencies frameworks: [any Spec] = [],
+         customDependencies: [Target.Dependency] = [],
+         exclude: [String] = []
+    ) {
+        
+        self.language = language
+        self.excludePaths = exclude
+        super.init(name: name, dependencies: frameworks, customDependencies: customDependencies)
+    }
+    
+    let language: Language
+    let excludePaths: [String]
+    
+    override var mixboxNameObjc: String {
+        switch language {
+        case .swift, .objc:
+            mixboxName
+        case .mixed:
+            mixboxName + "Objc"
+        }
+    }
+    
+    override var dependency: Target.Dependency {
+        let name = switch language {
+        case .swift, .mixed:
+            mixboxName
+        case .objc:
+            mixboxNameObjc
+        }
+        return Target.Dependency.target(name: name)
+    }
+    
+    override var targets: [Target] {
         let swiftDependencies: [Target.Dependency] = if language == .mixed {
             dependencies + [
                 Target.Dependency(stringLiteral: mixboxNameObjc)
@@ -107,8 +157,8 @@ struct MixboxFramework: Spec {
         let objcDependencies: [Target.Dependency] = dependencies
         
         let objcPath = language == .mixed
-            ? "Frameworks/\(name)/Sources/ObjectiveC"
-            : "Frameworks/\(name)"
+            ? "\(frameworkPath)/\(objcSourcesFolder)"
+            : frameworkPath
         let objcSources: [String]? = language == .mixed
             ? nil
             : [ "Sources" ]
@@ -123,7 +173,7 @@ struct MixboxFramework: Spec {
         let swiftTarget = Target.target(
             name: mixboxName,
             dependencies: swiftDependencies,
-            path: "Frameworks/\(name)/Sources",
+            path: "\(frameworkPath)/Sources",
             exclude: swiftExclude,
             swiftSettings: swiftSettings(),
             linkerSettings: linkedLibraries()
@@ -159,7 +209,7 @@ struct MixboxFramework: Spec {
         targets.map(\.name)
     }
     
-    var products: [Product] {
+    override var products: [Product] {
         [
             Product.library(
                 name: mixboxName,
@@ -168,36 +218,25 @@ struct MixboxFramework: Spec {
             )
         ]
     }
-        
-    func linkedLibraries() -> [LinkerSetting] {
-        return [
-            .linkedFramework("Foundation")
-        ]
+}
+
+final class Executable: BaseSpec {
+    var mainTarget: PackageDescription.Target {
+        Target.executableTarget(
+            name: mixboxName,
+            dependencies: dependencies,
+            path: "Frameworks/\(name)/Sources",
+            swiftSettings: swiftSettings(),
+            linkerSettings: linkedLibraries()
+        )
     }
     
-    func linkedTestLibraries() -> [LinkerSetting] {
-        return [
-            .linkedFramework("XCTest")
-        ]
+    var product: PackageDescription.Product {
+        Product.executable(name: mixboxName, targets: [mixboxName])
     }
-
-    func cSettings() -> [CSetting] {
-        return defaultCSettings() + [
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
-        ]
-    }
-
-    func cxxSettings() -> [CXXSetting] {
-        return defaultCXXSettings() + [
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
-        ]
-    }
-
-    func swiftSettings() -> [SwiftSetting] {
-        return defaultSwiftSettings() + [
-            .define(frameworkEnableDefine, .when(platforms: nil, configuration: .debug))
-        ]
-    }
+        
+    override var products: [PackageDescription.Product] { [product] }
+    override var targets: [PackageDescription.Target] { [mainTarget] }
 }
 
 // MARK: - ThirdParty -
@@ -293,31 +332,31 @@ let mixboxMocksGeneration = MixboxFramework(
     ]
 )
 
-struct MixboxTestsFoundation: Spec {
+final class MixboxTestsFoundation: BaseSpec {
     static let spec = MixboxTestsFoundation()
     
     init() {
-        let name = "TestsFoundation"
-        let mixboxName: String = "Mixbox" + name
-        let mixboxNameObjc: String = mixboxName + "Objc"
-        let path = "Frameworks/\(name)"
-        let objcSources = "Sources/ObjectiveC"
-        
-        objcTarget = Target.target(
+        super.init(name: "TestsFoundation")
+    }
+    
+    var objcTarget: Target {
+        Target.target(
             name: mixboxNameObjc,
             dependencies: [],
-            path: path,
+            path: frameworkPath,
             exclude: [
-                "\(objcSources)/PrivateHeaders"
+                "\(objcSourcesFolder)/PrivateHeaders"
             ],
-            sources: [ objcSources ],
+            sources: [ objcSourcesFolder ],
             publicHeadersPath: "PublicHeaders",
-            cSettings: defaultCSettings(),
-            cxxSettings: defaultCXXSettings(),
-            swiftSettings: defaultSwiftSettings()
+            cSettings: cSettings(),
+            cxxSettings: cxxSettings(),
+            swiftSettings: swiftSettings()
         )
-        
-        swiftTarget = Target.target(
+    }
+    
+    var swiftTarget: Target {
+        Target.target(
             name: mixboxName,
             dependencies: [
                 mixboxIpcCommon.dependency,
@@ -326,30 +365,25 @@ struct MixboxTestsFoundation: Spec {
                 ThirdParty.sqlite.target,
                 .target(name: mixboxNameObjc)
             ],
-            path: path,
-            exclude: [ objcSources ],
+            path: frameworkPath,
+            exclude: [ objcSourcesFolder ],
             sources: [ "Sources" ],
             cSettings: defaultCSettings(),
             cxxSettings: defaultCXXSettings(),
             swiftSettings: defaultSwiftSettings()
         )
-        
-        product = Product.library(
+    }
+    
+    var product: Product {
+        Product.library(
             name: mixboxName,
             type: .static,
             targets: [mixboxName, mixboxNameObjc]
         )
-        
-        dependency = Target.Dependency.target(name: mixboxName)
     }
     
-    let objcTarget: Target
-    let swiftTarget: Target
-    let product: Product
-    let dependency: Target.Dependency
-    
-    var targets: [Target] { [objcTarget, swiftTarget] }
-    var products: [Product] { [product] }
+    override var targets: [Target] { [objcTarget, swiftTarget] }
+    override var products: [Product] { [product] }
 }
 
 let mixboxUiTestsFoundation = MixboxFramework(
@@ -368,56 +402,64 @@ let mixboxIpcSbtuiClient = MixboxFramework(
     dependencies: [mixboxIpc, mixboxSBTUITestTunnelClient, MixboxTestsFoundation.spec, mixboxUiTestsFoundation]
 )
 
-struct MixboxIoKit: Spec {
+final class MixboxIoKit: BaseSpec {
     static let spec = MixboxIoKit()
     
     init() {
-        let name = "IoKit"
-        let mixboxName: String = "Mixbox" + name
-        let mixboxNameObjc: String = mixboxName + "Objc"
-        let path = "Frameworks/\(name)"
-        let objcSources = [
-            "Sources/IOKitExtensions/EnumRawValues.m",
-            "Sources/MBIohidEventSender/MBIohidEventSender.mm",
-            "Sources/SoftLinking",
-            "Sources/PrivateApi"
-        ]
-        let excludeHeaders = [
-            "Sources/MBIohidEventSender/MBIohidEventSender.h",
-            "Sources/IOKitExtensions/EnumRawValues.h",
-        ]
-        
-        let objcTarget = Target.target(
+        super.init(name: "IoKit")
+    }
+    
+    let objcSources = [
+        "Sources/IOKitExtensions/EnumRawValues.m",
+        "Sources/MBIohidEventSender/MBIohidEventSender.mm",
+        "Sources/SoftLinking",
+        "Sources/PrivateApi"
+    ]
+    
+    let excludeHeaders = [
+        "Sources/MBIohidEventSender/MBIohidEventSender.h",
+        "Sources/IOKitExtensions/EnumRawValues.h",
+    ]
+    
+    var objcTarget: Target {
+        Target.target(
             name: mixboxNameObjc,
             dependencies: [],
-            path: path,
+            path: frameworkPath,
             sources: objcSources,
             publicHeadersPath: ".",
             cSettings: defaultCSettings(),
             cxxSettings: defaultCXXSettings(),
             swiftSettings: defaultSwiftSettings()
         )
-        let swiftTarget = Target.target(
+    }
+    
+    var swiftTarget: Target {
+        Target.target(
             name: mixboxName,
             dependencies: [
                 .target(name: mixboxNameObjc),
                 mixboxFoundation.dependency
             ],
-            path: path,
+            path: frameworkPath,
             exclude: objcSources + excludeHeaders,
             cSettings: defaultCSettings(),
             cxxSettings: defaultCXXSettings(),
             swiftSettings: defaultSwiftSettings(),
             linkerSettings: [.linkedFramework("IOKit")]
         )
-        targets = [objcTarget, swiftTarget]
-        dependency = Target.Dependency.target(name: mixboxName)
-        products = [ Product.library(name: mixboxName, type: .static, targets: [mixboxName, mixboxNameObjc]) ]
     }
     
-    let products: [Product]
-    let targets: [Target]
-    let dependency: Target.Dependency
+    override var products: [Product] {
+        [
+            Product.library(
+                name: mixboxName,
+                type: .static,
+                targets: [mixboxName, mixboxNameObjc])
+        ]
+    }
+    override var targets: [Target] { [objcTarget, swiftTarget] }
+    
 }
 
 let mixboxTestability = MixboxFramework(
@@ -441,11 +483,7 @@ let mixboxMocksRuntime = MixboxFramework(
     dependencies: [MixboxTestsFoundation.spec, mixboxGenerators]
 )
 
-let mixboxMocksGenerator = MixboxFramework(
-    name: "MocksGenerator",
-    language: .swift,
-    dependencies: [mixboxMocksGeneration]
-)
+let mixboxMocksGenerator = Executable(name: "MocksGenerator", dependencies: [mixboxMocksGeneration])
 
 
 // MARK: - Lists -
