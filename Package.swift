@@ -287,7 +287,10 @@ let mixboxMocksGeneration = MixboxFramework(
     name: "MocksGeneration",
     language: .swift,
     dependencies: [],
-    customDependencies: [SourceryPackage.sourcery.runtime, SourceryPackage.sourcery.framework]
+    customDependencies: [
+        SourceryPackage.sourcery.runtime,
+        SourceryPackage.sourcery.framework
+    ]
 )
 
 struct MixboxTestsFoundation: Spec {
@@ -438,6 +441,12 @@ let mixboxMocksRuntime = MixboxFramework(
     dependencies: [MixboxTestsFoundation.spec, mixboxGenerators]
 )
 
+let mixboxMocksGenerator = MixboxFramework(
+    name: "MocksGenerator",
+    language: .swift,
+    dependencies: [mixboxMocksGeneration]
+)
+
 
 // MARK: - Lists -
 
@@ -465,7 +474,8 @@ let targetSpecs: [any Spec] = [
     mixboxFakeSettingsAppMain,
     mixboxMocksGeneration,
     mixboxStubbing,
-    mixboxMocksRuntime
+    mixboxMocksRuntime,
+    mixboxMocksGenerator
 ]
 
 let targets: [Target] = targetSpecs.flatMap(\.targets)
@@ -494,7 +504,7 @@ let productSpecs: [any Spec] = [
     mixboxFakeSettingsAppMain,
     mixboxMocksGeneration,
     mixboxStubbing,
-    mixboxMocksRuntime
+    mixboxMocksRuntime,
 ]
 
 let products: [Product] = productSpecs.flatMap(\.products)
