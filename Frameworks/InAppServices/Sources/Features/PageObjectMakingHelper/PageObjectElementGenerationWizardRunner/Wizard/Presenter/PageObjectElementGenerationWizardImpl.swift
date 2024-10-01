@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxIpcCommon
 import MixboxFoundation
 

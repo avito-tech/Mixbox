@@ -7,6 +7,9 @@
 import Foundation
 import MixboxFoundation
 import MixboxTestability
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 
 // TODO: Rename. It has nothing to do with accessibility.
 public protocol AccessibilityUniqueObjectMap {

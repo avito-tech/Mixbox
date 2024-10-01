@@ -5,7 +5,11 @@
 #else
 
 import MixboxFoundation
-import Foundation
+import UIKit
+
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
 
 public final class KeyboardPrivateApi {
     private let uiKeyboardImpl: UIKeyboardImpl

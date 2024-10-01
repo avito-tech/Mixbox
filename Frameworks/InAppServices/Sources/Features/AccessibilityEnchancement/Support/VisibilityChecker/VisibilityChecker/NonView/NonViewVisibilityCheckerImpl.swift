@@ -4,7 +4,11 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxTestability
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 import MixboxUiKit
 
 public final class NonViewVisibilityCheckerImpl: NonViewVisibilityChecker {

@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 public protocol ScreenInContextDrawer {
     func screenScale() -> CGFloat
     func screenBounds() -> CGRect

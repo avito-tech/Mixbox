@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 // Used as key for storing state of some resource.
 public final class TrackedIdlingResource {
     // Unique identifier for tracked resource.

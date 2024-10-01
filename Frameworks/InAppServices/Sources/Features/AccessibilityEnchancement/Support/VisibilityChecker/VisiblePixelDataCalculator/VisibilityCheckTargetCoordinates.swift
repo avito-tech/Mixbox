@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 public struct VisibilityCheckTargetCoordinates {
     public let targetPixelOfInteraction: IntPoint
     public let targetPointOfInteraction: CGPoint

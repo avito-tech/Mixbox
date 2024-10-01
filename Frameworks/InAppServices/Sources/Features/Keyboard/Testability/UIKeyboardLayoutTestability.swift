@@ -4,7 +4,11 @@
 // The compilation is disabled
 #else
 
+import Foundation
 import MixboxTestability
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 import MixboxFoundation
 
 @objc(UIKeyboardLayoutTestability)

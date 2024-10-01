@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 extension CGRect {
     func mb_rounded() -> IntRect {
         return IntRect(

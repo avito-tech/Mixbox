@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public final class ScreenInContextDrawerWindowPatcherImpl: ScreenInContextDrawerWindowPatcher {
     private let keyboardWindowExposer: KeyboardWindowExposer
     

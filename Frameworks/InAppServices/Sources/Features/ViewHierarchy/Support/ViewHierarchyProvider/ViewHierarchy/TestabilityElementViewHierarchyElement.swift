@@ -4,9 +4,13 @@
 // The compilation is disabled
 #else
 
+import Foundation
 import MixboxTestability
 import MixboxFoundation
 import MixboxIpcCommon
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 
 open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
     private let testabilityElement: TestabilityElement

@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import UIKit
 public protocol InAppScreenshotTaker {
      func takeScreenshot(afterScreenUpdates: Bool) throws -> UIImage
 }

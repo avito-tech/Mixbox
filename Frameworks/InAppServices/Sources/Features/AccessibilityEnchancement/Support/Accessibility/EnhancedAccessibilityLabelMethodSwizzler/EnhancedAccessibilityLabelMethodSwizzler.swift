@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol EnhancedAccessibilityLabelMethodSwizzler {
     func swizzleAccessibilityLabelMethod(method: Method)
 }

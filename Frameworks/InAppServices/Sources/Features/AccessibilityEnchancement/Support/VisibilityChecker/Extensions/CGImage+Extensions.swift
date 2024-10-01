@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 extension CGImage {
     var size: IntSize {
         return IntSize(width: width, height: height)

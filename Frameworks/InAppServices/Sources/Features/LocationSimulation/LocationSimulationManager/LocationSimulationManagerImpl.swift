@@ -6,6 +6,9 @@
 
 import Foundation
 import CoreLocation
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
 
 public final class LocationSimulationManagerImpl: LocationSimulationManager {
     private let manager: CLSimulationManager = CLSimulationManager()

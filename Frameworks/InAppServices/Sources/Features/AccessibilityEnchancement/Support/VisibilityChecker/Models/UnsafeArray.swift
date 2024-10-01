@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class UnsafeArray<T> {
     public let pointer: UnsafeMutablePointer<T>
     public let count: Int

@@ -4,6 +4,11 @@
 // The compilation is disabled
 #else
 
+import UIKit
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
+
 public final class KeyboardLayout: PrivateClassWrapper<UIKeyboardLayout, UIView> {
     public var keyplane: KeyboardTree? {
         underlyingPrivateApiObject.keyplane().map {

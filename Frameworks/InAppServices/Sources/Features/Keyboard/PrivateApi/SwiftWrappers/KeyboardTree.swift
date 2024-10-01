@@ -4,6 +4,10 @@
 // The compilation is disabled
 #else
 
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
+
 public final class KeyboardTree: PrivateClassWrapper<UIKBTree, NSObject> {
     public var keys: [KeyboardTree] {
         get throws {

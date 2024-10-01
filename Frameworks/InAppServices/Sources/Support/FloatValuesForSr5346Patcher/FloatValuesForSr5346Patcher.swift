@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 public protocol FloatValuesForSr5346Patcher {
     func patched(float: CGFloat) -> CGFloat
 }

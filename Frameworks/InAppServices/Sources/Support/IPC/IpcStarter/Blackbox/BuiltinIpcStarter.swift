@@ -5,6 +5,7 @@
 #else
 
 import MixboxIpc
+import MixboxBuiltinIpcObjc
 import MixboxBuiltinIpc
 
 final class BuiltinIpcStarter: IpcStarter {

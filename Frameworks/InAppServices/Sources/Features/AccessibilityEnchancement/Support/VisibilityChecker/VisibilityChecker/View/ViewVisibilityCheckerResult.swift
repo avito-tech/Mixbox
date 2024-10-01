@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class ViewVisibilityCheckerResult {
     // `percentageOfVisibleArea` for view with specified `elementUniqueIdentifier`
     public let percentageOfVisibleArea: CGFloat

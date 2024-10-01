@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class NoopFloatValuesForSr5346Patcher: FloatValuesForSr5346Patcher {
     public init() {
     }

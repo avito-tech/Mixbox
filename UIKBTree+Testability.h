@@ -7,10 +7,12 @@
 @import Foundation;
 
 #import "UIKBTree.h"
-
+#if SWIFT_PACKAGE
+@import MixboxTestabilityObjc;
+#else
 #import <MixboxTestability/TestabilityElementType.h>
 #import <MixboxTestability/TestabilityElement.h>
-
+#endif
 // Objective-C file was added to not expose private API in headers.
 // If we implement this in Swift, swift interop header (MixboxInAppServices-Swift.h) will declare this category.
 // Swift interop header can only use public headers, and don't see conditional compilation flags like MIXBOX_ENABLE_ALL_FRAMEWORKS.

@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxFoundation
 
 // Tracks state of objects. Objects are used as keys and stored weakly.

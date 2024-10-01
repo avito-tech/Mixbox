@@ -6,9 +6,11 @@
 
 import UIKit
 import MixboxIpcCommon
-import MixboxIoKit
 import MixboxFoundation
-
+import MixboxIoKit
+#if SWIFT_PACKAGE
+import MixboxIoKitObjc
+#endif
 // TODO: DI?
 public final class KeyboardEventInjectorImpl: KeyboardEventInjector {
     private let application: UIApplication

@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public protocol OrderedWindowsProvider: AnyObject {
     func windowsFromTopMostToBottomMost() -> [UIWindow]
     func windowsFromBottomMostToTopMost() -> [UIWindow]

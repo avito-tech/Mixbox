@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public protocol KeyboardWindowExposer {
     func exposeKeyboardWindow(
         windows: [UIWindow]

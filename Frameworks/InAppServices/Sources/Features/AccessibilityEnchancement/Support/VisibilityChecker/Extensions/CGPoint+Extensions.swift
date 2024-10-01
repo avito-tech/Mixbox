@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 extension CGPoint {
     func rounded() -> IntPoint {
         return IntPoint(

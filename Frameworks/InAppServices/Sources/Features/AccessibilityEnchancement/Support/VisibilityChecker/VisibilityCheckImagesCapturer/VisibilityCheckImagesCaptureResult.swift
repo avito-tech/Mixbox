@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 public final class VisibilityCheckImagesCaptureResult {
     public let beforeImagePixelData: ImagePixelData
     public let afterImagePixelData: ImagePixelData
