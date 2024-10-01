@@ -1,5 +1,6 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import Foundation
 
 open class BaseMock: MockManagerSettable {
     private var lock = NSLock()

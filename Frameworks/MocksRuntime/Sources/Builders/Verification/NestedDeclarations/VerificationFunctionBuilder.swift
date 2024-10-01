@@ -1,5 +1,6 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import Foundation
 
 public final class VerificationFunctionBuilder<Arguments, ReturnType> {
     public typealias Arguments = Arguments

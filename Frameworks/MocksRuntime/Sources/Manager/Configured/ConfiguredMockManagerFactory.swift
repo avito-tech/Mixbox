@@ -1,5 +1,6 @@
 import MixboxFoundation
 import MixboxTestsFoundation
+import Foundation
 
 public final class ConfiguredMockManagerFactory: MockManagerFactory {
     private let testFailureRecorder: TestFailureRecorder

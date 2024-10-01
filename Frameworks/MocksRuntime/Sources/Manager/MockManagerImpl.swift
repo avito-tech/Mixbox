@@ -1,6 +1,7 @@
 import MixboxFoundation
 import MixboxTestsFoundation
 import MixboxGenerators
+import Foundation
 
 public final class MockManagerImpl: MockManager {
     private let stubbing: MockManagerStubbing
