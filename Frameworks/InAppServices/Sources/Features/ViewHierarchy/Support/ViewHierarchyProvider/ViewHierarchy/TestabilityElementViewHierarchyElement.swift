@@ -67,6 +67,8 @@ open class TestabilityElementViewHierarchyElement: ViewHierarchyElement {
         }
 
         return if testabilityElement.isBarItemHost {
+            // Without this the item and its container would have the same axLabel
+            // which would prevent MixBox from differentiating between them
             originalLabel + "_container"
         } else {
             originalLabel
