@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public final class KeyboardIdlingResource: IdlingResource {
     private var observers = [NSObjectProtocol]()
     

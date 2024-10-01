@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 public protocol VisiblePixelDataCalculator {
     // Calculates the number of pixel in `afterImage` that have different pixel intensity than in `beforeImage`.
     func visiblePixelData(

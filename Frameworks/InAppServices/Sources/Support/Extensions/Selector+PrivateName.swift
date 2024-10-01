@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 // TODO: Use everywhere
 extension Selector {
     // Suppresses `Use '#selector' instead of explicitly constructing a 'Selector'` warning

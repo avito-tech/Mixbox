@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import Dispatch
 import MixboxIpcCommon
 import MixboxIpc
 

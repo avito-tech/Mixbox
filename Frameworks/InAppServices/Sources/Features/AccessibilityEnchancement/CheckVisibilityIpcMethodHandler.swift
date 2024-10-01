@@ -4,10 +4,14 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxIpc
 import MixboxIpcCommon
 import MixboxFoundation
 import MixboxTestability
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 import MixboxUiKit
 
 final class CheckVisibilityIpcMethodHandler: IpcMethodHandler {

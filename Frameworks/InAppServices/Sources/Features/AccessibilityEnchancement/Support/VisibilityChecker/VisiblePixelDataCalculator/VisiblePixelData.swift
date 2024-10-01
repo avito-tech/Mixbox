@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public final class VisiblePixelData {
     public let visiblePixelCount: Int
     public let checkedPixelCount: Int

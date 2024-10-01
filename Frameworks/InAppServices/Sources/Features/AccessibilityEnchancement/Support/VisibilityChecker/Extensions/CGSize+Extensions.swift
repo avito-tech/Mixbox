@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
+
 extension CGSize {
     func rounded() -> IntSize {
         return IntSize(

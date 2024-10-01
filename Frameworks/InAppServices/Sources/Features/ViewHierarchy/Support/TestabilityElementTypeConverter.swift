@@ -5,6 +5,9 @@
 #else
 
 import MixboxTestability
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 import MixboxIpcCommon
 
 public final class TestabilityElementTypeConverter {

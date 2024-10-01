@@ -4,6 +4,11 @@
 // The compilation is disabled
 #else
 
+import Foundation
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
+
 public final class KeyboardShape: PrivateClassWrapper<UIKBShape, NSObject> {
     public var frame: CGRect {
         get {

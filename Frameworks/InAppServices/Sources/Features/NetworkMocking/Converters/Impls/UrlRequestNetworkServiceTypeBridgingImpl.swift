@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import Foundation
 import MixboxIpcCommon
 import MixboxFoundation
 

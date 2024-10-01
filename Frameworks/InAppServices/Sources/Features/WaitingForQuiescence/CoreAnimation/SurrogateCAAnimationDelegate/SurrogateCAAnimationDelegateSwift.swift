@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 // Swift logic for `SurrogateCAAnimationDelegateObjC`.
 // Note that purpose of `SurrogateCAAnimationDelegateObjC` is solely to suppress warning
 // about incorrect optionality (which is in fact very correct, and prevent crashes).

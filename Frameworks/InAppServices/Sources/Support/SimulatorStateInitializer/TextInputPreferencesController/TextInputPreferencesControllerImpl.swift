@@ -4,8 +4,13 @@
 // The compilation is disabled
 #else
 
+import Foundation
 import MixboxFoundation
 import MixboxUiKit
+
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
 
 // Swift wrapper for private `TIPreferencesController`.
 //

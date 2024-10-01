@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
 import MixboxFoundation
 
 public final class ImagePixelDataFromImageCreatorImpl: ImagePixelDataFromImageCreator {

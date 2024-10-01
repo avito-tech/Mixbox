@@ -4,6 +4,9 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
+
 // Multicasts `UiEventObserver` events
 public final class UiEventObservableImpl: UiEventObservable, UiEventObserver {
     public init() {

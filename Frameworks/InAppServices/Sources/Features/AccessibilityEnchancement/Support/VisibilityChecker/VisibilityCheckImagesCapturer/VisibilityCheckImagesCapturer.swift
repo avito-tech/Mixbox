@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public protocol VisibilityCheckImagesCapturer {
     // Captures the visibility check's before and after image for the given `view` and loads the pixel
     // data into the `beforeImage` and `afterImage` of the return value

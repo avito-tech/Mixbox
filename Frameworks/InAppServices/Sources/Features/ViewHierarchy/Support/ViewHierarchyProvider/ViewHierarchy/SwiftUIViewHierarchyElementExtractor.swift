@@ -4,9 +4,13 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxTestability
 import MixboxFoundation
 import MixboxIpcCommon
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+#endif
 
 final class SwiftUIViewHierarchyElementExtractor {
     func extractAccessibilityElements(from view: UIView) -> RandomAccessCollectionOf<ViewHierarchyElement & TestabilityElement, Int> {

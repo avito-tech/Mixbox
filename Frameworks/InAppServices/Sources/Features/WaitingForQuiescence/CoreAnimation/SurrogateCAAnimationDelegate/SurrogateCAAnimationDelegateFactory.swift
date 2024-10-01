@@ -8,6 +8,9 @@ import Foundation
 import MixboxFoundation
 import QuartzCore
 import ObjectiveC.runtime
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
 
 class SurrogateCAAnimationDelegateFactory {
     static func surrogateDelegate(

@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import Foundation
 import MixboxFoundation
 
 public class UiAnimationIdlingResourceSwizzlerImpl: NSObject, UiAnimationIdlingResourceSwizzler {

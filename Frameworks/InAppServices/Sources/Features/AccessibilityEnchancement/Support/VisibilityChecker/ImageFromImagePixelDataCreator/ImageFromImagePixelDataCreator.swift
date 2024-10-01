@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public protocol ImageFromImagePixelDataCreator {
     func image(
         imagePixelData: ImagePixelData,

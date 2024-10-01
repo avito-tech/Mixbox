@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxFoundation
 
 // Translated from Objective-C to Swift. Code is from EarlGrey.

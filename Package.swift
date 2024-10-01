@@ -460,6 +460,104 @@ final class MixboxIoKit: BaseSpec {
     
 }
 
+
+final class MixboxInAppServices: BaseSpec {
+    static let spec = MixboxInAppServices()
+    
+    init() {
+        super.init(name: "InAppServices")
+    }
+
+//        ./Sources/Support/AccessibilityForTestAutomation/AccessibilityForTestAutomationInitializer/Implementation/ObjectiveC/AccessibilityUtilitiesAccessibilityInitializer/AccessibilityUtilitiesAccessibilityInitializer.m
+//        ./Sources/Support/AccessibilityForTestAutomation/AccessibilityForTestAutomationInitializer/Implementation/ObjectiveC/UIAccessibilityAccessibilityInitializer/UIAccessibilityAccessibilityInitializer.m
+//        ./Sources/Support/AccessibilityForTestAutomation/AccessibilityForTestAutomationInitializer/Implementation/ObjectiveC/LibAccessibilityAccessibilityInitializer/LibAccessibilityAccessibilityInitializer.m
+    
+    let objcSources: [String] = [
+//            "Sources/Features/Keyboard/Testability/UIKeyboardLayout+Testability.m",
+//            "Sources/Features/Keyboard/Testability/UIKeyboardLayout+Testability.h",
+//            "Sources/Features/Keyboard/Testability/UIKBTree+Testability.m",
+//            "Sources/Features/Keyboard/Testability/UIKBTree+Testability.h",
+        "Sources/Support/SimulatorStateInitializer/TIPreferencesControllerObjCWrapper/TIPreferencesControllerObjCWrapper.m",
+        "Sources/Support/SimulatorStateInitializer/TIPreferencesControllerObjCWrapper/TIPreferencesControllerObjCWrapper.h",
+        "Sources/Support/AccessibilityForTestAutomation/AccessibilityForTestAutomationInitializer/Implementation/ObjectiveC",
+        "Sources/Support/SimulatorStateInitializer/TIPreferencesControllerObjCWrapper"
+    ]
+    let excludeFiles: [String] = [
+        "Sources/Features/AccessibilityEnchancement/Support/VisibilityChecker/VisibilityChecker.md"
+    ]
+    let animationDelegateSources: [String] = [
+        "Sources/Features/WaitingForQuiescence/CoreAnimation/SurrogateCAAnimationDelegate/SurrogateCAAnimationDelegateObjC.m",
+        "Sources/Features/WaitingForQuiescence/CoreAnimation/SurrogateCAAnimationDelegate/SurrogateCAAnimationDelegateObjC.h"
+    ]
+       
+    var mixboxNameAnimationDelegate: String { mixboxName + "AnimationDelegate" }
+        
+    var objcTarget: Target {
+        Target.target(
+            name: mixboxNameObjc,
+            dependencies: [mixboxTestability.dependency],
+            path: frameworkPath,
+            sources: objcSources,
+            publicHeadersPath: ".",
+            cSettings: defaultCSettings() + [.headerSearchPath("./**")],
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings()
+        )
+    }
+    
+    var swiftTarget: Target {
+        Target.target(
+            name: mixboxName,
+            dependencies: [
+                .target(name: mixboxNameObjc),
+                mixboxIpc.dependency,
+                mixboxIpcCommon.dependency,
+                mixboxFoundation.dependency,
+                mixboxTestability.dependency,
+                mixboxUiKit.dependency,
+                MixboxIoKit.spec.dependency,
+                mixboxBuiltinDi.dependency,
+                mixboxDi.dependency,
+                mixboxBuiltinIpc.dependency,
+                mixboxIpcSbtuiHost.dependency
+            ],
+            path: frameworkPath,
+            exclude: objcSources + excludeFiles + animationDelegateSources,
+            sources: [ "Sources" ],
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings(),
+            linkerSettings: [.linkedFramework("IOKit")]
+        )
+    }
+    
+    var animationDelegateTarget: Target {
+        Target.target(
+            name: mixboxNameAnimationDelegate,
+            dependencies: [
+                .target(name: mixboxName),
+            ],
+            path: frameworkPath,
+            sources: animationDelegateSources,
+            publicHeadersPath: ".",
+            cSettings: defaultCSettings(),
+            cxxSettings: defaultCXXSettings(),
+            swiftSettings: defaultSwiftSettings()
+        )
+    }
+    
+    override var products: [Product] {
+        [
+            Product.library(
+                name: mixboxName,
+                type: .static,
+                targets: [mixboxName, mixboxNameObjc, mixboxNameAnimationDelegate]
+            )
+        ]
+    }
+    override var targets: [Target] { [objcTarget, swiftTarget, animationDelegateTarget] }
+}
+
 let mixboxTestability = MixboxFramework(
     name: "Testability",
     language: .mixed,

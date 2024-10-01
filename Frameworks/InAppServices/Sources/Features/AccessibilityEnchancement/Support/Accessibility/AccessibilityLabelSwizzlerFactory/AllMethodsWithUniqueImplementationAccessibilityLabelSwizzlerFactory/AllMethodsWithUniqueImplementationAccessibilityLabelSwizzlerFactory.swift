@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import Foundation
 import MixboxFoundation
 
 // For testing init arguments of `AllMethodsWithUniqueImplementationAccessibilityLabelSwizzler`.

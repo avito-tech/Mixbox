@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import UIKit
 import MixboxTestability
 
 public final class MixboxCollectionViewUpdatesActivityImpl: MixboxCollectionViewUpdatesActivity {

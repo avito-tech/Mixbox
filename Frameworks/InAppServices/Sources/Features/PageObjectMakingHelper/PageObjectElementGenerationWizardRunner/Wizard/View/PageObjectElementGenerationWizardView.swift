@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import UIKit
+
 public final class PageObjectElementGenerationWizardView: UIView {
     public var selectedRect: CGRect? {
         didSet {

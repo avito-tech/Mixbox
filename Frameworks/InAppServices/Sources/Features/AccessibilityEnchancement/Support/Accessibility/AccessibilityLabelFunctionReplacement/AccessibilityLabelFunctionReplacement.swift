@@ -4,6 +4,8 @@
 // The compilation is disabled
 #else
 
+import Foundation
+
 public protocol AccessibilityLabelFunctionReplacement {
     func accessibilityLabel(
         this: NSObject?,

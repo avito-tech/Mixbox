@@ -19,6 +19,13 @@ import MixboxUiKit
 // 1. `Return-Key`
 // 2. `Space-Key`
 //
+
+import Foundation
+#if SWIFT_PACKAGE
+import MixboxTestabilityObjc
+import MixboxInAppServicesObjc
+#endif
+
 @objc(UIKBTreeTestablity)
 final class UIKBTreeTestablity: NSObject {
     private let key: KeyboardTree

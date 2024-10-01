@@ -5,6 +5,10 @@
 #else
 
 import MixboxTestability
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+import MixboxTestabilityObjc
+#endif
 import MixboxIpcCommon
 
 public final class ViewHierarchyElementTypeConverter {

@@ -4,7 +4,7 @@
 // The compilation is disabled
 #else
 
-import MixboxTestability
+import MixboxTestabilityObjc
 
 public protocol NonViewVisibilityChecker {
     func checkVisibility(element: TestabilityElement) throws -> NonViewVisibilityCheckerResult

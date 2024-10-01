@@ -4,6 +4,7 @@
 // The compilation is disabled
 #else
 
+import CoreGraphics
 import MixboxUiKit
 import MixboxFoundation
 

@@ -8,8 +8,12 @@
 
 #import "UIKeyboardLayout.h"
 
+#if SWIFT_PACKAGE
+@import MixboxTestabilityObjc;
+#else
 #import <MixboxTestability/TestabilityElement.h>
 #import <MixboxTestability/TestabilityElementType.h>
+#endif
 
 // Objective-C file was added to not expose private API in headers.
 // If we implement this in Swift, swift interop header (MixboxInAppServices-Swift.h) will declare this category.
