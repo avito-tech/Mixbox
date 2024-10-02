@@ -6,6 +6,9 @@
 
 import MixboxFoundation
 import MixboxUiKit
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
 
 public final class TextInputFrameworkImpl: TextInputFramework {
     private var handle: UnsafeMutableRawPointer?

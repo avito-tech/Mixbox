@@ -8,6 +8,10 @@ import Foundation
 import MixboxIpcCommon
 import MixboxFoundation
 import MixboxTestability
+#if SWIFT_PACKAGE
+import MixboxFoundationObjc
+import MixboxTestabilityObjc
+#endif
 
 public final class AccessibilityLabelFunctionReplacementImpl: AccessibilityLabelFunctionReplacement {
     private var thisPointersInStack = [NSObject?]()

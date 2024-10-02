@@ -3,9 +3,12 @@
 #elseif MIXBOX_DISABLE_FRAMEWORK_IN_APP_SERVICES || (!MIXBOX_ENABLE_ALL_FRAMEWORKS && !MIXBOX_ENABLE_FRAMEWORK_IN_APP_SERVICES)
 // The compilation is disabled
 #else
-
+import Foundation
 import MixboxFoundation
 import MixboxUiKit
+#if SWIFT_PACKAGE
+import MixboxInAppServicesObjc
+#endif
 
 // WARNING: Unstable on iOS 14. Not recommended.
 // TODO: Maybe there is a reliable private API for waiting for enabling accessibility?
