@@ -264,7 +264,7 @@ struct ThirdParty {
 
 struct SourceryPackage {
     let package: Package.Dependency = .package(
-        url: "https://github.com/krzysztofzablocki/Sourcery.git",
+        url: "https://github.com/avito-tech/Sourcery.git",
         from: "1.0.0"
     )
     let framework: Target.Dependency = .product(name: "SourceryFramework", package: "Sourcery")

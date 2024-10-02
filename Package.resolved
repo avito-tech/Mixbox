@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tadija/AEXML.git",
       "state" : {
-        "revision" : "38f7d00b23ecd891e1ee656fa6aeebd6ba04ecc3",
-        "version" : "4.6.1"
+        "revision" : "db806756c989760b35108146381535aec231092b",
+        "version" : "4.7.0"
       }
     },
     {
@@ -65,7 +65,7 @@
     {
       "identity" : "sourcery",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/krzysztofzablocki/Sourcery.git",
+      "location" : "https://github.com/avito-tech/Sourcery.git",
       "state" : {
         "revision" : "0c6dc860b1e7afc2e025cb63f66ab5dfd69bb743",
         "version" : "1.0.0"
@@ -119,7 +119,7 @@
     {
       "identity" : "xcodeproj",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tuist/XcodeProj.git",
+      "location" : "https://github.com/tuist/xcodeproj",
       "state" : {
         "revision" : "5253c22f208558264e3a64a3a29f11537ca1b41a",
         "version" : "4.3.1"
