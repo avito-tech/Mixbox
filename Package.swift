@@ -264,8 +264,8 @@ struct ThirdParty {
 
 struct SourceryPackage {
     let package: Package.Dependency = .package(
-        url: "https://github.com/avito-tech/Sourcery.git",
-        from: "1.0.0"
+        url: "ssh://git@stash.msk.avito.ru:7999/iedm/sourcery.git",
+        revision: "0564feccdc8fade6c68376bdf7f8dab9b79863fe"
     )
     let framework: Target.Dependency = .product(name: "SourceryFramework", package: "Sourcery")
     let runtime: Target.Dependency = .product(name: "SourceryRuntime", package: "Sourcery")
@@ -573,12 +573,13 @@ let commoTargets: [Target] = [
 
 let package = Package(
     name: "Mixbox",
-    platforms: [.iOS(.v15), .macOS(.v13)],
+    platforms: [.iOS(.v15), .macOS(.v12)],
     products: products,
     dependencies: [
+        .package(url: "https://github.com/jpsim/SourceKitten.git", exact: "0.30.1"),
         ThirdParty.GCDWebServer.package,
         ThirdParty.sqlite.package,
-        SourceryPackage.sourcery.package
+        SourceryPackage.sourcery.package,
     ],
     targets: targets
 )
