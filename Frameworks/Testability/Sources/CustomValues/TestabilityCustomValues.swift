@@ -16,6 +16,9 @@ public final class TestabilityCustomValues {
         get {
             return nil
         }
+        // swiftlint:disable:next unused_setter_value
+        set {
+        }
     }
 }
 
