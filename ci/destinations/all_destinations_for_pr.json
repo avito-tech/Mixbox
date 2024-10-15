@@ -30,11 +30,11 @@
 	{
 		"testDestination": {
 			"deviceType": "iPhone 15",
-			"iOSVersion": "17.2",
-			"iOSVersionShort": "17.2",
-			"iOSVersionLong": "17.2",
+			"iOSVersion": "17.4",
+			"iOSVersionShort": "17.4",
+			"iOSVersionLong": "17.4",
 			"deviceTypeId": "com.apple.CoreSimulator.SimDeviceType.iPhone-15",
-			"runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-17-2"
+			"runtimeId": "com.apple.CoreSimulator.SimRuntime.iOS-17-4"
 		},
 		"reportOutput": {
 			"junit": "tests-artifacts/ios_17.xml",
